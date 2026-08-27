@@ -4,12 +4,14 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 ## 対応範囲
 
-- 武器: Fighter's Bindings / Double Axe / Anchor
-- エンチャント（すべて Tier III）: Critical Hit / Radiance / Leeching / Void Strike / Guarding Strike
-- アーティファクト: Death Cap Mushroom / Iron Hide Amulet
+- 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）
+- エンチャント（すべて Tier III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク
+- アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 
 防具、遠距離武器、実ダメージのパワースケーリング、固有効果、敵個別耐性は未対応です。
+
+画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
 ## セットアップ
 

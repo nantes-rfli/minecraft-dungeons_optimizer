@@ -14,6 +14,11 @@ export interface Evidence<T> {
   readonly note?: string
 }
 
+export interface LocalizedName {
+  readonly ja: string
+  readonly en: string
+}
+
 export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor'
 export type EnchantmentId =
   | 'critical-hit'
@@ -25,7 +30,7 @@ export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 
 export interface WeaponDefinition {
   readonly id: WeaponId
-  readonly name: string
+  readonly name: LocalizedName
   readonly power: Evidence<number>
   readonly speed: Evidence<number>
   readonly area: Evidence<number>
@@ -33,7 +38,7 @@ export interface WeaponDefinition {
 
 export interface EnchantmentDefinition {
   readonly id: EnchantmentId
-  readonly name: string
+  readonly name: LocalizedName
   readonly tier: 3
   readonly triggerChance?: Evidence<number>
   readonly damageMultiplier?: Evidence<number>
@@ -45,7 +50,7 @@ export interface EnchantmentDefinition {
 
 export interface ArtifactDefinition {
   readonly id: ArtifactId
-  readonly name: string
+  readonly name: LocalizedName
   readonly cooldownSeconds: Evidence<number>
   readonly durationIntercept: Evidence<number>
   readonly durationPerPower: Evidence<number>

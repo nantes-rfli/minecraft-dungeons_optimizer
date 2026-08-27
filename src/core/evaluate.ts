@@ -39,25 +39,25 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
 
   const reasons: string[] = []
   const weapon = getWeaponDefinition(build.weapon.weaponId)
-  if (weapon.area.value >= 12) reasons.push(`${weapon.name}の広い攻撃範囲をAoE評価へ反映`)
+  if (weapon.area.value >= 12) reasons.push(`${weapon.name.ja}の広い攻撃範囲をAoE評価へ反映`)
   if (build.enchantments.includes('radiance') && damage.hitsPerSecond >= 4) {
-    reasons.push('高い攻撃頻度によりRadianceの期待回復量が上昇')
+    reasons.push('高い攻撃頻度により「輝き」の期待回復量が上昇')
   }
   if (build.enchantments.includes('void-strike') && damage.hitsPerSecond <= 2) {
-    reasons.push('遅い攻撃間隔によりVoid Strikeの増幅時間を確保')
+    reasons.push('遅い攻撃間隔により「虚無の一撃」の増幅時間を確保')
   }
   if (build.enchantments.includes('guarding-strike')) {
-    reasons.push(`Guarding Strikeの推定稼働率${Math.round(defense.guardingStrikeUptime * 100)}%`)
+    reasons.push(`「ガードストライク」の推定稼働率${Math.round(defense.guardingStrikeUptime * 100)}%`)
   }
   for (const artifactId of build.artifacts) {
     const uptime = artifactEffects.uptimes.find((entry) => entry.artifactId === artifactId)
     if (uptime) {
-      reasons.push(`${getArtifactDefinition(artifactId).name}の推定稼働率${Math.round(uptime.uptime * 100)}%`)
+      reasons.push(`${getArtifactDefinition(artifactId).name.ja}の推定稼働率${Math.round(uptime.uptime * 100)}%`)
     }
   }
   if (reasons.length === 0) {
     reasons.push(
-      build.enchantments.map((id) => getEnchantmentDefinition(id).name).join(' / '),
+      build.enchantments.map((id) => getEnchantmentDefinition(id).name.ja).join(' / '),
     )
   }
 

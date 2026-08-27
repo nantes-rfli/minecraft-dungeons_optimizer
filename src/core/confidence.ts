@@ -9,14 +9,14 @@ const CONFIDENCE_SCORE: Readonly<Record<Confidence, number>> = {
 
 export function summarizeConfidence(enchantments: readonly EnchantmentId[]): ConfidenceSummary {
   const caveats = [
-    MODEL.attacksPerSecondPerSpeedPoint.note ?? 'Attack-rate conversion needs measurement.',
-    'Scenario values are user-controlled normalized units, not power-level damage values.',
+    'スピード値から攻撃回数への換算は暫定値であり、ゲーム内計測が必要です。',
+    'シナリオ値は装備パワーに応じた実ダメージではなく、比較用の正規化値です。',
   ]
   const confidences: Confidence[] = ['high', MODEL.attacksPerSecondPerSpeedPoint.confidence]
 
   if (enchantments.includes('void-strike')) {
     confidences.push('low')
-    caveats.push('Void Strike uses a linear ramp approximation and resets on each weapon hit.')
+    caveats.push('「虚無の一撃」は線形増加で近似し、武器が命中するたびにリセットしています。')
   }
 
   const score = confidences.reduce((sum, value) => sum + CONFIDENCE_SCORE[value], 0) / confidences.length
