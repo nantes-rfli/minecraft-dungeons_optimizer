@@ -17,7 +17,12 @@ const bindingsBuild: Build = {
   weapon: {
     instanceId: 'bindings-test',
     weaponId: 'fighters-bindings',
-    enchantmentSlots: [['critical-hit'], ['radiance'], ['leeching']],
+    powerLevel: 251,
+    enchantmentSlots: [
+      { candidates: ['critical-hit'] },
+      { candidates: ['radiance'] },
+      { candidates: ['leeching'] },
+    ],
   },
   enchantments: ['critical-hit', 'radiance', 'leeching'],
   artifacts: [],
@@ -25,7 +30,7 @@ const bindingsBuild: Build = {
 
 describe('artifact model', () => {
   it('clamps uptime at 100 percent', () => {
-    const uptime = calculateArtifactUptime('death-cap-mushroom', {
+    const uptime = calculateArtifactUptime({ instanceId: 'mushroom-test', artifactId: 'death-cap-mushroom', powerLevel: 251 }, {
       ...DEFAULT_SCENARIO,
       cooldownReduction: 0.75,
     })
@@ -34,7 +39,10 @@ describe('artifact model', () => {
 
   it('combines averaged offensive and defensive effects', () => {
     const effects = calculateArtifactEffects(
-      ['death-cap-mushroom', 'iron-hide-amulet'],
+      [
+        { instanceId: 'mushroom-test', artifactId: 'death-cap-mushroom', powerLevel: 251 },
+        { instanceId: 'amulet-test', artifactId: 'iron-hide-amulet', powerLevel: 251 },
+      ],
       DEFAULT_SCENARIO,
     )
     expect(effects.attackSpeedMultiplier).toBeCloseTo(1.7017, 3)
@@ -106,6 +114,8 @@ describe('evaluate', () => {
     expect(result.healing.totalPerSecond).toBeGreaterThan(0)
     expect(result.defense.effectiveHealth).toBe(DEFAULT_SCENARIO.maxHealth)
     expect(result.confidence.caveats.length).toBeGreaterThan(0)
+    expect(result.utilities.damage).toBeGreaterThan(0)
+    expect(result.contributions).toHaveLength(3)
   })
 
   it('rejects a selection that is not offered in its slot', () => {

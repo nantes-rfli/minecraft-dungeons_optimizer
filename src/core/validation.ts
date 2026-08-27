@@ -25,7 +25,6 @@ export function validateScenario(scenario: Scenario): void {
   assertRange('incomingDamagePerSecond', scenario.incomingDamagePerSecond, 0)
   assertRange('maxHealth', scenario.maxHealth, Number.EPSILON)
   assertRange('averageTargetsInReach', scenario.averageTargetsInReach, 1)
-  assertRange('artifactPower', scenario.artifactPower, 1)
   assertRange('cooldownReduction', scenario.cooldownReduction, 0, 0.95)
   assertRange('radianceHealPerProc', scenario.radianceHealPerProc, 0)
   assertRange('voidRampSeconds', scenario.voidRampSeconds, Number.EPSILON)
@@ -47,35 +46,43 @@ export function validateBuild(build: Build): void {
       `武器${build.weapon.instanceId}のエンチャントスロットは1〜3個にしてください。`,
     )
   }
-  if (build.enchantments.length !== enchantmentSlots.length) {
+  const expectedEnchantmentCount = enchantmentSlots.length + (build.weapon.gilded ? 1 : 0)
+  if (build.enchantments.length !== expectedEnchantmentCount) {
     throw new OptimizerInputError(
       'INVALID_BUILD',
       `武器${build.weapon.instanceId}では各スロットから1つずつ選択してください。`,
     )
   }
   enchantmentSlots.forEach((options, index) => {
-    if (options.length === 0) {
+    if (options.candidates.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',
         `武器${build.weapon.instanceId}のスロット${index + 1}に候補がありません。`,
       )
     }
     const selected = build.enchantments[index]
-    if (!selected || !options.includes(selected)) {
+    const legalOptions = options.locked ? [options.locked] : options.candidates
+    if (!selected || !legalOptions.includes(selected)) {
       throw new OptimizerInputError(
         'INVALID_BUILD',
         `武器${build.weapon.instanceId}のスロット${index + 1}にないエンチャントが選択されています。`,
       )
     }
   })
+  if (build.weapon.gilded) {
+    const gildedSelection = build.enchantments.at(-1)
+    if (gildedSelection !== build.weapon.gilded.enchantmentId) {
+      throw new OptimizerInputError(
+        'INVALID_BUILD',
+        `武器${build.weapon.instanceId}の金色エンチャントが一致しません。`,
+      )
+    }
+  }
   if (build.artifacts.length > 3) {
     throw new OptimizerInputError('INVALID_BUILD', 'アーティファクトは最大3個まで装備できます。')
   }
-  if (new Set(build.artifacts).size !== build.artifacts.length) {
-    throw new OptimizerInputError(
-      'INVALID_BUILD',
-      '同じアーティファクトの複数装備はv0.1の計算対象外です。',
-    )
+  for (const artifact of build.artifacts) {
+    assertRange(`artifact ${artifact.instanceId} powerLevel`, artifact.powerLevel, 1)
   }
 }
 
@@ -87,10 +94,11 @@ export function validateInventory(inventory: Inventory): void {
   if (new Set(instanceIds).size !== instanceIds.length) {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '武器の管理IDが重複しています。')
   }
-  if (new Set(inventory.artifacts).size !== inventory.artifacts.length) {
-    throw new OptimizerInputError(
-      'DUPLICATE_ARTIFACT',
-      '同じアーティファクトの複数装備はv0.1の計算対象外です。',
-    )
+  for (const weapon of inventory.weapons) {
+    assertRange(`weapon ${weapon.instanceId} powerLevel`, weapon.powerLevel, 1)
+  }
+  const artifactInstanceIds = inventory.artifacts.map((artifact) => artifact.instanceId)
+  if (new Set(artifactInstanceIds).size !== artifactInstanceIds.length) {
+    throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', 'アーティファクトの管理IDが重複しています。')
   }
 }

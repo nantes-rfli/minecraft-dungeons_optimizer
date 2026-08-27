@@ -8,6 +8,8 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 - エンチャント（すべて Tier III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
+- 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
+- 比較: 6種類のシナリオプロファイル、飽和Utility、Pareto前線、効果ごとの数値寄与
 
 防具、遠距離武器、実ダメージのパワースケーリング、固有効果、敵個別耐性は未対応です。
 
@@ -47,7 +49,9 @@ src/core/healing.ts    Radiance、Leeching
 src/core/defense.ts    Guarding Strike、Effective HP
 src/core/artifact.ts   効果時間、稼働率、平均効果
 src/core/evaluate.ts   1ビルドの評価
-src/core/optimizer.ts  全組み合わせの探索と順位付け
+src/core/optimizer.ts  全組み合わせの探索、順位付け、Pareto前線
+src/inventory/         localStorageとJSONの検証・入出力
+src/pages/             サイト内の計算ロジック・実装状況ページ
 src/data/              値、出典、信頼度、モデル仮定
 ```
 
@@ -59,7 +63,9 @@ src/data/              値、出典、信頼度、モデル仮定
 - `Guarding Strike III`: 撃破を Poisson 過程とみなし、4秒以内に1回以上撃破する確率 `1 - exp(-killsPerSecond × 4)` を稼働率にします。
 - アーティファクト: `duration / effectiveCooldown` を最大100%で丸め、稼働時効果を時間平均します。
 - `Void Strike III`: 各武器ヒットでリセットされる線形ランプ近似です。正確な時間曲線が未取得なので低信頼度です。
-- 目的スコア: `AoE DPS / 敵HP`、`回復/秒 / 被ダメージ/秒`、`軽減ダメージ / 元の被ダメージ` を比率化してから加重平均し、100倍します。異なるシナリオ間の絶対比較には使いません。
+- 目的スコア: 火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
+- 説明可能性: 選択効果を1つずつ外して再評価し、スコア・DPS・回復・実効HPの差分を寄与度として表示します。
+- Pareto前線: AoE DPS・回復/秒・実効HPのすべてで他候補に支配されるビルドを除外します。
 
 Power / Speed / Area はゲーム内の実ダメージや攻撃回数そのものではありません。v0.1 では Speed を攻撃回数へ変換する係数を仮定しているため、出力は「正規化値」です。実測データが得られたら `src/data/model.ts` のみを差し替えられます。
 

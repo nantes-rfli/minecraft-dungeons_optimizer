@@ -1,19 +1,21 @@
 import { getArtifactDefinition } from './catalog'
-import type { ArtifactEffects, ArtifactId, ArtifactUptime, Scenario } from './types'
+import type { ArtifactEffects, ArtifactUptime, OwnedArtifact, Scenario } from './types'
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value))
 
 export function calculateArtifactUptime(
-  artifactId: ArtifactId,
+  ownedArtifact: OwnedArtifact,
   scenario: Scenario,
 ): ArtifactUptime {
+  const { artifactId } = ownedArtifact
   const artifact = getArtifactDefinition(artifactId)
   const durationSeconds =
-    artifact.durationIntercept.value + artifact.durationPerPower.value * scenario.artifactPower
+    artifact.durationIntercept.value + artifact.durationPerPower.value * ownedArtifact.powerLevel
   const effectiveCooldownSeconds =
     artifact.cooldownSeconds.value * (1 - scenario.cooldownReduction)
 
   return {
+    instanceId: ownedArtifact.instanceId,
     artifactId,
     durationSeconds,
     effectiveCooldownSeconds,
@@ -22,15 +24,16 @@ export function calculateArtifactUptime(
 }
 
 export function calculateArtifactEffects(
-  artifactIds: readonly ArtifactId[],
+  ownedArtifacts: readonly OwnedArtifact[],
   scenario: Scenario,
 ): ArtifactEffects {
   let attackSpeedMultiplier = 1
   let damageTakenMultiplier = 1
 
-  const uptimes = artifactIds.map((artifactId) => {
+  const uptimes = ownedArtifacts.map((ownedArtifact) => {
+    const { artifactId } = ownedArtifact
     const artifact = getArtifactDefinition(artifactId)
-    const uptime = calculateArtifactUptime(artifactId, scenario)
+    const uptime = calculateArtifactUptime(ownedArtifact, scenario)
     if (artifact.attackSpeedBonus) {
       attackSpeedMultiplier += artifact.attackSpeedBonus.value * uptime.uptime
     }

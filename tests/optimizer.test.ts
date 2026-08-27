@@ -8,23 +8,28 @@ const inventory: Inventory = {
     {
       instanceId: 'bindings-test',
       weaponId: 'fighters-bindings',
+      powerLevel: 251,
       enchantmentSlots: [
-        ['radiance', 'critical-hit'],
-        ['leeching', 'guarding-strike'],
-        ['void-strike', 'critical-hit'],
+        { candidates: ['radiance', 'critical-hit'] },
+        { candidates: ['leeching', 'guarding-strike'] },
+        { candidates: ['void-strike', 'critical-hit'] },
       ],
     },
     {
       instanceId: 'anchor-test',
       weaponId: 'anchor',
+      powerLevel: 251,
       enchantmentSlots: [
-        ['void-strike', 'critical-hit'],
-        ['leeching', 'guarding-strike'],
-        ['radiance', 'critical-hit'],
+        { candidates: ['void-strike', 'critical-hit'] },
+        { candidates: ['leeching', 'guarding-strike'] },
+        { candidates: ['radiance', 'critical-hit'] },
       ],
     },
   ],
-  artifacts: ['death-cap-mushroom', 'iron-hide-amulet'],
+  artifacts: [
+    { instanceId: 'mushroom-test', artifactId: 'death-cap-mushroom', powerLevel: 251 },
+    { instanceId: 'amulet-test', artifactId: 'iron-hide-amulet', powerLevel: 251 },
+  ],
 }
 
 describe('optimize', () => {
@@ -36,8 +41,10 @@ describe('optimize', () => {
       result.alternatives[0]?.objectiveScore ?? 0,
     )
     result.best.build.enchantments.forEach((enchantment, index) => {
-      expect(result.best.build.weapon.enchantmentSlots[index]).toContain(enchantment)
+      expect(result.best.build.weapon.enchantmentSlots[index]?.candidates).toContain(enchantment)
     })
+    expect(result.searchMode).toBe('exhaustive')
+    expect(result.paretoFrontier.length).toBeGreaterThan(0)
   })
 
   it('changes rankings when scenario weights change', () => {

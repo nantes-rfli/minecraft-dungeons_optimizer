@@ -27,6 +27,13 @@ export type EnchantmentId =
   | 'void-strike'
   | 'guarding-strike'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
+export type ScenarioProfileId =
+  | 'balanced'
+  | 'damage'
+  | 'survival'
+  | 'boss'
+  | 'mobbing'
+  | 'apocalypse-plus'
 
 export interface WeaponDefinition {
   readonly id: WeaponId
@@ -58,21 +65,40 @@ export interface ArtifactDefinition {
   readonly damageReduction?: Evidence<number>
 }
 
-export interface WeaponInventoryItem {
+export interface EnchantmentSlot {
+  readonly candidates: readonly EnchantmentId[]
+  readonly locked?: EnchantmentId
+}
+
+export interface GildedEnchantment {
+  readonly enchantmentId: EnchantmentId
+  readonly tier: 1 | 2 | 3
+}
+
+export interface OwnedWeapon {
   readonly instanceId: string
   readonly weaponId: WeaponId
-  readonly enchantmentSlots: readonly (readonly EnchantmentId[])[]
+  readonly powerLevel: number
+  readonly enchantmentSlots: readonly EnchantmentSlot[]
+  readonly gilded?: GildedEnchantment
+  readonly locked?: boolean
+}
+
+export interface OwnedArtifact {
+  readonly instanceId: string
+  readonly artifactId: ArtifactId
+  readonly powerLevel: number
 }
 
 export interface Inventory {
-  readonly weapons: readonly WeaponInventoryItem[]
-  readonly artifacts: readonly ArtifactId[]
+  readonly weapons: readonly OwnedWeapon[]
+  readonly artifacts: readonly OwnedArtifact[]
 }
 
 export interface Build {
-  readonly weapon: WeaponInventoryItem
+  readonly weapon: OwnedWeapon
   readonly enchantments: readonly EnchantmentId[]
-  readonly artifacts: readonly ArtifactId[]
+  readonly artifacts: readonly OwnedArtifact[]
 }
 
 export interface ScenarioWeights {
@@ -82,6 +108,7 @@ export interface ScenarioWeights {
 }
 
 export interface Scenario {
+  readonly profileId: ScenarioProfileId
   readonly name: string
   readonly encounterDurationSeconds: number
   readonly averageEnemyHealth: number
@@ -90,7 +117,6 @@ export interface Scenario {
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
-  readonly artifactPower: number
   readonly cooldownReduction: number
   readonly radianceHealPerProc: number
   readonly voidRampSeconds: number
@@ -98,6 +124,7 @@ export interface Scenario {
 }
 
 export interface ArtifactUptime {
+  readonly instanceId: string
   readonly artifactId: ArtifactId
   readonly durationSeconds: number
   readonly effectiveCooldownSeconds: number
@@ -148,12 +175,36 @@ export interface Evaluation {
   readonly defense: DefenseMetrics
   readonly artifactEffects: ArtifactEffects
   readonly objectiveScore: number
+  readonly utilities: ObjectiveUtilities
   readonly confidence: ConfidenceSummary
   readonly reasons: readonly string[]
+  readonly contributions: readonly EffectContribution[]
+}
+
+export interface ObjectiveUtilities {
+  readonly damage: number
+  readonly healing: number
+  readonly defense: number
+}
+
+export interface EffectContribution {
+  readonly sourceType: 'enchantment' | 'artifact'
+  readonly sourceId: EnchantmentId | ArtifactId
+  readonly label: LocalizedName
+  readonly objectiveDelta: number
+  readonly singleTargetDpsDelta: number
+  readonly aoeDpsDelta: number
+  readonly healingPerSecondDelta: number
+  readonly effectiveHealthDelta: number
 }
 
 export interface OptimizationResult {
   readonly best: Evaluation
   readonly alternatives: readonly Evaluation[]
+  readonly paretoFrontier: readonly Evaluation[]
   readonly evaluatedBuildCount: number
+  readonly searchMode: 'exhaustive'
 }
+
+/** @deprecated Use OwnedWeapon. */
+export type WeaponInventoryItem = OwnedWeapon
