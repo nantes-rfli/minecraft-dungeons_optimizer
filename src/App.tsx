@@ -9,6 +9,7 @@ import type {
   Evaluation,
   Inventory,
   Scenario,
+  LocalizedName,
   WeaponId,
   WeaponInventoryItem,
 } from './core'
@@ -54,6 +55,16 @@ type ObjectiveId = keyof typeof OBJECTIVES
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const percentage = (value: number): string => `${Math.round(value * 100)}%`
+const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
+
+function BilingualName({ name }: { name: LocalizedName }) {
+  return (
+    <>
+      <span>{name.ja}</span>
+      <small lang="en">{name.en}</small>
+    </>
+  )
+}
 
 function Metric({ label, value, suffix = '' }: { label: string; value: number; suffix?: string }) {
   return (
@@ -72,8 +83,11 @@ function BuildSummary({ evaluation, compact = false }: { evaluation: Evaluation;
     <article className={compact ? 'result-card compact' : 'result-card'}>
       <div className="result-heading">
         <div>
-          <p className="eyebrow">{compact ? 'ALTERNATIVE' : 'RECOMMENDED BUILD'}</p>
-          <h2>{weapon.name}</h2>
+          <p className="eyebrow">{compact ? '次点候補' : '推奨ビルド'}</p>
+          <h2>
+            {weapon.name.ja}
+            <small lang="en">{weapon.name.en}</small>
+          </h2>
         </div>
         <div className="score">
           <span>目的スコア</span>
@@ -83,10 +97,14 @@ function BuildSummary({ evaluation, compact = false }: { evaluation: Evaluation;
 
       <div className="chips">
         {evaluation.build.enchantments.map((id, index) => (
-          <span className="chip" key={`${id}-${index}`}>{ENCHANTMENTS[id].name}</span>
+          <span className="chip" key={`${id}-${index}`}>
+            <BilingualName name={ENCHANTMENTS[id].name} />
+          </span>
         ))}
         {evaluation.build.artifacts.map((id) => (
-          <span className="chip artifact" key={id}>{ARTIFACTS[id].name}</span>
+          <span className="chip artifact" key={id}>
+            <BilingualName name={ARTIFACTS[id].name} />
+          </span>
         ))}
       </div>
 
@@ -96,7 +114,7 @@ function BuildSummary({ evaluation, compact = false }: { evaluation: Evaluation;
             <Metric label="単体DPS（正規化）" value={evaluation.damage.singleTargetDps} />
             <Metric label="AoE DPS（正規化）" value={evaluation.damage.aoeDps} />
             <Metric label="回復 / 秒" value={evaluation.healing.totalPerSecond} />
-            <Metric label="Effective HP" value={evaluation.defense.effectiveHealth} />
+            <Metric label="実効HP" value={evaluation.defense.effectiveHealth} />
           </div>
           <ul className="reasons">
             {evaluation.reasons.map((reason) => <li key={reason}>{reason}</li>)}
@@ -171,8 +189,9 @@ export default function App() {
     <main>
       <header className="hero">
         <div>
-          <p className="eyebrow">CORE PROTOTYPE · v0.1</p>
-          <h1>Minecraft Dungeons<br />Gear Optimizer</h1>
+          <p className="eyebrow">最適化コア試作版 · v0.1</p>
+          <h1>Minecraft Dungeons<br />最適装備ツール</h1>
+          <p className="product-name" lang="en">Gear Optimizer</p>
           <p className="lede">
             手持ち候補を全探索し、火力・回復・防御を同じシナリオで比較します。
           </p>
@@ -198,7 +217,8 @@ export default function App() {
                     onChange={() => toggleWeapon(item.weaponId)}
                   />
                   <span>
-                    <strong>{weapon.name}</strong>
+                    <strong>{weapon.name.ja}</strong>
+                    <small lang="en">{weapon.name.en}</small>
                     <small>PWR {weapon.power.value} · SPD {weapon.speed.value} · AREA {weapon.area.value}</small>
                   </span>
                 </label>
@@ -215,7 +235,10 @@ export default function App() {
                   checked={selectedArtifacts.includes(id)}
                   onChange={() => toggleArtifact(id)}
                 />
-                <span><strong>{ARTIFACTS[id].name}</strong></span>
+                <span>
+                  <strong>{ARTIFACTS[id].name.ja}</strong>
+                  <small lang="en">{ARTIFACTS[id].name.en}</small>
+                </span>
               </label>
             ))}
           </div>
@@ -259,7 +282,10 @@ export default function App() {
             <>
               <div className="result-meta">
                 <span>{optimization.result.evaluatedBuildCount}通りを全探索</span>
-                <span>信頼度 {percentage(optimization.result.best.confidence.score)} ({optimization.result.best.confidence.label})</span>
+                <span>
+                  信頼度 {percentage(optimization.result.best.confidence.score)}
+                  （{CONFIDENCE_LABELS[optimization.result.best.confidence.label]}）
+                </span>
               </div>
               <BuildSummary evaluation={optimization.result.best} />
               <h3 className="alternatives-title">次点候補</h3>

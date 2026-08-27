@@ -7,7 +7,7 @@ import {
 export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
   'death-cap-mushroom': {
     id: 'death-cap-mushroom',
-    name: 'Death Cap Mushroom',
+    name: { ja: 'シロタマゴテングタケ', en: 'Death Cap Mushroom' },
     cooldownSeconds: {
       value: 30,
       source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
@@ -32,7 +32,7 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
   },
   'iron-hide-amulet': {
     id: 'iron-hide-amulet',
-    name: 'Iron Hide Amulet',
+    name: { ja: 'アイアンハイドアミュレット', en: 'Iron Hide Amulet' },
     cooldownSeconds: {
       value: 25,
       source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,

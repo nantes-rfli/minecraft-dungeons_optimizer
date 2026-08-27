@@ -14,7 +14,7 @@ import { OptimizerInputError } from './errors'
 export function getWeaponDefinition(id: WeaponId): WeaponDefinition {
   const weapon = WEAPONS[id]
   if (!weapon) {
-    throw new OptimizerInputError('UNKNOWN_WEAPON', `Unsupported weapon: ${id}`)
+    throw new OptimizerInputError('UNKNOWN_WEAPON', `未対応の武器です: ${id}`)
   }
   return weapon
 }
@@ -22,7 +22,7 @@ export function getWeaponDefinition(id: WeaponId): WeaponDefinition {
 export function getEnchantmentDefinition(id: EnchantmentId): EnchantmentDefinition {
   const enchantment = ENCHANTMENTS[id]
   if (!enchantment) {
-    throw new OptimizerInputError('UNKNOWN_ENCHANTMENT', `Unsupported enchantment: ${id}`)
+    throw new OptimizerInputError('UNKNOWN_ENCHANTMENT', `未対応のエンチャントです: ${id}`)
   }
   return enchantment
 }
@@ -30,7 +30,7 @@ export function getEnchantmentDefinition(id: EnchantmentId): EnchantmentDefiniti
 export function getArtifactDefinition(id: ArtifactId): ArtifactDefinition {
   const artifact = ARTIFACTS[id]
   if (!artifact) {
-    throw new OptimizerInputError('UNKNOWN_ARTIFACT', `Unsupported artifact: ${id}`)
+    throw new OptimizerInputError('UNKNOWN_ARTIFACT', `未対応のアーティファクトです: ${id}`)
   }
   return artifact
 }

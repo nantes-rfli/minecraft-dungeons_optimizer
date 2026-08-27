@@ -3,7 +3,7 @@ import type { Build, Inventory, Scenario } from './types'
 
 function assertFinite(name: string, value: number): void {
   if (!Number.isFinite(value)) {
-    throw new OptimizerInputError('INVALID_SCENARIO', `${name} must be a finite number.`)
+    throw new OptimizerInputError('INVALID_SCENARIO', `${name}には有限の数値を指定してください。`)
   }
 }
 
@@ -12,7 +12,7 @@ function assertRange(name: string, value: number, minimum: number, maximum = Inf
   if (value < minimum || value > maximum) {
     throw new OptimizerInputError(
       'INVALID_SCENARIO',
-      `${name} must be between ${minimum} and ${maximum}.`,
+      `${name}は${minimum}以上${maximum}以下で指定してください。`,
     )
   }
 }
@@ -35,7 +35,7 @@ export function validateScenario(scenario: Scenario): void {
 
   const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense
   if (weightTotal <= 0) {
-    throw new OptimizerInputError('INVALID_SCENARIO', 'At least one scenario weight must be positive.')
+    throw new OptimizerInputError('INVALID_SCENARIO', 'シナリオの重みを1つ以上指定してください。')
   }
 }
 
@@ -44,53 +44,53 @@ export function validateBuild(build: Build): void {
   if (enchantmentSlots.length === 0 || enchantmentSlots.length > 3) {
     throw new OptimizerInputError(
       'INVALID_WEAPON',
-      `Weapon ${build.weapon.instanceId} must have between one and three enchantment slots.`,
+      `武器${build.weapon.instanceId}のエンチャントスロットは1〜3個にしてください。`,
     )
   }
   if (build.enchantments.length !== enchantmentSlots.length) {
     throw new OptimizerInputError(
       'INVALID_BUILD',
-      `Weapon ${build.weapon.instanceId} needs exactly one enchantment per slot.`,
+      `武器${build.weapon.instanceId}では各スロットから1つずつ選択してください。`,
     )
   }
   enchantmentSlots.forEach((options, index) => {
     if (options.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',
-        `Enchantment slot ${index + 1} on ${build.weapon.instanceId} has no options.`,
+        `武器${build.weapon.instanceId}のスロット${index + 1}に候補がありません。`,
       )
     }
     const selected = build.enchantments[index]
     if (!selected || !options.includes(selected)) {
       throw new OptimizerInputError(
         'INVALID_BUILD',
-        `Selected enchantment for slot ${index + 1} is not offered by ${build.weapon.instanceId}.`,
+        `武器${build.weapon.instanceId}のスロット${index + 1}にないエンチャントが選択されています。`,
       )
     }
   })
   if (build.artifacts.length > 3) {
-    throw new OptimizerInputError('INVALID_BUILD', 'A build can equip at most three artifacts.')
+    throw new OptimizerInputError('INVALID_BUILD', 'アーティファクトは最大3個まで装備できます。')
   }
   if (new Set(build.artifacts).size !== build.artifacts.length) {
     throw new OptimizerInputError(
       'INVALID_BUILD',
-      'Duplicate artifacts are outside the v0.1 calculation model.',
+      '同じアーティファクトの複数装備はv0.1の計算対象外です。',
     )
   }
 }
 
 export function validateInventory(inventory: Inventory): void {
   if (inventory.weapons.length === 0) {
-    throw new OptimizerInputError('EMPTY_INVENTORY', 'Inventory must contain at least one weapon.')
+    throw new OptimizerInputError('EMPTY_INVENTORY', '比較する武器を1つ以上選択してください。')
   }
   const instanceIds = inventory.weapons.map((weapon) => weapon.instanceId)
   if (new Set(instanceIds).size !== instanceIds.length) {
-    throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', 'Weapon instance IDs must be unique.')
+    throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '武器の管理IDが重複しています。')
   }
   if (new Set(inventory.artifacts).size !== inventory.artifacts.length) {
     throw new OptimizerInputError(
       'DUPLICATE_ARTIFACT',
-      'Duplicate artifacts are outside the v0.1 calculation model.',
+      '同じアーティファクトの複数装備はv0.1の計算対象外です。',
     )
   }
 }
