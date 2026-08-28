@@ -6,12 +6,14 @@ export function deriveCombatState(
 ): CombatState {
   const effectiveDamagePerSecond = damage.aoeDps
   const damageLimitedKillsPerSecond = effectiveDamagePerSecond / scenario.averageEnemyHealth
+  const estimatedKillsPerSecond = Math.min(
+    scenario.enemySupplyPerSecond,
+    damageLimitedKillsPerSecond,
+  )
   return {
     effectiveDamagePerSecond,
     damageLimitedKillsPerSecond,
-    estimatedKillsPerSecond: Math.min(
-      scenario.enemySupplyPerSecond,
-      damageLimitedKillsPerSecond,
-    ),
+    estimatedKillsPerSecond,
+    directWeaponKillsPerSecond: estimatedKillsPerSecond * scenario.directKillShare,
   }
 }

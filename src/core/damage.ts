@@ -1,7 +1,7 @@
 import { MODEL } from '../data/model'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import { calculateBaseHitsPerSecond } from './attackProfile'
-import { getAttackProfile, getWeaponDefinition } from './catalog'
+import { getAttackProfile, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { enchantmentsById, getTierValues } from './enchantment'
 import { calculateVoidStrikeMultiplier } from './voidStrike'
 import type {
@@ -29,12 +29,17 @@ function voidStrikeExpectedMultiplier(
   const selected = enchantmentsById(enchantments, 'void-strike')[0]
   if (!selected || hitsPerSecond <= 0) return 1
   const maxBonus = getTierValues(selected).maxBonusDamage ?? 0
+  const referenceMaxBonus =
+    getEnchantmentDefinition('void-strike').tiers.value[3].maxBonusDamage ?? 0
   const intervalSeconds = 1 / hitsPerSecond
-  const followUpHitMultiplier = calculateVoidStrikeMultiplier(
+  const referenceFollowUpHitMultiplier = calculateVoidStrikeMultiplier(
     VOID_STRIKE_CURVE.value,
     intervalSeconds,
-    1 + maxBonus,
+    1 + referenceMaxBonus,
   )
+  const followUpHitMultiplier = referenceMaxBonus > 0
+    ? 1 + (referenceFollowUpHitMultiplier - 1) * maxBonus / referenceMaxBonus
+    : 1
   const expectedHitCount = hitsPerSecond * scenario.encounterDurationSeconds
 
   if (expectedHitCount <= 1) return 1

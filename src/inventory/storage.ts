@@ -5,6 +5,7 @@ import type {
   ArtifactId,
   EnchantmentId,
   EnchantmentSlot,
+  EnchantmentTier,
   Inventory,
   OwnedArtifact,
   OwnedWeapon,
@@ -82,7 +83,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     }
     gilded = {
       enchantmentId: parseEnchantmentId(value.gilded.enchantmentId, `${field}.gilded.enchantmentId`),
-      tier: value.gilded.tier as 1 | 2 | 3,
+      tier: value.gilded.tier as EnchantmentTier,
     }
   }
   return {

@@ -40,3 +40,10 @@ export const COMMUNITY_ARTIFACT_STACKING_SOURCE: SourceReference = {
   url: 'https://www.reddit.com/r/MinecraftDungeons/comments/nrc4on/do_ironhide_amulets_stack/',
   kind: 'community-test',
 }
+
+export const COMMUNITY_RADIANCE_STACKING_SOURCE: SourceReference = {
+  id: 'community-radiance-stacking-test',
+  label: 'Community tests: Radiance healing stack is 100% / 175% / 225% / 250%',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/he5bsy/some_weaponarmour_enchantment_stacking_numbers/',
+  kind: 'community-test',
+}

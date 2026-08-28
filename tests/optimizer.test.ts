@@ -98,6 +98,13 @@ describe('optimize', () => {
       }],
       artifacts: [],
     }, DEFAULT_SCENARIO)
+    const tierTwo = optimize({
+      weapons: [{
+        ...baseWeapon,
+        gilded: { enchantmentId: 'critical-hit', tier: 2 },
+      }],
+      artifacts: [],
+    }, DEFAULT_SCENARIO)
     const tierThree = optimize({
       weapons: [{
         ...baseWeapon,
@@ -107,9 +114,13 @@ describe('optimize', () => {
     }, DEFAULT_SCENARIO)
 
     expect(tierOne.best.build.enchantments.at(-1)?.tier).toBe(1)
+    expect(tierTwo.best.build.enchantments.at(-1)?.tier).toBe(2)
     expect(tierThree.best.build.enchantments.at(-1)?.tier).toBe(3)
-    expect(tierThree.best.damage.singleTargetDps).toBeGreaterThan(
+    expect(tierTwo.best.damage.singleTargetDps).toBeGreaterThan(
       tierOne.best.damage.singleTargetDps,
+    )
+    expect(tierThree.best.damage.singleTargetDps).toBeGreaterThan(
+      tierTwo.best.damage.singleTargetDps,
     )
   })
 

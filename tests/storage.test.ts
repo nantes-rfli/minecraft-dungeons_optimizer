@@ -1,6 +1,11 @@
-import { describe, expect, it } from 'vitest'
-import type { Inventory } from '../src/core'
-import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import type { EnchantmentTier, Inventory } from '../src/core'
+import {
+  deserializeInventory,
+  loadInventory,
+  saveInventory,
+  serializeInventory,
+} from '../src/inventory/storage'
 
 const inventory: Inventory = {
   weapons: [{
@@ -34,5 +39,39 @@ describe('inventory JSON', () => {
   it('rejects an invalid observed damage value', () => {
     const json = serializeInventory(inventory).replace('123456', '0')
     expect(() => deserializeInventory(json)).toThrow('0より大きい数値')
+  })
+
+  it.each([1, 2, 3] as const)('round-trips gilded Tier %s through JSON', (tier) => {
+    const tieredInventory: Inventory = {
+      ...inventory,
+      weapons: [{
+        ...inventory.weapons[0]!,
+        gilded: { enchantmentId: 'void-strike', tier: tier satisfies EnchantmentTier },
+      }],
+    }
+
+    expect(deserializeInventory(serializeInventory(tieredInventory))).toEqual(tieredInventory)
+  })
+})
+
+describe('inventory localStorage', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
+  it.each([1, 2, 3] as const)('preserves gilded Tier %s', (tier) => {
+    const values = new Map<string, string>()
+    vi.stubGlobal('localStorage', {
+      getItem: (key: string) => values.get(key) ?? null,
+      setItem: (key: string, value: string) => values.set(key, value),
+    })
+    const tieredInventory: Inventory = {
+      ...inventory,
+      weapons: [{
+        ...inventory.weapons[0]!,
+        gilded: { enchantmentId: 'radiance', tier: tier satisfies EnchantmentTier },
+      }],
+    }
+
+    saveInventory(tieredInventory)
+    expect(loadInventory({ weapons: [], artifacts: [] })).toEqual(tieredInventory)
   })
 })

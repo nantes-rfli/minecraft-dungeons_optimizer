@@ -1,5 +1,8 @@
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
-import { MINECRAFT_WIKI_ENCHANTMENTS_SOURCE, MVP_MODEL_SOURCE } from './sources'
+import {
+  COMMUNITY_RADIANCE_STACKING_SOURCE,
+  MINECRAFT_WIKI_ENCHANTMENTS_SOURCE,
+} from './sources'
 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
@@ -35,10 +38,14 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
       confidence: 'high',
     },
     stacking: {
-      value: { maxCopies: 4, behavior: 'special', additionalCopyMultiplier: 0.75 },
-      source: MVP_MODEL_SOURCE,
+      value: {
+        maxCopies: 4,
+        behavior: 'special',
+        copyEffectMultipliers: [1, 0.75, 0.5, 0.25],
+      },
+      source: COMMUNITY_RADIANCE_STACKING_SOURCE,
       confidence: 'low',
-      note: 'Stackable; additional-copy healing uses a provisional 25% diminishing model.',
+      note: 'Trigger chance remains 20%; reported total healing is 100% / 175% / 225% / 250%. Mixed tiers apply the largest tier value first.',
     },
   },
   leeching: {

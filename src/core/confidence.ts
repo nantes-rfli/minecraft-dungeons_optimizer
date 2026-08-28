@@ -108,7 +108,9 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       2,
     )
   }
-  if (hasEnchantment(build.enchantments, 'leeching')) {
+  const usesDirectWeaponKills = hasEnchantment(build.enchantments, 'leeching') ||
+    hasEnchantment(build.enchantments, 'guarding-strike')
+  if (usesDirectWeaponKills) {
     addEvidence(
       'direct-kill-share',
       '直接撃破率',

@@ -12,6 +12,6 @@ export const MODEL = {
     value: 1,
     source: MVP_MODEL_SOURCE,
     confidence: 'low',
-    note: 'Build-dependent min(enemy supply, AoE DPS / average enemy health) model.',
+    note: 'Build-dependent min(enemy supply, AoE DPS / average enemy health), with direct weapon kills derived from directKillShare.',
   },
 } as const satisfies Record<string, Evidence<number>>

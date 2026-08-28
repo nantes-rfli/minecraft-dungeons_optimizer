@@ -5,7 +5,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 ## 対応範囲
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）
-- エンチャント（すべて Tier III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク
+- エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
@@ -13,7 +13,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 防具、遠距離武器、実ダメージのパワースケーリング、固有効果、敵個別耐性は未対応です。
 
-完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。現在は Phase 0（Optimizer Core）が完了し、Phase 1（実測による精度改善）へ進む段階です。
+完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1が完了し、Phase 1（実測による精度改善）へ進行可能です。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
@@ -69,13 +69,13 @@ src/data/              値、出典、信頼度、モデル仮定
 - Attack Profile: 武器別の攻撃回数データを使用します。現在はSpeed Rating由来の暫定値で、[計測手順](./docs/attack-profile-measurement.md) に従ったフレーム実測へ差し替え予定です。
 - Power scaling: 全武器にゲーム内表示ダメージを入力した場合は実数値で比較します。未入力時は正規化値を使い、入力済み・未入力の混在は拒否します。自動換算の制約は[調査記録](./docs/power-scaling.md)を参照してください。
 - `Critical Hit III`: `1 + 0.2 × (3 - 1) = 1.4` の期待倍率。
-- `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。
-- Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出します。
-- `Leeching III`: `推定撃破/秒 × 敵HP × 直接撃破率 × 9%`。間接ダメージ撃破を `directKillShare` で除外します。
-- `Guarding Strike III`: 撃破を Poisson 過程とみなし、4秒以内に1回以上撃破する確率 `1 - exp(-estimatedKillsPerSecond × 4)` を稼働率にします。
+- `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。複数コピーは発動率を増やさず、tier値の高い順に`100% / 75% / 50% / 25%`の回復量係数を適用します。
+- Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare`を一元管理します。
+- `Leeching III`: `直接撃破/秒 × 敵HP × 9%`。間接ダメージ撃破はCombat Stateで除外済みです。
+- `Guarding Strike III`: 武器本体の直接撃破をPoisson過程とみなし、`1 - exp(-directWeaponKillsPerSecond × 4)`を稼働率にします。
 - アーティファクト: `duration / effectiveCooldown` を時間平均します。同種の一時効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。
 - `Void Strike III`: 各武器ヒットでリセットされる時間曲線です。現在は1倍から3秒で7倍になる線形近似で、[計測手順](./docs/void-strike-measurement.md)に従った複数サンプルの中央値・補間へ差し替え可能です。
-- Enchantment選択: BuildはIDだけでなくtier・slot/gilded/built-inのsourceを保持します。重複可否と追加コピーの扱いは[Enchantモデル](./docs/enchantment-model.md)に集約しています。
+- Enchantment選択: BuildはIDだけでなくtier・slot/gilded/built-inのsourceを保持します。金色枠はUI・localStorage・JSON・Optimizerを通してTier I / II / IIIを維持します。重複可否と追加コピーの扱いは[Enchantモデル](./docs/enchantment-model.md)に集約しています。
 - 目的スコア: 火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
 - 説明可能性: 選択効果を1つずつ外して再評価し、スコア・DPS・回復・実効HPの差分を寄与度として表示します。
 - Pareto前線: AoE DPS・回復/秒・実効HPのすべてで他候補に支配されるビルドを除外します。

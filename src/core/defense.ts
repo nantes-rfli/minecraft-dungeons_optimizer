@@ -16,7 +16,7 @@ export function calculateDefense(
   const guarding = enchantmentsById(enchantments, 'guarding-strike')[0]
   const values = guarding ? getTierValues(guarding) : undefined
   const guardingStrikeUptime = guarding
-    ? 1 - Math.exp(-combatState.estimatedKillsPerSecond * (values?.durationSeconds ?? 0))
+    ? 1 - Math.exp(-combatState.directWeaponKillsPerSecond * (values?.durationSeconds ?? 0))
     : 0
   const guardingDamageMultiplier =
     1 - guardingStrikeUptime * (values?.damageReduction ?? 0)

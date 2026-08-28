@@ -172,6 +172,18 @@ describe('damage model', () => {
     expect(anchor.voidStrikeMultiplier).toBeGreaterThan(bindings.voidStrikeMultiplier)
   })
 
+  it('scales the Tier III reference curve to each Void Strike tier', () => {
+    const multipliers = ([1, 2, 3] as const).map((tier) => calculateDamage(
+      { weaponId: 'anchor' },
+      [selected('void-strike', tier, 'gilded')],
+      noArtifactEffects,
+      DEFAULT_SCENARIO,
+    ).voidStrikeMultiplier)
+
+    expect(multipliers[0]).toBeLessThan(multipliers[1]!)
+    expect(multipliers[1]).toBeLessThan(multipliers[2]!)
+  })
+
   it('uses an observed item-card damage value when one is supplied', () => {
     const damage = calculateDamage(
       { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
@@ -240,6 +252,26 @@ describe('Void Strike curve', () => {
   })
 })
 
+describe('CombatState', () => {
+  it('derives direct weapon kills from the shared direct-kill boundary', () => {
+    const scenario = {
+      ...DEFAULT_SCENARIO,
+      enemySupplyPerSecond: 1,
+      directKillShare: 0.6,
+    }
+    const damage = calculateDamage(
+      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      [],
+      noArtifactEffects,
+      scenario,
+    )
+    const combatState = deriveCombatState(damage, scenario)
+
+    expect(combatState.estimatedKillsPerSecond).toBe(1)
+    expect(combatState.directWeaponKillsPerSecond).toBeCloseTo(0.6)
+  })
+})
+
 describe('healing and defense models', () => {
   it('adds Radiance proc healing and direct-kill Leeching healing', () => {
     const damage = calculateDamage(
@@ -259,7 +291,31 @@ describe('healing and defense models', () => {
     expect(healing.totalPerSecond).toBeCloseTo(15.3041)
   })
 
-  it('applies tier values and diminishing effects to stackable healing enchants', () => {
+  it('matches the reported Radiance healing stack for one, two and three copies', () => {
+    const damage = calculateDamage(
+      { weaponId: 'fighters-bindings' },
+      [],
+      noArtifactEffects,
+      DEFAULT_SCENARIO,
+    )
+    const combatState = deriveCombatState(damage, DEFAULT_SCENARIO)
+    const radiancePerSecond = (copies: number) => calculateHealing(
+      Array.from({ length: copies }, (_, index) => selected(
+        'radiance',
+        3,
+        index === copies - 1 && copies > 1 ? 'gilded' : 'slot',
+      )),
+      damage,
+      combatState,
+      DEFAULT_SCENARIO,
+    ).radiancePerSecond
+
+    expect(radiancePerSecond(1)).toBeCloseTo(14)
+    expect(radiancePerSecond(2)).toBeCloseTo(24.5)
+    expect(radiancePerSecond(3)).toBeCloseTo(31.5)
+  })
+
+  it('applies Radiance copy coefficients to mixed tiers in descending value order', () => {
     const damage = calculateDamage(
       { weaponId: 'fighters-bindings' },
       [],
@@ -267,19 +323,13 @@ describe('healing and defense models', () => {
       DEFAULT_SCENARIO,
     )
     const healing = calculateHealing(
-      [
-        selected('radiance', 3),
-        selected('radiance', 3, 'gilded'),
-        selected('leeching', 3),
-        selected('leeching', 1, 'gilded'),
-      ],
+      [selected('radiance', 3), selected('radiance', 1, 'gilded')],
       damage,
       deriveCombatState(damage, DEFAULT_SCENARIO),
       DEFAULT_SCENARIO,
     )
 
-    expect(healing.radiancePerSecond).toBeCloseTo(24.5)
-    expect(healing.leechingPerSecond).toBeCloseTo(1.847475)
+    expect(healing.radiancePerSecond).toBeCloseTo(19.25)
   })
 
   it('uses a Poisson uptime model for Guarding Strike', () => {
@@ -290,10 +340,11 @@ describe('healing and defense models', () => {
         effectiveDamagePerSecond: 50,
         damageLimitedKillsPerSecond: 0.5,
         estimatedKillsPerSecond: 0.5,
+        directWeaponKillsPerSecond: 0.45,
       },
       DEFAULT_SCENARIO,
     )
-    expect(defense.guardingStrikeUptime).toBeCloseTo(1 - Math.exp(-2))
+    expect(defense.guardingStrikeUptime).toBeCloseTo(1 - Math.exp(-1.8))
     expect(defense.damageTakenMultiplier).toBeLessThan(1)
     expect(defense.effectiveHealth).toBeGreaterThan(DEFAULT_SCENARIO.maxHealth)
   })
@@ -334,6 +385,56 @@ describe('healing and defense models', () => {
     expect(lowDefense.guardingStrikeUptime).toBeLessThan(highDefense.guardingStrikeUptime)
   })
 
+  it('uses the same direct weapon kill count for Leeching and Guarding Strike', () => {
+    const damage = calculateDamage(
+      { weaponId: 'fighters-bindings' }, [], noArtifactEffects, DEFAULT_SCENARIO,
+    )
+    const combatState = {
+      effectiveDamagePerSecond: 100,
+      damageLimitedKillsPerSecond: 1,
+      estimatedKillsPerSecond: 1,
+      directWeaponKillsPerSecond: 0.2,
+    }
+    const scenario = { ...DEFAULT_SCENARIO, directKillShare: 0.95 }
+    const healing = calculateHealing(
+      [selected('leeching')], damage, combatState, scenario,
+    )
+    const defense = calculateDefense(
+      [selected('guarding-strike')], noArtifactEffects, combatState, scenario,
+    )
+
+    expect(healing.leechingPerSecond).toBeCloseTo(
+      combatState.directWeaponKillsPerSecond * scenario.averageEnemyHealth * 0.09,
+    )
+    expect(defense.guardingStrikeUptime).toBeCloseTo(
+      1 - Math.exp(-combatState.directWeaponKillsPerSecond * 4),
+    )
+  })
+
+  it('reduces both kill-triggered effects when direct kill share decreases', () => {
+    const damage = calculateDamage(
+      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      [],
+      noArtifactEffects,
+      DEFAULT_SCENARIO,
+    )
+    const highShareScenario = { ...DEFAULT_SCENARIO, directKillShare: 1 }
+    const lowShareScenario = { ...DEFAULT_SCENARIO, directKillShare: 0.25 }
+    const highState = deriveCombatState(damage, highShareScenario)
+    const lowState = deriveCombatState(damage, lowShareScenario)
+
+    expect(calculateHealing(
+      [selected('leeching')], damage, lowState, lowShareScenario,
+    ).leechingPerSecond).toBeLessThan(calculateHealing(
+      [selected('leeching')], damage, highState, highShareScenario,
+    ).leechingPerSecond)
+    expect(calculateDefense(
+      [selected('guarding-strike')], noArtifactEffects, lowState, lowShareScenario,
+    ).guardingStrikeUptime).toBeLessThan(calculateDefense(
+      [selected('guarding-strike')], noArtifactEffects, highState, highShareScenario,
+    ).guardingStrikeUptime)
+  })
+
   it('increases Radiance healing when attack rate increases', () => {
     const fastDamage = calculateDamage(
       { weaponId: 'fighters-bindings' }, [], noArtifactEffects, DEFAULT_SCENARIO,
@@ -371,6 +472,24 @@ describe('evaluate', () => {
     expect(result.confidence.label).toBe('low')
     expect(result.utilities.damage).toBeGreaterThan(0)
     expect(result.contributions).toHaveLength(3)
+  })
+
+  it('includes direct-kill evidence for a Guarding Strike build', () => {
+    const build: Build = {
+      weapon: {
+        instanceId: 'guarding-test',
+        weaponId: 'anchor',
+        powerLevel: 251,
+        enchantmentSlots: [{ candidates: ['guarding-strike'] }],
+      },
+      enchantments: [selected('guarding-strike')],
+      artifacts: [],
+    }
+    const result = evaluate(build, DEFAULT_SCENARIO)
+
+    expect(result.confidence.factors.some(
+      (factor) => factor.id === 'direct-kill-share',
+    )).toBe(true)
   })
 
   it('rejects a selection that is not offered in its slot', () => {

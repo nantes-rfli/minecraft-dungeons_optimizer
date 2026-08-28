@@ -15,7 +15,7 @@
 - 選択されたEnchantのtier値とstacking
 - Void Strike時間曲線
 - ArtifactのCooldown、Power別継続時間、効果量、stacking
-- Radiance回復量や直接撃破率など、選択効果が実際に参照する値
+- Radiance回復量や直接撃破率など、選択効果が実際に参照する値。直接撃破率はLeechingまたはGuarding Strikeを使うBuildで追加する
 
 使用しないEnchantやArtifactのEvidenceは集計しません。
 

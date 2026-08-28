@@ -96,6 +96,7 @@ export interface EnchantmentStacking {
   readonly maxCopies: number
   readonly behavior: 'non-stackable' | 'additive' | 'multiplicative' | 'special'
   readonly additionalCopyMultiplier?: number
+  readonly copyEffectMultipliers?: readonly number[]
 }
 
 export interface EnchantmentDefinition {
@@ -223,6 +224,7 @@ export interface CombatState {
   readonly effectiveDamagePerSecond: number
   readonly damageLimitedKillsPerSecond: number
   readonly estimatedKillsPerSecond: number
+  readonly directWeaponKillsPerSecond: number
 }
 
 export interface HealingMetrics {

@@ -38,13 +38,13 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">03 / 回復</p>
           <h2>Proc型と撃破型を分離</h2>
-          <p>輝きは攻撃回数に、吸血はBuildごとの直接撃破数に比例します。Scenarioは敵供給上限を持ち、実際の撃破速度はAoE DPSと平均敵HPから算出します。</p>
-          <Formula>推定撃破/s = min（敵供給/s, AoE DPS ÷ 平均敵HP）</Formula>
+          <p>輝きは攻撃回数に比例し、複数コピーは発動率を増やさず回復量へ100%・75%・50%・25%の係数を適用します。吸血はCombat Stateが算出した武器本体の直接撃破数に比例します。</p>
+          <Formula>直接撃破/s = min（敵供給/s, AoE DPS ÷ 平均敵HP）× 直接撃破率</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">04 / 防御</p>
           <h2>稼働率から実効HPへ</h2>
-          <p>ガードストライクとアイアンハイドの平均稼働率を被ダメ倍率へ反映し、実効HPとして比較します。同種Artifactは効果量を重ねず、交互使用による継続時間の更新として扱います。</p>
+          <p>ガードストライクは武器本体の直接撃破数から稼働率を求め、アイアンハイドとともに被ダメ倍率へ反映します。同種Artifactは効果量を重ねず、交互使用による継続時間の更新として扱います。</p>
           <Formula>EHP = 最大HP ÷ 被ダメ倍率</Formula>
         </article>
         <article className="method-card">
@@ -72,7 +72,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0を完了し、実測前のCore Model Integrityを優先しています。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1を完了し、Phase 1の実測へ進行可能です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

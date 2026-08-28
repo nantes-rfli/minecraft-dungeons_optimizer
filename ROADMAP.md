@@ -4,12 +4,12 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御モデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **12 / 24（50%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **15 / 27（56%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
 - [x] 個体別の手持ち・候補エンチャント・Power入力
-- [x] 確定済みスロット・金色エンチャント III の入力
+- [x] 確定済みスロット・金色エンチャント Tier I / II / III の入力
 - [x] 全探索・目的別シナリオ・Pareto前線
 - [x] 効果別の寄与度・根拠・信頼度表示
 - [x] localStorage・version付きJSON入出力
@@ -25,6 +25,14 @@
 - [x] Golden Testと設計ドキュメント更新
 
 完了条件: Build依存kill rate、Enchant / Artifact stacking、tier保持、主要Evidenceの信頼度、外部実測値テストが一貫した計算経路で動作すること。
+
+## Phase 0.5.1 — Core Model Cleanup（3 / 3 完了）
+
+- [x] Radianceをコピー別係数`100% / 75% / 50% / 25%`でstack
+- [x] Gilded Tier I / II / III の編集・保存・JSON入出力
+- [x] `directWeaponKillsPerSecond`をCombat Stateで一元算出
+
+完了条件: Radiance stacking、Gilded Tier、Leeching / Guarding Strikeの直接撃破依存が、同じ型・保存・評価・Evidence経路で動作すること。
 
 ## Phase 1 — Accuracy（0 / 4）
 
@@ -55,7 +63,7 @@
 
 ## 現在の作業位置
 
-Phase 0とPhase 0.5は完了しました。Core Model Integrityの完了により、tier・stacking・Build依存kill rate・Evidence coverage・Power未反映警告・Golden Testが同じ計算経路で動作します。現在地はPhase 1へ戻り、既存の計測手順に従った実測データ登録です。
+Phase 0、Phase 0.5、Phase 0.5.1は完了しました。Radiance stacking、Gilded Tier I / II / III、武器本体の直接撃破数までCore Model Integrityを仕上げたため、Phase 1の実測データ登録へ進行可能です。
 
 ## 更新ルール
 

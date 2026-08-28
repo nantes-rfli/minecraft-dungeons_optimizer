@@ -5,6 +5,7 @@ import { calculatePredictionRange, optimize, summarizeDamageRegression } from '.
 import type {
   ArtifactId,
   EnchantmentId,
+  EnchantmentTier,
   Evaluation,
   Inventory,
   LocalizedName,
@@ -19,6 +20,11 @@ import { ENCHANTMENTS } from './data/enchantments'
 import { DAMAGE_REGRESSION_SAMPLES } from './data/regressionSamples'
 import { DEFAULT_SCENARIO, SCENARIO_PROFILES } from './data/scenarios'
 import { WEAPONS } from './data/weapons'
+import {
+  changeGildedEnchantment,
+  changeGildedTier,
+  DEFAULT_GILDED_ENCHANTMENT,
+} from './inventory/gilded'
 import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from './inventory/storage'
 import { MethodologyPage } from './views/MethodologyPage'
 
@@ -64,6 +70,7 @@ const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 }
 const percentage = (value: number): string => `${Math.round(value * 100)}%`
 const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
 const TIER_LABELS = { 1: 'I', 2: 'II', 3: 'III' } as const
+const ENCHANTMENT_TIERS: readonly EnchantmentTier[] = [1, 2, 3]
 const ENCHANTMENT_SOURCE_LABELS = { slot: '通常枠', gilded: '金色', 'built-in': '固有' } as const
 const subscribeToHydration = () => () => undefined
 const getClientHydrationSnapshot = () => true
@@ -151,8 +158,15 @@ function OptimizerPage() {
     return { ...slot, candidates: exists ? slot.candidates.filter((id) => id !== enchantmentId) : [...slot.candidates, enchantmentId], locked: slot.locked === enchantmentId ? undefined : slot.locked }
   }) }))
   const updateSlotLock = (instanceId: string, slotIndex: number, enchantmentId?: EnchantmentId) => updateWeapon(instanceId, (weapon) => ({ ...weapon, enchantmentSlots: weapon.enchantmentSlots.map((slot, index) => index === slotIndex ? { ...slot, locked: enchantmentId } : slot) }))
-  const setGildedEnabled = (instanceId: string, enabled: boolean) => updateWeapon(instanceId, (weapon) => ({ ...weapon, gilded: enabled ? { enchantmentId: 'critical-hit', tier: 3 } : undefined }))
-  const updateGilded = (instanceId: string, enchantmentId: EnchantmentId) => updateWeapon(instanceId, (weapon) => ({ ...weapon, gilded: { enchantmentId, tier: 3 } }))
+  const setGildedEnabled = (instanceId: string, enabled: boolean) => updateWeapon(instanceId, (weapon) => ({ ...weapon, gilded: enabled ? DEFAULT_GILDED_ENCHANTMENT : undefined }))
+  const updateGildedEnchantment = (instanceId: string, enchantmentId: EnchantmentId) => updateWeapon(instanceId, (weapon) => ({
+    ...weapon,
+    gilded: weapon.gilded ? changeGildedEnchantment(weapon.gilded, enchantmentId) : undefined,
+  }))
+  const updateGildedTier = (instanceId: string, tier: EnchantmentTier) => updateWeapon(instanceId, (weapon) => ({
+    ...weapon,
+    gilded: weapon.gilded ? changeGildedTier(weapon.gilded, tier) : undefined,
+  }))
   const addArtifact = (artifactId: ArtifactId) => {
     const item: OwnedArtifact = { instanceId: nextInstanceId(artifactId), artifactId, powerLevel: 251 }
     setInventory((current) => ({ ...current, artifacts: [...current.artifacts, item] }))
@@ -182,7 +196,7 @@ function OptimizerPage() {
           {inventory.weapons.map((weapon, weaponIndex) => <details className="inventory-item" key={weapon.instanceId} open={weaponIndex === 0}><summary><span>{WEAPONS[weapon.weaponId].name.ja}<small>{WEAPONS[weapon.weaponId].name.en}</small></span><button type="button" aria-label={`${WEAPONS[weapon.weaponId].name.ja}を削除`} onClick={(event) => { event.preventDefault(); setInventory((current) => ({ ...current, weapons: current.weapons.filter((item) => item.instanceId !== weapon.instanceId) })) }}>削除</button></summary>
             <div className="weapon-fields"><label>Power <input type="number" min="1" value={weapon.powerLevel} onChange={(event) => updateWeapon(weapon.instanceId, (item) => ({ ...item, powerLevel: Number(event.target.value) }))} /></label><label title="ゲーム内の武器カードに表示される1ヒットのダメージ。使う場合は全武器に入力します。">表示ダメージ <input aria-label={`${WEAPONS[weapon.weaponId].name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => updateWeapon(weapon.instanceId, (item) => ({ ...item, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label></div>
             {weapon.enchantmentSlots.map((slot, slotIndex) => <fieldset key={slotIndex}><legend>スロット {slotIndex + 1}</legend>{ENCHANTMENT_IDS.map((id) => <label className="mini-check" key={id}><input type="checkbox" checked={slot.candidates.includes(id)} onChange={() => toggleCandidate(weapon.instanceId, slotIndex, id)} />{ENCHANTMENTS[id].name.ja} III</label>)}<label className="slot-lock">確定済み<select aria-label={`スロット${slotIndex + 1}の確定済みエンチャント`} value={slot.locked ?? ''} onChange={(event) => updateSlotLock(weapon.instanceId, slotIndex, event.target.value ? event.target.value as EnchantmentId : undefined)}><option value="">未確定（全候補を比較）</option>{slot.candidates.map((id) => <option key={id} value={id}>{ENCHANTMENTS[id].name.ja} III</option>)}</select></label></fieldset>)}
-            <div className="gilded-editor"><label className="mini-check"><input type="checkbox" checked={weapon.gilded !== undefined} onChange={(event) => setGildedEnabled(weapon.instanceId, event.target.checked)} />金色エンチャントを含める</label>{weapon.gilded && <><select aria-label="金色エンチャント" value={weapon.gilded.enchantmentId} onChange={(event) => updateGilded(weapon.instanceId, event.target.value as EnchantmentId)}>{ENCHANTMENT_IDS.map((id) => <option key={id} value={id}>{ENCHANTMENTS[id].name.ja}</option>)}</select><small>Tier {TIER_LABELS[weapon.gilded.tier]}として計算</small>{weapon.gilded.tier !== 3 && <button type="button" onClick={() => updateGilded(weapon.instanceId, weapon.gilded!.enchantmentId)}>Tier {TIER_LABELS[weapon.gilded.tier]}をIIIへ変更</button>}</>}</div>
+            <div className="gilded-editor"><label className="mini-check"><input type="checkbox" checked={weapon.gilded !== undefined} onChange={(event) => setGildedEnabled(weapon.instanceId, event.target.checked)} />金色エンチャントを含める</label>{weapon.gilded && <div className="gilded-fields"><label><span>Enchant</span><select aria-label={`${WEAPONS[weapon.weaponId].name.ja}の金色エンチャント`} value={weapon.gilded.enchantmentId} onChange={(event) => updateGildedEnchantment(weapon.instanceId, event.target.value as EnchantmentId)}>{ENCHANTMENT_IDS.map((id) => <option key={id} value={id}>{ENCHANTMENTS[id].name.ja}</option>)}</select></label><label><span>Tier</span><select aria-label={`${WEAPONS[weapon.weaponId].name.ja}の金色エンチャントTier`} value={weapon.gilded.tier} onChange={(event) => updateGildedTier(weapon.instanceId, Number(event.target.value) as EnchantmentTier)}>{ENCHANTMENT_TIERS.map((tier) => <option key={tier} value={tier}>{TIER_LABELS[tier]}</option>)}</select></label></div>}</div>
           </details>)}
         </div>
         <div className="control-section"><p className="section-label">02 / 手持ちアーティファクト</p><div className="add-buttons">{ARTIFACT_IDS.map((id) => <button key={id} type="button" onClick={() => addArtifact(id)}>＋ {ARTIFACTS[id].name.ja}</button>)}</div>

@@ -19,7 +19,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     goal: '手持ちの近接武器を、目的別に比較できる検証版を完成させる。',
     items: [
       { label: '個体別の手持ち・候補エンチャント・Power入力', status: 'done' },
-      { label: '確定済みスロット・金色エンチャント III の入力', status: 'done' },
+      { label: '確定済みスロット・金色エンチャント Tier I / II / III の入力', status: 'done' },
       { label: '全探索・目的別シナリオ・Pareto前線', status: 'done' },
       { label: '効果別の寄与度・根拠・信頼度表示', status: 'done' },
       { label: 'localStorage・version付きJSON入出力', status: 'done' },
@@ -37,6 +37,16 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: '主要Evidenceを反映するモデル信頼度', status: 'done' },
       { label: 'Weapon Power未反映の明示警告', status: 'done' },
       { label: 'Golden Testと設計ドキュメント更新', status: 'done' },
+    ],
+  },
+  {
+    id: 'phase-0-5-1',
+    title: 'Phase 0.5.1 — Core Model Cleanup',
+    goal: 'Phase 1へ進む前に、残ったCore Model Integrityの不整合を解消する。',
+    items: [
+      { label: 'Radianceのコピー別stacking係数', status: 'done' },
+      { label: 'Gilded Tier I / II / III 編集UIと永続化', status: 'done' },
+      { label: 'directWeaponKillsPerSecondの共通境界', status: 'done' },
     ],
   },
   {

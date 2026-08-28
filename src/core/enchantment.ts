@@ -56,10 +56,13 @@ export function combineEnchantmentValues(
     case 'multiplicative':
       return values.reduce((product, value) => product * (1 + value), 1) - 1
     case 'special': {
+      const copyEffectMultipliers = definition.stacking.value.copyEffectMultipliers
       const additionalCopyMultiplier =
         definition.stacking.value.additionalCopyMultiplier ?? 1
       return values.reduce(
-        (sum, value, index) => sum + value * additionalCopyMultiplier ** index,
+        (sum, value, index) => sum + value * (
+          copyEffectMultipliers?.[index] ?? additionalCopyMultiplier ** index
+        ),
         0,
       )
     }

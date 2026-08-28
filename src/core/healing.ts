@@ -25,9 +25,8 @@ export function calculateHealing(
   )
   const radiancePerSecond = damage.hitsPerSecond * radianceProcHealing * scenario.radianceHealPerProc
   const leechingPerSecond = leechingFraction > 0
-    ? combatState.estimatedKillsPerSecond *
+    ? combatState.directWeaponKillsPerSecond *
       scenario.averageEnemyHealth *
-      scenario.directKillShare *
       leechingFraction
     : 0
 
