@@ -1,21 +1,34 @@
-import { getEnchantmentDefinition } from './catalog'
-import type { DamageMetrics, EnchantmentId, HealingMetrics, Scenario } from './types'
+import { combineEnchantmentValues } from './enchantment'
+import type {
+  CombatState,
+  DamageMetrics,
+  HealingMetrics,
+  Scenario,
+  SelectedEnchantment,
+} from './types'
 
 export function calculateHealing(
-  enchantments: readonly EnchantmentId[],
+  enchantments: readonly SelectedEnchantment[],
   damage: DamageMetrics,
+  combatState: CombatState,
   scenario: Scenario,
 ): HealingMetrics {
-  const radiance = getEnchantmentDefinition('radiance')
-  const leeching = getEnchantmentDefinition('leeching')
-  const radiancePerSecond = enchantments.includes('radiance')
-    ? damage.hitsPerSecond * (radiance.triggerChance?.value ?? 0) * scenario.radianceHealPerProc
-    : 0
-  const leechingPerSecond = enchantments.includes('leeching')
-    ? scenario.killsPerSecond *
+  const radianceProcHealing = combineEnchantmentValues(
+    enchantments,
+    'radiance',
+    (values) => (values.triggerChance ?? 0) * (values.radianceHealMultiplier ?? 0),
+  )
+  const leechingFraction = combineEnchantmentValues(
+    enchantments,
+    'leeching',
+    (values) => values.healingFraction ?? 0,
+  )
+  const radiancePerSecond = damage.hitsPerSecond * radianceProcHealing * scenario.radianceHealPerProc
+  const leechingPerSecond = leechingFraction > 0
+    ? combatState.estimatedKillsPerSecond *
       scenario.averageEnemyHealth *
       scenario.directKillShare *
-      (leeching.healingFraction?.value ?? 0)
+      leechingFraction
     : 0
 
   return {

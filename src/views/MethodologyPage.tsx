@@ -1,8 +1,14 @@
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
+import { ROADMAP_PHASES, ROADMAP_PROGRESS, type RoadmapStatus } from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
+const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
+  done: '完了',
+  'in-progress': '進行中',
+  planned: '未着手',
+}
 
 export function MethodologyPage() {
   return (
@@ -20,7 +26,7 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">01 / 探索</p>
           <h2>手持ち候補を全組み合わせ</h2>
-          <p>各武器の3スロットから候補を1つずつ選び、最大3個のアーティファクトと組み合わせます。現在は近似探索ではなく全探索です。</p>
+          <p>各武器の3スロットから候補を1つずつ選び、最大3個のアーティファクトと組み合わせます。tierと通常・金色の出所を保持し、non-stackableな重複は候補から除外します。現在は近似探索ではなく全探索です。</p>
           <Formula>候補数 = Σ（各スロット候補数の積 × アーティファクト構成数）</Formula>
         </article>
         <article className="method-card">
@@ -32,13 +38,13 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">03 / 回復</p>
           <h2>Proc型と撃破型を分離</h2>
-          <p>輝きは攻撃回数に、吸血は直接撃破数に比例します。撃破を伴わないボス戦では吸血が自然に低く評価されます。</p>
-          <Formula>輝きHPS = hit/s × 発動率 × 1回の回復量</Formula>
+          <p>輝きは攻撃回数に、吸血はBuildごとの直接撃破数に比例します。Scenarioは敵供給上限を持ち、実際の撃破速度はAoE DPSと平均敵HPから算出します。</p>
+          <Formula>推定撃破/s = min（敵供給/s, AoE DPS ÷ 平均敵HP）</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">04 / 防御</p>
           <h2>稼働率から実効HPへ</h2>
-          <p>ガードストライクとアイアンハイドの平均稼働率を被ダメ倍率へ反映し、実効HPとして比較します。</p>
+          <p>ガードストライクとアイアンハイドの平均稼働率を被ダメ倍率へ反映し、実効HPとして比較します。同種Artifactは効果量を重ねず、交互使用による継続時間の更新として扱います。</p>
           <Formula>EHP = 最大HP ÷ 被ダメ倍率</Formula>
         </article>
         <article className="method-card">
@@ -66,18 +72,19 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <h2>Phase 0 — Optimizer Core検証版</h2>
-        <div className="status-list">
-          <p><span className="status done">実装済み</span>個体別の手持ち登録、候補エンチャント、装備パワー、localStorage、JSON入出力</p>
-          <p><span className="status done">実装済み</span>evaluate / optimize、全探索、目的別シナリオ、Pareto前線、数値寄与度、根拠と信頼度</p>
-          <p><span className="status partial">暫定</span>武器Attack Profile、虚無の一撃、範囲命中数、装備パワーと実ダメージの換算</p>
-          <p><span className="status todo">次段階</span>防具・遠距離、25〜30エンチャント、10〜15アーティファクト、Web Worker</p>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0を完了し、実測前のCore Model Integrityを優先しています。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
+        <div className="roadmap-grid">
+          {ROADMAP_PHASES.map((phase) => {
+            const completed = phase.items.filter((item) => item.status === 'done').length
+            return <article className="roadmap-phase" key={phase.id}><div><p>{completed} / {phase.items.length}</p><h3>{phase.title}</h3></div><p>{phase.goal}</p><ul>{phase.items.map((item) => <li key={item.label}><span className={`status ${item.status}`}>{STATUS_LABELS[item.status]}</span>{item.label}</li>)}</ul></article>
+          })}
         </div>
       </section>
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>現在のDPSは比較用の正規化値です。ゲーム内表示と同じ実ダメージではありません。特に武器ごとのコンボ時間は暫定換算で、実測Attack Profileへ置き換える必要があります。推測値は計算コードへ直接埋め込まず、source / confidence付きのデータとして分離しています。</p>
+        <p>表示ダメージ未入力時はWeapon Power差がDPSへ反映されず、比較用の正規化値になります。Powerの異なる武器同士の比較は正確ではありません。武器ごとのコンボ時間も暫定換算です。Evidence coverageは正解確率ではなく、実際の計算経路に含まれるEvidenceの品質指標です。実測回帰サンプルが5件揃うまでは誤差率を推測しません。</p>
       </section>
     </main>
   )

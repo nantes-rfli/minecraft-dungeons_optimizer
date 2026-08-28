@@ -36,6 +36,13 @@ function requirePower(value: unknown, field: string): number {
   return value
 }
 
+function requirePositiveNumber(value: unknown, field: string): number {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) {
+    throw new Error(`${field}は0より大きい数値にしてください。`)
+  }
+  return value
+}
+
 function parseEnchantmentId(value: unknown, field: string): EnchantmentId {
   const id = requireString(value, field)
   if (!(id in ENCHANTMENTS)) throw new Error(`${field}に未対応ID「${id}」があります。`)
@@ -65,6 +72,9 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     throw new Error(`${field}.enchantmentSlotsは1〜3スロットにしてください。`)
   }
   const locked = value.locked === undefined ? {} : { locked: value.locked === true }
+  const observedDamage = value.observedDamagePerHit === undefined
+    ? {}
+    : { observedDamagePerHit: requirePositiveNumber(value.observedDamagePerHit, `${field}.observedDamagePerHit`) }
   let gilded: OwnedWeapon['gilded']
   if (value.gilded !== undefined) {
     if (!isRecord(value.gilded) || ![1, 2, 3].includes(value.gilded.tier as number)) {
@@ -79,6 +89,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     weaponId: weaponId as WeaponId,
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
+    ...observedDamage,
     enchantmentSlots: value.enchantmentSlots.map((slot, slotIndex) => parseSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`)),
     ...(gilded ? { gilded } : {}),
     ...locked,

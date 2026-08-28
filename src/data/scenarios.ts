@@ -4,19 +4,13 @@ import { MVP_MODEL_SOURCE } from './sources'
 export const DEFAULT_SCENARIO_EVIDENCE = {
   encounterDurationSeconds: { value: 30, source: MVP_MODEL_SOURCE, confidence: 'low' },
   averageEnemyHealth: { value: 100, source: MVP_MODEL_SOURCE, confidence: 'low' },
-  killsPerSecond: { value: 0.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
+  enemySupplyPerSecond: { value: 0.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
   directKillShare: { value: 0.9, source: MVP_MODEL_SOURCE, confidence: 'low' },
   incomingDamagePerSecond: { value: 20, source: MVP_MODEL_SOURCE, confidence: 'low' },
   maxHealth: { value: 100, source: MVP_MODEL_SOURCE, confidence: 'low' },
   averageTargetsInReach: { value: 2.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
   cooldownReduction: { value: 0, source: MVP_MODEL_SOURCE, confidence: 'low' },
   radianceHealPerProc: { value: 10, source: MVP_MODEL_SOURCE, confidence: 'low' },
-  voidRampSeconds: {
-    value: 3,
-    source: MVP_MODEL_SOURCE,
-    confidence: 'low',
-    note: 'Linear-ramp approximation; exact timing must be measured.',
-  },
 } as const satisfies Record<string, Evidence<number>>
 
 export const DEFAULT_SCENARIO: Scenario = {
@@ -24,14 +18,13 @@ export const DEFAULT_SCENARIO: Scenario = {
   name: 'バランス（MVP仮定）',
   encounterDurationSeconds: DEFAULT_SCENARIO_EVIDENCE.encounterDurationSeconds.value,
   averageEnemyHealth: DEFAULT_SCENARIO_EVIDENCE.averageEnemyHealth.value,
-  killsPerSecond: DEFAULT_SCENARIO_EVIDENCE.killsPerSecond.value,
+  enemySupplyPerSecond: DEFAULT_SCENARIO_EVIDENCE.enemySupplyPerSecond.value,
   directKillShare: DEFAULT_SCENARIO_EVIDENCE.directKillShare.value,
   incomingDamagePerSecond: DEFAULT_SCENARIO_EVIDENCE.incomingDamagePerSecond.value,
   maxHealth: DEFAULT_SCENARIO_EVIDENCE.maxHealth.value,
   averageTargetsInReach: DEFAULT_SCENARIO_EVIDENCE.averageTargetsInReach.value,
   cooldownReduction: DEFAULT_SCENARIO_EVIDENCE.cooldownReduction.value,
   radianceHealPerProc: DEFAULT_SCENARIO_EVIDENCE.radianceHealPerProc.value,
-  voidRampSeconds: DEFAULT_SCENARIO_EVIDENCE.voidRampSeconds.value,
   weights: { damage: 0.5, healing: 0.25, defense: 0.25 },
 }
 
@@ -55,7 +48,7 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     profileId: 'boss',
     name: 'ボス',
     encounterDurationSeconds: 60,
-    killsPerSecond: 0.03,
+    enemySupplyPerSecond: 0.03,
     averageEnemyHealth: 500,
     averageTargetsInReach: 1,
     weights: { damage: 0.75, healing: 0.1, defense: 0.15 },
@@ -64,7 +57,7 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     ...DEFAULT_SCENARIO,
     profileId: 'mobbing',
     name: '雑魚処理',
-    killsPerSecond: 1.2,
+    enemySupplyPerSecond: 1.2,
     averageTargetsInReach: 5,
     weights: { damage: 0.5, healing: 0.2, defense: 0.3 },
   },
@@ -72,7 +65,7 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     ...DEFAULT_SCENARIO,
     profileId: 'apocalypse-plus',
     name: 'アポカリプス+',
-    killsPerSecond: 0.35,
+    enemySupplyPerSecond: 0.35,
     incomingDamagePerSecond: 40,
     averageTargetsInReach: 3,
     weights: { damage: 0.3, healing: 0.3, defense: 0.4 },

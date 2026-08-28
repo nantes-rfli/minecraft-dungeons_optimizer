@@ -1,5 +1,6 @@
 import type { ArtifactDefinition, ArtifactId } from '../core/types'
 import {
+  COMMUNITY_ARTIFACT_STACKING_SOURCE,
   MINECRAFT_WIKI_DEATH_CAP_SOURCE,
   MINECRAFT_WIKI_IRON_HIDE_SOURCE,
 } from './sources'
@@ -29,6 +30,12 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
       source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
       confidence: 'high',
     },
+    stacking: {
+      value: { maxCopies: 3, behavior: 'refresh' },
+      source: COMMUNITY_ARTIFACT_STACKING_SOURCE,
+      confidence: 'low',
+      note: 'Duplicate buffs do not increase attack speed; optimal staggered activation is modeled.',
+    },
   },
   'iron-hide-amulet': {
     id: 'iron-hide-amulet',
@@ -54,6 +61,12 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
       value: 0.5,
       source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
       confidence: 'medium',
+    },
+    stacking: {
+      value: { maxCopies: 3, behavior: 'refresh' },
+      source: COMMUNITY_ARTIFACT_STACKING_SOURCE,
+      confidence: 'low',
+      note: 'Duplicate buffs do not exceed 50% reduction; optimal staggered activation is modeled.',
     },
   },
 }

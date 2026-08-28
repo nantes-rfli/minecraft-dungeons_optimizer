@@ -1,9 +1,12 @@
 import { ARTIFACTS } from '../data/artifacts'
+import { ATTACK_PROFILES } from '../data/attackProfiles'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
 import type {
   ArtifactDefinition,
   ArtifactId,
+  AttackProfile,
+  Evidence,
   EnchantmentDefinition,
   EnchantmentId,
   WeaponDefinition,
@@ -17,6 +20,14 @@ export function getWeaponDefinition(id: WeaponId): WeaponDefinition {
     throw new OptimizerInputError('UNKNOWN_WEAPON', `未対応の武器です: ${id}`)
   }
   return weapon
+}
+
+export function getAttackProfile(id: WeaponId): Evidence<AttackProfile> {
+  const profile = ATTACK_PROFILES[id]
+  if (!profile) {
+    throw new OptimizerInputError('UNKNOWN_WEAPON', `Attack Profileがない武器です: ${id}`)
+  }
+  return profile
 }
 
 export function getEnchantmentDefinition(id: EnchantmentId): EnchantmentDefinition {

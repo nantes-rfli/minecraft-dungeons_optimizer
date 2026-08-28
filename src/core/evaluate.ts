@@ -1,8 +1,10 @@
 import { calculateArtifactEffects } from './artifact'
+import { deriveCombatState } from './combatState'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { summarizeConfidence } from './confidence'
 import { calculateDamage } from './damage'
 import { calculateDefense } from './defense'
+import { hasEnchantment } from './enchantment'
 import { calculateHealing } from './healing'
 import type {
   Build,
@@ -17,6 +19,7 @@ import { validateBuild, validateScenario } from './validation'
 
 interface EvaluationCore {
   readonly damage: Evaluation['damage']
+  readonly combatState: Evaluation['combatState']
   readonly healing: Evaluation['healing']
   readonly defense: Evaluation['defense']
   readonly artifactEffects: Evaluation['artifactEffects']
@@ -31,10 +34,12 @@ export function saturatingUtility(value: number, target: number): number {
 
 function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario)
-  const damage = calculateDamage(build.weapon.weaponId, build.enchantments, artifactEffects, scenario)
-  const healing = calculateHealing(build.enchantments, damage, scenario)
-  const defense = calculateDefense(build.enchantments, artifactEffects, scenario)
-  const damageTarget = scenario.averageEnemyHealth * Math.max(0.1, scenario.killsPerSecond)
+  const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario)
+  const combatState = deriveCombatState(damage, scenario)
+  const healing = calculateHealing(build.enchantments, damage, combatState, scenario)
+  const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
+  const damageTarget =
+    scenario.averageEnemyHealth * Math.max(0.1, scenario.enemySupplyPerSecond)
   const utilities = {
     damage: saturatingUtility(damage.aoeDps, damageTarget),
     healing: saturatingUtility(healing.totalPerSecond, Math.max(1, scenario.incomingDamagePerSecond)),
@@ -48,7 +53,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
         utilities.defense * scenario.weights.defense)) /
     weightTotal
 
-  return { damage, healing, defense, artifactEffects, utilities, objectiveScore }
+  return { damage, combatState, healing, defense, artifactEffects, utilities, objectiveScore }
 }
 
 function toContribution(
@@ -79,10 +84,10 @@ function calculateContributions(
   scenario: Scenario,
   baseline: EvaluationCore,
 ): EffectContribution[] {
-  const enchantmentContributions = build.enchantments.map((enchantmentId, index) => {
+  const enchantmentContributions = build.enchantments.map((selected, index) => {
     const enchantments = build.enchantments.filter((_, currentIndex) => currentIndex !== index)
     const withoutEffect = calculateCore({ ...build, enchantments }, scenario)
-    return toContribution('enchantment', enchantmentId, baseline, withoutEffect)
+    return toContribution('enchantment', selected.enchantmentId, baseline, withoutEffect)
   })
   const artifactContributions = build.artifacts.map((artifact) => {
     const artifacts = build.artifacts.filter((item) => item.instanceId !== artifact.instanceId)
@@ -102,29 +107,33 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const weapon = getWeaponDefinition(build.weapon.weaponId)
 
   if (weapon.area.value >= 12) reasons.push(`${weapon.name.ja}の広い攻撃範囲をAoE評価へ反映`)
-  if (build.enchantments.includes('radiance') && core.damage.hitsPerSecond >= 4) {
+  if (hasEnchantment(build.enchantments, 'radiance') && core.damage.hitsPerSecond >= 4) {
     reasons.push('高い攻撃頻度により「輝き」の期待回復量が上昇')
   }
-  if (build.enchantments.includes('void-strike') && core.damage.hitsPerSecond <= 2) {
+  if (hasEnchantment(build.enchantments, 'void-strike') && core.damage.hitsPerSecond <= 2) {
     reasons.push('遅い攻撃間隔により「虚無の一撃」の増幅時間を確保')
   }
-  if (build.enchantments.includes('guarding-strike')) {
+  if (hasEnchantment(build.enchantments, 'guarding-strike')) {
     reasons.push(`「ガードストライク」の推定稼働率${Math.round(core.defense.guardingStrikeUptime * 100)}%`)
   }
-  for (const artifact of build.artifacts) {
-    const uptime = core.artifactEffects.uptimes.find((entry) => entry.instanceId === artifact.instanceId)
-    if (uptime) {
-      reasons.push(`${getArtifactDefinition(artifact.artifactId).name.ja}の推定稼働率${Math.round(uptime.uptime * 100)}%`)
-    }
+  for (const group of core.artifactEffects.stackingGroups) {
+    const countLabel = group.instanceIds.length > 1
+      ? `${group.instanceIds.length}個を${group.behavior}運用した`
+      : ''
+    reasons.push(
+      `${getArtifactDefinition(group.artifactId).name.ja}${countLabel}推定稼働率${Math.round(group.combinedUptime * 100)}%`,
+    )
   }
   if (reasons.length === 0) {
-    reasons.push(build.enchantments.map((id) => getEnchantmentDefinition(id).name.ja).join(' / '))
+    reasons.push(build.enchantments.map((selected) =>
+      getEnchantmentDefinition(selected.enchantmentId).name.ja,
+    ).join(' / '))
   }
 
   return {
     build,
     ...core,
-    confidence: summarizeConfidence(build.enchantments),
+    confidence: summarizeConfidence(build, scenario),
     reasons,
     contributions: calculateContributions(build, scenario, core),
   }

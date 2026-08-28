@@ -1,17 +1,25 @@
+import { getEnchantmentDefinition } from './catalog'
+import { hasValidEnchantmentStacking } from './enchantment'
 import { OptimizerInputError } from './errors'
 import type { Build, Inventory, Scenario } from './types'
 
-function assertFinite(name: string, value: number): void {
+function assertFinite(name: string, value: number, code = 'INVALID_SCENARIO'): void {
   if (!Number.isFinite(value)) {
-    throw new OptimizerInputError('INVALID_SCENARIO', `${name}には有限の数値を指定してください。`)
+    throw new OptimizerInputError(code, `${name}には有限の数値を指定してください。`)
   }
 }
 
-function assertRange(name: string, value: number, minimum: number, maximum = Infinity): void {
-  assertFinite(name, value)
+function assertRange(
+  name: string,
+  value: number,
+  minimum: number,
+  maximum = Infinity,
+  code = 'INVALID_SCENARIO',
+): void {
+  assertFinite(name, value, code)
   if (value < minimum || value > maximum) {
     throw new OptimizerInputError(
-      'INVALID_SCENARIO',
+      code,
       `${name}は${minimum}以上${maximum}以下で指定してください。`,
     )
   }
@@ -20,14 +28,13 @@ function assertRange(name: string, value: number, minimum: number, maximum = Inf
 export function validateScenario(scenario: Scenario): void {
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
-  assertRange('killsPerSecond', scenario.killsPerSecond, 0)
+  assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
   assertRange('directKillShare', scenario.directKillShare, 0, 1)
   assertRange('incomingDamagePerSecond', scenario.incomingDamagePerSecond, 0)
   assertRange('maxHealth', scenario.maxHealth, Number.EPSILON)
   assertRange('averageTargetsInReach', scenario.averageTargetsInReach, 1)
   assertRange('cooldownReduction', scenario.cooldownReduction, 0, 0.95)
   assertRange('radianceHealPerProc', scenario.radianceHealPerProc, 0)
-  assertRange('voidRampSeconds', scenario.voidRampSeconds, Number.EPSILON)
   assertRange('weights.damage', scenario.weights.damage, 0)
   assertRange('weights.healing', scenario.weights.healing, 0)
   assertRange('weights.defense', scenario.weights.defense, 0)
@@ -62,7 +69,12 @@ export function validateBuild(build: Build): void {
     }
     const selected = build.enchantments[index]
     const legalOptions = options.locked ? [options.locked] : options.candidates
-    if (!selected || !legalOptions.includes(selected)) {
+    if (
+      !selected ||
+      selected.source !== 'slot' ||
+      selected.tier !== 3 ||
+      !legalOptions.includes(selected.enchantmentId)
+    ) {
       throw new OptimizerInputError(
         'INVALID_BUILD',
         `武器${build.weapon.instanceId}のスロット${index + 1}にないエンチャントが選択されています。`,
@@ -71,18 +83,51 @@ export function validateBuild(build: Build): void {
   })
   if (build.weapon.gilded) {
     const gildedSelection = build.enchantments.at(-1)
-    if (gildedSelection !== build.weapon.gilded.enchantmentId) {
+    if (
+      gildedSelection?.source !== 'gilded' ||
+      gildedSelection.enchantmentId !== build.weapon.gilded.enchantmentId ||
+      gildedSelection.tier !== build.weapon.gilded.tier
+    ) {
       throw new OptimizerInputError(
         'INVALID_BUILD',
         `武器${build.weapon.instanceId}の金色エンチャントが一致しません。`,
       )
     }
   }
+  if (!hasValidEnchantmentStacking(build.enchantments)) {
+    const counts = new Map<string, number>()
+    for (const selected of build.enchantments) {
+      const count = (counts.get(selected.enchantmentId) ?? 0) + 1
+      const maximum = getEnchantmentDefinition(selected.enchantmentId).stacking.value.maxCopies
+      if (count > maximum) {
+        throw new OptimizerInputError(
+          'INVALID_BUILD',
+          `${getEnchantmentDefinition(selected.enchantmentId).name.ja}は最大${maximum}個までです。`,
+        )
+      }
+      counts.set(selected.enchantmentId, count)
+    }
+  }
+  if (build.weapon.observedDamagePerHit !== undefined) {
+    assertRange(
+      `weapon ${build.weapon.instanceId} observedDamagePerHit`,
+      build.weapon.observedDamagePerHit,
+      Number.EPSILON,
+      Infinity,
+      'INVALID_WEAPON',
+    )
+  }
   if (build.artifacts.length > 3) {
     throw new OptimizerInputError('INVALID_BUILD', 'アーティファクトは最大3個まで装備できます。')
   }
   for (const artifact of build.artifacts) {
-    assertRange(`artifact ${artifact.instanceId} powerLevel`, artifact.powerLevel, 1)
+    assertRange(
+      `artifact ${artifact.instanceId} powerLevel`,
+      artifact.powerLevel,
+      1,
+      Infinity,
+      'INVALID_ARTIFACT',
+    )
   }
 }
 
@@ -95,10 +140,43 @@ export function validateInventory(inventory: Inventory): void {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '武器の管理IDが重複しています。')
   }
   for (const weapon of inventory.weapons) {
-    assertRange(`weapon ${weapon.instanceId} powerLevel`, weapon.powerLevel, 1)
+    assertRange(
+      `weapon ${weapon.instanceId} powerLevel`,
+      weapon.powerLevel,
+      1,
+      Infinity,
+      'INVALID_WEAPON',
+    )
+    if (weapon.observedDamagePerHit !== undefined) {
+      assertRange(
+        `weapon ${weapon.instanceId} observedDamagePerHit`,
+        weapon.observedDamagePerHit,
+        Number.EPSILON,
+        Infinity,
+        'INVALID_WEAPON',
+      )
+    }
+  }
+  const observedDamageCount = inventory.weapons.filter(
+    (weapon) => weapon.observedDamagePerHit !== undefined,
+  ).length
+  if (observedDamageCount > 0 && observedDamageCount < inventory.weapons.length) {
+    throw new OptimizerInputError(
+      'MIXED_DAMAGE_SCALE',
+      '表示ダメージを使う場合は、比較するすべての武器に入力してください。',
+    )
   }
   const artifactInstanceIds = inventory.artifacts.map((artifact) => artifact.instanceId)
   if (new Set(artifactInstanceIds).size !== artifactInstanceIds.length) {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', 'アーティファクトの管理IDが重複しています。')
+  }
+  for (const artifact of inventory.artifacts) {
+    assertRange(
+      `artifact ${artifact.instanceId} powerLevel`,
+      artifact.powerLevel,
+      1,
+      Infinity,
+      'INVALID_ARTIFACT',
+    )
   }
 }

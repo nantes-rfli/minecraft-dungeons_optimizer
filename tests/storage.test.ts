@@ -7,7 +7,9 @@ const inventory: Inventory = {
     instanceId: 'weapon-1',
     weaponId: 'anchor',
     powerLevel: 250,
+    observedDamagePerHit: 123456,
     enchantmentSlots: [{ candidates: ['void-strike', 'critical-hit'], locked: 'void-strike' }],
+    gilded: { enchantmentId: 'guarding-strike', tier: 3 },
   }],
   artifacts: [
     { instanceId: 'artifact-1', artifactId: 'iron-hide-amulet', powerLevel: 248 },
@@ -27,5 +29,10 @@ describe('inventory JSON', () => {
 
   it('rejects malformed JSON', () => {
     expect(() => deserializeInventory('{')).toThrow('JSONの構文')
+  })
+
+  it('rejects an invalid observed damage value', () => {
+    const json = serializeInventory(inventory).replace('123456', '0')
+    expect(() => deserializeInventory(json)).toThrow('0より大きい数値')
   })
 })

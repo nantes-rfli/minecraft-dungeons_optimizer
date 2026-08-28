@@ -1,4 +1,5 @@
 export type Confidence = 'high' | 'medium' | 'low'
+export type EnchantmentTier = 1 | 2 | 3
 
 export interface SourceReference {
   readonly id: string
@@ -43,16 +44,65 @@ export interface WeaponDefinition {
   readonly area: Evidence<number>
 }
 
+export interface SpeedRatingProxyAttackProfile {
+  readonly method: 'speed-rating-proxy'
+  readonly hitsPerSecond: number
+}
+
+export interface FrameMeasuredAttackProfile {
+  readonly method: 'frame-measured'
+  readonly hitsPerCombo: number
+  readonly framesPerSecond: number
+  readonly comboFrameSamples: readonly number[]
+}
+
+export type AttackProfile = SpeedRatingProxyAttackProfile | FrameMeasuredAttackProfile
+
+export interface VoidStrikeCurvePoint {
+  readonly elapsedSeconds: number
+  readonly multiplier: number
+}
+
+export interface VoidStrikeMeasurementPoint {
+  readonly elapsedSeconds: number
+  readonly multiplierSamples: readonly number[]
+}
+
+export interface LinearProxyVoidStrikeCurve {
+  readonly method: 'linear-proxy'
+  readonly points: readonly VoidStrikeCurvePoint[]
+  readonly expiresAfterSeconds?: number
+}
+
+export interface FrameMeasuredVoidStrikeCurve {
+  readonly method: 'frame-measured'
+  readonly points: readonly VoidStrikeMeasurementPoint[]
+  readonly expiresAfterSeconds?: number
+}
+
+export type VoidStrikeCurve = LinearProxyVoidStrikeCurve | FrameMeasuredVoidStrikeCurve
+
+export interface EnchantmentTierValues {
+  readonly triggerChance?: number
+  readonly damageMultiplier?: number
+  readonly healingFraction?: number
+  readonly radianceHealMultiplier?: number
+  readonly durationSeconds?: number
+  readonly damageReduction?: number
+  readonly maxBonusDamage?: number
+}
+
+export interface EnchantmentStacking {
+  readonly maxCopies: number
+  readonly behavior: 'non-stackable' | 'additive' | 'multiplicative' | 'special'
+  readonly additionalCopyMultiplier?: number
+}
+
 export interface EnchantmentDefinition {
   readonly id: EnchantmentId
   readonly name: LocalizedName
-  readonly tier: 3
-  readonly triggerChance?: Evidence<number>
-  readonly damageMultiplier?: Evidence<number>
-  readonly healingFraction?: Evidence<number>
-  readonly durationSeconds?: Evidence<number>
-  readonly damageReduction?: Evidence<number>
-  readonly maxBonusDamage?: Evidence<number>
+  readonly tiers: Evidence<Readonly<Record<EnchantmentTier, EnchantmentTierValues>>>
+  readonly stacking: Evidence<EnchantmentStacking>
 }
 
 export interface ArtifactDefinition {
@@ -63,6 +113,12 @@ export interface ArtifactDefinition {
   readonly durationPerPower: Evidence<number>
   readonly attackSpeedBonus?: Evidence<number>
   readonly damageReduction?: Evidence<number>
+  readonly stacking: Evidence<ArtifactStacking>
+}
+
+export interface ArtifactStacking {
+  readonly maxCopies: number
+  readonly behavior: 'stack' | 'refresh' | 'independent' | 'non-stackable'
 }
 
 export interface EnchantmentSlot {
@@ -72,13 +128,20 @@ export interface EnchantmentSlot {
 
 export interface GildedEnchantment {
   readonly enchantmentId: EnchantmentId
-  readonly tier: 1 | 2 | 3
+  readonly tier: EnchantmentTier
+}
+
+export interface SelectedEnchantment {
+  readonly enchantmentId: EnchantmentId
+  readonly tier: EnchantmentTier
+  readonly source: 'slot' | 'gilded' | 'built-in'
 }
 
 export interface OwnedWeapon {
   readonly instanceId: string
   readonly weaponId: WeaponId
   readonly powerLevel: number
+  readonly observedDamagePerHit?: number
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
   readonly locked?: boolean
@@ -97,7 +160,7 @@ export interface Inventory {
 
 export interface Build {
   readonly weapon: OwnedWeapon
-  readonly enchantments: readonly EnchantmentId[]
+  readonly enchantments: readonly SelectedEnchantment[]
   readonly artifacts: readonly OwnedArtifact[]
 }
 
@@ -112,14 +175,13 @@ export interface Scenario {
   readonly name: string
   readonly encounterDurationSeconds: number
   readonly averageEnemyHealth: number
-  readonly killsPerSecond: number
+  readonly enemySupplyPerSecond: number
   readonly directKillShare: number
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
   readonly cooldownReduction: number
   readonly radianceHealPerProc: number
-  readonly voidRampSeconds: number
   readonly weights: ScenarioWeights
 }
 
@@ -131,13 +193,22 @@ export interface ArtifactUptime {
   readonly uptime: number
 }
 
+export interface ArtifactStackingGroup {
+  readonly artifactId: ArtifactId
+  readonly instanceIds: readonly string[]
+  readonly behavior: ArtifactStacking['behavior']
+  readonly combinedUptime: number
+}
+
 export interface ArtifactEffects {
   readonly attackSpeedMultiplier: number
   readonly damageTakenMultiplier: number
   readonly uptimes: readonly ArtifactUptime[]
+  readonly stackingGroups: readonly ArtifactStackingGroup[]
 }
 
 export interface DamageMetrics {
+  readonly damageSource: 'normalized-rating' | 'observed-input'
   readonly damagePerHit: number
   readonly hitsPerSecond: number
   readonly baseDps: number
@@ -146,6 +217,12 @@ export interface DamageMetrics {
   readonly expectedTargetsHit: number
   readonly criticalMultiplier: number
   readonly voidStrikeMultiplier: number
+}
+
+export interface CombatState {
+  readonly effectiveDamagePerSecond: number
+  readonly damageLimitedKillsPerSecond: number
+  readonly estimatedKillsPerSecond: number
 }
 
 export interface HealingMetrics {
@@ -163,14 +240,57 @@ export interface DefenseMetrics {
 }
 
 export interface ConfidenceSummary {
-  readonly score: number
+  readonly coverageScore: number
   readonly label: Confidence
+  readonly factors: readonly ConfidenceFactor[]
   readonly caveats: readonly string[]
+}
+
+export interface ConfidenceFactor {
+  readonly id: string
+  readonly label: string
+  readonly confidence: Confidence
+  readonly weight: number
+}
+
+export interface DamageRegressionSample {
+  readonly id: string
+  readonly gameVersion: string
+  readonly build: Build
+  readonly scenario: Scenario
+  readonly observedSingleTargetDps: number
+}
+
+export interface ModelErrorObservation {
+  readonly predicted: number
+  readonly observed: number
+}
+
+export type ModelErrorSummary =
+  | {
+      readonly status: 'pending'
+      readonly sampleCount: number
+      readonly minimumSampleCount: number
+    }
+  | {
+      readonly status: 'available'
+      readonly sampleCount: number
+      readonly minimumSampleCount: number
+      readonly meanAbsolutePercentageError: number
+      readonly p90AbsolutePercentageError: number
+      readonly maximumAbsolutePercentageError: number
+      readonly meanSignedPercentageError: number
+    }
+
+export interface PredictionRange {
+  readonly lower: number
+  readonly upper: number
 }
 
 export interface Evaluation {
   readonly build: Build
   readonly damage: DamageMetrics
+  readonly combatState: CombatState
   readonly healing: HealingMetrics
   readonly defense: DefenseMetrics
   readonly artifactEffects: ArtifactEffects

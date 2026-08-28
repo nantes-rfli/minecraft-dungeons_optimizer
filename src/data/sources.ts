@@ -33,3 +33,10 @@ export const MVP_MODEL_SOURCE: SourceReference = {
   label: 'Optimizer v0.1 modelling assumption; replace with frame-timed measurements',
   kind: 'model-assumption',
 }
+
+export const COMMUNITY_ARTIFACT_STACKING_SOURCE: SourceReference = {
+  id: 'community-artifact-refresh-test',
+  label: 'Community test: duplicate temporary artifact effects refresh instead of stacking',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/nrc4on/do_ironhide_amulets_stack/',
+  kind: 'community-test',
+}

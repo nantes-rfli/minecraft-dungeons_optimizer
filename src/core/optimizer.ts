@@ -1,4 +1,6 @@
 import { evaluate } from './evaluate'
+import { hasValidEnchantmentStacking } from './enchantment'
+import { OptimizerInputError } from './errors'
 import type {
   Build,
   EnchantmentId,
@@ -40,9 +42,19 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
   const enchantmentChoices = cartesianProduct<EnchantmentId>(choices)
   const artifactChoices = artifactLoadouts(artifacts)
   return enchantmentChoices.flatMap((selected) => {
-    const enchantments = weapon.gilded
-      ? [...selected, weapon.gilded.enchantmentId]
-      : selected
+    const enchantments = [
+      ...selected.map((enchantmentId) => ({
+        enchantmentId,
+        tier: 3 as const,
+        source: 'slot' as const,
+      })),
+      ...(weapon.gilded ? [{
+        enchantmentId: weapon.gilded.enchantmentId,
+        tier: weapon.gilded.tier,
+        source: 'gilded' as const,
+      }] : []),
+    ]
+    if (!hasValidEnchantmentStacking(enchantments)) return []
     return artifactChoices.map((artifactItems) => ({
       weapon,
       enchantments,
@@ -78,8 +90,17 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   validateInventory(inventory)
   validateScenario(scenario)
 
-  const evaluations = inventory.weapons
-    .flatMap((weapon) => buildsForWeapon(weapon, inventory.artifacts))
+  const builds = inventory.weapons.flatMap((weapon) => {
+    const weaponBuilds = buildsForWeapon(weapon, inventory.artifacts)
+    if (weaponBuilds.length === 0) {
+      throw new OptimizerInputError(
+        'INVALID_WEAPON',
+        `武器${weapon.instanceId}はEnchantのstacking制約を満たす組み合わせがありません。`,
+      )
+    }
+    return weaponBuilds
+  })
+  const evaluations = builds
     .map((build) => evaluate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
 
