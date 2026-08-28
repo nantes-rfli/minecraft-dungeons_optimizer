@@ -1,5 +1,10 @@
 import type { WeaponDefinition, WeaponId } from '../core/types'
-import { DUNGEONS_TOOLS_SOURCE } from './sources'
+import {
+  DUNGEONS_TOOLS_SOURCE,
+  MINECRAFT_WIKI_ANCHOR_SOURCE,
+  MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+  MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+} from './sources'
 
 export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
   'fighters-bindings': {
@@ -8,6 +13,12 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
     power: { value: 2.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     speed: { value: 14.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     area: { value: 1.4, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
+    baseHitDamage: {
+      value: 25,
+      source: MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+      confidence: 'medium',
+      note: 'All four hits in the published Stats table use base damage 25.',
+    },
   },
   'double-axe': {
     id: 'double-axe',
@@ -15,6 +26,12 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
     power: { value: 8.7, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     speed: { value: 2.1, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     area: { value: 12.9, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
+    baseHitDamage: {
+      value: 100,
+      source: MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+      confidence: 'medium',
+      note: 'Both hits in the published Stats table use base damage 100.',
+    },
   },
   anchor: {
     id: 'anchor',
@@ -22,5 +39,11 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
     power: { value: 14.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     speed: { value: 1.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     area: { value: 14.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
+    baseHitDamage: {
+      value: 238,
+      source: MINECRAFT_WIKI_ANCHOR_SOURCE,
+      confidence: 'medium',
+      note: 'The single hit in the published Stats table uses base damage 238.',
+    },
   },
 }

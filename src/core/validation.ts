@@ -25,6 +25,13 @@ function assertRange(
   }
 }
 
+function assertPowerLevel(name: string, value: number, code: string): void {
+  assertRange(name, value, 1, Infinity, code)
+  if (!Number.isInteger(value)) {
+    throw new OptimizerInputError(code, `${name}は1以上の整数で指定してください。`)
+  }
+}
+
 export function validateScenario(scenario: Scenario): void {
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
@@ -108,6 +115,11 @@ export function validateBuild(build: Build): void {
       counts.set(selected.enchantmentId, count)
     }
   }
+  assertPowerLevel(
+    `weapon ${build.weapon.instanceId} powerLevel`,
+    build.weapon.powerLevel,
+    'INVALID_WEAPON',
+  )
   if (build.weapon.observedDamagePerHit !== undefined) {
     assertRange(
       `weapon ${build.weapon.instanceId} observedDamagePerHit`,
@@ -121,11 +133,9 @@ export function validateBuild(build: Build): void {
     throw new OptimizerInputError('INVALID_BUILD', 'アーティファクトは最大3個まで装備できます。')
   }
   for (const artifact of build.artifacts) {
-    assertRange(
+    assertPowerLevel(
       `artifact ${artifact.instanceId} powerLevel`,
       artifact.powerLevel,
-      1,
-      Infinity,
       'INVALID_ARTIFACT',
     )
   }
@@ -140,11 +150,9 @@ export function validateInventory(inventory: Inventory): void {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '武器の管理IDが重複しています。')
   }
   for (const weapon of inventory.weapons) {
-    assertRange(
+    assertPowerLevel(
       `weapon ${weapon.instanceId} powerLevel`,
       weapon.powerLevel,
-      1,
-      Infinity,
       'INVALID_WEAPON',
     )
     if (weapon.observedDamagePerHit !== undefined) {
@@ -171,11 +179,9 @@ export function validateInventory(inventory: Inventory): void {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', 'アーティファクトの管理IDが重複しています。')
   }
   for (const artifact of inventory.artifacts) {
-    assertRange(
+    assertPowerLevel(
       `artifact ${artifact.instanceId} powerLevel`,
       artifact.powerLevel,
-      1,
-      Infinity,
       'INVALID_ARTIFACT',
     )
   }

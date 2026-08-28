@@ -1,22 +1,64 @@
 # Power Levelと実ダメージ
 
-## 現在わかっていること
+## 根拠と設計判断
 
-[dungeons.toolsのゲームデータ調査](https://www.dungeons.tools/damage-calculator)によると、各武器は相対的なPower Ratingを持ち、全武器に共通するGear Power Curveが掛けられます。ただし、その絶対ダメージ曲線はpakデータではなくゲーム実行ファイル側にあり、公開ゲームデータだけでは取得できません。
+[dungeons.toolsのゲームデータ調査](https://www.dungeons.tools/damage-calculator)によると、武器の絶対damageはpakへ保存されず、全itemに共通するGear Power Curveがゲーム実行ファイル側で適用されます。そのためゲームファイルから絶対曲線を直接取得することはできません。
 
-Minecraft Wikiの各種テーブルから指数的な増加傾向は確認できますが、対象やPower帯によって推定増加率が異なるため、単一の推定式を正確な換算として採用しません。
+一方、Minecraft WikiのAnchorページにはMinecraft Dungeons 1.17.0.0について、Power 50〜263の表示damageが掲載されています。この12点は一貫した指数曲線を形成し、Power 50と250から求めた単一指数でも全掲載点を0.1%未満の差で再現します。
 
-## 現在の実装
+runtimeでは推定式だけを保存せず、`src/data/powerScaling.ts` に12件のraw sampleを保持し、隣接点をlog-linear interpolationします。掲載範囲外は推測で外挿しません。
 
-- 表示ダメージ未入力: ゲームファイルのPower Ratingを使った正規化比較。
-- 全武器に表示ダメージ入力: ゲーム内武器カードの値を1ヒットの基準ダメージとして使用。
-- 一部の武器だけに入力: 異なる尺度の比較を防ぐため、計算を明示的に停止。
-- 表示ダメージ使用時: 平均敵HP、被ダメージ/秒、最大HP、輝き1回の回復量も同じゲーム内単位で入力する。
+```text
+logDamage(p) =
+  logDamage(lower)
+  + position × (logDamage(upper) − logDamage(lower))
 
-表示ダメージはJSONの `observedDamagePerHit` に保存されます。既存のversion 1データとの後方互換性を維持するため任意フィールドです。
+weaponDamage =
+  interpolatedAnchorDamage
+  × weaponBaseHitDamage
+  ÷ anchorBaseHitDamage
+```
 
-## 自動換算を完成させるために必要なデータ
+## 対応範囲
 
-同じ武器種について複数Power Levelのゲーム内表示ダメージを収集します。最低でも低・中・高Power帯を含め、各サンプルにゲームバージョン、武器ID、Power Level、表示ダメージを記録します。
+- Game version: 1.17.0.0
+- Power Level: 50〜263の整数
+- Runtime weapons: Fighter's Bindings / Double Axe / Anchor
+- Confidence: medium
+- Power 251換算:
+  - Fighter's Bindings: 188,334 damage/hit
+  - Double Axe: 753,337 damage/hit
+  - Anchor: 1,792,941 damage/hit
 
-十分なサンプルが揃った段階で、候補曲線を回帰し、観測値を学習用と検証用に分けて誤差を測定します。許容誤差を満たすまでは、自動換算を「実装済み」にしません。
+Anchorの公開sampleはそのPower Levelで完全再現します。ほかの武器は、個別Stats表のbase hit damageへ同じGear Power倍率を適用します。
+
+## 個体差と表示ダメージoverride
+
+同じPower Levelでもitem cardの表示damageには幅があります。そのため自動換算は、個体値を断定する`exact`ではなく`power-curve-estimate`として扱います。
+
+- 表示ダメージ未入力: 公開Power Curveから自動換算。
+- 全武器に表示ダメージ入力: game内item card値を優先。
+- 一部だけ入力: 推定値と個体値の混在を防ぐため計算を停止。
+- Power 50未満または263超: 外挿せず、表示ダメージ入力を要求。
+
+表示ダメージoverrideはPower Curveの対応範囲外でも利用できます。
+
+## シナリオ値の単位
+
+自動換算後のDPSはゲーム内damage単位です。次の値も同じ単位で入力してください。
+
+- 平均敵HP
+- 被ダメージ/秒
+- 最大HP
+- 輝き1回の回復量
+
+標準シナリオ値は依然としてmodel assumptionです。Power換算が実装済みでも、敵HPや回復量を実際の難易度・装備へ合わせなければkill rateやUtilityは正確になりません。
+
+## 検証
+
+- 12件の公開Anchor sampleをGolden Testで完全再現する。
+- 中間Powerはlog-linear interpolationの計算結果と一致する。
+- base hit damage比が異なる3武器へ同じ倍率を適用する。
+- 小数Power、範囲外Power、0以下のbase damageを拒否する。
+- 表示ダメージoverrideはPower Curveを迂回する。
+- `npm test`、`npm run lint`、`npm run build`を通す。

@@ -1,4 +1,5 @@
 import { MODEL } from '../data/model'
+import { GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import {
@@ -54,9 +55,9 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   )
 
   if (build.weapon.observedDamagePerHit === undefined) {
-    addEvidence('weapon-rating', '武器Power Rating', weapon.power)
-    add('power-scaling', 'Powerから実ダメージへの換算', 'low', 3)
-    caveats.push('Power Levelの絶対ダメージ曲線が未取得のため、比較用の正規化値です。')
+    addEvidence('weapon-base-damage', '武器base hit damage', weapon.baseHitDamage, 2)
+    addEvidence('power-scaling', 'Powerから実ダメージへの換算', GEAR_POWER_CURVE, 3)
+    caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間しています。同Powerでもitem cardの表示値には幅があります。')
   } else {
     add('observed-damage', '入力した表示ダメージ', 'medium', 2)
     caveats.push('敵HP・最大HP・被ダメージ・回復量も、表示ダメージと同じゲーム内単位で入力してください。')

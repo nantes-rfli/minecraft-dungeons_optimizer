@@ -35,7 +35,7 @@
 }
 ```
 
-`observedDamagePerHit` は必須です。正規化値と実測DPSを混在させたサンプルは集計時に拒否されます。
+`observedDamagePerHit` は必須です。Power Curve推定値を実測DPSとして扱わないため、表示ダメージのないサンプルは集計時に拒否されます。
 
 ## 集計方法
 

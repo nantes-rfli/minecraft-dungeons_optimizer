@@ -1,8 +1,10 @@
 import { MODEL } from '../data/model'
+import { GEAR_POWER_CURVE } from '../data/powerScaling'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import { calculateBaseHitsPerSecond } from './attackProfile'
 import { getAttackProfile, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { enchantmentsById, getTierValues } from './enchantment'
+import { calculatePowerScaledHitDamage } from './powerScaling'
 import { calculateVoidStrikeMultiplier } from './voidStrike'
 import type {
   ArtifactEffects,
@@ -47,7 +49,7 @@ function voidStrikeExpectedMultiplier(
 }
 
 export function calculateDamage(
-  ownedWeapon: Pick<OwnedWeapon, 'weaponId' | 'observedDamagePerHit'>,
+  ownedWeapon: Pick<OwnedWeapon, 'weaponId' | 'powerLevel' | 'observedDamagePerHit'>,
   enchantments: readonly SelectedEnchantment[],
   artifactEffects: ArtifactEffects,
   scenario: Scenario,
@@ -56,9 +58,13 @@ export function calculateDamage(
   const weapon = getWeaponDefinition(weaponId)
   const attackProfile = getAttackProfile(weaponId)
   const damageSource = ownedWeapon.observedDamagePerHit === undefined
-    ? 'normalized-rating'
+    ? 'power-curve-estimate'
     : 'observed-input'
-  const damagePerHit = ownedWeapon.observedDamagePerHit ?? weapon.power.value
+  const damagePerHit = ownedWeapon.observedDamagePerHit ?? calculatePowerScaledHitDamage(
+    weapon.baseHitDamage.value,
+    ownedWeapon.powerLevel,
+    GEAR_POWER_CURVE.value,
+  )
   const hitsPerSecond =
     calculateBaseHitsPerSecond(attackProfile.value) *
     artifactEffects.attackSpeedMultiplier

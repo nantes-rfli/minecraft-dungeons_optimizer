@@ -59,7 +59,7 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 ## Core の構成
 
 ```text
-src/core/damage.ts     正規化DPS、Critical Hit、Void Strike、AoE
+src/core/damage.ts     Power換算DPS、Critical Hit、Void Strike、AoE
 src/core/enchantment.ts tier・source・stackingの共通処理
 src/core/combatState.ts DPSからBuild依存の撃破速度を導出
 src/core/healing.ts    Radiance、Leeching
@@ -79,7 +79,7 @@ scripts/               research検証・レポート再生成スクリプト
 ## 計算モデル
 
 - Attack Profile: 既存3武器は公開Stats表のper-hit durationを保持し、`hit数 ÷ duration合計`から攻撃回数を導出します。出典、独立実機検証、frame measurementへの差し替え方法は[登録・検証手順](./docs/attack-profile-measurement.md)を参照してください。
-- Power scaling: 全武器にゲーム内表示ダメージを入力した場合は実数値で比較します。未入力時は正規化値を使い、入力済み・未入力の混在は拒否します。自動換算の制約は[調査記録](./docs/power-scaling.md)を参照してください。
+- Power scaling: 表示ダメージ未入力時は公開Anchor表のPower 50〜263をlog補間し、武器のbase hit damageへ適用します。正確な個体表示値で上書きする場合は全武器への入力が必要です。制約は[調査・実装記録](./docs/power-scaling.md)を参照してください。
 - `Critical Hit III`: `1 + 0.2 × (3 - 1) = 1.4` の期待倍率。
 - `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。複数コピーは発動率を増やさず、tier値の高い順に`100% / 75% / 50% / 25%`の回復量係数を適用します。
 - Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare`を一元管理します。
@@ -94,14 +94,15 @@ scripts/               research検証・レポート再生成スクリプト
 - 誤差範囲: [回帰検証手順](./docs/model-regression.md)に従った実測サンプルが5件揃うと、P90絶対誤差に基づくDPS参考範囲を表示します。それまでは「実測待ち」と明示します。
 - Evidence coverage: 実際の計算経路に含まれるEvidenceを重要度付き幾何平均で集計します。[指標の定義](./docs/evidence-coverage.md)どおり正解確率ではなく、主な不確実要因を見つける品質指標です。
 
-Power / Speed / Area はゲーム内の実ダメージや攻撃回数そのものではありません。v0.1 では Speed を攻撃回数へ変換する係数を仮定しているため、出力は「正規化値」です。実測データは `src/data/attackProfiles.ts`、`src/data/voidStrike.ts`、`src/data/regressionSamples.ts` の対応するデータ境界へ登録します。
+Power / Speed / Area rating自体は実ダメージや攻撃回数ではありません。既存3武器ではper-hit timingとbase hit damageを別に保持し、Power曲線からゲーム内damage単位へ換算します。実測データは `src/data/attackProfiles.ts`、`src/data/powerScaling.ts`、`src/data/voidStrike.ts`、`src/data/regressionSamples.ts` の対応するデータ境界へ登録します。
 
 ## データ品質
 
 すべての固定値は `Evidence<T>` として `value / source / confidence / note` を持ちます。
 
 - 武器の Power / Speed / Area: [dungeons.tools](https://www.dungeons.tools/tier-list) の 1.17.0.0 ゲームファイル由来データ。
+- base hit damageとGear Power Curve: Minecraft Wiki個別Stats表。一次game-file値を直接参照できないためmedium confidence。
 - エンチャントとアーティファクト仕様: [Minecraft Wiki](https://minecraft.wiki/w/Dungeons:Enchantment) に掲載されたゲーム内説明・検証値。
 - Void Strike のランプ、標準シナリオ: `model-assumption` として隔離した未検証値。既存3武器のAttack Profileは公開Stats表由来のmedium confidence。
 
-次の精度改善で最優先なのは、Power Levelから実ダメージへの換算と Void Strike の経過時間別倍率の検証です。3武器の公開timingは独立実機測定で将来cross-checkできます。
+次の精度改善で最優先なのは、Void Strike の経過時間別倍率の検証です。Attack timingとPower換算は独立実機測定で将来cross-checkできます。

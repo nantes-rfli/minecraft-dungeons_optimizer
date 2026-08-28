@@ -42,6 +42,17 @@ export interface WeaponDefinition {
   readonly power: Evidence<number>
   readonly speed: Evidence<number>
   readonly area: Evidence<number>
+  readonly baseHitDamage: Evidence<number>
+}
+
+export interface GearPowerCurvePoint {
+  readonly powerLevel: number
+  readonly referenceDamage: number
+}
+
+export interface GearPowerCurve {
+  readonly referenceBaseHitDamage: number
+  readonly points: readonly GearPowerCurvePoint[]
 }
 
 export interface SpeedRatingProxyAttackProfile {
@@ -218,7 +229,7 @@ export interface ArtifactEffects {
 }
 
 export interface DamageMetrics {
-  readonly damageSource: 'normalized-rating' | 'observed-input'
+  readonly damageSource: 'power-curve-estimate' | 'observed-input'
   readonly damagePerHit: number
   readonly hitsPerSecond: number
   readonly baseDps: number

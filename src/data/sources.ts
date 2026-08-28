@@ -49,6 +49,13 @@ export const MINECRAFT_WIKI_ANCHOR_SOURCE: SourceReference = {
   kind: 'published-reference',
 }
 
+export const MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-anchor-power-curve',
+  label: 'Minecraft Wiki: Anchor Power 50–263 damage table',
+  url: 'https://minecraft.wiki/w/Dungeons%3AAnchor',
+  kind: 'published-reference',
+}
+
 export const MVP_MODEL_SOURCE: SourceReference = {
   id: 'mvp-model-v0.1',
   label: 'Optimizer v0.1 modelling assumption; replace with frame-timed measurements',

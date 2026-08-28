@@ -32,7 +32,7 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">02 / 火力</p>
           <h2>単体DPSとAoEを分離</h2>
-          <p>攻撃力、暫定Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
+          <p>Power換算したbase hit damage、per-hit Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
           <Formula>Crit期待倍率 = 1 + 0.20 × (3.0 − 1) = 1.4</Formula>
         </article>
         <article className="method-card">
@@ -72,7 +72,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1を完了し、Phase 1の実測へ進行可能です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1Aを完了し、Phase 1 Accuracyを進行中です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
@@ -84,7 +84,7 @@ export function MethodologyPage() {
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>表示ダメージ未入力時はWeapon Power差がDPSへ反映されず、比較用の正規化値になります。Powerの異なる武器同士の比較は正確ではありません。武器ごとのコンボ時間も暫定換算です。Evidence coverageは正解確率ではなく、実際の計算経路に含まれるEvidenceの品質指標です。実測回帰サンプルが5件揃うまでは誤差率を推測しません。</p>
+        <p>Power換算は公開Anchor表のPower 50〜263をlog補間したmedium-confidence値です。同Powerでもitem cardの表示値には幅があり、正確な個体値には表示ダメージ入力が必要です。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、実際の計算経路に含まれるEvidenceの品質指標です。実測回帰サンプルが5件揃うまでは誤差率を推測しません。</p>
       </section>
     </main>
   )

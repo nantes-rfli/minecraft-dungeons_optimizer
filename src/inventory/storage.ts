@@ -31,8 +31,8 @@ function requireString(value: unknown, field: string): string {
 }
 
 function requirePower(value: unknown, field: string): number {
-  if (typeof value !== 'number' || !Number.isFinite(value) || value < 1) {
-    throw new Error(`${field}は1以上の数値にしてください。`)
+  if (typeof value !== 'number' || !Number.isInteger(value) || value < 1) {
+    throw new Error(`${field}は1以上の整数にしてください。`)
   }
   return value
 }

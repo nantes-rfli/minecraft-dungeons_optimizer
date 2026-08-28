@@ -165,26 +165,28 @@ describe('damage model', () => {
 
   it('calculates Critical Hit III as a 1.4 expected multiplier', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings' },
+      { weaponId: 'fighters-bindings', powerLevel: 251 },
       [selected('critical-hit')],
       noArtifactEffects,
       DEFAULT_SCENARIO,
     )
+    expect(damage.damageSource).toBe('power-curve-estimate')
+    expect(damage.damagePerHit).toBe(188_334)
     expect(damage.hitsPerSecond).toBeCloseTo(4 / 0.575)
-    expect(damage.baseDps).toBeCloseTo(8 / 0.575)
+    expect(damage.baseDps).toBeCloseTo(188_334 * 4 / 0.575)
     expect(damage.criticalMultiplier).toBeCloseTo(1.4)
-    expect(damage.singleTargetDps).toBeCloseTo((8 / 0.575) * 1.4)
+    expect(damage.singleTargetDps).toBeCloseTo((188_334 * 4 / 0.575) * 1.4)
   })
 
   it('rewards slower weapons under the provisional Void Strike model', () => {
     const anchor = calculateDamage(
-      { weaponId: 'anchor' },
+      { weaponId: 'anchor', powerLevel: 251 },
       [selected('void-strike')],
       noArtifactEffects,
       DEFAULT_SCENARIO,
     )
     const bindings = calculateDamage(
-      { weaponId: 'fighters-bindings' },
+      { weaponId: 'fighters-bindings', powerLevel: 251 },
       [selected('void-strike')],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -194,7 +196,7 @@ describe('damage model', () => {
 
   it('scales the Tier III reference curve to each Void Strike tier', () => {
     const multipliers = ([1, 2, 3] as const).map((tier) => calculateDamage(
-      { weaponId: 'anchor' },
+      { weaponId: 'anchor', powerLevel: 251 },
       [selected('void-strike', tier, 'gilded')],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -206,7 +208,7 @@ describe('damage model', () => {
 
   it('uses an observed item-card damage value when one is supplied', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      { weaponId: 'fighters-bindings', powerLevel: 1, observedDamagePerHit: 100 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -280,7 +282,7 @@ describe('CombatState', () => {
       directKillShare: 0.6,
     }
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      { weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 100 },
       [],
       noArtifactEffects,
       scenario,
@@ -295,7 +297,7 @@ describe('CombatState', () => {
 describe('healing and defense models', () => {
   it('adds Radiance proc healing and direct-kill Leeching healing', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings' },
+      { weaponId: 'fighters-bindings', powerLevel: 251 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -307,13 +309,13 @@ describe('healing and defense models', () => {
       DEFAULT_SCENARIO,
     )
     expect(healing.radiancePerSecond).toBeCloseTo(13.9130434783)
-    expect(healing.leechingPerSecond).toBeCloseTo(1.296)
-    expect(healing.totalPerSecond).toBeCloseTo(15.2090434783)
+    expect(healing.leechingPerSecond).toBeCloseTo(4.05)
+    expect(healing.totalPerSecond).toBeCloseTo(17.9630434783)
   })
 
   it('matches the reported Radiance healing stack for one, two and three copies', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings' },
+      { weaponId: 'fighters-bindings', powerLevel: 251 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -337,7 +339,7 @@ describe('healing and defense models', () => {
 
   it('applies Radiance copy coefficients to mixed tiers in descending value order', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings' },
+      { weaponId: 'fighters-bindings', powerLevel: 251 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -371,13 +373,13 @@ describe('healing and defense models', () => {
 
   it('increases kill-triggered effects when Build damage increases', () => {
     const lowDamage = calculateDamage(
-      { weaponId: 'fighters-bindings', observedDamagePerHit: 1 },
+      { weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 1 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
     )
     const highDamage = calculateDamage(
-      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      { weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 100 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -407,7 +409,7 @@ describe('healing and defense models', () => {
 
   it('uses the same direct weapon kill count for Leeching and Guarding Strike', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings' }, [], noArtifactEffects, DEFAULT_SCENARIO,
+      { weaponId: 'fighters-bindings', powerLevel: 251 }, [], noArtifactEffects, DEFAULT_SCENARIO,
     )
     const combatState = {
       effectiveDamagePerSecond: 100,
@@ -433,7 +435,7 @@ describe('healing and defense models', () => {
 
   it('reduces both kill-triggered effects when direct kill share decreases', () => {
     const damage = calculateDamage(
-      { weaponId: 'fighters-bindings', observedDamagePerHit: 100 },
+      { weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 100 },
       [],
       noArtifactEffects,
       DEFAULT_SCENARIO,
@@ -457,10 +459,10 @@ describe('healing and defense models', () => {
 
   it('increases Radiance healing when attack rate increases', () => {
     const fastDamage = calculateDamage(
-      { weaponId: 'fighters-bindings' }, [], noArtifactEffects, DEFAULT_SCENARIO,
+      { weaponId: 'fighters-bindings', powerLevel: 251 }, [], noArtifactEffects, DEFAULT_SCENARIO,
     )
     const slowDamage = calculateDamage(
-      { weaponId: 'anchor' }, [], noArtifactEffects, DEFAULT_SCENARIO,
+      { weaponId: 'anchor', powerLevel: 251 }, [], noArtifactEffects, DEFAULT_SCENARIO,
     )
     const fastHealing = calculateHealing(
       [selected('radiance')],

@@ -60,10 +60,10 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
   {
     id: 'phase-1',
     title: 'Phase 1 — Accuracy',
-    goal: '正規化値を、ゲーム内の比較に使える実測モデルへ置き換える。',
+    goal: '暫定値を、ゲーム内の比較に使える検証可能なモデルへ置き換える。',
     items: [
       { label: '3武器の公開per-hit timingをruntime登録', status: 'done' },
-      { label: 'Power Levelから実ダメージへの換算', status: 'in-progress' },
+      { label: 'Power Levelから実ダメージへの換算', status: 'done' },
       { label: '虚無の一撃の時間曲線を実測', status: 'in-progress' },
       { label: '実測値による回帰テストと誤差範囲の表示', status: 'in-progress' },
     ],
