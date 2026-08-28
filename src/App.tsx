@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
 import { optimize } from './core'
 import type {
@@ -17,8 +19,7 @@ import { ENCHANTMENTS } from './data/enchantments'
 import { DEFAULT_SCENARIO, SCENARIO_PROFILES } from './data/scenarios'
 import { WEAPONS } from './data/weapons'
 import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from './inventory/storage'
-import { MethodologyPage } from './pages/MethodologyPage'
-import './styles.css'
+import { MethodologyPage } from './views/MethodologyPage'
 
 const ENCHANTMENT_IDS = Object.keys(ENCHANTMENTS) as EnchantmentId[]
 const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]

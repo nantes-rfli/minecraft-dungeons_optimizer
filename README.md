@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-起動後、ターミナルに表示される `http://127.0.0.1:5173/` をブラウザで開いてください。`index.html` や `dist/index.html` を Finder から直接開いても、Vite のモジュール配信がないため動作しません。
+起動後、ターミナルに表示される `http://localhost:3000/` をブラウザで開いてください。現在の配信ランタイムは Codex Sites 対応の Vinext です。
 
 本番ビルドを確認する場合:
 
@@ -31,7 +31,11 @@ npm run build
 npm run preview
 ```
 
-この場合は `http://127.0.0.1:4173/` を開きます。
+この場合もターミナルに表示されるURLを開きます。
+
+## ホスティング
+
+本番サイトはCodex Sitesの所有者限定アクセスで運用します。GitHub Pagesの公開Workflowは使用せず、GitHubリポジトリも非公開のまま維持します。
 
 検証コマンド:
 
