@@ -39,10 +39,9 @@ export type ScenarioProfileId =
 export interface WeaponDefinition {
   readonly id: WeaponId
   readonly name: LocalizedName
-  readonly power: Evidence<number>
+  readonly internalPowerRating: Evidence<number>
   readonly speed: Evidence<number>
   readonly area: Evidence<number>
-  readonly baseHitDamage: Evidence<number>
 }
 
 export interface GearPowerCurvePoint {
@@ -51,8 +50,12 @@ export interface GearPowerCurvePoint {
 }
 
 export interface GearPowerCurve {
-  readonly referenceBaseHitDamage: number
+  readonly referenceWeaponId: WeaponId
   readonly points: readonly GearPowerCurvePoint[]
+}
+
+export interface CrossWeaponDamageScaling {
+  readonly method: 'internal-power-ratio'
 }
 
 export type PublishedDamage =
@@ -79,7 +82,7 @@ export interface PowerScalingValidationObservation {
 }
 
 export interface PowerScalingValidationSummary {
-  readonly weaponId: WeaponId
+  readonly scope: WeaponId | 'overall'
   readonly sampleCount: number
   readonly medianRelativeError: number
   readonly p90RelativeError: number

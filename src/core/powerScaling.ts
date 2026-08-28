@@ -1,10 +1,22 @@
 import { OptimizerInputError } from './errors'
-import type { GearPowerCurve, GearPowerCurvePoint } from './types'
+import type {
+  CrossWeaponDamageScaling,
+  GearPowerCurve,
+  GearPowerCurvePoint,
+  WeaponDefinition,
+} from './types'
+
+export function resolveWeaponDamageCoefficient(
+  weapon: WeaponDefinition,
+  scaling: CrossWeaponDamageScaling,
+): number {
+  switch (scaling.method) {
+    case 'internal-power-ratio':
+      return weapon.internalPowerRating.value
+  }
+}
 
 function assertCurve(curve: GearPowerCurve): void {
-  if (!Number.isFinite(curve.referenceBaseHitDamage) || curve.referenceBaseHitDamage <= 0) {
-    throw new Error('Gear Power CurveのreferenceBaseHitDamageは0より大きい有限値にしてください。')
-  }
   if (curve.points.length < 2) {
     throw new Error('Gear Power Curveには2件以上のサンプルが必要です。')
   }
@@ -38,12 +50,16 @@ function interpolateReferenceDamage(
 }
 
 export function calculatePowerScaledHitDamage(
-  baseHitDamage: number,
+  weaponDamageCoefficient: number,
+  referenceDamageCoefficient: number,
   powerLevel: number,
   curve: GearPowerCurve,
 ): number {
-  if (!Number.isFinite(baseHitDamage) || baseHitDamage <= 0) {
-    throw new Error('baseHitDamageは0より大きい有限値にしてください。')
+  if (!Number.isFinite(weaponDamageCoefficient) || weaponDamageCoefficient <= 0) {
+    throw new Error('weaponDamageCoefficientは0より大きい有限値にしてください。')
+  }
+  if (!Number.isFinite(referenceDamageCoefficient) || referenceDamageCoefficient <= 0) {
+    throw new Error('referenceDamageCoefficientは0より大きい有限値にしてください。')
   }
   assertCurve(curve)
   const first = curve.points[0]!
@@ -60,5 +76,5 @@ export function calculatePowerScaledHitDamage(
   const lower = curve.points[Math.max(0, upperIndex - 1)]
   if (!lower || !upper) throw new Error('Gear Power Curveの補間区間を取得できません。')
   const referenceDamage = interpolateReferenceDamage(powerLevel, lower, upper)
-  return Math.round(referenceDamage * baseHitDamage / curve.referenceBaseHitDamage)
+  return Math.round(referenceDamage * weaponDamageCoefficient / referenceDamageCoefficient)
 }

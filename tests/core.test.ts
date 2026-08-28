@@ -171,11 +171,11 @@ describe('damage model', () => {
       DEFAULT_SCENARIO,
     )
     expect(damage.damageSource).toBe('power-curve-estimate')
-    expect(damage.damagePerHit).toBe(188_334)
+    expect(damage.damagePerHit).toBe(261_897)
     expect(damage.hitsPerSecond).toBeCloseTo(4 / 0.575)
-    expect(damage.baseDps).toBeCloseTo(188_334 * 4 / 0.575)
+    expect(damage.baseDps).toBeCloseTo(261_897 * 4 / 0.575)
     expect(damage.criticalMultiplier).toBeCloseTo(1.4)
-    expect(damage.singleTargetDps).toBeCloseTo((188_334 * 4 / 0.575) * 1.4)
+    expect(damage.singleTargetDps).toBeCloseTo((261_897 * 4 / 0.575) * 1.4)
   })
 
   it('rewards slower weapons under the provisional Void Strike model', () => {
@@ -490,8 +490,10 @@ describe('evaluate', () => {
     expect(result.confidence.caveats.length).toBeGreaterThan(0)
     expect(result.confidence.factors.some((factor) => factor.id === 'kill-rate-model')).toBe(true)
     expect(result.confidence.factors.some((factor) => factor.id === 'average-enemy-health')).toBe(true)
-    expect(result.confidence.coverageScore).toBeLessThan(0.55)
-    expect(result.confidence.label).toBe('low')
+    expect(result.confidence.factors.some((factor) => factor.id === 'cross-weapon-scaling'))
+      .toBe(true)
+    expect(result.confidence.coverageScore).toBeLessThan(0.6)
+    expect(result.confidence.label).toBe('medium')
     expect(result.utilities.damage).toBeGreaterThan(0)
     expect(result.contributions).toHaveLength(3)
   })

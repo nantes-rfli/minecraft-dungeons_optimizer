@@ -1,13 +1,59 @@
-import type { Evidence, GearPowerCurve } from '../core/types'
-import { MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE } from './sources'
+import type {
+  CrossWeaponDamageScaling,
+  Evidence,
+  GearPowerCurve,
+  WeaponId,
+} from '../core/types'
+import {
+  DUNGEONS_TOOLS_DAMAGE_CALCULATOR_SOURCE,
+  MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE,
+  MINECRAFT_WIKI_ANCHOR_SOURCE,
+  MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+  MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+} from './sources'
 
 /**
- * Raw Anchor card-damage samples published for Minecraft Dungeons 1.17.0.0.
+ * Wiki values retained for research comparison only. Their origin does not
+ * establish that they are cross-weapon damage coefficients in game files.
+ */
+export const WIKI_BASE_HIT_DAMAGE: Readonly<Record<WeaponId, Evidence<number>>> = {
+  'fighters-bindings': {
+    value: 25,
+    source: MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+    confidence: 'low',
+    note: 'All four Wiki hits use 25, but the uncited value is not verified as a 1.17.0.0 cross-weapon coefficient.',
+  },
+  'double-axe': {
+    value: 100,
+    source: MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+    confidence: 'low',
+    note: 'Both Wiki hits use 100, but the uncited value is not verified as a 1.17.0.0 cross-weapon coefficient.',
+  },
+  anchor: {
+    value: 238,
+    source: MINECRAFT_WIKI_ANCHOR_SOURCE,
+    confidence: 'low',
+    note: 'The Wiki hit uses 238. It normalizes Model W but is not independent cross-weapon evidence.',
+  },
+}
+
+export const CROSS_WEAPON_DAMAGE_SCALING: Evidence<CrossWeaponDamageScaling> = {
+  value: {
+    method: 'internal-power-ratio',
+  },
+  source: DUNGEONS_TOOLS_DAMAGE_CALCULATOR_SOURCE,
+  confidence: 'medium',
+  note: 'The public 1.17.0.0 calculator describes one common Gear Power curve and uses the exact internal rating linearly. The raw extraction field and pipeline are not published independently.',
+}
+
+/**
+ * Raw published Anchor card-damage samples. The source does not identify the
+ * row version, so this curve remains independent from the 1.17.0.0 ratings.
  * Runtime interpolation stays inside this observed Power range and never extrapolates.
  */
 export const GEAR_POWER_CURVE: Evidence<GearPowerCurve> = {
   value: {
-    referenceBaseHitDamage: 238,
+    referenceWeaponId: 'anchor',
     points: [
       { powerLevel: 50, referenceDamage: 477 },
       { powerLevel: 75, referenceDamage: 1_329 },
@@ -25,5 +71,5 @@ export const GEAR_POWER_CURVE: Evidence<GearPowerCurve> = {
   },
   source: MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE,
   confidence: 'medium',
-  note: 'Log-linear interpolation only within Power 50–263. Cross-validation supports the common ratio provisionally; Fighter’s Bindings P114 remains a 21.3% outlier.',
+  note: 'Log-linear interpolation only within Power 50–263. This absolute Anchor curve is separate from the cross-weapon coefficient model.',
 }

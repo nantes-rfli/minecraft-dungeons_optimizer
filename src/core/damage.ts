@@ -1,10 +1,13 @@
 import { MODEL } from '../data/model'
-import { GEAR_POWER_CURVE } from '../data/powerScaling'
+import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import { calculateBaseHitsPerSecond } from './attackProfile'
 import { getAttackProfile, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { enchantmentsById, getTierValues } from './enchantment'
-import { calculatePowerScaledHitDamage } from './powerScaling'
+import {
+  calculatePowerScaledHitDamage,
+  resolveWeaponDamageCoefficient,
+} from './powerScaling'
 import { calculateVoidStrikeMultiplier } from './voidStrike'
 import type {
   ArtifactEffects,
@@ -60,8 +63,12 @@ export function calculateDamage(
   const damageSource = ownedWeapon.observedDamagePerHit === undefined
     ? 'power-curve-estimate'
     : 'observed-input'
+  const referenceWeapon = getWeaponDefinition(
+    GEAR_POWER_CURVE.value.referenceWeaponId,
+  )
   const damagePerHit = ownedWeapon.observedDamagePerHit ?? calculatePowerScaledHitDamage(
-    weapon.baseHitDamage.value,
+    resolveWeaponDamageCoefficient(weapon, CROSS_WEAPON_DAMAGE_SCALING.value),
+    resolveWeaponDamageCoefficient(referenceWeapon, CROSS_WEAPON_DAMAGE_SCALING.value),
     ownedWeapon.powerLevel,
     GEAR_POWER_CURVE.value,
   )

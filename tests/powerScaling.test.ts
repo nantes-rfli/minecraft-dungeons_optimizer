@@ -2,21 +2,27 @@ import { describe, expect, it } from 'vitest'
 import { calculatePowerScaledHitDamage } from '../src/core/powerScaling'
 import { GEAR_POWER_CURVE } from '../src/data/powerScaling'
 
+const ANCHOR_INTERNAL_POWER = 14
+
 describe('gear power scaling', () => {
   it('reproduces every published Anchor sample exactly', () => {
     for (const sample of GEAR_POWER_CURVE.value.points) {
       expect(calculatePowerScaledHitDamage(
-        GEAR_POWER_CURVE.value.referenceBaseHitDamage,
+        ANCHOR_INTERNAL_POWER,
+        ANCHOR_INTERNAL_POWER,
         sample.powerLevel,
         GEAR_POWER_CURVE.value,
       )).toBe(sample.referenceDamage)
     }
   })
 
-  it('applies the same curve multiplier to supported weapon base damage', () => {
-    expect(calculatePowerScaledHitDamage(25, 251, GEAR_POWER_CURVE.value)).toBe(188_334)
-    expect(calculatePowerScaledHitDamage(100, 251, GEAR_POWER_CURVE.value)).toBe(753_337)
-    expect(calculatePowerScaledHitDamage(238, 251, GEAR_POWER_CURVE.value)).toBe(1_792_941)
+  it('applies the same curve multiplier to exact internal Power ratings', () => {
+    expect(calculatePowerScaledHitDamage(2.045, 14, 251, GEAR_POWER_CURVE.value))
+      .toBe(261_897)
+    expect(calculatePowerScaledHitDamage(8.686, 14, 251, GEAR_POWER_CURVE.value))
+      .toBe(1_112_392)
+    expect(calculatePowerScaledHitDamage(14, 14, 251, GEAR_POWER_CURVE.value))
+      .toBe(1_792_941)
   })
 
   it('uses log-linear interpolation between adjacent raw samples', () => {
@@ -24,17 +30,19 @@ describe('gear power scaling', () => {
     const expected = Math.round(Math.exp(
       Math.log(477) + position * (Math.log(1_329) - Math.log(477)),
     ))
-    expect(calculatePowerScaledHitDamage(238, 63, GEAR_POWER_CURVE.value)).toBe(expected)
-    expect(() => calculatePowerScaledHitDamage(238, 62.5, GEAR_POWER_CURVE.value))
+    expect(calculatePowerScaledHitDamage(14, 14, 63, GEAR_POWER_CURVE.value)).toBe(expected)
+    expect(() => calculatePowerScaledHitDamage(14, 14, 62.5, GEAR_POWER_CURVE.value))
       .toThrow('50以上263以下')
   })
 
-  it('rejects extrapolation and invalid base damage', () => {
-    expect(() => calculatePowerScaledHitDamage(238, 49, GEAR_POWER_CURVE.value))
+  it('rejects extrapolation and invalid coefficients', () => {
+    expect(() => calculatePowerScaledHitDamage(14, 14, 49, GEAR_POWER_CURVE.value))
       .toThrow('50以上263以下')
-    expect(() => calculatePowerScaledHitDamage(238, 264, GEAR_POWER_CURVE.value))
+    expect(() => calculatePowerScaledHitDamage(14, 14, 264, GEAR_POWER_CURVE.value))
       .toThrow('50以上263以下')
-    expect(() => calculatePowerScaledHitDamage(0, 251, GEAR_POWER_CURVE.value))
-      .toThrow('0より大きい有限値')
+    expect(() => calculatePowerScaledHitDamage(0, 14, 251, GEAR_POWER_CURVE.value))
+      .toThrow('weaponDamageCoefficient')
+    expect(() => calculatePowerScaledHitDamage(14, 0, 251, GEAR_POWER_CURVE.value))
+      .toThrow('referenceDamageCoefficient')
   })
 })

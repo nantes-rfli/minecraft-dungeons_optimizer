@@ -80,7 +80,7 @@ scripts/               research検証・レポート再生成スクリプト
 ## 計算モデル
 
 - Attack Profile: 既存3武器は公開Stats表のper-hit durationを保持し、`hit数 ÷ duration合計`から攻撃回数を導出します。出典、独立実機検証、frame measurementへの差し替え方法は[登録・検証手順](./docs/attack-profile-measurement.md)を参照してください。
-- Power scaling: 表示ダメージ未入力時は公開Anchor表のPower 50〜263をlog補間し、武器のbase hit damageへ適用します。3武器29件でcross-validationし、Double Axeはmax 6.22%、Fighter's BindingsはP114に21.35%の外れ値を確認しました。武器別補正へ過学習せずmedium-confidenceの共通式を維持します。正確な個体表示値で上書きする場合は全武器への入力が必要です。詳細は[調査・実装記録](./docs/power-scaling.md)を参照してください。
+- Power scaling: 表示ダメージ未入力時は公開Anchor表のPower 50〜263をlog補間し、1.17.0.0の内部Power rating比を適用します。Wiki base damage比とのW/G比較は29 sampleのGolden Testへ固定し、version不明fixtureとの最大45.06%差をmedium-confidence caveatとして残します。正確な個体表示値で上書きする場合は全武器への入力が必要です。詳細は[調査・実装記録](./docs/power-scaling.md)を参照してください。
 - `Critical Hit III`: `1 + 0.2 × (3 - 1) = 1.4` の期待倍率。
 - `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。複数コピーは発動率を増やさず、tier値の高い順に`100% / 75% / 50% / 25%`の回復量係数を適用します。
 - Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare`を一元管理します。
@@ -95,15 +95,15 @@ scripts/               research検証・レポート再生成スクリプト
 - 誤差範囲: [回帰検証手順](./docs/model-regression.md)に従った実測サンプルが5件揃うと、P90絶対誤差に基づくDPS参考範囲を表示します。それまでは「実測待ち」と明示します。
 - Evidence coverage: 実際の計算経路に含まれるEvidenceを重要度付き幾何平均で集計します。[指標の定義](./docs/evidence-coverage.md)どおり正解確率ではなく、主な不確実要因を見つける品質指標です。
 
-Power / Speed / Area rating自体は実ダメージや攻撃回数ではありません。既存3武器ではper-hit timingとbase hit damageを別に保持し、Power曲線からゲーム内damage単位へ換算します。実測データは `src/data/attackProfiles.ts`、`src/data/powerScaling.ts`、`src/data/voidStrike.ts`、`src/data/regressionSamples.ts` の対応するデータ境界へ登録します。
+Power ratingは武器間のper-hit damage係数、Speed / Area ratingは別軸です。既存3武器ではper-hit timingと内部Power ratingを別に保持し、AnchorのGear Power curveからゲーム内damage単位へ換算します。実測データは `src/data/attackProfiles.ts`、`src/data/powerScaling.ts`、`src/data/voidStrike.ts`、`src/data/regressionSamples.ts` の対応するデータ境界へ登録します。
 
 ## データ品質
 
 すべての固定値は `Evidence<T>` として `value / source / confidence / note` を持ちます。
 
-- 武器の Power / Speed / Area: [dungeons.tools](https://www.dungeons.tools/tier-list) の 1.17.0.0 ゲームファイル由来データ。
-- base hit damageとGear Power Curve: Minecraft Wiki個別Stats表。独立fixtureでcross-validation済みですが、row versionとitem rollが不明でBindings P114に外れ値があるためmedium confidence。
+- 武器の内部Power / Speed / Area: [dungeons.tools](https://www.dungeons.tools/tier-list) の 1.17.0.0 ゲームファイル由来データ。武器間換算は[damage calculator](https://www.dungeons.tools/damage-calculator)の共通curve・内部rating比をmedium confidenceで採用。
+- Gear Power Curve: Minecraft WikiのAnchor Power 50〜263表をmedium confidenceで保持。Wiki base damageは出典とversionが不明なため、runtimeではなくW/G比較用のlow-confidence Evidenceとして分離。
 - エンチャントとアーティファクト仕様: [Minecraft Wiki](https://minecraft.wiki/w/Dungeons:Enchantment) に掲載されたゲーム内説明・検証値。
 - Void Strike のランプ、標準シナリオ: `model-assumption` として隔離した未検証値。既存3武器のAttack Profileは公開Stats表由来のmedium confidence。
 
-次の精度改善で最優先なのは、Void Strike の経過時間別倍率の検証です。Power換算は公開値cross-validation済みですが、Bindings P114外れ値の原因確認と独立実機測定は継続課題です。
+次の精度改善で最優先なのは、Void Strike の経過時間別倍率の検証です。Power換算の意味は内部rating比へ確定しましたが、同一1.17.0.0・同一roll条件の実測とraw game-file fieldの独立確認は継続課題です。

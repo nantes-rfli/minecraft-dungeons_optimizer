@@ -32,7 +32,7 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">02 / 火力</p>
           <h2>単体DPSとAoEを分離</h2>
-          <p>Power換算したbase hit damage、per-hit Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
+          <p>Power換算したper-hit damage、per-hit Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
           <Formula>Crit期待倍率 = 1 + 0.20 × (3.0 − 1) = 1.4</Formula>
         </article>
         <article className="method-card">
@@ -84,7 +84,7 @@ export function MethodologyPage() {
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>Power換算は公開Anchor表をlog補間し、3武器29件でcross-validationしたmedium-confidence値です。Double Axeはmax 6.22%ですが、Fighter’s BindingsのP114には21.35%の外れ値があります。武器別補正には根拠が足りないため共通式を維持し、正確な個体値には表示ダメージ入力を優先します。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、計算経路に含まれるEvidenceの品質指標です。</p>
+        <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。version不明のWiki damage表29件とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先します。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、計算経路に含まれるEvidenceの品質指標です。</p>
       </section>
     </main>
   )

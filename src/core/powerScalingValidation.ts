@@ -84,16 +84,18 @@ export function evaluatePowerScalingSamples(
 }
 
 export function summarizePowerScalingValidation(
-  weaponId: WeaponId,
+  scope: WeaponId | 'overall',
   observations: readonly PowerScalingValidationObservation[],
 ): PowerScalingValidationSummary {
-  const matching = observations.filter((observation) => observation.sample.weaponId === weaponId)
+  const matching = scope === 'overall'
+    ? observations
+    : observations.filter((observation) => observation.sample.weaponId === scope)
   if (matching.length === 0) {
-    throw new Error(`Power Scaling検証の${weaponId} sampleがありません。`)
+    throw new Error(`Power Scaling検証の${scope} sampleがありません。`)
   }
   const errors = matching.map((observation) => observation.relativeError)
   return {
-    weaponId,
+    scope,
     sampleCount: matching.length,
     medianRelativeError: median(errors),
     p90RelativeError: nearestRankPercentile(errors, 0.9),

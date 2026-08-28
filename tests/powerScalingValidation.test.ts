@@ -1,26 +1,50 @@
 import { describe, expect, it } from 'vitest'
-import { calculatePowerScaledHitDamage } from '../src/core/powerScaling'
+import {
+  calculatePowerScaledHitDamage,
+  resolveWeaponDamageCoefficient,
+} from '../src/core/powerScaling'
 import {
   evaluatePowerScalingSamples,
-  POWER_SCALING_RANGE_ERROR_TOLERANCE,
   summarizePowerScalingValidation,
 } from '../src/core/powerScalingValidation'
 import type { WeaponId } from '../src/core/types'
-import { GEAR_POWER_CURVE } from '../src/data/powerScaling'
+import {
+  CROSS_WEAPON_DAMAGE_SCALING,
+  GEAR_POWER_CURVE,
+  WIKI_BASE_HIT_DAMAGE,
+} from '../src/data/powerScaling'
 import { POWER_SCALING_VALIDATION_SAMPLES } from '../src/data/powerScalingValidation'
 import { WEAPONS } from '../src/data/weapons'
 
-const predict = (weaponId: WeaponId, powerLevel: number) =>
+const referenceWeaponId = GEAR_POWER_CURVE.value.referenceWeaponId
+
+const predictModelW = (weaponId: WeaponId, powerLevel: number) =>
   calculatePowerScaledHitDamage(
-    WEAPONS[weaponId].baseHitDamage.value,
+    WIKI_BASE_HIT_DAMAGE[weaponId].value,
+    WIKI_BASE_HIT_DAMAGE[referenceWeaponId].value,
     powerLevel,
     GEAR_POWER_CURVE.value,
   )
 
-const observations = evaluatePowerScalingSamples(POWER_SCALING_VALIDATION_SAMPLES, predict)
+const predictModelG = (weaponId: WeaponId, powerLevel: number) =>
+  calculatePowerScaledHitDamage(
+    WEAPONS[weaponId].internalPowerRating.value,
+    WEAPONS[referenceWeaponId].internalPowerRating.value,
+    powerLevel,
+    GEAR_POWER_CURVE.value,
+  )
 
-describe('published power scaling cross-validation', () => {
-  it('keeps independent published samples for all three runtime weapons', () => {
+const modelWObservations = evaluatePowerScalingSamples(
+  POWER_SCALING_VALIDATION_SAMPLES,
+  predictModelW,
+)
+const modelGObservations = evaluatePowerScalingSamples(
+  POWER_SCALING_VALIDATION_SAMPLES,
+  predictModelG,
+)
+
+describe('power rating meaning reconciliation', () => {
+  it('keeps the 29 independent published fixtures unchanged', () => {
     expect(POWER_SCALING_VALIDATION_SAMPLES).toHaveLength(29)
     expect(POWER_SCALING_VALIDATION_SAMPLES.filter(
       (sample) => sample.weaponId === 'fighters-bindings',
@@ -33,61 +57,118 @@ describe('published power scaling cross-validation', () => {
     )).toHaveLength(12)
   })
 
-  it('reproduces the published Anchor knots exactly', () => {
-    const summary = summarizePowerScalingValidation('anchor', observations)
-    expect(summary).toEqual({
-      weaponId: 'anchor',
+  it('records Model W fit for the two independent weapons and overall', () => {
+    expect(summarizePowerScalingValidation('fighters-bindings', modelWObservations))
+      .toEqual({
+        scope: 'fighters-bindings',
+        sampleCount: 3,
+        medianRelativeError: 0,
+        p90RelativeError: expect.closeTo(0.213470, 6),
+        maximumRelativeError: expect.closeTo(0.213470, 6),
+        withinToleranceCount: 2,
+      })
+    expect(summarizePowerScalingValidation('double-axe', modelWObservations))
+      .toEqual({
+        scope: 'double-axe',
+        sampleCount: 14,
+        medianRelativeError: expect.closeTo(0.060156, 6),
+        p90RelativeError: expect.closeTo(0.061818, 6),
+        maximumRelativeError: expect.closeTo(0.062222, 6),
+        withinToleranceCount: 14,
+      })
+
+    const independent = modelWObservations.filter(
+      (observation) => observation.sample.weaponId !== 'anchor',
+    )
+    expect(summarizePowerScalingValidation('overall', independent)).toEqual({
+      scope: 'overall',
+      sampleCount: 17,
+      medianRelativeError: expect.closeTo(0.059721, 6),
+      p90RelativeError: expect.closeTo(0.062222, 6),
+      maximumRelativeError: expect.closeTo(0.213470, 6),
+      withinToleranceCount: 16,
+    })
+  })
+
+  it('records Model G conflict with version-unknown Wiki fixtures', () => {
+    expect(summarizePowerScalingValidation('fighters-bindings', modelGObservations))
+      .toEqual({
+        scope: 'fighters-bindings',
+        sampleCount: 3,
+        medianRelativeError: expect.closeTo(0.002090, 6),
+        p90RelativeError: expect.closeTo(0.366110, 6),
+        maximumRelativeError: expect.closeTo(0.366110, 6),
+        withinToleranceCount: 2,
+      })
+    expect(summarizePowerScalingValidation('double-axe', modelGObservations))
+      .toEqual({
+        scope: 'double-axe',
+        sampleCount: 14,
+        medianRelativeError: expect.closeTo(0.332994, 6),
+        p90RelativeError: expect.closeTo(0.357798, 6),
+        maximumRelativeError: expect.closeTo(0.450618, 6),
+        withinToleranceCount: 0,
+      })
+
+    const independent = modelGObservations.filter(
+      (observation) => observation.sample.weaponId !== 'anchor',
+    )
+    expect(summarizePowerScalingValidation('overall', independent)).toEqual({
+      scope: 'overall',
+      sampleCount: 17,
+      medianRelativeError: expect.closeTo(0.332795, 6),
+      p90RelativeError: expect.closeTo(0.366110, 6),
+      maximumRelativeError: expect.closeTo(0.450618, 6),
+      withinToleranceCount: 2,
+    })
+  })
+
+  it('adopts Model G and pins representative Power predictions', () => {
+    expect(CROSS_WEAPON_DAMAGE_SCALING.value).toEqual({
+      method: 'internal-power-ratio',
+    })
+    expect([
+      predictModelG('fighters-bindings', 50),
+      predictModelG('fighters-bindings', 100),
+      predictModelG('fighters-bindings', 251),
+    ]).toEqual([70, 540, 261_897])
+    expect([
+      predictModelG('double-axe', 50),
+      predictModelG('double-axe', 100),
+      predictModelG('double-axe', 251),
+    ]).toEqual([296, 2_295, 1_112_392])
+
+    const finalModelPredict = (weaponId: WeaponId, powerLevel: number) =>
+      calculatePowerScaledHitDamage(
+        resolveWeaponDamageCoefficient(
+          WEAPONS[weaponId],
+          CROSS_WEAPON_DAMAGE_SCALING.value,
+        ),
+        resolveWeaponDamageCoefficient(
+          WEAPONS[referenceWeaponId],
+          CROSS_WEAPON_DAMAGE_SCALING.value,
+        ),
+        powerLevel,
+        GEAR_POWER_CURVE.value,
+      )
+    expect(finalModelPredict('fighters-bindings', 251))
+      .toBe(predictModelG('fighters-bindings', 251))
+    expect(finalModelPredict('double-axe', 251))
+      .toBe(predictModelG('double-axe', 251))
+  })
+
+  it('preserves exact Anchor regression and fixture validation errors', () => {
+    expect(summarizePowerScalingValidation('anchor', modelGObservations)).toEqual({
+      scope: 'anchor',
       sampleCount: 12,
       medianRelativeError: 0,
       p90RelativeError: 0,
       maximumRelativeError: 0,
       withinToleranceCount: 12,
     })
-  })
-
-  it('keeps all Double Axe samples within the documented 8% tolerance', () => {
-    const summary = summarizePowerScalingValidation('double-axe', observations)
-    expect(POWER_SCALING_RANGE_ERROR_TOLERANCE).toBe(0.08)
-    expect(summary.sampleCount).toBe(14)
-    expect(summary.medianRelativeError).toBeCloseTo(0.060156, 5)
-    expect(summary.p90RelativeError).toBeCloseTo(0.061818, 5)
-    expect(summary.maximumRelativeError).toBeCloseTo(0.062222, 5)
-    expect(summary.withinToleranceCount).toBe(14)
-  })
-
-  it('records the Fighter\'s Bindings P114 outlier instead of calibrating it away', () => {
-    const summary = summarizePowerScalingValidation('fighters-bindings', observations)
-    expect(summary.sampleCount).toBe(3)
-    expect(summary.medianRelativeError).toBe(0)
-    expect(summary.p90RelativeError).toBeCloseTo(0.21347, 5)
-    expect(summary.maximumRelativeError).toBeCloseTo(0.21347, 5)
-    expect(summary.withinToleranceCount).toBe(2)
-
-    const power114 = observations.find(
-      (observation) => observation.sample.id === 'fighters-bindings-p114-wiki',
-    )
-    expect(power114).toMatchObject({
-      predicted: 689,
-      absoluteError: 187,
-      withinPublishedRange: false,
-      withinTolerance: false,
-    })
-  })
-
-  it('uses zero range error inside a published interval and rejects invalid fixtures', () => {
-    const power251 = observations.find(
-      (observation) => observation.sample.id === 'fighters-bindings-p251-community',
-    )
-    expect(power251).toMatchObject({
-      predicted: 188_334,
-      absoluteError: 0,
-      relativeError: 0,
-      withinPublishedRange: true,
-    })
-
     expect(() => evaluatePowerScalingSamples([
       POWER_SCALING_VALIDATION_SAMPLES[0]!,
       POWER_SCALING_VALIDATION_SAMPLES[0]!,
-    ], predict)).toThrow('重複しています')
+    ], predictModelG)).toThrow('重複しています')
   })
 })

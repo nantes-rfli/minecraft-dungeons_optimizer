@@ -1,5 +1,5 @@
 import { MODEL } from '../data/model'
-import { GEAR_POWER_CURVE } from '../data/powerScaling'
+import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import {
@@ -55,9 +55,15 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   )
 
   if (build.weapon.observedDamagePerHit === undefined) {
-    addEvidence('weapon-base-damage', '武器base hit damage', weapon.baseHitDamage, 2)
-    addEvidence('power-scaling', 'Powerから実ダメージへの換算', GEAR_POWER_CURVE, 3)
-    caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間します。Double Axeの公開14点は誤差6.23%以内ですが、Fighter’s BindingsのP114には21.3%の外れ値があり、base damage比は暫定的な武器間係数です。')
+    addEvidence('internal-power-rating', '武器の内部Power rating', weapon.internalPowerRating, 2)
+    addEvidence('gear-power-curve', 'Gear Power Curve', GEAR_POWER_CURVE, 3)
+    addEvidence(
+      'cross-weapon-scaling',
+      '内部Power比による武器間換算',
+      CROSS_WEAPON_DAMAGE_SCALING,
+      3,
+    )
+    caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間し、1.17.0.0の内部Power rating比を適用します。Wikiのversion不明damage表とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先してください。')
   } else {
     add('observed-damage', '入力した表示ダメージ', 'medium', 2)
     caveats.push('敵HP・最大HP・被ダメージ・回復量も、表示ダメージと同じゲーム内単位で入力してください。')

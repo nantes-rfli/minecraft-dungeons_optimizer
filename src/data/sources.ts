@@ -7,6 +7,13 @@ export const DUNGEONS_TOOLS_SOURCE: SourceReference = {
   kind: 'game-files',
 }
 
+export const DUNGEONS_TOOLS_DAMAGE_CALCULATOR_SOURCE: SourceReference = {
+  id: 'dungeons-tools-1.17-damage-calculator',
+  label: 'dungeons.tools: 1.17.0.0 internal Power rating and common Gear Power curve',
+  url: 'https://www.dungeons.tools/damage-calculator',
+  kind: 'game-files',
+}
+
 export const MINECRAFT_WIKI_ENCHANTMENTS_SOURCE: SourceReference = {
   id: 'minecraft-wiki-enchantments',
   label: 'Minecraft Wiki: Dungeons enchantments (in-game descriptions and community tests)',
