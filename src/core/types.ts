@@ -5,7 +5,7 @@ export interface SourceReference {
   readonly id: string
   readonly label: string
   readonly url?: string
-  readonly kind: 'game-files' | 'community-test' | 'model-assumption'
+  readonly kind: 'game-files' | 'published-reference' | 'community-test' | 'model-assumption'
 }
 
 export interface Evidence<T> {
@@ -56,7 +56,16 @@ export interface FrameMeasuredAttackProfile {
   readonly comboFrameSamples: readonly number[]
 }
 
-export type AttackProfile = SpeedRatingProxyAttackProfile | FrameMeasuredAttackProfile
+export interface PublishedHitTimingAttackProfile {
+  readonly method: 'published-hit-timings'
+  readonly hitDurationsSeconds: readonly number[]
+  readonly comboFinisherHit: number
+}
+
+export type AttackProfile =
+  | SpeedRatingProxyAttackProfile
+  | PublishedHitTimingAttackProfile
+  | FrameMeasuredAttackProfile
 
 export interface VoidStrikeCurvePoint {
   readonly elapsedSeconds: number

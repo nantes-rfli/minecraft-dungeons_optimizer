@@ -1,0 +1,6522 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-28",
+  "population": {
+    "obtainableMeleeWeapons": 82,
+    "knownMeleeWeapons": 88,
+    "excludedKnownWeapons": [
+      "golden-axe",
+      "ladle",
+      "mountaineer-pick",
+      "the-monkey-motivator",
+      "golden-sword",
+      "stone-sword"
+    ],
+    "sources": [
+      {
+        "type": "minecraft-wiki",
+        "url": "https://minecraft.wiki/w/Dungeons%3AGear",
+        "retrievedAt": "2026-08-28",
+        "checkedContext": "Melee weapons section: 88 known melee weapons, 82 obtainable, family-grouped list.",
+        "confidence": "medium",
+        "note": "Useful for obtainable/known counts and family grouping; reconciled against the independent 1.17.0.0 game-file-derived list."
+      },
+      {
+        "type": "game-files",
+        "url": "https://www.dungeons.tools/tier-list",
+        "retrievedAt": "2026-08-28",
+        "checkedContext": "Melee tier table: 82 weapons; site states values are read from Minecraft Dungeons 1.17.0.0 game files.",
+        "confidence": "high",
+        "note": "Used to lock the obtainable 1.17.0.0 population, not as a source for per-hit attack durations."
+      }
+    ]
+  },
+  "statusDefinitions": {
+    "exact": "The weapon page directly provides a complete, internally consistent combo and per-hit timing profile.",
+    "verified-shared": "A complete profile is shared from another weapon and the sharing relationship has explicit source evidence.",
+    "partial": "Some direct timing/combo data exists, but the complete fixed profile is absent or internally inconsistent.",
+    "inferred": "A complete profile is inferred from indirect evidence and is not strict runtime-ready.",
+    "missing": "No usable public attack-profile data was found."
+  },
+  "weapons": [
+    {
+      "weaponId": "anchor",
+      "name": {
+        "en": "Anchor",
+        "ja": "アンカー"
+      },
+      "family": "anchor",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          2.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 2.5
+          }
+        ],
+        "comboDurationSeconds": 2.5,
+        "hitsPerSecond": 0.4,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 238
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AAnchor",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "encrusted-anchor",
+      "name": {
+        "en": "Encrusted Anchor"
+      },
+      "family": "anchor",
+      "variantOf": "anchor",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          2.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 2.5
+          }
+        ],
+        "comboDurationSeconds": 2.5,
+        "hitsPerSecond": 0.4,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 238
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AEncrusted_Anchor",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "axe",
+      "name": {
+        "en": "Axe"
+      },
+      "family": "axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.8,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AAxe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "firebrand",
+      "name": {
+        "en": "Firebrand"
+      },
+      "family": "axe",
+      "variantOf": "axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.8,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFirebrand",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "highland-axe",
+      "name": {
+        "en": "Highland Axe"
+      },
+      "family": "axe",
+      "variantOf": "axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.8,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AHighland_Axe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "backstabber",
+      "name": {
+        "en": "Backstabber"
+      },
+      "family": "backstabber",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.8,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABackstabber",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "swift-striker",
+      "name": {
+        "en": "Swift Striker"
+      },
+      "family": "backstabber",
+      "variantOf": "backstabber",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.8,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASwift_Striker",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "battlestaff",
+      "name": {
+        "en": "Battlestaff"
+      },
+      "family": "battlestaff",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 10,
+        "hitDurationsSeconds": [
+          0.35,
+          0.35,
+          0.5,
+          0.65,
+          0.45,
+          0.45,
+          0.25,
+          0.3,
+          0.35,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.65
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.25
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 4.65,
+        "hitsPerSecond": 2.15053763441,
+        "comboFinisherHit": 10,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.38461538462,
+          1.53846153846,
+          1.23076923077,
+          1.23076923077,
+          1,
+          1,
+          1,
+          3.07692307692
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 200
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABattlestaff",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (10 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "battlestaff-of-terror",
+      "name": {
+        "en": "Battlestaff of Terror"
+      },
+      "family": "battlestaff",
+      "variantOf": "battlestaff",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 10,
+        "hitDurationsSeconds": [
+          0.35,
+          0.35,
+          0.5,
+          0.65,
+          0.45,
+          0.45,
+          0.25,
+          0.3,
+          0.35,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.65
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.25
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 4.65,
+        "hitsPerSecond": 2.15053763441,
+        "comboFinisherHit": 10,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.38461538462,
+          1.53846153846,
+          1.23076923077,
+          1.23076923077,
+          1,
+          1,
+          1,
+          3.07692307692
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 200
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABattlestaff_of_Terror",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (10 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "growing-staff",
+      "name": {
+        "en": "Growing Staff"
+      },
+      "family": "battlestaff",
+      "variantOf": "battlestaff",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 10,
+        "hitDurationsSeconds": [
+          0.35,
+          0.35,
+          0.5,
+          0.65,
+          0.45,
+          0.45,
+          0.25,
+          0.3,
+          0.35,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.65
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.45
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.25
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.35
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 4.65,
+        "hitsPerSecond": 2.15053763441,
+        "comboFinisherHit": 10,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.38461538462,
+          1.53846153846,
+          1.23076923077,
+          1.23076923077,
+          1,
+          1,
+          1,
+          3.07692307692
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 65
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 200
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGrowing_Staff",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (10 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "boneclub",
+      "name": {
+        "en": "Boneclub"
+      },
+      "family": "boneclub",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          1.1,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 1.1
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.9,
+        "hitsPerSecond": 1.05263157895,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.25308641975
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 162
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 203
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABoneclub",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "bone-cudgel",
+      "name": {
+        "en": "Bone Cudgel"
+      },
+      "family": "boneclub",
+      "variantOf": "boneclub",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          1.1,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 1.1
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 1.9,
+        "hitsPerSecond": 1.05263157895,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.25308641975
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 162
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 203
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABone_Cudgel",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "broken-sawblade",
+      "name": {
+        "en": "Broken Sawblade"
+      },
+      "family": "broken-sawblade",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 10,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "2-21",
+            "durationSeconds": 0.2
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 45
+          },
+          {
+            "hitRange": "2-21",
+            "baseDamage": 42
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": true,
+      "specialHandlingNotes": "Continuous sawblade attacks can stop on release and enter an overheat cooldown; a fixed-combo HPS model is insufficient.",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABroken_Sawblade",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (10 hits/upon releasing attack).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "The infobox states 10 hits/upon release, while the Stats table groups Hit 1 and Hit 2-21. Overheat, early release, and combo-trigger behavior require a dedicated cycle model."
+    },
+    {
+      "weaponId": "mechanized-sawblade",
+      "name": {
+        "en": "Mechanized Sawblade"
+      },
+      "family": "broken-sawblade",
+      "variantOf": "broken-sawblade",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 15,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "2-31",
+            "durationSeconds": 0.2
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 45
+          },
+          {
+            "hitRange": "2-31",
+            "baseDamage": 42
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": true,
+      "specialHandlingNotes": "Continuous sawblade attacks can stop on release and enter an overheat cooldown; a fixed-combo HPS model is insufficient.",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AMechanized_Sawblade",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (15 hits/upon releasing attack).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "The infobox states 15 hits/upon release, while the Stats table groups Hit 1 and Hit 2-31. Overheat, early release, and combo-trigger behavior require a dedicated cycle model."
+    },
+    {
+      "weaponId": "claymore",
+      "name": {
+        "en": "Claymore"
+      },
+      "family": "claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.7,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 2,
+        "hitsPerSecond": 1.5,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.22222222222,
+          1.77777777778
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 110
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 160
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AClaymore",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "broadsword",
+      "name": {
+        "en": "Broadsword"
+      },
+      "family": "claymore",
+      "variantOf": "claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.7,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 2,
+        "hitsPerSecond": 1.5,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.22222222222,
+          1.77777777778
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 110
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 160
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABroadsword",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "frost-slayer",
+      "name": {
+        "en": "Frost Slayer"
+      },
+      "family": "claymore",
+      "variantOf": "claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.7,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 2,
+        "hitsPerSecond": 1.5,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.22222222222,
+          1.77777777778
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 110
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 160
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFrost_Slayer",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "great-axeblade",
+      "name": {
+        "en": "Great Axeblade"
+      },
+      "family": "claymore",
+      "variantOf": "claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.7,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 2,
+        "hitsPerSecond": 1.5,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.22222222222,
+          1.77777777778
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 110
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 160
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGreat_Axeblade",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "heartstealer",
+      "name": {
+        "en": "Heartstealer"
+      },
+      "family": "claymore",
+      "variantOf": "claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.7,
+          0.5,
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 2,
+        "hitsPerSecond": 1.5,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.22222222222,
+          1.77777777778
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 90
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 110
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 160
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AHeartstealer",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (combo described by rows/prose).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "coral-blade",
+      "name": {
+        "en": "Coral Blade"
+      },
+      "family": "coral-blade",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.18,
+          0.18,
+          0.54
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.18
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.18
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.54
+          }
+        ],
+        "comboDurationSeconds": 0.9,
+        "hitsPerSecond": 3.33333333333,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.05263157895,
+          2.36842105263
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 19
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 20
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ACoral_Blade",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "sponge-striker",
+      "name": {
+        "en": "Sponge Striker"
+      },
+      "family": "coral-blade",
+      "variantOf": "coral-blade",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.18,
+          0.18,
+          0.54
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.18
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.18
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.54
+          }
+        ],
+        "comboDurationSeconds": 0.9,
+        "hitsPerSecond": 3.33333333333,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.05263157895,
+          2.36842105263
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 19
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 20
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASponge_Striker",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "cutlass",
+      "name": {
+        "en": "Cutlass"
+      },
+      "family": "cutlass",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 2.5,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ACutlass",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "dancers-sword",
+      "name": {
+        "en": "Dancer's Sword"
+      },
+      "family": "cutlass",
+      "variantOf": "cutlass",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 2.5,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADancer%27s_Sword",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "nameless-blade",
+      "name": {
+        "en": "Nameless Blade"
+      },
+      "family": "cutlass",
+      "variantOf": "cutlass",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 2.5,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ANameless_Blade",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "sparkler",
+      "name": {
+        "en": "Sparkler"
+      },
+      "family": "cutlass",
+      "variantOf": "cutlass",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 2.5,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASparkler",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "daggers",
+      "name": {
+        "en": "Daggers"
+      },
+      "family": "daggers",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADaggers",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "Minecraft Wiki infobox states 6 hits, but its Stats table contains 7 hit rows. The fixed combo remains unresolved."
+    },
+    {
+      "weaponId": "fangs-of-frost",
+      "name": {
+        "en": "Fangs of Frost"
+      },
+      "family": "daggers",
+      "variantOf": "daggers",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFangs_of_Frost",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "Minecraft Wiki infobox states 6 hits, but its Stats table contains 7 hit rows. The fixed combo remains unresolved."
+    },
+    {
+      "weaponId": "moon-daggers",
+      "name": {
+        "en": "Moon Daggers"
+      },
+      "family": "daggers",
+      "variantOf": "daggers",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AMoon_Daggers",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "Minecraft Wiki infobox states 6 hits, but its Stats table contains 7 hit rows. The fixed combo remains unresolved."
+    },
+    {
+      "weaponId": "sheer-daggers",
+      "name": {
+        "en": "Sheer Daggers"
+      },
+      "family": "daggers",
+      "variantOf": "daggers",
+      "status": "partial",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": null,
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": null,
+        "hitsPerSecond": null,
+        "comboFinisherHit": null,
+        "calculationMethod": "not-derived"
+      },
+      "damageProfile": {
+        "hitDamageRatios": null,
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "partial",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASheer_Daggers",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": "Minecraft Wiki infobox states 6 hits, but its Stats table contains 7 hit rows. The fixed combo remains unresolved."
+    },
+    {
+      "weaponId": "double-axe",
+      "name": {
+        "en": "Double Axe",
+        "ja": "ダブルアックス"
+      },
+      "family": "double-axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.6,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.2,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADouble_Axe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "cursed-axe",
+      "name": {
+        "en": "Cursed Axe"
+      },
+      "family": "double-axe",
+      "variantOf": "double-axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.6,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.2,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ACursed_Axe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "whirlwind",
+      "name": {
+        "en": "Whirlwind"
+      },
+      "family": "double-axe",
+      "variantOf": "double-axe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.6,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.2,
+        "hitsPerSecond": 1.66666666667,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AWhirlwind",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "gauntlets",
+      "name": {
+        "en": "Gauntlets"
+      },
+      "family": "gauntlets",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 7,
+        "hitDurationsSeconds": [
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.2,
+          0.2,
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 1.6,
+        "hitsPerSecond": 4.375,
+        "comboFinisherHit": 7,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1.4,
+          1.8
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGauntlets",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (7 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "fighters-bindings",
+      "name": {
+        "en": "Fighter's Bindings",
+        "ja": "闘士の締め具"
+      },
+      "family": "gauntlets",
+      "variantOf": "gauntlets",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 4,
+        "hitDurationsSeconds": [
+          0.15,
+          0.15,
+          0.15,
+          0.125
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.15
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.15
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.15
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          }
+        ],
+        "comboDurationSeconds": 0.575,
+        "hitsPerSecond": 6.95652173913,
+        "comboFinisherHit": 4,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFighter%27s_Bindings",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (4 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "maulers",
+      "name": {
+        "en": "Maulers"
+      },
+      "family": "gauntlets",
+      "variantOf": "gauntlets",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 7,
+        "hitDurationsSeconds": [
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.2,
+          0.2,
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 1.6,
+        "hitsPerSecond": 4.375,
+        "comboFinisherHit": 7,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1.4,
+          1.8
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AMaulers",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (7 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "soul-fists",
+      "name": {
+        "en": "Soul Fists"
+      },
+      "family": "gauntlets",
+      "variantOf": "gauntlets",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 7,
+        "hitDurationsSeconds": [
+          0.125,
+          0.125,
+          0.125,
+          0.125,
+          0.2,
+          0.2,
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.125
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 1.6,
+        "hitsPerSecond": 4.375,
+        "comboFinisherHit": 7,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1.4,
+          1.8
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 25
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 35
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 45
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASoul_Fists",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (7 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "glaive",
+      "name": {
+        "en": "Glaive"
+      },
+      "family": "glaive",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.6,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 2.1,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.46666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 110
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGlaive",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "cackling-broom",
+      "name": {
+        "en": "Cackling Broom"
+      },
+      "family": "glaive",
+      "variantOf": "glaive",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.6,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 2.1,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.46666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 110
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ACackling_Broom",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "grave-bane",
+      "name": {
+        "en": "Grave Bane"
+      },
+      "family": "glaive",
+      "variantOf": "glaive",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.6,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 2.1,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.46666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 110
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGrave_Bane",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "venom-glaive",
+      "name": {
+        "en": "Venom Glaive"
+      },
+      "family": "glaive",
+      "variantOf": "glaive",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.5,
+          0.6,
+          1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.5
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.6
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 1
+          }
+        ],
+        "comboDurationSeconds": 2.1,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.46666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 75
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 110
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AVenom_Glaive",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "great-hammer",
+      "name": {
+        "en": "Great Hammer"
+      },
+      "family": "great-hammer",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AGreat_Hammer",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "bonehead-hammer",
+      "name": {
+        "en": "Bonehead Hammer"
+      },
+      "family": "great-hammer",
+      "variantOf": "great-hammer",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABonehead_Hammer",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "hammer-of-gravity",
+      "name": {
+        "en": "Hammer of Gravity"
+      },
+      "family": "great-hammer",
+      "variantOf": "great-hammer",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AHammer_of_Gravity",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "stormlander",
+      "name": {
+        "en": "Stormlander"
+      },
+      "family": "great-hammer",
+      "variantOf": "great-hammer",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AStormlander",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "katana",
+      "name": {
+        "en": "Katana"
+      },
+      "family": "katana",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.48,
+          0.48,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.56,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.47058823529
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 125
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AKatana",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "dark-katana",
+      "name": {
+        "en": "Dark Katana"
+      },
+      "family": "katana",
+      "variantOf": "katana",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.48,
+          0.48,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.56,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.47058823529
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 125
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADark_Katana",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "masters-katana",
+      "name": {
+        "en": "Master's Katana"
+      },
+      "family": "katana",
+      "variantOf": "katana",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.48,
+          0.48,
+          0.6
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.6
+          }
+        ],
+        "comboDurationSeconds": 1.56,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.47058823529
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 85
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 125
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AMaster%27s_Katana",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "mace",
+      "name": {
+        "en": "Mace"
+      },
+      "family": "mace",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.44,
+          0.44,
+          0.77
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.77
+          }
+        ],
+        "comboDurationSeconds": 1.65,
+        "hitsPerSecond": 1.81818181818,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          2.16049382716
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 175
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AMace",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "flail",
+      "name": {
+        "en": "Flail"
+      },
+      "family": "mace",
+      "variantOf": "mace",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.44,
+          0.44,
+          0.77
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.77
+          }
+        ],
+        "comboDurationSeconds": 1.65,
+        "hitsPerSecond": 1.81818181818,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          2.16049382716
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 175
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFlail",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "suns-grace",
+      "name": {
+        "en": "Sun's Grace"
+      },
+      "family": "mace",
+      "variantOf": "mace",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.44,
+          0.44,
+          0.77
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.44
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.77
+          }
+        ],
+        "comboDurationSeconds": 1.65,
+        "hitsPerSecond": 1.81818181818,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          2.16049382716
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 81
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 175
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASun%27s_Grace",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "obsidian-claymore",
+      "name": {
+        "en": "Obsidian Claymore"
+      },
+      "family": "obsidian-claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.7,
+          1.2
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 1.2
+          }
+        ],
+        "comboDurationSeconds": 1.9,
+        "hitsPerSecond": 1.05263157895,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.9
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 150
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 285
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AObsidian_Claymore",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "the-starless-night",
+      "name": {
+        "en": "The Starless Night"
+      },
+      "family": "obsidian-claymore",
+      "variantOf": "obsidian-claymore",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.7,
+          1.2
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 1.2
+          }
+        ],
+        "comboDurationSeconds": 1.9,
+        "hitsPerSecond": 1.05263157895,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1.9
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 150
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 285
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AThe_Starless_Night",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "pickaxe",
+      "name": {
+        "en": "Pickaxe"
+      },
+      "family": "pickaxe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 130
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3APickaxe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "diamond-pickaxe",
+      "name": {
+        "en": "Diamond Pickaxe"
+      },
+      "family": "pickaxe",
+      "variantOf": "pickaxe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 0.7,
+        "hitsPerSecond": 1.42857142857,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 130
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADiamond_Pickaxe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "rapier",
+      "name": {
+        "en": "Rapier"
+      },
+      "family": "rapier",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 14,
+        "hitDurationsSeconds": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.11,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          1.1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.11
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "11",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "12",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "13",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "14",
+            "durationSeconds": 1.1
+          }
+        ],
+        "comboDurationSeconds": 2.51,
+        "hitsPerSecond": 5.57768924303,
+        "comboFinisherHit": 14,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5.38461538462
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "11",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "12",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "13",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "14",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ARapier",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (14 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "bee-stinger",
+      "name": {
+        "en": "Bee Stinger"
+      },
+      "family": "rapier",
+      "variantOf": "rapier",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 14,
+        "hitDurationsSeconds": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.11,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          1.1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.11
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "11",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "12",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "13",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "14",
+            "durationSeconds": 1.1
+          }
+        ],
+        "comboDurationSeconds": 2.51,
+        "hitsPerSecond": 5.57768924303,
+        "comboFinisherHit": 14,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5.38461538462
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "11",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "12",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "13",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "14",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ABee_Stinger",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (14 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "freezing-foil",
+      "name": {
+        "en": "Freezing Foil"
+      },
+      "family": "rapier",
+      "variantOf": "rapier",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 14,
+        "hitDurationsSeconds": [
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.12,
+          0.11,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          1.1
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.12
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.11
+          },
+          {
+            "hitRange": "7",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "8",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "9",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "10",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "11",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "12",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "13",
+            "durationSeconds": 0.1
+          },
+          {
+            "hitRange": "14",
+            "durationSeconds": 1.1
+          }
+        ],
+        "comboDurationSeconds": 2.51,
+        "hitsPerSecond": 5.57768924303,
+        "comboFinisherHit": 14,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          5.38461538462
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "7",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "8",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "9",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "10",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "11",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "12",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "13",
+            "baseDamage": 13
+          },
+          {
+            "hitRange": "14",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFreezing_Foil",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (14 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "sickles",
+      "name": {
+        "en": "Sickles"
+      },
+      "family": "sickles",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.4,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.7,
+        "hitsPerSecond": 3.52941176471,
+        "comboFinisherHit": 6,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2.33333333333
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASickles",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "nightmares-bite",
+      "name": {
+        "en": "Nightmare's Bite"
+      },
+      "family": "sickles",
+      "variantOf": "sickles",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.4,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.7,
+        "hitsPerSecond": 3.52941176471,
+        "comboFinisherHit": 6,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2.33333333333
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ANightmare%27s_Bite",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "the-last-laugh",
+      "name": {
+        "en": "The Last Laugh"
+      },
+      "family": "sickles",
+      "variantOf": "sickles",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 6,
+        "hitDurationsSeconds": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.4,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.2
+          },
+          {
+            "hitRange": "5",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "6",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.7,
+        "hitsPerSecond": 3.52941176471,
+        "comboFinisherHit": 6,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2.33333333333
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 30
+          },
+          {
+            "hitRange": "5",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "6",
+            "baseDamage": 70
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AThe_Last_Laugh",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (6 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "soul-knife",
+      "name": {
+        "en": "Soul Knife"
+      },
+      "family": "soul-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.85
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.85
+          }
+        ],
+        "comboDurationSeconds": 0.85,
+        "hitsPerSecond": 1.17647058824,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 140
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASoul_Knife",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "eternal-knife",
+      "name": {
+        "en": "Eternal Knife"
+      },
+      "family": "soul-knife",
+      "variantOf": "soul-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.85
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.85
+          }
+        ],
+        "comboDurationSeconds": 0.85,
+        "hitsPerSecond": 1.17647058824,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 140
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AEternal_Knife",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "truthseeker",
+      "name": {
+        "en": "Truthseeker"
+      },
+      "family": "soul-knife",
+      "variantOf": "soul-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.85
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.85
+          }
+        ],
+        "comboDurationSeconds": 0.85,
+        "hitsPerSecond": 1.17647058824,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 140
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ATruthseeker",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "soul-scythe",
+      "name": {
+        "en": "Soul Scythe"
+      },
+      "family": "soul-scythe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.48,
+          0.56
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.56
+          }
+        ],
+        "comboDurationSeconds": 1.04,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASoul_Scythe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "frost-scythe",
+      "name": {
+        "en": "Frost Scythe"
+      },
+      "family": "soul-scythe",
+      "variantOf": "soul-scythe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.48,
+          0.56
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.56
+          }
+        ],
+        "comboDurationSeconds": 1.04,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFrost_Scythe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "jailors-scythe",
+      "name": {
+        "en": "Jailor's Scythe"
+      },
+      "family": "soul-scythe",
+      "variantOf": "soul-scythe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.48,
+          0.56
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.56
+          }
+        ],
+        "comboDurationSeconds": 1.04,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AJailor%27s_Scythe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "skull-scythe",
+      "name": {
+        "en": "Skull Scythe"
+      },
+      "family": "soul-scythe",
+      "variantOf": "soul-scythe",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 2,
+        "hitDurationsSeconds": [
+          0.48,
+          0.56
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.48
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.56
+          }
+        ],
+        "comboDurationSeconds": 1.04,
+        "hitsPerSecond": 1.92307692308,
+        "comboFinisherHit": 2,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 80
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASkull_Scythe",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (2 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "spear",
+      "name": {
+        "en": "Spear"
+      },
+      "family": "spear",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.375,
+          0.375,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.25,
+        "hitsPerSecond": 2.4,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASpear",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "fortune-spear",
+      "name": {
+        "en": "Fortune Spear"
+      },
+      "family": "spear",
+      "variantOf": "spear",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.375,
+          0.375,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.25,
+        "hitsPerSecond": 2.4,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFortune_Spear",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "spine-chill-spear",
+      "name": {
+        "en": "Spine-Chill Spear"
+      },
+      "family": "spear",
+      "variantOf": "spear",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.375,
+          0.375,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.25,
+        "hitsPerSecond": 2.4,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASpine-Chill_Spear",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "whispering-spear",
+      "name": {
+        "en": "Whispering Spear"
+      },
+      "family": "spear",
+      "variantOf": "spear",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.375,
+          0.375,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.375
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.25,
+        "hitsPerSecond": 2.4,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.66666666667
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AWhispering_Spear",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "sword",
+      "name": {
+        "en": "Sword"
+      },
+      "family": "sword",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.242
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.242
+          }
+        ],
+        "comboDurationSeconds": 1.042,
+        "hitsPerSecond": 2.87907869482,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.6
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASword",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "diamond-sword",
+      "name": {
+        "en": "Diamond Sword"
+      },
+      "family": "sword",
+      "variantOf": "sword",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.242
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.242
+          }
+        ],
+        "comboDurationSeconds": 1.042,
+        "hitsPerSecond": 2.87907869482,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.6
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ADiamond_Sword",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "hawkbrand",
+      "name": {
+        "en": "Hawkbrand"
+      },
+      "family": "sword",
+      "variantOf": "sword",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.242
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.242
+          }
+        ],
+        "comboDurationSeconds": 1.042,
+        "hitsPerSecond": 2.87907869482,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.6
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AHawkbrand",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "sinister-sword",
+      "name": {
+        "en": "Sinister Sword"
+      },
+      "family": "sword",
+      "variantOf": "sword",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.242
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.242
+          }
+        ],
+        "comboDurationSeconds": 1.042,
+        "hitsPerSecond": 2.87907869482,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.6
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 50
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 80
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ASinister_Sword",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "tempest-knife",
+      "name": {
+        "en": "Tempest Knife"
+      },
+      "family": "tempest-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.251,
+          0.3,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.251
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.051,
+        "hitsPerSecond": 2.85442435775,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.625
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 78
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3ATempest_Knife",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "chill-gale-knife",
+      "name": {
+        "en": "Chill Gale Knife"
+      },
+      "family": "tempest-knife",
+      "variantOf": "tempest-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.251,
+          0.3,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.251
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.051,
+        "hitsPerSecond": 2.85442435775,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.625
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 78
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AChill_Gale_Knife",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "resolute-tempest-knife",
+      "name": {
+        "en": "Resolute Tempest Knife"
+      },
+      "family": "tempest-knife",
+      "variantOf": "tempest-knife",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 3,
+        "hitDurationsSeconds": [
+          0.251,
+          0.3,
+          0.5
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.251
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.3
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.5
+          }
+        ],
+        "comboDurationSeconds": 1.051,
+        "hitsPerSecond": 2.85442435775,
+        "comboFinisherHit": 3,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1.625
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 48
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 78
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AResolute_Tempest_Knife",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (3 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "void-touched-blades",
+      "name": {
+        "en": "Void Touched Blades"
+      },
+      "family": "void-touched-blades",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 4,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.25,
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.25
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 1.75,
+        "hitsPerSecond": 2.28571428571,
+        "comboFinisherHit": 4,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1.58333333333
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 95
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AVoid_Touched_Blades",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (4 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "the-beginning-and-the-end",
+      "name": {
+        "en": "The Beginning and The End"
+      },
+      "family": "void-touched-blades",
+      "variantOf": "void-touched-blades",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 4,
+        "hitDurationsSeconds": [
+          0.4,
+          0.4,
+          0.25,
+          0.7
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "2",
+            "durationSeconds": 0.4
+          },
+          {
+            "hitRange": "3",
+            "durationSeconds": 0.25
+          },
+          {
+            "hitRange": "4",
+            "durationSeconds": 0.7
+          }
+        ],
+        "comboDurationSeconds": 1.75,
+        "hitsPerSecond": 2.28571428571,
+        "comboFinisherHit": 4,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1,
+          1,
+          1,
+          1.58333333333
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "2",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "3",
+            "baseDamage": 60
+          },
+          {
+            "hitRange": "4",
+            "baseDamage": 95
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AThe_Beginning_and_The_End",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (4 hits).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "whip",
+      "name": {
+        "en": "Whip"
+      },
+      "family": "whip",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 1.25,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AWhip",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    },
+    {
+      "weaponId": "vine-whip",
+      "name": {
+        "en": "Vine Whip"
+      },
+      "family": "whip",
+      "variantOf": "whip",
+      "status": "exact",
+      "confidence": "medium",
+      "attackProfile": {
+        "comboHits": 1,
+        "hitDurationsSeconds": [
+          0.8
+        ],
+        "rawTimingRows": [
+          {
+            "hitRange": "1",
+            "durationSeconds": 0.8
+          }
+        ],
+        "comboDurationSeconds": 0.8,
+        "hitsPerSecond": 1.25,
+        "comboFinisherHit": 1,
+        "calculationMethod": "sum-hit-durations"
+      },
+      "damageProfile": {
+        "hitDamageRatios": [
+          1
+        ],
+        "rawBaseDamageRows": [
+          {
+            "hitRange": "1",
+            "baseDamage": 100
+          }
+        ]
+      },
+      "attackSpeedScaling": {
+        "status": "unknown"
+      },
+      "voidStrikeDataStatus": "available",
+      "specialHandlingRequired": false,
+      "specialHandlingNotes": "",
+      "sources": [
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AVine_Whip",
+          "retrievedAt": "2026-08-28",
+          "checkedContext": "Current weapon page: combo field, Usage text, and per-hit Stats table (1 hit).",
+          "confidence": "medium",
+          "note": "Specific public numeric table was checked, but the page does not expose a primary game-file citation for every timing value."
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}

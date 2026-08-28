@@ -119,10 +119,30 @@ describe('artifact model', () => {
 })
 
 describe('damage model', () => {
-  it('preserves the legacy baseline while each weapon still uses a proxy profile', () => {
-    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES['fighters-bindings'].value)).toBe(7)
-    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES['double-axe'].value)).toBe(1.05)
-    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES.anchor.value)).toBe(0.5)
+  it('derives each supported weapon rate from published per-hit timings', () => {
+    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES['fighters-bindings'].value))
+      .toBeCloseTo(4 / 0.575)
+    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES['double-axe'].value))
+      .toBeCloseTo(2 / 1.2)
+    expect(calculateBaseHitsPerSecond(ATTACK_PROFILES.anchor.value)).toBeCloseTo(1 / 2.5)
+  })
+
+  it('rejects incomplete or invalid published hit timing profiles', () => {
+    expect(() => calculateBaseHitsPerSecond({
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [],
+      comboFinisherHit: 1,
+    })).toThrow('1件以上')
+    expect(() => calculateBaseHitsPerSecond({
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [0.5, 0],
+      comboFinisherHit: 2,
+    })).toThrow('0より大きい有限値')
+    expect(() => calculateBaseHitsPerSecond({
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [0.5, 0.5],
+      comboFinisherHit: 3,
+    })).toThrow('有効なhit番号')
   })
 
   it('converts frame measurements to attacks per second using the median sample', () => {
@@ -150,10 +170,10 @@ describe('damage model', () => {
       noArtifactEffects,
       DEFAULT_SCENARIO,
     )
-    expect(damage.hitsPerSecond).toBe(7)
-    expect(damage.baseDps).toBe(14)
+    expect(damage.hitsPerSecond).toBeCloseTo(4 / 0.575)
+    expect(damage.baseDps).toBeCloseTo(8 / 0.575)
     expect(damage.criticalMultiplier).toBeCloseTo(1.4)
-    expect(damage.singleTargetDps).toBeCloseTo(19.6)
+    expect(damage.singleTargetDps).toBeCloseTo((8 / 0.575) * 1.4)
   })
 
   it('rewards slower weapons under the provisional Void Strike model', () => {
@@ -193,7 +213,7 @@ describe('damage model', () => {
     )
     expect(damage.damageSource).toBe('observed-input')
     expect(damage.damagePerHit).toBe(100)
-    expect(damage.baseDps).toBe(700)
+    expect(damage.baseDps).toBeCloseTo(400 / 0.575)
   })
 })
 
@@ -286,9 +306,9 @@ describe('healing and defense models', () => {
       deriveCombatState(damage, DEFAULT_SCENARIO),
       DEFAULT_SCENARIO,
     )
-    expect(healing.radiancePerSecond).toBeCloseTo(14)
-    expect(healing.leechingPerSecond).toBeCloseTo(1.3041)
-    expect(healing.totalPerSecond).toBeCloseTo(15.3041)
+    expect(healing.radiancePerSecond).toBeCloseTo(13.9130434783)
+    expect(healing.leechingPerSecond).toBeCloseTo(1.296)
+    expect(healing.totalPerSecond).toBeCloseTo(15.2090434783)
   })
 
   it('matches the reported Radiance healing stack for one, two and three copies', () => {
@@ -310,9 +330,9 @@ describe('healing and defense models', () => {
       DEFAULT_SCENARIO,
     ).radiancePerSecond
 
-    expect(radiancePerSecond(1)).toBeCloseTo(14)
-    expect(radiancePerSecond(2)).toBeCloseTo(24.5)
-    expect(radiancePerSecond(3)).toBeCloseTo(31.5)
+    expect(radiancePerSecond(1)).toBeCloseTo(13.9130434783)
+    expect(radiancePerSecond(2)).toBeCloseTo(24.347826087)
+    expect(radiancePerSecond(3)).toBeCloseTo(31.3043478261)
   })
 
   it('applies Radiance copy coefficients to mixed tiers in descending value order', () => {
@@ -329,7 +349,7 @@ describe('healing and defense models', () => {
       DEFAULT_SCENARIO,
     )
 
-    expect(healing.radiancePerSecond).toBeCloseTo(19.25)
+    expect(healing.radiancePerSecond).toBeCloseTo(19.1304347826)
   })
 
   it('uses a Poisson uptime model for Guarding Strike', () => {

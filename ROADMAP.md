@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御モデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **15 / 27（56%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **17 / 28（61%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -34,9 +34,15 @@
 
 完了条件: Radiance stacking、Gilded Tier、Leeching / Guarding Strikeの直接撃破依存が、同じ型・保存・評価・Evidence経路で動作すること。
 
-## Phase 1 — Accuracy（0 / 4）
+## Phase 1A — Melee Attack Profile Audit（1 / 1 完了）
 
-- [ ] 3武器のコンボ時間をフレーム計測（データ形式・計算境界・回帰テストは実装済み、実測待ち）
+- [x] 1.17.0.0の入手可能な近接武器82件を登録・分類し、静的auditデータ、Validator、再生成可能なcoverageレポートを作成
+
+完了条件: 全82武器が `exact / verified-shared / partial / inferred / missing` のいずれかに分類され、公開情報のcoverageと未解決一覧を `npm run audit:melee` で再現できること。現在は `exact 76 / partial 6`、strict runtime-readyは92.7%。research結果だけを根拠にruntime catalogや既存3武器のprofileは変更しない。
+
+## Phase 1 — Accuracy（1 / 4）
+
+- [x] 3武器の公開per-hit timingをruntime登録し、HPSをduration合計から導出（独立実機測定は将来のcross-checkとして継続可能）
 - [ ] Power Levelから実ダメージへの換算（表示ダメージ入力と混在防止は実装済み、共通曲線の実測待ち）
 - [ ] 虚無の一撃の時間曲線を実測（複数サンプルの中央値・補間・消滅処理は実装済み、実測待ち）
 - [ ] 実測値による回帰テストと誤差範囲の表示（集計・P90参考範囲・不足表示は実装済み、実測サンプル待ち）
@@ -63,7 +69,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1は完了しました。Radiance stacking、Gilded Tier I / II / III、武器本体の直接撃破数までCore Model Integrityを仕上げたため、Phase 1の実測データ登録へ進行可能です。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器をSpeed Rating暫定値から公開per-hit timingへ移行済みです。次はPower Levelから実ダメージへの換算を進めます。daggers / sawblade系6件はresearch側の未解決事項として分離しています。
 
 ## 更新ルール
 

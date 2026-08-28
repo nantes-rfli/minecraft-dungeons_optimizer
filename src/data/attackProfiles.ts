@@ -1,27 +1,43 @@
 import type { AttackProfile, Evidence, WeaponId } from '../core/types'
-import { MVP_MODEL_SOURCE } from './sources'
+import {
+  MINECRAFT_WIKI_ANCHOR_SOURCE,
+  MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+  MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+} from './sources'
 
 /**
- * Replace each proxy entry with a frame-measured profile once observations are available.
- * Keeping timing separate from weapon ratings lets model changes avoid touching calculation code.
+ * Per-hit timings are kept separate from weapon ratings so HPS remains a derived value and
+ * combo-sensitive effects can consume the raw structure in later phases.
  */
 export const ATTACK_PROFILES: Readonly<Record<WeaponId, Evidence<AttackProfile>>> = {
   'fighters-bindings': {
-    value: { method: 'speed-rating-proxy', hitsPerSecond: 7 },
-    source: MVP_MODEL_SOURCE,
-    confidence: 'low',
-    note: 'Derived from Speed 14.0 × the legacy 0.5 attacks-per-second proxy.',
+    value: {
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [0.15, 0.15, 0.15, 0.125],
+      comboFinisherHit: 4,
+    },
+    source: MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
+    confidence: 'medium',
+    note: 'Minecraft Dungeons 1.17.0.0 audit; HPS is derived from all four published hit durations.',
   },
   'double-axe': {
-    value: { method: 'speed-rating-proxy', hitsPerSecond: 1.05 },
-    source: MVP_MODEL_SOURCE,
-    confidence: 'low',
-    note: 'Derived from Speed 2.1 × the legacy 0.5 attacks-per-second proxy.',
+    value: {
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [0.6, 0.6],
+      comboFinisherHit: 2,
+    },
+    source: MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
+    confidence: 'medium',
+    note: 'Minecraft Dungeons 1.17.0.0 audit; HPS is derived from both published hit durations.',
   },
   anchor: {
-    value: { method: 'speed-rating-proxy', hitsPerSecond: 0.5 },
-    source: MVP_MODEL_SOURCE,
-    confidence: 'low',
-    note: 'Derived from Speed 1.0 × the legacy 0.5 attacks-per-second proxy.',
+    value: {
+      method: 'published-hit-timings',
+      hitDurationsSeconds: [2.5],
+      comboFinisherHit: 1,
+    },
+    source: MINECRAFT_WIKI_ANCHOR_SOURCE,
+    confidence: 'medium',
+    note: 'Minecraft Dungeons 1.17.0.0 audit; HPS is derived from the published single-hit duration.',
   },
 }

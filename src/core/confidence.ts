@@ -184,6 +184,8 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
 
   if (attackProfile.value.method === 'speed-rating-proxy') {
     caveats.unshift('攻撃回数は武器別の暫定Attack Profileであり、フレーム計測が必要です。')
+  } else if (attackProfile.value.method === 'published-hit-timings') {
+    caveats.unshift('攻撃回数は公開Stats表のhit timingから算出しています。独立した実機検証は未実施です。')
   }
 
   const totalWeight = factors.reduce((sum, factor) => sum + factor.weight, 0)

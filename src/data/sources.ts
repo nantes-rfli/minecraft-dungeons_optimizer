@@ -28,6 +28,27 @@ export const MINECRAFT_WIKI_IRON_HIDE_SOURCE: SourceReference = {
   kind: 'community-test',
 }
 
+export const MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-fighters-bindings-stats',
+  label: "Minecraft Wiki: Fighter's Bindings per-hit Stats table",
+  url: 'https://minecraft.wiki/w/Dungeons%3AFighter%27s_Bindings',
+  kind: 'published-reference',
+}
+
+export const MINECRAFT_WIKI_DOUBLE_AXE_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-double-axe-stats',
+  label: 'Minecraft Wiki: Double Axe per-hit Stats table',
+  url: 'https://minecraft.wiki/w/Dungeons%3ADouble_Axe',
+  kind: 'published-reference',
+}
+
+export const MINECRAFT_WIKI_ANCHOR_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-anchor-stats',
+  label: 'Minecraft Wiki: Anchor per-hit Stats table',
+  url: 'https://minecraft.wiki/w/Dungeons%3AAnchor',
+  kind: 'published-reference',
+}
+
 export const MVP_MODEL_SOURCE: SourceReference = {
   id: 'mvp-model-v0.1',
   label: 'Optimizer v0.1 modelling assumption; replace with frame-timed measurements',

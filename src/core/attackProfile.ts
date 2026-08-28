@@ -1,4 +1,8 @@
-import type { AttackProfile, FrameMeasuredAttackProfile } from './types'
+import type {
+  AttackProfile,
+  FrameMeasuredAttackProfile,
+  PublishedHitTimingAttackProfile,
+} from './types'
 
 const MINIMUM_FRAME_SAMPLES = 5
 
@@ -34,10 +38,32 @@ function calculateFrameMeasuredRate(profile: FrameMeasuredAttackProfile): number
   return (profile.hitsPerCombo * profile.framesPerSecond) / medianFrames
 }
 
+function calculatePublishedHitTimingRate(profile: PublishedHitTimingAttackProfile): number {
+  if (profile.hitDurationsSeconds.length === 0) {
+    throw new Error('Attack ProfileのhitDurationsSecondsには1件以上指定してください。')
+  }
+  profile.hitDurationsSeconds.forEach((duration, index) =>
+    assertPositiveFinite(duration, `hitDurationsSeconds[${index}]`),
+  )
+  if (!Number.isInteger(profile.comboFinisherHit)
+    || profile.comboFinisherHit < 1
+    || profile.comboFinisherHit > profile.hitDurationsSeconds.length) {
+    throw new Error('Attack ProfileのcomboFinisherHitはcombo内の有効なhit番号にしてください。')
+  }
+  const comboDurationSeconds = profile.hitDurationsSeconds.reduce(
+    (sum, duration) => sum + duration,
+    0,
+  )
+  return profile.hitDurationsSeconds.length / comboDurationSeconds
+}
+
 export function calculateBaseHitsPerSecond(profile: AttackProfile): number {
   if (profile.method === 'speed-rating-proxy') {
     assertPositiveFinite(profile.hitsPerSecond, 'hitsPerSecond')
     return profile.hitsPerSecond
+  }
+  if (profile.method === 'published-hit-timings') {
+    return calculatePublishedHitTimingRate(profile)
   }
   return calculateFrameMeasuredRate(profile)
 }

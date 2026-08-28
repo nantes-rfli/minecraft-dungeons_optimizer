@@ -13,7 +13,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 防具、遠距離武器、実ダメージのパワースケーリング、固有効果、敵個別耐性は未対応です。
 
-完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1が完了し、Phase 1（実測による精度改善）へ進行可能です。
+完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は1 / 4項目まで進行しています。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
@@ -42,10 +42,19 @@ npm run preview
 検証コマンド:
 
 ```bash
+npm run audit:melee
 npm test
 npm run lint
 npm run build
 ```
+
+## Phase 1A — Melee Attack Profile Audit
+
+Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本体へ追加する前段として公開情報だけで監査しました。母集団・武器ファミリー・各hitの生timing・damage ratio・source・confidence・調査statusは [`research/melee-attack-profile-audit.json`](./research/melee-attack-profile-audit.json) に保存しています。
+
+`npm run audit:melee` は、ID重複、status、完全profile、hit数とduration数、派生HPS、共有元、source URLなどを検証し、[`research/melee-attack-profile-coverage.md`](./research/melee-attack-profile-coverage.md) を再生成します。現在のstrict coverageは76 / 82（92.7%）です。残る6件は推測で補完せず、daggers系4件の公開値矛盾とsawblade系2件の可変サイクルを`partial`として保持しています。
+
+82武器のresearchデータはruntime catalogと分離しています。Phase 1の最初の項目として、既存3武器だけは監査済みのper-hit timingへ移行しましたが、Optimizer UIと計算対象は3武器のままです。
 
 ## Core の構成
 
@@ -62,11 +71,14 @@ src/core/modelError.ts 実測比較、P90誤差、DPS参考範囲
 src/inventory/         localStorageとJSONの検証・入出力
 src/pages/             サイト内の計算ロジック・実装状況ページ
 src/data/              値、出典、信頼度、モデル仮定
+src/research/          researchデータの型・Validator・coverage集計
+research/              全近接武器の静的auditデータと生成済みレポート
+scripts/               research検証・レポート再生成スクリプト
 ```
 
 ## 計算モデル
 
-- Attack Profile: 武器別の攻撃回数データを使用します。現在はSpeed Rating由来の暫定値で、[計測手順](./docs/attack-profile-measurement.md) に従ったフレーム実測へ差し替え予定です。
+- Attack Profile: 既存3武器は公開Stats表のper-hit durationを保持し、`hit数 ÷ duration合計`から攻撃回数を導出します。出典、独立実機検証、frame measurementへの差し替え方法は[登録・検証手順](./docs/attack-profile-measurement.md)を参照してください。
 - Power scaling: 全武器にゲーム内表示ダメージを入力した場合は実数値で比較します。未入力時は正規化値を使い、入力済み・未入力の混在は拒否します。自動換算の制約は[調査記録](./docs/power-scaling.md)を参照してください。
 - `Critical Hit III`: `1 + 0.2 × (3 - 1) = 1.4` の期待倍率。
 - `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。複数コピーは発動率を増やさず、tier値の高い順に`100% / 75% / 50% / 25%`の回復量係数を適用します。
@@ -90,6 +102,6 @@ Power / Speed / Area はゲーム内の実ダメージや攻撃回数そのも�
 
 - 武器の Power / Speed / Area: [dungeons.tools](https://www.dungeons.tools/tier-list) の 1.17.0.0 ゲームファイル由来データ。
 - エンチャントとアーティファクト仕様: [Minecraft Wiki](https://minecraft.wiki/w/Dungeons:Enchantment) に掲載されたゲーム内説明・検証値。
-- 攻撃速度換算、Void Strike のランプ、標準シナリオ: `model-assumption` として隔離した未検証値。
+- Void Strike のランプ、標準シナリオ: `model-assumption` として隔離した未検証値。既存3武器のAttack Profileは公開Stats表由来のmedium confidence。
 
-次の精度改善で最優先なのは、3武器の無強化時コンボ時間と Void Strike の経過時間別倍率のフレーム計測です。
+次の精度改善で最優先なのは、Power Levelから実ダメージへの換算と Void Strike の経過時間別倍率の検証です。3武器の公開timingは独立実機測定で将来cross-checkできます。
