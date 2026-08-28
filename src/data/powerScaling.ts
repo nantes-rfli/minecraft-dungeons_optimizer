@@ -25,5 +25,5 @@ export const GEAR_POWER_CURVE: Evidence<GearPowerCurve> = {
   },
   source: MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE,
   confidence: 'medium',
-  note: 'Log-linear interpolation only within Power 50–263. Item-card rolls can vary at the same Power.',
+  note: 'Log-linear interpolation only within Power 50–263. Cross-validation supports the common ratio provisionally; Fighter’s Bindings P114 remains a 21.3% outlier.',
 }

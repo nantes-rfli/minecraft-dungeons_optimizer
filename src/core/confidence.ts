@@ -57,7 +57,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   if (build.weapon.observedDamagePerHit === undefined) {
     addEvidence('weapon-base-damage', '武器base hit damage', weapon.baseHitDamage, 2)
     addEvidence('power-scaling', 'Powerから実ダメージへの換算', GEAR_POWER_CURVE, 3)
-    caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間しています。同Powerでもitem cardの表示値には幅があります。')
+    caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間します。Double Axeの公開14点は誤差6.23%以内ですが、Fighter’s BindingsのP114には21.3%の外れ値があり、base damage比は暫定的な武器間係数です。')
   } else {
     add('observed-damage', '入力した表示ダメージ', 'medium', 2)
     caveats.push('敵HP・最大HP・被ダメージ・回復量も、表示ダメージと同じゲーム内単位で入力してください。')

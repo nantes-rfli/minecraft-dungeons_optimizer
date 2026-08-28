@@ -5,6 +5,7 @@ import type {
   ModelErrorSummary,
   PredictionRange,
 } from './types'
+import { nearestRankPercentile } from './statistics'
 
 export const MINIMUM_MODEL_ERROR_SAMPLES = 5
 
@@ -12,13 +13,6 @@ function assertPositiveFinite(value: number, field: string): void {
   if (!Number.isFinite(value) || value <= 0) {
     throw new Error(`モデル誤差の${field}には0より大きい有限値を指定してください。`)
   }
-}
-
-function nearestRankPercentile(sortedValues: readonly number[], percentile: number): number {
-  const index = Math.max(0, Math.ceil(percentile * sortedValues.length) - 1)
-  const value = sortedValues[index]
-  if (value === undefined) throw new Error('モデル誤差のパーセンタイルを計算できません。')
-  return value
 }
 
 export function calculateModelErrorSummary(

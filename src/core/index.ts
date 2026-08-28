@@ -7,4 +7,10 @@ export {
   calculatePredictionRange,
   summarizeDamageRegression,
 } from './modelError'
+export {
+  evaluatePowerScalingSamples,
+  POWER_SCALING_EXACT_ERROR_TOLERANCE,
+  POWER_SCALING_RANGE_ERROR_TOLERANCE,
+  summarizePowerScalingValidation,
+} from './powerScalingValidation'
 export type * from './types'

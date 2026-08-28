@@ -17,7 +17,7 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
       value: 25,
       source: MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,
       confidence: 'medium',
-      note: 'All four hits in the published Stats table use base damage 25.',
+      note: 'All four published hits use 25. Cross-weapon scaling is provisional: P114 is a 21.3% validation outlier, while P135 and P251 are inside published ranges.',
     },
   },
   'double-axe': {
@@ -30,7 +30,7 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
       value: 100,
       source: MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
       confidence: 'medium',
-      note: 'Both hits in the published Stats table use base damage 100.',
+      note: 'Both published hits use 100. The common ratio model stays within 6.23% of 14 published Power ranges.',
     },
   },
   anchor: {
@@ -43,7 +43,7 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
       value: 238,
       source: MINECRAFT_WIKI_ANCHOR_SOURCE,
       confidence: 'medium',
-      note: 'The single hit in the published Stats table uses base damage 238.',
+      note: 'The published hit uses 238 and defines the Anchor reference curve; it is not independent cross-weapon evidence.',
     },
   },
 }

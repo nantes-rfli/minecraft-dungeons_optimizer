@@ -55,6 +55,38 @@ export interface GearPowerCurve {
   readonly points: readonly GearPowerCurvePoint[]
 }
 
+export type PublishedDamage =
+  | { readonly kind: 'exact'; readonly value: number }
+  | { readonly kind: 'range'; readonly min: number; readonly max: number }
+
+export interface WeaponPowerValidationSample {
+  readonly id: string
+  readonly weaponId: WeaponId
+  readonly powerLevel: number
+  readonly publishedDamage: PublishedDamage
+  readonly publishedGameVersion: string
+  readonly source: SourceReference
+  readonly note?: string
+}
+
+export interface PowerScalingValidationObservation {
+  readonly sample: WeaponPowerValidationSample
+  readonly predicted: number
+  readonly absoluteError: number
+  readonly relativeError: number
+  readonly withinPublishedRange: boolean
+  readonly withinTolerance: boolean
+}
+
+export interface PowerScalingValidationSummary {
+  readonly weaponId: WeaponId
+  readonly sampleCount: number
+  readonly medianRelativeError: number
+  readonly p90RelativeError: number
+  readonly maximumRelativeError: number
+  readonly withinToleranceCount: number
+}
+
 export interface SpeedRatingProxyAttackProfile {
   readonly method: 'speed-rating-proxy'
   readonly hitsPerSecond: number

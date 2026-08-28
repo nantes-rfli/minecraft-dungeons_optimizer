@@ -43,7 +43,7 @@
 ## Phase 1 — Accuracy（2 / 4）
 
 - [x] 3武器の公開per-hit timingをruntime登録し、HPSをduration合計から導出（独立実機測定は将来のcross-checkとして継続可能）
-- [x] Power 50〜263の公開damageサンプルをlog補間し、base hit damageから実ダメージを換算（表示値の個体差はmedium confidenceとして明示）
+- [x] Power 50〜263の公開damageサンプルをlog補間し、3武器29件でcross-validation（Double Axe max 6.22%、Bindings P114外れ値21.35%をmedium-confidence caveatとして保持）
 - [ ] 虚無の一撃の時間曲線を実測（複数サンプルの中央値・補間・消滅処理は実装済み、実測待ち）
 - [ ] 実測値による回帰テストと誤差範囲の表示（集計・P90参考範囲・不足表示は実装済み、実測サンプル待ち）
 
@@ -69,7 +69,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timingと、Power 50〜263の実ダメージ換算まで移行済みです。次は虚無の一撃の時間曲線を進めます。daggers / sawblade系6件はresearch側の未解決事項として分離しています。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timingと、Power 50〜263の実ダメージ換算・公開29 sampleによるcross-validationまで完了しています。次は虚無の一撃の時間曲線です。daggers / sawblade系6件とBindings P114のPower換算外れ値は、推測で補正せず未解決事項として明示しています。
 
 ## 更新ルール
 

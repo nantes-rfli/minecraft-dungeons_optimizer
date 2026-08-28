@@ -84,7 +84,7 @@ export function MethodologyPage() {
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>Power換算は公開Anchor表のPower 50〜263をlog補間したmedium-confidence値です。同Powerでもitem cardの表示値には幅があり、正確な個体値には表示ダメージ入力が必要です。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、実際の計算経路に含まれるEvidenceの品質指標です。実測回帰サンプルが5件揃うまでは誤差率を推測しません。</p>
+        <p>Power換算は公開Anchor表をlog補間し、3武器29件でcross-validationしたmedium-confidence値です。Double Axeはmax 6.22%ですが、Fighter’s BindingsのP114には21.35%の外れ値があります。武器別補正には根拠が足りないため共通式を維持し、正確な個体値には表示ダメージ入力を優先します。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、計算経路に含まれるEvidenceの品質指標です。</p>
       </section>
     </main>
   )

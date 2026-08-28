@@ -56,6 +56,27 @@ export const MINECRAFT_WIKI_ANCHOR_POWER_CURVE_SOURCE: SourceReference = {
   kind: 'published-reference',
 }
 
+export const MINECRAFT_WIKI_FIGHTERS_BINDINGS_POWER_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-fighters-bindings-power-table',
+  label: "Minecraft Wiki: Fighter's Bindings Power damage table (revision 2959833)",
+  url: 'https://minecraft.wiki/w/Dungeons%3AFighter%27s_Bindings?oldid=2959833',
+  kind: 'published-reference',
+}
+
+export const MINECRAFT_WIKI_DOUBLE_AXE_POWER_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-double-axe-power-table',
+  label: 'Minecraft Wiki: Double Axe Power damage table (revision 3004051)',
+  url: 'https://minecraft.wiki/w/Dungeons%3ADouble_Axe?oldid=3004051',
+  kind: 'published-reference',
+}
+
+export const COMMUNITY_FIGHTERS_BINDINGS_POWER_251_SOURCE: SourceReference = {
+  id: 'community-fighters-bindings-power-251-card-range',
+  label: "Community item-card report: Fighter's Bindings at Power 251",
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/o8no8d/',
+  kind: 'community-test',
+}
+
 export const MVP_MODEL_SOURCE: SourceReference = {
   id: 'mvp-model-v0.1',
   label: 'Optimizer v0.1 modelling assumption; replace with frame-timed measurements',
