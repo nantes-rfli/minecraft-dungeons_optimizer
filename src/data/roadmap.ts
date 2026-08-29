@@ -64,7 +64,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     items: [
       { label: '3武器の公開per-hit timingをruntime登録', status: 'done' },
       { label: '内部Power ratingの意味確定とW/Gモデルcross-validation', status: 'done' },
-      { label: '虚無の一撃の時間曲線を実測', status: 'in-progress' },
+      { label: '虚無の一撃の公開測定curveとper-hit resetモデル', status: 'done' },
       { label: '実測値による回帰テストと誤差範囲の表示', status: 'in-progress' },
     ],
   },

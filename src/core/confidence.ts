@@ -1,7 +1,14 @@
 import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
-import { VOID_STRIKE_CURVE } from '../data/voidStrike'
+import {
+  VOID_STRIKE_CURVE,
+  VOID_STRIKE_ARMED_MINIMUM,
+  VOID_STRIKE_EXPIRATION,
+  VOID_STRIKE_EXTERNAL_DAMAGE_CONSUMPTION,
+  VOID_STRIKE_RESET_SEMANTICS,
+  VOID_STRIKE_TIER_SCALING,
+} from '../data/voidStrike'
 import {
   getArtifactDefinition,
   getAttackProfile,
@@ -126,14 +133,24 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   }
   if (hasEnchantment(build.enchantments, 'void-strike')) {
     addEvidence('void-strike-curve', 'Void Strike時間曲線', VOID_STRIKE_CURVE, 3)
+    addEvidence('void-strike-minimum', 'Void Strike armed minimum', VOID_STRIKE_ARMED_MINIMUM, 2)
+    addEvidence('void-strike-expiration', 'Void Strike消滅時刻', VOID_STRIKE_EXPIRATION, 2)
+    addEvidence('void-strike-reset', 'Void Strike再適用', VOID_STRIKE_RESET_SEMANTICS, 2)
+    addEvidence(
+      'void-strike-external-consume',
+      'Void Strikeの外部damage消費',
+      VOID_STRIKE_EXTERNAL_DAMAGE_CONSUMPTION,
+    )
+    addEvidence('void-strike-tier-scaling', 'Void Strike tier換算', VOID_STRIKE_TIER_SCALING, 2)
     addEvidence(
       'encounter-duration',
       '戦闘時間',
       DEFAULT_SCENARIO_EVIDENCE.encounterDurationSeconds,
     )
-    caveats.push(VOID_STRIKE_CURVE.value.method === 'linear-proxy'
-      ? '「虚無の一撃」は3秒の線形ランプで近似し、武器が命中するたびにリセットしています。'
-      : '「虚無の一撃」はフレーム計測した時間曲線を補間しています。')
+    caveats.push(VOID_STRIKE_CURVE.value.method === 'frame-measured'
+      ? '「虚無の一撃」はフレーム計測した時間曲線を補間しています。'
+      : '「虚無の一撃」は公開community測定に基づく低信頼モデルです。付与hitは1倍、次frameから1.25倍、3.6秒でTier III 7倍、5秒で消滅としてper-hit間隔ごとに再適用します。厳密なcurve形状とtier別minimumは未確定です。')
+    caveats.push('外部damageによるVoid Strike消費は未実装です。現在は同じVoid Strike付き武器の直接hitだけをeventとして扱います。')
   }
 
   const artifactCounts = new Map<ArtifactId, number>()

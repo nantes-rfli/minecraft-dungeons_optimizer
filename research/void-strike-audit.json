@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-08-29",
+  "targetGameVersion": "1.17.0.0",
+  "curveDecision": "B",
+  "runtimeDataGeneratedFromThisFile": false,
+  "sources": [
+    {
+      "id": "dungeons-tools-enchantments-1.17",
+      "url": "https://www.dungeons.tools/enchantments",
+      "sourceType": "game-files",
+      "note": "1.17.0.0 enchantment table: melee tiers +200% / +400% / +600%; description says the multiplier rises steadily."
+    },
+    {
+      "id": "minecraft-wiki-void-strike-mechanics",
+      "url": "https://minecraft.wiki/w/Dungeons%3AVoid_Strike",
+      "sourceType": "published-reference",
+      "note": "Separates melee and ranged tier maxima and documents reset plus other-damage consumption."
+    },
+    {
+      "id": "community-void-strike-2021-damage-table",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/phyg2p/",
+      "sourceType": "community-test",
+      "note": "Target-dummy damage table across all tiers and four attack-speed states; also reports 3 seconds to maximum and 1 additional second before removal."
+    },
+    {
+      "id": "community-void-strike-2023-curve-discussion",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/16o226x/",
+      "sourceType": "community-test",
+      "note": "Numeric timing discussion reports a 1.25x minimum, 0.057 s Fighter's Bindings and 0.86 s Anchor observations, and 3.6 seconds to 7x; shape is disputed in the thread."
+    },
+    {
+      "id": "community-void-strike-2023-mechanics",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15xk3z1/",
+      "sourceType": "community-test",
+      "note": "Detailed mechanics report: about 3.5 seconds to 7x, expiration at 5 seconds, and melee/ranged/pet consumption with indirect-damage exceptions."
+    }
+  ],
+  "mechanicsEvidence": [
+    {
+      "topic": "tier-maximum",
+      "status": "verified",
+      "conclusion": "Melee Tier I / II / III maximum total multipliers are 3x / 5x / 7x.",
+      "sourceIds": ["dungeons-tools-enchantments-1.17", "minecraft-wiki-void-strike-mechanics"],
+      "confidence": "high"
+    },
+    {
+      "topic": "application-hit",
+      "status": "probable",
+      "conclusion": "The application hit deals normal damage; only an already-voided target receives the multiplier.",
+      "sourceIds": ["community-void-strike-2021-damage-table", "minecraft-wiki-void-strike-mechanics"],
+      "confidence": "medium"
+    },
+    {
+      "topic": "minimum-multiplier",
+      "status": "probable",
+      "conclusion": "The first armed frame has an approximately 1.25x total multiplier.",
+      "sourceIds": ["community-void-strike-2023-curve-discussion", "community-void-strike-2023-mechanics"],
+      "confidence": "medium",
+      "note": "Tier III is well repeated in community explanations. A tier-independent 1.25x minimum is plausible but was not independently isolated for every tier."
+    },
+    {
+      "topic": "ramp-duration",
+      "status": "probable",
+      "conclusion": "Maximum is reached in approximately 3.0 to 3.6 seconds; the runtime selects 3.6 seconds for the final-version model.",
+      "sourceIds": ["community-void-strike-2021-damage-table", "community-void-strike-2023-curve-discussion", "community-void-strike-2023-mechanics"],
+      "confidence": "low",
+      "note": "Published tests disagree, and their game versions are not consistently stated."
+    },
+    {
+      "topic": "ramp-shape",
+      "status": "uncertain",
+      "conclusion": "The in-game wording and several testers support a steady/linear ramp, but no complete public frame series was found and one tester disputes linearity.",
+      "sourceIds": ["dungeons-tools-enchantments-1.17", "community-void-strike-2023-curve-discussion"],
+      "confidence": "low"
+    },
+    {
+      "topic": "expiration",
+      "status": "probable",
+      "conclusion": "The effect disappears at approximately 5 seconds, after a plateau near maximum.",
+      "sourceIds": ["community-void-strike-2023-mechanics"],
+      "confidence": "medium",
+      "note": "The exact expiration frame is not published."
+    },
+    {
+      "topic": "same-weapon-reset",
+      "status": "verified",
+      "conclusion": "A weapon follow-up consumes the current multiplier and a Void Strike weapon immediately reapplies/reset the debuff.",
+      "sourceIds": ["minecraft-wiki-void-strike-mechanics", "community-void-strike-2023-mechanics"],
+      "confidence": "high"
+    },
+    {
+      "topic": "external-consume",
+      "status": "partial",
+      "conclusion": "Melee, ranged, and pet hits consume the effect. Indirect enchantment/artifact damage and DoT have exceptions, so the full event taxonomy remains unresolved.",
+      "sourceIds": ["minecraft-wiki-void-strike-mechanics", "community-void-strike-2023-mechanics"],
+      "confidence": "medium"
+    },
+    {
+      "topic": "tier-scaling",
+      "status": "uncertain",
+      "conclusion": "Runtime keeps the 1.25x armed minimum common and linearly scales the remaining ramp to each tier maximum.",
+      "sourceIds": ["community-void-strike-2021-damage-table"],
+      "confidence": "low",
+      "note": "This is a model assumption supported by multi-tier continuous-attack results, not a direct frame measurement of all tiers."
+    }
+  ],
+  "measurementSamples": [
+    {
+      "id": "bindings-base-tier-1-2021",
+      "tier": 1,
+      "timing": { "kind": "continuous-attacks", "elapsedSeconds": null },
+      "observedMultiplier": { "kind": "approximate", "value": 1.325, "tolerance": 0.025 },
+      "sourceId": "community-void-strike-2021-damage-table",
+      "sourceType": "community-test",
+      "conditions": { "weapon": "Fighter's Bindings", "attackSpeedModifier": 1 },
+      "confidence": "medium",
+      "note": "Published average from two displayed follow-up damage values; the post does not report hit timestamps."
+    },
+    {
+      "id": "bindings-base-tier-2-2021",
+      "tier": 2,
+      "timing": { "kind": "continuous-attacks", "elapsedSeconds": null },
+      "observedMultiplier": { "kind": "approximate", "value": 1.421, "tolerance": 0.025 },
+      "sourceId": "community-void-strike-2021-damage-table",
+      "sourceType": "community-test",
+      "conditions": { "weapon": "Fighter's Bindings", "attackSpeedModifier": 1 },
+      "confidence": "medium",
+      "note": "Published average; hit timestamps are unreported."
+    },
+    {
+      "id": "bindings-base-tier-3-2021",
+      "tier": 3,
+      "timing": { "kind": "continuous-attacks", "elapsedSeconds": null },
+      "observedMultiplier": { "kind": "approximate", "value": 1.475, "tolerance": 0.075 },
+      "sourceId": "community-void-strike-2021-damage-table",
+      "sourceType": "community-test",
+      "conditions": { "weapon": "Fighter's Bindings", "attackSpeedModifier": 1 },
+      "confidence": "medium",
+      "note": "Published range is approximately 1.4x to 1.55x; hit timestamps are unreported."
+    },
+    {
+      "id": "bindings-fast-tier-3-2023",
+      "tier": 3,
+      "timing": { "kind": "elapsed", "elapsedSeconds": 0.057 },
+      "observedMultiplier": { "kind": "approximate", "value": 1.25, "tolerance": 0.05 },
+      "sourceId": "community-void-strike-2023-curve-discussion",
+      "sourceType": "community-test",
+      "conditions": { "weapon": "Fighter's Bindings", "attackSpeedModifier": 2.25 },
+      "confidence": "low",
+      "note": "Single public numeric report; retained as independent validation, not used as a runtime point."
+    },
+    {
+      "id": "anchor-fast-tier-3-2023",
+      "tier": 3,
+      "timing": { "kind": "elapsed", "elapsedSeconds": 0.86 },
+      "observedMultiplier": { "kind": "approximate", "value": 2.75, "tolerance": 0.1 },
+      "sourceId": "community-void-strike-2023-curve-discussion",
+      "sourceType": "community-test",
+      "conditions": { "weapon": "Anchor", "attackSpeedModifier": 2.25 },
+      "confidence": "low",
+      "note": "Reported as +175%; retained as independent validation, not used as a runtime point."
+    },
+    {
+      "id": "tier-3-maximum-2023",
+      "tier": 3,
+      "timing": { "kind": "elapsed", "elapsedSeconds": 3.6 },
+      "observedMultiplier": { "kind": "exact", "value": 7 },
+      "sourceId": "community-void-strike-2023-curve-discussion",
+      "sourceType": "community-test",
+      "confidence": "low",
+      "note": "This endpoint informs the selected runtime model and is excluded from independent validation metrics."
+    }
+  ],
+  "unsupportedRuntimeMechanics": [
+    "External damage event consumption",
+    "Indirect damage and damage-over-time exceptions",
+    "Ranged Void Strike",
+    "Per-frame quantization"
+  ]
+}

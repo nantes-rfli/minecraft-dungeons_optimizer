@@ -67,3 +67,15 @@ export function calculateBaseHitsPerSecond(profile: AttackProfile): number {
   }
   return calculateFrameMeasuredRate(profile)
 }
+
+/**
+ * Returns the repeating delay after each hit. Published profiles preserve their raw combo
+ * cadence; aggregate-only profiles have no more precise option than a uniform interval.
+ */
+export function resolveHitIntervalSequence(profile: AttackProfile): readonly number[] {
+  if (profile.method === 'published-hit-timings') {
+    calculatePublishedHitTimingRate(profile)
+    return profile.hitDurationsSeconds
+  }
+  return [1 / calculateBaseHitsPerSecond(profile)]
+}

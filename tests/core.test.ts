@@ -7,7 +7,13 @@ import { deriveCombatState } from '../src/core/combatState'
 import { calculateDamage } from '../src/core/damage'
 import { calculateDefense } from '../src/core/defense'
 import { calculateHealing } from '../src/core/healing'
-import { calculateVoidStrikeMultiplier } from '../src/core/voidStrike'
+import {
+  calculateAverageVoidStrikeMultiplier,
+  calculateVoidStrikeMultiplier,
+} from '../src/core/voidStrike'
+import { VOID_STRIKE_CURVE } from '../src/data/voidStrike'
+import voidStrikeAudit from '../research/void-strike-audit.json'
+import { median, nearestRankPercentile } from '../src/core/statistics'
 import { evaluate, OptimizerInputError } from '../src/core'
 import type { Build, EnchantmentId, EnchantmentTier, SelectedEnchantment } from '../src/core'
 
@@ -178,7 +184,7 @@ describe('damage model', () => {
     expect(damage.singleTargetDps).toBeCloseTo((261_897 * 4 / 0.575) * 1.4)
   })
 
-  it('rewards slower weapons under the provisional Void Strike model', () => {
+  it('rewards slower weapons under the published-measurement Void Strike model', () => {
     const anchor = calculateDamage(
       { weaponId: 'anchor', powerLevel: 251 },
       [selected('void-strike')],
@@ -206,6 +212,38 @@ describe('damage model', () => {
     expect(multipliers[1]).toBeLessThan(multipliers[2]!)
   })
 
+  it('uses each supported weapon raw hit interval sequence', () => {
+    const multipliers = (['fighters-bindings', 'double-axe', 'anchor'] as const)
+      .map((weaponId) => calculateDamage(
+        { weaponId, powerLevel: 251 },
+        [selected('void-strike')],
+        noArtifactEffects,
+        DEFAULT_SCENARIO,
+      ).voidStrikeMultiplier)
+
+    expect(multipliers[0]).toBeCloseTo(1.477306, 6)
+    expect(multipliers[1]).toBeCloseTo(2.184167, 6)
+    expect(multipliers[2]).toBeCloseTo(4.889468, 6)
+  })
+
+  it('shortens raw intervals and lowers Void Strike bonus when attack speed rises', () => {
+    const base = calculateDamage(
+      { weaponId: 'double-axe', powerLevel: 251 },
+      [selected('void-strike')],
+      noArtifactEffects,
+      DEFAULT_SCENARIO,
+    )
+    const faster = calculateDamage(
+      { weaponId: 'double-axe', powerLevel: 251 },
+      [selected('void-strike')],
+      { ...noArtifactEffects, attackSpeedMultiplier: 2 },
+      DEFAULT_SCENARIO,
+    )
+
+    expect(faster.hitsPerSecond).toBeCloseTo(base.hitsPerSecond * 2)
+    expect(faster.voidStrikeMultiplier).toBeLessThan(base.voidStrikeMultiplier)
+  })
+
   it('uses an observed item-card damage value when one is supplied', () => {
     const damage = calculateDamage(
       { weaponId: 'fighters-bindings', powerLevel: 1, observedDamagePerHit: 100 },
@@ -223,8 +261,11 @@ describe('Void Strike curve', () => {
   it('interpolates median multipliers from frame-measured points', () => {
     const multiplier = calculateVoidStrikeMultiplier({
       method: 'frame-measured',
+      applicationHitMultiplier: 1,
+      armedMinimumMultiplier: 1.25,
+      referenceMaximumMultiplier: 7,
       points: [
-        { elapsedSeconds: 0, multiplierSamples: [1, 1, 1, 1, 1] },
+        { elapsedSeconds: 0, multiplierSamples: [1.25, 1.25, 1.25, 1.25, 1.25] },
         { elapsedSeconds: 1, multiplierSamples: [2, 2, 2.1, 2, 1.9] },
         { elapsedSeconds: 2, multiplierSamples: [5, 5.1, 5, 4.9, 7] },
       ],
@@ -235,8 +276,11 @@ describe('Void Strike curve', () => {
   it('returns the base multiplier after a measured curve expires', () => {
     expect(calculateVoidStrikeMultiplier({
       method: 'linear-proxy',
+      applicationHitMultiplier: 1,
+      armedMinimumMultiplier: 1.25,
+      referenceMaximumMultiplier: 7,
       points: [
-        { elapsedSeconds: 0, multiplier: 1 },
+        { elapsedSeconds: 0, multiplier: 1.25 },
         { elapsedSeconds: 3.6, multiplier: 7 },
       ],
       expiresAfterSeconds: 5,
@@ -246,8 +290,11 @@ describe('Void Strike curve', () => {
   it('rejects unordered curve points', () => {
     expect(() => calculateVoidStrikeMultiplier({
       method: 'linear-proxy',
+      applicationHitMultiplier: 1,
+      armedMinimumMultiplier: 1.25,
+      referenceMaximumMultiplier: 7,
       points: [
-        { elapsedSeconds: 0, multiplier: 1 },
+        { elapsedSeconds: 0, multiplier: 1.25 },
         { elapsedSeconds: 0, multiplier: 2 },
       ],
     }, 0.5, 7)).toThrow('昇順で重複なく')
@@ -256,21 +303,105 @@ describe('Void Strike curve', () => {
   it('rejects a decreasing curve', () => {
     expect(() => calculateVoidStrikeMultiplier({
       method: 'linear-proxy',
+      applicationHitMultiplier: 1,
+      armedMinimumMultiplier: 1.25,
+      referenceMaximumMultiplier: 7,
       points: [
-        { elapsedSeconds: 0, multiplier: 2 },
+        { elapsedSeconds: 0, multiplier: 1.25 },
         { elapsedSeconds: 1, multiplier: 1.5 },
+        { elapsedSeconds: 2, multiplier: 1.4 },
       ],
-    }, 0.5, 7)).toThrow('減少しない値')
+    }, 1.5, 7)).toThrow('減少しない値')
   })
 
   it('rejects every out-of-range measurement before taking the median', () => {
     expect(() => calculateVoidStrikeMultiplier({
       method: 'frame-measured',
+      applicationHitMultiplier: 1,
+      armedMinimumMultiplier: 1.25,
+      referenceMaximumMultiplier: 7,
       points: [
-        { elapsedSeconds: 0, multiplierSamples: [1, 1, 1, 1, 1] },
+        { elapsedSeconds: 0, multiplierSamples: [1.25, 1.25, 1.25, 1.25, 1.25] },
         { elapsedSeconds: 1, multiplierSamples: [2, 2, 2, 2, 8] },
       ],
     }, 0.5, 7)).toThrow('1以上7以下')
+  })
+
+  it('keeps the application hit at 1x and jumps to the armed minimum afterward', () => {
+    expect(calculateVoidStrikeMultiplier(VOID_STRIKE_CURVE.value, 0, 7)).toBe(1)
+    expect(calculateVoidStrikeMultiplier(VOID_STRIKE_CURVE.value, Number.EPSILON, 7))
+      .toBeCloseTo(1.25)
+  })
+
+  it('rises monotonically to the tier cap without exceeding it', () => {
+    const samples = [0.1, 0.5, 1, 2, 3.6, 4.5]
+      .map((elapsed) => calculateVoidStrikeMultiplier(VOID_STRIKE_CURVE.value, elapsed, 5))
+    expect(samples).toEqual([...samples].sort((left, right) => left - right))
+    expect(Math.max(...samples)).toBe(5)
+  })
+
+  it('consumes the current multiplier then resets for each same-weapon follow-up', () => {
+    const firstFollowUp = calculateVoidStrikeMultiplier(VOID_STRIKE_CURVE.value, 1, 7)
+    const secondFollowUp = calculateVoidStrikeMultiplier(VOID_STRIKE_CURVE.value, 2, 7)
+    const average = calculateAverageVoidStrikeMultiplier(
+      VOID_STRIKE_CURVE.value,
+      [1, 2],
+      3.1,
+      1,
+      7,
+    )
+    expect(average).toBeCloseTo((1 + firstFollowUp + secondFollowUp) / 3)
+  })
+
+  it('treats the first post-expiration hit as normal damage and reapplies the effect', () => {
+    expect(calculateAverageVoidStrikeMultiplier(
+      VOID_STRIKE_CURVE.value,
+      [5.1, 1],
+      6.2,
+      1,
+      7,
+    )).toBeCloseTo((1 + 1 + calculateVoidStrikeMultiplier(
+      VOID_STRIKE_CURVE.value,
+      1,
+      7,
+    )) / 3)
+  })
+
+  it('counts only the application hit when the encounter ends before the follow-up', () => {
+    expect(calculateAverageVoidStrikeMultiplier(
+      VOID_STRIKE_CURVE.value,
+      [2.5],
+      2,
+      1,
+      7,
+    )).toBe(1)
+  })
+
+  it('reports error against independent public elapsed-time observations', () => {
+    const independent = voidStrikeAudit.measurementSamples.filter((sample) =>
+      sample.timing.kind === 'elapsed'
+      && sample.timing.elapsedSeconds !== null
+      && sample.id !== 'tier-3-maximum-2023',
+    )
+    const relativeErrors = independent.map((sample) => {
+      const elapsedSeconds = sample.timing.elapsedSeconds
+      if (elapsedSeconds === null) throw new Error('elapsed sample is missing time')
+      const predicted = calculateVoidStrikeMultiplier(
+        VOID_STRIKE_CURVE.value,
+        elapsedSeconds,
+        7,
+      )
+      return Math.abs(predicted - sample.observedMultiplier.value) /
+        sample.observedMultiplier.value
+    })
+
+    expect(independent.map((sample) => sample.id)).toEqual([
+      'bindings-fast-tier-3-2023',
+      'anchor-fast-tier-3-2023',
+    ])
+    expect(median(relativeErrors)).toBeCloseTo(0.059396, 6)
+    expect(nearestRankPercentile(relativeErrors, 0.9)).toBeCloseTo(0.072833, 6)
+    expect(Math.max(...relativeErrors)).toBeCloseTo(0.072833, 6)
   })
 })
 

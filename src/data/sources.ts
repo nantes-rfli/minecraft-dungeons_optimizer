@@ -21,6 +21,41 @@ export const MINECRAFT_WIKI_ENCHANTMENTS_SOURCE: SourceReference = {
   kind: 'community-test',
 }
 
+export const MINECRAFT_WIKI_VOID_STRIKE_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-void-strike-mechanics',
+  label: 'Minecraft Wiki: Void Strike tiers, reset, and other-damage consumption',
+  url: 'https://minecraft.wiki/w/Dungeons%3AVoid_Strike',
+  kind: 'published-reference',
+}
+
+export const DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE: SourceReference = {
+  id: 'dungeons-tools-enchantments-1.17',
+  label: 'dungeons.tools: 1.17.0.0 enchantment data and in-game descriptions',
+  url: 'https://www.dungeons.tools/enchantments',
+  kind: 'game-files',
+}
+
+export const COMMUNITY_VOID_STRIKE_MEASUREMENTS_SOURCE: SourceReference = {
+  id: 'community-void-strike-2021-damage-table',
+  label: 'Community target-dummy test: Void Strike tiers and attack-speed damage table',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/phyg2p/',
+  kind: 'community-test',
+}
+
+export const COMMUNITY_VOID_STRIKE_CURVE_SOURCE: SourceReference = {
+  id: 'community-void-strike-2023-curve-discussion',
+  label: 'Community timing discussion: 1.25× minimum, linear ramp, and 3.6 s maximum',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/16o226x/',
+  kind: 'community-test',
+}
+
+export const COMMUNITY_VOID_STRIKE_EXPIRATION_SOURCE: SourceReference = {
+  id: 'community-void-strike-2023-expiration-test',
+  label: 'Community mechanics test: approximately 3.5 s to maximum and 5 s expiration',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/15xk3z1/',
+  kind: 'community-test',
+}
+
 export const MINECRAFT_WIKI_DEATH_CAP_SOURCE: SourceReference = {
   id: 'minecraft-wiki-death-cap',
   label: 'Minecraft Wiki: Death Cap Mushroom',

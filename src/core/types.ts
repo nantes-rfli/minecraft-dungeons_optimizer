@@ -5,7 +5,12 @@ export interface SourceReference {
   readonly id: string
   readonly label: string
   readonly url?: string
-  readonly kind: 'game-files' | 'published-reference' | 'community-test' | 'model-assumption'
+  readonly kind:
+    | 'game-files'
+    | 'frame-analysis'
+    | 'published-reference'
+    | 'community-test'
+    | 'model-assumption'
 }
 
 export interface Evidence<T> {
@@ -118,24 +123,40 @@ export interface VoidStrikeCurvePoint {
   readonly multiplier: number
 }
 
+interface VoidStrikeCurveBase {
+  /** The hit which first applies Void Strike is not amplified. */
+  readonly applicationHitMultiplier: number
+  /** The first armed frame can jump above the application-hit multiplier. */
+  readonly armedMinimumMultiplier: number
+  /** Curve points are recorded against this tier maximum (Tier III melee = 7×). */
+  readonly referenceMaximumMultiplier: number
+  readonly expiresAfterSeconds?: number
+}
+
 export interface VoidStrikeMeasurementPoint {
   readonly elapsedSeconds: number
   readonly multiplierSamples: readonly number[]
 }
 
-export interface LinearProxyVoidStrikeCurve {
+export interface LinearProxyVoidStrikeCurve extends VoidStrikeCurveBase {
   readonly method: 'linear-proxy'
   readonly points: readonly VoidStrikeCurvePoint[]
-  readonly expiresAfterSeconds?: number
 }
 
-export interface FrameMeasuredVoidStrikeCurve {
+export interface PublishedMeasurementsVoidStrikeCurve extends VoidStrikeCurveBase {
+  readonly method: 'published-measurements'
+  readonly points: readonly VoidStrikeCurvePoint[]
+}
+
+export interface FrameMeasuredVoidStrikeCurve extends VoidStrikeCurveBase {
   readonly method: 'frame-measured'
   readonly points: readonly VoidStrikeMeasurementPoint[]
-  readonly expiresAfterSeconds?: number
 }
 
-export type VoidStrikeCurve = LinearProxyVoidStrikeCurve | FrameMeasuredVoidStrikeCurve
+export type VoidStrikeCurve =
+  | LinearProxyVoidStrikeCurve
+  | PublishedMeasurementsVoidStrikeCurve
+  | FrameMeasuredVoidStrikeCurve
 
 export interface EnchantmentTierValues {
   readonly triggerChance?: number

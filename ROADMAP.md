@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御モデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **18 / 28（64%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **19 / 28（68%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -40,11 +40,11 @@
 
 完了条件: 全82武器が `exact / verified-shared / partial / inferred / missing` のいずれかに分類され、公開情報のcoverageと未解決一覧を `npm run audit:melee` で再現できること。現在は `exact 76 / partial 6`、strict runtime-readyは92.7%。research結果だけを根拠にruntime catalogや既存3武器のprofileは変更しない。
 
-## Phase 1 — Accuracy（2 / 4）
+## Phase 1 — Accuracy（3 / 4）
 
 - [x] 3武器の公開per-hit timingをruntime登録し、HPSをduration合計から導出（独立実機測定は将来のcross-checkとして継続可能）
 - [x] Power 50〜263のAnchor curveと1.17.0.0内部Power rating比を分離し、W/Gモデルを29 sampleでcross-validation（version不明fixtureとの最大45.06%差をmedium-confidence caveatとして保持）
-- [ ] 虚無の一撃の時間曲線を実測（複数サンプルの中央値・補間・消滅処理は実装済み、実測待ち）
+- [x] 虚無の一撃を公開測定に基づく不連続curve（付与hit 1倍、armed minimum 1.25倍、3.6秒でTier III 7倍、5秒で消滅）へ置換し、3武器のper-hit interval・再適用・戦闘時間・attack speedをruntimeへ反映
 - [ ] 実測値による回帰テストと誤差範囲の表示（集計・P90参考範囲・不足表示は実装済み、実測サンプル待ち）
 
 完了条件: 対応する3武器について、ゲーム内実測値とモデル出力の誤差範囲を表示できること。
@@ -69,7 +69,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timingと、Power 50〜263のAnchor curve・1.17.0.0内部Power rating比による実ダメージ換算まで完了しています。Wiki base damage比とのW/G比較はGolden Testへ固定しました。次は虚無の一撃の時間曲線です。daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認は未解決事項として明示しています。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費の全分類はlow-confidence caveatとして残します。次はPhase 1-4の独立したゲーム内DPS回帰です。daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
 
 ## 更新ルール
 

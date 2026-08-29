@@ -1,6 +1,7 @@
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
 import {
   COMMUNITY_RADIANCE_STACKING_SOURCE,
+  DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE,
   MINECRAFT_WIKI_ENCHANTMENTS_SOURCE,
 } from './sources'
 
@@ -76,7 +77,7 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
         2: { maxBonusDamage: 4 },
         3: { maxBonusDamage: 6 },
       },
-      source: wiki,
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE,
       confidence: 'high',
     },
     stacking: {

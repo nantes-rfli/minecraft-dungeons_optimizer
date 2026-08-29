@@ -13,7 +13,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接3武器のPower 50〜263は公開値ベースの推定damageに対応します。
 
-完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は2 / 4項目まで進行しています。
+完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
@@ -87,7 +87,7 @@ scripts/               research検証・レポート再生成スクリプト
 - `Leeching III`: `直接撃破/秒 × 敵HP × 9%`。間接ダメージ撃破はCombat Stateで除外済みです。
 - `Guarding Strike III`: 武器本体の直接撃破をPoisson過程とみなし、`1 - exp(-directWeaponKillsPerSecond × 4)`を稼働率にします。
 - アーティファクト: `duration / effectiveCooldown` を時間平均します。同種の一時効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。
-- `Void Strike III`: 各武器ヒットでリセットされる時間曲線です。現在は1倍から3秒で7倍になる線形近似で、[計測手順](./docs/void-strike-measurement.md)に従った複数サンプルの中央値・補間へ差し替え可能です。
+- `Void Strike`: [公開測定audit](./docs/void-strike-measurement.md)に基づき、最初の付与hitは1倍、armed後は1.25倍から3.6秒でTier III 7倍へ線形増加し、5秒で消滅します。3武器は平均HPSへ潰さず、combo内の各per-hit intervalをattack speedで短縮し、hitごとの消費・再適用と戦闘時間を計算します。curve形状・正確な消滅frame・tier別minimumはlow confidenceです。
 - Enchantment選択: BuildはIDだけでなくtier・slot/gilded/built-inのsourceを保持します。金色枠はUI・localStorage・JSON・Optimizerを通してTier I / II / IIIを維持します。重複可否と追加コピーの扱いは[Enchantモデル](./docs/enchantment-model.md)に集約しています。
 - 目的スコア: 火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
 - 説明可能性: 選択効果を1つずつ外して再評価し、スコア・DPS・回復・実効HPの差分を寄与度として表示します。
@@ -104,6 +104,6 @@ Power ratingは武器間のper-hit damage係数、Speed / Area ratingは別軸�
 - 武器の内部Power / Speed / Area: [dungeons.tools](https://www.dungeons.tools/tier-list) の 1.17.0.0 ゲームファイル由来データ。武器間換算は[damage calculator](https://www.dungeons.tools/damage-calculator)の共通curve・内部rating比をmedium confidenceで採用。
 - Gear Power Curve: Minecraft WikiのAnchor Power 50〜263表をmedium confidenceで保持。Wiki base damageは出典とversionが不明なため、runtimeではなくW/G比較用のlow-confidence Evidenceとして分離。
 - エンチャントとアーティファクト仕様: [Minecraft Wiki](https://minecraft.wiki/w/Dungeons:Enchantment) に掲載されたゲーム内説明・検証値。
-- Void Strike のランプ、標準シナリオ: `model-assumption` として隔離した未検証値。既存3武器のAttack Profileは公開Stats表由来のmedium confidence。
+- Void Strike: tier最大値とresetはhigh、1.25倍minimumと約5秒消滅はmedium、3.6秒の線形curveとtier換算はlow confidenceです。raw公開値は [`research/void-strike-audit.json`](./research/void-strike-audit.json) にruntimeとは独立して保存しています。既存3武器のAttack Profileは公開Stats表由来のmedium confidenceです。
 
-次の精度改善で最優先なのは、Void Strike の経過時間別倍率の検証です。Power換算の意味は内部rating比へ確定しましたが、同一1.17.0.0・同一roll条件の実測とraw game-file fieldの独立確認は継続課題です。
+次の精度改善はPhase 1-4の独立DPS回帰です。Void Strikeの完全なframe series、Power換算の同一1.17.0.0・同一roll条件の実測、raw game-file fieldの独立確認は継続課題です。

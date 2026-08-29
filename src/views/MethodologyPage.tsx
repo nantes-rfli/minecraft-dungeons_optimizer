@@ -32,7 +32,7 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">02 / 火力</p>
           <h2>単体DPSとAoEを分離</h2>
-          <p>Power換算したper-hit damage、per-hit Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
+          <p>Power換算したper-hit damage、combo内の生Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。Void Strikeは最初のhitを1倍、以後はattack speedで短縮した各hit間隔の倍率を使い、毎hit再適用します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
           <Formula>Crit期待倍率 = 1 + 0.20 × (3.0 − 1) = 1.4</Formula>
         </article>
         <article className="method-card">
@@ -84,7 +84,7 @@ export function MethodologyPage() {
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。version不明のWiki damage表29件とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先します。平均敵HPなどもdamageと同じゲーム内単位で入力してください。Evidence coverageは正解確率ではなく、計算経路に含まれるEvidenceの品質指標です。</p>
+        <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。version不明のWiki damage表29件とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先します。Evidence coverageは正解確率ではありません。</p>
       </section>
     </main>
   )

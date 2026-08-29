@@ -1,14 +1,14 @@
 import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
-import { calculateBaseHitsPerSecond } from './attackProfile'
-import { getAttackProfile, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
+import { calculateBaseHitsPerSecond, resolveHitIntervalSequence } from './attackProfile'
+import { getAttackProfile, getWeaponDefinition } from './catalog'
 import { enchantmentsById, getTierValues } from './enchantment'
 import {
   calculatePowerScaledHitDamage,
   resolveWeaponDamageCoefficient,
 } from './powerScaling'
-import { calculateVoidStrikeMultiplier } from './voidStrike'
+import { calculateAverageVoidStrikeMultiplier } from './voidStrike'
 import type {
   ArtifactEffects,
   DamageMetrics,
@@ -28,27 +28,20 @@ function criticalExpectedMultiplier(enchantments: readonly SelectedEnchantment[]
 
 function voidStrikeExpectedMultiplier(
   enchantments: readonly SelectedEnchantment[],
-  hitsPerSecond: number,
+  hitIntervalSequence: readonly number[],
+  attackSpeedMultiplier: number,
   scenario: Scenario,
 ): number {
   const selected = enchantmentsById(enchantments, 'void-strike')[0]
-  if (!selected || hitsPerSecond <= 0) return 1
+  if (!selected) return 1
   const maxBonus = getTierValues(selected).maxBonusDamage ?? 0
-  const referenceMaxBonus =
-    getEnchantmentDefinition('void-strike').tiers.value[3].maxBonusDamage ?? 0
-  const intervalSeconds = 1 / hitsPerSecond
-  const referenceFollowUpHitMultiplier = calculateVoidStrikeMultiplier(
+  return calculateAverageVoidStrikeMultiplier(
     VOID_STRIKE_CURVE.value,
-    intervalSeconds,
-    1 + referenceMaxBonus,
+    hitIntervalSequence,
+    scenario.encounterDurationSeconds,
+    attackSpeedMultiplier,
+    1 + maxBonus,
   )
-  const followUpHitMultiplier = referenceMaxBonus > 0
-    ? 1 + (referenceFollowUpHitMultiplier - 1) * maxBonus / referenceMaxBonus
-    : 1
-  const expectedHitCount = hitsPerSecond * scenario.encounterDurationSeconds
-
-  if (expectedHitCount <= 1) return 1
-  return (1 + (expectedHitCount - 1) * followUpHitMultiplier) / expectedHitCount
 }
 
 export function calculateDamage(
@@ -79,7 +72,8 @@ export function calculateDamage(
   const criticalMultiplier = criticalExpectedMultiplier(enchantments)
   const voidStrikeMultiplier = voidStrikeExpectedMultiplier(
     enchantments,
-    hitsPerSecond,
+    resolveHitIntervalSequence(attackProfile.value),
+    artifactEffects.attackSpeedMultiplier,
     scenario,
   )
   const singleTargetDps = baseDps * criticalMultiplier * voidStrikeMultiplier

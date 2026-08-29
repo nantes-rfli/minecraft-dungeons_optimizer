@@ -49,11 +49,24 @@ function resolveMeasuredPoints(
 function validatePoints(
   points: readonly VoidStrikeCurvePoint[],
   maximumMultiplier: number,
+  applicationHitMultiplier: number,
+  armedMinimumMultiplier: number,
   expiresAfterSeconds?: number,
 ): void {
   assertFinite(maximumMultiplier, 'maximumMultiplier')
+  assertFinite(applicationHitMultiplier, 'applicationHitMultiplier')
+  assertFinite(armedMinimumMultiplier, 'armedMinimumMultiplier')
   if (maximumMultiplier < 1) {
     throw new Error('Void Strike CurveのmaximumMultiplierは1以上にしてください。')
+  }
+  if (applicationHitMultiplier !== 1) {
+    throw new Error('Void Strike CurveのapplicationHitMultiplierは1にしてください。')
+  }
+  if (armedMinimumMultiplier < applicationHitMultiplier
+    || armedMinimumMultiplier > maximumMultiplier) {
+    throw new Error(
+      'Void Strike CurveのarmedMinimumMultiplierはapplication hit以上、maximum以下にしてください。',
+    )
   }
   if (points.length < 2) {
     throw new Error('Void Strike Curveのpointsには2点以上指定してください。')
@@ -80,6 +93,11 @@ function validatePoints(
   if (points[0]?.elapsedSeconds !== 0) {
     throw new Error('Void Strike Curveの最初の点はelapsedSeconds: 0にしてください。')
   }
+  if (points[0]?.multiplier !== armedMinimumMultiplier) {
+    throw new Error(
+      'Void Strike Curveの最初の点はarmedMinimumMultiplierと一致させてください。',
+    )
+  }
   if (expiresAfterSeconds !== undefined) {
     assertFinite(expiresAfterSeconds, 'expiresAfterSeconds')
     const lastElapsed = points.at(-1)?.elapsedSeconds ?? 0
@@ -98,21 +116,86 @@ export function calculateVoidStrikeMultiplier(
   if (elapsedSeconds < 0) {
     throw new Error('Void Strike CurveのelapsedSecondsは0以上にしてください。')
   }
-  const points = curve.method === 'frame-measured'
-    ? resolveMeasuredPoints(curve, maximumMultiplier)
+  const referencePoints = curve.method === 'frame-measured'
+    ? resolveMeasuredPoints(curve, curve.referenceMaximumMultiplier)
     : curve.points
-  validatePoints(points, maximumMultiplier, curve.expiresAfterSeconds)
+  validatePoints(
+    referencePoints,
+    curve.referenceMaximumMultiplier,
+    curve.applicationHitMultiplier,
+    curve.armedMinimumMultiplier,
+    curve.expiresAfterSeconds,
+  )
+  assertFinite(maximumMultiplier, 'maximumMultiplier')
+  if (maximumMultiplier < curve.armedMinimumMultiplier) {
+    throw new Error(
+      'Void Strike Curveのtier maximumはarmedMinimumMultiplier以上にしてください。',
+    )
+  }
 
   if (curve.expiresAfterSeconds !== undefined && elapsedSeconds >= curve.expiresAfterSeconds) {
-    return 1
+    return curve.applicationHitMultiplier
   }
-  const first = points[0]!
-  if (elapsedSeconds <= first.elapsedSeconds) return first.multiplier
-  const upperIndex = points.findIndex((point) => point.elapsedSeconds >= elapsedSeconds)
-  if (upperIndex === -1) return points.at(-1)!.multiplier
-  const upper = points[upperIndex]!
-  const lower = points[upperIndex - 1]!
-  const progress = (elapsedSeconds - lower.elapsedSeconds) /
-    (upper.elapsedSeconds - lower.elapsedSeconds)
-  return lower.multiplier + (upper.multiplier - lower.multiplier) * progress
+  if (elapsedSeconds === 0) return curve.applicationHitMultiplier
+  const first = referencePoints[0]!
+  let referenceMultiplier: number
+  if (elapsedSeconds <= first.elapsedSeconds) {
+    referenceMultiplier = first.multiplier
+  } else {
+    const upperIndex = referencePoints.findIndex((point) => point.elapsedSeconds >= elapsedSeconds)
+    if (upperIndex === -1) {
+      referenceMultiplier = referencePoints.at(-1)!.multiplier
+    } else {
+      const upper = referencePoints[upperIndex]!
+      const lower = referencePoints[upperIndex - 1]!
+      const progress = (elapsedSeconds - lower.elapsedSeconds) /
+        (upper.elapsedSeconds - lower.elapsedSeconds)
+      referenceMultiplier = lower.multiplier + (upper.multiplier - lower.multiplier) * progress
+    }
+  }
+  const referenceRamp = curve.referenceMaximumMultiplier - curve.armedMinimumMultiplier
+  const tierRamp = maximumMultiplier - curve.armedMinimumMultiplier
+  if (referenceRamp === 0) return curve.armedMinimumMultiplier
+  return curve.armedMinimumMultiplier +
+    (referenceMultiplier - curve.armedMinimumMultiplier) * tierRamp / referenceRamp
+}
+
+export function calculateAverageVoidStrikeMultiplier(
+  curve: VoidStrikeCurve,
+  hitIntervalSequence: readonly number[],
+  encounterDurationSeconds: number,
+  attackSpeedMultiplier: number,
+  maximumMultiplier: number,
+): number {
+  assertFinite(encounterDurationSeconds, 'encounterDurationSeconds')
+  assertFinite(attackSpeedMultiplier, 'attackSpeedMultiplier')
+  if (encounterDurationSeconds <= 0) {
+    throw new Error('Void StrikeのencounterDurationSecondsは0より大きくしてください。')
+  }
+  if (attackSpeedMultiplier <= 0) {
+    throw new Error('Void StrikeのattackSpeedMultiplierは0より大きくしてください。')
+  }
+  if (hitIntervalSequence.length === 0) {
+    throw new Error('Void StrikeのhitIntervalSequenceには1件以上指定してください。')
+  }
+  hitIntervalSequence.forEach((interval, index) => {
+    assertFinite(interval, `hitIntervalSequence[${index}]`)
+    if (interval <= 0) {
+      throw new Error(`Void StrikeのhitIntervalSequence[${index}]は0より大きくしてください。`)
+    }
+  })
+
+  let hitCount = 1
+  let multiplierSum = calculateVoidStrikeMultiplier(curve, 0, maximumMultiplier)
+  let elapsed = 0
+  let intervalIndex = 0
+  while (true) {
+    const interval = hitIntervalSequence[intervalIndex]! / attackSpeedMultiplier
+    elapsed += interval
+    if (elapsed >= encounterDurationSeconds) break
+    multiplierSum += calculateVoidStrikeMultiplier(curve, interval, maximumMultiplier)
+    hitCount += 1
+    intervalIndex = (intervalIndex + 1) % hitIntervalSequence.length
+  }
+  return multiplierSum / hitCount
 }
