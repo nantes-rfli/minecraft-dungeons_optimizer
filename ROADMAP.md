@@ -45,9 +45,9 @@
 - [x] 3武器の公開per-hit timingをruntime登録し、HPSをduration合計から導出（独立実機測定は将来のcross-checkとして継続可能）
 - [x] Power 50〜263のAnchor curveと1.17.0.0内部Power rating比を分離し、W/Gモデルを29 sampleでcross-validation（version不明fixtureとの最大45.06%差をmedium-confidence caveatとして保持）
 - [x] 虚無の一撃を公開測定に基づく不連続curve（付与hit 1倍、armed minimum 1.25倍、3.6秒でTier III 7倍、5秒で消滅）へ置換し、3武器のper-hit interval・再適用・戦闘時間・attack speedをruntimeへ反映
-- [ ] 実測値による回帰テストと誤差範囲の表示（集計・P90参考範囲・不足表示は実装済み、実測サンプル待ち）
+- [ ] 実測値による回帰テストと誤差範囲の表示（公開候補10件を監査、eligible 0 / 5。provenance・validator・中央値を含む統計・pending/available UIまで実装済み）
 
-完了条件: 対応する3武器について、ゲーム内実測値とモデル出力の誤差範囲を表示できること。
+完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
 ## Phase 2 — Equipment Coverage（0 / 4）
 
@@ -69,7 +69,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費の全分類はlow-confidence caveatとして残します。次はPhase 1-4の独立したゲーム内DPS回帰です。daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
 
 ## 更新ルール
 

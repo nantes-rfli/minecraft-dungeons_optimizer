@@ -138,6 +138,16 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .caveats summary { cursor: pointer; color: #b5c0b6; }
 .caveats ul { margin-bottom: 0; line-height: 1.7; }
 .error-panel { padding: 24px; color: #ff9a8d; border-color: #61352f; }
+.regression-panel { margin-bottom: 12px; border: 1px solid #354137; padding: 18px 22px; background: #111a13; }
+.regression-panel > div:first-child { display: flex; justify-content: space-between; gap: 16px; color: #a7b1a9; font: 10px 'DM Mono', monospace; text-transform: uppercase; }
+.regression-panel > div:first-child strong { color: #d8ff73; }
+.regression-panel.pending > div:first-child strong { color: #e8d887; }
+.regression-panel p { margin: 12px 0 5px; color: #d8ded9; font-size: 12px; }
+.regression-panel small { color: #768178; font-size: 10px; }
+.regression-panel dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
+.regression-panel dl div { display: grid; gap: 4px; border-left: 1px solid #354137; padding-left: 10px; }
+.regression-panel dt { color: #738078; font: 9px 'DM Mono', monospace; }
+.regression-panel dd { margin: 0; color: #e6ece7; font: 13px 'DM Mono', monospace; }
 
 .page-header { max-width: 860px; margin: 30px 0 55px; }
 .page-header h1 { font-size: clamp(42px, 6vw, 72px); }
@@ -169,6 +179,15 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .roadmap-phase ul { display: grid; gap: 7px; margin: 14px 0 0; padding: 0; list-style: none; }
 .roadmap-phase li { display: grid; grid-template-columns: 50px 1fr; gap: 8px; align-items: center; color: #9ca79e; font-size: 10px; line-height: 1.45; }
 .warning-panel { border-color: #5a512d; background: #1d1c12; }
+.regression-methodology > p:not(.section-label) { color: #929f94; font-size: 12px; line-height: 1.8; }
+.regression-audit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 18px 0; }
+.regression-audit-grid div { display: grid; gap: 5px; border: 1px solid #2c372f; padding: 14px; background: #0e1510; }
+.regression-audit-grid span { color: #748077; font: 8px 'DM Mono', monospace; text-transform: uppercase; }
+.regression-audit-grid strong { color: #d8ff73; font: 18px 'DM Mono', monospace; }
+.audit-sources { margin-top: 18px; color: #98a39a; font-size: 11px; }
+.audit-sources summary { cursor: pointer; color: #c3ccc5; }
+.audit-sources ul { line-height: 1.8; }
+.audit-sources a { color: #d8ff73; }
 
 @media (max-width: 850px) {
   main { width: min(100% - 24px, 680px); padding-top: 40px; }
@@ -188,6 +207,8 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
   .metrics-grid { grid-template-columns: 1fr; }
   .result-meta { gap: 10px; }
   .support-columns { grid-template-columns: 1fr; gap: 12px; }
+  .regression-panel dl { grid-template-columns: repeat(2, 1fr); }
+  .regression-audit-grid { grid-template-columns: repeat(2, 1fr); }
   .site-nav { padding: 0 12px; }
   .progress-heading { display: grid; }
   .progress-heading strong { justify-items: start; text-align: left; }

@@ -1,7 +1,15 @@
+import auditJson from '../../research/dps-regression-audit.json'
+import { summarizeDamageRegression } from '../core/modelError'
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
+import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
 import { ROADMAP_PHASES, ROADMAP_PROGRESS, type RoadmapStatus } from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
+import {
+  summarizeDpsRegressionAudit,
+  type DpsRegressionAudit,
+} from '../research/dpsRegressionAudit'
+import { DpsRegressionPanel } from './DpsRegressionPanel'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
 const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
@@ -9,6 +17,12 @@ const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
   'in-progress': '進行中',
   planned: '未着手',
 }
+const DPS_AUDIT = auditJson as unknown as DpsRegressionAudit
+const DPS_AUDIT_SUMMARY = summarizeDpsRegressionAudit(DPS_AUDIT)
+const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
+const DPS_AUDIT_SOURCES = [...new Map(
+  DPS_AUDIT.entries.map((entry) => [entry.source.id, entry.source]),
+).values()]
 
 export function MethodologyPage() {
   return (
@@ -61,6 +75,22 @@ export function MethodologyPage() {
         </article>
       </section>
 
+      <section className="method-section regression-methodology">
+        <p className="section-label">DPS実測回帰 / EMPIRICAL MODEL ERROR</p>
+        <h2>公開観測値だけでend-to-end誤差を測る</h2>
+        <DpsRegressionPanel summary={DAMAGE_MODEL_ERROR} />
+        <div className="regression-audit-grid">
+          <div><span>公開候補</span><strong>{DPS_AUDIT_SUMMARY.candidateCount}</strong></div>
+          <div><span>eligible</span><strong>{DPS_AUDIT_SUMMARY.eligibleCount}</strong></div>
+          <div><span>rejected</span><strong>{DPS_AUDIT_SUMMARY.rejectedCount}</strong></div>
+          <div><span>1.17.0.0 verified</span><strong>{DPS_AUDIT_SUMMARY.versionConfidenceCounts.verified}</strong></div>
+        </div>
+        <p>対象は同一targetへの連続hitを再現するsingle-target controlled measurementです。表示ダメージ、attack speed、Enchant / Artifact、計測時間またはDPS、target条件が揃う公開runだけを採用します。Power Curve、Wiki理論表、dungeons.tools計算値、runtime Attack Profile、既存Void Strike curveから作った値は回帰sampleへ入れません。</p>
+        <p>今回の監査では条件を再現できる公開sampleは0件でした。武器別coverageは Fighter&apos;s Bindings {DPS_AUDIT_SUMMARY.eligibleByWeapon['fighters-bindings']}件、Double Axe {DPS_AUDIT_SUMMARY.eligibleByWeapon['double-axe']}件、Anchor {DPS_AUDIT_SUMMARY.eligibleByWeapon.anchor}件です。主な除外理由はrun-level raw total / duration不足、observedDamagePerHit不足、完全な速度・build・target条件不足、旧版またはversion不明、計算表の再掲、component validationのみ、です。</p>
+        <p>Power scaling・Attack timing・Void Strike timingのcomponent validationは別に存在しますが、full DPS sample数には加算しません。5件に達するまでMAPE / P90 / biasと予測参考範囲はavailable扱いにしません。</p>
+        <details className="audit-sources"><summary>監査した公開source（{DPS_AUDIT_SOURCES.length}件）</summary><ul>{DPS_AUDIT_SOURCES.map((source) => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a> : source.label}</li>)}</ul></details>
+      </section>
+
       <section className="method-section">
         <p className="section-label">対応データ / SUPPORTED DATA</p>
         <div className="support-columns">
@@ -72,7 +102,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1Aを完了し、Phase 1 Accuracyを進行中です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1Aを完了。Phase 1 Accuracyは3 / 4で、公開実測回帰はpendingです。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
@@ -84,7 +114,7 @@ export function MethodologyPage() {
 
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
-        <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。version不明のWiki damage表29件とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先します。Evidence coverageは正解確率ではありません。</p>
+        <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。同じtargetへの連続hitを前提とするため、target switchingがあるmobbingではVoid Strike DPSを過大評価し得ます。version不明のWiki damage表29件とは最大45.06%ずれます。Evidence coverageとDPS実測回帰は別指標で、前者は正解確率ではありません。</p>
       </section>
     </main>
   )

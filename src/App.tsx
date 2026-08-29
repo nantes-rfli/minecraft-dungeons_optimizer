@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState, useSyncExternalStore, type ChangeEvent } from 'react'
-import { calculatePredictionRange, optimize, summarizeDamageRegression } from './core'
+import { optimize, summarizeDamageRegression } from './core'
 import type {
   ArtifactId,
   EnchantmentId,
@@ -27,6 +27,7 @@ import {
 } from './inventory/gilded'
 import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from './inventory/storage'
 import { MethodologyPage } from './views/MethodologyPage'
+import { DpsRegressionPanel } from './views/DpsRegressionPanel'
 
 const ENCHANTMENT_IDS = Object.keys(ENCHANTMENTS) as EnchantmentId[]
 const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -142,10 +143,6 @@ function OptimizerPage() {
   const usesObservedDamage = inventory.weapons.some(
     (weapon) => weapon.observedDamagePerHit !== undefined,
   )
-  const damagePredictionRange = optimization.result
-    ? calculatePredictionRange(optimization.result.best.damage.singleTargetDps, DAMAGE_MODEL_ERROR)
-    : undefined
-
   const addWeapon = (weaponId: WeaponId) => {
     const weapon: OwnedWeapon = { instanceId: nextInstanceId(weaponId), weaponId, powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'] }, { candidates: ['leeching', 'guarding-strike'] }, { candidates: ['void-strike', 'critical-hit'] }] }
     setInventory((current) => ({ ...current, weapons: [...current.weapons, weapon] }))
@@ -206,9 +203,7 @@ function OptimizerPage() {
         <div className="control-section sliders"><p className="section-label">04 / 微調整</p><label title="シナリオが供給する敵数の上限です。実際の撃破速度はBuildのDPSから計算します。"><span>敵供給上限 / 秒 <output>{scenario.enemySupplyPerSecond.toFixed(1)}</output></span><input type="range" min="0" max="2" step="0.1" value={scenario.enemySupplyPerSecond} onChange={updateNumber('enemySupplyPerSecond')} /></label><label><span>射程内の敵 <output>{scenario.averageTargetsInReach.toFixed(1)}</output></span><input type="range" min="1" max="6" step="0.5" value={scenario.averageTargetsInReach} onChange={updateNumber('averageTargetsInReach')} /></label><label><span>クールダウン短縮 <output>{percentage(scenario.cooldownReduction)}</output></span><input type="range" min="0" max="0.75" step="0.05" value={scenario.cooldownReduction} onChange={updateNumber('cooldownReduction')} /></label><details className="scenario-values" open><summary>HP・ダメージの実数値</summary><p>{usesObservedDamage ? '表示ダメージ' : 'Power換算ダメージ'}と同じゲーム内単位で入力してください。</p><label><span>平均敵HP</span><input aria-label="平均敵HP" type="number" min="0.01" step="any" value={scenario.averageEnemyHealth} onChange={updateNumber('averageEnemyHealth')} /></label><label><span>被ダメージ / 秒</span><input aria-label="被ダメージ毎秒" type="number" min="0" step="any" value={scenario.incomingDamagePerSecond} onChange={updateNumber('incomingDamagePerSecond')} /></label><label><span>最大HP</span><input aria-label="最大HP" type="number" min="0.01" step="any" value={scenario.maxHealth} onChange={updateNumber('maxHealth')} /></label><label><span>輝き1回の回復量</span><input aria-label="輝き1回の回復量" type="number" min="0" step="any" value={scenario.radianceHealPerProc} onChange={updateNumber('radianceHealPerProc')} /></label></details></div>
         <details className="control-section data-tools"><summary>保存データ / JSON</summary><textarea value={jsonText} placeholder="ここにJSONを書き出すか、読み込むJSONを貼り付けます" onChange={(event) => setJsonText(event.target.value)} /><div><button type="button" onClick={() => { setJsonText(serializeInventory(inventory)); setDataMessage('JSONを書き出しました。') }}>書き出す</button><button type="button" onClick={importData}>読み込む</button></div><p>{dataMessage}</p></details>
       </aside>
-      <section className="results" aria-live="polite">{optimization.error && <div className="error-panel">{optimization.error}</div>}{optimization.result && <>{optimization.result.best.damage.damageSource === 'power-curve-estimate' && <div className="model-warning" role="note"><strong>Power換算は1.17.0.0の内部rating比を使う推定値です</strong><span>Power 50〜263に対応します。version不明のWiki damage表とは最大45.06%ずれます。正確な個体値が必要なら全武器へ表示ダメージを入力し、HP・回復量も同じゲーム内単位へ合わせてください。</span></div>}<div className="result-meta"><span>{optimization.result.evaluatedBuildCount}通りを全探索 · {optimization.result.best.damage.damageSource === 'observed-input' ? '表示ダメージ' : 'Power換算値'}</span><span>推定撃破 {numberFormat.format(optimization.result.best.combatState.estimatedKillsPerSecond)} / 秒（供給上限 {numberFormat.format(scenario.enemySupplyPerSecond)}）</span><span>Evidence coverage {Math.round(optimization.result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[optimization.result.best.confidence.label]}）</span><span>{DAMAGE_MODEL_ERROR.status === 'available' && damagePredictionRange
-        ? `DPS P90参考範囲 ${numberFormat.format(damagePredictionRange.lower)}–${numberFormat.format(damagePredictionRange.upper)}（n=${DAMAGE_MODEL_ERROR.sampleCount}）`
-        : `DPS誤差 実測待ち（${DAMAGE_MODEL_ERROR.sampleCount}/${DAMAGE_MODEL_ERROR.minimumSampleCount}）`}</span></div><BuildSummary evaluation={optimization.result.best} />
+      <section className="results" aria-live="polite">{optimization.error && <div className="error-panel">{optimization.error}</div>}{optimization.result && <>{optimization.result.best.damage.damageSource === 'power-curve-estimate' && <div className="model-warning" role="note"><strong>Power換算は1.17.0.0の内部rating比を使う推定値です</strong><span>Power 50〜263に対応します。version不明のWiki damage表とは最大45.06%ずれます。正確な個体値が必要なら全武器へ表示ダメージを入力し、HP・回復量も同じゲーム内単位へ合わせてください。</span></div>}<div className="result-meta"><span>{optimization.result.evaluatedBuildCount}通りを全探索 · {optimization.result.best.damage.damageSource === 'observed-input' ? '表示ダメージ' : 'Power換算値'}</span><span>推定撃破 {numberFormat.format(optimization.result.best.combatState.estimatedKillsPerSecond)} / 秒（供給上限 {numberFormat.format(scenario.enemySupplyPerSecond)}）</span><span>Evidence coverage {Math.round(optimization.result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[optimization.result.best.confidence.label]}）</span></div><DpsRegressionPanel summary={DAMAGE_MODEL_ERROR} predictedDps={optimization.result.best.damage.singleTargetDps} /><BuildSummary evaluation={optimization.result.best} />
         <h3 className="alternatives-title">Pareto前線 — 火力・回復・防御のどれかで劣らない候補</h3><div className="alternatives">{optimization.result.paretoFrontier.slice(0, 3).map((evaluation, index) => <BuildSummary compact title={`PARETO ${index + 1}`} evaluation={evaluation} key={`pareto-${evaluation.build.weapon.instanceId}-${evaluation.build.enchantments.map((selected) => `${selected.enchantmentId}-${selected.tier}`).join('-')}`} />)}</div>
         <h3 className="alternatives-title">次点候補</h3><div className="alternatives">{optimization.result.alternatives.map((evaluation) => <BuildSummary compact evaluation={evaluation} key={`${evaluation.build.weapon.instanceId}-${evaluation.build.enchantments.map((selected) => `${selected.enchantmentId}-${selected.tier}`).join('-')}`} />)}</div><details className="caveats"><summary>計算上の注意</summary><ul>{optimization.result.best.confidence.caveats.map((caveat) => <li key={caveat}>{caveat}</li>)}</ul></details></>}</section>
     </section>

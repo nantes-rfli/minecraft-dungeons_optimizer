@@ -6,6 +6,7 @@ export {
   calculateModelErrorSummary,
   calculatePredictionRange,
   summarizeDamageRegression,
+  summarizeDamageRegressionByScope,
 } from './modelError'
 export {
   evaluatePowerScalingSamples,

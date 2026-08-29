@@ -331,12 +331,31 @@ export interface ConfidenceFactor {
   readonly weight: number
 }
 
+export type DamageRegressionMechanicTag =
+  | 'plain-weapon'
+  | 'critical-hit'
+  | 'void-strike'
+  | 'attack-speed-modified'
+
 export interface DamageRegressionSample {
   readonly id: string
+  readonly auditEntryId: string
   readonly gameVersion: string
+  readonly gameVersionConfidence: 'verified' | 'probable' | 'unknown'
+  readonly source: SourceReference
+  readonly sourceConfidence: Confidence
   readonly build: Build
   readonly scenario: Scenario
   readonly observedSingleTargetDps: number
+  readonly measurement: {
+    readonly kind: 'reported-dps' | 'total-damage-over-time' | 'frame-derived'
+    readonly durationSeconds?: number
+    readonly totalDamage?: number
+    readonly hitCount?: number
+    readonly sampleCount?: number
+    readonly note: string
+  }
+  readonly mechanicTags: readonly DamageRegressionMechanicTag[]
 }
 
 export interface ModelErrorObservation {
@@ -355,14 +374,23 @@ export type ModelErrorSummary =
       readonly sampleCount: number
       readonly minimumSampleCount: number
       readonly meanAbsolutePercentageError: number
+      readonly medianAbsolutePercentageError: number
       readonly p90AbsolutePercentageError: number
       readonly maximumAbsolutePercentageError: number
       readonly meanSignedPercentageError: number
+      readonly medianSignedPercentageError: number
     }
 
 export interface PredictionRange {
   readonly lower: number
   readonly upper: number
+}
+
+export interface DamageRegressionScopeSummary {
+  readonly overall: ModelErrorSummary
+  readonly finalVersionOnly: ModelErrorSummary
+  readonly byWeapon: Readonly<Record<WeaponId, ModelErrorSummary>>
+  readonly byMechanic: Readonly<Record<DamageRegressionMechanicTag, ModelErrorSummary>>
 }
 
 export interface Evaluation {

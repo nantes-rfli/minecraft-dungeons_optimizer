@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "targetGameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-29",
+  "searchScope": [
+    "Reddit community target-dummy and DPS tests",
+    "YouTube and public video/frame-analysis search",
+    "Minecraft Wiki measurement provenance",
+    "Public community tables and spreadsheets",
+    "Other indexed controlled-test pages"
+  ],
+  "eligibilityPolicy": [
+    "Observed DPS must come from gameplay, a controlled target-dummy run, public raw totals, or independently reproducible frame analysis.",
+    "Weapon card damage, attack-speed state, all relevant enchantments and artifacts, duration or reported DPS, and target reduction must be known.",
+    "One run counts as one observation; reposts and multiple values derived from one run are not independent samples.",
+    "Model output, Wiki theory tables, dungeons.tools calculator output, and DPS reconstructed from the runtime attack profile are forbidden as observations.",
+    "The end-to-end regression is single-target only; component validation and mobbing footage do not count."
+  ],
+  "entries": [
+    {
+      "id": "reddit-2021-full-dps-list-bindings",
+      "weaponId": "fighters-bindings",
+      "source": {
+        "id": "reddit-full-weapon-dps-list-2021",
+        "label": "Community full weapon DPS list and methodology discussion",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/nd98db/",
+        "kind": "community-test"
+      },
+      "gameVersion": "pre-1.17.0.0 (published 2021-05-15)",
+      "gameVersionConfidence": "probable",
+      "measurementType": "target-dummy",
+      "conditions": {
+        "powerLevel": 251,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "Iron Hide Amulet used as timer"],
+        "attackSpeedModifier": 1.25,
+        "encounterDurationSeconds": 21.2,
+        "target": "camp target dummy",
+        "otherRelevantConditions": [
+          "Author describes counting hits during a 21.2 s Iron Hide Amulet window.",
+          "Later comments report inconsistent rounded punch counts (320 and 322)."
+        ]
+      },
+      "rawObservation": {
+        "hitCount": 320,
+        "durationSeconds": 21.2,
+        "derivationNote": "A comment reports roughly 320 punches with Mushroom, but does not bind a complete raw damage total to this run."
+      },
+      "reproducibility": "partial",
+      "eligibleForRegression": false,
+      "rejectionReason": "The per-weapon raw damage total is not published, the exact speed state is internally inconsistent, target reduction is unstated, and the run predates the target game version. Reconstructing DPS would reuse counted attack timing rather than provide independent end-to-end damage.",
+      "confidence": "medium"
+    },
+    {
+      "id": "reddit-2021-full-dps-list-double-axe",
+      "weaponId": "double-axe",
+      "source": {
+        "id": "reddit-full-weapon-dps-list-2021",
+        "label": "Community full weapon DPS list and methodology discussion",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/nd98db/",
+        "kind": "community-test"
+      },
+      "gameVersion": "pre-1.17.0.0 (published 2021-05-15)",
+      "gameVersionConfidence": "probable",
+      "measurementType": "target-dummy",
+      "conditions": {
+        "powerLevel": 251,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "Iron Hide Amulet used as timer"],
+        "attackSpeedModifier": 1.25,
+        "encounterDurationSeconds": 21.2,
+        "target": "camp target dummy",
+        "otherRelevantConditions": [
+          "Global methodology is described, but the Double Axe run-level hit count and total damage are not published in text."
+        ]
+      },
+      "reproducibility": "partial",
+      "eligibleForRegression": false,
+      "rejectionReason": "Only a calculated chart result is available for this weapon; the raw hit sequence/count, target reduction, and exact version are missing. It cannot be independently recomputed without substituting an attack-profile assumption.",
+      "confidence": "low"
+    },
+    {
+      "id": "reddit-2021-full-dps-list-anchor",
+      "weaponId": "anchor",
+      "source": {
+        "id": "reddit-full-weapon-dps-list-2021",
+        "label": "Community full weapon DPS list and methodology discussion",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/nd98db/",
+        "kind": "community-test"
+      },
+      "gameVersion": "pre-1.17.0.0 (published 2021-05-15)",
+      "gameVersionConfidence": "probable",
+      "measurementType": "target-dummy",
+      "conditions": {
+        "powerLevel": 251,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "Iron Hide Amulet used as timer"],
+        "attackSpeedModifier": 1.25,
+        "encounterDurationSeconds": 21.2,
+        "target": "camp target dummy",
+        "otherRelevantConditions": [
+          "Global methodology is described, but the Anchor run-level hit count and total damage are not published in text."
+        ]
+      },
+      "reproducibility": "partial",
+      "eligibleForRegression": false,
+      "rejectionReason": "Only a calculated chart result is available for this weapon; raw run data, target reduction, and the target 1.17.0.0 version are not established.",
+      "confidence": "low"
+    },
+    {
+      "id": "reddit-2023-dps-summary-bindings",
+      "weaponId": "fighters-bindings",
+      "source": {
+        "id": "reddit-slow-weapons-summary-2023",
+        "label": "Community weapon DPS summary with card damage and top HPS",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/100lxg7/",
+        "kind": "community-test"
+      },
+      "gameVersion": "unknown; values repost earlier calculations",
+      "gameVersionConfidence": "unknown",
+      "measurementType": "community-test",
+      "conditions": {
+        "powerLevel": 251,
+        "observedDamagePerHit": 191710,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "+25% attack-speed armor implied by top speed"],
+        "attackSpeedModifier": 1.25,
+        "target": "not stated"
+      },
+      "rawObservation": {
+        "reportedDps": 2777107,
+        "derivationNote": "Post reports 191,710 average damage, 14.5 top HPS, and 2,777,107 DPS as a calculated summary."
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "This is a calculated/reposted DPS table, not a new independent run. Measurement duration, target condition, exact artifact state, and source game version are missing.",
+      "confidence": "low"
+    },
+    {
+      "id": "reddit-2023-dps-summary-double-axe",
+      "weaponId": "double-axe",
+      "source": {
+        "id": "reddit-slow-weapons-summary-2023",
+        "label": "Community weapon DPS summary with card damage and top HPS",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/100lxg7/",
+        "kind": "community-test"
+      },
+      "gameVersion": "unknown; values repost earlier calculations",
+      "gameVersionConfidence": "unknown",
+      "measurementType": "community-test",
+      "conditions": {
+        "powerLevel": 251,
+        "observedDamagePerHit": 766839,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "+25% attack-speed armor implied by top speed"],
+        "attackSpeedModifier": 1.25,
+        "target": "not stated",
+        "otherRelevantConditions": ["The source labels the row Cursed Axe; its physical attack profile is shared with Double Axe, but the requested runtime weapon is not directly shown."]
+      },
+      "rawObservation": {
+        "reportedDps": 2848518,
+        "derivationNote": "Post reports 766,839 average damage, 3.7 top HPS, and 2,848,518 DPS as a calculated summary."
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "The figure is a calculated Cursed Axe summary rather than a raw Double Axe run. Duration, target, exact version, and independent total-damage evidence are absent.",
+      "confidence": "low"
+    },
+    {
+      "id": "reddit-2023-dps-summary-anchor",
+      "weaponId": "anchor",
+      "source": {
+        "id": "reddit-slow-weapons-summary-2023",
+        "label": "Community weapon DPS summary with card damage and top HPS",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/100lxg7/",
+        "kind": "community-test"
+      },
+      "gameVersion": "unknown; values repost earlier calculations",
+      "gameVersionConfidence": "unknown",
+      "measurementType": "community-test",
+      "conditions": {
+        "powerLevel": 251,
+        "observedDamagePerHit": 1825077,
+        "enchantments": [],
+        "artifacts": ["Death Cap Mushroom", "+25% attack-speed armor implied by top speed"],
+        "attackSpeedModifier": 1.25,
+        "target": "not stated"
+      },
+      "rawObservation": {
+        "reportedDps": 1697322,
+        "derivationNote": "Post reports 1,825,077 damage, 0.93 top HPS, and 1,697,322 DPS as a calculated summary."
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "The value is a calculated/reposted summary. The original run's hit timestamps/count, duration, target reduction, and exact version are not public, so it is not an independent end-to-end observation.",
+      "confidence": "low"
+    },
+    {
+      "id": "reddit-2021-void-strike-bindings-component",
+      "weaponId": "fighters-bindings",
+      "source": {
+        "id": "reddit-void-strike-target-dummy-2021",
+        "label": "Community Void Strike tier and speed target-dummy table",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/phyg2p/",
+        "kind": "community-test"
+      },
+      "gameVersion": "pre-1.17.0.0 (published 2021-09-04)",
+      "gameVersionConfidence": "probable",
+      "measurementType": "target-dummy",
+      "conditions": {
+        "powerLevel": 249,
+        "observedDamagePerHit": 174121,
+        "enchantments": ["Void Strike III"],
+        "artifacts": [],
+        "attackSpeedModifier": 0,
+        "target": "camp target dummy",
+        "otherRelevantConditions": ["Continuous attacks; post records the damage numbers after the application hit."]
+      },
+      "rawObservation": {
+        "damageSequence": [243770, 269888],
+        "derivationNote": "Two alternating post-application damage values are published for the no-speed Void Strike III condition."
+      },
+      "reproducibility": "partial",
+      "eligibleForRegression": false,
+      "rejectionReason": "This is component validation for Void Strike damage per hit, not a full DPS run: no elapsed duration, hit count, total damage, or reported DPS is provided. It is also already part of the mechanics evidence boundary.",
+      "confidence": "medium"
+    },
+    {
+      "id": "reddit-2022-bindings-mythbusting-reported-dps",
+      "weaponId": "fighters-bindings",
+      "source": {
+        "id": "reddit-bindings-single-target-mythbusting-2022",
+        "label": "Community Fighter's Bindings single-target DPS comparison",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/s20ju8/",
+        "kind": "community-test"
+      },
+      "gameVersion": "unknown (published 2022-01-12)",
+      "gameVersionConfidence": "unknown",
+      "measurementType": "community-test",
+      "conditions": {
+        "powerLevel": 263,
+        "enchantments": ["Shock Wave III", "Swirling III"],
+        "target": "single target at point-blank range",
+        "otherRelevantConditions": ["Armor, artifact speed, other enchantments, and target identity are not disclosed."]
+      },
+      "rawObservation": {
+        "reportedDps": 12800000,
+        "derivationNote": "Post reports approximately 12.8 million single-target DPS."
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "ObservedDamagePerHit, duration, attack-speed state, complete build, target reduction, and exact game version are absent. The approximate headline DPS cannot reproduce model inputs.",
+      "confidence": "low"
+    },
+    {
+      "id": "kiro-2020-manual-test-bindings",
+      "weaponId": "fighters-bindings",
+      "source": {
+        "id": "kiro-manual-weapon-damage-tests-2020",
+        "label": "Public manual Minecraft Dungeons weapon damage tests",
+        "url": "https://kirokiro.cc/games/26709",
+        "kind": "community-test"
+      },
+      "gameVersion": "launch-era 2020; exact version unstated",
+      "gameVersionConfidence": "probable",
+      "measurementType": "community-test",
+      "conditions": {
+        "target": "not reproducibly specified",
+        "otherRelevantConditions": ["Search result describes manual weapon DPS tests and warns that results may contain error."]
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "The indexed page does not expose a reproducible card damage, duration, full build, speed condition, target reduction, or 1.17.0.0 run for Fighter's Bindings.",
+      "confidence": "low"
+    },
+    {
+      "id": "kiro-2020-manual-test-double-axe",
+      "weaponId": "double-axe",
+      "source": {
+        "id": "kiro-manual-weapon-damage-tests-2020",
+        "label": "Public manual Minecraft Dungeons weapon damage tests",
+        "url": "https://kirokiro.cc/games/26709",
+        "kind": "community-test"
+      },
+      "gameVersion": "launch-era 2020; exact version unstated",
+      "gameVersionConfidence": "probable",
+      "measurementType": "community-test",
+      "conditions": {
+        "target": "not reproducibly specified",
+        "otherRelevantConditions": ["Search result describes manual weapon DPS tests and warns that results may contain error."]
+      },
+      "reproducibility": "insufficient",
+      "eligibleForRegression": false,
+      "rejectionReason": "The indexed page does not expose a reproducible card damage, duration, full build, speed condition, target reduction, or 1.17.0.0 run for Double Axe.",
+      "confidence": "low"
+    }
+  ]
+}

@@ -13,7 +13,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接3武器のPower 50〜263は公開値ベースの推定damageに対応します。
 
-完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。
+完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。Phase 1-4の公開DPS回帰監査は候補10件・eligible 0件で、full regressionはpending 0 / 5です。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
@@ -42,6 +42,7 @@ npm run preview
 検証コマンド:
 
 ```bash
+npm run audit:dps
 npm run audit:melee
 npm test
 npm run lint
@@ -92,7 +93,7 @@ scripts/               research検証・レポート再生成スクリプト
 - 目的スコア: 火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
 - 説明可能性: 選択効果を1つずつ外して再評価し、スコア・DPS・回復・実効HPの差分を寄与度として表示します。
 - Pareto前線: AoE DPS・回復/秒・実効HPのすべてで他候補に支配されるビルドを除外します。
-- 誤差範囲: [回帰検証手順](./docs/model-regression.md)に従った実測サンプルが5件揃うと、P90絶対誤差に基づくDPS参考範囲を表示します。それまでは「実測待ち」と明示します。
+- 誤差範囲: [回帰検証手順](./docs/model-regression.md)に従った独立実測sampleが5件揃うと、MAPE・P90・biasとP90絶対誤差に基づくDPS参考範囲を表示します。公開監査は[`research/dps-regression-audit.json`](./research/dps-regression-audit.json)へ分離し、現在は0 / 5のためrangeを表示しません。
 - Evidence coverage: 実際の計算経路に含まれるEvidenceを重要度付き幾何平均で集計します。[指標の定義](./docs/evidence-coverage.md)どおり正解確率ではなく、主な不確実要因を見つける品質指標です。
 
 Power ratingは武器間のper-hit damage係数、Speed / Area ratingは別軸です。既存3武器ではper-hit timingと内部Power ratingを別に保持し、AnchorのGear Power curveからゲーム内damage単位へ換算します。実測データは `src/data/attackProfiles.ts`、`src/data/powerScaling.ts`、`src/data/voidStrike.ts`、`src/data/regressionSamples.ts` の対応するデータ境界へ登録します。
@@ -106,4 +107,4 @@ Power ratingは武器間のper-hit damage係数、Speed / Area ratingは別軸�
 - エンチャントとアーティファクト仕様: [Minecraft Wiki](https://minecraft.wiki/w/Dungeons:Enchantment) に掲載されたゲーム内説明・検証値。
 - Void Strike: tier最大値とresetはhigh、1.25倍minimumと約5秒消滅はmedium、3.6秒の線形curveとtier換算はlow confidenceです。raw公開値は [`research/void-strike-audit.json`](./research/void-strike-audit.json) にruntimeとは独立して保存しています。既存3武器のAttack Profileは公開Stats表由来のmedium confidenceです。
 
-次の精度改善はPhase 1-4の独立DPS回帰です。Void Strikeの完全なframe series、Power換算の同一1.17.0.0・同一roll条件の実測、raw game-file fieldの独立確認は継続課題です。
+Phase 1-4の監査・eligibility validator・source provenance・pending/available UIは実装済みですが、再現可能な公開sampleが0 / 5のためpartialです。追加の公開観測が得られるまでPhase 1 Accuracyは3 / 4を維持します。Void Strikeの完全なframe series、target switching、Power換算の同一1.17.0.0・同一roll条件の実測、raw game-file fieldの独立確認は継続課題です。
