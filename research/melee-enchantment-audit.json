@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-29",
+  "population": {
+    "targetCount": 33,
+    "definition": "Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.",
+    "excludedClasses": ["mob-only", "innate-only", "ranged-only", "armor-only", "unused", "fail-safe"],
+    "source": {
+      "type": "game-files",
+      "url": "https://www.dungeons.tools/enchantments",
+      "retrievedAt": "2026-08-29",
+      "supports": ["population", "applicability", "rarity", "tier-values", "stacking", "built-in"],
+      "confidence": "high",
+      "note": "The 1.17.0.0 game-file-derived index reports 33 player enchantments whose applies-to set contains melee, separately from 71 mob/innate records."
+    }
+  },
+  "entries": [
+    {
+      "id": "ambush", "name": { "en": "Ambush" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "20%", "interpreted": { "damageBonus": 0.2 } }, "2": { "raw": "40%", "interpreted": { "damageBonus": 0.4 } }, "3": { "raw": "60%", "interpreted": { "damageBonus": 0.6 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "conditional-damage", "runtimeStatus": "needs-enemy-state",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/ambush", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Applies to melee; bonus requires a mob that is not actively targeting the hero." }],
+      "confidence": "high", "notes": "Requires an untargeting/backstab opportunity share; do not flatten to an unconditional multiplier."
+    },
+    {
+      "id": "anima-conduit", "name": { "en": "Anima Conduit" },
+      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "2%", "interpreted": { "maxHealthHealedPerSoul": 0.02 } }, "2": { "raw": "4%", "interpreted": { "maxHealthHealedPerSoul": 0.04 } }, "3": { "raw": "6%", "interpreted": { "maxHealthHealedPerSoul": 0.06 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-soul", "modelCategory": "soul-healing", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/anima-conduit", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Soul-gear-only melee/ranged enchantment; each absorbed soul heals a max-health fraction." }],
+      "confidence": "high", "notes": "Needs soul generation, pickup timing, and max-health state."
+    },
+    {
+      "id": "artifact-synergy", "name": { "en": "Artifact Synergy" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "40%", "interpreted": { "nextAttackDamageBonus": 0.4 } }, "2": { "raw": "60%", "interpreted": { "nextAttackDamageBonus": 0.6 } }, "3": { "raw": "80%", "interpreted": { "nextAttackDamageBonus": 0.8 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-artifact-use", "modelCategory": "artifact-synergy", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/artifact-synergy", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Artifact activation empowers the next attack." }],
+      "confidence": "high", "notes": "Needs artifact-use event timing and a one-shot pending buff."
+    },
+    {
+      "id": "busy-bee", "name": { "en": "Busy Bee" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "20%", "interpreted": { "summonChance": 0.2 } }, "2": { "raw": "30%", "interpreted": { "summonChance": 0.3 } }, "3": { "raw": "40%", "interpreted": { "summonChance": 0.4 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "summon", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/busy-bee", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "On-kill summon chance with a three-bee cap." }],
+      "confidence": "high", "notes": "Needs summon lifetime, cap, attacks, targeting, and damage events."
+    },
+    {
+      "id": "chains", "name": { "en": "Chains" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "1", "interpreted": { "durationSeconds": 1, "triggerChance": 0.3 } }, "2": { "raw": "2", "interpreted": { "durationSeconds": 2, "triggerChance": 0.3 } }, "3": { "raw": "3", "interpreted": { "durationSeconds": 3, "triggerChance": 0.3 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "crowd-control", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/chains", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Each hit has a 30% chance; tier controls bind duration. Multiple copies roll independently rather than adding chance." }],
+      "confidence": "high", "notes": "Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion."
+    },
+    {
+      "id": "committed", "name": { "en": "Committed" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "0-50%", "interpreted": { "maxDamageBonus": 0.5, "scaling": "linear-with-health-lost" } }, "2": { "raw": "0-75%", "interpreted": { "maxDamageBonus": 0.75, "scaling": "linear-with-health-lost" } }, "3": { "raw": "0-100%", "interpreted": { "maxDamageBonus": 1, "scaling": "linear-with-health-lost" } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "health-dependent-damage", "runtimeStatus": "needs-enemy-state",
+      "sources": [
+        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/committed", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Published range grows from zero toward the tier maximum as the target loses health." },
+        { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Committed", "retrievedAt": "2026-08-29", "supports": ["trigger-mechanics", "damage-scaling", "stacking", "built-in"], "confidence": "high", "note": "Documents the linear example: at 50% health lost, Tier III grants 50% bonus; full health grants zero." }
+      ],
+      "confidence": "medium", "notes": "Do not use a constant multiplier. The linear HP-lost curve is evidenced, but target HP trajectories, analytic integration, and any boss-specific exception still need a scenario model/test."
+    },
+    {
+      "id": "critical-hit", "name": { "en": "Critical Hit", "ja": "クリティカルヒット" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "10%", "interpreted": { "triggerChance": 0.1, "damageMultiplier": 3 } }, "2": { "raw": "15%", "interpreted": { "triggerChance": 0.15, "damageMultiplier": 3 } }, "3": { "raw": "20%", "interpreted": { "triggerChance": 0.2, "damageMultiplier": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "proc-damage", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/critical-hit", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier-specific proc chance; a proc deals triple damage." }],
+      "confidence": "high", "notes": "Audit agrees with the existing runtime formula."
+    },
+    {
+      "id": "dynamo", "name": { "en": "Dynamo" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "+X" }, "2": { "raw": "+1.25X" }, "3": { "raw": "+1.5X" } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-roll", "modelCategory": "roll-charged-damage", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/dynamo", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Raw X notation is power-scaled damage and is intentionally not converted to a percentage." }],
+      "confidence": "medium", "notes": "Needs roll count/stack state, cap, consumption, and power-scaling evidence."
+    },
+    {
+      "id": "echo", "name": { "en": "Echo" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "5", "interpreted": { "cooldownSeconds": 5 } }, "2": { "raw": "4", "interpreted": { "cooldownSeconds": 4 } }, "3": { "raw": "3", "interpreted": { "cooldownSeconds": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "other", "modelCategory": "attack-repeat", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/echo", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier controls cooldown for a repeated attack." }],
+      "confidence": "medium", "notes": "Requires attack-event scheduling and evidence for which hit/combo properties are copied."
+    },
+    {
+      "id": "enigma-resonator", "name": { "en": "Enigma Resonator" },
+      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "0-15%", "interpreted": { "maxTriggerChance": 0.15, "damageMultiplier": 3 } }, "2": { "raw": "0-20%", "interpreted": { "maxTriggerChance": 0.2, "damageMultiplier": 3 } }, "3": { "raw": "0-25%", "interpreted": { "maxTriggerChance": 0.25, "damageMultiplier": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "soul-dependent-proc", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/enigma-resonator", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "interaction-behavior", "built-in"], "confidence": "high", "note": "Proc chance scales with held souls; the triple-damage roll is independent of Critical Hit." }],
+      "confidence": "high", "notes": "Needs current/max soul state and soul-spend timing."
+    },
+    {
+      "id": "exploding", "name": { "en": "Exploding" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "20%", "interpreted": { "enemyMaxHealthDamageFraction": 0.2 } }, "2": { "raw": "40%", "interpreted": { "enemyMaxHealthDamageFraction": 0.4 } }, "3": { "raw": "60%", "interpreted": { "enemyMaxHealthDamageFraction": 0.6 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "on-kill-area-damage", "runtimeStatus": "needs-damage-event-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/exploding", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Explosion damage is based on the defeated enemy's health and does not chain-trigger further explosions." }],
+      "confidence": "high", "notes": "Needs enemy-specific max health, AoE targeting, delayed events, and explicit kill attribution."
+    },
+    {
+      "id": "fire-aspect", "name": { "en": "Fire Aspect" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.25X" }, "3": { "raw": "1.5X" } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "damage-over-time", "runtimeStatus": "needs-damage-event-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/fire-aspect", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling"], "confidence": "high", "note": "Three-second power-scaled burn; raw X notation is preserved and not treated as weapon-hit percentage." }],
+      "confidence": "medium", "notes": "Needs DoT tick/refresh/stack behavior, focus interaction, Void Strike interaction, and non-direct kill attribution."
+    },
+    {
+      "id": "freezing", "name": { "en": "Freezing" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "-30%", "interpreted": { "speedReduction": 0.3, "durationSeconds": 3 } }, "2": { "raw": "-40%", "interpreted": { "speedReduction": 0.4, "durationSeconds": 3 } }, "3": { "raw": "-50%", "interpreted": { "speedReduction": 0.5, "durationSeconds": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "movement-slow", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/freezing", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Three-second slow; tier controls speed reduction." }],
+      "confidence": "high", "notes": "Needs CC utility/action-suppression metrics; it must not be assigned invented defense points."
+    },
+    {
+      "id": "gravity", "name": { "en": "Gravity" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "1.0", "interpreted": { "durationSeconds": 1 } }, "2": { "raw": "1.5", "interpreted": { "durationSeconds": 1.5 } }, "3": { "raw": "2.0", "interpreted": { "durationSeconds": 2 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "mob-grouping", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/gravity", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier controls pull duration around the impact point." }],
+      "confidence": "high", "notes": "Needs grouping/target-density state and a CC utility metric."
+    },
+    {
+      "id": "guarding-strike", "name": { "en": "Guarding Strike", "ja": "ガードストライク" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "2", "interpreted": { "durationSeconds": 2, "damageReduction": 0.5 } }, "2": { "raw": "3", "interpreted": { "durationSeconds": 3, "damageReduction": 0.5 } }, "3": { "raw": "4", "interpreted": { "durationSeconds": 4, "damageReduction": 0.5 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "on-kill-defense", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/guarding-strike", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Direct weapon kill grants 50% damage reduction for the tier duration." }],
+      "confidence": "high", "notes": "Audit agrees with the existing runtime formula and directWeaponKillsPerSecond boundary."
+    },
+    {
+      "id": "leeching", "name": { "en": "Leeching", "ja": "吸血" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "5%", "interpreted": { "enemyMaxHealthHealingFraction": 0.05 } }, "2": { "raw": "7%", "interpreted": { "enemyMaxHealthHealingFraction": 0.07 } }, "3": { "raw": "9%", "interpreted": { "enemyMaxHealthHealingFraction": 0.09 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-kill", "modelCategory": "on-kill-healing", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/leeching", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Direct weapon kill heals a fraction of the defeated mob's maximum health; stacking needs special handling." }],
+      "confidence": "high", "notes": "Audit agrees with the existing runtime formula; existing low-confidence copy decay remains unchanged."
+    },
+    {
+      "id": "looting", "name": { "en": "Looting" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "+100%", "interpreted": { "dropChanceBonus": 1 } }, "2": { "raw": "+200%", "interpreted": { "dropChanceBonus": 2 } }, "3": { "raw": "+300%", "interpreted": { "dropChanceBonus": 3 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "passive", "modelCategory": "consumable-loot", "runtimeStatus": "utility-only",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/looting", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Increases consumable drop chance; does not directly map to Damage, Healing, or Defense." }],
+      "confidence": "high", "notes": "Optimizer-excluded until a consumable/utility objective exists; never score as zero-effect."
+    },
+    {
+      "id": "pain-cycle", "name": { "en": "Pain Cycle" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "Triple (3x)", "interpreted": { "fifthHitDamageMultiplier": 3, "requiredStacks": 5 } }, "2": { "raw": "Quadruple (4x)", "interpreted": { "fifthHitDamageMultiplier": 4, "requiredStacks": 5 } }, "3": { "raw": "Quintuple (5x)", "interpreted": { "fifthHitDamageMultiplier": 5, "requiredStacks": 5 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "stack-and-self-damage", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/pain-cycle", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Attacks drain health to build five stacks; the next attack uses the tier multiplier." }],
+      "confidence": "medium", "notes": "Needs combo-independent stack state, self-damage, healing interaction, and per-hit damage events."
+    },
+    {
+      "id": "poison-cloud", "name": { "en": "Poison Cloud" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } }, "2": { "raw": "2X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } }, "3": { "raw": "3X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "area-damage-over-time", "runtimeStatus": "needs-damage-event-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/poison-cloud", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "30% on-hit chance, three-second stationary cloud; raw X damage scaling is preserved." }],
+      "confidence": "medium", "notes": "Needs ticks, overlap, target residence, Poison Focus/Void Strike interactions, and non-direct kill attribution."
+    },
+    {
+      "id": "prospector", "name": { "en": "Prospector" },
+      "applicability": { "melee": true, "ranged": true, "armor": true },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "+100%", "interpreted": { "emeraldChanceBonus": 1 } }, "2": { "raw": "+200%", "interpreted": { "emeraldChanceBonus": 2 } }, "3": { "raw": "+300%", "interpreted": { "emeraldChanceBonus": 3 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "passive", "modelCategory": "emerald-loot", "runtimeStatus": "utility-only",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/prospector", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Increases emerald drops and applies to melee, ranged, and armor." }],
+      "confidence": "high", "notes": "Optimizer-excluded until an emerald-farming objective exists; never score as zero-effect."
+    },
+    {
+      "id": "radiance", "name": { "en": "Radiance", "ja": "輝き" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X", "interpreted": { "triggerChance": 0.2, "healCurveMultiplier": 0.5 } }, "2": { "raw": "1.5X", "interpreted": { "triggerChance": 0.2, "healCurveMultiplier": 0.75 } }, "3": { "raw": "2X", "interpreted": { "triggerChance": 0.2, "healCurveMultiplier": 1 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "proc-healing", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/radiance", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "20% on-hit proc; raw X healing follows a power-scaled curve and copies require special handling." }],
+      "confidence": "high", "notes": "Audit does not change the existing runtime heal curve or low-confidence 100/75/50/25 copy coefficients."
+    },
+    {
+      "id": "rampaging", "name": { "en": "Rampaging" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "5", "interpreted": { "durationSeconds": 5, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } }, "2": { "raw": "10", "interpreted": { "durationSeconds": 10, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } }, "3": { "raw": "15", "interpreted": { "durationSeconds": 15, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-kill", "modelCategory": "on-kill-attack-speed", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/rampaging", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "10% on-kill chance for +50% attack speed; tier controls duration and stacked copies extend duration specially." }],
+      "confidence": "high", "notes": "Needs stochastic/expected buff uptime, refresh rules, and attack-speed feedback into kill rate."
+    },
+    {
+      "id": "refreshment", "name": { "en": "Refreshment" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
+      "tierValues": { "1": { "raw": "1.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 1 } }, "2": { "raw": "2.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 2 } }, "3": { "raw": "3.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "potion-cooldown", "runtimeStatus": "needs-state-model",
+      "sources": [
+        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/refreshment", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "The weapon carrying Refreshment must land the kill; tier reduces potion cooldown by seconds per qualifying kill." },
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report: Shockwave, Swirling, Fire Aspect, Thundering and similar proc kills are not physical/direct weapon kills; artifact kills do not qualify." }
+      ],
+      "confidence": "medium", "notes": "Melee and ranged direct weapon/projectile kills qualify; indirect enchant, DoT, and artifact kills do not. CombatState.directWeaponKillsPerSecond is reusable, but potion cooldown/use state and healing/defense valuation are absent."
+    },
+    {
+      "id": "sharpness", "name": { "en": "Sharpness" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "+10%", "interpreted": { "damageBonus": 0.1 } }, "2": { "raw": "+21%", "interpreted": { "damageBonus": 0.21 } }, "3": { "raw": "+33%", "interpreted": { "damageBonus": 0.33 } } },
+      "stacking": { "maxCopies": 4, "behavior": "multiplicative" }, "trigger": "passive", "modelCategory": "passive-damage", "runtimeStatus": "straightforward",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/sharpness", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Always-on damage bonus; copies multiply and Enchantsmith permits up to four total copies including gilded." }],
+      "confidence": "high", "notes": "Existing combineEnchantmentValues multiplicative mode can represent it without a state or DamageEvent model."
+    },
+    {
+      "id": "shockwave", "name": { "en": "Shockwave" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.5X" }, "3": { "raw": "2X" } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "combo-finisher-damage", "runtimeStatus": "needs-damage-event-model",
+      "sources": [
+        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/shockwave", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Launches a power-scaled wave only on the last attack in a combo; raw X is not a weapon-hit percentage." },
+        { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Shockwave", "retrievedAt": "2026-08-29", "supports": ["tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Confirms combo-finisher activation, power-level scaling, non-stackability, and Whirlwind's Tier I built-in." },
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Shockwave kills as proc kills, not direct weapon kills." }
+      ],
+      "confidence": "medium", "notes": "AttackProfile.comboFinisherHit supplies cadence, but AoE, power curve, Void Strike interaction, and proc kill attribution require separate DamageEvent modeling."
+    },
+    {
+      "id": "smiting", "name": { "en": "Smiting" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "+25%", "interpreted": { "undeadDamageBonus": 0.25 } }, "2": { "raw": "+35%", "interpreted": { "undeadDamageBonus": 0.35 } }, "3": { "raw": "+45%", "interpreted": { "undeadDamageBonus": 0.45 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "conditional-hit", "modelCategory": "category-damage", "runtimeStatus": "needs-enemy-state",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/smiting", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Damage bonus applies only to undead targets; multiple copies are allowed but exact composition belongs in a later model." }],
+      "confidence": "high", "notes": "Needs scenario.undeadEnemyShare (or encounter composition) before ranking."
+    },
+    {
+      "id": "soul-siphon", "name": { "en": "Soul Siphon" },
+      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "1", "interpreted": { "extraSouls": 1, "triggerChance": 0.2 } }, "2": { "raw": "3", "interpreted": { "extraSouls": 3, "triggerChance": 0.2 } }, "3": { "raw": "5", "interpreted": { "extraSouls": 5, "triggerChance": 0.2 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "soul-generation", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/soul-siphon", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "20% on-hit chance to grant the tier number of extra souls; soul gear only." }],
+      "confidence": "high", "notes": "Needs a soul resource and downstream soul-spend utility/damage model."
+    },
+    {
+      "id": "stunning", "name": { "en": "Stunning" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "5%", "interpreted": { "triggerChance": 0.05 } }, "2": { "raw": "10%", "interpreted": { "triggerChance": 0.1 } }, "3": { "raw": "15%", "interpreted": { "triggerChance": 0.15 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "crowd-control", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/stunning", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Tier controls temporary-stun proc chance." }],
+      "confidence": "medium", "notes": "Stun duration/resistance and CC valuation need evidence; no invented defense conversion."
+    },
+    {
+      "id": "swirling", "name": { "en": "Swirling" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.5X" }, "3": { "raw": "2X" } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "combo-finisher-damage", "runtimeStatus": "needs-damage-event-model",
+      "sources": [
+        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/swirling", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Power-scaled local AoE only on the last attack in a combo; raw X is preserved." },
+        { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Swirling", "retrievedAt": "2026-08-29", "supports": ["tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Confirms a mob must be hit by the combo finisher, power-level scaling, non-stackability, and Sheer Daggers' Tier I built-in." },
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Swirling kills as proc kills, not direct weapon kills." }
+      ],
+      "confidence": "medium", "notes": "AttackProfile.comboFinisherHit supplies cadence; power curve, AoE, Void Strike interaction, and proc kill attribution need DamageEvent modeling."
+    },
+    {
+      "id": "thundering", "name": { "en": "Thundering" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "X", "interpreted": { "triggerChance": 0.3 } }, "2": { "raw": "2X", "interpreted": { "triggerChance": 0.3 } }, "3": { "raw": "3X", "interpreted": { "triggerChance": 0.3 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "proc-area-damage", "runtimeStatus": "needs-damage-event-model",
+      "sources": [
+        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/thundering", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "30% on-hit power-scaled lightning AoE; raw X is preserved." },
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Thundering kills as proc kills, not direct weapon kills." }
+      ],
+      "confidence": "medium", "notes": "Needs power curve, AoE targets, Lightning Focus, Void Strike consumption, and non-direct kill attribution."
+    },
+    {
+      "id": "unchanting", "name": { "en": "Unchanting" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "+50%", "interpreted": { "enchantedEnemyDamageBonus": 0.5 } }, "2": { "raw": "+75%", "interpreted": { "enchantedEnemyDamageBonus": 0.75 } }, "3": { "raw": "+100%", "interpreted": { "enchantedEnemyDamageBonus": 1 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "conditional-damage", "runtimeStatus": "needs-enemy-state",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/unchanting", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Tier bonus applies to enchanted enemies only; melee and ranged are both valid." }],
+      "confidence": "medium", "notes": "Add scenario.enchantedEnemyShare (or encounter composition). Confirm additive/multiplicative placement against other bonuses before runtime implementation."
+    },
+    {
+      "id": "void-strike", "name": { "en": "Void Strike", "ja": "虚無の一撃" },
+      "applicability": { "melee": true, "ranged": true, "armor": false },
+      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "200%", "interpreted": { "maxBonusDamage": 2 } }, "2": { "raw": "400%", "interpreted": { "maxBonusDamage": 4 } }, "3": { "raw": "600%", "interpreted": { "maxBonusDamage": 6 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "time-ramping-damage", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/void-strike", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier values are maximum bonus damage, so Tier III reaches a total 7x multiplier." }],
+      "confidence": "high", "notes": "Audit agrees with existing tier maxima. Existing curve caveats remain in the dedicated Void Strike audit."
+    },
+    {
+      "id": "weakening", "name": { "en": "Weakening" },
+      "applicability": { "melee": true, "ranged": false, "armor": false },
+      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
+      "tierValues": { "1": { "raw": "20%", "interpreted": { "enemyDamageReduction": 0.2, "durationSeconds": 5 } }, "2": { "raw": "30%", "interpreted": { "enemyDamageReduction": 0.3, "durationSeconds": 5 } }, "3": { "raw": "40%", "interpreted": { "enemyDamageReduction": 0.4, "durationSeconds": 5 } } },
+      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "enemy-debuff", "runtimeStatus": "needs-state-model",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/weakening", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Hits reduce nearby affected enemies' damage for five seconds; tier controls reduction." }],
+      "confidence": "medium", "notes": "Needs affected-attacker share, debuff uptime, multiple-copy composition, and enemy action model; no unconditional defense conversion."
+    }
+  ]
+}

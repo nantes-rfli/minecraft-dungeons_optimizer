@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御モデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **19 / 28（68%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **20 / 29（69%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,8 +49,9 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（0 / 4）
+## Phase 2 — Equipment Coverage（1 / 5）
 
+- [x] Phase 2-1A: 1.17.0.0の近接エンチャント33種を監査・分類し、runtime実装順序とunsupported境界を確定
 - [ ] 近接エンチャントを25〜30種類へ拡張
 - [ ] アーティファクトを10〜15種類へ拡張
 - [ ] 防具・防具エンチャントをモデル化
@@ -69,7 +70,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1Aは完了しました。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1Aは完了しました。Phase 2-1Aでは1.17.0.0のhero-accessibleな近接エンチャント33種を確定し、`implemented 5 / straightforward 1 / needs-state-model 15 / needs-damage-event-model 6 / needs-enemy-state 4 / utility-only 2`へ分類しました。未実装28種はruntime catalogへ入れず、0点評価を防いでいます。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
 
 ## 更新ルール
 
