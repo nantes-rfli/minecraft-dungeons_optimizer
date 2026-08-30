@@ -1,8 +1,10 @@
 import { combineEnchantmentValues } from './enchantment'
+import { derivePotionState } from './potion'
 import type {
   CombatState,
   DamageMetrics,
   HealingMetrics,
+  PotionState,
   Scenario,
   SelectedEnchantment,
 } from './types'
@@ -12,6 +14,7 @@ export function calculateHealing(
   damage: DamageMetrics,
   combatState: CombatState,
   scenario: Scenario,
+  potionState: PotionState = derivePotionState(enchantments, combatState, scenario),
 ): HealingMetrics {
   const radianceProcHealing = combineEnchantmentValues(
     enchantments,
@@ -33,6 +36,7 @@ export function calculateHealing(
   return {
     radiancePerSecond,
     leechingPerSecond,
-    totalPerSecond: radiancePerSecond + leechingPerSecond,
+    refreshmentPotionCapacityPerSecond: potionState.incrementalHealingCapacityPerSecond,
+    totalPerSecond: radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond,
   }
 }

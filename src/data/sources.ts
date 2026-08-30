@@ -49,6 +49,48 @@ export const UNCHANTING_SOURCE: SourceReference = {
   kind: 'game-files',
 }
 
+export const REFRESHMENT_SOURCE: SourceReference = {
+  id: 'dungeons-tools-refreshment-1.17',
+  label: 'dungeons.tools: Refreshment tier reductions and non-stackable flag (1.17.0.0)',
+  url: 'https://www.dungeons.tools/enchantments/refreshment',
+  kind: 'game-files',
+}
+
+export const REFRESHMENT_KILL_SOURCE: SourceReference = {
+  id: 'dungeons-tools-refreshment-direct-kills',
+  label: 'dungeons.tools: Refreshment direct weapon kill condition (published mechanics prose)',
+  url: 'https://www.dungeons.tools/enchantments/refreshment',
+  kind: 'published-reference',
+}
+
+export const REFRESHMENT_EXCLUSIONS_SOURCE: SourceReference = {
+  id: 'community-refreshment-indirect-kills',
+  label: 'Community report: enchantment proc/DoT kills do not trigger direct-kill enchantments',
+  url: 'https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/',
+  kind: 'community-test',
+}
+
+export const HEALTH_POTION_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-health-potion',
+  label: 'Minecraft Wiki: Health Potion, 45-second cooldown and approximately 75% healing',
+  url: 'https://minecraft.wiki/w/Dungeons%3AHealth_Potion',
+  kind: 'published-reference',
+}
+
+export const WEAKENING_SOURCE: SourceReference = {
+  id: 'dungeons-tools-weakening-1.17',
+  label: 'dungeons.tools: Weakening tiers and nearby-enemy five-second description (1.17.0.0)',
+  url: 'https://www.dungeons.tools/enchantments/weakening',
+  kind: 'game-files',
+}
+
+export const WEAKENING_STACKING_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-weakening-stacking',
+  label: 'Minecraft Wiki: Weakening is non-stackable across normal, gilded and unique slots',
+  url: 'https://minecraft.wiki/w/Dungeons%3AWeakening',
+  kind: 'published-reference',
+}
+
 export const COMMUNITY_VOID_STRIKE_MEASUREMENTS_SOURCE: SourceReference = {
   id: 'community-void-strike-2021-damage-table',
   label: 'Community target-dummy test: Void Strike tiers and attack-speed damage table',

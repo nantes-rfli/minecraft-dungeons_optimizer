@@ -1,6 +1,8 @@
 export { evaluate } from './evaluate'
 export { optimize } from './optimizer'
 export { deriveCombatState } from './combatState'
+export { derivePotionState } from './potion'
+export { deriveEnemyDebuffState } from './enemyDebuffs'
 export { OptimizerInputError } from './errors'
 export {
   calculateModelErrorSummary,

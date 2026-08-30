@@ -38,6 +38,7 @@ export function validateScenario(scenario: Scenario): void {
   assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
   assertRange('directKillShare', scenario.directKillShare, 0, 1)
   assertRange('enemyComposition.enchantedShare', scenario.enemyComposition?.enchantedShare, 0, 1)
+  assertRange('enemyDebuffs.weakeningAffectedIncomingDamageShare', scenario.enemyDebuffs?.weakeningAffectedIncomingDamageShare, 0, 1)
   assertRange('incomingDamagePerSecond', scenario.incomingDamagePerSecond, 0)
   assertRange('maxHealth', scenario.maxHealth, Number.EPSILON)
   assertRange('averageTargetsInReach', scenario.averageTargetsInReach, 1)

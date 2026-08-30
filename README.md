@@ -5,7 +5,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 ## 対応範囲
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）
-- エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク / 切れ味（Sharpness）/ エンチャント解除（Unchanting）
+- エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク / 切れ味（Sharpness）/ エンチャント解除（Unchanting）/ リフレッシュ（Refreshment）/ 弱体化（Weakening）
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
@@ -64,11 +64,11 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 7種との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 9種との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
-runtime対応は **7 / 33**、未対応は **26 / 33** です。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在は次節のPhase 2-1Cまで完了しています。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
 
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
@@ -79,7 +79,18 @@ runtime対応は **7 / 33**、未対応は **26 / 33** です。SharpnessはTier
 
 対象は直接近接hitのみで、proc/DoT等には拡張しません。Tier/stackingの根拠とinteraction/敵構成の仮定を分け、Unchanting選択時だけ敵構成Evidenceを集計します。式、typed effectの段階移行、remaining uncertaintyは [damage-modifiers.md](./docs/damage-modifiers.md) を参照してください。
 
-**Phase 2-1B complete — ready for Phase 2-1C.** 親項目の近接25〜30種への拡張は未完了です。
+## Phase 2-1C — Refreshment / Weakening State Models
+
+現在は **implemented 9 / 33、unsupported 24 / 33** です。その他24種はruntime候補へ登録しません。
+
+- **Refreshment**: 直接撃破ごとにTier I / II / IIIで1 / 2 / 3秒短縮、最大1個。独立したPotionStateで`推定CD = 45 / (1 + 直接撃破/s × 短縮秒数)`とし、`最大HP × 約0.75 × (1/推定CD − 1/45)`を追加回復容量として評価します。最大HP100・直接撃破1/秒・Tier IIIならCD11.25秒、追加容量5 HP/秒です。実回復ではないlow-confidenceの連続rate近似で、既存Buildへ基礎ポーション回復は加点しません。ArtifactのCD短縮も流用しません。[PotionStateの仕様・Evidence・制限](./docs/potion-state.md)。
+- **Weakening**: 攻撃で周囲の敵の攻撃ダメージを5秒間、20% / 30% / 40%低下。対象割合は被ダメージ発生時点で弱体化中の敵から来る割合で、全profile共通の編集可能な50%（実測ではないlow仮定）です。Tier III・50%なら敵攻撃倍率0.80。5秒durationを再度掛けず、Artifact / Guardingのhero防御倍率と別段階で乗算します。[Enemy debuffの仕様・Evidence・制限](./docs/enemy-debuffs.md)。
+
+Weakeningのstackingはdungeons.toolsのSTACKS YesとWikiの明示的な重複不可が矛盾しています。今回の仕様では最大1個を採用し、旧auditの4個/specialからの訂正と矛盾を残しました。Tier・継続時間はhigh、stackingはmedium、coverageと時間平均の合成はlowです。RefreshmentのTier/直接撃破条件はhigh、ポーションの約75%回復はmedium、rateモデルはlowで分離します。
+
+結果の「回復・容量 / 秒」はRefreshmentの追加capacityを含みます。ポーションCD・使用頻度・容量、Weakening対象割合・敵倍率・hero防御との合成を内訳で追跡できます。金色Tier、候補/lock、保存・JSON・Optimizerにも対応します。新しいScenario APIには`enemyDebuffs: { weakeningAffectedIncomingDamageShare: 0.5 }`が必要です（Scenarioはセッション内設定のまま、inventory JSONはversion 1を維持）。
+
+**Phase 2-1C complete — ready for Phase 2-1D.** 親項目の近接25〜30種への拡張は未完了。DamageEvent・Shockwave / Swirling / Thundering / Committed・Potion Barrier・防具は今回実装していません。
 
 ## Core の構成
 
@@ -87,8 +98,10 @@ runtime対応は **7 / 33**、未対応は **26 / 33** です。SharpnessはTier
 src/core/damage.ts     Power換算DPS、直接近接modifier、対象別期待DPS、AoE
 src/core/enchantment.ts tier・source・stackingの共通処理
 src/core/combatState.ts DPSからBuild依存の撃破速度を導出
-src/core/healing.ts    Radiance、Leeching
-src/core/defense.ts    Guarding Strike、Effective HP
+src/core/potion.ts     Health Potion使用頻度とRefreshment追加回復容量
+src/core/enemyDebuffs.ts Weakeningの時間平均coverageと敵攻撃倍率
+src/core/healing.ts    Radiance、Leeching、Refreshment追加capacity
+src/core/defense.ts    敵debuff × Artifact × Guarding Strike、Effective HP
 src/core/artifact.ts   効果時間、稼働率、平均効果
 src/core/evaluate.ts   1ビルドの評価
 src/core/optimizer.ts  全組み合わせの探索、順位付け、Pareto前線

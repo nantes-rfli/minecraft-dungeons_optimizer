@@ -4,8 +4,13 @@ import {
   DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE,
   MINECRAFT_WIKI_ENCHANTMENTS_SOURCE,
   SHARPNESS_SOURCE,
+  REFRESHMENT_SOURCE,
+  WEAKENING_SOURCE,
+  WEAKENING_STACKING_SOURCE,
   UNCHANTING_SOURCE,
 } from './sources'
+
+import { WEAKENING_DURATION } from './enemyDebuffs'
 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
@@ -15,9 +20,9 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
     name: { ja: '切れ味', en: 'Sharpness' },
     tiers: {
       value: {
-        1: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.1 } },
-        2: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.21 } },
-        3: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.33 } },
+        1: { effect: { kind: 'passive-weapon-damage', bonus: 0.1 } },
+        2: { effect: { kind: 'passive-weapon-damage', bonus: 0.21 } },
+        3: { effect: { kind: 'passive-weapon-damage', bonus: 0.33 } },
       },
       source: SHARPNESS_SOURCE,
       confidence: 'high',
@@ -39,9 +44,9 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
     name: { ja: 'エンチャント解除', en: 'Unchanting' },
     tiers: {
       value: {
-        1: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.5 } },
-        2: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.75 } },
-        3: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 1 } },
+        1: { effect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.5 } },
+        2: { effect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.75 } },
+        3: { effect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 1 } },
       },
       source: UNCHANTING_SOURCE,
       confidence: 'high',
@@ -56,6 +61,55 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
       source: UNCHANTING_SOURCE,
       confidence: 'high',
       note: 'Audit applicability includes ranged; this runtime only implements direct melee hits.',
+    },
+  },
+  refreshment: {
+    id: 'refreshment',
+    name: { ja: 'リフレッシュ', en: 'Refreshment' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'potion-cooldown-on-direct-kill', potionCooldownReductionSeconds: 1 } },
+        2: { effect: { kind: 'potion-cooldown-on-direct-kill', potionCooldownReductionSeconds: 2 } },
+        3: { effect: { kind: 'potion-cooldown-on-direct-kill', potionCooldownReductionSeconds: 3 } },
+      },
+      source: REFRESHMENT_SOURCE,
+      confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: REFRESHMENT_SOURCE,
+      confidence: 'high',
+    },
+    applicability: {
+      value: { melee: true, ranged: true, armor: false },
+      source: REFRESHMENT_SOURCE,
+      confidence: 'high',
+      note: 'Runtime only evaluates direct melee weapon kills.',
+    },
+  },
+  weakening: {
+    id: 'weakening',
+    name: { ja: '弱体化', en: 'Weakening' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.2, durationSeconds: WEAKENING_DURATION.value } },
+        2: { effect: { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.3, durationSeconds: WEAKENING_DURATION.value } },
+        3: { effect: { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.4, durationSeconds: WEAKENING_DURATION.value } },
+      },
+      source: WEAKENING_SOURCE,
+      confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: WEAKENING_STACKING_SOURCE,
+      confidence: 'medium',
+      note: 'Phase 2-1C uses the requested non-stackable rule, supported by Wiki including gilded slots. dungeons.tools says STACKS Yes; source conflict is retained in the audit, not presented as resolved game-file evidence.',
+    },
+    applicability: {
+      value: { melee: true, ranged: false, armor: false },
+      source: WEAKENING_SOURCE,
+      confidence: 'medium',
+      note: 'Melee-only runtime; retains the priority game-data audit scope. Wiki also lists ranged since 1.10.2.0; conflict documented, ranged runtime remains out of scope.',
     },
   },
   'critical-hit': {

@@ -1,4 +1,5 @@
 import { enchantmentsById, getTierValues } from './enchantment'
+import { deriveEnemyDebuffState } from './enemyDebuffs'
 import type {
   ArtifactEffects,
   CombatState,
@@ -13,6 +14,7 @@ export function calculateDefense(
   combatState: CombatState,
   scenario: Scenario,
 ): DefenseMetrics {
+  const enemyDebuffs = deriveEnemyDebuffState(enchantments, scenario)
   const guarding = enchantmentsById(enchantments, 'guarding-strike')[0]
   const values = guarding ? getTierValues(guarding) : undefined
   const guardingStrikeUptime = guarding
@@ -21,11 +23,14 @@ export function calculateDefense(
   const guardingDamageMultiplier =
     1 - guardingStrikeUptime * (values?.damageReduction ?? 0)
   const damageTakenMultiplier =
-    artifactEffects.damageTakenMultiplier * guardingDamageMultiplier
+    enemyDebuffs.weakeningEnemyDamageMultiplier * artifactEffects.damageTakenMultiplier * guardingDamageMultiplier
   const damageTakenPerSecond = scenario.incomingDamagePerSecond * damageTakenMultiplier
 
   return {
+    ...enemyDebuffs,
     guardingStrikeUptime,
+    guardingStrikeDamageTakenMultiplier: guardingDamageMultiplier,
+    artifactDamageTakenMultiplier: artifactEffects.damageTakenMultiplier,
     damageTakenMultiplier,
     damageTakenPerSecond,
     preventedDamagePerSecond: scenario.incomingDamagePerSecond - damageTakenPerSecond,

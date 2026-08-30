@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
-  "auditedAt": "2026-08-29",
+  "auditedAt": "2026-08-30",
   "population": {
     "targetCount": 33,
     "definition": "Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.",
@@ -222,12 +222,12 @@
       "applicability": { "melee": true, "ranged": true, "armor": false },
       "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
       "tierValues": { "1": { "raw": "1.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 1 } }, "2": { "raw": "2.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 2 } }, "3": { "raw": "3.0", "interpreted": { "potionCooldownReductionSecondsPerKill": 3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "potion-cooldown", "runtimeStatus": "needs-state-model",
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "potion-cooldown", "runtimeStatus": "implemented",
       "sources": [
-        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/refreshment", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "The weapon carrying Refreshment must land the kill; tier reduces potion cooldown by seconds per qualifying kill." },
-        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report: Shockwave, Swirling, Fire Aspect, Thundering and similar proc kills are not physical/direct weapon kills; artifact kills do not qualify." }
+        {"type": "game-files", "url": "https://www.dungeons.tools/enchantments/refreshment", "retrievedAt": "2026-08-30", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "The weapon carrying Refreshment must land the kill; tier reduces potion cooldown by seconds per qualifying kill."},
+        {"type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report: Shockwave, Swirling, Fire Aspect, Thundering and similar proc kills are not physical/direct weapon kills; artifact kills do not qualify."}
       ],
-      "confidence": "medium", "notes": "Melee and ranged direct weapon/projectile kills qualify; indirect enchant, DoT, and artifact kills do not. CombatState.directWeaponKillsPerSecond is reusable, but potion cooldown/use state and healing/defense valuation are absent."
+      "confidence": "medium", "notes": "Phase 2-1C: direct melee weapon/projectile kills qualify; proc, DoT and artifact kills do not. Runtime uses CombatState.directWeaponKillsPerSecond -> steady-state PotionState -> incremental healing capacity, not actual healing. C/(1+k*r) uses separate low-confidence model Evidence; health potion 45s cooldown and approximately 75% heal have separate source-based Evidence. No baseline potion healing is added to the score."
     },
     {
       "id": "sharpness", "name": { "en": "Sharpness" },
@@ -326,9 +326,12 @@
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "20%", "interpreted": { "enemyDamageReduction": 0.2, "durationSeconds": 5 } }, "2": { "raw": "30%", "interpreted": { "enemyDamageReduction": 0.3, "durationSeconds": 5 } }, "3": { "raw": "40%", "interpreted": { "enemyDamageReduction": 0.4, "durationSeconds": 5 } } },
-      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "enemy-debuff", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/weakening", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Hits reduce nearby affected enemies' damage for five seconds; tier controls reduction." }],
-      "confidence": "medium", "notes": "Needs affected-attacker share, debuff uptime, multiple-copy composition, and enemy action model; no unconditional defense conversion."
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "enemy-debuff", "runtimeStatus": "implemented",
+      "sources": [
+        {"type": "game-files", "url": "https://www.dungeons.tools/enchantments/weakening", "retrievedAt": "2026-08-30", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Tier reductions 20/30/40% and nearby-enemy five-second description. Raw page reports STACKS Yes and applies to melee; its stacking flag conflicts with the explicit Wiki non-stackable rule. It does not support the chosen runtime maxCopies=1."},
+        {"type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons%3AWeakening", "retrievedAt": "2026-08-30", "supports": ["stacking", "trigger-mechanics"], "confidence": "medium", "note": "Explicitly says non-stackable including normal, gilded and unique slots. Phase 2-1C adopts maxCopies=1 as requested, correcting the prior audit interpretation maxCopies=4/special; conflict with dungeons.tools STACKS Yes remains unresolved. Wiki also lists ranged since 1.10.2.0, while priority game-data scope says melee only; ranged runtime is out of scope."}
+      ],
+      "confidence": "medium", "notes": "Phase 2-1C: enemy attack damage multiplier 1 - affectedIncomingDamageShare * tierReduction. Scenario share includes range, five-second duration, attack uptime and target switching; never multiply duration twice. Default 50% for every profile is editable/low confidence. Enemy multiplier composes with separate hero DR stages. Stacking corrected from maxCopies=4/special to requested maxCopies=1/non-stackable using explicit Wiki semantics; conflicting raw dungeons.tools STACKS Yes is retained in source notes, not silently erased."
     }
   ]
 }

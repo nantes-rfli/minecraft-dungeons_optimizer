@@ -74,9 +74,9 @@ export function combineDirectWeaponBonuses(
   enchantmentId: EnchantmentId,
 ): number {
   return combineEnchantmentValues(enchantments, enchantmentId, (values) => {
-    if (!values.directWeaponEffect) {
+    if (values.effect?.kind !== 'passive-weapon-damage' && values.effect?.kind !== 'conditional-weapon-damage') {
       throw new Error(`Missing direct weapon effect for ${enchantmentId}`)
     }
-    return values.directWeaponEffect.bonus
+    return values.effect.bonus
   })
 }

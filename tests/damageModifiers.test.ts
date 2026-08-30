@@ -36,7 +36,8 @@ describe('audit-backed direct weapon effects', () => {
       const expected = id === 'sharpness' ? [0.1, 0.21, 0.33][tier - 1] : [0.5, 0.75, 1][tier - 1]
       const interpreted = entry.tierValues[tier].interpreted as Record<string, unknown>
       expect(expected).toBe(interpreted[id === 'sharpness' ? 'damageBonus' : 'enchantedEnemyDamageBonus'])
-      expect(definition.tiers.value[tier].directWeaponEffect?.bonus).toBe(expected)
+      const effect = definition.tiers.value[tier].effect
+      expect(effect && 'bonus' in effect ? effect.bonus : undefined).toBe(expected)
     }
   })
 
@@ -194,16 +195,16 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.best.build.enchantments[0]!.enchantmentId).toBe('sharpness')
   })
 
-  it('searches all seven candidates within the existing bounded Cartesian product', () => {
+  it('searches all nine candidates within the existing bounded Cartesian product', () => {
     const candidates = Object.keys(ENCHANTMENTS) as EnchantmentId[]
-    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-seven', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
+    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-nine', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
     const started = performance.now()
     const result = optimize(inventory, DEFAULT_SCENARIO)
-    // 7^3 minus 4 non-stackable IDs × (3 positions for a pair × 6 other IDs + one triple).
-    expect(result.evaluatedBuildCount).toBe(343 - 4 * 19)
+    // 9^3 minus 6 non-stackable IDs × (3 positions for a pair × 8 other IDs + one triple).
+    expect(result.evaluatedBuildCount).toBe(729 - 6 * 25)
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
-    console.info(`Seven-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
+    console.info(`Nine-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
   })
 
   it('rejects every remaining unsupported enchantment through JSON input', () => {

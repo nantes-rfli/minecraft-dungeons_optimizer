@@ -2,6 +2,8 @@ import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
 import { DIRECT_WEAPON_COMPOSITION, UNCHANTING_MIXTURE, UNCHANTING_TARGET_CONDITION } from '../data/damageModifiers'
+import { HEALTH_POTION_BASE_COOLDOWN, HEALTH_POTION_HEAL_FRACTION, REFRESHMENT_COOLDOWN_RATE_MODEL, REFRESHMENT_DIRECT_KILL_CONDITION, REFRESHMENT_INDIRECT_KILL_EXCLUSIONS } from '../data/potions'
+import { WEAKENING_APPLICATION, WEAKENING_DURATION, WEAKENING_HERO_DR_COMPOSITION } from '../data/enemyDebuffs'
 import {
   VOID_STRIKE_CURVE,
   VOID_STRIKE_ARMED_MINIMUM,
@@ -105,7 +107,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       `${definition.name.ja}のtier値`,
       definition.tiers,
     )
-    if (enchantmentsById(build.enchantments, enchantmentId).length > 1) {
+    if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || enchantmentId === 'refreshment' || enchantmentId === 'weakening') {
       addEvidence(
         `enchant-stacking-${enchantmentId}`,
         `${definition.name.ja}のstacking`,
@@ -139,13 +141,32 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     )
   }
   const usesDirectWeaponKills = hasEnchantment(build.enchantments, 'leeching') ||
-    hasEnchantment(build.enchantments, 'guarding-strike')
+    hasEnchantment(build.enchantments, 'guarding-strike') ||
+    hasEnchantment(build.enchantments, 'refreshment')
   if (usesDirectWeaponKills) {
     addEvidence(
       'direct-kill-share',
       '直接撃破率',
       DEFAULT_SCENARIO_EVIDENCE.directKillShare,
     )
+  }
+  if (hasEnchantment(build.enchantments, 'refreshment')) {
+    addEvidence('refreshment-direct-kill-condition', 'Refreshmentの直接撃破条件', REFRESHMENT_DIRECT_KILL_CONDITION)
+    addEvidence('refreshment-indirect-kill-exclusions', '間接撃破の除外境界', REFRESHMENT_INDIRECT_KILL_EXCLUSIONS)
+    addEvidence('health-potion-base-cooldown', 'Health Potionの基礎CD', HEALTH_POTION_BASE_COOLDOWN)
+    addEvidence('health-potion-heal-fraction', 'Health Potionの概算回復割合', HEALTH_POTION_HEAL_FRACTION, 2)
+    addEvidence('refreshment-cooldown-rate-model', 'Refreshmentの連続撃破・追加回復容量モデル', REFRESHMENT_COOLDOWN_RATE_MODEL, 3)
+    caveats.push('RefreshmentはCD 45秒・回復約75%を用いたlow-confidenceの追加回復容量です。一定の直接撃破と即再使用を仮定し、実回復・HP不足・離散撃破・ready中の短縮破棄・戦闘開始終了は再現しません。baselineのポーション回復はスコアへ追加せず、ArtifactのCD短縮も適用しません。')
+  }
+  if (hasEnchantment(build.enchantments, 'weakening')) {
+    addEvidence('weakening-application', 'Weakeningの周囲の敵への攻撃力低下', WEAKENING_APPLICATION)
+    addEvidence('weakening-duration', 'Weakeningの5秒継続', WEAKENING_DURATION)
+    addEvidence('weakening-affected-incoming-damage-share', '弱体化中の敵から受ける被ダメージ割合', DEFAULT_SCENARIO_EVIDENCE.weakeningAffectedIncomingDamageShare, 3)
+    if (hasEnchantment(build.enchantments, 'guarding-strike') || build.artifacts.some((item) => item.artifactId === 'iron-hide-amulet')) {
+      addEvidence('weakening-hero-dr-composition', '敵攻撃力低下とhero防御の時間平均合成', WEAKENING_HERO_DR_COMPOSITION, 2)
+    }
+    caveats.push(`Weakening対象の被ダメージ割合${Number((scenario.enemyDebuffs.weakeningAffectedIncomingDamageShare * 100).toFixed(2))}%は位置・攻撃対象・5秒継続・攻撃稼働率を含むlow-confidence仮定です（全profileの初期値50%）。durationやHPSを再度掛けず、常時40%軽減とはしません。hero防御とは別の段階です。`)
+    caveats.push('Weakeningの重複は依頼仕様とWikiの明示的なnon-stackable記述に従い最大1個。dungeons.toolsのSTACKS Yesと矛盾するためstackingはmedium confidenceです。')
   }
   if (hasEnchantment(build.enchantments, 'void-strike')) {
     addEvidence('void-strike-curve', 'Void Strike時間曲線', VOID_STRIKE_CURVE, 3)

@@ -34,6 +34,8 @@ export type EnchantmentId =
   | 'guarding-strike'
   | 'sharpness'
   | 'unchanting'
+  | 'refreshment'
+  | 'weakening'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -169,8 +171,21 @@ export type DirectWeaponEffect =
       readonly bonus: number
     }
 
+export interface PotionCooldownOnKillEffect {
+  readonly kind: 'potion-cooldown-on-direct-kill'
+  readonly potionCooldownReductionSeconds: number
+}
+
+export interface EnemyDamageDebuffEffect {
+  readonly kind: 'enemy-damage-debuff'
+  readonly enemyDamageReduction: number
+  readonly durationSeconds: number
+}
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect
+
 export interface EnchantmentTierValues {
-  readonly directWeaponEffect?: DirectWeaponEffect
+  readonly effect?: EnchantmentEffect
   readonly triggerChance?: number
   readonly damageMultiplier?: number
   readonly healingFraction?: number
@@ -277,12 +292,18 @@ export interface Scenario {
   readonly enemySupplyPerSecond: number
   readonly directKillShare: number
   readonly enemyComposition: EnemyComposition
+  readonly enemyDebuffs: EnemyDebuffAssumptions
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
   readonly cooldownReduction: number
   readonly radianceHealPerProc: number
   readonly weights: ScenarioWeights
+}
+
+export interface EnemyDebuffAssumptions {
+  /** Damage-weighted share from enemies weakened at the time of damage, including duration/positioning/attack uptime. */
+  readonly weakeningAffectedIncomingDamageShare: number
 }
 
 export interface ArtifactUptime {
@@ -331,14 +352,38 @@ export interface CombatState {
   readonly directWeaponKillsPerSecond: number
 }
 
+/** Continuous steady-state availability, not discrete potion events or actual healing. */
+export interface PotionState {
+  readonly baseCooldownSeconds: number
+  readonly refreshmentReductionPerDirectKillSeconds: number
+  readonly directWeaponKillsPerSecond: number
+  readonly cooldownProgressRate: number
+  readonly effectiveCooldownSeconds: number
+  readonly baseUsesPerSecond: number
+  readonly estimatedUsesPerSecond: number
+  readonly healPerUse: number
+  readonly incrementalHealingCapacityPerSecond: number
+}
+
 export interface HealingMetrics {
   readonly radiancePerSecond: number
   readonly leechingPerSecond: number
+  readonly refreshmentPotionCapacityPerSecond: number
+  /** Includes the low-confidence incremental potion capacity proxy, excluding baseline potion healing. */
   readonly totalPerSecond: number
 }
 
-export interface DefenseMetrics {
+export interface EnemyDebuffState {
+  readonly weakeningAffectedIncomingDamageShare: number
+  readonly weakeningDamageReduction: number
+  readonly weakeningDurationSeconds: number
+  readonly weakeningEnemyDamageMultiplier: number
+}
+
+export interface DefenseMetrics extends EnemyDebuffState {
   readonly guardingStrikeUptime: number
+  readonly guardingStrikeDamageTakenMultiplier: number
+  readonly artifactDamageTakenMultiplier: number
   readonly damageTakenMultiplier: number
   readonly damageTakenPerSecond: number
   readonly preventedDamagePerSecond: number
@@ -425,6 +470,7 @@ export interface Evaluation {
   readonly build: Build
   readonly damage: DamageMetrics
   readonly combatState: CombatState
+  readonly potionState: PotionState
   readonly healing: HealingMetrics
   readonly defense: DefenseMetrics
   readonly artifactEffects: ArtifactEffects

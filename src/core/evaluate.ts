@@ -6,6 +6,7 @@ import { calculateDamage } from './damage'
 import { calculateDefense } from './defense'
 import { hasEnchantment } from './enchantment'
 import { calculateHealing } from './healing'
+import { derivePotionState } from './potion'
 import type {
   Build,
   ArtifactId,
@@ -20,6 +21,7 @@ import { validateBuild, validateScenario } from './validation'
 interface EvaluationCore {
   readonly damage: Evaluation['damage']
   readonly combatState: Evaluation['combatState']
+  readonly potionState: Evaluation['potionState']
   readonly healing: Evaluation['healing']
   readonly defense: Evaluation['defense']
   readonly artifactEffects: Evaluation['artifactEffects']
@@ -36,7 +38,8 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario)
   const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario)
   const combatState = deriveCombatState(damage, scenario)
-  const healing = calculateHealing(build.enchantments, damage, combatState, scenario)
+  const potionState = derivePotionState(build.enchantments, combatState, scenario)
+  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
   const damageTarget =
     scenario.averageEnemyHealth * Math.max(0.1, scenario.enemySupplyPerSecond)
@@ -53,7 +56,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
         utilities.defense * scenario.weights.defense)) /
     weightTotal
 
-  return { damage, combatState, healing, defense, artifactEffects, utilities, objectiveScore }
+  return { damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
 }
 
 function toContribution(
@@ -105,6 +108,16 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = calculateCore(build, scenario)
   const reasons: string[] = []
   const weapon = getWeaponDefinition(build.weapon.weaponId)
+
+  const refreshment = build.enchantments.find((item) => item.enchantmentId === 'refreshment')
+  if (refreshment) {
+    reasons.push(`Refreshment ${['I', 'II', 'III'][refreshment.tier - 1]}: 直接撃破${core.combatState.directWeaponKillsPerSecond.toFixed(2)}/秒 → ポーション推定CD ${core.potionState.effectiveCooldownSeconds.toFixed(2)}秒、追加回復容量${core.healing.refreshmentPotionCapacityPerSecond.toFixed(2)}/秒（実回復ではなくcapacity近似）`)
+  }
+  if (hasEnchantment(build.enchantments, 'weakening')) {
+    const share = Number((core.defense.weakeningAffectedIncomingDamageShare * 100).toFixed(2))
+    const reduction = Number(((1 - core.defense.weakeningEnemyDamageMultiplier) * 100).toFixed(2))
+    reasons.push(`「弱体化」は対象の被ダメージ割合${share}%の想定で、敵の攻撃ダメージ期待値を${reduction}%削減（hero防御適用前）`)
+  }
 
   if (hasEnchantment(build.enchantments, 'sharpness')) {
     reasons.push(`「切れ味」で直接近接ダメージを${core.damage.sharpnessMultiplier.toFixed(3)}倍に増幅`)

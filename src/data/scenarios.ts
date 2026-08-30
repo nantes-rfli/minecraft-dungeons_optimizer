@@ -6,6 +6,12 @@ export const DEFAULT_SCENARIO_EVIDENCE = {
   averageEnemyHealth: { value: 100, source: MVP_MODEL_SOURCE, confidence: 'low' },
   enemySupplyPerSecond: { value: 0.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
   directKillShare: { value: 0.9, source: MVP_MODEL_SOURCE, confidence: 'low' },
+  weakeningAffectedIncomingDamageShare: {
+    value: 0.5,
+    source: MVP_MODEL_SOURCE,
+    confidence: 'low',
+    note: 'Editable generic midpoint, not a measured rate. All profiles use 50%; time-weighted incoming damage share includes range, five-second duration, attack uptime and target switching.',
+  },
   enchantedShare: {
     value: 0.25,
     source: MVP_MODEL_SOURCE,
@@ -27,6 +33,7 @@ export const DEFAULT_SCENARIO: Scenario = {
   enemySupplyPerSecond: DEFAULT_SCENARIO_EVIDENCE.enemySupplyPerSecond.value,
   directKillShare: DEFAULT_SCENARIO_EVIDENCE.directKillShare.value,
   enemyComposition: { enchantedShare: DEFAULT_SCENARIO_EVIDENCE.enchantedShare.value },
+  enemyDebuffs: { weakeningAffectedIncomingDamageShare: DEFAULT_SCENARIO_EVIDENCE.weakeningAffectedIncomingDamageShare.value },
   incomingDamagePerSecond: DEFAULT_SCENARIO_EVIDENCE.incomingDamagePerSecond.value,
   maxHealth: DEFAULT_SCENARIO_EVIDENCE.maxHealth.value,
   averageTargetsInReach: DEFAULT_SCENARIO_EVIDENCE.averageTargetsInReach.value,
