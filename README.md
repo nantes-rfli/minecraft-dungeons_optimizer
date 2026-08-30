@@ -39,6 +39,10 @@ npm run preview
 
 本番サイトはCodex Sitesの所有者限定アクセスで運用します。GitHub Pagesの公開Workflowは使用せず、GitHubリポジトリも非公開のまま維持します。
 
+公開URL: [Minecraft Dungeons 最適装備ツール](https://nanto-minecraft-dungeons-optimizer.nantos.chatgpt.site)
+
+エージェントが変更をGitHubの`main`へpushした際は、同じ検証済み内容を本人限定のSitesにも反映し、公開成功まで確認することを完了条件とします（明示的に公開不要と指定された場合を除く）。手順は[AGENTS.md](./AGENTS.md)に記載しています。GitHubへのpushだけではSitesは更新されず、現在のGitHub Actionsは検証のみを行います。
+
 検証コマンド:
 
 ```bash
