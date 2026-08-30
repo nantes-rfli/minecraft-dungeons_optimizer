@@ -14,7 +14,7 @@ interface SelectedEnchantment {
 
 通常スロットは現在Tier III固定です。金色エンチャントはUIでTier I / II / IIIを選択でき、Enchant種類を変更しても選択中のtierを維持します。localStorage・JSON・Optimizerへ手持ちデータのtierをそのまま渡すため、Tier IをTier IIIとして評価することはありません。`built-in` は将来の固有武器効果を同じ計算経路へ載せるため予約しています。
 
-## 対応9種のstacking
+## 対応12種のstacking（3種はPower範囲限定）
 
 | Enchantment | 最大コピー | モデル |
 | --- | ---: | --- |
@@ -27,6 +27,9 @@ interface SelectedEnchantment {
 | Unchanting | 1 | non-stackable（enchanted対象のみ） |
 | Refreshment | 1 | non-stackable（直接撃破でPotion CD短縮） |
 | Weakening | 1 | non-stackable（Wikiと依頼仕様、game-dataのstacking flagと矛盾あり） |
+| Shockwave | 1 | non-stackable（Power 210–252） |
+| Swirling | 1 | non-stackable（Power 210–263） |
+| Thundering | 1 | non-stackable（Power 248–263） |
 
 [Minecraft WikiのEnchant概要](https://minecraft.wiki/w/Dungeons:Enchantment)ではstackableな効果は通常3個、Enchantsmithで金色枠を含めると最大4個まで存在し得るとされています。個別ページでは[Void Strike](https://minecraft.wiki/w/Dungeons:Void_Strike)と[Guarding Strike](https://minecraft.wiki/w/Dungeons:Guarding_Strike)がnon-stackable、[Radiance](https://minecraft.wiki/w/Dungeons:Radiance)と[Leeching](https://minecraft.wiki/w/Dungeons:Leeching)がstackableとされています。
 
@@ -52,3 +55,5 @@ Radiance HPS = hits/s × 20% × healPerProc
 Sharpness / UnchantingとPhase 2-1CのRefreshment / Weakeningは各tier内のtyped `effect: EnchantmentEffect` unionへ保持します。direct weapon bonus、potion cooldown on direct kill、enemy damage debuffを識別し、効果の欠落を黙って0にしません。既存5種のschemaは維持し、巨大なDamageEventへ移行せず段階拡張します。Sharpnessの通常Tier III＋金色Tier Iは`1.33 × 1.1`です。共通helperのsortは既存special stacking向けで、Sharpnessの乗算順序には影響しません。Unchantingは敵割合を参照し、詳しくは[直接近接modifier](./damage-modifiers.md)を参照してください。
 
 RefreshmentのPotionStateは[potion-state.md](./potion-state.md)、Weakening coverageとstacking訂正理由は[enemy-debuffs.md](./enemy-debuffs.md)に記載しています。両方とも通常・金色枠を跨いだ2個選択はvalidationとOptimizerが拒否します。
+
+Phase 2-1Dでtyped effectへcombo-finisher-damage / on-hit-proc-damageを追加しました。Shockwave / Swirling / Thunderingはnon-stackable（maxCopies=1）、Tier倍率とPower曲線を分離し、公開Power範囲外は0点にせず明示unsupportedです。[DamageEvent仕様](./damage-events.md)。

@@ -1,5 +1,7 @@
 import { getEnchantmentDefinition } from './catalog'
 import { hasValidEnchantmentStacking } from './enchantment'
+import { enchantmentUnsupportedReason } from './damageEvents'
+import { PROC_DAMAGE_IDS } from '../data/damageEvents'
 import { OptimizerInputError } from './errors'
 import type { Build, Inventory, Scenario } from './types'
 
@@ -42,6 +44,9 @@ export function validateScenario(scenario: Scenario): void {
   assertRange('incomingDamagePerSecond', scenario.incomingDamagePerSecond, 0)
   assertRange('maxHealth', scenario.maxHealth, Number.EPSILON)
   assertRange('averageTargetsInReach', scenario.averageTargetsInReach, 1)
+  for (const id of PROC_DAMAGE_IDS) {
+    assertRange(`damageEventTargeting.${id}`, scenario.damageEventTargeting?.[id], 1, scenario.averageTargetsInReach)
+  }
   assertRange('cooldownReduction', scenario.cooldownReduction, 0, 0.95)
   assertRange('radianceHealPerProc', scenario.radianceHealPerProc, 0)
   assertRange('weights.damage', scenario.weights.damage, 0)
@@ -55,6 +60,10 @@ export function validateScenario(scenario: Scenario): void {
 }
 
 export function validateBuild(build: Build): void {
+  for (const selected of build.enchantments) {
+    const reason = enchantmentUnsupportedReason(build.weapon, selected.enchantmentId)
+    if (reason) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
+  }
   const { enchantmentSlots } = build.weapon
   if (enchantmentSlots.length === 0 || enchantmentSlots.length > 3) {
     throw new OptimizerInputError(

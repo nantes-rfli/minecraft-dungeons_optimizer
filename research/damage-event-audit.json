@@ -1,0 +1,1182 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-30",
+  "phaseStatus": "partial",
+  "completionBlocker": "No independently supported proc damage curve for the full Power 50–263 range. Conditional runtime only within each enchantment's observed table span; no extrapolation.",
+  "sourceHierarchy": [
+    "dungeons.tools 1.17.0.0 game-file-derived metadata",
+    "Minecraft Wiki numeric tables/mechanics/history",
+    "quantitative community testing",
+    "agreeing community reports",
+    "explicit model assumption"
+  ],
+  "commonCurveAudit": {
+    "hypothesisA": "Independent enchantment power tables, Tier I log-linear interpolation multiplied by published tier ratio.",
+    "hypothesisB": "Historical base coefficient × one common proc Power curve × tier ratio.",
+    "historicalParameters": {
+      "shockwave": {
+        "before": 35,
+        "after": 30,
+        "version": "1.6.0.0"
+      },
+      "swirling": {
+        "before": 45,
+        "after": 40,
+        "version": "1.6.0.0"
+      },
+      "thundering": {
+        "relativeIncrease": 0.25,
+        "version": "1.3.2.0",
+        "absoluteBaseCoefficient": null
+      }
+    },
+    "historySource": "https://minecraft.wiki/w/Dungeons:1.6.0.0",
+    "shockwaveSwirlingComparisons": [
+      {
+        "powerLevel": 210,
+        "shockwaveNormalized": 1408.5666666666666,
+        "swirlingNormalized": 1461.15,
+        "relativeDisagreement": 0.03598763531008686
+      },
+      {
+        "powerLevel": 213,
+        "shockwaveNormalized": 1635.2666666666667,
+        "swirlingNormalized": 1635.275,
+        "relativeDisagreement": 0.0000050959828368224436
+      },
+      {
+        "powerLevel": 221,
+        "shockwaveNormalized": 2247.4666666666667,
+        "swirlingNormalized": 2247.45,
+        "relativeDisagreement": 0.000007415811994482269
+      },
+      {
+        "powerLevel": 234,
+        "shockwaveNormalized": 3753.9666666666667,
+        "swirlingNormalized": 3753.975,
+        "relativeDisagreement": 0.0000022198691608243948
+      },
+      {
+        "powerLevel": 250,
+        "shockwaveNormalized": 7221.633333333333,
+        "swirlingNormalized": 7373.425,
+        "relativeDisagreement": 0.020586317303921464
+      },
+      {
+        "powerLevel": 251,
+        "shockwaveNormalized": 7573.2,
+        "swirlingNormalized": 7493.45,
+        "relativeDisagreement": 0.010642627895028234
+      }
+    ],
+    "decision": "per-enchantment-log-linear",
+    "reason": "Shared knots normalized by 30/40 agree at some Powers but differ up to about 3.60%; within-Power rolls can explain differences but do not establish an exact shared function. Thundering absolute base is not independently established. No low-Power proc samples or published common function were found. Similar growth and history alone cannot authorize Power 50–209 or cross-enchantment extrapolation.",
+    "maxTierReconstructionRelativeErrors": {
+      "shockwave": 0.000011293692472769123,
+      "swirling": 0.0022595499880244674,
+      "thundering": 0.0000060303810598405505
+    },
+    "validationTolerance": 0.003,
+    "validationMeaning": "Component/source-knot reconstruction, NOT independent end-to-end accuracy. Tier I knots are fitted input; intermediate Power accuracy remains unknown.",
+    "anomalies": [
+      "Swirling Power 243 Tier III published 442566 differs from 2 × 221783 = 443566 by 1000 (about 0.226%). Preserve source value, do not silently correct. All other ratio residuals are rounding-scale."
+    ],
+    "searchedSources": [
+      "https://www.dungeons.tools/enchantments",
+      "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "https://minecraft.wiki/w/Dungeons:1.6.0.0",
+      "https://minecraft.wiki/w/Dungeons:Shockwave",
+      "https://minecraft.wiki/w/Dungeons:Swirling",
+      "https://minecraft.wiki/w/Dungeons:Thundering"
+    ],
+    "swirlingThunderingComparisons": [
+      {
+        "powerLevel": 248,
+        "swirlingToThunderingTierOneRatio": 3.209711267096027,
+        "inferredThunderingBaseIfSwirlingBase40": 12.462180137526772
+      },
+      {
+        "powerLevel": 251,
+        "swirlingToThunderingTierOneRatio": 3.182878137875377,
+        "inferredThunderingBaseIfSwirlingBase40": 12.567242058064043
+      },
+      {
+        "powerLevel": 253,
+        "swirlingToThunderingTierOneRatio": 3.199984240024428,
+        "inferredThunderingBaseIfSwirlingBase40": 12.500061562707774
+      },
+      {
+        "powerLevel": 254,
+        "swirlingToThunderingTierOneRatio": 3.1999963107118483,
+        "inferredThunderingBaseIfSwirlingBase40": 12.500014411298459
+      },
+      {
+        "powerLevel": 260,
+        "swirlingToThunderingTierOneRatio": 3.19999116614277,
+        "inferredThunderingBaseIfSwirlingBase40": 12.500034507350065
+      },
+      {
+        "powerLevel": 263,
+        "swirlingToThunderingTierOneRatio": 3.192404356325049,
+        "inferredThunderingBaseIfSwirlingBase40": 12.529741077676697
+      }
+    ],
+    "thunderingComparisonCaveat": "Shared-knot Swirling/Thundering ratios are close to 3.2 but vary. Values labeled inferred are algebraic comparisons, not measured base coefficients; neither these ratios nor the +25% historical change establish the absolute Thundering base or a low-Power curve."
+  },
+  "entries": [
+    {
+      "id": "shockwave",
+      "trigger": {
+        "type": "combo-finisher",
+        "probability": 1,
+        "requiresTargetHit": false,
+        "confidence": "high"
+      },
+      "tiers": {
+        "1": {
+          "raw": "X",
+          "multiplier": 1,
+          "confidence": "high"
+        },
+        "2": {
+          "raw": "1.5X",
+          "multiplier": 1.5,
+          "confidence": "high"
+        },
+        "3": {
+          "raw": "2X",
+          "multiplier": 2,
+          "confidence": "high"
+        }
+      },
+      "powerScaling": {
+        "rawTierNotation": "X / 1.5X / 2X",
+        "publishedSamples": [
+          {
+            "powerLevel": 210,
+            "tier": 1,
+            "damage": 42257,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 210,
+            "tier": 2,
+            "damage": 63385,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 210,
+            "tier": 3,
+            "damage": 84514,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 211,
+            "tier": 1,
+            "damage": 44273,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 211,
+            "tier": 2,
+            "damage": 66409,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 211,
+            "tier": 3,
+            "damage": 88545,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 1,
+            "damage": 49058,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 2,
+            "damage": 73587,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 3,
+            "damage": 98116,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 1,
+            "damage": 67424,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 2,
+            "damage": 101136,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 3,
+            "damage": 134847,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 227,
+            "tier": 1,
+            "damage": 84570,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 227,
+            "tier": 2,
+            "damage": 126855,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 227,
+            "tier": 3,
+            "damage": 169141,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 229,
+            "tier": 1,
+            "damage": 91790,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 229,
+            "tier": 2,
+            "damage": 137685,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 229,
+            "tier": 3,
+            "damage": 183579,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 231,
+            "tier": 1,
+            "damage": 100753,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 231,
+            "tier": 2,
+            "damage": 151129,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 231,
+            "tier": 3,
+            "damage": 201506,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 1,
+            "damage": 112619,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 2,
+            "damage": 168929,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 3,
+            "damage": 225239,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 235,
+            "tier": 1,
+            "damage": 118279,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 235,
+            "tier": 2,
+            "damage": 177418,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 235,
+            "tier": 3,
+            "damage": 236558,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 238,
+            "tier": 1,
+            "damage": 136183,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 238,
+            "tier": 2,
+            "damage": 204274,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 238,
+            "tier": 3,
+            "damage": 272366,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 246,
+            "tier": 1,
+            "damage": 182689,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 246,
+            "tier": 2,
+            "damage": 274033,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 246,
+            "tier": 3,
+            "damage": 365378,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 1,
+            "damage": 216649,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 2,
+            "damage": 324974,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 3,
+            "damage": 433298,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 1,
+            "damage": 227196,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 2,
+            "damage": 340793,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 3,
+            "damage": 454391,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 252,
+            "tier": 1,
+            "damage": 231647,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 252,
+            "tier": 2,
+            "damage": 347471,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          },
+          {
+            "powerLevel": 252,
+            "tier": 3,
+            "damage": 463294,
+            "source": "https://minecraft.wiki/w/Dungeons:Shockwave"
+          }
+        ],
+        "model": "Tier I source knots with log-linear interpolation; multiply by tier ratio; no weapon damage ratio and no extrapolation.",
+        "supportedPowerRange": {
+          "min": 210,
+          "max": 252
+        },
+        "sampleConfidence": "medium",
+        "curveConfidence": "low",
+        "sourceGameVersion": "unknown",
+        "note": "Tables do not identify measurement game version; target mechanics are 1.17.0.0. Values vary within displayed Power."
+      },
+      "targeting": {
+        "geometry": "directional-wave",
+        "quantitativeCoverageKnown": false,
+        "defaultExpectedTargets": 1,
+        "confidence": "low",
+        "note": "Generic single-effective-target baseline, not a measured geometry. Editable in [1, scenario.averageTargetsInReach]; no weapon.area reuse."
+      },
+      "attribution": {
+        "directWeaponKill": false,
+        "confidence": "low",
+        "evidence": "Multiple community reports identify these as indirect damage that can block Leeching, Guarding Strike and Refreshment. Runtime damage share is a proxy, not final-blow simulation."
+      },
+      "voidStrikeInteraction": {
+        "amplification": "uncertain",
+        "consumesVoid": "uncertain",
+        "confidence": "low",
+        "runtime": "No amplification and no state consumption; limited model, not a claim of no interaction.",
+        "note": "Community reports distinguish Shockwave/Swirling from Thundering; no version-verified quantitative interaction run found."
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable",
+        "confidence": "high"
+      },
+      "builtIn": {
+        "weapon": "Whirlwind",
+        "tier": 1,
+        "runtimeEnabled": false
+      },
+      "limitations": [
+        "Ordinary walls stop Shockwave since 1.6.0.0; Wiki trivia and dungeons.tools prose distinguish Geomancer walls/bombs. Geometry is not modeled and no damage/event discount is invented.",
+        "Continuous effective target contact assumed; no discrete simulator."
+      ],
+      "sources": [
+        {
+          "url": "https://www.dungeons.tools/enchantments/shockwave",
+          "type": "game-files",
+          "supports": [
+            "tier-ratios",
+            "trigger",
+            "non-stackable"
+          ],
+          "confidence": "high",
+          "retrievedAt": "2026-08-30",
+          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only."
+        },
+        {
+          "url": "https://minecraft.wiki/w/Dungeons:Shockwave",
+          "type": "minecraft-wiki",
+          "supports": [
+            "absolute-power-samples",
+            "mechanics",
+            "history",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "medium",
+          "retrievedAt": "2026-08-30",
+          "note": "Full action=raw source retrieved; numeric table version unspecified."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "First-person community explanation, not a controlled quantitative test."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/vb335j/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions",
+            "interaction-caveats"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "Independent agreeing community account; do not promote to game-file evidence."
+        }
+      ],
+      "confidence": "low"
+    },
+    {
+      "id": "swirling",
+      "trigger": {
+        "type": "combo-finisher",
+        "probability": 1,
+        "requiresTargetHit": true,
+        "confidence": "high"
+      },
+      "tiers": {
+        "1": {
+          "raw": "X",
+          "multiplier": 1,
+          "confidence": "high"
+        },
+        "2": {
+          "raw": "1.5X",
+          "multiplier": 1.5,
+          "confidence": "high"
+        },
+        "3": {
+          "raw": "2X",
+          "multiplier": 2,
+          "confidence": "high"
+        }
+      },
+      "powerScaling": {
+        "rawTierNotation": "X / 1.5X / 2X",
+        "publishedSamples": [
+          {
+            "powerLevel": 210,
+            "tier": 1,
+            "damage": 58446,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 210,
+            "tier": 2,
+            "damage": 87670,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 210,
+            "tier": 3,
+            "damage": 116893,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 1,
+            "damage": 65411,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 2,
+            "damage": 98116,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 213,
+            "tier": 3,
+            "damage": 130821,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 216,
+            "tier": 1,
+            "damage": 73542,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 216,
+            "tier": 2,
+            "damage": 110313,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 216,
+            "tier": 3,
+            "damage": 147084,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 1,
+            "damage": 89898,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 2,
+            "damage": 134847,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 221,
+            "tier": 3,
+            "damage": 179797,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 226,
+            "tier": 1,
+            "damage": 108729,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 226,
+            "tier": 2,
+            "damage": 163093,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 226,
+            "tier": 3,
+            "damage": 217458,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 228,
+            "tier": 1,
+            "damage": 116933,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 228,
+            "tier": 2,
+            "damage": 175400,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 228,
+            "tier": 3,
+            "damage": 233866,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 1,
+            "damage": 150159,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 2,
+            "damage": 225239,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 234,
+            "tier": 3,
+            "damage": 300318,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 243,
+            "tier": 1,
+            "damage": 221783,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 243,
+            "tier": 2,
+            "damage": 332674,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 243,
+            "tier": 3,
+            "damage": 442566,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 244,
+            "tier": 1,
+            "damage": 225632,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 244,
+            "tier": 2,
+            "damage": 338448,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 244,
+            "tier": 3,
+            "damage": 451264,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 247,
+            "tier": 1,
+            "damage": 257058,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 247,
+            "tier": 2,
+            "damage": 385587,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 247,
+            "tier": 3,
+            "damage": 514116,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 248,
+            "tier": 1,
+            "damage": 266130,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 248,
+            "tier": 2,
+            "damage": 399195,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 248,
+            "tier": 3,
+            "damage": 532260,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 249,
+            "tier": 1,
+            "damage": 278320,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 249,
+            "tier": 2,
+            "damage": 417481,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 249,
+            "tier": 3,
+            "damage": 556641,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 1,
+            "damage": 294937,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 2,
+            "damage": 442405,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 250,
+            "tier": 3,
+            "damage": 589874,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 1,
+            "damage": 299738,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 2,
+            "damage": 449607,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 3,
+            "damage": 599476,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 1,
+            "damage": 324872,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 2,
+            "damage": 487308,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 3,
+            "damage": 649744,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 1,
+            "damage": 346950,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 2,
+            "damage": 520425,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 3,
+            "damage": 693900,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 1,
+            "damage": 434690,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 2,
+            "damage": 652035,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 3,
+            "damage": 869381,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 1,
+            "damage": 480144,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 2,
+            "damage": 720216,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 3,
+            "damage": 960288,
+            "source": "https://minecraft.wiki/w/Dungeons:Swirling"
+          }
+        ],
+        "model": "Tier I source knots with log-linear interpolation; multiply by tier ratio; no weapon damage ratio and no extrapolation.",
+        "supportedPowerRange": {
+          "min": 210,
+          "max": 263
+        },
+        "sampleConfidence": "medium",
+        "curveConfidence": "low",
+        "sourceGameVersion": "unknown",
+        "note": "Tables do not identify measurement game version; target mechanics are 1.17.0.0. Values vary within displayed Power."
+      },
+      "targeting": {
+        "geometry": "local-radius",
+        "quantitativeCoverageKnown": false,
+        "defaultExpectedTargets": 1,
+        "confidence": "low",
+        "note": "Generic single-effective-target baseline, not a measured geometry. Editable in [1, scenario.averageTargetsInReach]; no weapon.area reuse."
+      },
+      "attribution": {
+        "directWeaponKill": false,
+        "confidence": "low",
+        "evidence": "Multiple community reports identify these as indirect damage that can block Leeching, Guarding Strike and Refreshment. Runtime damage share is a proxy, not final-blow simulation."
+      },
+      "voidStrikeInteraction": {
+        "amplification": "uncertain",
+        "consumesVoid": "uncertain",
+        "confidence": "low",
+        "runtime": "No amplification and no state consumption; limited model, not a claim of no interaction.",
+        "note": "Community reports distinguish Shockwave/Swirling from Thundering; no version-verified quantitative interaction run found."
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable",
+        "confidence": "high"
+      },
+      "builtIn": {
+        "weapon": "Sheer Daggers",
+        "tier": 1,
+        "runtimeEnabled": false
+      },
+      "limitations": [
+        "Final combo hit must contact a mob since 1.6.0.0; runtime assumes 100% contact. Whiffs, knockback and target switching not modeled.",
+        "Continuous effective target contact assumed; no discrete simulator."
+      ],
+      "sources": [
+        {
+          "url": "https://www.dungeons.tools/enchantments/swirling",
+          "type": "game-files",
+          "supports": [
+            "tier-ratios",
+            "trigger",
+            "non-stackable"
+          ],
+          "confidence": "high",
+          "retrievedAt": "2026-08-30",
+          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only."
+        },
+        {
+          "url": "https://minecraft.wiki/w/Dungeons:Swirling",
+          "type": "minecraft-wiki",
+          "supports": [
+            "absolute-power-samples",
+            "mechanics",
+            "history",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "medium",
+          "retrievedAt": "2026-08-30",
+          "note": "Full action=raw source retrieved; numeric table version unspecified."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "First-person community explanation, not a controlled quantitative test."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/vb335j/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions",
+            "interaction-caveats"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "Independent agreeing community account; do not promote to game-file evidence."
+        }
+      ],
+      "confidence": "low"
+    },
+    {
+      "id": "thundering",
+      "trigger": {
+        "type": "on-hit-probability",
+        "probability": 0.3,
+        "requiresTargetHit": true,
+        "confidence": "high"
+      },
+      "tiers": {
+        "1": {
+          "raw": "X",
+          "multiplier": 1,
+          "confidence": "high"
+        },
+        "2": {
+          "raw": "2X",
+          "multiplier": 2,
+          "confidence": "high"
+        },
+        "3": {
+          "raw": "3X",
+          "multiplier": 3,
+          "confidence": "high"
+        }
+      },
+      "powerScaling": {
+        "rawTierNotation": "X / 2X / 3X",
+        "publishedSamples": [
+          {
+            "powerLevel": 248,
+            "tier": 1,
+            "damage": 82914,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 248,
+            "tier": 2,
+            "damage": 165827,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 248,
+            "tier": 3,
+            "damage": 248741,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 1,
+            "damage": 94172,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 2,
+            "damage": 188344,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 251,
+            "tier": 3,
+            "damage": 282516,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 1,
+            "damage": 101523,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 2,
+            "damage": 203045,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 253,
+            "tier": 3,
+            "damage": 304568,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 1,
+            "damage": 108422,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 2,
+            "damage": 216844,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 254,
+            "tier": 3,
+            "damage": 325266,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 1,
+            "damage": 135841,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 2,
+            "damage": 271681,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 260,
+            "tier": 3,
+            "damage": 407522,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 1,
+            "damage": 150402,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 2,
+            "damage": 300804,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          },
+          {
+            "powerLevel": 263,
+            "tier": 3,
+            "damage": 451206,
+            "source": "https://minecraft.wiki/w/Dungeons:Thundering"
+          }
+        ],
+        "model": "Tier I source knots with log-linear interpolation; multiply by tier ratio; no weapon damage ratio and no extrapolation.",
+        "supportedPowerRange": {
+          "min": 248,
+          "max": 263
+        },
+        "sampleConfidence": "medium",
+        "curveConfidence": "low",
+        "sourceGameVersion": "unknown",
+        "note": "Tables do not identify measurement game version; target mechanics are 1.17.0.0. Values vary within displayed Power."
+      },
+      "targeting": {
+        "geometry": "nearby-lightning",
+        "quantitativeCoverageKnown": false,
+        "defaultExpectedTargets": 1,
+        "confidence": "low",
+        "note": "Generic single-effective-target baseline, not a measured geometry. Editable in [1, scenario.averageTargetsInReach]; no weapon.area reuse."
+      },
+      "attribution": {
+        "directWeaponKill": false,
+        "confidence": "low",
+        "evidence": "Multiple community reports identify these as indirect damage that can block Leeching, Guarding Strike and Refreshment. Runtime damage share is a proxy, not final-blow simulation."
+      },
+      "voidStrikeInteraction": {
+        "amplification": "uncertain",
+        "consumesVoid": "uncertain",
+        "confidence": "low",
+        "runtime": "No amplification and no state consumption; limited model, not a claim of no interaction.",
+        "note": "Community reports distinguish Shockwave/Swirling from Thundering; no version-verified quantitative interaction run found."
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable",
+        "confidence": "high"
+      },
+      "builtIn": {
+        "weapon": "Stormlander",
+        "tier": 1,
+        "runtimeEnabled": false
+      },
+      "limitations": [
+        "Only direct melee hits offer the 30% roll. Proc events cannot trigger another roll. Lightning Focus not implemented.",
+        "Continuous effective target contact assumed; no discrete simulator."
+      ],
+      "sources": [
+        {
+          "url": "https://www.dungeons.tools/enchantments/thundering",
+          "type": "game-files",
+          "supports": [
+            "tier-ratios",
+            "trigger",
+            "non-stackable"
+          ],
+          "confidence": "high",
+          "retrievedAt": "2026-08-30",
+          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only."
+        },
+        {
+          "url": "https://minecraft.wiki/w/Dungeons:Thundering",
+          "type": "minecraft-wiki",
+          "supports": [
+            "absolute-power-samples",
+            "mechanics",
+            "history",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "medium",
+          "retrievedAt": "2026-08-30",
+          "note": "Full action=raw source retrieved; numeric table version unspecified."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "First-person community explanation, not a controlled quantitative test."
+        },
+        {
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/vb335j/",
+          "type": "community-test",
+          "supports": [
+            "indirect-kill-exclusions",
+            "interaction-caveats"
+          ],
+          "confidence": "low",
+          "retrievedAt": "2026-08-30",
+          "note": "Independent agreeing community account; do not promote to game-file evidence."
+        }
+      ],
+      "confidence": "low"
+    }
+  ]
+}

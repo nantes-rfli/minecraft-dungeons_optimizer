@@ -49,13 +49,13 @@ export function MethodologyPage() {
           <h2>単体DPSとAoEを分離</h2>
           <p>表示ダメージまたはPower換算値とAttack Profileからbase DPSを求め、Sharpness、Critical、Void、敵割合に依存するUnchantingを直接近接hitだけへ合成します。Voidは最初のhitを1倍、以後は各hit間隔の倍率を使い、毎hit再適用します。平均命中数からAoEを別指標にします。</p>
           <Formula>Crit期待倍率 = 1 + 0.20 × (3.0 − 1) = 1.4</Formula>
-          <Formula>単体DPS = baseDps × Sharpness × Crit × Void × (1 + enchantedShare × Unchanting bonus)</Formula>
+          <Formula>直接単体DPS = baseDps × Sharpness × Crit × Void × (1 + enchantedShare × Unchanting bonus)</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">03 / 回復</p>
           <h2>回復と追加容量を分離</h2>
           <p>輝きは攻撃回数に比例し、複数コピーは発動率を増やさず回復量へ100%・75%・50%・25%の係数を適用します。吸血は武器本体の直接撃破数に比例します。Refreshmentは同じ直接撃破rateからポーション再使用頻度を求め、基礎回復を除いた追加回復容量だけを加点します。実回復ではないlow-confidence proxyを含みます。</p>
-          <Formula>直接撃破/s = min（敵供給/s, AoE DPS ÷ 平均敵HP）× 直接撃破率</Formula>
+          <Formula>直接撃破/s = min（敵供給/s, 総AoE DPS ÷ 平均敵HP）× 直接撃破率 × 直接AoE/総AoE</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">04 / 防御</p>
@@ -85,7 +85,7 @@ export function MethodologyPage() {
         <p>eは直接武器ダメージの対象に占めるエンチャント敵の期待割合、bはTier bonusです。両群を同じbaseline damageで重み付けし、敵ごとのHP・エンチャント敵のHP偏り・優先target・遭遇順序を無視します。Tier IIIで割合0%なら1倍、25%なら1.25倍、100%なら2倍です。</p>
         <p>全6profile（ボスを含む）の初期値25%はMVP model assumption / confidence lowで、実測値ではありません。「エンチャントされた敵の割合」で0〜100%に変更できます。Unchanting選択時だけ敵割合と期待値モデルをEvidenceへ追加し、割合0の寄与0も正常な結果として表示します。</p>
         <p>倍率はこのモデルの直接hit上では数値上交換可能です。ただしCritical判定・Voidの攻撃間隔・敵状態の独立性と全interactionの実機確認は未完了のため、合成Evidenceはlowです。proc/DoT、Shockwave、Swirling、Thundering、Strengthや防具の加算bonusへ一般化しません。</p>
-        <p>Tier・stacking・対象条件の根拠はhighで、合成や敵割合の仮定と分けています。出典: <a href={SHARPNESS_SOURCE.url} target="_blank" rel="noreferrer">Sharpness</a> / <a href={UNCHANTING_SOURCE.url} target="_blank" rel="noreferrer">Unchanting</a>（1.17.0.0由来公開データ）。Phase 2-1Cまでのruntime対応は9 / 33、未対応24種は候補に登録しません。</p>
+        <p>Tier・stacking・対象条件の根拠はhighで、合成や敵割合の仮定と分けています。出典: <a href={SHARPNESS_SOURCE.url} target="_blank" rel="noreferrer">Sharpness</a> / <a href={UNCHANTING_SOURCE.url} target="_blank" rel="noreferrer">Unchanting</a>（1.17.0.0由来公開データ）。現在のcatalogは12 / 33（3種はPower範囲限定）、未対応21種は候補に登録しません。</p>
       </section>
 
       <section className="method-section">
@@ -105,7 +105,26 @@ export function MethodologyPage() {
         <Formula>最終被ダメージ倍率 = 敵攻撃倍率 × Artifact倍率 × Guarding Strike倍率</Formula>
         <p>全profileの初期値50%は比較開始用の中間点（MVP仮定 / low）です。実測根拠がないためボス等で細分化せず、0〜100%で編集できます。Tier III・割合50%なら0.80倍、割合0なら効果0で、常時40%軽減ではありません。5秒はTier mechanicsとして保持し、割合に含まれるため再度掛けません。</p>
         <p>敵の攻撃力低下とhero防御は別段階です。併用時の時間平均の独立性はlow Evidenceで、DPS・Radiance・Leechingは変更しません。選択していないBuildにはWeakening割合のlow Evidenceを加えません。</p>
-        <p>Tier・5秒・周囲への適用は<a href={WEAKENING_SOURCE.url} target="_blank" rel="noreferrer">dungeons.tools</a>由来high。stackingは同サイトのSTACKS Yesと<a href={WEAKENING_STACKING_SOURCE.url} target="_blank" rel="noreferrer">Wikiの重複不可</a>が矛盾します。今回のモデルは通常・金色枠を含め最大1個を採用し、stackingはmedium、相違をauditへ記録しています。DamageEvent・防具・Potion Barrier・敵行動simulatorは追加しません。</p>
+        <p>Tier・5秒・周囲への適用は<a href={WEAKENING_SOURCE.url} target="_blank" rel="noreferrer">dungeons.tools</a>由来high。stackingは同サイトのSTACKS Yesと<a href={WEAKENING_STACKING_SOURCE.url} target="_blank" rel="noreferrer">Wikiの重複不可</a>が矛盾します。今回のモデルは通常・金色枠を含め最大1個を採用し、stackingはmedium、相違をauditへ記録しています。このPhase 2-1CではDamageEventを追加していません。後続の範囲限定実装は下記です。防具・Potion Barrier・敵行動simulatorは引き続き未対応です。</p>
+      </section>
+
+      <section className="method-section">
+        <p className="section-label">PHASE 2-1D PARTIAL / DAMAGE EVENTS</p>
+        <h2>武器hitと追加ダメージ、撃破帰属を分離</h2>
+        <p>DamageEventContributionは発生源・Tier・trigger・機会/秒・確率・event/秒・damage/event・平均命中数・単体/AoE DPS・直接撃破資格を保持します。離散event simulatorではなくsteady-state期待値です。</p>
+        <Formula>総DPS = directWeaponDps + indirectDps</Formula>
+        <Formula>Shockwave / Swirling: event/s = attackSpeedMultiplier ÷ combo時間</Formula>
+        <Formula>Thundering: event/s = direct HPS × 30%</Formula>
+        <p>公開comboから、速度1でBindings 1.73913/s、Double Axe 0.83333/s、Anchor 0.4/s。Swirlingはfinisherのmob命中が必須で、継続命中100%を仮定。Speed proxyだけからcomboは捏造しません。</p>
+        <p>公開表38 Power点・114 Tier値を収集。Shockwave 210–252（14点）、Swirling 210–263（18点）、Thundering 248–263（6点）の範囲内だけでTier I表をlog-linear補間し、Tier比1/1.5/2、1/1.5/2、1/2/3を掛けます。Power 251はTier IIIで454392 / 599476 / 282516です（Shockwave公開値454391との差1は丸め）。表示ダメージは武器hit専用でprocへ流用しません。</p>
+        <p>歴史的base係数30/40で正規化した共有Power点には最大3.60%の相違。共通curveを裏付ける低Power表がなく、共通化・外挿を採用しません。Phase 2-1Dはpartial、12/33はcatalog件数で全Power対応ではありません。範囲外の自由候補は理由付き除外、確定・金色指定はエラーです。</p>
+        <p>公開Tier表との最大再構成誤差はShockwave 0.001129%、Swirling 0.225955%、Thundering 0.000603%。Swirling Power 243のTier III値は比率と1000異なるため原表のままauditへ保持。これは入力表のcomponent検証で、独立した実測精度ではありません。表の測定version・個体差・補間の絶対精度は未確定です。</p>
+        <p>平均命中数は全種・全profileで初期値1体（low）。定量的な範囲の根拠がないため共通の単体baselineとし、詳細設定で1〜射程内平均敵数へ変更できます。武器Areaは使いません。</p>
+        <Formula>directDamageShare = directWeaponAoeDps ÷ totalAoeDps</Formula>
+        <p>この割合を既存の直接撃破率へ掛け、吸血・ガードストライク・Refreshmentを計算します。damage share ≈ final-blow shareというlow-confidence proxyで、残HP・overkill・発動順序・対象分布は未再現。procなしならshare=1で従来どおりです。Radianceは直接hit頻度だけを使います。</p>
+        <p>Sharpness・Critical・Unchanting・Voidの直接hit倍率はprocへ適用しません。Voidの増幅・消費は別々にuncertainで、runtimeは増幅なし・状態変更なしという限定モデルです。Shockwaveの通常壁とGeomancer構造物の差、空振り・knockback・target switching、Lightning Focus、防具、unique built-inも未実装です。これらのlow Evidenceはprocを使うBuildだけへ追加します。</p>
+        <p>公開表: <a href="https://minecraft.wiki/w/Dungeons:Shockwave">Shockwave</a> / <a href="https://minecraft.wiki/w/Dungeons:Swirling">Swirling</a> / <a href="https://minecraft.wiki/w/Dungeons:Thundering">Thundering</a>。
+          <a href="https://www.dungeons.tools/enchantments">1.17.0.0 metadata</a>とはPower精度の根拠を分離しています。</p>
       </section>
 
       <section className="method-section regression-methodology">
@@ -135,7 +154,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1A / 2-1B / 2-1Cを完了。近接runtimeは9 / 33。次はPhase 2-1Dです。近接25〜30種への拡張とPhase 1の公開実測回帰は未完了です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1A / 2-1B / 2-1Cを完了。近接catalogは12 / 33（うち3種はPower範囲限定）。Phase 2-1Dはpartialです。近接25〜30種への拡張とPhase 1の公開実測回帰は未完了です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

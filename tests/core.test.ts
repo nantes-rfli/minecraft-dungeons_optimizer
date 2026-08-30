@@ -491,6 +491,7 @@ describe('healing and defense models', () => {
       noArtifactEffects,
       {
         effectiveDamagePerSecond: 50,
+        directDamageShare: 1, indirectDamageShare: 0, indirectEstimatedKillsPerSecond: 0,
         damageLimitedKillsPerSecond: 0.5,
         estimatedKillsPerSecond: 0.5,
         directWeaponKillsPerSecond: 0.45,
@@ -544,6 +545,7 @@ describe('healing and defense models', () => {
     )
     const combatState = {
       effectiveDamagePerSecond: 100,
+      directDamageShare: 1, indirectDamageShare: 0, indirectEstimatedKillsPerSecond: 0,
       damageLimitedKillsPerSecond: 1,
       estimatedKillsPerSecond: 1,
       directWeaponKillsPerSecond: 0.2,

@@ -49,6 +49,7 @@ npm run preview
 npm run audit:dps
 npm run audit:melee
 npm run audit:enchants
+npm run audit:damage-events
 npm test
 npm run lint
 npm run build
@@ -64,7 +65,7 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 9種との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 12種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
@@ -73,7 +74,7 @@ Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
 ```text
-単体期待DPS = baseDps × Sharpness × Critical期待倍率 × Void期待倍率
+直接単体期待DPS = baseDps × Sharpness × Critical期待倍率 × Void期待倍率
              × (1 + enchantedShare × Unchanting bonus)
 ```
 
@@ -81,7 +82,7 @@ Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした
 
 ## Phase 2-1C — Refreshment / Weakening State Models
 
-現在は **implemented 9 / 33、unsupported 24 / 33** です。その他24種はruntime候補へ登録しません。
+Phase 2-1C完了時は **implemented 9 / 33、unsupported 24 / 33** でした。現在は後続Phase 2-1Dの範囲限定対応へ進んでいます。
 
 - **Refreshment**: 直接撃破ごとにTier I / II / IIIで1 / 2 / 3秒短縮、最大1個。独立したPotionStateで`推定CD = 45 / (1 + 直接撃破/s × 短縮秒数)`とし、`最大HP × 約0.75 × (1/推定CD − 1/45)`を追加回復容量として評価します。最大HP100・直接撃破1/秒・Tier IIIならCD11.25秒、追加容量5 HP/秒です。実回復ではないlow-confidenceの連続rate近似で、既存Buildへ基礎ポーション回復は加点しません。ArtifactのCD短縮も流用しません。[PotionStateの仕様・Evidence・制限](./docs/potion-state.md)。
 - **Weakening**: 攻撃で周囲の敵の攻撃ダメージを5秒間、20% / 30% / 40%低下。対象割合は被ダメージ発生時点で弱体化中の敵から来る割合で、全profile共通の編集可能な50%（実測ではないlow仮定）です。Tier III・50%なら敵攻撃倍率0.80。5秒durationを再度掛けず、Artifact / Guardingのhero防御倍率と別段階で乗算します。[Enemy debuffの仕様・Evidence・制限](./docs/enemy-debuffs.md)。
@@ -90,12 +91,29 @@ Weakeningのstackingはdungeons.toolsのSTACKS YesとWikiの明示的な重複�
 
 結果の「回復・容量 / 秒」はRefreshmentの追加capacityを含みます。ポーションCD・使用頻度・容量、Weakening対象割合・敵倍率・hero防御との合成を内訳で追跡できます。金色Tier、候補/lock、保存・JSON・Optimizerにも対応します。新しいScenario APIには`enemyDebuffs: { weakeningAffectedIncomingDamageShare: 0.5 }`が必要です（Scenarioはセッション内設定のまま、inventory JSONはversion 1を維持）。
 
-**Phase 2-1C complete — ready for Phase 2-1D.** 親項目の近接25〜30種への拡張は未完了。DamageEvent・Shockwave / Swirling / Thundering / Committed・Potion Barrier・防具は今回実装していません。
+Phase 2-1Cは完了。後続の実装は次節を参照してください。親項目の近接25〜30種への拡張は未完了です。
+
+## Phase 2-1D — DamageEvent foundation（partial）
+
+**catalog 12 / 33（3種はPower範囲限定）、未実装21 / 33**。direct / indirect DPSとkill attributionを分離しました。
+ShockwaveはPower 210–252（14点）、Swirlingは210–263（18点）、Thunderingは248–263（6点）だけに対応します。
+全38 Power点・114 Tier値を保存し、Enchant別Tier I log-linear補間×Tier倍率を採用。共通curveの根拠不足のため外挿は行いません。
+**Power 50–263全域の根拠がないためPhase 2-1Dはcompleteではありません。**
+
+Shockwave/Swirlingはcombo-finisher、Thunderingは直接HPS×30%から発動頻度を求め、武器表示damageや直接modifierをprocへ流用しません。
+平均命中数は全種・全profileで1（定量的geometry根拠なしのlow仮定）を初期値に、詳細設定で編集できます。
+Scenario APIには `damageEventTargeting: { shockwave: 1, swirling: 1, thundering: 1 }` が必要です。
+range外の自由候補は理由付き除外、確定・金色指定はエラーになり、0点評価しません。
+
+直接撃破rateには `directWeaponAoeDps / totalAoeDps` を追加で掛けます。procがLeeching/Guarding/Refreshmentを阻害し得るlow-confidence代理モデルです。
+Void増幅・消費は独立してuncertain、runtimeではどちらも行いません。
+公開表の誤差・代表例・制限・次候補は[DamageEvent設計と監査結果](./docs/damage-events.md)、原表は[DamageEvent audit](./research/damage-event-audit.json)に記録しています。
 
 ## Core の構成
 
 ```text
-src/core/damage.ts     Power換算DPS、直接近接modifier、対象別期待DPS、AoE
+src/core/damage.ts     直接/間接DPSの合算、直接modifier、対象別期待DPS
+src/core/damageEvents.ts 独立proc Power補間、cadence、targeting、対応境界
 src/core/enchantment.ts tier・source・stackingの共通処理
 src/core/combatState.ts DPSからBuild依存の撃破速度を導出
 src/core/potion.ts     Health Potion使用頻度とRefreshment追加回復容量
@@ -121,7 +139,7 @@ scripts/               research検証・レポート再生成スクリプト
 - Power scaling: 表示ダメージ未入力時は公開Anchor表のPower 50〜263をlog補間し、1.17.0.0の内部Power rating比を適用します。Wiki base damage比とのW/G比較は29 sampleのGolden Testへ固定し、version不明fixtureとの最大45.06%差をmedium-confidence caveatとして残します。正確な個体表示値で上書きする場合は全武器への入力が必要です。詳細は[調査・実装記録](./docs/power-scaling.md)を参照してください。
 - `Critical Hit III`: `1 + 0.2 × (3 - 1) = 1.4` の期待倍率。
 - `Radiance III`: `攻撃回数/秒 × 20% × 1回の回復量`。複数コピーは発動率を増やさず、tier値の高い順に`100% / 75% / 50% / 25%`の回復量係数を適用します。
-- Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare`を一元管理します。
+- Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare × directDamageShare`を一元管理します。
 - `Leeching III`: `直接撃破/秒 × 敵HP × 9%`。間接ダメージ撃破はCombat Stateで除外済みです。
 - `Guarding Strike III`: 武器本体の直接撃破をPoisson過程とみなし、`1 - exp(-directWeaponKillsPerSecond × 4)`を稼働率にします。
 - アーティファクト: `duration / effectiveCooldown` を時間平均します。同種の一時効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。

@@ -19,5 +19,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      - run: npm run audit:damage-events
+      - run: npm run audit:enchants
+      - run: npm run audit:dps
+      - run: npm run audit:melee
+      - run: npx tsc -b
       - run: npm run lint
       - run: npm run build

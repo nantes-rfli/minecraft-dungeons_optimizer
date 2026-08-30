@@ -68,6 +68,20 @@ export function calculateBaseHitsPerSecond(profile: AttackProfile): number {
   return calculateFrameMeasuredRate(profile)
 }
 
+export function calculateComboFinisherRate(profile: AttackProfile, attackSpeedMultiplier = 1): number {
+  assertPositiveFinite(attackSpeedMultiplier, 'attackSpeedMultiplier')
+  if (profile.method === 'speed-rating-proxy') {
+    throw new Error('コンボ終了頻度はunsupported attack profileです: Speed proxyにはcombo情報がありません。')
+  }
+  const hitsPerSecond = calculateBaseHitsPerSecond(profile)
+  const hitsPerCombo = profile.method === 'published-hit-timings'
+    ? profile.hitDurationsSeconds.length : profile.hitsPerCombo
+  if (!Number.isInteger(hitsPerCombo)) {
+    throw new Error('Attack ProfileのhitsPerComboは正の整数にしてください。')
+  }
+  return hitsPerSecond / hitsPerCombo * attackSpeedMultiplier
+}
+
 /**
  * Returns the repeating delay after each hit. Published profiles preserve their raw combo
  * cadence; aggregate-only profiles have no more precise option than a uniform interval.

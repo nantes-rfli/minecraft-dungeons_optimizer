@@ -14,7 +14,7 @@ RefreshmentはHealth Potionの再使用時間を短縮します。汎用の回�
 
 ```text
 k = CombatState.directWeaponKillsPerSecond
-  = min(enemySupplyPerSecond, aoeDps / averageEnemyHealth) × directKillShare
+  = min(enemySupplyPerSecond, aoeDps / averageEnemyHealth) × directKillShare × directDamageShare
 r = RefreshmentのTier別CD短縮秒数（未選択なら0）
 C = 45秒
 H = maxHealth × 0.75
@@ -56,3 +56,5 @@ Sharpness / Unchanting / Critical / VoidによるDPS増加がkill rateを増や�
 - `estimatedUsesPerSecond`と独立した基礎CD境界を、将来のPotion Barrier uptimeやHero's/Champion's Armor等から再利用できます。Food Reserves・Surprise Giftも将来候補ですが、今回はいずれも実装しません。
 
 新規effectは`EnchantmentTierValues.effect`のdiscriminated unionに登録します。既存5種のscalar schemaは変更せず、Phase 2-1Bの直接modifierも同じtyped effect境界へ移しました。
+
+Phase 2-1D以降は[damage channelの帰属proxy](./damage-events.md)を使います。proc追加で総killが増えても直接撃破へ加算せず、供給capではRefreshmentの容量が下がり得ます。procなしはdirectDamageShare=1で既存結果を維持します。

@@ -1,5 +1,6 @@
 import type { Evidence, Scenario, ScenarioProfileId } from '../core/types'
 import { MVP_MODEL_SOURCE } from './sources'
+import { DEFAULT_DAMAGE_EVENT_TARGETING } from './damageEvents'
 
 export const DEFAULT_SCENARIO_EVIDENCE = {
   encounterDurationSeconds: { value: 30, source: MVP_MODEL_SOURCE, confidence: 'low' },
@@ -34,6 +35,7 @@ export const DEFAULT_SCENARIO: Scenario = {
   directKillShare: DEFAULT_SCENARIO_EVIDENCE.directKillShare.value,
   enemyComposition: { enchantedShare: DEFAULT_SCENARIO_EVIDENCE.enchantedShare.value },
   enemyDebuffs: { weakeningAffectedIncomingDamageShare: DEFAULT_SCENARIO_EVIDENCE.weakeningAffectedIncomingDamageShare.value },
+  damageEventTargeting: DEFAULT_DAMAGE_EVENT_TARGETING,
   incomingDamagePerSecond: DEFAULT_SCENARIO_EVIDENCE.incomingDamagePerSecond.value,
   maxHealth: DEFAULT_SCENARIO_EVIDENCE.maxHealth.value,
   averageTargetsInReach: DEFAULT_SCENARIO_EVIDENCE.averageTargetsInReach.value,

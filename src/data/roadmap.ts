@@ -76,6 +76,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 2-1A: 近接エンチャント33種の監査・分類・runtime境界', status: 'done' },
       { label: 'Phase 2-1B: Sharpness / Unchanting + Enemy Composition（7 / 33）', status: 'done' },
       { label: 'Phase 2-1C: Refreshment / Weakening状態モデル（9 / 33）', status: 'done' },
+      { label: 'Phase 2-1D partial: DamageEvent + Shockwave / Swirling / Thundering（12 / 33、3種はPower範囲限定）', status: 'in-progress' },
       { label: '近接エンチャントを25〜30種類へ拡張', status: 'planned' },
       { label: 'アーティファクトを10〜15種類へ拡張', status: 'planned' },
       { label: '防具・防具エンチャントをモデル化', status: 'planned' },

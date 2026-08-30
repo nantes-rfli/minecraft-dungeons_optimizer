@@ -195,16 +195,16 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.best.build.enchantments[0]!.enchantmentId).toBe('sharpness')
   })
 
-  it('searches all nine candidates within the existing bounded Cartesian product', () => {
+  it('searches all twelve candidates within the existing bounded Cartesian product', () => {
     const candidates = Object.keys(ENCHANTMENTS) as EnchantmentId[]
-    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-nine', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
+    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-twelve', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
     const started = performance.now()
     const result = optimize(inventory, DEFAULT_SCENARIO)
-    // 9^3 minus 6 non-stackable IDs × (3 positions for a pair × 8 other IDs + one triple).
-    expect(result.evaluatedBuildCount).toBe(729 - 6 * 25)
+    // 12^3 minus 9 non-stackable IDs × (3 positions for a pair × 11 other IDs + one triple).
+    expect(result.evaluatedBuildCount).toBe(1728 - 9 * 34)
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
-    console.info(`Nine-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
+    console.info(`Twelve-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
   })
 
   it('rejects every remaining unsupported enchantment through JSON input', () => {

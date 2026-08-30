@@ -9,6 +9,7 @@ import {
   resolveWeaponDamageCoefficient,
 } from './powerScaling'
 import { calculateAverageVoidStrikeMultiplier } from './voidStrike'
+import { calculateDamageEvents } from './damageEvents'
 import type {
   ArtifactEffects,
   DamageMetrics,
@@ -84,18 +85,27 @@ export function calculateDamage(
   const unchantingMultiplier = 1 + enchantedShare * unchantingBonus
   const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier
   const enchantedTargetDps = nonEnchantedTargetDps * (1 + unchantingBonus)
-  const singleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
+  const directWeaponSingleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
   const areaCoverage = Math.min(1, weapon.area.value / MODEL.maximumAreaRating.value)
   const expectedTargetsHit =
     1 + (scenario.averageTargetsInReach - 1) * areaCoverage
+  const directWeaponAoeDps = directWeaponSingleTargetDps * expectedTargetsHit
+  const damageEvents = calculateDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, artifactEffects.attackSpeedMultiplier, scenario)
+  const indirectSingleTargetDps = damageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
+  const indirectAoeDps = damageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
 
   return {
     damageSource,
     damagePerHit,
     hitsPerSecond,
     baseDps,
-    singleTargetDps,
-    aoeDps: singleTargetDps * expectedTargetsHit,
+    directWeaponSingleTargetDps,
+    directWeaponAoeDps,
+    indirectSingleTargetDps,
+    indirectAoeDps,
+    damageEvents,
+    singleTargetDps: directWeaponSingleTargetDps + indirectSingleTargetDps,
+    aoeDps: directWeaponAoeDps + indirectAoeDps,
     expectedTargetsHit,
     criticalMultiplier,
     voidStrikeMultiplier,

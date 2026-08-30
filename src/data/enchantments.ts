@@ -11,10 +11,59 @@ import {
 } from './sources'
 
 import { WEAKENING_DURATION } from './enemyDebuffs'
+import { PROC_TIER_MULTIPLIERS } from './damageEvents'
 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  shockwave: {
+    id: 'shockwave',
+    name: { ja: '衝撃波', en: 'Shockwave' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'combo-finisher-damage', procDamageId: 'shockwave', tierMultiplier: PROC_TIER_MULTIPLIERS.shockwave[1] } },
+        2: { effect: { kind: 'combo-finisher-damage', procDamageId: 'shockwave', tierMultiplier: PROC_TIER_MULTIPLIERS.shockwave[2] } },
+        3: { effect: { kind: 'combo-finisher-damage', procDamageId: 'shockwave', tierMultiplier: PROC_TIER_MULTIPLIERS.shockwave[3] } },
+      },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+  },
+  swirling: {
+    id: 'swirling',
+    name: { ja: '旋風', en: 'Swirling' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'combo-finisher-damage', procDamageId: 'swirling', tierMultiplier: PROC_TIER_MULTIPLIERS.swirling[1] } },
+        2: { effect: { kind: 'combo-finisher-damage', procDamageId: 'swirling', tierMultiplier: PROC_TIER_MULTIPLIERS.swirling[2] } },
+        3: { effect: { kind: 'combo-finisher-damage', procDamageId: 'swirling', tierMultiplier: PROC_TIER_MULTIPLIERS.swirling[3] } },
+      },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+  },
+  thundering: {
+    id: 'thundering',
+    name: { ja: '雷', en: 'Thundering' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'on-hit-proc-damage', procDamageId: 'thundering', triggerChance: 0.3, tierMultiplier: PROC_TIER_MULTIPLIERS.thundering[1] } },
+        2: { effect: { kind: 'on-hit-proc-damage', procDamageId: 'thundering', triggerChance: 0.3, tierMultiplier: PROC_TIER_MULTIPLIERS.thundering[2] } },
+        3: { effect: { kind: 'on-hit-proc-damage', procDamageId: 'thundering', triggerChance: 0.3, tierMultiplier: PROC_TIER_MULTIPLIERS.thundering[3] } },
+      },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE, confidence: 'high',
+    },
+  },
   sharpness: {
     id: 'sharpness',
     name: { ja: '切れ味', en: 'Sharpness' },

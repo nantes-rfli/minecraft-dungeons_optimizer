@@ -1,4 +1,6 @@
 import { MODEL } from '../data/model'
+import { DAMAGE_CHANNEL_KILL_ATTRIBUTION, PROC_DAMAGE_DEFINITIONS, PROC_TARGET_CONTACT } from '../data/damageEvents'
+import { isProcDamageId } from './damageEvents'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
 import { DIRECT_WEAPON_COMPOSITION, UNCHANTING_MIXTURE, UNCHANTING_TARGET_CONDITION } from '../data/damageModifiers'
@@ -118,6 +120,25 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   }
 
   const usesSharpness = hasEnchantment(build.enchantments, 'sharpness')
+  const procIds = [...uniqueEnchantments].filter(isProcDamageId)
+  for (const id of procIds) {
+    const proc = PROC_DAMAGE_DEFINITIONS[id]
+    addEvidence(`proc-samples-${id}`, `${id}の公開Power表`, proc.samples, 2)
+    addEvidence(`proc-power-${id}`, `${id}のPower補間`, proc.damageCurve, 3)
+    addEvidence(`proc-targeting-${id}`, `${id}の平均命中数`, proc.targeting, 2)
+    addEvidence(`proc-attribution-${id}`, `${id}の間接撃破条件`, proc.attribution)
+    if (hasEnchantment(build.enchantments, 'void-strike')) {
+      addEvidence(`proc-void-${id}`, `${id}とVoidの未確定interaction`, proc.voidInteraction, 2)
+    }
+  }
+  if (procIds.length > 0) {
+    addEvidence('damage-channel-kill-attribution', 'damage shareによる撃破帰属近似', DAMAGE_CHANNEL_KILL_ATTRIBUTION, 3)
+    addEvidence('proc-target-contact', '有効targetへの継続命中仮定', PROC_TARGET_CONTACT, 2)
+    caveats.push('Phase 2-1D partial: Shockwave Power 210–252、Swirling 210–263、Thundering 248–263のみ。個別Tier I表をlog-linear補間しTier比率を適用、範囲外は外挿しません。同Powerの個体差と表のversion不明のため絶対精度は未検証です。')
+    caveats.push('proc平均命中数は全種初期値1体のlow-confidence仮定（範囲の実測なし）。武器Areaは使いません。Swirlingはfinisher命中100%を仮定し、空振り・knockback・target switchingとShockwaveの壁は未モデル化です。')
+    caveats.push('間接撃破は直接撃破効果に加算しません。直接AoE/総AoEをfinal blow割合の代用とするlow-confidence近似で、hit/proc timing・残HP・overkill・対象分布は再現しません。')
+    caveats.push('procへSharpness・Critical・Unchanting・Void倍率を掛けません。Void増幅と消費は別々にuncertainのまま、増幅なし・状態変更なしの限定モデルです。ThunderingのLightning Focusも未実装です。')
+  }
   const usesUnchanting = hasEnchantment(build.enchantments, 'unchanting')
   const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike']
     .filter((id) => build.enchantments.some((selected) => selected.enchantmentId === id)).length

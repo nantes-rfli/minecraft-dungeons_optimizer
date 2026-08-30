@@ -108,6 +108,12 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = calculateCore(build, scenario)
   const reasons: string[] = []
   const weapon = getWeaponDefinition(build.weapon.weaponId)
+  for (const event of core.damage.damageEvents) {
+    const trigger = event.triggerKind === 'combo-finisher'
+      ? `コンボ終了 ${event.opportunitiesPerSecond.toFixed(3)}回/秒`
+      : `HPS ${event.opportunitiesPerSecond.toFixed(3)} × 30%`
+    reasons.push(`${getEnchantmentDefinition(event.sourceId).name.en}: ${trigger} → proc ${event.eventsPerSecond.toFixed(3)}回/秒 × ${event.damagePerEvent.toFixed(1)} damage/event = 単体${event.singleTargetDps.toFixed(1)} DPS / AoE ${event.aoeDps.toFixed(1)} DPS（平均${event.expectedTargetsHit}体、間接damageは直接撃破効果と別扱い）`)
+  }
 
   const refreshment = build.enchantments.find((item) => item.enchantmentId === 'refreshment')
   if (refreshment) {

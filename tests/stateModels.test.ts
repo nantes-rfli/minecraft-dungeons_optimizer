@@ -15,7 +15,7 @@ import { deserializeInventory, loadInventory, saveInventory, serializeInventory 
 
 const selected = (enchantmentId: EnchantmentId, tier: EnchantmentTier = 3, source: SelectedEnchantment['source'] = 'slot'): SelectedEnchantment => ({ enchantmentId, tier, source })
 const effects = { attackSpeedMultiplier: 1, damageTakenMultiplier: 1, uptimes: [], stackingGroups: [] }
-const directKills = (rate: number): CombatState => ({ effectiveDamagePerSecond: 100, damageLimitedKillsPerSecond: 10, estimatedKillsPerSecond: 10, directWeaponKillsPerSecond: rate })
+const directKills = (rate: number): CombatState => ({ directDamageShare: 1, indirectDamageShare: 0, indirectEstimatedKillsPerSecond: 0, effectiveDamagePerSecond: 100, damageLimitedKillsPerSecond: 10, estimatedKillsPerSecond: 10, directWeaponKillsPerSecond: rate })
 const withShare = (share: number): Scenario => ({ ...DEFAULT_SCENARIO, enemyDebuffs: { weakeningAffectedIncomingDamageShare: share } })
 const uncapped: Scenario = { ...DEFAULT_SCENARIO, enemySupplyPerSecond: 100, averageEnemyHealth: 1000, directKillShare: 1 }
 

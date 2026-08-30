@@ -36,6 +36,9 @@ export type EnchantmentId =
   | 'unchanting'
   | 'refreshment'
   | 'weakening'
+  | 'shockwave'
+  | 'swirling'
+  | 'thundering'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -162,7 +165,7 @@ export type VoidStrikeCurve =
   | PublishedMeasurementsVoidStrikeCurve
   | FrameMeasuredVoidStrikeCurve
 
-/** Only direct melee hits; proc/DoT damage needs its own future effect channel. */
+/** Only direct melee hits; independent proc effects must never enter this channel. */
 export type DirectWeaponEffect =
   | { readonly kind: 'passive-weapon-damage'; readonly bonus: number }
   | {
@@ -182,7 +185,50 @@ export interface EnemyDamageDebuffEffect {
   readonly durationSeconds: number
 }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect
+export type ProcDamageId = 'shockwave' | 'swirling' | 'thundering'
+
+export type ProcDamageEffect =
+  | { readonly kind: 'combo-finisher-damage'; readonly procDamageId: 'shockwave' | 'swirling'; readonly tierMultiplier: number }
+  | { readonly kind: 'on-hit-proc-damage'; readonly procDamageId: 'thundering'; readonly triggerChance: number; readonly tierMultiplier: number }
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect
+
+export type DamageChannel = 'direct-melee' | 'enchantment-proc'
+
+/** Steady-state expected contribution; not a timestamped simulation event. */
+export interface DamageEventContribution {
+  readonly sourceId: EnchantmentId
+  readonly channel: 'enchantment-proc'
+  readonly tier: EnchantmentTier
+  readonly triggerKind: 'combo-finisher' | 'on-hit-probability'
+  readonly requiresTargetHit: boolean
+  readonly opportunitiesPerSecond: number
+  readonly triggerProbability: number
+  readonly eventsPerSecond: number
+  readonly damagePerEvent: number
+  readonly expectedTargetsHit: number
+  readonly singleTargetDps: number
+  readonly aoeDps: number
+  readonly qualifiesAsDirectWeaponKill: false
+  readonly confidence: Confidence
+}
+
+export interface ProcDamageCurve {
+  readonly method: 'log-linear'
+  readonly points: readonly { readonly powerLevel: number; readonly tierOneDamage: number }[]
+}
+
+export interface ProcDamageDefinition {
+  readonly id: ProcDamageId
+  readonly damageCurve: Evidence<ProcDamageCurve>
+  readonly samples: Evidence<readonly { readonly powerLevel: number; readonly tier: EnchantmentTier; readonly damage: number }[]>
+  readonly targeting: Evidence<{ readonly geometry: 'directional-wave' | 'local-radius' | 'nearby-lightning'; readonly defaultExpectedTargets: number }>
+  readonly attribution: Evidence<{ readonly qualifiesAsDirectWeaponKill: false }>
+  readonly voidInteraction: Evidence<{ readonly amplification: 'uncertain'; readonly consumesVoid: 'uncertain' }>
+  readonly requiresTargetHit: boolean
+}
+
+export type DamageEventTargetingAssumptions = Readonly<Record<ProcDamageId, number>>
 
 export interface EnchantmentTierValues {
   readonly effect?: EnchantmentEffect
@@ -293,6 +339,7 @@ export interface Scenario {
   readonly directKillShare: number
   readonly enemyComposition: EnemyComposition
   readonly enemyDebuffs: EnemyDebuffAssumptions
+  readonly damageEventTargeting: DamageEventTargetingAssumptions
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
@@ -333,6 +380,11 @@ export interface DamageMetrics {
   readonly damagePerHit: number
   readonly hitsPerSecond: number
   readonly baseDps: number
+  readonly directWeaponSingleTargetDps: number
+  readonly directWeaponAoeDps: number
+  readonly indirectSingleTargetDps: number
+  readonly indirectAoeDps: number
+  readonly damageEvents: readonly DamageEventContribution[]
   readonly singleTargetDps: number
   readonly aoeDps: number
   readonly expectedTargetsHit: number
@@ -346,6 +398,9 @@ export interface DamageMetrics {
 }
 
 export interface CombatState {
+  readonly directDamageShare: number
+  readonly indirectDamageShare: number
+  readonly indirectEstimatedKillsPerSecond: number
   readonly effectiveDamagePerSecond: number
   readonly damageLimitedKillsPerSecond: number
   readonly estimatedKillsPerSecond: number
@@ -499,6 +554,8 @@ export interface EffectContribution {
 }
 
 export interface OptimizationResult {
+  /** Unsupported choices are excluded, never evaluated as zero-damage effects. */
+  readonly unsupportedChoices: readonly string[]
   readonly best: Evaluation
   readonly alternatives: readonly Evaluation[]
   readonly paretoFrontier: readonly Evaluation[]

@@ -1,5 +1,6 @@
 import { evaluate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
+import { enchantmentUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
 import type {
   Build,
@@ -35,10 +36,24 @@ function artifactLoadouts(artifacts: readonly OwnedArtifact[]): OwnedArtifact[][
   return combinations(artifacts, Math.min(3, artifacts.length))
 }
 
-function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[]): Build[] {
-  const choices = weapon.enchantmentSlots.map((slot) =>
-    slot.locked ? [slot.locked] : slot.candidates,
-  )
+function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: Set<string>): Build[] {
+  const choices = weapon.enchantmentSlots.map((slot) => {
+    const ids = slot.locked ? [slot.locked] : slot.candidates
+    return ids.filter((id) => {
+      const reason = enchantmentUnsupportedReason(weapon, id)
+      if (!reason) return true
+      if (slot.locked) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
+      unsupportedChoices.add(`${weapon.instanceId}: ${reason}`)
+      return false
+    })
+  })
+  if (weapon.gilded) {
+    const reason = enchantmentUnsupportedReason(weapon, weapon.gilded.enchantmentId)
+    if (reason) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
+  }
+  if (choices.some((group) => group.length === 0)) {
+    throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', `武器${weapon.instanceId}に評価可能な候補のないスロットがあります。${[...unsupportedChoices].join(' ')}`)
+  }
   const enchantmentChoices = cartesianProduct<EnchantmentId>(choices)
   const artifactChoices = artifactLoadouts(artifacts)
   return enchantmentChoices.flatMap((selected) => {
@@ -90,8 +105,9 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   validateInventory(inventory)
   validateScenario(scenario)
 
+  const unsupportedChoices = new Set<string>()
   const builds = inventory.weapons.flatMap((weapon) => {
-    const weaponBuilds = buildsForWeapon(weapon, inventory.artifacts)
+    const weaponBuilds = buildsForWeapon(weapon, inventory.artifacts, unsupportedChoices)
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',
@@ -110,6 +126,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   }
 
   return {
+    unsupportedChoices: [...unsupportedChoices],
     best,
     alternatives: evaluations.slice(1, 5),
     paretoFrontier: calculateParetoFrontier(evaluations),

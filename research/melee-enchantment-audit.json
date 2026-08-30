@@ -243,13 +243,15 @@
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.5X" }, "3": { "raw": "2X" } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "combo-finisher-damage", "runtimeStatus": "needs-damage-event-model",
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "indirect-damage-event", "runtimeStatus": "implemented",
+      "runtimePowerRange": {"min":210,"max":252},
       "sources": [
         { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/shockwave", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Launches a power-scaled wave only on the last attack in a combo; raw X is not a weapon-hit percentage." },
         { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Shockwave", "retrievedAt": "2026-08-29", "supports": ["tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Confirms combo-finisher activation, power-level scaling, non-stackability, and Whirlwind's Tier I built-in." },
-        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Shockwave kills as proc kills, not direct weapon kills." }
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Shockwave kills as proc kills, not direct weapon kills." },
+        {"type":"minecraft-wiki","url":"https://minecraft.wiki/w/Dungeons:Shockwave","retrievedAt":"2026-08-30","supports":["damage-scaling","tier-values","trigger-mechanics","stacking"],"confidence":"medium","note":"Full numeric tables collected; same-Power values vary and version unspecified. Conditional runtime range only. Source values and ratio anomalies retained in damage-event-audit.json."}
       ],
-      "confidence": "medium", "notes": "AttackProfile.comboFinisherHit supplies cadence, but AoE, power curve, Void Strike interaction, and proc kill attribution require separate DamageEvent modeling."
+      "confidence": "medium", "notes": "Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
     },
     {
       "id": "smiting", "name": { "en": "Smiting" },
@@ -283,25 +285,29 @@
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.5X" }, "3": { "raw": "2X" } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "combo-finisher-damage", "runtimeStatus": "needs-damage-event-model",
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-combo-finisher", "modelCategory": "indirect-damage-event", "runtimeStatus": "implemented",
+      "runtimePowerRange": {"min":210,"max":263},
       "sources": [
         { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/swirling", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Power-scaled local AoE only on the last attack in a combo; raw X is preserved." },
         { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Swirling", "retrievedAt": "2026-08-29", "supports": ["tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Confirms a mob must be hit by the combo finisher, power-level scaling, non-stackability, and Sheer Daggers' Tier I built-in." },
-        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Swirling kills as proc kills, not direct weapon kills." }
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Swirling kills as proc kills, not direct weapon kills." },
+        {"type":"minecraft-wiki","url":"https://minecraft.wiki/w/Dungeons:Swirling","retrievedAt":"2026-08-30","supports":["damage-scaling","tier-values","trigger-mechanics","stacking"],"confidence":"medium","note":"Full numeric tables collected; same-Power values vary and version unspecified. Conditional runtime range only. Source values and ratio anomalies retained in damage-event-audit.json."}
       ],
-      "confidence": "medium", "notes": "AttackProfile.comboFinisherHit supplies cadence; power curve, AoE, Void Strike interaction, and proc kill attribution need DamageEvent modeling."
+      "confidence": "medium", "notes": "Phase 2-1D partial: conditional runtime only at Power 210–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
     },
     {
       "id": "thundering", "name": { "en": "Thundering" },
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "X", "interpreted": { "triggerChance": 0.3 } }, "2": { "raw": "2X", "interpreted": { "triggerChance": 0.3 } }, "3": { "raw": "3X", "interpreted": { "triggerChance": 0.3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "proc-area-damage", "runtimeStatus": "needs-damage-event-model",
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "indirect-damage-event", "runtimeStatus": "implemented",
+      "runtimePowerRange": {"min":248,"max":263},
       "sources": [
         { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/thundering", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "30% on-hit power-scaled lightning AoE; raw X is preserved." },
-        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Thundering kills as proc kills, not direct weapon kills." }
+        { "type": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h/enchantments_interfering/", "retrievedAt": "2026-08-29", "supports": ["kill-attribution", "interaction-behavior"], "confidence": "low", "note": "Community behavior report classifies Thundering kills as proc kills, not direct weapon kills." },
+        {"type":"minecraft-wiki","url":"https://minecraft.wiki/w/Dungeons:Thundering","retrievedAt":"2026-08-30","supports":["damage-scaling","tier-values","trigger-mechanics","stacking"],"confidence":"medium","note":"Full numeric tables collected; same-Power values vary and version unspecified. Conditional runtime range only. Source values and ratio anomalies retained in damage-event-audit.json."}
       ],
-      "confidence": "medium", "notes": "Needs power curve, AoE targets, Lightning Focus, Void Strike consumption, and non-direct kill attribution."
+      "confidence": "medium", "notes": "Phase 2-1D partial: conditional runtime only at Power 248–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
     },
     {
       "id": "unchanting", "name": { "en": "Unchanting" },

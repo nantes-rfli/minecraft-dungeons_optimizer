@@ -21,6 +21,7 @@ const readRuntimeEnchantmentIds = (): string[] => {
 }
 
 const blocker = (entry: MeleeEnchantmentAuditEntry): string => {
+  if (entry.runtimePowerRange) return `Power ${entry.runtimePowerRange.min}–${entry.runtimePowerRange.max} only; Phase 2-1D partial`
   if (entry.runtimeStatus === 'implemented' || entry.runtimeStatus === 'straightforward') return '—'
   return entry.notes?.split('. ')[0] ?? 'Evidence/model boundary unresolved'
 }
@@ -68,6 +69,8 @@ The source index explicitly separates player enchantments from mob/innate record
 | --- | --- | --- | --- |
 ${rows}
 
+Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 12 is catalog coverage, not full Power coverage.
+
 Only the ${summary.counts.implemented} \`implemented\` entries exist in \`EnchantmentId\` and \`ENCHANTMENTS\`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## Focus findings
@@ -92,14 +95,14 @@ Shockwave and Swirling trigger from the last combo attack. Existing \`AttackProf
 
 ### DoT, lightning, CC, and utility
 
-Fire Aspect, Poison Cloud, and Thundering require separate power-scaled damage events with trigger/tick/overlap/AoE and interaction evidence. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
+Fire Aspect and Poison Cloud still require separate power-scaled damage events with trigger/tick/overlap/AoE and interaction evidence. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
 
 ## Existing model assessment
 
 - \`EnchantmentTierValues\`: Phase 2-1C keeps the original five unchanged and expands the typed \`effect\` union to direct weapon bonuses, potion cooldown on direct kill, and enemy damage debuffs. Numeric bonuses live only in tier data. Extend effect channels incrementally before any proc/DoT work; do not add 33 optional scalar fields.
 - \`combineEnchantmentValues()\`: sufficient for Sharpness's multiplicative copies and scalar additive/non-stackable effects. It is insufficient for independent proc rolls, duration extension/refresh, tier-mixed event streams, and cross-copy caps. Add effect-specific combination policies instead of forcing those behaviors into one scalar.
-- \`CombatState\`: reuse \`estimatedKillsPerSecond\` and \`directWeaponKillsPerSecond\`; add attributed kill channels only when DamageEvent work begins. Refreshment now consumes this signal in independent PotionState; soul, roll, artifact-use, summon, and Pain Cycle mechanics still need explicit resources.
-- \`DamageMetrics\`: add typed source/event contributions before Shockwave, Swirling, Thundering, Poison Cloud, Fire Aspect, or Exploding. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
+- \`CombatState\`: reuse \`estimatedKillsPerSecond\` and \`directWeaponKillsPerSecond\`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; soul, roll, artifact-use, summon, and Pain Cycle mechanics still need explicit resources.
+- \`DamageMetrics\`: Phase 2-1D adds typed source/event contributions for Shockwave, Swirling and Thundering; Poison Cloud, Fire Aspect and Exploding remain unsupported. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
 - \`HealingMetrics\`: Refreshment contributes only incremental potion healing capacity, explicitly a low-confidence proxy; Anima Conduit still needs soul-heal state.
 - \`DefenseMetrics\`: Weakening preserves affected incoming damage share, reduction, duration and enemy multiplier separately from Artifact/Guarding hero DR. Hard CC utility remains unsupported.
 
@@ -117,11 +120,15 @@ Fire Aspect, Poison Cloud, and Thundering require separate power-scaled damage e
 - Weakening enemy multiplier is \`1 - share × reduction\`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
 - Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **${summary.counts.implemented} / ${summary.total}**, unsupported **${summary.unsupportedNames.length} / ${summary.total}**.
-- No other enchantments, DamageEvent framework, Potion Barrier, armor, CC utility or target-switching simulator were implemented.
+- Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
-## Next: Phase 2-1D
+## Phase 2-1D partial
 
-DamageEvent foundation with Shockwave / Swirling / Thundering is the next candidate scope, not part of this change. Proc damage, kill attribution, power scaling and Void Strike interactions need separate Evidence. Committed still needs enemy-health integration. The parent goal of 25–30 melee enchantments remains incomplete.
+DamageEvent separates direct weapon damage and three independent power-scaled proc contributions. Shockwave/Swirling use combo-finisher cadence; Thundering uses direct HPS × 30%. Generic targeting defaults to 1 for all three, with separate editable low-confidence assumptions. Direct modifiers never apply to procs. Direct weapon kills use total kills × scenario.directKillShare × directWeaponAoeDps / totalAoeDps. Proc removal recalculates all dependent healing/defense effects.
+
+38 Power knots / 114 tier samples support per-enchantment Tier I log-linear interpolation and published tier multipliers. The common-curve hypothesis was not sufficiently established; no extrapolation is performed. Void amplification and consumption remain independently uncertain (runtime applies neither). See [DamageEvent architecture, evidence and limitations](../docs/damage-events.md) and [research audit](damage-event-audit.json).
+
+Next: close the Power-curve evidence gap before extending proc/DoT damage. Committed/simple-state work is a more independent Phase 2-1E candidate, but still needs enemy-health integration. The parent goal of 25–30 melee enchantments remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -146,7 +153,7 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1C complete — ready for Phase 2-1D.** Runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1D partial — full Power 50–263 proc evidence remains missing.** Runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
 `
 }
 

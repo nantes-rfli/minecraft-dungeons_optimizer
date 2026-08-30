@@ -3,6 +3,8 @@ export { optimize } from './optimizer'
 export { deriveCombatState } from './combatState'
 export { derivePotionState } from './potion'
 export { deriveEnemyDebuffState } from './enemyDebuffs'
+export { calculateComboFinisherRate } from './attackProfile'
+export { calculateDamageEvents, interpolateProcDamage, enchantmentUnsupportedReason } from './damageEvents'
 export { OptimizerInputError } from './errors'
 export {
   calculateModelErrorSummary,
