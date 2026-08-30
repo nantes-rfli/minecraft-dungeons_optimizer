@@ -19,6 +19,14 @@ export const DEFAULT_SCENARIO_EVIDENCE = {
     confidence: 'low',
     note: 'Generic composition assumption, not a measured spawn rate. All profiles, including boss, use the same editable default.',
   },
+  undeadShare: {
+    value: 0.5, source: MVP_MODEL_SOURCE, confidence: 'low',
+    note: 'Editable generic midpoint shared by every profile, not a measured mission-independent undead rate. Baseline-direct-damage-weighted exposure.',
+  },
+  ambushEligibleDirectDamageShare: {
+    value: 0.25, source: MVP_MODEL_SOURCE, confidence: 'low',
+    note: 'Editable illustrative partial exposure shared by every profile, not a measured solo/co-op rate. Time/baseline-damage-weighted direct opportunities include pre-aggro, pets, other players, CC and invisibility without simulating them.',
+  },
   incomingDamagePerSecond: { value: 20, source: MVP_MODEL_SOURCE, confidence: 'low' },
   maxHealth: { value: 100, source: MVP_MODEL_SOURCE, confidence: 'low' },
   averageTargetsInReach: { value: 2.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
@@ -33,7 +41,11 @@ export const DEFAULT_SCENARIO: Scenario = {
   averageEnemyHealth: DEFAULT_SCENARIO_EVIDENCE.averageEnemyHealth.value,
   enemySupplyPerSecond: DEFAULT_SCENARIO_EVIDENCE.enemySupplyPerSecond.value,
   directKillShare: DEFAULT_SCENARIO_EVIDENCE.directKillShare.value,
-  enemyComposition: { enchantedShare: DEFAULT_SCENARIO_EVIDENCE.enchantedShare.value },
+  enemyComposition: {
+    enchantedShare: DEFAULT_SCENARIO_EVIDENCE.enchantedShare.value,
+    undeadShare: DEFAULT_SCENARIO_EVIDENCE.undeadShare.value,
+  },
+  enemyState: { ambushEligibleDirectDamageShare: DEFAULT_SCENARIO_EVIDENCE.ambushEligibleDirectDamageShare.value },
   enemyDebuffs: { weakeningAffectedIncomingDamageShare: DEFAULT_SCENARIO_EVIDENCE.weakeningAffectedIncomingDamageShare.value },
   damageEventTargeting: DEFAULT_DAMAGE_EVENT_TARGETING,
   incomingDamagePerSecond: DEFAULT_SCENARIO_EVIDENCE.incomingDamagePerSecond.value,

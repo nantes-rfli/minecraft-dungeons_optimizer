@@ -4,6 +4,7 @@ import { isProcDamageId } from './damageEvents'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
 import { DIRECT_WEAPON_COMPOSITION, UNCHANTING_MIXTURE, UNCHANTING_TARGET_CONDITION } from '../data/damageModifiers'
+import { AMBUSH_TARGET_CONDITION, AMBUSH_VERSION, SMITING_TARGET_CONDITION, SMITING_VERSION, CONDITIONAL_STATE_FACTORIZATION, COMMITTED_HEALTH_SCALING, COMMITTED_ANALYTIC_INTEGRATION, COMMITTED_FRESH_TARGET, COMMITTED_AOE_TRAJECTORY } from '../data/enemyStateDamage'
 import { HEALTH_POTION_BASE_COOLDOWN, HEALTH_POTION_HEAL_FRACTION, REFRESHMENT_COOLDOWN_RATE_MODEL, REFRESHMENT_DIRECT_KILL_CONDITION, REFRESHMENT_INDIRECT_KILL_EXCLUSIONS } from '../data/potions'
 import { WEAKENING_APPLICATION, WEAKENING_DURATION, WEAKENING_HERO_DR_COMPOSITION } from '../data/enemyDebuffs'
 import {
@@ -109,7 +110,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       `${definition.name.ja}のtier値`,
       definition.tiers,
     )
-    if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || enchantmentId === 'refreshment' || enchantmentId === 'weakening') {
+    if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || ['refreshment', 'weakening', 'ambush', 'smiting', 'committed'].includes(enchantmentId)) {
       addEvidence(
         `enchant-stacking-${enchantmentId}`,
         `${definition.name.ja}のstacking`,
@@ -119,7 +120,6 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     }
   }
 
-  const usesSharpness = hasEnchantment(build.enchantments, 'sharpness')
   const procIds = [...uniqueEnchantments].filter(isProcDamageId)
   for (const id of procIds) {
     const proc = PROC_DAMAGE_DEFINITIONS[id]
@@ -137,20 +137,47 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.push('Phase 2-1D partial: Shockwave Power 210–252、Swirling 210–263、Thundering 248–263のみ。個別Tier I表をlog-linear補間しTier比率を適用、範囲外は外挿しません。同Powerの個体差と表のversion不明のため絶対精度は未検証です。')
     caveats.push('proc平均命中数は全種初期値1体のlow-confidence仮定（範囲の実測なし）。武器Areaは使いません。Swirlingはfinisher命中100%を仮定し、空振り・knockback・target switchingとShockwaveの壁は未モデル化です。')
     caveats.push('間接撃破は直接撃破効果に加算しません。直接AoE/総AoEをfinal blow割合の代用とするlow-confidence近似で、hit/proc timing・残HP・overkill・対象分布は再現しません。')
-    caveats.push('procへSharpness・Critical・Unchanting・Void倍率を掛けません。Void増幅と消費は別々にuncertainのまま、増幅なし・状態変更なしの限定モデルです。ThunderingのLightning Focusも未実装です。')
+    caveats.push('procへSharpness・Critical・Unchanting・Smiting・Ambush・Committed・Void倍率を掛けません。Void増幅と消費は別々にuncertainのまま、増幅なし・状態変更なしの限定モデルです。ThunderingのLightning Focusも未実装です。')
   }
   const usesUnchanting = hasEnchantment(build.enchantments, 'unchanting')
-  const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike']
+  const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike', 'ambush', 'smiting', 'committed']
     .filter((id) => build.enchantments.some((selected) => selected.enchantmentId === id)).length
-  if ((usesSharpness || usesUnchanting) && directModifierCount > 1) {
+  if (directModifierCount > 1) {
     addEvidence('direct-weapon-composition', '直接近接ダメージのmodifier合成', DIRECT_WEAPON_COMPOSITION, 2)
-    caveats.push('Sharpness・Critical・Void・Unchantingは直接近接hit上の独立した倍率として合成します。全interactionの1.17.0.0実機検証は未完了で、proc/DoT・Strength・防具damage auraには拡張しません。')
+    caveats.push('Sharpness・Critical・Void・Unchanting・Smiting・Ambushの独立期待倍率から直接DPSを求め、その後CommittedのHP推移を適用します。全interactionの1.17.0.0実機検証は未完了で、proc/DoT・Strength・防具damage auraへ倍率を拡張しません。')
   }
   if (usesUnchanting) {
     addEvidence('unchanting-target-condition', 'Unchantingのenchanted条件', UNCHANTING_TARGET_CONDITION)
     addEvidence('unchanting-mixture', 'Unchantingの等baseline期待値モデル', UNCHANTING_MIXTURE, 2)
     addEvidence('enchanted-enemy-share', `${scenario.name}のエンチャント敵割合`, DEFAULT_SCENARIO_EVIDENCE.enchantedShare, 2)
     caveats.push(`エンチャント敵割合${Number((scenario.enemyComposition.enchantedShare * 100).toFixed(2))}%はシナリオ仮定です（全profileの初期値25%、実測ではありません）。敵ごとのHP・enchanted敵のHP偏り・target priority・遭遇順序を無視した期待値です。`)
+  }
+
+  const usesAmbush = hasEnchantment(build.enchantments, 'ambush')
+  const usesSmiting = hasEnchantment(build.enchantments, 'smiting')
+  if (usesAmbush) {
+    addEvidence('ambush-target-condition', 'Ambushの非targeting条件', AMBUSH_TARGET_CONDITION)
+    addEvidence('ambush-version', 'Ambushの1.16.2.0以降のTier値', AMBUSH_VERSION)
+    addEvidence('ambush-eligible-share', 'Ambush有効攻撃割合', DEFAULT_SCENARIO_EVIDENCE.ambushEligibleDirectDamageShare, 2)
+    caveats.push(`Ambush有効攻撃割合${Number((scenario.enemyState.ambushEligibleDirectDamageShare * 100).toFixed(2))}%は編集可能な仮定（全profile初期値25%、実測なし）。他player・pet・CC・透明化・初期aggro前をまとめ、targeting挙動は再現しません。`)
+  }
+  if (usesSmiting) {
+    addEvidence('smiting-target-condition', 'SmitingのUndead条件', SMITING_TARGET_CONDITION)
+    addEvidence('smiting-version', 'Smitingの1.16.2.0以降のTier値', SMITING_VERSION)
+    addEvidence('undead-enemy-share', 'アンデッドの割合', DEFAULT_SCENARIO_EVIDENCE.undeadShare, 2)
+    caveats.push(`アンデッド割合${Number((scenario.enemyComposition.undeadShare * 100).toFixed(2))}%はdamage-weighted仮定（全profile初期値50%、実測なし）。コピーは同じ敵条件を共有し、active倍率を乗算した後に割合を一度だけ適用します。`)
+  }
+  if ([usesUnchanting, usesAmbush, usesSmiting].filter(Boolean).length > 1) {
+    addEvidence('conditional-state-factorization', '敵条件の独立近似（相関未モデル化）', CONDITIONAL_STATE_FACTORIZATION, 3)
+    caveats.push('MVP independent-condition approximation: enchanted・undead・targetingの相関を無視して期待倍率を乗算します。joint distributionに基づく厳密な期待値ではありません。')
+  }
+  if (hasEnchantment(build.enchantments, 'committed')) {
+    addEvidence('committed-health-scaling', 'CommittedのHP損失比例', COMMITTED_HEALTH_SCALING)
+    addEvidence('committed-analytic-integration', 'Committed積分の数学的検証（実戦精度とは別）', COMMITTED_ANALYTIC_INTEGRATION)
+    addEvidence('committed-fresh-target', 'Committedのfull HPから撃破までの連続攻撃仮定', COMMITTED_FRESH_TARGET, 3)
+    addEvidence('committed-aoe-trajectory', 'CommittedのAoE同一HP推移近似', COMMITTED_AOE_TRAJECTORY, 3)
+    caveats.push('Committedはfull HPの敵を倒すまで継続攻撃する連続rateモデルです。戦闘終了までに倒せない敵・離脱・切替・overkill・burst・離散hitを再現しません。負傷済みの敵やco-op集中攻撃では過小評価し得ます。AoEは敵ごとのHPとdirect/proc coverageを一つの推移へ近似します。')
+    caveats.push('proc自体へCommittedを掛けず、procがHPを減らす効果だけを積分のPに含めます。数式の検証済みという意味と実戦精度は別です。')
   }
 
   if (hasEnchantment(build.enchantments, 'radiance')) {

@@ -12,7 +12,7 @@ import { deserializeInventory, loadInventory, saveInventory, serializeInventory 
 const selected = (enchantmentId: EnchantmentId, tier: EnchantmentTier = 3, source: SelectedEnchantment['source'] = 'slot'): SelectedEnchantment => ({ enchantmentId, tier, source })
 const effects = { attackSpeedMultiplier: 1, damageTakenMultiplier: 1, uptimes: [], stackingGroups: [] }
 const weapon = { weaponId: 'double-axe' as const, powerLevel: 251, observedDamagePerHit: 100 }
-const scenarioWithShare = (enchantedShare: number): Scenario => ({ ...DEFAULT_SCENARIO, enemyComposition: { enchantedShare } })
+const scenarioWithShare = (enchantedShare: number): Scenario => ({ ...DEFAULT_SCENARIO, enemyComposition: { ...DEFAULT_SCENARIO.enemyComposition, enchantedShare } })
 const damage = (enchantments: SelectedEnchantment[], enchantedShare = 0.25) => calculateDamage(weapon, enchantments, effects, scenarioWithShare(enchantedShare))
 function buildFor(enchantments: SelectedEnchantment[]): Build {
   const slots = enchantments.filter((item) => item.source === 'slot')
@@ -128,7 +128,7 @@ describe('enemy composition input and confidence', () => {
     expect(profile.enemyComposition.enchantedShare).toBe(0.25)
     expect(() => validateScenario(profile)).not.toThrow()
     for (const share of [0, 1]) {
-      const result = calculateDamage(weapon, [selected('unchanting')], effects, { ...profile, enemyComposition: { enchantedShare: share } })
+      const result = calculateDamage(weapon, [selected('unchanting')], effects, { ...profile, enemyComposition: { ...profile.enemyComposition, enchantedShare: share } })
       expect(result.unchantingMultiplier).toBe(1 + share)
     }
   })
@@ -195,16 +195,16 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.best.build.enchantments[0]!.enchantmentId).toBe('sharpness')
   })
 
-  it('searches all twelve candidates within the existing bounded Cartesian product', () => {
+  it('searches all fifteen candidates within the existing bounded Cartesian product', () => {
     const candidates = Object.keys(ENCHANTMENTS) as EnchantmentId[]
-    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-twelve', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
+    const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-fifteen', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
     const started = performance.now()
     const result = optimize(inventory, DEFAULT_SCENARIO)
-    // 12^3 minus 9 non-stackable IDs × (3 positions for a pair × 11 other IDs + one triple).
-    expect(result.evaluatedBuildCount).toBe(1728 - 9 * 34)
+    // 15^3 minus 11 non-stackable IDs × (3 positions for a pair × 14 other IDs + one triple).
+    expect(result.evaluatedBuildCount).toBe(3375 - 11 * 43)
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
-    console.info(`Twelve-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
+    console.info(`Fifteen-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
   })
 
   it('rejects every remaining unsupported enchantment through JSON input', () => {

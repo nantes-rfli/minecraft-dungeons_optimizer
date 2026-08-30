@@ -132,6 +132,17 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
     const share = Number((scenario.enemyComposition.enchantedShare * 100).toFixed(2))
     reasons.push(`「エンチャント解除」はエンチャント敵割合${share}%の想定で期待倍率${core.damage.unchantingMultiplier.toFixed(3)}倍${share === 0 ? '（火力寄与0）' : ''}`)
   }
+  const tierLabel = (id: 'ambush' | 'committed') => ['I', 'II', 'III'][build.enchantments.find((item) => item.enchantmentId === id)!.tier - 1]
+  if (hasEnchantment(build.enchantments, 'ambush')) {
+    reasons.push(`Ambush ${tierLabel('ambush')}: 対象が自分を狙っていない攻撃機会${Number((core.damage.ambushEligibleShare * 100).toFixed(2))}%想定 → direct damage期待倍率${core.damage.ambushMultiplier.toFixed(3)}倍`)
+  }
+  if (hasEnchantment(build.enchantments, 'smiting')) {
+    const tiers = build.enchantments.filter((item) => item.enchantmentId === 'smiting').map((item) => ['I', 'II', 'III'][item.tier - 1]).join(' + ')
+    reasons.push(`Smiting ${tiers}: Undead割合${Number((core.damage.undeadShare * 100).toFixed(2))}% → active倍率${core.damage.smitingActiveUndeadMultiplier.toFixed(5)}倍、direct期待倍率${core.damage.smitingMultiplier.toFixed(5)}倍（コピー共通条件）`)
+  }
+  if (hasEnchantment(build.enchantments, 'committed')) {
+    reasons.push(`Committed ${tierLabel('committed')}: full HPから撃破までの連続damage model → direct実効倍率 単体${core.damage.committedSingleTargetMultiplier.toFixed(4)}倍 / AoE ${core.damage.committedAoeMultiplier.toFixed(4)}倍。procは増幅せずHP推移へ反映。AoEは同一HP推移の近似`)
+  }
 
   if (weapon.area.value >= 12) reasons.push(`${weapon.name.ja}の広い攻撃範囲をAoE評価へ反映`)
   if (hasEnchantment(build.enchantments, 'radiance') && core.damage.hitsPerSecond >= 4) {

@@ -39,6 +39,9 @@ export type EnchantmentId =
   | 'shockwave'
   | 'swirling'
   | 'thundering'
+  | 'ambush'
+  | 'smiting'
+  | 'committed'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -166,13 +169,16 @@ export type VoidStrikeCurve =
   | FrameMeasuredVoidStrikeCurve
 
 /** Only direct melee hits; independent proc effects must never enter this channel. */
+export type DirectDamageCondition = 'enchanted-enemy' | 'undead-enemy' | 'not-targeting-hero'
+
 export type DirectWeaponEffect =
   | { readonly kind: 'passive-weapon-damage'; readonly bonus: number }
   | {
       readonly kind: 'conditional-weapon-damage'
-      readonly condition: 'enchanted-enemy'
+      readonly condition: DirectDamageCondition
       readonly bonus: number
     }
+  | { readonly kind: 'target-health-weapon-damage'; readonly maxBonus: number }
 
 export interface PotionCooldownOnKillEffect {
   readonly kind: 'potion-cooldown-on-direct-kill'
@@ -328,6 +334,13 @@ export interface ScenarioWeights {
 export interface EnemyComposition {
   /** Expected share of direct weapon damage targets, with equal baseline damage weights. */
   readonly enchantedShare: number
+  /** Baseline-direct-damage-weighted undead target share, not a global spawn rate. */
+  readonly undeadShare: number
+}
+
+export interface EnemyStateAssumptions {
+  /** Direct damage opportunities where the target is not actively targeting the hero. */
+  readonly ambushEligibleDirectDamageShare: number
 }
 
 export interface Scenario {
@@ -338,6 +351,7 @@ export interface Scenario {
   readonly enemySupplyPerSecond: number
   readonly directKillShare: number
   readonly enemyComposition: EnemyComposition
+  readonly enemyState: EnemyStateAssumptions
   readonly enemyDebuffs: EnemyDebuffAssumptions
   readonly damageEventTargeting: DamageEventTargetingAssumptions
   readonly incomingDamagePerSecond: number
@@ -392,8 +406,19 @@ export interface DamageMetrics {
   readonly voidStrikeMultiplier: number
   readonly sharpnessMultiplier: number
   readonly unchantingMultiplier: number
+  readonly smitingMultiplier: number
+  readonly smitingActiveUndeadMultiplier: number
+  readonly ambushMultiplier: number
+  readonly undeadShare: number
+  readonly ambushEligibleShare: number
+  readonly preCommittedDirectWeaponSingleTargetDps: number
+  readonly preCommittedDirectWeaponAoeDps: number
+  readonly committedSingleTargetMultiplier: number
+  readonly committedAoeMultiplier: number
   readonly enchantedShare: number
+  /** Before Committed; includes other factorized direct modifiers, excludes proc. */
   readonly enchantedTargetDps: number
+  /** Before Committed; includes other factorized direct modifiers, excludes proc. */
   readonly nonEnchantedTargetDps: number
 }
 

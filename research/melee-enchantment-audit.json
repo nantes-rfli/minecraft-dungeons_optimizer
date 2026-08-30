@@ -17,13 +17,80 @@
   },
   "entries": [
     {
-      "id": "ambush", "name": { "en": "Ambush" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "20%", "interpreted": { "damageBonus": 0.2 } }, "2": { "raw": "40%", "interpreted": { "damageBonus": 0.4 } }, "3": { "raw": "60%", "interpreted": { "damageBonus": 0.6 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "conditional-damage", "runtimeStatus": "needs-enemy-state",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/ambush", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Applies to melee; bonus requires a mob that is not actively targeting the hero." }],
-      "confidence": "high", "notes": "Requires an untargeting/backstab opportunity share; do not flatten to an unconditional multiplier."
+      "id": "ambush",
+      "name": {
+        "en": "Ambush"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "20%",
+          "interpreted": {
+            "damageBonus": 0.2
+          }
+        },
+        "2": {
+          "raw": "40%",
+          "interpreted": {
+            "damageBonus": 0.4
+          }
+        },
+        "3": {
+          "raw": "60%",
+          "interpreted": {
+            "damageBonus": 0.6
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "conditional-hit",
+      "modelCategory": "conditional-damage",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/ambush",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Applies to melee; bonus requires a mob that is not actively targeting the hero."
+        },
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons:Ambush",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "stacking",
+            "version-history",
+            "trigger-mechanics"
+          ],
+          "confidence": "high",
+          "note": "Non-stackable including gilded. Requires target not actively targeting hero. 1.16.2.0 buff: 15/30/45 -> 20/40/60."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Phase 2-1E: 1+eligibleShare*bonus on direct melee only. Editable all-profile 25% low-confidence exposure; not a measured solo/co-op rate. EnemyState is separate from EnemyComposition; cross-condition factorization is low confidence."
     },
     {
       "id": "anima-conduit", "name": { "en": "Anima Conduit" },
@@ -62,16 +129,84 @@
       "confidence": "high", "notes": "Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion."
     },
     {
-      "id": "committed", "name": { "en": "Committed" },
-      "applicability": { "melee": true, "ranged": true, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "0-50%", "interpreted": { "maxDamageBonus": 0.5, "scaling": "linear-with-health-lost" } }, "2": { "raw": "0-75%", "interpreted": { "maxDamageBonus": 0.75, "scaling": "linear-with-health-lost" } }, "3": { "raw": "0-100%", "interpreted": { "maxDamageBonus": 1, "scaling": "linear-with-health-lost" } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "health-dependent-damage", "runtimeStatus": "needs-enemy-state",
+      "id": "committed",
+      "name": {
+        "en": "Committed"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "0-50%",
+          "interpreted": {
+            "maxDamageBonus": 0.5,
+            "scaling": "linear-with-health-lost"
+          }
+        },
+        "2": {
+          "raw": "0-75%",
+          "interpreted": {
+            "maxDamageBonus": 0.75,
+            "scaling": "linear-with-health-lost"
+          }
+        },
+        "3": {
+          "raw": "0-100%",
+          "interpreted": {
+            "maxDamageBonus": 1,
+            "scaling": "linear-with-health-lost"
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "conditional-hit",
+      "modelCategory": "health-dependent-damage",
+      "runtimeStatus": "implemented",
       "sources": [
-        { "type": "game-files", "url": "https://www.dungeons.tools/enchantments/committed", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Published range grows from zero toward the tier maximum as the target loses health." },
-        { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Committed", "retrievedAt": "2026-08-29", "supports": ["trigger-mechanics", "damage-scaling", "stacking", "built-in"], "confidence": "high", "note": "Documents the linear example: at 50% health lost, Tier III grants 50% bonus; full health grants zero." }
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/committed",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Published range grows from zero toward the tier maximum as the target loses health."
+        },
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons:Committed",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "trigger-mechanics",
+            "damage-scaling",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Documents the linear example: at 50% health lost, Tier III grants 50% bonus; full health grants zero."
+        }
       ],
-      "confidence": "medium", "notes": "Do not use a constant multiplier. The linear HP-lost curve is evidenced, but target HP trajectories, analytic integration, and any boss-specific exception still need a scenario model/test."
+      "confidence": "medium",
+      "notes": "Phase 2-1E: fresh-target-to-defeat continuous analytic health trajectory. Direct-only b/log1p(b); with proc P, total=D*b/log1p(D*b/(P+D)), direct=total-P (numerically stable equivalent implementation). Proc is unchanged. ST/AoE integrated separately; fresh-target, homogeneous AoE, finite encounter, overkill and co-op limitations are low-confidence assumptions. Wiki prose 44.25% differs slightly from its 1/ln(2) expression (44.2695%); use derived formula. See docs/enemy-state-damage.md."
     },
     {
       "id": "critical-hit", "name": { "en": "Critical Hit", "ja": "クリティカルヒット" },
@@ -254,13 +389,80 @@
       "confidence": "medium", "notes": "Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
     },
     {
-      "id": "smiting", "name": { "en": "Smiting" },
-      "applicability": { "melee": true, "ranged": true, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "+25%", "interpreted": { "undeadDamageBonus": 0.25 } }, "2": { "raw": "+35%", "interpreted": { "undeadDamageBonus": 0.35 } }, "3": { "raw": "+45%", "interpreted": { "undeadDamageBonus": 0.45 } } },
-      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "conditional-hit", "modelCategory": "category-damage", "runtimeStatus": "needs-enemy-state",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/smiting", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Damage bonus applies only to undead targets; multiple copies are allowed but exact composition belongs in a later model." }],
-      "confidence": "high", "notes": "Needs scenario.undeadEnemyShare (or encounter composition) before ranking."
+      "id": "smiting",
+      "name": {
+        "en": "Smiting"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "+25%",
+          "interpreted": {
+            "undeadDamageBonus": 0.25
+          }
+        },
+        "2": {
+          "raw": "+35%",
+          "interpreted": {
+            "undeadDamageBonus": 0.35
+          }
+        },
+        "3": {
+          "raw": "+45%",
+          "interpreted": {
+            "undeadDamageBonus": 0.45
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 4,
+        "behavior": "multiplicative"
+      },
+      "trigger": "conditional-hit",
+      "modelCategory": "category-damage",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/smiting",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "1.17.0.0 tiers +25/+35/+45%, undead condition and stackability. Exact multiplicative composition and Enchantsmith coexistence are independently documented by Wiki."
+        },
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons:Smiting",
+          "retrievedAt": "2026-08-30",
+          "supports": [
+            "stacking",
+            "version-history",
+            "trigger-mechanics"
+          ],
+          "confidence": "high",
+          "note": "Copies multiply against the same undead target. Enchantsmith permits normal slots alongside gilded, allowing three normal plus one gilded copy; mixed tiers follow the same product. 1.16.2.0 buff: 20/30/40 -> 25/35/45. No stacking conflict with game-derived Yes."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Phase 2-1E: active=product(1+bonus); expected=1+undeadShare*(active-1). Shared condition, not product of copy-wise expectations. Editable all-profile 50% low-confidence assumption. Condition correlations are factorized; direct melee only."
     },
     {
       "id": "soul-siphon", "name": { "en": "Soul Siphon" },

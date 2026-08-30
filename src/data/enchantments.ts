@@ -12,10 +12,56 @@ import {
 
 import { WEAKENING_DURATION } from './enemyDebuffs'
 import { PROC_TIER_MULTIPLIERS } from './damageEvents'
+import { AMBUSH_SOURCE, SMITING_SOURCE, SMITING_STACKING_SOURCE, COMMITTED_SOURCE } from './enemyStateDamage'
 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  ambush: {
+    id: 'ambush',
+    name: { ja: '奇襲', en: 'Ambush' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'conditional-weapon-damage', condition: 'not-targeting-hero', bonus: 0.2 } },
+        2: { effect: { kind: 'conditional-weapon-damage', condition: 'not-targeting-hero', bonus: 0.4 } },
+        3: { effect: { kind: 'conditional-weapon-damage', condition: 'not-targeting-hero', bonus: 0.6 } },
+      },
+      source: AMBUSH_SOURCE, confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: AMBUSH_SOURCE, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: false, armor: false }, source: AMBUSH_SOURCE, confidence: 'high' },
+  },
+  smiting: {
+    id: 'smiting',
+    name: { ja: '強打', en: 'Smiting' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 } },
+        2: { effect: { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.35 } },
+        3: { effect: { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.45 } },
+      },
+      source: SMITING_SOURCE, confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 4, behavior: 'multiplicative' }, source: SMITING_STACKING_SOURCE, confidence: 'high',
+      note: 'Three normal slots plus gilded through Enchantsmith. Multiply active undead bonuses, then apply the shared undead exposure once. Unique built-ins are out of runtime scope.',
+    },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: SMITING_SOURCE, confidence: 'high' },
+  },
+  committed: {
+    id: 'committed',
+    name: { ja: '追い討ち', en: 'Committed' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'target-health-weapon-damage', maxBonus: 0.5 } },
+        2: { effect: { kind: 'target-health-weapon-damage', maxBonus: 0.75 } },
+        3: { effect: { kind: 'target-health-weapon-damage', maxBonus: 1 } },
+      },
+      source: COMMITTED_SOURCE, confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: COMMITTED_SOURCE, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: COMMITTED_SOURCE, confidence: 'high' },
+  },
   shockwave: {
     id: 'shockwave',
     name: { ja: '衝撃波', en: 'Shockwave' },

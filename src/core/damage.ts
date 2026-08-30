@@ -10,6 +10,7 @@ import {
 } from './powerScaling'
 import { calculateAverageVoidStrikeMultiplier } from './voidStrike'
 import { calculateDamageEvents } from './damageEvents'
+import { committedTrajectory, conditionalDirectDamage } from './enemyStateDamage'
 import type {
   ArtifactEffects,
   DamageMetrics,
@@ -80,19 +81,33 @@ export function calculateDamage(
   // Direct melee channel only. Independent scalar expectations commute within
   // this model; proc/DoT and future additive damage bonuses must not enter here.
   const sharpnessMultiplier = 1 + combineDirectWeaponBonuses(enchantments, 'sharpness')
-  const unchantingBonus = combineDirectWeaponBonuses(enchantments, 'unchanting')
+  const unchanting = conditionalDirectDamage(enchantments, 'unchanting', scenario)
+  const smiting = conditionalDirectDamage(enchantments, 'smiting', scenario)
+  const ambush = conditionalDirectDamage(enchantments, 'ambush', scenario)
   const enchantedShare = scenario.enemyComposition.enchantedShare
-  const unchantingMultiplier = 1 + enchantedShare * unchantingBonus
-  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier
-  const enchantedTargetDps = nonEnchantedTargetDps * (1 + unchantingBonus)
-  const directWeaponSingleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
+  const unchantingMultiplier = unchanting.expectedMultiplier
+  const smitingMultiplier = smiting.expectedMultiplier
+  const ambushMultiplier = ambush.expectedMultiplier
+  // These two legacy diagnostics are explicitly PRE-Committed, with the other
+  // condition expectations held fixed (the MVP independent-condition model).
+  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier
+  const enchantedTargetDps = nonEnchantedTargetDps * unchanting.activeMultiplier
+  const preCommittedDirectWeaponSingleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
   const areaCoverage = Math.min(1, weapon.area.value / MODEL.maximumAreaRating.value)
   const expectedTargetsHit =
     1 + (scenario.averageTargetsInReach - 1) * areaCoverage
-  const directWeaponAoeDps = directWeaponSingleTargetDps * expectedTargetsHit
+  const preCommittedDirectWeaponAoeDps = preCommittedDirectWeaponSingleTargetDps * expectedTargetsHit
   const damageEvents = calculateDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, artifactEffects.attackSpeedMultiplier, scenario)
   const indirectSingleTargetDps = damageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
   const indirectAoeDps = damageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
+  const committed = enchantmentsById(enchantments, 'committed')[0]
+  const committedEffect = committed ? getTierValues(committed).effect : undefined
+  if (committed && committedEffect?.kind !== 'target-health-weapon-damage') throw new Error('Missing Committed health effect')
+  const maxBonus = committedEffect?.kind === 'target-health-weapon-damage' ? committedEffect.maxBonus : 0
+  const singleTrajectory = committedTrajectory(preCommittedDirectWeaponSingleTargetDps, indirectSingleTargetDps, maxBonus)
+  const aoeTrajectory = committedTrajectory(preCommittedDirectWeaponAoeDps, indirectAoeDps, maxBonus)
+  const directWeaponSingleTargetDps = singleTrajectory.effectiveDirectDps
+  const directWeaponAoeDps = aoeTrajectory.effectiveDirectDps
 
   return {
     damageSource,
@@ -111,6 +126,15 @@ export function calculateDamage(
     voidStrikeMultiplier,
     sharpnessMultiplier,
     unchantingMultiplier,
+    smitingMultiplier,
+    smitingActiveUndeadMultiplier: smiting.activeMultiplier,
+    ambushMultiplier,
+    undeadShare: scenario.enemyComposition.undeadShare,
+    ambushEligibleShare: scenario.enemyState.ambushEligibleDirectDamageShare,
+    preCommittedDirectWeaponSingleTargetDps,
+    preCommittedDirectWeaponAoeDps,
+    committedSingleTargetMultiplier: singleTrajectory.directMultiplier,
+    committedAoeMultiplier: aoeTrajectory.directMultiplier,
     enchantedShare,
     enchantedTargetDps,
     nonEnchantedTargetDps,

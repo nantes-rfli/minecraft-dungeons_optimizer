@@ -12,7 +12,7 @@ export const DIRECT_WEAPON_COMPOSITION: Evidence<'independent-multipliers'> = {
   value: 'independent-multipliers',
   source: MVP_MODEL_SOURCE,
   confidence: 'low',
-  note: 'Direct melee only: Sharpness × Critical expectation × Void expectation × Unchanting. Tier/stacking references do not independently verify all 1.17.0.0 interactions. Crit, hit interval and enemy composition are assumed independent. No Strength, armor damage aura, proc or DoT semantics are implied.',
+  note: 'Direct melee only: Sharpness × Critical expectation × Void expectation × Unchanting × Smiting × Ambush, then Committed health trajectory with independent proc context. Tier/stacking references do not independently verify all 1.17.0.0 interactions. Crit, hit interval, enemy conditions and health are factorized. No Strength, armor damage aura, proc or DoT amplification is implied.',
 }
 
 export const UNCHANTING_MIXTURE: Evidence<'equal-baseline-damage'> = {

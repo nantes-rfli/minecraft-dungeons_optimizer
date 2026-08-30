@@ -17,8 +17,8 @@ describe('enemy composition control', () => {
     const input = control.props.children[1]
     for (const value of ['0', '0.5', '1']) {
       input.props.onChange({ target: { value } })
-      expect(onChange).toHaveBeenLastCalledWith({ enchantedShare: Number(value) })
-      expect(renderToStaticMarkup(<EnemyCompositionControl value={{ enchantedShare: Number(value) }} onChange={onChange} />)).toContain(`${Number(value) * 100}%`)
+      expect(onChange).toHaveBeenLastCalledWith({ ...profile.enemyComposition, enchantedShare: Number(value) })
+      expect(renderToStaticMarkup(<EnemyCompositionControl value={{ ...profile.enemyComposition, enchantedShare: Number(value) }} onChange={onChange} />)).toContain(`${Number(value) * 100}%`)
     }
     expect(profile.enemyComposition.enchantedShare).toBe(0.25)
   })

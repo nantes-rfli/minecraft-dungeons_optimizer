@@ -1,5 +1,7 @@
 # Direct melee weapon modifiers — Phase 2-1B
 
+以下はPhase 2-1B時点の記録です。現在の条件union・Smiting/Ambush・Committed・direct/proc pipelineは[Phase 2-1E設計](./enemy-state-damage.md)を参照してください。旧対象別DPS fieldは現在Committed前を意味します。
+
 ## 型と単一の数値境界
 
 `EnchantmentTierValues.effect`（Phase 2-1Cで名称を統合）の直接modifier部分 は次のdiscriminated unionです。bonusは各tier内だけに保存し、別のeffect tableへ複製しません。既存5種のtier fieldはそのまま維持します。
@@ -75,7 +77,7 @@ Unchanting未選択のBuildに敵割合factor/caveatを混ぜません。選択�
 
 ## 検証境界
 
-Tier別増幅、観測/Power入力、合法copyとmixed tiers、Critical/Voidとのcomposition、敵割合0/0.25/1、入力拒否、全profile、UI callback、Evidenceの条件付き集計、寄与0、候補/lock/gildedの保存・JSON・全探索、Phase 2-1B時点の未対応26種の拒否（現在の境界は21種、さらに3種のprocはPower範囲限定）をテストします。7候補×3枠はstacking制約後267buildとなり、既存同期全探索で実測時間を記録します。テストは数学モデルと経路を検証するもので、ゲーム内interactionの実測Evidenceではありません。
+Tier別増幅、観測/Power入力、合法copyとmixed tiers、Critical/Voidとのcomposition、敵割合0/0.25/1、入力拒否、全profile、UI callback、Evidenceの条件付き集計、寄与0、候補/lock/gildedの保存・JSON・全探索、Phase 2-1B時点の未対応26種の拒否（現在の境界は18種、さらに3種のprocはPower範囲限定）をテストします。7候補×3枠はstacking制約後267buildとなり、既存同期全探索で実測時間を記録します。テストは数学モデルと経路を検証するもので、ゲーム内interactionの実測Evidenceではありません。
 
 参考計測（2026-08-30、ローカルNode 24.8.0、Double Axe 1本・7候補×3枠・Artifactなし）: 267buildの全探索は46.4msでした。端末依存の単発値であり、性能保証や実戦DPS実測ではありません。
 

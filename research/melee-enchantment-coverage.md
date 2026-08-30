@@ -7,7 +7,9 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 - Target game version: 1.17.0.0
 - Audit date: 2026-08-30
 - Melee-applicable, hero-accessible enchantments: **33**
-- Runtime implemented: **12**
+- Catalog runtime: **15 / 33**
+- Broad Power-range runtime: **12 / 33**
+- Power-range-limited proc: **3 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
 
@@ -19,11 +21,11 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 12 |
+| implemented | 15 |
 | straightforward | 0 |
 | needs-state-model | 13 |
 | needs-damage-event-model | 3 |
-| needs-enemy-state | 3 |
+| needs-enemy-state | 0 |
 | utility-only | 2 |
 | insufficient-evidence | 0 |
 | **Total** | **33** |
@@ -32,12 +34,12 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Enchantment | Runtime | Category | Main blocker |
 | --- | --- | --- | --- |
-| Ambush | needs-enemy-state | conditional-damage | Requires an untargeting/backstab opportunity share; do not flatten to an unconditional multiplier. |
+| Ambush | implemented | conditional-damage | — |
 | Anima Conduit | needs-state-model | soul-healing | Needs soul generation, pickup timing, and max-health state. |
 | Artifact Synergy | needs-state-model | artifact-synergy | Needs artifact-use event timing and a one-shot pending buff. |
 | Busy Bee | needs-state-model | summon | Needs summon lifetime, cap, attacks, targeting, and damage events. |
 | Chains | needs-state-model | crowd-control | Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion. |
-| Committed | needs-enemy-state | health-dependent-damage | Do not use a constant multiplier |
+| Committed | implemented | health-dependent-damage | — |
 | Critical Hit | implemented | proc-damage | — |
 | Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
 | Echo | needs-state-model | attack-repeat | Requires attack-event scheduling and evidence for which hit/combo properties are copied. |
@@ -57,7 +59,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Refreshment | implemented | potion-cooldown | — |
 | Sharpness | implemented | passive-damage | — |
 | Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial |
-| Smiting | needs-enemy-state | category-damage | Needs scenario.undeadEnemyShare (or encounter composition) before ranking. |
+| Smiting | implemented | category-damage | — |
 | Soul Siphon | needs-state-model | soul-generation | Needs a soul resource and downstream soul-spend utility/damage model. |
 | Stunning | needs-state-model | crowd-control | Stun duration/resistance and CC valuation need evidence; no invented defense conversion. |
 | Swirling | implemented | indirect-damage-event | Power 210–263 only; Phase 2-1D partial |
@@ -66,9 +68,9 @@ The source index explicitly separates player enchantments from mob/innate record
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 12 is catalog coverage, not full Power coverage.
+Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 15 is catalog coverage, not full Power coverage.
 
-Only the 12 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 15 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## Focus findings
 
@@ -84,7 +86,7 @@ Phase 2-1B implements +50% / +75% / +100% only against enchanted targets, using 
 
 ### Committed
 
-The published tiers are ranges (0–50% / 0–75% / 0–100%), not constants. The Minecraft Wiki documents linear scaling with health already lost: at 50% health lost, Tier III grants 50% bonus, while full health grants zero. A correct average still needs an enemy-health trajectory/distribution or analytic integration because the enchantment changes that trajectory. No boss-specific exception was found, so boss behavior remains a verification target rather than an assumed special case.
+The published tiers are ranges (0–50% / 0–75% / 0–100%), not constants. The Minecraft Wiki documents linear scaling with health already lost: at 50% health lost, Tier III grants 50% bonus, while full health grants zero. Phase 2-1E integrates a continuous full-health-to-defeat trajectory: direct-only b/log1p(b); with proc P, total=D*b/log1p(D*b/(P+D)), direct=total-P. ST/AoE are integrated separately. Proc is never amplified. Fresh targets, homogeneous AoE, incomplete encounters, switching, overkill and co-op are explicit low-confidence limitations; mathematical integration confidence does not claim real-combat accuracy. See [enemy-state damage](../docs/enemy-state-damage.md).
 
 ### Combo finishers and damage events
 
@@ -116,7 +118,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **12 / 33**, unsupported **21 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **15 / 33**, unsupported **18 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -125,11 +127,19 @@ DamageEvent separates direct weapon damage and three independent power-scaled pr
 
 38 Power knots / 114 tier samples support per-enchantment Tier I log-linear interpolation and published tier multipliers. The common-curve hypothesis was not sufficiently established; no extrapolation is performed. Void amplification and consumption remain independently uncertain (runtime applies neither). See [DamageEvent architecture, evidence and limitations](../docs/damage-events.md) and [research audit](damage-event-audit.json).
 
-Next: close the Power-curve evidence gap before extending proc/DoT damage. Committed/simple-state work is a more independent Phase 2-1E candidate, but still needs enemy-health integration. The parent goal of 25–30 melee enchantments remains incomplete.
+Close the Power-curve evidence gap before extending proc/DoT damage. The parent goal of 25–30 melee enchantments remains incomplete.
+
+## Phase 2-1E completed scope
+
+Ambush +20/40/60% uses a separate editable targeting-state exposure (all-profile default 25%). Smiting +25/35/45% uses undead composition (all-profile default 50%). Neither default is a measured mission-independent rate. Smiting copies multiply while active, then share ONE mixture: Tier III x2 at 50% undead = 0.5 + 0.5 * 1.45² = 1.55125, not 1.225². Wiki supports Enchantsmith coexistence of three normal slots plus gilded; mixed tiers are order-independent. The audit changes Smiting stacking from special to multiplicative.
+
+Committed uses the tested health-trajectory integral, not a permanent or arithmetic-average bonus. Independent-condition factorization and fresh-target/AoE assumptions are separate low-confidence Evidence, attached only to affected builds. Existing direct kill attribution, contribution recomputation, inventory and optimizer paths are preserved. No built-ins, armor or ranged runtime were added.
+
+Next candidate: Artifact Synergy + Rampaging + Echo can reuse artifact cooldown, kill rate and attack profile foundations, but needs use/consumption, uptime feedback and extra-hit interaction audits. Soul foundation + Anima Conduit / Soul Siphon / Enigma Resonator requires a larger shared resource subsystem. See [design, derivation, Evidence and next-batch comparison](../docs/enemy-state-damage.md).
 
 ## Highest-risk mechanics
 
-- Committed health-trajectory integration and unverified boss exceptions.
+- Committed fresh-target/continuous-rate and homogeneous AoE assumptions versus finite encounters, overkill and wounded co-op targets.
 - Shockwave/Swirling power scaling, Void Strike interaction, AoE, and kill attribution.
 - Thundering/Fire Aspect/Poison Cloud power curves, overlap/ticks, and focus interactions.
 - CC/debuff valuation without inventing defense equivalence.
@@ -150,4 +160,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1D partial — full Power 50–263 proc evidence remains missing.** Runtime coverage is 12 / 33; unsupported coverage is 21 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D partial — full Power 50–263 proc evidence remains missing.** Catalog runtime coverage is 15 / 33; unsupported coverage is 18 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.

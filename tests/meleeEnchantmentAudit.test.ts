@@ -35,13 +35,15 @@ describe('melee enchantment audit', () => {
     }
   })
 
-  it('maps twelve runtime enchantments including three range-limited implementations', () => {
+  it('maps fifteen runtime enchantments including three range-limited implementations', () => {
     const implementedIds = audit.entries
       .filter((entry) => entry.runtimeStatus === 'implemented')
       .map((entry) => entry.id)
       .sort()
     expect(implementedIds).toEqual([...runtimeIds].sort())
     expect(implementedIds).toEqual([
+      'ambush',
+      'committed',
       'critical-hit',
       'guarding-strike',
       'leeching',
@@ -49,6 +51,7 @@ describe('melee enchantment audit', () => {
       'refreshment',
       'sharpness',
       'shockwave',
+      'smiting',
       'swirling',
       'thundering',
       'unchanting',
@@ -61,7 +64,7 @@ describe('melee enchantment audit', () => {
     const unsupportedIds = audit.entries
       .filter((entry) => entry.runtimeStatus !== 'implemented')
       .map((entry) => entry.id)
-    expect(unsupportedIds).toHaveLength(21)
+    expect(unsupportedIds).toHaveLength(18)
     expect(unsupportedIds.filter((id) => runtimeIds.includes(id))).toEqual([])
   })
 
@@ -69,11 +72,11 @@ describe('melee enchantment audit', () => {
     expect(summarizeMeleeEnchantmentAudit(audit)).toMatchObject({
       total: 33,
       counts: {
-        implemented: 12,
+        implemented: 15,
         straightforward: 0,
         'needs-state-model': 13,
         'needs-damage-event-model': 3,
-        'needs-enemy-state': 3,
+        'needs-enemy-state': 0,
         'utility-only': 2,
         'insufficient-evidence': 0,
       },
@@ -91,7 +94,7 @@ describe('melee enchantment audit', () => {
     expect(errors).toContain(`duplicate entry id: ${entries[0]!.id as string}`)
     expect(errors).toContain('entries[2].tierValues.3.raw is required')
     expect(errors.some((error) => error.startsWith('implemented audit ids'))).toBe(true)
-    expect(errors).toContain('unsupported enchantments are runtime-enabled: busy-bee')
+    expect(errors.some((error) => error.startsWith('unsupported enchantments are runtime-enabled:') && error.includes('busy-bee'))).toBe(true)
   })
 
   it('preserves raw power-scaled X notation instead of inventing percentages', () => {

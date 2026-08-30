@@ -2,7 +2,7 @@
 
 2026-08-30。対象mechanicsはMinecraft Dungeons 1.17.0.0。
 基盤と3種の範囲限定runtimeは実装済みですが、**Power 50–263全域のproc EvidenceがないためPhase completeではありません**。
-catalogは12 / 33（うち3種がPower範囲限定）、未実装21 / 33。非対応の効果を0点で登録しません。
+Phase 2-1D時点はcatalog 12 / 33（うち3種がPower範囲限定）、未実装21 / 33でした。現在は[Phase 2-1E](./enemy-state-damage.md)追加でcatalog 15 / 33（広域12・範囲限定3）、未実装18 / 33です。非対応の効果を0点で登録しません。
 
 ## 設計判断: directとindirect
 

@@ -65,11 +65,11 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 12種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 15種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
-Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在は次節のPhase 2-1Cまで完了しています。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Eまで進んでいます（2-1Dはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
 
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
@@ -95,7 +95,7 @@ Phase 2-1Cは完了。後続の実装は次節を参照してください。親�
 
 ## Phase 2-1D — DamageEvent foundation（partial）
 
-**catalog 12 / 33（3種はPower範囲限定）、未実装21 / 33**。direct / indirect DPSとkill attributionを分離しました。
+Phase 2-1D追加時点は **catalog 12 / 33（3種はPower範囲限定）、未実装21 / 33**。direct / indirect DPSとkill attributionを分離しました。
 ShockwaveはPower 210–252（14点）、Swirlingは210–263（18点）、Thunderingは248–263（6点）だけに対応します。
 全38 Power点・114 Tier値を保存し、Enchant別Tier I log-linear補間×Tier倍率を採用。共通curveの根拠不足のため外挿は行いません。
 **Power 50–263全域の根拠がないためPhase 2-1Dはcompleteではありません。**
@@ -109,10 +109,25 @@ range外の自由候補は理由付き除外、確定・金色指定はエラー
 Void増幅・消費は独立してuncertain、runtimeではどちらも行いません。
 公開表の誤差・代表例・制限・次候補は[DamageEvent設計と監査結果](./docs/damage-events.md)、原表は[DamageEvent audit](./research/damage-event-audit.json)に記録しています。
 
+## Phase 2-1E — Enemy-State Conditional Damage（完了）
+
+**catalog runtime 15 / 33、広域Power対応12 / 33、範囲限定proc 3 / 33、research-only 18 / 33、needs-enemy-state 0**。Phase 2-1Dはpartialのままです。
+
+- Ambush: +20/+40/+60%、対象が自分を狙っていない機会にだけ適用。`1 + a*b`、Tier III・a=25%なら1.15倍、重複不可。
+- Smiting: +25/+35/+45%、Undeadだけに適用。最大4copy（Enchantsmithで通常3枠＋金色1枠）、mixed tiersは順序非依存。`1 + u*(Π(1+bᵢ)-1)`。Tier III×2・u=50%なら**1.55125倍**。
+- Committed: HP損失に線形比例する最大+50/+75/+100%、重複不可。full HPから撃破までの連続HP推移を積分し、direct-onlyは`b/log1p(b)`、Tier IIIで**1.4427倍**。proc自体は増幅せず、HP低下だけを積分へ反映します。
+
+新規Scenario APIは `enemyComposition.undeadShare=0.5`、`enemyState.ambushEligibleDirectDamageShare=0.25`。全profile共通の編集可能なlow-confidence defaultです。前者は中間点、後者は部分的な有効機会の例示で、mission-independentな実測値ではありません。旧`enchantedShare=0.25`も維持。UIは0〜100%、APIはfiniteな0〜1を強制します。
+
+入力欄・結果の倍率/Committed前後・reason・Evidence・通常候補/lock/gilded・保存/JSON・Optimizer・効果除去による再計算に対応。条件間の相関は独立近似、Committedはfresh-target/連続rate、AoEは均質HP推移のlow-confidence仮定です。負傷済みco-op、target switching、有限遭遇、overkill、burstを再現しません。
+
+[数式の導出・出典・Evidence・制約・次phase比較](./docs/enemy-state-damage.md)を参照してください。
+
 ## Core の構成
 
 ```text
 src/core/damage.ts     直接/間接DPSの合算、直接modifier、対象別期待DPS
+src/core/enemyStateDamage.ts 条件exposure・共通条件stacking・Committed解析積分
 src/core/damageEvents.ts 独立proc Power補間、cadence、targeting、対応境界
 src/core/enchantment.ts tier・source・stackingの共通処理
 src/core/combatState.ts DPSからBuild依存の撃破速度を導出
