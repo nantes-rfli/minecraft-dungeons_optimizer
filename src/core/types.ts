@@ -32,6 +32,8 @@ export type EnchantmentId =
   | 'leeching'
   | 'void-strike'
   | 'guarding-strike'
+  | 'sharpness'
+  | 'unchanting'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -158,7 +160,17 @@ export type VoidStrikeCurve =
   | PublishedMeasurementsVoidStrikeCurve
   | FrameMeasuredVoidStrikeCurve
 
+/** Only direct melee hits; proc/DoT damage needs its own future effect channel. */
+export type DirectWeaponEffect =
+  | { readonly kind: 'passive-weapon-damage'; readonly bonus: number }
+  | {
+      readonly kind: 'conditional-weapon-damage'
+      readonly condition: 'enchanted-enemy'
+      readonly bonus: number
+    }
+
 export interface EnchantmentTierValues {
+  readonly directWeaponEffect?: DirectWeaponEffect
   readonly triggerChance?: number
   readonly damageMultiplier?: number
   readonly healingFraction?: number
@@ -180,6 +192,11 @@ export interface EnchantmentDefinition {
   readonly name: LocalizedName
   readonly tiers: Evidence<Readonly<Record<EnchantmentTier, EnchantmentTierValues>>>
   readonly stacking: Evidence<EnchantmentStacking>
+  readonly applicability?: Evidence<{
+    readonly melee: boolean
+    readonly ranged: boolean
+    readonly armor: boolean
+  }>
 }
 
 export interface ArtifactDefinition {
@@ -247,6 +264,11 @@ export interface ScenarioWeights {
   readonly defense: number
 }
 
+export interface EnemyComposition {
+  /** Expected share of direct weapon damage targets, with equal baseline damage weights. */
+  readonly enchantedShare: number
+}
+
 export interface Scenario {
   readonly profileId: ScenarioProfileId
   readonly name: string
@@ -254,6 +276,7 @@ export interface Scenario {
   readonly averageEnemyHealth: number
   readonly enemySupplyPerSecond: number
   readonly directKillShare: number
+  readonly enemyComposition: EnemyComposition
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
@@ -294,6 +317,11 @@ export interface DamageMetrics {
   readonly expectedTargetsHit: number
   readonly criticalMultiplier: number
   readonly voidStrikeMultiplier: number
+  readonly sharpnessMultiplier: number
+  readonly unchantingMultiplier: number
+  readonly enchantedShare: number
+  readonly enchantedTargetDps: number
+  readonly nonEnchantedTargetDps: number
 }
 
 export interface CombatState {

@@ -1,6 +1,7 @@
 import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { DEFAULT_SCENARIO_EVIDENCE } from '../data/scenarios'
+import { DIRECT_WEAPON_COMPOSITION, UNCHANTING_MIXTURE, UNCHANTING_TARGET_CONDITION } from '../data/damageModifiers'
 import {
   VOID_STRIKE_CURVE,
   VOID_STRIKE_ARMED_MINIMUM,
@@ -112,6 +113,21 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
         2,
       )
     }
+  }
+
+  const usesSharpness = hasEnchantment(build.enchantments, 'sharpness')
+  const usesUnchanting = hasEnchantment(build.enchantments, 'unchanting')
+  const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike']
+    .filter((id) => build.enchantments.some((selected) => selected.enchantmentId === id)).length
+  if ((usesSharpness || usesUnchanting) && directModifierCount > 1) {
+    addEvidence('direct-weapon-composition', '直接近接ダメージのmodifier合成', DIRECT_WEAPON_COMPOSITION, 2)
+    caveats.push('Sharpness・Critical・Void・Unchantingは直接近接hit上の独立した倍率として合成します。全interactionの1.17.0.0実機検証は未完了で、proc/DoT・Strength・防具damage auraには拡張しません。')
+  }
+  if (usesUnchanting) {
+    addEvidence('unchanting-target-condition', 'Unchantingのenchanted条件', UNCHANTING_TARGET_CONDITION)
+    addEvidence('unchanting-mixture', 'Unchantingの等baseline期待値モデル', UNCHANTING_MIXTURE, 2)
+    addEvidence('enchanted-enemy-share', `${scenario.name}のエンチャント敵割合`, DEFAULT_SCENARIO_EVIDENCE.enchantedShare, 2)
+    caveats.push(`エンチャント敵割合${Number((scenario.enemyComposition.enchantedShare * 100).toFixed(2))}%はシナリオ仮定です（全profileの初期値25%、実測ではありません）。敵ごとのHP・enchanted敵のHP偏り・target priority・遭遇順序を無視した期待値です。`)
   }
 
   if (hasEnchantment(build.enchantments, 'radiance')) {

@@ -68,3 +68,15 @@ export function combineEnchantmentValues(
     }
   }
 }
+
+export function combineDirectWeaponBonuses(
+  enchantments: readonly SelectedEnchantment[],
+  enchantmentId: EnchantmentId,
+): number {
+  return combineEnchantmentValues(enchantments, enchantmentId, (values) => {
+    if (!values.directWeaponEffect) {
+      throw new Error(`Missing direct weapon effect for ${enchantmentId}`)
+    }
+    return values.directWeaponEffect.bonus
+  })
+}

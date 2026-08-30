@@ -3,7 +3,7 @@ import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScal
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
 import { calculateBaseHitsPerSecond, resolveHitIntervalSequence } from './attackProfile'
 import { getAttackProfile, getWeaponDefinition } from './catalog'
-import { enchantmentsById, getTierValues } from './enchantment'
+import { combineDirectWeaponBonuses, enchantmentsById, getTierValues } from './enchantment'
 import {
   calculatePowerScaledHitDamage,
   resolveWeaponDamageCoefficient,
@@ -76,7 +76,15 @@ export function calculateDamage(
     artifactEffects.attackSpeedMultiplier,
     scenario,
   )
-  const singleTargetDps = baseDps * criticalMultiplier * voidStrikeMultiplier
+  // Direct melee channel only. Independent scalar expectations commute within
+  // this model; proc/DoT and future additive damage bonuses must not enter here.
+  const sharpnessMultiplier = 1 + combineDirectWeaponBonuses(enchantments, 'sharpness')
+  const unchantingBonus = combineDirectWeaponBonuses(enchantments, 'unchanting')
+  const enchantedShare = scenario.enemyComposition.enchantedShare
+  const unchantingMultiplier = 1 + enchantedShare * unchantingBonus
+  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier
+  const enchantedTargetDps = nonEnchantedTargetDps * (1 + unchantingBonus)
+  const singleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
   const areaCoverage = Math.min(1, weapon.area.value / MODEL.maximumAreaRating.value)
   const expectedTargetsHit =
     1 + (scenario.averageTargetsInReach - 1) * areaCoverage
@@ -91,5 +99,10 @@ export function calculateDamage(
     expectedTargetsHit,
     criticalMultiplier,
     voidStrikeMultiplier,
+    sharpnessMultiplier,
+    unchantingMultiplier,
+    enchantedShare,
+    enchantedTargetDps,
+    nonEnchantedTargetDps,
   }
 }

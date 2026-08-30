@@ -106,6 +106,14 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const reasons: string[] = []
   const weapon = getWeaponDefinition(build.weapon.weaponId)
 
+  if (hasEnchantment(build.enchantments, 'sharpness')) {
+    reasons.push(`「切れ味」で直接近接ダメージを${core.damage.sharpnessMultiplier.toFixed(3)}倍に増幅`)
+  }
+  if (hasEnchantment(build.enchantments, 'unchanting')) {
+    const share = Number((scenario.enemyComposition.enchantedShare * 100).toFixed(2))
+    reasons.push(`「エンチャント解除」はエンチャント敵割合${share}%の想定で期待倍率${core.damage.unchantingMultiplier.toFixed(3)}倍${share === 0 ? '（火力寄与0）' : ''}`)
+  }
+
   if (weapon.area.value >= 12) reasons.push(`${weapon.name.ja}の広い攻撃範囲をAoE評価へ反映`)
   if (hasEnchantment(build.enchantments, 'radiance') && core.damage.hitsPerSecond >= 4) {
     reasons.push('高い攻撃頻度により「輝き」の期待回復量が上昇')

@@ -35,6 +35,20 @@ export const DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE: SourceReference = {
   kind: 'game-files',
 }
 
+export const SHARPNESS_SOURCE: SourceReference = {
+  id: 'dungeons-tools-sharpness-1.17',
+  label: 'dungeons.tools: Sharpness tiers, melee applicability and multiplicative copies (1.17.0.0)',
+  url: 'https://www.dungeons.tools/enchantments/sharpness',
+  kind: 'game-files',
+}
+
+export const UNCHANTING_SOURCE: SourceReference = {
+  id: 'dungeons-tools-unchanting-1.17',
+  label: 'dungeons.tools: Unchanting tiers, enchanted target condition and non-stackable flag (1.17.0.0)',
+  url: 'https://www.dungeons.tools/enchantments/unchanting',
+  kind: 'game-files',
+}
+
 export const COMMUNITY_VOID_STRIKE_MEASUREMENTS_SOURCE: SourceReference = {
   id: 'community-void-strike-2021-damage-table',
   label: 'Community target-dummy test: Void Strike tiers and attack-speed damage table',

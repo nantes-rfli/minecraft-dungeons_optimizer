@@ -19,6 +19,8 @@
 
 使用しないEnchantやArtifactのEvidenceは集計しません。
 
+Sharpness / Unchantingのtier値とstackingはhigh、Unchanting対象条件もhighです。Unchanting選択時だけ`enchanted-enemy-share`と`unchanting-mixture`（各low）を追加し、割合0でも選択中なら根拠を示します。SharpnessまたはUnchantingと別の直接ダメージmodifierを併用する場合は、独立期待値の合成`direct-weapon-composition`（low）を追加します。Tierの高信頼度で未検証interactionや敵割合の仮定を覆い隠しません。詳細は[damage-modifiers.md](./damage-modifiers.md)を参照してください。
+
 ## 集計方法
 
 confidenceを`high = 0.90`、`medium = 0.65`、`low = 0.35`へ写像し、計算結果への影響度に応じた重み付き幾何平均を取ります。

@@ -5,7 +5,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 ## 対応範囲
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）
-- エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク
+- エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク / 切れ味（Sharpness）/ エンチャント解除（Unchanting）
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
@@ -64,12 +64,27 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、既存runtime 5種との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 7種との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+
+## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
+
+runtime対応は **7 / 33**、未対応は **26 / 33** です。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+
+シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
+
+```text
+単体期待DPS = baseDps × Sharpness × Critical期待倍率 × Void期待倍率
+             × (1 + enchantedShare × Unchanting bonus)
+```
+
+対象は直接近接hitのみで、proc/DoT等には拡張しません。Tier/stackingの根拠とinteraction/敵構成の仮定を分け、Unchanting選択時だけ敵構成Evidenceを集計します。式、typed effectの段階移行、remaining uncertaintyは [damage-modifiers.md](./docs/damage-modifiers.md) を参照してください。
+
+**Phase 2-1B complete — ready for Phase 2-1C.** 親項目の近接25〜30種への拡張は未完了です。
 
 ## Core の構成
 
 ```text
-src/core/damage.ts     Power換算DPS、Critical Hit、Void Strike、AoE
+src/core/damage.ts     Power換算DPS、直接近接modifier、対象別期待DPS、AoE
 src/core/enchantment.ts tier・source・stackingの共通処理
 src/core/combatState.ts DPSからBuild依存の撃破速度を導出
 src/core/healing.ts    Radiance、Leeching
@@ -80,7 +95,7 @@ src/core/optimizer.ts  全組み合わせの探索、順位付け、Pareto前線
 src/core/modelError.ts 実測比較、P90誤差、DPS参考範囲
 src/core/powerScalingValidation.ts 公開damageのrange-aware誤差と集計
 src/inventory/         localStorageとJSONの検証・入出力
-src/pages/             サイト内の計算ロジック・実装状況ページ
+src/views/             サイト内の計算ロジック・実装状況ページ
 src/data/              値、出典、信頼度、モデル仮定
 src/research/          researchデータの型・Validator・coverage集計
 research/              全近接武器の静的auditデータと生成済みレポート

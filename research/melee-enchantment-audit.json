@@ -234,9 +234,9 @@
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "+10%", "interpreted": { "damageBonus": 0.1 } }, "2": { "raw": "+21%", "interpreted": { "damageBonus": 0.21 } }, "3": { "raw": "+33%", "interpreted": { "damageBonus": 0.33 } } },
-      "stacking": { "maxCopies": 4, "behavior": "multiplicative" }, "trigger": "passive", "modelCategory": "passive-damage", "runtimeStatus": "straightforward",
+      "stacking": { "maxCopies": 4, "behavior": "multiplicative" }, "trigger": "passive", "modelCategory": "passive-damage", "runtimeStatus": "implemented",
       "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/sharpness", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Always-on damage bonus; copies multiply and Enchantsmith permits up to four total copies including gilded." }],
-      "confidence": "high", "notes": "Existing combineEnchantmentValues multiplicative mode can represent it without a state or DamageEvent model."
+      "confidence": "high", "notes": "Phase 2-1B: direct melee modifier; audit tier values and multiplicative copies preserved. Enchantsmith allows three normal slots plus gilded, including mixed tiers. Cross-enchantment composition is a separate low-confidence model assumption; see docs/damage-modifiers.md."
     },
     {
       "id": "shockwave", "name": { "en": "Shockwave" },
@@ -308,9 +308,9 @@
       "applicability": { "melee": true, "ranged": true, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
       "tierValues": { "1": { "raw": "+50%", "interpreted": { "enchantedEnemyDamageBonus": 0.5 } }, "2": { "raw": "+75%", "interpreted": { "enchantedEnemyDamageBonus": 0.75 } }, "3": { "raw": "+100%", "interpreted": { "enchantedEnemyDamageBonus": 1 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "conditional-damage", "runtimeStatus": "needs-enemy-state",
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "conditional-hit", "modelCategory": "conditional-damage", "runtimeStatus": "implemented",
       "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/unchanting", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Tier bonus applies to enchanted enemies only; melee and ranged are both valid." }],
-      "confidence": "medium", "notes": "Add scenario.enchantedEnemyShare (or encounter composition). Confirm additive/multiplicative placement against other bonuses before runtime implementation."
+      "confidence": "medium", "notes": "Phase 2-1B: direct melee expected multiplier = 1 + enemyComposition.enchantedShare * tierBonus. Tier/condition/stacking rechecked 2026-08-30; composition and equal-baseline mixture remain separate low-confidence assumptions, not verified interaction measurements. Built-in availability discrepancy: source page now lists zero built-ins, while Wiki lists ranged Spellbound Crossbows; retained audit availability is research-only and does not enable melee built-ins. See docs/damage-modifiers.md."
     },
     {
       "id": "void-strike", "name": { "en": "Void Strike", "ja": "虚無の一撃" },

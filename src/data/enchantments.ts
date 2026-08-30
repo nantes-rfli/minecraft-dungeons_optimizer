@@ -3,11 +3,61 @@ import {
   COMMUNITY_RADIANCE_STACKING_SOURCE,
   DUNGEONS_TOOLS_ENCHANTMENTS_SOURCE,
   MINECRAFT_WIKI_ENCHANTMENTS_SOURCE,
+  SHARPNESS_SOURCE,
+  UNCHANTING_SOURCE,
 } from './sources'
 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  sharpness: {
+    id: 'sharpness',
+    name: { ja: '切れ味', en: 'Sharpness' },
+    tiers: {
+      value: {
+        1: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.1 } },
+        2: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.21 } },
+        3: { directWeaponEffect: { kind: 'passive-weapon-damage', bonus: 0.33 } },
+      },
+      source: SHARPNESS_SOURCE,
+      confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 4, behavior: 'multiplicative' },
+      source: SHARPNESS_SOURCE,
+      confidence: 'high',
+      note: 'Audit values preserved: up to three normal slots plus gilded via Enchantsmith in 1.17.0.0. Mixed tier products are order-independent.',
+    },
+    applicability: {
+      value: { melee: true, ranged: false, armor: false },
+      source: SHARPNESS_SOURCE,
+      confidence: 'high',
+    },
+  },
+  unchanting: {
+    id: 'unchanting',
+    name: { ja: 'エンチャント解除', en: 'Unchanting' },
+    tiers: {
+      value: {
+        1: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.5 } },
+        2: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 0.75 } },
+        3: { directWeaponEffect: { kind: 'conditional-weapon-damage', condition: 'enchanted-enemy', bonus: 1 } },
+      },
+      source: UNCHANTING_SOURCE,
+      confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: UNCHANTING_SOURCE,
+      confidence: 'high',
+    },
+    applicability: {
+      value: { melee: true, ranged: true, armor: false },
+      source: UNCHANTING_SOURCE,
+      confidence: 'high',
+      note: 'Audit applicability includes ranged; this runtime only implements direct melee hits.',
+    },
+  },
   'critical-hit': {
     id: 'critical-hit',
     name: { ja: 'クリティカルヒット', en: 'Critical Hit' },

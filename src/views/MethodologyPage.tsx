@@ -5,6 +5,7 @@ import { ENCHANTMENTS } from '../data/enchantments'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
 import { ROADMAP_PHASES, ROADMAP_PROGRESS, type RoadmapStatus } from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
+import { SHARPNESS_SOURCE, UNCHANTING_SOURCE } from '../data/sources'
 import {
   summarizeDpsRegressionAudit,
   type DpsRegressionAudit,
@@ -46,8 +47,9 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">02 / 火力</p>
           <h2>単体DPSとAoEを分離</h2>
-          <p>Power換算したper-hit damage、combo内の生Attack Profile、クリティカル期待値、虚無の一撃の経過時間モデルを合成します。Void Strikeは最初のhitを1倍、以後はattack speedで短縮した各hit間隔の倍率を使い、毎hit再適用します。範囲値から平均命中数を推定しAoEを別指標にします。</p>
+          <p>表示ダメージまたはPower換算値とAttack Profileからbase DPSを求め、Sharpness、Critical、Void、敵割合に依存するUnchantingを直接近接hitだけへ合成します。Voidは最初のhitを1倍、以後は各hit間隔の倍率を使い、毎hit再適用します。平均命中数からAoEを別指標にします。</p>
           <Formula>Crit期待倍率 = 1 + 0.20 × (3.0 − 1) = 1.4</Formula>
+          <Formula>単体DPS = baseDps × Sharpness × Crit × Void × (1 + enchantedShare × Unchanting bonus)</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">03 / 回復</p>
@@ -73,6 +75,17 @@ export function MethodologyPage() {
           <p>選ばれたエンチャントとアーティファクトを1つずつ除外し、スコア・DPS・回復・実効HPの差分を表示します。</p>
           <Formula>寄与度 = 完成ビルド − その効果を外したビルド</Formula>
         </article>
+      </section>
+
+      <section className="method-section">
+        <p className="section-label">PHASE 2-1B / DIRECT MELEE MODIFIERS</p>
+        <h2>敵の割合を含めた期待値</h2>
+        <p>切れ味（Sharpness）はTier I / II / IIIで+10% / +21% / +33%。最大4コピーを乗算し、通常Tier III＋金色Tier Iなら1.33 × 1.1です。エンチャント解除（Unchanting）は+50% / +75% / +100%をエンチャント敵だけへ適用し、重複不可です。</p>
+        <Formula>Unchanting期待倍率 = (1 − e) × 1 + e × (1 + b) = 1 + e × b</Formula>
+        <p>eは直接武器ダメージの対象に占めるエンチャント敵の期待割合、bはTier bonusです。両群を同じbaseline damageで重み付けし、敵ごとのHP・エンチャント敵のHP偏り・優先target・遭遇順序を無視します。Tier IIIで割合0%なら1倍、25%なら1.25倍、100%なら2倍です。</p>
+        <p>全6profile（ボスを含む）の初期値25%はMVP model assumption / confidence lowで、実測値ではありません。「エンチャントされた敵の割合」で0〜100%に変更できます。Unchanting選択時だけ敵割合と期待値モデルをEvidenceへ追加し、割合0の寄与0も正常な結果として表示します。</p>
+        <p>倍率はこのモデルの直接hit上では数値上交換可能です。ただしCritical判定・Voidの攻撃間隔・敵状態の独立性と全interactionの実機確認は未完了のため、合成Evidenceはlowです。proc/DoT、Shockwave、Swirling、Thundering、Strengthや防具の加算bonusへ一般化しません。</p>
+        <p>Tier・stacking・対象条件の根拠はhighで、合成や敵割合の仮定と分けています。出典: <a href={SHARPNESS_SOURCE.url} target="_blank" rel="noreferrer">Sharpness</a> / <a href={UNCHANTING_SOURCE.url} target="_blank" rel="noreferrer">Unchanting</a>（1.17.0.0由来公開データ）。runtime対応は7 / 33、未対応26種は候補に登録しません。</p>
       </section>
 
       <section className="method-section regression-methodology">
@@ -102,7 +115,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1Aを完了。近接エンチャント33種の監査は完了し、runtime拡張とPhase 1の公開実測回帰はpendingです。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1A / 2-1Bを完了。近接runtimeは7 / 33。次はPhase 2-1Cです。近接25〜30種への拡張とPhase 1の公開実測回帰は未完了です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
