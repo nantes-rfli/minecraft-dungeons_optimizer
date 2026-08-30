@@ -41,7 +41,7 @@ npm run preview
 
 公開URL: [Minecraft Dungeons 最適装備ツール](https://nanto-minecraft-dungeons-optimizer.nantos.chatgpt.site)
 
-エージェントが変更をGitHubの`main`へpushした際は、同じ検証済み内容を本人限定のSitesにも反映し、公開成功まで確認することを完了条件とします（明示的に公開不要と指定された場合を除く）。手順は[AGENTS.md](./AGENTS.md)に記載しています。GitHubへのpushだけではSitesは更新されず、現在のGitHub Actionsは検証のみを行います。
+このプロジェクトでエージェントへ実装・修正・ドキュメント更新を依頼した場合の標準サイクルは、**変更 → 検証 → 作業ブランチでコミット → mainへ反映・GitHubへpush → 同じcommitを本人限定Sitesへ反映 → 公開成功確認**です。コミットとpushを毎回追加で依頼する必要はありません。明示的な「push不要」「ローカルのみ」「PRまで」などの制限を優先し、「公開不要」「GitHubのみ」ならSites更新だけを省略します。調査・相談・レビューだけの依頼や差分のない作業では不要なコミットを作りません。手順は[AGENTS.md](./AGENTS.md)に記載しています。GitHubへのpushだけではSitesは更新されず、現在のGitHub Actionsは検証のみを行います。
 
 検証コマンド:
 
