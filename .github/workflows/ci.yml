@@ -26,6 +26,7 @@ jobs:
       - run: npm run audit:cc
       - run: npm run audit:charge-enchants
       - run: npm run audit:enchants
+      - run: npm run audit:runtime-support
       - run: npm run audit:dps
       - run: npm run audit:melee
       - run: npx tsc -b

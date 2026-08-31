@@ -4,8 +4,14 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 ## 対応範囲
 
+<!-- runtime-support:start -->
+Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-only 5 · Broad Power 22 · Power-limited 6
+<!-- runtime-support:end -->
+
+Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現ではありません。LimitedはPower範囲・stacking・modifier組合せに制限あり。[対応表](./docs/melee-runtime-support.md) / [未解決事項と終了条件](./docs/runtime-limitations.md)。
+
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）/ ソウルサイス（Soul Scythe）
-- エンチャント: 28 / 33種（通常枠Tier III、金色枠Tier I / II / III）。Pain Cycle / Dynamoまで限定対応、広域Power22種・damageのPower範囲限定6種。未確定のmodifier組合せは明示除外。[全種・制限一覧](./research/melee-enchantment-coverage.md)。
+- エンチャント: 上記manifest集計の範囲（通常枠Tier III、金色枠Tier I / II / III）。未確定のmodifier組合せは理由付き除外。[mechanics監査](./research/melee-enchantment-coverage.md)。
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
@@ -55,6 +61,7 @@ npm run audit:temporal-enchants
 npm run audit:soul
 npm run audit:cc
 npm run audit:charge-enchants
+npm run audit:runtime-support
 npm test
 npx tsc -b
 npm run lint
@@ -71,11 +78,11 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 28種（うち6種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime catalogとの一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
-Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Gまで進んでいます（2-1D / 2-1F / 2-1Gはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。以下の件数は各Phase完了時点の履歴です。現行supportは上部summaryを参照してください。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
 
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
@@ -88,7 +95,7 @@ Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした
 
 ## Phase 2-1C — Refreshment / Weakening State Models
 
-Phase 2-1C完了時は **implemented 9 / 33、unsupported 24 / 33** でした。現在は後続Phase 2-1Dの範囲限定対応へ進んでいます。
+Phase 2-1C完了時は **implemented 9 / 33、unsupported 24 / 33** でした。後続Phaseの履歴と現行supportは分離しています。
 
 - **Refreshment**: 直接撃破ごとにTier I / II / IIIで1 / 2 / 3秒短縮、最大1個。独立したPotionStateで`推定CD = 45 / (1 + 直接撃破/s × 短縮秒数)`とし、`最大HP × 約0.75 × (1/推定CD − 1/45)`を追加回復容量として評価します。最大HP100・直接撃破1/秒・Tier IIIならCD11.25秒、追加容量5 HP/秒です。実回復ではないlow-confidenceの連続rate近似で、既存Buildへ基礎ポーション回復は加点しません。ArtifactのCD短縮も流用しません。[PotionStateの仕様・Evidence・制限](./docs/potion-state.md)。
 - **Weakening**: 攻撃で周囲の敵の攻撃ダメージを5秒間、20% / 30% / 40%低下。対象割合は被ダメージ発生時点で弱体化中の敵から来る割合で、全profile共通の編集可能な50%（実測ではないlow仮定）です。Tier III・50%なら敵攻撃倍率0.80。5秒durationを再度掛けず、Artifact / Guardingのhero防御倍率と別段階で乗算します。[Enemy debuffの仕様・Evidence・制限](./docs/enemy-debuffs.md)。
@@ -97,7 +104,7 @@ Weakeningのstackingはdungeons.toolsのSTACKS YesとWikiの明示的な重複�
 
 結果の「回復・容量 / 秒」はRefreshmentの追加capacityを含みます。ポーションCD・使用頻度・容量、Weakening対象割合・敵倍率・hero防御との合成を内訳で追跡できます。金色Tier、候補/lock、保存・JSON・Optimizerにも対応します。新しいScenario APIには`enemyDebuffs: { weakeningAffectedIncomingDamageShare: 0.5 }`が必要です（Scenarioはセッション内設定のまま、inventory JSONはversion 1を維持）。
 
-Phase 2-1Cは完了。後続の実装は次節を参照してください。親項目の近接25〜30種への拡張は未完了です。
+Phase 2-1Cは完了。後続の実装は次節を参照してください。親項目は後続Phase 2-1Kで達成しました。
 
 ## Phase 2-1D — DamageEvent foundation（partial）
 
@@ -187,7 +194,7 @@ Phase 1-4の監査・eligibility validator・source provenance・pending/availab
 
 ## Phase 2-1F — Temporal State（partial）
 
-Phase 2-1F時点は **catalog runtime 17 / 33、広域Power 14 / 33、範囲限定proc 3 / 33、research-only 16 / 33、needs-state-model 11**。Artifact SynergyとRampagingを限定モデルで実装し、Echoは根拠不足のためresearch-onlyを維持します。Phase 2-1Dと近接25〜30種の親目標も未完了です。
+Phase 2-1F時点は **catalog runtime 17 / 33、広域Power 14 / 33、範囲限定proc 3 / 33、research-only 16 / 33、needs-state-model 11**。Artifact SynergyとRampagingを限定モデルで実装し、Echoは根拠不足のためresearch-onlyを維持します。Phase 2-1Dのpartialは維持します。
 
 - Artifact Synergy: Tier +40/+60/+80%、最大1個。Artifact使用頻度 `A=Σ(1/推定CD)` と攻撃機会 `H` から `C=min(A,H)`、direct期待倍率 `1+(C/H)×bonus`。pending 1・最適な分散使用・profile hit=1 actionはlow-confidence仮定。持続uptimeは使わず、proc damageは増幅しません。Committed前へ適用、未装備なら寄与0。
 - Rampaging: 直接撃破の10%で+50%速度、Tier 5/10/15秒。コピーはdurationのみ加算、共通10%で最大4個。`u=1-exp(-0.1×directKills×T)` と `Artifact速度+0.5×u` の循環を固定点で解きます（1e-8・100回上限、失敗はエラー）。Void・proc・撃破・回復・防御・Synergyを除去寄与まで再計算。
@@ -208,7 +215,7 @@ Enigmaは最大15/20/25%・3xを確認しましたが、現行版の中間ゲー
 
 Rampagingの同じ解からHPS、kill、Soul収入、平均/終了ゲージ、Anima容量を導出。例: 表示damage26・敵HP100・供給100/s・1体・30秒、Siphon/Anima/Rampaging IIIで11回収束、速度1.313272倍、65.663588 DPS、Soul収入9.546476/s、平均47.7324%、終了95.4648%。数式の整合例で実測ではありません。
 
-[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul` / `npm run audit:cc`をCIに追加しました。この後Phase 2-1HでFire Aspect / Poison Cloud / Explodingを限定実装しました。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。
+[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul` / `npm run audit:cc`をCIに追加しました。この後Phase 2-1HでFire Aspect / Poison Cloud / Explodingを限定実装しました。2-1D / 2-1Fのpartialは維持します。
 
 ## Phase 2-1H — Fire Aspect / Poison Cloud / Exploding（partial）
 
@@ -239,15 +246,23 @@ Control utilityは好みの重み付き平均で、被ダメージ削減率や�
 
 [設計・全default・出典・残課題・次フェーズ比較](./docs/cc-utility.md) / [CC監査](./research/cc-subsystem-audit.json)。
 Chains複数copy、CCのroll/refresh/耐性/対象数の根拠が未確定のためpartial、既存partialも維持。
-この後Phase 2-1JでPain Cycle / Dynamoを限定実装しました。近接25〜30種の親項目は件数だけで完了扱いにしません。
+この後Phase 2-1JでPain Cycle / Dynamoを限定実装しました。親項目はPhase 2-1Kで意味あるruntimeと制限を検証してcloseしました。
 
 ## Phase 2-1J — Pain Cycle / Dynamo（partial）
 
-現在は **catalog28 / 33、広域Power22、範囲限定6、research-only5、needs-state-model3、utility-only2**。
+現在のsupport実数は冒頭のmanifest生成summaryを参照してください。
 
 - Pain Cycle: 5回charging後の次攻撃が3/4/5x。充填ごと最大HP3%、6回目は消費なしで0stackへ戻る限定モデル。有限攻撃数・残stack・自己damageを追跡し、gross healing−自己damage=net sustainをscore/Paretoへ反映します。5攻撃/HP100なら強化0・自己damage15、6攻撃なら強化1・自己damage15。
 - Dynamo: Power210–263の10点×3Tier独立曲線をlog補間。表示1/1.25/1.5倍率は数値表と矛盾するため使いません。cap20、次攻撃で全消費。Advancedの平均ロール回数/秒・開始stackは両方初期0、ロール時間コストは未計上。P251/TierIII/初期20なら最初の攻撃に+8,407,820。
 - 4武器のprofile hit≒attackをlow-confidence proxyに限定。全命中を仮定し、Dynamoのdirect帰属・AoEは公開記述とcommunity報告からの限定解釈。間接damageを増幅せず、敵用防御でPain自己damageを減らしません。
 - Critical / Void / Sharpness / Unchanting / Ambush / Smiting / Artifact Synergy / Committedとの併用、およびPain + Dynamoは合成・消費のEvidence不足で明示除外。全33種完全対応とはしません。
 
-`npm run audit:charge-enchants`をCIへ追加。変更前c24f377の8ケースは既存全出力を完全回帰比較し、`evaluateCandidate()`のfast pathを維持します。[数式・interaction matrix・Evidence・次候補比較](./docs/charge-consume-enchantments.md) / [新規監査](./research/charge-consume-enchantment-audit.json)。次候補はBusy Bee subsystem、farming utility、Echo/Enigmaの再監査。親25〜30種は完了提案が可能ですが、今回は提案待ちとして進行中を維持しています。
+`npm run audit:charge-enchants`をCIへ追加。変更前c24f377の8ケースは既存全出力を完全回帰比較し、`evaluateCandidate()`のfast pathを維持します。[数式・interaction matrix・Evidence・次候補比較](./docs/charge-consume-enchantments.md) / [新規監査](./research/charge-consume-enchantment-audit.json)。2-1Jのpartialは維持し、次候補の判断は[現行backlog](./docs/runtime-limitations.md)に集約しています。
+
+## Phase 2-1K — Melee Runtime Consolidation（complete）
+
+現行supportをFull / Limited / Research-onlyに分け、[manifest](./research/melee-runtime-support.json)を単一の正本にしました。README・ROADMAP・coverage冒頭・[matrix](./docs/melee-runtime-support.md)を同じhelperから生成し、UIも同じ台帳を参照します。
+
+親25〜30種をmeaningful runtimeで正式close。Historical partialは維持し、[backlog](./docs/runtime-limitations.md)で実装待ちと外部Evidence待ちを分離します。9 familyの通常・金色Tier別smokeと既存commit全出力回帰を追加しました。数値計算・evaluate/optimize API・inventory schemaは変更していません。
+
+`npm run audit:runtime-support` は実catalog・Power/武器合法性・copies・双方向combination rejectionと台帳を照合します。将来の意図的分類変更では、台帳・明示的ID一覧Golden・backlogを同時に更新してください。

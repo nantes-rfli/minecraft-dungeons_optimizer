@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "population": 33,
+  "entries": [
+    {
+      "id": "ambush",
+      "name": "Ambush",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1E",
+      "assumptionRefs": [
+        "docs/enemy-state-damage.md"
+      ]
+    },
+    {
+      "id": "anima-conduit",
+      "name": "Anima Conduit",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "soul-gear",
+      "phaseOrigin": "2-1G",
+      "assumptionRefs": [
+        "docs/soul-subsystem.md"
+      ]
+    },
+    {
+      "id": "artifact-synergy",
+      "name": "Artifact Synergy",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1F",
+      "assumptionRefs": [
+        "docs/temporal-enchantments.md"
+      ]
+    },
+    {
+      "id": "busy-bee",
+      "name": "Busy Bee",
+      "supportLevel": "research-only",
+      "reasons": [
+        "state-model-missing",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": null,
+      "unsupportedCombinations": [],
+      "blockerCategory": "mechanics",
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1A",
+      "assumptionRefs": [
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "chains",
+      "name": "Chains",
+      "supportLevel": "limited",
+      "reasons": [
+        "copy-count-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1I",
+      "assumptionRefs": [
+        "docs/cc-utility.md"
+      ]
+    },
+    {
+      "id": "committed",
+      "name": "Committed",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1E",
+      "assumptionRefs": [
+        "docs/enemy-state-damage.md"
+      ]
+    },
+    {
+      "id": "critical-hit",
+      "name": "Critical Hit",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "0",
+      "assumptionRefs": [
+        "docs/enchantment-model.md"
+      ]
+    },
+    {
+      "id": "dynamo",
+      "name": "Dynamo",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited",
+        "combination-limited",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 210,
+        "max": 263
+      },
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [
+        "critical-hit",
+        "void-strike",
+        "sharpness",
+        "unchanting",
+        "ambush",
+        "smiting",
+        "artifact-synergy",
+        "committed",
+        "pain-cycle"
+      ],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1J",
+      "assumptionRefs": [
+        "docs/charge-consume-enchantments.md"
+      ]
+    },
+    {
+      "id": "echo",
+      "name": "Echo",
+      "supportLevel": "research-only",
+      "reasons": [
+        "state-model-missing",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": null,
+      "unsupportedCombinations": [],
+      "blockerCategory": "mechanics",
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1F",
+      "assumptionRefs": [
+        "docs/temporal-enchantments.md"
+      ]
+    },
+    {
+      "id": "enigma-resonator",
+      "name": "Enigma Resonator",
+      "supportLevel": "research-only",
+      "reasons": [
+        "state-model-missing",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": null,
+      "unsupportedCombinations": [],
+      "blockerCategory": "mechanics",
+      "weaponLegality": "soul-gear",
+      "phaseOrigin": "2-1G",
+      "assumptionRefs": [
+        "docs/soul-subsystem.md"
+      ]
+    },
+    {
+      "id": "exploding",
+      "name": "Exploding",
+      "supportLevel": "limited",
+      "reasons": [
+        "combination-limited",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [
+        "void-strike"
+      ],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1H",
+      "assumptionRefs": [
+        "docs/dot-and-explosion-damage.md"
+      ]
+    },
+    {
+      "id": "fire-aspect",
+      "name": "Fire Aspect",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited",
+        "copy-count-limited",
+        "combination-limited",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 70,
+        "max": 251
+      },
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [
+        "void-strike"
+      ],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1H",
+      "assumptionRefs": [
+        "docs/dot-and-explosion-damage.md"
+      ]
+    },
+    {
+      "id": "freezing",
+      "name": "Freezing",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1I",
+      "assumptionRefs": [
+        "docs/cc-utility.md"
+      ]
+    },
+    {
+      "id": "gravity",
+      "name": "Gravity",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1I",
+      "assumptionRefs": [
+        "docs/cc-utility.md"
+      ]
+    },
+    {
+      "id": "guarding-strike",
+      "name": "Guarding Strike",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "0",
+      "assumptionRefs": [
+        "docs/enchantment-model.md"
+      ]
+    },
+    {
+      "id": "leeching",
+      "name": "Leeching",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 4,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "0",
+      "assumptionRefs": [
+        "docs/enchantment-model.md"
+      ]
+    },
+    {
+      "id": "looting",
+      "name": "Looting",
+      "supportLevel": "research-only",
+      "reasons": [
+        "objective-missing"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": null,
+      "unsupportedCombinations": [],
+      "blockerCategory": "objective",
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1A",
+      "assumptionRefs": [
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "pain-cycle",
+      "name": "Pain Cycle",
+      "supportLevel": "limited",
+      "reasons": [
+        "combination-limited",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [
+        "critical-hit",
+        "void-strike",
+        "sharpness",
+        "unchanting",
+        "ambush",
+        "smiting",
+        "artifact-synergy",
+        "committed",
+        "dynamo"
+      ],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1J",
+      "assumptionRefs": [
+        "docs/charge-consume-enchantments.md"
+      ]
+    },
+    {
+      "id": "poison-cloud",
+      "name": "Poison Cloud",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited",
+        "combination-limited",
+        "interaction-evidence-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 184,
+        "max": 251
+      },
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [
+        "void-strike"
+      ],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1H",
+      "assumptionRefs": [
+        "docs/dot-and-explosion-damage.md"
+      ]
+    },
+    {
+      "id": "prospector",
+      "name": "Prospector",
+      "supportLevel": "research-only",
+      "reasons": [
+        "objective-missing"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": null,
+      "unsupportedCombinations": [],
+      "blockerCategory": "objective",
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1A",
+      "assumptionRefs": [
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "radiance",
+      "name": "Radiance",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 4,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "0",
+      "assumptionRefs": [
+        "docs/enchantment-model.md"
+      ]
+    },
+    {
+      "id": "rampaging",
+      "name": "Rampaging",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 4,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1F",
+      "assumptionRefs": [
+        "docs/temporal-enchantments.md"
+      ]
+    },
+    {
+      "id": "refreshment",
+      "name": "Refreshment",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1C",
+      "assumptionRefs": [
+        "docs/potion-state.md"
+      ]
+    },
+    {
+      "id": "sharpness",
+      "name": "Sharpness",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 4,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1B",
+      "assumptionRefs": [
+        "docs/damage-modifiers.md"
+      ]
+    },
+    {
+      "id": "shockwave",
+      "name": "Shockwave",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 210,
+        "max": 252
+      },
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1D",
+      "assumptionRefs": [
+        "docs/damage-events.md"
+      ]
+    },
+    {
+      "id": "smiting",
+      "name": "Smiting",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 4,
+      "runtimeMaxCopies": 4,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1E",
+      "assumptionRefs": [
+        "docs/enemy-state-damage.md"
+      ]
+    },
+    {
+      "id": "soul-siphon",
+      "name": "Soul Siphon",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "soul-gear",
+      "phaseOrigin": "2-1G",
+      "assumptionRefs": [
+        "docs/soul-subsystem.md"
+      ]
+    },
+    {
+      "id": "stunning",
+      "name": "Stunning",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1I",
+      "assumptionRefs": [
+        "docs/cc-utility.md"
+      ]
+    },
+    {
+      "id": "swirling",
+      "name": "Swirling",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 210,
+        "max": 263
+      },
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1D",
+      "assumptionRefs": [
+        "docs/damage-events.md"
+      ]
+    },
+    {
+      "id": "thundering",
+      "name": "Thundering",
+      "supportLevel": "limited",
+      "reasons": [
+        "power-range-limited"
+      ],
+      "runtimePowerRange": {
+        "min": 248,
+        "max": 263
+      },
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1D",
+      "assumptionRefs": [
+        "docs/damage-events.md"
+      ]
+    },
+    {
+      "id": "unchanting",
+      "name": "Unchanting",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1B",
+      "assumptionRefs": [
+        "docs/damage-modifiers.md"
+      ]
+    },
+    {
+      "id": "void-strike",
+      "name": "Void Strike",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "0",
+      "assumptionRefs": [
+        "docs/enchantment-model.md"
+      ]
+    },
+    {
+      "id": "weakening",
+      "name": "Weakening",
+      "supportLevel": "full",
+      "reasons": [
+        "broad-runtime"
+      ],
+      "runtimePowerRange": null,
+      "gameMaxCopies": 1,
+      "runtimeMaxCopies": 1,
+      "unsupportedCombinations": [],
+      "blockerCategory": null,
+      "weaponLegality": "melee",
+      "phaseOrigin": "2-1C",
+      "assumptionRefs": [
+        "docs/enemy-debuffs.md"
+      ]
+    }
+  ]
+}

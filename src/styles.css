@@ -221,3 +221,10 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .control-policy-table { overflow-x: auto; }
 .control-policy-table table { border-collapse: collapse; width: 100%; }
 .control-policy-table th, .control-policy-table td { padding: .5rem; text-align: left; border-bottom: 1px solid #29332b; }
+.runtime-badge { display: inline-block; font-size: 0.75rem; padding: 0.15rem 0.4rem; border: 1px solid currentColor; border-radius: 0.25rem; }
+.runtime-full { color: #a9dca4; }
+.runtime-limited { color: #edc88c; }
+.runtime-research-only { color: #b6beb5; }
+.runtime-warnings { padding: 0.8rem 1rem; border-left: 3px solid #edc88c; margin-block: 1rem; }
+.runtime-warnings h3 { margin-top: 0; }
+.runtime-warnings ul { margin-block: 0.3rem 0.7rem; padding-left: 1.3rem; }

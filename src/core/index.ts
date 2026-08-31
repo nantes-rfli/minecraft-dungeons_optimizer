@@ -1,5 +1,7 @@
 export { evaluate } from './evaluate'
 export { optimize } from './optimizer'
+export { getEnchantmentRuntimeSupport, summarizeRuntimeSupport } from './runtimeSupport'
+export type { RuntimeSupportLevel, RuntimeSupportReason, EnchantmentRuntimeSupport } from './runtimeSupport'
 export { deriveCombatState } from './combatState'
 export { derivePotionState } from './potion'
 export { deriveEnemyDebuffState } from './enemyDebuffs'

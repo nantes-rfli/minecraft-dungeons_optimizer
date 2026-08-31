@@ -28,6 +28,7 @@ import {
 import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from './inventory/storage'
 import { ControlDetails, ControlSettings } from './views/ControlDetails'
 import { MethodologyPage } from './views/MethodologyPage'
+import { RuntimeSupportWarnings } from './views/RuntimeSupport'
 import { DpsRegressionPanel } from './views/DpsRegressionPanel'
 import { EnemyCompositionControl } from './views/EnemyCompositionControl'
 import { AmbushShareControl, UndeadShareControl } from './views/EnemyStateControls'
@@ -122,6 +123,7 @@ function BuildSummary({ evaluation, compact = false, title }: { evaluation: Eval
         <StateModelDetails evaluation={evaluation} />
         <ControlDetails evaluation={evaluation} />
         <TemporalStateDetails evaluation={evaluation} />
+        <RuntimeSupportWarnings enchantments={evaluation.build.enchantments} />
         <ChargeConsumeDetails evaluation={evaluation} />
         <SoulStateDetails evaluation={evaluation} />
         <DamageEventDetails evaluation={evaluation} />

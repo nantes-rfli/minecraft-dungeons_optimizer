@@ -74,4 +74,4 @@ assert.deepEqual(audit.coverage, {
 })
 assert.equal(audit.solver.tolerance, 1e-8)
 assert.equal(audit.solver.maxIterations, 100)
-console.log(`Soul audit passed: Anima + Siphon limited runtime; Enigma research-only; ${implemented}/33 catalog, ${implemented - limited} broad Power, ${limited} range-limited damage enchants.`)
+console.log(`Soul audit passed: Anima + Siphon within declared soul-gear assumptions; Enigma research-only; ${implemented}/33 catalog, ${implemented - limited} broad Power, ${limited} range-limited damage enchants. Current support levels: audit:runtime-support.`)

@@ -10,6 +10,7 @@
     "audit:dps": "node scripts/audit-dps-regression.ts",
     "audit:damage-events": "node scripts/audit-damage-events.ts",
     "audit:enchants": "node scripts/audit-melee-enchantments.ts",
+    "audit:runtime-support": "node scripts/audit-runtime-support.ts",
     "audit:melee": "node scripts/audit-melee-attack-profiles.ts",
     "lint": "eslint .",
     "test": "vitest run",
