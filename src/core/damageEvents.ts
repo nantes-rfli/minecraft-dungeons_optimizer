@@ -3,6 +3,7 @@ import { calculateBaseHitsPerSecond, calculateComboFinisherRate } from './attack
 import { getAttackProfile } from './catalog'
 import { getTierValues } from './enchantment'
 import { OptimizerInputError } from './errors'
+import { soulEnchantmentUnsupportedReason } from './soulLegality'
 import type { AttackProfile, DamageEventContribution, EnchantmentId, OwnedWeapon, ProcDamageCurve, ProcDamageId, Scenario, SelectedEnchantment } from './types'
 
 export function isProcDamageId(id: EnchantmentId): id is ProcDamageId {
@@ -16,6 +17,8 @@ export function procPowerRange(id: ProcDamageId): { min: number; max: number } {
 
 /** One support boundary shared by evaluation, candidate search and UI. */
 export function enchantmentUnsupportedReason(weapon: Pick<OwnedWeapon, 'powerLevel' | 'weaponId'>, id: EnchantmentId): string | undefined {
+  const soulReason = soulEnchantmentUnsupportedReason(weapon.weaponId, id)
+  if (soulReason) return soulReason
   if (!isProcDamageId(id)) return undefined
   const range = procPowerRange(id)
   if (!Number.isFinite(weapon.powerLevel) || weapon.powerLevel < range.min || weapon.powerLevel > range.max) {

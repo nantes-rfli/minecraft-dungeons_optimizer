@@ -25,7 +25,7 @@ describe('public DPS regression audit', () => {
       candidateCount: 10,
       eligibleCount: 0,
       rejectedCount: 10,
-      eligibleByWeapon: { 'fighters-bindings': 0, 'double-axe': 0, anchor: 0 },
+      eligibleByWeapon: { 'fighters-bindings': 0, 'double-axe': 0, anchor: 0, 'soul-scythe': 0 },
       versionConfidenceCounts: { verified: 0, probable: 6, unknown: 4 },
     })
   })

@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御モデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **22 / 32（69%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **23 / 35（66%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（3 / 8）
+## Phase 2 — Equipment Coverage（4 / 11）
 
 - [x] Phase 2-1A: 1.17.0.0の近接エンチャント33種を監査・分類し、runtime実装順序とunsupported境界を確定
 - [x] Phase 2-1B: Sharpness / Unchanting + Enemy Composition（直接近接modifier・敵割合UI・Evidence・7 / 33 runtime対応）
@@ -57,6 +57,7 @@
 - [ ] Phase 2-1D partial: DamageEvent foundation + Shockwave / Swirling / Thundering（12 / 33、3種はPower範囲限定。全50–263の根拠不足）
 - [x] Phase 2-1E: Ambush / Smiting / Committed（catalog 15 / 33、広域12・範囲限定3）
 - [ ] Phase 2-1F partial: Artifact Synergy / Rampagingの限定Temporal State（catalog 17 / 33、広域14・範囲限定3、Echo research-only）
+- [ ] Phase 2-1G partial: Soul Scythe / Soul subsystem / Anima / Siphon（catalog 19 / 33、広域16・範囲限定3、Enigma mapping未検証）
 - [ ] 近接エンチャントを25〜30種類へ拡張
 - [ ] アーティファクトを10〜15種類へ拡張
 - [ ] 防具・防具エンチャントをモデル化
@@ -75,7 +76,7 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2-1C、Phase 2-1Eは完了しました。Phase 2-1Aでは1.17.0.0のhero-accessibleな近接エンチャント33種を確定し、`implemented 17（広域14・3種範囲限定） / straightforward 0 / needs-state-model 11 / needs-damage-event-model 3 / needs-enemy-state 0 / utility-only 2`へ進みました。Phase 2-1DはDamageEventと3種のPower範囲限定runtimeを実装しました。公開表38 Power点・114 Tier値から個別log補間を行い、外挿せずpartialを維持します。Shockwave 210–252 / Swirling 210–263 / Thundering 248–263以外は未対応です。近接25〜30種への親項目は未完了です。未実装16種はruntime catalogへ入れず、0点評価を防いでいます。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2-1C、Phase 2-1Eは完了しました。Phase 2-1Aでは1.17.0.0のhero-accessibleな近接エンチャント33種を確定し、`implemented 19（広域16・3種範囲限定） / straightforward 0 / needs-state-model 9 / needs-damage-event-model 3 / needs-enemy-state 0 / utility-only 2`へ進みました。Phase 2-1DはDamageEventと3種のPower範囲限定runtimeを実装しました。公開表38 Power点・114 Tier値から個別log補間を行い、外挿せずpartialを維持します。Shockwave 210–252 / Swirling 210–263 / Thundering 248–263以外は未対応です。近接25〜30種への親項目は未完了です。未実装14種はruntime catalogへ入れず、0点評価を防いでいます。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
 
 ## 更新ルール
 
@@ -83,4 +84,6 @@ Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2
 - `done` はコード・テスト・画面確認がすべて完了した項目だけに付ける。
 - 新しい未対応事項を見つけた場合は、握りつぶさず該当Phaseへ追加する。
 
-Phase 2-1D partial — 低Power proc表と共通curveのEvidenceが未解決です。[詳細](./docs/damage-events.md)。Phase 2-1EはAmbush / Smitingの個別exposure・共通条件stackingとCommittedの解析HP推移を実装済みです。Phase 2-1FはArtifact Synergy / Rampagingを実装、Echoはrepeat/animation/combo/Void/kill根拠不足でpartial。次の2-1GはSoul subsystemを推奨（gear適用・獲得/消費/capの監査が先行条件）。CC utility、Pain Cycle / Dynamo / Busy Beeとの[比較と制約](./docs/temporal-enchantments.md)を参照。 ポーションの連続rate・追加回復容量、Weakeningの50%coverageと時間平均合成はlow-confidence仮定です。Weakening stackingのdungeons.tools/Wiki矛盾は記録済みで最大1個を採用（medium）。合成interactionの独立実機検証とEnemy Compositionの実測も継続課題です。
+Phase 2-1D partial — 低Power proc表と共通curveのEvidenceが未解決です。[詳細](./docs/damage-events.md)。Phase 2-1EはAmbush / Smitingの個別exposure・共通条件stackingとCommittedの解析HP推移を実装済みです。Phase 2-1FはArtifact Synergy / Rampagingを実装、Echoはrepeat/animation/combo/Void/kill根拠不足でpartial。Phase 2-1GはSoul ScytheでAnima / Siphonを実装しましたが、EnigmaのSoul→chance mappingが未検証でpartialです。pickup/resourceを分離し、容量300・開始0・消費なしを採用。[Soul設計と次batch比較](./docs/soul-subsystem.md)を参照。次はFire Aspect / Poison Cloud / ExplodingのDamageEvent研究監査を推奨します。CC utility、Pain Cycle / Dynamo / Busy Beeとの[比較と制約](./docs/temporal-enchantments.md)を参照。 ポーションの連続rate・追加回復容量、Weakeningの50%coverageと時間平均合成はlow-confidence仮定です。Weakening stackingのdungeons.tools/Wiki矛盾は記録済みで最大1個を採用（medium）。合成interactionの独立実機検証とEnemy Compositionの実測も継続課題です。
+
+Phase 2-1Gの終了条件のうち、合法Soul武器・通常/金色/保存/JSON/Optimizer・Soul収入/ゲージ・Anima/Siphon・Rampaging整合は対応済み。Enigmaの中間ゲージ実測、絶対量/割合、100 cap履歴、Bag of Souls差を解決するまでfull completeにはしません。Anima満タン時の名目容量とSiphonのAoE抽選単位もlow-confidence制限として記録しています。

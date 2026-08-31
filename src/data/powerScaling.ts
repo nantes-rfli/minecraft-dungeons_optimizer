@@ -1,3 +1,4 @@
+import { SOUL_SCYTHE_PROFILE_SOURCE } from './souls'
 import type {
   CrossWeaponDamageScaling,
   Evidence,
@@ -17,6 +18,7 @@ import {
  * establish that they are cross-weapon damage coefficients in game files.
  */
 export const WIKI_BASE_HIT_DAMAGE: Readonly<Record<WeaponId, Evidence<number>>> = {
+  'soul-scythe': { value: 80, source: SOUL_SCYTHE_PROFILE_SOURCE, confidence: 'low', note: 'Phase 1A published value; never used as the runtime Power coefficient.' },
   'fighters-bindings': {
     value: 25,
     source: MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE,

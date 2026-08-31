@@ -7,8 +7,8 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 - Target game version: 1.17.0.0
 - Audit date: 2026-08-31
 - Melee-applicable, hero-accessible enchantments: **33**
-- Catalog runtime: **17 / 33**
-- Broad Power-range runtime: **14 / 33**
+- Catalog runtime: **19 / 33**
+- Broad Power-range runtime: **16 / 33**
 - Power-range-limited proc: **3 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
@@ -21,9 +21,9 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 17 |
+| implemented | 19 |
 | straightforward | 0 |
-| needs-state-model | 11 |
+| needs-state-model | 9 |
 | needs-damage-event-model | 3 |
 | needs-enemy-state | 0 |
 | utility-only | 2 |
@@ -35,7 +35,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Enchantment | Runtime | Category | Main blocker |
 | --- | --- | --- | --- |
 | Ambush | implemented | conditional-damage | — |
-| Anima Conduit | needs-state-model | soul-healing | Needs soul generation, pickup timing, and max-health state. |
+| Anima Conduit | implemented | soul-healing | — |
 | Artifact Synergy | implemented | artifact-synergy | — |
 | Busy Bee | needs-state-model | summon | Needs summon lifetime, cap, attacks, targeting, and damage events. |
 | Chains | needs-state-model | crowd-control | Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion. |
@@ -43,7 +43,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Critical Hit | implemented | proc-damage | — |
 | Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
 | Echo | needs-state-model | attack-repeat | Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution |
-| Enigma Resonator | needs-state-model | soul-dependent-proc | Needs current/max soul state and soul-spend timing. |
+| Enigma Resonator | needs-state-model | soul-dependent-proc | Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements |
 | Exploding | needs-damage-event-model | on-kill-area-damage | Needs enemy-specific max health, AoE targeting, delayed events, and explicit kill attribution. |
 | Fire Aspect | needs-damage-event-model | damage-over-time | Needs DoT tick/refresh/stack behavior, focus interaction, Void Strike interaction, and non-direct kill attribution. |
 | Freezing | needs-state-model | movement-slow | Needs CC utility/action-suppression metrics; it must not be assigned invented defense points. |
@@ -60,7 +60,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Sharpness | implemented | passive-damage | — |
 | Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial |
 | Smiting | implemented | category-damage | — |
-| Soul Siphon | needs-state-model | soul-generation | Needs a soul resource and downstream soul-spend utility/damage model. |
+| Soul Siphon | implemented | soul-generation | — |
 | Stunning | needs-state-model | crowd-control | Stun duration/resistance and CC valuation need evidence; no invented defense conversion. |
 | Swirling | implemented | indirect-damage-event | Power 210–263 only; Phase 2-1D partial |
 | Thundering | implemented | indirect-damage-event | Power 248–263 only; Phase 2-1D partial |
@@ -68,9 +68,9 @@ The source index explicitly separates player enchantments from mob/innate record
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 17 is catalog coverage, not full Power coverage.
+Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 19 is catalog coverage, not full Power coverage.
 
-Only the 17 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 19 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## Focus findings
 
@@ -118,7 +118,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **17 / 33**, unsupported **16 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **19 / 33**, unsupported **14 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -143,7 +143,13 @@ Rampaging uses shared 10% direct-kill triggers, summed 5/10/15 second tier durat
 
 Echo remains needs-state-model: repeat selection/damage, animation cost, cooldown start, combo finisher, Void, on-hit and direct-kill evidence are insufficient. Never use a free damagePerHit/cooldown placeholder. See [Temporal State](../docs/temporal-enchantments.md) and [interaction audit](temporal-enchantment-audit.json).
 
-Next: Soul subsystem (Anima Conduit / Soul Siphon / Enigma Resonator), conditional on soul-gear and resource evidence. CC utility needs positioning/resistance valuation; Pain Cycle/Dynamo/Busy Bee require distinct HP/roll/summon foundations. Parent 25–30 remains incomplete.
+## Phase 2-1G partial
+
+Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage hits at 0.48/0.56 seconds, internal Power 6.915 and +1 gathering. Anima and Soul Siphon are legal only on soul gear; normal/gilded/candidate/locked/core/optimizer/storage/JSON boundaries reject non-soul equipment. Enigma remains research-only because current-version intermediate-fill chance measurements do not establish a linear mapping or resolve the historical 100-soul cap / Bag of Souls conflict.
+
+SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
+
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Next: research Fire Aspect / Poison Cloud / Exploding on the existing DamageEvent foundation. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -168,4 +174,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D and Phase 2-1F partial — full Power 50–263 proc evidence and Echo mechanics remain missing.** Catalog runtime coverage is 17 / 33; unsupported coverage is 16 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 19 / 33; unsupported coverage is 14 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.

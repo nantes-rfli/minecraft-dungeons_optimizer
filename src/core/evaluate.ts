@@ -19,6 +19,7 @@ import { validateBuild, validateScenario } from './validation'
 
 interface EvaluationCore {
   readonly temporalState: Evaluation['temporalState']
+  readonly soulState: Evaluation['soulState']
   readonly damage: Evaluation['damage']
   readonly combatState: Evaluation['combatState']
   readonly potionState: Evaluation['potionState']
@@ -36,9 +37,9 @@ export function saturatingUtility(value: number, target: number): number {
 
 function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario)
-  const { damage, combatState, temporalState } = resolveOffensiveSteadyState(build, scenario, artifactEffects)
+  const { damage, combatState, temporalState, soulState } = resolveOffensiveSteadyState(build, scenario, artifactEffects)
   const potionState = derivePotionState(build.enchantments, combatState, scenario)
-  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState)
+  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
   const damageTarget =
     scenario.averageEnemyHealth * Math.max(0.1, scenario.enemySupplyPerSecond)
@@ -55,7 +56,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
         utilities.defense * scenario.weights.defense)) /
     weightTotal
 
-  return { temporalState, damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
+  return { temporalState, soulState, damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
 }
 
 function toContribution(
@@ -123,6 +124,19 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
     const state = core.temporalState.rampaging
     const tiers = build.enchantments.filter((item) => item.enchantmentId === 'rampaging').map((item) => ['I', 'II', 'III'][item.tier - 1]).join(' + ')
     reasons.push(`Rampaging ${tiers}: 直接撃破${state.directWeaponKillsPerSecond.toFixed(3)}/秒 × 10% → 発動${state.triggerEventsPerSecond.toFixed(3)}/秒、合計${state.effectiveDurationSeconds}秒 → 推定uptime ${(state.uptime * 100).toFixed(2)}%、平均attack speed +${(state.averageAttackSpeedBonus * 100).toFixed(2)}%（固定点${state.iterations}回、refresh近似）`)
+  }
+
+  if (core.soulState) {
+    const state = core.soulState
+    const siphon = build.enchantments.find((item) => item.enchantmentId === 'soul-siphon')
+    const anima = build.enchantments.find((item) => item.enchantmentId === 'anima-conduit')
+    if (siphon) reasons.push(`Soul Siphon ${['I', 'II', 'III'][siphon.tier - 1]}: HPS ${state.siphonOpportunitiesPerSecond.toFixed(3)} × 20% → proc ${state.siphonProcEventsPerSecond.toFixed(3)}回/秒 × ${state.siphonPickupsPerProc} pickups → pickup ${state.siphonPickupEventsPerSecond.toFixed(3)}回/秒（profile hitごと、AoE倍率なし）`)
+    if (anima) {
+      const effect = getEnchantmentDefinition('anima-conduit').tiers.value[anima.tier].effect
+      if (effect?.kind !== 'soul-pickup-healing') throw new Error('Missing Anima healing effect')
+      reasons.push(`Anima Conduit ${['I', 'II', 'III'][anima.tier - 1]}: 合計pickup ${state.totalPickupEventsPerSecond.toFixed(3)}回/秒 × 最大HP${(effect.maxHealthFractionPerPickup * 100).toFixed(0)}% → 回復容量 ${core.healing.animaHealingCapacityPerSecond.toFixed(3)}/秒（resource量ではなく吸収回数、満タン後も容量として計上・実回復は未保証）`)
+    }
+    reasons.push(`Soul Gathering ${state.totalSoulGathering}: resource収入 ${state.totalResourceUnitsPerSecond.toFixed(3)}/秒、平均ゲージ ${(state.encounterAverageSoulFraction * 100).toFixed(2)}%、終了時 ${(state.endSoulFraction * 100).toFixed(2)}%（開始0、容量${state.capacity}、消費0）`)
   }
 
   const refreshment = build.enchantments.find((item) => item.enchantmentId === 'refreshment')

@@ -1,0 +1,475 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-31",
+  "phaseStatus": "partial",
+  "sources": [
+    {
+      "id": "tools-scythe",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/weapons/soul-scythe",
+      "version": "1.17.0.0",
+      "note": "Properties and absence of built-ins; numerical coefficients are from calculator payload."
+    },
+    {
+      "id": "tools-calculator",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/damage-calculator",
+      "version": "1.17.0.0",
+      "note": "soul-scythe serialized row: power 6.915, speed 2.646, area 9.425, isUnique false, builtIn []."
+    },
+    {
+      "id": "phase-1a",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Soul_Scythe",
+      "version": "target 1.17.0.0; timing version not independently verified",
+      "note": "Existing Phase 1A exact entry: equal-damage hits at 0.48 and 0.56 seconds; no special handling."
+    },
+    {
+      "id": "tools-anima",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/anima-conduit",
+      "version": "1.17.0.0",
+      "note": "Melee 2/4/6%, soul-only, non-stackable. Generic ranged applicability must not erase ranged tier difference."
+    },
+    {
+      "id": "tools-siphon",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/soul-siphon",
+      "version": "1.17.0.0",
+      "note": "20%, tier amounts 1/3/5, soul-only, non-stackable. Editorial explanation is not executable game code."
+    },
+    {
+      "id": "tools-enigma",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/enigma-resonator",
+      "version": "1.17.0.0",
+      "note": "Tier maxima 15/20/25%, 3x. Separate Critical roll/9x is editorial explanation, not a measured probability curve."
+    },
+    {
+      "id": "wiki-meter",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Utility_Bar",
+      "version": "current page; version unspecified",
+      "note": "Search-indexed Soul meter section: start zero, capacity 300, visual collection continues at cap."
+    },
+    {
+      "id": "wiki-soul",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Soul",
+      "version": "unverified retrieval",
+      "note": "Direct retrieval blocked by robots; no new claims attributed to unread content."
+    },
+    {
+      "id": "wiki-anima",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Anima_Conduit",
+      "version": "history through 1.16.2.0",
+      "note": "Search-indexed tiers, +1 gathering, soul-only and non-stackable; 1.3.2.0 removes resource multiplier from healing."
+    },
+    {
+      "id": "wiki-siphon",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Soul_Siphon",
+      "version": "history through 1.16.2.0",
+      "note": "Search-indexed tiers, +1 gathering, non-stackable including gilded; 1.3.2.0 collection respects gathering bonus."
+    },
+    {
+      "id": "patch-132",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:1.3.2.0",
+      "version": "1.3.2.0",
+      "note": "Indexed patch notes and community reproduction: all gear gathering, soul enchant +1, permanent enchant gathering, visual pickup healing."
+    },
+    {
+      "id": "community-patch",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/hjbycd/",
+      "version": "2020-07-01 patch reproduction",
+      "note": "Patch reproduction, not independent quantitative measurement."
+    },
+    {
+      "id": "community-souls",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/14o1lub/",
+      "version": "2023-07; game version not stated",
+      "note": "First-person soul build guide: 20%/five orbs, gathering per orb, AoE targets provide opportunities, soul artifact kill exclusion with Soul Lantern exception."
+    },
+    {
+      "id": "community-gathering",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/jsuaym/",
+      "version": "2020-11; older than 1.17",
+      "note": "Reports additive weapon + enchant gathering. Does not independently verify gilded behavior."
+    },
+    {
+      "id": "community-anima",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/wmbi04/",
+      "version": "2022-08; older than 1.16.2",
+      "note": "Quantitative report: healing can be lower than nominal fraction, especially near full HP. Not proof of full soul-bar healing."
+    },
+    {
+      "id": "community-fullness",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1kp257u/",
+      "version": "2025-05; game version not stated",
+      "note": "Fullness-based claim and conflicting Bag of Souls glitch report; no intermediate probability measurements."
+    },
+    {
+      "id": "community-fullness-2",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1drch1j/",
+      "version": "2024-06; game version not stated",
+      "note": "Also describes percent meter, not a measured linear curve."
+    },
+    {
+      "id": "community-100",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/h09uq1/",
+      "version": "2020-07-05; historical",
+      "note": "Old 100-soul cap claim has no current-version proof; not adopted."
+    },
+    {
+      "id": "model",
+      "kind": "model-assumption",
+      "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/soul-subsystem.md",
+      "version": "Phase 2-1G",
+      "note": "Explicit continuous, no-spending approximation; not game mechanics evidence."
+    }
+  ],
+  "weaponPromotion": {
+    "weaponId": "soul-scythe",
+    "variant": "common",
+    "strictRuntimeReady": true,
+    "attackProfileConfidence": "medium",
+    "hitDurationsSeconds": [
+      0.48,
+      0.56
+    ],
+    "hitDamageRatios": [
+      1,
+      1
+    ],
+    "internalPowerRating": 6.915,
+    "speed": 2.646,
+    "area": 9.425,
+    "baseSoulGathering": 1,
+    "builtInEnchantments": [],
+    "sourceIds": [
+      "phase-1a",
+      "tools-scythe",
+      "tools-calculator"
+    ],
+    "alternatives": "Soul Knife is also exact but unnecessary; prefer requested Soul Scythe. No other soul weapon promoted."
+  },
+  "claims": {
+    "capacity": {
+      "value": 300,
+      "status": "supported",
+      "confidence": "high",
+      "sourceIds": [
+        "wiki-meter",
+        "patch-132"
+      ]
+    },
+    "initialSouls": {
+      "value": 0,
+      "status": "supported",
+      "confidence": "high",
+      "sourceIds": [
+        "wiki-meter"
+      ]
+    },
+    "gatheringMeaning": {
+      "value": "Resource units per visual pickup; never multiply pickup count by gathering.",
+      "status": "supported",
+      "confidence": "medium",
+      "sourceIds": [
+        "wiki-siphon",
+        "community-souls"
+      ]
+    },
+    "additiveGathering": {
+      "value": "Weapon base + one per selected soul enchant. External component reserved at zero; armor/ranged multipliers excluded.",
+      "status": "limited-model",
+      "confidence": "medium",
+      "sourceIds": [
+        "patch-132",
+        "community-patch",
+        "community-gathering"
+      ]
+    },
+    "gildedGathering": {
+      "value": "Same +1 for normal and gilded; slot-independent property interpretation, no dedicated 1.17 normal/gilded measurement.",
+      "status": "assumption",
+      "confidence": "low",
+      "sourceIds": [
+        "wiki-siphon",
+        "wiki-anima",
+        "model"
+      ]
+    },
+    "normalPickupEvents": {
+      "value": "One pickup per eligible estimated kill when gathering > 0.",
+      "status": "limited-model",
+      "confidence": "low",
+      "sourceIds": [
+        "community-souls",
+        "model"
+      ]
+    },
+    "normalResourceUnits": {
+      "value": "normal pickup events/sec × total gathering.",
+      "status": "model-derived",
+      "confidence": "low",
+      "sourceIds": [
+        "model"
+      ]
+    },
+    "eligibleKillSources": {
+      "value": "Use estimatedKillsPerSecond, not directWeaponKillsPerSecond. Existing artifacts spend no souls and deal no damage. Future soul-consuming kills need an explicit exclusion channel.",
+      "status": "limited-model",
+      "confidence": "low",
+      "sourceIds": [
+        "wiki-anima",
+        "community-souls",
+        "model"
+      ]
+    },
+    "artifactKillExclusions": {
+      "value": "Soul-consuming artifact kills generally do not generate souls; reported Soul Lantern exception remains out of scope.",
+      "status": "supported",
+      "confidence": "medium",
+      "sourceIds": [
+        "community-souls"
+      ]
+    },
+    "trajectory": {
+      "value": "Constant income, zero initial souls, no spending; closed-form clamped linear meter trajectory. No travel/pickup delay, discrete kills or target switching.",
+      "status": "assumption",
+      "confidence": "low",
+      "sourceIds": [
+        "model"
+      ]
+    },
+    "capacityOverflow": {
+      "value": "Resource income denotes potential income, not retained units. At cap discard excess resources; pickup event count is not capped.",
+      "status": "limited-model",
+      "confidence": "low",
+      "sourceIds": [
+        "wiki-meter",
+        "model"
+      ]
+    },
+    "spending": {
+      "value": 0,
+      "status": "limited-model",
+      "confidence": "high",
+      "sourceIds": [
+        "model"
+      ]
+    }
+  },
+  "entries": [
+    {
+      "id": "anima-conduit",
+      "runtimeStatus": "implemented",
+      "soulGearOnly": true,
+      "soulGathering": 1,
+      "tiers": [
+        0.02,
+        0.04,
+        0.06
+      ],
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "claims": {
+        "tiers": {
+          "value": "Melee max-health fractions 2/4/6%; ranged 4/6/8% after 1.16.2.0 is excluded.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "tools-anima",
+            "wiki-anima"
+          ]
+        },
+        "pickupSemantics": {
+          "value": "Use absorbed visual pickups, not resource units; multiplier removed in 1.3.2.0.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "wiki-anima"
+          ]
+        },
+        "fullBar": {
+          "value": "Visual collection at cap is documented, but continued healing is not quantitatively established. Model keeps nominal healing capacity at cap; this is an optimistic capacity assumption, not guaranteed healing.",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "wiki-meter",
+            "community-anima",
+            "model"
+          ]
+        },
+        "healingCapacity": {
+          "value": "pickup/sec × maxHealth × tier fraction. Timing, overheal and near-full-HP reduction are omitted. Included in healing utility only as nominal capacity.",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "community-anima",
+            "model"
+          ]
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "soul-siphon",
+      "runtimeStatus": "implemented",
+      "soulGearOnly": true,
+      "soulGathering": 1,
+      "triggerChance": 0.2,
+      "tiers": [
+        1,
+        3,
+        5
+      ],
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "claims": {
+        "tiers": {
+          "value": "20%; tier pickup counts 1/3/5; 1.16.2.0 replaces 5% and 3/6/9.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "tools-siphon",
+            "wiki-siphon"
+          ]
+        },
+        "rollGranularity": {
+          "value": "One roll per profile hit. Community suggests per-target rolls but lacks controlled current-version AoE measurements; do not multiply by expectedTargetsHit. May underestimate wide sweeps.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "community-souls",
+            "tools-siphon",
+            "model"
+          ]
+        },
+        "pickupInterpretation": {
+          "value": "Each tier amount is a separate visual pickup: five per Tier III proc.",
+          "status": "supported",
+          "confidence": "medium",
+          "sourceIds": [
+            "community-souls",
+            "wiki-siphon"
+          ]
+        },
+        "resourceUnits": {
+          "value": "proc/sec × tier pickups × total gathering. Resource multiplier applies after pickup generation.",
+          "status": "supported",
+          "confidence": "medium",
+          "sourceIds": [
+            "wiki-siphon",
+            "community-souls"
+          ]
+        },
+        "opportunities": {
+          "value": "Continuous landed profile hits, excludes proc damage; attack speed scales HPS. Target availability, misses, tower-wraith exception and travel are not simulated.",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "enigma-resonator",
+      "runtimeStatus": "needs-state-model",
+      "soulGearOnly": true,
+      "soulGathering": 1,
+      "tiers": [
+        0.15,
+        0.2,
+        0.25
+      ],
+      "damageMultiplier": 3,
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "claims": {
+        "tiers": {
+          "value": "Maxima 15/20/25%, direct hit 3x, soul-only, non-stackable.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "tools-enigma"
+          ]
+        },
+        "criticalInteraction": {
+          "value": "Separate rolls can combine to 9x. With a known p, expectation=(1+2p)×Critical expectation; not sum of chances.",
+          "status": "supported",
+          "confidence": "medium",
+          "sourceIds": [
+            "tools-enigma",
+            "community-100"
+          ]
+        },
+        "mapping": {
+          "value": "Current reports favor fullness, but no verified 1.17 intermediate chances establish linearity or saturation at exactly 300.",
+          "status": "unresolved",
+          "confidence": "low",
+          "sourceIds": [
+            "tools-enigma",
+            "community-fullness",
+            "community-fullness-2"
+          ]
+        },
+        "bagOfSouls": {
+          "value": "Conflicting fullness and glitch claims; capacity-changing armor remains excluded.",
+          "status": "unresolved",
+          "confidence": "low",
+          "sourceIds": [
+            "community-fullness"
+          ]
+        },
+        "historical100Cap": {
+          "value": "100-soul cap is a 2020 claim, not a verified 1.17 formula.",
+          "status": "unresolved",
+          "confidence": "low",
+          "sourceIds": [
+            "community-100"
+          ]
+        }
+      },
+      "blockers": [
+        "No current-version game-code soul-to-probability function.",
+        "No intermediate-fill sample sizes/counts to establish linearity.",
+        "300-unit versus relative fullness normalization not quantitatively resolved.",
+        "Historical 100-unit cap and Bag of Souls conflict not reconciled."
+      ],
+      "candidateFormula": "p=pMax×averageSoulFraction is research-only; never used by runtime or optimizer."
+    }
+  ],
+  "solver": {
+    "mode": "existing-rampaging-fixed-point",
+    "soulCalculation": "Derive SoulState inside each offensive evaluation from the same damage HPS and CombatState. Enigma excluded, so no Soul→DPS feedback exists; no nested solver or unnecessary iteration.",
+    "tolerance": 1e-08,
+    "maxIterations": 100
+  },
+  "coverage": {
+    "catalogRuntime": 19,
+    "broadPowerRuntime": 16,
+    "powerRangeLimitedProc": 3,
+    "researchOnly": 14,
+    "needsStateModel": 9
+  }
+}

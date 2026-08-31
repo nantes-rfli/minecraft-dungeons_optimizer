@@ -79,6 +79,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 2-1D partial: DamageEvent + Shockwave / Swirling / Thundering（12 / 33、3種はPower範囲限定）', status: 'in-progress' },
       { label: 'Phase 2-1E: Ambush / Smiting / Committed（catalog 15 / 33、広域12・範囲限定3）', status: 'done' },
       { label: 'Phase 2-1F partial: Artifact Synergy / Rampaging（catalog 17 / 33、Echo research-only）', status: 'in-progress' },
+      { label: 'Phase 2-1G partial: Soul Scythe / Soul subsystem / Anima / Siphon（19 / 33、Enigma research-only）', status: 'in-progress' },
       { label: '近接エンチャントを25〜30種類へ拡張', status: 'planned' },
       { label: 'アーティファクトを10〜15種類へ拡張', status: 'planned' },
       { label: '防具・防具エンチャントをモデル化', status: 'planned' },

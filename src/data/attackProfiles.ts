@@ -1,4 +1,5 @@
 import type { AttackProfile, Evidence, WeaponId } from '../core/types'
+import { SOUL_SCYTHE_PROFILE_SOURCE } from './souls'
 import {
   MINECRAFT_WIKI_ANCHOR_SOURCE,
   MINECRAFT_WIKI_DOUBLE_AXE_SOURCE,
@@ -10,6 +11,11 @@ import {
  * combo-sensitive effects can consume the raw structure in later phases.
  */
 export const ATTACK_PROFILES: Readonly<Record<WeaponId, Evidence<AttackProfile>>> = {
+  'soul-scythe': {
+    value: { method: 'published-hit-timings', hitDurationsSeconds: [0.48, 0.56], comboFinisherHit: 2 },
+    source: SOUL_SCYTHE_PROFILE_SOURCE, confidence: 'medium',
+    note: 'Phase 1A strict runtime-ready: two equal-damage hits, no special handling. Speed scaling remains a model assumption.',
+  },
   'fighters-bindings': {
     value: {
       method: 'published-hit-timings',

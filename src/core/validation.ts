@@ -3,6 +3,7 @@ import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason } from './damageEvents'
 import { PROC_DAMAGE_IDS } from '../data/damageEvents'
 import { OptimizerInputError } from './errors'
+import { validateWeaponSoulLegality } from './soulLegality'
 import type { Build, Inventory, Scenario } from './types'
 
 function assertFinite(name: string, value: number, code = 'INVALID_SCENARIO'): void {
@@ -62,6 +63,7 @@ export function validateScenario(scenario: Scenario): void {
 }
 
 export function validateBuild(build: Build): void {
+  validateWeaponSoulLegality(build.weapon)
   for (const selected of build.enchantments) {
     const reason = enchantmentUnsupportedReason(build.weapon, selected.enchantmentId)
     if (reason) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
@@ -163,6 +165,7 @@ export function validateInventory(inventory: Inventory): void {
     throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '武器の管理IDが重複しています。')
   }
   for (const weapon of inventory.weapons) {
+    validateWeaponSoulLegality(weapon)
     assertPowerLevel(
       `weapon ${weapon.instanceId} powerLevel`,
       weapon.powerLevel,

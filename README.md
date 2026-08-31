@@ -4,14 +4,14 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 
 ## 対応範囲
 
-- 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）
+- 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）/ ソウルサイス（Soul Scythe）
 - エンチャント（通常枠はTier III、金色枠はTier I / II / III）: クリティカルヒット / 輝き / 吸血 / 虚無の一撃 / ガードストライク / 切れ味（Sharpness）/ エンチャント解除（Unchanting）/ リフレッシュ（Refreshment）/ 弱体化（Weakening）
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
 - 比較: 6種類のシナリオプロファイル、飽和Utility、Pareto前線、効果ごとの数値寄与
 
-防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接3武器のPower 50〜263は公開値ベースの推定damageに対応します。
+防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接4武器のPower 50〜263は公開値ベースの推定damageに対応します。
 
 完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。Phase 1-4の公開DPS回帰監査は候補10件・eligible 0件で、full regressionはpending 0 / 5です。
 
@@ -50,7 +50,10 @@ npm run audit:dps
 npm run audit:melee
 npm run audit:enchants
 npm run audit:damage-events
+npm run audit:temporal-enchants
+npm run audit:soul
 npm test
+npx tsc -b
 npm run lint
 npm run build
 ```
@@ -61,15 +64,15 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 `npm run audit:melee` は、ID重複、status、完全profile、hit数とduration数、派生HPS、共有元、source URLなどを検証し、[`research/melee-attack-profile-coverage.md`](./research/melee-attack-profile-coverage.md) を再生成します。現在のstrict coverageは76 / 82（92.7%）です。残る6件は推測で補完せず、daggers系4件の公開値矛盾とsawblade系2件の可変サイクルを`partial`として保持しています。
 
-82武器のresearchデータはruntime catalogと分離しています。Phase 1の最初の項目として、既存3武器だけは監査済みのper-hit timingへ移行しましたが、Optimizer UIと計算対象は3武器のままです。
+82武器のresearchデータはruntime catalogと分離しています。Phase 1の最初の項目として、既存3武器だけは監査済みのper-hit timingへ移行しましたが、Phase 2-1GでSoul Scytheを追加し、現在の計算対象は4武器です。
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 17種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 19種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
-Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Fまで進んでいます（2-1D / 2-1Fはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Gまで進んでいます（2-1D / 2-1F / 2-1Gはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
 
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
@@ -181,10 +184,25 @@ Phase 1-4の監査・eligibility validator・source provenance・pending/availab
 
 ## Phase 2-1F — Temporal State（partial）
 
-**catalog runtime 17 / 33、広域Power 14 / 33、範囲限定proc 3 / 33、research-only 16 / 33、needs-state-model 11**。Artifact SynergyとRampagingを限定モデルで実装し、Echoは根拠不足のためresearch-onlyを維持します。Phase 2-1Dと近接25〜30種の親目標も未完了です。
+Phase 2-1F時点は **catalog runtime 17 / 33、広域Power 14 / 33、範囲限定proc 3 / 33、research-only 16 / 33、needs-state-model 11**。Artifact SynergyとRampagingを限定モデルで実装し、Echoは根拠不足のためresearch-onlyを維持します。Phase 2-1Dと近接25〜30種の親目標も未完了です。
 
 - Artifact Synergy: Tier +40/+60/+80%、最大1個。Artifact使用頻度 `A=Σ(1/推定CD)` と攻撃機会 `H` から `C=min(A,H)`、direct期待倍率 `1+(C/H)×bonus`。pending 1・最適な分散使用・profile hit=1 actionはlow-confidence仮定。持続uptimeは使わず、proc damageは増幅しません。Committed前へ適用、未装備なら寄与0。
 - Rampaging: 直接撃破の10%で+50%速度、Tier 5/10/15秒。コピーはdurationのみ加算、共通10%で最大4個。`u=1-exp(-0.1×directKills×T)` と `Artifact速度+0.5×u` の循環を固定点で解きます（1e-8・100回上限、失敗はエラー）。Void・proc・撃破・回復・防御・Synergyを除去寄与まで再計算。
 - Echo: CD 5/4/3秒・non-stackableは確認済み。repeat hit、animation/cadence、combo、Void、on-hit、direct killの根拠不足により未登録。0点や無料の`damagePerHit/3`として扱いません。
 
-[仕様・固定点例・Evidence・次batch比較](./docs/temporal-enchantments.md) / [interaction audit](./research/temporal-enchantment-audit.json)。`npm run audit:temporal-enchants`で既存auditとの整合性を検証します。次はSoul subsystem（Anima Conduit / Soul Siphon / Enigma Resonator）を推奨。ただしSoul専用gearと獲得/消費の境界監査を先行し、CCや複雑な攻撃状態は後続候補です。
+[仕様・固定点例・Evidence・次batch比較](./docs/temporal-enchantments.md) / [interaction audit](./research/temporal-enchantment-audit.json)。`npm run audit:temporal-enchants`で既存auditとの整合性を検証します。後続のSoul subsystemは次節を参照してください。
+
+
+## Phase 2-1G — Soul subsystem（partial）
+
+**catalog runtime 19 / 33、広域Power 16 / 33、範囲限定proc 3、research-only 14、needs-state-model 9**。Soul Scytheのみを追加し、Anima Conduit / Soul Siphonを実装しました。既存3武器には装着できず、通常/金色・core・Optimizer・保存・JSONで拒否します。
+
+Soul ScytheはPhase 1A strict runtime-ready（timing 0.48/0.56秒、medium confidence）、内蔵Enchantなし、1.17.0.0内部Power 6.915、基礎Gathering +1です。Anima / Siphonの+1を加算します。Soulのpickup回数とresource量を分離し、開始0・容量300・消費0の連続ゲージ推移を計算します。
+
+Siphonはprofile hitごと20%、Tier 1/3/5 pickups、各pickupのresourceへGathering倍率。AoE target別抽選は未検証のため掛けません。Animaは近接2/4/6%×最大HP×pickup回数の名目回復容量で、満タン時の実回復、吸収遅延、overhealは未保証です。5 pickups/proc × 6% = 30% maxHP容量で、Gathering 5でも150%にしません。
+
+Enigmaは最大15/20/25%・3xを確認しましたが、現行版の中間ゲージ測定がなく線形mappingを採用できません。古い100 souls capやBag of Soulsの矛盾も残るためresearch-only、固定12.5%や0点候補にはしません。Soul消費Artifact・防具・遠距離は未実装です。
+
+Rampagingの同じ解からHPS、kill、Soul収入、平均/終了ゲージ、Anima容量を導出。例: 表示damage26・敵HP100・供給100/s・1体・30秒、Siphon/Anima/Rampaging IIIで11回収束、速度1.313272倍、65.663588 DPS、Soul収入9.546476/s、平均47.7324%、終了95.4648%。数式の整合例で実測ではありません。
+
+[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul`をCIに追加しました。次は既存DamageEventを再利用できるFire Aspect / Poison Cloud / Explodingの研究監査を推奨します。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。

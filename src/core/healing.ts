@@ -1,4 +1,5 @@
-import { combineEnchantmentValues } from './enchantment'
+import { combineEnchantmentValues, getTierValues } from './enchantment'
+import { animaHealingCapacity } from './souls'
 import { derivePotionState } from './potion'
 import type {
   CombatState,
@@ -7,6 +8,7 @@ import type {
   PotionState,
   Scenario,
   SelectedEnchantment,
+  SoulState,
 } from './types'
 
 export function calculateHealing(
@@ -15,6 +17,7 @@ export function calculateHealing(
   combatState: CombatState,
   scenario: Scenario,
   potionState: PotionState = derivePotionState(enchantments, combatState, scenario),
+  soulState?: SoulState,
 ): HealingMetrics {
   const radianceProcHealing = combineEnchantmentValues(
     enchantments,
@@ -33,10 +36,17 @@ export function calculateHealing(
       leechingFraction
     : 0
 
+  const anima = enchantments.find((item) => item.enchantmentId === 'anima-conduit')
+  const animaEffect = anima ? getTierValues(anima).effect : undefined
+  if (anima && (!soulState || animaEffect?.kind !== 'soul-pickup-healing')) throw new Error('Anima Conduit requires a resolved SoulState and healing effect')
+  const animaHealingCapacityPerSecond = animaEffect?.kind === 'soul-pickup-healing'
+    ? animaHealingCapacity(soulState!.totalPickupEventsPerSecond, scenario.maxHealth, animaEffect.maxHealthFractionPerPickup)
+    : 0
   return {
+    animaHealingCapacityPerSecond,
     radiancePerSecond,
     leechingPerSecond,
     refreshmentPotionCapacityPerSecond: potionState.incrementalHealingCapacityPerSecond,
-    totalPerSecond: radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond,
+    totalPerSecond: radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond,
   }
 }

@@ -19,3 +19,5 @@ export {
   summarizePowerScalingValidation,
 } from './powerScalingValidation'
 export type * from './types'
+
+export { soulTrajectory, soulIncome, siphonIncome, animaHealingCapacity, deriveSoulState } from './souls'

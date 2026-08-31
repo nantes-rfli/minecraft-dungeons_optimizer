@@ -1,3 +1,4 @@
+import { BASE_SOUL_CAPACITY, INITIAL_SOULS, SOUL_GATHERING_PER_ENCHANTMENT, SOUL_TRAJECTORY_MODEL, SOUL_NORMAL_KILL_MODEL, SOUL_SIPHON_ROLL_MODEL, SOUL_SIPHON_PICKUPS, ANIMA_CAPACITY_MODEL, SOUL_GILDED_GATHERING_MODEL, isSoulEnchantmentId } from '../data/souls'
 import {
   ARTIFACT_USE_RATE_MODEL, ARTIFACT_SYNERGY_PENDING_CHARGE, ARTIFACT_SYNERGY_STAGGERING,
   ARTIFACT_SYNERGY_ATTACK_OPPORTUNITY, ARTIFACT_SYNERGY_DIRECT_COMPOSITION, ARTIFACT_SYNERGY_TRIGGER,
@@ -124,6 +125,26 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
         2,
       )
     }
+  }
+
+  if (build.enchantments.some((item) => isSoulEnchantmentId(item.enchantmentId))) {
+    addEvidence('soul-capacity', 'Soul基礎容量', BASE_SOUL_CAPACITY)
+    addEvidence('soul-start', 'Soul開始0', INITIAL_SOULS)
+    addEvidence('soul-gathering', 'Soul Gatheringの加算', SOUL_GATHERING_PER_ENCHANTMENT)
+    addEvidence('soul-trajectory', '一定収入・消費なしのSoul推移', SOUL_TRAJECTORY_MODEL, 2)
+    addEvidence('soul-normal-kills', '通常Soul pickupと撃破源', SOUL_NORMAL_KILL_MODEL, 2)
+    if (build.enchantments.some((item) => item.source === 'gilded' && isSoulEnchantmentId(item.enchantmentId))) addEvidence('soul-gilded-gathering', '金色のSoul Gathering加算仮定', SOUL_GILDED_GATHERING_MODEL)
+    caveats.push('Soulは開始0・容量300・消費0。通常pickupは推定総撃破/秒を採用し、直接撃破だけに限定しません。吸収回数とGathering倍したresource量を分離します。Soul消費Artifactの撃破除外は将来対応、現在は対象装備を登録していません。')
+    caveats.push('Soulゲージは一定収入の連続近似です。orb移動・吸収遅延・離散撃破・target switching・開始時のRampaging立ち上がりは再現しません。Enigma Resonatorは換算式の根拠不足のため未対応です。')
+  }
+  if (hasEnchantment(build.enchantments, 'soul-siphon')) {
+    addEvidence('soul-siphon-roll', 'Siphon profile hitごとの抽選近似', SOUL_SIPHON_ROLL_MODEL, 2)
+    addEvidence('soul-siphon-pickups', 'Siphon Tier値をpickup数と解釈', SOUL_SIPHON_PICKUPS, 2)
+    caveats.push('Soul Siphonは20%・Tier 1/3/5 pickups、各pickupのresource量へGatheringを掛けます。AoEのtarget別抽選を示唆する報告はありますが現行実測不足のためprofile hitごとに1回とし、広範囲武器のSoul生成を過小評価し得ます。proc damageは抽選機会へ加算しません。Soul単独の資源量自体には架空の効用点を付けず、Animaとの相互作用を評価します。')
+  }
+  if (hasEnchantment(build.enchantments, 'anima-conduit')) {
+    addEvidence('anima-capacity', 'Animaの満タン時を含む名目回復容量', ANIMA_CAPACITY_MODEL, 3)
+    caveats.push('Animaは近接2/4/6%×最大HP×pickup/秒の名目回復容量です。満タン後も計上する楽観的な容量モデルであり実回復は未保証。吸収遅延・overheal・HPが満タンに近い場合の減衰は省略し、回復utilityを過大評価し得ます。遠距離4/6/8%とは別です。')
   }
 
   const procIds = [...uniqueEnchantments].filter(isProcDamageId)

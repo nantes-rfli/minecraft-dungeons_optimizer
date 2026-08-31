@@ -32,6 +32,7 @@ import { EnemyCompositionControl } from './views/EnemyCompositionControl'
 import { AmbushShareControl, UndeadShareControl } from './views/EnemyStateControls'
 import { DirectDamageDetails } from './views/DirectDamageDetails'
 import { EnemyDebuffControl } from './views/EnemyDebuffControl'
+import { SoulStateDetails } from './views/SoulStateDetails'
 import { TemporalStateDetails } from './views/TemporalStateDetails'
 import { StateModelDetails } from './views/StateModelDetails'
 import { DamageEventDetails, DamageEventTargetingControl, ProcPowerSupport } from './views/DamageEventControls'
@@ -117,6 +118,7 @@ function BuildSummary({ evaluation, compact = false, title }: { evaluation: Eval
         <DirectDamageDetails evaluation={evaluation} />
         <StateModelDetails evaluation={evaluation} />
         <TemporalStateDetails evaluation={evaluation} />
+        <SoulStateDetails evaluation={evaluation} />
         <DamageEventDetails evaluation={evaluation} />
         <details className="contributions"><summary>効果ごとの数値寄与を見る</summary>
           {evaluation.build.enchantments.some((item) => item.enchantmentId === 'refreshment') && <p>回復の差分にはRefreshmentの追加ポーション回復容量（実回復ではない近似）を含みます。</p>}

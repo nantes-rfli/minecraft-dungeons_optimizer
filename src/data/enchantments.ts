@@ -1,3 +1,4 @@
+import { SOUL_ENCHANTMENT_METADATA } from './souls'
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
 import {
   COMMUNITY_RADIANCE_STACKING_SOURCE,
@@ -19,6 +20,36 @@ import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE, RAMPAGING_STACKING_SOURCE } 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  'anima-conduit': {
+    id: 'anima-conduit',
+    name: { ja: '流れ込む魂', en: 'Anima Conduit' },
+    soul: SOUL_ENCHANTMENT_METADATA['anima-conduit'],
+    tiers: {
+      ...SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers,
+      value: {
+        1: { effect: SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers.value[1] },
+        2: { effect: SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers.value[2] },
+        3: { effect: SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers.value[3] },
+      },
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers.source, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: SOUL_ENCHANTMENT_METADATA['anima-conduit'].tiers.source, confidence: 'high' },
+  },
+  'soul-siphon': {
+    id: 'soul-siphon',
+    name: { ja: 'ソウルサイフォン', en: 'Soul Siphon' },
+    soul: SOUL_ENCHANTMENT_METADATA['soul-siphon'],
+    tiers: {
+      ...SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers,
+      value: {
+        1: { effect: SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers.value[1] },
+        2: { effect: SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers.value[2] },
+        3: { effect: SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers.value[3] },
+      },
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers.source, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: SOUL_ENCHANTMENT_METADATA['soul-siphon'].tiers.source, confidence: 'high' },
+  },
   'artifact-synergy': {
     id: 'artifact-synergy',
     name: { ja: 'アーティファクトシナジー', en: 'Artifact Synergy' },

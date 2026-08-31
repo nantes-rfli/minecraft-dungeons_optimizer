@@ -25,7 +25,7 @@ export interface LocalizedName {
   readonly en: string
 }
 
-export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor'
+export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe'
 export type EnchantmentId =
   | 'critical-hit'
   | 'radiance'
@@ -44,6 +44,8 @@ export type EnchantmentId =
   | 'committed'
   | 'artifact-synergy'
   | 'rampaging'
+  | 'anima-conduit'
+  | 'soul-siphon'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -59,6 +61,10 @@ export interface WeaponDefinition {
   readonly internalPowerRating: Evidence<number>
   readonly speed: Evidence<number>
   readonly area: Evidence<number>
+  readonly soul: {
+    readonly acceptsSoulEnchantments: boolean
+    readonly baseSoulGathering: Evidence<number>
+  }
 }
 
 export interface GearPowerCurvePoint {
@@ -211,7 +217,25 @@ export interface OnKillAttackSpeedEffect {
   readonly attackSpeedBonus: number
 }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect
+export interface SoulPickupHealingEffect {
+  readonly kind: 'soul-pickup-healing'
+  readonly maxHealthFractionPerPickup: number
+}
+
+export interface OnHitSoulGenerationEffect {
+  readonly kind: 'on-hit-soul-generation'
+  readonly triggerChance: number
+  readonly extraPickupCount: number
+}
+
+/** Research schema only until the soul-to-probability mapping is verified. */
+export interface SoulDependentCriticalEffect {
+  readonly kind: 'soul-dependent-critical'
+  readonly maximumTriggerChance: number
+  readonly damageMultiplier: number
+}
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect
 
 export type DamageChannel = 'direct-melee' | 'enchantment-proc'
 
@@ -273,6 +297,10 @@ export interface EnchantmentDefinition {
   readonly name: LocalizedName
   readonly tiers: Evidence<Readonly<Record<EnchantmentTier, EnchantmentTierValues>>>
   readonly stacking: Evidence<EnchantmentStacking>
+  readonly soul?: {
+    readonly soulGearOnly: true
+    readonly soulGathering: Evidence<number>
+  }
   readonly applicability?: Evidence<{
     readonly melee: boolean
     readonly ranged: boolean
@@ -486,6 +514,39 @@ export interface CombatState {
   readonly directWeaponKillsPerSecond: number
 }
 
+/** Potential absorbed income; resource overflow does not erase pickup events. */
+export interface SoulIncome {
+  readonly resourceUnitsPerSecond: number
+  readonly pickupEventsPerSecond: number
+}
+
+export interface SoulTrajectory {
+  readonly fillTimeSeconds?: number
+  readonly encounterAverageSoulFraction: number
+  readonly endSoulFraction: number
+}
+
+export interface SoulState extends SoulTrajectory {
+  readonly capacity: number
+  readonly initialSouls: number
+  readonly baseSoulGathering: number
+  readonly enchantmentSoulGathering: number
+  readonly externalSoulGathering: number
+  readonly totalSoulGathering: number
+  readonly eligibleSoulGeneratingKillsPerSecond: number
+  readonly siphonOpportunitiesPerSecond: number
+  readonly siphonTriggerChance: number
+  readonly siphonProcEventsPerSecond: number
+  readonly siphonPickupsPerProc: number
+  readonly normalPickupEventsPerSecond: number
+  readonly siphonPickupEventsPerSecond: number
+  readonly totalPickupEventsPerSecond: number
+  readonly normalResourceUnitsPerSecond: number
+  readonly siphonResourceUnitsPerSecond: number
+  readonly totalResourceUnitsPerSecond: number
+  readonly spendingUnitsPerSecond: 0
+}
+
 /** Continuous steady-state availability, not discrete potion events or actual healing. */
 export interface PotionState {
   readonly baseCooldownSeconds: number
@@ -500,6 +561,7 @@ export interface PotionState {
 }
 
 export interface HealingMetrics {
+  readonly animaHealingCapacityPerSecond: number
   readonly radiancePerSecond: number
   readonly leechingPerSecond: number
   readonly refreshmentPotionCapacityPerSecond: number
@@ -609,6 +671,7 @@ export interface Evaluation {
   readonly defense: DefenseMetrics
   readonly artifactEffects: ArtifactEffects
   readonly temporalState: OffensiveTemporalState
+  readonly soulState?: SoulState
   readonly objectiveScore: number
   readonly utilities: ObjectiveUtilities
   readonly confidence: ConfidenceSummary

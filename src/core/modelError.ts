@@ -133,6 +133,9 @@ export function summarizeDamageRegressionByScope(
     'double-axe': summarizeDamageRegression(
       samples.filter((sample) => sample.build.weapon.weaponId === 'double-axe'),
     ),
+    'soul-scythe': summarizeDamageRegression(
+      samples.filter((sample) => sample.build.weapon.weaponId === 'soul-scythe'),
+    ),
     anchor: summarizeDamageRegression(
       samples.filter((sample) => sample.build.weapon.weaponId === 'anchor'),
     ),

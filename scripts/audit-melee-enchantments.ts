@@ -146,7 +146,13 @@ Rampaging uses shared 10% direct-kill triggers, summed 5/10/15 second tier durat
 
 Echo remains needs-state-model: repeat selection/damage, animation cost, cooldown start, combo finisher, Void, on-hit and direct-kill evidence are insufficient. Never use a free damagePerHit/cooldown placeholder. See [Temporal State](../docs/temporal-enchantments.md) and [interaction audit](temporal-enchantment-audit.json).
 
-Next: Soul subsystem (Anima Conduit / Soul Siphon / Enigma Resonator), conditional on soul-gear and resource evidence. CC utility needs positioning/resistance valuation; Pain Cycle/Dynamo/Busy Bee require distinct HP/roll/summon foundations. Parent 25–30 remains incomplete.
+## Phase 2-1G partial
+
+Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage hits at 0.48/0.56 seconds, internal Power 6.915 and +1 gathering. Anima and Soul Siphon are legal only on soul gear; normal/gilded/candidate/locked/core/optimizer/storage/JSON boundaries reject non-soul equipment. Enigma remains research-only because current-version intermediate-fill chance measurements do not establish a linear mapping or resolve the historical 100-soul cap / Bag of Souls conflict.
+
+SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
+
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Next: research Fire Aspect / Poison Cloud / Exploding on the existing DamageEvent foundation. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -171,7 +177,7 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D and Phase 2-1F partial — full Power 50–263 proc evidence and Echo mechanics remain missing.** Catalog runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
 `
 }
 

@@ -1,6 +1,7 @@
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
+import { validateWeaponSoulLegality } from '../core/soulLegality'
 import type {
   ArtifactId,
   EnchantmentId,
@@ -131,6 +132,7 @@ export function deserializeInventory(json: string): Inventory {
     weapons: weapons.map(parseWeapon),
     artifacts: artifacts.map(parseArtifact),
   }
+  inventory.weapons.forEach(validateWeaponSoulLegality)
   const allIds = [...inventory.weapons, ...inventory.artifacts].map((item) => item.instanceId)
   if (new Set(allIds).size !== allIds.length) throw new Error('装備の管理IDが重複しています。')
   return inventory
@@ -146,6 +148,7 @@ export function loadInventory(fallback: Inventory): Inventory {
 }
 
 export function saveInventory(inventory: Inventory): void {
+  inventory.weapons.forEach(validateWeaponSoulLegality)
   try {
     globalThis.localStorage?.setItem(STORAGE_KEY, serializeInventory(inventory))
   } catch (error) {

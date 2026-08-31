@@ -1,11 +1,13 @@
 import { calculateArtifactActivationState } from './artifact'
+import { deriveSoulState } from './souls'
 import { deriveCombatState } from './combatState'
 import { calculateDamage } from './damage'
 import { solveUnitIntervalFixedPoint } from './fixedPoint'
 import { combineRampagingEffects, temporaryBuffUptime } from './temporalEnchantments'
-import type { ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario } from './types'
+import type { ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario, SoulState } from './types'
 
 interface OffensiveState {
+  readonly soulState?: SoulState
   readonly damage: DamageMetrics
   readonly combatState: CombatState
   readonly temporalState: OffensiveTemporalState
@@ -22,7 +24,8 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
     for (const value of [attackSpeedMultiplier, damage.singleTargetDps, damage.aoeDps, combatState.directWeaponKillsPerSecond, triggerEventsPerSecond]) {
       if (!Number.isFinite(value) || value < 0) throw new Error('Offensive steady state exceeds finite nonnegative numeric range')
     }
-    return { damage, combatState, attackSpeedMultiplier, triggerEventsPerSecond }
+    const soulState = deriveSoulState(build, damage, combatState, scenario)
+    return { damage, combatState, soulState, attackSpeedMultiplier, triggerEventsPerSecond }
   }
   // Unaffected builds perform exactly one damage/combat evaluation, no iteration.
   const point = effect
@@ -31,9 +34,9 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
       return { result, nextValue: temporaryBuffUptime(result.triggerEventsPerSecond, effect.durationSeconds) }
     })
     : { value: 0, result: atUptime(0), iterations: 0, firstIterationValue: 0, residual: 0 }
-  const { damage, combatState, attackSpeedMultiplier, triggerEventsPerSecond } = point.result
+  const { damage, combatState, soulState, attackSpeedMultiplier, triggerEventsPerSecond } = point.result
   return {
-    damage, combatState,
+    damage, combatState, soulState,
     temporalState: {
       artifactActivation, artifactSynergy: damage.artifactSynergyState, attackSpeedMultiplier,
       rampaging: {

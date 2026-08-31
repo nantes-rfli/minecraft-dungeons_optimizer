@@ -93,13 +93,77 @@
       "notes": "Phase 2-1E: 1+eligibleShare*bonus on direct melee only. Editable all-profile 25% low-confidence exposure; not a measured solo/co-op rate. EnemyState is separate from EnemyComposition; cross-condition factorization is low confidence."
     },
     {
-      "id": "anima-conduit", "name": { "en": "Anima Conduit" },
-      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
-      "tierValues": { "1": { "raw": "2%", "interpreted": { "maxHealthHealedPerSoul": 0.02 } }, "2": { "raw": "4%", "interpreted": { "maxHealthHealedPerSoul": 0.04 } }, "3": { "raw": "6%", "interpreted": { "maxHealthHealedPerSoul": 0.06 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-soul", "modelCategory": "soul-healing", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/anima-conduit", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Soul-gear-only melee/ranged enchantment; each absorbed soul heals a max-health fraction." }],
-      "confidence": "high", "notes": "Needs soul generation, pickup timing, and max-health state."
+      "id": "anima-conduit",
+      "name": {
+        "en": "Anima Conduit"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false,
+        "soulGearOnly": true
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": false
+      },
+      "tierValues": {
+        "1": {
+          "raw": "2%",
+          "interpreted": {
+            "maxHealthHealedPerPickup": 0.02
+          }
+        },
+        "2": {
+          "raw": "4%",
+          "interpreted": {
+            "maxHealthHealedPerPickup": 0.04
+          }
+        },
+        "3": {
+          "raw": "6%",
+          "interpreted": {
+            "maxHealthHealedPerPickup": 0.06
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-soul",
+      "modelCategory": "soul-healing",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/anima-conduit",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking"
+          ],
+          "confidence": "high",
+          "note": "Soul-gear-only melee/ranged enchantment; each absorbed soul heals a max-health fraction."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/soul-subsystem.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Phase 2-1G limited runtime on Soul Scythe only. Nominal 2/4/6% max-health healing per pickup, not per resource unit. Full-bar healing is an optimistic capacity assumption; timing and overheal omitted."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Phase 2-1G limited runtime on Soul Scythe only. Nominal 2/4/6% max-health healing per pickup, not per resource unit. Full-bar healing is an optimistic capacity assumption; timing and overheal omitted."
     },
     {
       "id": "artifact-synergy",
@@ -384,13 +448,73 @@
       "notes": "Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution. Never register a zero-score or damagePerHit/cooldown approximation."
     },
     {
-      "id": "enigma-resonator", "name": { "en": "Enigma Resonator" },
-      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "0-15%", "interpreted": { "maxTriggerChance": 0.15, "damageMultiplier": 3 } }, "2": { "raw": "0-20%", "interpreted": { "maxTriggerChance": 0.2, "damageMultiplier": 3 } }, "3": { "raw": "0-25%", "interpreted": { "maxTriggerChance": 0.25, "damageMultiplier": 3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "soul-dependent-proc", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/enigma-resonator", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "interaction-behavior", "built-in"], "confidence": "high", "note": "Proc chance scales with held souls; the triple-damage roll is independent of Critical Hit." }],
-      "confidence": "high", "notes": "Needs current/max soul state and soul-spend timing."
+      "id": "enigma-resonator",
+      "name": {
+        "en": "Enigma Resonator"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false,
+        "soulGearOnly": true
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "0-15%",
+          "interpreted": {
+            "maxTriggerChance": 0.15,
+            "damageMultiplier": 3
+          }
+        },
+        "2": {
+          "raw": "0-20%",
+          "interpreted": {
+            "maxTriggerChance": 0.2,
+            "damageMultiplier": 3
+          }
+        },
+        "3": {
+          "raw": "0-25%",
+          "interpreted": {
+            "maxTriggerChance": 0.25,
+            "damageMultiplier": 3
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "soul-dependent-proc",
+      "runtimeStatus": "needs-state-model",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/enigma-resonator",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "interaction-behavior",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Proc chance scales with held souls; the triple-damage roll is independent of Critical Hit."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements. Fullness reports do not establish linearity; old 100-soul and Bag of Souls conflicts remain. Never use fixed 12.5%."
     },
     {
       "id": "exploding", "name": { "en": "Exploding" },
@@ -724,13 +848,82 @@
       "notes": "Phase 2-1E: active=product(1+bonus); expected=1+undeadShare*(active-1). Shared condition, not product of copy-wise expectations. Editable all-profile 50% low-confidence assumption. Condition correlations are factorized; direct melee only."
     },
     {
-      "id": "soul-siphon", "name": { "en": "Soul Siphon" },
-      "applicability": { "melee": true, "ranged": true, "armor": false, "soulGearOnly": true },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "1", "interpreted": { "extraSouls": 1, "triggerChance": 0.2 } }, "2": { "raw": "3", "interpreted": { "extraSouls": 3, "triggerChance": 0.2 } }, "3": { "raw": "5", "interpreted": { "extraSouls": 5, "triggerChance": 0.2 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "soul-generation", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/soul-siphon", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "20% on-hit chance to grant the tier number of extra souls; soul gear only." }],
-      "confidence": "high", "notes": "Needs a soul resource and downstream soul-spend utility/damage model."
+      "id": "soul-siphon",
+      "name": {
+        "en": "Soul Siphon"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false,
+        "soulGearOnly": true
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "1",
+          "interpreted": {
+            "triggerChance": 0.2,
+            "extraPickupCount": 1
+          }
+        },
+        "2": {
+          "raw": "3",
+          "interpreted": {
+            "triggerChance": 0.2,
+            "extraPickupCount": 3
+          }
+        },
+        "3": {
+          "raw": "5",
+          "interpreted": {
+            "triggerChance": 0.2,
+            "extraPickupCount": 5
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "soul-generation",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/soul-siphon",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "20% on-hit chance to grant the tier number of extra souls; soul gear only."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/soul-subsystem.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Phase 2-1G limited runtime on Soul Scythe only. 20% per profile hit, 1/3/5 pickups times gathering for resource units. AoE target-roll semantics unverified; no invented resource utility points."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Phase 2-1G limited runtime on Soul Scythe only. 20% per profile hit, 1/3/5 pickups times gathering for resource units. AoE target-roll semantics unverified; no invented resource utility points."
     },
     {
       "id": "stunning", "name": { "en": "Stunning" },
