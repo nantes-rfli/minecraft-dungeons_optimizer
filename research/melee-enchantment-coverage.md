@@ -7,9 +7,9 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 - Target game version: 1.17.0.0
 - Audit date: 2026-08-31
 - Melee-applicable, hero-accessible enchantments: **33**
-- Catalog runtime: **19 / 33**
-- Broad Power-range runtime: **16 / 33**
-- Power-range-limited proc: **3 / 33**
+- Catalog runtime: **22 / 33**
+- Broad Power-range runtime: **17 / 33**
+- Power-range-limited damage enchantments: **5 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
 
@@ -21,10 +21,10 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 19 |
+| implemented | 22 |
 | straightforward | 0 |
 | needs-state-model | 9 |
-| needs-damage-event-model | 3 |
+| needs-damage-event-model | 0 |
 | needs-enemy-state | 0 |
 | utility-only | 2 |
 | insufficient-evidence | 0 |
@@ -44,33 +44,33 @@ The source index explicitly separates player enchantments from mob/innate record
 | Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
 | Echo | needs-state-model | attack-repeat | Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution |
 | Enigma Resonator | needs-state-model | soul-dependent-proc | Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements |
-| Exploding | needs-damage-event-model | on-kill-area-damage | Needs enemy-specific max health, AoE targeting, delayed events, and explicit kill attribution. |
-| Fire Aspect | needs-damage-event-model | damage-over-time | Needs DoT tick/refresh/stack behavior, focus interaction, Void Strike interaction, and non-direct kill attribution. |
+| Exploding | implemented | on-kill-explosion | — |
+| Fire Aspect | implemented | attached-dot | Power 70–251 only; Phase 2-1H partial: Power70–251, one runtime copy only despite game stacking up to four; mixed-tier formula unresolved |
 | Freezing | needs-state-model | movement-slow | Needs CC utility/action-suppression metrics; it must not be assigned invented defense points. |
 | Gravity | needs-state-model | mob-grouping | Needs grouping/target-density state and a CC utility metric. |
 | Guarding Strike | implemented | on-kill-defense | — |
 | Leeching | implemented | on-kill-healing | — |
 | Looting | utility-only | consumable-loot | Optimizer-excluded until a consumable/utility objective exists; never score as zero-effect. |
 | Pain Cycle | needs-state-model | stack-and-self-damage | Needs combo-independent stack state, self-damage, healing interaction, and per-hit damage events. |
-| Poison Cloud | needs-damage-event-model | area-damage-over-time | Needs ticks, overlap, target residence, Poison Focus/Void Strike interactions, and non-direct kill attribution. |
+| Poison Cloud | implemented | persistent-area-dot | Power 184–251 only; Phase 2-1H partial: Power184–251; 30% per profile hit; 3s cloud |
 | Prospector | utility-only | emerald-loot | Optimizer-excluded until an emerald-farming objective exists; never score as zero-effect. |
 | Radiance | implemented | proc-healing | — |
 | Rampaging | implemented | on-kill-attack-speed | — |
 | Refreshment | implemented | potion-cooldown | — |
 | Sharpness | implemented | passive-damage | — |
-| Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial |
+| Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation |
 | Smiting | implemented | category-damage | — |
 | Soul Siphon | implemented | soul-generation | — |
 | Stunning | needs-state-model | crowd-control | Stun duration/resistance and CC valuation need evidence; no invented defense conversion. |
-| Swirling | implemented | indirect-damage-event | Power 210–263 only; Phase 2-1D partial |
-| Thundering | implemented | indirect-damage-event | Power 248–263 only; Phase 2-1D partial |
+| Swirling | implemented | indirect-damage-event | Power 210–263 only; Phase 2-1D partial: conditional runtime only at Power 210–263; no extrapolation |
+| Thundering | implemented | indirect-damage-event | Power 248–263 only; Phase 2-1D partial: conditional runtime only at Power 248–263; no extrapolation |
 | Unchanting | implemented | conditional-damage | — |
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 19 is catalog coverage, not full Power coverage.
+Five entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263, Fire Aspect 70–251, Poison Cloud 184–251. Fire Aspect supports only one copy. All three Phase 2-1H effects reject Void combinations. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 22 is catalog coverage, not full Power coverage.
 
-Only the 19 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 22 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## Focus findings
 
@@ -94,14 +94,14 @@ Shockwave and Swirling trigger from the last combo attack. Existing `AttackProfi
 
 ### DoT, lightning, CC, and utility
 
-Fire Aspect and Poison Cloud still require separate power-scaled damage events with trigger/tick/overlap/AoE and interaction evidence. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
+Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence/saturation approximations. Tick phase, overlap and Void interactions remain unresolved; limits are explicit. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
 
 ## Existing model assessment
 
 - `EnchantmentTierValues`: Phase 2-1C keeps the original five unchanged and expands the typed `effect` union to direct weapon bonuses, potion cooldown on direct kill, and enemy damage debuffs. Numeric bonuses live only in tier data. Extend effect channels incrementally before any proc/DoT work; do not add 33 optional scalar fields.
 - `combineEnchantmentValues()`: sufficient for Sharpness's multiplicative copies and scalar additive/non-stackable effects. It is insufficient for independent proc rolls, duration extension/refresh, tier-mixed event streams, and cross-copy caps. Add effect-specific combination policies instead of forcing those behaviors into one scalar.
 - `CombatState`: reuse `estimatedKillsPerSecond` and `directWeaponKillsPerSecond`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; artifact-use and temporary speed now use separate Temporal State; soul, roll, summon, and Pain Cycle still need resources.
-- `DamageMetrics`: Phase 2-1D adds typed source/event contributions for Shockwave, Swirling and Thundering; Poison Cloud, Fire Aspect and Exploding remain unsupported. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
+- `DamageMetrics`: Phase 2-1D adds typed source/event contributions for Shockwave, Swirling and Thundering; Phase 2-1H adds typed attached DoT, persistent-area DoT and on-kill explosions with separate DPS metrics. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
 - `HealingMetrics`: Refreshment contributes only incremental potion healing capacity, explicitly a low-confidence proxy; Anima Conduit still needs soul-heal state.
 - `DefenseMetrics`: Weakening preserves affected incoming damage share, reduction, duration and enemy multiplier separately from Artifact/Guarding hero DR. Hard CC utility remains unsupported.
 
@@ -118,7 +118,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **19 / 33**, unsupported **14 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **22 / 33**, unsupported **11 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -149,7 +149,7 @@ Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage h
 
 SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
 
-Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Next: research Fire Aspect / Poison Cloud / Exploding on the existing DamageEvent foundation. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Next: quantify CC utility before promoting Chains / Stunning / Freezing / Gravity. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -159,6 +159,12 @@ Rampaging and Soul income share the same resolved evaluation. Enigma is absent, 
 - CC/debuff valuation without inventing defense equivalence.
 - Independent-proc and duration-based stacking beyond scalar combination.
 - Utility-only objectives for loot and emerald farming.
+
+## Phase 2-1H — partial
+
+Fire Aspect: 11 raw Power rows, 10 runtime knots (exclude anomalous Power250), Power70–251, one copy, finite refresh coverage with first hit at t=0. Poison Cloud: seven Power rows, Power184–251, 30% per profile hit, three-second cloud; editable residence/target-seconds and explicit Poisson non-additive saturation. Exploding: direct source kills × average enemy HP × 20/40/60% × derived secondary targets; pure single-target zero, no chain. Inner source-rate and outer Rampaging fixed points share the final combat state. All three reject Void combinations. No extrapolation; focus/armor remain out of scope.
+
+See [DoT and explosion design](../docs/dot-and-explosion-damage.md) and [audit](dot-damage-event-audit.json). Needs-damage-event-model is now zero, but limited support is not full mechanistic verification.
 
 ## Evidence limits
 
@@ -174,4 +180,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 19 / 33; unsupported coverage is 14 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G / 2-1H partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 22 / 33; unsupported coverage is 11 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.

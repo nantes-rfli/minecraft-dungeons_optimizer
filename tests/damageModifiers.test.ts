@@ -195,13 +195,14 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.best.build.enchantments[0]!.enchantmentId).toBe('sharpness')
   })
 
-  it('searches all nineteen candidates within the existing bounded Cartesian product', () => {
+  it('searches all twenty-two candidates within the existing bounded Cartesian product', () => {
     const candidates = Object.keys(ENCHANTMENTS) as EnchantmentId[]
     const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-nineteen', weaponId: 'soul-scythe', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
     const started = performance.now()
     const result = optimize(inventory, DEFAULT_SCENARIO)
-    // 19^3 minus 14 non-stackable IDs × (3 positions for a pair × 18 other IDs + one triple).
-    expect(result.evaluatedBuildCount).toBe(6859 - 14 * 55)
+    // 22^3 minus 17 single-copy IDs × (3 positions for a pair × 21 other IDs + one triple).
+    // Also remove 342 distinct ordered triples containing Void + a Phase 2-1H effect.
+    expect(result.evaluatedBuildCount).toBe(22 ** 3 - 17 * 64 - 342)
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
     console.info(`Nineteen-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)

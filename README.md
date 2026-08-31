@@ -50,6 +50,7 @@ npm run audit:dps
 npm run audit:melee
 npm run audit:enchants
 npm run audit:damage-events
+npm run audit:dot-damage
 npm run audit:temporal-enchants
 npm run audit:soul
 npm test
@@ -195,7 +196,7 @@ Phase 2-1F時点は **catalog runtime 17 / 33、広域Power 14 / 33、範囲限�
 
 ## Phase 2-1G — Soul subsystem（partial）
 
-**catalog runtime 19 / 33、広域Power 16 / 33、範囲限定proc 3、research-only 14、needs-state-model 9**。Soul Scytheのみを追加し、Anima Conduit / Soul Siphonを実装しました。既存3武器には装着できず、通常/金色・core・Optimizer・保存・JSONで拒否します。
+Phase 2-1G時点は **catalog runtime 19 / 33、広域Power 16 / 33、範囲限定proc 3、research-only 14、needs-state-model 9**。Soul Scytheのみを追加し、Anima Conduit / Soul Siphonを実装しました。既存3武器には装着できず、通常/金色・core・Optimizer・保存・JSONで拒否します。
 
 Soul ScytheはPhase 1A strict runtime-ready（timing 0.48/0.56秒、medium confidence）、内蔵Enchantなし、1.17.0.0内部Power 6.915、基礎Gathering +1です。Anima / Siphonの+1を加算します。Soulのpickup回数とresource量を分離し、開始0・容量300・消費0の連続ゲージ推移を計算します。
 
@@ -205,4 +206,16 @@ Enigmaは最大15/20/25%・3xを確認しましたが、現行版の中間ゲー
 
 Rampagingの同じ解からHPS、kill、Soul収入、平均/終了ゲージ、Anima容量を導出。例: 表示damage26・敵HP100・供給100/s・1体・30秒、Siphon/Anima/Rampaging IIIで11回収束、速度1.313272倍、65.663588 DPS、Soul収入9.546476/s、平均47.7324%、終了95.4648%。数式の整合例で実測ではありません。
 
-[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul`をCIに追加しました。次は既存DamageEventを再利用できるFire Aspect / Poison Cloud / Explodingの研究監査を推奨します。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。
+[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul`をCIに追加しました。この後Phase 2-1HでFire Aspect / Poison Cloud / Explodingを限定実装しました。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。
+
+## Phase 2-1H — Fire Aspect / Poison Cloud / Exploding（partial）
+
+**catalog runtime 22 / 33、広域Power17、範囲限定damage enchant5、research-only11、needs-damage-event-model0**。
+
+- Fire Aspect: Power70–251、3秒refreshの有限burn coverage、Tier1/1.25/1.5。Power250異常値はrawに保持し補間点から除外。stack式未確定のため1copy限定。
+- Poison Cloud: Power184–251、hit時30%、3秒cloud、Tier1/2/3。単体滞在とAoE target-secondsを設定し、未検証のoverlapは明示的なPoisson飽和仮定で扱います。
+- Exploding: Power非依存、直接撃破sourceのHP20/40/60%、二次対象だけ。単体0・連鎖なし。source撃破率の固定点をRampagingと組み合わせて解きます。
+
+全3種とVoid Strikeの併用は未対応として除外します。通常・locked・金色I/II/III・保存・JSON・Optimizer・寄与・理由・信頼度に対応。範囲外や未対応組合せを0点登録しません。DoTのfinal blowはdamage-share proxy（low）、Fire/Poison Focusや防具は対象外です。全Power・stack／Void／overlapの証拠不足により2-1Hはpartial、2-1D / F / Gもpartialを維持します。
+
+[設計・根拠・代表値・収束例・残課題](./docs/dot-and-explosion-damage.md) / [DoT audit](./research/dot-damage-event-audit.json)。`npm run audit:dot-damage`をCIへ追加。次はCC utilityの研究監査を推奨します。

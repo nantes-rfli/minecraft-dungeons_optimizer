@@ -11,7 +11,9 @@ import {
   resolveWeaponDamageCoefficient,
 } from './powerScaling'
 import { calculateAverageVoidStrikeMultiplier } from './voidStrike'
-import { calculateDamageEvents } from './damageEvents'
+import { calculateDamageEvents, enchantmentCombinationUnsupportedReason } from './damageEvents'
+import { calculateDotDamageEvents, calculateExplosionDamageEvents } from './dotDamageEvents'
+import { OptimizerInputError } from './errors'
 import { committedTrajectory, conditionalDirectDamage } from './enemyStateDamage'
 import type {
   ArtifactEffects,
@@ -54,7 +56,10 @@ export function calculateDamage(
   artifactEffects: ArtifactEffects,
   scenario: Scenario,
   attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier,
+  explosionSourceKillsPerSecond?: number,
 ): DamageMetrics {
+  const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
+  if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
   const { weaponId } = ownedWeapon
   const weapon = getWeaponDefinition(weaponId)
   const attackProfile = getAttackProfile(weaponId)
@@ -102,8 +107,15 @@ export function calculateDamage(
     1 + (scenario.averageTargetsInReach - 1) * areaCoverage
   const preCommittedDirectWeaponAoeDps = preCommittedDirectWeaponSingleTargetDps * expectedTargetsHit
   const damageEvents = calculateDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, attackSpeedMultiplier, scenario)
-  const indirectSingleTargetDps = damageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
-  const indirectAoeDps = damageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
+  const dotDamageEvents = calculateDotDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, attackSpeedMultiplier, scenario, expectedTargetsHit)
+  const explosionDamageEvents = calculateExplosionDamageEvents(enchantments, scenario, explosionSourceKillsPerSecond)
+  const instantIndirectSingleTargetDps = damageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
+  const instantIndirectAoeDps = damageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
+  const dotSingleTargetDps = dotDamageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
+  const dotAoeDps = dotDamageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
+  const explosionAoeDps = explosionDamageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
+  const indirectSingleTargetDps = instantIndirectSingleTargetDps + dotSingleTargetDps
+  const indirectAoeDps = instantIndirectAoeDps + dotAoeDps + explosionAoeDps
   const committed = enchantmentsById(enchantments, 'committed')[0]
   const committedEffect = committed ? getTierValues(committed).effect : undefined
   if (committed && committedEffect?.kind !== 'target-health-weapon-damage') throw new Error('Missing Committed health effect')
@@ -124,6 +136,13 @@ export function calculateDamage(
     indirectSingleTargetDps,
     indirectAoeDps,
     damageEvents,
+    dotDamageEvents,
+    explosionDamageEvents,
+    instantIndirectSingleTargetDps,
+    instantIndirectAoeDps,
+    dotSingleTargetDps,
+    dotAoeDps,
+    explosionAoeDps,
     singleTargetDps: directWeaponSingleTargetDps + indirectSingleTargetDps,
     aoeDps: directWeaponAoeDps + indirectAoeDps,
     expectedTargetsHit,

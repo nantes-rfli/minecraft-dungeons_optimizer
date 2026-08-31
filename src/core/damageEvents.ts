@@ -4,6 +4,8 @@ import { getAttackProfile } from './catalog'
 import { getTierValues } from './enchantment'
 import { OptimizerInputError } from './errors'
 import { soulEnchantmentUnsupportedReason } from './soulLegality'
+import { dotPowerRange, isDotDamageId } from './dotDamageEvents'
+import { DOT_EXPLOSION_IDS } from '../data/dotDamageEvents'
 import type { AttackProfile, DamageEventContribution, EnchantmentId, OwnedWeapon, ProcDamageCurve, ProcDamageId, Scenario, SelectedEnchantment } from './types'
 
 export function isProcDamageId(id: EnchantmentId): id is ProcDamageId {
@@ -19,13 +21,24 @@ export function procPowerRange(id: ProcDamageId): { min: number; max: number } {
 export function enchantmentUnsupportedReason(weapon: Pick<OwnedWeapon, 'powerLevel' | 'weaponId'>, id: EnchantmentId): string | undefined {
   const soulReason = soulEnchantmentUnsupportedReason(weapon.weaponId, id)
   if (soulReason) return soulReason
-  if (!isProcDamageId(id)) return undefined
-  const range = procPowerRange(id)
+  if (!isProcDamageId(id) && !isDotDamageId(id)) return undefined
+  const range = isProcDamageId(id) ? procPowerRange(id) : dotPowerRange(id)
   if (!Number.isFinite(weapon.powerLevel) || weapon.powerLevel < range.min || weapon.powerLevel > range.max) {
     return `${id}はPower ${range.min}–${range.max}のみ対応（現在${weapon.powerLevel}）。公開表の範囲外は外挿しません。`
   }
-  if (id !== 'thundering' && getAttackProfile(weapon.weaponId).value.method === 'speed-rating-proxy') {
+  if (isProcDamageId(id) && id !== 'thundering' && getAttackProfile(weapon.weaponId).value.method === 'speed-rating-proxy') {
     return `${id}はcombo metadataのないAttack Profileに未対応です。`
+  }
+  return undefined
+}
+
+export function enchantmentCombinationUnsupportedReason(enchantments: readonly SelectedEnchantment[]): string | undefined {
+  if (enchantments.filter((item) => item.enchantmentId === 'fire-aspect').length > 1) {
+    return 'Fire Aspectの複数copyはstacking式が未検証のため未対応です（現在1個限定）。'
+  }
+  if (enchantments.some((item) => item.enchantmentId === 'void-strike')) {
+    const indirect = enchantments.find((item) => (DOT_EXPLOSION_IDS as readonly string[]).includes(item.enchantmentId))
+    if (indirect) return `${indirect.enchantmentId} + Void Strikeは増幅・消費・再適用のinteraction未検証のため未対応です。`
   }
   return undefined
 }
@@ -75,6 +88,7 @@ export function calculateDamageEvents(
     }
     const singleTargetDps = eventsPerSecond * damagePerEvent
     return [{
+      kind: 'instant',
       sourceId: selected.enchantmentId, channel: 'enchantment-proc', tier: selected.tier,
       triggerKind: effect.kind === 'combo-finisher-damage' ? 'combo-finisher' : 'on-hit-probability',
       requiresTargetHit: definition.requiresTargetHit,

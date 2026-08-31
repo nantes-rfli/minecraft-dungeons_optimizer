@@ -1,6 +1,7 @@
 import { getEnchantmentDefinition } from './catalog'
 import { hasValidEnchantmentStacking } from './enchantment'
-import { enchantmentUnsupportedReason } from './damageEvents'
+import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
+import { validatePersistentAreaTargeting } from './dotDamageEvents'
 import { PROC_DAMAGE_IDS } from '../data/damageEvents'
 import { OptimizerInputError } from './errors'
 import { validateWeaponSoulLegality } from './soulLegality'
@@ -36,6 +37,7 @@ function assertPowerLevel(name: string, value: number, code: string): void {
 }
 
 export function validateScenario(scenario: Scenario): void {
+  validatePersistentAreaTargeting(scenario)
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
   assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
@@ -63,6 +65,8 @@ export function validateScenario(scenario: Scenario): void {
 }
 
 export function validateBuild(build: Build): void {
+  const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
+  if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
   validateWeaponSoulLegality(build.weapon)
   for (const selected of build.enchantments) {
     const reason = enchantmentUnsupportedReason(build.weapon, selected.enchantmentId)

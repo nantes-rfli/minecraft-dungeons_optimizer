@@ -466,10 +466,10 @@
     "maxIterations": 100
   },
   "coverage": {
-    "catalogRuntime": 19,
-    "broadPowerRuntime": 16,
-    "powerRangeLimitedProc": 3,
-    "researchOnly": 14,
+    "catalogRuntime": 22,
+    "broadPowerRuntime": 17,
+    "powerRangeLimitedProc": 5,
+    "researchOnly": 11,
     "needsStateModel": 9
   }
 }

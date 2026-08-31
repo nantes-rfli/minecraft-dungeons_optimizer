@@ -1,3 +1,4 @@
+import { DOT_SOURCES, DOT_TIER_MULTIPLIERS } from './dotDamageEvents'
 import { SOUL_ENCHANTMENT_METADATA } from './souls'
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
 import {
@@ -20,6 +21,48 @@ import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE, RAMPAGING_STACKING_SOURCE } 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  'fire-aspect': {
+    id: 'fire-aspect',
+    name: { ja: '火属性', en: 'Fire Aspect' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'attached-dot', dotId: 'fire-aspect', durationSeconds: 3, tierMultiplier: DOT_TIER_MULTIPLIERS['fire-aspect'][1] } },
+        2: { effect: { kind: 'attached-dot', dotId: 'fire-aspect', durationSeconds: 3, tierMultiplier: DOT_TIER_MULTIPLIERS['fire-aspect'][2] } },
+        3: { effect: { kind: 'attached-dot', dotId: 'fire-aspect', durationSeconds: 3, tierMultiplier: DOT_TIER_MULTIPLIERS['fire-aspect'][3] } },
+      },
+      source: DOT_SOURCES['fire-aspect'], confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'special' }, source: DOT_SOURCES['fire-aspect'], confidence: 'low', note: 'Game stackable up to four via Enchantsmith; runtime restricted to one copy because mixed-tier stacking is unresolved.' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: DOT_SOURCES['fire-aspect'], confidence: 'high' },
+  },
+  'poison-cloud': {
+    id: 'poison-cloud',
+    name: { ja: '毒の雲', en: 'Poison Cloud' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: DOT_TIER_MULTIPLIERS['poison-cloud'][1] } },
+        2: { effect: { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: DOT_TIER_MULTIPLIERS['poison-cloud'][2] } },
+        3: { effect: { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: DOT_TIER_MULTIPLIERS['poison-cloud'][3] } },
+      },
+      source: DOT_SOURCES['poison-cloud'], confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: DOT_SOURCES['poison-cloud'], confidence: 'high' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: DOT_SOURCES['poison-cloud'], confidence: 'high' },
+  },
+  'exploding': {
+    id: 'exploding',
+    name: { ja: '爆発', en: 'Exploding' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'on-direct-kill-explosion', healthFraction: 0.2 } },
+        2: { effect: { kind: 'on-direct-kill-explosion', healthFraction: 0.4 } },
+        3: { effect: { kind: 'on-direct-kill-explosion', healthFraction: 0.6 } },
+      },
+      source: DOT_SOURCES['exploding'], confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: DOT_SOURCES['exploding'], confidence: 'high' },
+    applicability: { value: { melee: true, ranged: false, armor: false }, source: DOT_SOURCES['exploding'], confidence: 'high' },
+  },
   'anima-conduit': {
     id: 'anima-conduit',
     name: { ja: '流れ込む魂', en: 'Anima Conduit' },

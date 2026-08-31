@@ -1,3 +1,4 @@
+import { describeDotOrExplosion } from './dotDamageReasons'
 import { calculateArtifactEffects } from './artifact'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { summarizeConfidence } from './confidence'
@@ -113,6 +114,10 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
       ? `コンボ終了 ${event.opportunitiesPerSecond.toFixed(3)}回/秒`
       : `HPS ${event.opportunitiesPerSecond.toFixed(3)} × 30%`
     reasons.push(`${getEnchantmentDefinition(event.sourceId).name.en}: ${trigger} → proc ${event.eventsPerSecond.toFixed(3)}回/秒 × ${event.damagePerEvent.toFixed(1)} damage/event = 単体${event.singleTargetDps.toFixed(1)} DPS / AoE ${event.aoeDps.toFixed(1)} DPS（平均${event.expectedTargetsHit}体、間接damageは直接撃破効果と別扱い）`)
+  }
+
+  for (const event of [...core.damage.dotDamageEvents, ...core.damage.explosionDamageEvents]) {
+    reasons.push(describeDotOrExplosion(event))
   }
 
   const synergy = build.enchantments.find((item) => item.enchantmentId === 'artifact-synergy')

@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-31",
+  "phaseStatus": "partial",
+  "sources": [
+    {
+      "id": "tools-fire-aspect",
+      "url": "https://www.dungeons.tools/enchantments/fire-aspect",
+      "kind": "game-file-derived-publication",
+      "retrievedAt": "2026-08-31",
+      "note": "1.17.0.0 database; tier values/flags are distinct from editorial mechanics. Raw game files not independently inspected."
+    },
+    {
+      "id": "wiki-fire-aspect",
+      "url": "https://minecraft.wiki/w/Dungeons:Fire_Aspect",
+      "kind": "published-reference",
+      "retrievedAt": "2026-08-31",
+      "note": "Search-index copy retrieved; direct fetch blocked by robots.txt. Table version/roll unspecified; not independent 1.17 measurement."
+    },
+    {
+      "id": "tools-poison-cloud",
+      "url": "https://www.dungeons.tools/enchantments/poison-cloud",
+      "kind": "game-file-derived-publication",
+      "retrievedAt": "2026-08-31",
+      "note": "1.17.0.0 database; tier values/flags are distinct from editorial mechanics. Raw game files not independently inspected."
+    },
+    {
+      "id": "wiki-poison-cloud",
+      "url": "https://minecraft.wiki/w/Dungeons:Poison_Cloud",
+      "kind": "published-reference",
+      "retrievedAt": "2026-08-31",
+      "note": "Search-index copy retrieved; direct fetch blocked by robots.txt. Table version/roll unspecified; not independent 1.17 measurement."
+    },
+    {
+      "id": "tools-exploding",
+      "url": "https://www.dungeons.tools/enchantments/exploding",
+      "kind": "game-file-derived-publication",
+      "retrievedAt": "2026-08-31",
+      "note": "1.17.0.0 database; tier values/flags are distinct from editorial mechanics. Raw game files not independently inspected."
+    },
+    {
+      "id": "wiki-exploding",
+      "url": "https://minecraft.wiki/w/Dungeons:Exploding",
+      "kind": "published-reference",
+      "retrievedAt": "2026-08-31",
+      "note": "Search-index copy retrieved; direct fetch blocked by robots.txt. Table version/roll unspecified; not independent 1.17 measurement."
+    },
+    {
+      "id": "stack-2020",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/he5bsy",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Quantitative first-person test: Fire second copy 50%; third only guessed. Old version; conflicts with later 75% reports."
+    },
+    {
+      "id": "stack-2023",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15pbk2a",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Community second-copy 75% report; no mixed-tier/four-copy raw runs."
+    },
+    {
+      "id": "dot-refresh",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/n431gd",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Community explains same-target fixed Fire/Poison DPS; not a rigorous cloud-overlap experiment."
+    },
+    {
+      "id": "void-dot",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15xk3z1",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Reports rising Fire/Poison ticks under Void; exact consumption/reset timing not measured."
+    },
+    {
+      "id": "weapon-kill",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1c28h74",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Lists Exploding and other on-kill effects as requiring own direct weapon damage."
+    },
+    {
+      "id": "no-chain",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/13eqs3l",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Independent community report: direct physical kills explode; blast kills do not."
+    },
+    {
+      "id": "indirect-kills",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1dml95h",
+      "kind": "community-report",
+      "retrievedAt": "2026-08-31",
+      "note": "Fire/Poison/Exploding final blows do not trigger direct weapon kill effects."
+    }
+  ],
+  "entries": [
+    {
+      "id": "fire-aspect",
+      "runtimeStatus": "implemented",
+      "modelKind": "attached-dot",
+      "trigger": {
+        "kind": "on-hit-apply-dot",
+        "probability": 1
+      },
+      "durationSeconds": 3,
+      "powerScaling": {
+        "unit": "damage-per-second",
+        "tierRatios": [
+          1,
+          1.25,
+          1.5
+        ],
+        "publishedRows": [
+          [
+            70,
+            149,
+            186,
+            223
+          ],
+          [
+            168,
+            7988,
+            9984,
+            11981
+          ],
+          [
+            210,
+            42257,
+            52821,
+            63385
+          ],
+          [
+            213,
+            47870,
+            59838,
+            71806
+          ],
+          [
+            228,
+            87700,
+            109625,
+            131550
+          ],
+          [
+            232,
+            105295,
+            131619,
+            157943
+          ],
+          [
+            242,
+            156520,
+            195650,
+            234780
+          ],
+          [
+            243,
+            165103,
+            206279,
+            247654
+          ],
+          [
+            249,
+            206102,
+            257627,
+            309152
+          ],
+          [
+            250,
+            126649,
+            270811,
+            324974
+          ],
+          [
+            251,
+            226443,
+            283054,
+            339665
+          ]
+        ],
+        "supportedPowerRange": {
+          "min": 70,
+          "max": 251
+        },
+        "interpolation": "individual Tier I log-linear; tier ratios; no extrapolation",
+        "excludedRuntimePowers": [
+          250
+        ],
+        "confidence": "low"
+      },
+      "repeatedApplication": {
+        "refreshes": true,
+        "stacks": false,
+        "overlap": "uncertain",
+        "tickPhaseReset": "uncertain",
+        "confidence": "low"
+      },
+      "targeting": {
+        "model": "same continuously contacted targets; expectedTargetsHit × single burn DPS",
+        "confidence": "low"
+      },
+      "attribution": {
+        "qualifiesAsDirectWeaponKill": false,
+        "model": "damage-share final-blow proxy; no tick/remaining-HP simulation",
+        "confidence": "low"
+      },
+      "voidInteraction": {
+        "amplification": "reported",
+        "consumesVoid": "uncertain",
+        "resetsOrReappliesVoid": "uncertain",
+        "runtime": "unsupported combination with Void Strike",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameStackable": true,
+        "gameMaxCopies": 4,
+        "runtimeMaxCopies": 1,
+        "formula": "unresolved; never combine tier ratios"
+      },
+      "sourceIds": [
+        "tools-fire-aspect",
+        "wiki-fire-aspect",
+        "dot-refresh",
+        "void-dot",
+        "indirect-kills",
+        "stack-2020",
+        "stack-2023"
+      ],
+      "blockers": [
+        "full Power 50–263 evidence",
+        "Void amplification/consume/reset timing",
+        "DoT final-blow timing",
+        "mixed-tier and 2–4-copy formula",
+        "refresh tick phase; target turnover"
+      ]
+    },
+    {
+      "id": "poison-cloud",
+      "runtimeStatus": "implemented",
+      "modelKind": "persistent-area-dot",
+      "trigger": {
+        "kind": "on-hit-probability-area-dot",
+        "probability": 0.3
+      },
+      "durationSeconds": 3,
+      "powerScaling": {
+        "unit": "damage-per-second",
+        "tierRatios": [
+          1,
+          2,
+          3
+        ],
+        "publishedRows": [
+          [
+            184,
+            7559,
+            15119,
+            22678
+          ],
+          [
+            213,
+            23908,
+            47816,
+            71725
+          ],
+          [
+            215,
+            26334,
+            52669,
+            79003
+          ],
+          [
+            231,
+            50376,
+            100753,
+            151129
+          ],
+          [
+            240,
+            73925,
+            147849,
+            221774
+          ],
+          [
+            246,
+            92861,
+            185723,
+            278584
+          ],
+          [
+            251,
+            113598,
+            227196,
+            340793
+          ]
+        ],
+        "supportedPowerRange": {
+          "min": 184,
+          "max": 251
+        },
+        "interpolation": "individual Tier I log-linear; tier ratios; no extrapolation",
+        "excludedRuntimePowers": [],
+        "confidence": "low"
+      },
+      "repeatedApplication": {
+        "refreshes": "uncertain",
+        "stacks": "uncertain",
+        "overlap": "uncertain",
+        "tickPhaseReset": "uncertain",
+        "confidence": "low"
+      },
+      "targeting": {
+        "model": "Poisson saturation; residence 0–3; target-seconds per cloud; homogeneous exposure across averageTargetsInReach",
+        "confidence": "low"
+      },
+      "attribution": {
+        "qualifiesAsDirectWeaponKill": false,
+        "model": "damage-share final-blow proxy; no tick/remaining-HP simulation",
+        "confidence": "low"
+      },
+      "voidInteraction": {
+        "amplification": "reported",
+        "consumesVoid": "uncertain",
+        "resetsOrReappliesVoid": "uncertain",
+        "runtime": "unsupported combination with Void Strike",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameStackable": false,
+        "gameMaxCopies": 1,
+        "runtimeMaxCopies": 1,
+        "formula": "non-stackable"
+      },
+      "sourceIds": [
+        "tools-poison-cloud",
+        "wiki-poison-cloud",
+        "dot-refresh",
+        "void-dot",
+        "indirect-kills"
+      ],
+      "blockers": [
+        "full Power 50–263 evidence",
+        "Void amplification/consume/reset timing",
+        "DoT final-blow timing",
+        "overlap not independently measured; saturation is a low-confidence model, not established game behavior",
+        "per-hit versus per-target roll",
+        "residence and cloud geometry unmeasured"
+      ]
+    },
+    {
+      "id": "exploding",
+      "runtimeStatus": "implemented",
+      "modelKind": "on-kill-explosion",
+      "trigger": {
+        "kind": "on-qualifying-kill-explosion",
+        "probability": 1
+      },
+      "powerScaling": {
+        "unit": "defeated-enemy-health-fraction",
+        "tierRatios": [
+          0.2,
+          0.4,
+          0.6
+        ],
+        "powerIndependent": true,
+        "confidence": "high"
+      },
+      "repeatedApplication": {
+        "stacks": false,
+        "overlap": false,
+        "chainReaction": false
+      },
+      "targeting": {
+        "sourceHealth": "scenario.averageEnemyHealth as defeated max HP",
+        "expectedSecondaryTargets": "min(1,max(0,averageTargetsInReach-1))",
+        "singleTargetDps": 0,
+        "sourceExcluded": true,
+        "confidence": "low"
+      },
+      "attribution": {
+        "sourceKills": "CombatState.directWeaponKillsPerSecond",
+        "artifactKillsQualify": false,
+        "indirectKillsQualify": false,
+        "qualifiesAsDirectWeaponKill": false,
+        "confidence": "medium"
+      },
+      "voidInteraction": {
+        "amplification": "uncertain",
+        "consumesVoid": "uncertain",
+        "resetsOrReappliesVoid": "uncertain",
+        "runtime": "unsupported combination with Void Strike",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameStackable": false,
+        "gameMaxCopies": 1,
+        "runtimeMaxCopies": 1,
+        "formula": "non-stackable"
+      },
+      "solver": {
+        "model": "inner bracketed fixed point on direct source kill rate; outer Rampaging uptime fixed point",
+        "chainReaction": false,
+        "confidence": "model-derived"
+      },
+      "sourceIds": [
+        "tools-exploding",
+        "wiki-exploding",
+        "weapon-kill",
+        "no-chain",
+        "indirect-kills"
+      ],
+      "blockers": [
+        "source health and secondary target geometry unmeasured",
+        "direct-only source evidence is community-backed, not raw game-file trigger",
+        "Void interaction",
+        "delayed explosion and finite encounter end not simulated"
+      ]
+    }
+  ],
+  "fireOutlier": {
+    "powerLevel": 250,
+    "rawTierOneDps": 126649,
+    "policy": "Exclude entire Power250 row as runtime knot; interpolate 249–251. Retain all three raw tier values.",
+    "hypotheses": [
+      "transcription error likely: T2/1.25=216648.8 and T3/1.5=216649.33 versus printed126649",
+      "roll variation exists but does not explain within-row tier mismatch",
+      "table corruption possible, no revision-level proof",
+      "unrelated coefficient unsupported"
+    ],
+    "cause": "unconfirmed",
+    "otherRounding": "Power243 T2 differs by ~0.046%; retain and tolerate <=1 raw damage or 0.1% tier reconstruction."
+  },
+  "commonCurveInvestigation": {
+    "modelA": "individual log-linear curves within published ranges; adopted",
+    "modelB": "shared underlying scaling plus coefficient; unproven",
+    "fireShockwaveSharedPower": [
+      {
+        "power": 210,
+        "fire": 42257,
+        "shockwave": 42257
+      },
+      {
+        "power": 213,
+        "fire": 47870,
+        "shockwave": 49058
+      },
+      {
+        "power": 251,
+        "fire": 226443,
+        "shockwave": 227196
+      }
+    ],
+    "poisonShockwaveSharedPower": [
+      {
+        "power": 213,
+        "poison": 23908,
+        "shockwave": 49058
+      },
+      {
+        "power": 231,
+        "poison": 50376,
+        "shockwave": 100753
+      },
+      {
+        "power": 246,
+        "poison": 92861,
+        "shockwave": 182689
+      },
+      {
+        "power": 251,
+        "poison": 113598,
+        "shockwave": 227196
+      }
+    ],
+    "decision": "Coincident/near-coincident points do not establish common curve; same displayed Power rolls vary. No low-Power extrapolation; Phase 2-1D remains partial."
+  },
+  "futureInteractions": [
+    "Fire Focus",
+    "Poison Focus",
+    "armor",
+    "ranged"
+  ],
+  "priorPhases": {
+    "2-1D": "partial",
+    "2-1F": "partial",
+    "2-1G": "partial"
+  }
+}

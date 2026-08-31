@@ -46,6 +46,9 @@ export type EnchantmentId =
   | 'rampaging'
   | 'anima-conduit'
   | 'soul-siphon'
+  | 'fire-aspect'
+  | 'poison-cloud'
+  | 'exploding'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -201,6 +204,73 @@ export interface EnemyDamageDebuffEffect {
 
 export type ProcDamageId = 'shockwave' | 'swirling' | 'thundering'
 
+export type DotDamageId = 'fire-aspect' | 'poison-cloud'
+export interface DotDamageCurve {
+  readonly method: 'log-linear'
+  readonly points: readonly { readonly powerLevel: number; readonly tierOneDps: number }[]
+}
+export type DotDamageEffect =
+  | { readonly kind: 'attached-dot'; readonly dotId: 'fire-aspect'; readonly durationSeconds: 3; readonly tierMultiplier: number }
+  | { readonly kind: 'persistent-area-dot'; readonly dotId: 'poison-cloud'; readonly durationSeconds: 3; readonly triggerChance: 0.3; readonly tierMultiplier: number }
+export interface OnKillExplosionEffect {
+  readonly kind: 'on-direct-kill-explosion'
+  readonly healthFraction: number
+}
+
+export interface PersistentAreaTargetingAssumptions {
+  readonly poisonCloudSingleTargetResidenceSeconds: number
+  readonly poisonCloudTargetSecondsPerEvent: number
+}
+
+interface IndirectDamageContribution {
+  readonly sourceId: EnchantmentId
+  readonly channel: 'enchantment-proc'
+  readonly tier: EnchantmentTier
+  readonly singleTargetDps: number
+  readonly aoeDps: number
+  readonly qualifiesAsDirectWeaponKill: false
+  readonly confidence: Confidence
+}
+
+export interface AttachedDotDamageEvent extends IndirectDamageContribution {
+  readonly kind: 'attached-dot'
+  readonly sourceId: 'fire-aspect'
+  readonly durationSeconds: 3
+  readonly damagePerSecond: number
+  readonly targetUptime: number
+  readonly expectedTargetsHit: number
+  readonly timeModel: 'finite-first-hit-at-zero'
+}
+
+export interface PersistentAreaDotDamageEvent extends IndirectDamageContribution {
+  readonly kind: 'persistent-area-dot'
+  readonly sourceId: 'poison-cloud'
+  readonly durationSeconds: 3
+  readonly damagePerSecond: number
+  readonly opportunitiesPerSecond: number
+  readonly triggerProbability: 0.3
+  readonly cloudSpawnsPerSecond: number
+  readonly singleTargetResidenceSeconds: number
+  readonly targetSecondsPerEvent: number
+  readonly singleTargetUptime: number
+  readonly effectiveAoeTargets: number
+  readonly overlapModel: 'poisson-saturation-assumption'
+}
+
+export interface OnKillExplosionDamageEvent extends IndirectDamageContribution {
+  readonly kind: 'on-kill-explosion'
+  readonly sourceId: 'exploding'
+  readonly sourceKillsPerSecond: number
+  readonly sourceHealth: number
+  readonly healthFraction: number
+  readonly damagePerSecondaryTarget: number
+  readonly expectedSecondaryTargets: number
+  readonly singleTargetDps: 0
+  readonly chainReaction: false
+}
+
+export type DamageEventModel = DamageEventContribution | AttachedDotDamageEvent | PersistentAreaDotDamageEvent | OnKillExplosionDamageEvent
+
 export type ProcDamageEffect =
   | { readonly kind: 'combo-finisher-damage'; readonly procDamageId: 'shockwave' | 'swirling'; readonly tierMultiplier: number }
   | { readonly kind: 'on-hit-proc-damage'; readonly procDamageId: 'thundering'; readonly triggerChance: number; readonly tierMultiplier: number }
@@ -235,12 +305,13 @@ export interface SoulDependentCriticalEffect {
   readonly damageMultiplier: number
 }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | DotDamageEffect | OnKillExplosionEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect
 
 export type DamageChannel = 'direct-melee' | 'enchantment-proc'
 
 /** Steady-state expected contribution; not a timestamped simulation event. */
 export interface DamageEventContribution {
+  readonly kind: 'instant'
   readonly sourceId: EnchantmentId
   readonly channel: 'enchantment-proc'
   readonly tier: EnchantmentTier
@@ -396,6 +467,7 @@ export interface Scenario {
   readonly enemyState: EnemyStateAssumptions
   readonly enemyDebuffs: EnemyDebuffAssumptions
   readonly damageEventTargeting: DamageEventTargetingAssumptions
+  readonly persistentAreaTargeting?: PersistentAreaTargetingAssumptions
   readonly incomingDamagePerSecond: number
   readonly maxHealth: number
   readonly averageTargetsInReach: number
@@ -464,6 +536,16 @@ export interface RampagingState {
 }
 
 export interface OffensiveTemporalState {
+  readonly exploding?: {
+    readonly initialDirectKillsPerSecond: number
+    readonly firstExplodingAoeDps: number
+    readonly convergedExplodingAoeDps: number
+    readonly directDamageShare: number
+    readonly directWeaponKillsPerSecond: number
+    readonly iterations: number
+    /** Relative source-rate fixed-point residual. */
+    readonly residual: number
+  }
   readonly artifactActivation: ArtifactActivationState
   readonly artifactSynergy: ArtifactSynergyState
   readonly rampaging: RampagingState
@@ -481,6 +563,13 @@ export interface DamageMetrics {
   readonly indirectSingleTargetDps: number
   readonly indirectAoeDps: number
   readonly damageEvents: readonly DamageEventContribution[]
+  readonly dotDamageEvents: readonly (AttachedDotDamageEvent | PersistentAreaDotDamageEvent)[]
+  readonly explosionDamageEvents: readonly OnKillExplosionDamageEvent[]
+  readonly instantIndirectSingleTargetDps: number
+  readonly instantIndirectAoeDps: number
+  readonly dotSingleTargetDps: number
+  readonly dotAoeDps: number
+  readonly explosionAoeDps: number
   readonly singleTargetDps: number
   readonly aoeDps: number
   readonly expectedTargetsHit: number

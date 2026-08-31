@@ -517,22 +517,154 @@
       "notes": "Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements. Fullness reports do not establish linearity; old 100-soul and Bag of Souls conflicts remain. Never use fixed 12.5%."
     },
     {
-      "id": "exploding", "name": { "en": "Exploding" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "20%", "interpreted": { "enemyMaxHealthDamageFraction": 0.2 } }, "2": { "raw": "40%", "interpreted": { "enemyMaxHealthDamageFraction": 0.4 } }, "3": { "raw": "60%", "interpreted": { "enemyMaxHealthDamageFraction": 0.6 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-kill", "modelCategory": "on-kill-area-damage", "runtimeStatus": "needs-damage-event-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/exploding", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "Explosion damage is based on the defeated enemy's health and does not chain-trigger further explosions." }],
-      "confidence": "high", "notes": "Needs enemy-specific max health, AoE targeting, delayed events, and explicit kill attribution."
+      "id": "exploding",
+      "name": {
+        "en": "Exploding"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "powerful",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "20%",
+          "interpreted": {
+            "enemyMaxHealthDamageFraction": 0.2
+          }
+        },
+        "2": {
+          "raw": "40%",
+          "interpreted": {
+            "enemyMaxHealthDamageFraction": 0.4
+          }
+        },
+        "3": {
+          "raw": "60%",
+          "interpreted": {
+            "enemyMaxHealthDamageFraction": 0.6
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-kill",
+      "modelCategory": "on-kill-explosion",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/exploding",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "damage-scaling",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Explosion damage is based on the defeated enemy's health and does not chain-trigger further explosions."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/dot-and-explosion-damage.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics",
+            "damage-scaling",
+            "kill-attribution",
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Phase 2-1H explicitly limited model; audit separates source facts from modeling assumptions."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1H limited model: direct source kills only; 20/40/60% source max HP proxied by averageEnemyHealth; derived secondary targets, pure single target0. Bracketed source-rate fixed point nested in Rampaging; no chain. Void combination unsupported. See dot-damage-event-audit.json."
     },
     {
-      "id": "fire-aspect", "name": { "en": "Fire Aspect" },
-      "applicability": { "melee": true, "ranged": true, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "X" }, "2": { "raw": "1.25X" }, "3": { "raw": "1.5X" } },
-      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "damage-over-time", "runtimeStatus": "needs-damage-event-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/fire-aspect", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling"], "confidence": "high", "note": "Three-second power-scaled burn; raw X notation is preserved and not treated as weapon-hit percentage." }],
-      "confidence": "medium", "notes": "Needs DoT tick/refresh/stack behavior, focus interaction, Void Strike interaction, and non-direct kill attribution."
+      "id": "fire-aspect",
+      "name": {
+        "en": "Fire Aspect"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "X"
+        },
+        "2": {
+          "raw": "1.25X"
+        },
+        "3": {
+          "raw": "1.5X"
+        }
+      },
+      "stacking": {
+        "maxCopies": 4,
+        "behavior": "special"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "attached-dot",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/fire-aspect",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "damage-scaling"
+          ],
+          "confidence": "high",
+          "note": "Three-second power-scaled burn; raw X notation is preserved and not treated as weapon-hit percentage."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/dot-and-explosion-damage.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics",
+            "damage-scaling",
+            "kill-attribution",
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Phase 2-1H explicitly limited model; audit separates source facts from modeling assumptions."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1H partial: Power70–251, one runtime copy only despite game stacking up to four; mixed-tier formula unresolved. Fire250 raw retained but excluded from curve. Finite refresh coverage; homogeneous AoE. Void combination unsupported. See dot-damage-event-audit.json.",
+      "runtimePowerRange": {
+        "min": 70,
+        "max": 251
+      }
     },
     {
       "id": "freezing", "name": { "en": "Freezing" },
@@ -589,13 +721,89 @@
       "confidence": "medium", "notes": "Needs combo-independent stack state, self-damage, healing interaction, and per-hit damage events."
     },
     {
-      "id": "poison-cloud", "name": { "en": "Poison Cloud" },
-      "applicability": { "melee": true, "ranged": true, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } }, "2": { "raw": "2X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } }, "3": { "raw": "3X", "interpreted": { "triggerChance": 0.3, "durationSeconds": 3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "area-damage-over-time", "runtimeStatus": "needs-damage-event-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/poison-cloud", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "damage-scaling", "built-in"], "confidence": "high", "note": "30% on-hit chance, three-second stationary cloud; raw X damage scaling is preserved." }],
-      "confidence": "medium", "notes": "Needs ticks, overlap, target residence, Poison Focus/Void Strike interactions, and non-direct kill attribution."
+      "id": "poison-cloud",
+      "name": {
+        "en": "Poison Cloud"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "X",
+          "interpreted": {
+            "triggerChance": 0.3,
+            "durationSeconds": 3
+          }
+        },
+        "2": {
+          "raw": "2X",
+          "interpreted": {
+            "triggerChance": 0.3,
+            "durationSeconds": 3
+          }
+        },
+        "3": {
+          "raw": "3X",
+          "interpreted": {
+            "triggerChance": 0.3,
+            "durationSeconds": 3
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "persistent-area-dot",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/poison-cloud",
+          "retrievedAt": "2026-08-29",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "damage-scaling",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "30% on-hit chance, three-second stationary cloud; raw X damage scaling is preserved."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/dot-and-explosion-damage.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics",
+            "damage-scaling",
+            "kill-attribution",
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Phase 2-1H explicitly limited model; audit separates source facts from modeling assumptions."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1H partial: Power184–251; 30% per profile hit; 3s cloud. Explicit residence/target-seconds with Poisson saturation assumption; independent overlap not established. Void combination unsupported. See dot-damage-event-audit.json.",
+      "runtimePowerRange": {
+        "min": 184,
+        "max": 251
+      }
     },
     {
       "id": "prospector", "name": { "en": "Prospector" },

@@ -1,3 +1,5 @@
+import { DOT_DAMAGE_CURVES, DOT_EXPLOSION_IDS, FIRE_REFRESH_MODEL, FIRE_TARGET_MODEL, POISON_SATURATION_MODEL, EXPLOSION_TARGET_MODEL, EXPLOSION_KILL_SOURCE } from '../data/dotDamageEvents'
+import { isDotDamageId } from './dotDamageEvents'
 import { BASE_SOUL_CAPACITY, INITIAL_SOULS, SOUL_GATHERING_PER_ENCHANTMENT, SOUL_TRAJECTORY_MODEL, SOUL_NORMAL_KILL_MODEL, SOUL_SIPHON_ROLL_MODEL, SOUL_SIPHON_PICKUPS, ANIMA_CAPACITY_MODEL, SOUL_GILDED_GATHERING_MODEL, isSoulEnchantmentId } from '../data/souls'
 import {
   ARTIFACT_USE_RATE_MODEL, ARTIFACT_SYNERGY_PENDING_CHARGE, ARTIFACT_SYNERGY_STAGGERING,
@@ -147,6 +149,30 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.push('Animaは近接2/4/6%×最大HP×pickup/秒の名目回復容量です。満タン後も計上する楽観的な容量モデルであり実回復は未保証。吸収遅延・overheal・HPが満タンに近い場合の減衰は省略し、回復utilityを過大評価し得ます。遠距離4/6/8%とは別です。')
   }
 
+  const dotExplosionIds = [...uniqueEnchantments].filter((id) => (DOT_EXPLOSION_IDS as readonly string[]).includes(id))
+  for (const id of dotExplosionIds.filter(isDotDamageId)) {
+    const curve = DOT_DAMAGE_CURVES[id]
+    addEvidence(`dot-samples-${id}`, `${id}の公開DPS表（version/roll不明）`, { confidence: 'medium' }, 2)
+    addEvidence(`dot-power-${id}`, `${id}の範囲限定Power補間`, curve, 3)
+  }
+  if (dotExplosionIds.length > 0) {
+    if (![...uniqueEnchantments].some(isProcDamageId)) addEvidence('damage-channel-kill-attribution', 'damage shareによる撃破帰属近似', DAMAGE_CHANNEL_KILL_ATTRIBUTION, 3)
+    caveats.push('DoT／爆発のfinal blowは直接武器撃破に含めません。damage-share代理計算（low）はtick timing・残HP・移動・他プレイヤーを再現しません。3種とVoid Strikeの併用は増幅・消費・再適用が未検証のため評価から除外します。')
+  }
+  if (hasEnchantment(build.enchantments, 'fire-aspect')) {
+    addEvidence('fire-refresh', 'Fire Aspectの再付与と有限burn coverage', FIRE_REFRESH_MODEL, 3)
+    addEvidence('fire-target-persistence', 'Fire Aspectの同一対象への継続命中仮定', FIRE_TARGET_MODEL, 2)
+    caveats.push('Fire AspectはPower70–251・1copy限定。Power250のTier I 126649は異常値としてrawに保持し、行全体を補間点から除外（249–251間をlog補間）。最初のhitはt=0、各hit後min(間隔,3秒)を有限encounter内で積分し、範囲外のburn tailを除外します。初撃待ち・tick位相・対象交代は未再現。AoEは同じ対象へ継続命中するlow仮定。重複copyとFire Focusは未実装。')
+  }
+  if (hasEnchantment(build.enchantments, 'poison-cloud')) {
+    addEvidence('poison-overlap-residence', 'Poison Cloudの抽選・滞在・雲重複の飽和仮定', POISON_SATURATION_MODEL, 3)
+    caveats.push('Poison CloudはPower184–251・1copy。profile hitごと30%抽選、3秒cloud。初期滞在1.5秒・1.5 target-seconds/cloudは編集可能な仮定。Poisson定常近似で単体1-exp(-発生率×滞在)、AoE=N×(1-exp(-発生率×target-seconds/N))。重なりで独立加算せず飽和させますが、実ゲームのoverlap挙動は未検証。実際のBernoulli cadence・cloud位置・戦闘開始transient・Poison Focusは未再現です。')
+  }
+  if (hasEnchantment(build.enchantments, 'exploding')) {
+    addEvidence('exploding-targets-health', 'Explodingのsource HPと二次対象', EXPLOSION_TARGET_MODEL, 3)
+    addEvidence('exploding-source-kills', 'Explodingの直接撃破限定・no-chain', EXPLOSION_KILL_SOURCE, 2)
+    caveats.push('ExplodingはPower非依存、倒した敵の最大HPの20/40/60%。平均敵HPをsource max HPと近似し、二次対象=min(1,max(0,射程内敵数-1))、単体DPSは0。直接撃破のみをsourceとして内側固定点で爆発→damage share→直接撃破を解き、外側Rampaging固定点でも再計算。爆発killは新たな爆発を起こしません。遅延・遭遇終了・boss/add HP偏りは未再現です。')
+  }
   const procIds = [...uniqueEnchantments].filter(isProcDamageId)
   for (const id of procIds) {
     const proc = PROC_DAMAGE_DEFINITIONS[id]

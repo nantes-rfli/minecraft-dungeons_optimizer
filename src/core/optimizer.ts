@@ -1,6 +1,6 @@
 import { evaluate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
-import { enchantmentUnsupportedReason } from './damageEvents'
+import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
 import type {
   Build,
@@ -69,6 +69,11 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
         source: 'gilded' as const,
       }] : []),
     ]
+    const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
+    if (unsupported) {
+      unsupportedChoices.add(`${weapon.instanceId}: ${unsupported}`)
+      return []
+    }
     if (!hasValidEnchantmentStacking(enchantments)) return []
     return artifactChoices.map((artifactItems) => ({
       weapon,
@@ -111,7 +116,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',
-        `武器${weapon.instanceId}はEnchantのstacking制約を満たす組み合わせがありません。`,
+        `武器${weapon.instanceId}はEnchantのstacking制約を満たす組み合わせがありません（未対応combinationも除外）。${[...unsupportedChoices].join(' ')}`,
       )
     }
     return weaponBuilds

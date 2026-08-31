@@ -74,4 +74,4 @@ assert.deepEqual(audit.coverage, {
 })
 assert.equal(audit.solver.tolerance, 1e-8)
 assert.equal(audit.solver.maxIterations, 100)
-console.log('Soul audit passed: Soul Scythe; separate pickups/resources; Anima + Siphon limited runtime; Enigma research-only; 19/33 catalog, 16 broad Power, 3 limited.')
+console.log(`Soul audit passed: Anima + Siphon limited runtime; Enigma research-only; ${implemented}/33 catalog, ${implemented - limited} broad Power, ${limited} range-limited damage enchants.`)
