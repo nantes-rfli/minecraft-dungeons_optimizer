@@ -13,7 +13,8 @@
     "audit:melee": "node scripts/audit-melee-attack-profiles.ts",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "audit:temporal-enchants": "node scripts/audit-temporal-enchantments.ts"
   },
   "dependencies": {
     "react": "19.2.6",

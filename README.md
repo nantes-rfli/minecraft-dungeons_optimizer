@@ -65,11 +65,11 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 15種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 17種（うち3種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
-Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Eまで進んでいます（2-1Dはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
+Phase 2-1B時点ではruntime対応 **7 / 33**、未対応 **26 / 33** でした。現在はPhase 2-1Fまで進んでいます（2-1D / 2-1Fはpartial）。SharpnessはTier I / II / IIIが+10% / +21% / +33%、最大4コピーを乗算します。Unchantingは+50% / +75% / +100%をenchanted対象だけへ適用し、期待倍率は `1 + enchantedShare × tierBonus` です。
 
 シナリオの「エンチャントされた敵の割合」を0〜100%で変更できます。全profile（bossを含む）の初期値25%は実測ではないlow-confidence仮定です。割合0ならUnchantingの寄与も0です。通常候補・ロック・金色Tier・保存・JSON入出力は既存経路を利用します。シナリオ自体は従来どおりセッション内の設定です。
 
@@ -111,7 +111,7 @@ Void増幅・消費は独立してuncertain、runtimeではどちらも行いま
 
 ## Phase 2-1E — Enemy-State Conditional Damage（完了）
 
-**catalog runtime 15 / 33、広域Power対応12 / 33、範囲限定proc 3 / 33、research-only 18 / 33、needs-enemy-state 0**。Phase 2-1Dはpartialのままです。
+Phase 2-1E完了時点は **catalog runtime 15 / 33、広域Power対応12 / 33、範囲限定proc 3 / 33、research-only 18 / 33、needs-enemy-state 0**。Phase 2-1Dはpartialのままです。
 
 - Ambush: +20/+40/+60%、対象が自分を狙っていない機会にだけ適用。`1 + a*b`、Tier III・a=25%なら1.15倍、重複不可。
 - Smiting: +25/+35/+45%、Undeadだけに適用。最大4copy（Enchantsmithで通常3枠＋金色1枠）、mixed tiersは順序非依存。`1 + u*(Π(1+bᵢ)-1)`。Tier III×2・u=50%なら**1.55125倍**。
@@ -178,3 +178,13 @@ Power ratingは武器間のper-hit damage係数、Speed / Area ratingは別軸�
 - Void Strike: tier最大値とresetはhigh、1.25倍minimumと約5秒消滅はmedium、3.6秒の線形curveとtier換算はlow confidenceです。raw公開値は [`research/void-strike-audit.json`](./research/void-strike-audit.json) にruntimeとは独立して保存しています。既存3武器のAttack Profileは公開Stats表由来のmedium confidenceです。
 
 Phase 1-4の監査・eligibility validator・source provenance・pending/available UIは実装済みですが、再現可能な公開sampleが0 / 5のためpartialです。追加の公開観測が得られるまでPhase 1 Accuracyは3 / 4を維持します。Void Strikeの完全なframe series、target switching、Power換算の同一1.17.0.0・同一roll条件の実測、raw game-file fieldの独立確認は継続課題です。
+
+## Phase 2-1F — Temporal State（partial）
+
+**catalog runtime 17 / 33、広域Power 14 / 33、範囲限定proc 3 / 33、research-only 16 / 33、needs-state-model 11**。Artifact SynergyとRampagingを限定モデルで実装し、Echoは根拠不足のためresearch-onlyを維持します。Phase 2-1Dと近接25〜30種の親目標も未完了です。
+
+- Artifact Synergy: Tier +40/+60/+80%、最大1個。Artifact使用頻度 `A=Σ(1/推定CD)` と攻撃機会 `H` から `C=min(A,H)`、direct期待倍率 `1+(C/H)×bonus`。pending 1・最適な分散使用・profile hit=1 actionはlow-confidence仮定。持続uptimeは使わず、proc damageは増幅しません。Committed前へ適用、未装備なら寄与0。
+- Rampaging: 直接撃破の10%で+50%速度、Tier 5/10/15秒。コピーはdurationのみ加算、共通10%で最大4個。`u=1-exp(-0.1×directKills×T)` と `Artifact速度+0.5×u` の循環を固定点で解きます（1e-8・100回上限、失敗はエラー）。Void・proc・撃破・回復・防御・Synergyを除去寄与まで再計算。
+- Echo: CD 5/4/3秒・non-stackableは確認済み。repeat hit、animation/cadence、combo、Void、on-hit、direct killの根拠不足により未登録。0点や無料の`damagePerHit/3`として扱いません。
+
+[仕様・固定点例・Evidence・次batch比較](./docs/temporal-enchantments.md) / [interaction audit](./research/temporal-enchantment-audit.json)。`npm run audit:temporal-enchants`で既存auditとの整合性を検証します。次はSoul subsystem（Anima Conduit / Soul Siphon / Enigma Resonator）を推奨。ただしSoul専用gearと獲得/消費の境界監査を先行し、CCや複雑な攻撃状態は後続候補です。

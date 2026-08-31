@@ -1,3 +1,5 @@
+import { calculateArtifactActivationState } from './artifact'
+import { deriveArtifactSynergyState } from './temporalEnchantments'
 import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { VOID_STRIKE_CURVE } from '../data/voidStrike'
@@ -51,6 +53,7 @@ export function calculateDamage(
   enchantments: readonly SelectedEnchantment[],
   artifactEffects: ArtifactEffects,
   scenario: Scenario,
+  attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier,
 ): DamageMetrics {
   const { weaponId } = ownedWeapon
   const weapon = getWeaponDefinition(weaponId)
@@ -69,13 +72,14 @@ export function calculateDamage(
   )
   const hitsPerSecond =
     calculateBaseHitsPerSecond(attackProfile.value) *
-    artifactEffects.attackSpeedMultiplier
+    attackSpeedMultiplier
+  const artifactSynergyState = deriveArtifactSynergyState(enchantments, calculateArtifactActivationState(artifactEffects.uptimes), hitsPerSecond)
   const baseDps = damagePerHit * hitsPerSecond
   const criticalMultiplier = criticalExpectedMultiplier(enchantments)
   const voidStrikeMultiplier = voidStrikeExpectedMultiplier(
     enchantments,
     resolveHitIntervalSequence(attackProfile.value),
-    artifactEffects.attackSpeedMultiplier,
+    attackSpeedMultiplier,
     scenario,
   )
   // Direct melee channel only. Independent scalar expectations commute within
@@ -90,14 +94,14 @@ export function calculateDamage(
   const ambushMultiplier = ambush.expectedMultiplier
   // These two legacy diagnostics are explicitly PRE-Committed, with the other
   // condition expectations held fixed (the MVP independent-condition model).
-  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier
+  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier * artifactSynergyState.expectedDirectMultiplier
   const enchantedTargetDps = nonEnchantedTargetDps * unchanting.activeMultiplier
   const preCommittedDirectWeaponSingleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
   const areaCoverage = Math.min(1, weapon.area.value / MODEL.maximumAreaRating.value)
   const expectedTargetsHit =
     1 + (scenario.averageTargetsInReach - 1) * areaCoverage
   const preCommittedDirectWeaponAoeDps = preCommittedDirectWeaponSingleTargetDps * expectedTargetsHit
-  const damageEvents = calculateDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, artifactEffects.attackSpeedMultiplier, scenario)
+  const damageEvents = calculateDamageEvents(ownedWeapon.powerLevel, enchantments, attackProfile.value, attackSpeedMultiplier, scenario)
   const indirectSingleTargetDps = damageEvents.reduce((sum, event) => sum + event.singleTargetDps, 0)
   const indirectAoeDps = damageEvents.reduce((sum, event) => sum + event.aoeDps, 0)
   const committed = enchantmentsById(enchantments, 'committed')[0]
@@ -110,6 +114,7 @@ export function calculateDamage(
   const directWeaponAoeDps = aoeTrajectory.effectiveDirectDps
 
   return {
+    artifactSynergyState,
     damageSource,
     damagePerHit,
     hitsPerSecond,

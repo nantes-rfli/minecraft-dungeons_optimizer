@@ -1,8 +1,7 @@
 import { calculateArtifactEffects } from './artifact'
-import { deriveCombatState } from './combatState'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { summarizeConfidence } from './confidence'
-import { calculateDamage } from './damage'
+import { resolveOffensiveSteadyState } from './offensiveSteadyState'
 import { calculateDefense } from './defense'
 import { hasEnchantment } from './enchantment'
 import { calculateHealing } from './healing'
@@ -19,6 +18,7 @@ import type {
 import { validateBuild, validateScenario } from './validation'
 
 interface EvaluationCore {
+  readonly temporalState: Evaluation['temporalState']
   readonly damage: Evaluation['damage']
   readonly combatState: Evaluation['combatState']
   readonly potionState: Evaluation['potionState']
@@ -36,8 +36,7 @@ export function saturatingUtility(value: number, target: number): number {
 
 function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario)
-  const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario)
-  const combatState = deriveCombatState(damage, scenario)
+  const { damage, combatState, temporalState } = resolveOffensiveSteadyState(build, scenario, artifactEffects)
   const potionState = derivePotionState(build.enchantments, combatState, scenario)
   const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
@@ -56,7 +55,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
         utilities.defense * scenario.weights.defense)) /
     weightTotal
 
-  return { damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
+  return { temporalState, damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
 }
 
 function toContribution(
@@ -113,6 +112,17 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
       ? `コンボ終了 ${event.opportunitiesPerSecond.toFixed(3)}回/秒`
       : `HPS ${event.opportunitiesPerSecond.toFixed(3)} × 30%`
     reasons.push(`${getEnchantmentDefinition(event.sourceId).name.en}: ${trigger} → proc ${event.eventsPerSecond.toFixed(3)}回/秒 × ${event.damagePerEvent.toFixed(1)} damage/event = 単体${event.singleTargetDps.toFixed(1)} DPS / AoE ${event.aoeDps.toFixed(1)} DPS（平均${event.expectedTargetsHit}体、間接damageは直接撃破効果と別扱い）`)
+  }
+
+  const synergy = build.enchantments.find((item) => item.enchantmentId === 'artifact-synergy')
+  if (synergy) {
+    const state = core.temporalState.artifactSynergy
+    reasons.push(`Artifact Synergy ${['I', 'II', 'III'][synergy.tier - 1]}: artifact使用${core.temporalState.artifactActivation.totalActivationsPerSecond.toFixed(3)}回/秒 → profile hitを1攻撃と近似し${(state.chargedAttackShare * 100).toFixed(2)}%を強化 → direct期待倍率${state.expectedDirectMultiplier.toFixed(4)}倍${build.artifacts.length === 0 ? '（Artifact未装備のため寄与0）' : '（最適な分散使用・pending 1個の近似）'}`)
+  }
+  if (hasEnchantment(build.enchantments, 'rampaging')) {
+    const state = core.temporalState.rampaging
+    const tiers = build.enchantments.filter((item) => item.enchantmentId === 'rampaging').map((item) => ['I', 'II', 'III'][item.tier - 1]).join(' + ')
+    reasons.push(`Rampaging ${tiers}: 直接撃破${state.directWeaponKillsPerSecond.toFixed(3)}/秒 × 10% → 発動${state.triggerEventsPerSecond.toFixed(3)}/秒、合計${state.effectiveDurationSeconds}秒 → 推定uptime ${(state.uptime * 100).toFixed(2)}%、平均attack speed +${(state.averageAttackSpeedBonus * 100).toFixed(2)}%（固定点${state.iterations}回、refresh近似）`)
   }
 
   const refreshment = build.enchantments.find((item) => item.enchantmentId === 'refreshment')

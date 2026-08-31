@@ -103,7 +103,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 
 - \`EnchantmentTierValues\`: Phase 2-1C keeps the original five unchanged and expands the typed \`effect\` union to direct weapon bonuses, potion cooldown on direct kill, and enemy damage debuffs. Numeric bonuses live only in tier data. Extend effect channels incrementally before any proc/DoT work; do not add 33 optional scalar fields.
 - \`combineEnchantmentValues()\`: sufficient for Sharpness's multiplicative copies and scalar additive/non-stackable effects. It is insufficient for independent proc rolls, duration extension/refresh, tier-mixed event streams, and cross-copy caps. Add effect-specific combination policies instead of forcing those behaviors into one scalar.
-- \`CombatState\`: reuse \`estimatedKillsPerSecond\` and \`directWeaponKillsPerSecond\`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; soul, roll, artifact-use, summon, and Pain Cycle mechanics still need explicit resources.
+- \`CombatState\`: reuse \`estimatedKillsPerSecond\` and \`directWeaponKillsPerSecond\`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; artifact-use and temporary speed now use separate Temporal State; soul, roll, summon, and Pain Cycle still need resources.
 - \`DamageMetrics\`: Phase 2-1D adds typed source/event contributions for Shockwave, Swirling and Thundering; Poison Cloud, Fire Aspect and Exploding remain unsupported. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
 - \`HealingMetrics\`: Refreshment contributes only incremental potion healing capacity, explicitly a low-confidence proxy; Anima Conduit still needs soul-heal state.
 - \`DefenseMetrics\`: Weakening preserves affected incoming damage share, reduction, duration and enemy multiplier separately from Artifact/Guarding hero DR. Hard CC utility remains unsupported.
@@ -138,7 +138,15 @@ Ambush +20/40/60% uses a separate editable targeting-state exposure (all-profile
 
 Committed uses the tested health-trajectory integral, not a permanent or arithmetic-average bonus. Independent-condition factorization and fresh-target/AoE assumptions are separate low-confidence Evidence, attached only to affected builds. Existing direct kill attribution, contribution recomputation, inventory and optimizer paths are preserved. No built-ins, armor or ranged runtime were added.
 
-Next candidate: Artifact Synergy + Rampaging + Echo can reuse artifact cooldown, kill rate and attack profile foundations, but needs use/consumption, uptime feedback and extra-hit interaction audits. Soul foundation + Anima Conduit / Soul Siphon / Enigma Resonator requires a larger shared resource subsystem. See [design, derivation, Evidence and next-batch comparison](../docs/enemy-state-damage.md).
+## Phase 2-1F partial
+
+Artifact Synergy uses per-instance activation frequency rather than duration uptime: A=sum(1/CD), C=min(A,H), direct multiplier=1+(C/H)*bonus. Capacity one, optimal staggering, one profile hit approximating an action and factorized pre-Committed composition are explicit low-confidence assumptions. No artifacts means no contribution. Proc damage is not amplified.
+
+Rampaging uses shared 10% direct-kill triggers, summed 5/10/15 second tier durations and one +50% active magnitude. Wiki's two-III example supports 10% / 30 seconds, with exact copy/retrigger semantics unverified. Poisson refresh uptime and additive mean speed are solved through damage/kill feedback (1e-8 tolerance, 100 iterations, explicit failure). No Rampaging means no iteration. Mean cadence excludes frame caps and may overestimate fast weapons.
+
+Echo remains needs-state-model: repeat selection/damage, animation cost, cooldown start, combo finisher, Void, on-hit and direct-kill evidence are insufficient. Never use a free damagePerHit/cooldown placeholder. See [Temporal State](../docs/temporal-enchantments.md) and [interaction audit](temporal-enchantment-audit.json).
+
+Next: Soul subsystem (Anima Conduit / Soul Siphon / Enigma Resonator), conditional on soul-gear and resource evidence. CC utility needs positioning/resistance valuation; Pain Cycle/Dynamo/Busy Bee require distinct HP/roll/summon foundations. Parent 25–30 remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -163,7 +171,7 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D partial — full Power 50–263 proc evidence remains missing.** Catalog runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D and Phase 2-1F partial — full Power 50–263 proc evidence and Echo mechanics remain missing.** Catalog runtime coverage is ${summary.counts.implemented} / ${summary.total}; unsupported coverage is ${summary.unsupportedNames.length} / ${summary.total}. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
 `
 }
 

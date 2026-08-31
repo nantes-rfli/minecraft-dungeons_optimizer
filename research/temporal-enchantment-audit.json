@@ -1,0 +1,392 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-31",
+  "phaseStatus": "partial",
+  "sourceHierarchy": [
+    "game-file-derived metadata",
+    "specific Wiki mechanics",
+    "quantitative community tests",
+    "community reports",
+    "model assumption"
+  ],
+  "sources": [
+    {
+      "id": "synergy-game",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/artifact-synergy",
+      "note": "Tier values, melee scope, next attack and non-stackable metadata; editorial How it plays is not independent mechanics evidence.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "rampaging-game",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/rampaging",
+      "note": "10% chance, +50%, 5/10/15 seconds and STACKS Yes. Editorial roll-stacks wording does not establish independent rolls.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "echo-game",
+      "kind": "game-files",
+      "url": "https://www.dungeons.tools/enchantments/echo",
+      "note": "5/4/3 second cooldown and non-stackable metadata. Editorial free repeat is not measured animation evidence.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "wiki-stacking",
+      "kind": "published-reference",
+      "url": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "note": "Search-index excerpt explicitly describes two Rampaging III as 10% chance for 30 seconds. Full Wiki pages were blocked by robots/restricted URL during this audit.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "rampaging-composition",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/14ejzt7/",
+      "note": "First-person mechanics explanation: Mushroom 200% plus Rampaging becomes 250%; not a controlled 1.17.0.0 measurement.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "rampaging-armor",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/v0b79x/",
+      "note": "Community calculation treats armor attack speed and Mushroom/Rampaging as flat additions; armor remains out of scope.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "direct-kill",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ekyxv0/",
+      "note": "Community interaction report explicitly includes Rampaging among effects not activated by indirect kills.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "echo-animation",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1e4em3n/",
+      "note": "First-person Anchor animation-lock report; no frame timings.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "echo-interactions",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1k3rg06/",
+      "note": "Reports variable repeat selection, misses, animation and Void problems; no exact event trace.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "speed-limit",
+      "kind": "community-test",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/",
+      "note": "Reports nonlinear Fighter's Bindings speed gains; some trigger-chance commentary conflicts with game-derived 10%. No validated speed curve; retain linear AttackProfile model with caveat.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "model",
+      "kind": "model-assumption",
+      "url": "docs/temporal-enchantments.md",
+      "note": "Explicit bounded steady-state assumptions, not verified game behavior.",
+      "retrievedAt": "2026-08-31"
+    },
+    {
+      "id": "attack-profiles",
+      "kind": "published-reference",
+      "url": "src/data/attackProfiles.ts",
+      "note": "Existing published per-hit profiles; no action/sub-hit metadata or damage weights.",
+      "retrievedAt": "2026-08-31"
+    }
+  ],
+  "entries": [
+    {
+      "id": "artifact-synergy",
+      "runtimeStatus": "implemented",
+      "tiers": [
+        0.4,
+        0.6,
+        0.8
+      ],
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "claims": {
+        "tierBonus": {
+          "confidence": "high",
+          "status": "supported",
+          "value": "+40/+60/+80%",
+          "sourceIds": [
+            "synergy-game"
+          ]
+        },
+        "nextAttack": {
+          "confidence": "high",
+          "status": "supported",
+          "value": "Artifact activation boosts the next melee attack, not every attack during artifact uptime.",
+          "sourceIds": [
+            "synergy-game"
+          ]
+        },
+        "nonStackable": {
+          "confidence": "high",
+          "status": "supported",
+          "value": "One enchantment copy across normal and gilded.",
+          "sourceIds": [
+            "synergy-game"
+          ]
+        },
+        "activationRate": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Use each instance whenever ready: A=sum(1/effectiveCooldown); no opening burst or use-animation cost.",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "pendingCharge": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Capacity 1; repeated use before attack neither queues charges nor stacks magnitude. Exact game semantics unknown.",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "staggering": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Optimally stagger activations across eligible direct attacks: C=min(A,H). No phase/scheduling feasibility guarantee.",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "attackGranularity": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Each existing profile hit is one eligible action, regardless of targets hit; not combo rate or HPS*targets. Multi-hit action semantics unresolved.",
+          "sourceIds": [
+            "attack-profiles",
+            "model"
+          ]
+        },
+        "directComposition": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Multiply factorized direct expectations by 1+(C/H)*bonus before Committed; Critical/Void/Sharpness/Unchanting/Smiting/Ambush exact interactions unmeasured. Never amplify proc damage. Equal hit damage and homogeneous AoE assumed.",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "rampaging",
+      "runtimeStatus": "implemented",
+      "tiers": [
+        5,
+        10,
+        15
+      ],
+      "triggerChance": 0.1,
+      "attackSpeedBonus": 0.5,
+      "stacking": {
+        "maxCopies": 4,
+        "behavior": "special"
+      },
+      "claims": {
+        "baseValues": {
+          "confidence": "high",
+          "status": "supported",
+          "value": "10% on kill, +50% speed, durations 5/10/15 seconds.",
+          "sourceIds": [
+            "rampaging-game"
+          ]
+        },
+        "durationStacking": {
+          "confidence": "medium",
+          "status": "supported",
+          "value": "Add tier durations: T3+T3=30, T3+T2=25.",
+          "sourceIds": [
+            "wiki-stacking"
+          ]
+        },
+        "sharedTrigger": {
+          "confidence": "medium",
+          "status": "limited-model",
+          "value": "Single shared 10% trigger. Wiki example supports this; independent game-file roll semantics unverified. No 20% inference from two copies.",
+          "sourceIds": [
+            "wiki-stacking",
+            "rampaging-game"
+          ]
+        },
+        "copyLimit": {
+          "confidence": "medium",
+          "status": "limited-model",
+          "value": "Existing audit maximum four: three normal slots plus gilded, Enchantsmith route. STACKS Yes supports duplicates; exact four-copy roll mechanics unverified; built-ins excluded.",
+          "sourceIds": [
+            "rampaging-game",
+            "wiki-stacking"
+          ]
+        },
+        "killAttribution": {
+          "confidence": "low",
+          "status": "limited-model",
+          "value": "Reuse CombatState.directWeaponKillsPerSecond, exclude all separate indirect proc kills.",
+          "sourceIds": [
+            "direct-kill"
+          ]
+        },
+        "refreshUptime": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Assume retrigger refreshes remaining duration to summed T, not adds to remaining time. Poisson uptime=-expm1(-0.1*k*T), not discrete game timing.",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "speedComposition": {
+          "confidence": "low",
+          "status": "limited-model",
+          "value": "Artifact multiplier + 0.5*uptime; no magnitude stacking across copies. Armor additions are reported but armor is not runtime-enabled.",
+          "sourceIds": [
+            "rampaging-composition",
+            "rampaging-armor",
+            "model"
+          ]
+        },
+        "speedCadence": {
+          "confidence": "low",
+          "status": "assumption",
+          "value": "Linear scaling of existing hit intervals at the mean speed; no frame caps or nonlinear fast-weapon animation. Can overestimate Fighter's Bindings and misestimate Void during on/off states.",
+          "sourceIds": [
+            "speed-limit",
+            "model"
+          ]
+        },
+        "fixedPoint": {
+          "confidence": "high",
+          "status": "model-derived",
+          "value": "Iterate uptime -> speed -> damage (including Void, Synergy, Committed, proc) -> direct kills -> uptime. Tolerance 1e-8, max 100, finite checks; failure is explicit. Mathematical consistency only, not empirical accuracy.",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "blockers": []
+    },
+    {
+      "id": "echo",
+      "runtimeStatus": "needs-state-model",
+      "tiers": [
+        5,
+        4,
+        3
+      ],
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "claims": {
+        "baseValues": {
+          "confidence": "high",
+          "status": "supported",
+          "value": "Automatic second attack opportunity, cooldown 5/4/3 seconds, non-stackable.",
+          "sourceIds": [
+            "echo-game"
+          ]
+        },
+        "repeatDamage": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Which combo hit and damage are repeated is not established per weapon. Equal nominal hits do not settle cadence.",
+          "sourceIds": [
+            "echo-interactions",
+            "attack-profiles"
+          ]
+        },
+        "animationCadence": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Repeat animation duration, normal attack time consumed, weapon-specific speed scaling and cooldown start/reset frame unknown. Free-hit editorial conflicts with reported animation lock.",
+          "sourceIds": [
+            "echo-game",
+            "echo-animation"
+          ]
+        },
+        "comboProgression": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Whether a repeat advances combo and changes Shockwave/Swirling finisher eligibility unknown.",
+          "sourceIds": [
+            "echo-interactions"
+          ]
+        },
+        "void": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Consumption/reapplication and repeat timing unknown; community reports adverse interactions.",
+          "sourceIds": [
+            "echo-interactions"
+          ]
+        },
+        "onHit": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Critical, Radiance, Thundering and Weakening opportunities individually unverified; no repeat HPS injected.",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "killAttribution": {
+          "confidence": "low",
+          "status": "unresolved",
+          "value": "Direct/indirect status and Leeching/Guarding/Refreshment/Rampaging triggers individually unverified; no kill attribution invented.",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "blockers": [
+        "repeat hit selection and damage basis",
+        "repeat animation/cadence cost and attack-speed interaction",
+        "cooldown start/reset timing",
+        "combo progression and Shockwave/Swirling eligibility",
+        "Void consumption/reapplication",
+        "Critical/Radiance/Thundering/Weakening opportunities",
+        "direct kill attribution and Leeching/Guarding/Refreshment/Rampaging triggers"
+      ]
+    }
+  ],
+  "attackProfileReview": [
+    {
+      "weaponId": "fighters-bindings",
+      "hitDurationsSeconds": [
+        0.15,
+        0.15,
+        0.15,
+        0.125
+      ],
+      "comboFinisherHit": 4,
+      "opportunity": "one profile hit approximates one action; no multiplication by targets",
+      "confidence": "low"
+    },
+    {
+      "weaponId": "double-axe",
+      "hitDurationsSeconds": [
+        0.6,
+        0.6
+      ],
+      "comboFinisherHit": 2,
+      "opportunity": "one profile hit approximates one action; no multiplication by targets",
+      "confidence": "low"
+    },
+    {
+      "weaponId": "anchor",
+      "hitDurationsSeconds": [
+        2.5
+      ],
+      "comboFinisherHit": 1,
+      "opportunity": "one profile hit approximates one action; no multiplication by targets",
+      "confidence": "low"
+    }
+  ]
+}

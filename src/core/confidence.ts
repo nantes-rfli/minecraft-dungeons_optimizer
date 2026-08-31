@@ -1,3 +1,9 @@
+import {
+  ARTIFACT_USE_RATE_MODEL, ARTIFACT_SYNERGY_PENDING_CHARGE, ARTIFACT_SYNERGY_STAGGERING,
+  ARTIFACT_SYNERGY_ATTACK_OPPORTUNITY, ARTIFACT_SYNERGY_DIRECT_COMPOSITION, ARTIFACT_SYNERGY_TRIGGER,
+  RAMPAGING_DIRECT_KILL, RAMPAGING_SHARED_TRIGGER, RAMPAGING_UPTIME_MODEL,
+  RAMPAGING_SPEED_COMPOSITION, RAMPAGING_MEAN_CADENCE, RAMPAGING_FIXED_POINT,
+} from '../data/temporalEnchantments'
 import { MODEL } from '../data/model'
 import { DAMAGE_CHANNEL_KILL_ATTRIBUTION, PROC_DAMAGE_DEFINITIONS, PROC_TARGET_CONTACT } from '../data/damageEvents'
 import { isProcDamageId } from './damageEvents'
@@ -110,7 +116,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       `${definition.name.ja}のtier値`,
       definition.tiers,
     )
-    if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || ['refreshment', 'weakening', 'ambush', 'smiting', 'committed'].includes(enchantmentId)) {
+    if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || ['refreshment', 'weakening', 'ambush', 'smiting', 'committed', 'artifact-synergy', 'rampaging'].includes(enchantmentId)) {
       addEvidence(
         `enchant-stacking-${enchantmentId}`,
         `${definition.name.ja}のstacking`,
@@ -139,12 +145,32 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.push('間接撃破は直接撃破効果に加算しません。直接AoE/総AoEをfinal blow割合の代用とするlow-confidence近似で、hit/proc timing・残HP・overkill・対象分布は再現しません。')
     caveats.push('procへSharpness・Critical・Unchanting・Smiting・Ambush・Committed・Void倍率を掛けません。Void増幅と消費は別々にuncertainのまま、増幅なし・状態変更なしの限定モデルです。ThunderingのLightning Focusも未実装です。')
   }
+  if (hasEnchantment(build.enchantments, 'artifact-synergy')) {
+    addEvidence('artifact-synergy-trigger', 'Artifact Synergyの次攻撃条件', ARTIFACT_SYNERGY_TRIGGER)
+    addEvidence('artifact-use-rate-model', 'ArtifactのCDごとの使用頻度', ARTIFACT_USE_RATE_MODEL, 2)
+    addEvidence('artifact-synergy-pending-charge', 'Artifact Synergyのpending capacity 1仮定', ARTIFACT_SYNERGY_PENDING_CHARGE, 2)
+    addEvidence('artifact-synergy-staggering', 'Artifact使用の最適な分散仮定', ARTIFACT_SYNERGY_STAGGERING, 2)
+    addEvidence('artifact-synergy-attack-opportunity', 'profile hitを1攻撃とする近似', ARTIFACT_SYNERGY_ATTACK_OPPORTUNITY, 2)
+    addEvidence('artifact-synergy-direct-composition', 'Artifact Synergyのdirect倍率合成', ARTIFACT_SYNERGY_DIRECT_COMPOSITION, 2)
+    caveats.push('Artifact Synergyは持続時間でなく各Artifactの1/推定CDを合算。pending 1個・最適な分散使用・profile hit=1攻撃・均一hit damage/AoEを仮定し、強化割合=min(使用頻度,HPS)/HPSとします。連打時のqueue/倍率stack、空振り消費、実際のaction粒度は未検証です。')
+    caveats.push('Synergyはdirect期待倍率をCommitted前へ適用し、proc damageは増幅しません。Critical/Void等との厳密な合成、Artifact使用animation、戦闘開始burst、実操作による待機は未再現です。')
+  }
+  if (hasEnchantment(build.enchantments, 'rampaging')) {
+    addEvidence('rampaging-direct-kill', 'Rampagingの直接撃破条件', RAMPAGING_DIRECT_KILL, 2)
+    addEvidence('rampaging-shared-trigger', 'Rampagingの共通10%発動・duration加算', RAMPAGING_SHARED_TRIGGER, 2)
+    addEvidence('rampaging-uptime-model', 'RampagingのPoisson・再発動refresh仮定', RAMPAGING_UPTIME_MODEL, 3)
+    addEvidence('rampaging-speed-composition', 'RampagingとArtifact攻撃速度の加算', RAMPAGING_SPEED_COMPOSITION, 2)
+    addEvidence('rampaging-mean-cadence', '平均速度によるhit間隔の線形近似', RAMPAGING_MEAN_CADENCE, 3)
+    addEvidence('rampaging-fixed-point', '固定点の数値的整合性（実測精度とは別）', RAMPAGING_FIXED_POINT)
+    caveats.push('Rampagingは直接撃破の10%で発動、Tier秒数だけ加算し+50%の強さは重ねません。Wikiの10%/30秒例に従う限定モデルで、独立rollと実ゲームのrefresh挙動は未検証です。Poisson uptime=1-exp(-0.1×直接撃破/秒×合計秒数)を固定点で解きます。')
+    caveats.push('RampagingはDeath Capと同じ速度bonusへ+0.5×uptimeを加算。平均速度でVoid・proc・撃破を再計算しますが、buffのon/off分布、開始時の立ち上がり、frame上限・Fighter’s Bindingsの非線形速度を再現しません。実際の高速武器の寄与を過大評価し得ます。Armorは対象外です。')
+  }
   const usesUnchanting = hasEnchantment(build.enchantments, 'unchanting')
-  const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike', 'ambush', 'smiting', 'committed']
+  const directModifierCount = ['sharpness', 'unchanting', 'critical-hit', 'void-strike', 'ambush', 'smiting', 'committed', 'artifact-synergy']
     .filter((id) => build.enchantments.some((selected) => selected.enchantmentId === id)).length
   if (directModifierCount > 1) {
     addEvidence('direct-weapon-composition', '直接近接ダメージのmodifier合成', DIRECT_WEAPON_COMPOSITION, 2)
-    caveats.push('Sharpness・Critical・Void・Unchanting・Smiting・Ambushの独立期待倍率から直接DPSを求め、その後CommittedのHP推移を適用します。全interactionの1.17.0.0実機検証は未完了で、proc/DoT・Strength・防具damage auraへ倍率を拡張しません。')
+    caveats.push('Sharpness・Critical・Void・Unchanting・Smiting・Ambush・Artifact Synergyの独立期待倍率から直接DPSを求め、その後CommittedのHP推移を適用します。全interactionの1.17.0.0実機検証は未完了で、proc/DoT・Strength・防具damage auraへ倍率を拡張しません。')
   }
   if (usesUnchanting) {
     addEvidence('unchanting-target-condition', 'Unchantingのenchanted条件', UNCHANTING_TARGET_CONDITION)
@@ -190,7 +216,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   }
   const usesDirectWeaponKills = hasEnchantment(build.enchantments, 'leeching') ||
     hasEnchantment(build.enchantments, 'guarding-strike') ||
-    hasEnchantment(build.enchantments, 'refreshment')
+    hasEnchantment(build.enchantments, 'refreshment') || hasEnchantment(build.enchantments, 'rampaging')
   if (usesDirectWeaponKills) {
     addEvidence(
       'direct-kill-share',

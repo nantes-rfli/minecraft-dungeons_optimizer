@@ -14,9 +14,42 @@ import { WEAKENING_DURATION } from './enemyDebuffs'
 import { PROC_TIER_MULTIPLIERS } from './damageEvents'
 import { AMBUSH_SOURCE, SMITING_SOURCE, SMITING_STACKING_SOURCE, COMMITTED_SOURCE } from './enemyStateDamage'
 
+import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE, RAMPAGING_STACKING_SOURCE } from './temporalEnchantments'
+
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  'artifact-synergy': {
+    id: 'artifact-synergy',
+    name: { ja: 'アーティファクトシナジー', en: 'Artifact Synergy' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'artifact-next-attack-damage', bonus: 0.4 } },
+        2: { effect: { kind: 'artifact-next-attack-damage', bonus: 0.6 } },
+        3: { effect: { kind: 'artifact-next-attack-damage', bonus: 0.8 } },
+      },
+      source: ARTIFACT_SYNERGY_SOURCE, confidence: 'high',
+    },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: ARTIFACT_SYNERGY_SOURCE, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: false, armor: false }, source: ARTIFACT_SYNERGY_SOURCE, confidence: 'high' },
+  },
+  'rampaging': {
+    id: 'rampaging',
+    name: { ja: '逆上', en: 'Rampaging' },
+    tiers: {
+      value: {
+        1: { effect: { kind: 'on-direct-kill-attack-speed', triggerChance: 0.1, durationSeconds: 5, attackSpeedBonus: 0.5 } },
+        2: { effect: { kind: 'on-direct-kill-attack-speed', triggerChance: 0.1, durationSeconds: 10, attackSpeedBonus: 0.5 } },
+        3: { effect: { kind: 'on-direct-kill-attack-speed', triggerChance: 0.1, durationSeconds: 15, attackSpeedBonus: 0.5 } },
+      },
+      source: RAMPAGING_SOURCE, confidence: 'high',
+    },
+    stacking: {
+      value: { maxCopies: 4, behavior: 'special' }, source: RAMPAGING_STACKING_SOURCE, confidence: 'medium',
+      note: 'Sum tier durations across three slots plus gilded; shared 10% roll and one +50% speed bonus. Exact game-file multi-copy behavior unverified; built-ins excluded.',
+    },
+    applicability: { value: { melee: true, ranged: false, armor: false }, source: RAMPAGING_SOURCE, confidence: 'high' },
+  },
   ambush: {
     id: 'ambush',
     name: { ja: '奇襲', en: 'Ambush' },

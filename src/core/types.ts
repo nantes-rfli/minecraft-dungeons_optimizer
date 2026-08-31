@@ -42,6 +42,8 @@ export type EnchantmentId =
   | 'ambush'
   | 'smiting'
   | 'committed'
+  | 'artifact-synergy'
+  | 'rampaging'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -197,7 +199,19 @@ export type ProcDamageEffect =
   | { readonly kind: 'combo-finisher-damage'; readonly procDamageId: 'shockwave' | 'swirling'; readonly tierMultiplier: number }
   | { readonly kind: 'on-hit-proc-damage'; readonly procDamageId: 'thundering'; readonly triggerChance: number; readonly tierMultiplier: number }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect
+export interface ArtifactNextAttackEffect {
+  readonly kind: 'artifact-next-attack-damage'
+  readonly bonus: number
+}
+
+export interface OnKillAttackSpeedEffect {
+  readonly kind: 'on-direct-kill-attack-speed'
+  readonly triggerChance: number
+  readonly durationSeconds: number
+  readonly attackSpeedBonus: number
+}
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect
 
 export type DamageChannel = 'direct-melee' | 'enchantment-proc'
 
@@ -389,7 +403,47 @@ export interface ArtifactEffects {
   readonly stackingGroups: readonly ArtifactStackingGroup[]
 }
 
+export interface ArtifactActivationState {
+  readonly totalActivationsPerSecond: number
+  readonly activations: readonly {
+    readonly instanceId: string
+    readonly artifactId: ArtifactId
+    readonly effectiveCooldownSeconds: number
+    readonly activationsPerSecond: number
+  }[]
+}
+
+export interface ArtifactSynergyState {
+  readonly pendingChargeCapacity: 1
+  readonly eligibleDirectAttacksPerSecond: number
+  readonly chargedAttacksPerSecond: number
+  readonly chargedAttackShare: number
+  readonly bonus: number
+  readonly expectedDirectMultiplier: number
+}
+
+export interface RampagingState {
+  readonly triggerChance: number
+  readonly effectiveDurationSeconds: number
+  readonly directWeaponKillsPerSecond: number
+  readonly triggerEventsPerSecond: number
+  readonly uptime: number
+  readonly activeAttackSpeedBonus: number
+  readonly averageAttackSpeedBonus: number
+  readonly iterations: number
+  readonly firstIterationUptime: number
+  readonly residual: number
+}
+
+export interface OffensiveTemporalState {
+  readonly artifactActivation: ArtifactActivationState
+  readonly artifactSynergy: ArtifactSynergyState
+  readonly rampaging: RampagingState
+  readonly attackSpeedMultiplier: number
+}
+
 export interface DamageMetrics {
+  readonly artifactSynergyState: ArtifactSynergyState
   readonly damageSource: 'power-curve-estimate' | 'observed-input'
   readonly damagePerHit: number
   readonly hitsPerSecond: number
@@ -554,6 +608,7 @@ export interface Evaluation {
   readonly healing: HealingMetrics
   readonly defense: DefenseMetrics
   readonly artifactEffects: ArtifactEffects
+  readonly temporalState: OffensiveTemporalState
   readonly objectiveScore: number
   readonly utilities: ObjectiveUtilities
   readonly confidence: ConfidenceSummary

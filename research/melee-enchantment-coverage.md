@@ -5,10 +5,10 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 ## Scope and population
 
 - Target game version: 1.17.0.0
-- Audit date: 2026-08-30
+- Audit date: 2026-08-31
 - Melee-applicable, hero-accessible enchantments: **33**
-- Catalog runtime: **15 / 33**
-- Broad Power-range runtime: **12 / 33**
+- Catalog runtime: **17 / 33**
+- Broad Power-range runtime: **14 / 33**
 - Power-range-limited proc: **3 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
@@ -21,9 +21,9 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 15 |
+| implemented | 17 |
 | straightforward | 0 |
-| needs-state-model | 13 |
+| needs-state-model | 11 |
 | needs-damage-event-model | 3 |
 | needs-enemy-state | 0 |
 | utility-only | 2 |
@@ -36,13 +36,13 @@ The source index explicitly separates player enchantments from mob/innate record
 | --- | --- | --- | --- |
 | Ambush | implemented | conditional-damage | — |
 | Anima Conduit | needs-state-model | soul-healing | Needs soul generation, pickup timing, and max-health state. |
-| Artifact Synergy | needs-state-model | artifact-synergy | Needs artifact-use event timing and a one-shot pending buff. |
+| Artifact Synergy | implemented | artifact-synergy | — |
 | Busy Bee | needs-state-model | summon | Needs summon lifetime, cap, attacks, targeting, and damage events. |
 | Chains | needs-state-model | crowd-control | Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion. |
 | Committed | implemented | health-dependent-damage | — |
 | Critical Hit | implemented | proc-damage | — |
 | Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
-| Echo | needs-state-model | attack-repeat | Requires attack-event scheduling and evidence for which hit/combo properties are copied. |
+| Echo | needs-state-model | attack-repeat | Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution |
 | Enigma Resonator | needs-state-model | soul-dependent-proc | Needs current/max soul state and soul-spend timing. |
 | Exploding | needs-damage-event-model | on-kill-area-damage | Needs enemy-specific max health, AoE targeting, delayed events, and explicit kill attribution. |
 | Fire Aspect | needs-damage-event-model | damage-over-time | Needs DoT tick/refresh/stack behavior, focus interaction, Void Strike interaction, and non-direct kill attribution. |
@@ -55,7 +55,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Poison Cloud | needs-damage-event-model | area-damage-over-time | Needs ticks, overlap, target residence, Poison Focus/Void Strike interactions, and non-direct kill attribution. |
 | Prospector | utility-only | emerald-loot | Optimizer-excluded until an emerald-farming objective exists; never score as zero-effect. |
 | Radiance | implemented | proc-healing | — |
-| Rampaging | needs-state-model | on-kill-attack-speed | Needs stochastic/expected buff uptime, refresh rules, and attack-speed feedback into kill rate. |
+| Rampaging | implemented | on-kill-attack-speed | — |
 | Refreshment | implemented | potion-cooldown | — |
 | Sharpness | implemented | passive-damage | — |
 | Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial |
@@ -68,9 +68,9 @@ The source index explicitly separates player enchantments from mob/innate record
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 15 is catalog coverage, not full Power coverage.
+Three entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 17 is catalog coverage, not full Power coverage.
 
-Only the 15 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 17 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## Focus findings
 
@@ -100,7 +100,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 
 - `EnchantmentTierValues`: Phase 2-1C keeps the original five unchanged and expands the typed `effect` union to direct weapon bonuses, potion cooldown on direct kill, and enemy damage debuffs. Numeric bonuses live only in tier data. Extend effect channels incrementally before any proc/DoT work; do not add 33 optional scalar fields.
 - `combineEnchantmentValues()`: sufficient for Sharpness's multiplicative copies and scalar additive/non-stackable effects. It is insufficient for independent proc rolls, duration extension/refresh, tier-mixed event streams, and cross-copy caps. Add effect-specific combination policies instead of forcing those behaviors into one scalar.
-- `CombatState`: reuse `estimatedKillsPerSecond` and `directWeaponKillsPerSecond`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; soul, roll, artifact-use, summon, and Pain Cycle mechanics still need explicit resources.
+- `CombatState`: reuse `estimatedKillsPerSecond` and `directWeaponKillsPerSecond`; Phase 2-1D now adds direct/indirect damage shares and an explicitly low-confidence final-blow proxy. Refreshment now consumes this signal in independent PotionState; artifact-use and temporary speed now use separate Temporal State; soul, roll, summon, and Pain Cycle still need resources.
 - `DamageMetrics`: Phase 2-1D adds typed source/event contributions for Shockwave, Swirling and Thundering; Poison Cloud, Fire Aspect and Exploding remain unsupported. Keep direct weapon damage separate from proc/DoT/AoE damage so kill attribution remains correct.
 - `HealingMetrics`: Refreshment contributes only incremental potion healing capacity, explicitly a low-confidence proxy; Anima Conduit still needs soul-heal state.
 - `DefenseMetrics`: Weakening preserves affected incoming damage share, reduction, duration and enemy multiplier separately from Artifact/Guarding hero DR. Hard CC utility remains unsupported.
@@ -118,7 +118,7 @@ Fire Aspect and Poison Cloud still require separate power-scaled damage events w
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **15 / 33**, unsupported **18 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **17 / 33**, unsupported **16 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -135,7 +135,15 @@ Ambush +20/40/60% uses a separate editable targeting-state exposure (all-profile
 
 Committed uses the tested health-trajectory integral, not a permanent or arithmetic-average bonus. Independent-condition factorization and fresh-target/AoE assumptions are separate low-confidence Evidence, attached only to affected builds. Existing direct kill attribution, contribution recomputation, inventory and optimizer paths are preserved. No built-ins, armor or ranged runtime were added.
 
-Next candidate: Artifact Synergy + Rampaging + Echo can reuse artifact cooldown, kill rate and attack profile foundations, but needs use/consumption, uptime feedback and extra-hit interaction audits. Soul foundation + Anima Conduit / Soul Siphon / Enigma Resonator requires a larger shared resource subsystem. See [design, derivation, Evidence and next-batch comparison](../docs/enemy-state-damage.md).
+## Phase 2-1F partial
+
+Artifact Synergy uses per-instance activation frequency rather than duration uptime: A=sum(1/CD), C=min(A,H), direct multiplier=1+(C/H)*bonus. Capacity one, optimal staggering, one profile hit approximating an action and factorized pre-Committed composition are explicit low-confidence assumptions. No artifacts means no contribution. Proc damage is not amplified.
+
+Rampaging uses shared 10% direct-kill triggers, summed 5/10/15 second tier durations and one +50% active magnitude. Wiki's two-III example supports 10% / 30 seconds, with exact copy/retrigger semantics unverified. Poisson refresh uptime and additive mean speed are solved through damage/kill feedback (1e-8 tolerance, 100 iterations, explicit failure). No Rampaging means no iteration. Mean cadence excludes frame caps and may overestimate fast weapons.
+
+Echo remains needs-state-model: repeat selection/damage, animation cost, cooldown start, combo finisher, Void, on-hit and direct-kill evidence are insufficient. Never use a free damagePerHit/cooldown placeholder. See [Temporal State](../docs/temporal-enchantments.md) and [interaction audit](temporal-enchantment-audit.json).
+
+Next: Soul subsystem (Anima Conduit / Soul Siphon / Enigma Resonator), conditional on soul-gear and resource evidence. CC utility needs positioning/resistance valuation; Pain Cycle/Dynamo/Busy Bee require distinct HP/roll/summon foundations. Parent 25–30 remains incomplete.
 
 ## Highest-risk mechanics
 
@@ -160,4 +168,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D partial — full Power 50–263 proc evidence remains missing.** Catalog runtime coverage is 15 / 33; unsupported coverage is 18 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D and Phase 2-1F partial — full Power 50–263 proc evidence and Echo mechanics remain missing.** Catalog runtime coverage is 17 / 33; unsupported coverage is 16 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.

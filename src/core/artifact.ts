@@ -1,6 +1,7 @@
 import { getArtifactDefinition } from './catalog'
 import type {
   ArtifactEffects,
+  ArtifactActivationState,
   ArtifactId,
   ArtifactStackingGroup,
   ArtifactUptime,
@@ -9,6 +10,19 @@ import type {
 } from './types'
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value))
+
+/** Activation frequency is independent of duration and combined buff uptime. */
+export function calculateArtifactActivationState(uptimes: readonly ArtifactUptime[]): ArtifactActivationState {
+  const activations = uptimes.map(({ instanceId, artifactId, effectiveCooldownSeconds }) => {
+    if (!Number.isFinite(effectiveCooldownSeconds) || effectiveCooldownSeconds <= 0) {
+      throw new Error('Artifact activation cooldown must be finite and positive')
+    }
+    return { instanceId, artifactId, effectiveCooldownSeconds, activationsPerSecond: 1 / effectiveCooldownSeconds }
+  })
+  const totalActivationsPerSecond = activations.reduce((sum, item) => sum + item.activationsPerSecond, 0)
+  if (!Number.isFinite(totalActivationsPerSecond)) throw new Error('Artifact activation rate exceeds finite numeric range')
+  return { totalActivationsPerSecond, activations }
+}
 
 export function calculateArtifactUptime(
   ownedArtifact: OwnedArtifact,

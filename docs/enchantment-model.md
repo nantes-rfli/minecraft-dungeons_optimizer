@@ -14,7 +14,7 @@ interface SelectedEnchantment {
 
 通常スロットは現在Tier III固定です。金色エンチャントはUIでTier I / II / IIIを選択でき、Enchant種類を変更しても選択中のtierを維持します。localStorage・JSON・Optimizerへ手持ちデータのtierをそのまま渡すため、Tier IをTier IIIとして評価することはありません。`built-in` は将来の固有武器効果を同じ計算経路へ載せるため予約しています。
 
-## 対応12種のstacking（3種はPower範囲限定）
+## 対応17種のstacking（3種はPower範囲限定）
 
 | Enchantment | 最大コピー | モデル |
 | --- | ---: | --- |
@@ -30,6 +30,11 @@ interface SelectedEnchantment {
 | Shockwave | 1 | non-stackable（Power 210–252） |
 | Swirling | 1 | non-stackable（Power 210–263） |
 | Thundering | 1 | non-stackable（Power 248–263） |
+| Ambush | 1 | non-stackable（非targeting条件） |
+| Smiting | 4 | multiplicative（共通Undead条件で一度だけ期待値化） |
+| Committed | 1 | non-stackable（HP推移の解析積分） |
+| Artifact Synergy | 1 | non-stackable（Artifact使用で次攻撃、pending 1近似） |
+| Rampaging | 4 | special（合計duration、共通10%発動・+50%固定） |
 
 [Minecraft WikiのEnchant概要](https://minecraft.wiki/w/Dungeons:Enchantment)ではstackableな効果は通常3個、Enchantsmithで金色枠を含めると最大4個まで存在し得るとされています。個別ページでは[Void Strike](https://minecraft.wiki/w/Dungeons:Void_Strike)と[Guarding Strike](https://minecraft.wiki/w/Dungeons:Guarding_Strike)がnon-stackable、[Radiance](https://minecraft.wiki/w/Dungeons:Radiance)と[Leeching](https://minecraft.wiki/w/Dungeons:Leeching)がstackableとされています。
 
@@ -57,3 +62,5 @@ Sharpness / UnchantingとPhase 2-1CのRefreshment / Weakeningは各tier内のtyp
 RefreshmentのPotionStateは[potion-state.md](./potion-state.md)、Weakening coverageとstacking訂正理由は[enemy-debuffs.md](./enemy-debuffs.md)に記載しています。両方とも通常・金色枠を跨いだ2個選択はvalidationとOptimizerが拒否します。
 
 Phase 2-1Dでtyped effectへcombo-finisher-damage / on-hit-proc-damageを追加しました。Shockwave / Swirling / Thunderingはnon-stackable（maxCopies=1）、Tier倍率とPower曲線を分離し、公開Power範囲外は0点にせず明示unsupportedです。[DamageEvent仕様](./damage-events.md)。
+
+Phase 2-1Fは`artifact-next-attack-damage` / `on-direct-kill-attack-speed`をtyped effectへ追加。ArtifactActivation / Synergy / Rampagingを独立し、攻撃速度と撃破rateの固定点を解きます。Echoはresearch-only、Tier cooldownが既知でもrepeat/animation/interactionの不足を0点で埋めません。[Temporal Stateと制限](./temporal-enchantments.md)。

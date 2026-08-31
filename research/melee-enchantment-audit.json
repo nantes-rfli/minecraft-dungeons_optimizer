@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
-  "auditedAt": "2026-08-30",
+  "auditedAt": "2026-08-31",
   "population": {
     "targetCount": 33,
     "definition": "Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.",
@@ -102,13 +102,76 @@
       "confidence": "high", "notes": "Needs soul generation, pickup timing, and max-health state."
     },
     {
-      "id": "artifact-synergy", "name": { "en": "Artifact Synergy" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
-      "tierValues": { "1": { "raw": "40%", "interpreted": { "nextAttackDamageBonus": 0.4 } }, "2": { "raw": "60%", "interpreted": { "nextAttackDamageBonus": 0.6 } }, "3": { "raw": "80%", "interpreted": { "nextAttackDamageBonus": 0.8 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-artifact-use", "modelCategory": "artifact-synergy", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/artifact-synergy", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Artifact activation empowers the next attack." }],
-      "confidence": "high", "notes": "Needs artifact-use event timing and a one-shot pending buff."
+      "id": "artifact-synergy",
+      "name": {
+        "en": "Artifact Synergy"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": false
+      },
+      "tierValues": {
+        "1": {
+          "raw": "40%",
+          "interpreted": {
+            "nextAttackDamageBonus": 0.4
+          }
+        },
+        "2": {
+          "raw": "60%",
+          "interpreted": {
+            "nextAttackDamageBonus": 0.6
+          }
+        },
+        "3": {
+          "raw": "80%",
+          "interpreted": {
+            "nextAttackDamageBonus": 0.8
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-artifact-use",
+      "modelCategory": "artifact-synergy",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/artifact-synergy",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking"
+          ],
+          "confidence": "high",
+          "note": "Artifact activation empowers the next attack."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/temporal-enchantments.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Model choices and unresolved mechanics are separated in research/temporal-enchantment-audit.json. No independent combat validation claimed."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1F bounded runtime: use-on-cooldown activation rate, capacity-one pending charge, optimal staggering, one profile hit approximates one attack. Direct factorized bonus before Committed, no proc amplification. Queue/action/multiplier semantics remain low-confidence assumptions."
     },
     {
       "id": "busy-bee", "name": { "en": "Busy Bee" },
@@ -227,13 +290,98 @@
       "confidence": "medium", "notes": "Needs roll count/stack state, cap, consumption, and power-scaling evidence."
     },
     {
-      "id": "echo", "name": { "en": "Echo" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "5", "interpreted": { "cooldownSeconds": 5 } }, "2": { "raw": "4", "interpreted": { "cooldownSeconds": 4 } }, "3": { "raw": "3", "interpreted": { "cooldownSeconds": 3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "other", "modelCategory": "attack-repeat", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/echo", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier controls cooldown for a repeated attack." }],
-      "confidence": "medium", "notes": "Requires attack-event scheduling and evidence for which hit/combo properties are copied."
+      "id": "echo",
+      "name": {
+        "en": "Echo"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "5",
+          "interpreted": {
+            "cooldownSeconds": 5
+          }
+        },
+        "2": {
+          "raw": "4",
+          "interpreted": {
+            "cooldownSeconds": 4
+          }
+        },
+        "3": {
+          "raw": "3",
+          "interpreted": {
+            "cooldownSeconds": 3
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "other",
+      "modelCategory": "attack-repeat",
+      "runtimeStatus": "needs-state-model",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/echo",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Tier controls cooldown for a repeated attack."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1e4em3n/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "First-person Anchor animation-lock report; no frame timings."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1k3rg06/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Reports variable repeat selection, misses, animation and Void problems; no exact event trace."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/temporal-enchantments.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Model choices and unresolved mechanics are separated in research/temporal-enchantment-audit.json. No independent combat validation claimed."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution. Never register a zero-score or damagePerHit/cooldown approximation."
     },
     {
       "id": "enigma-resonator", "name": { "en": "Enigma Resonator" },
@@ -344,13 +492,124 @@
       "confidence": "high", "notes": "Audit does not change the existing runtime heal curve or low-confidence 100/75/50/25 copy coefficients."
     },
     {
-      "id": "rampaging", "name": { "en": "Rampaging" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "5", "interpreted": { "durationSeconds": 5, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } }, "2": { "raw": "10", "interpreted": { "durationSeconds": 10, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } }, "3": { "raw": "15", "interpreted": { "durationSeconds": 15, "triggerChance": 0.1, "attackSpeedBonus": 0.5 } } },
-      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-kill", "modelCategory": "on-kill-attack-speed", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/rampaging", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "10% on-kill chance for +50% attack speed; tier controls duration and stacked copies extend duration specially." }],
-      "confidence": "high", "notes": "Needs stochastic/expected buff uptime, refresh rules, and attack-speed feedback into kill rate."
+      "id": "rampaging",
+      "name": {
+        "en": "Rampaging"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "5",
+          "interpreted": {
+            "durationSeconds": 5,
+            "triggerChance": 0.1,
+            "attackSpeedBonus": 0.5
+          }
+        },
+        "2": {
+          "raw": "10",
+          "interpreted": {
+            "durationSeconds": 10,
+            "triggerChance": 0.1,
+            "attackSpeedBonus": 0.5
+          }
+        },
+        "3": {
+          "raw": "15",
+          "interpreted": {
+            "durationSeconds": 15,
+            "triggerChance": 0.1,
+            "attackSpeedBonus": 0.5
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 4,
+        "behavior": "special"
+      },
+      "trigger": "on-kill",
+      "modelCategory": "on-kill-attack-speed",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/rampaging",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "10% on-kill, +50% speed and 5/10/15 seconds; STACKS Yes does not by itself establish chance, duration policy or a four-copy maximum."
+        },
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons:Enchantment",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "stacking"
+          ],
+          "confidence": "medium",
+          "note": "Search-index excerpt explicitly describes two Rampaging III as 10% chance for 30 seconds. Full Wiki pages were blocked by robots/restricted URL during this audit."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/14ejzt7/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "First-person mechanics explanation: Mushroom 200% plus Rampaging becomes 250%; not a controlled 1.17.0.0 measurement."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ekyxv0/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Community interaction report explicitly includes Rampaging among effects not activated by indirect kills."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Reports nonlinear Fighter's Bindings speed gains; some trigger-chance commentary conflicts with game-derived 10%. No validated speed curve; retain linear AttackProfile model with caveat."
+        },
+        {
+          "type": "inference",
+          "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/temporal-enchantments.md",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "interaction-behavior"
+          ],
+          "confidence": "low",
+          "note": "Model choices and unresolved mechanics are separated in research/temporal-enchantment-audit.json. No independent combat validation claimed."
+        }
+      ],
+      "confidence": "low",
+      "notes": "Phase 2-1F bounded runtime: shared 10% direct-weapon trigger, summed tier durations (max four), Poisson refresh uptime and additive speed at a bounded fixed point. Copy-roll/retrigger semantics and linear mean cadence remain limited models, not verified game timing."
     },
     {
       "id": "refreshment", "name": { "en": "Refreshment" },
