@@ -2,7 +2,7 @@
 
 ## 方針
 
-Artifactの複数装備は、効果量と稼働時間を分けて扱います。`ArtifactDefinition.stacking`は次の挙動を持ちます。
+現在の時間バフ2種の複数装備は、効果量と稼働時間を分けて扱います。`ArtifactDefinition.stacking`は次の挙動を持ちます。新しいArtifact familyへ時間バフのstackingを一般化しません。[Phase 2-2Aの型・activation・将来のstate設計](artifact-model.md)を参照してください。
 
 - `stack`: 同時発動時に効果量が重なる。
 - `refresh`: 効果量は重ならず、後から使うと継続時間を更新する。

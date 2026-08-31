@@ -360,28 +360,31 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       `${artifact.name.ja}のCooldown`,
       artifact.cooldownSeconds,
     )
-    addEvidence(
-      `artifact-duration-i-${ownedArtifact.instanceId}`,
-      `${artifact.name.ja}の継続時間切片`,
-      artifact.durationIntercept,
-    )
-    addEvidence(
-      `artifact-duration-p-${ownedArtifact.instanceId}`,
-      `${artifact.name.ja}のPower別継続時間`,
-      artifact.durationPerPower,
-    )
-    if (artifact.attackSpeedBonus) {
+    if (artifact.mechanic !== 'timed-self-buff') throw new Error(`Unsupported artifact mechanics: ${artifact.mechanic}`)
+    switch (artifact.duration.kind) {
+      case 'linear-power':
+        addEvidence(`artifact-duration-i-${ownedArtifact.instanceId}`, `${artifact.name.ja}の継続時間切片`, artifact.duration.intercept)
+        addEvidence(`artifact-duration-p-${ownedArtifact.instanceId}`, `${artifact.name.ja}のPower別継続時間`, artifact.duration.perPower)
+        break
+      case 'fixed':
+        addEvidence(`artifact-duration-${ownedArtifact.instanceId}`, `${artifact.name.ja}の固定継続時間`, artifact.duration.seconds)
+        break
+      case 'published-table':
+        for (const point of artifact.duration.points) addEvidence(`artifact-duration-${ownedArtifact.instanceId}-${point.power}`, `${artifact.name.ja}のPower ${point.power}継続時間`, point.seconds)
+        break
+    }
+    if (artifact.effect.kind === 'attack-speed') {
       addEvidence(
         `artifact-speed-${ownedArtifact.instanceId}`,
         `${artifact.name.ja}の攻撃速度`,
-        artifact.attackSpeedBonus,
+        artifact.effect.bonus,
       )
     }
-    if (artifact.damageReduction) {
+    if (artifact.effect.kind === 'damage-reduction') {
       addEvidence(
         `artifact-defense-${ownedArtifact.instanceId}`,
         `${artifact.name.ja}のダメージ軽減`,
-        artifact.damageReduction,
+        artifact.effect.reduction,
       )
     }
   }

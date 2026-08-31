@@ -15,6 +15,7 @@ import {
 } from '../research/dpsRegressionAudit'
 import { DpsRegressionPanel } from './DpsRegressionPanel'
 import { RuntimeSupportSection } from './RuntimeSupport'
+import { ArtifactRuntimeSupportSection } from './ArtifactRuntimeSupport'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
 const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
@@ -42,6 +43,7 @@ export function MethodologyPage() {
       </header>
 
       <RuntimeSupportSection />
+      <ArtifactRuntimeSupportSection />
 
       <section className="panel">
         <p className="section-label">PHASE 2-1J / CHARGE・CONSUME — PARTIAL</p>

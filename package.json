@@ -19,7 +19,8 @@
     "audit:soul": "node scripts/audit-soul-subsystem.ts",
     "audit:dot-damage": "node scripts/audit-dot-damage.ts",
     "audit:cc": "node scripts/audit-cc-subsystem.ts",
-    "audit:charge-enchants": "node scripts/audit-charge-enchantments.ts"
+    "audit:charge-enchants": "node scripts/audit-charge-enchantments.ts",
+    "audit:artifacts": "node scripts/audit-artifacts.ts"
   },
   "dependencies": {
     "react": "19.2.6",

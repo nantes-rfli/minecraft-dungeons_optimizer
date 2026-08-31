@@ -1,0 +1,815 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "population": 44,
+  "populationScope": "dungeons.tools 1.17.0.0 index snapshot; NOT a verified exhaustive game population",
+  "entries": [
+    {
+      "id": "blast-fungus",
+      "name": "Blast Fungus",
+      "mechanicFamily": "instant-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Five projectiles: overlap and hit probability",
+        "missing damage samples"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-blast-fungus"
+      ]
+    },
+    {
+      "id": "boots-of-swiftness",
+      "name": "Boots of Swiftness",
+      "mechanicFamily": "mobility",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Travel speed objective and movement duration curve"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "buzzy-nest",
+      "name": "Buzzy Nest",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Nest lifetime, bee cap and attack/kill attribution",
+        "share future Busy Bee subsystem"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "corrupted-beacon",
+      "name": "Corrupted Beacon",
+      "mechanicFamily": "channeled-soul-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Channel occupancy and soul budget",
+        "target-seconds",
+        "DPS curve"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-corrupted-beacon",
+        "wiki-corrupted-beacon"
+      ]
+    },
+    {
+      "id": "corrupted-pumpkin",
+      "name": "Corrupted Pumpkin",
+      "mechanicFamily": "channeled-soul-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Legacy event reskin: obtainability, 12.5 versus 20 soul/s and channel/curve parity"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-corrupted-pumpkin",
+        "wiki-event"
+      ]
+    },
+    {
+      "id": "death-cap-mushroom",
+      "name": "Death Cap Mushroom",
+      "mechanicFamily": "timed-self-buff",
+      "supportLevel": "full",
+      "reasons": [
+        "Current optimizer scope complete; original Evidence assumptions retained."
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "baseline-34e9b72"
+      ]
+    },
+    {
+      "id": "enchanted-grass",
+      "name": "Enchanted Grass",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Three sheep variants: selection, buff or attack behavior, lifetime and pet cap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "enchanters-tome",
+      "name": "Enchanter's Tome",
+      "mechanicFamily": "other",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Ally/pet buff targeting, party share and buff lifetime"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "eye-of-the-guardian",
+      "name": "Eye of the Guardian",
+      "mechanicFamily": "persistent-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "0.8s aim plus 4s beam",
+        "steering/target occupancy and damage curve"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-eye-of-the-guardian"
+      ]
+    },
+    {
+      "id": "fireworks-arrow",
+      "name": "Fireworks Arrow",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Loaded arrow is not fired on activation",
+        "ranged shot and explosion attribution"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-fireworks-arrow"
+      ]
+    },
+    {
+      "id": "fishing-rod",
+      "name": "Fishing Rod",
+      "mechanicFamily": "hard-control",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Power duration versus 3s patch value",
+        "pull target eligibility and boss immunity"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-fishing-rod",
+        "wiki-fishing-rod"
+      ]
+    },
+    {
+      "id": "flaming-quiver",
+      "name": "Flaming Quiver",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Seven arrows",
+        "ranged burn and independent source overlap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-flaming-quiver"
+      ]
+    },
+    {
+      "id": "ghost-cloak",
+      "name": "Ghost Cloak",
+      "mechanicFamily": "mobility",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Movement/phase-through objective and transient protection timing"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "golem-kit",
+      "name": "Golem Kit",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Golem survival, attack cadence, target AI and resummon behavior"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "gong-of-weakening",
+      "name": "Gong of Weakening",
+      "mechanicFamily": "timed-enemy-debuff",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Vulnerability duration curve",
+        "Weakening status ownership and overlap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-gong-of-weakening"
+      ]
+    },
+    {
+      "id": "harpoon-quiver",
+      "name": "Harpoon Quiver",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Five loaded arrows",
+        "ranged piercing and underwater target geometry"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-harpoon-quiver"
+      ]
+    },
+    {
+      "id": "harvester",
+      "name": "Harvester",
+      "mechanicFamily": "soul-spending-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "4s versus 8s CD conflict",
+        "soul spending",
+        "damage curve and no-soul kills"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-harvester",
+        "wiki-harvester"
+      ]
+    },
+    {
+      "id": "ice-wand",
+      "name": "Ice Wand",
+      "mechanicFamily": "instant-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Crush damage curve and delay",
+        "stun duration/immune targets"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-ice-wand"
+      ]
+    },
+    {
+      "id": "iron-hide-amulet",
+      "name": "Iron Hide Amulet",
+      "mechanicFamily": "timed-self-buff",
+      "supportLevel": "full",
+      "reasons": [
+        "Current optimizer scope complete; original Evidence assumptions retained."
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "baseline-34e9b72"
+      ]
+    },
+    {
+      "id": "light-feather",
+      "name": "Light Feather",
+      "mechanicFamily": "mobility",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Roll triggers and stun coverage",
+        "connect Dynamo only after roll semantics audit"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-light-feather"
+      ]
+    },
+    {
+      "id": "lightning-rod",
+      "name": "Lightning Rod",
+      "mechanicFamily": "soul-spending-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Damage curve",
+        "strike targeting and delay",
+        "soul budget and CD history"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-lightning-rod"
+      ]
+    },
+    {
+      "id": "love-medallion",
+      "name": "Love Medallion",
+      "mechanicFamily": "hard-control",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Charm ownership, target immunity, borrowed mob damage and expiry deaths"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-love-medallion"
+      ]
+    },
+    {
+      "id": "powershaker",
+      "name": "Powershaker",
+      "mechanicFamily": "attack-limited-buff",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Per-attack versus per-target consumption",
+        "explosion curve and attribution"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-powershaker",
+        "wiki-powershaker"
+      ]
+    },
+    {
+      "id": "satchel-of-elements",
+      "name": "Satchel of Elements",
+      "mechanicFamily": "random-effect",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Element probabilities, target count, burn/lightning/freeze curves"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-satchel-of-elements"
+      ]
+    },
+    {
+      "id": "satchel-of-elixirs",
+      "name": "Satchel of Elixirs",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Potion distribution, pickup/consumption policy and buff overlap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "satchel-of-snacks",
+      "name": "Satchel of Snacks",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Food distribution, pickup/consumption and overheal policy"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "scatter-mines",
+      "name": "Scatter Mines",
+      "mechanicFamily": "persistent-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Placed mine trigger, residence/overlap and artifact damage curve"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "shadow-shifter",
+      "name": "Shadow Shifter",
+      "mechanicFamily": "mobility",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Soul-paid shadow state, first-hit consumption and movement objective"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "shock-powder",
+      "name": "Shock Powder",
+      "mechanicFamily": "hard-control",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Version-check stun samples and bounded interpolation",
+        "coverage and immunity"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-shock-powder"
+      ]
+    },
+    {
+      "id": "soul-healer",
+      "name": "Soul Healer",
+      "mechanicFamily": "soul-spending-heal",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Current-version healing curve",
+        "soul spending",
+        "self-target share"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-soul-healer",
+        "wiki-soul-healer"
+      ]
+    },
+    {
+      "id": "soul-lantern",
+      "name": "Soul Lantern",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Soul spending plus wizard lifetime, projectile cadence and pet cap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "spinblade",
+      "name": "Spinblade",
+      "mechanicFamily": "persistent-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Outward/return hits, catch/roll loop and per-target occupancy"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-spinblade"
+      ]
+    },
+    {
+      "id": "tasty-bone",
+      "name": "Tasty Bone",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Wolf survival, melee cadence, target AI and resummon behavior"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "thundering-quiver",
+      "name": "Thundering Quiver",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Five arrows",
+        "ranged hit and lightning chain target model"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-thundering-quiver"
+      ]
+    },
+    {
+      "id": "tome-of-duplication",
+      "name": "Tome of Duplication",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Soul-paid consumable duplication, inventory and use policy"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "torment-quiver",
+      "name": "Torment Quiver",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Soul spending, loaded ranged ammo and knockback/piercing targets"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "totem-of-casting",
+      "name": "Totem of Casting",
+      "mechanicFamily": "other",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Soul-paid delayed CD reset, party aura residence and activation feedback loop"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-totem-of-casting"
+      ]
+    },
+    {
+      "id": "totem-of-regeneration",
+      "name": "Totem of Regeneration",
+      "mechanicFamily": "placed-healing-zone",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Healing curve",
+        "total versus tick healing",
+        "residence and overlapping zones"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-totem-of-regeneration"
+      ]
+    },
+    {
+      "id": "totem-of-shielding",
+      "name": "Totem of Shielding",
+      "mechanicFamily": "other",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Placed projectile shield: incoming projectile share, residence and overlap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "updraft-tome",
+      "name": "Updraft Tome",
+      "mechanicFamily": "hard-control",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Repeated same-target use cancels damage",
+        "stun/damage curves and seven-target cap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-updraft-tome"
+      ]
+    },
+    {
+      "id": "vexing-chant",
+      "name": "Vexing Chant",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Three vexes: lifetime, attacks, target AI and summon cap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "void-quiver",
+      "name": "Void Quiver",
+      "mechanicFamily": "consumable-generation",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Ranged ammo and Void application/consumption ownership"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    },
+    {
+      "id": "wind-horn",
+      "name": "Wind Horn",
+      "mechanicFamily": "positional-control",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Push curve above 108",
+        "slow magnitude/duration",
+        "close-range exception"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-wind-horn",
+        "wiki-wind-horn"
+      ]
+    },
+    {
+      "id": "wonderful-wheat",
+      "name": "Wonderful Wheat",
+      "mechanicFamily": "summon",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Llama projectile cadence, survival, targeting and pet cap"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "dt-artifacts-117"
+      ]
+    }
+  ]
+}

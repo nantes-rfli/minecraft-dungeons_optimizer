@@ -215,10 +215,10 @@ describe('bounded solver and numeric failure handling', () => {
     expect(() => temporaryBuffUptime(0.1, bad)).toThrow()
     expect(() => deriveArtifactSynergyState([], { totalActivationsPerSecond: bad, activations: [] }, 1)).toThrow()
     expect(() => deriveArtifactSynergyState([], { totalActivationsPerSecond: 1, activations: [] }, bad)).toThrow()
-    expect(() => calculateArtifactActivationState([{ instanceId: 'bad', artifactId: 'iron-hide-amulet', effectiveCooldownSeconds: bad, durationSeconds: 1, uptime: 1 }])).toThrow()
+    expect(() => calculateArtifactActivationState([{ instanceId: 'bad', artifactId: 'iron-hide-amulet', effectiveCooldownSeconds: bad }])).toThrow()
   })
   it('rejects zero CD and numeric overflow', () => {
-    expect(() => calculateArtifactActivationState([{ instanceId: 'bad', artifactId: 'iron-hide-amulet', effectiveCooldownSeconds: 0, durationSeconds: 1, uptime: 1 }])).toThrow()
+    expect(() => calculateArtifactActivationState([{ instanceId: 'bad', artifactId: 'iron-hide-amulet', effectiveCooldownSeconds: 0 }])).toThrow()
     expect(() => temporaryBuffUptime(Number.MAX_VALUE, Number.MAX_VALUE)).toThrow('finite numeric range')
   })
 })

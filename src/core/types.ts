@@ -394,16 +394,7 @@ export interface EnchantmentDefinition {
   }>
 }
 
-export interface ArtifactDefinition {
-  readonly id: ArtifactId
-  readonly name: LocalizedName
-  readonly cooldownSeconds: Evidence<number>
-  readonly durationIntercept: Evidence<number>
-  readonly durationPerPower: Evidence<number>
-  readonly attackSpeedBonus?: Evidence<number>
-  readonly damageReduction?: Evidence<number>
-  readonly stacking: Evidence<ArtifactStacking>
-}
+export type { ArtifactDefinition, ArtifactDurationModel, TimedSelfBuffArtifactDefinition, ArtifactMechanicFamily } from './artifactMechanics'
 
 export interface ArtifactStacking {
   readonly maxCopies: number

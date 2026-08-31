@@ -8,6 +8,12 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-only 5 · Broad Power 22 · Power-limited 6
 <!-- runtime-support:end -->
 
+<!-- artifact-support:start -->
+Artifacts · Audited source population 44 · Catalog runtime 2 / 44 · Full 2 · Limited 0 · Research-only 42
+<!-- artifact-support:end -->
+
+Artifactの44件はsource一覧の監査範囲です。Corrupted Seedsの欠落を別記し、Phase 2-2Aはpartial。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
+
 Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現ではありません。LimitedはPower範囲・stacking・modifier組合せに制限あり。[対応表](./docs/melee-runtime-support.md) / [未解決事項と終了条件](./docs/runtime-limitations.md)。
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）/ ソウルサイス（Soul Scythe）
@@ -62,6 +68,7 @@ npm run audit:soul
 npm run audit:cc
 npm run audit:charge-enchants
 npm run audit:runtime-support
+npm run audit:artifacts
 npm test
 npx tsc -b
 npm run lint
@@ -148,7 +155,7 @@ src/core/potion.ts     Health Potion使用頻度とRefreshment追加回復容量
 src/core/enemyDebuffs.ts Weakeningの時間平均coverageと敵攻撃倍率
 src/core/healing.ts    Radiance、Leeching、Refreshment追加capacity
 src/core/defense.ts    敵debuff × Artifact × Guarding Strike、Effective HP
-src/core/artifact.ts   効果時間、稼働率、平均効果
+src/core/artifact.ts   時間バフ専用duration/uptimeと独立した使用機会
 src/core/evaluate.ts   1ビルドの評価
 src/core/optimizer.ts  全組み合わせの探索、順位付け、Pareto前線
 src/core/modelError.ts 実測比較、P90誤差、DPS参考範囲
@@ -170,7 +177,7 @@ scripts/               research検証・レポート再生成スクリプト
 - Build依存kill rate: [CombatState](./docs/combat-state.md)で`min(敵供給上限, AoE DPS ÷ 平均敵HP)`を算出し、`直接撃破/秒 = 推定撃破/秒 × directKillShare × directDamageShare`を一元管理します。
 - `Leeching III`: `直接撃破/秒 × 敵HP × 9%`。間接ダメージ撃破はCombat Stateで除外済みです。
 - `Guarding Strike III`: 武器本体の直接撃破をPoisson過程とみなし、`1 - exp(-directWeaponKillsPerSecond × 4)`を稼働率にします。
-- アーティファクト: `duration / effectiveCooldown` を時間平均します。同種の一時効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。
+- 現在の時間バフ2種のみ: `duration / effectiveCooldown` を時間平均します。この2種の重複効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。
 - `Void Strike`: [公開測定audit](./docs/void-strike-measurement.md)に基づき、最初の付与hitは1倍、armed後は1.25倍から3.6秒でTier III 7倍へ線形増加し、5秒で消滅します。3武器は平均HPSへ潰さず、combo内の各per-hit intervalをattack speedで短縮し、hitごとの消費・再適用と戦闘時間を計算します。curve形状・正確な消滅frame・tier別minimumはlow confidenceです。
 - Enchantment選択: BuildはIDだけでなくtier・slot/gilded/built-inのsourceを保持します。金色枠はUI・localStorage・JSON・Optimizerを通してTier I / II / IIIを維持します。重複可否と追加コピーの扱いは[Enchantモデル](./docs/enchantment-model.md)に集約しています。
 - 目的スコア: Pain自己damageはgross回復から引いてnet sustainにし、負値は符号付き飽和で減点します（[仕様](./docs/charge-consume-enchantments.md)）。その他の火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。

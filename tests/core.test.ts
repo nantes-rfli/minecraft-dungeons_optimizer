@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { ATTACK_PROFILES } from '../src/data/attackProfiles'
-import { calculateArtifactEffects, calculateArtifactUptime } from '../src/core/artifact'
+import { calculateArtifactEffects, calculateTimedArtifactUptime } from '../src/core/artifact'
 import { calculateBaseHitsPerSecond } from '../src/core/attackProfile'
 import { deriveCombatState } from '../src/core/combatState'
 import { calculateDamage } from '../src/core/damage'
@@ -47,7 +47,7 @@ const bindingsBuild: Build = {
 
 describe('artifact model', () => {
   it('clamps uptime at 100 percent', () => {
-    const uptime = calculateArtifactUptime({ instanceId: 'mushroom-test', artifactId: 'death-cap-mushroom', powerLevel: 251 }, {
+    const uptime = calculateTimedArtifactUptime({ instanceId: 'mushroom-test', artifactId: 'death-cap-mushroom', powerLevel: 251 }, {
       ...DEFAULT_SCENARIO,
       cooldownReduction: 0.75,
     })
@@ -74,7 +74,7 @@ describe('artifact model', () => {
       { powerLevel: 145, durationSeconds: 15.6 },
     ]
     for (const sample of samples) {
-      const uptime = calculateArtifactUptime({
+      const uptime = calculateTimedArtifactUptime({
         instanceId: `mushroom-${sample.powerLevel}`,
         artifactId: 'death-cap-mushroom',
         powerLevel: sample.powerLevel,
@@ -90,7 +90,7 @@ describe('artifact model', () => {
       { powerLevel: 104, durationSeconds: 13.4 },
     ]
     for (const sample of samples) {
-      const uptime = calculateArtifactUptime({
+      const uptime = calculateTimedArtifactUptime({
         instanceId: `amulet-${sample.powerLevel}`,
         artifactId: 'iron-hide-amulet',
         powerLevel: sample.powerLevel,

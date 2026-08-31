@@ -1,11 +1,11 @@
-import type { ArtifactDefinition, ArtifactId } from '../core/types'
+import type { TimedSelfBuffArtifactDefinition, ArtifactId } from '../core/types'
 import {
   COMMUNITY_ARTIFACT_STACKING_SOURCE,
   MINECRAFT_WIKI_DEATH_CAP_SOURCE,
   MINECRAFT_WIKI_IRON_HIDE_SOURCE,
 } from './sources'
 
-export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
+export const ARTIFACTS: Readonly<Record<ArtifactId, TimedSelfBuffArtifactDefinition>> = {
   'death-cap-mushroom': {
     id: 'death-cap-mushroom',
     name: { ja: 'シロタマゴテングタケ', en: 'Death Cap Mushroom' },
@@ -14,21 +14,29 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
       source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
       confidence: 'high',
     },
-    durationIntercept: {
-      value: 8,
-      source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
-      confidence: 'medium',
-      note: 'Community-derived duration formula: 0.052 × power + 8.',
+    mechanic: 'timed-self-buff',
+    use: { kind: 'cooldown-only', cooldownStarts: 'use' },
+    duration: {
+      kind: 'linear-power',
+      intercept: {
+        value: 8,
+        source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
+        confidence: 'medium',
+        note: 'Community-derived duration formula: 0.052 × power + 8.',
+      },
+      perPower: {
+        value: 0.052,
+        source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
+        confidence: 'medium',
+      },
     },
-    durationPerPower: {
-      value: 0.052,
-      source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
-      confidence: 'medium',
-    },
-    attackSpeedBonus: {
-      value: 1,
-      source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
-      confidence: 'high',
+    effect: {
+      kind: 'attack-speed',
+      bonus: {
+        value: 1,
+        source: MINECRAFT_WIKI_DEATH_CAP_SOURCE,
+        confidence: 'high',
+      },
     },
     stacking: {
       value: { maxCopies: 3, behavior: 'refresh' },
@@ -45,22 +53,30 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, ArtifactDefinition>> = {
       source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
       confidence: 'high',
     },
-    durationIntercept: {
-      value: 8,
-      source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
-      confidence: 'low',
-      note: 'Linear fit from published duration samples; requires in-game verification.',
+    mechanic: 'timed-self-buff',
+    use: { kind: 'cooldown-only', cooldownStarts: 'use' },
+    duration: {
+      kind: 'linear-power',
+      intercept: {
+        value: 8,
+        source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
+        confidence: 'low',
+        note: 'Linear fit from published duration samples; requires in-game verification.',
+      },
+      perPower: {
+        value: 0.052,
+        source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
+        confidence: 'low',
+        note: 'Linear fit from published duration samples; requires in-game verification.',
+      },
     },
-    durationPerPower: {
-      value: 0.052,
-      source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
-      confidence: 'low',
-      note: 'Linear fit from published duration samples; requires in-game verification.',
-    },
-    damageReduction: {
-      value: 0.5,
-      source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
-      confidence: 'medium',
+    effect: {
+      kind: 'damage-reduction',
+      reduction: {
+        value: 0.5,
+        source: MINECRAFT_WIKI_IRON_HIDE_SOURCE,
+        confidence: 'medium',
+      },
     },
     stacking: {
       value: { maxCopies: 3, behavior: 'refresh' },

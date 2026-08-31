@@ -1,4 +1,4 @@
-import { calculateArtifactActivationState } from './artifact'
+import { calculateArtifactActivationState, calculateArtifactActivationOpportunities } from './artifact'
 import { deriveSoulState } from './souls'
 import { deriveCombatState } from './combatState'
 import { calculateDamage } from './damage'
@@ -16,7 +16,7 @@ interface OffensiveState {
 
 export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, artifactEffects: ArtifactEffects): OffensiveState {
   const effect = combineRampagingEffects(build.enchantments)
-  const artifactActivation = calculateArtifactActivationState(artifactEffects.uptimes)
+  const artifactActivation = calculateArtifactActivationState(calculateArtifactActivationOpportunities(build.artifacts, scenario))
   const usesExploding = hasEnchantment(build.enchantments, 'exploding')
   let initialDirectKillsPerSecond = 0
   let firstExplodingAoeDps = 0

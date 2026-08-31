@@ -1,0 +1,5591 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-01",
+  "population": 44,
+  "populationScope": "dungeons.tools 1.17.0.0 index snapshot; NOT a verified exhaustive game population",
+  "phaseStatus": "partial",
+  "completionBlockers": [
+    "dungeons.tools lists 44 but omits obtainable Corrupted Seeds; reconcile raw game IDs before claiming exhaustive 1.17 coverage.",
+    "Next batch is conditional: only Shock Powder has a bounded candidate table; three unconditional evidence-ready additions are not established."
+  ],
+  "sourceHierarchy": [
+    "game-file-derived-database",
+    "wiki concrete stats/history",
+    "quantitative community testing",
+    "agreeing reports",
+    "explicit model assumption"
+  ],
+  "sources": [
+    {
+      "id": "dt-artifacts-117",
+      "title": "dungeons.tools Artifact index",
+      "url": "https://www.dungeons.tools/artifacts",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "index-read",
+      "note": "Site claims 1.17 game-file origin; explanatory prose is editorial, not a raw coefficient export."
+    },
+    {
+      "id": "wiki-item",
+      "title": "Minecraft Wiki Item population and slots",
+      "url": "https://minecraft.wiki/w/Dungeons:Item",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Lists three slots and 44 artifacts, but lists Corrupted Seeds missing from dungeons.tools."
+    },
+    {
+      "id": "wiki-1162",
+      "title": "Minecraft Wiki 1.16.2.0 history",
+      "url": "https://minecraft.wiki/w/Dungeons:1.16.2.0",
+      "kind": "wiki-history",
+      "gameVersion": "1.16.2.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "History is not a complete Power formula."
+    },
+    {
+      "id": "wiki-132",
+      "title": "Minecraft Wiki 1.3.2.0 history",
+      "url": "https://minecraft.wiki/w/Dungeons:1.3.2.0",
+      "kind": "wiki-history",
+      "gameVersion": "1.3.2.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Historical soul cost changes; not evidence for current damage distribution."
+    },
+    {
+      "id": "wiki-event",
+      "title": "Minecraft Wiki seasonal trials",
+      "url": "https://minecraft.wiki/w/Dungeons:Daily_Trial",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Corrupted Pumpkin excluded from current Tower drops; legacy gifts are not fresh drops."
+    },
+    {
+      "id": "baseline-34e9b72",
+      "title": "Frozen runtime model at 34e9b72",
+      "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7",
+      "kind": "model-assumption",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "git-archive",
+      "note": "Existing formulas, confidence and stagger assumptions preserved; not independent game measurements."
+    },
+    {
+      "id": "wiki-gong-of-weakening",
+      "title": "Minecraft Wiki Gong of Weakening",
+      "url": "https://minecraft.wiki/w/Dungeons:Gong_of_Weakening",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-soul-healer",
+      "title": "Minecraft Wiki Soul Healer",
+      "url": "https://minecraft.wiki/w/Dungeons:Soul_Healer",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-powershaker",
+      "title": "Minecraft Wiki Powershaker",
+      "url": "https://minecraft.wiki/w/Dungeons:Powershaker",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-harvester",
+      "title": "Minecraft Wiki Harvester",
+      "url": "https://minecraft.wiki/w/Dungeons:Harvester",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-corrupted-beacon",
+      "title": "Minecraft Wiki Corrupted Beacon",
+      "url": "https://minecraft.wiki/w/Dungeons:Corrupted_Beacon",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-totem-of-regeneration",
+      "title": "Minecraft Wiki Totem of Regeneration",
+      "url": "https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-fishing-rod",
+      "title": "Minecraft Wiki Fishing Rod",
+      "url": "https://minecraft.wiki/w/Dungeons:Fishing_Rod",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-wind-horn",
+      "title": "Minecraft Wiki Wind Horn",
+      "url": "https://minecraft.wiki/w/Dungeons:Wind_Horn",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-shock-powder",
+      "title": "Minecraft Wiki Shock Powder",
+      "url": "https://minecraft.wiki/w/Dungeons:Shock_Powder",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-lightning-rod",
+      "title": "Minecraft Wiki Lightning Rod",
+      "url": "https://minecraft.wiki/w/Dungeons:Lightning_Rod",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-blast-fungus",
+      "title": "Minecraft Wiki Blast Fungus",
+      "url": "https://minecraft.wiki/w/Dungeons:Blast_Fungus",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-ice-wand",
+      "title": "Minecraft Wiki Ice Wand",
+      "url": "https://minecraft.wiki/w/Dungeons:Ice_Wand",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-updraft-tome",
+      "title": "Minecraft Wiki Updraft Tome",
+      "url": "https://minecraft.wiki/w/Dungeons:Updraft_Tome",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "wiki-corrupted-seeds",
+      "title": "Minecraft Wiki Corrupted Seeds",
+      "url": "https://minecraft.wiki/w/Dungeons:Corrupted_Seeds",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified."
+    },
+    {
+      "id": "dt-soul-healer",
+      "title": "dungeons.tools Soul Healer",
+      "url": "https://www.dungeons.tools/artifacts/soul-healer",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-powershaker",
+      "title": "dungeons.tools Powershaker",
+      "url": "https://www.dungeons.tools/artifacts/powershaker",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-harvester",
+      "title": "dungeons.tools Harvester",
+      "url": "https://www.dungeons.tools/artifacts/harvester",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-corrupted-beacon",
+      "title": "dungeons.tools Corrupted Beacon",
+      "url": "https://www.dungeons.tools/artifacts/corrupted-beacon",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-fishing-rod",
+      "title": "dungeons.tools Fishing Rod",
+      "url": "https://www.dungeons.tools/artifacts/fishing-rod",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-wind-horn",
+      "title": "dungeons.tools Wind Horn",
+      "url": "https://www.dungeons.tools/artifacts/wind-horn",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-fireworks-arrow",
+      "title": "dungeons.tools Fireworks Arrow",
+      "url": "https://www.dungeons.tools/artifacts/fireworks-arrow",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-flaming-quiver",
+      "title": "dungeons.tools Flaming Quiver",
+      "url": "https://www.dungeons.tools/artifacts/flaming-quiver",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-harpoon-quiver",
+      "title": "dungeons.tools Harpoon Quiver",
+      "url": "https://www.dungeons.tools/artifacts/harpoon-quiver",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-love-medallion",
+      "title": "dungeons.tools Love Medallion",
+      "url": "https://www.dungeons.tools/artifacts/love-medallion",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-thundering-quiver",
+      "title": "dungeons.tools Thundering Quiver",
+      "url": "https://www.dungeons.tools/artifacts/thundering-quiver",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-eye-of-the-guardian",
+      "title": "dungeons.tools Eye of the Guardian",
+      "url": "https://www.dungeons.tools/artifacts/eye-of-the-guardian",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-totem-of-casting",
+      "title": "dungeons.tools Totem of Casting",
+      "url": "https://www.dungeons.tools/artifacts/totem-of-casting",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-spinblade",
+      "title": "dungeons.tools Spinblade",
+      "url": "https://www.dungeons.tools/artifacts/spinblade",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-light-feather",
+      "title": "dungeons.tools Light Feather",
+      "url": "https://www.dungeons.tools/artifacts/light-feather",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-corrupted-pumpkin",
+      "title": "dungeons.tools Corrupted Pumpkin",
+      "url": "https://www.dungeons.tools/artifacts/corrupted-pumpkin",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "wiki-satchel-of-elements",
+      "title": "Minecraft Wiki Satchel of Elements",
+      "url": "https://minecraft.wiki/w/Dungeons:Satchel_of_Elements",
+      "kind": "wiki",
+      "gameVersion": "unspecified",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Howling Peaks origin; also Gauntlet of Gales. A content origin is not a strict DLC-purchase requirement."
+    }
+  ],
+  "populationDifferences": [
+    {
+      "id": "corrupted-seeds",
+      "name": "Corrupted Seeds",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "contentPack": "Jungle Awakens (also Treetop Tangle)",
+      "mechanicFamily": "persistent-damage",
+      "runtimeReadiness": "needs-power-curve",
+      "cooldownSeconds": 20,
+      "note": "Wiki records CorruptedSeeds ID, introduced 1.3.2.0, Treetop Tangle in 1.16.2.0. Root + poison, up to eight mobs. Missing from primary 44; tracked separately, never discarded or made selectable. Union of observed named records is 45, not asserted exhaustive.",
+      "sourceIds": [
+        "wiki-corrupted-seeds"
+      ],
+      "blockers": [
+        "Population reconciliation",
+        "Poison curve and root immunity/refresh"
+      ]
+    }
+  ],
+  "slotLimit": {
+    "value": 3,
+    "sourceIds": [
+      "wiki-item"
+    ],
+    "note": "Runtime build validation already rejects more than three; inventory may hold more."
+  },
+  "entries": [
+    {
+      "id": "blast-fungus",
+      "name": "Blast Fungus",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Flames of the Nether",
+      "reportedContentPack": "Flames of the Nether",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "instant-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 6.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Investigate independent damage events, overlap and shared soul budget; timed buff refresh does not apply."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Five projectiles: overlap and hit probability; missing damage samples",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-blast-fungus"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-blast-fungus"
+      ],
+      "blockers": [
+        "Five projectiles: overlap and hit probability",
+        "missing damage samples"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "boots-of-swiftness",
+      "name": "Boots of Swiftness",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "mobility",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 5.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Travel speed objective and movement duration curve",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-objective",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Travel speed objective and movement duration curve"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "buzzy-nest",
+      "name": "Buzzy Nest",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 23.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Nest lifetime, bee cap and attack/kill attribution; share future Busy Bee subsystem",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Nest lifetime, bee cap and attack/kill attribution",
+        "share future Busy Bee subsystem"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "corrupted-beacon",
+      "name": "Corrupted Beacon",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-beacon",
+          "wiki-corrupted-beacon"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "channeled-soul-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 2.5,
+        "status": "reported",
+        "starts": "deactivation",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-beacon",
+          "wiki-corrupted-beacon"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "known",
+        "note": "Toggle beam; cooldown 2.5s begins after deactivation; +1 Gathering.",
+        "sourceIds": [
+          "wiki-corrupted-beacon"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 23,
+          "minPower": 1,
+          "maxPower": 108,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-beacon",
+          "wiki-corrupted-beacon"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": 1,
+        "costPerUse": null,
+        "costPerSecond": 20,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-beacon",
+          "wiki-corrupted-beacon"
+        ]
+      },
+      "targeting": {
+        "status": "known",
+        "note": "Pierces along a line, about 40 blocks, blocked by walls; target-seconds needed.",
+        "sourceIds": [
+          "wiki-corrupted-beacon"
+        ],
+        "confidence": "medium"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "No simultaneous independent beam assumption. Shared hero channel occupancy, soul budget and toggle state require evidence."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Channel occupancy and soul budget; target-seconds; DPS curve",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-beacon",
+          "wiki-corrupted-beacon"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-corrupted-beacon",
+        "wiki-corrupted-beacon"
+      ],
+      "blockers": [
+        "Channel occupancy and soul budget",
+        "target-seconds",
+        "DPS curve"
+      ],
+      "deepAudit": {
+        "channel": {
+          "status": "known",
+          "note": "Toggle beam; cooldown 2.5s begins after deactivation; +1 Gathering.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        },
+        "consumption": {
+          "status": "known",
+          "note": "2 souls each 0.1s = 20 souls/s; capacity 300 supports 15s without income.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        },
+        "damageUnit": {
+          "status": "known",
+          "note": "Each 0.1s tick deals 10% of displayed base DPS; ticks are not activations.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        },
+        "targeting": {
+          "status": "known",
+          "note": "Pierces along a line, about 40 blocks, blocked by walls; target-seconds needed.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        },
+        "curve": {
+          "status": "unknown",
+          "note": "23 rows Power 1–108; no verified 210–263 DPS samples.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        },
+        "solver": {
+          "status": "unknown",
+          "note": "Need channel duration, start/stop policy, blocked melee time, spend trajectory and realized ON actions.",
+          "sourceIds": [
+            "wiki-corrupted-beacon"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "corrupted-pumpkin",
+      "name": "Corrupted Pumpkin",
+      "gameVersion": "1.17.0.0",
+      "obtainable": false,
+      "obtainability": {
+        "status": "known",
+        "note": "No fresh drops; legacy owned/gifted copies can exist.",
+        "sourceIds": [
+          "wiki-event"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Spooky Fall event (base game)",
+      "reportedContentPack": "Howling Peaks",
+      "eventExclusive": true,
+      "unique": true,
+      "reskinOf": "corrupted-beacon",
+      "obsolete": false,
+      "mechanicFamily": "channeled-soul-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 2.5,
+        "status": "reported",
+        "starts": "deactivation",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": 1,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "Database editorial says about 12.5/s, Beacon 20/s. Do not assume reskin parity; event-only provenance and current behavior unresolved.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "No simultaneous independent beam assumption. Shared hero channel occupancy, soul budget and toggle state require evidence."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Legacy event reskin: obtainability, 12.5 versus 20 soul/s and channel/curve parity",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-corrupted-pumpkin"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "research-only",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-corrupted-pumpkin",
+        "wiki-event"
+      ],
+      "blockers": [
+        "Legacy event reskin: obtainability, 12.5 versus 20 soul/s and channel/curve parity"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "death-cap-mushroom",
+      "name": "Death Cap Mushroom",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "timed-self-buff",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "known",
+        "starts": "use",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "high"
+      },
+      "duration": {
+        "status": "assumption",
+        "note": "Frozen model: 8 + 0.052 × Power seconds. No formula change in this phase.",
+        "sourceIds": [
+          "baseline-34e9b72"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 4,
+          "minPower": 37,
+          "maxPower": 145,
+          "version": "unverified",
+          "randomRollRange": "Published duration rows retained in existing golden tests; not new measurements.",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "Existing legacy duration assumption only; no newly measured samples or new range restriction.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "known",
+        "note": "Self only.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "non-stacking",
+        "lifetime": "refresh-stagger",
+        "sharedState": "same buff",
+        "sourceIds": [
+          "baseline-34e9b72"
+        ],
+        "confidence": "low",
+        "note": "Maximum 3 copies; optimal stagger is frozen low-confidence assumption."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Attack speed / uptime",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "ready",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "baseline-34e9b72"
+      ],
+      "blockers": [],
+      "deepAudit": {}
+    },
+    {
+      "id": "enchanted-grass",
+      "name": "Enchanted Grass",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Three sheep variants: selection, buff or attack behavior, lifetime and pet cap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Three sheep variants: selection, buff or attack behavior, lifetime and pet cap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "enchanters-tome",
+      "name": "Enchanter's Tome",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Howling Peaks",
+      "reportedContentPack": "Howling Peaks",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "other",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 15.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Ally/pet buff targeting, party share and buff lifetime",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Ally/pet buff targeting, party share and buff lifetime"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "eye-of-the-guardian",
+      "name": "Eye of the Guardian",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Hidden Depths",
+      "reportedContentPack": "Hidden Depths",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "persistent-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 22.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "reported",
+        "note": "1.16.2.0: four-second beam with 0.8s aim; not buff uptime.",
+        "sourceIds": [
+          "wiki-1162"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "0.8s aim plus 4s beam; steering/target occupancy and damage curve",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-eye-of-the-guardian"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-eye-of-the-guardian"
+      ],
+      "blockers": [
+        "0.8s aim plus 4s beam",
+        "steering/target occupancy and damage curve"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "fireworks-arrow",
+      "name": "Fireworks Arrow",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Loaded arrow is not fired on activation; ranged shot and explosion attribution",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fireworks-arrow"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-fireworks-arrow"
+      ],
+      "blockers": [
+        "Loaded arrow is not fired on activation",
+        "ranged shot and explosion attribution"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "fishing-rod",
+      "name": "Fishing Rod",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fishing-rod",
+          "wiki-fishing-rod"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "hard-control",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 1.5,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fishing-rod",
+          "wiki-fishing-rod"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "conflicting",
+        "note": "History says 1.5 → 3s; usage says Power-scaled stun, no table. Three is not proved constant at all Power.",
+        "sourceIds": [
+          "wiki-fishing-rod"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fishing-rod",
+          "wiki-fishing-rod"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fishing-rod",
+          "wiki-fishing-rod"
+        ]
+      },
+      "targeting": {
+        "status": "known",
+        "note": "Closest eligible target; items/emeralds/XP may waste use; empty cast returns.",
+        "sourceIds": [
+          "wiki-fishing-rod"
+        ],
+        "confidence": "medium"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Power duration versus 3s patch value; pull target eligibility and boss immunity",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-fishing-rod",
+          "wiki-fishing-rod"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-fishing-rod",
+        "wiki-fishing-rod"
+      ],
+      "blockers": [
+        "Power duration versus 3s patch value",
+        "pull target eligibility and boss immunity"
+      ],
+      "deepAudit": {
+        "cooldown": {
+          "status": "known",
+          "note": "1.5s after 1.16.2.0 (previously 5s).",
+          "sourceIds": [
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        },
+        "duration": {
+          "status": "conflicting",
+          "note": "History says 1.5 → 3s; usage says Power-scaled stun, no table. Three is not proved constant at all Power.",
+          "sourceIds": [
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        },
+        "targeting": {
+          "status": "known",
+          "note": "Closest eligible target; items/emeralds/XP may waste use; empty cast returns.",
+          "sourceIds": [
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        },
+        "pull": {
+          "status": "known",
+          "note": "Pull plus stun, distinct positional and hard-control outputs.",
+          "sourceIds": [
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        },
+        "immunity": {
+          "status": "unknown",
+          "note": "Database editorial claims exceptional interrupts; boss-specific stun and pull immunity mapping absent.",
+          "sourceIds": [
+            "dt-fishing-rod",
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        },
+        "rangeRefresh": {
+          "status": "unknown",
+          "note": "Range, repeated-use refresh and target-count coverage require verification.",
+          "sourceIds": [
+            "wiki-fishing-rod"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "flaming-quiver",
+      "name": "Flaming Quiver",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Seven arrows; ranged burn and independent source overlap",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-flaming-quiver"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-flaming-quiver"
+      ],
+      "blockers": [
+        "Seven arrows",
+        "ranged burn and independent source overlap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "ghost-cloak",
+      "name": "Ghost Cloak",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "mobility",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 6.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Movement/phase-through objective and transient protection timing",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-objective",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Movement/phase-through objective and transient protection timing"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "golem-kit",
+      "name": "Golem Kit",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Golem survival, attack cadence, target AI and resummon behavior",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Golem survival, attack cadence, target AI and resummon behavior"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "gong-of-weakening",
+      "name": "Gong of Weakening",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "timed-enemy-debuff",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 20.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Displayed Power-scaled duration and 5s Weakening history do not establish identical vulnerability/Weakening lifetimes.",
+        "sourceIds": [
+          "wiki-gong-of-weakening"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Vulnerability duration curve; Weakening status ownership and overlap",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-gong-of-weakening"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-gong-of-weakening"
+      ],
+      "blockers": [
+        "Vulnerability duration curve",
+        "Weakening status ownership and overlap"
+      ],
+      "deepAudit": {
+        "vulnerability": {
+          "status": "known",
+          "note": "Incoming damage multiplier 2; 1.16.2.0 changed 3 to 2.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        },
+        "radius": {
+          "status": "conflicting",
+          "note": "Wiki reports 7 blocks; patch reports raw range 400 → 500. Unit mapping not established.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        },
+        "durationIdentity": {
+          "status": "unknown",
+          "note": "Displayed Power-scaled duration and 5s Weakening history do not establish identical vulnerability/Weakening lifetimes.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        },
+        "powerCurve": {
+          "status": "unknown",
+          "note": "No paired Power/duration table or exported coefficient found; reject Death Cap reuse.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        },
+        "weakeningOverlap": {
+          "status": "unknown",
+          "note": "Weapon Weakening and Gong must retain distinct owners until same-status refresh/stack evidence exists.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        },
+        "duplicates": {
+          "status": "unknown",
+          "note": "Multiple Gong target overlap and refresh unresolved.",
+          "sourceIds": [
+            "wiki-gong-of-weakening"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "harpoon-quiver",
+      "name": "Harpoon Quiver",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Hidden Depths",
+      "reportedContentPack": "Hidden Depths",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Five loaded arrows; ranged piercing and underwater target geometry",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harpoon-quiver"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-harpoon-quiver"
+      ],
+      "blockers": [
+        "Five loaded arrows",
+        "ranged piercing and underwater target geometry"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "harvester",
+      "name": "Harvester",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "soul-spending-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 8.0,
+        "status": "conflicting",
+        "starts": "use",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ],
+        "confidence": "medium",
+        "alternativeSeconds": [
+          4
+        ]
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 4,
+          "minPower": 17,
+          "maxPower": 109,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": 1,
+        "costPerUse": 40,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Investigate independent damage events, overlap and shared soul budget; timed buff refresh does not apply."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "4s versus 8s CD conflict; soul spending; damage curve and no-soul kills",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-harvester",
+          "wiki-harvester"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-harvester",
+        "wiki-harvester"
+      ],
+      "blockers": [
+        "4s versus 8s CD conflict",
+        "soul spending",
+        "damage curve and no-soul kills"
+      ],
+      "deepAudit": {
+        "cooldownConflict": {
+          "status": "conflicting",
+          "note": "dungeons.tools 8s versus Wiki 4s (history 1.3.2.0). Preserve preferred-source report 8, do not silently resolve.",
+          "sourceIds": [
+            "dt-harvester",
+            "wiki-harvester"
+          ],
+          "confidence": "medium"
+        },
+        "soul": {
+          "status": "known",
+          "note": "40 souls/use, +1 Gathering; its kills produce no souls.",
+          "sourceIds": [
+            "wiki-harvester"
+          ],
+          "confidence": "medium"
+        },
+        "targets": {
+          "status": "known",
+          "note": "Equal damage across affected AoE targets, not direct weapon kills.",
+          "sourceIds": [
+            "wiki-harvester"
+          ],
+          "confidence": "medium"
+        },
+        "modifiers": {
+          "status": "known",
+          "note": "Artifact damage boosts and Soul Focus apply; separate from direct weapon modifiers.",
+          "sourceIds": [
+            "wiki-harvester"
+          ],
+          "confidence": "medium"
+        },
+        "curve": {
+          "status": "unknown",
+          "note": "Four historical samples Power 17/53/65/109; inconsistent range semantics and version; no high-Power curve.",
+          "sourceIds": [
+            "wiki-harvester"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "ice-wand",
+      "name": "Ice Wand",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Creeping Winter",
+      "reportedContentPack": "Creeping Winter",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "instant-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 15.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Investigate independent damage events, overlap and shared soul budget; timed buff refresh does not apply."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Crush damage curve and delay; stun duration/immune targets",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-ice-wand"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-ice-wand"
+      ],
+      "blockers": [
+        "Crush damage curve and delay",
+        "stun duration/immune targets"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "iron-hide-amulet",
+      "name": "Iron Hide Amulet",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "timed-self-buff",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 25.0,
+        "status": "known",
+        "starts": "use",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "high"
+      },
+      "duration": {
+        "status": "assumption",
+        "note": "Frozen model: 8 + 0.052 × Power seconds. No formula change in this phase.",
+        "sourceIds": [
+          "baseline-34e9b72"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 3,
+          "minPower": 12,
+          "maxPower": 104,
+          "version": "unverified",
+          "randomRollRange": "Published duration rows retained in existing golden tests; not new measurements.",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "Existing legacy duration assumption only; no newly measured samples or new range restriction.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "known",
+        "note": "Self only.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "non-stacking",
+        "lifetime": "refresh-stagger",
+        "sharedState": "same buff",
+        "sourceIds": [
+          "baseline-34e9b72"
+        ],
+        "confidence": "low",
+        "note": "Maximum 3 copies; optimal stagger is frozen low-confidence assumption."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Damage reduction / uptime",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "ready",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "baseline-34e9b72"
+      ],
+      "blockers": [],
+      "deepAudit": {}
+    },
+    {
+      "id": "light-feather",
+      "name": "Light Feather",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "mobility",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 3.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Roll triggers and stun coverage; connect Dynamo only after roll semantics audit",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-light-feather"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-light-feather"
+      ],
+      "blockers": [
+        "Roll triggers and stun coverage",
+        "connect Dynamo only after roll semantics audit"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "lightning-rod",
+      "name": "Lightning Rod",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "soul-spending-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 4.0,
+        "status": "conflicting",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ],
+        "confidence": "medium",
+        "alternativeSeconds": [
+          2
+        ]
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 7,
+          "minPower": 1,
+          "maxPower": 114,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": 1,
+        "costPerUse": 15,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Investigate independent damage events, overlap and shared soul budget; timed buff refresh does not apply."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Damage curve; strike targeting and delay; soul budget and CD history",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-lightning-rod"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-lightning-rod"
+      ],
+      "blockers": [
+        "Damage curve",
+        "strike targeting and delay",
+        "soul budget and CD history"
+      ],
+      "deepAudit": {
+        "cooldown": {
+          "status": "conflicting",
+          "note": "Index reports 4s, 1.3.2.0 history says new CD 2s. Resolve current timing before runtime.",
+          "sourceIds": [
+            "dt-artifacts-117",
+            "wiki-132"
+          ],
+          "confidence": "medium"
+        },
+        "soul": {
+          "status": "reported",
+          "note": "Wiki reports fixed 15 souls/use and +1 Gathering, agreeing with 1.3.2.0 cost history.",
+          "sourceIds": [
+            "wiki-lightning-rod",
+            "wiki-132"
+          ],
+          "confidence": "medium"
+        },
+        "curve": {
+          "status": "unknown",
+          "note": "Seven historical rows Power 1/37/109/111/112/113/114; no versioned 210–263 curve or verified damage distribution.",
+          "sourceIds": [
+            "wiki-lightning-rod"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "love-medallion",
+      "name": "Love Medallion",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "hard-control",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "reported",
+        "note": "Charm lasts ten seconds, then converted mobs die.",
+        "sourceIds": [
+          "dt-love-medallion"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Charm ownership, target immunity, borrowed mob damage and expiry deaths",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-love-medallion"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-love-medallion"
+      ],
+      "blockers": [
+        "Charm ownership, target immunity, borrowed mob damage and expiry deaths"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "powershaker",
+      "name": "Powershaker",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Flames of the Nether",
+      "reportedContentPack": "Flames of the Nether",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "attack-limited-buff",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "known",
+        "note": "Party Starter ends after 15 seconds OR five explosions.",
+        "sourceIds": [
+          "wiki-powershaker"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Per-attack versus per-target consumption; explosion curve and attribution",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-powershaker",
+          "wiki-powershaker"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-powershaker",
+        "wiki-powershaker"
+      ],
+      "blockers": [
+        "Per-attack versus per-target consumption",
+        "explosion curve and attribution"
+      ],
+      "deepAudit": {
+        "budget": {
+          "status": "known",
+          "note": "Party Starter ends after 15 seconds OR five explosions.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "history": {
+          "status": "known",
+          "note": "1.16.2.0: stack 4 → 5, coefficient 235 → 259, CD 8 → 10. Coefficient alone is not a Power curve.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "attackVsTarget": {
+          "status": "unknown",
+          "note": "Hit mobs explode, but multi-target same-swing consumption and five actions versus five targets remain unresolved.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "missConsumption": {
+          "status": "unknown",
+          "note": "Miss consumption not verified; cannot borrow Pain Cycle policy.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "secondaryTargets": {
+          "status": "unknown",
+          "note": "Explosion range, overlap and secondary targets require a separate target model.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "killAttribution": {
+          "status": "assumption",
+          "note": "Artifact event must not credit directWeaponKills; exact eligible secondary kill effects require evidence.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
+        },
+        "voidCriticalModifiers": {
+          "status": "unknown",
+          "note": "Void consumption, Critical eligibility, artifact modifiers and direct versus indirect interaction unverified.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "powerCurve": {
+          "status": "unknown",
+          "note": "No versioned Power/damage samples located.",
+          "sourceIds": [
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "satchel-of-elements",
+      "name": "Satchel of Elements",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Howling Peaks (also Gauntlet of Gales)",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "random-effect",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Element probabilities, target count, burn/lightning/freeze curves",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-satchel-of-elements"
+      ],
+      "blockers": [
+        "Element probabilities, target count, burn/lightning/freeze curves"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "satchel-of-elixirs",
+      "name": "Satchel of Elixirs",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Hidden Depths",
+      "reportedContentPack": "Hidden Depths",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 25.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "none",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Potion distribution, pickup/consumption policy and buff overlap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Potion distribution, pickup/consumption policy and buff overlap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "satchel-of-snacks",
+      "name": "Satchel of Snacks",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Hidden Depths",
+      "reportedContentPack": "Hidden Depths",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 16.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "healing",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Food distribution, pickup/consumption and overheal policy",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Food distribution, pickup/consumption and overheal policy"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "scatter-mines",
+      "name": "Scatter Mines",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "persistent-damage",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 12.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Placed mine trigger, residence/overlap and artifact damage curve",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Placed mine trigger, residence/overlap and artifact damage curve"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "shadow-shifter",
+      "name": "Shadow Shifter",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Echoing Void",
+      "reportedContentPack": "Echoing Void",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "mobility",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": null,
+        "costPerUse": 40,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-1162"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Soul-paid shadow state, first-hit consumption and movement objective",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-objective",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Soul-paid shadow state, first-hit consumption and movement objective"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "shock-powder",
+      "name": "Shock Powder",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "hard-control",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 15.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "reported",
+        "note": "Published (Power, seconds): (12,3.5), (58,5.3), (108,7.2), (262,13). Version not attached.",
+        "sourceIds": [
+          "wiki-shock-powder"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 4,
+          "minPower": 12,
+          "maxPower": 262,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": true,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Version-check stun samples and bounded interpolation; coverage and immunity",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-shock-powder"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "ready-with-limits",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-shock-powder"
+      ],
+      "blockers": [
+        "Version-check stun samples and bounded interpolation",
+        "coverage and immunity"
+      ],
+      "deepAudit": {
+        "durationSamples": {
+          "status": "reported",
+          "note": "Published (Power, seconds): (12,3.5), (58,5.3), (108,7.2), (262,13). Version not attached.",
+          "sourceIds": [
+            "wiki-shock-powder"
+          ],
+          "confidence": "medium"
+        },
+        "readiness": {
+          "status": "assumption",
+          "note": "Candidate for explicit bounded 12–262 interpolation after confirming sample version/rounding; 263 rejected.",
+          "sourceIds": [
+            "wiki-shock-powder"
+          ],
+          "confidence": "low"
+        },
+        "control": {
+          "status": "unknown",
+          "note": "Independent stun utility; coverage, immunity and refresh require scenario policy.",
+          "sourceIds": [
+            "wiki-shock-powder"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "soul-healer",
+      "name": "Soul Healer",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "soul-spending-heal",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 5.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "healing",
+        "quality": {
+          "publishedSampleCount": 23,
+          "minPower": 1,
+          "maxPower": 108,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": 1,
+        "costPerUse": 50,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ]
+      },
+      "targeting": {
+        "status": "known",
+        "note": "Most injured nearby ally including self; solo self, co-op self share must be explicit.",
+        "sourceIds": [
+          "wiki-soul-healer"
+        ],
+        "confidence": "medium"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Current-version healing curve; soul spending; self-target share",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-soul-healer",
+          "wiki-soul-healer"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-soul-healer",
+        "wiki-soul-healer"
+      ],
+      "blockers": [
+        "Current-version healing curve",
+        "soul spending",
+        "self-target share"
+      ],
+      "deepAudit": {
+        "use": {
+          "status": "known",
+          "note": "5s cooldown, 50 souls/use, +1 Gathering; activation allowed at full HP.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "targeting": {
+          "status": "known",
+          "note": "Most injured nearby ally including self; solo self, co-op self share must be explicit.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "history": {
+          "status": "known",
+          "note": "1.3.2.0: cost 20 → 50; CD 1 → 5; variable cost removed.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "powerCurve": {
+          "status": "unknown",
+          "note": "23 historical rows Power 1–108; no verified 210–263 samples or game-file coefficient located.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "distribution": {
+          "status": "unknown",
+          "note": "Table cells such as ranges-within-min/max may retain old variable-cost meaning; not a current heal distribution.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "sharedHealthCurve": {
+          "status": "unknown",
+          "note": "No verified common artifact health curve. Do not reuse weapon/Anima/Dynamo curves.",
+          "sourceIds": [
+            "wiki-soul-healer"
+          ],
+          "confidence": "medium"
+        },
+        "soulConnection": {
+          "status": "assumption",
+          "note": "Future budget starts at 0, cap 300; allocate spend from resource units, not pickup count.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
+        }
+      }
+    },
+    {
+      "id": "soul-lantern",
+      "name": "Soul Lantern",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 5.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Soul spending plus wizard lifetime, projectile cadence and pet cap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Soul spending plus wizard lifetime, projectile cadence and pet cap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "spinblade",
+      "name": "Spinblade",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Flames of the Nether",
+      "reportedContentPack": "Flames of the Nether",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "persistent-damage",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 5.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Outward/return hits, catch/roll loop and per-target occupancy",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-spinblade"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-spinblade"
+      ],
+      "blockers": [
+        "Outward/return hits, catch/roll loop and per-target occupancy"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "tasty-bone",
+      "name": "Tasty Bone",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Wolf survival, melee cadence, target AI and resummon behavior",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Wolf survival, melee cadence, target AI and resummon behavior"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "thundering-quiver",
+      "name": "Thundering Quiver",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Flames of the Nether",
+      "reportedContentPack": "Flames of the Nether",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Five arrows; ranged hit and lightning chain target model",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-thundering-quiver"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-thundering-quiver"
+      ],
+      "blockers": [
+        "Five arrows",
+        "ranged hit and lightning chain target model"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "tome-of-duplication",
+      "name": "Tome of Duplication",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Echoing Void",
+      "reportedContentPack": "Echoing Void",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "none",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Soul-paid consumable duplication, inventory and use policy",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Soul-paid consumable duplication, inventory and use policy"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "torment-quiver",
+      "name": "Torment Quiver",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 6.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Soul spending, loaded ranged ammo and knockback/piercing targets",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Soul spending, loaded ranged ammo and knockback/piercing targets"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "totem-of-casting",
+      "name": "Totem of Casting",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "other",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "range",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ]
+      },
+      "soul": {
+        "required": true,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "Unknown values are null, never zero. Use realized activations after budget allocation.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Soul-paid delayed CD reset, party aura residence and activation feedback loop",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-totem-of-casting"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-totem-of-casting"
+      ],
+      "blockers": [
+        "Soul-paid delayed CD reset, party aura residence and activation feedback loop"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "totem-of-regeneration",
+      "name": "Totem of Regeneration",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "placed-healing-zone",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 25.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "known",
+        "note": "25s CD; approximately 5–10s healing; four-block zone for all nearby allies.",
+        "sourceIds": [
+          "wiki-totem-of-regeneration"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "healing",
+        "quality": {
+          "publishedSampleCount": 3,
+          "minPower": 31,
+          "maxPower": 114,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Multiple zones may overlap; additive healing versus refresh/replacement is unresolved. Residence belongs to each target."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Healing curve; total versus tick healing; residence and overlapping zones",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-totem-of-regeneration"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-totem-of-regeneration"
+      ],
+      "blockers": [
+        "Healing curve",
+        "total versus tick healing",
+        "residence and overlapping zones"
+      ],
+      "deepAudit": {
+        "zone": {
+          "status": "known",
+          "note": "25s CD; approximately 5–10s healing; four-block zone for all nearby allies.",
+          "sourceIds": [
+            "wiki-totem-of-regeneration"
+          ],
+          "confidence": "medium"
+        },
+        "healingUnit": {
+          "status": "unknown",
+          "note": "Published display is health healed, not proven healing/second; tick interval and exact duration unresolved.",
+          "sourceIds": [
+            "wiki-totem-of-regeneration"
+          ],
+          "confidence": "medium"
+        },
+        "curve": {
+          "status": "reported",
+          "note": "Three samples: Power 31/111/114; health 229/2659/2917. 1.7.2.0 doubled healing, sample version unknown.",
+          "sourceIds": [
+            "wiki-totem-of-regeneration"
+          ],
+          "confidence": "medium"
+        },
+        "residence": {
+          "status": "unknown",
+          "note": "Self residence fraction and party total must be separated; do not assume all ticks heal hero.",
+          "sourceIds": [
+            "wiki-totem-of-regeneration"
+          ],
+          "confidence": "medium"
+        },
+        "overlap": {
+          "status": "unknown",
+          "note": "Multiple placed totems: additive ticks versus refresh not verified.",
+          "sourceIds": [
+            "wiki-totem-of-regeneration"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "totem-of-shielding",
+      "name": "Totem of Shielding",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "other",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 20.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "duration-only",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Equip legality does not imply independent effects; must verify per family."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Placed projectile shield: incoming projectile share, residence and overlap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-target-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Placed projectile shield: incoming projectile share, residence and overlap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "updraft-tome",
+      "name": "Updraft Tome",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Howling Peaks",
+      "reportedContentPack": "Howling Peaks",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "hard-control",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 12.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "same-target-recast-cancels-damage",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-updraft-tome"
+        ],
+        "confidence": "low",
+        "note": "Repeated swirl cancels previous damage; independent-copy assumption is unsafe."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Repeated same-target use cancels damage; stun/damage curves and seven-target cap",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "wiki-updraft-tome"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "wiki-updraft-tome"
+      ],
+      "blockers": [
+        "Repeated same-target use cancels damage",
+        "stun/damage curves and seven-target cap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "vexing-chant",
+      "name": "Vexing Chant",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Echoing Void",
+      "reportedContentPack": "Echoing Void",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Three vexes: lifetime, attacks, target AI and summon cap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Three vexes: lifetime, attacks, target AI and summon cap"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "void-quiver",
+      "name": "Void Quiver",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Echoing Void",
+      "reportedContentPack": "Echoing Void",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "consumable-generation",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 25.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "not-applicable",
+        "note": "No timed self-buff uptime. Delayed damage, loaded ammo or heal delivery needs its own event policy.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "damage",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Separate equipped copies do not prove independent ammo/consumable pools. Overwrite, merge and pickup policy unresolved."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Ranged ammo and Void application/consumption ownership",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Ranged ammo and Void application/consumption ownership"
+      ],
+      "deepAudit": {}
+    },
+    {
+      "id": "wind-horn",
+      "name": "Wind Horn",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "positional-control",
+      "confidence": "medium",
+      "cooldown": {
+        "seconds": 10.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Slow magnitude and duration missing; no Defense/DPS conversion.",
+        "sourceIds": [
+          "wiki-wind-horn"
+        ],
+        "confidence": "medium"
+      },
+      "powerScaling": {
+        "kind": "range",
+        "quality": {
+          "publishedSampleCount": 5,
+          "minPower": 1,
+          "maxPower": 108,
+          "version": "unverified",
+          "randomRollRange": "not established",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Push curve above 108; slow magnitude/duration; close-range exception",
+        "sourceIds": [
+          "dt-artifacts-117",
+          "dt-wind-horn",
+          "wiki-wind-horn"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-power-curve",
+      "sourceIds": [
+        "dt-artifacts-117",
+        "dt-wind-horn",
+        "wiki-wind-horn"
+      ],
+      "blockers": [
+        "Push curve above 108",
+        "slow magnitude/duration",
+        "close-range exception"
+      ],
+      "deepAudit": {
+        "effect": {
+          "status": "known",
+          "note": "10s cooldown; radial push with slow; too-close enemies are slowed but not pushed.",
+          "sourceIds": [
+            "wiki-wind-horn"
+          ],
+          "confidence": "medium"
+        },
+        "powerCurve": {
+          "status": "reported",
+          "note": "Five published bands Power 1–108 give 4–8 blocks; boundaries overlap and endgame range is not covered.",
+          "sourceIds": [
+            "wiki-wind-horn"
+          ],
+          "confidence": "medium"
+        },
+        "slow": {
+          "status": "unknown",
+          "note": "Slow magnitude and duration missing; no Defense/DPS conversion.",
+          "sourceIds": [
+            "wiki-wind-horn"
+          ],
+          "confidence": "medium"
+        },
+        "targets": {
+          "status": "unknown",
+          "note": "Boss immunity, count, radial coverage and close-range cutoff not quantified.",
+          "sourceIds": [
+            "wiki-wind-horn"
+          ],
+          "confidence": "medium"
+        }
+      }
+    },
+    {
+      "id": "wonderful-wheat",
+      "name": "Wonderful Wheat",
+      "gameVersion": "1.17.0.0",
+      "obtainable": true,
+      "obtainability": {
+        "status": "reported",
+        "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "contentPack": "Base Game",
+      "reportedContentPack": "Base Game",
+      "eventExclusive": false,
+      "unique": false,
+      "reskinOf": null,
+      "obsolete": false,
+      "mechanicFamily": "summon",
+      "confidence": "low",
+      "cooldown": {
+        "seconds": 30.0,
+        "status": "reported",
+        "starts": "use-or-effect-specific",
+        "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "medium"
+      },
+      "duration": {
+        "status": "unknown",
+        "note": "Effect lifetime/expiry requires family-specific data; no invented duration or inherited Death Cap formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "powerScaling": {
+        "kind": "multi-stat",
+        "quality": {
+          "publishedSampleCount": 0,
+          "minPower": null,
+          "maxPower": null,
+          "version": "unverified",
+          "randomRollRange": "unresolved",
+          "interpolationCandidate": false,
+          "extrapolationAllowed": false,
+          "runtimeEligibleSampleCount": 0
+        },
+        "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "soul": {
+        "required": false,
+        "gathering": null,
+        "costPerUse": null,
+        "costPerSecond": null,
+        "note": "No soul requirement reported.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ]
+      },
+      "targeting": {
+        "status": "unknown",
+        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "stacking": {
+        "duplicateEquip": "allowed-within-three-slots",
+        "magnitude": "unresolved",
+        "lifetime": "unresolved",
+        "sharedState": "unresolved",
+        "sourceIds": [
+          "wiki-item"
+        ],
+        "confidence": "low",
+        "note": "Three equipped instances are an explicit slot-level assumption; summon cap, resummon/replacement and shared pet ownership must be checked. No generic refresh-stagger rule."
+      },
+      "interactions": {
+        "status": "unknown",
+        "note": "Llama projectile cadence, survival, targeting and pet cap",
+        "sourceIds": [
+          "dt-artifacts-117"
+        ],
+        "confidence": "low"
+      },
+      "runtimeReadiness": "needs-state-model",
+      "sourceIds": [
+        "dt-artifacts-117"
+      ],
+      "blockers": [
+        "Llama projectile cadence, survival, targeting and pet cap"
+      ],
+      "deepAudit": {}
+    }
+  ]
+}
