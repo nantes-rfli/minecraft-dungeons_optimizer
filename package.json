@@ -16,7 +16,8 @@
     "test:watch": "vitest",
     "audit:temporal-enchants": "node scripts/audit-temporal-enchantments.ts",
     "audit:soul": "node scripts/audit-soul-subsystem.ts",
-    "audit:dot-damage": "node scripts/audit-dot-damage.ts"
+    "audit:dot-damage": "node scripts/audit-dot-damage.ts",
+    "audit:cc": "node scripts/audit-cc-subsystem.ts"
   },
   "dependencies": {
     "react": "19.2.6",

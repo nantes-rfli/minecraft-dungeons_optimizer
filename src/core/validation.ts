@@ -1,3 +1,4 @@
+import { validateControlAssumptions } from './control'
 import { getEnchantmentDefinition } from './catalog'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
@@ -38,6 +39,7 @@ function assertPowerLevel(name: string, value: number, code: string): void {
 
 export function validateScenario(scenario: Scenario): void {
   validatePersistentAreaTargeting(scenario)
+  validateControlAssumptions(scenario)
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
   assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
@@ -57,9 +59,10 @@ export function validateScenario(scenario: Scenario): void {
   assertRange('weights.damage', scenario.weights.damage, 0)
   assertRange('weights.healing', scenario.weights.healing, 0)
   assertRange('weights.defense', scenario.weights.defense, 0)
+  assertRange('weights.control', scenario.weights.control, 0)
 
-  const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense
-  if (weightTotal <= 0) {
+  const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense + scenario.weights.control
+  if (!Number.isFinite(weightTotal) || weightTotal <= 0) {
     throw new OptimizerInputError('INVALID_SCENARIO', 'シナリオの重みを1つ以上指定してください。')
   }
 }

@@ -35,7 +35,7 @@ describe('melee enchantment audit', () => {
     }
   })
 
-  it('maps twenty-two runtime enchantments including five range-limited implementations', () => {
+  it('maps twenty-six runtime enchantments including five range-limited implementations', () => {
     const implementedIds = audit.entries
       .filter((entry) => entry.runtimeStatus === 'implemented')
       .map((entry) => entry.id)
@@ -45,10 +45,13 @@ describe('melee enchantment audit', () => {
       'ambush',
       'anima-conduit',
       'artifact-synergy',
+      'chains',
       'committed',
       'critical-hit',
       'exploding',
       'fire-aspect',
+      'freezing',
+      'gravity',
       'guarding-strike',
       'leeching',
       'poison-cloud',
@@ -59,6 +62,7 @@ describe('melee enchantment audit', () => {
       'shockwave',
       'smiting',
       'soul-siphon',
+      'stunning',
       'swirling',
       'thundering',
       'unchanting',
@@ -71,7 +75,7 @@ describe('melee enchantment audit', () => {
     const unsupportedIds = audit.entries
       .filter((entry) => entry.runtimeStatus !== 'implemented')
       .map((entry) => entry.id)
-    expect(unsupportedIds).toHaveLength(11)
+    expect(unsupportedIds).toHaveLength(7)
     expect(unsupportedIds.filter((id) => runtimeIds.includes(id))).toEqual([])
   })
 
@@ -79,9 +83,9 @@ describe('melee enchantment audit', () => {
     expect(summarizeMeleeEnchantmentAudit(audit)).toMatchObject({
       total: 33,
       counts: {
-        implemented: 22,
+        implemented: 26,
         straightforward: 0,
-        'needs-state-model': 9,
+        'needs-state-model': 5,
         'needs-damage-event-model': 0,
         'needs-enemy-state': 0,
         'utility-only': 2,

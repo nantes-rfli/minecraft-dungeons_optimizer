@@ -49,6 +49,10 @@ export type EnchantmentId =
   | 'fire-aspect'
   | 'poison-cloud'
   | 'exploding'
+  | 'chains'
+  | 'stunning'
+  | 'freezing'
+  | 'gravity'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -305,7 +309,14 @@ export interface SoulDependentCriticalEffect {
   readonly damageMultiplier: number
 }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | DotDamageEffect | OnKillExplosionEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect
+export type ControlEnchantmentId = 'chains' | 'stunning' | 'freezing' | 'gravity'
+export type ControlEffect =
+  | { readonly kind: 'hard-stun'; readonly triggerChance: number; readonly durationSeconds: number }
+  | { readonly kind: 'root-cluster'; readonly triggerChance: number; readonly durationSeconds: number }
+  | { readonly kind: 'enemy-attack-speed-slow'; readonly attackSpeedReduction: number; readonly durationSeconds: number }
+  | { readonly kind: 'group-pull'; readonly durationSeconds: number }
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | DotDamageEffect | OnKillExplosionEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect | ControlEffect
 
 export type DamageChannel = 'direct-melee' | 'enchantment-proc'
 
@@ -442,6 +453,64 @@ export interface ScenarioWeights {
   readonly damage: number
   readonly healing: number
   readonly defense: number
+  readonly control: number
+}
+
+/** Ranking preferences, never game-mechanics evidence. */
+export interface ControlPolicyWeights {
+  readonly hardDisable: number
+  readonly attackSlow: number
+  readonly root: number
+  readonly grouping: number
+}
+
+export interface CrowdControlAssumptions {
+  readonly stunningEligibleTargetShare: number
+  readonly chainsEligibleTargetShare: number
+  readonly freezingEligibleTargetShare: number
+  readonly gravityEligibleTargetShare: number
+  readonly stunningEffectiveDurationMultiplier: number
+  readonly chainsExpectedTargetsPerProc: number
+  readonly gravityExpectedTargetsPerHit: number
+}
+
+export interface RefreshControlState {
+  readonly triggerChance: number
+  readonly opportunitiesPerSecond: number
+  readonly durationSeconds: number
+  readonly activeCoverage: number
+  readonly eligibleTargetShare: number
+}
+export interface StunningState extends RefreshControlState {
+  readonly baseDurationSeconds: number
+  readonly durationConfidence: Confidence
+  readonly effectiveHardDisableCoverage: number
+}
+export interface FreezingState extends RefreshControlState {
+  readonly attackSpeedReduction: number
+  readonly attackSlowEquivalentCoverage: number
+}
+export interface ChainsState extends RefreshControlState {
+  readonly expectedTargetsPerProc: number
+  readonly affectedTargetFraction: number
+  readonly rootCoverage: number
+}
+export interface GravityState extends RefreshControlState {
+  readonly expectedTargetsPerHit: number
+  readonly affectedTargetFraction: number
+  readonly groupingCoverage: number
+}
+export interface ControlMetrics {
+  readonly hardDisableCoverage: number
+  readonly attackSlowEquivalentCoverage: number
+  readonly rootCoverage: number
+  readonly groupingCoverage: number
+  readonly stunning?: StunningState
+  readonly freezing?: FreezingState
+  readonly chains?: ChainsState
+  readonly gravity?: GravityState
+  /** Preference score, not the union of suppressed enemy actions. */
+  readonly utility: number
 }
 
 export interface EnemyComposition {
@@ -474,6 +543,8 @@ export interface Scenario {
   readonly cooldownReduction: number
   readonly radianceHealPerProc: number
   readonly weights: ScenarioWeights
+  readonly crowdControl: CrowdControlAssumptions
+  readonly controlPolicy: ControlPolicyWeights
 }
 
 export interface EnemyDebuffAssumptions {
@@ -758,6 +829,7 @@ export interface Evaluation {
   readonly potionState: PotionState
   readonly healing: HealingMetrics
   readonly defense: DefenseMetrics
+  readonly control: ControlMetrics
   readonly artifactEffects: ArtifactEffects
   readonly temporalState: OffensiveTemporalState
   readonly soulState?: SoulState
@@ -772,6 +844,7 @@ export interface ObjectiveUtilities {
   readonly damage: number
   readonly healing: number
   readonly defense: number
+  readonly control: number
 }
 
 export interface EffectContribution {
@@ -783,6 +856,7 @@ export interface EffectContribution {
   readonly aoeDpsDelta: number
   readonly healingPerSecondDelta: number
   readonly effectiveHealthDelta: number
+  readonly controlUtilityDelta: number
 }
 
 export interface OptimizationResult {

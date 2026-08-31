@@ -247,13 +247,72 @@
       "confidence": "high", "notes": "Needs summon lifetime, cap, attacks, targeting, and damage events."
     },
     {
-      "id": "chains", "name": { "en": "Chains" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "1", "interpreted": { "durationSeconds": 1, "triggerChance": 0.3 } }, "2": { "raw": "2", "interpreted": { "durationSeconds": 2, "triggerChance": 0.3 } }, "3": { "raw": "3", "interpreted": { "durationSeconds": 3, "triggerChance": 0.3 } } },
-      "stacking": { "maxCopies": 4, "behavior": "special" }, "trigger": "on-hit", "modelCategory": "crowd-control", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/chains", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Each hit has a 30% chance; tier controls bind duration. Multiple copies roll independently rather than adding chance." }],
-      "confidence": "high", "notes": "Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion."
+      "id": "chains",
+      "name": {
+        "en": "Chains"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "1",
+          "interpreted": {
+            "durationSeconds": 1,
+            "triggerChance": 0.3
+          }
+        },
+        "2": {
+          "raw": "2",
+          "interpreted": {
+            "durationSeconds": 2,
+            "triggerChance": 0.3
+          }
+        },
+        "3": {
+          "raw": "3",
+          "interpreted": {
+            "durationSeconds": 3,
+            "triggerChance": 0.3
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 4,
+        "behavior": "special"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "crowd-control",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/chains",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "30% per hit; 1/2/3s; game-data page confirms stackable but not an independent-copy roll formula. Prior attribution of independent rolls to this page was unsupported."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Single-copy runtime; game max 4. Finite Bernoulli root coverage, rooted mobs can still attack. Multiple-copy simultaneous/mixed/3/4/retrigger duration unresolved. See cc-subsystem-audit.json.",
+      "runtimeMaxCopies": 1
     },
     {
       "id": "committed",
@@ -667,22 +726,149 @@
       }
     },
     {
-      "id": "freezing", "name": { "en": "Freezing" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "-30%", "interpreted": { "speedReduction": 0.3, "durationSeconds": 3 } }, "2": { "raw": "-40%", "interpreted": { "speedReduction": 0.4, "durationSeconds": 3 } }, "3": { "raw": "-50%", "interpreted": { "speedReduction": 0.5, "durationSeconds": 3 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "movement-slow", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/freezing", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Three-second slow; tier controls speed reduction." }],
-      "confidence": "high", "notes": "Needs CC utility/action-suppression metrics; it must not be assigned invented defense points."
+      "id": "freezing",
+      "name": {
+        "en": "Freezing"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "-30%",
+          "interpreted": {
+            "durationSeconds": 3,
+            "attackSpeedReduction": 0.3
+          }
+        },
+        "2": {
+          "raw": "-40%",
+          "interpreted": {
+            "durationSeconds": 3,
+            "attackSpeedReduction": 0.4
+          }
+        },
+        "3": {
+          "raw": "-50%",
+          "interpreted": {
+            "durationSeconds": 3,
+            "attackSpeedReduction": 0.5
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "attack-speed-slow",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/freezing",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Three-second slow; tier controls speed reduction."
+        },
+        {
+          "type": "minecraft-wiki",
+          "url": "https://minecraft.wiki/w/Dungeons%3AFreezing",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics",
+            "tier-values",
+            "stacking"
+          ],
+          "confidence": "high",
+          "note": "Indexed article specifies attack speed only, no movement reduction; 3s and post-1.16.2.0 30/40/50%."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Attack speed only, not movement. 3s refresh coverage times 30/40/50% times eligible share. No Defense conversion.",
+      "runtimeMaxCopies": 1
     },
     {
-      "id": "gravity", "name": { "en": "Gravity" },
-      "applicability": { "melee": true, "ranged": true, "armor": false },
-      "rarity": "powerful", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "1.0", "interpreted": { "durationSeconds": 1 } }, "2": { "raw": "1.5", "interpreted": { "durationSeconds": 1.5 } }, "3": { "raw": "2.0", "interpreted": { "durationSeconds": 2 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "mob-grouping", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/gravity", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Tier controls pull duration around the impact point." }],
-      "confidence": "high", "notes": "Needs grouping/target-density state and a CC utility metric."
+      "id": "gravity",
+      "name": {
+        "en": "Gravity"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": true,
+        "armor": false
+      },
+      "rarity": "powerful",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "1.0",
+          "interpreted": {
+            "durationSeconds": 1
+          }
+        },
+        "2": {
+          "raw": "1.5",
+          "interpreted": {
+            "durationSeconds": 1.5
+          }
+        },
+        "3": {
+          "raw": "2.0",
+          "interpreted": {
+            "durationSeconds": 2
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "mob-grouping",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/gravity",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking",
+            "built-in"
+          ],
+          "confidence": "high",
+          "note": "Tier controls pull duration around the impact point."
+        }
+      ],
+      "confidence": "high",
+      "notes": "Grouping coverage only; 1/1.5/2s refresh. Conservative target count 1, no DPS/target-density boost. Built-in effects excluded.",
+      "runtimeMaxCopies": 1
     },
     {
       "id": "guarding-strike", "name": { "en": "Guarding Strike", "ja": "ガードストライク" },
@@ -1134,13 +1320,98 @@
       "notes": "Phase 2-1G limited runtime on Soul Scythe only. 20% per profile hit, 1/3/5 pickups times gathering for resource units. AoE target-roll semantics unverified; no invented resource utility points."
     },
     {
-      "id": "stunning", "name": { "en": "Stunning" },
-      "applicability": { "melee": true, "ranged": false, "armor": false },
-      "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "5%", "interpreted": { "triggerChance": 0.05 } }, "2": { "raw": "10%", "interpreted": { "triggerChance": 0.1 } }, "3": { "raw": "15%", "interpreted": { "triggerChance": 0.15 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "crowd-control", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/stunning", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Tier controls temporary-stun proc chance." }],
-      "confidence": "medium", "notes": "Stun duration/resistance and CC valuation need evidence; no invented defense conversion."
+      "id": "stunning",
+      "name": {
+        "en": "Stunning"
+      },
+      "applicability": {
+        "melee": true,
+        "ranged": false,
+        "armor": false
+      },
+      "rarity": "common",
+      "obtainable": {
+        "normalSlot": true,
+        "gilded": true,
+        "builtInUnique": true,
+        "builtInTier": 1
+      },
+      "tierValues": {
+        "1": {
+          "raw": "5%",
+          "interpreted": {
+            "triggerChance": 0.05
+          }
+        },
+        "2": {
+          "raw": "10%",
+          "interpreted": {
+            "triggerChance": 0.1
+          }
+        },
+        "3": {
+          "raw": "15%",
+          "interpreted": {
+            "triggerChance": 0.15
+          }
+        }
+      },
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "trigger": "on-hit",
+      "modelCategory": "crowd-control",
+      "runtimeStatus": "implemented",
+      "sources": [
+        {
+          "type": "game-files",
+          "url": "https://www.dungeons.tools/enchantments/stunning",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "applicability",
+            "rarity",
+            "tier-values",
+            "trigger-mechanics",
+            "stacking"
+          ],
+          "confidence": "high",
+          "note": "Tier controls temporary-stun proc chance."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/vtrd6t/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics"
+          ],
+          "confidence": "low",
+          "note": "2022-07-07/08 quantitative community explanation uses about two seconds and weapon-specific stunlock probabilities. No controlled version-tagged measurement; shared author with 2023 calculation, not independent replication."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics"
+          ],
+          "confidence": "low",
+          "note": "2023-01-16 ShinkuNY: two seconds on Apocalypse+25, 15% per hit, 28.12 hits per two seconds and about 99% stunlock. Explicit post-1.17-era claim, not a verified 1.17 measurement. Also reports frame-limited attack speed; current mean-speed model does not reproduce this."
+        },
+        {
+          "type": "community-test",
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/z369zy/",
+          "retrievedAt": "2026-08-31",
+          "supports": [
+            "trigger-mechanics"
+          ],
+          "confidence": "medium",
+          "note": "2022-11-24 boss/miniboss Stunning immunity report; 2024 reply distinguishes Redstone Golem AI inactivity from stun. Freezing reported eligible. No complete mob matrix."
+        }
+      ],
+      "confidence": "medium",
+      "notes": "Limited runtime: 2s community-derived duration (low), high-confidence 5/10/15% chances. Editable eligibility/resistance, boss default 0. No Defense conversion; see cc-subsystem-audit.json.",
+      "runtimeMaxCopies": 1
     },
     {
       "id": "swirling", "name": { "en": "Swirling" },

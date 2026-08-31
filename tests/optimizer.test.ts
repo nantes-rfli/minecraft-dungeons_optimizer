@@ -52,11 +52,11 @@ describe('optimize', () => {
   it('changes rankings when scenario weights change', () => {
     const damage = optimize(inventory, {
       ...DEFAULT_SCENARIO,
-      weights: { damage: 1, healing: 0, defense: 0 },
+      weights: { damage: 1, healing: 0, defense: 0, control: 0 },
     })
     const survival = optimize(inventory, {
       ...DEFAULT_SCENARIO,
-      weights: { damage: 0, healing: 0.5, defense: 0.5 },
+      weights: { damage: 0, healing: 0.5, defense: 0.5, control: 0 },
     })
     expect(damage.best.build.enchantments).not.toEqual(survival.best.build.enchantments)
   })

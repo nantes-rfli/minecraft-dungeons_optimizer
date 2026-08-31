@@ -1,3 +1,4 @@
+import { DEFAULT_CONTROL_POLICY, DEFAULT_CROWD_CONTROL } from './control'
 import type { Evidence, Scenario, ScenarioProfileId } from '../core/types'
 import { MVP_MODEL_SOURCE } from './sources'
 import { DEFAULT_DAMAGE_EVENT_TARGETING } from './damageEvents'
@@ -53,7 +54,9 @@ export const DEFAULT_SCENARIO: Scenario = {
   averageTargetsInReach: DEFAULT_SCENARIO_EVIDENCE.averageTargetsInReach.value,
   cooldownReduction: DEFAULT_SCENARIO_EVIDENCE.cooldownReduction.value,
   radianceHealPerProc: DEFAULT_SCENARIO_EVIDENCE.radianceHealPerProc.value,
-  weights: { damage: 0.5, healing: 0.25, defense: 0.25 },
+  crowdControl: DEFAULT_CROWD_CONTROL,
+  controlPolicy: DEFAULT_CONTROL_POLICY,
+  weights: { damage: 0.5, healing: 0.25, defense: 0.25, control: 0.2 },
 }
 
 export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = {
@@ -62,14 +65,14 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     ...DEFAULT_SCENARIO,
     profileId: 'damage',
     name: '火力',
-    weights: { damage: 0.8, healing: 0.1, defense: 0.1 },
+    weights: { damage: 0.8, healing: 0.1, defense: 0.1, control: 0.05 },
   },
   survival: {
     ...DEFAULT_SCENARIO,
     profileId: 'survival',
     name: '安定攻略',
     incomingDamagePerSecond: 28,
-    weights: { damage: 0.1, healing: 0.45, defense: 0.45 },
+    weights: { damage: 0.1, healing: 0.45, defense: 0.45, control: 0.3 },
   },
   boss: {
     ...DEFAULT_SCENARIO,
@@ -79,7 +82,8 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     enemySupplyPerSecond: 0.03,
     averageEnemyHealth: 500,
     averageTargetsInReach: 1,
-    weights: { damage: 0.75, healing: 0.1, defense: 0.15 },
+    weights: { damage: 0.75, healing: 0.1, defense: 0.15, control: 0.05 },
+    crowdControl: { ...DEFAULT_CROWD_CONTROL, stunningEligibleTargetShare: 0 },
   },
   mobbing: {
     ...DEFAULT_SCENARIO,
@@ -87,7 +91,7 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     name: '雑魚処理',
     enemySupplyPerSecond: 1.2,
     averageTargetsInReach: 5,
-    weights: { damage: 0.5, healing: 0.2, defense: 0.3 },
+    weights: { damage: 0.5, healing: 0.2, defense: 0.3, control: 0.3 },
   },
   'apocalypse-plus': {
     ...DEFAULT_SCENARIO,
@@ -96,6 +100,6 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     enemySupplyPerSecond: 0.35,
     incomingDamagePerSecond: 40,
     averageTargetsInReach: 3,
-    weights: { damage: 0.3, healing: 0.3, defense: 0.4 },
+    weights: { damage: 0.3, healing: 0.3, defense: 0.4, control: 0.2 },
   },
 }

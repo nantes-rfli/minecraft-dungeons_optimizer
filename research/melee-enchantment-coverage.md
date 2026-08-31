@@ -7,8 +7,8 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 - Target game version: 1.17.0.0
 - Audit date: 2026-08-31
 - Melee-applicable, hero-accessible enchantments: **33**
-- Catalog runtime: **22 / 33**
-- Broad Power-range runtime: **17 / 33**
+- Catalog runtime: **26 / 33**
+- Broad Power-range runtime: **21 / 33**
 - Power-range-limited damage enchantments: **5 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
@@ -21,9 +21,9 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 22 |
+| implemented | 26 |
 | straightforward | 0 |
-| needs-state-model | 9 |
+| needs-state-model | 5 |
 | needs-damage-event-model | 0 |
 | needs-enemy-state | 0 |
 | utility-only | 2 |
@@ -38,7 +38,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Anima Conduit | implemented | soul-healing | — |
 | Artifact Synergy | implemented | artifact-synergy | — |
 | Busy Bee | needs-state-model | summon | Needs summon lifetime, cap, attacks, targeting, and damage events. |
-| Chains | needs-state-model | crowd-control | Requires CC uptime and independent-proc stacking; no fabricated DPS or defense conversion. |
+| Chains | implemented | crowd-control | Single-copy runtime; game max 4 |
 | Committed | implemented | health-dependent-damage | — |
 | Critical Hit | implemented | proc-damage | — |
 | Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
@@ -46,8 +46,8 @@ The source index explicitly separates player enchantments from mob/innate record
 | Enigma Resonator | needs-state-model | soul-dependent-proc | Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements |
 | Exploding | implemented | on-kill-explosion | — |
 | Fire Aspect | implemented | attached-dot | Power 70–251 only; Phase 2-1H partial: Power70–251, one runtime copy only despite game stacking up to four; mixed-tier formula unresolved |
-| Freezing | needs-state-model | movement-slow | Needs CC utility/action-suppression metrics; it must not be assigned invented defense points. |
-| Gravity | needs-state-model | mob-grouping | Needs grouping/target-density state and a CC utility metric. |
+| Freezing | implemented | attack-speed-slow | Attack speed only, not movement |
+| Gravity | implemented | mob-grouping | Grouping coverage only; 1/1.5/2s refresh |
 | Guarding Strike | implemented | on-kill-defense | — |
 | Leeching | implemented | on-kill-healing | — |
 | Looting | utility-only | consumable-loot | Optimizer-excluded until a consumable/utility objective exists; never score as zero-effect. |
@@ -61,16 +61,20 @@ The source index explicitly separates player enchantments from mob/innate record
 | Shockwave | implemented | indirect-damage-event | Power 210–252 only; Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation |
 | Smiting | implemented | category-damage | — |
 | Soul Siphon | implemented | soul-generation | — |
-| Stunning | needs-state-model | crowd-control | Stun duration/resistance and CC valuation need evidence; no invented defense conversion. |
+| Stunning | implemented | crowd-control | Limited runtime: 2s community-derived duration (low), high-confidence 5/10/15% chances |
 | Swirling | implemented | indirect-damage-event | Power 210–263 only; Phase 2-1D partial: conditional runtime only at Power 210–263; no extrapolation |
 | Thundering | implemented | indirect-damage-event | Power 248–263 only; Phase 2-1D partial: conditional runtime only at Power 248–263; no extrapolation |
 | Unchanting | implemented | conditional-damage | — |
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Five entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263, Fire Aspect 70–251, Poison Cloud 184–251. Fire Aspect supports only one copy. All three Phase 2-1H effects reject Void combinations. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 22 is catalog coverage, not full Power coverage.
+Five entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263, Fire Aspect 70–251, Poison Cloud 184–251. Fire Aspect supports only one copy. All three Phase 2-1H effects reject Void combinations. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 26 is catalog coverage, not full Power coverage.
 
-Only the 22 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 26 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+
+## CC utility subsystem (Phase 2-1I partial)
+
+Chains / Stunning / Freezing / Gravity have power-independent mechanical Control metrics and a fourth ranking objective. Chains is game-max 4 / runtime-max 1 (multi-copy duration unresolved). Stunning uses a separately low-confidence community two-second model and editable eligibility/resistance, with boss default zero. Freezing is attack-speed-slow, never movement slow. Gravity never modifies damage targets. All raw metrics and utility remain within 0–1. Policy subweights are preferences, not Evidence. See [CC design](../docs/cc-utility.md) and [audit](./cc-subsystem-audit.json).
 
 ## Focus findings
 
@@ -94,7 +98,7 @@ Shockwave and Swirling trigger from the last combo attack. Existing `AttackProfi
 
 ### DoT, lightning, CC, and utility
 
-Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence/saturation approximations. Tick phase, overlap and Void interactions remain unresolved; limits are explicit. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
+Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence/saturation approximations. Tick phase, overlap and Void interactions remain unresolved; limits are explicit. Phase 2-1I adds separate Control state for Chains, Stunning, Gravity and Freezing with explicit stacking, duration and eligibility limits. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
 
 ## Existing model assessment
 
@@ -118,7 +122,7 @@ Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **22 / 33**, unsupported **11 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **26 / 33**, unsupported **7 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -149,7 +153,7 @@ Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage h
 
 SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
 
-Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Next: quantify CC utility before promoting Chains / Stunning / Freezing / Gravity. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Phase 2-1I now provides the fourth Control objective for Chains / Stunning / Freezing / Gravity. Next: audit Pain Cycle / Dynamo charge and consume states; Busy Bee needs a separate summon lifecycle. Parent 25–30 remains in progress pending limitation review.
 
 ## Highest-risk mechanics
 
@@ -180,4 +184,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G / 2-1H partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 22 / 33; unsupported coverage is 11 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G / 2-1H partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 26 / 33; unsupported coverage is 7 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.

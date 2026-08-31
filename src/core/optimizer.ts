@@ -1,4 +1,4 @@
-import { evaluate } from './evaluate'
+import { evaluate, evaluateCandidate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
@@ -83,25 +83,40 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
   })
 }
 
-export function dominates(left: Evaluation, right: Evaluation): boolean {
+type ParetoCandidate = Pick<Evaluation, 'damage' | 'healing' | 'defense' | 'control' | 'objectiveScore'>
+
+export function dominates(left: ParetoCandidate, right: ParetoCandidate): boolean {
   const atLeastAsGood =
     left.damage.aoeDps >= right.damage.aoeDps &&
     left.healing.totalPerSecond >= right.healing.totalPerSecond &&
-    left.defense.effectiveHealth >= right.defense.effectiveHealth
+    left.defense.effectiveHealth >= right.defense.effectiveHealth &&
+    left.control.utility >= right.control.utility
   const strictlyBetter =
     left.damage.aoeDps > right.damage.aoeDps ||
     left.healing.totalPerSecond > right.healing.totalPerSecond ||
-    left.defense.effectiveHealth > right.defense.effectiveHealth
+    left.defense.effectiveHealth > right.defense.effectiveHealth ||
+    left.control.utility > right.control.utility
   return atLeastAsGood && strictlyBetter
 }
 
-export function calculateParetoFrontier(evaluations: readonly Evaluation[]): Evaluation[] {
+export function calculateParetoFrontier<T extends ParetoCandidate>(evaluations: readonly T[]): T[] {
+  // Enchantment permutations frequently have identical metrics. Compare one
+  // representative per vector, retaining all ties for the final stable ranking.
+  const keyFor = (candidate: T) => JSON.stringify([
+    candidate.damage.aoeDps, candidate.healing.totalPerSecond,
+    candidate.defense.effectiveHealth, candidate.control.utility,
+  ])
+  const unique = new Map<string, T>()
+  for (const candidate of evaluations) unique.set(keyFor(candidate), candidate)
+  let frontier: T[] = []
+  for (const candidate of unique.values()) {
+    if (frontier.some((other) => dominates(other, candidate))) continue
+    frontier = frontier.filter((other) => !dominates(candidate, other))
+    frontier.push(candidate)
+  }
+  const frontierKeys = new Set(frontier.map(keyFor))
   return evaluations
-    .filter((candidate, candidateIndex) =>
-      !evaluations.some(
-        (other, otherIndex) => otherIndex !== candidateIndex && dominates(other, candidate),
-      ),
-    )
+    .filter((candidate) => frontierKeys.has(keyFor(candidate)))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
     .slice(0, 10)
 }
@@ -122,7 +137,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     return weaponBuilds
   })
   const evaluations = builds
-    .map((build) => evaluate(build, scenario))
+    .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
 
   const best = evaluations[0]
@@ -130,11 +145,20 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     throw new Error('Optimizer invariant failed: inventory generated no candidate builds.')
   }
 
+  // Cache only for this optimization call: no stale scenarios or global growth.
+  const detailed = new Map<Build, Evaluation>()
+  const withDetails = (candidate: typeof best): Evaluation => {
+    const existing = detailed.get(candidate.build)
+    if (existing) return existing
+    const result = evaluate(candidate.build, scenario)
+    detailed.set(candidate.build, result)
+    return result
+  }
   return {
     unsupportedChoices: [...unsupportedChoices],
-    best,
-    alternatives: evaluations.slice(1, 5),
-    paretoFrontier: calculateParetoFrontier(evaluations),
+    best: withDetails(best),
+    alternatives: evaluations.slice(1, 5).map(withDetails),
+    paretoFrontier: calculateParetoFrontier(evaluations).map(withDetails),
     evaluatedBuildCount: evaluations.length,
     searchMode: 'exhaustive',
   }

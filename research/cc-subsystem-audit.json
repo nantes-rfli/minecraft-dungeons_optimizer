@@ -1,0 +1,385 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-08-31",
+  "phaseStatus": "partial",
+  "sources": [
+    {
+      "id": "tools-chains",
+      "url": "https://www.dungeons.tools/enchantments/chains",
+      "kind": "game-files",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Fetched HTML including embedded page data; site declares 1.17.0.0. Tier data and stacking flag verified. Editorial gameplay text is not hidden game-file metadata."
+    },
+    {
+      "id": "tools-stunning",
+      "url": "https://www.dungeons.tools/enchantments/stunning",
+      "kind": "game-files",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Fetched HTML including embedded page data; site declares 1.17.0.0. Tier data and stacking flag verified. Editorial gameplay text is not hidden game-file metadata."
+    },
+    {
+      "id": "tools-freezing",
+      "url": "https://www.dungeons.tools/enchantments/freezing",
+      "kind": "game-files",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Fetched HTML including embedded page data; site declares 1.17.0.0. Tier data and stacking flag verified. Editorial gameplay text is not hidden game-file metadata."
+    },
+    {
+      "id": "tools-gravity",
+      "url": "https://www.dungeons.tools/enchantments/gravity",
+      "kind": "game-files",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Fetched HTML including embedded page data; site declares 1.17.0.0. Tier data and stacking flag verified. Editorial gameplay text is not hidden game-file metadata."
+    },
+    {
+      "id": "wiki-freezing",
+      "url": "https://minecraft.wiki/w/Dungeons%3AFreezing",
+      "kind": "published-reference",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Search-index content verifies attack speed only, 3 seconds, non-stackable and 1.16.2.0 buff from 20/30/40 to 30/40/50. Direct fetch returned 403."
+    },
+    {
+      "id": "wiki-stunned",
+      "url": "https://minecraft.wiki/rest.php/v1/page/Dungeons%3AStunned/html",
+      "kind": "published-reference",
+      "confidence": "high",
+      "retrievedAt": "2026-08-31",
+      "note": "Search-index status text confirms inability to move or attack; no numerical Stunning duration found. Direct fetch unavailable."
+    },
+    {
+      "id": "community-stun-2022",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/vtrd6t/",
+      "kind": "community-test",
+      "confidence": "low",
+      "retrievedAt": "2026-08-31",
+      "note": "2022-07-07/08 quantitative community explanation uses about two seconds and weapon-specific stunlock probabilities. No controlled version-tagged measurement; shared author with 2023 calculation, not independent replication."
+    },
+    {
+      "id": "community-stun-2023",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/",
+      "kind": "community-test",
+      "confidence": "low",
+      "retrievedAt": "2026-08-31",
+      "note": "2023-01-16 ShinkuNY: two seconds on Apocalypse+25, 15% per hit, 28.12 hits per two seconds and about 99% stunlock. Explicit post-1.17-era claim, not a verified 1.17 measurement. Also reports frame-limited attack speed; current mean-speed model does not reproduce this."
+    },
+    {
+      "id": "community-stun-corroboration",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/13ce18u/",
+      "kind": "community-test",
+      "confidence": "low",
+      "retrievedAt": "2026-08-31",
+      "note": "2023-05-09 another discussion assumes Tier I 5% and two seconds. Corroboration only; its Ambush damage conversion is NOT adopted."
+    },
+    {
+      "id": "community-immunity",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/z369zy/",
+      "kind": "community-test",
+      "confidence": "medium",
+      "retrievedAt": "2026-08-31",
+      "note": "2022-11-24 boss/miniboss Stunning immunity report; 2024 reply distinguishes Redstone Golem AI inactivity from stun. Freezing reported eligible. No complete mob matrix."
+    },
+    {
+      "id": "community-resistance",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1rx9deh/",
+      "kind": "community-test",
+      "confidence": "low",
+      "retrievedAt": "2026-08-31",
+      "note": "2026 discussion associates Apocalypse+ stagger resistance with short artifact stuns. Does not establish a multiplier for the Stunning enchantment and conflicts with conflating all stun sources; no numerical resistance inferred."
+    },
+    {
+      "id": "cc-model",
+      "url": "https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/cc-utility.md",
+      "kind": "model-assumption",
+      "confidence": "low",
+      "retrievedAt": "2026-08-31",
+      "note": "Finite encounter; first hit at zero; periodic profile cadence and independent Bernoulli rolls for each modeled target. Same target/cluster refreshed on proc; eligible shares and cluster sizes are assumptions. No offensive or defensive feedback."
+    }
+  ],
+  "entries": [
+    {
+      "id": "chains",
+      "runtimeStatus": "implemented",
+      "trigger": {
+        "kind": "on-hit-probability",
+        "tierProbabilities": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "rollGranularity": "uncertain",
+        "runtimeRollGranularity": "one roll per profile hit per modeled target; no AoE multiplication",
+        "probabilityConfidence": "high",
+        "rollGranularityConfidence": "low"
+      },
+      "effect": {
+        "kind": "root-cluster",
+        "tierDurationSeconds": [
+          1,
+          2,
+          3
+        ],
+        "durationConfidence": "high",
+        "semantics": "Rooted mobs can still attack nearby; no hard disable.",
+        "behaviorConfidence": "medium"
+      },
+      "repeatedApplication": {
+        "refreshes": "uncertain",
+        "overlaps": "uncertain",
+        "runtime": "refresh same target/cluster; union coverage, not additive duration",
+        "confidence": "low"
+      },
+      "targetEligibility": {
+        "bosses": "uncertain",
+        "powerfulMobs": "uncertain",
+        "apocalypsePlusResistance": "uncertain",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameMaxCopies": 4,
+        "runtimeMaxCopies": 1,
+        "behavior": "special",
+        "unresolvedCases": [
+          "two copies",
+          "mixed tiers",
+          "three copies",
+          "four copies",
+          "simultaneous proc",
+          "retrigger during active bind"
+        ],
+        "independentRollSanity": {
+          "atLeastOneTwoCopies": 0.51,
+          "bothTwoCopies": 0.09,
+          "runtimeAdopted": false
+        },
+        "investigation": "Game data page only confirms stackable. Prior audit/brief references independent rolls and multiplicative duration; Wiki Chains/Enchantment direct and indexed fetches did not expose detailed semantics during this audit. Cannot map simultaneous/mixed/3/4-copy binds. Prior high-confidence independent-roll statement corrected."
+      },
+      "sourceIds": [
+        "tools-chains",
+        "cc-model"
+      ],
+      "blockers": [
+        "Target switching, exact refresh and roll granularity unmeasured.",
+        "Complete mob immunity/resistance matrix unavailable.",
+        "Multi-copy duration semantics unresolved; reject more than one runtime copy.",
+        "Radius/cluster size unknown; default one target."
+      ],
+      "powerIndependent": true
+    },
+    {
+      "id": "stunning",
+      "runtimeStatus": "implemented",
+      "trigger": {
+        "kind": "on-hit-probability",
+        "tierProbabilities": [
+          0.05,
+          0.1,
+          0.15
+        ],
+        "rollGranularity": "uncertain",
+        "runtimeRollGranularity": "one roll per profile hit per modeled target; no AoE multiplication",
+        "probabilityConfidence": "high",
+        "rollGranularityConfidence": "low"
+      },
+      "effect": {
+        "kind": "hard-stun",
+        "tierDurationSeconds": [
+          2,
+          2,
+          2
+        ],
+        "durationConfidence": "low",
+        "behaviorConfidence": "high"
+      },
+      "repeatedApplication": {
+        "refreshes": "uncertain",
+        "overlaps": "uncertain",
+        "runtime": "refresh same target/cluster; union coverage, not additive duration",
+        "confidence": "low"
+      },
+      "targetEligibility": {
+        "bosses": "immune",
+        "powerfulMobs": "uncertain",
+        "apocalypsePlusResistance": "uncertain",
+        "confidence": "medium"
+      },
+      "stacking": {
+        "gameMaxCopies": 1,
+        "runtimeMaxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "sourceIds": [
+        "tools-stunning",
+        "cc-model",
+        "wiki-stunned",
+        "community-stun-2022",
+        "community-stun-2023",
+        "community-stun-corroboration",
+        "community-immunity",
+        "community-resistance"
+      ],
+      "blockers": [
+        "Target switching, exact refresh and roll granularity unmeasured.",
+        "Complete mob immunity/resistance matrix unavailable."
+      ],
+      "powerIndependent": true,
+      "durationGate": {
+        "gameData": "HTML and embedded metadata inspected; no hidden duration located. No raw game archive available.",
+        "wiki": "Stunning/history direct and search requests attempted; blocked/no numeric duration. Stunned status index confirms semantics only. Frozen page unavailable; not substituted for stun.",
+        "community": "Two quantitative discussions with shared author plus corroborating report; not independent measurements.",
+        "version": "2022 and 2023 claims agree; 2023 explicitly mentions Apocalypse+25, but game version not verified.",
+        "decision": "Limited runtime adopts 2 seconds at low confidence; user duration multiplier [0,1], boss eligible share default zero; no automatic resistance scaling."
+      }
+    },
+    {
+      "id": "freezing",
+      "runtimeStatus": "implemented",
+      "trigger": {
+        "kind": "on-hit",
+        "tierProbabilities": [
+          1,
+          1,
+          1
+        ],
+        "rollGranularity": "uncertain",
+        "runtimeRollGranularity": "one roll per profile hit per modeled target; no AoE multiplication",
+        "probabilityConfidence": "high",
+        "rollGranularityConfidence": "low"
+      },
+      "effect": {
+        "kind": "attack-speed-slow",
+        "tierDurationSeconds": [
+          3,
+          3,
+          3
+        ],
+        "durationConfidence": "high",
+        "tierAttackSpeedReductions": [
+          0.3,
+          0.4,
+          0.5
+        ],
+        "movementSpeedReduction": 0,
+        "behaviorConfidence": "high"
+      },
+      "repeatedApplication": {
+        "refreshes": "uncertain",
+        "overlaps": "uncertain",
+        "runtime": "refresh same target/cluster; union coverage, not additive duration",
+        "confidence": "low"
+      },
+      "targetEligibility": {
+        "bosses": "uncertain",
+        "powerfulMobs": "uncertain",
+        "apocalypsePlusResistance": "uncertain",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameMaxCopies": 1,
+        "runtimeMaxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "sourceIds": [
+        "tools-freezing",
+        "cc-model",
+        "wiki-freezing"
+      ],
+      "blockers": [
+        "Target switching, exact refresh and roll granularity unmeasured.",
+        "Complete mob immunity/resistance matrix unavailable."
+      ],
+      "powerIndependent": true
+    },
+    {
+      "id": "gravity",
+      "runtimeStatus": "implemented",
+      "trigger": {
+        "kind": "on-hit",
+        "tierProbabilities": [
+          1,
+          1,
+          1
+        ],
+        "rollGranularity": "uncertain",
+        "runtimeRollGranularity": "one roll per profile hit per modeled target; no AoE multiplication",
+        "probabilityConfidence": "high",
+        "rollGranularityConfidence": "low"
+      },
+      "effect": {
+        "kind": "group-pull",
+        "tierDurationSeconds": [
+          1,
+          1.5,
+          2
+        ],
+        "durationConfidence": "high",
+        "behaviorConfidence": "medium"
+      },
+      "repeatedApplication": {
+        "refreshes": "uncertain",
+        "overlaps": "uncertain",
+        "runtime": "refresh same target/cluster; union coverage, not additive duration",
+        "confidence": "low"
+      },
+      "targetEligibility": {
+        "bosses": "uncertain",
+        "powerfulMobs": "uncertain",
+        "apocalypsePlusResistance": "uncertain",
+        "confidence": "low"
+      },
+      "stacking": {
+        "gameMaxCopies": 1,
+        "runtimeMaxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "sourceIds": [
+        "tools-gravity",
+        "cc-model"
+      ],
+      "blockers": [
+        "Target switching, exact refresh and roll granularity unmeasured.",
+        "Complete mob immunity/resistance matrix unavailable.",
+        "Pull radius/affected count unknown; default one target.",
+        "No automatic damage target-density boost; built-in weapon effects remain out of scope."
+      ],
+      "powerIndependent": true
+    }
+  ],
+  "coverageModel": {
+    "method": "finite-periodic-bernoulli-window-exact",
+    "formula": "T^-1 integral_0^T [1-(1-p)^n(t)] dt, n(t)=profile hits in (t-duration,t] intersect [0,T)",
+    "complexity": "O(profile length squared); geometric initial cycles and periodic steady cycles, no per-encounter-hit simulator",
+    "poissonAlternative": "1-exp(-HPS*p*d) is a stationary approximation, differs from Bernoulli and omits initial transient. Not runtime."
+  },
+  "defaults": {
+    "eligibleTargetShares": 0.5,
+    "bossStunningEligibleTargetShare": 0,
+    "stunningEffectiveDurationMultiplier": 1,
+    "chainsExpectedTargetsPerProc": 1,
+    "gravityExpectedTargetsPerHit": 1,
+    "confidence": "low",
+    "reason": "Generic midpoint is editable partial exposure, not a measured mission rate. Boss zero follows immunity reports. Duration multiplier one retains reported two seconds, NOT proof of absent resistance."
+  },
+  "policy": {
+    "isGameEvidence": false,
+    "subweights": {
+      "hardDisable": 1,
+      "attackSlow": 1,
+      "root": 1,
+      "grouping": 1
+    },
+    "utility": "weighted mean of four raw metrics; all-zero subweights -> zero utility"
+  },
+  "priorPhases": {
+    "1-4": "partial",
+    "2-1D": "partial",
+    "2-1F": "partial",
+    "2-1G": "partial",
+    "2-1H": "partial"
+  }
+}

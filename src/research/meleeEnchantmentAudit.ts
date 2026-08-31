@@ -121,6 +121,7 @@ export interface MeleeEnchantmentAuditEntry {
   readonly trigger: MeleeEnchantmentTrigger
   readonly modelCategory: string
   readonly runtimeStatus: MeleeEnchantmentRuntimeStatus
+  readonly runtimeMaxCopies?: number
   readonly runtimePowerRange?: { readonly min: number; readonly max: number }
   readonly sources: readonly MeleeEnchantmentAuditSource[]
   readonly confidence: Confidence

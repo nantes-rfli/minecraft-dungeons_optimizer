@@ -16,12 +16,13 @@ const reportPath = path.join(projectRoot, 'research', 'melee-enchantment-coverag
 const runtimeCatalogPath = path.join(projectRoot, 'src', 'data', 'enchantments.ts')
 
 const readRuntimeEnchantmentIds = (): string[] => {
-  const source = fs.readFileSync(runtimeCatalogPath, 'utf8')
-  return [...source.matchAll(/^\s{4}id: '([^']+)',$/gm)].map((match) => match[1]!)
+  const source = [runtimeCatalogPath, path.join(projectRoot, 'src', 'data', 'control.ts')].map((file) => fs.readFileSync(file, 'utf8')).join('\n')
+  return [...source.matchAll(/^\s{4}id: '([^']+)',/gm)].map((match) => match[1]!)
 }
 
 const blocker = (entry: MeleeEnchantmentAuditEntry): string => {
   if (entry.runtimePowerRange) return `Power ${entry.runtimePowerRange.min}–${entry.runtimePowerRange.max} only; ${entry.notes?.split('. ')[0] ?? 'partial'}`
+  if (entry.runtimeMaxCopies !== undefined) return entry.notes?.split('. ')[0] ?? 'Limited CC model'
   if (entry.runtimeStatus === 'implemented' || entry.runtimeStatus === 'straightforward') return '—'
   return entry.notes?.split('. ')[0] ?? 'Evidence/model boundary unresolved'
 }
@@ -75,6 +76,10 @@ Five entries are range-limited: Shockwave 210–252, Swirling 210–263, Thunder
 
 Only the ${summary.counts.implemented} \`implemented\` entries exist in \`EnchantmentId\` and \`ENCHANTMENTS\`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
+## CC utility subsystem (Phase 2-1I partial)
+
+Chains / Stunning / Freezing / Gravity have power-independent mechanical Control metrics and a fourth ranking objective. Chains is game-max 4 / runtime-max 1 (multi-copy duration unresolved). Stunning uses a separately low-confidence community two-second model and editable eligibility/resistance, with boss default zero. Freezing is attack-speed-slow, never movement slow. Gravity never modifies damage targets. All raw metrics and utility remain within 0–1. Policy subweights are preferences, not Evidence. See [CC design](../docs/cc-utility.md) and [audit](./cc-subsystem-audit.json).
+
 ## Focus findings
 
 ### Refreshment and kill attribution
@@ -97,7 +102,7 @@ Shockwave and Swirling trigger from the last combo attack. Existing \`AttackProf
 
 ### DoT, lightning, CC, and utility
 
-Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence/saturation approximations. Tick phase, overlap and Void interactions remain unresolved; limits are explicit. Chains, Stunning, Gravity and Freezing still need crowd-control state. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
+Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence/saturation approximations. Tick phase, overlap and Void interactions remain unresolved; limits are explicit. Phase 2-1I adds separate Control state for Chains, Stunning, Gravity and Freezing with explicit stacking, duration and eligibility limits. Phase 2-1C implements Weakening through an explicit time-weighted affected incoming damage share, not unconditional defense. Looting and Prospector are utility-only and require future consumable/emerald objectives rather than a score of zero.
 
 ## Existing model assessment
 
@@ -152,7 +157,7 @@ Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage h
 
 SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
 
-Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Next: quantify CC utility before promoting Chains / Stunning / Freezing / Gravity. CC utility needs a new objective; Pain Cycle/Dynamo/Busy Bee need separate states. Parent 25–30 remains incomplete.
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Phase 2-1I now provides the fourth Control objective for Chains / Stunning / Freezing / Gravity. Next: audit Pain Cycle / Dynamo charge and consume states; Busy Bee needs a separate summon lifecycle. Parent 25–30 remains in progress pending limitation review.
 
 ## Highest-risk mechanics
 

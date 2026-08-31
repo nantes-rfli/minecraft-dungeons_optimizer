@@ -1,0 +1,1032 @@
+{
+  "sourceCommit": "523d677eca0059f53b866d2c4fece7c993882dc2",
+  "purpose": "Software regression only; not independent game measurements",
+  "cases": [
+    {
+      "name": "plain-existing",
+      "build": {
+        "weapon": {
+          "instanceId": "plain-existing",
+          "weaponId": "double-axe",
+          "powerLevel": 251,
+          "observedDamagePerHit": 100,
+          "enchantmentSlots": [
+            {
+              "candidates": [
+                "critical-hit"
+              ]
+            },
+            {
+              "candidates": [
+                "radiance"
+              ]
+            },
+            {
+              "candidates": [
+                "guarding-strike"
+              ]
+            }
+          ]
+        },
+        "enchantments": [
+          {
+            "enchantmentId": "critical-hit",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "radiance",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "guarding-strike",
+            "source": "slot",
+            "tier": 3
+          }
+        ],
+        "artifacts": [
+          {
+            "instanceId": "mushroom",
+            "artifactId": "death-cap-mushroom",
+            "powerLevel": 251
+          }
+        ]
+      },
+      "scenario": {
+        "profileId": "balanced",
+        "name": "バランス（MVP仮定）",
+        "encounterDurationSeconds": 30,
+        "averageEnemyHealth": 100,
+        "enemySupplyPerSecond": 0.5,
+        "directKillShare": 0.9,
+        "enemyComposition": {
+          "enchantedShare": 0.25,
+          "undeadShare": 0.5
+        },
+        "enemyState": {
+          "ambushEligibleDirectDamageShare": 0.25
+        },
+        "enemyDebuffs": {
+          "weakeningAffectedIncomingDamageShare": 0.5
+        },
+        "damageEventTargeting": {
+          "shockwave": 1,
+          "swirling": 1,
+          "thundering": 1
+        },
+        "incomingDamagePerSecond": 20,
+        "maxHealth": 100,
+        "averageTargetsInReach": 2.5,
+        "cooldownReduction": 0,
+        "radianceHealPerProc": 10,
+        "weights": {
+          "damage": 0.5,
+          "healing": 0.25,
+          "defense": 0.25
+        }
+      },
+      "expected": {
+        "damage": {
+          "artifactSynergyState": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 2.836222222222222,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "damageSource": "observed-input",
+          "damagePerHit": 100,
+          "hitsPerSecond": 2.836222222222222,
+          "baseDps": 283.6222222222222,
+          "directWeaponSingleTargetDps": 397.07111111111107,
+          "directWeaponAoeDps": 945.880111111111,
+          "indirectSingleTargetDps": 0,
+          "indirectAoeDps": 0,
+          "damageEvents": [],
+          "dotDamageEvents": [],
+          "explosionDamageEvents": [],
+          "instantIndirectSingleTargetDps": 0,
+          "instantIndirectAoeDps": 0,
+          "dotSingleTargetDps": 0,
+          "dotAoeDps": 0,
+          "explosionAoeDps": 0,
+          "singleTargetDps": 397.07111111111107,
+          "aoeDps": 945.880111111111,
+          "expectedTargetsHit": 2.382142857142857,
+          "criticalMultiplier": 1.4,
+          "voidStrikeMultiplier": 1,
+          "sharpnessMultiplier": 1,
+          "unchantingMultiplier": 1,
+          "smitingMultiplier": 1,
+          "smitingActiveUndeadMultiplier": 1,
+          "ambushMultiplier": 1,
+          "undeadShare": 0.5,
+          "ambushEligibleShare": 0.25,
+          "preCommittedDirectWeaponSingleTargetDps": 397.07111111111107,
+          "preCommittedDirectWeaponAoeDps": 945.880111111111,
+          "committedSingleTargetMultiplier": 1,
+          "committedAoeMultiplier": 1,
+          "enchantedShare": 0.25,
+          "enchantedTargetDps": 397.07111111111107,
+          "nonEnchantedTargetDps": 397.07111111111107
+        },
+        "healing": {
+          "animaHealingCapacityPerSecond": 0,
+          "radiancePerSecond": 5.672444444444444,
+          "leechingPerSecond": 0,
+          "refreshmentPotionCapacityPerSecond": 0,
+          "totalPerSecond": 5.672444444444444
+        },
+        "defense": {
+          "weakeningAffectedIncomingDamageShare": 0,
+          "weakeningDamageReduction": 0,
+          "weakeningDurationSeconds": 0,
+          "weakeningEnemyDamageMultiplier": 1,
+          "guardingStrikeUptime": 0.8347011117784134,
+          "guardingStrikeDamageTakenMultiplier": 0.5826494441107932,
+          "artifactDamageTakenMultiplier": 1,
+          "damageTakenMultiplier": 0.5826494441107932,
+          "damageTakenPerSecond": 11.652988882215865,
+          "preventedDamagePerSecond": 8.347011117784135,
+          "effectiveHealth": 171.62978701990247
+        },
+        "combatState": {
+          "directDamageShare": 1,
+          "indirectDamageShare": 0,
+          "indirectEstimatedKillsPerSecond": 0,
+          "effectiveDamagePerSecond": 945.880111111111,
+          "damageLimitedKillsPerSecond": 9.458801111111109,
+          "estimatedKillsPerSecond": 0.5,
+          "directWeaponKillsPerSecond": 0.45
+        },
+        "potionState": {
+          "baseCooldownSeconds": 45,
+          "refreshmentReductionPerDirectKillSeconds": 0,
+          "directWeaponKillsPerSecond": 0.45,
+          "cooldownProgressRate": 1,
+          "effectiveCooldownSeconds": 45,
+          "baseUsesPerSecond": 0.022222222222222223,
+          "estimatedUsesPerSecond": 0.022222222222222223,
+          "healPerUse": 75,
+          "incrementalHealingCapacityPerSecond": 0
+        },
+        "temporalState": {
+          "artifactActivation": {
+            "totalActivationsPerSecond": 0.03333333333333333,
+            "activations": [
+              {
+                "instanceId": "mushroom",
+                "artifactId": "death-cap-mushroom",
+                "effectiveCooldownSeconds": 30,
+                "activationsPerSecond": 0.03333333333333333
+              }
+            ]
+          },
+          "artifactSynergy": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 2.836222222222222,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "attackSpeedMultiplier": 1.7017333333333333,
+          "rampaging": {
+            "triggerChance": 0,
+            "effectiveDurationSeconds": 0,
+            "directWeaponKillsPerSecond": 0.45,
+            "triggerEventsPerSecond": 0,
+            "uptime": 0,
+            "activeAttackSpeedBonus": 0,
+            "averageAttackSpeedBonus": 0,
+            "iterations": 0,
+            "firstIterationUptime": 0,
+            "residual": 0
+          }
+        },
+        "artifactEffects": {
+          "attackSpeedMultiplier": 1.7017333333333333,
+          "damageTakenMultiplier": 1,
+          "uptimes": [
+            {
+              "instanceId": "mushroom",
+              "artifactId": "death-cap-mushroom",
+              "durationSeconds": 21.052,
+              "effectiveCooldownSeconds": 30,
+              "uptime": 0.7017333333333333
+            }
+          ],
+          "stackingGroups": [
+            {
+              "artifactId": "death-cap-mushroom",
+              "instanceIds": [
+                "mushroom"
+              ],
+              "behavior": "refresh",
+              "combinedUptime": 0.7017333333333333
+            }
+          ]
+        },
+        "utilities": {
+          "damage": 0.9999999939159925,
+          "healing": 0.24694892306087568,
+          "defense": 0.4173505558892068
+        },
+        "objectiveScore": 66.60748666955168
+      }
+    },
+    {
+      "name": "temporal-dot",
+      "build": {
+        "weapon": {
+          "instanceId": "temporal-dot",
+          "weaponId": "double-axe",
+          "powerLevel": 251,
+          "observedDamagePerHit": 100,
+          "enchantmentSlots": [
+            {
+              "candidates": [
+                "artifact-synergy"
+              ]
+            },
+            {
+              "candidates": [
+                "rampaging"
+              ]
+            },
+            {
+              "candidates": [
+                "poison-cloud"
+              ]
+            }
+          ]
+        },
+        "enchantments": [
+          {
+            "enchantmentId": "artifact-synergy",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "rampaging",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "poison-cloud",
+            "source": "slot",
+            "tier": 3
+          }
+        ],
+        "artifacts": [
+          {
+            "instanceId": "mushroom",
+            "artifactId": "death-cap-mushroom",
+            "powerLevel": 251
+          }
+        ]
+      },
+      "scenario": {
+        "profileId": "balanced",
+        "name": "バランス（MVP仮定）",
+        "encounterDurationSeconds": 30,
+        "averageEnemyHealth": 100,
+        "enemySupplyPerSecond": 0.5,
+        "directKillShare": 0.9,
+        "enemyComposition": {
+          "enchantedShare": 0.25,
+          "undeadShare": 0.5
+        },
+        "enemyState": {
+          "ambushEligibleDirectDamageShare": 0.25
+        },
+        "enemyDebuffs": {
+          "weakeningAffectedIncomingDamageShare": 0.5
+        },
+        "damageEventTargeting": {
+          "shockwave": 1,
+          "swirling": 1,
+          "thundering": 1
+        },
+        "incomingDamagePerSecond": 20,
+        "maxHealth": 100,
+        "averageTargetsInReach": 2.5,
+        "cooldownReduction": 0,
+        "radianceHealPerProc": 10,
+        "weights": {
+          "damage": 0.5,
+          "healing": 0.25,
+          "defense": 0.25
+        }
+      },
+      "expected": {
+        "damage": {
+          "artifactSynergyState": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 2.8373454790784587,
+            "chargedAttacksPerSecond": 0.03333333333333333,
+            "chargedAttackShare": 0.011748070010903172,
+            "bonus": 0.8,
+            "expectedDirectMultiplier": 1.0093984560087226
+          },
+          "damageSource": "observed-input",
+          "damagePerHit": 100,
+          "hitsPerSecond": 2.8373454790784587,
+          "baseDps": 283.73454790784587,
+          "directWeaponSingleTargetDps": 286.40121457451255,
+          "directWeaponAoeDps": 682.2486075757138,
+          "indirectSingleTargetDps": 245737.37909525188,
+          "indirectAoeDps": 340741.12092985376,
+          "damageEvents": [],
+          "dotDamageEvents": [
+            {
+              "channel": "enchantment-proc",
+              "tier": 3,
+              "durationSeconds": 3,
+              "qualifiesAsDirectWeaponKill": false,
+              "confidence": "low",
+              "kind": "persistent-area-dot",
+              "sourceId": "poison-cloud",
+              "damagePerSecond": 340794,
+              "opportunitiesPerSecond": 2.8373454790784587,
+              "triggerProbability": 0.3,
+              "cloudSpawnsPerSecond": 0.8512036437235376,
+              "singleTargetResidenceSeconds": 1.5,
+              "targetSecondsPerEvent": 1.5,
+              "singleTargetUptime": 0.7210730796177511,
+              "effectiveAoeTargets": 0.999844835677429,
+              "overlapModel": "poisson-saturation-assumption",
+              "singleTargetDps": 245737.37909525188,
+              "aoeDps": 340741.12092985376
+            }
+          ],
+          "explosionDamageEvents": [],
+          "instantIndirectSingleTargetDps": 0,
+          "instantIndirectAoeDps": 0,
+          "dotSingleTargetDps": 245737.37909525188,
+          "dotAoeDps": 340741.12092985376,
+          "explosionAoeDps": 0,
+          "singleTargetDps": 246023.7803098264,
+          "aoeDps": 341423.3695374295,
+          "expectedTargetsHit": 2.382142857142857,
+          "criticalMultiplier": 1,
+          "voidStrikeMultiplier": 1,
+          "sharpnessMultiplier": 1,
+          "unchantingMultiplier": 1,
+          "smitingMultiplier": 1,
+          "smitingActiveUndeadMultiplier": 1,
+          "ambushMultiplier": 1,
+          "undeadShare": 0.5,
+          "ambushEligibleShare": 0.25,
+          "preCommittedDirectWeaponSingleTargetDps": 286.40121457451255,
+          "preCommittedDirectWeaponAoeDps": 682.2486075757138,
+          "committedSingleTargetMultiplier": 1,
+          "committedAoeMultiplier": 1,
+          "enchantedShare": 0.25,
+          "enchantedTargetDps": 286.40121457451255,
+          "nonEnchantedTargetDps": 286.40121457451255
+        },
+        "healing": {
+          "animaHealingCapacityPerSecond": 0,
+          "radiancePerSecond": 0,
+          "leechingPerSecond": 0,
+          "refreshmentPotionCapacityPerSecond": 0,
+          "totalPerSecond": 0
+        },
+        "defense": {
+          "weakeningAffectedIncomingDamageShare": 0,
+          "weakeningDamageReduction": 0,
+          "weakeningDurationSeconds": 0,
+          "weakeningEnemyDamageMultiplier": 1,
+          "guardingStrikeUptime": 0,
+          "guardingStrikeDamageTakenMultiplier": 1,
+          "artifactDamageTakenMultiplier": 1,
+          "damageTakenMultiplier": 1,
+          "damageTakenPerSecond": 20,
+          "preventedDamagePerSecond": 0,
+          "effectiveHealth": 100
+        },
+        "combatState": {
+          "directDamageShare": 0.0019982481237299145,
+          "indirectDamageShare": 0.99800175187627,
+          "indirectEstimatedKillsPerSecond": 0.499000875938135,
+          "effectiveDamagePerSecond": 341423.3695374295,
+          "damageLimitedKillsPerSecond": 3414.2336953742947,
+          "estimatedKillsPerSecond": 0.5,
+          "directWeaponKillsPerSecond": 0.0008992116556784615
+        },
+        "potionState": {
+          "baseCooldownSeconds": 45,
+          "refreshmentReductionPerDirectKillSeconds": 0,
+          "directWeaponKillsPerSecond": 0.0008992116556784615,
+          "cooldownProgressRate": 1,
+          "effectiveCooldownSeconds": 45,
+          "baseUsesPerSecond": 0.022222222222222223,
+          "estimatedUsesPerSecond": 0.022222222222222223,
+          "healPerUse": 75,
+          "incrementalHealingCapacityPerSecond": 0
+        },
+        "temporalState": {
+          "artifactActivation": {
+            "totalActivationsPerSecond": 0.03333333333333333,
+            "activations": [
+              {
+                "instanceId": "mushroom",
+                "artifactId": "death-cap-mushroom",
+                "effectiveCooldownSeconds": 30,
+                "activationsPerSecond": 0.03333333333333333
+              }
+            ]
+          },
+          "artifactSynergy": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 2.8373454790784587,
+            "chargedAttacksPerSecond": 0.03333333333333333,
+            "chargedAttackShare": 0.011748070010903172,
+            "bonus": 0.8,
+            "expectedDirectMultiplier": 1.0093984560087226
+          },
+          "attackSpeedMultiplier": 1.7024072874470753,
+          "rampaging": {
+            "triggerChance": 0.1,
+            "effectiveDurationSeconds": 15,
+            "directWeaponKillsPerSecond": 0.0008992116556784615,
+            "triggerEventsPerSecond": 0.00008992116556784616,
+            "uptime": 0.0013479082274836796,
+            "activeAttackSpeedBonus": 0.5,
+            "averageAttackSpeedBonus": 0.0006739541137418398,
+            "iterations": 3,
+            "firstIterationUptime": 0.00134778881585263,
+            "residual": 1.058009214092992e-11
+          }
+        },
+        "artifactEffects": {
+          "attackSpeedMultiplier": 1.7017333333333333,
+          "damageTakenMultiplier": 1,
+          "uptimes": [
+            {
+              "instanceId": "mushroom",
+              "artifactId": "death-cap-mushroom",
+              "durationSeconds": 21.052,
+              "effectiveCooldownSeconds": 30,
+              "uptime": 0.7017333333333333
+            }
+          ],
+          "stackingGroups": [
+            {
+              "artifactId": "death-cap-mushroom",
+              "instanceIds": [
+                "mushroom"
+              ],
+              "behavior": "refresh",
+              "combinedUptime": 0.7017333333333333
+            }
+          ]
+        },
+        "utilities": {
+          "damage": 1,
+          "healing": 0,
+          "defense": 0
+        },
+        "objectiveScore": 50
+      }
+    },
+    {
+      "name": "soul",
+      "build": {
+        "weapon": {
+          "instanceId": "soul",
+          "weaponId": "soul-scythe",
+          "powerLevel": 251,
+          "observedDamagePerHit": 100,
+          "enchantmentSlots": [
+            {
+              "candidates": [
+                "anima-conduit"
+              ]
+            },
+            {
+              "candidates": [
+                "soul-siphon"
+              ]
+            },
+            {
+              "candidates": [
+                "rampaging"
+              ]
+            }
+          ]
+        },
+        "enchantments": [
+          {
+            "enchantmentId": "anima-conduit",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "soul-siphon",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "rampaging",
+            "source": "slot",
+            "tier": 3
+          }
+        ],
+        "artifacts": [
+          {
+            "instanceId": "mushroom",
+            "artifactId": "death-cap-mushroom",
+            "powerLevel": 251
+          }
+        ]
+      },
+      "scenario": {
+        "profileId": "balanced",
+        "name": "バランス（MVP仮定）",
+        "encounterDurationSeconds": 30,
+        "averageEnemyHealth": 100,
+        "enemySupplyPerSecond": 0.5,
+        "directKillShare": 0.9,
+        "enemyComposition": {
+          "enchantedShare": 0.25,
+          "undeadShare": 0.5
+        },
+        "enemyState": {
+          "ambushEligibleDirectDamageShare": 0.25
+        },
+        "enemyDebuffs": {
+          "weakeningAffectedIncomingDamageShare": 0.5
+        },
+        "damageEventTargeting": {
+          "shockwave": 1,
+          "swirling": 1,
+          "thundering": 1
+        },
+        "incomingDamagePerSecond": 20,
+        "maxHealth": 100,
+        "averageTargetsInReach": 2.5,
+        "cooldownReduction": 0,
+        "radianceHealPerProc": 10,
+        "weights": {
+          "damage": 0.5,
+          "healing": 0.25,
+          "defense": 0.25
+        }
+      },
+      "expected": {
+        "damage": {
+          "artifactSynergyState": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 3.744529082749151,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "damageSource": "observed-input",
+          "damagePerHit": 100,
+          "hitsPerSecond": 3.744529082749151,
+          "baseDps": 374.4529082749151,
+          "directWeaponSingleTargetDps": 374.4529082749151,
+          "directWeaponAoeDps": 752.583479041816,
+          "indirectSingleTargetDps": 0,
+          "indirectAoeDps": 0,
+          "damageEvents": [],
+          "dotDamageEvents": [],
+          "explosionDamageEvents": [],
+          "instantIndirectSingleTargetDps": 0,
+          "instantIndirectAoeDps": 0,
+          "dotSingleTargetDps": 0,
+          "dotAoeDps": 0,
+          "explosionAoeDps": 0,
+          "singleTargetDps": 374.4529082749151,
+          "aoeDps": 752.583479041816,
+          "expectedTargetsHit": 2.0098214285714286,
+          "criticalMultiplier": 1,
+          "voidStrikeMultiplier": 1,
+          "sharpnessMultiplier": 1,
+          "unchantingMultiplier": 1,
+          "smitingMultiplier": 1,
+          "smitingActiveUndeadMultiplier": 1,
+          "ambushMultiplier": 1,
+          "undeadShare": 0.5,
+          "ambushEligibleShare": 0.25,
+          "preCommittedDirectWeaponSingleTargetDps": 374.4529082749151,
+          "preCommittedDirectWeaponAoeDps": 752.583479041816,
+          "committedSingleTargetMultiplier": 1,
+          "committedAoeMultiplier": 1,
+          "enchantedShare": 0.25,
+          "enchantedTargetDps": 374.4529082749151,
+          "nonEnchantedTargetDps": 374.4529082749151
+        },
+        "healing": {
+          "animaHealingCapacityPerSecond": 25.46717449649491,
+          "radiancePerSecond": 0,
+          "leechingPerSecond": 0,
+          "refreshmentPotionCapacityPerSecond": 0,
+          "totalPerSecond": 25.46717449649491
+        },
+        "defense": {
+          "weakeningAffectedIncomingDamageShare": 0,
+          "weakeningDamageReduction": 0,
+          "weakeningDurationSeconds": 0,
+          "weakeningEnemyDamageMultiplier": 1,
+          "guardingStrikeUptime": 0,
+          "guardingStrikeDamageTakenMultiplier": 1,
+          "artifactDamageTakenMultiplier": 1,
+          "damageTakenMultiplier": 1,
+          "damageTakenPerSecond": 20,
+          "preventedDamagePerSecond": 0,
+          "effectiveHealth": 100
+        },
+        "combatState": {
+          "directDamageShare": 1,
+          "indirectDamageShare": 0,
+          "indirectEstimatedKillsPerSecond": 0,
+          "effectiveDamagePerSecond": 752.583479041816,
+          "damageLimitedKillsPerSecond": 7.52583479041816,
+          "estimatedKillsPerSecond": 0.5,
+          "directWeaponKillsPerSecond": 0.45
+        },
+        "potionState": {
+          "baseCooldownSeconds": 45,
+          "refreshmentReductionPerDirectKillSeconds": 0,
+          "directWeaponKillsPerSecond": 0.45,
+          "cooldownProgressRate": 1,
+          "effectiveCooldownSeconds": 45,
+          "baseUsesPerSecond": 0.022222222222222223,
+          "estimatedUsesPerSecond": 0.022222222222222223,
+          "healPerUse": 75,
+          "incrementalHealingCapacityPerSecond": 0
+        },
+        "temporalState": {
+          "artifactActivation": {
+            "totalActivationsPerSecond": 0.03333333333333333,
+            "activations": [
+              {
+                "instanceId": "mushroom",
+                "artifactId": "death-cap-mushroom",
+                "effectiveCooldownSeconds": 30,
+                "activationsPerSecond": 0.03333333333333333
+              }
+            ]
+          },
+          "artifactSynergy": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 3.744529082749151,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "attackSpeedMultiplier": 1.9471551230295587,
+          "rampaging": {
+            "triggerChance": 0.1,
+            "effectiveDurationSeconds": 15,
+            "directWeaponKillsPerSecond": 0.45,
+            "triggerEventsPerSecond": 0.045000000000000005,
+            "uptime": 0.4908435793924509,
+            "activeAttackSpeedBonus": 0.5,
+            "averageAttackSpeedBonus": 0.24542178969622544,
+            "iterations": 2,
+            "firstIterationUptime": 0.4908435793924509,
+            "residual": 0
+          }
+        },
+        "soulState": {
+          "capacity": 300,
+          "initialSouls": 0,
+          "baseSoulGathering": 1,
+          "enchantmentSoulGathering": 2,
+          "externalSoulGathering": 0,
+          "totalSoulGathering": 3,
+          "eligibleSoulGeneratingKillsPerSecond": 0.5,
+          "siphonOpportunitiesPerSecond": 3.744529082749151,
+          "siphonTriggerChance": 0.2,
+          "siphonPickupsPerProc": 5,
+          "siphonProcEventsPerSecond": 0.7489058165498302,
+          "normalPickupEventsPerSecond": 0.5,
+          "siphonPickupEventsPerSecond": 3.744529082749151,
+          "totalPickupEventsPerSecond": 4.2445290827491515,
+          "normalResourceUnitsPerSecond": 1.5,
+          "siphonResourceUnitsPerSecond": 11.233587248247453,
+          "totalResourceUnitsPerSecond": 12.733587248247453,
+          "spendingUnitsPerSecond": 0,
+          "fillTimeSeconds": 23.559739620214998,
+          "endSoulFraction": 1,
+          "encounterAverageSoulFraction": 0.6073376729964167
+        },
+        "artifactEffects": {
+          "attackSpeedMultiplier": 1.7017333333333333,
+          "damageTakenMultiplier": 1,
+          "uptimes": [
+            {
+              "instanceId": "mushroom",
+              "artifactId": "death-cap-mushroom",
+              "durationSeconds": 21.052,
+              "effectiveCooldownSeconds": 30,
+              "uptime": 0.7017333333333333
+            }
+          ],
+          "stackingGroups": [
+            {
+              "artifactId": "death-cap-mushroom",
+              "instanceIds": [
+                "mushroom"
+              ],
+              "behavior": "refresh",
+              "combinedUptime": 0.7017333333333333
+            }
+          ]
+        },
+        "utilities": {
+          "damage": 0.9999997095021265,
+          "healing": 0.7201100320979,
+          "defense": 0
+        },
+        "objectiveScore": 68.00273627755382
+      }
+    },
+    {
+      "name": "explosion-fire",
+      "build": {
+        "weapon": {
+          "instanceId": "explosion-fire",
+          "weaponId": "anchor",
+          "powerLevel": 251,
+          "observedDamagePerHit": 100,
+          "enchantmentSlots": [
+            {
+              "candidates": [
+                "exploding"
+              ]
+            },
+            {
+              "candidates": [
+                "fire-aspect"
+              ]
+            },
+            {
+              "candidates": [
+                "rampaging"
+              ]
+            }
+          ]
+        },
+        "enchantments": [
+          {
+            "enchantmentId": "exploding",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "fire-aspect",
+            "source": "slot",
+            "tier": 3
+          },
+          {
+            "enchantmentId": "rampaging",
+            "source": "slot",
+            "tier": 3
+          }
+        ],
+        "artifacts": [
+          {
+            "instanceId": "mushroom",
+            "artifactId": "death-cap-mushroom",
+            "powerLevel": 251
+          }
+        ]
+      },
+      "scenario": {
+        "profileId": "balanced",
+        "name": "バランス（MVP仮定）",
+        "encounterDurationSeconds": 30,
+        "averageEnemyHealth": 100,
+        "enemySupplyPerSecond": 0.5,
+        "directKillShare": 0.9,
+        "enemyComposition": {
+          "enchantedShare": 0.25,
+          "undeadShare": 0.5
+        },
+        "enemyState": {
+          "ambushEligibleDirectDamageShare": 0.25
+        },
+        "enemyDebuffs": {
+          "weakeningAffectedIncomingDamageShare": 0.5
+        },
+        "damageEventTargeting": {
+          "shockwave": 1,
+          "swirling": 1,
+          "thundering": 1
+        },
+        "incomingDamagePerSecond": 20,
+        "maxHealth": 100,
+        "averageTargetsInReach": 2.5,
+        "cooldownReduction": 0,
+        "radianceHealPerProc": 10,
+        "weights": {
+          "damage": 0.5,
+          "healing": 0.25,
+          "defense": 0.25
+        }
+      },
+      "expected": {
+        "damage": {
+          "artifactSynergyState": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 0.68072038030909,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "damageSource": "observed-input",
+          "damagePerHit": 100,
+          "hitsPerSecond": 0.68072038030909,
+          "baseDps": 68.072038030909,
+          "directWeaponSingleTargetDps": 68.072038030909,
+          "directWeaponAoeDps": 170.18009507727248,
+          "indirectSingleTargetDps": 339664.5,
+          "indirectAoeDps": 849161.2554097474,
+          "damageEvents": [],
+          "dotDamageEvents": [
+            {
+              "channel": "enchantment-proc",
+              "tier": 3,
+              "durationSeconds": 3,
+              "qualifiesAsDirectWeaponKill": false,
+              "confidence": "low",
+              "kind": "attached-dot",
+              "sourceId": "fire-aspect",
+              "damagePerSecond": 339664.5,
+              "targetUptime": 1,
+              "expectedTargetsHit": 2.5,
+              "timeModel": "finite-first-hit-at-zero",
+              "singleTargetDps": 339664.5,
+              "aoeDps": 849161.25
+            }
+          ],
+          "explosionDamageEvents": [
+            {
+              "kind": "on-kill-explosion",
+              "sourceId": "exploding",
+              "tier": 3,
+              "channel": "enchantment-proc",
+              "sourceKillsPerSecond": 0.00009016245603561401,
+              "sourceHealth": 100,
+              "healthFraction": 0.6,
+              "damagePerSecondaryTarget": 60,
+              "expectedSecondaryTargets": 1,
+              "singleTargetDps": 0,
+              "aoeDps": 0.005409747362136841,
+              "chainReaction": false,
+              "qualifiesAsDirectWeaponKill": false,
+              "confidence": "low"
+            }
+          ],
+          "instantIndirectSingleTargetDps": 0,
+          "instantIndirectAoeDps": 0,
+          "dotSingleTargetDps": 339664.5,
+          "dotAoeDps": 849161.25,
+          "explosionAoeDps": 0.005409747362136841,
+          "singleTargetDps": 339732.5720380309,
+          "aoeDps": 849331.4355048246,
+          "expectedTargetsHit": 2.5,
+          "criticalMultiplier": 1,
+          "voidStrikeMultiplier": 1,
+          "sharpnessMultiplier": 1,
+          "unchantingMultiplier": 1,
+          "smitingMultiplier": 1,
+          "smitingActiveUndeadMultiplier": 1,
+          "ambushMultiplier": 1,
+          "undeadShare": 0.5,
+          "ambushEligibleShare": 0.25,
+          "preCommittedDirectWeaponSingleTargetDps": 68.072038030909,
+          "preCommittedDirectWeaponAoeDps": 170.18009507727248,
+          "committedSingleTargetMultiplier": 1,
+          "committedAoeMultiplier": 1,
+          "enchantedShare": 0.25,
+          "enchantedTargetDps": 68.072038030909,
+          "nonEnchantedTargetDps": 68.072038030909
+        },
+        "healing": {
+          "animaHealingCapacityPerSecond": 0,
+          "radiancePerSecond": 0,
+          "leechingPerSecond": 0,
+          "refreshmentPotionCapacityPerSecond": 0,
+          "totalPerSecond": 0
+        },
+        "defense": {
+          "weakeningAffectedIncomingDamageShare": 0,
+          "weakeningDamageReduction": 0,
+          "weakeningDurationSeconds": 0,
+          "weakeningEnemyDamageMultiplier": 1,
+          "guardingStrikeUptime": 0,
+          "guardingStrikeDamageTakenMultiplier": 1,
+          "artifactDamageTakenMultiplier": 1,
+          "damageTakenMultiplier": 1,
+          "damageTakenPerSecond": 20,
+          "preventedDamagePerSecond": 0,
+          "effectiveHealth": 100
+        },
+        "combatState": {
+          "directDamageShare": 0.0002003694764648868,
+          "indirectDamageShare": 0.9997996305235352,
+          "indirectEstimatedKillsPerSecond": 0.4998998152617676,
+          "effectiveDamagePerSecond": 849331.4355048246,
+          "damageLimitedKillsPerSecond": 8493.314355048245,
+          "estimatedKillsPerSecond": 0.5,
+          "directWeaponKillsPerSecond": 0.00009016626440919906
+        },
+        "potionState": {
+          "baseCooldownSeconds": 45,
+          "refreshmentReductionPerDirectKillSeconds": 0,
+          "directWeaponKillsPerSecond": 0.00009016626440919906,
+          "cooldownProgressRate": 1,
+          "effectiveCooldownSeconds": 45,
+          "baseUsesPerSecond": 0.022222222222222223,
+          "estimatedUsesPerSecond": 0.022222222222222223,
+          "healPerUse": 75,
+          "incrementalHealingCapacityPerSecond": 0
+        },
+        "temporalState": {
+          "exploding": {
+            "initialDirectKillsPerSecond": 0.00009016268313664615,
+            "firstExplodingAoeDps": 0.005409760988198769,
+            "convergedExplodingAoeDps": 0.005409747362136841,
+            "directDamageShare": 0.0002003694764648868,
+            "directWeaponKillsPerSecond": 0.00009016626440919906,
+            "iterations": 52,
+            "residual": 8.463052411211008e-9
+          },
+          "artifactActivation": {
+            "totalActivationsPerSecond": 0.03333333333333333,
+            "activations": [
+              {
+                "instanceId": "mushroom",
+                "artifactId": "death-cap-mushroom",
+                "effectiveCooldownSeconds": 30,
+                "activationsPerSecond": 0.03333333333333333
+              }
+            ]
+          },
+          "artifactSynergy": {
+            "pendingChargeCapacity": 1,
+            "eligibleDirectAttacksPerSecond": 0.68072038030909,
+            "chargedAttacksPerSecond": 0,
+            "chargedAttackShare": 0,
+            "bonus": 0,
+            "expectedDirectMultiplier": 1
+          },
+          "attackSpeedMultiplier": 1.7018009507727248,
+          "rampaging": {
+            "triggerChance": 0.1,
+            "effectiveDurationSeconds": 15,
+            "directWeaponKillsPerSecond": 0.00009016626440919906,
+            "triggerEventsPerSecond": 0.000009016626440919906,
+            "uptime": 0.000135234878782827,
+            "activeAttackSpeedBonus": 0.5,
+            "averageAttackSpeedBonus": 0.0000676174393914135,
+            "iterations": 2,
+            "firstIterationUptime": 0.000135234878782827,
+            "residual": 5.372043654778809e-9
+          }
+        },
+        "artifactEffects": {
+          "attackSpeedMultiplier": 1.7017333333333333,
+          "damageTakenMultiplier": 1,
+          "uptimes": [
+            {
+              "instanceId": "mushroom",
+              "artifactId": "death-cap-mushroom",
+              "durationSeconds": 21.052,
+              "effectiveCooldownSeconds": 30,
+              "uptime": 0.7017333333333333
+            }
+          ],
+          "stackingGroups": [
+            {
+              "artifactId": "death-cap-mushroom",
+              "instanceIds": [
+                "mushroom"
+              ],
+              "behavior": "refresh",
+              "combinedUptime": 0.7017333333333333
+            }
+          ]
+        },
+        "utilities": {
+          "damage": 1,
+          "healing": 0,
+          "defense": 0
+        },
+        "objectiveScore": 50
+      }
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { isControlId, CC_REFRESH_MODEL, CC_ELIGIBILITY_MODEL, CC_CLUSTER_MODEL, STUNNING_DURATION } from '../data/control'
 import { DOT_DAMAGE_CURVES, DOT_EXPLOSION_IDS, FIRE_REFRESH_MODEL, FIRE_TARGET_MODEL, POISON_SATURATION_MODEL, EXPLOSION_TARGET_MODEL, EXPLOSION_KILL_SOURCE } from '../data/dotDamageEvents'
 import { isDotDamageId } from './dotDamageEvents'
 import { BASE_SOUL_CAPACITY, INITIAL_SOULS, SOUL_GATHERING_PER_ENCHANTMENT, SOUL_TRAJECTORY_MODEL, SOUL_NORMAL_KILL_MODEL, SOUL_SIPHON_ROLL_MODEL, SOUL_SIPHON_PICKUPS, ANIMA_CAPACITY_MODEL, SOUL_GILDED_GATHERING_MODEL, isSoulEnchantmentId } from '../data/souls'
@@ -116,7 +117,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     const definition = getEnchantmentDefinition(enchantmentId)
     addEvidence(
       `enchant-${enchantmentId}`,
-      `${definition.name.ja}のtier値`,
+      `${definition.name.ja}の${enchantmentId === 'stunning' ? 'tier発動率（持続は別Evidence）' : 'tier値'}`,
       definition.tiers,
     )
     if (enchantmentsById(build.enchantments, enchantmentId).length > 1 || ['refreshment', 'weakening', 'ambush', 'smiting', 'committed', 'artifact-synergy', 'rampaging'].includes(enchantmentId)) {
@@ -128,6 +129,24 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       )
     }
   }
+
+  const ccIds = [...uniqueEnchantments].filter(isControlId)
+  if (ccIds.length > 0) {
+    addEvidence('cc-refresh-model', 'CCの有限cadence・同一対象refresh仮定', CC_REFRESH_MODEL, 3)
+    caveats.push('CCはprofile hitごと・モデル対象ごとの抽選。AoE敵数をHPSへ掛けず、初撃t=0から有限戦闘内の期待coverageを積分します。target switching・cluster移動・roll粒度・refreshは未検証、GravityによるDPS増加やCCによる防御換算は行いません。Controlの重みは好みのpolicyでEvidenceではありません。')
+  }
+  for (const id of ccIds) {
+    addEvidence(`cc-eligibility-${id}`, `${id}の適用対象割合・耐性仮定`, CC_ELIGIBILITY_MODEL, 2)
+    addEvidence(`cc-stacking-${id}`, `${id}のruntime stacking境界`, getEnchantmentDefinition(id).stacking)
+    if (id === 'chains' || id === 'gravity') addEvidence(`cc-targets-${id}`, `${id}の平均対象数`, CC_CLUSTER_MODEL, 2)
+  }
+  if (ccIds.includes('stunning')) {
+    addEvidence('cc-stunning-duration', 'Stunning 2秒（community計算・低信頼度）', STUNNING_DURATION, 3)
+    caveats.push('Stunning 2秒は2022/2023 community計算を採用した限定値です（著者重複、独立測定ではない）。bossは初期適用割合0、他は共通50%の仮定。powerful mobの免疫は一律断定せず、Apocalypse+のstagger耐性をstun耐性へ自動転用しません。適用割合と持続補正を調整してください。')
+  }
+  if (ccIds.includes('chains')) caveats.push('Chainsは30%で1/2/3秒の移動束縛。近くには攻撃できます。game最大4copyですが、同時proc・mixed tier・3/4copy・再発動の持続式が未確定のためruntime1copy限定です。')
+  if (ccIds.includes('freezing')) caveats.push('Freezingは3秒の敵攻撃速度低下30/40/50%。移動速度低下ではなく、Defenseの被ダメージ倍率も変更しません。')
+  if (ccIds.includes('gravity')) caveats.push('Gravityは1/1.5/2秒の集敵coverage。初期平均1体は半径未測定の保守仮定です。Stunningの発動確率、AoE命中数、Poison滞在量、爆発対象数、AmbushやWeakeningの割合へ自動接続しません。内蔵Gravityも今回の自動追加対象外です。')
 
   if (build.enchantments.some((item) => isSoulEnchantmentId(item.enchantmentId))) {
     addEvidence('soul-capacity', 'Soul基礎容量', BASE_SOUL_CAPACITY)

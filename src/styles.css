@@ -123,7 +123,7 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .contributions { margin-top: 18px; border-top: 1px solid #29332b; padding-top: 15px; color: #879389; font-size: 11px; }
 .contributions summary { cursor: pointer; color: #b6c0b6; }
 .contribution-table { margin-top: 12px; overflow-x: auto; }
-.contribution-table > div { display: grid; grid-template-columns: minmax(130px, 1.7fr) repeat(4, minmax(55px, .7fr)); gap: 8px; align-items: center; min-width: 480px; padding: 8px; border-bottom: 1px solid #273129; }
+.contribution-table > div { display: grid; grid-template-columns: minmax(130px, 1.7fr) repeat(5, minmax(55px, .7fr)); gap: 8px; align-items: center; min-width: 550px; padding: 8px; border-bottom: 1px solid #273129; }
 .contribution-table .table-head { color: #657168; font: 9px 'DM Mono', monospace; }
 .contribution-table span:first-child { display: grid; }
 .contribution-table small { color: #657168; font: 8px 'DM Mono', monospace; }
@@ -213,3 +213,11 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
   .progress-heading { display: grid; }
   .progress-heading strong { justify-items: start; text-align: left; }
 }
+
+.control-metrics > div { display: flex; justify-content: space-between; gap: 1rem; padding: .4rem 0; border-bottom: 1px solid #29332b; }
+.control-metrics dd { margin: 0; white-space: nowrap; }
+.control-score { font-size: .85rem; color: #d8ff73; }
+
+.control-policy-table { overflow-x: auto; }
+.control-policy-table table { border-collapse: collapse; width: 100%; }
+.control-policy-table th, .control-policy-table td { padding: .5rem; text-align: left; border-bottom: 1px solid #29332b; }

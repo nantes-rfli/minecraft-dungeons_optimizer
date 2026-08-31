@@ -1,3 +1,4 @@
+import { CONTROL_ENCHANTMENTS } from './control'
 import { DOT_SOURCES, DOT_TIER_MULTIPLIERS } from './dotDamageEvents'
 import { SOUL_ENCHANTMENT_METADATA } from './souls'
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
@@ -21,6 +22,7 @@ import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE, RAMPAGING_STACKING_SOURCE } 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  ...CONTROL_ENCHANTMENTS,
   'fire-aspect': {
     id: 'fire-aspect',
     name: { ja: '火属性', en: 'Fire Aspect' },

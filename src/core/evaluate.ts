@@ -1,3 +1,4 @@
+import { calculateControl, describeControl } from './control'
 import { describeDotOrExplosion } from './dotDamageReasons'
 import { calculateArtifactEffects } from './artifact'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
@@ -26,6 +27,7 @@ interface EvaluationCore {
   readonly potionState: Evaluation['potionState']
   readonly healing: Evaluation['healing']
   readonly defense: Evaluation['defense']
+  readonly control: Evaluation['control']
   readonly artifactEffects: Evaluation['artifactEffects']
   readonly utilities: ObjectiveUtilities
   readonly objectiveScore: number
@@ -42,22 +44,25 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const potionState = derivePotionState(build.enchantments, combatState, scenario)
   const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
+  const control = calculateControl(build, scenario, temporalState.attackSpeedMultiplier, damage.hitsPerSecond)
   const damageTarget =
     scenario.averageEnemyHealth * Math.max(0.1, scenario.enemySupplyPerSecond)
   const utilities = {
+    control: control.utility,
     damage: saturatingUtility(damage.aoeDps, damageTarget),
     healing: saturatingUtility(healing.totalPerSecond, Math.max(1, scenario.incomingDamagePerSecond)),
     defense: Math.max(0, Math.min(1, 1 - defense.damageTakenMultiplier)),
   }
-  const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense
+  const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense + scenario.weights.control
   const objectiveScore =
     (100 *
       (utilities.damage * scenario.weights.damage +
         utilities.healing * scenario.weights.healing +
-        utilities.defense * scenario.weights.defense)) /
+        utilities.defense * scenario.weights.defense +
+        utilities.control * scenario.weights.control)) /
     weightTotal
 
-  return { temporalState, soulState, damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
+  return { control, temporalState, soulState, damage, combatState, potionState, healing, defense, artifactEffects, utilities, objectiveScore }
 }
 
 function toContribution(
@@ -75,6 +80,7 @@ function toContribution(
     sourceType,
     sourceId,
     label,
+    controlUtilityDelta: baseline.control.utility - withoutEffect.control.utility,
     objectiveDelta: baseline.objectiveScore - withoutEffect.objectiveScore,
     singleTargetDpsDelta: baseline.damage.singleTargetDps - withoutEffect.damage.singleTargetDps,
     aoeDpsDelta: baseline.damage.aoeDps - withoutEffect.damage.aoeDps,
@@ -103,11 +109,17 @@ function calculateContributions(
   )
 }
 
-export function evaluate(build: Build, scenario: Scenario): Evaluation {
+/** Full numerical evaluation without explanations or leave-one-out contributions.
+ * Exhaustive search uses this for all candidates and expands only displayed ones. */
+export function evaluateCandidate(build: Build, scenario: Scenario) {
   validateBuild(build)
   validateScenario(scenario)
-  const core = calculateCore(build, scenario)
-  const reasons: string[] = []
+  return { build, ...calculateCore(build, scenario) }
+}
+
+export function evaluate(build: Build, scenario: Scenario): Evaluation {
+  const core = evaluateCandidate(build, scenario)
+  const reasons: string[] = describeControl(core.control)
   const weapon = getWeaponDefinition(build.weapon.weaponId)
   for (const event of core.damage.damageEvents) {
     const trigger = event.triggerKind === 'combo-finisher'
@@ -198,7 +210,6 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   }
 
   return {
-    build,
     ...core,
     confidence: summarizeConfidence(build, scenario),
     reasons,

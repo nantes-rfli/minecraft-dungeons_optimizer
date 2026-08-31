@@ -1,3 +1,4 @@
+import { finiteRefreshCoverage } from './refreshCoverage'
 import { DEFAULT_PERSISTENT_AREA_TARGETING, DOT_DAMAGE_CURVES } from '../data/dotDamageEvents'
 import { calculateBaseHitsPerSecond, resolveHitIntervalSequence } from './attackProfile'
 import { getTierValues } from './enchantment'
@@ -35,31 +36,9 @@ export function interpolateDotDps(curve: DotDamageCurve, powerLevel: number): nu
   return Math.exp(Math.log(lower.tierOneDps) * (1 - t) + Math.log(upper.tierOneDps) * t)
 }
 
-/** First hit at t=0, like the existing Void cadence. Tail clipped at encounter end.
- * Whole cycles avoid per-hit loops even for very long encounters. */
+/** Compatibility export; shared guaranteed-refresh implementation. */
 export function finiteBurnUptime(intervals: readonly number[], speed: number, encounterSeconds: number, durationSeconds = 3): number {
-  finiteRange(speed, Number.MIN_VALUE)
-  finiteRange(encounterSeconds, Number.MIN_VALUE)
-  finiteRange(durationSeconds, 0)
-  if (intervals.length === 0) throw new Error('Burn coverage requires a nonempty cadence')
-  const scaled = intervals.map((interval) => {
-    finiteRange(interval, Number.MIN_VALUE)
-    const value = interval / speed
-    finiteRange(value, Number.MIN_VALUE)
-    return value
-  })
-  const cycle = scaled.reduce((sum, interval) => sum + interval, 0)
-  finiteRange(cycle, Number.MIN_VALUE)
-  const coveredCycle = scaled.reduce((sum, interval) => sum + Math.min(interval, durationSeconds), 0)
-  const cycles = Math.floor(encounterSeconds / cycle)
-  finiteRange(cycles, 0)
-  let remaining = Math.max(0, encounterSeconds - cycles * cycle)
-  let burned = cycles * coveredCycle
-  for (const interval of scaled) {
-    burned += Math.min(remaining, interval, durationSeconds)
-    remaining = Math.max(0, remaining - interval)
-  }
-  return Math.min(1, burned / encounterSeconds)
+  return finiteRefreshCoverage(intervals, speed, encounterSeconds, durationSeconds)
 }
 
 /** Explicit steady-state Poisson approximation, with no additive cloud stacking. */
@@ -87,7 +66,7 @@ export function calculateDotDamageEvents(powerLevel: number, enchantments: reado
     const damagePerSecond = interpolateDotDps(DOT_DAMAGE_CURVES[effect.dotId].value, powerLevel) * effect.tierMultiplier
     finiteRange(speed, Number.MIN_VALUE)
     if (effect.kind === 'attached-dot') {
-      const targetUptime = finiteBurnUptime(resolveHitIntervalSequence(profile), speed, scenario.encounterDurationSeconds, effect.durationSeconds)
+      const targetUptime = finiteRefreshCoverage(resolveHitIntervalSequence(profile), speed, scenario.encounterDurationSeconds, effect.durationSeconds)
       const singleTargetDps = damagePerSecond * targetUptime
       return [{ ...common, kind: 'attached-dot', sourceId: 'fire-aspect', damagePerSecond, targetUptime, expectedTargetsHit, timeModel: 'finite-first-hit-at-zero', singleTargetDps, aoeDps: singleTargetDps * expectedTargetsHit }]
     }

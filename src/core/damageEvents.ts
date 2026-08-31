@@ -33,6 +33,9 @@ export function enchantmentUnsupportedReason(weapon: Pick<OwnedWeapon, 'powerLev
 }
 
 export function enchantmentCombinationUnsupportedReason(enchantments: readonly SelectedEnchantment[]): string | undefined {
+  if (enchantments.filter((item) => item.enchantmentId === 'chains').length > 1) {
+    return 'Chainsの複数copyは同時proc・mixed tier・再発動時の持続時間が未検証のため未対応です（game最大4個、runtime1個限定）。'
+  }
   if (enchantments.filter((item) => item.enchantmentId === 'fire-aspect').length > 1) {
     return 'Fire Aspectの複数copyはstacking式が未検証のため未対応です（現在1個限定）。'
   }
