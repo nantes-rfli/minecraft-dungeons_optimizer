@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
-  "auditedAt": "2026-08-31",
+  "auditedAt": "2026-09-01",
   "population": {
     "targetCount": 33,
     "definition": "Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.",
@@ -407,10 +407,11 @@
       "id": "dynamo", "name": { "en": "Dynamo" },
       "applicability": { "melee": true, "ranged": true, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": true, "builtInTier": 1 },
-      "tierValues": { "1": { "raw": "+X" }, "2": { "raw": "+1.25X" }, "3": { "raw": "+1.5X" } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-roll", "modelCategory": "roll-charged-damage", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/dynamo", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking", "built-in"], "confidence": "high", "note": "Raw X notation is power-scaled damage and is intentionally not converted to a percentage." }],
-      "confidence": "medium", "notes": "Needs roll count/stack state, cap, consumption, and power-scaling evidence."
+      "tierValues": { "1": { "raw": "+X", "interpreted": { "damagePerStackAtPower251": 191087 } }, "2": { "raw": "+1.25X", "interpreted": { "damagePerStackAtPower251": 305739 } }, "3": { "raw": "+1.5X", "interpreted": { "damagePerStackAtPower251": 420391 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-roll", "modelCategory": "roll-charge-consume-direct-damage", "runtimeStatus": "implemented",
+      "runtimePowerRange": { "min": 210, "max": 263 },
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/dynamo", "retrievedAt": "2026-09-01", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Raw labels only: UI1/1.25/1.5 conflicts with numeric table and is not used for damage scaling. Cap20 and next-attack reset are published mechanics prose, not a raw implementation trace." }, { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Dynamo", "retrievedAt": "2026-09-01", "supports": ["damage-scaling", "tier-values", "built-in"], "confidence": "medium", "note": "Ten Power rows/30 independent tier values; version and same-Power roll unknown. Great Axeblade built-in retained from Wiki/tier-list despite missing detail-page link." }],
+      "confidence": "low", "notes": "Phase 2-1J partial: independent Tier curves, cap20, initial0 and roll0 defaults, periodic continuous roll income with finite consume and overflow. Direct melee attribution is an evidence-backed inference; AoE, attack proxy and roll-time omission low confidence. Reject all eight direct modifiers plus Pain Cycle pending composition/consume evidence. See charge-consume-enchantment-audit.json."
     },
     {
       "id": "echo",
@@ -901,10 +902,10 @@
       "id": "pain-cycle", "name": { "en": "Pain Cycle" },
       "applicability": { "melee": true, "ranged": false, "armor": false },
       "rarity": "common", "obtainable": { "normalSlot": true, "gilded": true, "builtInUnique": false },
-      "tierValues": { "1": { "raw": "Triple (3x)", "interpreted": { "fifthHitDamageMultiplier": 3, "requiredStacks": 5 } }, "2": { "raw": "Quadruple (4x)", "interpreted": { "fifthHitDamageMultiplier": 4, "requiredStacks": 5 } }, "3": { "raw": "Quintuple (5x)", "interpreted": { "fifthHitDamageMultiplier": 5, "requiredStacks": 5 } } },
-      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "on-hit", "modelCategory": "stack-and-self-damage", "runtimeStatus": "needs-state-model",
-      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/pain-cycle", "retrievedAt": "2026-08-29", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Attacks drain health to build five stacks; the next attack uses the tier multiplier." }],
-      "confidence": "medium", "notes": "Needs combo-independent stack state, self-damage, healing interaction, and per-hit damage events."
+      "tierValues": { "1": { "raw": "Triple (3x)", "interpreted": { "chargedDamageMultiplier": 3, "requiredChargingAttacks": 5, "cycleLengthAttacks": 6 } }, "2": { "raw": "Quadruple (4x)", "interpreted": { "chargedDamageMultiplier": 4, "requiredChargingAttacks": 5, "cycleLengthAttacks": 6 } }, "3": { "raw": "Quintuple (5x)", "interpreted": { "chargedDamageMultiplier": 5, "requiredChargingAttacks": 5, "cycleLengthAttacks": 6 } } },
+      "stacking": { "maxCopies": 1, "behavior": "non-stackable" }, "trigger": "other", "modelCategory": "finite-attack-charge-consume-self-damage", "runtimeStatus": "implemented",
+      "sources": [{ "type": "game-files", "url": "https://www.dungeons.tools/enchantments/pain-cycle", "retrievedAt": "2026-09-01", "supports": ["applicability", "rarity", "tier-values", "trigger-mechanics", "stacking"], "confidence": "high", "note": "Five charging attacks then NEXT attack is3/4/5x; never fifth-hit amplification." }, { "type": "minecraft-wiki", "url": "https://minecraft.wiki/w/Dungeons:Pain_Cycle", "retrievedAt": "2026-09-01", "supports": ["trigger-mechanics"], "confidence": "high", "note": "3% maximum health per charging attack, not historical community5%. Sixth-cost/reset timing is separately low-confidence." }],
+      "confidence": "low", "notes": "Phase 2-1J partial: four-weapon action proxy, finite charging/empowered/unused stacks, gross healing minus full self-cost enters signed utility and Pareto. Sixth attack free/reset0 is a low-confidence model, not fully verified. Reject all eight direct modifiers plus Dynamo. No enemy mitigation, indirect amplification, miss or death timeline. See charge-consume-enchantment-audit.json."
     },
     {
       "id": "poison-cloud",

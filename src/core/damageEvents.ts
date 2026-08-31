@@ -1,4 +1,6 @@
 import { PROC_DAMAGE_DEFINITIONS, PROC_DAMAGE_IDS } from '../data/damageEvents'
+import { CHARGE_WEAPONS, DYNAMO_POWER_RANGE } from '../data/chargeConsume'
+import { chargeCombinationUnsupportedReason } from './chargeConsume'
 import { calculateBaseHitsPerSecond, calculateComboFinisherRate } from './attackProfile'
 import { getAttackProfile } from './catalog'
 import { getTierValues } from './enchantment'
@@ -19,10 +21,11 @@ export function procPowerRange(id: ProcDamageId): { min: number; max: number } {
 
 /** One support boundary shared by evaluation, candidate search and UI. */
 export function enchantmentUnsupportedReason(weapon: Pick<OwnedWeapon, 'powerLevel' | 'weaponId'>, id: EnchantmentId): string | undefined {
+  if ((id === 'pain-cycle' || id === 'dynamo') && !CHARGE_WEAPONS.includes(weapon.weaponId)) return `${id}は監査済みの4武器のattack proxyのみ対応です。`
   const soulReason = soulEnchantmentUnsupportedReason(weapon.weaponId, id)
   if (soulReason) return soulReason
-  if (!isProcDamageId(id) && !isDotDamageId(id)) return undefined
-  const range = isProcDamageId(id) ? procPowerRange(id) : dotPowerRange(id)
+  if (!isProcDamageId(id) && !isDotDamageId(id) && id !== 'dynamo') return undefined
+  const range = id === 'dynamo' ? DYNAMO_POWER_RANGE : isProcDamageId(id) ? procPowerRange(id) : dotPowerRange(id)
   if (!Number.isFinite(weapon.powerLevel) || weapon.powerLevel < range.min || weapon.powerLevel > range.max) {
     return `${id}はPower ${range.min}–${range.max}のみ対応（現在${weapon.powerLevel}）。公開表の範囲外は外挿しません。`
   }
@@ -33,6 +36,8 @@ export function enchantmentUnsupportedReason(weapon: Pick<OwnedWeapon, 'powerLev
 }
 
 export function enchantmentCombinationUnsupportedReason(enchantments: readonly SelectedEnchantment[]): string | undefined {
+  const chargeReason = chargeCombinationUnsupportedReason(enchantments)
+  if (chargeReason) return chargeReason
   if (enchantments.filter((item) => item.enchantmentId === 'chains').length > 1) {
     return 'Chainsの複数copyは同時proc・mixed tier・再発動時の持続時間が未検証のため未対応です（game最大4個、runtime1個限定）。'
   }

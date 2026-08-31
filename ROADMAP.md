@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（4 / 13）
+## Phase 2 — Equipment Coverage（4 / 14）
 
 - [x] Phase 2-1A: 1.17.0.0の近接エンチャント33種を監査・分類し、runtime実装順序とunsupported境界を確定
 - [x] Phase 2-1B: Sharpness / Unchanting + Enemy Composition（直接近接modifier・敵割合UI・Evidence・7 / 33 runtime対応）
@@ -60,7 +60,8 @@
 - [ ] Phase 2-1H partial: Fire Aspect / Poison Cloud / Exploding（catalog22 / 33、広域17・範囲限定5、stack/Void/overlap未検証）
 - [ ] Phase 2-1G partial: Soul Scythe / Soul subsystem / Anima / Siphon（catalog 19 / 33、広域16・範囲限定3、Enigma mapping未検証）
 - [ ] Phase 2-1I partial: Control第4軸 + Chains / Stunning / Freezing / Gravity（catalog26 / 33、広域21・限定5、stack/duration/免疫制限）
-- [ ] 近接エンチャントを25〜30種類へ拡張（26種へ到達、制限評価を残して進行中）
+- [ ] Phase 2-1J partial: Pain Cycle / Dynamo（catalog28 / 33、広域22・限定6、HP cost/roll flow/合成制限）
+- [ ] 近接エンチャントを25〜30種類へ拡張（28種へ到達、限定runtimeの制約を記録し完了提案待ち）
 - [ ] アーティファクトを10〜15種類へ拡張
 - [ ] 防具・防具エンチャントをモデル化
 - [ ] 遠距離武器・固有効果をモデル化
@@ -78,7 +79,16 @@
 
 ## 現在の作業位置
 
-Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2-1C、Phase 2-1Eは完了しました。Phase 2-1Aでは1.17.0.0のhero-accessibleな近接エンチャント33種を確定し、`implemented 26（広域21・5種範囲限定） / straightforward 0 / needs-state-model 5 / needs-damage-event-model 0 / needs-enemy-state 0 / utility-only 2`へ進みました。Phase 2-1DはDamageEventと3種のPower範囲限定runtimeを実装しました。公開表38 Power点・114 Tier値から個別log補間を行い、外挿せずpartialを維持します。Shockwave 210–252 / Swirling 210–263 / Thundering 248–263以外は未対応です。近接25〜30種への親項目は未完了です。未実装7種はruntime catalogへ入れず、0点評価を防いでいます。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
+Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2-1C、Phase 2-1Eは完了しました。Phase 2-1Aでは1.17.0.0のhero-accessibleな近接エンチャント33種を確定し、`implemented 28（広域22・6種範囲限定） / straightforward 0 / needs-state-model 3 / needs-damage-event-model 0 / needs-enemy-state 0 / utility-only 2`へ進みました。Phase 2-1DはDamageEventと3種のPower範囲限定runtimeを実装しました。公開表38 Power点・114 Tier値から個別log補間を行い、外挿せずpartialを維持します。Shockwave 210–252 / Swirling 210–263 / Thundering 248–263以外は未対応です。近接25〜30種への親項目は未完了です。未実装5種はruntime catalogへ入れず、0点評価を防いでいます。Phase 1では既存3武器の公開per-hit timing、Power 50〜263の換算、Void Strikeの公開測定curveまで完了しています。Phase 1-4は公開候補10件を監査しましたが、run-level raw値・完全build・target・versionを再現できるeligible sampleは0 / 5でpartialです。架空値やmodel-derived値は追加しません。Void Strikeの厳密なframe関数、tier別minimum、外部damage消費、target switching、daggers / sawblade系6件、Power fixtureのversion / roll不明、raw game-file fieldの独立確認も継続課題です。
+
+### Phase 2-1J（partial）
+
+Pain Cycle / Dynamoでcatalog28 / 33、広域22・限定6、research-only5、needs-state-model3、utility-only2。
+Painは5回充填→次攻撃3/4/5x、HP3%×charging回数、6回目costなし/reset0はlow-confidence。Gross/self/netを分離し負のnetもscore/Paretoへ反映。
+DynamoはPower210–263の10点×3独立Tier曲線、roll/初期stack0、cap20、初期burst・有限consume・overflow・末尾charge。roll animation costは未計上。
+全8直接modifierとのpairとPain+DynamoはEvidence不足で拒否。範囲/通常/金色/保存/JSON/optimizer/reason/confidence/UIを接続し、旧c24f377の8ケースを全既存出力で比較。候補fast path維持。
+次候補はBusy Bee summon subsystem（spawn/lifetime/damage監査が前提）、Looting+Prospector farming utility（別目的が前提）、Echo/Enigmaの実測再監査。
+[設計・interaction matrix・次候補比較](./docs/charge-consume-enchantments.md) / [監査](./research/charge-consume-enchantment-audit.json)。親項目は28種の意味ある限定runtimeを根拠に完了提案可能だが、全33種完全対応とはしない。
 
 ## 更新ルール
 
@@ -86,7 +96,7 @@ Phase 0、Phase 0.5、Phase 0.5.1、Phase 1A、Phase 2-1A、Phase 2-1B、Phase 2
 - `done` はコード・テスト・画面確認がすべて完了した項目だけに付ける。
 - 新しい未対応事項を見つけた場合は、握りつぶさず該当Phaseへ追加する。
 
-Phase 2-1D partial — 低Power proc表と共通curveのEvidenceが未解決です。[詳細](./docs/damage-events.md)。Phase 2-1EはAmbush / Smitingの個別exposure・共通条件stackingとCommittedの解析HP推移を実装済みです。Phase 2-1FはArtifact Synergy / Rampagingを実装、Echoはrepeat/animation/combo/Void/kill根拠不足でpartial。Phase 2-1GはSoul ScytheでAnima / Siphonを実装しましたが、EnigmaのSoul→chance mappingが未検証でpartialです。pickup/resourceを分離し、容量300・開始0・消費なしを採用。[Soul設計と次batch比較](./docs/soul-subsystem.md)を参照。Phase 2-1HではFire Aspect / Poison Cloud / Explodingを限定実装。CC utility subsystemはPhase 2-1Iで限定実装済みです。次はPain Cycle / Dynamoのcharge/consume state監査を推奨します。CC utility、Pain Cycle / Dynamo / Busy Beeとの[比較と制約](./docs/temporal-enchantments.md)を参照。 ポーションの連続rate・追加回復容量、Weakeningの50%coverageと時間平均合成はlow-confidence仮定です。Weakening stackingのdungeons.tools/Wiki矛盾は記録済みで最大1個を採用（medium）。合成interactionの独立実機検証とEnemy Compositionの実測も継続課題です。
+Phase 2-1D partial — 低Power proc表と共通curveのEvidenceが未解決です。[詳細](./docs/damage-events.md)。Phase 2-1EはAmbush / Smitingの個別exposure・共通条件stackingとCommittedの解析HP推移を実装済みです。Phase 2-1FはArtifact Synergy / Rampagingを実装、Echoはrepeat/animation/combo/Void/kill根拠不足でpartial。Phase 2-1GはSoul ScytheでAnima / Siphonを実装しましたが、EnigmaのSoul→chance mappingが未検証でpartialです。pickup/resourceを分離し、容量300・開始0・消費なしを採用。[Soul設計と次batch比較](./docs/soul-subsystem.md)を参照。Phase 2-1HではFire Aspect / Poison Cloud / Explodingを限定実装。CC utility subsystemはPhase 2-1Iで限定実装済みです。Phase 2-1JでPain Cycle / Dynamoの有限charge/consume・自己damage・roll設定を限定実装。次候補はBusy Beeのsummon監査です。CC utility、Pain Cycle / Dynamo / Busy Beeとの[比較と制約](./docs/temporal-enchantments.md)を参照。 ポーションの連続rate・追加回復容量、Weakeningの50%coverageと時間平均合成はlow-confidence仮定です。Weakening stackingのdungeons.tools/Wiki矛盾は記録済みで最大1個を採用（medium）。合成interactionの独立実機検証とEnemy Compositionの実測も継続課題です。
 
 Phase 2-1Gの終了条件のうち、合法Soul武器・通常/金色/保存/JSON/Optimizer・Soul収入/ゲージ・Anima/Siphon・Rampaging整合は対応済み。Enigmaの中間ゲージ実測、絶対量/割合、100 cap履歴、Bag of Souls差を解決するまでfull completeにはしません。Anima満タン時の名目容量とSiphonのAoE抽選単位もlow-confidence制限として記録しています。
 
@@ -96,5 +106,5 @@ Phase 2-1Hはpartial。Fire Power70–251・1copy（250の異常値はrawのみ�
 Phase 2-1Iはpartial。4つのraw CC指標とControl utility、4軸objective/Pareto、contribution、通常/確定/金色/保存/JSONを実装。
 Chainsはgame4copy/runtime1copy、Stunning基準2秒はcommunity由来low。Freezingをattack-speed-slowへ訂正、Gravityは集敵のみ。
 CCをDPS/DR/kill/Ambush/Weakeningへ転用しない。4buildの旧commit回帰、有限Bernoulli coverageの独立oracleを含む検証を追加。
-26種のruntimeに意味ある評価と制約があるが、親25〜30種は件数だけでcloseせず進行中とする。
+28種のruntimeに意味ある評価と制約があり、親25〜30種は完了提案待ちとして進行中を維持する。
 [CCの設計・policy・残課題と次候補比較](./docs/cc-utility.md)を参照。既存のPhase 1-4 / 2-1D / F / G / H partialは維持する。

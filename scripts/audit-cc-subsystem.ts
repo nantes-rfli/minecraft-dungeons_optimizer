@@ -55,6 +55,6 @@ assert.equal(audit.coverageModel.method, 'finite-periodic-bernoulli-window-exact
 assert.ok(Object.values(audit.priorPhases).every((status) => status === 'partial'))
 const runtime = melee.entries.filter((e: { runtimeStatus: string }) => e.runtimeStatus === 'implemented').length
 const limited = melee.entries.filter((e: { runtimePowerRange?: unknown }) => e.runtimePowerRange).length
-assert.equal(runtime, 26)
-assert.equal(limited, 5)
+assert.equal(runtime, 28)
+assert.equal(limited, 6)
 console.log(`CC audit passed: ${runtime}/33 catalog, ${runtime - limited}/33 broad Power, ${limited} limited; Chains single-copy and Stunning low-confidence duration keep Phase 2-1I partial.`)

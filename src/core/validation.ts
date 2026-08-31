@@ -1,4 +1,5 @@
 import { validateControlAssumptions } from './control'
+import { validateChargeInputs } from './chargeConsume'
 import { getEnchantmentDefinition } from './catalog'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
@@ -38,6 +39,7 @@ function assertPowerLevel(name: string, value: number, code: string): void {
 }
 
 export function validateScenario(scenario: Scenario): void {
+  validateChargeInputs(scenario)
   validatePersistentAreaTargeting(scenario)
   validateControlAssumptions(scenario)
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)

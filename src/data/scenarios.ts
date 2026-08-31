@@ -36,6 +36,8 @@ export const DEFAULT_SCENARIO_EVIDENCE = {
 } as const satisfies Record<string, Evidence<number>>
 
 export const DEFAULT_SCENARIO: Scenario = {
+  rollsPerSecond: 0,
+  dynamoInitialStacks: 0,
   profileId: 'balanced',
   name: 'バランス（MVP仮定）',
   encounterDurationSeconds: DEFAULT_SCENARIO_EVIDENCE.encounterDurationSeconds.value,

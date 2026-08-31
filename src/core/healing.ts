@@ -42,11 +42,15 @@ export function calculateHealing(
   const animaHealingCapacityPerSecond = animaEffect?.kind === 'soul-pickup-healing'
     ? animaHealingCapacity(soulState!.totalPickupEventsPerSecond, scenario.maxHealth, animaEffect.maxHealthFractionPerPickup)
     : 0
+  const grossHealingCapacityPerSecond = radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond
+  const selfDamagePerSecond = damage.painCycleState?.selfDamagePerSecond ?? 0
+  const netSustainPerSecond = grossHealingCapacityPerSecond - selfDamagePerSecond
   return {
+    grossHealingCapacityPerSecond, selfDamagePerSecond, netSustainPerSecond,
     animaHealingCapacityPerSecond,
     radiancePerSecond,
     leechingPerSecond,
     refreshmentPotionCapacityPerSecond: potionState.incrementalHealingCapacityPerSecond,
-    totalPerSecond: radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond,
+    totalPerSecond: netSustainPerSecond,
   }
 }

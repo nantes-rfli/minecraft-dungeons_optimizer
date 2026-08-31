@@ -1,4 +1,5 @@
 import { isControlId, CC_REFRESH_MODEL, CC_ELIGIBILITY_MODEL, CC_CLUSTER_MODEL, STUNNING_DURATION } from '../data/control'
+import { PAIN_HEALTH_COST, DYNAMO_NUMERIC_EVIDENCE } from '../data/chargeConsume'
 import { DOT_DAMAGE_CURVES, DOT_EXPLOSION_IDS, FIRE_REFRESH_MODEL, FIRE_TARGET_MODEL, POISON_SATURATION_MODEL, EXPLOSION_TARGET_MODEL, EXPLOSION_KILL_SOURCE } from '../data/dotDamageEvents'
 import { isDotDamageId } from './dotDamageEvents'
 import { BASE_SOUL_CAPACITY, INITIAL_SOULS, SOUL_GATHERING_PER_ENCHANTMENT, SOUL_TRAJECTORY_MODEL, SOUL_NORMAL_KILL_MODEL, SOUL_SIPHON_ROLL_MODEL, SOUL_SIPHON_PICKUPS, ANIMA_CAPACITY_MODEL, SOUL_GILDED_GATHERING_MODEL, isSoulEnchantmentId } from '../data/souls'
@@ -113,6 +114,26 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   addEvidence('maximum-health', '最大HP', DEFAULT_SCENARIO_EVIDENCE.maxHealth)
 
   const uniqueEnchantments = new Set(build.enchantments.map((item) => item.enchantmentId))
+  if (uniqueEnchantments.has('pain-cycle') || uniqueEnchantments.has('dynamo')) {
+    add('charge-action-proxy', '4武器限定: profile hitを1攻撃とみなす有限cadence', 'low', 3)
+    add('charge-direct-attribution', '強化武器攻撃をdirectへ分類（公開記述とcommunity報告からの推論）', 'medium', 2)
+    add('charge-aoe', '強化攻撃の各近接対象へbonusを適用', 'low', 2)
+    caveats.push('charge/consumeは4武器のprofile hit=1攻撃、初撃t=0、戦闘終了時刻の攻撃を除外、全攻撃命中・均一hit damageの限定モデルです。空振り、対象交代、Sawblade、Light Feather、roll armorは対象外。Critical/Void/Sharpness/Unchanting/Ambush/Smiting/Artifact Synergy/Committedとの併用、およびPain + DynamoはEvidence不足で除外します。間接damageへ倍率を掛けません。')
+  }
+  if (uniqueEnchantments.has('pain-cycle')) {
+    addEvidence('pain-health-cost', 'chargingごとの最大HP3%消費（公開仕様）', PAIN_HEALTH_COST)
+    add('pain-consume-health-timing', '5回HP消費→6回目消費なし・stack0へreset', 'low', 3)
+    add('pain-finite-cycle', '有限charge数とbonus・自己damage（モデル導出）', 'low', 2)
+    caveats.push('Pain Cycleは5回充填した次の攻撃が3/4/5倍。6回目にHP消費・次周期の加算なしとするタイミングはcommunity説明からの低信頼度採用で、独立実測未済。基本DPSは従来の平均rate、加算bonusとHP消費だけ有限攻撃列で計算します。gross回復容量−自己damageをnet sustainとしてranking/Paretoへ使用し、負値も減点します。敵攻撃用の防御は適用せず、死亡・最低HP・overhealの時系列は再現しません。')
+  }
+  if (uniqueEnchantments.has('dynamo')) {
+    addEvidence('dynamo-table', 'Tier別公開30数値・同Power個体差とversion不明', DYNAMO_NUMERIC_EVIDENCE, 2)
+    add('dynamo-interpolation', 'Power210–263のTier別log補間', 'low', 2)
+    add('dynamo-roll-input', 'ユーザー指定roll頻度・初期stack', 'low', 2)
+    add('dynamo-roll-flow', '攻撃間の連続stack収入・cap20・終了時残量', 'low', 3)
+    add('dynamo-roll-opportunity', 'ロールanimationによる攻撃機会損失を省略', 'low', 3)
+    caveats.push('Dynamoは10 Power点×3独立Tier値。表示1/1.25/1.5では数値表を再現できず、別々にlog補間し外挿しません。初期stack0〜20、roll頻度は全scenario初期0。攻撃間min(20,roll頻度×間隔)を消費する連続期待量モデルで、小数stackを許します。最初の攻撃は初期stackだけ消費、戦闘末尾の蓄積はdamageにしません。rollの時間コストを省き上限寄りです。直接撃破への帰属とAoE各対象への加算は公開記述・community報告からの限定解釈で、Jungle Poisonへ一般化しません。')
+  }
   for (const enchantmentId of uniqueEnchantments) {
     const definition = getEnchantmentDefinition(enchantmentId)
     addEvidence(

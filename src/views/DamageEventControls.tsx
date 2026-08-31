@@ -5,6 +5,7 @@ import type { PersistentAreaTargetingAssumptions } from '../core/types'
 import type { DamageEventTargetingAssumptions, Evaluation, OwnedWeapon } from '../core/types'
 import { enchantmentUnsupportedReason, procPowerRange } from '../core/damageEvents'
 import { PROC_DAMAGE_IDS } from '../data/damageEvents'
+import { DYNAMO_POWER_RANGE } from '../data/chargeConsume'
 import { ENCHANTMENTS } from '../data/enchantments'
 
 export function DamageEventTargetingControl({ value, maximum, onChange }: {
@@ -24,8 +25,8 @@ export function DamageEventTargetingControl({ value, maximum, onChange }: {
 export function ProcPowerSupport({ weapon }: { weapon: OwnedWeapon }) {
   return <details className="scenario-values"><summary>追加ダメージの対応Power（Phase 2-1D / 2-1H partial）</summary>
     <p>表示ダメージ入力は武器hit専用です。instant procとDoTは武器Powerから算出し、範囲外の候補は評価しません。ExplodingはPower非依存です。確定・金色の範囲外指定はエラーになります。</p>
-    {[...PROC_DAMAGE_IDS, ...DOT_DAMAGE_IDS].map((id) => {
-      const range = isDotDamageId(id) ? dotPowerRange(id) : procPowerRange(id)
+    {[...PROC_DAMAGE_IDS, ...DOT_DAMAGE_IDS, 'dynamo' as const].map((id) => {
+      const range = id === 'dynamo' ? DYNAMO_POWER_RANGE : isDotDamageId(id) ? dotPowerRange(id) : procPowerRange(id)
       const reason = enchantmentUnsupportedReason(weapon, id)
       return <p key={id}>{ENCHANTMENTS[id].name.en}: {range.min}–{range.max} {reason ? '（現在のPowerは未対応）' : '（対応）'}</p>
     })}

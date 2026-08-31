@@ -1,0 +1,809 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-01",
+  "baselineCommit": "c24f377449cce58fcab43bf5d63e273facd6096d",
+  "phaseStatus": "partial",
+  "sourceHierarchy": [
+    "dungeons.tools 1.17.0.0",
+    "Minecraft Wiki",
+    "quantitative community testing",
+    "agreeing reports (check author independence)",
+    "explicit model assumption"
+  ],
+  "sources": [
+    {
+      "id": "pain-tools",
+      "url": "https://www.dungeons.tools/enchantments/pain-cycle",
+      "type": "game-files",
+      "confidence": "high",
+      "note": "1.17.0.0-derived tiers/non-stackable/next attack; prose is not raw implementation."
+    },
+    {
+      "id": "pain-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Pain_Cycle",
+      "type": "published-reference",
+      "confidence": "high",
+      "note": "Published 3% maximum HP per attack creating a stack. No explicit event trace for empowered self-cost."
+    },
+    {
+      "id": "pain-sixth",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1fa7s1n/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "2024-09-06 report separates first five health costs and sixth empowered attack; not a controlled current-version trace."
+    },
+    {
+      "id": "pain-old-conflict",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/13cnxst/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "Historical 5% health claim is NOT adopted; published 3% takes precedence."
+    },
+    {
+      "id": "dynamo-tools",
+      "url": "https://www.dungeons.tools/enchantments/dynamo",
+      "type": "game-files",
+      "confidence": "high",
+      "note": "Melee/ranged, one stack per roll, 20 cap, one attack consumes all then reset; tier display only."
+    },
+    {
+      "id": "dynamo-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Dynamo",
+      "type": "published-reference",
+      "confidence": "medium",
+      "note": "10 Power rows / 30 independent tier samples, same-Power variation; version/roll unspecified. 1.8.0.0 history establishes cap20."
+    },
+    {
+      "id": "dynamo-aoe",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1c6giia/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "First-person mechanics explanation: added weapon damage reaches all struck mobs without weapon damage dropoff; also discusses excluded Jungle Poison."
+    },
+    {
+      "id": "dynamo-aoe-2",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1d0hx4w/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "Agreeing explanation of added weapon/AoE damage; author independence not established. Not a controlled damage/kill trace."
+    },
+    {
+      "id": "dynamo-weapon",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1hkqkhu/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "Added base melee damage, distinct from Shockwave/Swirling. General modifier statements do not establish every pair."
+    },
+    {
+      "id": "pain-composition",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15fndnu/",
+      "type": "community-test",
+      "confidence": "low",
+      "note": "Flat bonus composition warnings; does not establish the requested nine-pair matrix. Do not promote a community formula to game truth."
+    },
+    {
+      "id": "model",
+      "type": "model-assumption",
+      "confidence": "low",
+      "note": "Finite first-hit-at-zero cadence, no misses, equal hit proxy for four audited weapons, continuous roll income, no roll time cost; see docs/charge-consume-enchantments.md."
+    }
+  ],
+  "attackProfileReview": [
+    {
+      "weaponId": "fighters-bindings",
+      "adopted": true,
+      "confidence": "low",
+      "granularity": "1 published profile hit approximates 1 melee action; equal base hit damage; never one stack per AoE target.",
+      "sourceIds": [
+        "model"
+      ],
+      "scope": "Existing audited ordinary profile only; no sawblade, repeat, Light Feather or roll armor."
+    },
+    {
+      "weaponId": "double-axe",
+      "adopted": true,
+      "confidence": "low",
+      "granularity": "1 published profile hit approximates 1 melee action; equal base hit damage; never one stack per AoE target.",
+      "sourceIds": [
+        "model"
+      ],
+      "scope": "Existing audited ordinary profile only; no sawblade, repeat, Light Feather or roll armor."
+    },
+    {
+      "weaponId": "anchor",
+      "adopted": true,
+      "confidence": "low",
+      "granularity": "1 published profile hit approximates 1 melee action; equal base hit damage; never one stack per AoE target.",
+      "sourceIds": [
+        "model"
+      ],
+      "scope": "Existing audited ordinary profile only; no sawblade, repeat, Light Feather or roll armor."
+    },
+    {
+      "weaponId": "soul-scythe",
+      "adopted": true,
+      "confidence": "low",
+      "granularity": "1 published profile hit approximates 1 melee action; equal base hit damage; never one stack per AoE target.",
+      "sourceIds": [
+        "model"
+      ],
+      "scope": "Existing audited ordinary profile only; no sawblade, repeat, Light Feather or roll armor."
+    }
+  ],
+  "entries": [
+    {
+      "id": "pain-cycle",
+      "runtimeStatus": "implemented",
+      "scope": "bounded partial, uncertain modifier pairs rejected",
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "tiers": [
+        3,
+        4,
+        5
+      ],
+      "requiredChargingAttacks": 5,
+      "cycleLengthAttacks": 6,
+      "selfHealthFraction": 0.03,
+      "claims": {
+        "chargeSource": {
+          "value": "Attacks create charge, not confirmed enemy hits; one profile hit per attack is an explicit low-confidence proxy.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-tools",
+            "model"
+          ]
+        },
+        "chargeCap": {
+          "value": "Five stacks become ready; the following (normally sixth) melee attack is empowered.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "pain-tools",
+            "pain-wiki"
+          ]
+        },
+        "chargeGranularity": {
+          "value": "One charge per charging action, never multiplied by targets.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-tools",
+            "model"
+          ]
+        },
+        "consume": {
+          "value": "Consume ready charge once on next attack; reset to zero, not one. Sixth attack carries no self-cost in the adopted limited model.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-tools",
+            "pain-sixth",
+            "model"
+          ]
+        },
+        "miss": {
+          "value": "Public text says attacking, but miss consume/retention has no controlled four-weapon trace. Runtime assumes contact on every scheduled action; miss playstyles unsupported.",
+          "status": "unresolved",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-tools",
+            "model"
+          ]
+        },
+        "damageFormula": {
+          "value": "N attacks: E=floor(N/6), C=N-E, unused=N mod6. Bonus=E*B*(M-1); finite total=N*B+bonus. Existing base B*H DPS stays unchanged; only finite bonus/T enters direct channel.",
+          "status": "model-derived",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "selfDamage": {
+          "value": "C * 0.03 * maxHP, no enemy mitigation. 5/6/7 actions cost 15/15/18 at HP100. 3% is published high; five-cost/sixth-free timing remains low.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-wiki",
+            "pain-sixth",
+            "pain-old-conflict",
+            "model"
+          ]
+        },
+        "sustain": {
+          "value": "gross healing capacity minus self damage; totalPerSecond is net. Signed saturating utility preserves negative penalty, Pareto compares unclamped net. Preference weight zero can intentionally ignore healing. No death/overheal timeline.",
+          "status": "model-derived",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "attribution": {
+          "value": "Empowered melee attack is direct weapon damage; existing damage-share approximation routes it to direct-kill systems, not proc kills.",
+          "status": "limited-model",
+          "confidence": "medium",
+          "sourceIds": [
+            "pain-tools",
+            "pain-wiki",
+            "model"
+          ]
+        },
+        "aoe": {
+          "value": "Empowered swing bonus applies to existing expected melee targets, charge/cost occurs once. No target switching or dropoff trace.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-tools",
+            "model"
+          ]
+        },
+        "modifierInteraction": {
+          "value": "All eight requested direct modifiers and Dynamo rejected pending combined-hit evidence; indirect event formulas independent.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "pain-composition",
+            "model"
+          ]
+        },
+        "runtimeBlocker": {
+          "value": "Standalone four-weapon model enabled; miss, exact empowered self-cost, HP-floor/death, mitigation and modifier combinations still unverified.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "interactionMatrix": [
+        {
+          "with": "critical-hit",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "void-strike",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "sharpness",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "unchanting",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "ambush",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "smiting",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "artifact-synergy",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "committed",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "dynamo",
+          "classification": "unsupported",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "Missing additive vs multiplicative composition and simultaneous consume ordering."
+        },
+        {
+          "with": "shockwave",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "swirling",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "thundering",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "fire-aspect",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "poison-cloud",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "exploding",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No multiplier on explosion; direct-kill source rate may change through existing feedback."
+        }
+      ],
+      "blockers": [
+        "Empowered attack no-cost/reset-to-zero needs a controlled current-version trace.",
+        "Miss consume and player HP-floor/death trajectory unmodeled.",
+        "All nine direct modifier pairs rejected; no average Pain × average Void shortcut.",
+        "Sawblade/Light Feather/roll armor excluded."
+      ]
+    },
+    {
+      "id": "dynamo",
+      "runtimeStatus": "implemented",
+      "scope": "melee only, Power210–263, partial",
+      "stacking": {
+        "maxCopies": 1,
+        "behavior": "non-stackable"
+      },
+      "runtimePowerRange": {
+        "min": 210,
+        "max": 263
+      },
+      "cap": 20,
+      "defaults": {
+        "rollsPerSecond": 0,
+        "dynamoInitialStacks": 0
+      },
+      "rawTierLabels": [
+        "+X",
+        "+1.25X",
+        "+1.5X"
+      ],
+      "numericSamples": [
+        {
+          "powerLevel": 210,
+          "damage": [
+            35214,
+            56343,
+            77471
+          ]
+        },
+        {
+          "powerLevel": 216,
+          "damage": [
+            45964,
+            73542,
+            101120
+          ]
+        },
+        {
+          "powerLevel": 227,
+          "damage": [
+            72060,
+            115296,
+            158532
+          ]
+        },
+        {
+          "powerLevel": 228,
+          "damage": [
+            75559,
+            120894,
+            166229
+          ]
+        },
+        {
+          "powerLevel": 240,
+          "damage": [
+            123208,
+            197132,
+            271057
+          ]
+        },
+        {
+          "powerLevel": 246,
+          "damage": [
+            152094,
+            243350,
+            334607
+          ]
+        },
+        {
+          "powerLevel": 247,
+          "damage": [
+            161636,
+            258617,
+            355599
+          ]
+        },
+        {
+          "powerLevel": 249,
+          "damage": [
+            171751,
+            274802,
+            377852
+          ]
+        },
+        {
+          "powerLevel": 251,
+          "damage": [
+            191087,
+            305739,
+            420391
+          ]
+        },
+        {
+          "powerLevel": 263,
+          "damage": [
+            300090,
+            480144,
+            660198
+          ]
+        }
+      ],
+      "claims": {
+        "chargeSource": {
+          "value": "Every roll adds one stack. Roll frequency is external user input, default zero for all scenarios.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "dynamo-tools"
+          ]
+        },
+        "chargeCap": {
+          "value": "Cap20 since 1.8.0.0, initial integer stacks 0–20.",
+          "status": "supported",
+          "confidence": "high",
+          "sourceIds": [
+            "dynamo-tools",
+            "dynamo-wiki"
+          ]
+        },
+        "chargeGranularity": {
+          "value": "Continuous expected roll income permits fractional stacks between periodic attack actions, not fractional initial stacks.",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "consume": {
+          "value": "All pending stacks go into next attack and reset. Initial stacks are consumed at t=0; later income cannot leak into first attack.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "dynamo-tools",
+            "model"
+          ]
+        },
+        "miss": {
+          "value": "No verified normal-melee miss trace. Runtime assumes all scheduled actions contact a target; no ranged/sawblade exceptions.",
+          "status": "unresolved",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "damageFormula": {
+          "value": "Use each tier's independent log-linear curve, exact knots, no extrapolation or observed-weapon-damage ratio. UI1/1.25/1.5 conflicts with numerical ratios about1/1.6/2.2.",
+          "status": "limited-model",
+          "confidence": "medium",
+          "sourceIds": [
+            "dynamo-wiki",
+            "dynamo-tools"
+          ]
+        },
+        "rollAccounting": {
+          "value": "Each completed gap consumes min(20,rollRate*gap). Retain min(20,tail income) at end; remainder overflows. Long-run uniform cadence equals min(rollRate,20*H); variable cadence can accept less. Sum periodic gap counts in O(profile length).",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "opportunityCost": {
+          "value": "Roll animation and attack opportunity loss omitted; continuous optimalized expected flow is optimistic and not a literal roll schedule.",
+          "status": "assumption",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        },
+        "attribution": {
+          "value": "Published next-weapon-attack wording plus added-base-melee community reports support direct melee component (medium, inference); existing low-confidence damage-share kill proxy applies. Not standalone magic proc damage.",
+          "status": "limited-model",
+          "confidence": "medium",
+          "sourceIds": [
+            "dynamo-tools",
+            "dynamo-weapon",
+            "model"
+          ]
+        },
+        "aoe": {
+          "value": "Full added damage per struck melee target supported by agreeing reports, not independent experiments. Multiply existing expected melee targets; no extra stack consumption per target. Jungle Poison explicitly outside scope.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "dynamo-aoe",
+            "dynamo-aoe-2",
+            "model"
+          ]
+        },
+        "modifierInteraction": {
+          "value": "Critical/Void/Sharpness/Unchanting/Ambush/Smiting/Artifact Synergy/Committed/Pain all rejected; generic reports are insufficient for exact ordering or consumption.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "dynamo-weapon",
+            "model"
+          ]
+        },
+        "runtimeBlocker": {
+          "value": "Power outside210–263 and uncertain pairs rejected. Default roll0/initial0 is valid supported zero, not missing mechanics.",
+          "status": "limited-model",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ]
+        }
+      },
+      "interactionMatrix": [
+        {
+          "with": "critical-hit",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "void-strike",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "sharpness",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "unchanting",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "ambush",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "smiting",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "artifact-synergy",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "committed",
+          "classification": "uncertain",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "dynamo-weapon"
+          ],
+          "reason": "No current-version quantitative combined-hit/consume trace; reject pair through shared combination boundary, not zero contribution."
+        },
+        {
+          "with": "pain-cycle",
+          "classification": "unsupported",
+          "runtime": "unsupported",
+          "confidence": "low",
+          "sourceIds": [
+            "model",
+            "pain-composition"
+          ],
+          "reason": "Missing additive vs multiplicative composition and simultaneous consume ordering."
+        },
+        {
+          "with": "shockwave",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "swirling",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "thundering",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "fire-aspect",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "poison-cloud",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No amplification and no extra charge/consume opportunities from indirect events; limited model."
+        },
+        {
+          "with": "exploding",
+          "classification": "independent",
+          "runtime": "supported",
+          "confidence": "low",
+          "sourceIds": [
+            "model"
+          ],
+          "reason": "No multiplier on explosion; direct-kill source rate may change through existing feedback."
+        }
+      ],
+      "blockers": [
+        "Independent tier curves only within ten-row public range; table version and same-Power rolls unknown.",
+        "No real roll schedule/animation loss or miss handling.",
+        "Nine uncertain direct modifier pairs rejected.",
+        "Direct attribution is a documented evidence-backed inference, AoE low; needs controlled current-version kill/target traces."
+      ]
+    }
+  ]
+}

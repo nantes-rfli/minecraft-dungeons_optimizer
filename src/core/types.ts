@@ -53,6 +53,8 @@ export type EnchantmentId =
   | 'stunning'
   | 'freezing'
   | 'gravity'
+  | 'pain-cycle'
+  | 'dynamo'
 export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
 export type ScenarioProfileId =
   | 'balanced'
@@ -316,7 +318,9 @@ export type ControlEffect =
   | { readonly kind: 'enemy-attack-speed-slow'; readonly attackSpeedReduction: number; readonly durationSeconds: number }
   | { readonly kind: 'group-pull'; readonly durationSeconds: number }
 
-export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | DotDamageEffect | OnKillExplosionEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect | ControlEffect
+export type ChargeConsumeEffect = { readonly kind: 'pain-cycle'; readonly chargedMultiplier: number } | { readonly kind: 'dynamo' }
+
+export type EnchantmentEffect = DirectWeaponEffect | PotionCooldownOnKillEffect | EnemyDamageDebuffEffect | ProcDamageEffect | DotDamageEffect | OnKillExplosionEffect | ArtifactNextAttackEffect | OnKillAttackSpeedEffect | SoulPickupHealingEffect | OnHitSoulGenerationEffect | ControlEffect | ChargeConsumeEffect
 
 export type DamageChannel = 'direct-melee' | 'enchantment-proc'
 
@@ -526,6 +530,9 @@ export interface EnemyStateAssumptions {
 }
 
 export interface Scenario {
+  /** External inputs; omission preserves compatibility with older scenarios. */
+  readonly rollsPerSecond?: number
+  readonly dynamoInitialStacks?: number
   readonly profileId: ScenarioProfileId
   readonly name: string
   readonly encounterDurationSeconds: number
@@ -623,7 +630,48 @@ export interface OffensiveTemporalState {
   readonly attackSpeedMultiplier: number
 }
 
+export interface PainCycleState {
+  readonly requiredChargingAttacks: number
+  readonly cycleLengthAttacks: number
+  readonly chargedMultiplier: number
+  readonly totalAttackActions: number
+  readonly chargingAttacks: number
+  readonly empoweredAttacks: number
+  readonly empoweredAttacksPerSecond: number
+  readonly unusedStacksAtEncounterEnd: number
+  readonly endPhase: 'charging' | 'ready'
+  readonly selfDamage: number
+  readonly selfDamagePerSecond: number
+  readonly finiteBaseDamage: number
+  readonly finiteTotalDamage: number
+  readonly bonusDamage: number
+  readonly directDps: number
+}
+
+export interface DynamoState {
+  readonly cap: number
+  readonly rollsPerSecond: number
+  readonly initialStacks: number
+  readonly totalAttackActions: number
+  readonly attackActionsPerSecond: number
+  readonly consumptionCapacityPerSecond: number
+  readonly sustainedConsumedStacksPerSecond: number
+  readonly initialConsumedStacks: number
+  readonly totalConsumedStacks: number
+  readonly consumedStacksPerSecond: number
+  readonly averageStacksPerAttack: number
+  readonly overflowStacks: number
+  readonly overflowStacksPerSecond: number
+  readonly unusedStacksAtEncounterEnd: number
+  readonly damagePerStack: number
+  readonly firstAttackBonusDamage: number
+  readonly bonusDamage: number
+  readonly directDps: number
+}
+
 export interface DamageMetrics {
+  readonly painCycleState?: PainCycleState
+  readonly dynamoState?: DynamoState
   readonly artifactSynergyState: ArtifactSynergyState
   readonly damageSource: 'power-curve-estimate' | 'observed-input'
   readonly damagePerHit: number
@@ -721,11 +769,14 @@ export interface PotionState {
 }
 
 export interface HealingMetrics {
+  readonly grossHealingCapacityPerSecond: number
+  readonly selfDamagePerSecond: number
+  readonly netSustainPerSecond: number
   readonly animaHealingCapacityPerSecond: number
   readonly radiancePerSecond: number
   readonly leechingPerSecond: number
   readonly refreshmentPotionCapacityPerSecond: number
-  /** Includes the low-confidence incremental potion capacity proxy, excluding baseline potion healing. */
+  /** Net sustain alias for ranking/Pareto; gross capacity excludes baseline potion healing. */
   readonly totalPerSecond: number
 }
 
@@ -848,6 +899,8 @@ export interface ObjectiveUtilities {
 }
 
 export interface EffectContribution {
+  readonly selfDamagePerSecondDelta: number
+  readonly netSustainPerSecondDelta: number
   readonly sourceType: 'enchantment' | 'artifact'
   readonly sourceId: EnchantmentId | ArtifactId
   readonly label: LocalizedName

@@ -1,4 +1,5 @@
 import { SCENARIO_PROFILES } from '../data/scenarios'
+import { CHARGE_UNVERIFIED_MODIFIERS } from '../data/chargeConsume'
 import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE } from '../data/temporalEnchantments'
 import auditJson from '../../research/dps-regression-audit.json'
 import { summarizeDamageRegression } from '../core/modelError'
@@ -40,6 +41,28 @@ export function MethodologyPage() {
       </header>
 
       <section className="panel">
+        <p className="section-label">PHASE 2-1J / CHARGE・CONSUME — PARTIAL</p>
+        <h2>蓄積した次の攻撃・自己ダメージ・ロール入力</h2>
+        <p>Pain Cycleは5回chargingした次、通常6回目の攻撃がTier I/II/IIIで3/4/5倍。充填ごと最大HP3%を消費します。6回目はHP消費なし・0stackへresetの低信頼度限定解釈で、独立実測は残課題です。5回で戦闘終了なら強化0・残stack5・HP100で自己damage15です。</p>
+        <Formula>N=有限攻撃数、E=floor(N/6)、C=N−E、unused=N mod6、bonus=E×B×(M−1)</Formula>
+        <p>4武器でprofile hit≒1attack、初撃t=0・終了時刻を除外・全命中・均一baseを仮定します。有限base+bonus合計と従来平均base DPSは別です。主DPSには有限bonus/戦闘秒数だけを加算し、Painなしのbase経路を維持します。</p>
+        <Formula>net sustain = gross healing capacity − (C × maxHP × 0.03 / T)</Formula>
+        <p>Gross healing / Pain Cycle self damage / Net sustainを分離し、負のnetも符号付き飽和utilityで減点。Paretoはnetを比較します。Iron Hide・Guarding Strike・Weakeningを自己damageへ適用せず、死亡・最低HP・overhealは未再現です。B100・6攻撃ならTier合計800/900/1000、自己damage15。</p>
+        <p>Dynamoはroll+1、cap20、次攻撃で全消費。Power210–263の10点×3Tierの独立log補間でexact knotを再現し、外挿しません。表示+X/+1.25X/+1.5Xと数値表は矛盾し、P251は191087/305739/420391です。武器の表示damageから逆算しません。</p>
+        <p>AdvancedのrollsPerSecondとdynamoInitialStacksは全profile初期0。初期は整数0〜20。P251/TierIII/初期20/roll0なら最初の攻撃だけ+8,407,820（P263は+13,203,960）。攻撃間の連続roll期待収入を20でcapし全消費、戦闘末尾は未使用で保持します。</p>
+        <Formula>等間隔長期consume/s=min(rolls/s,20×attacks/s)；finiteは初撃/各gap/末尾を分離</Formula>
+        <p>roll1/s・attack2/s・1000秒なら999.5stack消費、平均0.49975/attack。roll5/s・attack0.1/sなら容量2stack/s・overflow3/s。小数stackの連続近似で、roll animationの攻撃機会損失は省略し上限寄り。Dynamoは直接武器damageへ加算し各近接対象へ適用しますが、公開記述/community報告からの限定解釈でkill/AoEの独立traceは残ります。</p>
+        <div className="control-policy-table"><table><thead><tr><th>相手</th><th>Pain Cycle</th><th>Dynamo</th></tr></thead><tbody>
+          {CHARGE_UNVERIFIED_MODIFIERS.map((id) => <tr key={id}><th>{ENCHANTMENTS[id].name.en}</th><td>uncertain / 未対応</td><td>uncertain / 未対応</td></tr>)}
+          <tr><th>Pain Cycle + Dynamo</th><td colSpan={2}>加算/乗算順・同時consumeのEvidence不足で未対応</td></tr>
+          <tr><th>proc / DoT / Exploding</th><td colSpan={2}>formula独立、増幅なし。Explodingは直接撃破sourceのみ連動</td></tr>
+        </tbody></table></div>
+        <p>平均Pain×平均Voidやcommunityの一般式を採用せず、未確定pairを共通境界で理由付き除外します。Death Cap/Rampagingの速度増加はPainのcycle/自己damageとDynamoのstack消費へ反映。charge自体はControlを直接変更しません。低信頼度factorは選択buildだけへ追加します。</p>
+        <p>現在catalog28/33、広域22、範囲限定6、research-only5、needs-state-model3、utility-only2。旧c24f377の8ケースを全既存出力で完全回帰比較しcandidate fast pathを維持。親25〜30種は完了提案待ち、次はBusy Bee summon、farming utility、Echo/Enigma再監査を比較します。</p>
+        <p>出典: <a href="https://www.dungeons.tools/enchantments/pain-cycle">Pain Cycle</a> / <a href="https://minecraft.wiki/w/Dungeons:Pain_Cycle">3% cost</a> / <a href="https://www.dungeons.tools/enchantments/dynamo">Dynamo consume</a> / <a href="https://minecraft.wiki/w/Dungeons:Dynamo">Tier別数値表</a>。Sawblade・Light Feather・roll armor・Jungle Poisonは対象外です。</p>
+      </section>
+
+      <section className="panel">
         <p className="section-label">PHASE 2-1I / CC UTILITY — PARTIAL</p>
         <h2>Controlは行動阻害・集敵の独立した評価</h2>
         <p>Hard disable（移動・攻撃不能）、Attack slow（敵攻撃速度低下）、Root（移動束縛）、Grouping（集敵）を0〜1のraw metricとして保持します。Control utilityは好みの順位付けで、被ダメージ削減の測定値ではありません。DPS・回復・Defense・撃破速度へ換算しません。</p>
@@ -53,7 +76,7 @@ export function MethodologyPage() {
         <p>subweightは4つとも初期1、0の軸は無視し、全て0ならutility0。Scenario weights are ranking choices, not measured game mechanics. これらの好みはEvidence confidenceに混ぜません。重なるCCを敵行動150%抑制などと解釈しないでください。</p>
         <div className="control-policy-table"><table><thead><tr><th>Preset</th><th>Damage</th><th>Healing</th><th>Defense</th><th>Control</th></tr></thead><tbody>{Object.values(SCENARIO_PROFILES).map((s) => <tr key={s.profileId}><th>{s.profileId}</th><td>{s.weights.damage}</td><td>{s.weights.healing}</td><td>{s.weights.defense}</td><td>{s.weights.control}</td></tr>)}</tbody></table></div>
         <p>ParetoはAoE DPS・回復・EHP・Control utilityの4軸。寄与度にはcontrolUtilityDeltaを追加。Control重み0なら旧スコアに一致します。CCなしbuildのDamage/Healing/Defenseとtemporal/soul/DoT状態は変更前commitの4buildと比較しています（software回帰でありゲーム実測ではありません）。</p>
-        <p>26/33 catalog、21/33広域Power、5種範囲限定、research-only7、needs-state-model5。ChainsのstackとCCのroll/refresh/免疫/半径の不確実性によりPhase 2-1Iはpartialです。CC未選択buildへCCの低信頼度factorを追加しません。</p>
+        <p>28/33 catalog、22/33広域Power、6種範囲限定、research-only5、needs-state-model3。ChainsのstackとCCのroll/refresh/免疫/半径の不確実性によりPhase 2-1Iはpartialです。CC未選択buildへCCの低信頼度factorを追加しません。</p>
         <p>出典: <a href="https://www.dungeons.tools/enchantments/chains">Chains</a> / <a href="https://www.dungeons.tools/enchantments/stunning">Stunning</a> / <a href="https://www.dungeons.tools/enchantments/freezing">Freezing</a> / <a href="https://www.dungeons.tools/enchantments/gravity">Gravity</a> / <a href="https://minecraft.wiki/w/Dungeons%3AFreezing">Freezing mechanics</a> / <a href="https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/">Stunning定量説明</a> / <a href="https://www.reddit.com/r/MinecraftDungeons/comments/z369zy/">免疫報告</a>。</p>
       </section>
 
@@ -70,7 +93,7 @@ export function MethodologyPage() {
         <p>爆発はPower非依存。死亡sourceへは加算せず単体DPS0、pure bossではAoEも0。直接撃破のみをsourceにし、爆発killから連鎖させません。平均HPと二次対象数はlow仮定、source条件はcommunity根拠（medium）。</p>
         <p>内側のsource撃破率固定点と外側Rampaging uptime固定点を組み合わせ、同じ最終CombatStateでLeeching・Guarding・Refreshment・Soulも再計算。例: Double Axe、表示hit100、敵HP100、供給1/s、射程2、Exploding/Rampaging/Refreshment III、Artifactなしでは初回爆発60→53.47561 DPS、direct share/kill率0.89126016、Rampaging73.73388%、外側6回・内側累計159回、残差はそれぞれ3.36e-10・1.91e-9です。</p>
         <p><strong>3種とVoid Strikeの併用は増幅・消費・reset/reapply未確定のため拒否。</strong>Fireの複数copyも候補から理由付き除外。DoTのfinal blowはdamage-share近似（low）でtick/残HPを再現しません。Fire Focus・Poison Focus・防具は対象外です。</p>
-        <p>catalog26 / 33、広域21、範囲限定5、research-only7、needs-damage-event-model0。ただし全Power／stack／Void／overlapが残り2-1Hはpartialです。出典: <a href="https://www.dungeons.tools/enchantments/fire-aspect">Fire</a> / <a href="https://minecraft.wiki/w/Dungeons:Poison_Cloud">Poison表</a> / <a href="https://www.dungeons.tools/enchantments/exploding">Exploding</a>。</p>
+        <p>catalog28 / 33、広域22、範囲限定6、research-only5、needs-damage-event-model0。ただし全Power／stack／Void／overlapが残り2-1Hはpartialです。出典: <a href="https://www.dungeons.tools/enchantments/fire-aspect">Fire</a> / <a href="https://minecraft.wiki/w/Dungeons:Poison_Cloud">Poison表</a> / <a href="https://www.dungeons.tools/enchantments/exploding">Exploding</a>。</p>
       </section>
 
       <section className="panel">
@@ -86,7 +109,7 @@ export function MethodologyPage() {
         <p>Enigma Resonatorは最大15/20/25%・3xを確認済みですが、途中ゲージの測定がなく線形mappingは未確認。旧100 souls capとBag of Soulsの報告矛盾も残るためresearch-onlyです。固定12.5%や0点候補は作りません。</p>
         <p>Rampagingの同じ解からHPS→Siphon/総撃破→Soul income→ゲージ→Animaを再計算。Enigma未対応なのでSoul→DPSへの逆依存はありません。Rampaging・Explodingなしは反復なし、Soulなしは追加Soul状態なし。効果除去時も全再計算します。</p>
         <p>例: 表示damage26、敵HP100、1体、30秒、Anima/Siphon/Rampaging III、Artifactなし。初期50 DPS → 初回63.190836 → 11回収束65.663588 DPS（残差1.80e-9）。速度1.313272、Soul 9.546476 units/s、平均47.7324%、終了95.4648%。実測ではありません。</p>
-        <p>catalog 26 / 33、広域21・範囲限定5、research-only7、needs-state-model5。2-1D / 2-1Fもpartialを維持。出典: <a href="https://www.dungeons.tools/damage-calculator">武器係数</a> / <a href="https://minecraft.wiki/w/Dungeons:Utility_Bar">Soul meter</a> / <a href="https://minecraft.wiki/w/Dungeons:Anima_Conduit">Anima履歴</a> / <a href="https://minecraft.wiki/w/Dungeons:Soul_Siphon">Siphon履歴</a>。</p>
+        <p>catalog 28 / 33、広域22・範囲限定6、research-only5、needs-state-model3。2-1D / 2-1Fもpartialを維持。出典: <a href="https://www.dungeons.tools/damage-calculator">武器係数</a> / <a href="https://minecraft.wiki/w/Dungeons:Utility_Bar">Soul meter</a> / <a href="https://minecraft.wiki/w/Dungeons:Anima_Conduit">Anima履歴</a> / <a href="https://minecraft.wiki/w/Dungeons:Soul_Siphon">Siphon履歴</a>。</p>
       </section>
 
       <section className="panel">
@@ -100,7 +123,7 @@ export function MethodologyPage() {
         <p>速度→Void/Synergy/proc/Committed→DPS→直接撃破→uを固定点で解きます（許容誤差1e-8、最大100回、非収束はエラー）。例: 初期50 DPS、敵HP100、直接撃破率100%、供給100/秒、Rampaging III → 初回u=52.763%、11回でu=62.654%、速度1.31327倍、65.6636 DPS。数式の整合性であり実測ではありません。</p>
         <p>Death Cap常時なら2→2.5倍で相対+25%。Void倍率は間隔短縮で低下し得ます。平均速度の線形近似はon/off分布やFighter’s Bindingsのframe上限を再現せず、寄与を過大評価し得ます。新しいScenarioスライダーはありません。</p>
         <p>EchoはCD 5/4/3秒・non-stackableを確認済みですが、repeat対象hit、animation/cadence、combo進行、Void、on-hit、直接撃破資格が未解決。無料のdamagePerHit/3を足さず、needs-state-modelのまま候補・JSONから拒否します。</p>
-        <p>catalog runtime 26 / 33、広域Power 21 / 33、範囲限定damage enchant 5、research-only 7、needs-state-model 5。Phase 2-1Dもpartial、近接25〜30種の親目標は未完了。Soul subsystemを追加済み。Fire / Poison / Explodingを限定実装済み。CC utilityを限定実装済みで、次はPain Cycle / Dynamoのstate監査を推奨します。CC utilityは新しい評価目的、Pain Cycle/Dynamo/Busy Beeは別々の状態が必要です。</p>
+        <p>catalog runtime 28 / 33、広域Power 22 / 33、範囲限定damage enchant 6、research-only 5、needs-state-model 3。Phase 2-1Dもpartial、近接25〜30種の親目標は完了提案待ち。Soul subsystemを追加済み。Fire / Poison / Explodingを限定実装済み。CC utilityを限定実装済みで、Pain Cycle / Dynamoは有限stateを限定実装済みで、次はBusy Beeのsummon監査が候補です。CC utilityは新しい評価目的、Busy Beeには独立したsummon状態が必要です。</p>
         <p>出典: <a href={ARTIFACT_SYNERGY_SOURCE.url} target="_blank" rel="noreferrer">Artifact Synergy</a> / <a href={RAMPAGING_SOURCE.url} target="_blank" rel="noreferrer">Rampaging</a>。Tier metadataとモデル仮定はconfidenceを分け、使用buildだけへ反映します。</p>
       </section>
 
@@ -133,8 +156,8 @@ export function MethodologyPage() {
         <article className="method-card">
           <p className="section-label">05 / スコア</p>
           <h2>過剰回復を飽和させる</h2>
-          <p>火力・回復は無制限に直線加点せず、目標値を超えるほど追加価値を小さくします。シナリオごとの重みで最後に0〜100へ統合します。</p>
-          <Formula>Utility(x) = 1 − exp(−x ÷ target)</Formula>
+          <p>火力・回復は目標値を超えるほど追加価値を小さくします。回復はPain自己damageを引いたnet sustainを使用し、負のnetも減点します。通常は0〜100、自己damageが上回る場合は総合スコアも負になり得ます。</p>
+          <Formula>HealingUtility(net) = sign(net) × (1 − exp(−abs(net) ÷ target))</Formula>
         </article>
         <article className="method-card">
           <p className="section-label">06 / 説明可能性</p>
@@ -159,7 +182,7 @@ export function MethodologyPage() {
         <p>DはCommitted前の直接DPS、Pは増幅しないproc DPSです。D=100、P=100、Tier IIIなら直接146.6303 + proc100 = 総246.6303。procがHPを減らす効果だけを反映し、procのdamage/eventやcadenceは変えません。単体/AoEは別々のD/Pで積分します。</p>
         <p>数学的な積分検証はhigh、fresh-target→撃破とAoEの同一HP推移仮定はlow。敵ごとの残HP/coverage、target switching、overkill、burst、倒し切れない有限遭遇を再現せず、負傷済み敵やco-op集中攻撃では過小評価し得ます。全modifier間のinteractionも独立実機検証済みではありません。</p>
         <Formula>base direct × Sharpness × Crit × Void × U × S × A → preCommitted direct → proc文脈を含むCommitted積分 → final direct + 元のproc = total</Formula>
-        <p>結果の非エンチャント敵/エンチャント敵DPSはCommitted前、直接単体/AoE DPSは適用後です。効果を外すと撃破率・Leeching・Guarding Strike・Refreshmentまで再計算します。catalog runtime 26 / 33、広域Power対応21 / 33、範囲限定damage enchant 5、research-only 7。Phase 2-1Dはpartialです。</p>
+        <p>結果の非エンチャント敵/エンチャント敵DPSはCommitted前、直接単体/AoE DPSは適用後です。効果を外すと撃破率・Leeching・Guarding Strike・Refreshmentまで再計算します。catalog runtime 28 / 33、広域Power対応22 / 33、範囲限定damage enchant 6、research-only 5。Phase 2-1Dはpartialです。</p>
         <p>出典: <a href="https://www.dungeons.tools/enchantments/ambush" target="_blank" rel="noreferrer">Ambush</a> / <a href="https://www.dungeons.tools/enchantments/smiting" target="_blank" rel="noreferrer">Smiting</a> / <a href="https://www.dungeons.tools/enchantments/committed" target="_blank" rel="noreferrer">Committed</a>（1.17.0.0）。<a href="https://minecraft.wiki/w/Dungeons:Smiting" target="_blank" rel="noreferrer">Wiki stacking</a> / <a href="https://minecraft.wiki/w/Dungeons:Committed" target="_blank" rel="noreferrer">Wiki HP mechanics</a>。Ambush・Smitingは1.16.2.0 buff後の値です。</p>
       </section>
 
@@ -171,7 +194,7 @@ export function MethodologyPage() {
         <p>eは直接武器ダメージの対象に占めるエンチャント敵の期待割合、bはTier bonusです。両群を同じbaseline damageで重み付けし、敵ごとのHP・エンチャント敵のHP偏り・優先target・遭遇順序を無視します。Tier IIIで割合0%なら1倍、25%なら1.25倍、100%なら2倍です。</p>
         <p>全6profile（ボスを含む）の初期値25%はMVP model assumption / confidence lowで、実測値ではありません。「エンチャントされた敵の割合」で0〜100%に変更できます。Unchanting選択時だけ敵割合と期待値モデルをEvidenceへ追加し、割合0の寄与0も正常な結果として表示します。</p>
         <p>倍率はこのモデルの直接hit上では数値上交換可能です。ただしCritical判定・Voidの攻撃間隔・敵状態の独立性と全interactionの実機確認は未完了のため、合成Evidenceはlowです。proc/DoT、Shockwave、Swirling、Thundering、Strengthや防具の加算bonusへ一般化しません。</p>
-        <p>Tier・stacking・対象条件の根拠はhighで、合成や敵割合の仮定と分けています。出典: <a href={SHARPNESS_SOURCE.url} target="_blank" rel="noreferrer">Sharpness</a> / <a href={UNCHANTING_SOURCE.url} target="_blank" rel="noreferrer">Unchanting</a>（1.17.0.0由来公開データ）。現在のcatalogは26 / 33（広域21種・Power範囲限定5種）、未対応7種は候補に登録しません。</p>
+        <p>Tier・stacking・対象条件の根拠はhighで、合成や敵割合の仮定と分けています。出典: <a href={SHARPNESS_SOURCE.url} target="_blank" rel="noreferrer">Sharpness</a> / <a href={UNCHANTING_SOURCE.url} target="_blank" rel="noreferrer">Unchanting</a>（1.17.0.0由来公開データ）。現在のcatalogは28 / 33（広域22種・Power範囲限定6種）、未対応5種は候補に登録しません。</p>
       </section>
 
       <section className="method-section">
@@ -203,7 +226,7 @@ export function MethodologyPage() {
         <Formula>Thundering: event/s = direct HPS × 30%</Formula>
         <p>公開comboから、速度1でBindings 1.73913/s、Double Axe 0.83333/s、Anchor 0.4/s。Swirlingはfinisherのmob命中が必須で、継続命中100%を仮定。Speed proxyだけからcomboは捏造しません。</p>
         <p>公開表38 Power点・114 Tier値を収集。Shockwave 210–252（14点）、Swirling 210–263（18点）、Thundering 248–263（6点）の範囲内だけでTier I表をlog-linear補間し、Tier比1/1.5/2、1/1.5/2、1/2/3を掛けます。Power 251はTier IIIで454392 / 599476 / 282516です（Shockwave公開値454391との差1は丸め）。表示ダメージは武器hit専用でprocへ流用しません。</p>
-        <p>歴史的base係数30/40で正規化した共有Power点には最大3.60%の相違。共通curveを裏付ける低Power表がなく、共通化・外挿を採用しません。Phase 2-1Dはpartial、26/33はcatalog件数で全Power対応ではありません。範囲外の自由候補は理由付き除外、確定・金色指定はエラーです。</p>
+        <p>歴史的base係数30/40で正規化した共有Power点には最大3.60%の相違。共通curveを裏付ける低Power表がなく、共通化・外挿を採用しません。Phase 2-1Dはpartial、28/33はcatalog件数で全Power対応ではありません。範囲外の自由候補は理由付き除外、確定・金色指定はエラーです。</p>
         <p>公開Tier表との最大再構成誤差はShockwave 0.001129%、Swirling 0.225955%、Thundering 0.000603%。Swirling Power 243のTier III値は比率と1000異なるため原表のままauditへ保持。これは入力表のcomponent検証で、独立した実測精度ではありません。表の測定version・個体差・補間の絶対精度は未確定です。</p>
         <p>平均命中数は全種・全profileで初期値1体（low）。定量的な範囲の根拠がないため共通の単体baselineとし、詳細設定で1〜射程内平均敵数へ変更できます。武器Areaは使いません。</p>
         <Formula>directDamageShare = directWeaponAoeDps ÷ totalAoeDps</Formula>
@@ -240,7 +263,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1A / 2-1B / 2-1C / 2-1Eを完了。近接catalogは26 / 33（うち5種はPower範囲限定）。Phase 2-1D / 2-1F / 2-1G / 2-1H / 2-1Iはpartial（Echoはresearch-only）です。近接25〜30種の親項目は26種に達しても制限の評価を残して進行中とし、Phase 1の公開実測回帰も未完了です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 0 / 0.5 / 0.5.1 / 1A / 2-1A / 2-1B / 2-1C / 2-1Eを完了。近接catalogは28 / 33（うち6種はPower範囲限定）。Phase 2-1D / 2-1F / 2-1G / 2-1H / 2-1I / 2-1Jはpartial（Echoはresearch-only）です。近接25〜30種の親項目は28種の意味ある限定runtimeを揃え完了提案待ちとし、Phase 1の公開実測回帰も未完了です。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

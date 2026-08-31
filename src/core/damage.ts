@@ -1,4 +1,5 @@
 import { calculateArtifactActivationState } from './artifact'
+import { calculatePainCycle, calculateDynamo, finiteAttackCadence, dynamoDamagePerStack } from './chargeConsume'
 import { deriveArtifactSynergyState } from './temporalEnchantments'
 import { MODEL } from '../data/model'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
@@ -80,6 +81,13 @@ export function calculateDamage(
     attackSpeedMultiplier
   const artifactSynergyState = deriveArtifactSynergyState(enchantments, calculateArtifactActivationState(artifactEffects.uptimes), hitsPerSecond)
   const baseDps = damagePerHit * hitsPerSecond
+  const pain = enchantmentsById(enchantments, 'pain-cycle')[0]
+  const dynamo = enchantmentsById(enchantments, 'dynamo')[0]
+  // No finite-cadence construction for unaffected builds.
+  const cadence = pain || dynamo ? finiteAttackCadence(resolveHitIntervalSequence(attackProfile.value), attackSpeedMultiplier, scenario.encounterDurationSeconds) : undefined
+  const painCycleState = pain ? calculatePainCycle(cadence!.totalAttackActions, pain.tier, damagePerHit, scenario.maxHealth, scenario.encounterDurationSeconds) : undefined
+  const dynamoState = dynamo ? calculateDynamo(cadence!, scenario.encounterDurationSeconds, scenario.rollsPerSecond ?? 0, scenario.dynamoInitialStacks ?? 0, dynamoDamagePerStack(ownedWeapon.powerLevel, dynamo.tier)) : undefined
+  const chargeDirectDps = (painCycleState?.directDps ?? 0) + (dynamoState?.directDps ?? 0)
   const criticalMultiplier = criticalExpectedMultiplier(enchantments)
   const voidStrikeMultiplier = voidStrikeExpectedMultiplier(
     enchantments,
@@ -99,8 +107,10 @@ export function calculateDamage(
   const ambushMultiplier = ambush.expectedMultiplier
   // These two legacy diagnostics are explicitly PRE-Committed, with the other
   // condition expectations held fixed (the MVP independent-condition model).
-  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier * artifactSynergyState.expectedDirectMultiplier
+  const nonEnchantedTargetDps = baseDps * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier * artifactSynergyState.expectedDirectMultiplier + chargeDirectDps
   const enchantedTargetDps = nonEnchantedTargetDps * unchanting.activeMultiplier
+  // Standalone charge additions enter ONLY the direct channel. Unknown damage
+  // modifier combinations have already been rejected, never silently factored.
   const preCommittedDirectWeaponSingleTargetDps = nonEnchantedTargetDps * unchantingMultiplier
   const areaCoverage = Math.min(1, weapon.area.value / MODEL.maximumAreaRating.value)
   const expectedTargetsHit =
@@ -126,6 +136,8 @@ export function calculateDamage(
   const directWeaponAoeDps = aoeTrajectory.effectiveDirectDps
 
   return {
+    ...(painCycleState ? { painCycleState } : {}),
+    ...(dynamoState ? { dynamoState } : {}),
     artifactSynergyState,
     damageSource,
     damagePerHit,

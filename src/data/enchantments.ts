@@ -1,4 +1,5 @@
 import { CONTROL_ENCHANTMENTS } from './control'
+import { PAIN_SOURCE, DYNAMO_SOURCE, PAIN_CHARGED_MULTIPLIERS } from './chargeConsume'
 import { DOT_SOURCES, DOT_TIER_MULTIPLIERS } from './dotDamageEvents'
 import { SOUL_ENCHANTMENT_METADATA } from './souls'
 import type { EnchantmentDefinition, EnchantmentId } from '../core/types'
@@ -22,6 +23,23 @@ import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE, RAMPAGING_STACKING_SOURCE } 
 const wiki = MINECRAFT_WIKI_ENCHANTMENTS_SOURCE
 
 export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>> = {
+  'pain-cycle': {
+    id: 'pain-cycle',
+    name: { ja: '苦痛サイクル', en: 'Pain Cycle' },
+    tiers: { value: {
+      1: { effect: { kind: 'pain-cycle', chargedMultiplier: PAIN_CHARGED_MULTIPLIERS[1] } },
+      2: { effect: { kind: 'pain-cycle', chargedMultiplier: PAIN_CHARGED_MULTIPLIERS[2] } },
+      3: { effect: { kind: 'pain-cycle', chargedMultiplier: PAIN_CHARGED_MULTIPLIERS[3] } },
+    }, source: PAIN_SOURCE, confidence: 'high' },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: PAIN_SOURCE, confidence: 'high' },
+  },
+  'dynamo': {
+    id: 'dynamo',
+    name: { ja: 'ダイナモ', en: 'Dynamo' },
+    tiers: { value: { 1: { effect: { kind: 'dynamo' } }, 2: { effect: { kind: 'dynamo' } }, 3: { effect: { kind: 'dynamo' } } }, source: DYNAMO_SOURCE, confidence: 'high', note: 'Numeric damage uses independent tier curves, never the UI 1/1.25/1.5 labels.' },
+    stacking: { value: { maxCopies: 1, behavior: 'non-stackable' }, source: DYNAMO_SOURCE, confidence: 'high' },
+    applicability: { value: { melee: true, ranged: true, armor: false }, source: DYNAMO_SOURCE, confidence: 'high' },
+  },
   ...CONTROL_ENCHANTMENTS,
   'fire-aspect': {
     id: 'fire-aspect',

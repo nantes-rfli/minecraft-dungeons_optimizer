@@ -5,11 +5,11 @@ Generated from `research/melee-enchantment-audit.json` by `npm run audit:enchant
 ## Scope and population
 
 - Target game version: 1.17.0.0
-- Audit date: 2026-08-31
+- Audit date: 2026-09-01
 - Melee-applicable, hero-accessible enchantments: **33**
-- Catalog runtime: **26 / 33**
-- Broad Power-range runtime: **21 / 33**
-- Power-range-limited damage enchantments: **5 / 33**
+- Catalog runtime: **28 / 33**
+- Broad Power-range runtime: **22 / 33**
+- Power-range-limited damage enchantments: **6 / 33**
 - Population rule: Hero-accessible enchantments which the 1.17.0.0 game-file-derived data marks as applicable to melee; normal-slot and gilded availability are retained, while mob-only, innate-only, ranged-only, armor-only, unused, and fail-safe records are excluded.
 - Source of truth: [dungeons.tools 1.17.0.0 game-file-derived enchantments](https://www.dungeons.tools/enchantments)
 
@@ -21,9 +21,9 @@ The source index explicitly separates player enchantments from mob/innate record
 
 | Runtime status | Count |
 | --- | ---: |
-| implemented | 26 |
+| implemented | 28 |
 | straightforward | 0 |
-| needs-state-model | 5 |
+| needs-state-model | 3 |
 | needs-damage-event-model | 0 |
 | needs-enemy-state | 0 |
 | utility-only | 2 |
@@ -41,7 +41,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Chains | implemented | crowd-control | Single-copy runtime; game max 4 |
 | Committed | implemented | health-dependent-damage | — |
 | Critical Hit | implemented | proc-damage | — |
-| Dynamo | needs-state-model | roll-charged-damage | Needs roll count/stack state, cap, consumption, and power-scaling evidence. |
+| Dynamo | implemented | roll-charge-consume-direct-damage | Power 210–263 only; Phase 2-1J partial: independent Tier curves, cap20, initial0 and roll0 defaults, periodic continuous roll income with finite consume and overflow |
 | Echo | needs-state-model | attack-repeat | Phase 2-1F remains research-only: missing repeat selection/damage, animation/cadence cost, cooldown start, combo/finisher progression, Void reset, on-hit opportunities and direct-kill attribution |
 | Enigma Resonator | needs-state-model | soul-dependent-proc | Phase 2-1G research-only: no verified 1.17 soul-to-chance curve or intermediate-fill measurements |
 | Exploding | implemented | on-kill-explosion | — |
@@ -51,7 +51,7 @@ The source index explicitly separates player enchantments from mob/innate record
 | Guarding Strike | implemented | on-kill-defense | — |
 | Leeching | implemented | on-kill-healing | — |
 | Looting | utility-only | consumable-loot | Optimizer-excluded until a consumable/utility objective exists; never score as zero-effect. |
-| Pain Cycle | needs-state-model | stack-and-self-damage | Needs combo-independent stack state, self-damage, healing interaction, and per-hit damage events. |
+| Pain Cycle | implemented | finite-attack-charge-consume-self-damage | — |
 | Poison Cloud | implemented | persistent-area-dot | Power 184–251 only; Phase 2-1H partial: Power184–251; 30% per profile hit; 3s cloud |
 | Prospector | utility-only | emerald-loot | Optimizer-excluded until an emerald-farming objective exists; never score as zero-effect. |
 | Radiance | implemented | proc-healing | — |
@@ -68,9 +68,9 @@ The source index explicitly separates player enchantments from mob/innate record
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Five entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263, Fire Aspect 70–251, Poison Cloud 184–251. Fire Aspect supports only one copy. All three Phase 2-1H effects reject Void combinations. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 26 is catalog coverage, not full Power coverage.
+Six entries are range-limited: Shockwave 210–252, Swirling 210–263, Thundering 248–263, Fire Aspect 70–251, Poison Cloud 184–251, Dynamo 210–263. Fire Aspect supports only one copy. All three Phase 2-1H effects reject Void combinations. Outside those Power ranges the optimizer explicitly excludes free choices, rejects locked/gilded choices and never assigns zero damage. Phase 2-1D remains **partial**; 28 is catalog coverage, not full Power coverage.
 
-Only the 26 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
+Only the 28 `implemented` entries exist in `EnchantmentId` and `ENCHANTMENTS`. Every other entry remains research-only, so storage, UI candidate controls, evaluation, and optimization reject it instead of assigning a zero effect.
 
 ## CC utility subsystem (Phase 2-1I partial)
 
@@ -122,7 +122,7 @@ Phase 2-1H adds separate Fire Aspect refresh coverage and Poison Cloud residence
 - **Weakening** — enemy damage reductions 20/30/40%, five-second nearby-enemy application, and editable 50% affected incoming damage share for every profile. This share includes duration/positioning/attack uptime; duration is not multiplied again.
 - Weakening enemy multiplier is `1 - share × reduction`; Artifact and Guarding Strike remain separate hero-defense stages. See [enemy debuffs](../docs/enemy-debuffs.md).
 - **Source conflict**: dungeons.tools says Weakening STACKS Yes; the prior audit interpreted maxCopies=4/special. The requested maxCopies=1/non-stackable rule follows the Wiki's explicit normal/gilded/unique-slot semantics. Raw conflicting metadata and the correction are retained in audit sources; runtime stacking confidence is medium, not asserted game-file agreement.
-- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **26 / 33**, unsupported **7 / 33**.
+- Both additions use normal candidates, locks, gilded tiers, JSON/storage, contribution and exhaustive optimizer paths. Runtime coverage is **28 / 33**, unsupported **5 / 33**.
 - Phase 2-1C did not implement DamageEvent; Phase 2-1D below adds it. Potion Barrier, armor, CC utility and target-switching simulation remain unsupported.
 
 ## Phase 2-1D partial
@@ -153,7 +153,7 @@ Soul Scythe is the only added soul weapon: Phase 1A strict-ready, equal-damage h
 
 SoulIncome separates pickups from resource units. Start 0, capacity 300, spending 0; closed-form continuous fill from resolved HPS and estimated total kills. Siphon rolls 20% once per profile hit (AoE per-target evidence insufficient), spawning 1/3/5 pickups; gathering multiplies resource only. Anima melee 2/4/6% uses pickup count, not resources; full-meter behavior, travel and overheal remain an optimistic nominal-capacity caveat. Five pickups at 6% give 30% max HP capacity regardless of gathering. No invented standalone soul utility.
 
-Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Phase 2-1I now provides the fourth Control objective for Chains / Stunning / Freezing / Gravity. Next: audit Pain Cycle / Dynamo charge and consume states; Busy Bee needs a separate summon lifecycle. Parent 25–30 remains in progress pending limitation review.
+Rampaging and Soul income share the same resolved evaluation. Enigma is absent, so no reverse Soul-to-DPS dependency or new iteration is needed. See [Soul subsystem](../docs/soul-subsystem.md) and [Soul audit](soul-subsystem-audit.json). Phase 2-1H adds Fire Aspect / Poison Cloud / Exploding with explicit range, stacking and Void limits. Phase 2-1I now provides the fourth Control objective for Chains / Stunning / Freezing / Gravity. Phase 2-1J now models Pain Cycle / Dynamo finite charge/consume with explicit self-cost and restricted composition. Next: Busy Bee needs a separate summon lifecycle. Parent 25–30 remains in progress pending limitation review.
 
 ## Highest-risk mechanics
 
@@ -170,6 +170,14 @@ Fire Aspect: 11 raw Power rows, 10 runtime knots (exclude anomalous Power250), P
 
 See [DoT and explosion design](../docs/dot-and-explosion-damage.md) and [audit](dot-damage-event-audit.json). Needs-damage-event-model is now zero, but limited support is not full mechanistic verification.
 
+## Phase 2-1J — partial charge/consume
+
+Pain Cycle: five charging actions then NEXT attack3/4/5x, finite empowered/unused counts, published3% maxHP per charging action. Sixth-free/reset0 timing remains low confidence. Gross healing minus full cost is signed net sustain in objective and Pareto. Base weapon DPS retains its legacy rate; only finite bonus/T is added.
+
+Dynamo: ten Power210–263 rows, thirty independent Tier values, exact knots and tier-specific log interpolation with no extrapolation. UI1/1.25/1.5 labels conflict with numeric1/~1.6/~2.2. Default roll0/initial0, cap20, initial burst on first attack, bounded periodic continuous roll income, finite consumption/overflow/end balance. No roll animation cost. Direct/AoE attribution is a documented limited interpretation, never independent game validation.
+
+Both reject Critical/Void/Sharpness/Unchanting/Ambush/Smiting/Artifact Synergy/Committed and Pain+Dynamo through the shared unsupported boundary. Indirect damage is not multiplied. Four-weapon action proxy only; no sawblade/Light Feather/armor/miss/death simulation. Eight baseline cases from c24f377 retain all existing outputs; candidate fast path remains. See [charge design and next candidates](../docs/charge-consume-enchantments.md) and [audit](charge-consume-enchantment-audit.json).
+
 ## Evidence limits
 
 Each entry preserves raw Tier I/II/III text separately from interpreted fields. `X / 2X / 3X` values are never converted to percentages. Source records declare which claims they support and their confidence, so high-confidence tier values do not promote low-confidence kill attribution or interactions. Built-in Tier I availability is recorded for future unique-weapon modeling but is not runtime-enabled.
@@ -184,4 +192,4 @@ Each entry preserves raw Tier I/II/III text separately from interpreted fields. 
 
 ## Phase decision
 
-**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G / 2-1H partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 26 / 33; unsupported coverage is 7 / 33. The parent Phase 2 goal remains incomplete until supported runtime coverage reaches the target.
+**Phase 2-1E complete; Phase 2-1D / 2-1F / 2-1G / 2-1H / 2-1I / 2-1J partial — full Power 50–263 proc evidence, Echo mechanics and Enigma soul-to-chance mapping remain missing.** Catalog runtime coverage is 28 / 33; unsupported coverage is 5 / 33. Meaningful bounded runtime reaches28; the parent25–30 item may be proposed complete while the per-phase partial limits and five remaining research-only entries stay open.

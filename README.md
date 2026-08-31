@@ -5,7 +5,7 @@ Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・�
 ## 対応範囲
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）/ ソウルサイス（Soul Scythe）
-- エンチャント: 26 / 33種（通常枠Tier III、金色枠Tier I / II / III）。Chains / Stunning / Freezing / Gravityまで対応、広域Power21種・damageのPower範囲限定5種。[全種・制限一覧](./research/melee-enchantment-coverage.md)。
+- エンチャント: 28 / 33種（通常枠Tier III、金色枠Tier I / II / III）。Pain Cycle / Dynamoまで限定対応、広域Power22種・damageのPower範囲限定6種。未確定のmodifier組合せは明示除外。[全種・制限一覧](./research/melee-enchantment-coverage.md)。
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
@@ -54,6 +54,7 @@ npm run audit:dot-damage
 npm run audit:temporal-enchants
 npm run audit:soul
 npm run audit:cc
+npm run audit:charge-enchants
 npm test
 npx tsc -b
 npm run lint
@@ -70,7 +71,7 @@ Minecraft Dungeons 1.17.0.0の入手可能な近接武器82件を、Optimizer本
 
 ## Phase 2-1A — Melee Enchantment Audit
 
-[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 26種（うち5種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
+[`research/melee-enchantment-audit.json`](./research/melee-enchantment-audit.json) は、1.17.0.0でhero-accessibleかつ近接へ適用できる33種を、tier・stacking・trigger・runtime blocker・Evidence別confidence付きで保持します。`npm run audit:enchants` はpopulation、schema、source-backed tier、runtime 28種（うち6種はPower範囲限定）との一致、未対応Enchantがruntime catalogへ混入していないことを検証し、[`research/melee-enchantment-coverage.md`](./research/melee-enchantment-coverage.md) を再生成します。
 
 ## Phase 2-1B — Sharpness / Unchanting + Enemy Composition
 
@@ -165,9 +166,9 @@ scripts/               research検証・レポート再生成スクリプト
 - アーティファクト: `duration / effectiveCooldown` を時間平均します。同種の一時効果は[Artifact stackingモデル](./docs/artifact-stacking.md)に従って効果量を重ねず、交互使用による稼働率だけを合算します。
 - `Void Strike`: [公開測定audit](./docs/void-strike-measurement.md)に基づき、最初の付与hitは1倍、armed後は1.25倍から3.6秒でTier III 7倍へ線形増加し、5秒で消滅します。3武器は平均HPSへ潰さず、combo内の各per-hit intervalをattack speedで短縮し、hitごとの消費・再適用と戦闘時間を計算します。curve形状・正確な消滅frame・tier別minimumはlow confidenceです。
 - Enchantment選択: BuildはIDだけでなくtier・slot/gilded/built-inのsourceを保持します。金色枠はUI・localStorage・JSON・Optimizerを通してTier I / II / IIIを維持します。重複可否と追加コピーの扱いは[Enchantモデル](./docs/enchantment-model.md)に集約しています。
-- 目的スコア: 火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
+- 目的スコア: Pain自己damageはgross回復から引いてnet sustainにし、負値は符号付き飽和で減点します（[仕様](./docs/charge-consume-enchantments.md)）。その他の火力と回復を `1 - exp(-値 / 目標値)` で飽和させ、防御Utilityとシナリオ別の重みで加重平均します。過剰回復などが無制限に加点されることを防ぎます。
 - 説明可能性: 選択効果を1つずつ外して再評価し、スコア・DPS・回復・実効HP・Control utilityの差分を寄与度として表示します。
-- Pareto前線: AoE DPS・回復/秒・実効HP・Control utilityのすべてで他候補に支配されるビルドを除外します。
+- Pareto前線: AoE DPS・net sustain/秒・実効HP・Control utilityのすべてで他候補に支配されるビルドを除外します。
 - 誤差範囲: [回帰検証手順](./docs/model-regression.md)に従った独立実測sampleが5件揃うと、MAPE・P90・biasとP90絶対誤差に基づくDPS参考範囲を表示します。公開監査は[`research/dps-regression-audit.json`](./research/dps-regression-audit.json)へ分離し、現在は0 / 5のためrangeを表示しません。
 - Evidence coverage: 実際の計算経路に含まれるEvidenceを重要度付き幾何平均で集計します。[指標の定義](./docs/evidence-coverage.md)どおり正解確率ではなく、主な不確実要因を見つける品質指標です。
 
@@ -207,8 +208,7 @@ Enigmaは最大15/20/25%・3xを確認しましたが、現行版の中間ゲー
 
 Rampagingの同じ解からHPS、kill、Soul収入、平均/終了ゲージ、Anima容量を導出。例: 表示damage26・敵HP100・供給100/s・1体・30秒、Siphon/Anima/Rampaging IIIで11回収束、速度1.313272倍、65.663588 DPS、Soul収入9.546476/s、平均47.7324%、終了95.4648%。数式の整合例で実測ではありません。
 
-[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul
-npm run audit:cc`をCIに追加しました。この後Phase 2-1HでFire Aspect / Poison Cloud / Explodingを限定実装しました。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。
+[設計・根拠・収束例・次batch比較](./docs/soul-subsystem.md) / [Soul audit](./research/soul-subsystem-audit.json)。`npm run audit:soul` / `npm run audit:cc`をCIに追加しました。この後Phase 2-1HでFire Aspect / Poison Cloud / Explodingを限定実装しました。2-1D / 2-1Fのpartialと親目標25〜30種は維持します。
 
 ## Phase 2-1H — Fire Aspect / Poison Cloud / Exploding（partial）
 
@@ -220,12 +220,12 @@ Phase 2-1H時点は **catalog runtime 22 / 33、広域Power17、範囲限定dama
 
 全3種とVoid Strikeの併用は未対応として除外します。通常・locked・金色I/II/III・保存・JSON・Optimizer・寄与・理由・信頼度に対応。範囲外や未対応組合せを0点登録しません。DoTのfinal blowはdamage-share proxy（low）、Fire/Poison Focusや防具は対象外です。全Power・stack／Void／overlapの証拠不足により2-1Hはpartial、2-1D / F / Gもpartialを維持します。
 
-[設計・根拠・代表値・収束例・残課題](./docs/dot-and-explosion-damage.md) / [DoT audit](./research/dot-damage-event-audit.json)。`npm run audit:dot-damage`をCIへ追加。次はCC utilityの研究監査を推奨します。
+[設計・根拠・代表値・収束例・残課題](./docs/dot-and-explosion-damage.md) / [DoT audit](./research/dot-damage-event-audit.json)。`npm run audit:dot-damage`をCIへ追加。この後Phase 2-1IでCC utilityを限定実装しました。
 
 
 ## Phase 2-1I — CC Utility（partial）
 
-**catalog 26 / 33、広域Power21 / 33、Power範囲限定5、research-only7、needs-state-model5**。
+Phase 2-1I時点は **catalog 26 / 33、広域Power21 / 33、Power範囲限定5、research-only7、needs-state-model5**。
 Chains / Stunning / Freezing / Gravityのraw Control指標を追加し、第4objective・Pareto・効果寄与へ接続しました。
 既存DPS/回復/防御/撃破速度は変更しません。Freezingは敵攻撃速度低下であり移動速度低下ではありません。
 
@@ -239,4 +239,15 @@ Control utilityは好みの重み付き平均で、被ダメージ削減率や�
 
 [設計・全default・出典・残課題・次フェーズ比較](./docs/cc-utility.md) / [CC監査](./research/cc-subsystem-audit.json)。
 Chains複数copy、CCのroll/refresh/耐性/対象数の根拠が未確定のためpartial、既存partialも維持。
-次はPain Cycle / Dynamoのcharge/consume state監査を優先候補とします。近接25〜30種の親項目は件数だけで完了扱いにしません。
+この後Phase 2-1JでPain Cycle / Dynamoを限定実装しました。近接25〜30種の親項目は件数だけで完了扱いにしません。
+
+## Phase 2-1J — Pain Cycle / Dynamo（partial）
+
+現在は **catalog28 / 33、広域Power22、範囲限定6、research-only5、needs-state-model3、utility-only2**。
+
+- Pain Cycle: 5回charging後の次攻撃が3/4/5x。充填ごと最大HP3%、6回目は消費なしで0stackへ戻る限定モデル。有限攻撃数・残stack・自己damageを追跡し、gross healing−自己damage=net sustainをscore/Paretoへ反映します。5攻撃/HP100なら強化0・自己damage15、6攻撃なら強化1・自己damage15。
+- Dynamo: Power210–263の10点×3Tier独立曲線をlog補間。表示1/1.25/1.5倍率は数値表と矛盾するため使いません。cap20、次攻撃で全消費。Advancedの平均ロール回数/秒・開始stackは両方初期0、ロール時間コストは未計上。P251/TierIII/初期20なら最初の攻撃に+8,407,820。
+- 4武器のprofile hit≒attackをlow-confidence proxyに限定。全命中を仮定し、Dynamoのdirect帰属・AoEは公開記述とcommunity報告からの限定解釈。間接damageを増幅せず、敵用防御でPain自己damageを減らしません。
+- Critical / Void / Sharpness / Unchanting / Ambush / Smiting / Artifact Synergy / Committedとの併用、およびPain + Dynamoは合成・消費のEvidence不足で明示除外。全33種完全対応とはしません。
+
+`npm run audit:charge-enchants`をCIへ追加。変更前c24f377の8ケースは既存全出力を完全回帰比較し、`evaluateCandidate()`のfast pathを維持します。[数式・interaction matrix・Evidence・次候補比較](./docs/charge-consume-enchantments.md) / [新規監査](./research/charge-consume-enchantment-audit.json)。次候補はBusy Bee subsystem、farming utility、Echo/Enigmaの再監査。親25〜30種は完了提案が可能ですが、今回は提案待ちとして進行中を維持しています。

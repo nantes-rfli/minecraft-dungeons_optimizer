@@ -1,4 +1,5 @@
 import { calculateControl, describeControl } from './control'
+import { describeChargeConsume } from './chargeConsumeReasons'
 import { describeDotOrExplosion } from './dotDamageReasons'
 import { calculateArtifactEffects } from './artifact'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
@@ -50,7 +51,10 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const utilities = {
     control: control.utility,
     damage: saturatingUtility(damage.aoeDps, damageTarget),
-    healing: saturatingUtility(healing.totalPerSecond, Math.max(1, scenario.incomingDamagePerSecond)),
+    // Negative sustain must remain a penalty even with zero gross healing.
+    healing: healing.totalPerSecond < 0
+      ? -saturatingUtility(-healing.totalPerSecond, Math.max(1, scenario.incomingDamagePerSecond))
+      : saturatingUtility(healing.totalPerSecond, Math.max(1, scenario.incomingDamagePerSecond)),
     defense: Math.max(0, Math.min(1, 1 - defense.damageTakenMultiplier)),
   }
   const weightTotal = scenario.weights.damage + scenario.weights.healing + scenario.weights.defense + scenario.weights.control
@@ -78,6 +82,8 @@ function toContribution(
 
   return {
     sourceType,
+    selfDamagePerSecondDelta: baseline.healing.selfDamagePerSecond - withoutEffect.healing.selfDamagePerSecond,
+    netSustainPerSecondDelta: baseline.healing.netSustainPerSecond - withoutEffect.healing.netSustainPerSecond,
     sourceId,
     label,
     controlUtilityDelta: baseline.control.utility - withoutEffect.control.utility,
@@ -120,6 +126,7 @@ export function evaluateCandidate(build: Build, scenario: Scenario) {
 export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = evaluateCandidate(build, scenario)
   const reasons: string[] = describeControl(core.control)
+  reasons.push(...describeChargeConsume(core))
   const weapon = getWeaponDefinition(build.weapon.weaponId)
   for (const event of core.damage.damageEvents) {
     const trigger = event.triggerKind === 'combo-finisher'

@@ -195,17 +195,19 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.best.build.enchantments[0]!.enchantmentId).toBe('sharpness')
   })
 
-  it('searches all twenty-six candidates within the existing bounded Cartesian product', () => {
+  it('searches all twenty-eight candidates within the existing bounded Cartesian product', () => {
     const candidates = Object.keys(ENCHANTMENTS) as EnchantmentId[]
     const inventory: Inventory = { weapons: [{ ...weapon, instanceId: 'all-melee-candidates', weaponId: 'soul-scythe', enchantmentSlots: Array.from({ length: 3 }, () => ({ candidates })) }], artifacts: [] }
     const started = performance.now()
     const result = optimize(inventory, DEFAULT_SCENARIO)
     // 26^3 minus 21 single-copy IDs × (3 positions for a pair × 25 other IDs + one triple).
     // Also remove 414 distinct ordered triples containing Void + a Phase 2-1H effect.
-    expect(result.evaluatedBuildCount).toBe(26 ** 3 - 21 * 76 - 414)
+    // Each charge adds 3 positions × (18 allowed partners² − 15 forbidden
+    // duplicate partners); Pain+Dynamo and eight scalar modifiers are rejected.
+    expect(result.evaluatedBuildCount).toBe(26 ** 3 - 21 * 76 - 414 + 2 * 3 * (18 ** 2 - 15))
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
-    console.info(`Twenty-six-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
+    console.info(`Twenty-eight-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
   })
 
   it('rejects every remaining unsupported enchantment through JSON input', () => {
