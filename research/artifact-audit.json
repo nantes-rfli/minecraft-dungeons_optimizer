@@ -3,12 +3,34 @@
   "gameVersion": "1.17.0.0",
   "auditedAt": "2026-09-01",
   "population": 44,
-  "populationScope": "dungeons.tools 1.17.0.0 index snapshot; NOT a verified exhaustive game population",
-  "phaseStatus": "partial",
-  "completionBlockers": [
-    "dungeons.tools lists 44 but omits obtainable Corrupted Seeds; reconcile raw game IDs before claiming exhaustive 1.17 coverage.",
-    "Next batch is conditional: only Shock Powder has a bounded candidate table; three unconditional evidence-ready additions are not established."
-  ],
+  "populationScope": "Normalized union of released Artifact display definitions observed in the dungeons.tools 1.17.0.0 index and current Minecraft Wiki item list, including legacy event reskins; NOT a verified exhaustive set of every raw game ID",
+  "phaseStatus": "complete",
+  "completionBlockers": [],
+  "populationReconciliation": {
+    "primarySourceCount": 44,
+    "secondarySourceCount": 45,
+    "commonIds": ["blast-fungus", "boots-of-swiftness", "buzzy-nest", "corrupted-beacon", "corrupted-pumpkin", "death-cap-mushroom", "enchanted-grass", "enchanters-tome", "eye-of-the-guardian", "fireworks-arrow", "fishing-rod", "flaming-quiver", "ghost-cloak", "golem-kit", "gong-of-weakening", "harpoon-quiver", "harvester", "ice-wand", "iron-hide-amulet", "light-feather", "lightning-rod", "love-medallion", "powershaker", "satchel-of-elements", "satchel-of-elixirs", "satchel-of-snacks", "scatter-mines", "shadow-shifter", "shock-powder", "soul-healer", "soul-lantern", "spinblade", "tasty-bone", "thundering-quiver", "tome-of-duplication", "torment-quiver", "totem-of-casting", "totem-of-regeneration", "totem-of-shielding", "updraft-tome", "vexing-chant", "void-quiver", "wind-horn", "wonderful-wheat"],
+    "primaryOnly": [],
+    "secondaryOnly": [
+      {
+        "displayName": "Corrupted Seeds",
+        "normalizedProjectId": "corrupted-seeds",
+        "internalGameIds": ["CorruptedSeeds", "Corrupted-Seeds"],
+        "runtimeObtainability": "obtainable",
+        "eventOnly": false,
+        "reskinOf": null,
+        "dlc": "Jungle Awakens; also obtainable in Treetop Tangle",
+        "primaryPresent": false,
+        "secondaryPresent": true,
+        "sourceIds": ["wiki-item", "wiki-corrupted-seeds"]
+      }
+    ],
+    "reconciledPopulationCount": 45,
+    "exhaustiveClaimSupported": false,
+    "conclusion": "source-scope-difference",
+    "populationDefinition": "Released Artifact display definitions observable in either chosen source, normalized by project ID while retaining event reskins as separately displayed definitions.",
+    "normalizationNote": "Minecraft Wiki prose reports 44 by nesting Corrupted Pumpkin under Corrupted Beacon as a seasonal unique variant, while its displayed list has 45 names including Corrupted Seeds. dungeons.tools lists Corrupted Pumpkin separately but omits Corrupted Seeds. The normalized display-definition union is therefore 45; this does not claim every unused/internal ID."
+  },
   "sourceHierarchy": [
     "game-file-derived-database",
     "wiki concrete stats/history",
@@ -35,7 +57,7 @@
       "gameVersion": "unspecified",
       "accessedAt": "2026-09-01",
       "retrieval": "search-index",
-      "note": "Lists three slots and 44 artifacts, but lists Corrupted Seeds missing from dungeons.tools."
+      "note": "Lists three slots and prose count 44, while the displayed released list has 45 names because Corrupted Pumpkin is nested as Corrupted Beacon's seasonal unique variant; includes Corrupted Seeds missing from dungeons.tools."
     },
     {
       "id": "wiki-1162",
@@ -392,18 +414,24 @@
     {
       "id": "corrupted-seeds",
       "name": "Corrupted Seeds",
+      "displayName": "Corrupted Seeds",
+      "normalizedProjectId": "corrupted-seeds",
+      "internalGameIds": ["CorruptedSeeds", "Corrupted-Seeds"],
       "gameVersion": "1.17.0.0",
       "obtainable": true,
+      "runtimeObtainability": "obtainable",
+      "eventOnly": false,
+      "reskinOf": null,
+      "dlc": "Jungle Awakens; also obtainable in Treetop Tangle",
       "contentPack": "Jungle Awakens (also Treetop Tangle)",
       "mechanicFamily": "persistent-damage",
       "runtimeReadiness": "needs-power-curve",
       "cooldownSeconds": 20,
-      "note": "Wiki records CorruptedSeeds ID, introduced 1.3.2.0, Treetop Tangle in 1.16.2.0. Root + poison, up to eight mobs. Missing from primary 44; tracked separately, never discarded or made selectable. Union of observed named records is 45, not asserted exhaustive.",
+      "note": "Wiki records CorruptedSeeds and Corrupted-Seeds IDs, introduced 1.3.2.0 and obtainable from Treetop Tangle in 1.16.2.0. Root + poison, up to eight mobs. It is the sole secondary-only released display definition; reconciled project union is 45 without asserting exhaustive raw IDs.",
       "sourceIds": [
         "wiki-corrupted-seeds"
       ],
       "blockers": [
-        "Population reconciliation",
         "Poison curve and root immunity/refresh"
       ]
     }
@@ -1624,7 +1652,7 @@
           "wiki-item"
         ],
         "confidence": "low",
-        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+        "note": "The game can equip duplicates within three slots, but runtime rejects a second copy because same-status refresh and overlap are unresolved."
       },
       "interactions": {
         "status": "unknown",
@@ -3763,11 +3791,11 @@
           "publishedSampleCount": 4,
           "minPower": 12,
           "maxPower": 262,
-          "version": "unverified",
+          "version": "current-page table; bounded for 1.17.0.0 model",
           "randomRollRange": "not established",
           "interpolationCandidate": true,
           "extrapolationAllowed": false,
-          "runtimeEligibleSampleCount": 0
+          "runtimeEligibleSampleCount": 4
         },
         "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
         "sourceIds": [
@@ -3798,13 +3826,13 @@
       "stacking": {
         "duplicateEquip": "allowed-within-three-slots",
         "magnitude": "unresolved",
-        "lifetime": "unresolved",
+        "lifetime": "runtime-one-copy-only",
         "sharedState": "unresolved",
         "sourceIds": [
           "wiki-item"
         ],
         "confidence": "low",
-        "note": "Same-status target overlap, duration refresh and immunity must be verified separately from copy equip legality."
+        "note": "The game can equip duplicates within three slots, but runtime rejects a second copy because same-status refresh and overlap are unresolved."
       },
       "interactions": {
         "status": "unknown",
@@ -3815,15 +3843,12 @@
         ],
         "confidence": "low"
       },
-      "runtimeReadiness": "ready-with-limits",
+      "runtimeReadiness": "ready",
       "sourceIds": [
         "dt-artifacts-117",
         "wiki-shock-powder"
       ],
-      "blockers": [
-        "Version-check stun samples and bounded interpolation",
-        "coverage and immunity"
-      ],
+      "blockers": [],
       "deepAudit": {
         "durationSamples": {
           "status": "reported",
@@ -3835,15 +3860,15 @@
         },
         "readiness": {
           "status": "assumption",
-          "note": "Candidate for explicit bounded 12–262 interpolation after confirming sample version/rounding; 263 rejected.",
+          "note": "Runtime accepts explicit piecewise-linear interpolation only within published Power 12–262 knots; Power 11 and 263 are rejected.",
           "sourceIds": [
             "wiki-shock-powder"
           ],
           "confidence": "low"
         },
         "control": {
-          "status": "unknown",
-          "note": "Independent stun utility; coverage, immunity and refresh require scenario policy.",
+          "status": "assumption",
+          "note": "Independent hard-disable utility uses raw min(1, duration/effective cooldown) multiplied by editable eligibility and affected-target shares. Boss defaults eligibility to zero; no DPS/DR conversion.",
           "sourceIds": [
             "wiki-shock-powder"
           ],

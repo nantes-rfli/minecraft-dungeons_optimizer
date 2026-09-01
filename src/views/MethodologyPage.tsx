@@ -46,6 +46,18 @@ export function MethodologyPage() {
       <ArtifactRuntimeSupportSection />
 
       <section className="panel">
+        <p className="section-label">PHASE 2-2A / 2-2B — COMPLETE</p>
+        <h2>Artifact母集団の照合とShock Powderの限定Control</h2>
+        <p>primary 44件とsecondaryの表示定義45件を照合し、差分はCorrupted Seedsと確定しました。project監査母集団は正規化和集合45件です。これは表示定義の範囲であり、raw game ID全体の網羅性は主張しません。</p>
+        <p>Shock PowderはPower 12〜262の公開4点だけをlog-linear補間し、範囲外へ外挿しません。cooldownは15秒、1copy限定。使用可能になり次第使う定常近似で、公開持続時間をそのままhard disableとして扱います。</p>
+        <Formula>artifact hard disable = min(1, duration / 15) × eligible share × affected share</Formula>
+        <Formula>combined hard disable = 1 − (1 − weapon hard disable) × (1 − artifact hard disable)</Formula>
+        <p>eligible shareとaffected shareはAdvancedで編集できる仮定です。refresh前提の飽和近似で、敵数・半径・耐性・使用タイミング・boss免疫を実測した値ではありません。boss presetはeligible shareを0にし、未対応効果を0点のArtifactとしてOptimizerへ登録しません。</p>
+        <p>Artifact SynergyはShock Powderの使用も1回のactivationとして数えますが、Shock Powder自体はDPS・Healing・Defenseへ直接加算しません。既存Artifactなし／Death Cap Mushroom／Iron Hide Amuletの全出力はexact regressionを維持します。</p>
+        <p>Fishing Rodは現行版のpull/stun対象・範囲・再使用挙動、Gong of Weakeningは被ダメージ倍率の加算先・範囲・boss挙動が未確定のためResearch-onlyです。出典: <a href="https://minecraft.wiki/w/Dungeons%3AShock_Powder">Shock Powder</a> / <a href="https://minecraft.wiki/w/Dungeons%3A1.16.2.0">1.16.2.0変更履歴</a> / <a href="https://minecraft.wiki/w/Dungeons%3ACorrupted_Seeds">Corrupted Seeds</a>。</p>
+      </section>
+
+      <section className="panel">
         <p className="section-label">PHASE 2-1J / CHARGE・CONSUME — PARTIAL</p>
         <h2>蓄積した次の攻撃・自己ダメージ・ロール入力</h2>
         <p>Pain Cycleは5回chargingした次、通常6回目の攻撃がTier I/II/IIIで3/4/5倍。充填ごと最大HP3%を消費します。6回目はHP消費なし・0stackへresetの低信頼度限定解釈で、独立実測は残課題です。5回で戦闘終了なら強化0・残stack5・HP100で自己damage15です。</p>
@@ -268,7 +280,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1Kと近接25〜30種の親目標は完了。全33種の完全再現ではありません。Phase 1-4 / 2-1D / 2-1F / 2-1G / 2-1H / 2-1I / 2-1Jは元のcompletion gateを維持してpartialです。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact監査の2-2A、Shock Powder限定runtimeの2-2Bは完了。次は2-2CのSoul Batchです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

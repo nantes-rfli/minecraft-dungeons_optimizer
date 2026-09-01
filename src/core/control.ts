@@ -4,7 +4,7 @@ import { getAttackProfile, getEnchantmentDefinition } from './catalog'
 import { getTierValues } from './enchantment'
 import { OptimizerInputError } from './errors'
 import { calculateRefreshEffectCoverage } from './refreshCoverage'
-import type { Build, ControlMetrics, ControlPolicyWeights, Scenario } from './types'
+import type { Build, ControlMetrics, ControlPolicyWeights, Scenario, ShockPowderControlState } from './types'
 
 const unit = (value: number) => Math.max(0, Math.min(1, value))
 
@@ -16,6 +16,12 @@ export function validateControlAssumptions(scenario: Scenario): void {
   }
   for (const key of ['stunningEligibleTargetShare', 'chainsEligibleTargetShare', 'freezingEligibleTargetShare', 'gravityEligibleTargetShare', 'stunningEffectiveDurationMultiplier'] as const) {
     bounded(`crowdControl.${key}`, scenario.crowdControl?.[key], 0, 1)
+  }
+  // Pre-2-2B serialized scenarios do not contain these fields. They use the
+  // documented 50% defaults when Shock Powder is later added to the build.
+  for (const key of ['shockPowderEligibleTargetShare', 'shockPowderAffectedTargetShare'] as const) {
+    const value = scenario.crowdControl?.[key]
+    if (value !== undefined) bounded(`crowdControl.${key}`, value, 0, 1)
   }
   for (const key of ['chainsExpectedTargetsPerProc', 'gravityExpectedTargetsPerHit'] as const) {
     bounded(`crowdControl.${key}`, scenario.crowdControl?.[key], 1, scenario.averageTargetsInReach)
@@ -36,7 +42,7 @@ export function calculateControlUtility(metrics: Pick<ControlMetrics, 'hardDisab
 }
 
 /** Downstream of the converged offensive state. Never feeds back into DPS/DR/kills. */
-export function calculateControl(build: Build, scenario: Scenario, attackSpeedMultiplier: number, hitsPerSecond: number): ControlMetrics {
+export function calculateControl(build: Build, scenario: Scenario, attackSpeedMultiplier: number, hitsPerSecond: number, artifactControl?: ShockPowderControlState): ControlMetrics {
   const assumptions = scenario.crowdControl
   let stunning: ControlMetrics['stunning']
   let freezing: ControlMetrics['freezing']
@@ -64,12 +70,17 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
       gravity = { ...common, expectedTargetsPerHit: assumptions.gravityExpectedTargetsPerHit, affectedTargetFraction, groupingCoverage: unit(activeCoverage * affectedTargetFraction * eligibleTargetShare) }
     } else throw new Error('Unsupported Control effect kind')
   }
+  const weaponHardDisableCoverage = stunning?.effectiveHardDisableCoverage ?? 0
+  const artifactHardDisableCoverage = artifactControl?.hardDisableCoverage ?? 0
   const metrics = {
-    hardDisableCoverage: stunning?.effectiveHardDisableCoverage ?? 0,
+    hardDisableCoverage: artifactControl
+      ? unit(1 - (1 - weaponHardDisableCoverage) * (1 - artifactHardDisableCoverage))
+      : weaponHardDisableCoverage,
     attackSlowEquivalentCoverage: freezing?.attackSlowEquivalentCoverage ?? 0,
     rootCoverage: chains?.rootCoverage ?? 0, groupingCoverage: gravity?.groupingCoverage ?? 0,
     ...(stunning ? { stunning } : {}), ...(freezing ? { freezing } : {}),
     ...(chains ? { chains } : {}), ...(gravity ? { gravity } : {}),
+    ...(artifactControl ? { shockPowder: artifactControl, artifactContributions: [artifactControl] } : {}),
   }
   return { ...metrics, utility: calculateControlUtility(metrics, scenario.controlPolicy) }
 }
@@ -86,6 +97,10 @@ export function describeControl(control: ControlMetrics): string[] {
     if (id === 'freezing' && control.freezing) reasons.push(`${common} × 敵攻撃速度低下 ${percent(control.freezing.attackSpeedReduction)} → attack slow ${percent(control.attackSlowEquivalentCoverage)}（移動低下・被ダメージ削減へ換算しない）`)
     if (id === 'chains' && control.chains) reasons.push(`${common}、平均${control.chains.expectedTargetsPerProc}体/proc × 対象比率${percent(control.chains.affectedTargetFraction)} → root ${percent(control.rootCoverage)}（移動を束縛、近くには攻撃可能、1copy限定）`)
     if (id === 'gravity' && control.gravity) reasons.push(`${common}、平均${control.gravity.expectedTargetsPerHit}体/hit × 対象比率${percent(control.gravity.affectedTargetFraction)} → grouping ${percent(control.groupingCoverage)}（集敵のみ、DPS bonusなし）`)
+  }
+  if (control.shockPowder) {
+    const state = control.shockPowder
+    reasons.push(`Shock Powder: Power ${state.powerLevel} → stun ${state.durationSeconds.toFixed(3)}秒、CD ${state.effectiveCooldownSeconds.toFixed(3)}秒 → raw ${percent(state.rawActiveCoverage)} × 適用可能 ${percent(state.eligibleTargetShare)} × 影響対象 ${percent(state.affectedTargetShare)} = hard disable ${percent(state.hardDisableCoverage)}（常時使用・refresh saturation近似、DPS/防御へ変換しない）`)
   }
   return reasons
 }

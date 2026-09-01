@@ -17,9 +17,9 @@ export function collectArtifactAuditErrors(value: unknown): string[] {
   const errors: string[] = []
   const check = (valid: boolean, message: string) => { if (!valid) errors.push(message) }
   check(value.schemaVersion === 1 && value.gameVersion === '1.17.0.0', 'invalid audit schema/version')
-  check(value.population === 44 && Array.isArray(value.entries) && value.entries.length === 44, 'source population must be 44')
+  check(value.population === 44 && Array.isArray(value.entries) && value.entries.length === 44, 'primary source population must be 44')
   check(typeof value.populationScope === 'string' && value.populationScope.includes('NOT a verified exhaustive'), 'source population scope must preserve completeness caveat')
-  check(value.phaseStatus === 'partial' && strings(value.completionBlockers) && value.completionBlockers.length > 0, 'unresolved population/batch gates must remain partial')
+  check(value.phaseStatus === 'complete' && Array.isArray(value.completionBlockers) && value.completionBlockers.length === 0, 'reconciled Phase 2-2A must be complete')
   if (!Array.isArray(value.sources) || !Array.isArray(value.entries)) return [...errors, 'sources and entries must be arrays']
   const sourceIds = new Set<string>()
   for (const source of value.sources) {
@@ -91,7 +91,11 @@ export function collectArtifactAuditErrors(value: unknown): string[] {
     if (runtime) {
       check(entry.runtimeReadiness === 'ready' && strings(entry.blockers) && entry.blockers.length === 0, `${id}: current runtime readiness mismatch`)
       check(entry.mechanicFamily === runtime.mechanic && entry.name === runtime.name.en && record(cd) && cd.seconds === runtime.cooldownSeconds.value, `${id}: runtime catalog metadata mismatch`)
-      check(record(entry.stacking) && entry.stacking.lifetime === 'refresh-stagger' && runtime.stacking.value.maxCopies === 3 && runtime.stacking.value.behavior === 'refresh', `${id}: runtime stacking mismatch`)
+      if (runtime.mechanic === 'timed-self-buff') {
+        check(record(entry.stacking) && entry.stacking.lifetime === 'refresh-stagger' && runtime.stacking.value.maxCopies === 3 && runtime.stacking.value.behavior === 'refresh', `${id}: runtime stacking mismatch`)
+      } else {
+        check(id === 'shock-powder' && record(entry.stacking) && entry.stacking.lifetime === 'runtime-one-copy-only' && runtime.stacking.value.maxCopies === 1 && runtime.stacking.value.behavior === 'non-stackable', `${id}: limited control stacking mismatch`)
+      }
     } else check(strings(entry.blockers) && entry.blockers.length > 0 && entry.runtimeReadiness !== 'ready', `${id}: unimplemented artifact requires blockers`)
     walkSources(entry, id)
   }
@@ -110,6 +114,18 @@ export function collectArtifactAuditErrors(value: unknown): string[] {
     for (const entry of value.populationDifferences) check(record(entry) && typeof entry.id === 'string' && !ids.has(entry.id) && entry.gameVersion === '1.17.0.0' && strings(entry.blockers) && entry.blockers.length > 0, 'invalid supplemental population record')
     walkSources(value.populationDifferences, 'populationDifferences')
   }
+  const reconciliation = value.populationReconciliation
+  check(record(reconciliation), 'population reconciliation missing')
+  if (record(reconciliation)) {
+    const commonIds = reconciliation.commonIds
+    check(reconciliation.primarySourceCount === 44 && reconciliation.secondarySourceCount === 45 && reconciliation.reconciledPopulationCount === 45, 'population reconciliation counts drift')
+    check(strings(commonIds) && commonIds.length === 44 && commonIds.every((id) => ids.has(id)), 'population common ID set drift')
+    check(Array.isArray(reconciliation.primaryOnly) && reconciliation.primaryOnly.length === 0, 'unexpected primary-only Artifact')
+    check(Array.isArray(reconciliation.secondaryOnly) && reconciliation.secondaryOnly.length === 1 && record(reconciliation.secondaryOnly[0]) && reconciliation.secondaryOnly[0].normalizedProjectId === 'corrupted-seeds', 'secondary-only Artifact drift')
+    check(reconciliation.exhaustiveClaimSupported === false && reconciliation.conclusion === 'source-scope-difference', 'population conclusion must preserve scope caveat')
+    check(typeof reconciliation.populationDefinition === 'string' && typeof reconciliation.normalizationNote === 'string', 'population definition/normalization missing')
+    walkSources(reconciliation, 'populationReconciliation')
+  }
   return errors
 }
 
@@ -117,16 +133,16 @@ export function collectArtifactSupportErrors(value: unknown, audit: ArtifactAudi
   if (!record(value)) return ['artifact support manifest must be an object']
   const errors: string[] = []
   const check = (valid: boolean, message: string) => { if (!valid) errors.push(message) }
-  check(value.schemaVersion === 1 && value.gameVersion === audit.gameVersion && value.population === audit.population && value.populationScope === audit.populationScope, 'support schema/population mismatch')
+  check(value.schemaVersion === 1 && value.gameVersion === audit.gameVersion && value.population === audit.populationReconciliation.reconciledPopulationCount && value.populationScope === audit.populationScope, 'support schema/population mismatch')
   if (!Array.isArray(value.entries)) return [...errors, 'support entries must be an array']
-  check(value.entries.length === audit.entries.length, 'support population mismatch')
+  check(value.entries.length === audit.populationReconciliation.reconciledPopulationCount, 'support population mismatch')
   const ids = new Set<string>()
   const sources = new Set(audit.sources.map((source) => source.id))
   for (const entry of value.entries) {
     if (!record(entry) || typeof entry.id !== 'string') { errors.push('support entry must have id'); continue }
     const id = entry.id
     check(!ids.has(id), `${id}: duplicate support id`); ids.add(id)
-    const mechanics = audit.entries.find((item) => item.id === id)
+    const mechanics = audit.entries.find((item) => item.id === id) ?? audit.populationDifferences.find((item) => item.id === id)
     check(Boolean(mechanics), `${id}: unknown audit id`)
     check((RUNTIME_SUPPORT_LEVELS as readonly unknown[]).includes(entry.supportLevel), `${id}: invalid support level`)
     check(entry.name === mechanics?.name && entry.mechanicFamily === mechanics?.mechanicFamily, `${id}: audit metadata mismatch`)
@@ -134,14 +150,17 @@ export function collectArtifactSupportErrors(value: unknown, audit: ArtifactAudi
     check(strings(entry.sourceIds) && entry.sourceIds.length > 0 && entry.sourceIds.every((source) => sources.has(source)), `${id}: source missing`)
     const runtime = Object.keys(ARTIFACTS).includes(id)
     check(runtime === (entry.supportLevel === 'full' || entry.supportLevel === 'limited'), `${id}: full+limited must equal catalog; no research-only runtime`)
-    if (runtime) check(entry.supportLevel === 'full' && strings(entry.boundaries) && entry.boundaries.length === 0, `${id}: legacy runtime has no new boundaries`)
+    if (runtime && id === 'shock-powder') check(entry.supportLevel === 'limited' && strings(entry.boundaries) && entry.boundaries.length >= 4, `${id}: limited boundaries missing`)
+    else if (runtime) check(entry.supportLevel === 'full' && strings(entry.boundaries) && entry.boundaries.length === 0, `${id}: legacy runtime has no new boundaries`)
     else check(JSON.stringify(entry.reasons) === JSON.stringify(mechanics?.blockers) && strings(entry.boundaries) && entry.boundaries.length === 0, `${id}: research reasons must match mechanics blockers`)
   }
   for (const entry of audit.entries) check(ids.has(entry.id), `${entry.id}: missing support entry`)
+  for (const entry of audit.populationDifferences) check(ids.has(entry.id), `${entry.id}: missing supplemental support entry`)
   return errors
 }
 
 export function summarizeArtifactAudit(audit: ArtifactAudit = ARTIFACT_AUDIT) {
-  const countBy = (key: 'mechanicFamily' | 'runtimeReadiness') => Object.fromEntries([...new Set(audit.entries.map((entry) => entry[key]))].sort().map((value) => [value, audit.entries.filter((entry) => entry[key] === value).length]))
-  return { population: audit.entries.length, obtainable: audit.entries.filter((entry) => entry.obtainable).length, families: countBy('mechanicFamily'), readiness: countBy('runtimeReadiness'), supplemental: audit.populationDifferences.length }
+  const allEntries = [...audit.entries, ...audit.populationDifferences]
+  const countBy = (key: 'mechanicFamily' | 'runtimeReadiness') => Object.fromEntries([...new Set(allEntries.map((entry) => entry[key]))].sort().map((value) => [value, allEntries.filter((entry) => entry[key] === value).length]))
+  return { population: audit.populationReconciliation.reconciledPopulationCount, obtainable: allEntries.filter((entry) => entry.obtainable).length, families: countBy('mechanicFamily'), readiness: countBy('runtimeReadiness'), supplemental: audit.populationDifferences.length }
 }

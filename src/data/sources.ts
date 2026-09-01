@@ -126,6 +126,19 @@ export const MINECRAFT_WIKI_IRON_HIDE_SOURCE: SourceReference = {
   kind: 'community-test',
 }
 
+export const MINECRAFT_WIKI_SHOCK_POWDER_SOURCE: SourceReference = {
+  id: 'minecraft-wiki-shock-powder',
+  label: 'Minecraft Wiki: Shock Powder cooldown, stun semantics, and four Power-duration samples',
+  url: 'https://minecraft.wiki/w/Dungeons%3AShock_Powder',
+  kind: 'published-reference',
+}
+
+export const SHOCK_POWDER_TARGET_MODEL_SOURCE: SourceReference = {
+  id: 'model-shock-powder-target-coverage',
+  label: 'Scenario assumption: Shock Powder eligibility and affected-target shares',
+  kind: 'model-assumption',
+}
+
 export const MINECRAFT_WIKI_FIGHTERS_BINDINGS_SOURCE: SourceReference = {
   id: 'minecraft-wiki-fighters-bindings-stats',
   label: "Minecraft Wiki: Fighter's Bindings per-hit Stats table",

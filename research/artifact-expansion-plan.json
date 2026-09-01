@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
   "targetRuntimeCount": 11,
-  "note": "Target shortlist is a conditional architecture/research target, not evidence-ready promises. Two existing plus nine candidates; never pad runtime count. No unconditional three-item next batch is claimed.",
+  "note": "Target shortlist is a conditional architecture/research target, not evidence-ready promises. Three runtime entries including limited Shock Powder plus eight remaining candidates; never pad runtime count.",
   "scoreMeaning": "Implementation priority judgment, not game strength or measured probability. Each dimension 1–5; high complexity/feedback/targeting scores are costs. Scores order research work, never override blockers.",
   "scoreFormula": "2*gameplayUsefulness + buildDiversity + 2*subsystemReuse + 2*evidenceQuality + 2*powerAvailability - implementationComplexity - feedbackComplexity - targetingUncertainty",
   "entries": [
@@ -404,9 +404,9 @@
       "gameplayValue": "集団スタンを独立Controlで評価。既存の免疫割合・coverageを再利用。",
       "reuse": "Control / refreshCoverage",
       "newState": "Power別duration、使用ごとの対象coverage",
-      "expectedSupport": "Limited: 確認済みPower範囲・免疫・対象割合。",
-      "whyNow": "4点の公開duration表がある。version/丸めを確認してからbounded interpolationを採用。",
-      "gateStatus": "evidence-required"
+      "expectedSupport": "Limited: Power12–262、target割合、1copy境界。",
+      "whyNow": "公開4点を境界付き区分線形で実装。対象割合・免疫・duplicate・有限初回使用は明示的なLimited境界。",
+      "gateStatus": "runtime"
     },
     {
       "id": "soul-healer",

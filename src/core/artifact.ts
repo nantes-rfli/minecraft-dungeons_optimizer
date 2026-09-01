@@ -99,9 +99,10 @@ export function calculateArtifactEffects(
   let attackSpeedMultiplier = 1
   let damageTakenMultiplier = 1
 
-  const uptimes = ownedArtifacts.map((ownedArtifact) =>
-    calculateTimedArtifactUptime(ownedArtifact, scenario),
-  )
+  const uptimes = ownedArtifacts.flatMap((ownedArtifact) => {
+    if (getArtifactDefinition(ownedArtifact.artifactId).mechanic === 'hard-control') return []
+    return [calculateTimedArtifactUptime(ownedArtifact, scenario)]
+  })
   const grouped = new Map<ArtifactId, ArtifactUptime[]>()
   for (const uptime of uptimes) {
     grouped.set(uptime.artifactId, [...(grouped.get(uptime.artifactId) ?? []), uptime])

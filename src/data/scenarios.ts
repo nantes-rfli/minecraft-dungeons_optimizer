@@ -85,7 +85,11 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
     averageEnemyHealth: 500,
     averageTargetsInReach: 1,
     weights: { damage: 0.75, healing: 0.1, defense: 0.15, control: 0.05 },
-    crowdControl: { ...DEFAULT_CROWD_CONTROL, stunningEligibleTargetShare: 0 },
+    crowdControl: {
+      ...DEFAULT_CROWD_CONTROL,
+      stunningEligibleTargetShare: 0,
+      shockPowderEligibleTargetShare: 0,
+    },
   },
   mobbing: {
     ...DEFAULT_SCENARIO,

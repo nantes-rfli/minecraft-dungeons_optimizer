@@ -9,16 +9,16 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 <!-- runtime-support:end -->
 
 <!-- artifact-support:start -->
-Artifacts · Audited source population 44 · Catalog runtime 2 / 44 · Full 2 · Limited 0 · Research-only 42
+Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-Artifactの44件はsource一覧の監査範囲です。Corrupted Seedsの欠落を別記し、Phase 2-2Aはpartial。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
+Artifactはprimary 44 / secondary表示45を照合し、Corrupted Seedsを唯一のsecondary-onlyとして正規化和集合45件をproject監査母集団にしました。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
 
 Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現ではありません。LimitedはPower範囲・stacking・modifier組合せに制限あり。[対応表](./docs/melee-runtime-support.md) / [未解決事項と終了条件](./docs/runtime-limitations.md)。
 
 - 武器: 闘士の締め具（Fighter's Bindings）/ ダブルアックス（Double Axe）/ アンカー（Anchor）/ ソウルサイス（Soul Scythe）
 - エンチャント: 上記manifest集計の範囲（通常枠Tier III、金色枠Tier I / II / III）。未確定のmodifier組合せは理由付き除外。[mechanics監査](./research/melee-enchantment-coverage.md)。
-- アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）
+- アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）/ ショックパウダー（Shock Powder、Power 12〜262・1copyのLimited hard Control）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
 - 比較: 6種類のシナリオプロファイル、Damage / Healing / Defense / Controlの4軸Utility、Pareto前線、効果ごとの数値寄与
@@ -69,6 +69,7 @@ npm run audit:cc
 npm run audit:charge-enchants
 npm run audit:runtime-support
 npm run audit:artifacts
+npm run audit:artifact-control
 npm test
 npx tsc -b
 npm run lint

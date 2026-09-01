@@ -40,6 +40,15 @@ export interface TimedSelfBuffArtifactDefinition extends ArtifactDefinitionBase 
     | { readonly kind: 'damage-reduction'; readonly reduction: Evidence<number> }
 }
 
+export interface HardControlArtifactDefinition extends ArtifactDefinitionBase {
+  readonly mechanic: 'hard-control'
+  readonly duration: ArtifactDurationModel
+  readonly effect: {
+    readonly kind: 'hard-stun'
+    readonly semantics: Evidence<'movement-and-attacks-disabled'>
+  }
+}
+
 // Extension contracts only. No unimplemented IDs or zero effects enter the catalog.
 export type ArtifactAmountModel =
   | { readonly kind: 'fixed'; readonly amount: Evidence<number> }
@@ -61,7 +70,7 @@ export interface AttackLimitedArtifactDefinition extends ArtifactDefinitionBase 
   readonly budget: ArtifactTriggerBudget
   readonly damage: ArtifactAmountModel
 }
-export type ArtifactDefinition = TimedSelfBuffArtifactDefinition | InstantHealingArtifactDefinition | SoulSpendingHealingArtifactDefinition | AttackLimitedArtifactDefinition
+export type ArtifactDefinition = TimedSelfBuffArtifactDefinition | HardControlArtifactDefinition | InstantHealingArtifactDefinition | SoulSpendingHealingArtifactDefinition | AttackLimitedArtifactDefinition
 
 /** Scheduler contract for future resource/channel implementations; never assume infinite souls. */
 export interface ArtifactActivationCapacity {

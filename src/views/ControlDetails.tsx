@@ -24,6 +24,8 @@ const SHARES = [
   ['freezingEligibleTargetShare', 'Freezing 適用可能な対象割合'],
   ['gravityEligibleTargetShare', 'Gravity 適用可能な対象割合'],
   ['stunningEffectiveDurationMultiplier', 'Stunning 持続時間補正'],
+  ['shockPowderEligibleTargetShare', 'Shock Powder 適用可能な対象割合'],
+  ['shockPowderAffectedTargetShare', 'Shock Powder 影響対象割合'],
 ] as const satisfies readonly (readonly [keyof CrowdControlAssumptions, string])[]
 const POLICIES = [
   ['hardDisable', '移動・攻撃不能の重み'], ['attackSlow', '敵攻撃速度低下の重み'],
@@ -35,11 +37,12 @@ export function ControlSettings({ scenario, onChange }: { scenario: Scenario; on
   const changeAssumption = (key: keyof CrowdControlAssumptions, value: number) => onChange({ ...scenario, crowdControl: { ...assumptions, [key]: value } })
   return <details className="scenario-values">
     <summary>詳細設定 / Controlの仮定と評価方針</summary>
-    <p>適用割合は免疫などをまとめた対象・時間の仮定です。初期値は共通50%、bossのStunningのみ0%。powerful mobとApocalypse+の耐性は未確定です。</p>
+    <p>適用割合は免疫などをまとめた対象・時間の仮定です。初期値は共通50%、bossのStunningとShock Powderのみ0%。powerful mobとApocalypse+の耐性は未確定です。</p>
     {SHARES.map(([key, label]) => <label key={key}><span>{label}<output>{percent(assumptions[key])}</output></span>
       <input aria-label={label} type="range" min="0" max="1" step="0.05" value={assumptions[key]} onChange={(event) => changeAssumption(key, Number(event.target.value))} />
     </label>)}
     <small>Stunningは低信頼度の基準2秒 × 持続時間補正。初期補正1は耐性がないことの証明ではありません。</small>
+    <small>Shock Powderは適用可能割合 × 使用時に範囲内で影響を受ける割合を分離します。敵数やstun tickをArtifact使用回数へ掛けません。</small>
     {([['chainsExpectedTargetsPerProc', 'Chains 平均対象数 / proc'], ['gravityExpectedTargetsPerHit', 'Gravity 平均対象数 / hit']] as const).map(([key, label]) => <label key={key}>
       <span>{label}</span><input aria-label={label} type="number" min="1" max={scenario.averageTargetsInReach} step="any" value={assumptions[key]} onChange={(event) => changeAssumption(key, Number(event.target.value))} />
     </label>)}

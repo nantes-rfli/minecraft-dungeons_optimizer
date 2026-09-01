@@ -17,6 +17,7 @@ import { calculateDotDamageEvents, calculateExplosionDamageEvents } from './dotD
 import { OptimizerInputError } from './errors'
 import { committedTrajectory, conditionalDirectDamage } from './enemyStateDamage'
 import type {
+  ArtifactActivationState,
   ArtifactEffects,
   DamageMetrics,
   OwnedWeapon,
@@ -58,6 +59,7 @@ export function calculateDamage(
   scenario: Scenario,
   attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier,
   explosionSourceKillsPerSecond?: number,
+  artifactActivation: ArtifactActivationState = calculateArtifactActivationState(artifactEffects.uptimes),
 ): DamageMetrics {
   const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
@@ -79,7 +81,7 @@ export function calculateDamage(
   const hitsPerSecond =
     calculateBaseHitsPerSecond(attackProfile.value) *
     attackSpeedMultiplier
-  const artifactSynergyState = deriveArtifactSynergyState(enchantments, calculateArtifactActivationState(artifactEffects.uptimes), hitsPerSecond)
+  const artifactSynergyState = deriveArtifactSynergyState(enchantments, artifactActivation, hitsPerSecond)
   const baseDps = damagePerHit * hitsPerSecond
   const pain = enchantmentsById(enchantments, 'pain-cycle')[0]
   const dynamo = enchantmentsById(enchantments, 'dynamo')[0]

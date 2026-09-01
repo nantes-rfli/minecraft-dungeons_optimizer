@@ -25,7 +25,7 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
   const atUptime = (uptime: number) => {
     const attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier + (effect?.attackSpeedBonus ?? 0) * uptime
     const atSourceRate = (sourceRate: number) => {
-      const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier, sourceRate)
+      const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier, sourceRate, artifactActivation)
       return { damage, combatState: deriveCombatState(damage, scenario) }
     }
     const initial = atSourceRate(0)

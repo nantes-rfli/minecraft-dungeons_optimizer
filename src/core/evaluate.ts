@@ -2,6 +2,7 @@ import { calculateControl, describeControl } from './control'
 import { describeChargeConsume } from './chargeConsumeReasons'
 import { describeDotOrExplosion } from './dotDamageReasons'
 import { calculateArtifactEffects } from './artifact'
+import { deriveArtifactControlState } from './artifactControl'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { summarizeConfidence } from './confidence'
 import { resolveOffensiveSteadyState } from './offensiveSteadyState'
@@ -45,7 +46,8 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const potionState = derivePotionState(build.enchantments, combatState, scenario)
   const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario)
-  const control = calculateControl(build, scenario, temporalState.attackSpeedMultiplier, damage.hitsPerSecond)
+  const artifactControl = deriveArtifactControlState(build.artifacts, scenario)
+  const control = calculateControl(build, scenario, temporalState.attackSpeedMultiplier, damage.hitsPerSecond, artifactControl)
   const damageTarget =
     scenario.averageEnemyHealth * Math.max(0.1, scenario.enemySupplyPerSecond)
   const utilities = {

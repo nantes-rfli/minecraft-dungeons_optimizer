@@ -1,11 +1,12 @@
-import type { TimedSelfBuffArtifactDefinition, ArtifactId } from '../core/types'
+import type { ArtifactDefinition, ArtifactId } from '../core/types'
 import {
   COMMUNITY_ARTIFACT_STACKING_SOURCE,
   MINECRAFT_WIKI_DEATH_CAP_SOURCE,
   MINECRAFT_WIKI_IRON_HIDE_SOURCE,
+  MINECRAFT_WIKI_SHOCK_POWDER_SOURCE,
 } from './sources'
 
-export const ARTIFACTS: Readonly<Record<ArtifactId, TimedSelfBuffArtifactDefinition>> = {
+export const ARTIFACTS = {
   'death-cap-mushroom': {
     id: 'death-cap-mushroom',
     name: { ja: 'シロタマゴテングタケ', en: 'Death Cap Mushroom' },
@@ -85,4 +86,39 @@ export const ARTIFACTS: Readonly<Record<ArtifactId, TimedSelfBuffArtifactDefinit
       note: 'Duplicate buffs do not exceed 50% reduction; optimal staggered activation is modeled.',
     },
   },
-}
+  'shock-powder': {
+    id: 'shock-powder',
+    name: { ja: 'ショックパウダー', en: 'Shock Powder' },
+    cooldownSeconds: {
+      value: 15,
+      source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE,
+      confidence: 'high',
+    },
+    mechanic: 'hard-control',
+    use: { kind: 'cooldown-only', cooldownStarts: 'use' },
+    duration: {
+      kind: 'published-table',
+      supportedPowerRange: { min: 12, max: 262 },
+      points: [
+        { power: 12, seconds: { value: 3.5, source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE, confidence: 'medium' } },
+        { power: 58, seconds: { value: 5.3, source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE, confidence: 'medium' } },
+        { power: 108, seconds: { value: 7.2, source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE, confidence: 'medium' } },
+        { power: 262, seconds: { value: 13, source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE, confidence: 'medium' } },
+      ],
+    },
+    effect: {
+      kind: 'hard-stun',
+      semantics: {
+        value: 'movement-and-attacks-disabled',
+        source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE,
+        confidence: 'medium',
+      },
+    },
+    stacking: {
+      value: { maxCopies: 1, behavior: 'non-stackable' },
+      source: MINECRAFT_WIKI_SHOCK_POWDER_SOURCE,
+      confidence: 'low',
+      note: 'Runtime is limited to one copy because duplicate refresh/overlap behavior is unresolved.',
+    },
+  },
+} as const satisfies Readonly<Record<ArtifactId, ArtifactDefinition>>

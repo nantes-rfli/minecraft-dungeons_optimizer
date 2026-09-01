@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-01",
+  "timeSemantics": "steady-state-use-when-ready; first use at t=0 is not separately credited",
+  "sources": [
+    {
+      "id": "wiki-shock-powder",
+      "url": "https://minecraft.wiki/w/Dungeons:Shock_Powder",
+      "scope": "15s cooldown, nearby-enemy stun, Power-duration table"
+    },
+    {
+      "id": "wiki-fishing-rod",
+      "url": "https://minecraft.wiki/w/Dungeons:Fishing_Rod",
+      "scope": "closest-mob pull, Power-scaled stun, current 1.5s cooldown"
+    },
+    {
+      "id": "wiki-gong-of-weakening",
+      "url": "https://minecraft.wiki/w/Dungeons:Gong_of_Weakening",
+      "scope": "20s cooldown, 2x vulnerability, radius and Power-scaled display duration"
+    },
+    {
+      "id": "wiki-1162",
+      "url": "https://minecraft.wiki/w/Dungeons:1.16.2.0",
+      "scope": "Fishing Rod and Gong balance history"
+    },
+    {
+      "id": "model-control-coverage",
+      "url": "docs/artifact-control-debuff.md",
+      "scope": "editable eligibility/target shares and bounded refresh-saturation approximation"
+    }
+  ],
+  "entries": [
+    {
+      "id": "shock-powder",
+      "cooldownSeconds": 15,
+      "powerScaling": {
+        "kind": "piecewise-linear-published-table",
+        "supportedPowerRange": { "min": 12, "max": 262 },
+        "samples": [
+          { "power": 12, "durationSeconds": 3.5 },
+          { "power": 58, "durationSeconds": 5.3 },
+          { "power": 108, "durationSeconds": 7.2 },
+          { "power": 262, "durationSeconds": 13 }
+        ],
+        "extrapolationAllowed": false,
+        "confidence": "low-model"
+      },
+      "duration": "Power-scaled stun, interpolated only between exact published knots",
+      "targeting": "nearby enemies; radius/expected target count unavailable",
+      "control": "hard-disable only; movement and attacks disabled",
+      "duplicateBehavior": "game equip capacity up to three, runtime maximum one; overlap unresolved",
+      "cooldownReductionInteraction": "effectiveCooldown=15*(1-CDR); coverage saturates at one",
+      "artifactSynergyActivation": "one activation per use, independent of targets and stun ticks",
+      "bossEligibility": "editable share; boss profile defaults to zero",
+      "apocalypsePlusResistance": "unresolved; represented by editable eligibility share",
+      "runtimeDecision": "implemented-limited",
+      "blockers": [
+        "radius and target count",
+        "boss/miniboss and Apocalypse+ immunity mapping",
+        "duplicate refresh/overlap semantics",
+        "finite first-use timing"
+      ],
+      "sourceIds": ["wiki-shock-powder", "model-control-coverage"]
+    },
+    {
+      "id": "fishing-rod",
+      "cooldownSeconds": 1.5,
+      "powerScaling": "current formula unresolved; old (power-1)*0.02+1.5 formula rejected",
+      "duration": "1.16.2.0 raised 1.5s to 3s, but relation to current Power scaling is unresolved",
+      "targeting": "closest mob; item/emerald/XP pickup or no valid mob can waste the use",
+      "control": "single-target pull and hard stun are distinct dimensions",
+      "duplicateBehavior": "unresolved; no runtime ID registered",
+      "cooldownReductionInteraction": "1.5s base is known, but no effect coverage without current duration curve",
+      "artifactSynergyActivation": "use and successful mob effect must be distinct if implemented",
+      "bossEligibility": "pull and stun immunity mapping unresolved",
+      "apocalypsePlusResistance": "unresolved",
+      "runtimeDecision": "research-only",
+      "blockers": [
+        "current Power-to-stun-duration table or formula",
+        "relation between 1.16.2.0 3s history and Power scaling",
+        "successful mob target and immunity model"
+      ],
+      "sourceIds": ["wiki-fishing-rod", "wiki-1162"]
+    },
+    {
+      "id": "gong-of-weakening",
+      "cooldownSeconds": 20,
+      "powerScaling": "display duration scales with Power; no current paired samples or formula",
+      "duration": "Power-scaled display duration and fixed 5s Weakening history are not treated as identical",
+      "targeting": "reported radius about seven blocks; patch raw range 400 to 500 has unresolved unit mapping",
+      "control": "vulnerability and outgoing-damage Weakening require separately owned states",
+      "vulnerability": "affected enemies take 2x damage after 1.16.2.0; channel ownership unresolved",
+      "weakening": "1.16.2.0 history reports 5s, but magnitude and relation to display duration unresolved",
+      "duplicateBehavior": "vulnerability/Weakening stacking and refresh unresolved",
+      "cooldownReductionInteraction": "20s base known; no coverage without both status durations",
+      "artifactSynergyActivation": "one use would be one activation if implemented",
+      "bossEligibility": "target coverage and immunity unresolved",
+      "apocalypsePlusResistance": "unresolved",
+      "runtimeDecision": "research-only",
+      "blockers": [
+        "vulnerability duration curve",
+        "Weakening duration and magnitude ownership",
+        "Weapon Weakening refresh/overlap",
+        "Void and direct/indirect modifier channel interaction",
+        "separate outgoing/incoming target shares"
+      ],
+      "sourceIds": ["wiki-gong-of-weakening", "wiki-1162"]
+    }
+  ]
+}

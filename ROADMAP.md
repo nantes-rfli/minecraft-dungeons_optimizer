@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **25 / 43（58%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **27 / 43（63%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（6 / 19）
+## Phase 2 — Equipment Coverage（8 / 19）
 
 ### Melee runtime summary
 
@@ -58,10 +58,10 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 <!-- runtime-support:end -->
 
 <!-- artifact-support:start -->
-Artifacts · Audited source population 44 · Catalog runtime 2 / 44 · Full 2 · Limited 0 · Research-only 42
+Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-Artifactの44件はsource一覧の監査範囲です。Corrupted Seedsの欠落を別記し、Phase 2-2Aはpartial。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
+Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted Seedsを再現可能に照合し、project監査母集団を正規化和集合45件と定義しました。raw game ID全体の網羅性は主張しません。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
 
 近接25〜30種の親目標はmeaningful runtimeで達成。全33種完全対応ではありません。[support matrix](./docs/melee-runtime-support.md) / [limitations](./docs/runtime-limitations.md)。
 以下のpartialは歴史的Phaseのfull completion gate未達であり、現行support levelとは別軸です。
@@ -80,8 +80,8 @@ Artifactの44件はsource一覧の監査範囲です。Corrupted Seedsの欠落�
 - [ ] Phase 2-1J partial: Pain Cycle / Dynamo（catalog28 / 33、広域22・限定6、HP cost/roll flow/合成制限）
 - [x] Phase 2-1K: Melee Runtime Consolidation（分類・manifest・監査・表示・実用性回帰）
 - [x] 近接エンチャントを25〜30種類へ拡張（meaningful runtimeで達成、全33種完全対応ではない）
-- [ ] Phase 2-2A partial: Artifact Audit & Runtime Foundation（source44件・型・回帰・support整備済み、母集団照合/次batch Evidence待ち）
-- [ ] Phase 2-2B: Artifact Expansion Batch 1（Shock Powder / Fishing Rod / Gong、Evidence gate付き候補）
+- [x] Phase 2-2A: Artifact Audit & Runtime Foundation（primary44 / secondary45 / union45を照合）
+- [x] Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）
 - [ ] Phase 2-2C: Soul Batch（Soul Healer / Harvester / Lightning Rod、Evidence gate付き候補）
 - [ ] Phase 2-2D: Event / Healing / Control Batch（Powershaker / Totem / Wind Horn、Evidence gate付き候補）
 - [ ] アーティファクトを10〜15種類へ拡張
@@ -103,7 +103,7 @@ Artifactの44件はsource一覧の監査範囲です。Corrupted Seedsの欠落�
 
 ### Current summary
 
-Phase 2-1K completeを維持。Phase 2-2A partial: Artifactのsource44件監査・型とactivation基盤・180ケースのexact regression・独立support表示を実装。Corrupted Seeds欠落の母集団照合と次batchのPower/target根拠が未解決。新Artifact runtime追加なし。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-1K completeを維持。Phase 2-2Aはprimary44 / secondary45の差分をCorrupted Seedsと特定し、表示定義union45を監査母集団として完了。Phase 2-2BはShock PowderをPower 12〜262・1copy・対象割合付きLimited hard Controlとして追加し、Fishing Rod / Gongは具体blocker付きResearch-onlyを維持。既存180ケースのexact regressionは不変です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -113,7 +113,7 @@ P0 0 / P1 3 / P2 4 / P3 10（backlog行単位）。[制限・優先度・close�
 
 ### Next area
 
-近接拡張はfreeze。Artifactの母集団差分を解消し、条件付き11種shortlist（既存2+候補9）のEvidenceを収集。Phase 2-2BはShock Powder / Fishing Rod / Gongを対象候補とし、根拠不足のままruntime登録しない。
+近接拡張はfreeze。次はPhase 2-2CのSoul Healer / Harvester / Lightning Rodを再評価し、共通の有限Soul支出schedulerを先に確立します。条件付き11種shortlistはruntime3 + 残り候補8で、根拠不足の候補は登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

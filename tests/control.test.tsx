@@ -303,7 +303,7 @@ describe('Control optimizer, persistence and UI', () => {
 })
 
 describe('Control scenario validation', () => {
-  it.each(['stunningEligibleTargetShare', 'chainsEligibleTargetShare', 'freezingEligibleTargetShare', 'gravityEligibleTargetShare', 'stunningEffectiveDurationMultiplier'] as const)('rejects invalid %s', (key) => {
+  it.each(['stunningEligibleTargetShare', 'chainsEligibleTargetShare', 'freezingEligibleTargetShare', 'gravityEligibleTargetShare', 'stunningEffectiveDurationMultiplier', 'shockPowderEligibleTargetShare', 'shockPowderAffectedTargetShare'] as const)('rejects invalid %s', (key) => {
     for (const value of [-0.1, 1.1, NaN, Infinity]) expect(() => validateScenario({ ...DEFAULT_SCENARIO, crowdControl: { ...DEFAULT_SCENARIO.crowdControl, [key]: value } })).toThrow(/crowdControl/)
   })
   it.each(['chainsExpectedTargetsPerProc', 'gravityExpectedTargetsPerHit'] as const)('rejects illogical target counts %s', (key) => {

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
-  "population": 44,
-  "populationScope": "dungeons.tools 1.17.0.0 index snapshot; NOT a verified exhaustive game population",
+  "population": 45,
+  "populationScope": "Normalized union of released Artifact display definitions observed in the dungeons.tools 1.17.0.0 index and current Minecraft Wiki item list, including legacy event reskins; NOT a verified exhaustive set of every raw game ID",
   "entries": [
     {
       "id": "blast-fungus",
@@ -96,6 +96,23 @@
         "dt-artifacts-117",
         "dt-corrupted-pumpkin",
         "wiki-event"
+      ]
+    },
+    {
+      "id": "corrupted-seeds",
+      "name": "Corrupted Seeds",
+      "mechanicFamily": "persistent-damage",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Poison curve and root immunity/refresh"
+      ],
+      "boundaries": [],
+      "assumptionRefs": [
+        "docs/artifact-model.md",
+        "docs/artifact-expansion-plan.md"
+      ],
+      "sourceIds": [
+        "wiki-corrupted-seeds"
       ]
     },
     {
@@ -200,7 +217,8 @@
       "boundaries": [],
       "assumptionRefs": [
         "docs/artifact-model.md",
-        "docs/artifact-expansion-plan.md"
+        "docs/artifact-expansion-plan.md",
+        "docs/artifact-control-debuff.md"
       ],
       "sourceIds": [
         "dt-artifacts-117",
@@ -273,7 +291,8 @@
       "boundaries": [],
       "assumptionRefs": [
         "docs/artifact-model.md",
-        "docs/artifact-expansion-plan.md"
+        "docs/artifact-expansion-plan.md",
+        "docs/artifact-control-debuff.md"
       ],
       "sourceIds": [
         "dt-artifacts-117",
@@ -524,15 +543,20 @@
       "id": "shock-powder",
       "name": "Shock Powder",
       "mechanicFamily": "hard-control",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Version-check stun samples and bounded interpolation",
-        "coverage and immunity"
+        "Bounded published duration table and independent hard-control state"
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Power 12–262 only; piecewise-linear interpolation; no extrapolation",
+        "Runtime maximum one copy",
+        "Editable eligibility and affected-target shares; boss default zero",
+        "Steady-state use-when-ready with refresh-saturation approximation"
+      ],
       "assumptionRefs": [
         "docs/artifact-model.md",
-        "docs/artifact-expansion-plan.md"
+        "docs/artifact-expansion-plan.md",
+        "docs/artifact-control-debuff.md"
       ],
       "sourceIds": [
         "dt-artifacts-117",

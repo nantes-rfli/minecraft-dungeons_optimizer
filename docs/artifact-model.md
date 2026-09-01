@@ -1,19 +1,20 @@
-# Artifact model — Phase 2-2A
+# Artifact model — Phase 2-2A / 2-2B
 
-今回の変更はruntime増加ではなく、既存2種を保った拡張基盤です。Research populationの全体性と実装batchのEvidence gateが残るためPhaseはpartial。Full/Limited/Research-onlyは現在の計算対応、confidenceは根拠の品質、Phase partialは作業計画の完了条件で、それぞれ別軸です。
+Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定し、表示定義の正規化和集合45件をproject監査母集団にしました。raw game IDの網羅性は主張しません。Phase 2-2BではShock PowderだけがEvidence gateを通りLimited runtimeとなり、Fishing Rod / GongはResearch-onlyです。Full/Limited/Research-only、confidence、historical phase statusは別軸です。
 
 ## Before / after
 
 従来の`ArtifactDefinition`は全種類にduration切片・Power係数を要求し、攻撃速度/DRをoptionalで持っていました。現在は`mechanic`を判別子とするunionを`src/core/artifactMechanics.ts`に分離しています。
 
 - `timed-self-buff`: duration + attack-speed または damage-reduction効果。
+- `hard-control`: bounded duration + hard-stun。runtimeではShock Powderだけ。
 - `instant-heal` / `soul-spending-heal`: healing amount modelとtarget policy。durationなしの拡張契約。
 - `attack-limited-buff`: event budget + damage amount model。通常uptimeへ変換しない拡張契約。
 - それ以外のfamilyはresearch taxonomyで分類し、専用stateの根拠が得られてからruntime unionを拡張する。
 
-拡張契約は実装済み効果ではありません。`ArtifactId`はDeath Cap Mushroom / Iron Hide Amuletだけ。`ARTIFACTS`は`Record<ArtifactId, TimedSelfBuffArtifactDefinition>`でキー集合を型検証し、監査がsupport manifestと照合します。型の拡張だけで未実装効果を選択可能にはしません。
+拡張契約は実装済み効果ではありません。`ArtifactId`はDeath Cap Mushroom / Iron Hide Amulet / Shock Powderだけ。`ARTIFACTS`は`Record<ArtifactId, ArtifactDefinition>`としてキー集合を型検証し、監査がsupport manifestと照合します。型の拡張だけで未実装効果を選択可能にはしません。
 
-`calculateTimedArtifactUptime`はtimed self buff専用。未対応mechanicやresource/channel useは明示エラーです。`calculateArtifactEffects`も未対応familyを0寄与として通しません。将来は新しいeffect solverをdispatchへ接続した後でcatalogへ登録します。
+`calculateTimedArtifactUptime`はtimed self buff専用。`calculateArtifactEffects`はhard-controlをself buffへ偽変換せず、`deriveArtifactControlState`へdispatchします。その他の未対応mechanicやresource/channel useは明示エラーです。将来も専用solverを接続した後でcatalogへ登録します。
 
 ## Duration
 
@@ -45,7 +46,7 @@ Soul Healerはsoloなら自己target、co-opはmost-injured ally。`scenario.par
 
 - Damage channel: direct-melee / enchantment-proc / artifact-damage。Artifact damageをdirectWeaponKillsへ加算しない。Harvesterの「Soulを落とさない撃破」にはsourceごとのpickup eligibilityが必要。Fireworks等の武器経由例外は別途Evidence gateとし、一律継承しない。
 - Healing: `artifactHealingCapacityPerSecond`をRadiance / Leeching / Anima / potion capacityと分離。amount/use、total/zone、tick healing、自己/party/residence/overhealを明示する。
-- Control: artifact由来のstun/root/slow/pushの対象秒数やutilityを専用sourceとして追加。stun→DR、push→DPSという換算をしない。既存免疫割合を無条件継承せずArtifact別の差を調べる。
+- Control: Shock Powderはsource Artifact ID、Power、duration、effective CD、raw coverage、eligibility、affected-target shareを保持します。stun→DR/DPSへ換算せず、別hard stunとの合成だけを飽和union近似します。
 - Gong: vulnerability倍率とenemy outgoing Weakeningを別state/所有者にし、武器Weakeningと同名という理由だけでscalar合成しない。
 - Mobility:移動目的がない効果はneeds-objective。Shadowやrollに副次的damageがあっても経路が完成するまで登録しない。
 - Consumable/random:配布確率、ammo、pickup/使用policyが必要。Summonはlifetime・cadence・cap・target AI・kill帰属をBusy Beeと共用可能なsubsystemで扱う。
@@ -54,7 +55,7 @@ Soul Healerはsoloなら自己target、co-opはmost-injured ally。`scenario.par
 
 Buildは最大3slotで既に検証されており、今回テストで再固定しました。手持ちinventory自体は3個に制限しません。同種の別instanceを装備できることと、効果量stack、refresh、独立damage、共有chargeが成立することは別です。
 
-既存Death Cap / Iron Hideは最大3コピー、効果量は重ねず最適に交互使用するlow-confidence refresh-stagger仮定を維持します。未実装Artifactへ継承しません。Updraft Tomeの同target再使用によるdamage cancel、channel占有、pet cap、設置zone overlapなどは専用policyが必要です。researchのduplicateEquipは3slot内の一般的な装備可能性を示す仮定で、44種類すべての同時動作を検証したという意味ではありません。
+既存Death Cap / Iron Hideは最大3コピー、効果量は重ねず最適に交互使用するlow-confidence refresh-stagger仮定を維持します。Shock Powderへ継承せず、duplicate refresh/overlapが未解決なためruntimeは1copyです。Updraft Tomeの同target再使用によるdamage cancel、channel占有、pet cap、設置zone overlapなどは専用policyが必要です。researchのduplicateEquipは3slot内の一般的な装備可能性を示す仮定で、45種類すべての同時動作を検証したという意味ではありません。
 
 ## Frozen runtime / exact regression
 
@@ -62,8 +63,9 @@ Buildは最大3slotで既に検証されており、今回テストで再固定�
 | --- | --- | --- | --- | --- | --- |
 | Death Cap Mushroom | Full | timed-self-buff | 30s | 8 + 0.052 × Power | +100% attack speed、refresh-stagger、最大3 |
 | Iron Hide Amulet | Full | timed-self-buff | 25s | 8 + 0.052 × Power | 50% DR、refresh-stagger、最大3 |
+| Shock Powder | Limited | hard-control | 15s | Power 12–262の公開4点間を区分線形補間 | eligibility × affected share、1copy、DPS/DR変換なし |
 
-式・Evidence source・confidence・説明・計算順序を保持します。高精度化は今回行いません。
+既存2種の式・Evidence source・confidence・説明・計算順序を保持します。Shock Powderを使わない既存180ケースはbaselineとexact一致します。
 
 `tests/fixtures/artifact-foundation-baseline.json`は`34e9b729ccf8ec947932ec8936541c9ea38c67d7`のgit archiveを実行して採取した出力hashです。current実装から期待値を再生成しません。`node scripts/capture-artifact-baseline.ts`が再現手順です。
 
@@ -71,6 +73,6 @@ Buildは最大3slotで既に検証されており、今回テストで再固定�
 
 ## Audit / publication gate
 
-`npm run audit:artifacts`で44件のschema・source参照・family・readiness・catalog/manifest・次batch構成を検証し、集計/対応表/計画を再生成。CIにも追加します。`npm test`の破損入力テスト、runtime-only選択確認、exact regression、生成文書のdrift検査、`npx tsc -b`、lint、buildを通します。
+`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・次batch構成を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は3候補のdecision、ShockのCD・Power境界・4 knot、Fishing/GongのResearch-onlyを検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
 
-監査scriptの成功は「記録の整合性」の成功です。未解決のEvidenceや母集団の網羅性まで解決した意味ではありません。[audit](artifact-audit.md) / [support](artifact-runtime-support.md) / [expansion](artifact-expansion-plan.md)を正本として参照してください。
+監査scriptの成功は「記録の整合性」の成功です。未解決のEvidenceやraw game IDの網羅性まで解決した意味ではありません。[audit](artifact-audit.md) / [control/debuff](artifact-control-debuff.md) / [support](artifact-runtime-support.md) / [expansion](artifact-expansion-plan.md)を正本として参照してください。

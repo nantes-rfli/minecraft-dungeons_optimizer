@@ -55,7 +55,7 @@ export type EnchantmentId =
   | 'gravity'
   | 'pain-cycle'
   | 'dynamo'
-export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet'
+export type ArtifactId = 'death-cap-mushroom' | 'iron-hide-amulet' | 'shock-powder'
 export type ScenarioProfileId =
   | 'balanced'
   | 'damage'
@@ -467,6 +467,8 @@ export interface CrowdControlAssumptions {
   readonly stunningEffectiveDurationMultiplier: number
   readonly chainsExpectedTargetsPerProc: number
   readonly gravityExpectedTargetsPerHit: number
+  readonly shockPowderEligibleTargetShare: number
+  readonly shockPowderAffectedTargetShare: number
 }
 
 export interface RefreshControlState {
@@ -495,6 +497,26 @@ export interface GravityState extends RefreshControlState {
   readonly affectedTargetFraction: number
   readonly groupingCoverage: number
 }
+export interface ArtifactControlContribution {
+  readonly sourceArtifactId: ArtifactId
+  readonly hardDisableCoverage: number
+  readonly attackSlowEquivalentCoverage: number
+  readonly rootCoverage: number
+  readonly groupingCoverage: number
+  readonly positionalControlCoverage: number
+}
+export interface ShockPowderControlState extends ArtifactControlContribution {
+  readonly sourceArtifactId: 'shock-powder'
+  readonly instanceId: string
+  readonly powerLevel: number
+  readonly durationSeconds: number
+  readonly effectiveCooldownSeconds: number
+  readonly rawActiveCoverage: number
+  readonly eligibleTargetShare: number
+  readonly affectedTargetShare: number
+  readonly timeModel: 'steady-state-use-when-ready'
+  readonly overlapModel: 'refresh-saturation-assumption'
+}
 export interface ControlMetrics {
   readonly hardDisableCoverage: number
   readonly attackSlowEquivalentCoverage: number
@@ -504,6 +526,8 @@ export interface ControlMetrics {
   readonly freezing?: FreezingState
   readonly chains?: ChainsState
   readonly gravity?: GravityState
+  readonly shockPowder?: ShockPowderControlState
+  readonly artifactContributions?: readonly ArtifactControlContribution[]
   /** Preference score, not the union of suppressed enemy actions. */
   readonly utility: number
 }

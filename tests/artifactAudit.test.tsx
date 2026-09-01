@@ -16,23 +16,27 @@ import { digest } from './fixtures/runtimeBaselineDigest'
 import { ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
 
 describe('artifact source audit and separate runtime manifest', () => {
-  it('validates all 44 sources/entries and catalog equality', () => {
+  it('validates the reconciled 45-definition population and catalog equality', () => {
     expect(collectArtifactAuditErrors(ARTIFACT_AUDIT)).toEqual([])
     expect(collectArtifactSupportErrors(ARTIFACT_RUNTIME_SUPPORT)).toEqual([])
     expect(new Set(ARTIFACT_AUDIT.entries.map((entry) => entry.id)).size).toBe(44)
-    expect(Object.keys(ARTIFACTS).sort()).toEqual(['death-cap-mushroom', 'iron-hide-amulet'])
+    expect(Object.keys(ARTIFACTS).sort()).toEqual(['death-cap-mushroom', 'iron-hide-amulet', 'shock-powder'])
     expect(ARTIFACT_RUNTIME_SUPPORT.entries.filter((entry) => entry.supportLevel !== 'research-only').map((entry) => entry.id)).toEqual(Object.keys(ARTIFACTS).sort())
-    expect(summarizeArtifactRuntimeSupport()).toEqual({ population: 44, runtime: 2, full: 2, limited: 0, researchOnly: 42 })
+    expect(summarizeArtifactRuntimeSupport()).toEqual({ population: 45, runtime: 3, full: 2, limited: 1, researchOnly: 42 })
     const summary = summarizeArtifactAudit()
-    expect(summary.obtainable).toBe(43)
-    expect(Object.values(summary.families).reduce((a, b) => a + b, 0)).toBe(44)
-    expect(Object.values(summary.readiness).reduce((a, b) => a + b, 0)).toBe(44)
+    expect(summary.obtainable).toBe(44)
+    expect(Object.values(summary.families).reduce((a, b) => a + b, 0)).toBe(45)
+    expect(Object.values(summary.readiness).reduce((a, b) => a + b, 0)).toBe(45)
     expect(summary.supplemental).toBe(1)
   })
   it('pins the observed primary ID set without confusing it with the game-wide population', () => {
     expect(digest(ARTIFACT_AUDIT.entries.map((entry) => entry.id).sort())).toBe('b53947c16b8aaca0726ce7cd4ecbf61c1d68a2e5067ee5fb319eb4172febb35f')
     expect(ARTIFACT_AUDIT.populationDifferences.map((entry) => entry.id)).toEqual(['corrupted-seeds'])
-    expect(ARTIFACT_AUDIT.phaseStatus).toBe('partial')
+    expect(ARTIFACT_AUDIT.phaseStatus).toBe('complete')
+    expect(ARTIFACT_AUDIT.populationReconciliation).toMatchObject({ primarySourceCount: 44, secondarySourceCount: 45, reconciledPopulationCount: 45, conclusion: 'source-scope-difference', exhaustiveClaimSupported: false })
+    expect(ARTIFACT_AUDIT.populationReconciliation.commonIds).toHaveLength(44)
+    expect(ARTIFACT_AUDIT.populationReconciliation.primaryOnly).toEqual([])
+    expect(ARTIFACT_AUDIT.populationReconciliation.secondaryOnly.map((entry) => entry.normalizedProjectId)).toEqual(['corrupted-seeds'])
     const pumpkin = ARTIFACT_AUDIT.entries.find((entry) => entry.id === 'corrupted-pumpkin')!
     expect([pumpkin.obtainable, pumpkin.eventExclusive, pumpkin.unique, pumpkin.reskinOf]).toEqual([false, true, true, 'corrupted-beacon'])
   })
@@ -55,7 +59,7 @@ describe('artifact source audit and separate runtime manifest', () => {
   it('rejects source, numeric, population and research-to-runtime corruption', () => {
     const mutations = [
       (data: typeof ARTIFACT_AUDIT) => { data.population = 43 },
-      (data: typeof ARTIFACT_AUDIT) => { data.phaseStatus = 'complete' },
+      (data: typeof ARTIFACT_AUDIT) => { data.phaseStatus = 'partial' as typeof data.phaseStatus },
       (data: typeof ARTIFACT_AUDIT) => { data.populationDifferences = [] },
       (data: typeof ARTIFACT_AUDIT) => { data.entries[0] = data.entries[1]! },
       (data: typeof ARTIFACT_AUDIT) => { data.sources[0]!.url = 'javascript:alert(1)' },
@@ -73,6 +77,7 @@ describe('artifact source audit and separate runtime manifest', () => {
   })
   it.each([
     ['death-cap-mushroom', 'supportLevel', 'research-only'], ['iron-hide-amulet', 'supportLevel', 'limited'],
+    ['shock-powder', 'supportLevel', 'full'], ['shock-powder', 'boundaries', []],
     ['gong-of-weakening', 'supportLevel', 'full'], ['gong-of-weakening', 'reasons', ['generic unsupported']],
     ['gong-of-weakening', 'sourceIds', ['missing']], ['death-cap-mushroom', 'boundaries', ['new restriction']],
     ['gong-of-weakening', 'assumptionRefs', []], ['gong-of-weakening', 'mechanicFamily', 'mobility'],
@@ -99,9 +104,9 @@ describe('generated coverage, conditional shortlist and UI', () => {
     expect(() => artifactImplementationPriority({ ...score, powerAvailability: 6 })).toThrow()
     expect(ARTIFACT_EXPANSION_PLAN.entries.find((entry) => entry.id === 'corrupted-beacon')!.classification).toBe('deferred')
   })
-  it('shows separate counts and two runtime rows without selectable research items', () => {
+  it('shows separate counts and three runtime rows without selectable research items', () => {
     const html = renderToStaticMarkup(<ArtifactRuntimeSupportSection />)
-    for (const text of ['Full 2', 'Limited 0', 'Research-only 42', 'Death Cap Mushroom', 'Iron Hide Amulet', 'Corrupted Seeds', 'Phase 2-2A partial']) expect(html).toContain(text)
+    for (const text of ['Full 2', 'Limited 1', 'Research-only 42', 'Death Cap Mushroom', 'Iron Hide Amulet', 'Shock Powder', 'Corrupted Seeds', 'Phase 2-2A complete']) expect(html).toContain(text)
     expect(html).not.toMatch(/<input|<option/)
     expect(html).not.toContain('Powershaker')
   })
@@ -119,7 +124,7 @@ describe('generated coverage, conditional shortlist and UI', () => {
     expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)
     expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
     expect(roadmap).toContain(`${ROADMAP_PROGRESS.completed} / ${ROADMAP_PROGRESS.total}（${ROADMAP_PROGRESS.percentage}%）`)
-    expect(ROADMAP_PHASES.flatMap((phase) => phase.items).find((item) => item.label.startsWith('Phase 2-2A partial'))!.status).toBe('in-progress')
+    expect(ROADMAP_PHASES.flatMap((phase) => phase.items).find((item) => item.label.startsWith('Phase 2-2A:'))!.status).toBe('done')
     expect(roadmap).toContain('- [ ] アーティファクトを10〜15種類へ拡張')
   })
 })
