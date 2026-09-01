@@ -93,7 +93,7 @@ export function describeControl(control: ControlMetrics): string[] {
     if (!s) continue
     const name = getEnchantmentDefinition(id).name.en
     const common = `${name}: HPS ${s.opportunitiesPerSecond.toFixed(3)} × ${percent(s.triggerChance)}、${s.durationSeconds}秒 → active ${percent(s.activeCoverage)}、適用対象 ${percent(s.eligibleTargetShare)}`
-    if (id === 'stunning' && control.stunning) reasons.push(`${common} → hard disable ${percent(control.hardDisableCoverage)}（基準2秒はcommunity由来・信頼度低、耐性補正後）`)
+    if (id === 'stunning' && control.stunning) reasons.push(`${common} → hard disable ${percent(control.stunning.effectiveHardDisableCoverage)}（基準2秒はcommunity由来・信頼度低、耐性補正後）`)
     if (id === 'freezing' && control.freezing) reasons.push(`${common} × 敵攻撃速度低下 ${percent(control.freezing.attackSpeedReduction)} → attack slow ${percent(control.attackSlowEquivalentCoverage)}（移動低下・被ダメージ削減へ換算しない）`)
     if (id === 'chains' && control.chains) reasons.push(`${common}、平均${control.chains.expectedTargetsPerProc}体/proc × 対象比率${percent(control.chains.affectedTargetFraction)} → root ${percent(control.rootCoverage)}（移動を束縛、近くには攻撃可能、1copy限定）`)
     if (id === 'gravity' && control.gravity) reasons.push(`${common}、平均${control.gravity.expectedTargetsPerHit}体/hit × 対象比率${percent(control.gravity.affectedTargetFraction)} → grouping ${percent(control.groupingCoverage)}（集敵のみ、DPS bonusなし）`)
@@ -102,5 +102,6 @@ export function describeControl(control: ControlMetrics): string[] {
     const state = control.shockPowder
     reasons.push(`Shock Powder: Power ${state.powerLevel} → stun ${state.durationSeconds.toFixed(3)}秒、CD ${state.effectiveCooldownSeconds.toFixed(3)}秒 → raw ${percent(state.rawActiveCoverage)} × 適用可能 ${percent(state.eligibleTargetShare)} × 影響対象 ${percent(state.affectedTargetShare)} = hard disable ${percent(state.hardDisableCoverage)}（常時使用・refresh saturation近似、DPS/防御へ変換しない）`)
   }
+  if (control.stunning && control.shockPowder) reasons.push(`Combined hard-disable coverage: ${percent(control.hardDisableCoverage)}`)
   return reasons
 }

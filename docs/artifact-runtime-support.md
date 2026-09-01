@@ -33,7 +33,7 @@ Fullは現在scopeの主要計算経路が完結。低confidenceだけではLimi
 | Light Feather | mobility | research-only | Roll triggers and stun coverage; connect Dynamo only after roll semantics audit |
 | Lightning Rod | soul-spending-damage | research-only | 2s versus 4s CD conflict; no current-version high-Power damage curve; strike targeting/delay and kill-Soul eligibility |
 | Love Medallion | hard-control | research-only | Charm ownership, target immunity, borrowed mob damage and expiry deaths |
-| Powershaker | attack-limited-buff | research-only | Per-attack versus per-target consumption; explosion curve and attribution |
+| Powershaker | attack-limited-buff | research-only | current deterministic/probability and miss semantics; attack-action versus per-target five-budget consumption; reactivation and duplicate-copy behavior; current absolute damage curve and supported Power range; AoE overlap/target model and source-specific kill attribution; artifact/direct modifier and Soul-generation boundaries |
 | Satchel of Elements | random-effect | research-only | Element probabilities, target count, burn/lightning/freeze curves |
 | Satchel of Elixirs | consumable-generation | research-only | Potion distribution, pickup/consumption policy and buff overlap |
 | Satchel of Snacks | consumable-generation | research-only | Food distribution, pickup/consumption and overheal policy |
@@ -48,12 +48,12 @@ Fullは現在scopeの主要計算経路が完結。低confidenceだけではLimi
 | Tome of Duplication | consumable-generation | research-only | Soul-paid consumable duplication, inventory and use policy |
 | Torment Quiver | consumable-generation | research-only | Soul spending, loaded ranged ammo and knockback/piercing targets |
 | Totem of Casting | other | research-only | Soul-paid delayed CD reset, party aura residence and activation feedback loop |
-| Totem of Regeneration | placed-healing-zone | research-only | Healing curve; total versus tick healing; residence and overlapping zones |
+| Totem of Regeneration | placed-healing-zone | research-only | exact current zone duration and tick count; display health-healed unit versus 40-per-second history; current usable Power curve and supported range; self residence calibration and self/party attribution; multiple-zone overlap and duplicate-copy behavior |
 | Totem of Shielding | other | research-only | Placed projectile shield: incoming projectile share, residence and overlap |
 | Updraft Tome | hard-control | research-only | Repeated same-target use cancels damage; stun/damage curves and seven-target cap |
 | Vexing Chant | summon | research-only | Three vexes: lifetime, attacks, target AI and summon cap |
 | Void Quiver | consumable-generation | research-only | Ranged ammo and Void application/consumption ownership |
-| Wind Horn | positional-control | research-only | Push curve above 108; slow magnitude/duration; close-range exception |
+| Wind Horn | positional-control | research-only | overlapping band-boundary semantics and no supported high-Power range; slow classification, magnitude and duration; quantified close-range push/slow target shares; separate boss/immovable eligibility for push and slow; duplicate status refresh/overlap behavior; meaningful separation Control policy without fake DPS or defense conversion |
 | Wonderful Wheat | summon | research-only | Llama projectile cadence, survival, targeting and pet cap |
 
 [Control / debuff deep audit](artifact-control-debuff.md) · [Model / regression](artifact-model.md) · [Expansion plan](artifact-expansion-plan.md)

@@ -1,6 +1,6 @@
-# Artifact model — Phase 2-2A / 2-2B / 2-2C
+# Artifact model — Phase 2-2A / 2-2B / 2-2C / 2-2D
 
-Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定し、表示定義の正規化和集合45件をproject監査母集団にしました。raw game IDの網羅性は主張しません。Phase 2-2BではShock PowderだけがEvidence gateを通りLimited runtimeとなり、Fishing Rod / GongはResearch-onlyです。Full/Limited/Research-only、confidence、historical phase statusは別軸です。
+Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定し、表示定義の正規化和集合45件をproject監査母集団にしました。raw game IDの網羅性は主張しません。Phase 2-2BではShock PowderだけがEvidence gateを通りLimited runtimeとなり、2-2C / 2-2Dの6候補はResearch-onlyです。Full/Limited/Research-only、confidence、historical phase statusは別軸です。
 
 ## Before / after
 
@@ -22,6 +22,8 @@ Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定�
 
 `ArtifactTriggerBudget`はevent-limitedを別型で表し、時間切れまたは最大trigger数で終了します。Powershakerの15秒・5爆発という履歴から15/CDをuptimeにすることはできません。heal・damage・summonへ偽duration=0を加えません。
 
+Powershakerの将来solverは発動ごとに最大5 eventだけを処理し、attack action / hit target粒度、miss、再発動をEvidenceで固定してから接続します。爆発は`artifact-damage`で、direct weapon killを汚しません。Totemは`placed-healing-zone`としてexact durationとhealing rateが揃ってから、zone uptime × self residenceで名目自己回復capacityを算出します。Wind Hornは`separationCoverage`候補をgroupingから分離し、policy未定のままDPS/DRへ換算しません。これらは[Phase 2-2D監査](artifact-event-healing-control.md)の設計で、runtime unionや0フィールドには未追加です。
+
 既存2種のlinear-powerは歴史的なモデル仮定をそのまま保持し、新たなPower制限は付けません。これは今後の曲線流用や外挿を許可する例外ではありません。
 
 ## Activation / Artifact Synergy
@@ -31,6 +33,8 @@ Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定�
 `calculateArtifactActivationOpportunities(build.artifacts, scenario)`は**全装備Artifact**から使用機会を作り、duration/uptimeには依存しません。`calculateArtifactActivationState`はinstance ID・artifact ID・effective CDだけを入力にし、現在のcooldown-onlyモデルで1/CDを合算します。`offensiveSteadyState`はこの経路を使います。重複buffで効果量が飽和しても、使用actionは別々に数えます。
 
 使用回数と効果発生回数を分離します。1 use = 1 activationが今後の基本policy候補で、channel OFF、beam pulse、aura tick、explosionごとにSynergyを追加しません。実ゲームのtrigger例外は効果ごとの採用gateです。
+
+有限encounterではactivation accountingとeffect creditも分離します。継続effectを`encounterDuration`と同時刻に初めて置いた場合はactive time 0でeffect credit 0。instant effectは発動時刻がencounter内の場合だけeffect credit可能です。
 
 `ArtifactActivationCapacity`はcooldownLimited / resourceLimited / realizedの3rateを分離します。`ArtifactUseModel`はcooldown-only / soul-spending / soul-channelを分け、channelのCD開始をdeactivationと明示。`calculateSoulArtifactActivationOpportunities`は有限schedulerの**成功した実使用rate**だけをSynergy入力へ変換し、Soul不足を無視したCD capacityを使いません。
 
@@ -73,6 +77,6 @@ Buildは最大3slotで既に検証されており、今回テストで再固定�
 
 ## Audit / publication gate
 
-`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・次batch構成を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は2-2B、`npm run audit:artifact-soul`はscheduler golden/invariant、3候補decision、runtime件数を検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
+`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・計画を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は2-2B、`npm run audit:artifact-soul`は2-2C、`npm run audit:artifact-event`は2-2Dのfamily分離・published facts・Research-only gate・次Phase判断を検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
 
 監査scriptの成功は「記録の整合性」の成功です。未解決のEvidenceやraw game IDの網羅性まで解決した意味ではありません。[audit](artifact-audit.md) / [control/debuff](artifact-control-debuff.md) / [support](artifact-runtime-support.md) / [expansion](artifact-expansion-plan.md)を正本として参照してください。

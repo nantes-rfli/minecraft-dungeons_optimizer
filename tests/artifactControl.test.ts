@@ -4,6 +4,7 @@ import {
   calculateArtifactEffectiveCooldown,
 } from '../src/core/artifact'
 import { deriveArtifactControlState } from '../src/core/artifactControl'
+import { describeControl } from '../src/core/control'
 import { evaluate } from '../src/core/evaluate'
 import { optimize } from '../src/core/optimizer'
 import { ARTIFACTS } from '../src/data/artifacts'
@@ -71,6 +72,16 @@ describe('Shock Powder bounded hard-control runtime', () => {
     expect(result.defense).toEqual(base.defense)
     expect(result.soulState).toEqual(base.soulState)
     expect(result.combatState.estimatedKillsPerSecond).toBeGreaterThanOrEqual(base.combatState.estimatedKillsPerSecond)
+  })
+
+  it('keeps Stunning explanation source-specific and reports the combined union separately', () => {
+    const build = representativeBuild(['stunning'])
+    const control = evaluate({ ...build, artifacts: [shock] }, DEFAULT_SCENARIO).control
+    const reasons = describeControl(control)
+    const stunning = reasons.find((reason) => reason.startsWith('Stunning:'))!
+    expect(stunning).toContain(`hard disable ${(control.stunning!.effectiveHardDisableCoverage * 100).toFixed(2)}%`)
+    expect(stunning).not.toContain(`hard disable ${(control.hardDisableCoverage * 100).toFixed(2)}%`)
+    expect(reasons).toContain(`Combined hard-disable coverage: ${(control.hardDisableCoverage * 100).toFixed(2)}%`)
   })
 
   it('does not alter DPS, healing, defense, souls or kills without Artifact Synergy', () => {

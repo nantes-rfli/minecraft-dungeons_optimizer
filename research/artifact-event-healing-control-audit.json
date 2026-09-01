@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "phase": "2-2D",
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-01",
+  "phaseStatus": "complete",
+  "runtimeCounts": {
+    "auditedPopulation": 45,
+    "catalogRuntime": 3,
+    "full": 2,
+    "limited": 1,
+    "researchOnly": 42
+  },
+  "sharedPolicies": {
+    "artifactSynergyActivation": "one successful Artifact use action is one activation; explosions, healing ticks and affected enemies are not additional activations",
+    "encounterBoundary": {
+      "continuousEffect": "a continuous effect first placed at t == encounterDuration has zero active time and receives zero effect credit",
+      "instantEffect": "an instant effect may receive effect credit only when its activation time is inside the encounter; activation accounting remains separate from effect credit"
+    },
+    "unsupportedRuntime": "Research-only candidates are absent from ArtifactId and ARTIFACTS; they are never selectable zero-effect candidates",
+    "familyIsolation": [
+      "attack-limited-buff is event-budgeted and is not timed-self-buff uptime",
+      "placed-healing-zone is gradual positional healing and is not instant-heal",
+      "positional-control separation is not Gravity grouping and is not converted to DPS or damage reduction"
+    ]
+  },
+  "architecture": {
+    "attackLimitedBuff": {
+      "requiredState": [
+        "effectiveCooldownSeconds",
+        "maximumEffectSeconds",
+        "maximumExplosionsPerActivation",
+        "eligibleMeleeAttackActionsPerSecond",
+        "realizedExplosions",
+        "explosionsPerSecond",
+        "unusedExplosionBudgetAtEncounterEnd",
+        "expiredByTimeCount",
+        "exhaustedByTriggerCount",
+        "damagePerExplosion"
+      ],
+      "damageChannel": "artifact-damage",
+      "boundedImplementation": "event schedule with at most five realized triggers per activation; no per-frame simulation"
+    },
+    "placedHealingZone": {
+      "requiredDefinition": ["radiusBlocks", "duration", "healingRate"],
+      "requiredState": [
+        "effectiveCooldownSeconds",
+        "zoneDurationSeconds",
+        "rawZoneUptime",
+        "selfResidenceShare",
+        "nominalHealingPerSecondInsideZone",
+        "effectiveSelfHealingCapacityPerSecond"
+      ],
+      "healingChannel": "artifact-healing-capacity",
+      "boundedImplementation": "analytic zone uptime multiplied by explicit self residence; no healing-tick or party movement simulator"
+    },
+    "positionalControl": {
+      "rawMetric": "separationCoverage",
+      "objectiveConnection": "none until an explicit policy gives separation a meaningful weight",
+      "existingPolicyAxes": ["hardDisable", "attackSlow", "root", "grouping"],
+      "boundedImplementation": "activation rate times independently calibrated push/slow eligibility shares; no enemy position simulator"
+    }
+  },
+  "sources": [
+    {
+      "id": "dt-powershaker",
+      "title": "dungeons.tools Powershaker",
+      "url": "https://www.dungeons.tools/artifacts/powershaker",
+      "kind": "game-file-derived-database",
+      "version": "1.17.0.0",
+      "note": "Reports 10s cooldown and melee-triggered explosions; its 15s/five-explosion play text is editorial rather than a raw value export."
+    },
+    {
+      "id": "wiki-powershaker",
+      "title": "Minecraft Wiki Powershaker",
+      "url": "https://minecraft.wiki/w/Dungeons:Powershaker",
+      "kind": "published-reference",
+      "version": "current page; mechanics/table version not explicitly pinned",
+      "note": "Reports 10s cooldown, hit-mob blasts and expiry after 15s or five explosions."
+    },
+    {
+      "id": "wiki-party-starter",
+      "title": "Minecraft Wiki Party Starter",
+      "url": "https://minecraft.wiki/w/Dungeons:Party_Starter",
+      "kind": "published-reference",
+      "version": "current page; wording conflicts with current five-stack history",
+      "note": "Search-index text describes four chances and a chance to detonate; retained as a conflict, not current deterministic evidence."
+    },
+    {
+      "id": "wiki-1162",
+      "title": "Minecraft Wiki 1.16.2.0 history",
+      "url": "https://minecraft.wiki/w/Dungeons:1.16.2.0",
+      "kind": "official-patch-transcription",
+      "version": "1.16.2.0",
+      "note": "Records stack 4 to 5, coefficient 235 to 259 and cooldown 8s to 10s; 259 is not an absolute Power curve."
+    },
+    {
+      "id": "community-powershaker-multitarget-2022",
+      "title": "Community Powershaker indirect-damage discussion",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/zaz9f0/",
+      "kind": "community-report",
+      "version": "2022 report; game version not controlled",
+      "note": "Reports one wide melee action can place explosions on multiple hit mobs; not a controlled trigger-budget count."
+    },
+    {
+      "id": "community-powershaker-multitarget-2024",
+      "title": "Community Powershaker AoE discussion",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1g3k3rx/",
+      "kind": "community-report",
+      "version": "2024 report; game version not controlled",
+      "note": "Independently reports an explosion on each mob hit; still insufficient to establish miss, reactivation or exact five-budget semantics."
+    },
+    {
+      "id": "dt-totem-of-regeneration",
+      "title": "dungeons.tools Totem of Regeneration",
+      "url": "https://www.dungeons.tools/artifacts/totem-of-regeneration",
+      "kind": "game-file-derived-database",
+      "version": "1.17.0.0",
+      "note": "Reports 25s cooldown and a gradual healing aura for players inside; exports no duration, radius or healing curve."
+    },
+    {
+      "id": "wiki-totem-of-regeneration",
+      "title": "Minecraft Wiki Totem of Regeneration",
+      "url": "https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration",
+      "kind": "published-reference",
+      "version": "current page; numeric table version not explicitly pinned",
+      "note": "Reports four-block radius, approximately 5-10s healing and Power 31/111/114 display samples."
+    },
+    {
+      "id": "wiki-172",
+      "title": "Minecraft Wiki 1.7.2.0 history",
+      "url": "https://minecraft.wiki/w/Dungeons:1.7.2.0",
+      "kind": "official-patch-transcription",
+      "version": "1.7.2.0",
+      "note": "Records healing doubled from 20 to 40 per second."
+    },
+    {
+      "id": "dt-wind-horn",
+      "title": "dungeons.tools Wind Horn",
+      "url": "https://www.dungeons.tools/artifacts/wind-horn",
+      "kind": "game-file-derived-database",
+      "version": "1.17.0.0",
+      "note": "Reports 10s cooldown, radial push, brief slow and the close-range push exception."
+    },
+    {
+      "id": "wiki-wind-horn",
+      "title": "Minecraft Wiki Wind Horn",
+      "url": "https://minecraft.wiki/w/Dungeons:Wind_Horn",
+      "kind": "published-reference",
+      "version": "current page; numeric table version not explicitly pinned",
+      "note": "Reports the overlapping Power 1-108 push bands and qualitative slow; no high-Power, slow or immunity values."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "powershaker",
+      "name": "Powershaker",
+      "mechanicFamily": "attack-limited-buff",
+      "cooldown": { "seconds": 10, "status": "known" },
+      "powerScaling": {
+        "historicalCoefficient": 259,
+        "absoluteDamageSamples": [],
+        "supportedPowerRange": null,
+        "extrapolationAllowed": false,
+        "status": "blocked",
+        "note": "The 1.16.2.0 coefficient is neither an absolute damage amount nor permission to borrow any weapon or Artifact curve."
+      },
+      "targeting": {
+        "known": "melee-hit mobs receive delayed blasts at their positions",
+        "attackVsTargetGranularity": "multiple uncontrolled community reports support per-hit-mob explosions from one wide swing, but the exact five-budget decrement has not been counted",
+        "missBehavior": "unknown",
+        "primaryAndSecondaryOverlap": "unknown"
+      },
+      "duration": { "maximumSeconds": 15, "termination": "earlier-of-time-or-trigger-budget", "status": "known" },
+      "triggerBudget": {
+        "maximumExplosions": 5,
+        "determinism": "unresolved because current cause/explode wording conflicts with an unversioned chance description",
+        "budgetUnit": "unresolved for multi-target actions",
+        "status": "partially-known"
+      },
+      "damage": {
+        "proposedChannel": "artifact-damage",
+        "absoluteDamagePerExplosion": null,
+        "expectedTargetsPerExplosion": null,
+        "directWeaponKillCredit": false,
+        "soulKillEligibility": "unknown",
+        "modifierBoundaries": "Gong, Artifact boosts, Void Strike, Critical Hit, Sharpness, Committed and Exploding interactions are unresolved; direct-melee modifiers are not inherited"
+      },
+      "duplicateBehavior": {
+        "duplicateCopies": "unknown",
+        "reactivationWhileActive": "unknown: reset, refresh, replace, stack and cannot-activate are not distinguished"
+      },
+      "artifactSynergyActivation": "one use action; five explosions are not five activations",
+      "runtimeDecision": "research-only",
+      "blockers": [
+        "current deterministic/probability and miss semantics",
+        "attack-action versus per-target five-budget consumption",
+        "reactivation and duplicate-copy behavior",
+        "current absolute damage curve and supported Power range",
+        "AoE overlap/target model and source-specific kill attribution",
+        "artifact/direct modifier and Soul-generation boundaries"
+      ],
+      "sourceIds": [
+        "dt-powershaker",
+        "wiki-powershaker",
+        "wiki-party-starter",
+        "wiki-1162",
+        "community-powershaker-multitarget-2022",
+        "community-powershaker-multitarget-2024"
+      ]
+    },
+    {
+      "id": "totem-of-regeneration",
+      "name": "Totem of Regeneration",
+      "mechanicFamily": "placed-healing-zone",
+      "cooldown": { "seconds": 25, "status": "known" },
+      "powerScaling": {
+        "displaySamples": [
+          { "power": 31, "healthHealed": 229 },
+          { "power": 111, "healthHealed": 2659 },
+          { "power": 114, "healthHealed": 2917 }
+        ],
+        "supportedPowerRange": null,
+        "extrapolationAllowed": false,
+        "status": "blocked",
+        "note": "Sample version and unit semantics are not pinned; low-Power rows cannot be extrapolated to endgame."
+      },
+      "targeting": {
+        "radiusBlocks": 4,
+        "targets": "hero and allies inside the placed circular aura",
+        "selfResidenceShare": "required future Scenario input in [0,1]; default 1 would mean solo stationary ideal placement only",
+        "selfPartySeparation": "only the self portion may enter the hero Healing objective"
+      },
+      "duration": {
+        "reportedRangeSeconds": [5, 10],
+        "exactSeconds": null,
+        "powerScaled": "unknown",
+        "status": "blocked"
+      },
+      "healing": {
+        "delivery": "gradual while inside zone; not an instant heal",
+        "historyPerSecond": { "before172": 20, "after172": 40 },
+        "displayUnit": "unknown: total, per-second, per-tick or Power-scaled rate",
+        "runtimeMetric": "nominal self healing capacity, not actual recovered HP; missing-HP timeline, overheal and knockback are out of scope"
+      },
+      "duplicateBehavior": {
+        "multipleZones": "unknown",
+        "overlap": "unknown; future runtime would cap copies at one until verified"
+      },
+      "artifactSynergyActivation": "one placement use; healing ticks and allies healed are not activations",
+      "runtimeDecision": "research-only",
+      "blockers": [
+        "exact current zone duration and tick count",
+        "display health-healed unit versus 40-per-second history",
+        "current usable Power curve and supported range",
+        "self residence calibration and self/party attribution",
+        "multiple-zone overlap and duplicate-copy behavior"
+      ],
+      "sourceIds": ["dt-totem-of-regeneration", "wiki-totem-of-regeneration", "wiki-172"]
+    },
+    {
+      "id": "wind-horn",
+      "name": "Wind Horn",
+      "mechanicFamily": "positional-control",
+      "cooldown": { "seconds": 10, "status": "known" },
+      "powerScaling": {
+        "pushBands": [
+          { "reportedPower": "1-13", "blocksPushed": 4 },
+          { "reportedPower": "13-39", "blocksPushed": 5 },
+          { "reportedPower": "39-65", "blocksPushed": 6 },
+          { "reportedPower": "65-90", "blocksPushed": 7 },
+          { "reportedPower": "90-108", "blocksPushed": 8 }
+        ],
+        "boundarySemantics": "unresolved at Power 13, 39, 65 and 90 because source bands overlap",
+        "supportedPowerRange": null,
+        "highPowerBehavior": "unknown above 108; 8-block cap is not assumed",
+        "extrapolationAllowed": false,
+        "status": "blocked"
+      },
+      "targeting": {
+        "shape": "circular blast",
+        "closeRangePolicy": "very close mobs are not pushed but are still slowed",
+        "pushEligibleTargetShare": "required future input, independent from slow eligibility",
+        "slowEligibleTargetShare": "required future input, independent from push eligibility",
+        "bossAndImmovableEligibility": "unknown separately for push and slow"
+      },
+      "duration": { "push": "instant displacement", "slow": "brief but numeric duration unknown", "status": "blocked" },
+      "control": {
+        "pushDimension": "separation, never grouping",
+        "slowClassification": "unknown: movement speed, attack speed or both",
+        "slowMagnitude": null,
+        "objectivePolicy": "no default separation weight and no DPS/DR conversion",
+        "meaningfulRuntime": "a displayed push distance with zero objective contribution is insufficient"
+      },
+      "duplicateBehavior": {
+        "duplicateCopies": "unknown",
+        "statusRefreshOrOverlap": "unknown"
+      },
+      "artifactSynergyActivation": "one use action; affected enemy count is not activation count",
+      "runtimeDecision": "research-only",
+      "blockers": [
+        "overlapping band-boundary semantics and no supported high-Power range",
+        "slow classification, magnitude and duration",
+        "quantified close-range push/slow target shares",
+        "separate boss/immovable eligibility for push and slow",
+        "duplicate status refresh/overlap behavior",
+        "meaningful separation Control policy without fake DPS or defense conversion"
+      ],
+      "sourceIds": ["dt-wind-horn", "wiki-wind-horn"]
+    }
+  ],
+  "nextPhaseDecision": {
+    "trigger": "Phase 2-2C and 2-2D added zero runtime Artifacts and did not expand endgame-usable coverage",
+    "selected": "artifact-evidence-acquisition-and-curve-extraction",
+    "reason": "The six audited candidates are primarily blocked by current curves, game-file unit semantics and interaction rules; another breadth-first Artifact batch would repeat the same blockers.",
+    "alternatives": [
+      {
+        "id": "armor-and-armor-enchantments",
+        "utility": "high",
+        "evidenceReadiness": "medium",
+        "dependency": "new equipment and defense/runtime contracts",
+        "effort": "high",
+        "decision": "second"
+      },
+      {
+        "id": "equipment-box-simulation-ux",
+        "utility": "medium",
+        "evidenceReadiness": "high",
+        "dependency": "existing model only",
+        "effort": "medium",
+        "decision": "third"
+      }
+    ]
+  }
+}

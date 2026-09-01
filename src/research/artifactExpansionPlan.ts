@@ -21,7 +21,8 @@ export function collectArtifactExpansionPlanErrors(): string[] {
   for (const entry of entries) {
     if (!['target-shortlist', 'deferred', 'research-only'].includes(entry.classification)) errors.push(`${entry.id}: invalid plan class`)
     if (entry.scores) artifactImplementationPriority(entry.scores)
-    if (entry.classification === 'target-shortlist' && entry.batch !== 'existing' && (!entry.scores || !['evidence-required', 'runtime'].includes(entry.gateStatus))) errors.push(`${entry.id}: missing score or evidence/runtime gate`)
+    if (entry.classification === 'target-shortlist' && entry.batch !== 'existing' && (!entry.scores || !['evidence-required', 'evidence-blocked', 'runtime'].includes(entry.gateStatus))) errors.push(`${entry.id}: missing score or evidence/runtime gate`)
   }
+  if (ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.selected !== 'artifact-evidence-acquisition-and-curve-extraction' || ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.alternatives.length !== 2) errors.push('Phase 2-2D next-phase reevaluation missing')
   return errors
 }

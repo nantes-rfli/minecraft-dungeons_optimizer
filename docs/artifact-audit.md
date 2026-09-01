@@ -68,7 +68,7 @@ Readiness is research triage, not support level.
 | Light Feather | reported obtainable | Base Game | mobility | 3s | needs-state-model | medium | Roll triggers and stun coverage; connect Dynamo only after roll semantics audit |
 | Lightning Rod | reported obtainable | Base Game | soul-spending-damage | 4s ⚠ conflict | needs-power-curve | medium | 2s versus 4s CD conflict; no current-version high-Power damage curve; strike targeting/delay and kill-Soul eligibility |
 | Love Medallion | reported obtainable | Base Game | hard-control | 30s | needs-state-model | medium | Charm ownership, target immunity, borrowed mob damage and expiry deaths |
-| Powershaker | reported obtainable | Flames of the Nether | attack-limited-buff | 10s | needs-state-model | medium | Per-attack versus per-target consumption; explosion curve and attribution |
+| Powershaker | reported obtainable | Flames of the Nether | attack-limited-buff | 10s | needs-state-model | medium | current deterministic/probability and miss semantics; attack-action versus per-target five-budget consumption; reactivation and duplicate-copy behavior; current absolute damage curve and supported Power range; AoE overlap/target model and source-specific kill attribution; artifact/direct modifier and Soul-generation boundaries |
 | Satchel of Elements | reported obtainable | Howling Peaks (also Gauntlet of Gales) | random-effect | 10s | needs-state-model | low | Element probabilities, target count, burn/lightning/freeze curves |
 | Satchel of Elixirs | reported obtainable | Hidden Depths | consumable-generation | 25s | needs-state-model | low | Potion distribution, pickup/consumption policy and buff overlap |
 | Satchel of Snacks | reported obtainable | Hidden Depths | consumable-generation | 16s | needs-state-model | low | Food distribution, pickup/consumption and overheal policy |
@@ -83,12 +83,12 @@ Readiness is research triage, not support level.
 | Tome of Duplication | reported obtainable | Echoing Void | consumable-generation | 10s | needs-state-model | low | Soul-paid consumable duplication, inventory and use policy |
 | Torment Quiver | reported obtainable | Base Game | consumable-generation | 6s | needs-state-model | low | Soul spending, loaded ranged ammo and knockback/piercing targets |
 | Totem of Casting | reported obtainable | Base Game | other | 10s | needs-state-model | medium | Soul-paid delayed CD reset, party aura residence and activation feedback loop |
-| Totem of Regeneration | reported obtainable | Base Game | placed-healing-zone | 25s | needs-power-curve | medium | Healing curve; total versus tick healing; residence and overlapping zones |
+| Totem of Regeneration | reported obtainable | Base Game | placed-healing-zone | 25s | needs-power-curve | medium | exact current zone duration and tick count; display health-healed unit versus 40-per-second history; current usable Power curve and supported range; self residence calibration and self/party attribution; multiple-zone overlap and duplicate-copy behavior |
 | Totem of Shielding | reported obtainable | Base Game | other | 20s | needs-target-model | low | Placed projectile shield: incoming projectile share, residence and overlap |
 | Updraft Tome | reported obtainable | Howling Peaks | hard-control | 12s | needs-state-model | medium | Repeated same-target use cancels damage; stun/damage curves and seven-target cap |
 | Vexing Chant | reported obtainable | Echoing Void | summon | 30s | needs-state-model | low | Three vexes: lifetime, attacks, target AI and summon cap |
 | Void Quiver | reported obtainable | Echoing Void | consumable-generation | 25s | needs-state-model | low | Ranged ammo and Void application/consumption ownership |
-| Wind Horn | reported obtainable | Base Game | positional-control | 10s | needs-power-curve | medium | Push curve above 108; slow magnitude/duration; close-range exception |
+| Wind Horn | reported obtainable | Base Game | positional-control | 10s | needs-power-curve | medium | overlapping band-boundary semantics and no supported high-Power range; slow classification, magnitude and duration; quantified close-range push/slow target shares; separate boss/immovable eligibility for push and slow; duplicate status refresh/overlap behavior; meaningful separation Control policy without fake DPS or defense conversion |
 | Wonderful Wheat | reported obtainable | Base Game | summon | 30s | needs-state-model | low | Llama projectile cadence, survival, targeting and pet cap |
 
 ## Source reconciliation
@@ -161,6 +161,8 @@ Power data: 7 published rows, 1–114, version unverified; accepted runtime rows
 - **killAttribution** (assumption; low): Artifact event must not credit directWeaponKills; exact eligible secondary kill effects require evidence. [baseline-34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7)
 - **voidCriticalModifiers** (unknown; medium): Void consumption, Critical eligibility, artifact modifiers and direct versus indirect interaction unverified. [wiki-powershaker](https://minecraft.wiki/w/Dungeons:Powershaker)
 - **powerCurve** (unknown; medium): No versioned Power/damage samples located. [wiki-powershaker](https://minecraft.wiki/w/Dungeons:Powershaker)
+- **reactivation** (unknown; medium): CD 10s is shorter than the 15s maximum effect. Reset, refresh, replace, stack and cannot-activate behavior remain unresolved. [dt-powershaker](https://www.dungeons.tools/artifacts/powershaker), [wiki-powershaker](https://minecraft.wiki/w/Dungeons:Powershaker)
+- **artifactSynergy** (assumption; low): One use action is one activation; the five explosions are effect events, not five Artifact Synergy activations. [baseline-34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7)
 
 Power data: 0 published rows, —–—, version unverified; accepted runtime rows 0. No extrapolation.
 
@@ -186,11 +188,12 @@ Power data: 23 published rows, 1–108, version unverified; accepted runtime row
 
 ## Totem of Regeneration
 
-- **zone** (known; medium): 25s CD; approximately 5–10s healing; four-block zone for all nearby allies. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration)
+- **zone** (known; medium): 25s CD; approximately 5–10s healing; four-block zone for all nearby allies. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration), [wiki-172](https://minecraft.wiki/w/Dungeons:1.7.2.0)
 - **healingUnit** (unknown; medium): Published display is health healed, not proven healing/second; tick interval and exact duration unresolved. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration)
 - **curve** (reported; medium): Three samples: Power 31/111/114; health 229/2659/2917. 1.7.2.0 doubled healing, sample version unknown. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration)
 - **residence** (unknown; medium): Self residence fraction and party total must be separated; do not assume all ticks heal hero. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration)
 - **overlap** (unknown; medium): Multiple placed totems: additive ticks versus refresh not verified. [wiki-totem-of-regeneration](https://minecraft.wiki/w/Dungeons:Totem_of_Regeneration)
+- **artifactSynergy** (assumption; low): One placement use is one activation; healing ticks and allies healed are not additional Artifact Synergy activations. [baseline-34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7)
 
 Power data: 3 published rows, 31–114, version unverified; accepted runtime rows 0. No extrapolation.
 
@@ -200,6 +203,8 @@ Power data: 3 published rows, 31–114, version unverified; accepted runtime row
 - **powerCurve** (reported; medium): Five published bands Power 1–108 give 4–8 blocks; boundaries overlap and endgame range is not covered. [wiki-wind-horn](https://minecraft.wiki/w/Dungeons:Wind_Horn)
 - **slow** (unknown; medium): Slow magnitude and duration missing; no Defense/DPS conversion. [wiki-wind-horn](https://minecraft.wiki/w/Dungeons:Wind_Horn)
 - **targets** (unknown; medium): Boss immunity, count, radial coverage and close-range cutoff not quantified. [wiki-wind-horn](https://minecraft.wiki/w/Dungeons:Wind_Horn)
+- **controlDimension** (assumption; low): Push is separation, not Gravity grouping. A future raw separationCoverage remains outside the four-axis objective until an explicit policy exists; no DPS or damage-reduction conversion. [baseline-34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7)
+- **artifactSynergy** (assumption; low): One use action is one activation; affected enemy count is not Artifact Synergy activation count. [baseline-34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7)
 
 Power data: 5 published rows, 1–108, version unverified; accepted runtime rows 0. No extrapolation.
 
@@ -208,6 +213,7 @@ Power data: 5 published rows, 1–108, version unverified; accepted runtime rows
 - [dungeons.tools Artifact index](https://www.dungeons.tools/artifacts) — dt-artifacts-117; game-file-derived-database; 1.17.0.0; index-read; accessed 2026-09-01. Site claims 1.17 game-file origin; explanatory prose is editorial, not a raw coefficient export.
 - [Minecraft Wiki Item population and slots](https://minecraft.wiki/w/Dungeons:Item) — wiki-item; wiki; unspecified; search-index; accessed 2026-09-01. Lists three slots and prose count 44, while the displayed released list has 45 names because Corrupted Pumpkin is nested as Corrupted Beacon's seasonal unique variant; includes Corrupted Seeds missing from dungeons.tools.
 - [Minecraft Wiki 1.16.2.0 history](https://minecraft.wiki/w/Dungeons:1.16.2.0) — wiki-1162; wiki-history; 1.16.2.0; page-read; accessed 2026-09-01. History is not a complete Power formula.
+- [Minecraft Wiki 1.7.2.0 history](https://minecraft.wiki/w/Dungeons:1.7.2.0) — wiki-172; wiki-history; 1.7.2.0; search-index; accessed 2026-09-01. Records Totem of Regeneration healing doubled from 20 to 40 per second; it does not resolve current display-unit or duration semantics.
 - [Minecraft Wiki 1.3.2.0 history](https://minecraft.wiki/w/Dungeons:1.3.2.0) — wiki-132; wiki-history; 1.3.2.0; search-index; accessed 2026-09-01. Historical soul cost changes; not evidence for current damage distribution.
 - [Minecraft Wiki seasonal trials](https://minecraft.wiki/w/Dungeons:Daily_Trial) — wiki-event; wiki; unspecified; search-index; accessed 2026-09-01. Corrupted Pumpkin excluded from current Tower drops; legacy gifts are not fresh drops.
 - [Frozen runtime model at 34e9b72](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/tree/34e9b729ccf8ec947932ec8936541c9ea38c67d7) — baseline-34e9b72; model-assumption; 1.17.0.0; git-archive; accessed 2026-09-01. Existing formulas, confidence and stagger assumptions preserved; not independent game measurements.
@@ -227,6 +233,7 @@ Power data: 5 published rows, 1–108, version unverified; accepted runtime rows
 - [Minecraft Wiki Corrupted Seeds](https://minecraft.wiki/w/Dungeons:Corrupted_Seeds) — wiki-corrupted-seeds; wiki; unspecified; search-index; accessed 2026-09-01. Concrete stats/history inspected in search-index text; live page often robots-blocked. Table version may be unspecified.
 - [dungeons.tools Soul Healer](https://www.dungeons.tools/artifacts/soul-healer) — dt-soul-healer; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Numeric properties are database-reported; how-it-plays text is editorial.
 - [dungeons.tools Powershaker](https://www.dungeons.tools/artifacts/powershaker) — dt-powershaker; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Numeric properties are database-reported; how-it-plays text is editorial.
+- [dungeons.tools Totem of Regeneration](https://www.dungeons.tools/artifacts/totem-of-regeneration) — dt-totem-of-regeneration; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Reports 25s cooldown and gradual in-zone healing; exports no duration, radius or Power curve.
 - [dungeons.tools Harvester](https://www.dungeons.tools/artifacts/harvester) — dt-harvester; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Numeric properties are database-reported; how-it-plays text is editorial.
 - [dungeons.tools Corrupted Beacon](https://www.dungeons.tools/artifacts/corrupted-beacon) — dt-corrupted-beacon; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Numeric properties are database-reported; how-it-plays text is editorial.
 - [dungeons.tools Fishing Rod](https://www.dungeons.tools/artifacts/fishing-rod) — dt-fishing-rod; game-file-derived-database; 1.17.0.0; page-read; accessed 2026-09-01. Numeric properties are database-reported; how-it-plays text is editorial.

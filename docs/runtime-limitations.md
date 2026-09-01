@@ -54,8 +54,10 @@ Backlog行単位: **P0 0 / P1 3 / P2 4 / P3 10**。P3はすべてevidence-blocke
 
 | 候補 | 現manifest・smokeから見た価値 | 判断 |
 | --- | --- | --- |
-| Artifact expansion | 近接の9 familyは全て評価可能だがArtifactは2種のみ。装備全体の比較範囲を広げる | 第一候補。追加ごとにmechanics/Evidence/合法性gateを設け、10〜15種目標へ小分けで進める |
-| UX first pass | 近接候補が増え、装備ボックス→シミュレーションの導線整理に価値 | 第二候補。誤った組合せを選ぶ前の制限説明を優先 |
-| Targeted partial cleanup | P0なし、P1は3項目。smokeの拒否例は既知境界で、成功family全体を阻害していない | 新Evidenceが得られたpairだけ対応。無期限な再調査は行わない |
+| Artifact Evidence Acquisition / Curve Extraction | 6候補のcurrent curve、raw unit、duration/tick、interaction blockerを直接解消 | 第一候補。別Artifact batchを増やさず、既監査候補をEvidence-readyにする |
+| Armor / Armor Enchantments | 実用性は高いが、新しいequipment・defense・runtime contractが必要 | 第二候補。Evidence範囲と実装量を先に監査する |
+| Equipment Box → Simulation UX | 既存modelだけで導線・制限説明を改善でき、Evidence依存が小さい | 第三候補。coverage blocker自体は解決しない |
 
-この順序は現在のcurated software testに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。
+Phase 2-2C / 2-2Dの6候補はいずれもEvidence gateを通らず、新runtimeは0でした。別Artifact batchは停止し、次はArtifact Evidence Acquisition / Curve Extractionを優先します。現行curve、raw unit、duration/tick、target/interactionを取得できれば既監査候補へ直接再利用できます。Armor / Armor Enchantmentsは第二候補、Equipment Box→Simulation UXは第三候補です。
+
+この順序は現在のcurated software testとEvidence blockerに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。

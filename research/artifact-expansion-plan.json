@@ -2,9 +2,31 @@
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
   "targetRuntimeCount": 11,
-  "note": "Target shortlist is a conditional architecture/research target, not evidence-ready promises. Three runtime entries including limited Shock Powder plus eight remaining candidates; never pad runtime count.",
+  "note": "Target shortlist is a conditional architecture/research target, not evidence-ready promises. Three runtime entries including limited Shock Powder plus eight remaining candidates; Phase 2-2C and 2-2D added zero runtime entries, so breadth-first Artifact batches stop until Evidence acquisition resolves a blocker.",
   "scoreMeaning": "Implementation priority judgment, not game strength or measured probability. Each dimension 1–5; high complexity/feedback/targeting scores are costs. Scores order research work, never override blockers.",
   "scoreFormula": "2*gameplayUsefulness + buildDiversity + 2*subsystemReuse + 2*evidenceQuality + 2*powerAvailability - implementationComplexity - feedbackComplexity - targetingUncertainty",
+  "nextPhaseDecision": {
+    "selected": "artifact-evidence-acquisition-and-curve-extraction",
+    "reason": "The six Phase 2-2C/2-2D candidates are blocked mainly by current curves, raw units and interaction semantics; another Artifact batch would repeat the same gate failures.",
+    "alternatives": [
+      {
+        "id": "armor-and-armor-enchantments",
+        "rank": 2,
+        "utility": "high",
+        "evidenceReadiness": "medium",
+        "dependencies": "new equipment and defense/runtime contracts",
+        "effort": "high"
+      },
+      {
+        "id": "equipment-box-simulation-ux",
+        "rank": 3,
+        "utility": "medium",
+        "evidenceReadiness": "high",
+        "dependencies": "existing model only",
+        "effort": "medium"
+      }
+    ]
+  },
   "entries": [
     {
       "id": "blast-fungus",
@@ -322,10 +344,10 @@
       },
       "gameplayValue": "有限charge/consumeをArtifact explosionへ展開。",
       "reuse": "ChargeConsume / DamageEvent",
-      "newState": "15秒または5爆発、per-target消費、間接damage",
-      "expectedSupport": "Limited: 対象・hit/miss・modifier境界。",
-      "whyNow": "係数259だけではcurve不明。multi-target consumeとVoid/Criticalの根拠を先に確保。",
-      "gateStatus": "evidence-required"
+      "newState": "15秒または5爆発、消費粒度、再発動、artifact-damage",
+      "expectedSupport": "Research-only: 有限budgetは確定、damage/target/interaction gate未通過。",
+      "whyNow": "2-2D監査完了。係数259はabsolute curveでなく、multi-target budget・再発動・AoE/kill・modifier境界が未解決。",
+      "gateStatus": "evidence-blocked"
     },
     {
       "id": "satchel-of-elements",
@@ -529,10 +551,10 @@
       },
       "gameplayValue": "設置型の自己回復とparty回復を区別。",
       "reuse": "Healing capacity",
-      "newState": "zone lifetime、tick、residence、重複配置",
-      "expectedSupport": "Limited: residence/party/Power域。",
-      "whyNow": "3点の旧表を現行total healingへ対応付け、tick/overlapを確認。",
-      "gateStatus": "evidence-required"
+      "newState": "zone lifetime、heal unit/tick、residence、重複配置",
+      "expectedSupport": "Research-only: placed-zoneは確定、duration/unit/curve gate未通過。",
+      "whyNow": "2-2D監査完了。25秒・4 blocks・旧40/s履歴は確認したが、5〜10秒のexact値、表示heal単位、現行curve、overlapが未解決。",
+      "gateStatus": "evidence-blocked"
     },
     {
       "id": "totem-of-shielding",
@@ -598,10 +620,10 @@
       },
       "gameplayValue": "位置制御を独立Controlへ接続。",
       "reuse": "Control target assumptions",
-      "newState": "押し出し距離、密着除外、slowと免疫",
-      "expectedSupport": "Limited: 距離・slow・coverage・Power域。",
-      "whyNow": "低Powerの5帯域のみ。endgame距離とslow値なしでは登録しない。",
-      "gateStatus": "evidence-required"
+      "newState": "separation、押し出し距離、密着除外、slowと免疫",
+      "expectedSupport": "Research-only: positional familyは確定、meaningful objective gate未通過。",
+      "whyNow": "2-2D監査完了。低Power帯域は境界重複、Power108超とslow値なし。grouping/DPS/DRへ偽変換せず登録しない。",
+      "gateStatus": "evidence-blocked"
     },
     {
       "id": "wonderful-wheat",

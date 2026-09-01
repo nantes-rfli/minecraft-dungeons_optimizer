@@ -439,8 +439,12 @@
       "mechanicFamily": "attack-limited-buff",
       "supportLevel": "research-only",
       "reasons": [
-        "Per-attack versus per-target consumption",
-        "explosion curve and attribution"
+        "current deterministic/probability and miss semantics",
+        "attack-action versus per-target five-budget consumption",
+        "reactivation and duplicate-copy behavior",
+        "current absolute damage curve and supported Power range",
+        "AoE overlap/target model and source-specific kill attribution",
+        "artifact/direct modifier and Soul-generation boundaries"
       ],
       "boundaries": [],
       "assumptionRefs": [
@@ -712,9 +716,11 @@
       "mechanicFamily": "placed-healing-zone",
       "supportLevel": "research-only",
       "reasons": [
-        "Healing curve",
-        "total versus tick healing",
-        "residence and overlapping zones"
+        "exact current zone duration and tick count",
+        "display health-healed unit versus 40-per-second history",
+        "current usable Power curve and supported range",
+        "self residence calibration and self/party attribution",
+        "multiple-zone overlap and duplicate-copy behavior"
       ],
       "boundaries": [],
       "assumptionRefs": [
@@ -723,6 +729,7 @@
       ],
       "sourceIds": [
         "dt-artifacts-117",
+        "dt-totem-of-regeneration",
         "wiki-totem-of-regeneration"
       ]
     },
@@ -802,9 +809,12 @@
       "mechanicFamily": "positional-control",
       "supportLevel": "research-only",
       "reasons": [
-        "Push curve above 108",
-        "slow magnitude/duration",
-        "close-range exception"
+        "overlapping band-boundary semantics and no supported high-Power range",
+        "slow classification, magnitude and duration",
+        "quantified close-range push/slow target shares",
+        "separate boss/immovable eligibility for push and slow",
+        "duplicate status refresh/overlap behavior",
+        "meaningful separation Control policy without fake DPS or defense conversion"
       ],
       "boundaries": [],
       "assumptionRefs": [

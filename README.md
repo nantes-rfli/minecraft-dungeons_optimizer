@@ -12,7 +12,7 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-Artifactはprimary 44 / secondary表示45を照合し、Corrupted Seedsを唯一のsecondary-onlyとして正規化和集合45件をproject監査母集団にしました。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [Soul batch](./docs/artifact-soul-batch.md) / [有限Soul scheduler](./docs/soul-resource-scheduler.md) / [型・回帰](./docs/artifact-model.md) / [次batch](./docs/artifact-expansion-plan.md)。
+Artifactはprimary 44 / secondary表示45を照合し、Corrupted Seedsを唯一のsecondary-onlyとして正規化和集合45件をproject監査母集団にしました。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [Soul batch](./docs/artifact-soul-batch.md) / [Event・Healing Zone・Positional Control batch](./docs/artifact-event-healing-control.md) / [型・回帰](./docs/artifact-model.md) / [次Phase判断](./docs/artifact-expansion-plan.md)。
 
 Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現ではありません。LimitedはPower範囲・stacking・modifier組合せに制限あり。[対応表](./docs/melee-runtime-support.md) / [未解決事項と終了条件](./docs/runtime-limitations.md)。
 
@@ -23,6 +23,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 - 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、ブラウザ自動保存、version付きJSON入出力
 - 比較: 6種類のシナリオプロファイル、Damage / Healing / Defense / Controlの4軸Utility、Pareto前線、効果ごとの数値寄与
 - Soul: 開始0〜300を編集可能。容量300、連続収入、overflow、積分平均、離散Artifact消費のevent schedulerを実装。Soul Artifact 3候補はEvidence不足のため未登録。
+- Artifact 2-2D: Powershakerの有限5-trigger、Totemのplaced healing zone、Wind Hornのseparationを別familyとして監査。3種ともcurve/unit/interaction/objective blocker付きResearch-onlyで、別batchよりEvidence acquisitionを優先。
 
 防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接4武器のPower 50〜263は公開値ベースの推定damageに対応します。
 
@@ -71,6 +72,8 @@ npm run audit:charge-enchants
 npm run audit:runtime-support
 npm run audit:artifacts
 npm run audit:artifact-control
+npm run audit:artifact-soul
+npm run audit:artifact-event
 npm test
 npx tsc -b
 npm run lint

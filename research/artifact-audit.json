@@ -70,6 +70,16 @@
       "note": "History is not a complete Power formula."
     },
     {
+      "id": "wiki-172",
+      "title": "Minecraft Wiki 1.7.2.0 history",
+      "url": "https://minecraft.wiki/w/Dungeons:1.7.2.0",
+      "kind": "wiki-history",
+      "gameVersion": "1.7.2.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "search-index",
+      "note": "Records Totem of Regeneration healing doubled from 20 to 40 per second; it does not resolve current display-unit or duration semantics."
+    },
+    {
       "id": "wiki-132",
       "title": "Minecraft Wiki 1.3.2.0 history",
       "url": "https://minecraft.wiki/w/Dungeons:1.3.2.0",
@@ -258,6 +268,16 @@
       "accessedAt": "2026-09-01",
       "retrieval": "page-read",
       "note": "Numeric properties are database-reported; how-it-plays text is editorial."
+    },
+    {
+      "id": "dt-totem-of-regeneration",
+      "title": "dungeons.tools Totem of Regeneration",
+      "url": "https://www.dungeons.tools/artifacts/totem-of-regeneration",
+      "kind": "game-file-derived-database",
+      "gameVersion": "1.17.0.0",
+      "accessedAt": "2026-09-01",
+      "retrieval": "page-read",
+      "note": "Reports 25s cooldown and gradual in-zone healing; exports no duration, radius or Power curve."
     },
     {
       "id": "dt-harvester",
@@ -517,7 +537,7 @@
       },
       "targeting": {
         "status": "unknown",
-        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "note": "Melee-hit mobs receive blasts. Community reports agree that a wide swing can mark multiple mobs, but exact five-budget decrement, miss behavior, AoE overlap and immunity are not calibrated.",
         "sourceIds": [
           "dt-artifacts-117",
           "wiki-blast-fungus"
@@ -3162,8 +3182,12 @@
         "wiki-powershaker"
       ],
       "blockers": [
-        "Per-attack versus per-target consumption",
-        "explosion curve and attribution"
+        "current deterministic/probability and miss semantics",
+        "attack-action versus per-target five-budget consumption",
+        "reactivation and duplicate-copy behavior",
+        "current absolute damage curve and supported Power range",
+        "AoE overlap/target model and source-specific kill attribution",
+        "artifact/direct modifier and Soul-generation boundaries"
       ],
       "deepAudit": {
         "budget": {
@@ -3229,6 +3253,23 @@
             "wiki-powershaker"
           ],
           "confidence": "medium"
+        },
+        "reactivation": {
+          "status": "unknown",
+          "note": "CD 10s is shorter than the 15s maximum effect. Reset, refresh, replace, stack and cannot-activate behavior remain unresolved.",
+          "sourceIds": [
+            "dt-powershaker",
+            "wiki-powershaker"
+          ],
+          "confidence": "medium"
+        },
+        "artifactSynergy": {
+          "status": "assumption",
+          "note": "One use action is one activation; the five explosions are effect events, not five Artifact Synergy activations.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
         }
       }
     },
@@ -4799,6 +4840,7 @@
         "note": "Listed current artifact/drop population; includes DLC and merchant access, not proof of DLC purchase necessity.",
         "sourceIds": [
           "dt-artifacts-117",
+          "dt-totem-of-regeneration",
           "wiki-totem-of-regeneration"
         ],
         "confidence": "medium"
@@ -4818,6 +4860,7 @@
         "reduction": "base × (1 - scenario reduction) is capacity only; verify effect-specific timing before registration",
         "sourceIds": [
           "dt-artifacts-117",
+          "dt-totem-of-regeneration",
           "wiki-totem-of-regeneration"
         ],
         "confidence": "medium"
@@ -4845,6 +4888,7 @@
         "note": "No transferable Power curve; scaling category is a research classification, not an implemented formula.",
         "sourceIds": [
           "dt-artifacts-117",
+          "dt-totem-of-regeneration",
           "wiki-totem-of-regeneration"
         ]
       },
@@ -4856,6 +4900,7 @@
         "note": "No soul requirement reported.",
         "sourceIds": [
           "dt-artifacts-117",
+          "dt-totem-of-regeneration",
           "wiki-totem-of-regeneration"
         ]
       },
@@ -4891,19 +4936,23 @@
       "runtimeReadiness": "needs-power-curve",
       "sourceIds": [
         "dt-artifacts-117",
+        "dt-totem-of-regeneration",
         "wiki-totem-of-regeneration"
       ],
       "blockers": [
-        "Healing curve",
-        "total versus tick healing",
-        "residence and overlapping zones"
+        "exact current zone duration and tick count",
+        "display health-healed unit versus 40-per-second history",
+        "current usable Power curve and supported range",
+        "self residence calibration and self/party attribution",
+        "multiple-zone overlap and duplicate-copy behavior"
       ],
       "deepAudit": {
         "zone": {
           "status": "known",
           "note": "25s CD; approximately 5–10s healing; four-block zone for all nearby allies.",
           "sourceIds": [
-            "wiki-totem-of-regeneration"
+            "wiki-totem-of-regeneration",
+            "wiki-172"
           ],
           "confidence": "medium"
         },
@@ -4938,6 +4987,14 @@
             "wiki-totem-of-regeneration"
           ],
           "confidence": "medium"
+        },
+        "artifactSynergy": {
+          "status": "assumption",
+          "note": "One placement use is one activation; healing ticks and allies healed are not additional Artifact Synergy activations.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
         }
       }
     },
@@ -5009,7 +5066,7 @@
       },
       "targeting": {
         "status": "unknown",
-        "note": "Target selection, hit/residence share and immunity are not yet calibrated.",
+        "note": "Radial blast; too-close mobs are slowed but not pushed. Push and slow eligibility shares, close-range cutoff and boss/immovable immunity remain separate unknowns.",
         "sourceIds": [
           "dt-artifacts-117"
         ],
@@ -5470,9 +5527,12 @@
         "wiki-wind-horn"
       ],
       "blockers": [
-        "Push curve above 108",
-        "slow magnitude/duration",
-        "close-range exception"
+        "overlapping band-boundary semantics and no supported high-Power range",
+        "slow classification, magnitude and duration",
+        "quantified close-range push/slow target shares",
+        "separate boss/immovable eligibility for push and slow",
+        "duplicate status refresh/overlap behavior",
+        "meaningful separation Control policy without fake DPS or defense conversion"
       ],
       "deepAudit": {
         "effect": {
@@ -5506,6 +5566,22 @@
             "wiki-wind-horn"
           ],
           "confidence": "medium"
+        },
+        "controlDimension": {
+          "status": "assumption",
+          "note": "Push is separation, not Gravity grouping. A future raw separationCoverage remains outside the four-axis objective until an explicit policy exists; no DPS or damage-reduction conversion.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
+        },
+        "artifactSynergy": {
+          "status": "assumption",
+          "note": "One use action is one activation; affected enemy count is not Artifact Synergy activation count.",
+          "sourceIds": [
+            "baseline-34e9b72"
+          ],
+          "confidence": "low"
         }
       }
     },
