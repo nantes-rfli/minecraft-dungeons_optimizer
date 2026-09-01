@@ -87,7 +87,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: '近接エンチャントを25〜30種類へ拡張（meaningful runtimeで達成、全33種完全対応ではない）', status: 'done' },
       { label: 'Phase 2-2A: Artifact Audit & Runtime Foundation（primary44 / secondary45 / union45を照合）', status: 'done' },
       { label: 'Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）', status: 'done' },
-      { label: 'Phase 2-2C: Soul Batch（条件付き3候補）', status: 'planned' },
+      { label: 'Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はResearch-only）', status: 'done' },
       { label: 'Phase 2-2D: Event / Healing / Control Batch（条件付き3候補）', status: 'planned' },
       { label: 'アーティファクトを10〜15種類へ拡張', status: 'planned' },
       { label: '防具・防具エンチャントをモデル化', status: 'planned' },

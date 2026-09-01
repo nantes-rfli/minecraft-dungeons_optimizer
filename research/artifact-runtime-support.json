@@ -325,8 +325,8 @@
       "supportLevel": "research-only",
       "reasons": [
         "4s versus 8s CD conflict",
-        "soul spending",
-        "damage curve and no-soul kills"
+        "no current-version high-Power damage curve",
+        "AoE target calibration and no-soul kill feedback"
       ],
       "boundaries": [],
       "assumptionRefs": [
@@ -401,9 +401,9 @@
       "mechanicFamily": "soul-spending-damage",
       "supportLevel": "research-only",
       "reasons": [
-        "Damage curve",
-        "strike targeting and delay",
-        "soul budget and CD history"
+        "2s versus 4s CD conflict",
+        "no current-version high-Power damage curve",
+        "strike targeting/delay and kill-Soul eligibility"
       ],
       "boundaries": [],
       "assumptionRefs": [
@@ -569,9 +569,8 @@
       "mechanicFamily": "soul-spending-heal",
       "supportLevel": "research-only",
       "reasons": [
-        "Current-version healing curve",
-        "soul spending",
-        "self-target share"
+        "no current-version usable healing curve",
+        "random heal distribution semantics unresolved"
       ],
       "boundaries": [],
       "assumptionRefs": [

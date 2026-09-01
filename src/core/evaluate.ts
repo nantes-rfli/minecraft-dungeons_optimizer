@@ -162,7 +162,9 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
       if (effect?.kind !== 'soul-pickup-healing') throw new Error('Missing Anima healing effect')
       reasons.push(`Anima Conduit ${['I', 'II', 'III'][anima.tier - 1]}: 合計pickup ${state.totalPickupEventsPerSecond.toFixed(3)}回/秒 × 最大HP${(effect.maxHealthFractionPerPickup * 100).toFixed(0)}% → 回復容量 ${core.healing.animaHealingCapacityPerSecond.toFixed(3)}/秒（resource量ではなく吸収回数、満タン後も容量として計上・実回復は未保証）`)
     }
-    reasons.push(`Soul Gathering ${state.totalSoulGathering}: resource収入 ${state.totalResourceUnitsPerSecond.toFixed(3)}/秒、平均ゲージ ${(state.encounterAverageSoulFraction * 100).toFixed(2)}%、終了時 ${(state.endSoulFraction * 100).toFixed(2)}%（開始0、容量${state.capacity}、消費0）`)
+    reasons.push(state.schedule
+      ? `Soul Gathering ${state.totalSoulGathering}: resource収入 ${state.totalResourceUnitsPerSecond.toFixed(3)}/秒、平均ゲージ ${(state.encounterAverageSoulFraction * 100).toFixed(2)}%、終了時 ${(state.endSoulFraction * 100).toFixed(2)}%（開始${state.initialSouls}、容量${state.capacity}、消費${state.schedule.totalSpentUnits.toFixed(1)}、overflow${state.schedule.overflowUnits.toFixed(1)}）`
+      : `Soul Gathering ${state.totalSoulGathering}: resource収入 ${state.totalResourceUnitsPerSecond.toFixed(3)}/秒、平均ゲージ ${(state.encounterAverageSoulFraction * 100).toFixed(2)}%、終了時 ${(state.endSoulFraction * 100).toFixed(2)}%（開始0、容量${state.capacity}、消費0）`)
   }
 
   const refreshment = build.enchantments.find((item) => item.enchantmentId === 'refreshment')

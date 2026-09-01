@@ -1,4 +1,4 @@
-# Artifact model — Phase 2-2A / 2-2B
+# Artifact model — Phase 2-2A / 2-2B / 2-2C
 
 Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定し、表示定義の正規化和集合45件をproject監査母集団にしました。raw game IDの網羅性は主張しません。Phase 2-2BではShock PowderだけがEvidence gateを通りLimited runtimeとなり、Fishing Rod / GongはResearch-onlyです。Full/Limited/Research-only、confidence、historical phase statusは別軸です。
 
@@ -32,11 +32,11 @@ Phase 2-2Aでprimary44 / secondary表示45の差分をCorrupted Seedsと確定�
 
 使用回数と効果発生回数を分離します。1 use = 1 activationが今後の基本policy候補で、channel OFF、beam pulse、aura tick、explosionごとにSynergyを追加しません。実ゲームのtrigger例外は効果ごとの採用gateです。
 
-将来の`ArtifactActivationCapacity`はcooldownLimited / resourceLimited / realizedの3rateを分離する契約です。`ArtifactUseModel`はcooldown-only / soul-spending / soul-channelを分け、channelのCD開始をdeactivationと明示。現行capacity helperは後二者を拒否します。将来のSynergyへ渡すのは**成功した実使用rate**であり、Soul不足を無視したCD capacityではありません。単純に各itemへ同じincomeを割り当てず、共有Soul予算を一度だけ配分します。
+`ArtifactActivationCapacity`はcooldownLimited / resourceLimited / realizedの3rateを分離します。`ArtifactUseModel`はcooldown-only / soul-spending / soul-channelを分け、channelのCD開始をdeactivationと明示。`calculateSoulArtifactActivationOpportunities`は有限schedulerの**成功した実使用rate**だけをSynergy入力へ変換し、Soul不足を無視したCD capacityを使いません。
 
 ## Soul hook
 
-現在の開始0・容量300・消費0は変更しません。将来はresourceUnitsの収支へ固定消費/秒消費を接続し、pickup発生数やAnima回復イベントとは分離します。有限戦闘でのwarm-up、枯渇、使用優先順位、channel中の近接停止、incomeとの循環をscheduler側で解きます。共通cooldown係数が適用できても、使える回数が1/CDとは限りません。
+`simulateSoulResourceSchedule`は開始Soul（default 0）・容量300・一定resource収入・離散使用をeventで処理します。各区間の線形増加とcapacity plateauを積分し、end / average / spent / overflowを保存。pickup発生数やAnima回復イベントは消費で減らしません。単一consumerはcooldown readyかつaffordableになった最速時刻に使い、t=0も含みます。複数spenderはplayer priorityが必要なため、slot順を捏造せず拒否します。
 
 Soul Healerはsoloなら自己target、co-opはmost-injured ally。`scenario.party.soulHealerSelfTargetShare`等の明示入力候補を将来導入します。full HPでの発動可能性と実回復/overhealも分離し、勝手に自己回復100%とはしません。
 
@@ -73,6 +73,6 @@ Buildは最大3slotで既に検証されており、今回テストで再固定�
 
 ## Audit / publication gate
 
-`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・次batch構成を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は3候補のdecision、ShockのCD・Power境界・4 knot、Fishing/GongのResearch-onlyを検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
+`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・次batch構成を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は2-2B、`npm run audit:artifact-soul`はscheduler golden/invariant、3候補decision、runtime件数を検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
 
 監査scriptの成功は「記録の整合性」の成功です。未解決のEvidenceやraw game IDの網羅性まで解決した意味ではありません。[audit](artifact-audit.md) / [control/debuff](artifact-control-debuff.md) / [support](artifact-runtime-support.md) / [expansion](artifact-expansion-plan.md)を正本として参照してください。

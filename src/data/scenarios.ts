@@ -33,11 +33,18 @@ export const DEFAULT_SCENARIO_EVIDENCE = {
   averageTargetsInReach: { value: 2.5, source: MVP_MODEL_SOURCE, confidence: 'low' },
   cooldownReduction: { value: 0, source: MVP_MODEL_SOURCE, confidence: 'low' },
   radianceHealPerProc: { value: 10, source: MVP_MODEL_SOURCE, confidence: 'low' },
+  initialSoulUnits: {
+    value: 0,
+    source: MVP_MODEL_SOURCE,
+    confidence: 'low',
+    note: 'Editable encounter-start resource. Zero preserves the Phase 2-1G baseline.',
+  },
 } as const satisfies Record<string, Evidence<number>>
 
 export const DEFAULT_SCENARIO: Scenario = {
   rollsPerSecond: 0,
   dynamoInitialStacks: 0,
+  initialSoulUnits: DEFAULT_SCENARIO_EVIDENCE.initialSoulUnits.value,
   profileId: 'balanced',
   name: 'バランス（MVP仮定）',
   encounterDurationSeconds: DEFAULT_SCENARIO_EVIDENCE.encounterDurationSeconds.value,

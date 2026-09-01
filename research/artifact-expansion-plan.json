@@ -234,7 +234,7 @@
       "reuse": "Soul / DamageEvent / kill attribution",
       "newState": "40消費、AoE対象、Soulを落とさない撃破source",
       "expectedSupport": "Limited: CD確定、測定damage範囲、AoE仮定。",
-      "whyNow": "4/8秒のCD矛盾と旧表を解決。消費schedulerをSoul Healerと共用。",
+      "whyNow": "有限Soul schedulerは完成。4/8秒のCD矛盾、現行高Power曲線、AoE targetと非Soul撃破feedbackが未解決のためResearch-onlyを維持。",
       "gateStatus": "evidence-required"
     },
     {
@@ -291,7 +291,7 @@
       "reuse": "Soul / DamageEvent",
       "newState": "遅延strike、対象維持、15消費",
       "expectedSupport": "Limited: CD・Power・strike coverage。",
-      "whyNow": "2/4秒のCD照合とdamage曲線が必要。単純なCDの逆数を採用しない。",
+      "whyNow": "有限Soul schedulerは完成。2/4秒のCD照合、現行高Power曲線、strike delay/target成功率、撃破Soul適格性が未解決のためResearch-onlyを維持。",
       "gateStatus": "evidence-required"
     },
     {
@@ -426,7 +426,7 @@
       "reuse": "Soul trajectory / Healing",
       "newState": "固定50消費、HP不足・自己target share",
       "expectedSupport": "Limited: soloまたは明示party share、測定Power域。",
-      "whyNow": "旧低Power表の意味と現行heal分布を確認し、消費scheduler後に実装。",
+      "whyNow": "有限Soul schedulerは完成。旧低Power表を1.17の現行heal分布へ接続できず、乱数意味も未解決のためResearch-onlyを維持。",
       "gateStatus": "evidence-required"
     },
     {

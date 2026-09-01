@@ -548,6 +548,8 @@ export interface Scenario {
   /** External inputs; omission preserves compatibility with older scenarios. */
   readonly rollsPerSecond?: number
   readonly dynamoInitialStacks?: number
+  /** Encounter-start resource; omitted legacy scenarios start empty. */
+  readonly initialSoulUnits?: number
   readonly profileId: ScenarioProfileId
   readonly name: string
   readonly encounterDurationSeconds: number
@@ -603,6 +605,8 @@ export interface ArtifactActivationState {
     readonly artifactId: ArtifactId
     readonly effectiveCooldownSeconds: number
     readonly activationsPerSecond: number
+    readonly cooldownLimitedActivationsPerSecond?: number
+    readonly resourceLimitedActivationsPerSecond?: number
   }[]
 }
 
@@ -749,11 +753,53 @@ export interface SoulTrajectory {
   readonly endSoulFraction: number
 }
 
+export interface SoulConsumer {
+  readonly instanceId: string
+  readonly artifactId: ArtifactId
+  readonly costPerUse: number
+  readonly effectiveCooldownSeconds: number
+}
+
+export interface SoulConsumerSchedule {
+  readonly instanceId: string
+  readonly artifactId: ArtifactId
+  readonly effectiveCooldownSeconds: number
+  readonly realizedUses: number
+  readonly realizedUsesPerSecond: number
+  readonly cooldownLimitedUses: number
+  readonly resourceLimitedUses: number
+  readonly missedForInsufficientSouls: number
+  readonly spentSoulUnits: number
+  readonly useTimesSeconds: readonly number[]
+}
+
+export interface SoulResourceScheduleInput {
+  readonly durationSeconds: number
+  readonly initialSouls: number
+  readonly capacity: number
+  readonly incomeUnitsPerSecond: number
+  readonly consumers: readonly SoulConsumer[]
+}
+
+export interface SoulResourceSchedule {
+  readonly durationSeconds: number
+  readonly initialSouls: number
+  readonly endSouls: number
+  readonly averageSouls: number
+  readonly averageSoulFraction: number
+  readonly endSoulFraction: number
+  readonly totalIncomeUnits: number
+  readonly totalSpentUnits: number
+  readonly overflowUnits: number
+  readonly consumers: readonly SoulConsumerSchedule[]
+}
+
 export interface SoulState extends SoulTrajectory {
   readonly capacity: number
   readonly initialSouls: number
   readonly baseSoulGathering: number
   readonly enchantmentSoulGathering: number
+  readonly artifactSoulGathering?: number
   readonly externalSoulGathering: number
   readonly totalSoulGathering: number
   readonly eligibleSoulGeneratingKillsPerSecond: number
@@ -767,7 +813,8 @@ export interface SoulState extends SoulTrajectory {
   readonly normalResourceUnitsPerSecond: number
   readonly siphonResourceUnitsPerSecond: number
   readonly totalResourceUnitsPerSecond: number
-  readonly spendingUnitsPerSecond: 0
+  readonly spendingUnitsPerSecond: number
+  readonly schedule?: SoulResourceSchedule
 }
 
 /** Continuous steady-state availability, not discrete potion events or actual healing. */

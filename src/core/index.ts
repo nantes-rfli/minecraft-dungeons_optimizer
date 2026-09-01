@@ -22,7 +22,7 @@ export {
 } from './powerScalingValidation'
 export type * from './types'
 
-export { soulTrajectory, soulIncome, siphonIncome, animaHealingCapacity, deriveSoulState } from './souls'
+export { soulTrajectory, soulIncome, siphonIncome, animaHealingCapacity, deriveSoulState, simulateSoulResourceSchedule, artifactSoulGathering } from './souls'
 
 export { calculateControl, calculateControlUtility } from './control'
 export { deriveArtifactControlState } from './artifactControl'

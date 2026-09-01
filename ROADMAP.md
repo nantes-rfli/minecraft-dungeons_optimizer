@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **27 / 43（63%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **28 / 43（65%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（8 / 19）
+## Phase 2 — Equipment Coverage（9 / 19）
 
 ### Melee runtime summary
 
@@ -82,7 +82,7 @@ Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted
 - [x] 近接エンチャントを25〜30種類へ拡張（meaningful runtimeで達成、全33種完全対応ではない）
 - [x] Phase 2-2A: Artifact Audit & Runtime Foundation（primary44 / secondary45 / union45を照合）
 - [x] Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）
-- [ ] Phase 2-2C: Soul Batch（Soul Healer / Harvester / Lightning Rod、Evidence gate付き候補）
+- [x] Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はEvidence blocker付きResearch-only）
 - [ ] Phase 2-2D: Event / Healing / Control Batch（Powershaker / Totem / Wind Horn、Evidence gate付き候補）
 - [ ] アーティファクトを10〜15種類へ拡張
 - [ ] 防具・防具エンチャントをモデル化
@@ -103,7 +103,7 @@ Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted
 
 ### Current summary
 
-Phase 2-1K completeを維持。Phase 2-2Aはprimary44 / secondary45の差分をCorrupted Seedsと特定し、表示定義union45を監査母集団として完了。Phase 2-2BはShock PowderをPower 12〜262・1copy・対象割合付きLimited hard Controlとして追加し、Fishing Rod / Gongは具体blocker付きResearch-onlyを維持。既存180ケースのexact regressionは不変です。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-1K completeを維持。Phase 2-2Aは表示定義union45の監査、2-2BはShock Powder Limitedを完了。Phase 2-2Cは開始Soul・容量・連続収入・離散消費・overflow・積分平均を扱うevent schedulerを追加し、共有poolの複数spenderをpriority未指定で拒否します。Soul Healer / Harvester / Lightning Rodは曲線・CD・target/kill Evidence blocker付きResearch-onlyで、runtimeは3 / 45のままです。既存180ケースのexact regressionは不変です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -113,7 +113,7 @@ P0 0 / P1 3 / P2 4 / P3 10（backlog行単位）。[制限・優先度・close�
 
 ### Next area
 
-近接拡張はfreeze。次はPhase 2-2CのSoul Healer / Harvester / Lightning Rodを再評価し、共通の有限Soul支出schedulerを先に確立します。条件付き11種shortlistはruntime3 + 残り候補8で、根拠不足の候補は登録しません。
+近接拡張はfreeze。次はPhase 2-2DのPowershaker / Totem of Regeneration / Wind HornをEvidence gate付きで監査します。条件付き11種shortlistはruntime3 + 残り候補8で、根拠不足の候補は登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

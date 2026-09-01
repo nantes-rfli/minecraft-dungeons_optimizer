@@ -62,11 +62,11 @@ Readiness is research triage, not support level.
 | Golem Kit | reported obtainable | Base Game | summon | 30s | needs-state-model | low | Golem survival, attack cadence, target AI and resummon behavior |
 | Gong of Weakening | reported obtainable | Base Game | timed-enemy-debuff | 20s | needs-power-curve | medium | Vulnerability duration curve; Weakening status ownership and overlap |
 | Harpoon Quiver | reported obtainable | Hidden Depths | consumable-generation | 30s | needs-target-model | medium | Five loaded arrows; ranged piercing and underwater target geometry |
-| Harvester | reported obtainable | Base Game | soul-spending-damage | 8s ⚠ conflict | needs-power-curve | medium | 4s versus 8s CD conflict; soul spending; damage curve and no-soul kills |
+| Harvester | reported obtainable | Base Game | soul-spending-damage | 8s ⚠ conflict | needs-power-curve | medium | 4s versus 8s CD conflict; no current-version high-Power damage curve; AoE target calibration and no-soul kill feedback |
 | Ice Wand | reported obtainable | Creeping Winter | instant-damage | 15s | needs-power-curve | medium | Crush damage curve and delay; stun duration/immune targets |
 | Iron Hide Amulet | reported obtainable | Base Game | timed-self-buff | 25s | ready | medium | runtime frozen |
 | Light Feather | reported obtainable | Base Game | mobility | 3s | needs-state-model | medium | Roll triggers and stun coverage; connect Dynamo only after roll semantics audit |
-| Lightning Rod | reported obtainable | Base Game | soul-spending-damage | 4s ⚠ conflict | needs-power-curve | medium | Damage curve; strike targeting and delay; soul budget and CD history |
+| Lightning Rod | reported obtainable | Base Game | soul-spending-damage | 4s ⚠ conflict | needs-power-curve | medium | 2s versus 4s CD conflict; no current-version high-Power damage curve; strike targeting/delay and kill-Soul eligibility |
 | Love Medallion | reported obtainable | Base Game | hard-control | 30s | needs-state-model | medium | Charm ownership, target immunity, borrowed mob damage and expiry deaths |
 | Powershaker | reported obtainable | Flames of the Nether | attack-limited-buff | 10s | needs-state-model | medium | Per-attack versus per-target consumption; explosion curve and attribution |
 | Satchel of Elements | reported obtainable | Howling Peaks (also Gauntlet of Gales) | random-effect | 10s | needs-state-model | low | Element probabilities, target count, burn/lightning/freeze curves |
@@ -75,7 +75,7 @@ Readiness is research triage, not support level.
 | Scatter Mines | reported obtainable | Base Game | persistent-damage | 12s | needs-target-model | low | Placed mine trigger, residence/overlap and artifact damage curve |
 | Shadow Shifter | reported obtainable | Echoing Void | mobility | 10s | needs-objective | low | Soul-paid shadow state, first-hit consumption and movement objective |
 | Shock Powder | reported obtainable | Base Game | hard-control | 15s | ready | medium | runtime frozen |
-| Soul Healer | reported obtainable | Base Game | soul-spending-heal | 5s | needs-power-curve | medium | Current-version healing curve; soul spending; self-target share |
+| Soul Healer | reported obtainable | Base Game | soul-spending-heal | 5s | needs-power-curve | medium | no current-version usable healing curve; random heal distribution semantics unresolved |
 | Soul Lantern | reported obtainable | Base Game | summon | 5s | needs-state-model | low | Soul spending plus wizard lifetime, projectile cadence and pet cap |
 | Spinblade | reported obtainable | Flames of the Nether | persistent-damage | 5s | needs-target-model | medium | Outward/return hits, catch/roll loop and per-target occupancy |
 | Tasty Bone | reported obtainable | Base Game | summon | 30s | needs-state-model | low | Wolf survival, melee cadence, target AI and resummon behavior |

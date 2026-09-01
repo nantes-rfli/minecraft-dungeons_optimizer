@@ -8,21 +8,44 @@ import type {
   ArtifactUptime,
   OwnedArtifact,
   Scenario,
+  SoulResourceSchedule,
 } from './types'
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value))
 
 /** Activation frequency is independent of duration and combined buff uptime. */
 export function calculateArtifactActivationState(opportunities: readonly ArtifactActivationOpportunity[]): ArtifactActivationState {
-  const activations = opportunities.map(({ instanceId, artifactId, effectiveCooldownSeconds }) => {
+  const activations = opportunities.map(({ instanceId, artifactId, effectiveCooldownSeconds, realizedActivationsPerSecond, resourceLimitedActivationsPerSecond }) => {
     if (!Number.isFinite(effectiveCooldownSeconds) || effectiveCooldownSeconds <= 0) {
       throw new Error('Artifact activation cooldown must be finite and positive')
     }
-    return { instanceId, artifactId, effectiveCooldownSeconds, activationsPerSecond: 1 / effectiveCooldownSeconds }
+    const cooldownLimitedActivationsPerSecond = 1 / effectiveCooldownSeconds
+    const activationsPerSecond = realizedActivationsPerSecond ?? cooldownLimitedActivationsPerSecond
+    if (!Number.isFinite(activationsPerSecond) || activationsPerSecond < 0 || activationsPerSecond > cooldownLimitedActivationsPerSecond + Number.EPSILON) {
+      throw new Error('Artifact realized activation rate must be finite and within cooldown capacity')
+    }
+    return {
+      instanceId, artifactId, effectiveCooldownSeconds, activationsPerSecond,
+      ...(realizedActivationsPerSecond === undefined ? {} : {
+        cooldownLimitedActivationsPerSecond,
+        resourceLimitedActivationsPerSecond: resourceLimitedActivationsPerSecond ?? activationsPerSecond,
+      }),
+    }
   })
   const totalActivationsPerSecond = activations.reduce((sum, item) => sum + item.activationsPerSecond, 0)
   if (!Number.isFinite(totalActivationsPerSecond)) throw new Error('Artifact activation rate exceeds finite numeric range')
   return { totalActivationsPerSecond, activations }
+}
+
+/** Converts only realized scheduled uses into Artifact Synergy activation input. */
+export function calculateSoulArtifactActivationOpportunities(schedule: SoulResourceSchedule): ArtifactActivationOpportunity[] {
+  return schedule.consumers.map((consumer) => ({
+    instanceId: consumer.instanceId,
+    artifactId: consumer.artifactId,
+    effectiveCooldownSeconds: consumer.effectiveCooldownSeconds,
+    realizedActivationsPerSecond: consumer.realizedUsesPerSecond,
+    resourceLimitedActivationsPerSecond: consumer.resourceLimitedUses / schedule.durationSeconds,
+  }))
 }
 
 function timedSelfBuff(artifact: ArtifactDefinition): TimedSelfBuffArtifactDefinition {

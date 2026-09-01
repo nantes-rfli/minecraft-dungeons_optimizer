@@ -2413,7 +2413,7 @@
       },
       "interactions": {
         "status": "unknown",
-        "note": "4s versus 8s CD conflict; soul spending; damage curve and no-soul kills",
+        "note": "4s versus 8s CD conflict; current-version high-Power curve; AoE target calibration and no-soul kill feedback",
         "sourceIds": [
           "dt-artifacts-117",
           "dt-harvester",
@@ -2429,8 +2429,8 @@
       ],
       "blockers": [
         "4s versus 8s CD conflict",
-        "soul spending",
-        "damage curve and no-soul kills"
+        "no current-version high-Power damage curve",
+        "AoE target calibration and no-soul kill feedback"
       ],
       "deepAudit": {
         "cooldownConflict": {
@@ -2895,7 +2895,7 @@
       },
       "interactions": {
         "status": "unknown",
-        "note": "Damage curve; strike targeting and delay; soul budget and CD history",
+        "note": "2s versus 4s CD conflict; current-version high-Power damage curve; strike target/delay and kill-Soul eligibility",
         "sourceIds": [
           "dt-artifacts-117",
           "wiki-lightning-rod"
@@ -2908,9 +2908,9 @@
         "wiki-lightning-rod"
       ],
       "blockers": [
-        "Damage curve",
-        "strike targeting and delay",
-        "soul budget and CD history"
+        "2s versus 4s CD conflict",
+        "no current-version high-Power damage curve",
+        "strike targeting/delay and kill-Soul eligibility"
       ],
       "deepAudit": {
         "cooldown": {
@@ -3973,7 +3973,7 @@
       },
       "interactions": {
         "status": "unknown",
-        "note": "Current-version healing curve; soul spending; self-target share",
+        "note": "Current-version usable healing curve and random distribution semantics",
         "sourceIds": [
           "dt-artifacts-117",
           "dt-soul-healer",
@@ -3988,9 +3988,8 @@
         "wiki-soul-healer"
       ],
       "blockers": [
-        "Current-version healing curve",
-        "soul spending",
-        "self-target share"
+        "no current-version usable healing curve",
+        "random heal distribution semantics unresolved"
       ],
       "deepAudit": {
         "use": {

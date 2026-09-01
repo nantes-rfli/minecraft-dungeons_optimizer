@@ -43,6 +43,7 @@ export function validateScenario(scenario: Scenario): void {
   validatePersistentAreaTargeting(scenario)
   validateControlAssumptions(scenario)
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
+  assertRange('initialSoulUnits', scenario.initialSoulUnits ?? 0, 0, 300)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
   assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
   assertRange('directKillShare', scenario.directKillShare, 0, 1)

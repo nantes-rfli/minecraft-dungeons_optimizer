@@ -46,6 +46,16 @@ export function MethodologyPage() {
       <ArtifactRuntimeSupportSection />
 
       <section className="panel">
+        <p className="section-label">PHASE 2-2C / FINITE SOUL — COMPLETE</p>
+        <h2>Soulを有限・蓄積・overflow・離散消費するresourceへ</h2>
+        <p>開始Soulは0〜300で編集可能。pickup回数とGathering後のresource量を分離したまま、一定収入の区間とArtifact使用eventを処理します。平均Soulは各区間と満タンplateauの時間積分で、開始・終了の単純平均ではありません。</p>
+        <Formula>initial + income = end + spent + overflow</Formula>
+        <p>単一spenderはcooldown readyかつSoulを払える最速時刻に使用し、t=0も含みます。cooldown上限、resource上限、実使用、Soul不足を分離。複数spenderは共有poolのplayer priorityが必要なためslot順では処理せず拒否します。Animaはpickup回数のまま、Artifact Synergyは実使用だけを数えます。</p>
+        <p>Soul Healerは5秒・50 Soul・+1 Gatheringを確認しましたが、現行heal曲線と乱数意味が未解決。Harvesterは4/8秒競合・高Power曲線・非Soul撃破feedback、Lightning Rodは2/4秒競合・高Power曲線・strike delay/target/kill適格性が未解決です。3種ともResearch-onlyで、runtimeは3 / 45のままです。</p>
+        <p>出典: <a href="https://www.dungeons.tools/artifacts/soul-healer" target="_blank" rel="noreferrer">Soul Healer</a> / <a href="https://minecraft.wiki/w/Dungeons:Harvester" target="_blank" rel="noreferrer">Harvester</a> / <a href="https://www.dungeons.tools/artifacts/lightning-rod" target="_blank" rel="noreferrer">Lightning Rod</a> / <a href="https://minecraft.wiki/w/Dungeons:1.3.2.0" target="_blank" rel="noreferrer">1.3.2.0履歴</a>。</p>
+      </section>
+
+      <section className="panel">
         <p className="section-label">PHASE 2-2A / 2-2B — COMPLETE</p>
         <h2>Artifact母集団の照合とShock Powderの限定Control</h2>
         <p>primary 44件とsecondaryの表示定義45件を照合し、差分はCorrupted Seedsと確定しました。project監査母集団は正規化和集合45件です。これは表示定義の範囲であり、raw game ID全体の網羅性は主張しません。</p>
@@ -118,7 +128,7 @@ export function MethodologyPage() {
         <h2>Soulの吸収回数と資源量を分離</h2>
         <p>Soul Scytheを1種追加。監査済み0.48/0.56秒の2 hit（medium confidence）、内部Power 6.915、基礎Gathering +1、内蔵Enchantなし。Anima / SiphonはSoul gear限定で、既存3武器への装着をcore・Optimizer・通常/金色・保存・JSONでも拒否します。</p>
         <Formula>Gathering = 武器 + 選択Soul enchant各+1、resource/s = pickup/s × Gathering</Formula>
-        <p>通常pickupは推定総撃破/sを使用。Siphonはprofile hitごと20%、Tier 1/3/5 pickupsを追加します。AoE target別抽選は現行測定不足のため掛けません。開始0・容量300・消費0、外部Gathering 0。Soul消費Artifact・防具・遠距離は未対応です。</p>
+        <p>通常pickupは推定総撃破/sを使用。Siphonはprofile hitごと20%、Tier 1/3/5 pickupsを追加します。AoE target別抽選は現行測定不足のため掛けません。開始0・容量300のno-spending closed formは互換維持し、2-2Cの有限schedulerが開始Soulと離散消費を担当します。</p>
         <Formula>fillTime=C/g、fillTime≧T: 終了=gT/C・平均=gT/(2C)、fillTime&lt;T: 終了1・平均1-fillTime/(2T)</Formula>
         <p>g=0なら平均・終了とも0。一定収入の連続近似（low confidence）で、吸収遅延や離散killsは省略。満タン後もpickupは継続し、resource収入は超過分を含む潜在量です。</p>
         <Formula>Anima回復容量/s = pickup/s × 最大HP × 近接Tier 2/4/6%</Formula>
@@ -280,7 +290,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact監査の2-2A、Shock Powder限定runtimeの2-2Bは完了。次は2-2CのSoul Batchです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact監査2-2A、Shock Powder限定runtime 2-2B、有限Soul schedulerとSoul Artifact監査2-2Cは完了。次は2-2Dです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

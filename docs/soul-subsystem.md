@@ -109,7 +109,7 @@ Utility Barにはゲージ満タン時にもvisual pickupが流入する記述�
 
 `resolveOffensiveSteadyState()`の各評価で、Rampaging uptime → speed → HPS → direct/proc/Committed → DPS → CombatState → Soul Siphon / normal Soul income → Soul trajectoryを導出します。同じ評価の状態だけを返すため、最終HPS・撃破率・pickup・meterが一致します。Rampagingの固定点は許容1e-8、上限100回、非finite・非収束は明示エラー。
 
-Enigmaが未対応なのでSoul→DPSの逆向き依存はなく、新しい独立固定点やnested recursionは不要です。Rampagingなしなら1回評価、SoulなしならSoulStateを作りません。将来Enigmaを入れる際は同じresolverの未知数を拡張し、direct multiplierをCommitted前へ入れ、procには掛けず、kill/Soul/Enigmaを同時に整合させる必要があります。
+Enigmaが未対応なのでSoul→DPSの逆向き依存はありません。Phase 2-2Cで有限Soul scheduler、開始Soul、Artifact Gathering hookを追加しましたが、3候補はResearch-onlyのため現runtimeにArtifact damage/heal feedbackはありません。Rampagingなしなら1回評価、SoulなしならSoulStateを作りません。将来Enigmaやdamaging Soul Artifactを入れる際は同じresolverの未知数を拡張し、kill/Soul/useを同時に整合させる必要があります。
 
 Anima / Siphon / RampagingやCritical / Committed / Artifact Synergyのremoval contributionは`calculateCore()`を通じて全再計算します。Worker・full discrete simulatorは追加していません。
 
@@ -137,7 +137,7 @@ Soul Scythe表示damage26、Soul Siphon III + Anima III + Rampaging III、Artifa
 | B: Pain Cycle / Dynamo / Busy Bee | self damage、roll stacks、summon lifetime/cap/targetingという別々の状態が必要 | 後続へ |
 | C: Fire Aspect / Poison Cloud / Exploding | 既存DamageEventを再利用。DoT tick/refresh/重複、Power曲線、kill attributionの調査が必要 | **次batchに推奨**。まず研究監査し、根拠の揃うeffectだけ追加 |
 
-Enigmaの不足測定が得られた場合はPhase 2-1Gの解消を優先できます。今回、Cの3種やSoul消費Artifact、Soul Healer、Beacon、Harvester、Lightning Rod、Torment Quiver、Bag of Souls、Soul Focus / Speed、armor、rangedは実装していません。
+Enigmaの不足測定が得られた場合はPhase 2-1Gの解消を優先できます。Soul消費の共通schedulerは実装済みですが、Soul Healer / Harvester / Lightning Rod / Beacon / Torment Quiver等の効果はEvidence gateを通っておらずruntime登録していません。
 
 ## 検証
 

@@ -27,11 +27,11 @@ Fullは現在scopeの主要計算経路が完結。低confidenceだけではLimi
 | Golem Kit | summon | research-only | Golem survival, attack cadence, target AI and resummon behavior |
 | Gong of Weakening | timed-enemy-debuff | research-only | Vulnerability duration curve; Weakening status ownership and overlap |
 | Harpoon Quiver | consumable-generation | research-only | Five loaded arrows; ranged piercing and underwater target geometry |
-| Harvester | soul-spending-damage | research-only | 4s versus 8s CD conflict; soul spending; damage curve and no-soul kills |
+| Harvester | soul-spending-damage | research-only | 4s versus 8s CD conflict; no current-version high-Power damage curve; AoE target calibration and no-soul kill feedback |
 | Ice Wand | instant-damage | research-only | Crush damage curve and delay; stun duration/immune targets |
 | Iron Hide Amulet | timed-self-buff | full | Current optimizer scope complete; original Evidence assumptions retained. |
 | Light Feather | mobility | research-only | Roll triggers and stun coverage; connect Dynamo only after roll semantics audit |
-| Lightning Rod | soul-spending-damage | research-only | Damage curve; strike targeting and delay; soul budget and CD history |
+| Lightning Rod | soul-spending-damage | research-only | 2s versus 4s CD conflict; no current-version high-Power damage curve; strike targeting/delay and kill-Soul eligibility |
 | Love Medallion | hard-control | research-only | Charm ownership, target immunity, borrowed mob damage and expiry deaths |
 | Powershaker | attack-limited-buff | research-only | Per-attack versus per-target consumption; explosion curve and attribution |
 | Satchel of Elements | random-effect | research-only | Element probabilities, target count, burn/lightning/freeze curves |
@@ -40,7 +40,7 @@ Fullは現在scopeの主要計算経路が完結。低confidenceだけではLimi
 | Scatter Mines | persistent-damage | research-only | Placed mine trigger, residence/overlap and artifact damage curve |
 | Shadow Shifter | mobility | research-only | Soul-paid shadow state, first-hit consumption and movement objective |
 | Shock Powder | hard-control | limited | Bounded published duration table and independent hard-control state; Power 12–262 only; piecewise-linear interpolation; no extrapolation; Runtime maximum one copy; Editable eligibility and affected-target shares; boss default zero; Steady-state use-when-ready with refresh-saturation approximation |
-| Soul Healer | soul-spending-heal | research-only | Current-version healing curve; soul spending; self-target share |
+| Soul Healer | soul-spending-heal | research-only | no current-version usable healing curve; random heal distribution semantics unresolved |
 | Soul Lantern | summon | research-only | Soul spending plus wizard lifetime, projectile cadence and pet cap |
 | Spinblade | persistent-damage | research-only | Outward/return hits, catch/roll loop and per-target occupancy |
 | Tasty Bone | summon | research-only | Wolf survival, melee cadence, target AI and resummon behavior |

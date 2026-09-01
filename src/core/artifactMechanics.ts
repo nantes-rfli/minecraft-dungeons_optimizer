@@ -84,4 +84,7 @@ export interface ArtifactActivationOpportunity {
   readonly instanceId: string
   readonly artifactId: ArtifactId
   readonly effectiveCooldownSeconds: number
+  /** Present only when a resource scheduler has resolved the use rate. */
+  readonly realizedActivationsPerSecond?: number
+  readonly resourceLimitedActivationsPerSecond?: number
 }

@@ -2,15 +2,17 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import audit from '../research/soul-subsystem-audit.json'
 import melee from '../research/melee-enchantment-audit.json'
 import profiles from '../research/melee-attack-profile-audit.json'
-import { animaHealingCapacity, evaluate, optimize, siphonIncome, soulIncome, soulTrajectory } from '../src/core'
+import { animaHealingCapacity, deriveSoulState, evaluate, optimize, siphonIncome, simulateSoulResourceSchedule, soulIncome, soulTrajectory } from '../src/core'
 import type { Build, EnchantmentId, EnchantmentTier, Scenario, SelectedEnchantment, WeaponId } from '../src/core'
-import { calculateArtifactEffects } from '../src/core/artifact'
+import { calculateArtifactActivationState, calculateArtifactEffects, calculateSoulArtifactActivationOpportunities } from '../src/core/artifact'
+import * as catalog from '../src/core/catalog'
 import { calculateDamage } from '../src/core/damage'
 import { solveUnitIntervalFixedPoint } from '../src/core/fixedPoint'
 import { resolveOffensiveSteadyState } from '../src/core/offensiveSteadyState'
 import { soulEnchantmentUnsupportedReason } from '../src/core/soulLegality'
 import { temporaryBuffUptime } from '../src/core/temporalEnchantments'
-import { validateBuild } from '../src/core/validation'
+import { validateBuild, validateScenario } from '../src/core/validation'
+import { ARTIFACTS } from '../src/data/artifacts'
 import { ENCHANTMENTS } from '../src/data/enchantments'
 import { ATTACK_PROFILES } from '../src/data/attackProfiles'
 import { SOUL_ENCHANTMENT_METADATA } from '../src/data/souls'
@@ -28,7 +30,7 @@ function buildFor(enchantments = [selected('soul-siphon'), selected('anima-condu
   }, enchantments, artifacts: [] }
 }
 const run = (enchantments?: SelectedEnchantment[], settings = scenario) => evaluate(buildFor(enchantments), settings)
-afterEach(() => vi.unstubAllGlobals())
+afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks() })
 
 describe('Soul gear promotion and legality', () => {
   it('promotes exactly one strict-ready common soul weapon and preserves source coefficients', () => {
@@ -91,6 +93,57 @@ describe('Soul gear promotion and legality', () => {
 })
 
 describe('Soul income and encounter trajectory', () => {
+  const consumer = { instanceId: 'soul-artifact', artifactId: 'death-cap-mushroom' as const, costPerUse: 50, effectiveCooldownSeconds: 5 }
+  it('schedules finite continuous income and discrete spending against independent golden times', () => {
+    const runSchedule = (initialSouls: number, incomeUnitsPerSecond: number) => simulateSoulResourceSchedule({ durationSeconds: 30, initialSouls, capacity: 300, incomeUnitsPerSecond, consumers: [consumer] })
+    expect(runSchedule(0, 0).consumers[0]).toMatchObject({ realizedUses: 0, cooldownLimitedUses: 7, missedForInsufficientSouls: 7, useTimesSeconds: [] })
+    expect(runSchedule(100, 0).consumers[0]).toMatchObject({ realizedUses: 2, spentSoulUnits: 100, useTimesSeconds: [0, 5] })
+    expect(runSchedule(0, 10).consumers[0]!.useTimesSeconds[0]).toBe(5)
+    expect(runSchedule(0, 100).consumers[0]).toMatchObject({ realizedUses: 6, cooldownLimitedUses: 7 })
+    expect(runSchedule(0, 5).consumers[0]).toMatchObject({ realizedUses: 3, resourceLimitedUses: 3 })
+  })
+  it('integrates average Souls across fill plateaus, reports overflow, and conserves resources', () => {
+    const schedule = simulateSoulResourceSchedule({ durationSeconds: 10, initialSouls: 250, capacity: 300, incomeUnitsPerSecond: 20, consumers: [] })
+    expect(schedule.endSouls).toBe(300)
+    expect(schedule.overflowUnits).toBe(150)
+    expect(schedule.averageSouls).toBeCloseTo((250 + 300) / 2 * 2.5 / 10 + 300 * 7.5 / 10)
+    expect(schedule.initialSouls + schedule.totalIncomeUnits).toBeCloseTo(schedule.endSouls + schedule.totalSpentUnits + schedule.overflowUnits)
+  })
+  it('rejects implicit shared-pool priority and invalid resource bounds', () => {
+    expect(() => simulateSoulResourceSchedule({ durationSeconds: 30, initialSouls: 0, capacity: 300, incomeUnitsPerSecond: 10, consumers: [consumer, { ...consumer, instanceId: 'second' }] })).toThrow(/priority/)
+    for (const initialSouls of [-1, 301, NaN, Infinity]) expect(() => simulateSoulResourceSchedule({ durationSeconds: 30, initialSouls, capacity: 300, incomeUnitsPerSecond: 10, consumers: [] })).toThrow()
+  })
+  it('feeds Artifact Synergy only realized Soul Artifact uses, never cooldown capacity', () => {
+    const empty = simulateSoulResourceSchedule({ durationSeconds: 30, initialSouls: 0, capacity: 300, incomeUnitsPerSecond: 0, consumers: [consumer] })
+    const activation = calculateArtifactActivationState(calculateSoulArtifactActivationOpportunities(empty))
+    expect(activation.totalActivationsPerSecond).toBe(0)
+    expect(activation.activations[0]).toMatchObject({
+      activationsPerSecond: 0,
+      cooldownLimitedActivationsPerSecond: 0.2,
+      resourceLimitedActivationsPerSecond: 0,
+    })
+  })
+  it('creates SoulState on a non-Soul weapon from synthetic Artifact Gathering without multiplying pickups', () => {
+    const plainBuild = buildFor([selected('critical-hit')], 'fighters-bindings')
+    const plain = evaluate(plainBuild, scenario)
+    const base = ARTIFACTS['death-cap-mushroom']
+    vi.spyOn(catalog, 'getArtifactDefinition').mockReturnValue({
+      ...base,
+      use: { kind: 'soul-spending', cooldownStarts: 'use', soulGathering: { ...base.cooldownSeconds, value: 1 }, cost: { ...base.cooldownSeconds, value: 50 } },
+    } as unknown as ReturnType<typeof catalog.getArtifactDefinition>)
+    const build = { ...plainBuild, artifacts: [{ instanceId: 'synthetic-soul', artifactId: 'death-cap-mushroom' as const, powerLevel: 251 }] }
+    const state = deriveSoulState(build, plain.damage, plain.combatState, scenario)!
+    expect(state.baseSoulGathering).toBe(0)
+    expect(state.artifactSoulGathering).toBe(1)
+    expect(state.totalSoulGathering).toBe(1)
+    expect(state.totalPickupEventsPerSecond).toBe(state.normalPickupEventsPerSecond)
+    expect(state.totalResourceUnitsPerSecond).toBe(state.totalPickupEventsPerSecond)
+    expect(state.schedule?.consumers[0]?.artifactId).toBe('death-cap-mushroom')
+  })
+  it('validates editable initial Soul bounds while legacy omission still means zero', () => {
+    expect(() => validateScenario({ ...scenario, initialSoulUnits: undefined })).not.toThrow()
+    for (const initialSoulUnits of [-1, 301, NaN, Infinity]) expect(() => validateScenario({ ...scenario, initialSoulUnits })).toThrow(/initialSoulUnits/)
+  })
   it('matches zero, partial, exact-full and early-full golden trajectories', () => {
     expect(soulTrajectory(0, 300, 30)).toEqual({ encounterAverageSoulFraction: 0, endSoulFraction: 0 })
     expect(soulTrajectory(10, 300, 10)).toEqual({ fillTimeSeconds: 30, endSoulFraction: 1 / 3, encounterAverageSoulFraction: 1 / 6 })
