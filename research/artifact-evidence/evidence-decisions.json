@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "phase": "2-2E",
+  "phaseStatus": "complete",
+  "gameVersion": "1.17.0.0",
+  "runtimeCounts": {
+    "auditedPopulation": 45,
+    "catalogRuntime": 3,
+    "full": 2,
+    "limited": 1,
+    "researchOnly": 42
+  },
+  "researchCoverage": {
+    "damageArtifacts": [
+      "powershaker",
+      "harvester",
+      "lightning-rod",
+      "ice-wand",
+      "scatter-mines",
+      "updraft-tome",
+      "blast-fungus",
+      "spinblade",
+      "eye-of-the-guardian",
+      "corrupted-beacon"
+    ],
+    "healingArtifacts": ["soul-healer", "totem-of-regeneration", "radiance-enchantment-reference", "totem-of-shielding"],
+    "durationArtifacts": ["gong-of-weakening", "fishing-rod", "shock-powder", "death-cap-mushroom", "iron-hide-amulet", "totem-of-regeneration", "wind-horn"],
+    "numericSnapshot": {
+      "allSamples": 85,
+      "artifactDamageSamples": 34,
+      "artifactDamagePowerRange": { "min": 1, "max": 114 },
+      "healingSamplesIncludingExcludedReferences": 29,
+      "healingPowerRange": { "min": 1, "max": 251 },
+      "durationSamples": 15,
+      "durationPowerRange": { "min": 2, "max": 262 },
+      "windHornBands": 5,
+      "windHornPublishedPowerRange": { "min": 1, "max": 108 }
+    }
+  },
+  "conflicts": [
+    {
+      "id": "harvester-cooldown",
+      "artifactId": "harvester",
+      "metric": "cooldown",
+      "candidates": [
+        { "value": 4, "unit": "seconds", "sourceId": "wiki-harvester-current", "version": "current page; table version unresolved" },
+        { "value": 4, "unit": "seconds", "sourceId": "wiki-patch-132", "version": "1.3.2.0 historical" },
+        { "value": 8, "unit": "seconds", "sourceId": "dt-harvester-117", "version": "1.17.0.0 current" }
+      ],
+      "sourceSemantics": [
+        "Wiki labels 4s as the user-facing cooldown and history establishes 4s in 1.3.2.0.",
+        "dungeons.tools labels 8s as Cooldown but its public HTML/client payload does not expose the raw property name, unit conversion or whether it is a use lock."
+      ],
+      "selectedValue": null,
+      "conclusion": "unresolved"
+    },
+    {
+      "id": "lightning-rod-cooldown",
+      "artifactId": "lightning-rod",
+      "metric": "cooldown",
+      "candidates": [
+        { "value": 2, "unit": "seconds", "sourceId": "wiki-lightning-rod-current", "version": "current page; table version unresolved" },
+        { "value": 2, "unit": "seconds", "sourceId": "wiki-patch-132", "version": "1.3.2.0 historical" },
+        { "value": 4, "unit": "seconds", "sourceId": "dt-lightning-rod-117", "version": "1.17.0.0 current" }
+      ],
+      "sourceSemantics": [
+        "Wiki labels 2s as the user-facing cooldown and history establishes 2s in 1.3.2.0.",
+        "dungeons.tools labels 4s as Cooldown and separately describes only a qualitative strike delay; neither a numeric delay nor raw field name is public."
+      ],
+      "selectedValue": null,
+      "conclusion": "unresolved"
+    },
+    {
+      "id": "totem-regeneration-healing-unit",
+      "artifactId": "totem-of-regeneration",
+      "metric": "healing",
+      "candidates": [
+        { "value": 40, "unit": "health per second", "sourceId": "wiki-patch-172", "version": "1.7.2.0 historical operand" },
+        { "value": 229, "unit": "display health healed", "sourceId": "wiki-totem-regeneration-current", "version": "Power 31; table version unresolved" }
+      ],
+      "sourceSemantics": [
+        "Patch history names per-second healing.",
+        "The current table labels Health healed but does not state total, rate or tick value, and reports only approximate 5-10s duration."
+      ],
+      "selectedValue": null,
+      "conclusion": "unresolved"
+    },
+    {
+      "id": "wind-horn-band-boundaries",
+      "artifactId": "wind-horn",
+      "metric": "push-distance",
+      "candidates": [
+        { "value": 4, "unit": "blocks", "sourceId": "wiki-wind-horn-current", "version": "Power 1-13" },
+        { "value": 5, "unit": "blocks", "sourceId": "wiki-wind-horn-current", "version": "Power 13-39" }
+      ],
+      "sourceSemantics": ["Published inclusive-looking ranges overlap at four boundaries and do not define boundary ownership."],
+      "selectedValue": null,
+      "conclusion": "unresolved"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "powershaker",
+      "name": "Powershaker",
+      "previousBlocker": "coefficient 259 has no absolute Power curve; trigger and interaction ownership remain incomplete",
+      "newEvidence": "259 is retained as a patch balance operand; public HTML, patch history and save tooling expose no unit mapping or display curve",
+      "readiness": "R1",
+      "scores": { "curveReadiness": 1, "unitReadiness": 1, "interactionReadiness": 1, "implementationDependency": 4, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["five-budget target granularity", "reactivation/duplicates", "AoE target count", "modifier and kill attribution"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    },
+    {
+      "id": "harvester",
+      "name": "Harvester",
+      "previousBlocker": "4s versus 8s cooldown and no current high-Power damage curve",
+      "newEvidence": "four display rows were preserved but low rows retain variable-soul ambiguity; the 8s normalized database value cannot be assigned a raw field semantic",
+      "readiness": "R1",
+      "scores": { "curveReadiness": 1, "unitReadiness": 1, "interactionReadiness": 1, "implementationDependency": 5, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["AoE target count", "kill/Soul fixed point", "cooldown conflict"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    },
+    {
+      "id": "lightning-rod",
+      "name": "Lightning Rod",
+      "previousBlocker": "2s versus 4s cooldown, strike delay and current high-Power damage curve",
+      "newEvidence": "seven display rows and the qualitative delay were preserved; no numeric delay/raw cooldown field or current endgame sample was found",
+      "readiness": "R1",
+      "scores": { "curveReadiness": 1, "unitReadiness": 1, "interactionReadiness": 1, "implementationDependency": 5, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["target-success share", "strike delay", "kill/Soul eligibility", "cooldown conflict"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    },
+    {
+      "id": "soul-healer",
+      "name": "Soul Healer",
+      "previousBlocker": "nested min/max semantics and no current healing curve",
+      "newEvidence": "all 23 rows were preserved without averaging; 1.3.2.0 variable-soul removal prevents treating the nested ranges as a current random-roll distribution",
+      "readiness": "R1",
+      "scores": { "curveReadiness": 1, "unitReadiness": 1, "interactionReadiness": 3, "implementationDependency": 3, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["current random distribution", "co-op target allocation"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    },
+    {
+      "id": "totem-of-regeneration",
+      "name": "Totem of Regeneration",
+      "previousBlocker": "display unit, exact duration/ticks and current high-Power curve",
+      "newEvidence": "40-per-second history and three display rows cannot be reconciled without exact duration/tick semantics; dungeons.tools confirms only gradual aura healing",
+      "readiness": "R1",
+      "scores": { "curveReadiness": 1, "unitReadiness": 1, "interactionReadiness": 2, "implementationDependency": 4, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["self residence", "party attribution", "zone overlap/duplicates"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    },
+    {
+      "id": "wind-horn",
+      "name": "Wind Horn",
+      "previousBlocker": "overlapping low-Power bands, no 109+ behavior and no numeric slow/objective",
+      "newEvidence": "five discrete bands are usable only as a bounded 1-108 research table; no eight-block cap or slow numbers were found",
+      "readiness": "R2",
+      "scores": { "curveReadiness": 2, "unitReadiness": 3, "interactionReadiness": 1, "implementationDependency": 4, "expectedRuntimeSupport": 1 },
+      "highPowerReady": false,
+      "otherBlockers": ["boundary ownership", "slow classification/magnitude/duration", "separation objective", "boss/close-range eligibility"],
+      "sourceRoutesChecked": ["dungeons-tools", "minecraft-wiki-current-history", "public-github-save-tooling"],
+      "evidenceStop": "public-evidence-exhausted",
+      "nextStatus": "Research-only"
+    }
+  ],
+  "nextPhaseDecision": {
+    "selected": "Armor subsystem",
+    "reason": "Zero candidates are endgame Limited-ready; the public evidence does not provide an absolute current Artifact curve and all six candidates remain high-Power or major-semantic blocked.",
+    "artifactPromotionGateMet": false,
+    "evidenceReadyArtifactCount": 0,
+    "minimalMeasurementPhaseRecommended": false,
+    "measurementReason": "The documented measurements remain optional future work; this phase does not ask the user to collect data."
+  }
+}

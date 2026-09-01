@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": [
+    "research/artifact-evidence/published-samples.json",
+    "research/artifact-evidence/curve-hypotheses.json"
+  ],
+  "hypotheses": [
+    {
+      "id": "H-AD-01",
+      "observations": [
+        {
+          "sampleId": "lightning-rod-p1",
+          "split": "fit",
+          "power": 1,
+          "actual": 60,
+          "predictedRaw": 60,
+          "predictedRounded": 60,
+          "absolutePercentageError": 0,
+          "signedRelativeError": 0
+        },
+        {
+          "sampleId": "lightning-rod-p37",
+          "split": "validation",
+          "power": 37,
+          "actual": 372,
+          "predictedRaw": 354.885673,
+          "predictedRounded": 355,
+          "absolutePercentageError": 0.046006,
+          "signedRelativeError": -0.046006
+        }
+      ],
+      "fitMetrics": {
+        "sampleCount": 1,
+        "artifactCount": 1,
+        "powerRange": {
+          "min": 1,
+          "max": 1
+        },
+        "meanAPE": 0,
+        "medianAPE": 0,
+        "p90APE": 0,
+        "maxAPE": 0,
+        "signedBias": 0
+      },
+      "validationMetrics": {
+        "sampleCount": 1,
+        "artifactCount": 1,
+        "powerRange": {
+          "min": 37,
+          "max": 37
+        },
+        "meanAPE": 0.046006,
+        "medianAPE": 0.046006,
+        "p90APE": 0.046006,
+        "maxAPE": 0.046006,
+        "signedBias": -0.046006
+      }
+    },
+    {
+      "id": "H-AD-02",
+      "observations": [
+        {
+          "sampleId": "lightning-rod-p109",
+          "split": "fit",
+          "power": 109,
+          "actual": 19400,
+          "predictedRaw": 19400,
+          "predictedRounded": 19400,
+          "absolutePercentageError": 0,
+          "signedRelativeError": 0
+        },
+        {
+          "sampleId": "lightning-rod-p111",
+          "split": "validation",
+          "power": 111,
+          "actual": 23147,
+          "predictedRaw": 21055.968122,
+          "predictedRounded": 21056,
+          "absolutePercentageError": 0.090337,
+          "signedRelativeError": -0.090337
+        },
+        {
+          "sampleId": "lightning-rod-p112",
+          "split": "validation",
+          "power": 112,
+          "actual": 24558,
+          "predictedRaw": 21936.228265,
+          "predictedRounded": 21936,
+          "absolutePercentageError": 0.106758,
+          "signedRelativeError": -0.106758
+        },
+        {
+          "sampleId": "lightning-rod-p113",
+          "split": "validation",
+          "power": 113,
+          "actual": 25805.5,
+          "predictedRaw": 22853.288327,
+          "predictedRounded": 22853,
+          "absolutePercentageError": 0.114402,
+          "signedRelativeError": -0.114402
+        },
+        {
+          "sampleId": "lightning-rod-p114",
+          "split": "validation",
+          "power": 114,
+          "actual": 26253,
+          "predictedRaw": 23808.686756,
+          "predictedRounded": 23809,
+          "absolutePercentageError": 0.093106,
+          "signedRelativeError": -0.093106
+        }
+      ],
+      "fitMetrics": {
+        "sampleCount": 1,
+        "artifactCount": 1,
+        "powerRange": {
+          "min": 109,
+          "max": 109
+        },
+        "meanAPE": 0,
+        "medianAPE": 0,
+        "p90APE": 0,
+        "maxAPE": 0,
+        "signedBias": 0
+      },
+      "validationMetrics": {
+        "sampleCount": 4,
+        "artifactCount": 1,
+        "powerRange": {
+          "min": 111,
+          "max": 114
+        },
+        "meanAPE": 0.101151,
+        "medianAPE": 0.093106,
+        "p90APE": 0.114402,
+        "maxAPE": 0.114402,
+        "signedBias": -0.101151
+      }
+    },
+    {
+      "id": "H-AD-03",
+      "observations": []
+    },
+    {
+      "id": "H-AH-01",
+      "observations": []
+    },
+    {
+      "id": "H-DU-01",
+      "observations": [
+        {
+          "sampleId": "death-cap-p37-duration",
+          "split": "fit",
+          "power": 37,
+          "actual": 9.9,
+          "predictedRaw": 9.924,
+          "predictedRounded": 10,
+          "absolutePercentageError": 0.002424,
+          "signedRelativeError": 0.002424
+        },
+        {
+          "sampleId": "death-cap-p66-duration",
+          "split": "fit",
+          "power": 66,
+          "actual": 11.5,
+          "predictedRaw": 11.432,
+          "predictedRounded": 11,
+          "absolutePercentageError": 0.005913,
+          "signedRelativeError": -0.005913
+        },
+        {
+          "sampleId": "death-cap-p124-duration",
+          "split": "fit",
+          "power": 124,
+          "actual": 14.5,
+          "predictedRaw": 14.448,
+          "predictedRounded": 14,
+          "absolutePercentageError": 0.003586,
+          "signedRelativeError": -0.003586
+        },
+        {
+          "sampleId": "death-cap-p145-duration",
+          "split": "fit",
+          "power": 145,
+          "actual": 15.6,
+          "predictedRaw": 15.54,
+          "predictedRounded": 16,
+          "absolutePercentageError": 0.003846,
+          "signedRelativeError": -0.003846
+        },
+        {
+          "sampleId": "iron-hide-p12-duration",
+          "split": "validation",
+          "power": 12,
+          "actual": 8.6,
+          "predictedRaw": 8.624,
+          "predictedRounded": 9,
+          "absolutePercentageError": 0.002791,
+          "signedRelativeError": 0.002791
+        },
+        {
+          "sampleId": "iron-hide-p15-duration",
+          "split": "validation",
+          "power": 15,
+          "actual": 8.8,
+          "predictedRaw": 8.78,
+          "predictedRounded": 9,
+          "absolutePercentageError": 0.002273,
+          "signedRelativeError": -0.002273
+        },
+        {
+          "sampleId": "iron-hide-p104-duration",
+          "split": "validation",
+          "power": 104,
+          "actual": 13.4,
+          "predictedRaw": 13.408,
+          "predictedRounded": 13,
+          "absolutePercentageError": 0.000597,
+          "signedRelativeError": 0.000597
+        },
+        {
+          "sampleId": "shock-powder-p12-duration",
+          "split": "validation",
+          "power": 12,
+          "actual": 3.5,
+          "predictedRaw": 8.624,
+          "predictedRounded": 9,
+          "absolutePercentageError": 1.464,
+          "signedRelativeError": 1.464
+        },
+        {
+          "sampleId": "shock-powder-p58-duration",
+          "split": "validation",
+          "power": 58,
+          "actual": 5.3,
+          "predictedRaw": 11.016,
+          "predictedRounded": 11,
+          "absolutePercentageError": 1.078491,
+          "signedRelativeError": 1.078491
+        },
+        {
+          "sampleId": "shock-powder-p108-duration",
+          "split": "validation",
+          "power": 108,
+          "actual": 7.2,
+          "predictedRaw": 13.616,
+          "predictedRounded": 14,
+          "absolutePercentageError": 0.891111,
+          "signedRelativeError": 0.891111
+        },
+        {
+          "sampleId": "shock-powder-p262-duration",
+          "split": "validation",
+          "power": 262,
+          "actual": 13,
+          "predictedRaw": 21.624,
+          "predictedRounded": 22,
+          "absolutePercentageError": 0.663385,
+          "signedRelativeError": 0.663385
+        },
+        {
+          "sampleId": "totem-shield-p2-duration",
+          "split": "validation",
+          "power": 2,
+          "actual": 5,
+          "predictedRaw": 8.104,
+          "predictedRounded": 8,
+          "absolutePercentageError": 0.6208,
+          "signedRelativeError": 0.6208
+        },
+        {
+          "sampleId": "totem-shield-p32-duration",
+          "split": "validation",
+          "power": 32,
+          "actual": 6,
+          "predictedRaw": 9.664,
+          "predictedRounded": 10,
+          "absolutePercentageError": 0.610667,
+          "signedRelativeError": 0.610667
+        },
+        {
+          "sampleId": "totem-shield-p60-duration",
+          "split": "validation",
+          "power": 60,
+          "actual": 7,
+          "predictedRaw": 11.12,
+          "predictedRounded": 11,
+          "absolutePercentageError": 0.588571,
+          "signedRelativeError": 0.588571
+        },
+        {
+          "sampleId": "totem-shield-p108-duration",
+          "split": "validation",
+          "power": 108,
+          "actual": 8.5,
+          "predictedRaw": 13.616,
+          "predictedRounded": 14,
+          "absolutePercentageError": 0.601882,
+          "signedRelativeError": 0.601882
+        }
+      ],
+      "fitMetrics": {
+        "sampleCount": 4,
+        "artifactCount": 1,
+        "powerRange": {
+          "min": 37,
+          "max": 145
+        },
+        "meanAPE": 0.003942,
+        "medianAPE": 0.003586,
+        "p90APE": 0.005913,
+        "maxAPE": 0.005913,
+        "signedBias": -0.00273
+      },
+      "validationMetrics": {
+        "sampleCount": 11,
+        "artifactCount": 3,
+        "powerRange": {
+          "min": 2,
+          "max": 262
+        },
+        "meanAPE": 0.593142,
+        "medianAPE": 0.610667,
+        "p90APE": 1.078491,
+        "maxAPE": 1.464,
+        "signedBias": 0.592729
+      }
+    },
+    {
+      "id": "H-WH-01",
+      "observations": []
+    }
+  ]
+}

@@ -54,10 +54,10 @@ Backlog行単位: **P0 0 / P1 3 / P2 4 / P3 10**。P3はすべてevidence-blocke
 
 | 候補 | 現manifest・smokeから見た価値 | 判断 |
 | --- | --- | --- |
-| Artifact Evidence Acquisition / Curve Extraction | 6候補のcurrent curve、raw unit、duration/tick、interaction blockerを直接解消 | 第一候補。別Artifact batchを増やさず、既監査候補をEvidence-readyにする |
-| Armor / Armor Enchantments | 実用性は高いが、新しいequipment・defense・runtime contractが必要 | 第二候補。Evidence範囲と実装量を先に監査する |
-| Equipment Box → Simulation UX | 既存modelだけで導線・制限説明を改善でき、Evidence依存が小さい | 第三候補。coverage blocker自体は解決しない |
+| Armor / Armor Enchantments | 実用性は高いが、新しいequipment・defense・runtime contractが必要 | 第一候補。Phase 2-2Eのpivot gateを満たしたため、Evidence範囲と実装量を先に監査する |
+| Equipment Box → Simulation UX | 既存modelだけで導線・制限説明を改善でき、Evidence依存が小さい | 第二候補。coverage blocker自体は解決しない |
+| Artifact Promotion Batch | 既監査6候補のruntime価値は高い | 第三候補・Evidence待ち。2候補以上でcurrent 1.17、endgame Power、unit、主要interactionが揃うまで再開しない |
 
-Phase 2-2C / 2-2Dの6候補はいずれもEvidence gateを通らず、新runtimeは0でした。別Artifact batchは停止し、次はArtifact Evidence Acquisition / Curve Extractionを優先します。現行curve、raw unit、duration/tick、target/interactionを取得できれば既監査候補へ直接再利用できます。Armor / Armor Enchantmentsは第二候補、Equipment Box→Simulation UXは第三候補です。
+Phase 2-2Eで公開source routeを候補ごとに3系統確認し、damage/healing/duration仮説をhold-out検証しましたが、endgame Limited以上のready候補は0件でした。6候補はすべてResearch-onlyを維持し、Artifact 10〜15目標を一時保留してArmor / Armor Enchantmentsへ進みます。[Evidence結果](artifact-evidence-acquisition.md)。
 
 この順序は現在のcurated software testとEvidence blockerに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。

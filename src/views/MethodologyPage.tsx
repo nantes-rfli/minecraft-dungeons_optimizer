@@ -46,13 +46,21 @@ export function MethodologyPage() {
       <ArtifactRuntimeSupportSection />
 
       <section className="panel">
+        <p className="section-label">PHASE 2-2E / ARTIFACT EVIDENCE — COMPLETE</p>
+        <h2>公開curveを検証し、作れない式も再現可能な結果へ</h2>
+        <p>公開Evidence 85件をversion・unit・field・source付きで固定し、damage / healing / duration / distanceを分離してfitとhold-outを検証しました。Artifact共通damage/healing curveはEvidence不足でinconclusive、weapon curve流用と全Artifact共通duration式はhold-out誤差でrejectedです。</p>
+        <p>Harvester 4/8秒、Lightning Rod 2/4秒、Totemのtotal/per-second/per-tick、Wind Hornの境界・Power109+・slowはいずれも未解決です。6候補はpublic-evidence-exhaustedかつResearch-only、runtime 3 / 45を維持します。</p>
+        <p>endgame Limited以上のready候補が0件のためArtifact promotionを保留し、次はArmor / Armor Enchantmentsを優先します。Artifact batchは2候補以上でcurrent 1.17・endgame Power・主要unit/interactionが揃った時だけ再開します。</p>
+      </section>
+
+      <section className="panel">
         <p className="section-label">PHASE 2-2D / EVENT・HEALING ZONE・POSITIONAL CONTROL — COMPLETE</p>
         <h2>有限爆発、設置回復、敵を離すControlを別familyへ</h2>
         <p>PowershakerはCD10秒、最大15秒または5爆発の早い方で終了します。係数259はabsolute damage curveではなく、multi-target budget、miss、再発動、AoE/kill/modifier境界も未解決のためResearch-onlyです。15/CDのtimed buffにはしていません。</p>
         <p>Totem of RegenerationはCD25秒、半径4 blocksのplaced healing zoneです。約5〜10秒、Power 31/111/114の表示値、1.7.2.0の20→40/s履歴はありますが、exact duration、表示heal単位、現行curve、self residence/party、zone overlapを確定できずResearch-onlyです。activation時のinstant healにはしていません。</p>
         <p>Wind HornはCD10秒で、Power 1〜108の4〜8 blocks push表があります。band境界が重複し、Power109+、slow分類/値、密着cutoff、boss適格性が未解決です。pushはGravity groupingでなくseparationで、DPS/DRへ換算せずResearch-onlyです。</p>
         <p>1 use = 1 Artifact Synergy activation。爆発、回復tick、対象数はactivationへ数えません。継続effectをencounter終了時点に初めて置いた場合はeffect credit 0です。3種とも未登録でruntimeは3 / 45のままです。</p>
-        <p>Phase 2-2Cと2-2Dで新runtimeが0だったため、次は別batchでなくArtifact Evidence Acquisition / Curve Extractionを優先します。詳細は<a href="https://www.dungeons.tools/artifacts/powershaker" target="_blank" rel="noreferrer">Powershaker</a> / <a href="https://www.dungeons.tools/artifacts/totem-of-regeneration" target="_blank" rel="noreferrer">Totem</a> / <a href="https://www.dungeons.tools/artifacts/wind-horn" target="_blank" rel="noreferrer">Wind Horn</a>の1.17.0.0 databaseと監査文書へ記録しています。</p>
+        <p>詳細は<a href="https://www.dungeons.tools/artifacts/powershaker" target="_blank" rel="noreferrer">Powershaker</a> / <a href="https://www.dungeons.tools/artifacts/totem-of-regeneration" target="_blank" rel="noreferrer">Totem</a> / <a href="https://www.dungeons.tools/artifacts/wind-horn" target="_blank" rel="noreferrer">Wind Horn</a>の1.17.0.0 databaseと監査文書へ記録しています。</p>
       </section>
 
       <section className="panel">
@@ -300,7 +308,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact監査2-2A、Shock Powder限定runtime 2-2B、有限Soul scheduler 2-2C、3 family deep audit 2-2Dは完了。次はArtifact Evidence Acquisition / Curve Extractionです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1KとArtifact 2-2A〜2-2Eは完了。公開Evidenceではpromotion-readyが0件だったため、次はArmor / Armor Enchantmentsです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **29 / 43（67%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **30 / 44（68%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（10 / 19）
+## Phase 2 — Equipment Coverage（11 / 20）
 
 ### Melee runtime summary
 
@@ -61,7 +61,7 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted Seedsを再現可能に照合し、project監査母集団を正規化和集合45件と定義しました。raw game ID全体の網羅性は主張しません。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [2-2D batch](./docs/artifact-event-healing-control.md) / [型・回帰](./docs/artifact-model.md) / [次Phase判断](./docs/artifact-expansion-plan.md)。
+Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted Seedsを再現可能に照合し、project監査母集団を正規化和集合45件と定義しました。raw game ID全体の網羅性は主張しません。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [2-2D batch](./docs/artifact-event-healing-control.md) / [2-2E Evidence](./docs/artifact-evidence-acquisition.md) / [Evidence matrix](./docs/artifact-evidence-matrix.md) / [curve分析](./docs/artifact-curve-analysis.md) / [型・回帰](./docs/artifact-model.md) / [次Phase判断](./docs/artifact-expansion-plan.md)。
 
 近接25〜30種の親目標はmeaningful runtimeで達成。全33種完全対応ではありません。[support matrix](./docs/melee-runtime-support.md) / [limitations](./docs/runtime-limitations.md)。
 以下のpartialは歴史的Phaseのfull completion gate未達であり、現行support levelとは別軸です。
@@ -84,6 +84,7 @@ Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted
 - [x] Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）
 - [x] Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はEvidence blocker付きResearch-only）
 - [x] Phase 2-2D: Event / Healing / Control Batch（3 family分離、3候補はblocker付きResearch-only）
+- [x] Phase 2-2E: Artifact Evidence Acquisition / Curve Extraction（公開Evidence snapshot・hold-out検証・promotion判断を再現可能化、6候補はResearch-only）
 - [ ] アーティファクトを10〜15種類へ拡張
 - [ ] 防具・防具エンチャントをモデル化
 - [ ] 遠距離武器・固有効果をモデル化
@@ -103,7 +104,7 @@ Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted
 
 ### Current summary
 
-Phase 2-1K completeを維持。Phase 2-2Aは表示定義union45、2-2BはShock Powder Limited、2-2Cは有限Soul schedulerを完了。Phase 2-2DはPowershakerの有限event budget、Totemのplaced healing zone、Wind Hornのseparationを別familyとしてdeep auditしました。3候補ともcurrent curve・unit・interaction・objectiveのEvidence gateを通らずResearch-onlyで、runtimeは3 / 45のままです。未対応効果は0点登録せず、既存Artifact / Soul / Control / Healing / Damageを維持します。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-1K completeを維持。Phase 2-2A〜2-2Dでruntime基盤と6候補のfamily設計を完了し、Phase 2-2Eで公開Evidenceをversion/unit付きsnapshotへ固定、damage/healing/duration仮説をhold-out検証しました。共通damage/healing curveはinconclusive、weapon curve流用と共通duration式はrejectedです。6候補すべてcurrent high-Powerまたは主要semantic blockerが残るためResearch-only、runtimeは3 / 45のままです。未対応効果は0点登録せず、既存Artifact / Soul / Control / Healing / Damageを維持します。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -113,7 +114,7 @@ P0 0 / P1 3 / P2 4 / P3 10（backlog行単位）。[制限・優先度・close�
 
 ### Next area
 
-近接拡張はfreeze。Phase 2-2C + 2-2Dで新runtime Artifactが0だったため、別Artifact batchは続けません。次はArtifact Evidence Acquisition / Curve Extractionを第一候補とし、現行Power curve、raw unit、duration/tick、interactionを既監査6候補について取得します。Armor / Armor Enchantmentsを第二候補、Equipment Box→Simulation UXを第三候補とします。
+近接拡張はfreeze。Phase 2-2Eでendgame Limited以上のEvidence-ready Artifactは0件でした。Artifact 10〜15の親目標は一時保留し、次はArmor / Armor Enchantmentsを第一候補、Equipment Box→Simulation UXを第二候補とします。Artifact promotion batchは、少なくとも2候補でcurrent 1.17 numeric basis・endgame Power・主要unit/interactionが揃った時だけ再開します。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

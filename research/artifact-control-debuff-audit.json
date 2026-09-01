@@ -2,6 +2,12 @@
   "schemaVersion": 1,
   "gameVersion": "1.17.0.0",
   "auditedAt": "2026-09-01",
+  "phase22eEvidence": {
+    "auditRef": "research/artifact-curve-audit.json",
+    "secondaryCandidates": ["fishing-rod", "gong-of-weakening", "shock-powder"],
+    "conclusion": "no new current paired duration table",
+    "runtimeDecision": "unchanged"
+  },
   "timeSemantics": "steady-state-use-when-ready; first use at t=0 is not separately credited",
   "sources": [
     {

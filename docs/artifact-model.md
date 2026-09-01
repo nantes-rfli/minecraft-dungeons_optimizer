@@ -77,6 +77,6 @@ Buildは最大3slotで既に検証されており、今回テストで再固定�
 
 ## Audit / publication gate
 
-`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・計画を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は2-2B、`npm run audit:artifact-soul`は2-2C、`npm run audit:artifact-event`は2-2Dのfamily分離・published facts・Research-only gate・次Phase判断を検証します。`npm test`の破損入力、runtime-only選択、exact regression、生成文書drift、`npx tsc -b`、lint、buildを通します。
+`npm run audit:artifacts`でprimary44 / union45のreconciliation、schema・source参照・family・readiness・catalog/manifest・計画を検証し、集計/対応表/計画を再生成します。`npm run audit:artifact-control`は2-2B、`npm run audit:artifact-soul`は2-2C、`npm run audit:artifact-event`は2-2Dを検証します。`npm run audit:artifact-evidence`は2-2Eのsource provenance、version/unit、fit/hold-out、誤差統計、範囲、conflict、生成文書drift、promotion/次Phase gateをネットワークなしで検証します。`npm test`の破損入力、runtime-only選択、exact regression、`npx tsc -b`、lint、buildを通します。
 
 監査scriptの成功は「記録の整合性」の成功です。未解決のEvidenceやraw game IDの網羅性まで解決した意味ではありません。[audit](artifact-audit.md) / [control/debuff](artifact-control-debuff.md) / [support](artifact-runtime-support.md) / [expansion](artifact-expansion-plan.md)を正本として参照してください。

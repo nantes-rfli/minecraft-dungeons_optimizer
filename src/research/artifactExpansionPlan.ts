@@ -23,6 +23,6 @@ export function collectArtifactExpansionPlanErrors(): string[] {
     if (entry.scores) artifactImplementationPriority(entry.scores)
     if (entry.classification === 'target-shortlist' && entry.batch !== 'existing' && (!entry.scores || !['evidence-required', 'evidence-blocked', 'runtime'].includes(entry.gateStatus))) errors.push(`${entry.id}: missing score or evidence/runtime gate`)
   }
-  if (ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.selected !== 'artifact-evidence-acquisition-and-curve-extraction' || ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.alternatives.length !== 2) errors.push('Phase 2-2D next-phase reevaluation missing')
+  if (ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.selected !== 'armor-and-armor-enchantments' || ARTIFACT_EXPANSION_PLAN.nextPhaseDecision.alternatives.length !== 2) errors.push('Phase 2-2E Armor pivot decision missing')
   return errors
 }

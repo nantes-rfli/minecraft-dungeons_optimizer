@@ -89,6 +89,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）', status: 'done' },
       { label: 'Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はResearch-only）', status: 'done' },
       { label: 'Phase 2-2D: Event / Healing / Control Batch（3 family分離、3候補はResearch-only）', status: 'done' },
+      { label: 'Phase 2-2E: Artifact Evidence Acquisition / Curve Extraction（公開Evidenceを再現可能化、6候補はResearch-only）', status: 'done' },
       { label: 'アーティファクトを10〜15種類へ拡張', status: 'planned' },
       { label: '防具・防具エンチャントをモデル化', status: 'planned' },
       { label: '遠距離武器・固有効果をモデル化', status: 'planned' },

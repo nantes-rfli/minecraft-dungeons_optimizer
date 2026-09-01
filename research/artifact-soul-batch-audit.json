@@ -11,6 +11,13 @@
     "limited": 1,
     "researchOnly": 42
   },
+  "phase22eEvidence": {
+    "auditRef": "research/artifact-curve-audit.json",
+    "candidates": ["soul-healer", "harvester", "lightning-rod"],
+    "conclusion": "public-evidence-exhausted",
+    "runtimeDecision": "research-only",
+    "blockerChange": "none; numeric rows were preserved but current high-Power/version/unit conflicts remain"
+  },
   "scheduler": {
     "policy": "single-consumer-use-immediately-when-cooldown-ready-and-affordable",
     "initialSoulUnitsDefault": 0,

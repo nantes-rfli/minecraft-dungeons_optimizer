@@ -30,6 +30,7 @@ jobs:
       - run: npm run audit:artifact-control
       - run: npm run audit:artifact-soul
       - run: npm run audit:artifact-event
+      - run: npm run audit:artifact-evidence
       - run: npm run audit:runtime-support
       - run: npm run audit:dps
       - run: npm run audit:melee

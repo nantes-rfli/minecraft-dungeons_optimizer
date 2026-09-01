@@ -9,6 +9,7 @@ try {
   const ids = audit.entries.map((entry) => entry.id)
   check(audit.schemaVersion === 1 && audit.gameVersion === '1.17.0.0', 'invalid control/debuff audit schema')
   check(JSON.stringify(ids) === JSON.stringify(['shock-powder', 'fishing-rod', 'gong-of-weakening']), 'audit candidate set drift')
+  check(audit.phase22eEvidence.auditRef === 'research/artifact-curve-audit.json' && audit.phase22eEvidence.conclusion === 'no new current paired duration table' && audit.phase22eEvidence.runtimeDecision === 'unchanged', 'Phase 2-2E control evidence sync drift')
   check(new Set(ids).size === ids.length, 'duplicate audit candidate')
   const sourceIds = new Set(audit.sources.map((source) => source.id))
   for (const source of audit.sources) {

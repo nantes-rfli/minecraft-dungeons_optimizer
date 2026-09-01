@@ -15,6 +15,7 @@ try {
   check(JSON.stringify(ids) === JSON.stringify(['powershaker', 'totem-of-regeneration', 'wind-horn']), 'Phase 2-2D candidate set drift')
   check(new Set(ids).size === ids.length, 'duplicate Phase 2-2D candidate')
   check(JSON.stringify(audit.runtimeCounts) === JSON.stringify({ auditedPopulation: 45, catalogRuntime: 3, full: 2, limited: 1, researchOnly: 42 }), 'runtime counts drift')
+  check(audit.phase22eEvidence.auditRef === 'research/artifact-curve-audit.json' && audit.phase22eEvidence.conclusion === 'public-evidence-exhausted' && audit.phase22eEvidence.runtimeDecision === 'research-only', 'Phase 2-2E event/healing/control evidence sync drift')
   check(audit.candidates.every((entry) => entry.runtimeDecision === 'research-only' && entry.blockers.length >= 5), 'every blocked candidate needs a concrete Research-only decision')
   check(audit.candidates.every((entry) => !(entry.id in ARTIFACTS)), 'Research-only Phase 2-2D Artifact entered runtime catalog')
   const support = new Map(ARTIFACT_RUNTIME_SUPPORT.entries.map((entry: { id: string; supportLevel: string }) => [entry.id, entry.supportLevel]))
@@ -51,7 +52,7 @@ try {
   check(audit.sharedPolicies.encounterBoundary.instantEffect.includes('inside the encounter'), 'instant encounter-boundary policy missing')
   check(audit.architecture.positionalControl.rawMetric === 'separationCoverage' && audit.architecture.positionalControl.objectiveConnection.startsWith('none'), 'positional Control architecture drift')
   check(audit.nextPhaseDecision.selected === 'artifact-evidence-acquisition-and-curve-extraction', 'next-phase decision drift')
-  for (const path of ['docs/artifact-event-healing-control.md', 'docs/artifact-model.md', 'docs/artifact-expansion-plan.md']) check(fs.existsSync(path), `missing ${path}`)
+  for (const path of ['docs/artifact-event-healing-control.md', 'docs/artifact-model.md', 'docs/artifact-expansion-plan.md', audit.phase22eEvidence.auditRef]) check(fs.existsSync(path), `missing ${path}`)
 
   if (errors.length) throw new Error(errors.join('\n'))
   console.log('Artifact event/healing/control audit passed: three mechanics separated; all three candidates remain evidence-blocked Research-only; runtime 3/45.')

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "acceptanceGate": {
+    "minimumArtifacts": 3,
+    "minimumIndependentlySourcedArtifacts": 2,
+    "minimumSamples": 8,
+    "minimumPowerSpan": 50,
+    "requiresHoldout": true,
+    "maximumP90APE": 0.1,
+    "maximumAPE": 0.2,
+    "requiresNoVersionConflict": true,
+    "highPowerMinimum": 210
+  },
+  "hypotheses": [
+    {
+      "id": "H-AD-01",
+      "family": "artifact-damage",
+      "claim": "Damaging Artifacts share D_i(P) = c_i * F(P).",
+      "formula": "LightningRod(P) = k * CorruptedBeacon(P), with log-linear interpolation only inside Beacon published knots",
+      "model": {
+        "kind": "constant-ratio-to-reference",
+        "targetArtifactId": "lightning-rod",
+        "referenceArtifactId": "corrupted-beacon",
+        "interpolation": "log-linear",
+        "rangeValue": "midpoint"
+      },
+      "fitSampleIds": ["lightning-rod-p1"],
+      "validationSampleIds": ["lightning-rod-p37"],
+      "status": "inconclusive",
+      "supportedPowerRange": { "min": 1, "max": 37 },
+      "blockers": [
+        "only two Artifacts and two overlapping Power observations",
+        "both tables are current pages with unresolved table versions",
+        "damage-per-strike and damage-per-second units require an Artifact-specific coefficient whose game-field lineage is unknown",
+        "no current 1.17 high-Power sample"
+      ]
+    },
+    {
+      "id": "H-AD-02",
+      "family": "artifact-damage-vs-weapon",
+      "claim": "Artifact damage uses the existing weapon Gear Power curve after one constant normalization.",
+      "formula": "LightningRod(P) = k * AnchorWeaponCurve(P)",
+      "model": {
+        "kind": "constant-ratio-to-reference",
+        "targetArtifactId": "lightning-rod",
+        "referenceArtifactId": "weapon-anchor-reference",
+        "interpolation": "log-linear",
+        "rangeValue": "midpoint"
+      },
+      "fitSampleIds": ["lightning-rod-p109"],
+      "validationSampleIds": ["lightning-rod-p111", "lightning-rod-p112", "lightning-rod-p113", "lightning-rod-p114"],
+      "status": "rejected",
+      "supportedPowerRange": { "min": 109, "max": 114 },
+      "blockers": [
+        "P90 APE exceeds the runtime acceptance gate",
+        "the Lightning table version is unresolved",
+        "dungeons.tools only states the executable common curve for weapons, not Artifacts",
+        "no Artifact sample reaches endgame Power 210+"
+      ]
+    },
+    {
+      "id": "H-AD-03",
+      "family": "artifact-damage-coefficients",
+      "claim": "Patch operands 259, 600 and 660 are members of one shared damage-coefficient family.",
+      "formula": "displayDamage(P) / patchOperand = common F(P)",
+      "model": { "kind": "not-evaluable" },
+      "fitSampleIds": [],
+      "validationSampleIds": [],
+      "status": "inconclusive",
+      "blockers": [
+        "no same-Power published display samples for Powershaker, Ice Wand and Scatter Mines",
+        "no public raw property names",
+        "the patch note reports balance operands, not unit semantics"
+      ]
+    },
+    {
+      "id": "H-AH-01",
+      "family": "artifact-healing",
+      "claim": "Soul Healer and Totem of Regeneration share one healing curve with Artifact-specific coefficients.",
+      "formula": "H_i(P) = c_i * G(P)",
+      "model": { "kind": "not-evaluable" },
+      "fitSampleIds": [],
+      "validationSampleIds": [],
+      "status": "inconclusive",
+      "blockers": [
+        "Soul Healer nested ranges may be historical variable-soul values rather than current random rolls",
+        "Totem display value may be total, per-second or per-tick",
+        "no independently versioned overlapping current samples",
+        "Radiance is excluded until unit lineage to Artifact healing is proven",
+        "no current high-Power Artifact healing sample"
+      ]
+    },
+    {
+      "id": "H-DU-01",
+      "family": "artifact-duration",
+      "claim": "Artifact durations use one common Power formula.",
+      "formula": "durationSeconds = 0.052 * Power + 8",
+      "model": { "kind": "fixed-linear", "slope": 0.052, "intercept": 8 },
+      "fitSampleIds": ["death-cap-p37-duration", "death-cap-p66-duration", "death-cap-p124-duration", "death-cap-p145-duration"],
+      "validationSampleIds": [
+        "iron-hide-p12-duration", "iron-hide-p15-duration", "iron-hide-p104-duration",
+        "shock-powder-p12-duration", "shock-powder-p58-duration", "shock-powder-p108-duration", "shock-powder-p262-duration",
+        "totem-shield-p2-duration", "totem-shield-p32-duration", "totem-shield-p60-duration", "totem-shield-p108-duration"
+      ],
+      "status": "rejected",
+      "supportedPowerRange": { "min": 2, "max": 262 },
+      "blockers": [
+        "hold-out duration families exceed error gates",
+        "published tables show individual linear and discrete-band behavior",
+        "Totem of Regeneration exact duration/ticks remain absent"
+      ]
+    },
+    {
+      "id": "H-WH-01",
+      "family": "distance-range",
+      "claim": "Wind Horn uses a discrete push-distance band table capped at eight blocks.",
+      "formula": "published lookup bands only",
+      "model": { "kind": "not-evaluable" },
+      "fitSampleIds": [],
+      "validationSampleIds": [],
+      "status": "inconclusive",
+      "supportedPowerRange": { "min": 1, "max": 108 },
+      "blockers": [
+        "published boundaries overlap at Power 13, 39, 65 and 90",
+        "no public evidence establishes an eight-block cap at Power 109+",
+        "slow classification, magnitude and duration are not numeric"
+      ]
+    }
+  ]
+}

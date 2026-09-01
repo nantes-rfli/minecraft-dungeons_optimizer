@@ -15,6 +15,7 @@ try {
   check(audit.candidates.every((entry) => entry.runtimeDecision === 'research-only' && entry.blockers.length >= 2), 'every blocked candidate needs a concrete Research-only decision')
   check(audit.candidates.every((entry) => !(entry.id in ARTIFACTS)), 'Research-only Soul Artifact entered runtime catalog')
   check(JSON.stringify(audit.runtimeCounts) === JSON.stringify({ auditedPopulation: 45, catalogRuntime: 3, full: 2, limited: 1, researchOnly: 42 }), 'runtime counts drift')
+  check(audit.phase22eEvidence.auditRef === 'research/artifact-curve-audit.json' && audit.phase22eEvidence.conclusion === 'public-evidence-exhausted' && audit.phase22eEvidence.runtimeDecision === 'research-only', 'Phase 2-2E Soul evidence sync drift')
   check(audit.scheduler.runtimeMaxSoulSpendingArtifacts === 1 && audit.scheduler.artifactSynergyInput === 'realized uses only', 'scheduler shared-pool/Synergy policy drift')
   const sourceIds = new Set(audit.sources.map((source) => source.id))
   check(sourceIds.size === audit.sources.length, 'duplicate Soul Artifact audit source')
@@ -40,7 +41,7 @@ try {
       check(entry.useTimesSeconds.every((time, index) => index === 0 || time - entry.useTimesSeconds[index - 1] >= entry.effectiveCooldownSeconds - 1e-9), 'cooldown invariant failed')
     }
   }
-  for (const path of ['docs/artifact-soul-batch.md', 'docs/soul-resource-scheduler.md']) check(fs.existsSync(path), `missing ${path}`)
+  for (const path of ['docs/artifact-soul-batch.md', 'docs/soul-resource-scheduler.md', audit.phase22eEvidence.auditRef]) check(fs.existsSync(path), `missing ${path}`)
 
   if (errors.length) throw new Error(errors.join('\n'))
   console.log('Artifact Soul audit passed: finite scheduler complete; Soul Healer, Harvester and Lightning Rod remain evidence-blocked Research-only; runtime 3/45.')

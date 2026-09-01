@@ -11,6 +11,13 @@
     "limited": 1,
     "researchOnly": 42
   },
+  "phase22eEvidence": {
+    "auditRef": "research/artifact-curve-audit.json",
+    "candidates": ["powershaker", "totem-of-regeneration", "wind-horn"],
+    "conclusion": "public-evidence-exhausted",
+    "runtimeDecision": "research-only",
+    "blockerChange": "none; coefficient, healing unit/ticks and endgame push/slow semantics remain unresolved"
+  },
   "sharedPolicies": {
     "artifactSynergyActivation": "one successful Artifact use action is one activation; explosions, healing ticks and affected enemies are not additional activations",
     "encounterBoundary": {

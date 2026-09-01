@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "coefficients": [
+    {
+      "id": "powershaker-1162-damage",
+      "artifactId": "powershaker",
+      "gameVersion": "1.16.2.0",
+      "before": 235,
+      "after": 259,
+      "reportedChange": "+10%",
+      "sourceId": "wiki-patch-1162",
+      "sourceField": "Artifact Balancing / Powershaker / damage",
+      "semanticCandidates": ["generic power-function coefficient", "base damage scalar", "internal balance value"],
+      "semanticConclusion": "unresolved-internal-balance-operand",
+      "absoluteDamage": false,
+      "sharedCoefficientFamilyProven": false
+    },
+    {
+      "id": "ice-wand-1162-damage",
+      "artifactId": "ice-wand",
+      "gameVersion": "1.16.2.0",
+      "before": 470,
+      "after": 600,
+      "reportedChange": "damage increased",
+      "sourceId": "wiki-patch-1162",
+      "sourceField": "Artifact Balancing / Ice Wand / damage",
+      "semanticCandidates": ["generic power-function coefficient", "base damage scalar", "internal balance value"],
+      "semanticConclusion": "unresolved-internal-balance-operand",
+      "absoluteDamage": false,
+      "sharedCoefficientFamilyProven": false
+    },
+    {
+      "id": "scatter-mines-1162-damage",
+      "artifactId": "scatter-mines",
+      "gameVersion": "1.16.2.0",
+      "before": 600,
+      "after": 660,
+      "reportedChange": "+10%",
+      "sourceId": "wiki-patch-1162",
+      "sourceField": "Artifact Balancing / Scatter Mines / damage output",
+      "semanticCandidates": ["per-mine coefficient", "generic power-function coefficient", "internal balance value"],
+      "semanticConclusion": "unresolved-internal-balance-operand",
+      "absoluteDamage": false,
+      "sharedCoefficientFamilyProven": false
+    },
+    {
+      "id": "eye-guardian-1162-damage",
+      "artifactId": "eye-of-the-guardian",
+      "gameVersion": "1.16.2.0",
+      "before": null,
+      "after": null,
+      "reportedChange": "+100%",
+      "sourceId": "wiki-patch-1162",
+      "sourceField": "Artifact Balancing / Eye of the Guardian / damage",
+      "semanticCandidates": ["multiplicative balance change"],
+      "semanticConclusion": "percentage-only-no-raw-coefficient",
+      "absoluteDamage": false,
+      "sharedCoefficientFamilyProven": false
+    },
+    {
+      "id": "lightning-rod-132-per-soul",
+      "artifactId": "lightning-rod",
+      "gameVersion": "1.3.2.0",
+      "before": 30,
+      "after": 60,
+      "reportedChange": "damage per soul increased",
+      "sourceId": "wiki-patch-132",
+      "sourceField": "Lightning Rod / damage per soul",
+      "semanticCandidates": ["historical damage-per-soul operand"],
+      "semanticConclusion": "historical-per-soul-operand-not-current-absolute-curve",
+      "absoluteDamage": false,
+      "sharedCoefficientFamilyProven": false
+    }
+  ],
+  "conclusion": "Patch operands reproduce balance deltas but no public source exposes a shared Artifact coefficient property or maps 259/600/660 to absolute display damage. They must not be normalized together."
+}
