@@ -2,6 +2,9 @@ import { evaluate, evaluateCandidate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
+import { armorCombinationUnsupportedReason } from './armor'
+import { getArmorDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
+import type { SelectedArmorEnchantment } from './armor'
 import type {
   Build,
   EnchantmentId,
@@ -83,6 +86,56 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
   })
 }
 
+interface ArmorOption {
+  readonly armor: NonNullable<Inventory['armors']>[number]
+  readonly armorEnchantments: readonly SelectedArmorEnchantment[]
+}
+
+function optionsForArmor(armor: ArmorOption['armor'], unsupportedChoices: Set<string>): ArmorOption[] {
+  if (!isRuntimeArmorId(armor.armorId)) {
+    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ID: ${armor.armorId}`)
+    return []
+  }
+  if (armor.observedHealthBonus === undefined) {
+    unsupportedChoices.add(`${armor.instanceId}: MISSING_OBSERVED_ARMOR_HEALTH`)
+    return []
+  }
+  const groups = armor.enchantmentSlots.map((slot, index) => {
+    if (slot.locked && !isRuntimeArmorEnchantmentId(slot.locked)) {
+      unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANTMENT: locked slot ${index + 1} contains ${slot.locked}`)
+      return []
+    }
+    if (!slot.locked) {
+      const unsupported = slot.candidates.find((roll) => !isRuntimeArmorEnchantmentId(roll.enchantmentId))
+      if (unsupported) {
+        unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE: slot ${index + 1} contains ${unsupported.enchantmentId}`)
+        return []
+      }
+    }
+    return slot.candidates.filter((roll) => (!slot.locked || roll.enchantmentId === slot.locked) && isRuntimeArmorEnchantmentId(roll.enchantmentId))
+  })
+  if (groups.some((group) => group.length === 0)) return []
+  if (armor.gilded && !isRuntimeArmorEnchantmentId(armor.gilded.enchantmentId)) {
+    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_GILDED_ENCHANTMENT: ${armor.gilded.enchantmentId}`)
+    return []
+  }
+  const definition = getArmorDefinition(armor.armorId)
+  const unsupportedBuiltIn = definition.builtInEnchantments.find((item) => !isRuntimeArmorEnchantmentId(item.enchantmentId) || item.tier === undefined)
+  if (unsupportedBuiltIn) {
+    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_BUILT_IN_ENCHANTMENT: ${unsupportedBuiltIn.enchantmentId}`)
+    return []
+  }
+  const builtIns = definition.builtInEnchantments.map((item) => ({ enchantmentId: item.enchantmentId, tier: item.tier!, source: 'built-in' as const }))
+  return cartesianProduct(groups).map((rolls) => ({
+    armor,
+    armorEnchantments: [
+      ...rolls.map((roll) => ({ enchantmentId: roll.enchantmentId, tier: roll.tier, source: 'slot' as const })),
+      ...(armor.gilded ? [{ enchantmentId: armor.gilded.enchantmentId, tier: armor.gilded.tier, source: 'gilded' as const }] : []),
+      ...builtIns,
+    ] as readonly SelectedArmorEnchantment[],
+  }))
+}
+
 type ParetoCandidate = Pick<Evaluation, 'damage' | 'healing' | 'defense' | 'control' | 'objectiveScore'>
 
 export function dominates(left: ParetoCandidate, right: ParetoCandidate): boolean {
@@ -126,7 +179,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   validateScenario(scenario)
 
   const unsupportedChoices = new Set<string>()
-  const builds = inventory.weapons.flatMap((weapon) => {
+  const weaponBuilds = inventory.weapons.flatMap((weapon) => {
     const weaponBuilds = buildsForWeapon(weapon, inventory.artifacts, unsupportedChoices)
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
@@ -136,6 +189,25 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     }
     return weaponBuilds
   })
+  const registeredArmors = inventory.armors ?? []
+  const armorOptions = registeredArmors.flatMap((armor) => optionsForArmor(armor, unsupportedChoices))
+  if (registeredArmors.length > 0 && armorOptions.length === 0) {
+    throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
+  }
+  const builds = registeredArmors.length === 0
+    ? weaponBuilds
+    : weaponBuilds.flatMap((weaponBuild) => armorOptions.flatMap((option) => {
+      const build: Build = { ...weaponBuild, armor: option.armor, armorEnchantments: option.armorEnchantments }
+      const reason = armorCombinationUnsupportedReason(build, scenario)
+      if (reason) {
+        unsupportedChoices.add(`${option.armor.instanceId}: ${reason}`)
+        return []
+      }
+      return [build]
+    }))
+  if (registeredArmors.length > 0 && builds.length === 0) {
+    throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
+  }
   const evaluations = builds
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)

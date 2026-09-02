@@ -2,6 +2,8 @@ import { ARTIFACTS } from '../data/artifacts'
 import { ATTACK_PROFILES } from '../data/attackProfiles'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
+import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import type { ArmorId, ArmorEnchantmentId } from './armor'
 import type {
   ArtifactDefinition,
   ArtifactId,
@@ -44,4 +46,22 @@ export function getArtifactDefinition(id: ArtifactId): ArtifactDefinition {
     throw new OptimizerInputError('UNKNOWN_ARTIFACT', `未対応のアーティファクトです: ${id}`)
   }
   return artifact
+}
+
+export function isRuntimeArmorId(id: string): id is ArmorId {
+  return id in ARMORS
+}
+
+export function isRuntimeArmorEnchantmentId(id: string): id is ArmorEnchantmentId {
+  return id in ARMOR_ENCHANTMENTS
+}
+
+export function getArmorDefinition(id: string) {
+  if (!isRuntimeArmorId(id)) throw new OptimizerInputError('UNSUPPORTED_ARMOR_ID', `未対応のArmorです: ${id}`)
+  return ARMORS[id]
+}
+
+export function getArmorEnchantmentDefinition(id: string) {
+  if (!isRuntimeArmorEnchantmentId(id)) throw new OptimizerInputError('UNSUPPORTED_ARMOR_ENCHANTMENT', `未対応のArmor Enchantmentです: ${id}`)
+  return ARMOR_ENCHANTMENTS[id]
 }

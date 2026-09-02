@@ -39,13 +39,15 @@
     {
       "id": "battle-robe",
       "name": "Battle Robe",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
-        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+30% applies to modeled direct melee only; proc, DoT, and explosions are excluded.",
+        "-40% Artifact cooldown is supported as the only active CDR source."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Cool Down enchantment and external Scenario CDR combinations are unsupported."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -705,14 +707,16 @@
     {
       "id": "renegade-armor",
       "name": "Renegade Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+25% speed changes attack cadence; +20% aura applies to the hero's modeled direct melee channel.",
+        "35% Armor damage reduction is supported alone."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Death Cap Mushroom and Rampaging speed combinations are unsupported.",
+        "Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -1106,14 +1110,17 @@
     {
       "id": "wither-armor",
       "name": "Wither Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
-        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "35% Armor damage reduction is supported alone; +50% multiplies existing flat Gathering without creating collection.",
+        "6% Life Steal credits modeled direct melee AoE damage only."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Soul Siphon multiplication is unsupported.",
+        "Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported.",
+        "Indirect proc, DoT, explosion, Artifact, and ranged damage receive no Life Steal credit."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"

@@ -50,11 +50,11 @@ export function MethodologyPage() {
       <ArtifactRuntimeSupportSection />
 
       <section className="panel">
-        <p className="section-label">PHASE 2-3A / ARMOR AUDIT & RUNTIME FOUNDATION — COMPLETE</p>
-        <h2>防具73件を照合し、未対応効果を0点登録しない</h2>
+        <p className="section-label">PHASE 2-3B / ARMOR CORE RUNTIME BATCH — COMPLETE</p>
+        <h2>Owned ArmorをHealth・固有效果・actual rollsごと接続</h2>
         <p>dungeons.toolsの1.17.0.0母集団71件とWikiのknown 73 / obtainable 71を正規化照合しました。common 71、primary-only 0、secondary-onlyはEnder ArmorとVanguard Armorです。Soul Mage Robeは別のunused file-remnantとして記録し、73件の表示母集団へ混ぜていません。raw game ID全体の網羅性は主張しません。</p>
         <Formula>{armorRuntimeSupportSummaryText()}</Formula>
-        <p>Armor runtimeは0 / {ARMOR_AUDIT_SUMMARY.population}のままです。Healthだけ・主要property 0の防具をCatalog、Build、Inventory、Optimizerへ追加していません。Uniqueのfamily継承、unique-only property、built-in、金色、通常slotを分離し、Mystery Armorは個体のactual intrinsic rolls必須としました。</p>
+        <p>Battle Robe / Renegade Armor / Wither Armorの3 / {ARMOR_AUDIT_SUMMARY.population}をLimited runtimeへ追加しました。Healthだけ・主要property 0の防具は登録しません。通常slot、built-in、金色を別sourceにし、free slotへ未対応候補が混ざる場合はArmor候補を除外、supported rollのlock時だけ評価します。</p>
         <div className="regression-audit-grid">
           <div><span>Armor population</span><strong>{ARMOR_AUDIT_SUMMARY.population}</strong></div>
           <div><span>Obtainable</span><strong>{ARMOR_AUDIT_SUMMARY.obtainable}</strong></div>
@@ -64,9 +64,9 @@ export function MethodologyPage() {
         <h3>Healthはカード表示値を主経路にする</h3>
         <p>Hero基礎HPは{ARMOR_HEALTH_AUDIT.baseHeroHealth.value}。4 familyの公開tableはPower 1〜108で一致しますが、endgameのexact観測はPower251の3件だけです。同じ251でも+{ARMOR_HEALTH_AUDIT.samePowerVariance.minObservedHealthBonus.toLocaleString()}〜+{ARMOR_HEALTH_AUDIT.samePowerVariance.maxObservedHealthBonus.toLocaleString()}（差{ARMOR_HEALTH_AUDIT.samePowerVariance.spread.toLocaleString()}）なので、Powerからexact Healthを一意に埋めません。</p>
         <Formula>observedHealthBonus → validated model range → unsupported</Formula>
-        <p><code>scenario.maxHealth</code>はlegacy final-health overrideとして残し、Armor-derived routeと同時適用しません。35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、外部 / intrinsic / Cool Downの合成は次Phaseの明示gateです。既存Defense式は変更していません。</p>
-        <h3>Phase 2-3B</h3>
-        <p>Armorは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorIds.join(', ')}、Enchantは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorEnchantmentIds.join(', ')}を第一batchに選定しました。既存Damage / Defense / Potion / Soul / Controlを再利用し、各owned Armorのobserved Healthとunsupported combination理由を必須にします。</p>
+        <p>ArmorありBuildは<code>100 + observedHealthBonus</code>をPotion / Anima / Pain Cycle / EHPへ共通利用し、<code>scenario.maxHealth</code>を加算しません。35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、外部 / intrinsic / Cool Downの未検証合成は明示rejectします。</p>
+        <h3>3 Armor / 3 Enchant</h3>
+        <p>Armorは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorIds.join(', ')}、Enchantは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorEnchantmentIds.join(', ')}。Cool Downは18/29/37%・1copy、Potion BarrierはPotionState由来coverage、ChillingはControl-onlyの周期モデルです。</p>
       </section>
 
       <section className="panel">

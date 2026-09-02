@@ -6,6 +6,7 @@ export function derivePotionState(
   enchantments: readonly SelectedEnchantment[],
   combatState: CombatState,
   scenario: Scenario,
+  resolvedMaxHealth = scenario.maxHealth,
 ): PotionState {
   const refreshment = enchantmentsById(enchantments, 'refreshment')[0]
   let refreshmentReductionPerDirectKillSeconds = 0
@@ -23,7 +24,7 @@ export function derivePotionState(
   const effectiveCooldownSeconds = baseCooldownSeconds / cooldownProgressRate
   const baseUsesPerSecond = 1 / baseCooldownSeconds
   const estimatedUsesPerSecond = 1 / effectiveCooldownSeconds
-  const healPerUse = scenario.maxHealth * HEALTH_POTION_HEAL_FRACTION.value
+  const healPerUse = resolvedMaxHealth * HEALTH_POTION_HEAL_FRACTION.value
 
   return {
     baseCooldownSeconds,

@@ -2,6 +2,7 @@ import armorAuditJson from '../../research/armor-audit.json'
 import armorHealthAuditJson from '../../research/armor-health-audit.json'
 import armorSupportJson from '../../research/armor-runtime-support.json'
 import { ARMOR_INTRINSIC_PROPERTY_KINDS } from '../core/armor'
+import { ARMORS } from '../data/armors'
 
 export const ARMOR_RUNTIME_READINESS = [
   'ready', 'ready-with-observed-health', 'needs-health-model', 'needs-state-model',
@@ -135,11 +136,16 @@ export function collectArmorSupportErrors(value: unknown = ARMOR_RUNTIME_SUPPORT
     const audited = audit.entries.find((item) => item.id === entry.id)
     check(Boolean(audited) && audited?.name === entry.name, `${entry.id}: Armor audit/support metadata mismatch`)
     check((ARMOR_SUPPORT_LEVELS as readonly unknown[]).includes(entry.supportLevel), `${entry.id}: invalid Armor support level`)
-    check(entry.supportLevel === 'research-only', `${entry.id}: runtime Armor must remain zero in Phase 2-3A`)
-    check(strings(entry.reasons) && JSON.stringify(entry.reasons) === JSON.stringify(audited?.blockers) && Array.isArray(entry.boundaries) && entry.boundaries.length === 0, `${entry.id}: research support reasons/boundaries mismatch`)
+    const runtime = entry.id in ARMORS
+    check(entry.supportLevel === (runtime ? 'limited' : 'research-only'), `${entry.id}: Armor runtime support level mismatch`)
+    const boundaries = Array.isArray(entry.boundaries) ? entry.boundaries : []
+    check(strings(entry.reasons) && Array.isArray(entry.boundaries), `${entry.id}: support reasons/boundaries missing`)
+    if (runtime) check(boundaries.length > 0, `${entry.id}: Limited Armor requires explicit boundaries`)
+    else check(JSON.stringify(entry.reasons) === JSON.stringify(audited?.blockers) && boundaries.length === 0, `${entry.id}: research support reasons/boundaries mismatch`)
   }
   for (const entry of audit.entries) check(ids.has(entry.id), `${entry.id}: missing Armor support entry`)
   check(record(value.nextBatch) && Array.isArray(value.nextBatch.armorIds) && value.nextBatch.armorIds.join('|') === 'battle-robe|renegade-armor|wither-armor' && Array.isArray(value.nextBatch.armorEnchantmentIds) && value.nextBatch.armorEnchantmentIds.join('|') === 'cool-down|potion-barrier|chilling', 'Phase 2-3B selection drift')
+  check(value.entries.filter((entry) => record(entry) && entry.supportLevel === 'limited').length === Object.keys(ARMORS).length, 'runtime Armor count drift')
   return errors
 }
 

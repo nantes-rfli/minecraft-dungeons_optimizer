@@ -5,9 +5,11 @@ import { calculateDamage } from './damage'
 import { solveUnitIntervalFixedPoint, solveBracketedUnitFixedPoint } from './fixedPoint'
 import { hasEnchantment } from './enchantment'
 import { combineRampagingEffects, temporaryBuffUptime } from './temporalEnchantments'
-import type { ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario, SoulState } from './types'
+import { deriveArmorState, resolveBuildHealth } from './armor'
+import type { ArmorState, ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario, SoulState } from './types'
 
 interface OffensiveState {
+  readonly armorState?: ArmorState
   readonly soulState?: SoulState
   readonly damage: DamageMetrics
   readonly combatState: CombatState
@@ -15,17 +17,19 @@ interface OffensiveState {
 }
 
 export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, artifactEffects: ArtifactEffects): OffensiveState {
+  const armorState = deriveArmorState(build, scenario)
+  const resolvedMaxHealth = resolveBuildHealth(build, scenario).finalMaxHealth
   const effect = combineRampagingEffects(build.enchantments)
-  const artifactActivation = calculateArtifactActivationState(calculateArtifactActivationOpportunities(build.artifacts, scenario))
+  const artifactActivation = calculateArtifactActivationState(calculateArtifactActivationOpportunities(build.artifacts, scenario, build))
   const usesExploding = hasEnchantment(build.enchantments, 'exploding')
   let initialDirectKillsPerSecond = 0
   let firstExplodingAoeDps = 0
   let explosionIterations = 0
   let firstEvaluation = true
   const atUptime = (uptime: number) => {
-    const attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier + (effect?.attackSpeedBonus ?? 0) * uptime
+    const attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier + (armorState?.meleeAttackSpeedBonus ?? 0) + (effect?.attackSpeedBonus ?? 0) * uptime
     const atSourceRate = (sourceRate: number) => {
-      const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier, sourceRate, artifactActivation)
+      const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier, sourceRate, artifactActivation, resolvedMaxHealth, armorState?.directMeleeDamageMultiplier ?? 1)
       return { damage, combatState: deriveCombatState(damage, scenario) }
     }
     const initial = atSourceRate(0)
@@ -66,7 +70,7 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
     : { value: 0, result: atUptime(0), iterations: 0, firstIterationValue: 0, residual: 0 }
   const { damage, combatState, soulState, attackSpeedMultiplier, triggerEventsPerSecond } = point.result
   return {
-    damage, combatState, soulState,
+    ...(armorState ? { armorState } : {}), damage, combatState, soulState,
     temporalState: {
       ...(usesExploding ? { exploding: {
         initialDirectKillsPerSecond, firstExplodingAoeDps,

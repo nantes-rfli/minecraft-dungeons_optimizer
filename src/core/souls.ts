@@ -1,6 +1,7 @@
 import { BASE_SOUL_CAPACITY, INITIAL_SOULS } from '../data/souls'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { calculateArtifactEffectiveCooldown } from './artifact'
+import { resolveArtifactCooldown } from './armor'
 import { getTierValues } from './enchantment'
 import type { Build, CombatState, DamageMetrics, OnHitSoulGenerationEffect, OwnedArtifact, Scenario, SoulConsumer, SoulIncome, SoulResourceSchedule, SoulState, SoulTrajectory } from './types'
 
@@ -163,15 +164,17 @@ export function artifactSoulGathering(artifacts: readonly OwnedArtifact[]): numb
   }, 0))
 }
 
-function soulConsumers(artifacts: readonly OwnedArtifact[], scenario: Scenario): SoulConsumer[] {
-  return artifacts.flatMap((owned) => {
+function soulConsumers(build: Build, scenario: Scenario): SoulConsumer[] {
+  return build.artifacts.flatMap((owned) => {
     const artifact = getArtifactDefinition(owned.artifactId)
     if (artifact.use.kind !== 'soul-spending') return []
     return [{
       instanceId: owned.instanceId,
       artifactId: owned.artifactId,
       costPerUse: artifact.use.cost.value,
-      effectiveCooldownSeconds: calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction),
+      effectiveCooldownSeconds: build.armor
+        ? resolveArtifactCooldown(artifact.cooldownSeconds.value, build, scenario)
+        : calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction),
     }]
   })
 }
@@ -182,8 +185,10 @@ export function deriveSoulState(build: Build, damage: DamageMetrics, combat: Com
   const enchantmentSoulGathering = build.enchantments.reduce((sum, selected) => sum + (getEnchantmentDefinition(selected.enchantmentId).soul?.soulGathering.value ?? 0), 0)
   const artifactGathering = artifactSoulGathering(build.artifacts)
   const externalSoulGathering = 0
-  const totalSoulGathering = nonnegative('Total Soul Gathering', baseSoulGathering + enchantmentSoulGathering + artifactGathering + externalSoulGathering)
-  if (totalSoulGathering === 0) return undefined
+  const flatSoulGathering = nonnegative('Flat Soul Gathering', baseSoulGathering + enchantmentSoulGathering + artifactGathering + externalSoulGathering)
+  if (flatSoulGathering === 0) return undefined
+  const armorSoulGatheringMultiplier = build.armor?.armorId === 'wither-armor' ? 1.5 : 1
+  const totalSoulGathering = nonnegative('Total Soul Gathering', flatSoulGathering * armorSoulGatheringMultiplier)
   const normal = soulIncome(combat.estimatedKillsPerSecond, totalSoulGathering)
   const selected = build.enchantments.find((item) => item.enchantmentId === 'soul-siphon')
   const effect = selected ? getTierValues(selected).effect : undefined
@@ -193,7 +198,7 @@ export function deriveSoulState(build: Build, damage: DamageMetrics, combat: Com
     : { resourceUnitsPerSecond: 0, pickupEventsPerSecond: 0, procEventsPerSecond: 0 }
   const totalResourceUnitsPerSecond = nonnegative('Total Soul income', normal.resourceUnitsPerSecond + siphon.resourceUnitsPerSecond)
   const totalPickupEventsPerSecond = nonnegative('Total Soul pickups', normal.pickupEventsPerSecond + siphon.pickupEventsPerSecond)
-  const consumers = soulConsumers(build.artifacts, scenario)
+  const consumers = soulConsumers(build, scenario)
   const initialSouls = scenario.initialSoulUnits ?? INITIAL_SOULS.value
   const schedule = simulateSoulResourceSchedule({
     durationSeconds: scenario.encounterDurationSeconds,
@@ -208,6 +213,7 @@ export function deriveSoulState(build: Build, damage: DamageMetrics, combat: Com
     baseSoulGathering, enchantmentSoulGathering,
     ...(artifactGathering > 0 ? { artifactSoulGathering: artifactGathering } : {}),
     externalSoulGathering, totalSoulGathering,
+    ...(armorSoulGatheringMultiplier !== 1 ? { armorSoulGatheringMultiplier } : {}),
     eligibleSoulGeneratingKillsPerSecond: combat.estimatedKillsPerSecond,
     siphonOpportunitiesPerSecond: selected ? damage.hitsPerSecond : 0,
     siphonTriggerChance: effect?.kind === 'on-hit-soul-generation' ? effect.triggerChance : 0,

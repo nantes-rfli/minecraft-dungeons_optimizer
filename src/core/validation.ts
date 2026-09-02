@@ -1,6 +1,6 @@
 import { validateControlAssumptions } from './control'
 import { validateChargeInputs } from './chargeConsume'
-import { getEnchantmentDefinition } from './catalog'
+import { getArmorDefinition, getEnchantmentDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { validatePersistentAreaTargeting } from './dotDamageEvents'
@@ -8,6 +8,7 @@ import { PROC_DAMAGE_IDS } from '../data/damageEvents'
 import { OptimizerInputError } from './errors'
 import { validateWeaponSoulLegality } from './soulLegality'
 import type { Build, Inventory, Scenario } from './types'
+import { armorCombinationUnsupportedReason } from './armor'
 
 function assertFinite(name: string, value: number, code = 'INVALID_SCENARIO'): void {
   if (!Number.isFinite(value)) {
@@ -70,7 +71,7 @@ export function validateScenario(scenario: Scenario): void {
   }
 }
 
-export function validateBuild(build: Build): void {
+export function validateBuild(build: Build, scenario?: Scenario): void {
   const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
   validateWeaponSoulLegality(build.weapon)
@@ -157,6 +158,40 @@ export function validateBuild(build: Build): void {
   if (build.artifacts.length > 3) {
     throw new OptimizerInputError('INVALID_BUILD', 'アーティファクトは最大3個まで装備できます。')
   }
+  if (build.armor) {
+    if (!isRuntimeArmorId(build.armor.armorId)) throw new OptimizerInputError('UNSUPPORTED_ARMOR_ID', `未対応のArmorです: ${build.armor.armorId}`)
+    if (build.armor.observedHealthBonus === undefined) throw new OptimizerInputError('MISSING_OBSERVED_ARMOR_HEALTH', 'runtime Armorにはカード表示の+Healthが必要です。')
+    assertRange(`armor ${build.armor.instanceId} observedHealthBonus`, build.armor.observedHealthBonus, 0, Infinity, 'INVALID_ARMOR')
+    assertPowerLevel(`armor ${build.armor.instanceId} powerLevel`, build.armor.powerLevel, 'INVALID_ARMOR')
+    if (build.armor.enchantmentSlots.length < 1 || build.armor.enchantmentSlots.length > 3) throw new OptimizerInputError('INVALID_ARMOR', 'Armor Enchantmentスロットは1〜3個にしてください。')
+    const definition = getArmorDefinition(build.armor.armorId)
+    const selected = build.armorEnchantments ?? []
+    const expected = build.armor.enchantmentSlots.length + (build.armor.gilded ? 1 : 0) + definition.builtInEnchantments.length
+    if (selected.length !== expected) throw new OptimizerInputError('INVALID_BUILD', 'Armorの各スロット・金色・固有Enchantをすべて選択してください。')
+    build.armor.enchantmentSlots.forEach((slot, index) => {
+      if (slot.candidates.length === 0) throw new OptimizerInputError('INVALID_ARMOR', `Armorスロット${index + 1}に候補がありません。`)
+      const choice = selected[index]
+      const roll = choice && slot.candidates.find((candidate) => candidate.enchantmentId === choice.enchantmentId && candidate.tier === choice.tier)
+      const legalId = slot.locked ?? choice?.enchantmentId
+      if (!choice || choice.source !== 'slot' || !roll || choice.enchantmentId !== legalId || !isRuntimeArmorEnchantmentId(choice.enchantmentId)) throw new OptimizerInputError('INVALID_BUILD', `Armorスロット${index + 1}にないEnchant/Tierが選択されています。`)
+    })
+    if (build.armor.gilded) {
+      const choice = selected[build.armor.enchantmentSlots.length]
+      if (!choice || choice.source !== 'gilded' || choice.enchantmentId !== build.armor.gilded.enchantmentId || choice.tier !== build.armor.gilded.tier || !isRuntimeArmorEnchantmentId(choice.enchantmentId)) throw new OptimizerInputError('UNSUPPORTED_ARMOR_GILDED_ENCHANTMENT', 'Armorの金色Enchantが一致しないかruntime未対応です。')
+    }
+    const builtInOffset = build.armor.enchantmentSlots.length + (build.armor.gilded ? 1 : 0)
+    definition.builtInEnchantments.forEach((builtIn, index) => {
+      const choice = selected[builtInOffset + index]
+      if (builtIn.tier === undefined || !isRuntimeArmorEnchantmentId(builtIn.enchantmentId)) throw new OptimizerInputError('UNSUPPORTED_ARMOR_BUILT_IN_ENCHANTMENT', `runtime未対応のArmor固有Enchantです: ${builtIn.enchantmentId}`)
+      if (!choice || choice.source !== 'built-in' || choice.enchantmentId !== builtIn.enchantmentId || choice.tier !== builtIn.tier) throw new OptimizerInputError('INVALID_BUILD', `Armor固有Enchant ${builtIn.enchantmentId} が固定値と一致しません。`)
+    })
+    if (scenario) {
+      const reason = armorCombinationUnsupportedReason(build, scenario)
+      if (reason) throw new OptimizerInputError(reason.split(':')[0]!, reason)
+    }
+  } else if ((build.armorEnchantments?.length ?? 0) > 0) {
+    throw new OptimizerInputError('INVALID_BUILD', 'ArmorなしBuildにArmor Enchantmentは指定できません。')
+  }
   for (const artifact of build.artifacts) {
     assertPowerLevel(
       `artifact ${artifact.instanceId} powerLevel`,
@@ -211,4 +246,13 @@ export function validateInventory(inventory: Inventory): void {
       'INVALID_ARTIFACT',
     )
   }
+  const armorInstanceIds = (inventory.armors ?? []).map((armor) => armor.instanceId)
+  if (new Set(armorInstanceIds).size !== armorInstanceIds.length) throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', 'Armorの管理IDが重複しています。')
+  for (const armor of inventory.armors ?? []) {
+    assertPowerLevel(`armor ${armor.instanceId} powerLevel`, armor.powerLevel, 'INVALID_ARMOR')
+    if (armor.observedHealthBonus !== undefined) assertRange(`armor ${armor.instanceId} observedHealthBonus`, armor.observedHealthBonus, 0, Infinity, 'INVALID_ARMOR')
+    if (armor.enchantmentSlots.length < 1 || armor.enchantmentSlots.length > 3) throw new OptimizerInputError('INVALID_ARMOR', `Armor ${armor.instanceId}のEnchantスロットは1〜3個にしてください。`)
+  }
+  const allInstanceIds = [...inventory.weapons, ...(inventory.armors ?? []), ...inventory.artifacts].map((item) => item.instanceId)
+  if (new Set(allInstanceIds).size !== allInstanceIds.length) throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '装備種別をまたいで管理IDが重複しています。')
 }

@@ -206,9 +206,9 @@
       "maxCopies": 1,
       "soulRestriction": "none",
       "mechanicFamily": "control",
-      "runtimeReadiness": "needs-state-model",
+      "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Two-second pulse and one-second slow require periodic target coverage; Control must not be converted directly to Defense."
+        "Runtime uses 50% steady-state temporal coverage and explicit target shares; movement slow is unscored and the contribution is never converted to Defense."
       ],
       "builtIntoArmorIds": [
         "frost-armor"
@@ -233,7 +233,7 @@
       "mechanicFamily": "cooldown",
       "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Multiplicative stacking with -40% Armor intrinsic is reported, but external Scenario and copy ownership are not implemented."
+        "Runtime uses the game-file-derived 18/29/37 values and one copy; the current Wiki 38% display conflict, multiple copies, Battle Robe, and external CDR composition remain unsupported."
       ],
       "builtIntoArmorIds": [],
       "sourceIds": [
@@ -686,7 +686,7 @@
       "mechanicFamily": "defense",
       "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Potion trigger exists, but exact DR composition with Armor/Iron Hide/Guarding/Weakening must be gated."
+        "Runtime derives 90% DR coverage from PotionState; Armor 35%, Iron Hide, Guarding Strike, Weakening, and Protection combinations remain unsupported."
       ],
       "builtIntoArmorIds": [
         "stalwart-armor"

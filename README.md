@@ -292,6 +292,12 @@ Armor Enchantmentは97件からArmor適用41件を抽出し、common30 / powerfu
 
 Healthはbase Hero 100、公開table 1–108の23点、Power113の1点、Power251のexact card観測3件を監査しました。同じPower251でも+1,855,307〜+1,882,725の差があるため、`observedHealthBonus -> validated model range -> unsupported`を採用し、Power midpointやendgame外挿を行いません。`scenario.maxHealth`は排他的なlegacy final-health overrideとして維持します。
 
-次のPhase 2-3B候補はBattle Robe / Renegade Armor / Wither ArmorとCool Down / Potion Barrier / Chillingです。Armor 35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、external / intrinsic / enchant cooldownの合成は明示的なruntime gateです。
+## Phase 2-3B — Armor Core Runtime Batch（complete）
 
-[`Armor audit`](./docs/armor-audit.md) / [`support`](./docs/armor-runtime-support.md) / [`Armor enchantments`](./docs/armor-enchantment-audit.md) / [`architecture`](./docs/armor-model.md) / [`Health`](./docs/armor-health-model.md)。`npm run audit:armor`と`npm run audit:armor-enchants`で検証・表再生成を行います。b022c09の180組合せについて`evaluate` / `evaluateCandidate` / `optimize` / Paretoをexact digest回帰しています。
+Battle Robe / Renegade Armor / Wither ArmorとCool Down / Potion Barrier / ChillingをLimited runtimeへ追加しました。`Inventory` / `Build` / storage / evaluate / optimizeはOwned Armor、card表示Health、actual slot rolls、locked、Gilded固定をatomicに扱います。Free slotにResearch-only候補が混ざる場合は候補全体を除外し、supported rollのlock時だけ評価します。
+
+ArmorありBuildの最大HPは`100 + observedHealthBonus`で、`scenario.maxHealth`を加算しません。Potion、Anima、Pain Cycle、EHPへ同じresolved値を渡します。Battle Robeのdirect melee +30%と単独CDR -40%、Renegadeのcadence +25%・self direct aura +20%・単独DR35%、Witherの単独DR35%・既存Soul units×1.5・direct melee限定Life Steal 6%を実装しました。
+
+Cool Downはgame-file由来18/29/37%を採用し、WikiのTier III 38%表示競合を監査へ保存。runtimeは1copyで、Battle Robe/external CDRとの合成をrejectします。Potion BarrierはPotionState由来の90%・5/7/9秒coverage、Chillingは1秒/2秒のControl-only周期モデルです。Armor DRとIron Hide / Guarding Strike / Weakening / Potion Barrier / Protectionの未検証合成も明示rejectします。
+
+[`Armor audit`](./docs/armor-audit.md) / [`support`](./docs/armor-runtime-support.md) / [`Armor enchantments`](./docs/armor-enchantment-audit.md) / [`architecture`](./docs/armor-model.md) / [`Health`](./docs/armor-health-model.md) / [`runtime batch`](./docs/armor-runtime-batch.md)。`npm run audit:armor`、`npm run audit:armor-enchants`、`npm run audit:armor-runtime`で検証します。既存180組合せの`evaluate` / `evaluateCandidate` / `optimize` / Paretoはexact digest回帰を維持します。

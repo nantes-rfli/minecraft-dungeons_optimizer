@@ -1,4 +1,5 @@
 import { getArtifactDefinition } from './catalog'
+import { resolveArtifactCooldown } from './armor'
 import type { ArtifactActivationOpportunity, ArtifactDefinition, ArtifactDurationModel, TimedSelfBuffArtifactDefinition } from './artifactMechanics'
 import type {
   ArtifactEffects,
@@ -8,6 +9,7 @@ import type {
   ArtifactUptime,
   OwnedArtifact,
   Scenario,
+  Build,
   SoulResourceSchedule,
 } from './types'
 
@@ -62,12 +64,12 @@ export function calculateArtifactEffectiveCooldown(baseCooldownSeconds: number, 
   return result
 }
 
-export function calculateArtifactActivationOpportunities(ownedArtifacts: readonly OwnedArtifact[], scenario: Scenario): ArtifactActivationOpportunity[] {
+export function calculateArtifactActivationOpportunities(ownedArtifacts: readonly OwnedArtifact[], scenario: Scenario, build?: Build): ArtifactActivationOpportunity[] {
   return ownedArtifacts.map(({ instanceId, artifactId }) => {
     const artifact = getArtifactDefinition(artifactId)
     // Future soul/channel schedulers must supply realized uses; CD capacity is insufficient.
     if (artifact.use.kind !== 'cooldown-only') throw new Error(`Artifact ${artifactId} requires a resource/channel activation model`)
-    return { instanceId, artifactId, effectiveCooldownSeconds: calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction) }
+    return { instanceId, artifactId, effectiveCooldownSeconds: build ? resolveArtifactCooldown(artifact.cooldownSeconds.value, build, scenario) : calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction) }
   })
 }
 
@@ -99,12 +101,13 @@ export function calculateArtifactDuration(model: ArtifactDurationModel, power: n
 export function calculateTimedArtifactUptime(
   ownedArtifact: OwnedArtifact,
   scenario: Scenario,
+  build?: Build,
 ): ArtifactUptime {
   const { artifactId } = ownedArtifact
   const artifact = timedSelfBuff(getArtifactDefinition(artifactId))
   if (artifact.use.kind !== 'cooldown-only') throw new Error('Timed artifact requires a resource/channel activation model')
   const durationSeconds = calculateArtifactDuration(artifact.duration, ownedArtifact.powerLevel)
-  const effectiveCooldownSeconds = calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction)
+  const effectiveCooldownSeconds = build ? resolveArtifactCooldown(artifact.cooldownSeconds.value, build, scenario) : calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction)
 
   return {
     instanceId: ownedArtifact.instanceId,
@@ -118,13 +121,14 @@ export function calculateTimedArtifactUptime(
 export function calculateArtifactEffects(
   ownedArtifacts: readonly OwnedArtifact[],
   scenario: Scenario,
+  build?: Build,
 ): ArtifactEffects {
   let attackSpeedMultiplier = 1
   let damageTakenMultiplier = 1
 
   const uptimes = ownedArtifacts.flatMap((ownedArtifact) => {
     if (getArtifactDefinition(ownedArtifact.artifactId).mechanic === 'hard-control') return []
-    return [calculateTimedArtifactUptime(ownedArtifact, scenario)]
+    return [calculateTimedArtifactUptime(ownedArtifact, scenario, build)]
   })
   const grouped = new Map<ArtifactId, ArtifactUptime[]>()
   for (const uptime of uptimes) {

@@ -2,7 +2,7 @@
 
 ## Conclusion
 
-The runtime primary route is the exact `+X health` value observed on an owned Armor card. A Power-only fallback is unavailable for the current endgame range, and no midpoint is imputed.
+The runtime primary route is the exact `+X health` value observed on an owned Armor card. Phase 2-3B connects this route to evaluation and optimization. A Power-only fallback is unavailable for the current endgame range, and no midpoint is imputed.
 
 ## Evidence
 
@@ -37,17 +37,17 @@ The current evidence has only three endgame samples at one Power. It does not co
 
 ## Scenario migration
 
-`scenario.maxHealth` is retained as a legacy explicit final-health override. It cannot be combined with Armor-derived health.
+`scenario.maxHealth` is retained only for Armor-less legacy builds. It cannot be combined with Armor-derived health; the Armor UI disables that input while Armor candidates are registered.
 
-Future Armor evaluation computes:
+Armor evaluation computes:
 
 ```text
 baseHeroHealth = 100
 armorHealthBonus = observed card value or validated model output
 preModifierMaxHealth = baseHeroHealth + armorHealthBonus
-finalMaxHealth = apply Life Boost / trial modifiers in explicit stages
+finalMaxHealth = preModifierMaxHealth
 ```
 
-Life Boost and trial ordering remain future work. The migration must produce the same `finalMaxHealth` as a legacy scenario before comparing Healing, Pain Cycle, Potion, Defense, Soul/Anima, contribution, objective, and Pareto outputs. The exact b022c09 baseline fixes all current results until that route is implemented.
+Life Boost and trial ordering remain future work. The resolved maximum feeds Healing, Pain Cycle, Potion, Defense/EHP, and Soul/Anima. Equivalent legacy and Armor routes are regression-tested, while all Armor-less baseline digests remain exact.
 
 Machine-readable samples and provenance are in `research/armor-health-audit.json`.

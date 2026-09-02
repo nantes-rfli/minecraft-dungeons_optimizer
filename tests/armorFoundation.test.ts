@@ -52,13 +52,13 @@ describe('Phase 2-3A Armor audit foundation', () => {
     expect(mystery.runtimeReadiness).toBe('needs-roll-model')
   })
 
-  it('pins the six deep audits and a zero-runtime manifest', () => {
+  it('pins the six deep audits and the bounded core runtime manifest', () => {
     for (const id of ['renegade-armor', 'wither-armor', 'battle-robe', 'splendid-robe', 'evocation-robe', 'hero-s-armor']) {
       expect(ARMOR_AUDIT.entries.find((entry) => entry.id === id)?.deepAudit).not.toBeNull()
     }
     expect(collectArmorSupportErrors()).toEqual([])
     expect(ARMOR_RUNTIME_SUPPORT.entries).toHaveLength(73)
-    expect(new Set(ARMOR_RUNTIME_SUPPORT.entries.map((entry) => entry.supportLevel))).toEqual(new Set(['research-only']))
+    expect(ARMOR_RUNTIME_SUPPORT.entries.filter((entry) => entry.supportLevel === 'limited').map((entry) => entry.id)).toEqual(['battle-robe', 'renegade-armor', 'wither-armor'])
     expect(ARMOR_RUNTIME_SUPPORT.nextBatch).toMatchObject({
       armorIds: ['battle-robe', 'renegade-armor', 'wither-armor'],
       armorEnchantmentIds: ['cool-down', 'potion-barrier', 'chilling'],
@@ -77,7 +77,7 @@ describe('Phase 2-3A Armor audit foundation', () => {
     expect(collectArmorAuditErrors(mystery)).toContain('Mystery Armor random-roll contract missing')
     const support = clone(ARMOR_RUNTIME_SUPPORT) as unknown as { entries: { id: string; supportLevel: string }[] }
     support.entries.find((entry) => entry.id === 'battle-robe')!.supportLevel = 'full'
-    expect(collectArmorSupportErrors(support).some((error) => error.includes('runtime Armor must remain zero'))).toBe(true)
+    expect(collectArmorSupportErrors(support).some((error) => error.includes('runtime support level mismatch'))).toBe(true)
   })
 })
 

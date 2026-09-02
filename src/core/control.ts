@@ -4,6 +4,7 @@ import { getAttackProfile, getEnchantmentDefinition } from './catalog'
 import { getTierValues } from './enchantment'
 import { OptimizerInputError } from './errors'
 import { calculateRefreshEffectCoverage } from './refreshCoverage'
+import { ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { Build, ControlMetrics, ControlPolicyWeights, Scenario, ShockPowderControlState } from './types'
 
 const unit = (value: number) => Math.max(0, Math.min(1, value))
@@ -20,6 +21,10 @@ export function validateControlAssumptions(scenario: Scenario): void {
   // Pre-2-2B serialized scenarios do not contain these fields. They use the
   // documented 50% defaults when Shock Powder is later added to the build.
   for (const key of ['shockPowderEligibleTargetShare', 'shockPowderAffectedTargetShare'] as const) {
+    const value = scenario.crowdControl?.[key]
+    if (value !== undefined) bounded(`crowdControl.${key}`, value, 0, 1)
+  }
+  for (const key of ['chillingEligibleTargetShare', 'chillingAffectedTargetShare'] as const) {
     const value = scenario.crowdControl?.[key]
     if (value !== undefined) bounded(`crowdControl.${key}`, value, 0, 1)
   }
@@ -72,15 +77,29 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
   }
   const weaponHardDisableCoverage = stunning?.effectiveHardDisableCoverage ?? 0
   const artifactHardDisableCoverage = artifactControl?.hardDisableCoverage ?? 0
+  const chillingEnchant = build.armorEnchantments?.find((item) => item.enchantmentId === 'chilling')
+  const chilling = chillingEnchant ? {
+    tier: chillingEnchant.tier,
+    pulseIntervalSeconds: 2 as const,
+    durationSeconds: 1 as const,
+    rawTemporalCoverage: 0.5 as const,
+    attackSpeedReduction: ARMOR_ENCHANTMENTS.chilling.tiers[chillingEnchant.tier],
+    eligibleTargetShare: scenario.crowdControl.chillingEligibleTargetShare ?? 0.5,
+    affectedTargetShare: scenario.crowdControl.chillingAffectedTargetShare ?? 0.5,
+    attackSlowEquivalentCoverage: unit(0.5 * ARMOR_ENCHANTMENTS.chilling.tiers[chillingEnchant.tier] * (scenario.crowdControl.chillingEligibleTargetShare ?? 0.5) * (scenario.crowdControl.chillingAffectedTargetShare ?? 0.5)),
+  } : undefined
+  const weaponAttackSlow = freezing?.attackSlowEquivalentCoverage ?? 0
+  const armorAttackSlow = chilling?.attackSlowEquivalentCoverage ?? 0
   const metrics = {
     hardDisableCoverage: artifactControl
       ? unit(1 - (1 - weaponHardDisableCoverage) * (1 - artifactHardDisableCoverage))
       : weaponHardDisableCoverage,
-    attackSlowEquivalentCoverage: freezing?.attackSlowEquivalentCoverage ?? 0,
+    attackSlowEquivalentCoverage: unit(1 - (1 - weaponAttackSlow) * (1 - armorAttackSlow)),
     rootCoverage: chains?.rootCoverage ?? 0, groupingCoverage: gravity?.groupingCoverage ?? 0,
     ...(stunning ? { stunning } : {}), ...(freezing ? { freezing } : {}),
     ...(chains ? { chains } : {}), ...(gravity ? { gravity } : {}),
     ...(artifactControl ? { shockPowder: artifactControl, artifactContributions: [artifactControl] } : {}),
+    ...(chilling ? { chilling } : {}),
   }
   return { ...metrics, utility: calculateControlUtility(metrics, scenario.controlPolicy) }
 }
@@ -101,6 +120,10 @@ export function describeControl(control: ControlMetrics): string[] {
   if (control.shockPowder) {
     const state = control.shockPowder
     reasons.push(`Shock Powder: Power ${state.powerLevel} → stun ${state.durationSeconds.toFixed(3)}秒、CD ${state.effectiveCooldownSeconds.toFixed(3)}秒 → raw ${percent(state.rawActiveCoverage)} × 適用可能 ${percent(state.eligibleTargetShare)} × 影響対象 ${percent(state.affectedTargetShare)} = hard disable ${percent(state.hardDisableCoverage)}（常時使用・refresh saturation近似、DPS/防御へ変換しない）`)
+  }
+  if (control.chilling) {
+    const state = control.chilling
+    reasons.push(`Chilling ${['I', 'II', 'III'][state.tier - 1]}: 2秒ごとに1秒 → raw ${percent(state.rawTemporalCoverage)} × 攻撃速度低下 ${percent(state.attackSpeedReduction)} × 適用可能 ${percent(state.eligibleTargetShare)} × 影響対象 ${percent(state.affectedTargetShare)} = attack slow ${percent(state.attackSlowEquivalentCoverage)}（steady-state周期仮定、移動低下・Defenseへ換算しない）`)
   }
   if (control.stunning && control.shockPowder) reasons.push(`Combined hard-disable coverage: ${percent(control.hardDisableCoverage)}`)
   return reasons

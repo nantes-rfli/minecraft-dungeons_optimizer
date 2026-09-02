@@ -18,6 +18,8 @@ export function calculateHealing(
   scenario: Scenario,
   potionState: PotionState = derivePotionState(enchantments, combatState, scenario),
   soulState?: SoulState,
+  resolvedMaxHealth = scenario.maxHealth,
+  lifeStealFraction = 0,
 ): HealingMetrics {
   const radianceProcHealing = combineEnchantmentValues(
     enchantments,
@@ -40,13 +42,15 @@ export function calculateHealing(
   const animaEffect = anima ? getTierValues(anima).effect : undefined
   if (anima && (!soulState || animaEffect?.kind !== 'soul-pickup-healing')) throw new Error('Anima Conduit requires a resolved SoulState and healing effect')
   const animaHealingCapacityPerSecond = animaEffect?.kind === 'soul-pickup-healing'
-    ? animaHealingCapacity(soulState!.totalPickupEventsPerSecond, scenario.maxHealth, animaEffect.maxHealthFractionPerPickup)
+    ? animaHealingCapacity(soulState!.totalPickupEventsPerSecond, resolvedMaxHealth, animaEffect.maxHealthFractionPerPickup)
     : 0
-  const grossHealingCapacityPerSecond = radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond
+  const lifeStealPerSecond = damage.directWeaponAoeDps * lifeStealFraction
+  const grossHealingCapacityPerSecond = radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond + lifeStealPerSecond
   const selfDamagePerSecond = damage.painCycleState?.selfDamagePerSecond ?? 0
   const netSustainPerSecond = grossHealingCapacityPerSecond - selfDamagePerSecond
   return {
     grossHealingCapacityPerSecond, selfDamagePerSecond, netSustainPerSecond,
+    ...(lifeStealFraction > 0 ? { lifeStealPerSecond } : {}),
     animaHealingCapacityPerSecond,
     radiancePerSecond,
     leechingPerSecond,

@@ -1,3 +1,5 @@
+import type { ArmorEnchantmentId, ArmorId, OwnedArmor, RuntimeArmorState, SelectedArmorEnchantment } from './armor'
+
 export type Confidence = 'high' | 'medium' | 'low'
 export type EnchantmentTier = 1 | 2 | 3
 
@@ -435,12 +437,15 @@ export interface OwnedArtifact {
 
 export interface Inventory {
   readonly weapons: readonly OwnedWeapon[]
+  readonly armors?: readonly OwnedArmor[]
   readonly artifacts: readonly OwnedArtifact[]
 }
 
 export interface Build {
   readonly weapon: OwnedWeapon
   readonly enchantments: readonly SelectedEnchantment[]
+  readonly armor?: OwnedArmor
+  readonly armorEnchantments?: readonly SelectedArmorEnchantment[]
   readonly artifacts: readonly OwnedArtifact[]
 }
 
@@ -469,6 +474,8 @@ export interface CrowdControlAssumptions {
   readonly gravityExpectedTargetsPerHit: number
   readonly shockPowderEligibleTargetShare: number
   readonly shockPowderAffectedTargetShare: number
+  readonly chillingEligibleTargetShare?: number
+  readonly chillingAffectedTargetShare?: number
 }
 
 export interface RefreshControlState {
@@ -528,8 +535,20 @@ export interface ControlMetrics {
   readonly gravity?: GravityState
   readonly shockPowder?: ShockPowderControlState
   readonly artifactContributions?: readonly ArtifactControlContribution[]
+  readonly chilling?: ChillingState
   /** Preference score, not the union of suppressed enemy actions. */
   readonly utility: number
+}
+
+export interface ChillingState {
+  readonly tier: EnchantmentTier
+  readonly pulseIntervalSeconds: 2
+  readonly durationSeconds: 1
+  readonly rawTemporalCoverage: 0.5
+  readonly attackSpeedReduction: number
+  readonly eligibleTargetShare: number
+  readonly affectedTargetShare: number
+  readonly attackSlowEquivalentCoverage: number
 }
 
 export interface EnemyComposition {
@@ -597,6 +616,8 @@ export interface ArtifactEffects {
   readonly uptimes: readonly ArtifactUptime[]
   readonly stackingGroups: readonly ArtifactStackingGroup[]
 }
+
+export type ArmorState = RuntimeArmorState
 
 export interface ArtifactActivationState {
   readonly totalActivationsPerSecond: number
@@ -696,6 +717,7 @@ export interface DamageMetrics {
   readonly damagePerHit: number
   readonly hitsPerSecond: number
   readonly baseDps: number
+  readonly armorDirectMeleeMultiplier?: number
   readonly directWeaponSingleTargetDps: number
   readonly directWeaponAoeDps: number
   readonly indirectSingleTargetDps: number
@@ -802,6 +824,7 @@ export interface SoulState extends SoulTrajectory {
   readonly artifactSoulGathering?: number
   readonly externalSoulGathering: number
   readonly totalSoulGathering: number
+  readonly armorSoulGatheringMultiplier?: number
   readonly eligibleSoulGeneratingKillsPerSecond: number
   readonly siphonOpportunitiesPerSecond: number
   readonly siphonTriggerChance: number
@@ -838,6 +861,7 @@ export interface HealingMetrics {
   readonly radiancePerSecond: number
   readonly leechingPerSecond: number
   readonly refreshmentPotionCapacityPerSecond: number
+  readonly lifeStealPerSecond?: number
   /** Net sustain alias for ranking/Pareto; gross capacity excludes baseline potion healing. */
   readonly totalPerSecond: number
 }
@@ -857,6 +881,8 @@ export interface DefenseMetrics extends EnemyDebuffState {
   readonly damageTakenPerSecond: number
   readonly preventedDamagePerSecond: number
   readonly effectiveHealth: number
+  readonly armorDamageTakenMultiplier?: number
+  readonly potionBarrierCoverage?: number
 }
 
 export interface ConfidenceSummary {
@@ -946,6 +972,7 @@ export interface Evaluation {
   readonly artifactEffects: ArtifactEffects
   readonly temporalState: OffensiveTemporalState
   readonly soulState?: SoulState
+  readonly armorState?: ArmorState
   readonly objectiveScore: number
   readonly utilities: ObjectiveUtilities
   readonly confidence: ConfidenceSummary
@@ -963,8 +990,8 @@ export interface ObjectiveUtilities {
 export interface EffectContribution {
   readonly selfDamagePerSecondDelta: number
   readonly netSustainPerSecondDelta: number
-  readonly sourceType: 'enchantment' | 'artifact'
-  readonly sourceId: EnchantmentId | ArtifactId
+  readonly sourceType: 'enchantment' | 'artifact' | 'armor' | 'armor-enchantment'
+  readonly sourceId: EnchantmentId | ArtifactId | ArmorId | ArmorEnchantmentId
   readonly label: LocalizedName
   readonly objectiveDelta: number
   readonly singleTargetDpsDelta: number

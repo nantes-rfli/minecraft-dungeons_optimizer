@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "phaseStatus": "complete",
+  "sources": [
+    { "id": "dungeons-tools-armor", "kind": "game-files", "url": "https://www.dungeons.tools/armor", "note": "1.17.0.0-derived Armor properties and Armor Enchantment tier values." },
+    { "id": "wiki-battle-robe", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Battle_Robe", "note": "Battle Robe properties: -40% artifact cooldown and +30% melee damage." },
+    { "id": "wiki-renegade-armor", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Renegade_Armor", "note": "Renegade Armor properties: +25% melee attack speed, +20% weapon damage aura, and 35% damage reduction." },
+    { "id": "wiki-wither-armor", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Wither_Armor", "note": "Wither Armor properties: 35% damage reduction, +50% souls gathered, and 6% life steal aura." },
+    { "id": "wiki-soul", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Soul", "note": "Soul gear and Gathering semantics; Wither Armor accepts Soul enchantments but does not create Soul collection by itself." },
+    { "id": "wiki-cool-down", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Cool_Down", "note": "Current individual page displays Cool Down III as 38%; stacking is diminishing." },
+    { "id": "wiki-enchantment-table", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Enchantment", "note": "The broader current Armor Enchantment table displays Cool Down as 18/29/37%, preserving the live-source conflict." },
+    { "id": "wiki-potion-barrier", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Potion_Barrier", "note": "90% DR for 5/7/9 seconds after potion use." },
+    { "id": "wiki-chilling", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Chilling", "note": "20/40/60% movement and attack slow for one second every two seconds." },
+    { "id": "community-defense-tests", "kind": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10bdh7s/protection_actual_values/", "note": "Anchors 35% Armor + Protection III at 41.65% and 35% Armor + Iron Hide at 60.6%; not generalized into an unverified formula." }
+  ],
+  "runtimeArmorIds": ["battle-robe", "renegade-armor", "wither-armor"],
+  "runtimeArmorEnchantmentIds": ["cool-down", "potion-barrier", "chilling"],
+  "decisions": {
+    "coolDownTierThree": { "gameFileValue": 0.37, "currentWikiDisplay": 0.38, "runtimeValue": 0.37, "conclusion": "Use the version-targeted game-file-derived value. No evidence establishes that 38% is an exact internal value rather than a current display conflict." },
+    "coolDownStacking": { "gameMaxCopies": 4, "runtimeMaxCopies": 1, "multipleCopies": "unsupported" },
+    "artifactCooldownComposition": { "singleSourceOnly": true, "battleRobeWithCoolDown": "unsupported", "externalWithArmorSource": "unsupported" },
+    "damageReductionComposition": { "singleSourceAnchors": { "armor": 0.35, "ironHide": 0.5, "potionBarrier": 0.9, "guardingStrike": 0.5 }, "armorWithOtherRuntimeDefense": "unsupported", "protection": "research-only" },
+    "renegadeAttackSpeed": { "singleArmorBonus": 0.25, "appliedTo": "attack-cadence", "deathCapOrRampaging": "unsupported" },
+    "witherSouls": { "multiplier": 1.5, "zeroFlatGatheringRemainsZero": true, "pickupEventsUnchanged": true, "soulSiphon": "unsupported" },
+    "witherLifeSteal": { "fraction": 0.06, "eligibleChannels": ["direct-melee"], "excludedChannels": ["enchantment-proc", "dot", "on-kill-explosion", "artifact-damage", "ranged"] },
+    "chilling": { "pulseSeconds": 2, "durationSeconds": 1, "rawTemporalCoverage": 0.5, "objective": "control-only" }
+  },
+  "completion": { "runtimeArmorCount": 3, "runtimeArmorEnchantmentCount": 3, "supportLevel": "limited" }
+}

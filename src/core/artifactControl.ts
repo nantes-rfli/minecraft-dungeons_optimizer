@@ -1,7 +1,8 @@
 import { getArtifactDefinition } from './catalog'
 import { calculateArtifactDuration, calculateArtifactEffectiveCooldown } from './artifact'
+import { resolveArtifactCooldown } from './armor'
 import type { HardControlArtifactDefinition } from './artifactMechanics'
-import type { OwnedArtifact, Scenario, ShockPowderControlState } from './types'
+import type { Build, OwnedArtifact, Scenario, ShockPowderControlState } from './types'
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value))
 
@@ -17,6 +18,7 @@ function hardControlArtifact(artifactId: OwnedArtifact['artifactId']): HardContr
 export function deriveArtifactControlState(
   ownedArtifacts: readonly OwnedArtifact[],
   scenario: Scenario,
+  build?: Build,
 ): ShockPowderControlState | undefined {
   const controlArtifacts = ownedArtifacts.filter((owned) =>
     getArtifactDefinition(owned.artifactId).mechanic === 'hard-control',
@@ -39,10 +41,9 @@ export function deriveArtifactControlState(
   }
   const artifact = hardControlArtifact(owned.artifactId)
   const durationSeconds = calculateArtifactDuration(artifact.duration, owned.powerLevel)
-  const effectiveCooldownSeconds = calculateArtifactEffectiveCooldown(
-    artifact.cooldownSeconds.value,
-    scenario.cooldownReduction,
-  )
+  const effectiveCooldownSeconds = build
+    ? resolveArtifactCooldown(artifact.cooldownSeconds.value, build, scenario)
+    : calculateArtifactEffectiveCooldown(artifact.cooldownSeconds.value, scenario.cooldownReduction)
   const rawActiveCoverage = clamp01(durationSeconds / effectiveCooldownSeconds)
   const eligibleTargetShare = scenario.crowdControl.shockPowderEligibleTargetShare ?? 0.5
   const affectedTargetShare = scenario.crowdControl.shockPowderAffectedTargetShare ?? 0.5

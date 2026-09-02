@@ -42,6 +42,8 @@ import type {
   Evidence,
   Scenario,
 } from './types'
+import { ARMORS } from '../data/armors'
+import type { ArmorId } from './armor'
 
 const CONFIDENCE_SCORE: Readonly<Record<Confidence, number>> = {
   high: 0.9,
@@ -111,7 +113,26 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     '被ダメージ/秒',
     DEFAULT_SCENARIO_EVIDENCE.incomingDamagePerSecond,
   )
-  addEvidence('maximum-health', '最大HP', DEFAULT_SCENARIO_EVIDENCE.maxHealth)
+  if (build.armor) {
+    add('armor-observed-health', 'Armor cardの表示Health', 'high', 2)
+    const armor = ARMORS[build.armor.armorId as ArmorId]
+    add('armor-runtime-properties', `${armor.name.en}の固有property`, 'medium', 3)
+    caveats.push('ArmorありBuildの最大HPはbase Hero 100 + card表示Healthだけを使用し、scenario.maxHealthを加算しません。')
+    if (armor.id === 'renegade-armor') {
+      add('renegade-runtime-boundary', 'Renegade Armorの単独speed bucketとself aura ownership', 'low', 2)
+      caveats.push('Renegade Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。+20% auraはselfのdirect meleeだけへ適用します。')
+    }
+    if (armor.id === 'wither-armor') {
+      add('wither-life-steal-eligibility', 'Wither ArmorのLife Steal対象channel', 'low', 2)
+      caveats.push('Wither ArmorのLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。')
+    }
+    if (build.armorEnchantments?.some((item) => item.enchantmentId === 'chilling')) {
+      add('chilling-periodic-target-model', 'Chillingの周期・対象割合model', 'low', 2)
+      caveats.push('Chillingは1秒/2秒のsteady-state周期と対象割合によるControl近似です。移動objectiveとDefenseへは換算しません。')
+    }
+  } else {
+    addEvidence('maximum-health', '最大HP', DEFAULT_SCENARIO_EVIDENCE.maxHealth)
+  }
 
   const uniqueEnchantments = new Set(build.enchantments.map((item) => item.enchantmentId))
   if (uniqueEnchantments.has('pain-cycle') || uniqueEnchantments.has('dynamo')) {
