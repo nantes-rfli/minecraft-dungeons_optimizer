@@ -1,0 +1,1029 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "population": {
+    "allPlayerEnchantments": 97,
+    "heroAccessibleArmorCount": 41,
+    "definition": "Player enchantments whose 1.17.0.0 game-file-derived appliesTo set contains armor; mob-only and innate-only records are excluded."
+  },
+  "sources": [
+    {
+      "id": "dungeons-tools-enchantments",
+      "type": "game-files",
+      "url": "https://www.dungeons.tools/enchantments",
+      "accessedAt": "2026-09-02",
+      "note": "97 player enchantments total; 41 apply to Armor with tiers, rarity, stackability, soul restriction, and built-in references."
+    },
+    {
+      "id": "minecraft-wiki-enchantment",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "accessedAt": "2026-09-02",
+      "note": "Stackable enchantments can occupy three normal slots and one gilded slot; individual mechanics require separate verification."
+    },
+    {
+      "id": "minecraft-wiki-protection",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Protection",
+      "accessedAt": "2026-09-02",
+      "note": "Protection + 35% Armor reduction is reported as approximately 41.65%, not simple addition or nominal multiplication."
+    }
+  ],
+  "deepAuditIds": [
+    "cool-down",
+    "potion-barrier",
+    "chilling",
+    "protection",
+    "cowardice",
+    "snowball",
+    "deflect",
+    "thorns",
+    "health-synergy",
+    "final-shout",
+    "bag-of-souls",
+    "soul-focus",
+    "reckless",
+    "death-barter"
+  ],
+  "entries": [
+    {
+      "id": "acrobat",
+      "name": "Acrobat",
+      "tiers": [
+        "15%",
+        "30%",
+        "45%"
+      ],
+      "tierLabel": "reduced cooldown",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-roll-model."
+      ],
+      "builtIntoArmorIds": [
+        "black-wolf-armor",
+        "living-vines-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "bag-of-souls",
+      "name": "Bag of Souls",
+      "tiers": [
+        "50%",
+        "100%",
+        "150%"
+      ],
+      "tierLabel": "extra souls",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "soul",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "Soul capacity is reusable, but Armor Soul legality and capacity stacking are not wired."
+      ],
+      "builtIntoArmorIds": [
+        "verdant-robe"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "beast-boss",
+      "name": "Beast Boss",
+      "tiers": [
+        "20% increase",
+        "40% increase",
+        "60% increase"
+      ],
+      "tierLabel": "Pet damage",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "pet",
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "pet mechanics are not available as meaningful Armor runtime; readiness is needs-pet-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "beast-burst",
+      "name": "Beast Burst",
+      "tiers": [
+        "X",
+        "2X",
+        "3X"
+      ],
+      "tierLabel": "explosion damage",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "pet",
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "pet mechanics are not available as meaningful Armor runtime; readiness is needs-pet-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "beast-surge",
+      "name": "Beast Surge",
+      "tiers": [
+        "+50%",
+        "+100%",
+        "+150%"
+      ],
+      "tierLabel": "Pets' attack and speed X",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "pet",
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "pet mechanics are not available as meaningful Armor runtime; readiness is needs-pet-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "burning",
+      "name": "Burning",
+      "tiers": [
+        "X",
+        "2X",
+        "3X"
+      ],
+      "tierLabel": "damage",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "other",
+      "runtimeReadiness": "needs-damage-event-model",
+      "blockers": [
+        "other mechanics are not available as meaningful Armor runtime; readiness is needs-damage-event-model."
+      ],
+      "builtIntoArmorIds": [
+        "ember-robe"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "chilling",
+      "name": "Chilling",
+      "tiers": [
+        "-20%",
+        "-40%",
+        "-60%"
+      ],
+      "tierLabel": "reduced speed",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "control",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Two-second pulse and one-second slow require periodic target coverage; Control must not be converted directly to Defense."
+      ],
+      "builtIntoArmorIds": [
+        "frost-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "cool-down",
+      "name": "Cool Down",
+      "tiers": [
+        "-18%",
+        "-29%",
+        "-37%"
+      ],
+      "tierLabel": "reduced cool-down",
+      "powerful": false,
+      "stackable": true,
+      "maxCopies": 4,
+      "soulRestriction": "none",
+      "mechanicFamily": "cooldown",
+      "runtimeReadiness": "ready-with-limits",
+      "blockers": [
+        "Multiplicative stacking with -40% Armor intrinsic is reported, but external Scenario and copy ownership are not implemented."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "cowardice",
+      "name": "Cowardice",
+      "tiers": [
+        "+20%",
+        "+30%",
+        "+40%"
+      ],
+      "tierLabel": "increased ranged and melee damage",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Full-health uptime and melee/ranged modifier ownership are not modeled."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "death-barter",
+      "name": "Death Barter",
+      "tiers": [
+        "150",
+        "100",
+        "50"
+      ],
+      "tierLabel": "Costs X Emeralds",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "economy",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Emerald storage, lethal-hit prevention, and reset behavior need economy/death state."
+      ],
+      "builtIntoArmorIds": [
+        "gilded-glory"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "deflect",
+      "name": "Deflect",
+      "tiers": [
+        "25%",
+        "35%",
+        "45%"
+      ],
+      "tierLabel": "chance to trigger",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "defense",
+      "runtimeReadiness": "needs-damage-event-model",
+      "blockers": [
+        "Projectile incoming-damage share and reflect/negate event semantics are absent."
+      ],
+      "builtIntoArmorIds": [
+        "shulker-armor",
+        "sturdy-shulker-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "electrified",
+      "name": "Electrified",
+      "tiers": [
+        "X",
+        "2X",
+        "3X"
+      ],
+      "tierLabel": "Deals X damage",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-damage-event-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-damage-event-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "explorer",
+      "name": "Explorer",
+      "tiers": [
+        "0.3%",
+        "0.7%",
+        "1.0%"
+      ],
+      "tierLabel": "health regained",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "economy",
+      "runtimeReadiness": "utility-only",
+      "blockers": [
+        "economy mechanics are not available as meaningful Armor runtime; readiness is utility-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "final-shout",
+      "name": "Final Shout",
+      "tiers": [
+        "12th",
+        "10th",
+        "8th"
+      ],
+      "tierLabel": "Up to every X second",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "cooldown",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Below-25% trigger, per-tier cooldown, multi-Artifact activation, and health trajectory need state scheduling."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "fire-focus",
+      "name": "Fire Focus",
+      "tiers": [
+        "+25%",
+        "+50%",
+        "+75%"
+      ],
+      "tierLabel": "increases fire damage",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "fire-trail",
+      "name": "Fire Trail",
+      "tiers": [
+        "X",
+        "2X",
+        "3X"
+      ],
+      "tierLabel": "fire damage per second",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-damage-event-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-damage-event-model."
+      ],
+      "builtIntoArmorIds": [
+        "cloaked-skull",
+        "ghost-kindler"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "food-reserves",
+      "name": "Food Reserves",
+      "tiers": [
+        "1",
+        "2",
+        "3"
+      ],
+      "tierLabel": "items crafted",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "potion",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "potion mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [
+        "black-spot-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "frenzied",
+      "name": "Frenzied",
+      "tiers": [
+        "+10%",
+        "+20%",
+        "+30%"
+      ],
+      "tierLabel": "melee and ranged attack speed",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "gravity-pulse",
+      "name": "Gravity Pulse",
+      "tiers": [
+        "100%",
+        "150%",
+        "200%"
+      ],
+      "tierLabel": "range",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "control",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "control mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "health-synergy",
+      "name": "Health Synergy",
+      "tiers": [
+        "3%",
+        "4%",
+        "5%"
+      ],
+      "tierLabel": "health regained",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "healing",
+      "runtimeReadiness": "ready-with-limits",
+      "blockers": [
+        "Artifact activation rate is reusable, but observed/final maxHealth and overheal timing must be connected."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "life-boost",
+      "name": "Life Boost",
+      "tiers": [
+        "11%",
+        "22%",
+        "33%"
+      ],
+      "tierLabel": "extra health",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "healing",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "healing mechanics are not available as meaningful Armor runtime; readiness is needs-state-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "lightning-focus",
+      "name": "Lightning Focus",
+      "tiers": [
+        "+25%",
+        "+50%",
+        "+75%"
+      ],
+      "tierLabel": "increased lightning damage",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "luck-of-the-sea",
+      "name": "Luck of the Sea",
+      "tiers": [
+        "10%",
+        "20%",
+        "30%"
+      ],
+      "tierLabel": "luck increase",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "economy",
+      "runtimeReadiness": "utility-only",
+      "blockers": [
+        "economy mechanics are not available as meaningful Armor runtime; readiness is utility-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "lucky-explorer",
+      "name": "Lucky Explorer",
+      "tiers": [
+        "1",
+        "3",
+        "5"
+      ],
+      "tierLabel": "emerald spawned",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "economy",
+      "runtimeReadiness": "utility-only",
+      "blockers": [
+        "economy mechanics are not available as meaningful Armor runtime; readiness is utility-only."
+      ],
+      "builtIntoArmorIds": [
+        "emerald-gear",
+        "gilded-glory",
+        "opulent-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "multi-roll",
+      "name": "Multi-Roll",
+      "tiers": [
+        "2",
+        "3",
+        "4"
+      ],
+      "tierLabel": "Grants X rolls",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-roll-model."
+      ],
+      "builtIntoArmorIds": [
+        "goat-gear"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "poison-focus",
+      "name": "Poison Focus",
+      "tiers": [
+        "+25%",
+        "+50%",
+        "+75%"
+      ],
+      "tierLabel": "Increases poison damage",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "potion-barrier",
+      "name": "Potion Barrier",
+      "tiers": [
+        "5",
+        "7",
+        "9"
+      ],
+      "tierLabel": "seconds duration",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "defense",
+      "runtimeReadiness": "ready-with-limits",
+      "blockers": [
+        "Potion trigger exists, but exact DR composition with Armor/Iron Hide/Guarding/Weakening must be gated."
+      ],
+      "builtIntoArmorIds": [
+        "stalwart-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "prospector",
+      "name": "Prospector",
+      "tiers": [
+        "+100%",
+        "+200%",
+        "+300%"
+      ],
+      "tierLabel": "increased chance",
+      "powerful": false,
+      "stackable": true,
+      "maxCopies": 4,
+      "soulRestriction": "none",
+      "mechanicFamily": "economy",
+      "runtimeReadiness": "utility-only",
+      "blockers": [
+        "economy mechanics are not available as meaningful Armor runtime; readiness is utility-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "protection",
+      "name": "Protection",
+      "tiers": [
+        "-6%",
+        "-11%",
+        "-15%"
+      ],
+      "tierLabel": "damage taken",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "defense",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Nominal Tier III 15% becomes about 10% with 35% Armor DR (about 41.65% total reduction); a general composition formula is not validated."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "reckless",
+      "name": "Reckless",
+      "tiers": [
+        "+50%",
+        "+70%",
+        "+90%"
+      ],
+      "tierLabel": "damage increase",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "damage-modifier",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "40% health penalty ownership and melee damage stage need a final-maxHealth migration."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "recycler",
+      "name": "Recycler",
+      "tiers": [
+        "30th",
+        "20th",
+        "10th"
+      ],
+      "tierLabel": "Every X projectile",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "utility",
+      "runtimeReadiness": "utility-only",
+      "blockers": [
+        "utility mechanics are not available as meaningful Armor runtime; readiness is utility-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "rush",
+      "name": "Rush",
+      "tiers": [
+        "30%",
+        "60%",
+        "90%"
+      ],
+      "tierLabel": "% speed increase.",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-roll-model."
+      ],
+      "builtIntoArmorIds": [
+        "nimble-turtle-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "shadow-surge",
+      "name": "Shadow Surge",
+      "tiers": [
+        "6",
+        "12",
+        "16"
+      ],
+      "tierLabel": "% Souls per mob.",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "soul",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "soul mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "snowball",
+      "name": "Snowball",
+      "tiers": [
+        "5",
+        "3",
+        "Every second"
+      ],
+      "tierLabel": "Triggers every X seconds",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "control",
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Periodic target selection, stun duration, immunity, and affected target share are unresolved."
+      ],
+      "builtIntoArmorIds": [
+        "frost-bite"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "soul-focus",
+      "name": "Soul Focus",
+      "tiers": [
+        "+10%",
+        "+20%",
+        "+30%"
+      ],
+      "tierLabel": "increased soul damage",
+      "powerful": true,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "soul",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "Most Soul Artifact damage curves remain unsupported."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "soul-speed",
+      "name": "Soul Speed",
+      "tiers": [
+        "2",
+        "3",
+        "4"
+      ],
+      "tierLabel": "seconds duration",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "soul-armor-only",
+      "mechanicFamily": "soul",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "soul mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "speed-synergy",
+      "name": "Speed Synergy",
+      "tiers": [
+        "1",
+        "2",
+        "3"
+      ],
+      "tierLabel": "second duration",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "utility",
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "utility mechanics are not available as meaningful Armor runtime; readiness is needs-objective."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "surprise-gift",
+      "name": "Surprise Gift",
+      "tiers": [
+        "50%",
+        "100%",
+        "150%"
+      ],
+      "tierLabel": "chance to trigger",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "potion",
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "potion mechanics are not available as meaningful Armor runtime; readiness is research-only."
+      ],
+      "builtIntoArmorIds": [
+        "golden-piglin-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "swiftfooted",
+      "name": "Swiftfooted",
+      "tiers": [
+        "+30%",
+        "+40%",
+        "+50%"
+      ],
+      "tierLabel": "movement speed",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "roll",
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "roll mechanics are not available as meaningful Armor runtime; readiness is needs-roll-model."
+      ],
+      "builtIntoArmorIds": [
+        "highland-armor"
+      ],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "thorns",
+      "name": "Thorns",
+      "tiers": [
+        "100%",
+        "150%",
+        "200%"
+      ],
+      "tierLabel": "damage returned",
+      "powerful": false,
+      "stackable": true,
+      "maxCopies": 4,
+      "soulRestriction": "none",
+      "mechanicFamily": "defense",
+      "runtimeReadiness": "needs-damage-event-model",
+      "blockers": [
+        "Incoming hit cadence, reflected damage basis, target attribution, and stack behavior need an event model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    },
+    {
+      "id": "tumblebee",
+      "name": "Tumblebee",
+      "tiers": [
+        "33%",
+        "67%",
+        "101%"
+      ],
+      "tierLabel": "chance to summon",
+      "powerful": false,
+      "stackable": false,
+      "maxCopies": 1,
+      "soulRestriction": "none",
+      "mechanicFamily": "pet",
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "pet mechanics are not available as meaningful Armor runtime; readiness is needs-pet-model."
+      ],
+      "builtIntoArmorIds": [],
+      "sourceIds": [
+        "dungeons-tools-enchantments"
+      ]
+    }
+  ]
+}

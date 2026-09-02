@@ -74,6 +74,9 @@ npm run audit:artifacts
 npm run audit:artifact-control
 npm run audit:artifact-soul
 npm run audit:artifact-event
+npm run audit:artifact-evidence
+npm run audit:armor
+npm run audit:armor-enchants
 npm test
 npx tsc -b
 npm run lint
@@ -278,3 +281,17 @@ Chains複数copy、CCのroll/refresh/耐性/対象数の根拠が未確定のた
 親25〜30種をmeaningful runtimeで正式close。Historical partialは維持し、[backlog](./docs/runtime-limitations.md)で実装待ちと外部Evidence待ちを分離します。9 familyの通常・金色Tier別smokeと既存commit全出力回帰を追加しました。数値計算・evaluate/optimize API・inventory schemaは変更していません。
 
 `npm run audit:runtime-support` は実catalog・Power/武器合法性・copies・双方向combination rejectionと台帳を照合します。将来の意図的分類変更では、台帳・明示的ID一覧Golden・backlogを同時に更新してください。
+
+## Phase 2-3A — Armor Audit & Runtime Foundation（complete）
+
+Minecraft Dungeons 1.17.0.0のArmorを、dungeons.tools 71件とMinecraft Wiki known 73 / obtainable 71で照合しました。common 71、primary-only 0、secondary-onlyはEnder ArmorとVanguard Armorです。Soul Mage Robeは別のunused file-remnantで、Wikiの73件Gear一覧には含まれないためscope exclusionとして保持します。project監査母集団は73件で、raw game ID全体の網羅性は主張しません。
+
+全Armorのfamily、rarity、availability、event、content pack、Soul legality、intrinsic property taxonomy、unique inheritance、built-in、Health Evidence、runtime blockerを[`research/armor-audit.json`](./research/armor-audit.json)へ固定しました。Mystery Armorは固定property setにせず、将来のowned instanceに`actualIntrinsicRolls`を要求します。Runtime manifestは **Full 0 / Limited 0 / Research-only 73**。Healthだけ・主要property 0のArmorをCatalogやOptimizerへ登録していません。
+
+Armor Enchantmentは97件からArmor適用41件を抽出し、common30 / powerful11 / soul-only1 / utility-only5、tier、stacking、max copies、built-in refs、mechanic family、readinessを[`research/armor-enchantment-audit.json`](./research/armor-enchantment-audit.json)へ保存しました。通常slot、Unique built-in、Gilded Tier I/II/IIIは別sourceです。
+
+Healthはbase Hero 100、公開table 1–108の23点、Power113の1点、Power251のexact card観測3件を監査しました。同じPower251でも+1,855,307〜+1,882,725の差があるため、`observedHealthBonus -> validated model range -> unsupported`を採用し、Power midpointやendgame外挿を行いません。`scenario.maxHealth`は排他的なlegacy final-health overrideとして維持します。
+
+次のPhase 2-3B候補はBattle Robe / Renegade Armor / Wither ArmorとCool Down / Potion Barrier / Chillingです。Armor 35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、external / intrinsic / enchant cooldownの合成は明示的なruntime gateです。
+
+[`Armor audit`](./docs/armor-audit.md) / [`support`](./docs/armor-runtime-support.md) / [`Armor enchantments`](./docs/armor-enchantment-audit.md) / [`architecture`](./docs/armor-model.md) / [`Health`](./docs/armor-health-model.md)。`npm run audit:armor`と`npm run audit:armor-enchants`で検証・表再生成を行います。b022c09の180組合せについて`evaluate` / `evaluateCandidate` / `optimize` / Paretoをexact digest回帰しています。

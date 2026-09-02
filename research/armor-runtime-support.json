@@ -1,0 +1,1158 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "population": 73,
+  "entries": [
+    {
+      "id": "archer-s-armor",
+      "name": "Archer's Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Movement has no current optimization objective.",
+        "Arrow economy has no ranged runtime objective.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "arctic-fox-armor",
+      "name": "Arctic Fox Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "battle-robe",
+      "name": "Battle Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "beehive-armor",
+      "name": "Beehive Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "beenest-armor",
+      "name": "Beenest Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "black-spot-armor",
+      "name": "Black Spot Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "black-wolf-armor",
+      "name": "Black Wolf Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll cadence and opportunity cost are not modeled.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cauldron-armor",
+      "name": "Cauldron Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cave-crawler",
+      "name": "Cave Crawler",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "champion-s-armor",
+      "name": "Champion's Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor potion cooldown ordering with base cooldown and Refreshment is not implemented.",
+        "Threat and party targeting are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "climbing-gear",
+      "name": "Climbing Gear",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cloaked-skull",
+      "name": "Cloaked Skull",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "dark-armor",
+      "name": "Dark Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ember-robe",
+      "name": "Ember Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "emerald-gear",
+      "name": "Emerald Gear",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ender-armor",
+      "name": "Ender Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Not obtainable in Minecraft Dungeons; Arcade representation does not establish main-game runtime semantics."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "minecraft-wiki-gear",
+        "minecraft-wiki-unused"
+      ]
+    },
+    {
+      "id": "entertainer-s-garb",
+      "name": "Entertainer's Garb",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Status-duration ownership and eligible effects are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "evocation-robe",
+      "name": "Evocation Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "fox-armor",
+      "name": "Fox Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "frost-armor",
+      "name": "Frost Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "frost-bite",
+      "name": "Frost Bite",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "full-metal-armor",
+      "name": "Full Metal Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ghost-kindler",
+      "name": "Ghost Kindler",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ghostly-armor",
+      "name": "Ghostly Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "gilded-glory",
+      "name": "Gilded Glory",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "glow-squid-armor",
+      "name": "Glow Squid Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Incoming-hit timing during roll invulnerability is not modeled.",
+        "Movement has no current optimization objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "goat-gear",
+      "name": "Goat Gear",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "golden-piglin-armor",
+      "name": "Golden Piglin Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "grim-armor",
+      "name": "Grim Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "guard-s-armor",
+      "name": "Guard's Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Arrow economy has no ranged runtime objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hero-s-armor",
+      "name": "Hero's Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor potion cooldown ordering with base cooldown and Refreshment is not implemented.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Threat and party targeting are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "highland-armor",
+      "name": "Highland Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hungriest-horror",
+      "name": "Hungriest Horror",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hungry-horror",
+      "name": "Hungry Horror",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hunter-s-armor",
+      "name": "Hunter's Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Arrow economy has no ranged runtime objective.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "living-vines-armor",
+      "name": "Living Vines Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll cadence and opportunity cost are not modeled.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "mercenary-armor",
+      "name": "Mercenary Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "mystery-armor",
+      "name": "Mystery Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "nimble-turtle-armor",
+      "name": "Nimble Turtle Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ocelot-armor",
+      "name": "Ocelot Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll animation and objective value are not modeled.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "opulent-armor",
+      "name": "Opulent Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "phantom-armor",
+      "name": "Phantom Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "piglin-armor",
+      "name": "Piglin Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "plate-armor",
+      "name": "Plate Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "reinforced-mail",
+      "name": "Reinforced Mail",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "renegade-armor",
+      "name": "Renegade Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "root-rot-armor",
+      "name": "Root Rot Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "rugged-climbing-gear",
+      "name": "Rugged Climbing Gear",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Environmental and displacement resistance has no current objective.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "scale-mail",
+      "name": "Scale Mail",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "shadow-walker",
+      "name": "Shadow Walker",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Incoming-hit timing during roll invulnerability is not modeled.",
+        "Roll animation and objective value are not modeled.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "shulker-armor",
+      "name": "Shulker Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Threat and party targeting are not modeled.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "snow-armor",
+      "name": "Snow Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "soul-robe",
+      "name": "Soul Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "souldancer-robe",
+      "name": "Souldancer Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "spelunker-armor",
+      "name": "Spelunker Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "spider-armor",
+      "name": "Spider Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "splendid-robe",
+      "name": "Splendid Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sprout-armor",
+      "name": "Sprout Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "squid-armor",
+      "name": "Squid Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Movement has no current optimization objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "stalwart-armor",
+      "name": "Stalwart Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sturdy-shulker-armor",
+      "name": "Sturdy Shulker Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Threat and party targeting are not modeled.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sweet-tooth",
+      "name": "Sweet Tooth",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "teleportation-robes",
+      "name": "Teleportation Robes",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll teleport has no position/state model.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "the-spooky-gourdian",
+      "name": "The Spooky Gourdian",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "the-troubadour",
+      "name": "The Troubadour",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Status-duration ownership and eligible effects are not modeled."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "thief-armor",
+      "name": "Thief Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "titan-s-shroud",
+      "name": "Titan's Shroud",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "turtle-armor",
+      "name": "Turtle Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "unstable-robes",
+      "name": "Unstable Robes",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll teleport has no position/state model.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "vanguard-armor",
+      "name": "Vanguard Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Mob equipment model is not a hero-obtainable Armor definition."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "minecraft-wiki-gear",
+        "minecraft-wiki-vanguard"
+      ]
+    },
+    {
+      "id": "verdant-robe",
+      "name": "Verdant Robe",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "wither-armor",
+      "name": "Wither Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "wolf-armor",
+      "name": "Wolf Armor",
+      "supportLevel": "research-only",
+      "reasons": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "boundaries": [],
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    }
+  ],
+  "nextBatch": {
+    "phase": "Phase 2-3B — Armor Core Runtime Batch",
+    "armorIds": [
+      "battle-robe",
+      "renegade-armor",
+      "wither-armor"
+    ],
+    "armorEnchantmentIds": [
+      "cool-down",
+      "potion-barrier",
+      "chilling"
+    ],
+    "optimizerEstimate": {
+      "currentMeleeCandidates": 28,
+      "proposedArmorCandidates": 3,
+      "proposedArmorEnchantLoadoutsPerArmor": "bounded explicit inventory rolls only",
+      "multiplierBeforeArtifacts": 3,
+      "note": "Do not enumerate the theoretical 41-enchantment cross product; search owned Armor instances and legal fixed slot candidates."
+    }
+  }
+}

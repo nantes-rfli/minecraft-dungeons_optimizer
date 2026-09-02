@@ -1,0 +1,313 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "baseHeroHealth": {
+    "value": 100,
+    "confidence": "medium",
+    "sourceIds": [
+      "fandom-health",
+      "community-health-base"
+    ]
+  },
+  "armorCardSemantics": {
+    "field": "+X health",
+    "finalMaxHealthHypothesis": "baseHeroHealth + observedHealthBonus before later modifiers",
+    "confidence": "medium",
+    "sourceIds": [
+      "wiki-hero-armor-health",
+      "community-health-base"
+    ]
+  },
+  "sources": [
+    {
+      "id": "wiki-hero-armor-health",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Hero%27s_Armor",
+      "accessedAt": "2026-09-02",
+      "note": "+X health card property; low-Power table through 113."
+    },
+    {
+      "id": "wiki-grim-armor-health",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Grim_Armor",
+      "accessedAt": "2026-09-02",
+      "note": "Same min/max table through Power 108 on a separate base family."
+    },
+    {
+      "id": "wiki-spider-armor-health",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Spider_Armor",
+      "accessedAt": "2026-09-02",
+      "note": "Same min/max table through Power 108 on a unique Thief family variant."
+    },
+    {
+      "id": "wiki-wither-armor-health",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Wither_Armor",
+      "accessedAt": "2026-09-02",
+      "note": "Same low-Power table, but one search snapshot reports an anomalous Power108 max 9987; retained as a source conflict, not a model point."
+    },
+    {
+      "id": "reddit-same-power-health",
+      "type": "community-observation",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/u0ecxy/",
+      "accessedAt": "2026-09-02",
+      "note": "Power251 Sturdy Shulker +1,882,725 and Rugged Climbing Gear +1,855,307."
+    },
+    {
+      "id": "reddit-renegade-health",
+      "type": "community-observation",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/ts2hq7/",
+      "accessedAt": "2026-09-02",
+      "note": "Power251 Renegade Armor +1,880,317."
+    },
+    {
+      "id": "fandom-health",
+      "type": "community-wiki",
+      "url": "https://minecraftdungeons-archive.fandom.com/wiki/Health",
+      "accessedAt": "2026-09-02",
+      "note": "Default hero maximum health reported as 100 and increased by Armor."
+    },
+    {
+      "id": "community-health-base",
+      "type": "community-report",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/l0bsmu/",
+      "accessedAt": "2026-09-02",
+      "note": "Hero level does not add HP; health described as Armor bonus plus 100."
+    }
+  ],
+  "publishedTable": {
+    "sourceArmorIds": [
+      "hero-s-armor",
+      "grim-armor",
+      "spider-armor",
+      "wither-armor"
+    ],
+    "sourceIds": [
+      "wiki-hero-armor-health",
+      "wiki-grim-armor-health",
+      "wiki-spider-armor-health",
+      "wiki-wither-armor-health"
+    ],
+    "rows": [
+      {
+        "power": 1,
+        "minHealthBonus": 0,
+        "maxHealthBonus": 3
+      },
+      {
+        "power": 5,
+        "minHealthBonus": 13,
+        "maxHealthBonus": 17
+      },
+      {
+        "power": 10,
+        "minHealthBonus": 33,
+        "maxHealthBonus": 37
+      },
+      {
+        "power": 15,
+        "minHealthBonus": 57,
+        "maxHealthBonus": 63
+      },
+      {
+        "power": 20,
+        "minHealthBonus": 87,
+        "maxHealthBonus": 94
+      },
+      {
+        "power": 25,
+        "minHealthBonus": 124,
+        "maxHealthBonus": 132
+      },
+      {
+        "power": 30,
+        "minHealthBonus": 168,
+        "maxHealthBonus": 178
+      },
+      {
+        "power": 35,
+        "minHealthBonus": 223,
+        "maxHealthBonus": 235
+      },
+      {
+        "power": 40,
+        "minHealthBonus": 290,
+        "maxHealthBonus": 305
+      },
+      {
+        "power": 45,
+        "minHealthBonus": 372,
+        "maxHealthBonus": 390
+      },
+      {
+        "power": 50,
+        "minHealthBonus": 473,
+        "maxHealthBonus": 495
+      },
+      {
+        "power": 55,
+        "minHealthBonus": 596,
+        "maxHealthBonus": 623
+      },
+      {
+        "power": 60,
+        "minHealthBonus": 747,
+        "maxHealthBonus": 780
+      },
+      {
+        "power": 65,
+        "minHealthBonus": 931,
+        "maxHealthBonus": 973
+      },
+      {
+        "power": 70,
+        "minHealthBonus": 1158,
+        "maxHealthBonus": 1208
+      },
+      {
+        "power": 75,
+        "minHealthBonus": 1435,
+        "maxHealthBonus": 1497
+      },
+      {
+        "power": 80,
+        "minHealthBonus": 1774,
+        "maxHealthBonus": 1850
+      },
+      {
+        "power": 85,
+        "minHealthBonus": 2190,
+        "maxHealthBonus": 2283
+      },
+      {
+        "power": 90,
+        "minHealthBonus": 2700,
+        "maxHealthBonus": 2814
+      },
+      {
+        "power": 95,
+        "minHealthBonus": 3324,
+        "maxHealthBonus": 3463
+      },
+      {
+        "power": 100,
+        "minHealthBonus": 4088,
+        "maxHealthBonus": 4259
+      },
+      {
+        "power": 105,
+        "minHealthBonus": 5025,
+        "maxHealthBonus": 5236
+      },
+      {
+        "power": 108,
+        "minHealthBonus": 5685,
+        "maxHealthBonus": 5921
+      }
+    ],
+    "extraRows": [
+      {
+        "armorId": "hero-s-armor",
+        "power": 113,
+        "minHealthBonus": 7107,
+        "maxHealthBonus": 7153,
+        "sourceIds": [
+          "wiki-hero-armor-health"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "armorId": "wither-armor",
+        "power": 108,
+        "field": "maxHealthBonus",
+        "candidates": [
+          5921,
+          9987
+        ],
+        "conclusion": "source-page/search snapshot conflict; 9987 excluded from the canonical table",
+        "sourceIds": [
+          "wiki-wither-armor-health"
+        ]
+      }
+    ]
+  },
+  "endgameObservations": [
+    {
+      "armorId": "sturdy-shulker-armor",
+      "power": 251,
+      "observedHealthBonus": 1882725,
+      "sourceIds": [
+        "reddit-same-power-health"
+      ]
+    },
+    {
+      "armorId": "rugged-climbing-gear",
+      "power": 251,
+      "observedHealthBonus": 1855307,
+      "sourceIds": [
+        "reddit-same-power-health"
+      ]
+    },
+    {
+      "armorId": "renegade-armor",
+      "power": 251,
+      "observedHealthBonus": 1880317,
+      "sourceIds": [
+        "reddit-renegade-health"
+      ]
+    }
+  ],
+  "coverage": {
+    "sampleCount": 27,
+    "minPower": 1,
+    "maxPower": 251,
+    "targetHighPowerRange": {
+      "min": 210,
+      "max": 263
+    },
+    "endgameSampleCount": 3,
+    "distinctEndgamePowers": [
+      251
+    ]
+  },
+  "commonCurveHypothesis": {
+    "status": "low-power-agreement-only",
+    "note": "Four families reproduce the same Power1-108 table, but no current 210-263 min/max table validates an endgame fallback.",
+    "extrapolationAllowed": false
+  },
+  "samePowerVariance": {
+    "power": 251,
+    "minObservedHealthBonus": 1855307,
+    "maxObservedHealthBonus": 1882725,
+    "spread": 27418,
+    "conclusion": "Visible Power is not a unique exact health key."
+  },
+  "runtimePolicy": {
+    "priority": [
+      "armor-observed",
+      "armor-model-within-validated-range",
+      "unsupported"
+    ],
+    "observedHealthBonusValidation": "finite and >= 0; model envelope may warn but must not reject a direct card observation",
+    "modelFallbackAvailable": false,
+    "noMidpointImputation": true
+  },
+  "scenarioMigration": {
+    "current": "scenario.maxHealth remains a legacy explicit final-health override.",
+    "mutuallyExclusiveWithArmorRoute": true,
+    "proposedUnion": [
+      "legacy-scenario",
+      "armor-observed",
+      "armor-model"
+    ],
+    "terms": [
+      "baseHeroHealth",
+      "armorHealthBonus",
+      "preModifierMaxHealth",
+      "finalMaxHealth"
+    ]
+  }
+}

@@ -27,3 +27,4 @@ export { soulTrajectory, soulIncome, siphonIncome, animaHealingCapacity, deriveS
 export { calculateControl, calculateControlUtility } from './control'
 export { deriveArtifactControlState } from './artifactControl'
 export { calculateRefreshEffectCoverage, finiteRefreshCoverage } from './refreshCoverage'
+export * from './armor'

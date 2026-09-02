@@ -149,10 +149,10 @@ describe('visibility, generated docs and historical gates', () => {
   })
   it('keeps generated summaries and roadmap counts synchronized', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
-    expect(ROADMAP_PROGRESS).toEqual({ completed: 30, total: 44, percentage: 68 })
+    expect(ROADMAP_PROGRESS).toEqual({ completed: 31, total: 45, percentage: 69 })
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
-    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(30)
-    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(44)
+    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(31)
+    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(45)
     for (const phase of ['2-1D', '2-1F', '2-1G', '2-1H', '2-1I', '2-1J']) {
       expect(roadmap).toContain(`- [ ] Phase ${phase} partial`)
       expect(ROADMAP_PHASES.flatMap((item) => item.items).find((item) => item.label.startsWith(`Phase ${phase} partial`))!.status).toBe('in-progress')
@@ -168,6 +168,6 @@ describe('visibility, generated docs and historical gates', () => {
       }
     }
     const backlog = readFileSync('docs/runtime-limitations.md', 'utf8')
-    for (const [priority, count] of [['P0', 0], ['P1', 3], ['P2', 4], ['P3', 10]] as const) expect(backlog.match(new RegExp(`\\| ${priority} \\|`, 'g')) ?? []).toHaveLength(count)
+    for (const [priority, count] of [['P0', 0], ['P1', 6], ['P2', 6], ['P3', 10]] as const) expect(backlog.match(new RegExp(`\\| ${priority} \\|`, 'g')) ?? []).toHaveLength(count)
   })
 })

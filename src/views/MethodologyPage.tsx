@@ -16,6 +16,8 @@ import {
 import { DpsRegressionPanel } from './DpsRegressionPanel'
 import { RuntimeSupportSection } from './RuntimeSupport'
 import { ArtifactRuntimeSupportSection } from './ArtifactRuntimeSupport'
+import { ARMOR_HEALTH_AUDIT, ARMOR_RUNTIME_SUPPORT, armorRuntimeSupportSummaryText, summarizeArmorAudit } from '../research/armorAudit'
+import { summarizeArmorEnchantmentAudit } from '../research/armorEnchantmentAudit'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
 const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
@@ -26,6 +28,8 @@ const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
 const DPS_AUDIT = auditJson as unknown as DpsRegressionAudit
 const DPS_AUDIT_SUMMARY = summarizeDpsRegressionAudit(DPS_AUDIT)
 const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
+const ARMOR_AUDIT_SUMMARY = summarizeArmorAudit()
+const ARMOR_ENCHANTMENT_SUMMARY = summarizeArmorEnchantmentAudit()
 const DPS_AUDIT_SOURCES = [...new Map(
   DPS_AUDIT.entries.map((entry) => [entry.source.id, entry.source]),
 ).values()]
@@ -44,6 +48,26 @@ export function MethodologyPage() {
 
       <RuntimeSupportSection />
       <ArtifactRuntimeSupportSection />
+
+      <section className="panel">
+        <p className="section-label">PHASE 2-3A / ARMOR AUDIT & RUNTIME FOUNDATION — COMPLETE</p>
+        <h2>防具73件を照合し、未対応効果を0点登録しない</h2>
+        <p>dungeons.toolsの1.17.0.0母集団71件とWikiのknown 73 / obtainable 71を正規化照合しました。common 71、primary-only 0、secondary-onlyはEnder ArmorとVanguard Armorです。Soul Mage Robeは別のunused file-remnantとして記録し、73件の表示母集団へ混ぜていません。raw game ID全体の網羅性は主張しません。</p>
+        <Formula>{armorRuntimeSupportSummaryText()}</Formula>
+        <p>Armor runtimeは0 / {ARMOR_AUDIT_SUMMARY.population}のままです。Healthだけ・主要property 0の防具をCatalog、Build、Inventory、Optimizerへ追加していません。Uniqueのfamily継承、unique-only property、built-in、金色、通常slotを分離し、Mystery Armorは個体のactual intrinsic rolls必須としました。</p>
+        <div className="regression-audit-grid">
+          <div><span>Armor population</span><strong>{ARMOR_AUDIT_SUMMARY.population}</strong></div>
+          <div><span>Obtainable</span><strong>{ARMOR_AUDIT_SUMMARY.obtainable}</strong></div>
+          <div><span>Armor enchants</span><strong>{ARMOR_ENCHANTMENT_SUMMARY.population}</strong></div>
+          <div><span>Utility-only</span><strong>{ARMOR_ENCHANTMENT_SUMMARY.utilityOnly}</strong></div>
+        </div>
+        <h3>Healthはカード表示値を主経路にする</h3>
+        <p>Hero基礎HPは{ARMOR_HEALTH_AUDIT.baseHeroHealth.value}。4 familyの公開tableはPower 1〜108で一致しますが、endgameのexact観測はPower251の3件だけです。同じ251でも+{ARMOR_HEALTH_AUDIT.samePowerVariance.minObservedHealthBonus.toLocaleString()}〜+{ARMOR_HEALTH_AUDIT.samePowerVariance.maxObservedHealthBonus.toLocaleString()}（差{ARMOR_HEALTH_AUDIT.samePowerVariance.spread.toLocaleString()}）なので、Powerからexact Healthを一意に埋めません。</p>
+        <Formula>observedHealthBonus → validated model range → unsupported</Formula>
+        <p><code>scenario.maxHealth</code>はlegacy final-health overrideとして残し、Armor-derived routeと同時適用しません。35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、外部 / intrinsic / Cool Downの合成は次Phaseの明示gateです。既存Defense式は変更していません。</p>
+        <h3>Phase 2-3B</h3>
+        <p>Armorは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorIds.join(', ')}、Enchantは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorEnchantmentIds.join(', ')}を第一batchに選定しました。既存Damage / Defense / Potion / Soul / Controlを再利用し、各owned Armorのobserved Healthとunsupported combination理由を必須にします。</p>
+      </section>
 
       <section className="panel">
         <p className="section-label">PHASE 2-2E / ARTIFACT EVIDENCE — COMPLETE</p>
@@ -308,7 +332,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1KとArtifact 2-2A〜2-2Eは完了。公開Evidenceではpromotion-readyが0件だったため、次はArmor / Armor Enchantmentsです。全33近接・全45 Artifactの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor foundation 2-3Aは完了。次はArmor Core Runtime Batchです。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

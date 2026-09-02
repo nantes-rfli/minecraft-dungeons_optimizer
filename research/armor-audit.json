@@ -1,0 +1,5450 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "phaseStatus": "complete",
+  "sources": [
+    {
+      "id": "dungeons-tools-armor-index",
+      "type": "game-files",
+      "url": "https://www.dungeons.tools/armor/",
+      "accessedAt": "2026-09-02",
+      "note": "1.17.0.0 game-file-derived index: 71 entries, level IDs, families, properties, built-ins, packs, and Soul requirement."
+    },
+    {
+      "id": "minecraft-wiki-gear",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Gear",
+      "accessedAt": "2026-09-02",
+      "note": "Secondary display definition: 73 known Armors, 71 obtainable, 41 unique, seven seasonal."
+    },
+    {
+      "id": "minecraft-wiki-unused",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Unused_features",
+      "accessedAt": "2026-09-02",
+      "note": "Ender/Curious and Soul Mage Robe unused context; Soul Mage Robe is outside the 73-item Gear list."
+    },
+    {
+      "id": "minecraft-wiki-vanguard",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Vanguard",
+      "accessedAt": "2026-09-02",
+      "note": "Vanguard Armor level ID DesertArmor is mob equipment."
+    },
+    {
+      "id": "wiki-hero-armor-health",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Hero%27s_Armor",
+      "accessedAt": "2026-09-02",
+      "note": "Armor card +X health and low-Power min/max table."
+    },
+    {
+      "id": "reddit-same-power-health",
+      "type": "community-observation",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/u0ecxy/",
+      "accessedAt": "2026-09-02",
+      "note": "Two Power 251 Armor pieces reported with different displayed health bonuses."
+    }
+  ],
+  "populationReconciliation": {
+    "primarySourceCount": 71,
+    "secondaryKnownCount": 73,
+    "secondaryObtainableCount": 71,
+    "commonIds": [
+      "archer-s-armor",
+      "arctic-fox-armor",
+      "battle-robe",
+      "beehive-armor",
+      "beenest-armor",
+      "black-spot-armor",
+      "black-wolf-armor",
+      "cauldron-armor",
+      "cave-crawler",
+      "champion-s-armor",
+      "climbing-gear",
+      "cloaked-skull",
+      "dark-armor",
+      "ember-robe",
+      "emerald-gear",
+      "entertainer-s-garb",
+      "evocation-robe",
+      "fox-armor",
+      "frost-armor",
+      "frost-bite",
+      "full-metal-armor",
+      "ghost-kindler",
+      "ghostly-armor",
+      "gilded-glory",
+      "glow-squid-armor",
+      "goat-gear",
+      "golden-piglin-armor",
+      "grim-armor",
+      "guard-s-armor",
+      "hero-s-armor",
+      "highland-armor",
+      "hungriest-horror",
+      "hungry-horror",
+      "hunter-s-armor",
+      "living-vines-armor",
+      "mercenary-armor",
+      "mystery-armor",
+      "nimble-turtle-armor",
+      "ocelot-armor",
+      "opulent-armor",
+      "phantom-armor",
+      "piglin-armor",
+      "plate-armor",
+      "reinforced-mail",
+      "renegade-armor",
+      "root-rot-armor",
+      "rugged-climbing-gear",
+      "scale-mail",
+      "shadow-walker",
+      "shulker-armor",
+      "snow-armor",
+      "soul-robe",
+      "souldancer-robe",
+      "spelunker-armor",
+      "spider-armor",
+      "splendid-robe",
+      "sprout-armor",
+      "squid-armor",
+      "stalwart-armor",
+      "sturdy-shulker-armor",
+      "sweet-tooth",
+      "teleportation-robes",
+      "the-spooky-gourdian",
+      "the-troubadour",
+      "thief-armor",
+      "titan-s-shroud",
+      "turtle-armor",
+      "unstable-robes",
+      "verdant-robe",
+      "wither-armor",
+      "wolf-armor"
+    ],
+    "primaryOnly": [],
+    "secondaryOnly": [
+      {
+        "id": "ender-armor",
+        "name": "Ender Armor",
+        "classification": "arcade-only-unused-in-main-game",
+        "sourceIds": [
+          "minecraft-wiki-gear",
+          "minecraft-wiki-unused"
+        ]
+      },
+      {
+        "id": "vanguard-armor",
+        "name": "Vanguard Armor",
+        "classification": "mob-only",
+        "sourceIds": [
+          "minecraft-wiki-gear",
+          "minecraft-wiki-vanguard"
+        ]
+      }
+    ],
+    "projectPopulationDefinition": "Normalized union of the dungeons.tools 1.17.0.0 Armor index and the Minecraft Wiki 73-item known Armor display list. Includes hero-unobtainable Ender Armor and Vanguard Armor as research records; excludes conceptual file remnants not present in either reconciled list.",
+    "projectPopulationCount": 73,
+    "exhaustiveRawGameIdClaim": false,
+    "scopeExclusions": [
+      {
+        "id": "soul-mage-robe",
+        "reason": "Unused file-remnant concept documented by the Wiki but absent from both the 71-entry primary index and the Wiki 73-item known Gear list.",
+        "sourceIds": [
+          "minecraft-wiki-unused"
+        ]
+      }
+    ]
+  },
+  "entries": [
+    {
+      "id": "archer-s-armor",
+      "name": "Archer's Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ArchersStrappings_Unique1",
+      "family": "Hunter's Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "hunter-s-armor",
+        "inheritedProperties": [
+          "+10 arrows per bundle",
+          "+30% ranged Damage"
+        ],
+        "uniqueOnlyProperties": [
+          "15% movespeed aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "move-speed-aura",
+          "raw": "15% movespeed aura",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "arrows-per-bundle",
+          "raw": "+10 arrows per bundle",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "ranged-damage",
+          "raw": "+30% ranged Damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-ranged-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Movement has no current optimization objective.",
+        "Arrow economy has no ranged runtime objective.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "arctic-fox-armor",
+      "name": "Arctic Fox Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "WolfArmor_Winter1",
+      "family": "Wolf Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "wolf-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "Health potions heal nearby allies"
+        ],
+        "uniqueOnlyProperties": [
+          "30% chance to negate hits",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "battle-robe",
+      "name": "Battle Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BattleRobe",
+      "family": "Battle Robe",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "-40% artifact cooldown",
+          "+30% melee damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "artifact-cooldown",
+          "melee-damage"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "artifact-cooldown",
+            "subsystem": "Artifact/Potion cooldown"
+          },
+          {
+            "kind": "melee-damage",
+            "subsystem": "Damage"
+          }
+        ],
+        "majorBlocker": "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "runtimeReadiness": "needs-state-model",
+        "nextBatchCandidate": true
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "beehive-armor",
+      "name": "Beehive Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BeenestArmor_Unique1",
+      "family": "Beenest Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "beenest-armor",
+        "inheritedProperties": [
+          "30% chance to summon a bee when hit (max 3)",
+          "Health potions heal nearby allies"
+        ],
+        "uniqueOnlyProperties": [
+          "35% damage reduction"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "30% chance to summon a bee when hit (max 3)",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "beenest-armor",
+      "name": "Beenest Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BeenestArmor",
+      "family": "Beenest Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Health potions heal nearby allies",
+          "30% chance to summon a bee when hit (max 3)"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "30% chance to summon a bee when hit (max 3)",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "black-spot-armor",
+      "name": "Black Spot Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "NatureArmor_Unique1",
+      "family": "Root Rot Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Season 2",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "root-rot-armor",
+        "inheritedProperties": [
+          "Reset artifact cooldown on potion use",
+          "Health potions heal nearby allies"
+        ],
+        "uniqueOnlyProperties": [
+          "Create food on potion use"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Create food on potion use",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-reset-on-potion",
+          "raw": "Reset artifact cooldown on potion use",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "food-reserves",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "black-wolf-armor",
+      "name": "Black Wolf Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "WolfArmor_Unique2",
+      "family": "Wolf Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "wolf-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "Health potions heal nearby allies"
+        ],
+        "uniqueOnlyProperties": [
+          "Roll cooldown reduced"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-cooldown",
+          "raw": "Roll cooldown reduced",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "acrobat",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll cadence and opportunity cost are not modeled.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cauldron-armor",
+      "name": "Cauldron Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "FullPlateArmor_Spooky2",
+      "family": "Plate Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "plate-armor",
+        "inheritedProperties": [
+          "35% damage reduction"
+        ],
+        "uniqueOnlyProperties": [
+          "+30% melee damage",
+          "30% chance to negate damage",
+          "100% longer roll cooldown",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-cooldown",
+          "raw": "100% longer roll cooldown",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cave-crawler",
+      "name": "Cave Crawler",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SpelunkersArmor_Unique1",
+      "family": "Spelunker Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "spelunker-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "Gives you a pet bat"
+        ],
+        "uniqueOnlyProperties": [
+          "+50% artifact damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "Gives you a pet bat",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "champion-s-armor",
+      "name": "Champion's Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ChampionsArmor",
+      "family": "Champion's Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "-40% potion cooldown",
+          "Mobs target you more"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-cooldown",
+          "raw": "-40% potion cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "threat-modifier",
+          "raw": "Mobs target you more",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor potion cooldown ordering with base cooldown and Refreshment is not implemented.",
+        "Threat and party targeting are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "climbing-gear",
+      "name": "Climbing Gear",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ClimbingGear",
+      "family": "Climbing Gear",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "-40% artifact cooldown",
+          "75% Pushback resistance"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "75% Pushback resistance",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "cloaked-skull",
+      "name": "Cloaked Skull",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GhostArmor_Spooky2",
+      "family": "Ghostly Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "ghostly-armor",
+        "inheritedProperties": [
+          "Briefly gain Ghost Form when rolling",
+          "30% chance to negate hits"
+        ],
+        "uniqueOnlyProperties": [
+          "Spawns fire on roll",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Briefly gain Ghost Form when rolling",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Spawns fire on roll",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "fire-trail",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "dark-armor",
+      "name": "Dark Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "DarkArmor",
+      "family": "Dark Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "+50% souls gathered"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ember-robe",
+      "name": "Ember Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EvocationRobe_Unique1",
+      "family": "Evocation Robe",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "evocation-robe",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "+15% movespeed aura"
+        ],
+        "uniqueOnlyProperties": [
+          "Burns nearby enemies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Burns nearby enemies",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "move-speed-aura",
+          "raw": "+15% movespeed aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "burning",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "emerald-gear",
+      "name": "Emerald Gear",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EmeraldArmor",
+      "family": "Emerald Gear",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Chance to spawn emeralds when exploring.",
+          "+25% melee attack speed"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Chance to spawn emeralds when exploring.",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "lucky-explorer",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ender-armor",
+      "name": "Ender Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "CuriousArmor",
+      "family": "Guard's Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": false,
+      "availability": "arcade-only-unused-in-main-game",
+      "eventExclusive": false,
+      "contentPack": "Arcade",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "guard-s-armor",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "+10 arrows per bundle"
+        ],
+        "uniqueOnlyProperties": [
+          "5% chance to teleport when hit"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "5% chance to teleport when hit",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "minecraft-wiki-unused"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "unsupported-unobtainable",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "minecraft-wiki-gear"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "Not obtainable in Minecraft Dungeons; Arcade representation does not establish main-game runtime semantics."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "minecraft-wiki-gear",
+        "minecraft-wiki-unused"
+      ]
+    },
+    {
+      "id": "entertainer-s-garb",
+      "name": "Entertainer's Garb",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BardsGarb",
+      "family": "Entertainer's Garb",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Health potions heal nearby allies",
+          "+30% positive status effect duration"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "positive-status-duration",
+          "raw": "+30% positive status effect duration",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Status-duration ownership and eligible effects are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "evocation-robe",
+      "name": "Evocation Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EvocationRobe",
+      "family": "Evocation Robe",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "-40% artifact cooldown",
+          "+15% movespeed aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "move-speed-aura",
+          "raw": "+15% movespeed aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "artifact-cooldown",
+          "move-speed-aura"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "artifact-cooldown",
+            "subsystem": "Artifact/Potion cooldown"
+          },
+          {
+            "kind": "move-speed-aura",
+            "subsystem": "Objective/state"
+          }
+        ],
+        "majorBlocker": "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "runtimeReadiness": "needs-objective",
+        "nextBatchCandidate": false
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "fox-armor",
+      "name": "Fox Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "WolfArmor_Unique1",
+      "family": "Wolf Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "wolf-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "Health potions heal nearby allies"
+        ],
+        "uniqueOnlyProperties": [
+          "30% chance to negate hits"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "frost-armor",
+      "name": "Frost Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SnowArmor_Unique1",
+      "family": "Snow Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Creeping Winter",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "snow-armor",
+        "inheritedProperties": [
+          "35% Damage Reduction",
+          "50% Freezing Resistance"
+        ],
+        "uniqueOnlyProperties": [
+          "Emits a Chilling Aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Emits a Chilling Aura",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% Damage Reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "50% Freezing Resistance",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "chilling",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "frost-bite",
+      "name": "Frost Bite",
+      "gameVersion": "1.17.0.0",
+      "levelId": "PhantomArmor_Unique1",
+      "family": "Phantom Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "phantom-armor",
+        "inheritedProperties": [
+          "+50% souls gathered",
+          "+30% Ranged Damage"
+        ],
+        "uniqueOnlyProperties": [
+          "Spawns a snowy Companion"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "pet-or-summon",
+          "raw": "Spawns a snowy Companion",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "ranged-damage",
+          "raw": "+30% Ranged Damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "snowball",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "full-metal-armor",
+      "name": "Full Metal Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "FullPlateArmor_Unique1",
+      "family": "Plate Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "plate-armor",
+        "inheritedProperties": [
+          "30% chance to negate hits",
+          "35% damage reduction"
+        ],
+        "uniqueOnlyProperties": [
+          "+30% melee damage",
+          "100% increased rolling cooldown"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "100% increased rolling cooldown",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ghost-kindler",
+      "name": "Ghost Kindler",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GhostArmor_Unique1",
+      "family": "Cloaked Skull",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "cloaked-skull",
+        "inheritedProperties": [
+          "Spawns fire on roll",
+          "Briefly gain Ghost Form when rolling",
+          "30% chance to negate hits"
+        ],
+        "uniqueOnlyProperties": []
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Spawns fire on roll",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Briefly gain Ghost Form when rolling",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "fire-trail",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ghostly-armor",
+      "name": "Ghostly Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GhostArmor",
+      "family": "Ghostly Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Briefly gain Ghost Form when rolling",
+          "30% chance to negate hits"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Briefly gain Ghost Form when rolling",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll-triggered damage/control needs an event and position model.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "gilded-glory",
+      "name": "Gilded Glory",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EmeraldArmor_Unique2",
+      "family": "Emerald Gear",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "emerald-gear",
+        "inheritedProperties": [
+          "Chance to spawn emeralds when exploring",
+          "+25% melee attack speed"
+        ],
+        "uniqueOnlyProperties": [
+          "Can spend emeralds to cheat death"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Chance to spawn emeralds when exploring",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Can spend emeralds to cheat death",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "death-barter",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "enchantmentId": "lucky-explorer",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "glow-squid-armor",
+      "name": "Glow Squid Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SquidArmor_Unique1",
+      "family": "Squid Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Hidden Depths",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "squid-armor",
+        "inheritedProperties": [
+          "15% movespeed aura",
+          "Release an ink cloud when rolling"
+        ],
+        "uniqueOnlyProperties": [
+          "Brief invulnerability when rolling"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-invulnerability",
+          "raw": "Brief invulnerability when rolling",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "move-speed-aura",
+          "raw": "15% movespeed aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Release an ink cloud when rolling",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Incoming-hit timing during roll invulnerability is not modeled.",
+        "Movement has no current optimization objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "goat-gear",
+      "name": "Goat Gear",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ClimbingGear_Unique2",
+      "family": "Climbing Gear",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "climbing-gear",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "75% Pushback resistance"
+        ],
+        "uniqueOnlyProperties": [
+          "Grants an extra roll"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Grants an extra roll",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "75% Pushback resistance",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "multi-roll",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "golden-piglin-armor",
+      "name": "Golden Piglin Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "PiglinArmor_Unique1",
+      "family": "Piglin Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Flames of the Nether",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "piglin-armor",
+        "inheritedProperties": [
+          "Reset artifact cooldown on potion use",
+          "+50% artifact damage"
+        ],
+        "uniqueOnlyProperties": [
+          "Can get consumable on potion use"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Can get consumable on potion use",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-reset-on-potion",
+          "raw": "Reset artifact cooldown on potion use",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "surprise-gift",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "grim-armor",
+      "name": "Grim Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GrimArmor",
+      "family": "Grim Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+50% souls gathered",
+          "6% life steal aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "life-steal-aura",
+          "raw": "6% life steal aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "guard-s-armor",
+      "name": "Guard's Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "CowardsArmor",
+      "family": "Guard's Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "-40% artifact cooldown",
+          "+10 arrows per bundle"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "arrows-per-bundle",
+          "raw": "+10 arrows per bundle",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-ranged-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Arrow economy has no ranged runtime objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hero-s-armor",
+      "name": "Hero's Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ChampionsArmor_Unique1",
+      "family": "Champion's Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "champion-s-armor",
+        "inheritedProperties": [
+          "35% damage reduction",
+          "Mobs target you more"
+        ],
+        "uniqueOnlyProperties": [
+          "40% faster potion cooldown",
+          "Health potions heal nearby allies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-cooldown",
+          "raw": "40% faster potion cooldown",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "threat-modifier",
+          "raw": "Mobs target you more",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor potion cooldown ordering with base cooldown and Refreshment is not implemented.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Threat and party targeting are not modeled."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "damage-reduction",
+          "potion-cooldown",
+          "potion-heals-allies",
+          "threat-modifier"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "damage-reduction",
+            "subsystem": "Defense"
+          },
+          {
+            "kind": "potion-cooldown",
+            "subsystem": "Artifact/Potion cooldown"
+          },
+          {
+            "kind": "potion-heals-allies",
+            "subsystem": "Objective/state"
+          },
+          {
+            "kind": "threat-modifier",
+            "subsystem": "Objective/state"
+          }
+        ],
+        "majorBlocker": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "runtimeReadiness": "needs-party-model",
+        "nextBatchCandidate": false
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "highland-armor",
+      "name": "Highland Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ScaleMail_Unique1",
+      "family": "Scale Mail",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "scale-mail",
+        "inheritedProperties": [
+          "35% damage reduction",
+          "+30% melee damage"
+        ],
+        "uniqueOnlyProperties": [
+          "Gains Speed after Dodge"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Gains Speed after Dodge",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "swiftfooted",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hungriest-horror",
+      "name": "Hungriest Horror",
+      "gameVersion": "1.17.0.0",
+      "levelId": "MercenaryArmor_Spooky2",
+      "family": "Mercenary Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "mercenary-armor",
+        "inheritedProperties": [
+          "35% damage reduction",
+          "+20% weapon damage boost aura"
+        ],
+        "uniqueOnlyProperties": [
+          "+25% melee attack speed",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hungry-horror",
+      "name": "Hungry Horror",
+      "gameVersion": "1.17.0.0",
+      "levelId": "MercenaryArmor_Spooky1",
+      "family": "Mercenary Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "mercenary-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "35% damage reduction"
+        ],
+        "uniqueOnlyProperties": [
+          "+25% melee attack speed",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "hunter-s-armor",
+      "name": "Hunter's Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ArchersStrappings",
+      "family": "Hunter's Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+10 arrows per bundle",
+          "+30% ranged damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "arrows-per-bundle",
+          "raw": "+10 arrows per bundle",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "ranged-damage",
+          "raw": "+30% ranged damage",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-ranged-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Arrow economy has no ranged runtime objective.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "living-vines-armor",
+      "name": "Living Vines Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SproutArmor_Unique1",
+      "family": "Sprout Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Flames of the Nether",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "sprout-armor",
+        "inheritedProperties": [
+          "Health potions heal nearby allies",
+          "Traps and poisons nearby mobs when rolling"
+        ],
+        "uniqueOnlyProperties": [
+          "Reduced roll cooldown"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-cooldown",
+          "raw": "Reduced roll cooldown",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Traps and poisons nearby mobs when rolling",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "acrobat",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll cadence and opportunity cost are not modeled.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "mercenary-armor",
+      "name": "Mercenary Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "MercenaryArmor",
+      "family": "Mercenary Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "+20% weapon damage boost aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "mystery-armor",
+      "name": "Mystery Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "MysteryArmor",
+      "family": "Mystery Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Varies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Varies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": {
+        "fixedPropertySet": false,
+        "actualIntrinsicRollsRequired": true,
+        "note": "An owned instance must preserve its actual positive and optional negative property rolls."
+      },
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "nimble-turtle-armor",
+      "name": "Nimble Turtle Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "TurtleArmor_Unique1",
+      "family": "Turtle Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Hidden Depths",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "turtle-armor",
+        "inheritedProperties": [
+          "35% damage reduction",
+          "25% healing boost"
+        ],
+        "uniqueOnlyProperties": [
+          "Boost speed after hit"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Boost speed after hit",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "25% healing boost",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "rush",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "ocelot-armor",
+      "name": "Ocelot Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "OcelotArmor",
+      "family": "Ocelot Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Jungle Awakens",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "50% faster roll",
+          "35% damage reduction"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-speed",
+          "raw": "50% faster roll",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll animation and objective value are not modeled.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "opulent-armor",
+      "name": "Opulent Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EmeraldArmor_Unique1",
+      "family": "Emerald Gear",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "emerald-gear",
+        "inheritedProperties": [
+          "+25% melee attack speed",
+          "Chance to spawn emeralds when exploring"
+        ],
+        "uniqueOnlyProperties": [
+          "Brief damage immunity when collects an emerald"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Brief damage immunity when collects an emerald",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Chance to spawn emeralds when exploring",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "emerald-shield",
+          "tier": 1,
+          "classification": "intrinsic-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "enchantmentId": "lucky-explorer",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "phantom-armor",
+      "name": "Phantom Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "PhantomArmor",
+      "family": "Phantom Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+50% Souls Gathered",
+          "+30% ranged damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% Souls Gathered",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "ranged-damage",
+          "raw": "+30% ranged damage",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-ranged-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Ranged damage runtime is outside the current optimizer catalog."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "piglin-armor",
+      "name": "Piglin Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "PiglinArmor",
+      "family": "Piglin Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Flames of the Nether",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Reset artifact cooldown on potion use",
+          "+50% artifact damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-reset-on-potion",
+          "raw": "Reset artifact cooldown on potion use",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "plate-armor",
+      "name": "Plate Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "FullPlateArmor",
+      "family": "Plate Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "30% chance to negate hits",
+          "35% damage reduction",
+          "100% increased roll cooldown"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-cooldown",
+          "raw": "100% increased roll cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "reinforced-mail",
+      "name": "Reinforced Mail",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ReinforcedMail",
+      "family": "Reinforced Mail",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% Damage reduction",
+          "30% Chance to negate hits",
+          "100% longer roll cooldown"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% Damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% Chance to negate hits",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-cooldown",
+          "raw": "100% longer roll cooldown",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "renegade-armor",
+      "name": "Renegade Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "MercenaryArmor_Unique1",
+      "family": "Mercenary Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "mercenary-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "35% Damage reduction"
+        ],
+        "uniqueOnlyProperties": [
+          "+25% melee attack speed"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% Damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "melee-attack-speed",
+          "weapon-damage-aura",
+          "damage-reduction"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "melee-attack-speed",
+            "subsystem": "Damage"
+          },
+          {
+            "kind": "weapon-damage-aura",
+            "subsystem": "Damage"
+          },
+          {
+            "kind": "damage-reduction",
+            "subsystem": "Defense"
+          }
+        ],
+        "majorBlocker": "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "runtimeReadiness": "needs-state-model",
+        "nextBatchCandidate": true
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "root-rot-armor",
+      "name": "Root Rot Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "NatureArmor",
+      "family": "Root Rot Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Season 2",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Reset Artifact cooldown on potion use",
+          "Health potions heal nearby allies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-reset-on-potion",
+          "raw": "Reset Artifact cooldown on potion use",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Potion-use to Artifact-reset feedback needs event scheduling.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "rugged-climbing-gear",
+      "name": "Rugged Climbing Gear",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ClimbingGear_Unique1",
+      "family": "Climbing Gear",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Howling Peaks",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "climbing-gear",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "75% Pushback resistance"
+        ],
+        "uniqueOnlyProperties": [
+          "Environmental damage resistance",
+          "50% Freezing resistance"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "Environmental damage resistance",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "50% Freezing resistance",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "75% Pushback resistance",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "environmental-protection",
+          "tier": 1,
+          "classification": "intrinsic-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Environmental and displacement resistance has no current objective.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "scale-mail",
+      "name": "Scale Mail",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ScaleMail",
+      "family": "Scale Mail",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "+30% melee damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "shadow-walker",
+      "name": "Shadow Walker",
+      "gameVersion": "1.17.0.0",
+      "levelId": "OcelotArmor_Unique1",
+      "family": "Ocelot Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Jungle Awakens",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "ocelot-armor",
+        "inheritedProperties": [
+          "50% faster roll",
+          "35% damage reduction"
+        ],
+        "uniqueOnlyProperties": [
+          "Brief invulnerability when rolling"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-invulnerability",
+          "raw": "Brief invulnerability when rolling",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-speed",
+          "raw": "50% faster roll",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Incoming-hit timing during roll invulnerability is not modeled.",
+        "Roll animation and objective value are not modeled.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "shulker-armor",
+      "name": "Shulker Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ShulkerArmor",
+      "family": "Shulker Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Mobs target you more",
+          "Deflect enemy projectiles",
+          "Take less damage when swarmed"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "threat-modifier",
+          "raw": "Mobs target you more",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Deflect enemy projectiles",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Take less damage when swarmed",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "deflect",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "enchantmentId": "thrive-under-pressure-mob",
+          "tier": 1,
+          "classification": "intrinsic-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Threat and party targeting are not modeled.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "snow-armor",
+      "name": "Snow Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SnowArmor",
+      "family": "Snow Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Creeping Winter",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% Damage Reduction",
+          "50% Freezing Resistance"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% Damage Reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "environment-damage-reduction",
+          "raw": "50% Freezing Resistance",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Environmental and displacement resistance has no current objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "soul-robe",
+      "name": "Soul Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SoulRobe",
+      "family": "Soul Robe",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+50% soul gathering",
+          "+50% artifact damage."
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% soul gathering",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage.",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "souldancer-robe",
+      "name": "Souldancer Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SoulRobe_Unique1",
+      "family": "Soul Robe",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "soul-robe",
+        "inheritedProperties": [
+          "+50% soul gathering",
+          "+50% artifact damage"
+        ],
+        "uniqueOnlyProperties": [
+          "30% chance to negate hits"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% chance to negate hits",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% soul gathering",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "spelunker-armor",
+      "name": "Spelunker Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SpelunkersArmor",
+      "family": "Spelunker Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+20% weapon damage boost aura",
+          "Gives you a pet bat"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "Gives you a pet bat",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "spider-armor",
+      "name": "Spider Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "AssassinArmor_Unique1",
+      "family": "Thief Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "thief-armor",
+        "inheritedProperties": [
+          "25% melee attack speed"
+        ],
+        "uniqueOnlyProperties": [
+          "6% life steal aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-attack-speed",
+          "raw": "25% melee attack speed",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "life-steal-aura",
+          "raw": "6% life steal aura",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "splendid-robe",
+      "name": "Splendid Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BattleRobe_Unique1",
+      "family": "Battle Robe",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "battle-robe",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "+30% melee damage"
+        ],
+        "uniqueOnlyProperties": [
+          "+50% artifact damage"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "melee-damage",
+          "raw": "+30% melee damage",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "artifact-damage",
+          "artifact-cooldown",
+          "melee-damage"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "artifact-damage",
+            "subsystem": "Damage"
+          },
+          {
+            "kind": "artifact-cooldown",
+            "subsystem": "Artifact/Potion cooldown"
+          },
+          {
+            "kind": "melee-damage",
+            "subsystem": "Damage"
+          }
+        ],
+        "majorBlocker": "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "runtimeReadiness": "needs-state-model",
+        "nextBatchCandidate": false
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sprout-armor",
+      "name": "Sprout Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SproutArmor",
+      "family": "Sprout Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Flames of the Nether",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Health potions heal nearby allies",
+          "Traps and poisons nearby mobs when rolling"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Traps and poisons nearby mobs when rolling",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "squid-armor",
+      "name": "Squid Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SquidArmor",
+      "family": "Squid Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Hidden Depths",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "15% movespeed aura",
+          "Release an ink cloud when rolling"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "move-speed-aura",
+          "raw": "15% movespeed aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Release an ink cloud when rolling",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Movement has no current optimization objective.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "stalwart-armor",
+      "name": "Stalwart Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ReinforcedMail_Unique1",
+      "family": "Reinforced Mail",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "reinforced-mail",
+        "inheritedProperties": [
+          "35% Damage reduction",
+          "30% Chance to negate hits",
+          "100% longer roll cooldown"
+        ],
+        "uniqueOnlyProperties": [
+          "Potion use boosts Defense"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Potion use boosts Defense",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "damage-reduction",
+          "raw": "35% Damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "chance-to-negate-hit",
+          "raw": "30% Chance to negate hits",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-cooldown",
+          "raw": "100% longer roll cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "potion-barrier",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Hit-negation needs discrete incoming-hit semantics rather than expected scalar DR.",
+        "Roll cadence and opportunity cost are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sturdy-shulker-armor",
+      "name": "Sturdy Shulker Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "ShulkerArmor_Unique1",
+      "family": "Shulker Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "shulker-armor",
+        "inheritedProperties": [
+          "Mobs target you more",
+          "Deflect enemy projectiles",
+          "Take less damage when swarmed"
+        ],
+        "uniqueOnlyProperties": [
+          "Fire shulker projectiles at nearby enemies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "threat-modifier",
+          "raw": "Mobs target you more",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Deflect enemy projectiles",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "Take less damage when swarmed",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "Fire shulker projectiles at nearby enemies",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "deflect",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "enchantmentId": "thrive-under-pressure-mob",
+          "tier": 1,
+          "classification": "intrinsic-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Threat and party targeting are not modeled.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "sweet-tooth",
+      "name": "Sweet Tooth",
+      "gameVersion": "1.17.0.0",
+      "levelId": "SpelunkersArmor_Year1",
+      "family": "Spelunker Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "spelunker-armor",
+        "inheritedProperties": [
+          "+20% weapon damage boost aura",
+          "Gives you a pet bat"
+        ],
+        "uniqueOnlyProperties": [
+          "+50% artifact damage",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "artifact-damage",
+          "raw": "+50% artifact damage",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "pet-or-summon",
+          "raw": "Gives you a pet bat",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-pet-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Most Artifact damage remains research-only, so this bonus cannot be scored meaningfully.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Pet/summon lifetime, cap, targeting, and damage are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "teleportation-robes",
+      "name": "Teleportation Robes",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EndRobes",
+      "family": "Teleportation Robes",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "Roll to Teleport",
+          "+50% souls gathered"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-teleport",
+          "raw": "Roll to Teleport",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll teleport has no position/state model.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "the-spooky-gourdian",
+      "name": "The Spooky Gourdian",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GrimArmor_Spooky2",
+      "family": "Grim Armor",
+      "rarity": "unique",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "seasonal-event",
+      "eventExclusive": true,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "grim-armor",
+        "inheritedProperties": [
+          "+50% souls gathered",
+          "6% life steal aura"
+        ],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "Special Event Item"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "life-steal-aura",
+          "raw": "6% life steal aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "the-troubadour",
+      "name": "The Troubadour",
+      "gameVersion": "1.17.0.0",
+      "levelId": "BardsGarb_Unique1",
+      "family": "Entertainer's Garb",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": "entertainer-s-garb",
+        "inheritedProperties": [
+          "Health potions heal nearby allies",
+          "+30% positive status effect duration"
+        ],
+        "uniqueOnlyProperties": [
+          "-30% negative status effect duration"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "-30% negative status effect duration",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "positive-status-duration",
+          "raw": "+30% positive status effect duration",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "Party healing must not be credited to the solo hero objective.",
+        "Status-duration ownership and eligible effects are not modeled."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "thief-armor",
+      "name": "Thief Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "AssassinArmor",
+      "family": "Thief Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+25% melee attack speed"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "melee-attack-speed",
+          "raw": "+25% melee attack speed",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "titan-s-shroud",
+      "name": "Titan's Shroud",
+      "gameVersion": "1.17.0.0",
+      "levelId": "DarkArmor_Unique1",
+      "family": "Dark Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "dark-armor",
+        "inheritedProperties": [
+          "35% damage reduction",
+          "+50% souls gathered"
+        ],
+        "uniqueOnlyProperties": [
+          "+20% weapon damage boost aura"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "turtle-armor",
+      "name": "Turtle Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "TurtleArmor",
+      "family": "Turtle Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Hidden Depths",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "35% damage reduction",
+          "25% healing boost"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "other",
+          "raw": "25% healing boost",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "The intrinsic property lacks a supported runtime mechanic family."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "unstable-robes",
+      "name": "Unstable Robes",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EndRobes_Unique1",
+      "family": "Teleportation Robes",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Echoing Void",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "teleportation-robes",
+        "inheritedProperties": [
+          "Roll to Teleport",
+          "+50% souls gathered"
+        ],
+        "uniqueOnlyProperties": [
+          "Trigger explosion on rolling impact"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "roll-teleport",
+          "raw": "Roll to Teleport",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "roll-damage-or-control",
+          "raw": "Trigger explosion on rolling impact",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-roll-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Roll teleport has no position/state model.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Roll-triggered damage/control needs an event and position model."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "vanguard-armor",
+      "name": "Vanguard Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "DesertArmor",
+      "family": "Vanguard Armor",
+      "rarity": "common",
+      "sourceRarity": "unobtainable",
+      "obtainable": false,
+      "availability": "mob-only",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": []
+      },
+      "intrinsicProperties": [],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "unsupported-unobtainable",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "minecraft-wiki-gear"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "research-only",
+      "blockers": [
+        "Mob equipment model is not a hero-obtainable Armor definition."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "minecraft-wiki-gear",
+        "minecraft-wiki-vanguard"
+      ]
+    },
+    {
+      "id": "verdant-robe",
+      "name": "Verdant Robe",
+      "gameVersion": "1.17.0.0",
+      "levelId": "EvocationRobe_Unique2",
+      "family": "Evocation Robe",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "evocation-robe",
+        "inheritedProperties": [
+          "-40% artifact cooldown",
+          "+15% movespeed aura"
+        ],
+        "uniqueOnlyProperties": [
+          "Increase maximum souls",
+          "+2 Soul Gathering"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "other",
+          "raw": "Increase maximum souls",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "artifact-cooldown",
+          "raw": "-40% artifact cooldown",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "move-speed-aura",
+          "raw": "+15% movespeed aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+2 Soul Gathering",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [
+        {
+          "enchantmentId": "bag-of-souls",
+          "tier": 1,
+          "classification": "armor-enchantment",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-objective",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "The intrinsic property lacks a supported runtime mechanic family.",
+        "External Scenario, armor intrinsic, Cool Down enchantment, and future Cooldown Shot sources need separate cooldown ownership.",
+        "Movement has no current optimization objective.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "wither-armor",
+      "name": "Wither Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "GrimArmor_Unique1",
+      "family": "Grim Armor",
+      "rarity": "unique",
+      "sourceRarity": "unique",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": true,
+      "inheritance": {
+        "baseArmorId": "grim-armor",
+        "inheritedProperties": [
+          "+50% souls gathered",
+          "6% life steal aura"
+        ],
+        "uniqueOnlyProperties": [
+          "35% damage reduction"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "life-steal-aura",
+          "raw": "6% life steal aura",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-state-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+      ],
+      "deepAudit": {
+        "intrinsicPropertyKinds": [
+          "damage-reduction",
+          "soul-gathering",
+          "life-steal-aura"
+        ],
+        "subsystemReuse": [
+          {
+            "kind": "damage-reduction",
+            "subsystem": "Defense"
+          },
+          {
+            "kind": "soul-gathering",
+            "subsystem": "Soul"
+          },
+          {
+            "kind": "life-steal-aura",
+            "subsystem": "Healing"
+          }
+        ],
+        "majorBlocker": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+        "runtimeReadiness": "needs-state-model",
+        "nextBatchCandidate": true
+      },
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    },
+    {
+      "id": "wolf-armor",
+      "name": "Wolf Armor",
+      "gameVersion": "1.17.0.0",
+      "levelId": "WolfArmor",
+      "family": "Wolf Armor",
+      "rarity": "common",
+      "sourceRarity": "common",
+      "obtainable": true,
+      "availability": "main-game",
+      "eventExclusive": false,
+      "contentPack": "Base Game",
+      "soulGear": false,
+      "inheritance": {
+        "baseArmorId": null,
+        "inheritedProperties": [],
+        "uniqueOnlyProperties": [
+          "+20% weapon damage boost aura",
+          "Health potions heal nearby allies"
+        ]
+      },
+      "intrinsicProperties": [
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "potion-heals-allies",
+          "raw": "Health potions heal nearby allies",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "healthEvidence": {
+        "policy": "observed-health-required",
+        "publishedCurveSupported": false,
+        "sourceIds": [
+          "wiki-hero-armor-health",
+          "reddit-same-power-health"
+        ]
+      },
+      "mysteryArmor": null,
+      "runtimeReadiness": "needs-party-model",
+      "blockers": [
+        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+        "Party healing must not be credited to the solo hero objective."
+      ],
+      "deepAudit": null,
+      "sourceIds": [
+        "dungeons-tools-armor-index",
+        "minecraft-wiki-gear"
+      ]
+    }
+  ]
+}

@@ -25,7 +25,9 @@
     "audit:artifact-soul": "node scripts/audit-artifact-soul.ts",
     "audit:artifact-event": "node scripts/audit-artifact-event-healing-control.ts",
     "research:artifact-evidence": "node scripts/research-artifact-evidence.ts",
-    "audit:artifact-evidence": "node scripts/audit-artifact-evidence.ts"
+    "audit:artifact-evidence": "node scripts/audit-artifact-evidence.ts",
+    "audit:armor": "node scripts/audit-armor.ts",
+    "audit:armor-enchants": "node scripts/audit-armor-enchants.ts"
   },
   "dependencies": {
     "react": "19.2.6",
