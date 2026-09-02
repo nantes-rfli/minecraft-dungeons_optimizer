@@ -122,13 +122,46 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       add('renegade-runtime-boundary', 'Renegade Armorの単独speed bucketとself aura ownership', 'low', 2)
       caveats.push('Renegade Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。+20% auraはselfのdirect meleeだけへ適用します。')
     }
+    if (armor.id === 'mercenary-armor') {
+      add('mercenary-aura-ownership', 'Mercenary Armorのself aura ownership', 'low', 2)
+      caveats.push('Mercenary Armorの+20% weapon damage auraはselfのdirect meleeだけへ適用し、party支援や間接damageへ一般化しません。')
+    }
+    if (armor.id === 'scale-mail') {
+      add('scale-mail-direct-melee', 'Scale Mailのdirect melee境界', 'medium', 2)
+      caveats.push('Scale Mailの+30% melee damageはdirect meleeだけへ適用し、proc・DoT・爆発へ継承しません。')
+    }
+    if (armor.id === 'spider-armor') {
+      add('spider-runtime-boundary', 'Spider Armorの単独speed bucketとLife Steal対象channel', 'low', 2)
+      caveats.push('Spider Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。Life Stealはdirect melee AoE damageだけの名目回復容量です。')
+    }
     if (armor.id === 'wither-armor') {
       add('wither-life-steal-eligibility', 'Wither ArmorのLife Steal対象channel', 'low', 2)
       caveats.push('Wither ArmorのLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。')
     }
+    if (armor.id === 'grim-armor') {
+      add('grim-life-steal-eligibility', 'Grim ArmorのLife Steal対象channel', 'low', 2)
+      caveats.push('Grim ArmorのLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。')
+    }
+    const armorEnchantments = new Set(build.armorEnchantments?.map((item) => item.enchantmentId))
     if (build.armorEnchantments?.some((item) => item.enchantmentId === 'chilling')) {
       add('chilling-periodic-target-model', 'Chillingの周期・対象割合model', 'low', 2)
       caveats.push('Chillingは1秒/2秒のsteady-state周期と対象割合によるControl近似です。移動objectiveとDefenseへは換算しません。')
+    }
+    if (armorEnchantments.has('health-synergy')) {
+      add('health-synergy-activation-model', 'Health Synergyの実現Artifact発動頻度model', 'medium', 2)
+      caveats.push('Health Synergyは実現したArtifact activation rate × 解決済み最大HP × Tier率の名目回復容量です。overhealや個別発動時系列は再現しません。')
+    }
+    if (armorEnchantments.has('snowball')) {
+      add('snowball-single-target-model', 'Snowballの周期・1対象model', 'low', 2)
+      caveats.push('Snowballは2秒stunをTier別周期で1対象へ与えるsteady-state Control近似です。boss適用割合は初期0で、DPSやDefenseへ換算しません。')
+    }
+    if (armorEnchantments.has('cowardice')) {
+      add('cowardice-full-health-share', 'Cowardiceの満タン時間割合', 'low', 3)
+      caveats.push('Cowardiceはユーザー指定の満タン時間割合で期待値化し、direct meleeだけへ適用します。HP時系列や間接damageへの継承は扱いません。')
+    }
+    if (armorEnchantments.has('protection')) {
+      add('protection-sole-source', 'Protectionの単独DR境界', 'medium', 2)
+      caveats.push('Protectionは単独DR sourceの場合だけ6/11/15%を適用し、Armor DR・Potion Barrier・Iron Hide・Guarding Strike・Weakeningとの組合せを除外します。')
     }
   } else {
     addEvidence('maximum-health', '最大HP', DEFAULT_SCENARIO_EVIDENCE.maxHealth)

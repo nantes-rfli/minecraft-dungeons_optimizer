@@ -1,6 +1,11 @@
 import auditJson from '../../research/armor-enchantment-audit.json'
 
 export const ARMOR_ENCHANTMENT_AUDIT = auditJson
+export const ARMOR_ENCHANTMENT_REFERENCE_CATALOG = Object.fromEntries(
+  ARMOR_ENCHANTMENT_AUDIT.entries.map((entry) => [entry.id, entry]),
+) as Readonly<Record<string, (typeof ARMOR_ENCHANTMENT_AUDIT.entries)[number]>>
+export const ARMOR_ENCHANTMENT_REFERENCE_IDS = ARMOR_ENCHANTMENT_AUDIT.entries.map((entry) => entry.id)
+export const isAuditedArmorEnchantmentId = (id: string): boolean => Object.hasOwn(ARMOR_ENCHANTMENT_REFERENCE_CATALOG, id)
 export const ARMOR_ENCHANTMENT_FAMILIES = ['defense', 'healing', 'cooldown', 'damage-modifier', 'control', 'roll', 'soul', 'pet', 'potion', 'economy', 'utility', 'other'] as const
 export const ARMOR_ENCHANTMENT_READINESS = ['ready', 'ready-with-limits', 'needs-state-model', 'needs-damage-event-model', 'needs-roll-model', 'needs-pet-model', 'needs-objective', 'utility-only', 'research-only'] as const
 

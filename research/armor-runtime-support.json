@@ -445,13 +445,15 @@
     {
       "id": "grim-armor",
       "name": "Grim Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
-        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+50% souls multiplies existing flat Gathering units by 1.5 without creating Soul collection or pickup events.",
+        "6% Life Steal credits modeled direct melee AoE damage only."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Soul Siphon composition is unsupported; ranged, Artifact, proc, DoT, and explosion Life Steal are excluded."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -571,13 +573,15 @@
     {
       "id": "mercenary-armor",
       "name": "Mercenary Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+20% weapon damage aura applies to the self direct melee channel only.",
+        "35% Armor DR is supported as the only active DR source."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Other DR sources are unsupported; ranged, proc, DoT, explosion, and party aura effects are excluded."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -755,13 +759,15 @@
     {
       "id": "scale-mail",
       "name": "Scale Mail",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Armor melee-damage ownership and additive/multiplicative stage are unresolved."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+30% applies to modeled direct melee only; proc, DoT, and explosions are excluded.",
+        "35% Armor DR is supported as the only active DR source."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection combinations are unsupported."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -862,13 +868,15 @@
     {
       "id": "spider-armor",
       "name": "Spider Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+25% melee attack speed applies to cadence as a sole Armor speed source.",
+        "6% Life Steal credits modeled direct melee AoE damage after the cadence increase."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Death Cap Mushroom and Rampaging speed compositions are unsupported; non-direct-melee Life Steal is excluded."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -1143,22 +1151,30 @@
     }
   ],
   "nextBatch": {
-    "phase": "Phase 2-3B — Armor Core Runtime Batch",
+    "phase": "Phase 2-3C — Armor Expansion & State Enchant Batch",
     "armorIds": [
       "battle-robe",
       "renegade-armor",
-      "wither-armor"
+      "wither-armor",
+      "mercenary-armor",
+      "grim-armor",
+      "scale-mail",
+      "spider-armor"
     ],
     "armorEnchantmentIds": [
       "cool-down",
       "potion-barrier",
-      "chilling"
+      "chilling",
+      "health-synergy",
+      "snowball",
+      "cowardice",
+      "protection"
     ],
     "optimizerEstimate": {
       "currentMeleeCandidates": 28,
-      "proposedArmorCandidates": 3,
+      "proposedArmorCandidates": 7,
       "proposedArmorEnchantLoadoutsPerArmor": "bounded explicit inventory rolls only",
-      "multiplierBeforeArtifacts": 3,
+      "multiplierBeforeArtifacts": 7,
       "note": "Do not enumerate the theoretical 41-enchantment cross product; search owned Armor instances and legal fixed slot candidates."
     }
   }

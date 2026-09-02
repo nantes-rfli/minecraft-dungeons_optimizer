@@ -34,8 +34,10 @@ export function calculateDefense(
     ? Math.min(1, ARMOR_ENCHANTMENTS['potion-barrier'].tiers[barrier.tier] / potionState.effectiveCooldownSeconds)
     : 0
   const potionBarrierDamageTakenMultiplier = 1 - 0.9 * potionBarrierCoverage
+  const protection = armorState?.selectedEnchantments.find((item) => item.enchantmentId === 'protection')
+  const protectionDamageTakenMultiplier = protection ? 1 - ARMOR_ENCHANTMENTS.protection.tiers[protection.tier] : 1
   const damageTakenMultiplier =
-    enemyDebuffs.weakeningEnemyDamageMultiplier * artifactEffects.damageTakenMultiplier * guardingDamageMultiplier * armorDamageTakenMultiplier * potionBarrierDamageTakenMultiplier
+    enemyDebuffs.weakeningEnemyDamageMultiplier * artifactEffects.damageTakenMultiplier * guardingDamageMultiplier * armorDamageTakenMultiplier * potionBarrierDamageTakenMultiplier * protectionDamageTakenMultiplier
   const damageTakenPerSecond = scenario.incomingDamagePerSecond * damageTakenMultiplier
 
   return {
@@ -49,5 +51,6 @@ export function calculateDefense(
     effectiveHealth: resolvedMaxHealth / damageTakenMultiplier,
     ...(armorState ? { armorDamageTakenMultiplier } : {}),
     ...(barrier ? { potionBarrierCoverage } : {}),
+    ...(protection ? { protectionDamageTakenMultiplier } : {}),
   }
 }

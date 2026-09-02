@@ -49,7 +49,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario, build)
   const { damage, combatState, temporalState, soulState, armorState } = resolveOffensiveSteadyState(build, scenario, artifactEffects)
   const potionState = derivePotionState(build.enchantments, combatState, scenario, resolvedMaxHealth)
-  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState, resolvedMaxHealth, armorState?.lifeStealFraction ?? 0)
+  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState, resolvedMaxHealth, armorState?.lifeStealFraction ?? 0, build.armorEnchantments, temporalState.artifactActivation)
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario, armorState, potionState, resolvedMaxHealth)
   const artifactControl = deriveArtifactControlState(build.artifacts, scenario, build)
   const control = calculateControl(build, scenario, temporalState.attackSpeedMultiplier, damage.hitsPerSecond, artifactControl)
@@ -120,15 +120,11 @@ function calculateContributions(
     const withoutEffect = calculateCore({ ...build, artifacts }, scenario)
     return toContribution('artifact', artifact.artifactId, baseline, withoutEffect)
   })
-  const armorContributions = build.armor ? [toContribution(
-    'armor', build.armor.armorId as ArmorId, baseline,
-    calculateCore({ ...build, armor: undefined, armorEnchantments: undefined }, scenario),
-  )] : []
   const armorEnchantmentContributions = (build.armorEnchantments ?? []).map((selected, index) => {
     const armorEnchantments = build.armorEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return toContribution('armor-enchantment', selected.enchantmentId, baseline, calculateCore({ ...build, armorEnchantments }, scenario))
   })
-  return [...enchantmentContributions, ...artifactContributions, ...armorContributions, ...armorEnchantmentContributions].sort(
+  return [...enchantmentContributions, ...artifactContributions, ...armorEnchantmentContributions].sort(
     (left, right) => right.objectiveDelta - left.objectiveDelta,
   )
 }
@@ -147,7 +143,8 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   if (core.armorState) {
     const armor = ARMORS[core.armorState.armorId]
     reasons.push(`${armor.name.en}: Base Hero 100 + Armor Health ${core.armorState.observedHealthBonus.toLocaleString('en-US')} → Max Health ${core.armorState.finalMaxHealth.toLocaleString('en-US')}`)
-    if (armor.directMeleeDamageBonus > 0) reasons.push(`${armor.name.en}: direct melee damage +${armor.directMeleeDamageBonus * 100}%（proc・DoT・on-kill explosionへ適用しない）`)
+    if (armor.meleeDamageBonus > 0) reasons.push(`${armor.name.en}: direct melee damage +${armor.meleeDamageBonus * 100}%（proc・DoT・on-kill explosionへ適用しない）`)
+    if (armor.weaponDamageAuraBonus > 0) reasons.push(`${armor.name.en}: self direct meleeへのweapon damage aura +${armor.weaponDamageAuraBonus * 100}%（ranged・proc・DoT・爆発は未評価）`)
     if (armor.meleeAttackSpeedBonus > 0) reasons.push(`${armor.name.en}: melee attack speed +${armor.meleeAttackSpeedBonus * 100}%をattack cadenceへ適用`)
     if (armor.armorDamageReduction > 0) reasons.push(`${armor.name.en}: Armor DR ${armor.armorDamageReduction * 100}%（他DRとの未検証組合せはreject）`)
     if (armor.artifactCooldownReduction > 0) reasons.push(`${armor.name.en}: Artifact cooldown -${armor.artifactCooldownReduction * 100}% → cooldown multiplier ${core.armorState.artifactCooldown.effectiveCooldownMultiplier.toFixed(2)}`)
@@ -156,6 +153,12 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
     const coolDown = core.armorState.selectedEnchantments.find((item) => item.enchantmentId === 'cool-down')
     if (coolDown) reasons.push(`Cool Down ${['I', 'II', 'III'][coolDown.tier - 1]}: Artifact cooldown -${ARMOR_ENCHANTMENTS['cool-down'].tiers[coolDown.tier] * 100}%（1copy限定）`)
     if (core.defense.potionBarrierCoverage !== undefined) reasons.push(`Potion Barrier: PotionState CD ${core.potionState.effectiveCooldownSeconds.toFixed(2)}秒 → 90% DR coverage ${(core.defense.potionBarrierCoverage * 100).toFixed(2)}%`)
+    const healthSynergy = core.armorState.selectedEnchantments.find((item) => item.enchantmentId === 'health-synergy')
+    if (healthSynergy) reasons.push(`Health Synergy ${['I', 'II', 'III'][healthSynergy.tier - 1]}: realized Artifact activation ${core.temporalState.artifactActivation.totalActivationsPerSecond.toFixed(3)}回/秒 × Max Health ${core.armorState.finalMaxHealth.toFixed(0)} × ${(ARMOR_ENCHANTMENTS['health-synergy'].tiers[healthSynergy.tier] * 100).toFixed(0)}% = 回復容量 ${(core.healing.healthSynergyCapacityPerSecond ?? 0).toFixed(3)}/秒（overhealを差し引かない名目容量）`)
+    const cowardice = core.armorState.selectedEnchantments.find((item) => item.enchantmentId === 'cowardice')
+    if (cowardice) reasons.push(`Cowardice ${['I', 'II', 'III'][cowardice.tier - 1]}: 満タンHP時間割合${((scenario.cowardiceFullHealthShare ?? 0) * 100).toFixed(0)}% → direct melee期待倍率${core.damage.cowardiceExpectedMultiplier?.toFixed(3)}倍（proc・DoT・爆発は不変）`)
+    const protection = core.armorState.selectedEnchantments.find((item) => item.enchantmentId === 'protection')
+    if (protection) reasons.push(`Protection ${['I', 'II', 'III'][protection.tier - 1]}: 唯一のDR sourceとしてdamage taken ×${core.defense.protectionDamageTakenMultiplier?.toFixed(2)}（他DRとの組合せはreject）`)
   }
   reasons.push(...describeChargeConsume(core))
   const weapon = getWeaponDefinition(build.weapon.weaponId)

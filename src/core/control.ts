@@ -28,6 +28,7 @@ export function validateControlAssumptions(scenario: Scenario): void {
     const value = scenario.crowdControl?.[key]
     if (value !== undefined) bounded(`crowdControl.${key}`, value, 0, 1)
   }
+  if (scenario.crowdControl?.snowballEligibleTargetShare !== undefined) bounded('crowdControl.snowballEligibleTargetShare', scenario.crowdControl.snowballEligibleTargetShare, 0, 1)
   for (const key of ['chainsExpectedTargetsPerProc', 'gravityExpectedTargetsPerHit'] as const) {
     bounded(`crowdControl.${key}`, scenario.crowdControl?.[key], 1, scenario.averageTargetsInReach)
   }
@@ -88,18 +89,39 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
     affectedTargetShare: scenario.crowdControl.chillingAffectedTargetShare ?? 0.5,
     attackSlowEquivalentCoverage: unit(0.5 * ARMOR_ENCHANTMENTS.chilling.tiers[chillingEnchant.tier] * (scenario.crowdControl.chillingEligibleTargetShare ?? 0.5) * (scenario.crowdControl.chillingAffectedTargetShare ?? 0.5)),
   } : undefined
+  const snowballEnchant = build.armorEnchantments?.find((item) => item.enchantmentId === 'snowball')
+  const snowball = snowballEnchant ? (() => {
+    const triggerIntervalSeconds = ARMOR_ENCHANTMENTS.snowball.tiers[snowballEnchant.tier]
+    const temporalCoverage = unit(2 / triggerIntervalSeconds)
+    const affectedTargetFraction = Math.min(1, 1 / scenario.averageTargetsInReach)
+    const eligibleTargetShare = scenario.crowdControl.snowballEligibleTargetShare ?? (scenario.profileId === 'boss' ? 0 : 1)
+    return {
+      tier: snowballEnchant.tier,
+      triggerIntervalSeconds,
+      stunDurationSeconds: 2 as const,
+      temporalCoverage,
+      affectedTargetFraction,
+      eligibleTargetShare,
+      hardDisableCoverage: unit(temporalCoverage * affectedTargetFraction * eligibleTargetShare),
+      targetModel: 'one-target-conservative' as const,
+      timeModel: 'steady-state-periodic' as const,
+    }
+  })() : undefined
   const weaponAttackSlow = freezing?.attackSlowEquivalentCoverage ?? 0
   const armorAttackSlow = chilling?.attackSlowEquivalentCoverage ?? 0
   const metrics = {
-    hardDisableCoverage: artifactControl
-      ? unit(1 - (1 - weaponHardDisableCoverage) * (1 - artifactHardDisableCoverage))
-      : weaponHardDisableCoverage,
+    hardDisableCoverage: snowball
+      ? unit(1 - (1 - weaponHardDisableCoverage) * (1 - artifactHardDisableCoverage) * (1 - snowball.hardDisableCoverage))
+      : artifactControl
+        ? unit(1 - (1 - weaponHardDisableCoverage) * (1 - artifactHardDisableCoverage))
+        : weaponHardDisableCoverage,
     attackSlowEquivalentCoverage: unit(1 - (1 - weaponAttackSlow) * (1 - armorAttackSlow)),
     rootCoverage: chains?.rootCoverage ?? 0, groupingCoverage: gravity?.groupingCoverage ?? 0,
     ...(stunning ? { stunning } : {}), ...(freezing ? { freezing } : {}),
     ...(chains ? { chains } : {}), ...(gravity ? { gravity } : {}),
     ...(artifactControl ? { shockPowder: artifactControl, artifactContributions: [artifactControl] } : {}),
     ...(chilling ? { chilling } : {}),
+    ...(snowball ? { snowball } : {}),
   }
   return { ...metrics, utility: calculateControlUtility(metrics, scenario.controlPolicy) }
 }
@@ -113,7 +135,7 @@ export function describeControl(control: ControlMetrics): string[] {
     const name = getEnchantmentDefinition(id).name.en
     const common = `${name}: HPS ${s.opportunitiesPerSecond.toFixed(3)} × ${percent(s.triggerChance)}、${s.durationSeconds}秒 → active ${percent(s.activeCoverage)}、適用対象 ${percent(s.eligibleTargetShare)}`
     if (id === 'stunning' && control.stunning) reasons.push(`${common} → hard disable ${percent(control.stunning.effectiveHardDisableCoverage)}（基準2秒はcommunity由来・信頼度低、耐性補正後）`)
-    if (id === 'freezing' && control.freezing) reasons.push(`${common} × 敵攻撃速度低下 ${percent(control.freezing.attackSpeedReduction)} → attack slow ${percent(control.attackSlowEquivalentCoverage)}（移動低下・被ダメージ削減へ換算しない）`)
+    if (id === 'freezing' && control.freezing) reasons.push(`${common} × 敵攻撃速度低下 ${percent(control.freezing.attackSpeedReduction)} → attack slow ${percent(control.freezing.attackSlowEquivalentCoverage)}（移動低下・被ダメージ削減へ換算しない）`)
     if (id === 'chains' && control.chains) reasons.push(`${common}、平均${control.chains.expectedTargetsPerProc}体/proc × 対象比率${percent(control.chains.affectedTargetFraction)} → root ${percent(control.rootCoverage)}（移動を束縛、近くには攻撃可能、1copy限定）`)
     if (id === 'gravity' && control.gravity) reasons.push(`${common}、平均${control.gravity.expectedTargetsPerHit}体/hit × 対象比率${percent(control.gravity.affectedTargetFraction)} → grouping ${percent(control.groupingCoverage)}（集敵のみ、DPS bonusなし）`)
   }
@@ -125,6 +147,11 @@ export function describeControl(control: ControlMetrics): string[] {
     const state = control.chilling
     reasons.push(`Chilling ${['I', 'II', 'III'][state.tier - 1]}: 2秒ごとに1秒 → raw ${percent(state.rawTemporalCoverage)} × 攻撃速度低下 ${percent(state.attackSpeedReduction)} × 適用可能 ${percent(state.eligibleTargetShare)} × 影響対象 ${percent(state.affectedTargetShare)} = attack slow ${percent(state.attackSlowEquivalentCoverage)}（steady-state周期仮定、移動低下・Defenseへ換算しない）`)
   }
-  if (control.stunning && control.shockPowder) reasons.push(`Combined hard-disable coverage: ${percent(control.hardDisableCoverage)}`)
+  if (control.snowball) {
+    const state = control.snowball
+    reasons.push(`Snowball ${['I', 'II', 'III'][state.tier - 1]}: ${state.triggerIntervalSeconds}秒ごとに2秒stun → 時間coverage ${percent(state.temporalCoverage)} × 1対象比率${percent(state.affectedTargetFraction)} × 適用可能${percent(state.eligibleTargetShare)} = hard disable ${percent(state.hardDisableCoverage)}（steady-state・1対象保守モデル、DPS/Defenseへ換算しない）`)
+  }
+  if ([control.stunning, control.shockPowder, control.snowball].filter(Boolean).length > 1) reasons.push(`Combined hard-disable coverage: ${percent(control.hardDisableCoverage)}`)
+  if (control.freezing && control.chilling) reasons.push(`Combined attack-slow coverage: ${percent(control.attackSlowEquivalentCoverage)}`)
   return reasons
 }

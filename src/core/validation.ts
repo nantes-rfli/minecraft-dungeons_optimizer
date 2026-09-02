@@ -45,6 +45,7 @@ export function validateScenario(scenario: Scenario): void {
   validateControlAssumptions(scenario)
   assertRange('encounterDurationSeconds', scenario.encounterDurationSeconds, Number.EPSILON)
   assertRange('initialSoulUnits', scenario.initialSoulUnits ?? 0, 0, 300)
+  if (scenario.cowardiceFullHealthShare !== undefined) assertRange('cowardiceFullHealthShare', scenario.cowardiceFullHealthShare, 0, 1)
   assertRange('averageEnemyHealth', scenario.averageEnemyHealth, Number.EPSILON)
   assertRange('enemySupplyPerSecond', scenario.enemySupplyPerSecond, 0)
   assertRange('directKillShare', scenario.directKillShare, 0, 1)

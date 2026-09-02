@@ -301,3 +301,11 @@ ArmorありBuildの最大HPは`100 + observedHealthBonus`で、`scenario.maxHeal
 Cool Downはgame-file由来18/29/37%を採用し、WikiのTier III 38%表示競合を監査へ保存。runtimeは1copyで、Battle Robe/external CDRとの合成をrejectします。Potion BarrierはPotionState由来の90%・5/7/9秒coverage、Chillingは1秒/2秒のControl-only周期モデルです。Armor DRとIron Hide / Guarding Strike / Weakening / Potion Barrier / Protectionの未検証合成も明示rejectします。
 
 [`Armor audit`](./docs/armor-audit.md) / [`support`](./docs/armor-runtime-support.md) / [`Armor enchantments`](./docs/armor-enchantment-audit.md) / [`architecture`](./docs/armor-model.md) / [`Health`](./docs/armor-health-model.md) / [`runtime batch`](./docs/armor-runtime-batch.md)。`npm run audit:armor`、`npm run audit:armor-enchants`、`npm run audit:armor-runtime`で検証します。既存180組合せの`evaluate` / `evaluateCandidate` / `optimize` / Paretoはexact digest回帰を維持します。
+
+## Phase 2-3C — Armor Expansion & State Enchant Batch（complete）
+
+Mercenary Armor / Grim Armor / Scale Mail / Spider Armorを既存propertyの再構成として追加し、Armor runtimeを **7 / 73（Full 0 / Limited 7 / Research-only 66）** へ拡張しました。melee damage、weapon aura、attack speed、DR、Soul倍率、Life Stealをdefinition propertyで駆動し、Armor ID別の分岐を増やしていません。
+
+Armor EnchantmentはHealth Synergy / Snowball / Cowardice / Protectionを追加して **7 / 41**。Health Synergyはrealized Artifact activation×resolved Max Health、Snowballは5/3/1秒・2秒stunの1対象Control-only、Cowardiceは明示入力した満タンHP時間割合、Protectionは唯一のDR sourceの場合だけ評価します。CDR stackingは約77%と84.1%の両anchorを再現できずinconclusiveのため、未検証合成を解放していません。
+
+UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtime状態とIDを表示します。未対応alternativeを含むfree slotは除外し、対応rollをlockした場合だけ評価します。Armor全体の誤解を招くleave-one-out寄与は削除し、Armor identity / Health / intrinsicはReasons、Armor Enchantは個別寄与として維持しました。詳細は[`Phase 2-3C audit`](./docs/armor-expansion-state-enchants.md)。`npm run audit:armor-expansion`を追加しています。

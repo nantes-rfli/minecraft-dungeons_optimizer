@@ -476,6 +476,7 @@ export interface CrowdControlAssumptions {
   readonly shockPowderAffectedTargetShare: number
   readonly chillingEligibleTargetShare?: number
   readonly chillingAffectedTargetShare?: number
+  readonly snowballEligibleTargetShare?: number
 }
 
 export interface RefreshControlState {
@@ -536,6 +537,7 @@ export interface ControlMetrics {
   readonly shockPowder?: ShockPowderControlState
   readonly artifactContributions?: readonly ArtifactControlContribution[]
   readonly chilling?: ChillingState
+  readonly snowball?: SnowballState
   /** Preference score, not the union of suppressed enemy actions. */
   readonly utility: number
 }
@@ -549,6 +551,18 @@ export interface ChillingState {
   readonly eligibleTargetShare: number
   readonly affectedTargetShare: number
   readonly attackSlowEquivalentCoverage: number
+}
+
+export interface SnowballState {
+  readonly tier: EnchantmentTier
+  readonly triggerIntervalSeconds: number
+  readonly stunDurationSeconds: 2
+  readonly temporalCoverage: number
+  readonly affectedTargetFraction: number
+  readonly eligibleTargetShare: number
+  readonly hardDisableCoverage: number
+  readonly targetModel: 'one-target-conservative'
+  readonly timeModel: 'steady-state-periodic'
 }
 
 export interface EnemyComposition {
@@ -569,6 +583,8 @@ export interface Scenario {
   readonly dynamoInitialStacks?: number
   /** Encounter-start resource; omitted legacy scenarios start empty. */
   readonly initialSoulUnits?: number
+  /** Explicit model assumption. Required only when Cowardice is selected. */
+  readonly cowardiceFullHealthShare?: number
   readonly profileId: ScenarioProfileId
   readonly name: string
   readonly encounterDurationSeconds: number
@@ -718,6 +734,10 @@ export interface DamageMetrics {
   readonly hitsPerSecond: number
   readonly baseDps: number
   readonly armorDirectMeleeMultiplier?: number
+  readonly armorMeleeDamageMultiplier?: number
+  readonly armorWeaponDamageAuraMultiplier?: number
+  readonly cowardiceExpectedMultiplier?: number
+  readonly cowardiceFullHealthShare?: number
   readonly directWeaponSingleTargetDps: number
   readonly directWeaponAoeDps: number
   readonly indirectSingleTargetDps: number
@@ -862,6 +882,7 @@ export interface HealingMetrics {
   readonly leechingPerSecond: number
   readonly refreshmentPotionCapacityPerSecond: number
   readonly lifeStealPerSecond?: number
+  readonly healthSynergyCapacityPerSecond?: number
   /** Net sustain alias for ranking/Pareto; gross capacity excludes baseline potion healing. */
   readonly totalPerSecond: number
 }
@@ -883,6 +904,7 @@ export interface DefenseMetrics extends EnemyDebuffState {
   readonly effectiveHealth: number
   readonly armorDamageTakenMultiplier?: number
   readonly potionBarrierCoverage?: number
+  readonly protectionDamageTakenMultiplier?: number
 }
 
 export interface ConfidenceSummary {

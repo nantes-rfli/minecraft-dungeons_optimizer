@@ -13,6 +13,7 @@ import type {
   WeaponId,
 } from '../core'
 import type { ArmorEnchantmentTier, OwnedArmor } from '../core/armor'
+import { isAuditedArmorEnchantmentId } from '../research/armorEnchantmentAudit'
 
 const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 
@@ -126,7 +127,9 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
     const candidates = slot.candidates.map((candidate, candidateIndex) => {
       const candidateField = `${slotField}.candidates[${candidateIndex}]`
       if (!isRecord(candidate) || ![1, 2, 3].includes(candidate.tier as number)) throw new Error(`${candidateField}の形式が正しくありません。`)
-      return { enchantmentId: requireString(candidate.enchantmentId, `${candidateField}.enchantmentId`), tier: candidate.tier as ArmorEnchantmentTier }
+      const enchantmentId = requireString(candidate.enchantmentId, `${candidateField}.enchantmentId`)
+      if (!isAuditedArmorEnchantmentId(enchantmentId)) throw new Error(`${candidateField}.enchantmentIdに未監査ID「${enchantmentId}」があります。`)
+      return { enchantmentId, tier: candidate.tier as ArmorEnchantmentTier }
     })
     const locked = slot.locked === undefined ? undefined : requireString(slot.locked, `${slotField}.locked`)
     if (locked && !candidates.some((candidate) => candidate.enchantmentId === locked)) throw new Error(`${slotField}.lockedは候補内から選択してください。`)
@@ -135,7 +138,9 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
   let gilded: OwnedArmor['gilded']
   if (value.gilded !== undefined) {
     if (!isRecord(value.gilded) || ![1, 2, 3].includes(value.gilded.tier as number)) throw new Error(`${field}.gildedの形式が正しくありません。`)
-    gilded = { enchantmentId: requireString(value.gilded.enchantmentId, `${field}.gilded.enchantmentId`), tier: value.gilded.tier as ArmorEnchantmentTier }
+    const enchantmentId = requireString(value.gilded.enchantmentId, `${field}.gilded.enchantmentId`)
+    if (!isAuditedArmorEnchantmentId(enchantmentId)) throw new Error(`${field}.gilded.enchantmentIdに未監査ID「${enchantmentId}」があります。`)
+    gilded = { enchantmentId, tier: value.gilded.tier as ArmorEnchantmentTier }
   }
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),

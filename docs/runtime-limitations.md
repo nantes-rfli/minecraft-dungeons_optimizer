@@ -36,10 +36,10 @@ Priorityはproduct decisionでありEvidence confidenceではありません。P
 | Busy Bee | research-only / mechanics | population・説明監査 | summonなし | spawn抽選単位・同時cap・lifetime・damage/timing・kill attributionのEvidenceとlifecycle設計 | P3 | evidence-blocked |
 | Looting / Prospector | research-only / objective | combat以外の効果調査 | 収集・稼ぎobjectiveなし | drop/emerald目的と入力・比較単位を定義し、tier/stack根拠で別objectiveを実装。combat不明とは扱わない | P2 | not-implemented |
 | Armor Health | limited runtime | observedHealthBonus必須、legacy排他、全maxHealth依存へ接続 | Power fallbackなし | 210–263のversion/roll付きcurve検証時だけfallback追加 | P1 | evidence-blocked |
-| Armor DR composition | limited runtime | 35%単独、Potion Barrier単独、unsupported matrix | Iron Hide / Guarding / Weakening / Protectionとの一般式 | current traceで各family/orderを検証 | P1 | evidence-blocked |
+| Armor DR composition | limited runtime | 35%単独、Potion Barrier単独、Protection単独、unsupported matrix | Iron Hide / Guarding / Weakeningとの一般式、Protection併用 | current traceで各family/orderを検証 | P1 | evidence-blocked |
 | Armor cooldown ownership | limited runtime | external / intrinsic / enchantのsource別state、単独source | Battle Robe + Cool Down、external合成、multi-copy | current internal式または再現可能なcooldown trace | P1 | evidence-blocked |
 | Armor roll / pet / party / ranged / objective | research-only / taxonomy | property facts・family分類 | 対応state/objectiveなし | 個別subsystemとmeaningful objectiveができるまでResearch-only | P2 | not-implemented |
-| Armor enchant event/state families | 3 limited / 41 | Cool Down・Potion Barrier・Chilling、slot/Gilded/built-in source | low-HP、full-HP、projectile、pet、economy、roll event | familyごとのstate/eventとunsupported境界を実装 | P2 | not-implemented |
+| Armor enchant event/state families | 7 limited / 41 | Cool Down・Potion Barrier・Chilling・Health Synergy・Snowball・Cowardice・Protection、slot/Gilded/built-in source | low-HP、projectile、pet、economy、roll event | familyごとのstate/eventとunsupported境界を実装 | P2 | not-implemented |
 
 Backlog行単位: **P0 0 / P1 6 / P2 6 / P3 10**。P3はすべてevidence-blocked。Looting / Prospectorは1つのobjective設計項目として数え、Enchant人口とは混同しません。
 
@@ -59,10 +59,10 @@ Backlog行単位: **P0 0 / P1 6 / P2 6 / P3 10**。P3はすべてevidence-blocke
 
 | 候補 | 現manifest・smokeから見た価値 | 判断 |
 | --- | --- | --- |
-| Phase 2-3B — Armor Core Runtime Batch | Armor 3 / 73、Enchant 3 / 41をobserved Health付きで限定実装 | complete。未検証compositionは明示reject |
+| Phase 2-3C — Armor Expansion & State Enchant | Armor 7 / 73、Enchant 7 / 41。既存property再利用と明示stateを限定実装 | complete。Armor MVPをcloseし、次はRanged runtime |
 | Equipment Box → Simulation UX | 既存modelだけで導線・制限説明を改善でき、Evidence依存が小さい | 第二候補。coverage blocker自体は解決しない |
 | Artifact Promotion Batch | 既監査6候補のruntime価値は高い | 第三候補・Evidence待ち。2候補以上でcurrent 1.17、endgame Power、unit、主要interactionが揃うまで再開しない |
 
-Phase 2-3BではArmor primary71 / Wiki known73 / obtainable71の母集団を維持し、Battle Robe / Renegade Armor / Wither ArmorとCool Down / Potion Barrier / ChillingをLimited runtimeへ追加しました。[Armor監査](armor-audit.md) / [設計](armor-model.md) / [batch](armor-runtime-batch.md)。
+Phase 2-3CではArmor primary71 / Wiki known73 / obtainable71の母集団を維持し、Mercenary / Grim / Scale Mail / Spider ArmorとHealth Synergy / Snowball / Cowardice / ProtectionをLimited runtimeへ追加しました。Armorは7 / 73、Armor Enchantmentは7 / 41です。[Armor監査](armor-audit.md) / [設計](armor-model.md) / [batch](armor-runtime-batch.md) / [2-3C](armor-expansion-state-enchants.md)。
 
 この順序は現在のcurated software testとEvidence blockerに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。

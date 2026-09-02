@@ -16,7 +16,7 @@ import {
 import { DpsRegressionPanel } from './DpsRegressionPanel'
 import { RuntimeSupportSection } from './RuntimeSupport'
 import { ArtifactRuntimeSupportSection } from './ArtifactRuntimeSupport'
-import { ARMOR_HEALTH_AUDIT, ARMOR_RUNTIME_SUPPORT, armorRuntimeSupportSummaryText, summarizeArmorAudit } from '../research/armorAudit'
+import { ARMOR_HEALTH_AUDIT, armorRuntimeSupportSummaryText, summarizeArmorAudit } from '../research/armorAudit'
 import { summarizeArmorEnchantmentAudit } from '../research/armorEnchantmentAudit'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
@@ -50,11 +50,11 @@ export function MethodologyPage() {
       <ArtifactRuntimeSupportSection />
 
       <section className="panel">
-        <p className="section-label">PHASE 2-3B / ARMOR CORE RUNTIME BATCH — COMPLETE</p>
-        <h2>Owned ArmorをHealth・固有效果・actual rollsごと接続</h2>
+        <p className="section-label">PHASE 2-3C / ARMOR EXPANSION & STATE ENCHANT — COMPLETE</p>
+        <h2>Armor propertyを再利用し、実物の41 Enchant候補を入力</h2>
         <p>dungeons.toolsの1.17.0.0母集団71件とWikiのknown 73 / obtainable 71を正規化照合しました。common 71、primary-only 0、secondary-onlyはEnder ArmorとVanguard Armorです。Soul Mage Robeは別のunused file-remnantとして記録し、73件の表示母集団へ混ぜていません。raw game ID全体の網羅性は主張しません。</p>
         <Formula>{armorRuntimeSupportSummaryText()}</Formula>
-        <p>Battle Robe / Renegade Armor / Wither Armorの3 / {ARMOR_AUDIT_SUMMARY.population}をLimited runtimeへ追加しました。Healthだけ・主要property 0の防具は登録しません。通常slot、built-in、金色を別sourceにし、free slotへ未対応候補が混ざる場合はArmor候補を除外、supported rollのlock時だけ評価します。</p>
+        <p>Battle Robe / Renegade Armor / Wither ArmorにMercenary / Grim / Scale Mail / Spiderを加え、7 / {ARMOR_AUDIT_SUMMARY.population}をLimited runtimeにしました。監査済み41 EnchantはTier付きactual rollとして入力でき、runtime未対応を明示します。free slotへ未対応候補が混ざる場合はArmor候補を除外し、supported rollのlock時だけ評価します。</p>
         <div className="regression-audit-grid">
           <div><span>Armor population</span><strong>{ARMOR_AUDIT_SUMMARY.population}</strong></div>
           <div><span>Obtainable</span><strong>{ARMOR_AUDIT_SUMMARY.obtainable}</strong></div>
@@ -64,9 +64,9 @@ export function MethodologyPage() {
         <h3>Healthはカード表示値を主経路にする</h3>
         <p>Hero基礎HPは{ARMOR_HEALTH_AUDIT.baseHeroHealth.value}。4 familyの公開tableはPower 1〜108で一致しますが、endgameのexact観測はPower251の3件だけです。同じ251でも+{ARMOR_HEALTH_AUDIT.samePowerVariance.minObservedHealthBonus.toLocaleString()}〜+{ARMOR_HEALTH_AUDIT.samePowerVariance.maxObservedHealthBonus.toLocaleString()}（差{ARMOR_HEALTH_AUDIT.samePowerVariance.spread.toLocaleString()}）なので、Powerからexact Healthを一意に埋めません。</p>
         <Formula>observedHealthBonus → validated model range → unsupported</Formula>
-        <p>ArmorありBuildは<code>100 + observedHealthBonus</code>をPotion / Anima / Pain Cycle / EHPへ共通利用し、<code>scenario.maxHealth</code>を加算しません。35% DRとIron Hide / Potion Barrier / Guarding Strike / Weakening / Protection、外部 / intrinsic / Cool Downの未検証合成は明示rejectします。</p>
-        <h3>3 Armor / 3 Enchant</h3>
-        <p>Armorは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorIds.join(', ')}、Enchantは{ARMOR_RUNTIME_SUPPORT.nextBatch.armorEnchantmentIds.join(', ')}。Cool Downは18/29/37%・1copy、Potion BarrierはPotionState由来coverage、ChillingはControl-onlyの周期モデルです。</p>
+        <p>ArmorありBuildは<code>100 + observedHealthBonus</code>をPotion / Anima / Pain Cycle / Health Synergy / EHPへ共通利用し、<code>scenario.maxHealth</code>を加算しません。Armor全体のleave-one-out寄与はHealth source切替を混ぜるため削除し、Armor identity・Health・intrinsicはReasons、Armor Enchantだけを個別寄与として表示します。</p>
+        <h3>7 Armor / 7 Enchant</h3>
+        <p>Health Synergyはrealized Artifact activation×resolved Max Health、Snowballは1対象のControl-only、Cowardiceは明示的な満タンHP時間割合、Protectionは唯一のDR source時だけ評価します。CDRは公式約77%と現行約84.1%を同一式で再現できずinconclusiveのため、Battle Robe＋Cool Down、複数copy、external合成を引き続きrejectします。</p>
       </section>
 
       <section className="panel">
@@ -332,7 +332,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor foundation 2-3Aは完了。次はArmor Core Runtime Batchです。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor 2-3A〜2-3Cは完了。ArmorはMVP coverageをcloseし、次はRangedへ進みます。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

@@ -30,6 +30,7 @@ export const DEFAULT_CROWD_CONTROL: CrowdControlAssumptions = {
   stunningEffectiveDurationMultiplier: 1, chainsExpectedTargetsPerProc: 1, gravityExpectedTargetsPerHit: 1,
   shockPowderEligibleTargetShare: 0.5,
   shockPowderAffectedTargetShare: 0.5,
+  snowballEligibleTargetShare: 1,
 }
 // Equal preferences are a product default, deliberately outside Evidence.
 export const DEFAULT_CONTROL_POLICY: ControlPolicyWeights = { hardDisable: 1, attackSlow: 1, root: 1, grouping: 1 }

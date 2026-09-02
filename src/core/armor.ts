@@ -3,8 +3,22 @@ import type { Build, Scenario } from './types'
 
 export const BASE_HERO_HEALTH = 100
 
-export type ArmorId = 'battle-robe' | 'renegade-armor' | 'wither-armor'
-export type ArmorEnchantmentId = 'cool-down' | 'potion-barrier' | 'chilling'
+export type ArmorId =
+  | 'battle-robe'
+  | 'renegade-armor'
+  | 'wither-armor'
+  | 'mercenary-armor'
+  | 'grim-armor'
+  | 'scale-mail'
+  | 'spider-armor'
+export type ArmorEnchantmentId =
+  | 'cool-down'
+  | 'potion-barrier'
+  | 'chilling'
+  | 'health-synergy'
+  | 'snowball'
+  | 'cowardice'
+  | 'protection'
 export type ArmorEnchantmentTier = 1 | 2 | 3
 
 export type ArmorIntrinsicPropertyKind =
@@ -121,6 +135,8 @@ export interface RuntimeArmorState {
   readonly finalMaxHealth: number
   readonly selectedEnchantments: readonly SelectedArmorEnchantment[]
   readonly directMeleeDamageMultiplier: number
+  readonly meleeDamageMultiplier: number
+  readonly weaponDamageAuraMultiplier: number
   readonly meleeAttackSpeedBonus: number
   readonly armorDamageReduction: number
   readonly soulGatheringMultiplier: number
@@ -188,12 +204,16 @@ export function armorCombinationUnsupportedReason(build: Build, scenario: Scenar
   const coolDown = selected.some((item) => item.enchantmentId === 'cool-down')
   if (armor.artifactCooldownReduction > 0 && coolDown) return 'UNSUPPORTED_ARTIFACT_COOLDOWN_COMBINATION: Armor固有CDRとCool Downの合成は未確定です。'
   if (scenario.cooldownReduction > 0 && (armor.artifactCooldownReduction > 0 || coolDown)) return 'UNSUPPORTED_ARTIFACT_COOLDOWN_COMBINATION: external Scenario CDRとの合成は未確定です。'
-  if (armor.id === 'renegade-armor' && (build.artifacts.some((item) => item.artifactId === 'death-cap-mushroom') || build.enchantments.some((item) => item.enchantmentId === 'rampaging'))) return 'UNSUPPORTED_ATTACK_SPEED_COMBINATION: Renegade ArmorとDeath Cap/Rampagingのspeed bucketは未確定です。'
+  if (armor.meleeAttackSpeedBonus > 0 && (build.artifacts.some((item) => item.artifactId === 'death-cap-mushroom') || build.enchantments.some((item) => item.enchantmentId === 'rampaging'))) return 'UNSUPPORTED_ATTACK_SPEED_COMBINATION: Armor固有speedとDeath Cap/Rampagingのspeed bucketは未確定です。'
   const potionBarrier = selected.some((item) => item.enchantmentId === 'potion-barrier')
+  const protection = selected.some((item) => item.enchantmentId === 'protection')
+  const cowardice = selected.some((item) => item.enchantmentId === 'cowardice')
   const otherDefense = build.artifacts.some((item) => item.artifactId === 'iron-hide-amulet') || build.enchantments.some((item) => item.enchantmentId === 'guarding-strike' || item.enchantmentId === 'weakening')
   if (armor.armorDamageReduction > 0 && (potionBarrier || otherDefense)) return 'UNSUPPORTED_ARMOR_DR_COMBINATION: 35% Armor DRと他の防御sourceの合成は未確定です。'
   if (potionBarrier && otherDefense) return 'UNSUPPORTED_ARMOR_DR_COMBINATION: Potion Barrierと他の防御sourceの合成は未確定です。'
-  if (armor.id === 'wither-armor' && build.enchantments.some((item) => item.enchantmentId === 'soul-siphon')) return 'UNSUPPORTED_ARMOR_COMBINATION: Wither Armorの+50% soulsとSoul Siphonの合成は未確定です。'
+  if (protection && (armor.armorDamageReduction > 0 || potionBarrier || otherDefense)) return 'UNSUPPORTED_PROTECTION_COMBINATION: Protectionは他のDR sourceがない場合だけruntime対応です。'
+  if (cowardice && scenario.cowardiceFullHealthShare === undefined) return 'MISSING_COWARDICE_FULL_HEALTH_SHARE: Cowardiceの満タンHP時間割合を入力してください。'
+  if (armor.soulGatheringMultiplier > 1 && build.enchantments.some((item) => item.enchantmentId === 'soul-siphon')) return 'UNSUPPORTED_ARMOR_COMBINATION: Armor固有+50% soulsとSoul Siphonの合成は未確定です。'
   return undefined
 }
 
@@ -237,7 +257,9 @@ export function deriveArmorState(build: Build, scenario: Scenario): RuntimeArmor
     observedHealthBonus: build.armor.observedHealthBonus,
     finalMaxHealth: resolveBuildHealth(build, scenario).finalMaxHealth,
     selectedEnchantments: selectedArmorEnchantments(build),
-    directMeleeDamageMultiplier: 1 + armor.directMeleeDamageBonus,
+    directMeleeDamageMultiplier: (1 + armor.meleeDamageBonus) * (1 + armor.weaponDamageAuraBonus),
+    meleeDamageMultiplier: 1 + armor.meleeDamageBonus,
+    weaponDamageAuraMultiplier: 1 + armor.weaponDamageAuraBonus,
     meleeAttackSpeedBonus: armor.meleeAttackSpeedBonus,
     armorDamageReduction: armor.armorDamageReduction,
     soulGatheringMultiplier: armor.soulGatheringMultiplier,

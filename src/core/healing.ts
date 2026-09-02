@@ -2,6 +2,7 @@ import { combineEnchantmentValues, getTierValues } from './enchantment'
 import { animaHealingCapacity } from './souls'
 import { derivePotionState } from './potion'
 import type {
+  ArtifactActivationState,
   CombatState,
   DamageMetrics,
   HealingMetrics,
@@ -10,6 +11,12 @@ import type {
   SelectedEnchantment,
   SoulState,
 } from './types'
+import type { SelectedArmorEnchantment } from './armor'
+import { ARMOR_ENCHANTMENTS } from '../data/armors'
+
+export function healthSynergyCapacity(activationsPerSecond: number, resolvedMaxHealth: number, maxHealthFraction: number): number {
+  return activationsPerSecond * resolvedMaxHealth * maxHealthFraction
+}
 
 export function calculateHealing(
   enchantments: readonly SelectedEnchantment[],
@@ -20,6 +27,8 @@ export function calculateHealing(
   soulState?: SoulState,
   resolvedMaxHealth = scenario.maxHealth,
   lifeStealFraction = 0,
+  armorEnchantments: readonly SelectedArmorEnchantment[] = [],
+  artifactActivation?: ArtifactActivationState,
 ): HealingMetrics {
   const radianceProcHealing = combineEnchantmentValues(
     enchantments,
@@ -45,12 +54,17 @@ export function calculateHealing(
     ? animaHealingCapacity(soulState!.totalPickupEventsPerSecond, resolvedMaxHealth, animaEffect.maxHealthFractionPerPickup)
     : 0
   const lifeStealPerSecond = damage.directWeaponAoeDps * lifeStealFraction
-  const grossHealingCapacityPerSecond = radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond + lifeStealPerSecond
+  const healthSynergy = armorEnchantments.find((item) => item.enchantmentId === 'health-synergy')
+  const healthSynergyCapacityPerSecond = healthSynergy
+    ? healthSynergyCapacity(artifactActivation?.totalActivationsPerSecond ?? 0, resolvedMaxHealth, ARMOR_ENCHANTMENTS['health-synergy'].tiers[healthSynergy.tier])
+    : 0
+  const grossHealingCapacityPerSecond = radiancePerSecond + leechingPerSecond + potionState.incrementalHealingCapacityPerSecond + animaHealingCapacityPerSecond + lifeStealPerSecond + healthSynergyCapacityPerSecond
   const selfDamagePerSecond = damage.painCycleState?.selfDamagePerSecond ?? 0
   const netSustainPerSecond = grossHealingCapacityPerSecond - selfDamagePerSecond
   return {
     grossHealingCapacityPerSecond, selfDamagePerSecond, netSustainPerSecond,
     ...(lifeStealFraction > 0 ? { lifeStealPerSecond } : {}),
+    ...(healthSynergy ? { healthSynergyCapacityPerSecond } : {}),
     animaHealingCapacityPerSecond,
     radiancePerSecond,
     leechingPerSecond,

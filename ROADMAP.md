@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **32 / 46（70%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **34 / 47（72%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -62,12 +62,12 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 <!-- artifact-support:end -->
 
 <!-- armor-support:start -->
-Armor · Audited population 73 · Catalog runtime 3 / 73 · Full 0 · Limited 3 · Research-only 70
+Armor · Audited population 73 · Catalog runtime 7 / 73 · Full 0 · Limited 7 · Research-only 66
 <!-- armor-support:end -->
 
 Artifactはprimary 44 / secondary表示45 / common 44 / secondary-only Corrupted Seedsを再現可能に照合し、project監査母集団を正規化和集合45件と定義しました。raw game ID全体の網羅性は主張しません。[監査](./docs/artifact-audit.md) / [対応表](./docs/artifact-runtime-support.md) / [Control batch](./docs/artifact-control-debuff.md) / [2-2D batch](./docs/artifact-event-healing-control.md) / [2-2E Evidence](./docs/artifact-evidence-acquisition.md) / [Evidence matrix](./docs/artifact-evidence-matrix.md) / [curve分析](./docs/artifact-curve-analysis.md) / [型・回帰](./docs/artifact-model.md) / [次Phase判断](./docs/artifact-expansion-plan.md)。
 
-Armorはprimary71 / Wiki known73 / obtainable71 / common71 / secondary-only Ender Armor・Vanguard Armorを照合し、project母集団73件のうちBattle Robe・Renegade Armor・Wither Armorを制限付きruntime対応しました。残る70件はResearch-onlyです。Armor Enchantmentは41件中Cool Down・Potion Barrier・Chillingを制限付きruntime対応し、Healthはobserved card値を主経路、Power-only fallbackは未提供です。[監査](./docs/armor-audit.md) / [対応表](./docs/armor-runtime-support.md) / [Enchant監査](./docs/armor-enchantment-audit.md) / [設計](./docs/armor-model.md) / [Health](./docs/armor-health-model.md)。
+Armorはprimary71 / Wiki known73 / obtainable71を照合し、7件をLimited runtime化しました。Armor Enchantmentは41件すべてをactual roll入力でき、7件をLimited runtime対応。Healthはobserved card値を主経路、Power-only fallbackはありません。[監査](./docs/armor-audit.md) / [対応表](./docs/armor-runtime-support.md) / [Enchant監査](./docs/armor-enchantment-audit.md) / [2-3C](./docs/armor-expansion-state-enchants.md)。
 
 近接25〜30種の親目標はmeaningful runtimeで達成。全33種完全対応ではありません。[support matrix](./docs/melee-runtime-support.md) / [limitations](./docs/runtime-limitations.md)。
 以下のpartialは歴史的Phaseのfull completion gate未達であり、現行support levelとは別軸です。
@@ -94,7 +94,8 @@ Armorはprimary71 / Wiki known73 / obtainable71 / common71 / secondary-only Ende
 - [ ] アーティファクトを10〜15種類へ拡張
 - [x] Phase 2-3A: Armor Audit & Runtime Foundation（primary71 / Wiki known73 / obtainable71 / runtime0を照合）
 - [x] Phase 2-3B: Armor Core Runtime Batch（Armor 3 / 73、Armor Enchant 3 / 41）
-- [ ] 防具・防具エンチャントをモデル化
+- [x] Phase 2-3C: Armor Expansion & State Enchant（Armor 7 / 73、Armor Enchant 7 / 41）
+- [x] 防具・防具エンチャントをMVP coverageとしてモデル化
 - [ ] 遠距離武器・固有効果をモデル化
 
 完了条件: 主要な近接・防具・遠距離の組み合わせを、同じ `evaluate` / `optimize` APIで評価できること。
@@ -112,7 +113,7 @@ Armorはprimary71 / Wiki known73 / obtainable71 / common71 / secondary-only Ende
 
 ### Current summary
 
-Phase 2-1K、Phase 2-2A〜2-2E、Phase 2-3A〜2-3B completeを維持。Armorはprimary71 / Wiki known73 / obtainable71を母集団とし、Battle Robe / Renegade Armor / Wither ArmorをLimited runtimeへ接続。Armor EnchantmentはCool Down / Potion Barrier / Chillingの3 / 41です。observedHealthBonus主経路、scenario.maxHealth排他、actual rolls、Gilded固定、unsupported combination rejectを実装しました。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-1K、Phase 2-2A〜2-2E、Phase 2-3A〜2-3C complete。Armor 7 / 73、Armor Enchantment 7 / 41をLimited runtimeへ接続し、監査済み41件はactual roll入力可能です。observedHealthBonus主経路、scenario.maxHealth排他、Gilded固定、unsupported combination rejectを維持します。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -122,7 +123,7 @@ P0 0 / P1 6 / P2 6 / P3 10（backlog行単位）。[制限・優先度・close�
 
 ### Next area
 
-Phase 2-3B complete。残るArmor / Armor Enchantmentはproperty familyごとのEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、未対応効果を0点登録しません。
+Phase 2-3C complete。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、次はRanged runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

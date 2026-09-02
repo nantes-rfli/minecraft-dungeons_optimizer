@@ -144,7 +144,7 @@ export function collectArmorSupportErrors(value: unknown = ARMOR_RUNTIME_SUPPORT
     else check(JSON.stringify(entry.reasons) === JSON.stringify(audited?.blockers) && boundaries.length === 0, `${entry.id}: research support reasons/boundaries mismatch`)
   }
   for (const entry of audit.entries) check(ids.has(entry.id), `${entry.id}: missing Armor support entry`)
-  check(record(value.nextBatch) && Array.isArray(value.nextBatch.armorIds) && value.nextBatch.armorIds.join('|') === 'battle-robe|renegade-armor|wither-armor' && Array.isArray(value.nextBatch.armorEnchantmentIds) && value.nextBatch.armorEnchantmentIds.join('|') === 'cool-down|potion-barrier|chilling', 'Phase 2-3B selection drift')
+  check(record(value.nextBatch) && value.nextBatch.phase === 'Phase 2-3C — Armor Expansion & State Enchant Batch' && Array.isArray(value.nextBatch.armorIds) && value.nextBatch.armorIds.join('|') === 'battle-robe|renegade-armor|wither-armor|mercenary-armor|grim-armor|scale-mail|spider-armor' && Array.isArray(value.nextBatch.armorEnchantmentIds) && value.nextBatch.armorEnchantmentIds.join('|') === 'cool-down|potion-barrier|chilling|health-synergy|snowball|cowardice|protection', 'Phase 2-3C selection drift')
   check(value.entries.filter((entry) => record(entry) && entry.supportLevel === 'limited').length === Object.keys(ARMORS).length, 'runtime Armor count drift')
   return errors
 }

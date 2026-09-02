@@ -28,7 +28,8 @@
     "audit:artifact-evidence": "node scripts/audit-artifact-evidence.ts",
     "audit:armor": "node scripts/audit-armor.ts",
     "audit:armor-enchants": "node scripts/audit-armor-enchants.ts",
-    "audit:armor-runtime": "node scripts/audit-armor-runtime.ts"
+    "audit:armor-runtime": "node scripts/audit-armor-runtime.ts",
+    "audit:armor-expansion": "node scripts/audit-armor-expansion.ts"
   },
   "dependencies": {
     "react": "19.2.6",

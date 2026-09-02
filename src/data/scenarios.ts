@@ -96,6 +96,7 @@ export const SCENARIO_PROFILES: Readonly<Record<ScenarioProfileId, Scenario>> = 
       ...DEFAULT_CROWD_CONTROL,
       stunningEligibleTargetShare: 0,
       shockPowderEligibleTargetShare: 0,
+      snowballEligibleTargetShare: 0,
     },
   },
   mobbing: {

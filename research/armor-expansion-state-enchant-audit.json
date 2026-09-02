@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-02",
+  "phaseStatus": "complete",
+  "sources": [
+    { "id": "dungeons-tools-armor", "kind": "game-files", "url": "https://www.dungeons.tools/armor/", "note": "1.17.0.0 Armor properties for Mercenary Armor, Grim Armor, Scale Mail, and Spider Armor." },
+    { "id": "dungeons-tools-enchantments", "kind": "game-files", "url": "https://www.dungeons.tools/enchantments", "note": "1.17.0.0 IDs and tier data for all 41 hero-accessible Armor enchantments." },
+    { "id": "wiki-health-synergy", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Health_Synergy", "note": "3/4/5% maximum-health healing per Artifact activation; non-stackable." },
+    { "id": "wiki-snowball", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Snowball", "note": "5/3/1-second trigger intervals, two-second stun after the 1.7.2.0 change, and miniboss/boss immunity." },
+    { "id": "wiki-cowardice", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Cowardice", "note": "20/30/40% melee and ranged damage while at full health; non-stackable." },
+    { "id": "wiki-protection", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Protection", "note": "6/11/15% damage reduction; reports 35% Armor + Tier III as about 41.65% and Iron Hide + Tier III as 54%." },
+    { "id": "wiki-cool-down", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Cool_Down", "note": "Diminishing stacking, up to four copies in 1.17.0.0, and the current 84.1% actual maximum anchor." },
+    { "id": "wiki-1-8", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:1.8.0.0", "note": "Official patch-note transcript: different-source stacking became diminishing; Evocation Robe plus three max Cool Down changed from about 87% to about 77%." },
+    { "id": "community-cdr-model", "kind": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/lsky8r/new_artifact_cooldowns_explained/", "note": "Quantitative reciprocal proposal tested against observed uses per minute; it does not reproduce both required anchors with the 1.17 tier values." },
+    { "id": "mvp-bounded-state", "kind": "model-assumption", "note": "Explicit Cowardice full-health share, one-target Snowball credit, nominal overheal capacity, and direct-melee-only channel boundaries." }
+  ],
+  "armorExpansion": [
+    { "id": "mercenary-armor", "properties": { "weaponDamageAuraBonus": 0.2, "armorDamageReduction": 0.35 }, "reusedFrom": ["renegade-armor"], "supportLevel": "limited" },
+    { "id": "grim-armor", "properties": { "soulGatheringMultiplier": 1.5, "lifeStealFraction": 0.06 }, "reusedFrom": ["wither-armor"], "supportLevel": "limited" },
+    { "id": "scale-mail", "properties": { "meleeDamageBonus": 0.3, "armorDamageReduction": 0.35 }, "reusedFrom": ["battle-robe", "renegade-armor"], "supportLevel": "limited" },
+    { "id": "spider-armor", "properties": { "meleeAttackSpeedBonus": 0.25, "lifeStealFraction": 0.06 }, "reusedFrom": ["renegade-armor", "wither-armor"], "supportLevel": "limited" }
+  ],
+  "armorEnchantments": [
+    { "id": "health-synergy", "tiers": [0.03, 0.04, 0.05], "objective": "healing-capacity", "state": "realized-artifact-activation-times-resolved-max-health", "supportLevel": "limited" },
+    { "id": "snowball", "tiers": [5, 3, 1], "objective": "control-only", "state": "two-second-one-target-steady-state-periodic-stun", "supportLevel": "limited" },
+    { "id": "cowardice", "tiers": [0.2, 0.3, 0.4], "objective": "direct-melee-damage", "state": "explicit-cowardice-full-health-share", "supportLevel": "limited" },
+    { "id": "protection", "tiers": [0.06, 0.11, 0.15], "objective": "defense", "state": "sole-dr-source-only", "supportLevel": "limited" }
+  ],
+  "contributionPolicy": { "wholeArmorLeaveOneOut": "removed", "armorIdentityHealthAndIntrinsic": "reasons", "armorEnchantmentLeaveOneOut": "retained", "rankingMetricsChanged": false },
+  "inventoryPolicy": { "referenceCatalogCount": 41, "runtimeCatalogCount": 7, "unknownIdsRejected": true, "unsupportedFreeAlternative": "reject", "supportedLockedRoll": "evaluate", "gildedTierFixed": true },
+  "cooldownStacking": {
+    "status": "inconclusive",
+    "requiredAnchors": { "officialEvocationPlusThree": 0.77, "currentTheoreticalMaximum": 0.841 },
+    "testedModels": [
+      { "id": "nominal-multiplicative", "officialAnchorPrediction": 0.8509718, "currentAnchorPrediction": 0.9054655944, "accepted": false },
+      { "id": "community-reciprocal", "officialAnchorPrediction": 0.7156398104, "currentAnchorPrediction": 0.7580645161, "accepted": false }
+    ],
+    "runtimePolicy": { "battleRobeWithCoolDown": "unsupported", "multipleCoolDownCopies": "unsupported", "externalWithGearCdr": "unsupported", "runtimeMaxCopies": 1 }
+  },
+  "completion": { "runtimeArmorCount": 7, "newRuntimeArmorCount": 4, "runtimeArmorEnchantmentCount": 7, "newRuntimeArmorEnchantmentCount": 4, "supportLevel": "limited" }
+}

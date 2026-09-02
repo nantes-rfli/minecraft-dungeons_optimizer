@@ -217,6 +217,8 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .control-metrics > div { display: flex; justify-content: space-between; gap: 1rem; padding: .4rem 0; border-bottom: 1px solid #29332b; }
 .control-metrics dd { margin: 0; white-space: nowrap; }
 .control-score { font-size: .85rem; color: #d8ff73; }
+.armor-enchant-option .mini-check span { display: grid; gap: 2px; }
+.armor-enchant-option .mini-check small { color: #748077; font: 8px 'DM Mono', monospace; }
 
 .control-policy-table { overflow-x: auto; }
 .control-policy-table table { border-collapse: collapse; width: 100%; }

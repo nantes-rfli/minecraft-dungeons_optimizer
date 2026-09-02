@@ -146,15 +146,15 @@ describe('Phase 2-3B Armor runtime', () => {
     const optimized = optimize({ weapons: [weapon], armors: [supported], artifacts: [] }, scenario)
     expect(optimized.best.build.armor?.armorId).toBe('battle-robe')
     expect(optimized.best.build.armorEnchantments).toEqual([{ enchantmentId: 'chilling', tier: 3, source: 'slot' }])
-    const mixed = { ...supported, enchantmentSlots: [{ candidates: [{ enchantmentId: 'chilling', tier: 3 as const }, { enchantmentId: 'protection', tier: 3 as const }] }] }
+    const mixed = { ...supported, enchantmentSlots: [{ candidates: [{ enchantmentId: 'chilling', tier: 3 as const }, { enchantmentId: 'thorns', tier: 3 as const }] }] }
     expect(() => optimize({ weapons: [weapon], armors: [mixed], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE/)
     const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'chilling' }] }
     expect(optimize({ weapons: [weapon], armors: [locked], artifacts: [] }, scenario).best.build.armorEnchantments?.[0]?.enchantmentId).toBe('chilling')
-    const lockedUnsupported = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'protection' }] }
+    const lockedUnsupported = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'thorns' }] }
     expect(() => optimize({ weapons: [weapon], armors: [lockedUnsupported], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_ENCHANTMENT/)
     const supportedGilded = { ...armor('wither-armor', 'chilling'), gilded: { enchantmentId: 'cool-down', tier: 2 as const } }
     expect(optimize({ weapons: [weapon], armors: [supportedGilded], artifacts: [] }, scenario).best.build.armorEnchantments).toContainEqual({ enchantmentId: 'cool-down', tier: 2, source: 'gilded' })
-    const unsupportedGilded = { ...armor('wither-armor', 'chilling'), gilded: { enchantmentId: 'protection', tier: 3 as const } }
+    const unsupportedGilded = { ...armor('wither-armor', 'chilling'), gilded: { enchantmentId: 'thorns', tier: 3 as const } }
     expect(() => optimize({ weapons: [weapon], armors: [unsupportedGilded], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_GILDED_ENCHANTMENT/)
     expect(() => optimize({ weapons: [weapon], armors: [{ ...supported, observedHealthBonus: undefined }], artifacts: [] }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
   })

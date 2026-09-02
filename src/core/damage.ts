@@ -62,6 +62,10 @@ export function calculateDamage(
   artifactActivation: ArtifactActivationState = calculateArtifactActivationState(artifactEffects.uptimes),
   resolvedMaxHealth = scenario.maxHealth,
   armorDirectMeleeMultiplier = 1,
+  armorMeleeDamageMultiplier = 1,
+  armorWeaponDamageAuraMultiplier = 1,
+  cowardiceExpectedMultiplier = 1,
+  cowardiceFullHealthShare?: number,
 ): DamageMetrics {
   const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
@@ -111,7 +115,7 @@ export function calculateDamage(
   const ambushMultiplier = ambush.expectedMultiplier
   // These two legacy diagnostics are explicitly PRE-Committed, with the other
   // condition expectations held fixed (the MVP independent-condition model).
-  const nonEnchantedTargetDps = baseDps * armorDirectMeleeMultiplier * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier * artifactSynergyState.expectedDirectMultiplier + chargeDirectDps
+  const nonEnchantedTargetDps = baseDps * armorDirectMeleeMultiplier * cowardiceExpectedMultiplier * sharpnessMultiplier * criticalMultiplier * voidStrikeMultiplier * smitingMultiplier * ambushMultiplier * artifactSynergyState.expectedDirectMultiplier + chargeDirectDps
   const enchantedTargetDps = nonEnchantedTargetDps * unchanting.activeMultiplier
   // Standalone charge additions enter ONLY the direct channel. Unknown damage
   // modifier combinations have already been rejected, never silently factored.
@@ -141,6 +145,9 @@ export function calculateDamage(
 
   return {
     ...(armorDirectMeleeMultiplier !== 1 ? { armorDirectMeleeMultiplier } : {}),
+    ...(armorMeleeDamageMultiplier !== 1 ? { armorMeleeDamageMultiplier } : {}),
+    ...(armorWeaponDamageAuraMultiplier !== 1 ? { armorWeaponDamageAuraMultiplier } : {}),
+    ...(cowardiceExpectedMultiplier !== 1 || cowardiceFullHealthShare !== undefined ? { cowardiceExpectedMultiplier, cowardiceFullHealthShare } : {}),
     ...(painCycleState ? { painCycleState } : {}),
     ...(dynamoState ? { dynamoState } : {}),
     artifactSynergyState,

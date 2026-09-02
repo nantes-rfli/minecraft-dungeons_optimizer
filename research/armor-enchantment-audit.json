@@ -28,6 +28,27 @@
       "url": "https://minecraft.wiki/w/Dungeons:Protection",
       "accessedAt": "2026-09-02",
       "note": "Protection + 35% Armor reduction is reported as approximately 41.65%, not simple addition or nominal multiplication."
+    },
+    {
+      "id": "minecraft-wiki-health-synergy",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Health_Synergy",
+      "accessedAt": "2026-09-02",
+      "note": "Health Synergy restores 3/4/5% maximum health per Artifact activation and is non-stackable."
+    },
+    {
+      "id": "minecraft-wiki-snowball",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Snowball",
+      "accessedAt": "2026-09-02",
+      "note": "Snowball triggers every 5/3/1 seconds; the 1.7.2.0 history records the stun duration change from three to two seconds."
+    },
+    {
+      "id": "minecraft-wiki-cowardice",
+      "type": "minecraft-wiki",
+      "url": "https://minecraft.wiki/w/Dungeons:Cowardice",
+      "accessedAt": "2026-09-02",
+      "note": "Cowardice grants 20/30/40% melee and ranged damage while at full health and is non-stackable."
     }
   ],
   "deepAuditIds": [
@@ -254,13 +275,14 @@
       "maxCopies": 1,
       "soulRestriction": "none",
       "mechanicFamily": "damage-modifier",
-      "runtimeReadiness": "needs-state-model",
+      "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Full-health uptime and melee/ranged modifier ownership are not modeled."
+        "Runtime requires explicit cowardiceFullHealthShare and applies the expected scalar to direct melee only; ranged, proc, DoT, and explosions are excluded."
       ],
       "builtIntoArmorIds": [],
       "sourceIds": [
-        "dungeons-tools-enchantments"
+        "dungeons-tools-enchantments",
+        "minecraft-wiki-cowardice"
       ]
     },
     {
@@ -519,11 +541,12 @@
       "mechanicFamily": "healing",
       "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Artifact activation rate is reusable, but observed/final maxHealth and overheal timing must be connected."
+        "Runtime uses realized Artifact activations and resolved Armor maxHealth; overheal is retained as nominal healing capacity."
       ],
       "builtIntoArmorIds": [],
       "sourceIds": [
-        "dungeons-tools-enchantments"
+        "dungeons-tools-enchantments",
+        "minecraft-wiki-health-synergy"
       ]
     },
     {
@@ -732,13 +755,14 @@
       "maxCopies": 1,
       "soulRestriction": "none",
       "mechanicFamily": "defense",
-      "runtimeReadiness": "needs-state-model",
+      "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Nominal Tier III 15% becomes about 10% with 35% Armor DR (about 41.65% total reduction); a general composition formula is not validated."
+        "Runtime supports 6/11/15% only when Protection is the sole DR source. The published 35% Armor + Tier III anchor is about 41.65%; 35% Armor, Iron Hide, Potion Barrier, Guarding Strike, and Weakening combinations are rejected because the general depreciation formula remains unvalidated."
       ],
       "builtIntoArmorIds": [],
       "sourceIds": [
-        "dungeons-tools-enchantments"
+        "dungeons-tools-enchantments",
+        "minecraft-wiki-protection"
       ]
     },
     {
@@ -849,15 +873,16 @@
       "maxCopies": 1,
       "soulRestriction": "none",
       "mechanicFamily": "control",
-      "runtimeReadiness": "needs-state-model",
+      "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Periodic target selection, stun duration, immunity, and affected target share are unresolved."
+        "Runtime uses a steady-state 5/3/1-second periodic trigger, two-second stun, one-target-conservative coverage, and explicit eligibility; it never changes DPS or Defense."
       ],
       "builtIntoArmorIds": [
         "frost-bite"
       ],
       "sourceIds": [
-        "dungeons-tools-enchantments"
+        "dungeons-tools-enchantments",
+        "minecraft-wiki-snowball"
       ]
     },
     {

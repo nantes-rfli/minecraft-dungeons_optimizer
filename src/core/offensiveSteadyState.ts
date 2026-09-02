@@ -6,6 +6,7 @@ import { solveUnitIntervalFixedPoint, solveBracketedUnitFixedPoint } from './fix
 import { hasEnchantment } from './enchantment'
 import { combineRampagingEffects, temporaryBuffUptime } from './temporalEnchantments'
 import { deriveArmorState, resolveBuildHealth } from './armor'
+import { ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { ArmorState, ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario, SoulState } from './types'
 
 interface OffensiveState {
@@ -21,6 +22,10 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
   const resolvedMaxHealth = resolveBuildHealth(build, scenario).finalMaxHealth
   const effect = combineRampagingEffects(build.enchantments)
   const artifactActivation = calculateArtifactActivationState(calculateArtifactActivationOpportunities(build.artifacts, scenario, build))
+  const cowardice = build.armorEnchantments?.find((item) => item.enchantmentId === 'cowardice')
+  const cowardiceExpectedMultiplier = cowardice
+    ? 1 + scenario.cowardiceFullHealthShare! * ARMOR_ENCHANTMENTS.cowardice.tiers[cowardice.tier]
+    : 1
   const usesExploding = hasEnchantment(build.enchantments, 'exploding')
   let initialDirectKillsPerSecond = 0
   let firstExplodingAoeDps = 0
@@ -29,7 +34,15 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
   const atUptime = (uptime: number) => {
     const attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier + (armorState?.meleeAttackSpeedBonus ?? 0) + (effect?.attackSpeedBonus ?? 0) * uptime
     const atSourceRate = (sourceRate: number) => {
-      const damage = calculateDamage(build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier, sourceRate, artifactActivation, resolvedMaxHealth, armorState?.directMeleeDamageMultiplier ?? 1)
+      const damage = calculateDamage(
+        build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier,
+        sourceRate, artifactActivation, resolvedMaxHealth,
+        armorState?.directMeleeDamageMultiplier ?? 1,
+        armorState?.meleeDamageMultiplier ?? 1,
+        armorState?.weaponDamageAuraMultiplier ?? 1,
+        cowardiceExpectedMultiplier,
+        cowardice ? scenario.cowardiceFullHealthShare : undefined,
+      )
       return { damage, combatState: deriveCombatState(damage, scenario) }
     }
     const initial = atSourceRate(0)
