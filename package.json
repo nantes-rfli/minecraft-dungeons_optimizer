@@ -31,7 +31,11 @@
     "audit:armor-runtime": "node scripts/audit-armor-runtime.ts",
     "audit:armor-expansion": "node scripts/audit-armor-expansion.ts",
     "generate:evidence-coverage": "node scripts/audit-evidence-coverage.ts --write",
-    "audit:evidence-coverage": "node scripts/audit-evidence-coverage.ts"
+    "audit:evidence-coverage": "node scripts/audit-evidence-coverage.ts",
+    "generate:ranged": "node scripts/audit-ranged.ts --write",
+    "audit:ranged": "node scripts/audit-ranged.ts",
+    "audit:ranged-enchants": "node scripts/audit-ranged.ts --enchantments",
+    "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts"
   },
   "dependencies": {
     "react": "19.2.6",

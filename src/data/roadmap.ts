@@ -101,13 +101,18 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 2-4D: Measurement Protocol Foundation', status: 'done' },
       { label: 'Phase 2-4E: Read-only Coverage Dashboard', status: 'done' },
       { label: 'Phase 2-4F: Coverage Audit / CI', status: 'done' },
-      { label: 'Phase 2-5: Ranged Audit & Runtime', status: 'planned' },
+      { label: 'Phase 2-5A partial: Ranged Population / Taxonomy（71種照合、詳細・日本語名のEvidence待ち）', status: 'in-progress' },
+      { label: 'Phase 2-5B partial: Attack / Projectile Model（観測入力対応、独立cadence実測待ち）', status: 'in-progress' },
+      { label: 'Phase 2-5C partial: Ranged Enchantment Audit（38/41照合、channel・stack/Tier未解決）', status: 'in-progress' },
+      { label: 'Phase 2-5D: Observed Ranged Runtime MVP（Bow / Crossbow Limited、3 Enchant）', status: 'done' },
+      { label: 'Phase 2-5E: Inventory / Optimizer / Explanation / JSON v2', status: 'done' },
+      { label: 'Phase 2-5F: Common Coverage / Measurement / CI Consolidation', status: 'done' },
     ],
   },
   {
     id: 'phase-3',
     title: 'Phase 3 — Release Readiness',
-    goal: '候補数が増えても、安全・高速・再現可能に使えるv1.0へ仕上げる。',
+    goal: '候補数が増えても壊れにくく、v0.9 Public Betaとして利用できる状態へ仕上げる。',
     items: [
       { label: 'Web Worker化と探索時間の上限管理', status: 'planned' },
       { label: '主要操作のE2Eテストとアクセシビリティ監査', status: 'in-progress' },
@@ -115,6 +120,18 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'データ更新手順・リリース判定を文書化', status: 'planned' },
     ],
   },
+] as const
+
+/** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
+export const FUTURE_MILESTONES = [
+  { id: 'beta', title: 'v0.9 Public Beta', goal: 'Phase 3後。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
+  { id: 'phase-4', title: 'Phase 4 — Research Quest / Evidence Contribution', goal: 'Beta後。未検証項目・priority・measurement protocol・submission・provenance・independent replication・credit・moderation/quality gate。詳細は後続で決定。' },
+  { id: 'phase-5', title: 'Phase 5 — Evidence Closure & v1.0', goal: '独立DPS 0/5とP0/P1 Evidenceを重点解消し、Artifact promotion・主要Limited理由・誤差/confidenceを再評価。主要実用buildをlimitations付きで再現可能に比較する。全P2/P3解消や完全ゲーム再現は条件にしない。' },
+] as const
+export const POST_V1_MILESTONES = [
+  { id: 'generalization', title: 'Post-v1 A — Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、Game/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage、Measurementを段階的に分離。今回全面汎用化しない。' },
+  { id: 'dungeons-ii', title: 'Post-v1 B — Minecraft Dungeons II', goal: '汎用化の最初の実戦対象。新slot/effect、matchmaking・利用者層、新データ取得パイプラインへの適用を検討。' },
+  { id: 'cross-game', title: 'Post-v1 C — 異なるゲームでの汎用性検証', goal: 'Monster Hunter系など異なる装備設計を候補として記録。現時点では実装対象外。' },
 ] as const
 
 export const ROADMAP_PROGRESS = (() => {

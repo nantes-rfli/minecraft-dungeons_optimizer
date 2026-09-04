@@ -34,6 +34,24 @@ export function buildMeasurementProtocols(modelRegressionMarkdown: string, targe
   const [required, forbidden] = eligibility.split(forbiddenMarker)
   const rules = bullets(required!)
   if (rules.length === 0) throw new Error('DPS Eligibility has no required observations')
+  const rangedProtocols = ([
+      { id: 'ranged-cadence', targetMechanic: 'shot / charge / recovery and direct DPS', equipment: ['BowとCrossbowを別runにする。全Power・neutral projectile card/observed damage・Enchantなし・通常矢。'],
+        observations: ['charge開始/発射/recovery終了frame、damage/矢消費、全shot間隔、total durationとtotal damage、観測値と予測値の差'],
+        acceptance: ['neutral damageと完全周期からの有限shot予測を独立hold-out runで比較。charge/recoveryを混ぜない。'], blocker: 'ranged-cadence' },
+      { id: 'ranged-projectiles', targetMechanic: 'projectile distribution / ammo', equipment: ['Scatter・Burst・Exploding familyを別実験にする。baseとuniqueはpaired run。Enchantなし。'],
+        observations: ['1入力ごとのprojectile数、各targetへのdamage列、burst各射timestamp、消費ammo、直撃/爆発/跳弾を識別した映像'],
+        acceptance: ['card値が1矢/全矢/chargeのどれかを識別。各projectileとtargetの帰属が追えるまでDPSへ昇格しない。'], blocker: 'ranged-projectiles' },
+      { id: 'ranged-interactions', targetMechanic: 'proc attribution / ranged Armor modifiers', equipment: ['同一Bow/Crossbow、Power/Critical/Unchanting単独とpair、別runでranged Armor/aura/Cowardiceを比較。'],
+        observations: ['neutral baseline、単独/pairのdamage列、proc発動/非発動、直接/間接の最終撃破、HP状態、Tier/Gilded、敵種類'],
+        acceptance: ['meleeとrangedの同名Enchant値を別に記録。単独→pairのstackingとkill帰属が独立再現するまで共有しない。'], blocker: 'ranged-interactions' },
+    ]).map((item): MeasurementProtocol => ({
+      id: item.id, subsystem: 'ranged', targetMechanic: item.targetMechanic, purpose: '現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。', requiredGameVersion: targetGameVersion,
+      equipment: item.equipment, scenario: ['固定難易度・同じ敵・既知のarmor/DR・固定距離・単体baseline。外部buff/特殊矢/partyなし。'], observations: item.observations,
+      repetition: { minimumIndependentRuns: 3, rule: '各条件で3独立run以上、各run最低20射。proc確率は全trial数と分散を報告し、20射だけで確定しない。' },
+      acceptance: item.acceptance, submissionMetadata: metadata,
+      invalidatingConditions: ['版/装備/全Enchant/targetが不明', 'Strengthや特殊矢が混入、shotとprojectileの混同、未知DR', '予測値を観測値として投稿、連続frameを独立runへ水増し'],
+      blockerIds: [`backlog:${item.blocker}`], sourceRefs: ['docs/ranged-runtime.md', 'research/ranged-weapon-audit.json', 'research/ranged-enchantment-audit.json'],
+    }))
   return [
     {
       id: 'phase-1-dps-regression', subsystem: 'dps-regression', targetMechanic: 'end-to-end single-target DPS', purpose: 'observed card damageを固定し、Power curve誤差を混ぜず独立DPSと比較する。', requiredGameVersion: targetGameVersion,
@@ -60,6 +78,7 @@ export function buildMeasurementProtocols(modelRegressionMarkdown: string, targe
       acceptance: ['全source単独baselineからpairの差を再現し、順序を入れ替えて比較。', '瞬間DRと時間平均uptimeを分離。rounding・分散を説明できるまで一般式を確定しない。', '対象・版・Tier・damage channelが一致するraw traceだけを検証へ採用。'], submissionMetadata: metadata,
       invalidatingConditions: ['HP回復やabsorptionをDRに含める', 'active window外、攻撃者のWeakening状態不明、違うdamage channelを混ぜる', '既存モデル出力や過去版の率だけを観測結果として使用'], blockerIds: ['backlog:armor-dr'], sourceRefs: ['research/armor-core-runtime-audit.json#/decisions/damageReductionComposition', 'research/armor-expansion-state-enchant-audit.json#/armorEnchantments', 'docs/armor-runtime-batch.md'],
     },
+    ...rangedProtocols,
   ]
 }
 

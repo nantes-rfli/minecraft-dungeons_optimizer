@@ -1,0 +1,1359 @@
+{
+  "schemaVersion": 1,
+  "weapons": {
+    "url": "https://www.dungeons.tools/weapons",
+    "accessedAt": "2026-09-04",
+    "claimedGameVersion": "1.17.0.0",
+    "provenance": "Publisher claims extraction from game files; this project did not independently inspect game binaries.",
+    "htmlSha256": "67401036c9698634ba7cd3078b28d02c75d803f25b53950f0ec3a4a3cce0e684",
+    "rows": [
+      {
+        "id": "ancient-bow",
+        "name": "Ancient Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Dynamo"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/ancient-bow"
+      },
+      {
+        "id": "auto-crossbow",
+        "name": "Auto Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 1/14",
+          "Speed 9/14",
+          "Ammo 12/14",
+          "Built in: Accelerate"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/auto-crossbow"
+      },
+      {
+        "id": "azure-seeker",
+        "name": "Azure Seeker",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 7/14",
+          "Speed 2/14",
+          "Ammo 4/14",
+          "Built in: Rapid Fire"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/azure-seeker"
+      },
+      {
+        "id": "baby-crossbows",
+        "name": "Baby Crossbows",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 3/14",
+          "Built in: Growing"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/baby-crossbows"
+      },
+      {
+        "id": "bonebow",
+        "name": "Bonebow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Growing"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/bonebow"
+      },
+      {
+        "id": "bow",
+        "name": "Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/bow"
+      },
+      {
+        "id": "bow-of-lost-souls",
+        "name": "Bow of Lost Souls",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Multishot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/bow-of-lost-souls"
+      },
+      {
+        "id": "bubble-bow",
+        "name": "Bubble Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Bubble damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/bubble-bow"
+      },
+      {
+        "id": "bubble-burster",
+        "name": "Bubble Burster",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Reliable Ricochet"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/bubble-burster"
+      },
+      {
+        "id": "burst-crossbow",
+        "name": "Burst Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 4/14",
+          "Fast Multiple Projectiles"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/burst-crossbow"
+      },
+      {
+        "id": "burst-gale-bow",
+        "name": "Burst Gale Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 6/14",
+          "Built in: Roll Charge"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/burst-gale-bow"
+      },
+      {
+        "id": "butterfly-crossbow",
+        "name": "Butterfly Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 1/14",
+          "Speed 9/14",
+          "Ammo 12/14",
+          "Built in: Bonus Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/butterfly-crossbow"
+      },
+      {
+        "id": "call-of-the-void",
+        "name": "Call of the Void",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Built in: Void Strike"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/call-of-the-void"
+      },
+      {
+        "id": "cog-crossbow",
+        "name": "Cog Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 12/14",
+          "Speed 12/14",
+          "Ammo 3/14",
+          "Wind-up attack"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/cog-crossbow"
+      },
+      {
+        "id": "corrupted-crossbow",
+        "name": "Corrupted Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 4/14",
+          "Built in: Dynamo"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/corrupted-crossbow"
+      },
+      {
+        "id": "crossbow",
+        "name": "Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 7/14",
+          "Speed 2/14",
+          "Ammo 4/14",
+          "Faster Projectiles"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/crossbow"
+      },
+      {
+        "id": "doom-crossbow",
+        "name": "Doom Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 14/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Built in: Punch"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/doom-crossbow"
+      },
+      {
+        "id": "dual-crossbows",
+        "name": "Dual Crossbows",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 3/14",
+          "Double Projectiles"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/dual-crossbows"
+      },
+      {
+        "id": "echo-of-the-valley",
+        "name": "Echo of the Valley",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 6/14",
+          "Built in: Ricochet"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/echo-of-the-valley"
+      },
+      {
+        "id": "elite-power-bow",
+        "name": "Elite Power Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 10/14",
+          "Speed 3/14",
+          "Ammo 2/14",
+          "Built in: Power"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/elite-power-bow"
+      },
+      {
+        "id": "exploding-crossbow",
+        "name": "Exploding Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 12/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Explodes on Impact"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/exploding-crossbow"
+      },
+      {
+        "id": "feral-soul-crossbow",
+        "name": "Feral Soul Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 2/14",
+          "Ammo 3/14",
+          "Built in: Enigma Resonator"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/feral-soul-crossbow"
+      },
+      {
+        "id": "firebolt-thrower",
+        "name": "Firebolt Thrower",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 12/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Built in: Chain Reaction"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/firebolt-thrower"
+      },
+      {
+        "id": "gloopy-bow",
+        "name": "Gloopy Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Reliable Ricochet"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/gloopy-bow"
+      },
+      {
+        "id": "guardian-bow",
+        "name": "Guardian Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Built in: Supercharge"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/guardian-bow"
+      },
+      {
+        "id": "harp-crossbow",
+        "name": "Harp Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 14/14",
+          "Ammo 4/14",
+          "Even more projectiles."
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/harp-crossbow"
+      },
+      {
+        "id": "harpoon-crossbow",
+        "name": "Harpoon Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 8/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Fires harpoons"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/harpoon-crossbow"
+      },
+      {
+        "id": "haunted-bow",
+        "name": "Haunted Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Bonus Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/haunted-bow"
+      },
+      {
+        "id": "heavy-crossbow",
+        "name": "Heavy Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 14/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Powerful Shots"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/heavy-crossbow"
+      },
+      {
+        "id": "hunter-s-promise",
+        "name": "Hunter's Promise",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Infinity"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/hunter-s-promise"
+      },
+      {
+        "id": "hunting-bow",
+        "name": "Hunting Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Pets Attack Targeted Mobs"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/hunting-bow"
+      },
+      {
+        "id": "imploding-crossbow",
+        "name": "Imploding Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 12/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Built in: Gravity"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/imploding-crossbow"
+      },
+      {
+        "id": "lightning-harp-crossbow",
+        "name": "Lightning Harp Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 8/14",
+          "Ammo 4/14",
+          "Built in: Ricochet"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/lightning-harp-crossbow"
+      },
+      {
+        "id": "longbow",
+        "name": "Longbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Strong Charged Attacks"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/longbow"
+      },
+      {
+        "id": "love-spell-bow",
+        "name": "Love Spell Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 8/14",
+          "Ammo 14/14",
+          "Built in: Wild Rage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/love-spell-bow"
+      },
+      {
+        "id": "master-s-bow",
+        "name": "Master's Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Power"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/master-s-bow"
+      },
+      {
+        "id": "mechanical-shortbow",
+        "name": "Mechanical Shortbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 8/14",
+          "Ammo 14/14",
+          "Built in: Accelerate"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/mechanical-shortbow"
+      },
+      {
+        "id": "nautical-crossbow",
+        "name": "Nautical Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 8/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Built in: Piercing"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/nautical-crossbow"
+      },
+      {
+        "id": "nocturnal-bow",
+        "name": "Nocturnal Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Tempo Theft"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/nocturnal-bow"
+      },
+      {
+        "id": "phantom-bow",
+        "name": "Phantom Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 10/14",
+          "Speed 3/14",
+          "Ammo 2/14",
+          "Built in: Power"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/phantom-bow"
+      },
+      {
+        "id": "power-bow",
+        "name": "Power Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 10/14",
+          "Speed 3/14",
+          "Ammo 2/14",
+          "Strong Charged Attacks"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/power-bow"
+      },
+      {
+        "id": "pride-of-the-piglins",
+        "name": "Pride of the Piglins",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 12/14",
+          "Speed 12/14",
+          "Ammo 3/14",
+          "Built in: Piercing"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/pride-of-the-piglins"
+      },
+      {
+        "id": "purple-storm",
+        "name": "Purple Storm",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 8/14",
+          "Ammo 14/14",
+          "Built in: Rapid Fire"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/purple-storm"
+      },
+      {
+        "id": "rapid-crossbow",
+        "name": "Rapid Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 1/14",
+          "Speed 9/14",
+          "Ammo 12/14",
+          "High Firerate"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/rapid-crossbow"
+      },
+      {
+        "id": "red-snake",
+        "name": "Red Snake",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Built in: Fuse Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/red-snake"
+      },
+      {
+        "id": "sabrewing",
+        "name": "Sabrewing",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 10/14",
+          "Speed 3/14",
+          "Ammo 2/14",
+          "Built in: Radiance Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/sabrewing"
+      },
+      {
+        "id": "scatter-crossbow",
+        "name": "Scatter Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 8/14",
+          "Ammo 4/14",
+          "Multiple projectiles"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/scatter-crossbow"
+      },
+      {
+        "id": "shadow-crossbow",
+        "name": "Shadow Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 2/14",
+          "Ammo 4/14",
+          "Built in: Shadow Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/shadow-crossbow"
+      },
+      {
+        "id": "shivering-bow",
+        "name": "Shivering Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Tempo Theft"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/shivering-bow"
+      },
+      {
+        "id": "shortbow",
+        "name": "Shortbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 3/14",
+          "Speed 8/14",
+          "Ammo 14/14"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/shortbow"
+      },
+      {
+        "id": "shrieking-crossbow",
+        "name": "Shrieking Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 1/14",
+          "Ammo 4/14",
+          "Built in: Shadow Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/shrieking-crossbow"
+      },
+      {
+        "id": "slayer-crossbow",
+        "name": "Slayer Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 14/14",
+          "Speed 1/14",
+          "Ammo 1/14",
+          "Built in: Ricochet"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/slayer-crossbow"
+      },
+      {
+        "id": "snow-bow",
+        "name": "Snow Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Freezes on Impact"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/snow-bow"
+      },
+      {
+        "id": "soul-bow",
+        "name": "Soul Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "+1 Soul Gathering"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/soul-bow"
+      },
+      {
+        "id": "soul-crossbow",
+        "name": "Soul Crossbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 2/14",
+          "Ammo 3/14",
+          "+1 Soul Gathering"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/soul-crossbow"
+      },
+      {
+        "id": "soul-hunter-crossbow",
+        "name": "Soul Hunter Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 4/14",
+          "Built in: Enigma Resonator"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/soul-hunter-crossbow"
+      },
+      {
+        "id": "spellbound-crossbows",
+        "name": "Spellbound Crossbows",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 4/14",
+          "Ammo 3/14",
+          "Built in: Unchanting"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/spellbound-crossbows"
+      },
+      {
+        "id": "sugar-rush",
+        "name": "Sugar Rush",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Wild Rage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/sugar-rush"
+      },
+      {
+        "id": "the-green-menace",
+        "name": "The Green Menace",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Poison Cloud"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/the-green-menace"
+      },
+      {
+        "id": "the-pink-scoundrel",
+        "name": "The Pink Scoundrel",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Built in: Wild Rage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/the-pink-scoundrel"
+      },
+      {
+        "id": "the-slicer",
+        "name": "The Slicer",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 7/14",
+          "Speed 2/14",
+          "Ammo 4/14",
+          "Built in: Piercing"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/the-slicer"
+      },
+      {
+        "id": "trickbow",
+        "name": "Trickbow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 3/14",
+          "Speed 3/14",
+          "Ammo 5/14",
+          "Hit Multiple Targets"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/trickbow"
+      },
+      {
+        "id": "twin-bow",
+        "name": "Twin Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Built in: Bonus Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/twin-bow"
+      },
+      {
+        "id": "twisting-vine-bow",
+        "name": "Twisting Vine Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 1/14"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/twisting-vine-bow"
+      },
+      {
+        "id": "veiled-crossbow",
+        "name": "Veiled Crossbow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 1/14",
+          "Ammo 4/14",
+          "Built in: Shadow Shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/veiled-crossbow"
+      },
+      {
+        "id": "void-bow",
+        "name": "Void Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 5/14",
+          "Speed 3/14",
+          "Ammo 4/14",
+          "Built in: Void Strike"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/void-bow"
+      },
+      {
+        "id": "voidcaller",
+        "name": "Voidcaller",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 5/14",
+          "Speed 2/14",
+          "Ammo 3/14",
+          "Built in: Gravity"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/voidcaller"
+      },
+      {
+        "id": "webbed-bow",
+        "name": "Webbed Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Fires 3 arrows when charged"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/webbed-bow"
+      },
+      {
+        "id": "weeping-vine-bow",
+        "name": "Weeping Vine Bow",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 1/14",
+          "Built in: Roll Charge"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/weeping-vine-bow"
+      },
+      {
+        "id": "wind-bow",
+        "name": "Wind Bow",
+        "classification": "ranged",
+        "rarity": "Common",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 6/14",
+          "Charged arrows pull in enemies"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/wind-bow"
+      },
+      {
+        "id": "winter-s-touch",
+        "name": "Winter's Touch",
+        "classification": "Unique ranged",
+        "rarity": "Unique",
+        "facts": [
+          "Power 4/14",
+          "Speed 3/14",
+          "Ammo 7/14",
+          "Fires 3 arrows when charged"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/weapons/winter-s-touch"
+      }
+    ]
+  },
+  "enchantments": {
+    "url": "https://www.dungeons.tools/enchantments",
+    "accessedAt": "2026-09-04",
+    "claimedGameVersion": "1.17.0.0",
+    "provenance": "Publisher claims extraction from game files; this project did not independently inspect game binaries.",
+    "htmlSha256": "50f2f4a9f8baf33de38cf22e94aba71ffcfbf45cb35aa8d60c9939aec4e2fb33",
+    "rows": [
+      {
+        "id": "accelerate",
+        "name": "Accelerate",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "8% / 10% / 12% increase per shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/accelerate"
+      },
+      {
+        "id": "anima-conduit",
+        "name": "Anima Conduit",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "2% / 4% / 6% health gained"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/anima-conduit"
+      },
+      {
+        "id": "artifact-charge",
+        "name": "Artifact Charge",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "Next / Next 2 / Next 3 Attacks charged"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/artifact-charge"
+      },
+      {
+        "id": "bonus-shot",
+        "name": "Bonus Shot",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "10% / 17% / 24% damage per shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/bonus-shot"
+      },
+      {
+        "id": "burst-bowstring",
+        "name": "Burst Bowstring",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "1 / 2 / 3 target"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/burst-bowstring"
+      },
+      {
+        "id": "chain-reaction",
+        "name": "Chain Reaction",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to ranged",
+          "10% / 20% / 30% chance to trigger"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/chain-reaction"
+      },
+      {
+        "id": "committed",
+        "name": "Committed",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "0-50% / 0-75% / 0-100% bonus damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/committed"
+      },
+      {
+        "id": "cooldown-shot",
+        "name": "Cooldown Shot",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "0.5 / 1.0 / 1.5 second cooldown reduction"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/cooldown-shot"
+      },
+      {
+        "id": "critical-hit",
+        "name": "Critical Hit",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to melee, ranged",
+          "10% / 15% / 20% chance to trigger"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/critical-hit"
+      },
+      {
+        "id": "dipping-poison",
+        "name": "Dipping Poison",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "6 / 8 / 12 poison arrows"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/dipping-poison"
+      },
+      {
+        "id": "dynamo",
+        "name": "Dynamo",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "+X / +1.25X / +1.5X damage."
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/dynamo"
+      },
+      {
+        "id": "enigma-resonator",
+        "name": "Enigma Resonator",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "0-15% / 0-20% / 0-25% chance"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/enigma-resonator"
+      },
+      {
+        "id": "fire-aspect",
+        "name": "Fire Aspect",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "X / 1.25X / 1.5X damage per second"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/fire-aspect"
+      },
+      {
+        "id": "fuse-shot",
+        "name": "Fuse Shot",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "fifth / fourth / third Every X shot"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/fuse-shot"
+      },
+      {
+        "id": "gravity",
+        "name": "Gravity",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to melee, ranged",
+          "1.0 / 1.5 / 2.0 seconds duration"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/gravity"
+      },
+      {
+        "id": "growing",
+        "name": "Growing",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "25% / 50% / 75% maximum damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/growing"
+      },
+      {
+        "id": "infinity",
+        "name": "Infinity",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "16% / 32% / 48% chance of arrow not being used"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/infinity"
+      },
+      {
+        "id": "levitation-shot",
+        "name": "Levitation Shot",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to ranged",
+          "100% / 200% / 300% fall damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/levitation-shot"
+      },
+      {
+        "id": "multishot",
+        "name": "Multishot",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "20% / 30% / 40% chance to trigger"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/multishot"
+      },
+      {
+        "id": "overcharge",
+        "name": "Overcharge",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to ranged",
+          "2 / 3 / 4 Can charge x times."
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/overcharge"
+      },
+      {
+        "id": "piercing",
+        "name": "Piercing",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "3rd / 2nd / Every arrow Every X arrow"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/piercing"
+      },
+      {
+        "id": "poison-cloud",
+        "name": "Poison Cloud",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "X / 2X / 3X damage per second"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/poison-cloud"
+      },
+      {
+        "id": "power",
+        "name": "Power",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "+10% / +21% / +33% damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/power"
+      },
+      {
+        "id": "prospector",
+        "name": "Prospector",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged, armor",
+          "+100% / +200% / +300% increased chance"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/prospector"
+      },
+      {
+        "id": "punch",
+        "name": "Punch",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "200% / 300% / 400% knockback"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/punch"
+      },
+      {
+        "id": "radiance-shot",
+        "name": "Radiance Shot",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "X / 1.5X / 2X health healed"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/radiance-shot"
+      },
+      {
+        "id": "rapid-fire",
+        "name": "Rapid Fire",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "+10% / +15% / +20% attack speed"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/rapid-fire"
+      },
+      {
+        "id": "refreshment",
+        "name": "Refreshment",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to melee, ranged",
+          "1.0 / 2.0 / 3.0 seconds cooldown speed up"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/refreshment"
+      },
+      {
+        "id": "ricochet",
+        "name": "Ricochet",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "20% / 40% / 60% chance to trigger"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/ricochet"
+      },
+      {
+        "id": "roll-charge",
+        "name": "Roll Charge",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "1 / 2 / 3 Charged Shot for X Seconds"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/roll-charge"
+      },
+      {
+        "id": "shock-web",
+        "name": "Shock Web",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to ranged",
+          "1 / 2 / 3 Up to X beams"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/shock-web"
+      },
+      {
+        "id": "smiting",
+        "name": "Smiting",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "+25% / +35% / +45% increased damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/smiting"
+      },
+      {
+        "id": "soul-siphon",
+        "name": "Soul Siphon",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "1 / 3 / 5 souls"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/soul-siphon"
+      },
+      {
+        "id": "supercharge",
+        "name": "Supercharge",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "+20% / +30% / +40% increased damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/supercharge"
+      },
+      {
+        "id": "tempo-theft",
+        "name": "Tempo Theft",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to ranged",
+          "17% / 33% / 50% stolen speed"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/tempo-theft"
+      },
+      {
+        "id": "unchanting",
+        "name": "Unchanting",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to melee, ranged",
+          "+50% / +75% / +100% bonus damage"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/unchanting"
+      },
+      {
+        "id": "void-strike",
+        "name": "Void Strike",
+        "classification": "Powerful enchantment",
+        "rarity": "Powerful",
+        "facts": [
+          "Applies to melee, ranged",
+          "200% / 400% / 600% damage multiplier"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/void-strike"
+      },
+      {
+        "id": "wild-rage",
+        "name": "Wild Rage",
+        "classification": "Enchantment",
+        "rarity": "Common",
+        "facts": [
+          "Applies to ranged",
+          "20% / 30% / 40% chance to trigger"
+        ],
+        "sourceUrl": "https://www.dungeons.tools/enchantments/wild-rage"
+      }
+    ]
+  }
+}

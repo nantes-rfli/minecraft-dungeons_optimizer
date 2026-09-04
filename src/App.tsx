@@ -27,7 +27,7 @@ import {
   changeGildedTier,
   DEFAULT_GILDED_ENCHANTMENT,
 } from './inventory/gilded'
-import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from './inventory/storage'
+import { deserializeInventory, loadInventoryState, saveInventory, serializeInventory } from './inventory/storage'
 import { ControlDetails, ControlSettings } from './views/ControlDetails'
 import { MethodologyPage } from './views/MethodologyPage'
 import { RuntimeSupportWarnings } from './views/RuntimeSupport'
@@ -43,6 +43,7 @@ import { StateModelDetails } from './views/StateModelDetails'
 import { DamageEventDetails, DamageEventTargetingControl, PersistentAreaTargetingControl, ProcPowerSupport } from './views/DamageEventControls'
 import { enchantmentUnsupportedReason } from './core/damageEvents'
 import { ARMOR_ENCHANTMENT_REFERENCE_CATALOG, ARMOR_ENCHANTMENT_REFERENCE_IDS } from './research/armorEnchantmentAudit'
+import { RangedInventorySection, RangedResult } from './views/RangedEquipment'
 
 const ENCHANTMENT_IDS = Object.keys(ENCHANTMENTS) as EnchantmentId[]
 const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -118,10 +119,11 @@ function BuildSummary({ evaluation, compact = false, title }: { evaluation: Eval
         {evaluation.build.artifacts.map((item) => <span className="chip artifact" key={item.instanceId}><BilingualName name={ARTIFACTS[item.artifactId].name} /></span>)}
       </div>
       <p className="control-score">Control utility {percentage(evaluation.control.utility)} · 行動阻害・集敵の評価</p>
+      <RangedResult evaluation={evaluation} />
       {!compact && <>
         <div className="metrics-grid">
-          <Metric label={evaluation.damage.damageSource === 'observed-input' ? '単体DPS（表示値ベース）' : '単体DPS（Power換算）'} value={evaluation.damage.singleTargetDps} />
-          <Metric label={evaluation.damage.damageSource === 'observed-input' ? 'AoE DPS（表示値ベース）' : 'AoE DPS（Power換算）'} value={evaluation.damage.aoeDps} />
+          <Metric label={evaluation.damage.ranged ? '単体DPS（近接＋遠距離観測）' : evaluation.damage.damageSource === 'observed-input' ? '単体DPS（表示値ベース）' : '単体DPS（Power換算）'} value={evaluation.damage.singleTargetDps} />
+          <Metric label={evaluation.damage.ranged ? 'AoE DPS（近接＋遠距離観測）' : evaluation.damage.damageSource === 'observed-input' ? 'AoE DPS（表示値ベース）' : 'AoE DPS（Power換算）'} value={evaluation.damage.aoeDps} />
           <Metric label={evaluation.damage.painCycleState ? 'Net sustain / 秒' : evaluation.build.enchantments.some((item) => item.enchantmentId === 'refreshment') ? '回復・容量 / 秒' : '回復 / 秒'} value={evaluation.healing.totalPerSecond} />
           <Metric label="実効HP" value={evaluation.defense.effectiveHealth} />
         </div>
@@ -175,14 +177,22 @@ function OptimizerPage() {
     getClientHydrationSnapshot,
     getServerHydrationSnapshot,
   )
-  const [inventory, setInventory] = useState<Inventory>(() => loadInventory(DEFAULT_INVENTORY))
+  const [initialInventory] = useState(() => loadInventoryState(DEFAULT_INVENTORY))
+  const [inventory, setInventory] = useState<Inventory>(initialInventory.inventory)
+  const [loadError, setLoadError] = useState(initialInventory.error)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const [scenario, setScenario] = useState<Scenario>(DEFAULT_SCENARIO)
-  const [jsonText, setJsonText] = useState('')
+  const [jsonText, setJsonText] = useState(initialInventory.error ? initialInventory.storedJson : '')
   const [dataMessage, setDataMessage] = useState('ブラウザに自動保存されます。')
 
   useEffect(() => {
-    if (hydrated) saveInventory(inventory)
-  }, [hydrated, inventory])
+    if (!hydrated || loadError) return
+    const task = setTimeout(() => {
+      try { saveInventory(inventory); setSaveError(null) }
+      catch (error) { setSaveError(`自動保存を保留しました。入力を修正してください: ${error instanceof Error ? error.message : '不明なエラー'}`) }
+    }, 100)
+    return () => clearTimeout(task)
+  }, [hydrated, inventory, loadError])
 
   const optimization = useMemo(() => {
     try { return { result: optimize(inventory, scenario), error: null } }
@@ -224,7 +234,7 @@ function OptimizerPage() {
     setInventory((current) => ({ ...current, artifacts: [...current.artifacts, item] }))
   }
   const importData = () => {
-    try { const imported = deserializeInventory(jsonText); setInventory(imported); setDataMessage('JSONを読み込みました。') }
+    try { const imported = deserializeInventory(jsonText); setInventory(imported); setLoadError(null); setDataMessage('JSONを読み込みました。') }
     catch (error) { setDataMessage(error instanceof Error ? error.message : '読み込みに失敗しました。') }
   }
 
@@ -267,6 +277,7 @@ function OptimizerPage() {
           </details>)}
         </div>
         <div className="control-section"><p className="section-label">02 / 手持ちArmor</p><div className="add-buttons">{ARMOR_IDS.map((id) => <button key={id} type="button" onClick={() => addArmor(id)}>＋ {ARMORS[id].name.ja}</button>)}</div>{(inventory.armors ?? []).map((armor) => <OwnedArmorEditor key={armor.instanceId} armor={armor} onChange={(next) => updateArmor(armor.instanceId, () => next)} onRemove={() => setInventory((current) => ({ ...current, armors: (current.armors ?? []).filter((item) => item.instanceId !== armor.instanceId) }))} />)}</div>
+        <RangedInventorySection inventory={inventory} onChange={setInventory} scenario={scenario} onScenarioChange={setScenario} />
         <div className="control-section"><p className="section-label">03 / 手持ちアーティファクト</p><div className="add-buttons">{ARTIFACT_IDS.map((id) => <button key={id} type="button" onClick={() => addArtifact(id)}>＋ {ARTIFACTS[id].name.ja}</button>)}</div>
           {inventory.artifacts.map((artifact) => {
             const bounds = artifactPowerBounds(artifact.artifactId)
@@ -275,6 +286,7 @@ function OptimizerPage() {
         </div>
         <div className="control-section"><p className="section-label">04 / 目的・シナリオ</p><div className="profile-buttons">{PROFILE_ORDER.map((id) => <button className={scenario.profileId === id ? 'active' : ''} key={id} type="button" onClick={() => setScenario(SCENARIO_PROFILES[id])}>{SCENARIO_PROFILES[id].name}</button>)}</div></div>
         <div className="control-section sliders"><p className="section-label">05 / 微調整</p><ChargeConsumeControls scenario={scenario} onChange={setScenario} /><ControlSettings scenario={scenario} onChange={setScenario} /><DamageEventTargetingControl value={scenario.damageEventTargeting} maximum={scenario.averageTargetsInReach} onChange={(damageEventTargeting) => setScenario((current) => ({ ...current, damageEventTargeting }))} /><PersistentAreaTargetingControl value={scenario.persistentAreaTargeting} maximum={scenario.averageTargetsInReach} onChange={(persistentAreaTargeting) => setScenario((current) => ({ ...current, persistentAreaTargeting }))} /><EnemyDebuffControl value={scenario.enemyDebuffs} onChange={(enemyDebuffs) => setScenario((current) => ({ ...current, enemyDebuffs }))} /><UndeadShareControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><AmbushShareControl value={scenario.enemyState} onChange={(enemyState) => setScenario((current) => ({ ...current, enemyState }))} /><EnemyCompositionControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><label title="シナリオが供給する敵数の上限です。実際の撃破速度はBuildのDPSから計算します。"><span>敵供給上限 / 秒 <output>{scenario.enemySupplyPerSecond.toFixed(1)}</output></span><input type="range" min="0" max="2" step="0.1" value={scenario.enemySupplyPerSecond} onChange={updateNumber('enemySupplyPerSecond')} /></label><label><span>射程内の敵 <output>{scenario.averageTargetsInReach.toFixed(1)}</output></span><input type="range" min="1" max="6" step="0.5" value={scenario.averageTargetsInReach} onChange={updateNumber('averageTargetsInReach')} /></label><label><span>開始Soul <output>{scenario.initialSoulUnits ?? 0}</output></span><input aria-label="開始Soul" type="range" min="0" max="300" step="5" value={scenario.initialSoulUnits ?? 0} onChange={updateNumber('initialSoulUnits')} /></label><label title="Cowardice使用時だけ必須。0〜1の明示的なモデル仮定です。"><span>Cowardice 満タンHP時間割合</span><input aria-label="Cowardice 満タンHP時間割合" type="number" min="0" max="1" step="0.05" placeholder="Cowardice使用時に入力" value={scenario.cowardiceFullHealthShare ?? ''} onChange={(event) => setScenario((current) => ({ ...current, cowardiceFullHealthShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label><label><span>Artifactのクールダウン短縮 <output>{percentage(scenario.cooldownReduction)}</output></span><input type="range" min="0" max="0.75" step="0.05" value={scenario.cooldownReduction} onChange={updateNumber('cooldownReduction')} /></label><details className="scenario-values" open><summary>HP・ダメージの実数値</summary><p>{usesObservedDamage ? '表示ダメージ' : 'Power換算ダメージ'}と同じゲーム内単位で入力してください。</p><label><span>平均敵HP</span><input aria-label="平均敵HP" type="number" min="0.01" step="any" value={scenario.averageEnemyHealth} onChange={updateNumber('averageEnemyHealth')} /></label><label><span>被ダメージ / 秒</span><input aria-label="被ダメージ毎秒" type="number" min="0" step="any" value={scenario.incomingDamagePerSecond} onChange={updateNumber('incomingDamagePerSecond')} /></label><label title={(inventory.armors?.length ?? 0) > 0 ? 'Armor cardの+Healthから最大HPを解決します。' : 'ArmorなしBuild用のlegacy最大HPです。'}><span>{(inventory.armors?.length ?? 0) > 0 ? '最大HP（Armor使用時は無効）' : '最大HP'}</span><input aria-label="最大HP" type="number" min="0.01" step="any" disabled={(inventory.armors?.length ?? 0) > 0} value={scenario.maxHealth} onChange={updateNumber('maxHealth')} /></label><label><span>輝き1回の回復量</span><input aria-label="輝き1回の回復量" type="number" min="0" step="any" value={scenario.radianceHealPerProc} onChange={updateNumber('radianceHealPerProc')} /></label></details></div>
+        {(loadError || saveError) && <p role="alert">{loadError ?? saveError}</p>}
         <details className="control-section data-tools"><summary>保存データ / JSON</summary><textarea value={jsonText} placeholder="ここにJSONを書き出すか、読み込むJSONを貼り付けます" onChange={(event) => setJsonText(event.target.value)} /><div><button type="button" onClick={() => { setJsonText(serializeInventory(inventory)); setDataMessage('JSONを書き出しました。') }}>書き出す</button><button type="button" onClick={importData}>読み込む</button></div><p>{dataMessage}</p></details>
       </aside>
       <section className="results" aria-live="polite">{optimization.error && <div className="error-panel">{optimization.error}</div>}{optimization.result && <>{optimization.result.unsupportedChoices.length > 0 && <div className="model-warning" role="note"><strong>未対応の候補は評価から除外しました（0点として採用しません）</strong>{optimization.result.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}</div>}{optimization.result.best.damage.damageSource === 'power-curve-estimate' && <div className="model-warning" role="note"><strong>Power換算は1.17.0.0の内部rating比を使う推定値です</strong><span>Power 50〜263に対応します。version不明のWiki damage表とは最大45.06%ずれます。正確な個体値が必要なら全武器へ表示ダメージを入力し、HP・回復量も同じゲーム内単位へ合わせてください。</span></div>}<div className="result-meta"><span>{optimization.result.evaluatedBuildCount}通りを全探索 · {optimization.result.best.damage.damageSource === 'observed-input' ? '表示ダメージ' : 'Power換算値'}</span><span>推定撃破 {numberFormat.format(optimization.result.best.combatState.estimatedKillsPerSecond)} / 秒（供給上限 {numberFormat.format(scenario.enemySupplyPerSecond)}）</span><span>Evidence coverage {Math.round(optimization.result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[optimization.result.best.confidence.label]}）</span></div><DpsRegressionPanel summary={DAMAGE_MODEL_ERROR} predictedDps={optimization.result.best.damage.singleTargetDps} /><BuildSummary evaluation={optimization.result.best} />

@@ -16,6 +16,8 @@ import armorExpansion from '../../../research/armor-expansion-state-enchant-audi
 import dpsAudit from '../../../research/dps-regression-audit.json'
 import { ARMOR_ENCHANTMENTS } from '../../data/armors'
 import { MINIMUM_MODEL_ERROR_SAMPLES } from '../../core/modelError'
+import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../rangedAudit'
+import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../../data/ranged'
 import { facet, pointer, recordKey, type CoverageAdapter, type CoverageBlocker, type CoverageCategory, type CoverageRecord, type JsonValue, type SupportState } from './model'
 
 const paths = {
@@ -25,6 +27,7 @@ const paths = {
   armor: 'research/armor-audit.json', armorSupport: 'research/armor-runtime-support.json', armorHealth: 'research/armor-health-audit.json',
   armorEnchant: 'research/armor-enchantment-audit.json', armorCore: 'research/armor-core-runtime-audit.json', armorExpansion: 'research/armor-expansion-state-enchant-audit.json',
   dps: 'research/dps-regression-audit.json',
+  ranged: 'research/ranged-weapon-audit.json', rangedEnchant: 'research/ranged-enchantment-audit.json',
 } as const
 
 const supportState = (value: string): SupportState => {
@@ -121,13 +124,28 @@ function regression(): CoverageAdapter {
 }
 
 /** Add a category adapter here without touching combat evaluation or the inventory schema. */
+function ranged(category: 'ranged-weapon' | 'ranged-enchantment'): CoverageAdapter {
+  const weapon = category === 'ranged-weapon'
+  const audit = weapon ? RANGED_WEAPON_AUDIT : RANGED_ENCHANTMENT_AUDIT
+  const path = weapon ? paths.ranged : paths.rangedEnchant
+  const runtimePath = 'src/data/ranged.ts'
+  const records = audit.entries.map((entry, index) => record(category, entry.id, entry.name.en, supportState(entry.supportLevel), runtimePath,
+    [facet(pointer(path, 'entries', index), entry)], { confidence: entry.confidence, gameVersion: entry.gameVersion,
+      verificationStatus: entry.currentVersionApplicability, sampleCount: weapon ? RANGED_WEAPON_AUDIT.selection.independentMeasuredRuns : null,
+      powerCoverage: weapon ? { policy: 'user-observed neutral projectile damage + complete cycle; no Power fallback', curveAvailable: false } : { policy: 'tier mechanics, ranged-specific, no melee reuse' } }))
+  return { category, label: weapon ? 'Ranged weapon / attack profile' : 'Ranged enchantment', populationDefinition: audit.population.definition,
+    sourceRefs: [path, 'research/ranged-source-snapshot.json', runtimePath], records,
+    blockers: records.flatMap((item, index) => limitations(item, audit.entries[index]!.blockers, pointer(path, 'entries', index))),
+    details: { populationReconciliation: audit.population, taxonomyScope: 'Weapon audit owns projectile/attack/intrinsic facts; no duplicate profile denominator.', phaseStatus: 'partial', independentGameVerification: false } }
+}
 export function buildCoverageAdapters(): readonly CoverageAdapter[] {
-  return [attackProfiles(), meleeEnchantments(), artifacts(), armors(), armorEnchantments(), regression()]
+  return [attackProfiles(), meleeEnchantments(), artifacts(), armors(), armorEnchantments(), regression(), ranged('ranged-weapon'), ranged('ranged-enchantment')]
 }
 export const COVERAGE_SOURCE_DOCUMENTS: Readonly<Record<string, JsonValue>> = {
   [paths.attack]: attackAudit, [paths.melee]: meleeAudit, [paths.meleeSupport]: meleeSupport,
   [paths.artifact]: artifactAudit, [paths.artifactSupport]: artifactSupport, [paths.decisions]: artifactDecisions, [paths.samples]: artifactSamples, [paths.artifactSources]: artifactSources, [paths.curves]: artifactCurves,
   [paths.armor]: armorAudit, [paths.armorSupport]: armorSupport, [paths.armorHealth]: armorHealth, [paths.armorEnchant]: armorEnchantAudit, [paths.armorCore]: armorCore, [paths.armorExpansion]: armorExpansion, [paths.dps]: dpsAudit,
+  [paths.ranged]: RANGED_WEAPON_AUDIT, [paths.rangedEnchant]: RANGED_ENCHANTMENT_AUDIT,
 }
 
 /** Independent source-to-adapter membership checks catch dropped/extra entries before aggregation. */
@@ -139,6 +157,8 @@ export function collectAdapterSourceErrors(adapters: readonly CoverageAdapter[])
     armor: armorSupport.entries.map((entry) => ({ id: entry.id, support: entry.supportLevel })),
     'armor-enchantment': armorEnchantAudit.entries.map((entry) => ({ id: entry.id, support: Object.values(ARMOR_ENCHANTMENTS).find((item) => item.id === entry.id)?.supportLevel ?? 'research-only' })),
     'dps-regression': dpsAudit.entries.map((entry) => ({ id: entry.id, support: 'not-applicable' })),
+    'ranged-weapon': RANGED_WEAPON_AUDIT.entries.map((entry) => ({ id: entry.id, support: Object.hasOwn(RANGED_WEAPONS, entry.id) ? 'limited' : 'research-only' })),
+    'ranged-enchantment': RANGED_ENCHANTMENT_AUDIT.entries.map((entry) => ({ id: entry.id, support: Object.hasOwn(RANGED_ENCHANTMENTS, entry.id) ? 'limited' : 'research-only' })),
   }
   const errors: string[] = []
   for (const [category, entries] of Object.entries(populations)) {

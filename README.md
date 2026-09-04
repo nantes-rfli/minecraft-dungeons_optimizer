@@ -1,6 +1,6 @@
 # Minecraft Dungeons Gear Optimizer v0.1
 
-Minecraft Dungeons の手持ち近接武器・提示済みエンチャント・アーティファクトを、指定シナリオに対して全探索する React + TypeScript プロトタイプです。
+Minecraft Dungeons の手持ち近接武器・防具・遠距離武器・提示済みエンチャント・アーティファクトを、対応範囲内の指定シナリオに対して全探索する React + TypeScript プロトタイプです。
 
 ## 対応範囲
 
@@ -25,7 +25,19 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 - Soul: 開始0〜300を編集可能。容量300、連続収入、overflow、積分平均、離散Artifact消費のevent schedulerを実装。Soul Artifact 3候補はEvidence不足のため未登録。
 - Artifact 2-2D: Powershakerの有限5-trigger、Totemのplaced healing zone、Wind Hornのseparationを別familyとして監査。3種ともcurve/unit/interaction/objective blocker付きResearch-onlyで、別batchよりEvidence acquisitionを優先。
 
-防具、遠距離武器、固有効果、敵個別耐性は未対応です。近接4武器のPower 50〜263は公開値ベースの推定damageに対応します。
+防具7種・防具Enchant7種と、遠距離Bow/Crossbow・遠距離Enchant3種をLimited対応しています。遠距離unique・多重projectile・特殊矢・未検証Armor synergy・敵個別耐性はResearch-onlyです。近接4武器のPower 50〜263は公開値ベースの推定damageに対応します。遠距離にはPower fallbackを使いません。
+
+### Phase 2-5 — Ranged（partial）
+
+武器primary71 / secondary71、Enchant primary38 / secondary41 / union41を照合。通常矢の**neutral 1矢damage・発射mode・完全周期・矢数・観測メモ**を入力したBow/Crossbowだけ評価します。Power / Critical Hit / Unchantingは各1copy、通常枠と金色Tier I–IIIに対応。観測値は自動入力せず、実測済みとして登録しません。
+
+手順: 遠距離武器を追加 → ゲーム内のneutral観測値を入力・適用 → 自由候補またはlockと金色Tierを指定 → 遠距離の攻撃時間割合を明示 → 結果のdirect melee / direct rangedと制約を確認。近接時間は残りの割合となり、同時に両方100%のDPSは加算しません。特殊効果や未対応の自由候補がある個体は理由付き除外、全候補が未対応ならエラーです。
+
+JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから読み込みます。Rangedなしの旧Inventoryには余分なfieldを追加しません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
+
+共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmap進捗はv1.0 implementation checklistのみで、Phase 2-5の分割により分母53→58。v0.9 Beta → Phase 4 Research Quest → Phase 5 Evidence Closure & v1.0とPost-v1の汎用化/Dungeons II/別ゲーム検証は別milestoneとして追加しました。
+
+新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
 完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。Phase 1-4の公開DPS回帰監査は候補10件・eligible 0件で、full regressionはpending 0 / 5です。
 

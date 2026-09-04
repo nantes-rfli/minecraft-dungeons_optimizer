@@ -1,0 +1,5803 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "phaseStatus": "partial",
+  "sources": [
+    {
+      "id": "primary-weapons",
+      "url": "https://www.dungeons.tools/weapons",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "1.17.0.0 publisher-claimed",
+      "note": "Publisher claims extraction from game files; this project did not independently inspect game binaries."
+    },
+    {
+      "id": "primary-enchantments",
+      "url": "https://www.dungeons.tools/enchantments",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "1.17.0.0 publisher-claimed",
+      "note": "Shared melee/ranged pages can contain melee values. Keep conflicting channel values separate."
+    },
+    {
+      "id": "secondary-weapons",
+      "url": "https://minecraft.wiki/w/Dungeons:Gear",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "current listing; not independently version-verified",
+      "note": "71 obtainable display definitions, includes seven legacy seasonal variants. Availability today is not guaranteed."
+    },
+    {
+      "id": "secondary-enchantments",
+      "url": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "current listing; not independently version-verified",
+      "note": "Ranged hero roll catalog, excluding exclusive intrinsic-only and unused entries. Search-index text used where direct retrieval was blocked."
+    }
+  ],
+  "population": {
+    "definition": "Normalized hero-accessible/obtainable published display union, including seasonal legacy items; not raw game IDs.",
+    "primaryIds": [
+      "ancient-bow",
+      "auto-crossbow",
+      "azure-seeker",
+      "baby-crossbows",
+      "bonebow",
+      "bow",
+      "bow-of-lost-souls",
+      "bubble-bow",
+      "bubble-burster",
+      "burst-crossbow",
+      "burst-gale-bow",
+      "butterfly-crossbow",
+      "call-of-the-void",
+      "cog-crossbow",
+      "corrupted-crossbow",
+      "crossbow",
+      "doom-crossbow",
+      "dual-crossbows",
+      "echo-of-the-valley",
+      "elite-power-bow",
+      "exploding-crossbow",
+      "feral-soul-crossbow",
+      "firebolt-thrower",
+      "gloopy-bow",
+      "guardian-bow",
+      "harp-crossbow",
+      "harpoon-crossbow",
+      "haunted-bow",
+      "heavy-crossbow",
+      "hunter-s-promise",
+      "hunting-bow",
+      "imploding-crossbow",
+      "lightning-harp-crossbow",
+      "longbow",
+      "love-spell-bow",
+      "master-s-bow",
+      "mechanical-shortbow",
+      "nautical-crossbow",
+      "nocturnal-bow",
+      "phantom-bow",
+      "power-bow",
+      "pride-of-the-piglins",
+      "purple-storm",
+      "rapid-crossbow",
+      "red-snake",
+      "sabrewing",
+      "scatter-crossbow",
+      "shadow-crossbow",
+      "shivering-bow",
+      "shortbow",
+      "shrieking-crossbow",
+      "slayer-crossbow",
+      "snow-bow",
+      "soul-bow",
+      "soul-crossbow",
+      "soul-hunter-crossbow",
+      "spellbound-crossbows",
+      "sugar-rush",
+      "the-green-menace",
+      "the-pink-scoundrel",
+      "the-slicer",
+      "trickbow",
+      "twin-bow",
+      "twisting-vine-bow",
+      "veiled-crossbow",
+      "void-bow",
+      "voidcaller",
+      "webbed-bow",
+      "weeping-vine-bow",
+      "wind-bow",
+      "winter-s-touch"
+    ],
+    "secondaryIds": [
+      "bow",
+      "bonebow",
+      "haunted-bow",
+      "twin-bow",
+      "bubble-bow",
+      "bubble-burster",
+      "gloopy-bow",
+      "burst-crossbow",
+      "corrupted-crossbow",
+      "soul-hunter-crossbow",
+      "cog-crossbow",
+      "pride-of-the-piglins",
+      "crossbow",
+      "azure-seeker",
+      "the-slicer",
+      "dual-crossbows",
+      "baby-crossbows",
+      "spellbound-crossbows",
+      "exploding-crossbow",
+      "firebolt-thrower",
+      "imploding-crossbow",
+      "harpoon-crossbow",
+      "nautical-crossbow",
+      "heavy-crossbow",
+      "doom-crossbow",
+      "slayer-crossbow",
+      "hunting-bow",
+      "ancient-bow",
+      "hunter-s-promise",
+      "master-s-bow",
+      "longbow",
+      "guardian-bow",
+      "red-snake",
+      "power-bow",
+      "elite-power-bow",
+      "phantom-bow",
+      "sabrewing",
+      "rapid-crossbow",
+      "auto-crossbow",
+      "butterfly-crossbow",
+      "scatter-crossbow",
+      "harp-crossbow",
+      "lightning-harp-crossbow",
+      "shadow-crossbow",
+      "shrieking-crossbow",
+      "veiled-crossbow",
+      "shortbow",
+      "love-spell-bow",
+      "mechanical-shortbow",
+      "purple-storm",
+      "snow-bow",
+      "webbed-bow",
+      "winter-s-touch",
+      "soul-bow",
+      "bow-of-lost-souls",
+      "nocturnal-bow",
+      "shivering-bow",
+      "soul-crossbow",
+      "feral-soul-crossbow",
+      "voidcaller",
+      "trickbow",
+      "the-green-menace",
+      "the-pink-scoundrel",
+      "sugar-rush",
+      "twisting-vine-bow",
+      "weeping-vine-bow",
+      "void-bow",
+      "call-of-the-void",
+      "wind-bow",
+      "burst-gale-bow",
+      "echo-of-the-valley"
+    ],
+    "commonIds": [
+      "ancient-bow",
+      "auto-crossbow",
+      "azure-seeker",
+      "baby-crossbows",
+      "bonebow",
+      "bow",
+      "bow-of-lost-souls",
+      "bubble-bow",
+      "bubble-burster",
+      "burst-crossbow",
+      "burst-gale-bow",
+      "butterfly-crossbow",
+      "call-of-the-void",
+      "cog-crossbow",
+      "corrupted-crossbow",
+      "crossbow",
+      "doom-crossbow",
+      "dual-crossbows",
+      "echo-of-the-valley",
+      "elite-power-bow",
+      "exploding-crossbow",
+      "feral-soul-crossbow",
+      "firebolt-thrower",
+      "gloopy-bow",
+      "guardian-bow",
+      "harp-crossbow",
+      "harpoon-crossbow",
+      "haunted-bow",
+      "heavy-crossbow",
+      "hunter-s-promise",
+      "hunting-bow",
+      "imploding-crossbow",
+      "lightning-harp-crossbow",
+      "longbow",
+      "love-spell-bow",
+      "master-s-bow",
+      "mechanical-shortbow",
+      "nautical-crossbow",
+      "nocturnal-bow",
+      "phantom-bow",
+      "power-bow",
+      "pride-of-the-piglins",
+      "purple-storm",
+      "rapid-crossbow",
+      "red-snake",
+      "sabrewing",
+      "scatter-crossbow",
+      "shadow-crossbow",
+      "shivering-bow",
+      "shortbow",
+      "shrieking-crossbow",
+      "slayer-crossbow",
+      "snow-bow",
+      "soul-bow",
+      "soul-crossbow",
+      "soul-hunter-crossbow",
+      "spellbound-crossbows",
+      "sugar-rush",
+      "the-green-menace",
+      "the-pink-scoundrel",
+      "the-slicer",
+      "trickbow",
+      "twin-bow",
+      "twisting-vine-bow",
+      "veiled-crossbow",
+      "void-bow",
+      "voidcaller",
+      "webbed-bow",
+      "weeping-vine-bow",
+      "wind-bow",
+      "winter-s-touch"
+    ],
+    "primaryOnly": [],
+    "secondaryOnly": [],
+    "aliases": [
+      {
+        "primary": "Burst Gale Bow",
+        "secondary": "Burst Gust Bow",
+        "normalizedId": "burst-gale-bow",
+        "note": "Shared Wind Bow variant relationship; preserve both labels."
+      }
+    ],
+    "excluded": [
+      "Unused/mob-only definitions outside the hero display list"
+    ],
+    "exhaustiveRawGameIdClaim": false,
+    "rarityDifferences": [
+      "gloopy-bow",
+      "haunted-bow",
+      "phantom-bow",
+      "shivering-bow",
+      "shrieking-crossbow",
+      "sugar-rush",
+      "webbed-bow"
+    ],
+    "secondaryNames": [
+      "Bow",
+      "Bonebow",
+      "Haunted Bow",
+      "Twin Bow",
+      "Bubble Bow",
+      "Bubble Burster",
+      "Gloopy Bow",
+      "Burst Crossbow",
+      "Corrupted Crossbow",
+      "Soul Hunter Crossbow",
+      "Cog Crossbow",
+      "Pride of the Piglins",
+      "Crossbow",
+      "Azure Seeker",
+      "The Slicer",
+      "Dual Crossbows",
+      "Baby Crossbows",
+      "Spellbound Crossbows",
+      "Exploding Crossbow",
+      "Firebolt Thrower",
+      "Imploding Crossbow",
+      "Harpoon Crossbow",
+      "Nautical Crossbow",
+      "Heavy Crossbow",
+      "Doom Crossbow",
+      "Slayer Crossbow",
+      "Hunting Bow",
+      "Ancient Bow",
+      "Hunter's Promise",
+      "Master's Bow",
+      "Longbow",
+      "Guardian Bow",
+      "Red Snake",
+      "Power Bow",
+      "Elite Power Bow",
+      "Phantom Bow",
+      "Sabrewing",
+      "Rapid Crossbow",
+      "Auto Crossbow",
+      "Butterfly Crossbow",
+      "Scatter Crossbow",
+      "Harp Crossbow",
+      "Lightning Harp Crossbow",
+      "Shadow Crossbow",
+      "Shrieking Crossbow",
+      "Veiled Crossbow",
+      "Shortbow",
+      "Love Spell Bow",
+      "Mechanical Shortbow",
+      "Purple Storm",
+      "Snow Bow",
+      "Webbed Bow",
+      "Winter's Touch",
+      "Soul Bow",
+      "Bow of Lost Souls",
+      "Nocturnal Bow",
+      "Shivering Bow",
+      "Soul Crossbow",
+      "Feral Soul Crossbow",
+      "Voidcaller",
+      "Trickbow",
+      "The Green Menace",
+      "The Pink Scoundrel",
+      "Sugar Rush",
+      "Twisting Vine Bow",
+      "Weeping Vine Bow",
+      "Void Bow",
+      "Call of the Void",
+      "Wind Bow",
+      "Burst Gust Bow",
+      "Echo of the Valley"
+    ]
+  },
+  "selection": {
+    "promotedIds": [
+      "bow",
+      "crossbow"
+    ],
+    "rationale": "Two simple projectile archetypes: chargeable Bow and non-chargeable Crossbow. No Power curve or cadence inferred; requires explicit neutral observations.",
+    "powerFallback": false,
+    "independentMeasuredRuns": 0
+  },
+  "entries": [
+    {
+      "id": "ancient-bow",
+      "name": {
+        "en": "Ancient Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "hunting-bow",
+      "variantOf": "hunting-bow",
+      "family": "hunting-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Dynamo"
+        ],
+        "inherited": [
+          "Pets Attack Targeted Mobs"
+        ],
+        "families": [
+          "conditional-damage",
+          "summon"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/ancient-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "auto-crossbow",
+      "name": {
+        "en": "Auto Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "rapid-crossbow",
+      "variantOf": "rapid-crossbow",
+      "family": "rapid-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "rapid-fire",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Accelerate"
+        ],
+        "inherited": [
+          "High Firerate"
+        ],
+        "families": [
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 1/14",
+        "Speed 9/14",
+        "Ammo 12/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/auto-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "azure-seeker",
+      "name": {
+        "en": "Azure Seeker",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "crossbow",
+      "variantOf": "crossbow",
+      "family": "crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Rapid Fire"
+        ],
+        "inherited": [
+          "Faster Projectiles"
+        ],
+        "families": [
+          "cadence",
+          "projectile-velocity"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 7/14",
+        "Speed 2/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/azure-seeker",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "baby-crossbows",
+      "name": {
+        "en": "Baby Crossbows",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "dual-crossbows",
+      "variantOf": "dual-crossbows",
+      "family": "dual-crossbows",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Growing"
+        ],
+        "inherited": [
+          "Double Projectiles"
+        ],
+        "families": [
+          "conditional-damage",
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/baby-crossbows",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "bonebow",
+      "name": {
+        "en": "Bonebow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "bow",
+      "variantOf": "bow",
+      "family": "bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Growing"
+        ],
+        "inherited": [],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/bonebow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "bow",
+      "name": {
+        "en": "Bow",
+        "ja": "弓"
+      },
+      "japaneseNameStatus": "runtime-label",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": false,
+      "projectileCount": 1,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": false,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": 1,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [],
+        "inherited": [],
+        "families": [],
+        "support": "limited",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "limited",
+      "blockers": [
+        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+        "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+      ]
+    },
+    {
+      "id": "bow-of-lost-souls",
+      "name": {
+        "en": "Bow of Lost Souls",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "soul-bow",
+      "variantOf": "soul-bow",
+      "family": "soul-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Multishot"
+        ],
+        "inherited": [
+          "+1 Soul Gathering"
+        ],
+        "families": [
+          "projectile-duplication",
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/bow-of-lost-souls",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "bubble-bow",
+      "name": {
+        "en": "Bubble Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "bubble-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "bubble",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Bubble damage"
+        ],
+        "inherited": [],
+        "families": [
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/bubble-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "bubble-burster",
+      "name": {
+        "en": "Bubble Burster",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "bubble-bow",
+      "variantOf": "bubble-bow",
+      "family": "bubble-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "bubble",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Reliable Ricochet"
+        ],
+        "inherited": [
+          "Bubble damage"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/bubble-burster",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "burst-crossbow",
+      "name": {
+        "en": "Burst Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "burst-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "burst",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Fast Multiple Projectiles"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/burst-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "burst-gale-bow",
+      "name": {
+        "en": "Burst Gale Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "wind-bow",
+      "variantOf": "wind-bow",
+      "family": "wind-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Roll Charge"
+        ],
+        "inherited": [
+          "Charged arrows pull in enemies"
+        ],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 6/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/burst-gale-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "butterfly-crossbow",
+      "name": {
+        "en": "Butterfly Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "rapid-crossbow",
+      "variantOf": "rapid-crossbow",
+      "family": "rapid-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "rapid-fire",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Bonus Shot"
+        ],
+        "inherited": [
+          "High Firerate"
+        ],
+        "families": [
+          "projectile-duplication",
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 1/14",
+        "Speed 9/14",
+        "Ammo 12/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/butterfly-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "call-of-the-void",
+      "name": {
+        "en": "Call of the Void",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "void-bow",
+      "variantOf": "void-bow",
+      "family": "void-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Void Strike"
+        ],
+        "inherited": [
+          "Built in: Void Strike"
+        ],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/call-of-the-void",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "cog-crossbow",
+      "name": {
+        "en": "Cog Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "cog-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "wind-up",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Wind-up attack"
+        ],
+        "inherited": [],
+        "families": [
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 12/14",
+        "Speed 12/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/cog-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "corrupted-crossbow",
+      "name": {
+        "en": "Corrupted Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "burst-crossbow",
+      "variantOf": "burst-crossbow",
+      "family": "burst-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "burst",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Dynamo"
+        ],
+        "inherited": [
+          "Fast Multiple Projectiles"
+        ],
+        "families": [
+          "conditional-damage",
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/corrupted-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "crossbow",
+      "name": {
+        "en": "Crossbow",
+        "ja": "クロスボウ"
+      },
+      "japaneseNameStatus": "runtime-label",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": false,
+      "projectileCount": 1,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": false,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": 1,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Faster Projectiles"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-velocity"
+        ],
+        "support": "limited",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 7/14",
+        "Speed 2/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "limited",
+      "blockers": [
+        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+        "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+      ]
+    },
+    {
+      "id": "doom-crossbow",
+      "name": {
+        "en": "Doom Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "heavy-crossbow",
+      "variantOf": "heavy-crossbow",
+      "family": "heavy-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Punch"
+        ],
+        "inherited": [
+          "Powerful Shots"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "flat-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 14/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/doom-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "dual-crossbows",
+      "name": {
+        "en": "Dual Crossbows",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "dual-crossbows",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Double Projectiles"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/dual-crossbows",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "echo-of-the-valley",
+      "name": {
+        "en": "Echo of the Valley",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "wind-bow",
+      "variantOf": "wind-bow",
+      "family": "wind-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Ricochet"
+        ],
+        "inherited": [
+          "Charged arrows pull in enemies"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 6/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/echo-of-the-valley",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "elite-power-bow",
+      "name": {
+        "en": "Elite Power Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "power-bow",
+      "variantOf": "power-bow",
+      "family": "power-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Power"
+        ],
+        "inherited": [
+          "Strong Charged Attacks"
+        ],
+        "families": [
+          "flat-modifier",
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 10/14",
+        "Speed 3/14",
+        "Ammo 2/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/elite-power-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "exploding-crossbow",
+      "name": {
+        "en": "Exploding Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "exploding-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "explosive-arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Explodes on Impact"
+        ],
+        "inherited": [],
+        "families": [
+          "explosion"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 12/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/exploding-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "feral-soul-crossbow",
+      "name": {
+        "en": "Feral Soul Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "soul-crossbow",
+      "variantOf": "soul-crossbow",
+      "family": "soul-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Enigma Resonator"
+        ],
+        "inherited": [
+          "+1 Soul Gathering"
+        ],
+        "families": [
+          "conditional-damage",
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 2/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/feral-soul-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "firebolt-thrower",
+      "name": {
+        "en": "Firebolt Thrower",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "exploding-crossbow",
+      "variantOf": "exploding-crossbow",
+      "family": "exploding-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "explosive-arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Chain Reaction"
+        ],
+        "inherited": [
+          "Explodes on Impact"
+        ],
+        "families": [
+          "projectile-duplication",
+          "explosion"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 12/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/firebolt-thrower",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "gloopy-bow",
+      "name": {
+        "en": "Gloopy Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "bubble-bow",
+      "variantOf": "bubble-bow",
+      "family": "bubble-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "bubble",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Reliable Ricochet"
+        ],
+        "inherited": [
+          "Bubble damage"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/gloopy-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "guardian-bow",
+      "name": {
+        "en": "Guardian Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "longbow",
+      "variantOf": "longbow",
+      "family": "longbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Supercharge"
+        ],
+        "inherited": [
+          "Strong Charged Attacks"
+        ],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/guardian-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "harp-crossbow",
+      "name": {
+        "en": "Harp Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "scatter-crossbow",
+      "variantOf": "scatter-crossbow",
+      "family": "scatter-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Even more projectiles."
+        ],
+        "inherited": [
+          "Multiple projectiles"
+        ],
+        "families": [
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 14/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/harp-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "harpoon-crossbow",
+      "name": {
+        "en": "Harpoon Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "harpoon-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "harpoon",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Fires harpoons"
+        ],
+        "inherited": [],
+        "families": [
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 8/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/harpoon-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "haunted-bow",
+      "name": {
+        "en": "Haunted Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "bow",
+      "variantOf": "bow",
+      "family": "bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Bonus Shot"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-duplication"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/haunted-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "heavy-crossbow",
+      "name": {
+        "en": "Heavy Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "heavy-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Powerful Shots"
+        ],
+        "inherited": [],
+        "families": [
+          "flat-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 14/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/heavy-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "hunter-s-promise",
+      "name": {
+        "en": "Hunter's Promise",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "hunting-bow",
+      "variantOf": "hunting-bow",
+      "family": "hunting-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Infinity"
+        ],
+        "inherited": [
+          "Pets Attack Targeted Mobs"
+        ],
+        "families": [
+          "resource",
+          "summon"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/hunter-s-promise",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "hunting-bow",
+      "name": {
+        "en": "Hunting Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "hunting-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Pets Attack Targeted Mobs"
+        ],
+        "inherited": [],
+        "families": [
+          "summon"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/hunting-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "imploding-crossbow",
+      "name": {
+        "en": "Imploding Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "exploding-crossbow",
+      "variantOf": "exploding-crossbow",
+      "family": "exploding-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "explosive-arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Gravity"
+        ],
+        "inherited": [
+          "Explodes on Impact"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "explosion"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 12/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/imploding-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "lightning-harp-crossbow",
+      "name": {
+        "en": "Lightning Harp Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "scatter-crossbow",
+      "variantOf": "scatter-crossbow",
+      "family": "scatter-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Ricochet"
+        ],
+        "inherited": [
+          "Multiple projectiles"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 8/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/lightning-harp-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "longbow",
+      "name": {
+        "en": "Longbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "longbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Strong Charged Attacks"
+        ],
+        "inherited": [],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/longbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "love-spell-bow",
+      "name": {
+        "en": "Love Spell Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "shortbow",
+      "variantOf": "shortbow",
+      "family": "shortbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Wild Rage"
+        ],
+        "inherited": [],
+        "families": [
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 8/14",
+        "Ammo 14/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/love-spell-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "master-s-bow",
+      "name": {
+        "en": "Master's Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "hunting-bow",
+      "variantOf": "hunting-bow",
+      "family": "hunting-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Power"
+        ],
+        "inherited": [
+          "Pets Attack Targeted Mobs"
+        ],
+        "families": [
+          "flat-modifier",
+          "summon"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/master-s-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "mechanical-shortbow",
+      "name": {
+        "en": "Mechanical Shortbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "shortbow",
+      "variantOf": "shortbow",
+      "family": "shortbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Accelerate"
+        ],
+        "inherited": [],
+        "families": [
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 8/14",
+        "Ammo 14/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/mechanical-shortbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "nautical-crossbow",
+      "name": {
+        "en": "Nautical Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "harpoon-crossbow",
+      "variantOf": "harpoon-crossbow",
+      "family": "harpoon-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "harpoon",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Piercing"
+        ],
+        "inherited": [
+          "Fires harpoons"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 8/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/nautical-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "nocturnal-bow",
+      "name": {
+        "en": "Nocturnal Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "soul-bow",
+      "variantOf": "soul-bow",
+      "family": "soul-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Tempo Theft"
+        ],
+        "inherited": [
+          "+1 Soul Gathering"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/nocturnal-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "phantom-bow",
+      "name": {
+        "en": "Phantom Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "power-bow",
+      "variantOf": "power-bow",
+      "family": "power-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Power"
+        ],
+        "inherited": [
+          "Strong Charged Attacks"
+        ],
+        "families": [
+          "flat-modifier",
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 10/14",
+        "Speed 3/14",
+        "Ammo 2/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/phantom-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "power-bow",
+      "name": {
+        "en": "Power Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "power-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Strong Charged Attacks"
+        ],
+        "inherited": [],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 10/14",
+        "Speed 3/14",
+        "Ammo 2/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/power-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "pride-of-the-piglins",
+      "name": {
+        "en": "Pride of the Piglins",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "cog-crossbow",
+      "variantOf": "cog-crossbow",
+      "family": "cog-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "wind-up",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Piercing"
+        ],
+        "inherited": [
+          "Wind-up attack"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 12/14",
+        "Speed 12/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/pride-of-the-piglins",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "purple-storm",
+      "name": {
+        "en": "Purple Storm",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "shortbow",
+      "variantOf": "shortbow",
+      "family": "shortbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Rapid Fire"
+        ],
+        "inherited": [],
+        "families": [
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 8/14",
+        "Ammo 14/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/purple-storm",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "rapid-crossbow",
+      "name": {
+        "en": "Rapid Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "rapid-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "rapid-fire",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "High Firerate"
+        ],
+        "inherited": [],
+        "families": [
+          "cadence"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 1/14",
+        "Speed 9/14",
+        "Ammo 12/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/rapid-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "red-snake",
+      "name": {
+        "en": "Red Snake",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "longbow",
+      "variantOf": "longbow",
+      "family": "longbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Fuse Shot"
+        ],
+        "inherited": [
+          "Strong Charged Attacks"
+        ],
+        "families": [
+          "explosion",
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/red-snake",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "sabrewing",
+      "name": {
+        "en": "Sabrewing",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "power-bow",
+      "variantOf": "power-bow",
+      "family": "power-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Radiance Shot"
+        ],
+        "inherited": [
+          "Strong Charged Attacks"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 10/14",
+        "Speed 3/14",
+        "Ammo 2/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/sabrewing",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "scatter-crossbow",
+      "name": {
+        "en": "Scatter Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "scatter-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Multiple projectiles"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 8/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/scatter-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "shadow-crossbow",
+      "name": {
+        "en": "Shadow Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "shadow-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Shadow Shot"
+        ],
+        "inherited": [],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 2/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/shadow-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "shivering-bow",
+      "name": {
+        "en": "Shivering Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "soul-bow",
+      "variantOf": "soul-bow",
+      "family": "soul-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Tempo Theft"
+        ],
+        "inherited": [
+          "+1 Soul Gathering"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/shivering-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "shortbow",
+      "name": {
+        "en": "Shortbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "shortbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [],
+        "inherited": [],
+        "families": [],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 8/14",
+        "Ammo 14/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/shortbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "shrieking-crossbow",
+      "name": {
+        "en": "Shrieking Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "shadow-crossbow",
+      "variantOf": "shadow-crossbow",
+      "family": "shadow-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Shadow Shot"
+        ],
+        "inherited": [
+          "Built in: Shadow Shot"
+        ],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 1/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/shrieking-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "slayer-crossbow",
+      "name": {
+        "en": "Slayer Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "heavy-crossbow",
+      "variantOf": "heavy-crossbow",
+      "family": "heavy-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Ricochet"
+        ],
+        "inherited": [
+          "Powerful Shots"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "flat-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 14/14",
+        "Speed 1/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/slayer-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "snow-bow",
+      "name": {
+        "en": "Snow Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "snow-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Freezes on Impact"
+        ],
+        "inherited": [],
+        "families": [
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/snow-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "soul-bow",
+      "name": {
+        "en": "Soul Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "soul-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "+1 Soul Gathering"
+        ],
+        "inherited": [],
+        "families": [
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/soul-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "soul-crossbow",
+      "name": {
+        "en": "Soul Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "soul-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "+1 Soul Gathering"
+        ],
+        "inherited": [],
+        "families": [
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 2/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/soul-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "soul-hunter-crossbow",
+      "name": {
+        "en": "Soul Hunter Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "burst-crossbow",
+      "variantOf": "burst-crossbow",
+      "family": "burst-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "burst",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Enigma Resonator"
+        ],
+        "inherited": [
+          "Fast Multiple Projectiles"
+        ],
+        "families": [
+          "conditional-damage",
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/soul-hunter-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "spellbound-crossbows",
+      "name": {
+        "en": "Spellbound Crossbows",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "dual-crossbows",
+      "variantOf": "dual-crossbows",
+      "family": "dual-crossbows",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Unchanting"
+        ],
+        "inherited": [
+          "Double Projectiles"
+        ],
+        "families": [
+          "conditional-damage",
+          "projectile-count"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 4/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/spellbound-crossbows",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "sugar-rush",
+      "name": {
+        "en": "Sugar Rush",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "trickbow",
+      "variantOf": "trickbow",
+      "family": "trickbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Wild Rage"
+        ],
+        "inherited": [
+          "Hit Multiple Targets"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "ricochet-pierce"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/sugar-rush",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "the-green-menace",
+      "name": {
+        "en": "The Green Menace",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "trickbow",
+      "variantOf": "trickbow",
+      "family": "trickbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Poison Cloud"
+        ],
+        "inherited": [
+          "Hit Multiple Targets"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "ricochet-pierce"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/the-green-menace",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "the-pink-scoundrel",
+      "name": {
+        "en": "The Pink Scoundrel",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "trickbow",
+      "variantOf": "trickbow",
+      "family": "trickbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Wild Rage"
+        ],
+        "inherited": [
+          "Hit Multiple Targets"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "ricochet-pierce"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/the-pink-scoundrel",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "the-slicer",
+      "name": {
+        "en": "The Slicer",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "crossbow",
+      "variantOf": "crossbow",
+      "family": "crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Piercing"
+        ],
+        "inherited": [
+          "Faster Projectiles"
+        ],
+        "families": [
+          "ricochet-pierce",
+          "projectile-velocity"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 7/14",
+        "Speed 2/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/the-slicer",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "trickbow",
+      "name": {
+        "en": "Trickbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "trickbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Hit Multiple Targets"
+        ],
+        "inherited": [],
+        "families": [
+          "ricochet-pierce"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 3/14",
+        "Speed 3/14",
+        "Ammo 5/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/trickbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "twin-bow",
+      "name": {
+        "en": "Twin Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "bow",
+      "variantOf": "bow",
+      "family": "bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Bonus Shot"
+        ],
+        "inherited": [],
+        "families": [
+          "projectile-duplication"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/twin-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "twisting-vine-bow",
+      "name": {
+        "en": "Twisting Vine Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "twisting-vine-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "poison-trail-arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [],
+        "inherited": [],
+        "families": [],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/twisting-vine-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "veiled-crossbow",
+      "name": {
+        "en": "Veiled Crossbow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "shadow-crossbow",
+      "variantOf": "shadow-crossbow",
+      "family": "shadow-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Shadow Shot"
+        ],
+        "inherited": [
+          "Built in: Shadow Shot"
+        ],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 1/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/veiled-crossbow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "void-bow",
+      "name": {
+        "en": "Void Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "void-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Void Strike"
+        ],
+        "inherited": [],
+        "families": [
+          "conditional-damage"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 3/14",
+        "Ammo 4/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/void-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "voidcaller",
+      "name": {
+        "en": "Voidcaller",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "soul-crossbow",
+      "variantOf": "soul-crossbow",
+      "family": "soul-crossbow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "single-shot",
+      "chargeBehavior": "not-chargeable",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": true,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Gravity"
+        ],
+        "inherited": [
+          "+1 Soul Gathering"
+        ],
+        "families": [
+          "status-or-special-projectile",
+          "resource"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 5/14",
+        "Speed 2/14",
+        "Ammo 3/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/voidcaller",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "webbed-bow",
+      "name": {
+        "en": "Webbed Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "snow-bow",
+      "variantOf": "snow-bow",
+      "family": "snow-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": true,
+      "rarity": "unique",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Fires 3 arrows when charged"
+        ],
+        "inherited": [
+          "Freezes on Impact"
+        ],
+        "families": [
+          "projectile-count",
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/webbed-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "weeping-vine-bow",
+      "name": {
+        "en": "Weeping Vine Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "twisting-vine-bow",
+      "variantOf": "twisting-vine-bow",
+      "family": "twisting-vine-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "poison-trail-arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Built in: Roll Charge"
+        ],
+        "inherited": [],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 1/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/weeping-vine-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "wind-bow",
+      "name": {
+        "en": "Wind Bow",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": null,
+      "variantOf": null,
+      "family": "wind-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "common-rare",
+      "primaryRarity": "Common",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": null,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Charged arrows pull in enemies"
+        ],
+        "inherited": [],
+        "families": [
+          "charge-modifier"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 6/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/wind-bow",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    },
+    {
+      "id": "winter-s-touch",
+      "name": {
+        "en": "Winter's Touch",
+        "ja": null
+      },
+      "japaneseNameStatus": "not-yet-verified",
+      "baseWeaponId": "snow-bow",
+      "variantOf": "snow-bow",
+      "family": "snow-bow",
+      "heroAccessible": true,
+      "obtainable": true,
+      "obtainabilityScope": "published hero equipment population; seasonal re-obtainment is not guaranteed",
+      "eventExclusive": false,
+      "rarity": "unique",
+      "primaryRarity": "Unique",
+      "firingMode": "chargeable",
+      "chargeBehavior": "manual; timings unknown",
+      "projectileFamily": "arrow",
+      "multiProjectile": true,
+      "projectileCount": null,
+      "chargeTimeSeconds": null,
+      "recoverySeconds": null,
+      "shotsPerSecond": null,
+      "burstCount": null,
+      "spread": null,
+      "multiHitPossibility": null,
+      "duplication": null,
+      "pierce": null,
+      "ricochet": null,
+      "ammo": {
+        "consumptionPerShot": null,
+        "quiverSize": null,
+        "policy": "no rating-to-ammo conversion; special quivers excluded"
+      },
+      "soul": {
+        "related": false,
+        "gathering": null,
+        "consumption": null
+      },
+      "intrinsic": {
+        "own": [
+          "Fires 3 arrows when charged"
+        ],
+        "inherited": [
+          "Freezes on Impact"
+        ],
+        "families": [
+          "projectile-count",
+          "status-or-special-projectile"
+        ],
+        "support": "research-only",
+        "completeMechanicVerification": false
+      },
+      "rawRatings": [
+        "Power 4/14",
+        "Speed 3/14",
+        "Ammo 7/14"
+      ],
+      "gameVersion": "1.17.0.0",
+      "currentVersionApplicability": "publisher-claimed; no independent gameplay verification",
+      "sourceIds": [
+        "primary-weapons",
+        "secondary-weapons"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/weapons/winter-s-touch",
+      "sharedMechanicsProvenance": {
+        "familySource": "secondary-weapons",
+        "inheritsTiming": false,
+        "inheritsEnchantRuntime": false
+      },
+      "confidence": "medium",
+      "auditStatus": "population-reconciled-mechanics-partial",
+      "supportLevel": "research-only",
+      "blockers": [
+        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+      ]
+    }
+  ]
+}

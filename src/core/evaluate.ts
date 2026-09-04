@@ -23,6 +23,7 @@ import { validateBuild, validateScenario } from './validation'
 import { resolveBuildHealth } from './armor'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { ArmorEnchantmentId, ArmorId } from './armor'
+import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
 
 interface EvaluationCore {
   readonly temporalState: Evaluation['temporalState']
@@ -88,7 +89,9 @@ function toContribution(
       ? getArtifactDefinition(sourceId as ArtifactId).name
       : sourceType === 'armor'
         ? ARMORS[sourceId as ArmorId].name
-        : ARMOR_ENCHANTMENTS[sourceId as ArmorEnchantmentId].name
+        : sourceType === 'ranged-enchantment'
+          ? RANGED_ENCHANTMENTS[sourceId]!.name
+          : ARMOR_ENCHANTMENTS[sourceId as ArmorEnchantmentId].name
 
   return {
     sourceType,
@@ -124,7 +127,11 @@ function calculateContributions(
     const armorEnchantments = build.armorEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return toContribution('armor-enchantment', selected.enchantmentId, baseline, calculateCore({ ...build, armorEnchantments }, scenario))
   })
-  return [...enchantmentContributions, ...artifactContributions, ...armorEnchantmentContributions].sort(
+  const rangedContributions = (build.rangedEnchantments ?? []).map((selected, index) => {
+    const rangedEnchantments = build.rangedEnchantments!.filter((_, currentIndex) => currentIndex !== index)
+    return toContribution('ranged-enchantment', selected.enchantmentId as EffectContribution['sourceId'], baseline, calculateCore({ ...build, rangedEnchantments }, scenario))
+  })
+  return [...enchantmentContributions, ...artifactContributions, ...armorEnchantmentContributions, ...rangedContributions].sort(
     (left, right) => right.objectiveDelta - left.objectiveDelta,
   )
 }
@@ -140,6 +147,12 @@ export function evaluateCandidate(build: Build, scenario: Scenario) {
 export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = evaluateCandidate(build, scenario)
   const reasons: string[] = describeControl(core.control)
+  if (core.damage.ranged) {
+    const state = core.damage.ranged
+    reasons.push(`${RANGED_WEAPONS[state.weaponId]!.name.en}: Limited / ${state.mode} / 時間${(state.timeShare * 100).toFixed(1)}%、${state.shots}射（矢消費${state.ammoConsumed}${state.ammoLimited ? '・弾数上限' : ''}）→ direct ranged ${state.directSingleTargetDps.toFixed(2)} DPS。indirect ranged 0（対応効果を選択していない）。`)
+    reasons.push(`近接時間${((1 - state.timeShare) * 100).toFixed(1)}%。Ranged撃破は近接Leeching・Refreshment・Guardingの発動に流用しません。`)
+    reasons.push(...state.limitations, RANGED_WEAPONS[state.weaponId]!.intrinsic)
+  }
   if (core.armorState) {
     const armor = ARMORS[core.armorState.armorId]
     reasons.push(`${armor.name.en}: Base Hero 100 + Armor Health ${core.armorState.observedHealthBonus.toLocaleString('en-US')} → Max Health ${core.armorState.finalMaxHealth.toLocaleString('en-US')}`)

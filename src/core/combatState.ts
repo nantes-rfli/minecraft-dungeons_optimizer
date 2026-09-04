@@ -13,8 +13,10 @@ export function deriveCombatState(
   // Damage share is only an expected final-blow proxy, not an exact attribution.
   const directDamageShare = effectiveDamagePerSecond > 0
     ? damage.directWeaponAoeDps / effectiveDamagePerSecond : 1
-  const indirectDamageShare = 1 - directDamageShare
+  const directRangedDamageShare = damage.ranged && effectiveDamagePerSecond > 0 ? damage.ranged.directAoeDps / effectiveDamagePerSecond : 0
+  const indirectDamageShare = damage.ranged ? Math.max(0, 1 - directDamageShare - directRangedDamageShare) : 1 - directDamageShare
   return {
+    ...(damage.ranged ? { directRangedDamageShare, directRangedKillsPerSecond: estimatedKillsPerSecond * scenario.directKillShare * directRangedDamageShare } : {}),
     directDamageShare,
     indirectDamageShare,
     indirectEstimatedKillsPerSecond: estimatedKillsPerSecond * indirectDamageShare,

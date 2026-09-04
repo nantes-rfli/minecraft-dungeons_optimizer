@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **40 / 53（75%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+v1.0判定には実装チェック項目・精度gate・後述Phase 5のrelease判定が必要です。現在scopeされた **v1.0 implementation checklist** の進捗は **43 / 58（74%）** です。Phase 2-5を1項目から6項目へ分割したため分母は53→58。future milestonesは大枠で粒度が異なるため別表示とし、Post-v1も進捗へ含めません。これは精度・作業量・v1.0到達確率ではなくチェック項目の完了率です。公開前にaudit・`npm test`・tsc・lint・buildを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（21 / 29）
+## Phase 2 — Equipment Coverage（24 / 34）
 
 ### Melee runtime summary
 
@@ -102,11 +102,20 @@ Armorはprimary71 / Wiki known73 / obtainable71を照合し、7件をLimited run
 - [x] Phase 2-4D: Measurement Protocol Foundation
 - [x] Phase 2-4E: Read-only Coverage Dashboard
 - [x] Phase 2-4F: Coverage Audit / CI
-- [ ] Phase 2-5: Ranged Audit & Runtime
+- [ ] Phase 2-5A partial: Ranged Population / Taxonomy（71種照合、詳細・日本語名のEvidence待ち）
+- [ ] Phase 2-5B partial: Attack / Projectile Model（観測入力対応、独立cadence実測待ち）
+- [ ] Phase 2-5C partial: Ranged Enchantment Audit（38/41照合、channel・stack/Tier未解決）
+- [x] Phase 2-5D: Observed Ranged Runtime MVP（Bow / Crossbow Limited、3 Enchant）
+- [x] Phase 2-5E: Inventory / Optimizer / Explanation / JSON v2
+- [x] Phase 2-5F: Common Coverage / Measurement / CI Consolidation
+
+Phase 2-5全体はpartialです。MVPは利用者のneutral damage・完全発射周期・矢数と明示時間配分で2 archetypeを同じAPIから比較します。独立実測や不明なmechanics・日本語名を捏造せず、[残るclose条件](./docs/ranged-runtime.md)と[監査](./docs/ranged-weapon-audit.md)へ記録しました。Armor synergyは自動昇格しません。
 
 完了条件: 主要な近接・防具・遠距離の組み合わせを、同じ `evaluate` / `optimize` APIで評価できること。
 
 ## Phase 3 — Release Readiness（0 / 4）
+
+目的: v0.9 Public Betaとして一般利用へ出しても壊れにくい状態にする。
 
 - [ ] Web Worker化と探索時間の上限管理
 - [ ] 主要操作のE2Eテストとアクセシビリティ監査
@@ -119,7 +128,7 @@ Armorはprimary71 / Wiki known73 / obtainable71を照合し、7件をLimited run
 
 ### Current summary
 
-Phase 2-1K、Phase 2-2A〜2-2E、Phase 2-3A〜2-3C + Fix-up、Phase 2-4 Evidence & Coverage Foundation complete。6カテゴリのread model、再生成可能なsnapshot/report、priority backlog、実測protocol、read-only Coverage表示、audit/CIを追加しました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。Armor 7 / 73、Armor Enchantment 7 / 41をLimited runtimeへ接続し、監査済み41件はactual roll入力可能です。observedHealthBonus主経路、scenario.maxHealth排他、Gilded固定、unsupported combination rejectを維持します。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-4までの完了を維持し、Phase 2-5はpartial。Ranged武器71・Enchant41を監査し、Bow/Crossbowと3 EnchantをLimited runtimeへ接続しました。read modelは8カテゴリ、protocolは6件になりました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。既存Armor 7 / 73、Armor Enchantment 7 / 41とunsupported境界は維持。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -129,7 +138,7 @@ P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-co
 
 ### Next area
 
-Phase 2-3Cとfix-up complete（Grim Soulのproperty-driven化、Health Synergyのsteady-state capacity明示、Armor runtime/expansionのCI audit追加）。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、Phase 2-4 Evidence & Coverage Foundationも完了し、次はPhase 2-5 Ranged Audit & Runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/CのEvidence closureを優先し、Release Readinessの実装準備へ進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -138,3 +147,31 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 - 現行supportはmanifestを変更し、`npm run audit:runtime-support` で検証・summary/matrix再生成する。
 - Historical phaseのfull completion gateをsupport整理の都合で書き換えない。
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
+
+## Future milestones（チェックリスト進捗と分離）
+
+### v0.9 Public Beta
+
+Phase 3後。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認してBeta公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
+
+### Phase 4 — Research Quest / Evidence Contribution
+
+Public Beta後。未検証項目一覧・priority・measurement protocol表示・submission・Evidence provenance・independent replication・contributor credit・moderation/quality gate。Phase 2-4/2-5の測定protocolを基盤とし、実装詳細は後続で決定します。
+
+### Phase 5 — Evidence Closure & v1.0
+
+独立DPS 0/5、P0/P1 blocker、Artifact promotion、Ranged/Armor/Meleeの主要Limited理由、model error/confidenceを再評価してrelease判定。v1.0は主要実用buildをlimitationsとEvidence付きで再現可能に比較できる状態。完全ゲーム再現や全P2/P3のゼロ化は条件にしません。
+
+## Post-v1（現在の進捗に含めない）
+
+### Post-v1 A — Optimizer Engine Generalization
+
+Dungeons 1で実証したGame/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage/Evidence、Measurementを段階的にゲーム固有実装から分離。Phase 2-5で全面汎用化を先行しません。
+
+### Post-v1 B — Minecraft Dungeons II
+
+汎用化の最初の実戦対象。新装備slot/effect、matchmaking・broader user base、新データ取得パイプラインへの適用を検討します。
+
+### Post-v1 C — 異なるゲームでの汎用性検証
+
+Monster Hunter系を候補として記録。似たDungeons間だけでなく異なる装備設計で汎用性を検証します。現時点では実装対象外です。

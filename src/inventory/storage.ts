@@ -14,11 +14,12 @@ import type {
 } from '../core'
 import type { ArmorEnchantmentTier, OwnedArmor } from '../core/armor'
 import { isAuditedArmorEnchantmentId } from '../research/armorEnchantmentAudit'
+import { parseRangedWeapon } from '../core/ranged'
 
 const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 
 interface InventoryDocument {
-  readonly version: 1
+  readonly version: 2
   readonly inventory: Inventory
 }
 
@@ -154,7 +155,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
 }
 
 export function serializeInventory(inventory: Inventory): string {
-  return JSON.stringify({ version: 1, inventory } satisfies InventoryDocument, null, 2)
+  return JSON.stringify({ version: 2, inventory } satisfies InventoryDocument, null, 2)
 }
 
 export function deserializeInventory(json: string): Inventory {
@@ -164,37 +165,48 @@ export function deserializeInventory(json: string): Inventory {
   } catch {
     throw new Error('JSONの構文が正しくありません。')
   }
-  if (!isRecord(parsed) || parsed.version !== 1 || !isRecord(parsed.inventory)) {
-    throw new Error('対応していないデータ形式です（version 1 が必要です）。')
+  if (!isRecord(parsed) || ![1, 2].includes(parsed.version as number) || !isRecord(parsed.inventory)) {
+    throw new Error('対応していないデータ形式です（version 1 または 2 が必要です）。')
   }
-  const { weapons, armors, artifacts } = parsed.inventory
+  const { weapons, armors, artifacts, rangedWeapons } = parsed.inventory
+  if (rangedWeapons !== undefined && !Array.isArray(rangedWeapons)) throw new Error('rangedWeaponsは配列にしてください。')
   if (!Array.isArray(weapons) || !Array.isArray(artifacts) || (armors !== undefined && !Array.isArray(armors))) {
     throw new Error('inventoryにはweaponsとartifactsの配列が必要です。')
   }
   const inventory = {
     weapons: weapons.map(parseWeapon),
+    ...(Array.isArray(rangedWeapons) ? { rangedWeapons: rangedWeapons.map(parseRangedWeapon) } : {}),
     ...(Array.isArray(armors) ? { armors: armors.map(parseArmor) } : {}),
     artifacts: artifacts.map(parseArtifact),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
-  const allIds = [...inventory.weapons, ...(inventory.armors ?? []), ...inventory.artifacts].map((item) => item.instanceId)
+  const allIds = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts].map((item) => item.instanceId)
   if (new Set(allIds).size !== allIds.length) throw new Error('装備の管理IDが重複しています。')
   return inventory
 }
 
 export function loadInventory(fallback: Inventory): Inventory {
+  const stored = globalThis.localStorage?.getItem(STORAGE_KEY)
+  return stored === null || stored === undefined ? fallback : deserializeInventory(stored)
+}
+
+export function loadInventoryState(fallback: Inventory): { inventory: Inventory; error: string | null; storedJson: string } {
+  let storedJson = ''
   try {
     const stored = globalThis.localStorage?.getItem(STORAGE_KEY)
-    return stored ? deserializeInventory(stored) : fallback
-  } catch {
-    return fallback
+    storedJson = stored ?? ''
+    return { inventory: stored === null || stored === undefined ? fallback : deserializeInventory(stored), error: null, storedJson }
+  } catch (error) {
+    return { inventory: fallback, storedJson, error: `保存データを読み込めません。元データを保持して自動保存を停止しました。保存データ / JSONから内容を修正して読み込んでください: ${error instanceof Error ? error.message : '不明なエラー'}` }
   }
 }
 
 export function saveInventory(inventory: Inventory): void {
-  inventory.weapons.forEach(validateWeaponSoulLegality)
+  // A partially edited form must not overwrite the last valid saved document.
+  const json = serializeInventory(inventory)
+  deserializeInventory(json)
   try {
-    globalThis.localStorage?.setItem(STORAGE_KEY, serializeInventory(inventory))
+    globalThis.localStorage?.setItem(STORAGE_KEY, json)
   } catch (error) {
     throw new Error(
       `ブラウザへの保存に失敗しました: ${error instanceof Error ? error.message : '不明なエラー'}`,

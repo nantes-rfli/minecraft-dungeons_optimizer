@@ -9,6 +9,7 @@ import { OptimizerInputError } from './errors'
 import { validateWeaponSoulLegality } from './soulLegality'
 import type { Build, Inventory, Scenario } from './types'
 import { armorCombinationUnsupportedReason } from './armor'
+import { parseRangedWeapon, validateRangedBuild } from './ranged'
 
 function assertFinite(name: string, value: number, code = 'INVALID_SCENARIO'): void {
   if (!Number.isFinite(value)) {
@@ -40,6 +41,7 @@ function assertPowerLevel(name: string, value: number, code: string): void {
 }
 
 export function validateScenario(scenario: Scenario): void {
+  if (scenario.rangedTimeShare !== undefined) assertRange('rangedTimeShare', scenario.rangedTimeShare, 0, 1)
   validateChargeInputs(scenario)
   validatePersistentAreaTargeting(scenario)
   validateControlAssumptions(scenario)
@@ -73,6 +75,7 @@ export function validateScenario(scenario: Scenario): void {
 }
 
 export function validateBuild(build: Build, scenario?: Scenario): void {
+  validateRangedBuild(build, scenario)
   const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
   validateWeaponSoulLegality(build.weapon)
@@ -203,6 +206,7 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
 }
 
 export function validateInventory(inventory: Inventory): void {
+  for (const weapon of inventory.rangedWeapons ?? []) parseRangedWeapon(weapon)
   if (inventory.weapons.length === 0) {
     throw new OptimizerInputError('EMPTY_INVENTORY', '比較する武器を1つ以上選択してください。')
   }
@@ -254,6 +258,6 @@ export function validateInventory(inventory: Inventory): void {
     if (armor.observedHealthBonus !== undefined) assertRange(`armor ${armor.instanceId} observedHealthBonus`, armor.observedHealthBonus, 0, Infinity, 'INVALID_ARMOR')
     if (armor.enchantmentSlots.length < 1 || armor.enchantmentSlots.length > 3) throw new OptimizerInputError('INVALID_ARMOR', `Armor ${armor.instanceId}のEnchantスロットは1〜3個にしてください。`)
   }
-  const allInstanceIds = [...inventory.weapons, ...(inventory.armors ?? []), ...inventory.artifacts].map((item) => item.instanceId)
+  const allInstanceIds = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts].map((item) => item.instanceId)
   if (new Set(allInstanceIds).size !== allInstanceIds.length) throw new OptimizerInputError('DUPLICATE_INSTANCE_ID', '装備種別をまたいで管理IDが重複しています。')
 }

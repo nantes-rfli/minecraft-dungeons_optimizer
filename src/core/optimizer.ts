@@ -16,6 +16,7 @@ import type {
   Scenario,
 } from './types'
 import { validateInventory, validateScenario } from './validation'
+import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsupportedReason } from './ranged'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -208,7 +209,21 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   if (registeredArmors.length > 0 && builds.length === 0) {
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
   }
-  const evaluations = builds
+  const rangedWeapons = inventory.rangedWeapons ?? []
+  const rangedBuilds = rangedWeapons.length === 0 ? builds : rangedWeapons.flatMap((rangedWeapon) => {
+    const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
+    if (unsupported) { unsupportedChoices.add(`${rangedWeapon.instanceId}: ${unsupported}`); return [] }
+    const options = rangedOptions(rangedWeapon)
+    if (options.length === 0) unsupportedChoices.add(`${rangedWeapon.instanceId}: Ranged stackingを満たす候補がありません。`)
+    return builds.flatMap((base) => options.flatMap((rangedEnchantments) => {
+      const build = { ...base, rangedWeapon, rangedEnchantments }
+      const reason = rangedCombinationUnsupportedReason(build, scenario)
+      if (reason) { unsupportedChoices.add(`${rangedWeapon.instanceId}: ${reason}`); return [] }
+      return [build]
+    }))
+  })
+  if (rangedWeapons.length > 0 && rangedBuilds.length === 0) throw new OptimizerInputError('NO_SUPPORTED_RANGED_CANDIDATES', `No supported Ranged candidates. ${[...unsupportedChoices].join(' ')}`)
+  const evaluations = rangedBuilds
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
 

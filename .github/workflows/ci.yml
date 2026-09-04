@@ -41,6 +41,9 @@ jobs:
       - run: npm run audit:runtime-support
       - run: npm run audit:dps
       - run: npm run audit:melee
+      - run: npm run audit:ranged
+      - run: npm run audit:ranged-enchants
+      - run: npm run audit:ranged-runtime
       - run: npm run audit:evidence-coverage
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research

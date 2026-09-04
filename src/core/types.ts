@@ -1,4 +1,5 @@
 import type { ArmorEnchantmentId, ArmorId, OwnedArmor, RuntimeArmorState, SelectedArmorEnchantment } from './armor'
+import type { OwnedRangedWeapon, RangedDamageState, SelectedRangedEnchantment } from './rangedTypes'
 
 export type Confidence = 'high' | 'medium' | 'low'
 export type EnchantmentTier = 1 | 2 | 3
@@ -436,12 +437,15 @@ export interface OwnedArtifact {
 }
 
 export interface Inventory {
+  readonly rangedWeapons?: readonly OwnedRangedWeapon[]
   readonly weapons: readonly OwnedWeapon[]
   readonly armors?: readonly OwnedArmor[]
   readonly artifacts: readonly OwnedArtifact[]
 }
 
 export interface Build {
+  readonly rangedWeapon?: OwnedRangedWeapon
+  readonly rangedEnchantments?: readonly SelectedRangedEnchantment[]
   readonly weapon: OwnedWeapon
   readonly enchantments: readonly SelectedEnchantment[]
   readonly armor?: OwnedArmor
@@ -578,6 +582,8 @@ export interface EnemyStateAssumptions {
 }
 
 export interface Scenario {
+  /** Explicit reserved attack-time budget; required only with Ranged. No simultaneous full melee/ranged DPS. */
+  readonly rangedTimeShare?: number
   /** External inputs; omission preserves compatibility with older scenarios. */
   readonly rollsPerSecond?: number
   readonly dynamoInitialStacks?: number
@@ -726,6 +732,7 @@ export interface DynamoState {
 }
 
 export interface DamageMetrics {
+  readonly ranged?: RangedDamageState
   readonly painCycleState?: PainCycleState
   readonly dynamoState?: DynamoState
   readonly artifactSynergyState: ArtifactSynergyState
@@ -774,6 +781,8 @@ export interface DamageMetrics {
 }
 
 export interface CombatState {
+  readonly directRangedKillsPerSecond?: number
+  readonly directRangedDamageShare?: number
   readonly directDamageShare: number
   readonly indirectDamageShare: number
   readonly indirectEstimatedKillsPerSecond: number
@@ -1012,8 +1021,8 @@ export interface ObjectiveUtilities {
 export interface EffectContribution {
   readonly selfDamagePerSecondDelta: number
   readonly netSustainPerSecondDelta: number
-  readonly sourceType: 'enchantment' | 'artifact' | 'armor' | 'armor-enchantment'
-  readonly sourceId: EnchantmentId | ArtifactId | ArmorId | ArmorEnchantmentId
+  readonly sourceType: 'enchantment' | 'artifact' | 'armor' | 'armor-enchantment' | 'ranged-enchantment'
+  readonly sourceId: EnchantmentId | ArtifactId | ArmorId | ArmorEnchantmentId | 'power'
   readonly label: LocalizedName
   readonly objectiveDelta: number
   readonly singleTargetDpsDelta: number

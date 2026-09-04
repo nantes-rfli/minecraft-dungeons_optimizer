@@ -21,6 +21,10 @@ Priorityはproduct decisionでありEvidence confidenceではありません。P
 <!-- coverage-backlog:start -->
 | Enchant / subsystem | Support | What works | What is blocked | Closeに必要なEvidence / 実装条件 | Priority | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| Ranged neutral damage / cadence | 2 Limited, observed-only | Bow / Crossbow、単一通常矢、利用者観測の完全周期とneutral damage | 公開の現行版cadence・charge/recovery分離・独立DPS regressionなし。Power fallbackなし。 | 1.17.0.0で装備/neutral card/shot mode/全frame/矢数が揃う複数archetype各3独立run。chargeとrecoveryを別に確認。 | P0 | evidence-blocked |
+| Ranged projectile distribution / intrinsic | Research-only | family分類、raw固有効果と継承元保持 | 複数矢・貫通・跳弾・爆発のdamage配分、proc対象、弾消費が未検証 | Scatter/Burst/Exploding等で1入力→射数→projectile→target damage→ammoを分離した現行版raw traceと実装。 | P1 | evidence-blocked |
+| Ranged trigger / Armor synergy | Limited combinations only | 近接と遠距離damage/kill帰属を分離、Power/Critical/Unchanting各1copy | Void/DoT/Soul、Armor ranged bonus/aura/Life Steal/Cowardice、特殊矢とroll | baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。 | P1 | evidence-blocked |
+| Ranged-only build / switching timeline | not implemented | 近接slotを維持した明示的な攻撃時間配分 | 近接なしBuild API・詳細切替timeline・矢取得event | 近接なしのBuild型とevaluation/objective/UIを一貫して実装し、旧APIの回帰を維持。 | P2 | not-implemented |
 | Phase 1-4 regression | runtime非該当 | audit・validator・pending UI | eligible 0/5、誤差範囲非表示 | 独立public run-levelのdamage・duration・完全build・target・versionが再現可能な5件。[gate](model-regression.md) | P3 | evidence-blocked |
 | Shockwave low Power | limited | Power210–252 | 範囲外外挿 | 対象version・Tier別の低Power測定または独立curve検証 | P3 | evidence-blocked |
 | Swirling low Power | limited | Power210–263 | 低Power | 同条件の低Power表とcurve検証 | P3 | evidence-blocked |

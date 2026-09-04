@@ -109,18 +109,18 @@
         "notApplicable": 0
       },
       "blockers": {
-        "total": 266,
-        "evidenceBlocked": 3,
+        "total": 267,
+        "evidenceBlocked": 4,
         "notImplemented": 1,
         "unclassified": 262,
         "priorities": {
           "P0": 0,
-          "P1": 3,
+          "P1": 4,
           "P2": 1,
           "P3": 0
         },
         "unprioritized": 262,
-        "p1EvidenceBlocked": 3
+        "p1EvidenceBlocked": 4
       },
       "sourceRefs": [
         "research/armor-audit.json",
@@ -141,18 +141,18 @@
         "notApplicable": 0
       },
       "blockers": {
-        "total": 37,
-        "evidenceBlocked": 2,
+        "total": 38,
+        "evidenceBlocked": 3,
         "notImplemented": 1,
         "unclassified": 34,
         "priorities": {
           "P0": 0,
-          "P1": 2,
+          "P1": 3,
           "P2": 1,
           "P3": 0
         },
         "unprioritized": 34,
-        "p1EvidenceBlocked": 2
+        "p1EvidenceBlocked": 3
       },
       "sourceRefs": [
         "research/armor-enchantment-audit.json",
@@ -192,35 +192,99 @@
         "docs/model-regression.md",
         "src/core/modelError.ts"
       ]
+    },
+    {
+      "id": "ranged-weapon",
+      "label": "Ranged weapon / attack profile",
+      "populationDefinition": "Normalized hero-accessible/obtainable published display union, including seasonal legacy items; not raw game IDs.",
+      "population": 71,
+      "runtime": {
+        "full": 0,
+        "limited": 2,
+        "researchOnly": 69,
+        "unknown": 0,
+        "notApplicable": 0
+      },
+      "blockers": {
+        "total": 81,
+        "evidenceBlocked": 3,
+        "notImplemented": 1,
+        "unclassified": 77,
+        "priorities": {
+          "P0": 1,
+          "P1": 2,
+          "P2": 1,
+          "P3": 0
+        },
+        "unprioritized": 77,
+        "p1EvidenceBlocked": 2
+      },
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json",
+        "research/ranged-source-snapshot.json",
+        "src/data/ranged.ts"
+      ]
+    },
+    {
+      "id": "ranged-enchantment",
+      "label": "Ranged enchantment",
+      "populationDefinition": "Union of hero ranged roll catalogs. Exclusive intrinsic-only and unused effects remain weapon taxonomy, not roll candidates.",
+      "population": 41,
+      "runtime": {
+        "full": 0,
+        "limited": 3,
+        "researchOnly": 38,
+        "unknown": 0,
+        "notApplicable": 0
+      },
+      "blockers": {
+        "total": 43,
+        "evidenceBlocked": 2,
+        "notImplemented": 0,
+        "unclassified": 41,
+        "priorities": {
+          "P0": 0,
+          "P1": 2,
+          "P2": 0,
+          "P3": 0
+        },
+        "unprioritized": 41,
+        "p1EvidenceBlocked": 2
+      },
+      "sourceRefs": [
+        "research/ranged-enchantment-audit.json",
+        "research/ranged-source-snapshot.json",
+        "src/data/ranged.ts"
+      ]
     }
   ],
   "blockerSummary": {
-    "total": 432,
-    "evidenceBlocked": 25,
-    "notImplemented": 3,
-    "unclassified": 404,
+    "total": 554,
+    "evidenceBlocked": 28,
+    "notImplemented": 4,
+    "unclassified": 522,
     "priorities": {
-      "P0": 0,
-      "P1": 6,
-      "P2": 6,
+      "P0": 1,
+      "P1": 8,
+      "P2": 7,
       "P3": 10
     },
-    "unprioritized": 410,
-    "p1EvidenceBlocked": 6
+    "unprioritized": 528,
+    "p1EvidenceBlocked": 8
   },
   "backlogSummary": {
-    "total": 22,
-    "evidenceBlocked": 19,
-    "notImplemented": 3,
+    "total": 26,
+    "evidenceBlocked": 22,
+    "notImplemented": 4,
     "unclassified": 0,
     "priorities": {
-      "P0": 0,
-      "P1": 6,
-      "P2": 6,
+      "P0": 1,
+      "P1": 8,
+      "P2": 7,
       "P3": 10
     },
     "unprioritized": 0,
-    "p1EvidenceBlocked": 6
+    "p1EvidenceBlocked": 8
   },
   "highPriority": [
     {
@@ -237,7 +301,7 @@
       "description": "Battle Robe + Cool Down、external合成、multi-copy",
       "closeCondition": "current internal式または再現可能なcooldown trace",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/19",
+        "research/runtime-backlog.json#/entries/23",
         "research/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
@@ -258,7 +322,7 @@
       "description": "Iron Hide / Guarding / Weakeningとの一般式、Protection併用",
       "closeCondition": "current traceで各family/orderを検証",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/18",
+        "research/runtime-backlog.json#/entries/22",
         "research/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
@@ -278,7 +342,7 @@
       "description": "Power fallbackなし",
       "closeCondition": "210–263のversion/roll付きcurve検証時だけfallback追加",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/17",
+        "research/runtime-backlog.json#/entries/21",
         "research/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
@@ -302,7 +366,7 @@
       "description": "Void併用",
       "closeCondition": "各eventの増幅・消費・reset/reapply・kill traceを独立確認",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/9",
+        "research/runtime-backlog.json#/entries/13",
         "research/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
@@ -323,7 +387,7 @@
       "description": "8 modifierとPain併用",
       "closeCondition": "各pairのflat bonus増幅順・direct/AoE/kill資格・consume traceを測定",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/13",
+        "research/runtime-backlog.json#/entries/17",
         "research/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
@@ -344,11 +408,75 @@
       "description": "8 modifierとDynamo併用",
       "closeCondition": "各pairの加算/乗算・critical対象・Void timing・同時consumeを測定。Tier混合も検証",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/12",
+        "research/runtime-backlog.json#/entries/16",
         "research/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
       "supportContext": "limited"
+    },
+    {
+      "id": "backlog:ranged-cadence",
+      "label": "Ranged neutral damage / cadence",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:bow",
+        "ranged-weapon:crossbow"
+      ],
+      "kind": "evidence-blocked",
+      "priority": "P0",
+      "origin": "backlog",
+      "description": "公開の現行版cadence・charge/recovery分離・独立DPS regressionなし。Power fallbackなし。",
+      "closeCondition": "1.17.0.0で装備/neutral card/shot mode/全frame/矢数が揃う複数archetype各3独立run。chargeとrecoveryを別に確認。",
+      "sourceRefs": [
+        "research/runtime-backlog.json#/entries/0",
+        "research/ranged-weapon-audit.json",
+        "docs/ranged-runtime.md"
+      ],
+      "supportContext": "2 Limited, observed-only"
+    },
+    {
+      "id": "backlog:ranged-interactions",
+      "label": "Ranged trigger / Armor synergy",
+      "categories": [
+        "ranged-weapon",
+        "ranged-enchantment",
+        "armor",
+        "armor-enchantment"
+      ],
+      "recordKeys": [],
+      "kind": "evidence-blocked",
+      "priority": "P1",
+      "origin": "backlog",
+      "description": "Void/DoT/Soul、Armor ranged bonus/aura/Life Steal/Cowardice、特殊矢とroll",
+      "closeCondition": "baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。",
+      "sourceRefs": [
+        "research/runtime-backlog.json#/entries/2",
+        "docs/ranged-runtime.md",
+        "research/ranged-enchantment-audit.json"
+      ],
+      "supportContext": "Limited combinations only"
+    },
+    {
+      "id": "backlog:ranged-projectiles",
+      "label": "Ranged projectile distribution / intrinsic",
+      "categories": [
+        "ranged-weapon",
+        "ranged-enchantment"
+      ],
+      "recordKeys": [],
+      "kind": "evidence-blocked",
+      "priority": "P1",
+      "origin": "backlog",
+      "description": "複数矢・貫通・跳弾・爆発のdamage配分、proc対象、弾消費が未検証",
+      "closeCondition": "Scatter/Burst/Exploding等で1入力→射数→projectile→target damage→ammoを分離した現行版raw traceと実装。",
+      "sourceRefs": [
+        "research/runtime-backlog.json#/entries/1",
+        "research/ranged-weapon-audit.json",
+        "research/ranged-enchantment-audit.json"
+      ],
+      "supportContext": "Research-only"
     }
   ],
   "evidenceAcquisition": [
@@ -550,6 +678,36 @@
         {
           "blockerId": "backlog:armor-dr",
           "closeCondition": "current traceで各family/orderを検証"
+        }
+      ]
+    },
+    {
+      "id": "ranged-cadence",
+      "purpose": "現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。",
+      "closeConditions": [
+        {
+          "blockerId": "backlog:ranged-cadence",
+          "closeCondition": "1.17.0.0で装備/neutral card/shot mode/全frame/矢数が揃う複数archetype各3独立run。chargeとrecoveryを別に確認。"
+        }
+      ]
+    },
+    {
+      "id": "ranged-projectiles",
+      "purpose": "現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。",
+      "closeConditions": [
+        {
+          "blockerId": "backlog:ranged-projectiles",
+          "closeCondition": "Scatter/Burst/Exploding等で1入力→射数→projectile→target damage→ammoを分離した現行版raw traceと実装。"
+        }
+      ]
+    },
+    {
+      "id": "ranged-interactions",
+      "purpose": "現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。",
+      "closeConditions": [
+        {
+          "blockerId": "backlog:ranged-interactions",
+          "closeCondition": "baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。"
         }
       ]
     }

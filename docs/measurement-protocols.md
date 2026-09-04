@@ -158,3 +158,126 @@ Sources: [research/armor-core-runtime-audit.json#/decisions/artifactCooldownComp
 backlog:armor-dr: current traceで各family/orderを検証
 
 Sources: [research/armor-core-runtime-audit.json#/decisions/damageReductionComposition](../research/armor-core-runtime-audit.json) / [research/armor-expansion-state-enchant-audit.json#/armorEnchantments](../research/armor-expansion-state-enchant-audit.json) / [docs/armor-runtime-batch.md](../docs/armor-runtime-batch.md)
+
+## ranged-cadence
+
+現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。
+
+対象: ranged / shot / charge / recovery and direct DPS。要求version: 1.17.0.0
+
+### Equipment
+
+- BowとCrossbowを別runにする。全Power・neutral projectile card/observed damage・Enchantなし・通常矢。
+
+### Scenario
+
+- 固定難易度・同じ敵・既知のarmor/DR・固定距離・単体baseline。外部buff/特殊矢/partyなし。
+
+### Observations
+
+- charge開始/発射/recovery終了frame、damage/矢消費、全shot間隔、total durationとtotal damage、観測値と予測値の差
+
+### Acceptance
+
+- neutral damageと完全周期からの有限shot予測を独立hold-out runで比較。charge/recoveryを混ぜない。
+
+### Submission metadata
+
+- game versionと確度、platform、difficulty、記録日時
+- 全装備のID・Power・表示値・全EnchantのTier/copy/slot/Gilded・全Artifact
+- 公開source URL、未編集raw記録、frame rate/timestamps、観測の導出手順、run ID
+- 対象とarmor/DR、scenario、発動順、除外runと理由、計測分解能
+
+### Invalidating conditions
+
+- 版/装備/全Enchant/targetが不明
+- Strengthや特殊矢が混入、shotとprojectileの混同、未知DR
+- 予測値を観測値として投稿、連続frameを独立runへ水増し
+
+反復: 各条件で3独立run以上、各run最低20射。proc確率は全trial数と分散を報告し、20射だけで確定しない。
+
+backlog:ranged-cadence: 1.17.0.0で装備/neutral card/shot mode/全frame/矢数が揃う複数archetype各3独立run。chargeとrecoveryを別に確認。
+
+Sources: [docs/ranged-runtime.md](../docs/ranged-runtime.md) / [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.json) / [research/ranged-enchantment-audit.json](../research/ranged-enchantment-audit.json)
+
+## ranged-projectiles
+
+現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。
+
+対象: ranged / projectile distribution / ammo。要求version: 1.17.0.0
+
+### Equipment
+
+- Scatter・Burst・Exploding familyを別実験にする。baseとuniqueはpaired run。Enchantなし。
+
+### Scenario
+
+- 固定難易度・同じ敵・既知のarmor/DR・固定距離・単体baseline。外部buff/特殊矢/partyなし。
+
+### Observations
+
+- 1入力ごとのprojectile数、各targetへのdamage列、burst各射timestamp、消費ammo、直撃/爆発/跳弾を識別した映像
+
+### Acceptance
+
+- card値が1矢/全矢/chargeのどれかを識別。各projectileとtargetの帰属が追えるまでDPSへ昇格しない。
+
+### Submission metadata
+
+- game versionと確度、platform、difficulty、記録日時
+- 全装備のID・Power・表示値・全EnchantのTier/copy/slot/Gilded・全Artifact
+- 公開source URL、未編集raw記録、frame rate/timestamps、観測の導出手順、run ID
+- 対象とarmor/DR、scenario、発動順、除外runと理由、計測分解能
+
+### Invalidating conditions
+
+- 版/装備/全Enchant/targetが不明
+- Strengthや特殊矢が混入、shotとprojectileの混同、未知DR
+- 予測値を観測値として投稿、連続frameを独立runへ水増し
+
+反復: 各条件で3独立run以上、各run最低20射。proc確率は全trial数と分散を報告し、20射だけで確定しない。
+
+backlog:ranged-projectiles: Scatter/Burst/Exploding等で1入力→射数→projectile→target damage→ammoを分離した現行版raw traceと実装。
+
+Sources: [docs/ranged-runtime.md](../docs/ranged-runtime.md) / [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.json) / [research/ranged-enchantment-audit.json](../research/ranged-enchantment-audit.json)
+
+## ranged-interactions
+
+現行版の不足Evidenceを実測で解決する。測定済み結果は含まない。
+
+対象: ranged / proc attribution / ranged Armor modifiers。要求version: 1.17.0.0
+
+### Equipment
+
+- 同一Bow/Crossbow、Power/Critical/Unchanting単独とpair、別runでranged Armor/aura/Cowardiceを比較。
+
+### Scenario
+
+- 固定難易度・同じ敵・既知のarmor/DR・固定距離・単体baseline。外部buff/特殊矢/partyなし。
+
+### Observations
+
+- neutral baseline、単独/pairのdamage列、proc発動/非発動、直接/間接の最終撃破、HP状態、Tier/Gilded、敵種類
+
+### Acceptance
+
+- meleeとrangedの同名Enchant値を別に記録。単独→pairのstackingとkill帰属が独立再現するまで共有しない。
+
+### Submission metadata
+
+- game versionと確度、platform、difficulty、記録日時
+- 全装備のID・Power・表示値・全EnchantのTier/copy/slot/Gilded・全Artifact
+- 公開source URL、未編集raw記録、frame rate/timestamps、観測の導出手順、run ID
+- 対象とarmor/DR、scenario、発動順、除外runと理由、計測分解能
+
+### Invalidating conditions
+
+- 版/装備/全Enchant/targetが不明
+- Strengthや特殊矢が混入、shotとprojectileの混同、未知DR
+- 予測値を観測値として投稿、連続frameを独立runへ水増し
+
+反復: 各条件で3独立run以上、各run最低20射。proc確率は全trial数と分散を報告し、20射だけで確定しない。
+
+backlog:ranged-interactions: baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。
+
+Sources: [docs/ranged-runtime.md](../docs/ranged-runtime.md) / [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.json) / [research/ranged-enchantment-audit.json](../research/ranged-enchantment-audit.json)

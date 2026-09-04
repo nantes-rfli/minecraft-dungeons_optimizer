@@ -47,6 +47,8 @@ const textValue = (value: JsonValue | undefined): string => value == null ? 'unk
 function renderCategoryDetails(category: EvidenceCoverage['categories'][number], snapshot: EvidenceCoverage): string {
   const d = category.details
   switch (category.id) {
+    case 'ranged-weapon':
+    case 'ranged-enchantment': return table(['Evidence dimension', 'Source state'], Object.entries(d).map(([key, value]) => [key, textValue(value)]))
     case 'melee-attack-profile': return table(['Evidence dimension', 'Source state'], Object.entries(d).map(([key, value]) => [key, textValue(value)]))
     case 'melee-enchantment': return `Broad Power runtime: ${d.broadPowerRuntime}; Power-limited: ${d.powerLimited}. Runtime scopeの範囲であり、全Power実測済みを意味しません。\n\n` + table(['Enchant', 'Runtime', 'Power coverage'], snapshot.records.filter((r) => r.category === category.id && r.runtimeSupport !== 'research-only').filter((r) => {
       const power = r.evidence.powerCoverage

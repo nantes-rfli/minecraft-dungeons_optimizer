@@ -43,6 +43,7 @@ import type {
   Scenario,
 } from './types'
 import { ARMORS } from '../data/armors'
+import { RANGED_LIMITATIONS } from '../data/ranged'
 import type { ArmorId } from './armor'
 
 const CONFIDENCE_SCORE: Readonly<Record<Confidence, number>> = {
@@ -488,6 +489,11 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.unshift('攻撃回数は公開Stats表のhit timingから算出しています。独立した実機検証は未実施です。')
   }
 
+  if (build.rangedWeapon) {
+    add('ranged-user-observation', 'Ranged neutral damage / complete cadence（利用者観測・未検証）', 'low', 3)
+    add('ranged-time-allocation', 'Ranged有限射数・近接時間配分・modifier独立期待値', 'low', 3)
+    caveats.push(...RANGED_LIMITATIONS)
+  }
   const totalWeight = factors.reduce((sum, factor) => sum + factor.weight, 0)
   const coverageScore = Math.exp(factors.reduce(
     (sum, factor) => sum + factor.weight * Math.log(CONFIDENCE_SCORE[factor.confidence]),

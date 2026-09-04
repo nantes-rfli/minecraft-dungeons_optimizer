@@ -1,0 +1,1452 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "sources": [
+    {
+      "id": "primary-weapons",
+      "url": "https://www.dungeons.tools/weapons",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "1.17.0.0 publisher-claimed",
+      "note": "Publisher claims extraction from game files; this project did not independently inspect game binaries."
+    },
+    {
+      "id": "primary-enchantments",
+      "url": "https://www.dungeons.tools/enchantments",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "1.17.0.0 publisher-claimed",
+      "note": "Shared melee/ranged pages can contain melee values. Keep conflicting channel values separate."
+    },
+    {
+      "id": "secondary-weapons",
+      "url": "https://minecraft.wiki/w/Dungeons:Gear",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "current listing; not independently version-verified",
+      "note": "71 obtainable display definitions, includes seven legacy seasonal variants. Availability today is not guaranteed."
+    },
+    {
+      "id": "secondary-enchantments",
+      "url": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "accessedAt": "2026-09-04",
+      "confidence": "medium",
+      "version": "current listing; not independently version-verified",
+      "note": "Ranged hero roll catalog, excluding exclusive intrinsic-only and unused entries. Search-index text used where direct retrieval was blocked."
+    }
+  ],
+  "population": {
+    "definition": "Union of hero ranged roll catalogs. Exclusive intrinsic-only and unused effects remain weapon taxonomy, not roll candidates.",
+    "primaryIds": [
+      "accelerate",
+      "anima-conduit",
+      "artifact-charge",
+      "bonus-shot",
+      "burst-bowstring",
+      "chain-reaction",
+      "committed",
+      "cooldown-shot",
+      "critical-hit",
+      "dipping-poison",
+      "dynamo",
+      "enigma-resonator",
+      "fire-aspect",
+      "fuse-shot",
+      "gravity",
+      "growing",
+      "infinity",
+      "levitation-shot",
+      "multishot",
+      "overcharge",
+      "piercing",
+      "poison-cloud",
+      "power",
+      "prospector",
+      "punch",
+      "radiance-shot",
+      "rapid-fire",
+      "refreshment",
+      "ricochet",
+      "roll-charge",
+      "shock-web",
+      "smiting",
+      "soul-siphon",
+      "supercharge",
+      "tempo-theft",
+      "unchanting",
+      "void-strike",
+      "wild-rage"
+    ],
+    "secondaryIds": [
+      "accelerate",
+      "anima-conduit",
+      "artifact-charge",
+      "bonus-shot",
+      "burst-bowstring",
+      "committed",
+      "cooldown-shot",
+      "dipping-poison",
+      "dynamo",
+      "enigma-resonator",
+      "exploding",
+      "fire-aspect",
+      "fuse-shot",
+      "growing",
+      "infinity",
+      "looting",
+      "multishot",
+      "piercing",
+      "poison-cloud",
+      "prospector",
+      "power",
+      "punch",
+      "radiance-shot",
+      "rapid-fire",
+      "ricochet",
+      "roll-charge",
+      "smiting",
+      "soul-siphon",
+      "supercharge",
+      "unchanting",
+      "weakening",
+      "wild-rage",
+      "chain-reaction",
+      "critical-hit",
+      "gravity",
+      "levitation-shot",
+      "overcharge",
+      "refreshment",
+      "shock-web",
+      "tempo-theft",
+      "void-strike"
+    ],
+    "commonIds": [
+      "accelerate",
+      "anima-conduit",
+      "artifact-charge",
+      "bonus-shot",
+      "burst-bowstring",
+      "chain-reaction",
+      "committed",
+      "cooldown-shot",
+      "critical-hit",
+      "dipping-poison",
+      "dynamo",
+      "enigma-resonator",
+      "fire-aspect",
+      "fuse-shot",
+      "gravity",
+      "growing",
+      "infinity",
+      "levitation-shot",
+      "multishot",
+      "overcharge",
+      "piercing",
+      "poison-cloud",
+      "power",
+      "prospector",
+      "punch",
+      "radiance-shot",
+      "rapid-fire",
+      "refreshment",
+      "ricochet",
+      "roll-charge",
+      "shock-web",
+      "smiting",
+      "soul-siphon",
+      "supercharge",
+      "tempo-theft",
+      "unchanting",
+      "void-strike",
+      "wild-rage"
+    ],
+    "primaryOnly": [],
+    "secondaryOnly": [
+      "exploding",
+      "looting",
+      "weakening"
+    ]
+  },
+  "entries": [
+    {
+      "id": "accelerate",
+      "name": {
+        "en": "Accelerate",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "8% / 10% / 12% increase per shot",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/accelerate",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "anima-conduit",
+      "name": {
+        "en": "Anima Conduit",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "2% / 4% / 6% health gained",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "resource",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "low",
+      "conflict": "primary 2/4/6% shared page vs ranged Wiki 4/6/8%; not resolved",
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/anima-conduit",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "primary 2/4/6% shared page vs ranged Wiki 4/6/8%; not resolved"
+      ]
+    },
+    {
+      "id": "artifact-charge",
+      "name": {
+        "en": "Artifact Charge",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "Next / Next 2 / Next 3 Attacks charged",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "resource",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/artifact-charge",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "bonus-shot",
+      "name": {
+        "en": "Bonus Shot",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "10% / 17% / 24% damage per shot",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/bonus-shot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "burst-bowstring",
+      "name": {
+        "en": "Burst Bowstring",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "1 / 2 / 3 target",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "roll",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/burst-bowstring",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "chain-reaction",
+      "name": {
+        "en": "Chain Reaction",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "10% / 20% / 30% chance to trigger",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/chain-reaction",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "committed",
+      "name": {
+        "en": "Committed",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "0-50% / 0-75% / 0-100% bonus damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "direct-modifier",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/committed",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "cooldown-shot",
+      "name": {
+        "en": "Cooldown Shot",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "0.5 / 1.0 / 1.5 second cooldown reduction",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "charge",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/cooldown-shot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "critical-hit",
+      "name": {
+        "en": "Critical Hit",
+        "ja": "クリティカルヒット"
+      },
+      "rarity": "Powerful",
+      "tierValues": "10% / 15% / 20% chance to trigger",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": false,
+      "maxCopies": 1,
+      "triggerFamily": "on-hit",
+      "damageChannel": "direct-ranged",
+      "directIndirectStatus": "direct only",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/critical-hit",
+      "supportLevel": "limited",
+      "readiness": "single-normal-projectile-only",
+      "runtimeTiers": {
+        "1": 0.1,
+        "2": 0.15,
+        "3": 0.2
+      },
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "normal single projectile; one copy; modifier expectation factorization and target share are model assumptions, no proc/unique interaction"
+      ]
+    },
+    {
+      "id": "dipping-poison",
+      "name": {
+        "en": "Dipping Poison",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "6 / 8 / 12 poison arrows",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "resource",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/dipping-poison",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "dynamo",
+      "name": {
+        "en": "Dynamo",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "+X / +1.25X / +1.5X damage.",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "roll",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/dynamo",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "enigma-resonator",
+      "name": {
+        "en": "Enigma Resonator",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "0-15% / 0-20% / 0-25% chance",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "resource",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/enigma-resonator",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "exploding",
+      "name": {
+        "en": "Exploding",
+        "ja": null
+      },
+      "rarity": null,
+      "tierValues": null,
+      "tierStatus": "not-captured",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-kill",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "secondary listing, probable current; verify independently",
+      "gameVersion": "1.17.0.0",
+      "confidence": "low",
+      "conflict": "primary index omits ranged applicability; present in secondary ranged catalog",
+      "sourceIds": [
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "primary index omits ranged applicability; present in secondary ranged catalog"
+      ]
+    },
+    {
+      "id": "fire-aspect",
+      "name": {
+        "en": "Fire Aspect",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "X / 1.25X / 1.5X damage per second",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/fire-aspect",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "fuse-shot",
+      "name": {
+        "en": "Fuse Shot",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "fifth / fourth / third Every X shot",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/fuse-shot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "gravity",
+      "name": {
+        "en": "Gravity",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "1.0 / 1.5 / 2.0 seconds duration",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/gravity",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "growing",
+      "name": {
+        "en": "Growing",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "25% / 50% / 75% maximum damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "direct-modifier",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/growing",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "infinity",
+      "name": {
+        "en": "Infinity",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "16% / 32% / 48% chance of arrow not being used",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/infinity",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "levitation-shot",
+      "name": {
+        "en": "Levitation Shot",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "100% / 200% / 300% fall damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/levitation-shot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "looting",
+      "name": {
+        "en": "Looting",
+        "ja": null
+      },
+      "rarity": null,
+      "tierValues": null,
+      "tierStatus": "not-captured",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-kill",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "secondary listing, probable current; verify independently",
+      "gameVersion": "1.17.0.0",
+      "confidence": "low",
+      "conflict": "primary index omits ranged applicability; present in secondary ranged catalog",
+      "sourceIds": [
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "primary index omits ranged applicability; present in secondary ranged catalog"
+      ]
+    },
+    {
+      "id": "multishot",
+      "name": {
+        "en": "Multishot",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "20% / 30% / 40% chance to trigger",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/multishot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "overcharge",
+      "name": {
+        "en": "Overcharge",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "2 / 3 / 4 Can charge x times.",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "charge",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/overcharge",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "piercing",
+      "name": {
+        "en": "Piercing",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "3rd / 2nd / Every arrow Every X arrow",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/piercing",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "poison-cloud",
+      "name": {
+        "en": "Poison Cloud",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "X / 2X / 3X damage per second",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/poison-cloud",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "power",
+      "name": {
+        "en": "Power",
+        "ja": "パワー"
+      },
+      "rarity": "Common",
+      "tierValues": "+10% / +21% / +33% damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": false,
+      "maxCopies": 1,
+      "triggerFamily": "direct-modifier",
+      "damageChannel": "direct-ranged",
+      "directIndirectStatus": "direct only",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/power",
+      "supportLevel": "limited",
+      "readiness": "single-normal-projectile-only",
+      "runtimeTiers": {
+        "1": 0.1,
+        "2": 0.21,
+        "3": 0.33
+      },
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "normal single projectile; one copy; modifier expectation factorization and target share are model assumptions, no proc/unique interaction"
+      ]
+    },
+    {
+      "id": "prospector",
+      "name": {
+        "en": "Prospector",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "+100% / +200% / +300% increased chance",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-kill",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/prospector",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "punch",
+      "name": {
+        "en": "Punch",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "200% / 300% / 400% knockback",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/punch",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "radiance-shot",
+      "name": {
+        "en": "Radiance Shot",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "X / 1.5X / 2X health healed",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/radiance-shot",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "rapid-fire",
+      "name": {
+        "en": "Rapid Fire",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "+10% / +15% / +20% attack speed",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-shot",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/rapid-fire",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "refreshment",
+      "name": {
+        "en": "Refreshment",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "1.0 / 2.0 / 3.0 seconds cooldown speed up",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-kill",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/refreshment",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "ricochet",
+      "name": {
+        "en": "Ricochet",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "20% / 40% / 60% chance to trigger",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/ricochet",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "roll-charge",
+      "name": {
+        "en": "Roll Charge",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "1 / 2 / 3 Charged Shot for X Seconds",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "roll",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/roll-charge",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "shock-web",
+      "name": {
+        "en": "Shock Web",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "1 / 2 / 3 Up to X beams",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "charge",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/shock-web",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "smiting",
+      "name": {
+        "en": "Smiting",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "+25% / +35% / +45% increased damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "direct-modifier",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/smiting",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "soul-siphon",
+      "name": {
+        "en": "Soul Siphon",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "1 / 3 / 5 souls",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/soul-siphon",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "supercharge",
+      "name": {
+        "en": "Supercharge",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "+20% / +30% / +40% increased damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "charge",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/supercharge",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "tempo-theft",
+      "name": {
+        "en": "Tempo Theft",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "17% / 33% / 50% stolen speed",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/tempo-theft",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    },
+    {
+      "id": "unchanting",
+      "name": {
+        "en": "Unchanting",
+        "ja": "エンチャント解除"
+      },
+      "rarity": "Common",
+      "tierValues": "+50% / +75% / +100% bonus damage",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": false,
+      "maxCopies": 1,
+      "triggerFamily": "direct-modifier",
+      "damageChannel": "direct-ranged",
+      "directIndirectStatus": "direct only",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/unchanting",
+      "supportLevel": "limited",
+      "readiness": "single-normal-projectile-only",
+      "runtimeTiers": {
+        "1": 0.5,
+        "2": 0.75,
+        "3": 1
+      },
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "normal single projectile; one copy; modifier expectation factorization and target share are model assumptions, no proc/unique interaction"
+      ]
+    },
+    {
+      "id": "void-strike",
+      "name": {
+        "en": "Void Strike",
+        "ja": null
+      },
+      "rarity": "Powerful",
+      "tierValues": "200% / 400% / 600% damage multiplier",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "low",
+      "conflict": "primary 200/400/600% shared melee values vs ranged Wiki 100/200/300%; not transferred",
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/void-strike",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "primary 200/400/600% shared melee values vs ranged Wiki 100/200/300%; not transferred"
+      ]
+    },
+    {
+      "id": "weakening",
+      "name": {
+        "en": "Weakening",
+        "ja": null
+      },
+      "rarity": null,
+      "tierValues": null,
+      "tierStatus": "not-captured",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "secondary listing, probable current; verify independently",
+      "gameVersion": "1.17.0.0",
+      "confidence": "low",
+      "conflict": "primary index omits ranged applicability; present in secondary ranged catalog",
+      "sourceIds": [
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://minecraft.wiki/w/Dungeons:Enchantment",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "primary index omits ranged applicability; present in secondary ranged catalog"
+      ]
+    },
+    {
+      "id": "wild-rage",
+      "name": {
+        "en": "Wild Rage",
+        "ja": null
+      },
+      "rarity": "Common",
+      "tierValues": "20% / 30% / 40% chance to trigger",
+      "tierStatus": "published-not-independently-verified",
+      "stackable": null,
+      "maxCopies": null,
+      "triggerFamily": "on-hit",
+      "damageChannel": "unresolved-effect-specific",
+      "directIndirectStatus": "not promoted; proc/kill attribution needs audit",
+      "currentVersionApplicability": "1.17.0.0 publisher-claimed",
+      "gameVersion": "1.17.0.0",
+      "confidence": "medium",
+      "conflict": null,
+      "sourceIds": [
+        "primary-enchantments",
+        "secondary-enchantments"
+      ],
+      "sourceUrl": "https://www.dungeons.tools/enchantments/wild-rage",
+      "supportLevel": "research-only",
+      "readiness": "needs-ranged-mechanics-evidence",
+      "runtimeTiers": null,
+      "reuseMeleeRuntime": false,
+      "blockers": [
+        "Ranged-specific trigger/stack/channel/current-tier/interaction evidence incomplete; never reuse melee runtime by name."
+      ]
+    }
+  ]
+}

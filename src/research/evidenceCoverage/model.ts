@@ -1,5 +1,5 @@
 /** Read-only research model. It never supplies candidates or numeric inputs to the optimizer. */
-export const COVERAGE_CATEGORIES = ['melee-attack-profile', 'melee-enchantment', 'artifact', 'armor', 'armor-enchantment', 'dps-regression'] as const
+export const COVERAGE_CATEGORIES = ['melee-attack-profile', 'melee-enchantment', 'artifact', 'armor', 'armor-enchantment', 'dps-regression', 'ranged-weapon', 'ranged-enchantment'] as const
 export const SUPPORT_STATES = ['full', 'limited', 'research-only', 'unknown', 'not-applicable'] as const
 export const BLOCKER_KINDS = ['evidence-blocked', 'not-implemented', 'unclassified'] as const
 export const PRIORITIES = ['P0', 'P1', 'P2', 'P3'] as const

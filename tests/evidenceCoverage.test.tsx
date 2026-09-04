@@ -33,6 +33,7 @@ describe('Evidence & Coverage read model', () => {
     expect(collectCoverageErrors(snapshot, adapters, resolve)).toEqual([])
     expect(snapshot.categories.map((c) => [c.id, c.population, c.runtime.full, c.runtime.limited, c.runtime.researchOnly])).toEqual([
       ['melee-attack-profile', 82, 0, 0, 0], ['melee-enchantment', 33, 19, 9, 5], ['artifact', 45, 2, 1, 42], ['armor', 73, 0, 7, 66], ['armor-enchantment', 41, 0, 7, 34], ['dps-regression', 10, 0, 0, 0],
+      ['ranged-weapon', 71, 0, 2, 69], ['ranged-enchantment', 41, 0, 3, 38],
     ])
   })
   it('does not treat exact profiles or Full runtime as verified evidence', () => {
@@ -44,7 +45,7 @@ describe('Evidence & Coverage read model', () => {
     expect(snapshot.records.find((r) => r.category === 'dps-regression')!.runtimeSupport).toBe('not-applicable')
   })
   it('counts shared backlog once globally and retains acquisition negative results', () => {
-    expect(snapshot.backlogSummary).toMatchObject({ total: 22, p1EvidenceBlocked: 6, notImplemented: 3, priorities: { P0: 0, P1: 6, P2: 6, P3: 10 } })
+    expect(snapshot.backlogSummary).toMatchObject({ total: 26, p1EvidenceBlocked: 8, notImplemented: 4, priorities: { P0: 1, P1: 8, P2: 7, P3: 10 } })
     const dr = snapshot.blockers.filter((b) => b.id === 'backlog:armor-dr')
     expect(dr).toHaveLength(1)
     expect(dr[0]!.categories).toEqual(['armor', 'armor-enchantment'])
@@ -118,7 +119,7 @@ describe('Backlog migration and measurement protocol foundation', () => {
     expect(html).toContain('正解確率でも、Roadmapの完成率でもありません')
     expect(html).toContain('独立DPS実測: 0 / 5')
     expect(html).toContain('public-evidence-exhausted')
-    expect(html).toContain('P1 6')
+    expect(html).toContain('P1 8')
     expect(html).toContain('Armor cooldown ownership')
     expect(html).not.toContain('<input')
     expect(html).not.toContain('<form')

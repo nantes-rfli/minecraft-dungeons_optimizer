@@ -7,7 +7,7 @@ import { summarizeDamageRegression } from '../core/modelError'
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
-import { ROADMAP_PHASES, ROADMAP_PROGRESS, type RoadmapStatus } from '../data/roadmap'
+import { ROADMAP_PHASES, ROADMAP_PROGRESS, FUTURE_MILESTONES, POST_V1_MILESTONES, type RoadmapStatus } from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
 import { HEALTH_POTION_SOURCE, REFRESHMENT_SOURCE, SHARPNESS_SOURCE, UNCHANTING_SOURCE, WEAKENING_SOURCE, WEAKENING_STACKING_SOURCE } from '../data/sources'
 import {
@@ -19,6 +19,7 @@ import { RuntimeSupportSection } from './RuntimeSupport'
 import { ArtifactRuntimeSupportSection } from './ArtifactRuntimeSupport'
 import { ARMOR_HEALTH_AUDIT, armorRuntimeSupportSummaryText, summarizeArmorAudit } from '../research/armorAudit'
 import { summarizeArmorEnchantmentAudit } from '../research/armorEnchantmentAudit'
+import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../research/rangedAudit'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
 const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
@@ -48,6 +49,15 @@ export function MethodologyPage() {
       </header>
 
       <DataCoverageSection />
+      <section className="panel">
+        <p className="section-label">PHASE 2-5 / RANGED — PARTIAL</p>
+        <h2>通常矢を、観測値と攻撃時間の配分で比較</h2>
+        <p>武器{RANGED_WEAPON_AUDIT.entries.length}種を71/71で照合。Enchantは一次38 / 二次41 / union {RANGED_ENCHANTMENT_AUDIT.entries.length}種です。Bow / Crossbowの2 archetypeとPower / Critical Hit / UnchantingをLimited対応しました。独立した現行版cadence/DPS実測は0件です。</p>
+        <p>neutral 1矢damage・チャージ状態・完全発射周期・有限矢数・観測メモが必要です。Power換算はしません。近接と遠距離を同時に100%攻撃として足さず、明示的な時間配分から有限射数を計算します。近接なしbuild、特殊矢、複数矢、跳弾、爆発、unique効果、未検証Armor synergyは未対応です。</p>
+        <p>同名Enchantの近接runtimeを流用せず、AnimaとVoidのchannel別数値差、secondary-onlyのExploding/Looting/Weakeningを保持。未確認の日本語名は英語表示にしています。詳細taxonomy・stack/Tier・独立実測の不足があるため、Phase全体はpartialを維持します。</p>
+        <p>観測入力・候補/lock・金色Tier・JSON v2・結果のdirect/indirect ranged内訳を追加。Armorの既存support数は変更せず、aura/Life Steal/Soul/Cowardiceとの組合せはEvidence待ちです。</p>
+        <p><a href="https://www.dungeons.tools/weapons" target="_blank" rel="noreferrer">一次武器一覧</a> / <a href="https://minecraft.wiki/w/Dungeons:Gear" target="_blank" rel="noreferrer">二次一覧</a> / <a href="https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/ranged-runtime.md" target="_blank" rel="noreferrer">runtime・制約・close条件</a></p>
+      </section>
       <RuntimeSupportSection />
       <ArtifactRuntimeSupportSection />
 
@@ -334,7 +344,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor 2-3A〜2-3Cは完了。Phase 2-4 Evidence & Coverage Foundationも完了し、次はPhase 2-5 Ranged Audit & Runtimeへ進みます。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 implementation checklist</h2><p>Phase 2-5は観測入力MVPを追加し、Evidence不足をpartialとして保持。既存partialのcompletion gateは変更しません。Phase 2-5の6分割で分母53→58。下記のfuture milestonesとPost-v1は粒度が異なるため進捗率へ含めず、これは実装チェック項目の完了率でありv1.0到達確率ではありません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
@@ -344,6 +354,8 @@ export function MethodologyPage() {
         </div>
       </section>
 
+      <section className="method-section"><h2>Future milestones</h2><p>Phase 3 → v0.9 Public Beta → Research Quest → Evidence Closure &amp; v1.0。今回、一般公開や投稿機能は追加しません。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Post-v1（進捗対象外）</h2>{POST_V1_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
         <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。同じtargetへの連続hitを前提とするため、target switchingがあるmobbingではVoid Strike DPSを過大評価し得ます。version不明のWiki damage表29件とは最大45.06%ずれます。Evidence coverageとDPS実測回帰は別指標で、前者は正解確率ではありません。</p>

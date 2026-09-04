@@ -7,6 +7,7 @@ import { hasEnchantment } from './enchantment'
 import { combineRampagingEffects, temporaryBuffUptime } from './temporalEnchantments'
 import { deriveArmorState, resolveBuildHealth } from './armor'
 import { ARMOR_ENCHANTMENTS } from '../data/armors'
+import { addRangedDamage, calculateRangedDamage } from './ranged'
 import type { ArmorState, ArtifactEffects, Build, CombatState, DamageMetrics, OffensiveTemporalState, Scenario, SoulState } from './types'
 
 interface OffensiveState {
@@ -18,6 +19,8 @@ interface OffensiveState {
 }
 
 export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, artifactEffects: ArtifactEffects): OffensiveState {
+  const ranged = calculateRangedDamage(build, scenario)
+  const meleeTimeShare = ranged ? 1 - ranged.timeShare : 1
   const armorState = deriveArmorState(build, scenario)
   const resolvedMaxHealth = resolveBuildHealth(build, scenario).finalMaxHealth
   const effect = combineRampagingEffects(build.enchantments)
@@ -32,7 +35,7 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
   let explosionIterations = 0
   let firstEvaluation = true
   const atUptime = (uptime: number) => {
-    const attackSpeedMultiplier = artifactEffects.attackSpeedMultiplier + (armorState?.meleeAttackSpeedBonus ?? 0) + (effect?.attackSpeedBonus ?? 0) * uptime
+    const attackSpeedMultiplier = (artifactEffects.attackSpeedMultiplier + (armorState?.meleeAttackSpeedBonus ?? 0) + (effect?.attackSpeedBonus ?? 0) * uptime) * meleeTimeShare
     const atSourceRate = (sourceRate: number) => {
       const damage = calculateDamage(
         build.weapon, build.enchantments, artifactEffects, scenario, attackSpeedMultiplier,
@@ -43,7 +46,8 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
         cowardiceExpectedMultiplier,
         cowardice ? scenario.cowardiceFullHealthShare : undefined,
       )
-      return { damage, combatState: deriveCombatState(damage, scenario) }
+      const combined = addRangedDamage(damage, ranged)
+      return { damage: combined, combatState: deriveCombatState(combined, scenario) }
     }
     const initial = atSourceRate(0)
     // Committed can increase the direct channel as indirect damage shortens

@@ -33,7 +33,7 @@ export function DataCoverageSection() {
     <details><summary>集計単位・出典・実測手順</summary>
       <p>blockerは項目単位で、装備数ではありません。カテゴリを跨ぐ項目は各カテゴリに表示し、全体では1回だけ数えます。個別runtimeの制限は{coverage.blockerSummary.unclassified}件が未分類、優先度未設定は{coverage.blockerSummary.unprioritized}件です。元の表現を残し、Evidence待ちか実装待ちかを推測で決めていません。</p>
       <ul>{coverage.categories.map((category) => <li key={category.id}>{category.label}: {category.populationDefinition} <a href={sourceUrl(category.sourceRefs[0]!)} target="_blank" rel="noreferrer">監査元</a></li>)}</ul>
-      <p>DPS regression、Cooldown composition、Damage Reduction compositionの再現手順を用意しました。実測結果や投稿受付機能は含みません。</p>
+      <p>DPS regression、Cooldown/DR compositionに加え、Ranged cadence、projectile配分、trigger/Armor interactionの再現手順を用意しました。実測結果や投稿受付機能は含みません。</p>
       <a href={sourceUrl('docs/measurement-protocols.md')} target="_blank" rel="noreferrer">実測プロトコル</a>{' / '}<a href={sourceUrl('docs/combined-evidence-coverage.md')} target="_blank" rel="noreferrer">横断Coverage report・Power範囲・出典</a>
     </details>
   </section>
