@@ -12,12 +12,16 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - name: Install dependencies
+        # Reuse cached package data; still install exactly the lockfile on every run.
+        # Keep timing/network logs so registry or lifecycle-script stalls are visible.
+        run: npm ci --prefer-offline --no-fund --timing --loglevel=http
+        timeout-minutes: 10
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants

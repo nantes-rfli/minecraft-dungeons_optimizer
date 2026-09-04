@@ -313,3 +313,9 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 カテゴリ横断のruntime・Evidence・priority blockerは[Evidence & Coverage report](./docs/combined-evidence-coverage.md)を参照。各subsystemの監査・Evidence snapshotが正本で、共通表示はadapterから生成します。
 
 `npm run generate:evidence-coverage` でsnapshot・report・実測protocolを再生成し、`npm run audit:evidence-coverage` でsourceと生成物の一致を検証します。[実測protocol](./docs/measurement-protocols.md)。Methodologyにread-only Data Coverageを追加しました。
+
+### CIの依存関係インストール
+
+GitHub ActionsはNode.js 22で、lockfileに対応するnpmキャッシュを復元し、`npm ci --prefer-offline` で毎回クリーンインストールします。キャッシュにあるデータの再確認を省き、足りないパッケージだけ通信で取得します。`node_modules`の使い回しやinstall script・監査・テストの省略は行いません。
+
+インストールには `--timing --loglevel=http` を付け、registry通信と処理時間をCIログへ残します。遅い場合は `Install dependencies` と後続のaudit/test/buildを分けて確認してください。設定の根拠は[npm prefer-offline](https://docs.npmjs.com/cli/v10/using-npm/config/#prefer-offline)と[setup-nodeのキャッシュ仕様](https://github.com/actions/setup-node#caching-global-packages-data)を参照。
