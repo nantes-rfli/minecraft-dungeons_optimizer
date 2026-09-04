@@ -1,0 +1,36 @@
+name: Dependency audit report
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - package.json
+      - package-lock.json
+      - .npmrc
+      - .github/workflows/dependency-audit.yml
+  schedule:
+    # Recheck new advisories even when dependencies have not changed (Monday UTC).
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Report dependency vulnerabilities
+        # Preserve npm ci's informational policy for findings, but fail on API errors.
+        # Read the complete lockfile without downloading or executing dependencies.
+        shell: bash
+        run: |
+          echo '## Dependency vulnerability report' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Findings are informational, as with the previous npm ci audit. Registry/API errors fail this workflow. See README for the known findings and follow-up.' >> "$GITHUB_STEP_SUMMARY"
+          npm audit --package-lock-only --include=dev --audit-level=none | tee -a "$GITHUB_STEP_SUMMARY"

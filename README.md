@@ -316,6 +316,10 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 
 ### CIの依存関係インストール
 
-GitHub ActionsはNode.js 22で、lockfileに対応するnpmキャッシュを復元し、`npm ci --prefer-offline` で毎回クリーンインストールします。キャッシュにあるデータの再確認を省き、足りないパッケージだけ通信で取得します。`node_modules`の使い回しやinstall script・監査・テストの省略は行いません。
+通常の `Validate` はNode.js 22で、lockfileに対応するnpmキャッシュを復元し、`npm ci --prefer-offline --no-audit --no-fund --timing` で毎回クリーンインストールします。install script、ゲーム仕様の全audit、テスト、型検査、lint、buildは毎回実行します。
 
-インストールには `--timing --loglevel=http` を付け、registry通信と処理時間をCIログへ残します。遅い場合は `Install dependencies` と後続のaudit/test/buildを分けて確認してください。設定の根拠は[npm prefer-offline](https://docs.npmjs.com/cli/v10/using-npm/config/#prefer-offline)と[setup-nodeのキャッシュ仕様](https://github.com/actions/setup-node#caching-global-packages-data)を参照。
+2026-09-04の[計測ログ](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/actions/runs/33868424481)では、パッケージ展開が約5秒に対し、npmの脆弱性情報APIへのPOSTが257秒を占めました。この外部通信を `Dependency audit report` ワークフローへ分離しています。依存関係・監査設定のmainへの変更時、毎週月曜03:23 UTC、およびActionsからの手動実行時に、開発依存も含むlockfile全体を監査します。通常のソース変更ではこの通信を待ちません。
+
+依存関係の監査結果は専用ワークフローのSummaryとログに表示します。脆弱性の検出だけでは失敗にしない従来の `npm ci` と同じ報告方針（`--audit-level=none`）を維持し、通信エラーやタイムアウトは失敗として通知します。**成功表示は脆弱性ゼロを意味しません。** 上記計測時点では既存lockfileから11件（high 10 / low 1）が報告されています。依存パッケージの互換性確認・更新は別途対応が必要で、今回のCI高速化ではバージョンを変更していません。
+
+設定の根拠は[npm audit](https://docs.npmjs.com/cli/v10/commands/npm-audit/)、[npm prefer-offline](https://docs.npmjs.com/cli/v10/using-npm/config/#prefer-offline)、[setup-nodeのキャッシュ仕様](https://github.com/actions/setup-node#caching-global-packages-data)を参照。インストールの処理時間は `Install dependencies` のtimingログで確認できます。
