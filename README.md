@@ -1,4 +1,4 @@
-# Minecraft Dungeons Gear Optimizer v0.1
+# Minecraft Dungeons Gear Optimizer
 
 Minecraft Dungeons の手持ち近接武器・防具・遠距離武器・提示済みエンチャント・アーティファクトを、対応範囲内の指定シナリオに対して全探索する React + TypeScript プロトタイプです。
 
@@ -35,7 +35,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 
 JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから読み込みます。Rangedなしの旧Inventoryには余分なfieldを追加しません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
 
-共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmap進捗はv1.0 implementation checklistのみで、Phase 2-5の分割により分母53→58。v0.9 Beta → Phase 4 Research Quest → Phase 5 Evidence Closure & v1.0とPost-v1の汎用化/Dungeons II/別ゲーム検証は別milestoneとして追加しました。
+共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。Phase 3を6項目に分け、current implementation checklistは49 / 60（82%）。Public Availability・Research Quest・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
 
 新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
@@ -335,3 +335,13 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 依存関係の監査結果は専用ワークフローのSummaryとログに表示します。脆弱性の検出だけでは失敗にしない従来の `npm ci` と同じ報告方針（`--audit-level=none`）を維持し、通信エラーやタイムアウトは失敗として通知します。**成功表示は脆弱性ゼロを意味しません。** 上記計測時点では既存lockfileから11件（high 10 / low 1）が報告されています。依存パッケージの互換性確認・更新は別途対応が必要で、今回のCI高速化ではバージョンを変更していません。
 
 設定の根拠は[npm audit](https://docs.npmjs.com/cli/v10/commands/npm-audit/)、[npm prefer-offline](https://docs.npmjs.com/cli/v10/using-npm/config/#prefer-offline)、[setup-nodeのキャッシュ仕様](https://github.com/actions/setup-node#caching-global-packages-data)を参照。インストールの処理時間は `Install dependencies` のtimingログで確認できます。
+
+## 一般利用に向けた開発基盤（Phase 3）
+
+入力後に「最適化を開始」を押すとWorkerで全探索します。探索中も入力・中止が可能で、入力変更や中止時は古い結果を破棄します。除外前の候補数上限推定1,000通りで注意、25,000通り超は実行前に拒否、60秒経過時は結果を表示せず停止します。候補を減らすかlockして再実行してください。最適化結果とScenarioはセッション内のみで、InventoryはlocalStorageとJSONに保存します。
+
+- `npm run test:performance`: synthetic small / medium / largeの候補数・探索時間（ゲームEvidenceではありません）。
+- `npx playwright install chromium` の後に `npm run test:e2e`: 主要操作、Worker、中止、a11yとブラウザ応答性。CIではChromiumを自動準備します。
+- [品質・性能の記録](docs/public-use-readiness.md)、[Data / Evidence Update Workflow](docs/data-update-workflow.md)、[変更履歴](docs/changes.md)。
+
+製品のsemantic versionや正式版判定は運用しません。変更追跡の正本はGit commit historyです。Inventory JSON `version: 2`、既存localStorage key、research schemaVersion、EvidenceのgameVersionは互換性・根拠管理のため維持します。過去のEvidence参照IDも追跡可能性のため保持します。一般公開は別milestoneで、現在のサイトは本人限定です。

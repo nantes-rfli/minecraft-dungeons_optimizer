@@ -8,7 +8,7 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { optimize } from '../src/core'
 import type { Inventory } from '../src/core/types'
 import type { OwnedRangedWeapon } from '../src/core/rangedTypes'
-import { FUTURE_MILESTONES, POST_V1_MILESTONES, ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
+import { FUTURE_MILESTONES, FUTURE_EXPANSION_MILESTONES, ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
 
 const legacy: Inventory = { weapons: [{ instanceId: 'm', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit'] }] }], artifacts: [] }
 const weapon: OwnedRangedWeapon = { instanceId: 'r', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 2 }, { enchantmentId: 'multishot', tier: 3 }], locked: 'power' }], gilded: { enchantmentId: 'critical-hit', tier: 1 }, observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 10, sourceNote: 'SYNTHETIC TEST ONLY' } }
@@ -99,9 +99,9 @@ describe('ranged population and persistence', () => {
     const items = ROADMAP_PHASES.flatMap((phase) => phase.items)
     expect(ROADMAP_PROGRESS.total).toBe(items.length)
     expect(FUTURE_MILESTONES).toHaveLength(3)
-    expect(POST_V1_MILESTONES).toHaveLength(3)
+    expect(FUTURE_EXPANSION_MILESTONES).toHaveLength(3)
     const text = fs.readFileSync(new URL('../ROADMAP.md', import.meta.url), 'utf8')
-    for (const item of [...FUTURE_MILESTONES, ...POST_V1_MILESTONES]) expect(text).toContain(item.title)
+    for (const item of [...FUTURE_MILESTONES, ...FUTURE_EXPANSION_MILESTONES]) expect(text).toContain(item.title)
     expect(text).toContain(`${ROADMAP_PROGRESS.completed} / ${ROADMAP_PROGRESS.total}（${ROADMAP_PROGRESS.percentage}%）`)
   })
 })

@@ -7,7 +7,7 @@ import { summarizeDamageRegression } from '../core/modelError'
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
-import { ROADMAP_PHASES, ROADMAP_PROGRESS, FUTURE_MILESTONES, POST_V1_MILESTONES, type RoadmapStatus } from '../data/roadmap'
+import { ROADMAP_PHASES, ROADMAP_PROGRESS, FUTURE_MILESTONES, FUTURE_EXPANSION_MILESTONES, type RoadmapStatus } from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
 import { HEALTH_POTION_SOURCE, REFRESHMENT_SOURCE, SHARPNESS_SOURCE, UNCHANTING_SOURCE, WEAKENING_SOURCE, WEAKENING_STACKING_SOURCE } from '../data/sources'
 import {
@@ -38,9 +38,9 @@ const DPS_AUDIT_SOURCES = [...new Map(
 
 export function MethodologyPage() {
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <header className="page-header">
-        <p className="eyebrow">MODEL & IMPLEMENTATION / v0.1</p>
+        <p className="eyebrow">MODEL & IMPLEMENTATION</p>
         <h1>計算ロジックと<br />実装状況</h1>
         <p className="lede">
           このツールが何を入力にし、どの式で比較し、どこからが推定なのかを公開します。
@@ -344,8 +344,8 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 implementation checklist</h2><p>Phase 2-5は観測入力MVPを追加し、Evidence不足をpartialとして保持。既存partialのcompletion gateは変更しません。Phase 2-5の6分割で分母53→58。下記のfuture milestonesとPost-v1は粒度が異なるため進捗率へ含めず、これは実装チェック項目の完了率でありv1.0到達確率ではありません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
-        <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
+        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 2-5は観測入力MVPを追加し、Evidence不足をpartialとして保持。既存partialのcompletion gateは変更しません。Phase 3を6項目へ分割し分母58→60。下記のfuture milestonesとFuture Expansionは粒度が異なるため進捗率へ含めず、これは実装チェック項目の完了率であり品質の達成率ではありません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={ROADMAP_PROGRESS.percentage} aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
             const completed = phase.items.filter((item) => item.status === 'done').length
@@ -354,8 +354,8 @@ export function MethodologyPage() {
         </div>
       </section>
 
-      <section className="method-section"><h2>Future milestones</h2><p>Phase 3 → v0.9 Public Beta → Research Quest → Evidence Closure &amp; v1.0。今回、一般公開や投稿機能は追加しません。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
-      <section className="method-section"><h2>Post-v1（進捗対象外）</h2>{POST_V1_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Future milestones</h2><p>Phase 3 → Public Availability → Research Quest → Evidence Closure &amp; Quality Improvement。今回、一般公開や投稿機能は追加しません。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Future Expansion（進捗対象外）</h2>{FUTURE_EXPANSION_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
         <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。同じtargetへの連続hitを前提とするため、target switchingがあるmobbingではVoid Strike DPSを過大評価し得ます。version不明のWiki damage表29件とは最大45.06%ずれます。Evidence coverageとDPS実測回帰は別指標で、前者は正解確率ではありません。</p>

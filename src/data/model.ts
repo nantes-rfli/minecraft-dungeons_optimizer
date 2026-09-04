@@ -6,7 +6,7 @@ export const MODEL = {
     value: 14,
     source: MVP_MODEL_SOURCE,
     confidence: 'medium',
-    note: 'Largest area rating in the supported v0.1 weapon set.',
+    note: 'Largest area rating in the currently supported weapon set.',
   },
   killRateModel: {
     value: 1,

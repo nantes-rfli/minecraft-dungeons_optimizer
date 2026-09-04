@@ -1,3 +1,4 @@
+import { assertSearchBudget } from './searchBudget'
 import { evaluate, evaluateCandidate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
@@ -178,6 +179,7 @@ export function calculateParetoFrontier<T extends ParetoCandidate>(evaluations: 
 export function optimize(inventory: Inventory, scenario: Scenario): OptimizationResult {
   validateInventory(inventory)
   validateScenario(scenario)
+  assertSearchBudget(inventory)
 
   const unsupportedChoices = new Set<string>()
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {

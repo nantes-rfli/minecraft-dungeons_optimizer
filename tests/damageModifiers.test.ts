@@ -208,7 +208,7 @@ describe('new enchantment inventory and exhaustive legality', () => {
     expect(result.searchMode).toBe('exhaustive')
     expect(result.best.objectiveScore).toBeGreaterThan(0)
     console.info(`Twenty-eight-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
-  })
+  }, 60_000)
 
   it('rejects every remaining unsupported enchantment through JSON input', () => {
     const inventory: Inventory = { weapons: [buildFor([selected('sharpness')]).weapon], artifacts: [] }

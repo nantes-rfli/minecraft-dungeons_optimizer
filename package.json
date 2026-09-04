@@ -1,7 +1,6 @@
 {
   "name": "minecraft-dungeons-optimizer",
   "private": true,
-  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
@@ -35,16 +34,20 @@
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",
     "audit:ranged-enchants": "node scripts/audit-ranged.ts --enchantments",
-    "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts"
+    "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts",
+    "test:e2e": "playwright test",
+    "test:performance": "vitest run tests/performance.test.ts"
   },
   "dependencies": {
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@cloudflare/vite-plugin": "1.37.1",
     "@eslint/js": "^10.0.1",
     "@openai/sites-vite-plugin": "0.1.0",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^24.3.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
@@ -54,8 +57,8 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.5",
     "globals": "^16.3.0",
-    "typescript": "~5.9.2",
     "react-server-dom-webpack": "19.2.6",
+    "typescript": "~5.9.2",
     "typescript-eslint": "^8.68.0",
     "vinext": "1.0.0-beta.2",
     "vite": "8.0.13",

@@ -190,7 +190,7 @@ export const COMMUNITY_FIGHTERS_BINDINGS_POWER_251_SOURCE: SourceReference = {
 
 export const MVP_MODEL_SOURCE: SourceReference = {
   id: 'mvp-model-v0.1',
-  label: 'Optimizer v0.1 modelling assumption; replace with frame-timed measurements',
+  label: 'Optimizer modelling assumption; replace with frame-timed measurements',
   kind: 'model-assumption',
 }
 

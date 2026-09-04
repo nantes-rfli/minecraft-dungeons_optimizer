@@ -76,7 +76,7 @@ try {
     const item = roadmap.ROADMAP_PHASES.flatMap((entry: { items: { label: string; status: string }[] }) => entry.items).find((entry: { label: string }) => entry.label.startsWith(`Phase 2-5${phase}`))
     if (!item || !roadmapText.includes(`- [${item.status === 'done' ? 'x' : ' '}] ${item.label}`)) errors.push(`Ranged subphase ${phase} status drift`)
   }
-  for (const milestone of [...roadmap.FUTURE_MILESTONES, ...roadmap.POST_V1_MILESTONES]) if (!roadmapText.includes(milestone.title)) errors.push(`Future milestone drift: ${milestone.title}`)
+  for (const milestone of [...roadmap.FUTURE_MILESTONES, ...roadmap.FUTURE_EXPANSION_MILESTONES]) if (!roadmapText.includes(milestone.title)) errors.push(`Future milestone drift: ${milestone.title}`)
   if (!write) for (const [file, content] of Object.entries(generated)) {
     if (!fs.existsSync(path.join(root, file)) || read(file) !== content) errors.push(`${file}: stale generated output; run npm run generate:evidence-coverage`)
   }

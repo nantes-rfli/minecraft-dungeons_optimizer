@@ -111,27 +111,29 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
   },
   {
     id: 'phase-3',
-    title: 'Phase 3 — Release Readiness',
-    goal: '候補数が増えても壊れにくく、v0.9 Public Betaとして利用できる状態へ仕上げる。',
+    title: 'Phase 3 — Public Use Readiness',
+    goal: '一般利用に耐えるための安定性・性能・操作性を整備し、仕様変更へ安全に追従する。',
     items: [
-      { label: 'Web Worker化と探索時間の上限管理', status: 'planned' },
-      { label: '主要操作のE2Eテストとアクセシビリティ監査', status: 'in-progress' },
-      { label: '大規模手持ちデータの性能基準を達成', status: 'planned' },
-      { label: 'データ更新手順・リリース判定を文書化', status: 'planned' },
+      { label: 'Phase 3A: Worker / Cancel / Responsiveness（候補数・時間上限、stale結果破棄）', status: 'done' },
+      { label: 'Phase 3B: Performance Baseline（synthetic small / medium / large）', status: 'done' },
+      { label: 'Phase 3C: Major Flow E2E（保存・復元・入力エラー・遠距離なしも検証）', status: 'done' },
+      { label: 'Phase 3D: Accessibility（主要フロー自動監査・keyboard・残制限記録）', status: 'done' },
+      { label: 'Phase 3E: Bundle / Loading（Methodology遅延読込・Worker分離）', status: 'done' },
+      { label: 'Phase 3F: Data / Evidence Update Workflow（更新・検証・変更追跡）', status: 'done' },
     ],
   },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'beta', title: 'v0.9 Public Beta', goal: 'Phase 3後。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
-  { id: 'phase-4', title: 'Phase 4 — Research Quest / Evidence Contribution', goal: 'Beta後。未検証項目・priority・measurement protocol・submission・provenance・independent replication・credit・moderation/quality gate。詳細は後続で決定。' },
-  { id: 'phase-5', title: 'Phase 5 — Evidence Closure & v1.0', goal: '独立DPS 0/5とP0/P1 Evidenceを重点解消し、Artifact promotion・主要Limited理由・誤差/confidenceを再評価。主要実用buildをlimitations付きで再現可能に比較する。全P2/P3解消や完全ゲーム再現は条件にしない。' },
+  { id: 'public-availability', title: 'Public Availability', goal: 'Phase 3後。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
+  { id: 'phase-4', title: 'Phase 4 — Research Quest / Evidence Contribution', goal: '一般公開後。未検証項目・priority・measurement protocol・submission・provenance・independent replication・credit・moderation/quality gate。詳細は後続で決定。' },
+  { id: 'phase-5', title: 'Phase 5 — Evidence Closure & Quality Improvement', goal: '独立DPS 0/5とP0/P1 Evidenceを重点解消し、Artifact promotion・主要Limited理由・誤差/confidenceを再評価。主要実用buildをlimitations付きで再現可能に比較する。全P2/P3解消や完全ゲーム再現は条件にしない。' },
 ] as const
-export const POST_V1_MILESTONES = [
-  { id: 'generalization', title: 'Post-v1 A — Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、Game/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage、Measurementを段階的に分離。今回全面汎用化しない。' },
-  { id: 'dungeons-ii', title: 'Post-v1 B — Minecraft Dungeons II', goal: '汎用化の最初の実戦対象。新slot/effect、matchmaking・利用者層、新データ取得パイプラインへの適用を検討。' },
-  { id: 'cross-game', title: 'Post-v1 C — 異なるゲームでの汎用性検証', goal: 'Monster Hunter系など異なる装備設計を候補として記録。現時点では実装対象外。' },
+export const FUTURE_EXPANSION_MILESTONES = [
+  { id: 'generalization', title: 'Future Expansion A — Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、Game/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage、Measurementを段階的に分離。今回全面汎用化しない。' },
+  { id: 'dungeons-ii', title: 'Future Expansion B — Minecraft Dungeons II', goal: '汎用化の最初の実戦対象。新slot/effect、matchmaking・利用者層、新データ取得パイプラインへの適用を検討。' },
+  { id: 'cross-game', title: 'Future Expansion C — 異なるゲームでの汎用性検証', goal: 'Monster Hunter系など異なる装備設計を候補として記録。現時点では実装対象外。' },
 ] as const
 
 export const ROADMAP_PROGRESS = (() => {

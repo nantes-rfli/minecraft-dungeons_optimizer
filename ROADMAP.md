@@ -2,9 +2,11 @@
 
 ## 完成条件
 
-このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
+## Current project target
 
-v1.0判定には実装チェック項目・精度gate・後述Phase 5のrelease判定が必要です。現在scopeされた **v1.0 implementation checklist** の進捗は **43 / 58（74%）** です。Phase 2-5を1項目から6項目へ分割したため分母は53→58。future milestonesは大枠で粒度が異なるため別表示とし、Post-v1も進捗へ含めません。これは精度・作業量・v1.0到達確率ではなくチェック項目の完了率です。公開前にaudit・`npm test`・tsc・lint・buildを検証します。
+手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
+
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **49 / 60（82%）**。Phase 3の従来4項目を検証可能なA〜Fの6項目に分割したため分母58→60。future milestonesとFuture Expansionは粒度が異なるため分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -113,22 +115,24 @@ Phase 2-5全体はpartialです。MVPは利用者のneutral damage・完全発�
 
 完了条件: 主要な近接・防具・遠距離の組み合わせを、同じ `evaluate` / `optimize` APIで評価できること。
 
-## Phase 3 — Release Readiness（0 / 4）
+## Phase 3 — Public Use Readiness（6 / 6）
 
-目的: v0.9 Public Betaとして一般利用へ出しても壊れにくい状態にする。
+一般利用に耐えるための安定性・性能・操作性の整備。仕様を自由に変えても安全に追従できる開発基盤を作ります。UI・schema migration・機能削除・実験機能・モデルの変更を今後も可能にします。
 
-- [ ] Web Worker化と探索時間の上限管理
-- [ ] 主要操作のE2Eテストとアクセシビリティ監査
-- [ ] 大規模手持ちデータの性能基準を達成
-- [ ] データ更新手順・リリース判定を文書化
+- [x] Phase 3A: Worker / Cancel / Responsiveness（候補数・時間上限とstale結果破棄）
+- [x] Phase 3B: Performance Baseline（synthetic small / medium / large、候補数・時間・ブラウザ応答性）
+- [x] Phase 3C: Major Flow E2E（全装備・Scenario・JSON・復元・エラー・遠距離なし）
+- [x] Phase 3D: Accessibility（主要状態、labels、keyboard、table、a11y自動監査と残制限）
+- [x] Phase 3E: Bundle / Loading（測定、Methodology遅延読込、Worker分離）
+- [x] Phase 3F: Data / Evidence Update Workflow（更新手順とGitによる変更追跡）
 
-完了条件: 代表的な大規模データでUIが固まらず、主要操作の自動テスト・アクセシビリティ監査・ビルド検証を通過すること。
+検証方法・性能測定・残る制限は[Public Use Readiness](docs/public-use-readiness.md)を参照。一般公開の実行は別milestoneです。
 
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 2-4までの完了を維持し、Phase 2-5はpartial。Ranged武器71・Enchant41を監査し、Bow/Crossbowと3 EnchantをLimited runtimeへ接続しました。read modelは8カテゴリ、protocolは6件になりました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。既存Armor 7 / 73、Armor Enchantment 7 / 41とunsupported境界は維持。進捗は `src/data/roadmap.ts` と同期。
+Phase 3の開発基盤を整備。Phase 2-4までの完了を維持し、Phase 2-5はpartial。Ranged武器71・Enchant41を監査し、Bow/Crossbowと3 EnchantをLimited runtimeへ接続しました。read modelは8カテゴリ、protocolは6件になりました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。既存Armor 7 / 73、Armor Enchantment 7 / 41とunsupported境界は維持。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -138,7 +142,7 @@ P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-co
 
 ### Next area
 
-Phase 2-5A/B/CのEvidence closureを優先し、Release Readinessの実装準備へ進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。Phase 3 Public Use Readinessの整備を完了し、次はPublic Availabilityの導線・privacy・運用条件を検討します。コードだけで解決できるP0/P1 blockerは必要に応じて並行対応します。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -150,28 +154,28 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 
 ## Future milestones（チェックリスト進捗と分離）
 
-### v0.9 Public Beta
+### Public Availability
 
-Phase 3後。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認してBeta公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
+Phase 3後。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認して一般公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
 
 ### Phase 4 — Research Quest / Evidence Contribution
 
-Public Beta後。未検証項目一覧・priority・measurement protocol表示・submission・Evidence provenance・independent replication・contributor credit・moderation/quality gate。Phase 2-4/2-5の測定protocolを基盤とし、実装詳細は後続で決定します。
+一般公開後。未検証項目一覧・priority・measurement protocol表示・submission・Evidence provenance・independent replication・contributor credit・moderation/quality gate。Phase 2-4/2-5の測定protocolを基盤とし、実装詳細は後続で決定します。
 
-### Phase 5 — Evidence Closure & v1.0
+### Phase 5 — Evidence Closure & Quality Improvement
 
-独立DPS 0/5、P0/P1 blocker、Artifact promotion、Ranged/Armor/Meleeの主要Limited理由、model error/confidenceを再評価してrelease判定。v1.0は主要実用buildをlimitationsとEvidence付きで再現可能に比較できる状態。完全ゲーム再現や全P2/P3のゼロ化は条件にしません。
+独立DPS 0/5、P0/P1 blocker、Artifact promotion、Ranged/Armor/Meleeの主要Limited理由、model error/confidenceを継続改善。主要実用buildをlimitationsとEvidence付きで再現可能に比較できる状態を目指します。完全ゲーム再現や全P2/P3のゼロ化は条件にしません。
 
-## Post-v1（現在の進捗に含めない）
+## Future Expansion（現在の進捗に含めない）
 
-### Post-v1 A — Optimizer Engine Generalization
+### Future Expansion A — Optimizer Engine Generalization
 
 Dungeons 1で実証したGame/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage/Evidence、Measurementを段階的にゲーム固有実装から分離。Phase 2-5で全面汎用化を先行しません。
 
-### Post-v1 B — Minecraft Dungeons II
+### Future Expansion B — Minecraft Dungeons II
 
 汎用化の最初の実戦対象。新装備slot/effect、matchmaking・broader user base、新データ取得パイプラインへの適用を検討します。
 
-### Post-v1 C — 異なるゲームでの汎用性検証
+### Future Expansion C — 異なるゲームでの汎用性検証
 
 Monster Hunter系を候補として記録。似たDungeons間だけでなく異なる装備設計で汎用性を検証します。現時点では実装対象外です。
