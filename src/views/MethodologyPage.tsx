@@ -1,3 +1,4 @@
+import { DataCoverageSection } from './DataCoverage'
 import { SCENARIO_PROFILES } from '../data/scenarios'
 import { CHARGE_UNVERIFIED_MODIFIERS } from '../data/chargeConsume'
 import { ARTIFACT_SYNERGY_SOURCE, RAMPAGING_SOURCE } from '../data/temporalEnchantments'
@@ -46,6 +47,7 @@ export function MethodologyPage() {
         </p>
       </header>
 
+      <DataCoverageSection />
       <RuntimeSupportSection />
       <ArtifactRuntimeSupportSection />
 
@@ -332,7 +334,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor 2-3A〜2-3Cは完了。ArmorはMVP coverageをcloseし、次はRangedへ進みます。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>v1.0 Roadmap</h2><p>Phase 2-1K、Artifact 2-2A〜2-2E、Armor 2-3A〜2-3Cは完了。Phase 2-4 Evidence & Coverage Foundationも完了し、次はPhase 2-5 Ranged Audit & Runtimeへ進みます。全33近接・全45 Artifact・全73 Armorの完全再現ではなく、既存partialは元のcompletion gateを維持します。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

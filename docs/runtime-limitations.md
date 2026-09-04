@@ -14,8 +14,11 @@
 
 ## Backlogとclose gates
 
+優先度付きbacklogの正本は[structured backlog](../research/runtime-backlog.json)へ移しました。下表は `npm run generate:evidence-coverage` で生成し、`npm run audit:evidence-coverage` で照合します。個別監査・support manifestの正本性は維持します。[横断Coverage](combined-evidence-coverage.md) / [実測protocol](measurement-protocols.md)。
+
 Priorityはproduct decisionでありEvidence confidenceではありません。P0=通常利用を大きく阻害、P1=一般的な組合せ、P2=コピー・特殊条件・別目的、P3=新しい外部Evidence待ち。`evidence-blocked`は未作業TODOではなく、現時点でコードだけではcloseできない項目です。P1/P2でもEvidence待ちは明示します。
 
+<!-- coverage-backlog:start -->
 | Enchant / subsystem | Support | What works | What is blocked | Closeに必要なEvidence / 実装条件 | Priority | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | Phase 1-4 regression | runtime非該当 | audit・validator・pending UI | eligible 0/5、誤差範囲非表示 | 独立public run-levelのdamage・duration・完全build・target・versionが再現可能な5件。[gate](model-regression.md) | P3 | evidence-blocked |
@@ -40,8 +43,9 @@ Priorityはproduct decisionでありEvidence confidenceではありません。P
 | Armor cooldown ownership | limited runtime | external / intrinsic / enchantのsource別state、単独source | Battle Robe + Cool Down、external合成、multi-copy | current internal式または再現可能なcooldown trace | P1 | evidence-blocked |
 | Armor roll / pet / party / ranged / objective | research-only / taxonomy | property facts・family分類 | 対応state/objectiveなし | 個別subsystemとmeaningful objectiveができるまでResearch-only | P2 | not-implemented |
 | Armor enchant event/state families | 7 limited / 41 | Cool Down・Potion Barrier・Chilling・Health Synergy・Snowball・Cowardice・Protection、slot/Gilded/built-in source | low-HP、projectile、pet、economy、roll event | familyごとのstate/eventとunsupported境界を実装 | P2 | not-implemented |
+<!-- coverage-backlog:end -->
 
-Backlog行単位: **P0 0 / P1 6 / P2 6 / P3 10**。P3はすべてevidence-blocked。Looting / Prospectorは1つのobjective設計項目として数え、Enchant人口とは混同しません。
+件数は[生成Coverage report](combined-evidence-coverage.md)を参照。Looting / Prospectorは1つのobjective設計項目として数え、Enchant人口とは混同しません。
 
 ## Historical partial（変更しない）
 
@@ -59,7 +63,7 @@ Backlog行単位: **P0 0 / P1 6 / P2 6 / P3 10**。P3はすべてevidence-blocke
 
 | 候補 | 現manifest・smokeから見た価値 | 判断 |
 | --- | --- | --- |
-| Phase 2-3C — Armor Expansion & State Enchant | Armor 7 / 73、Enchant 7 / 41。既存property再利用と明示stateを限定実装 | complete。Armor MVPをcloseし、次はRanged runtime |
+| Phase 2-3C — Armor Expansion & State Enchant | Armor 7 / 73、Enchant 7 / 41。既存property再利用と明示stateを限定実装 | complete。Armor MVPとPhase 2-4 Coverage基盤をcloseし、次はPhase 2-5 Ranged Audit & Runtime |
 | Equipment Box → Simulation UX | 既存modelだけで導線・制限説明を改善でき、Evidence依存が小さい | 第二候補。coverage blocker自体は解決しない |
 | Artifact Promotion Batch | 既監査6候補のruntime価値は高い | 第三候補・Evidence待ち。2候補以上でcurrent 1.17、endgame Power、unit、主要interactionが揃うまで再開しない |
 

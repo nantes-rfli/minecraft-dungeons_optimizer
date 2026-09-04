@@ -48,4 +48,4 @@ Fullは現在のOptimizer scope内の通常対応で、実ゲームの完全再�
 
 Curated matrix: total 104; supported 72; unsupported 32 ({"charge-modifier":8,"charge-pair":4,"dot-void":12,"copy-count":8}). Unsupported率 30.8%。意図的な拒否例を含むソフトウェア指標で、ゲームcoverageや実利用での発生率ではありません。9 family × 2構成 × 通常/金色I/II/IIIが成功。境界例は別枠で拒否を期待します。
 
-[Current backlog / close gates / priorities](runtime-limitations.md)
+[Current backlog / close gates / priorities](runtime-limitations.md) / [Combined Evidence & Coverage](combined-evidence-coverage.md)

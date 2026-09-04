@@ -15,4 +15,6 @@ Phase 2-2E is complete as a reproducible negative/triage result. Public sources 
 
 **Armor subsystem**. Zero Artifacts meet the Phase 2-2F gate of current 1.17 numeric basis, endgame Power support and resolved major unit/interaction semantics. The Artifact 10–15 parent goal stays open.
 
-[Evidence matrix](artifact-evidence-matrix.md) · [Curve analysis](artifact-curve-analysis.md) · [Machine-readable audit](../research/artifact-curve-audit.json)
+[Evidence matrix](artifact-evidence-matrix.md) · [Curve analysis](artifact-curve-analysis.md) · [Machine-readable audit](../research/artifact-curve-audit.json) · [Combined Evidence & Coverage](combined-evidence-coverage.md)
+
+Phase 2-2E snapshots remain the source of truth; the combined Coverage adapter reads them without changing promotion decisions.

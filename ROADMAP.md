@@ -4,7 +4,7 @@
 
 このプロジェクトの v1.0 は、手持ちの近接・防具・遠距離・アーティファクトを登録し、実測に基づく火力・回復・防御・独立Controlモデルで目的別の推奨ビルドを再現可能に比較できる状態とします。
 
-完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **34 / 47（72%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
+完了判定は、以下の全項目が満たされ、`npm test`、`npm run lint`、`npm run build` が成功することです。項目数ベースの現在進捗は **40 / 53（75%）** です。精度や作業量の大きさを表す指標ではなく、「どこまで終わったか」を見失わないためのチェックポイントとして使用します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -49,7 +49,7 @@
 
 完了条件: 対応する3武器について、独立した公開ゲーム内実測を最低5件採用し、モデル出力の誤差統計とP90参考範囲を表示できること。現在は公開条件を再現できるsampleが0件のため、Phase 1 Accuracyは3 / 4を維持する。
 
-## Phase 2 — Equipment Coverage（13 / 22）
+## Phase 2 — Equipment Coverage（21 / 29）
 
 ### Melee runtime summary
 
@@ -91,12 +91,18 @@ Armorはprimary71 / Wiki known73 / obtainable71を照合し、7件をLimited run
 - [x] Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はEvidence blocker付きResearch-only）
 - [x] Phase 2-2D: Event / Healing / Control Batch（3 family分離、3候補はblocker付きResearch-only）
 - [x] Phase 2-2E: Artifact Evidence Acquisition / Curve Extraction（公開Evidence snapshot・hold-out検証・promotion判断を再現可能化、6候補はResearch-only）
-- [ ] アーティファクトを10〜15種類へ拡張
+- [ ] アーティファクトを10〜15種類へ拡張（Evidence gate待ち・他Phaseと並行。current 1.17 numeric basis・endgame Power・主要unit/interactionがpromotion条件）
 - [x] Phase 2-3A: Armor Audit & Runtime Foundation（primary71 / Wiki known73 / obtainable71 / runtime0を照合）
 - [x] Phase 2-3B: Armor Core Runtime Batch（Armor 3 / 73、Armor Enchant 3 / 41）
 - [x] Phase 2-3C: Armor Expansion & State Enchant（Armor 7 / 73、Armor Enchant 7 / 41）
 - [x] 防具・防具エンチャントをMVP coverageとしてモデル化
-- [ ] 遠距離武器・固有効果をモデル化
+- [x] Phase 2-4A: Common Coverage / Evidence Read Model
+- [x] Phase 2-4B: Combined Coverage Snapshot / Report
+- [x] Phase 2-4C: Blocker / Priority Aggregation
+- [x] Phase 2-4D: Measurement Protocol Foundation
+- [x] Phase 2-4E: Read-only Coverage Dashboard
+- [x] Phase 2-4F: Coverage Audit / CI
+- [ ] Phase 2-5: Ranged Audit & Runtime
 
 完了条件: 主要な近接・防具・遠距離の組み合わせを、同じ `evaluate` / `optimize` APIで評価できること。
 
@@ -113,17 +119,17 @@ Armorはprimary71 / Wiki known73 / obtainable71を照合し、7件をLimited run
 
 ### Current summary
 
-Phase 2-1K、Phase 2-2A〜2-2E、Phase 2-3A〜2-3C complete。Armor 7 / 73、Armor Enchantment 7 / 41をLimited runtimeへ接続し、監査済み41件はactual roll入力可能です。observedHealthBonus主経路、scenario.maxHealth排他、Gilded固定、unsupported combination rejectを維持します。進捗は `src/data/roadmap.ts` と同期。
+Phase 2-1K、Phase 2-2A〜2-2E、Phase 2-3A〜2-3C + Fix-up、Phase 2-4 Evidence & Coverage Foundation complete。6カテゴリのread model、再生成可能なsnapshot/report、priority backlog、実測protocol、read-only Coverage表示、audit/CIを追加しました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。Armor 7 / 73、Armor Enchantment 7 / 41をLimited runtimeへ接続し、監査済み41件はactual roll入力可能です。observedHealthBonus主経路、scenario.maxHealth排他、Gilded固定、unsupported combination rejectを維持します。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
 Phase 1-4は独立実測0/5でevidence-blocked。2-1D / F / G / H / I / Jは元のcompletion gateを維持してpartial。
-P0 0 / P1 6 / P2 6 / P3 10（backlog行単位）。[制限・優先度・close条件](./docs/runtime-limitations.md)に集約。
+P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-coverage.md)で横断確認できます。[制限・優先度・close条件](./docs/runtime-limitations.md)の表はstructured backlogから生成します。
 `[ ]` は未達で、未実装とは限りません。evidence-blockedとnot-implementedの区別は同backlogを参照。
 
 ### Next area
 
-Phase 2-3Cとfix-up complete（Grim Soulのproperty-driven化、Health Synergyのsteady-state capacity明示、Armor runtime/expansionのCI audit追加）。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、次はRanged runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-3Cとfix-up complete（Grim Soulのproperty-driven化、Health Synergyのsteady-state capacity明示、Armor runtime/expansionのCI audit追加）。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、Phase 2-4 Evidence & Coverage Foundationも完了し、次はPhase 2-5 Ranged Audit & Runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

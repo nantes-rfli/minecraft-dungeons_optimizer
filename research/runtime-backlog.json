@@ -1,0 +1,442 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "id": "dps-regression",
+      "label": "Phase 1-4 regression",
+      "support": "runtime非該当",
+      "whatWorks": "audit・validator・pending UI",
+      "blocked": "eligible 0/5、誤差範囲非表示",
+      "closeCondition": "独立public run-levelのdamage・duration・完全build・target・versionが再現可能な5件。[gate](model-regression.md)",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "dps-regression"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "docs/model-regression.md"
+      ]
+    },
+    {
+      "id": "shockwave-low-power",
+      "label": "Shockwave low Power",
+      "support": "limited",
+      "whatWorks": "Power210–252",
+      "blocked": "範囲外外挿",
+      "closeCondition": "対象version・Tier別の低Power測定または独立curve検証",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:shockwave"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "swirling-low-power",
+      "label": "Swirling low Power",
+      "support": "limited",
+      "whatWorks": "Power210–263",
+      "blocked": "低Power",
+      "closeCondition": "同条件の低Power表とcurve検証",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:swirling"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "thundering-low-power",
+      "label": "Thundering low Power",
+      "support": "limited",
+      "whatWorks": "Power248–263",
+      "blocked": "低Power",
+      "closeCondition": "Tier別damage測定とscale検証",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:thundering"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "echo",
+      "label": "Echo",
+      "support": "research-only / mechanics",
+      "whatWorks": "CD・tier・non-stackable調査",
+      "blocked": "repeat hit runtimeなし",
+      "closeCondition": "repeat対象・animation/cadence cost・combo進行・Void reset・on-hit・direct kill attributionのtraceが揃えば再検討",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:echo"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "enigma-resonator",
+      "label": "Enigma Resonator",
+      "support": "research-only / mechanics",
+      "whatWorks": "最大chance・3x調査",
+      "blocked": "中間Soul→chanceなし",
+      "closeCondition": "現行版で複数中間ゲージのchance、絶対量/割合、100cap履歴・Bag of Souls差を解決",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:enigma-resonator"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "fire-power",
+      "label": "Fire full Power",
+      "support": "limited",
+      "whatWorks": "Power70–251",
+      "blocked": "全Power、250異常値",
+      "closeCondition": "version/rollを揃えた欠損域・250のTier別測定",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:fire-aspect"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "poison-power",
+      "label": "Poison full Power",
+      "support": "limited",
+      "whatWorks": "Power184–251",
+      "blocked": "全Power",
+      "closeCondition": "version/rollを揃えた欠損域のTier別DPS",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:poison-cloud"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "fire-copies",
+      "label": "Fire multi-copy",
+      "support": "limited",
+      "whatWorks": "1copy refresh",
+      "blocked": "game4copy",
+      "closeCondition": "mixed tier・2/3/4copyのdamage/refresh/同時tick式検証",
+      "priority": "P2",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:fire-aspect"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "dot-void",
+      "label": "Fire/Poison/Exploding + Void",
+      "support": "limited",
+      "whatWorks": "各効果単独",
+      "blocked": "Void併用",
+      "closeCondition": "各eventの増幅・消費・reset/reapply・kill traceを独立確認",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:fire-aspect",
+        "melee-enchantment:poison-cloud",
+        "melee-enchantment:exploding"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "chains-copies",
+      "label": "Chains multi-copy",
+      "support": "limited",
+      "whatWorks": "1copy root",
+      "blocked": "game4copy",
+      "closeCondition": "同時proc・mixed tier・再発動・3/4copy duration検証",
+      "priority": "P2",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:chains"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "stunning-duration",
+      "label": "Stunning duration",
+      "support": "full",
+      "whatWorks": "duration補正付きControl",
+      "blocked": "durationの独立検証",
+      "closeCondition": "現行version・対象耐性別の2秒持続/refresh frame trace",
+      "priority": "P2",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:stunning"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "pain-pairs",
+      "label": "Pain Cycle modifier pairs",
+      "support": "limited",
+      "whatWorks": "有限cycle・自己cost・net sustain",
+      "blocked": "8 modifierとDynamo併用",
+      "closeCondition": "各pairの加算/乗算・critical対象・Void timing・同時consumeを測定。Tier混合も検証",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:pain-cycle"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "dynamo-pairs",
+      "label": "Dynamo modifier pairs",
+      "support": "limited",
+      "whatWorks": "charge/consume・overflow・初期burst",
+      "blocked": "8 modifierとPain併用",
+      "closeCondition": "各pairのflat bonus増幅順・direct/AoE/kill資格・consume traceを測定",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:dynamo"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "dynamo-power",
+      "label": "Dynamo low Power",
+      "support": "limited",
+      "whatWorks": "Power210–263",
+      "blocked": "低Power外挿",
+      "closeCondition": "Tier独立の低Power表、表示倍率との矛盾解消",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:dynamo"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "busy-bee",
+      "label": "Busy Bee",
+      "support": "research-only / mechanics",
+      "whatWorks": "population・説明監査",
+      "blocked": "summonなし",
+      "closeCondition": "spawn抽選単位・同時cap・lifetime・damage/timing・kill attributionのEvidenceとlifecycle設計",
+      "priority": "P3",
+      "kind": "evidence-blocked",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:busy-bee"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "economy-objective",
+      "label": "Looting / Prospector",
+      "support": "research-only / objective",
+      "whatWorks": "combat以外の効果調査",
+      "blocked": "収集・稼ぎobjectiveなし",
+      "closeCondition": "drop/emerald目的と入力・比較単位を定義し、tier/stack根拠で別objectiveを実装。combat不明とは扱わない",
+      "priority": "P2",
+      "kind": "not-implemented",
+      "categories": [
+        "melee-enchantment"
+      ],
+      "recordKeys": [
+        "melee-enchantment:looting",
+        "melee-enchantment:prospector"
+      ],
+      "sourceRefs": [
+        "research/melee-runtime-support.json",
+        "research/melee-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "armor-health",
+      "label": "Armor Health",
+      "support": "limited runtime",
+      "whatWorks": "observedHealthBonus必須、legacy排他、全maxHealth依存へ接続",
+      "blocked": "Power fallbackなし",
+      "closeCondition": "210–263のversion/roll付きcurve検証時だけfallback追加",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "research/armor-runtime-support.json",
+        "docs/armor-runtime-batch.md",
+        "docs/armor-expansion-state-enchants.md"
+      ]
+    },
+    {
+      "id": "armor-dr",
+      "label": "Armor DR composition",
+      "support": "limited runtime",
+      "whatWorks": "35%単独、Potion Barrier単独、Protection単独、unsupported matrix",
+      "blocked": "Iron Hide / Guarding / Weakeningとの一般式、Protection併用",
+      "closeCondition": "current traceで各family/orderを検証",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "armor",
+        "armor-enchantment"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "research/armor-runtime-support.json",
+        "docs/armor-runtime-batch.md",
+        "docs/armor-expansion-state-enchants.md"
+      ]
+    },
+    {
+      "id": "armor-cooldown",
+      "label": "Armor cooldown ownership",
+      "support": "limited runtime",
+      "whatWorks": "external / intrinsic / enchantのsource別state、単独source",
+      "blocked": "Battle Robe + Cool Down、external合成、multi-copy",
+      "closeCondition": "current internal式または再現可能なcooldown trace",
+      "priority": "P1",
+      "kind": "evidence-blocked",
+      "categories": [
+        "armor",
+        "armor-enchantment"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "research/armor-runtime-support.json",
+        "docs/armor-runtime-batch.md",
+        "docs/armor-expansion-state-enchants.md"
+      ]
+    },
+    {
+      "id": "armor-taxonomy",
+      "label": "Armor roll / pet / party / ranged / objective",
+      "support": "research-only / taxonomy",
+      "whatWorks": "property facts・family分類",
+      "blocked": "対応state/objectiveなし",
+      "closeCondition": "個別subsystemとmeaningful objectiveができるまでResearch-only",
+      "priority": "P2",
+      "kind": "not-implemented",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "research/armor-runtime-support.json",
+        "docs/armor-runtime-batch.md",
+        "docs/armor-expansion-state-enchants.md"
+      ]
+    },
+    {
+      "id": "armor-enchant-families",
+      "label": "Armor enchant event/state families",
+      "support": "7 limited / 41",
+      "whatWorks": "Cool Down・Potion Barrier・Chilling・Health Synergy・Snowball・Cowardice・Protection、slot/Gilded/built-in source",
+      "blocked": "low-HP、projectile、pet、economy、roll event",
+      "closeCondition": "familyごとのstate/eventとunsupported境界を実装",
+      "priority": "P2",
+      "kind": "not-implemented",
+      "categories": [
+        "armor-enchantment"
+      ],
+      "recordKeys": [],
+      "sourceRefs": [
+        "research/armor-runtime-support.json",
+        "docs/armor-runtime-batch.md",
+        "docs/armor-expansion-state-enchants.md"
+      ]
+    }
+  ]
+}

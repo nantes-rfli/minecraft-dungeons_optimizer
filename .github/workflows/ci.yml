@@ -18,7 +18,6 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm test
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
@@ -38,6 +37,8 @@ jobs:
       - run: npm run audit:runtime-support
       - run: npm run audit:dps
       - run: npm run audit:melee
+      - run: npm run audit:evidence-coverage
+      - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b
       - run: npm run lint

@@ -149,10 +149,10 @@ describe('visibility, generated docs and historical gates', () => {
   })
   it('keeps generated summaries and roadmap counts synchronized', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
-    expect(ROADMAP_PROGRESS).toEqual({ completed: 34, total: 47, percentage: 72 })
+    expect(ROADMAP_PROGRESS).toEqual({ completed: 40, total: 53, percentage: 75 })
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
-    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(34)
-    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(47)
+    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
+    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)
     for (const phase of ['2-1D', '2-1F', '2-1G', '2-1H', '2-1I', '2-1J']) {
       expect(roadmap).toContain(`- [ ] Phase ${phase} partial`)
       expect(ROADMAP_PHASES.flatMap((item) => item.items).find((item) => item.label.startsWith(`Phase ${phase} partial`))!.status).toBe('in-progress')
