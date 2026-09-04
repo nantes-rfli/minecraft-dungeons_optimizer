@@ -34,7 +34,7 @@ finalMaxHealth = 100 + observedHealthBonus
 - Cool Down: runtime uses 18/29/37% from the version-targeted game-file-derived audit. The current Wiki individual page displays 38% at Tier III, while its broader Enchantment table and the audit show 37%; no rounding lineage resolves the conflict. Runtime therefore keeps 37%, one copy, and rejects Battle Robe/external/multi-copy composition.
 - Potion Barrier: 90% DR for 5/7/9 seconds. Coverage is `min(1, duration / PotionState.effectiveCooldownSeconds)`, so Refreshment changes capacity. Other runtime DR sources are rejected.
 - Chilling: 20/40/60% slow for one second every two seconds. The Limited steady-state model uses 50% raw temporal coverage times eligible and affected target shares. It contributes only to Control and never changes Defense.
-- Health Synergy: 3/4/5% of resolved maximum Health per realized Artifact activation. This is nominal healing capacity and does not simulate overheal.
+- Health Synergy: 3/4/5% of resolved maximum Health times steady-state Artifact activation capacity per second. This is nominal healing capacity and does not simulate overheal.
 - Snowball: one target is stunned for two seconds every 5/3/1 seconds. Its temporal coverage is scaled by one-target share and eligibility, then unioned with other hard-disable sources. It affects Control only; the boss default is zero.
 - Cowardice: +20/30/40% direct melee damage is weighted by the required `cowardiceFullHealthShare`. It does not amplify proc, DoT, or explosion channels.
 - Protection: 6/11/15% DR only when it is the sole DR source. Armor DR, Potion Barrier, Iron Hide, Guarding Strike, and Weakening combinations are rejected.

@@ -148,8 +148,8 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       caveats.push('Chillingは1秒/2秒のsteady-state周期と対象割合によるControl近似です。移動objectiveとDefenseへは換算しません。')
     }
     if (armorEnchantments.has('health-synergy')) {
-      add('health-synergy-activation-model', 'Health Synergyの実現Artifact発動頻度model', 'medium', 2)
-      caveats.push('Health Synergyは実現したArtifact activation rate × 解決済み最大HP × Tier率の名目回復容量です。overhealや個別発動時系列は再現しません。')
+      add('health-synergy-activation-model', 'Health Synergyのsteady-state Artifact activation capacity近似', 'medium', 2)
+      caveats.push('Health SynergyのTier率・Artifact発動triggerはgame factですが、発動頻度はsteady-state cooldown activation capacity近似です。解決済み最大HP × Tier率を掛けたLimitedなnominal capacityで、overhealや有限encounterの個別発動時系列は再現しません。')
     }
     if (armorEnchantments.has('snowball')) {
       add('snowball-single-target-model', 'Snowballの周期・1対象model', 'low', 2)

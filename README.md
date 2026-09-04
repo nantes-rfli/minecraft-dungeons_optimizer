@@ -306,6 +306,6 @@ Cool Downはgame-file由来18/29/37%を採用し、WikiのTier III 38%表示競�
 
 Mercenary Armor / Grim Armor / Scale Mail / Spider Armorを既存propertyの再構成として追加し、Armor runtimeを **7 / 73（Full 0 / Limited 7 / Research-only 66）** へ拡張しました。melee damage、weapon aura、attack speed、DR、Soul倍率、Life Stealをdefinition propertyで駆動し、Armor ID別の分岐を増やしていません。
 
-Armor EnchantmentはHealth Synergy / Snowball / Cowardice / Protectionを追加して **7 / 41**。Health Synergyはrealized Artifact activation×resolved Max Health、Snowballは5/3/1秒・2秒stunの1対象Control-only、Cowardiceは明示入力した満タンHP時間割合、Protectionは唯一のDR sourceの場合だけ評価します。CDR stackingは約77%と84.1%の両anchorを再現できずinconclusiveのため、未検証合成を解放していません。
+Armor EnchantmentはHealth Synergy / Snowball / Cowardice / Protectionを追加して **7 / 41**。Health Synergyはsteady-state Artifact activation capacity×resolved Max Health×Tier率の名目回復容量（overhealと有限encounterの実発動回数は未計算）、Snowballは5/3/1秒・2秒stunの1対象Control-only、Cowardiceは明示入力した満タンHP時間割合、Protectionは唯一のDR sourceの場合だけ評価します。CDR stackingは約77%と84.1%の両anchorを再現できずinconclusiveのため、未検証合成を解放していません。
 
 UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtime状態とIDを表示します。未対応alternativeを含むfree slotは除外し、対応rollをlockした場合だけ評価します。Armor全体の誤解を招くleave-one-out寄与は削除し、Armor identity / Health / intrinsicはReasons、Armor Enchantは個別寄与として維持しました。詳細は[`Phase 2-3C audit`](./docs/armor-expansion-state-enchants.md)。`npm run audit:armor-expansion`を追加しています。

@@ -23,7 +23,7 @@ try {
     '- **Cool Down**: 18/29/37% from the version-targeted game-file audit, runtime one copy. The current Wiki 38% display conflict is retained; Battle Robe, external CDR, and multiple-copy compositions are rejected.',
     '- **Potion Barrier**: 90% for 5/7/9 seconds, with coverage derived from PotionState. Other runtime DR sources are rejected.',
     '- **Chilling**: 20/40/60%, one second every two seconds, explicit target shares, Control-only.', '',
-    '- **Health Synergy**: 3/4/5% of resolved maximum Health per realized Artifact activation; nominal capacity includes overheal.',
+    '- **Health Synergy**: 3/4/5% of resolved maximum Health times steady-state cooldown Artifact activation capacity per second; nominal capacity, with overheal and finite encounter uses not modeled.',
     '- **Snowball**: every 5/3/1 seconds, two-second stun, one-target conservative Control-only model; boss eligibility is zero by default.',
     '- **Cowardice**: 20/30/40% with an explicit full-Health share; direct melee only.',
     '- **Protection**: 6/11/15% only as the sole DR source; depreciating combinations are rejected.', '',

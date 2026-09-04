@@ -66,3 +66,5 @@ Backlog行単位: **P0 0 / P1 6 / P2 6 / P3 10**。P3はすべてevidence-blocke
 Phase 2-3CではArmor primary71 / Wiki known73 / obtainable71の母集団を維持し、Mercenary / Grim / Scale Mail / Spider ArmorとHealth Synergy / Snowball / Cowardice / ProtectionをLimited runtimeへ追加しました。Armorは7 / 73、Armor Enchantmentは7 / 41です。[Armor監査](armor-audit.md) / [設計](armor-model.md) / [batch](armor-runtime-batch.md) / [2-3C](armor-expansion-state-enchants.md)。
 
 この順序は現在のcurated software testとEvidence blockerに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。
+
+Health Synergyはcooldown-only Artifactの`sum(1 / effectiveCooldownSeconds) × resolvedMaxHealth × Tier率`によるsteady-state nominal healing capacityです。overhealと有限encounterの実発動回数は未計算で、Artifact Synergyの数値は変更しません。Grim / WitherのSoul倍率は共通ArmorState propertyから取得し、既存のflat Gatheringのみ1.5倍にします。Armor単独ではSoul収集を発生させず、pickup回数は変えません。詳細は[Phase 2-3C fix-up](armor-expansion-state-enchants.md)を参照してください。

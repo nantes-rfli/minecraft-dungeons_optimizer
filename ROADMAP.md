@@ -123,7 +123,7 @@ P0 0 / P1 6 / P2 6 / P3 10（backlog行単位）。[制限・優先度・close�
 
 ### Next area
 
-Phase 2-3C complete。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、次はRanged runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-3Cとfix-up complete（Grim Soulのproperty-driven化、Health Synergyのsteady-state capacity明示、Armor runtime/expansionのCI audit追加）。Damage / Defense / Soul / Cooldown / Healing / Controlを比較できるMVP coverageに到達したためArmor親目標をcloseし、次はRanged runtimeへ進みます。残るArmor効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

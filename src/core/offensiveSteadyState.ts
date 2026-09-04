@@ -71,7 +71,7 @@ export function resolveOffensiveSteadyState(build: Build, scenario: Scenario, ar
     for (const value of [attackSpeedMultiplier, damage.singleTargetDps, damage.aoeDps, combatState.directWeaponKillsPerSecond, triggerEventsPerSecond]) {
       if (!Number.isFinite(value) || value < 0) throw new Error('Offensive steady state exceeds finite nonnegative numeric range')
     }
-    const soulState = deriveSoulState(build, damage, combatState, scenario)
+    const soulState = deriveSoulState(build, damage, combatState, scenario, armorState)
     return { damage, combatState, soulState, attackSpeedMultiplier, triggerEventsPerSecond, explosionResidual: explosionPoint.residual }
   }
   // Unaffected builds perform exactly one damage/combat evaluation, no iteration.

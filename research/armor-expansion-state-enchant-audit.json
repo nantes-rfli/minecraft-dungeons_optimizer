@@ -22,7 +22,7 @@
     { "id": "spider-armor", "properties": { "meleeAttackSpeedBonus": 0.25, "lifeStealFraction": 0.06 }, "reusedFrom": ["renegade-armor", "wither-armor"], "supportLevel": "limited" }
   ],
   "armorEnchantments": [
-    { "id": "health-synergy", "tiers": [0.03, 0.04, 0.05], "objective": "healing-capacity", "state": "realized-artifact-activation-times-resolved-max-health", "supportLevel": "limited" },
+    { "id": "health-synergy", "tiers": [0.03, 0.04, 0.05], "objective": "healing-capacity", "state": "steady-state-cooldown-activation-capacity-times-resolved-max-health", "supportLevel": "limited" },
     { "id": "snowball", "tiers": [5, 3, 1], "objective": "control-only", "state": "two-second-one-target-steady-state-periodic-stun", "supportLevel": "limited" },
     { "id": "cowardice", "tiers": [0.2, 0.3, 0.4], "objective": "direct-melee-damage", "state": "explicit-cowardice-full-health-share", "supportLevel": "limited" },
     { "id": "protection", "tiers": [0.06, 0.11, 0.15], "objective": "defense", "state": "sole-dr-source-only", "supportLevel": "limited" }

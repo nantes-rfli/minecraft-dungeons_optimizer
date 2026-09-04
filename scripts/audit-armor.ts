@@ -36,6 +36,7 @@ try {
   fs.writeFileSync(path.join(root, 'docs/armor-runtime-support.md'), [
     '# Armor runtime support', '', header, '', armor.armorRuntimeSupportSummaryText(), '',
     'Seven Armor entries are Limited runtime. Every major intrinsic property is modeled inside its stated boundary; unsupported combinations are rejected before full evaluation.', '',
+    'Grim and Wither use the shared ArmorState Soul multiplier on existing flat Gathering only; Armor alone creates no collection and pickup counts stay unchanged. Health Synergy uses steady-state cooldown activation capacity times resolved maximum Health and Tier fraction, with overheal and finite encounter uses not modeled. See [Phase 2-3C fix-up](armor-expansion-state-enchants.md).', '',
     '| Armor | Support | Reasons | Boundaries |', '| --- | --- | --- | --- |', supportRows, '',
   ].join('\n'))
   console.log(`${armor.armorRuntimeSupportSummaryText()} · obtainable ${summary.obtainable} · event ${summary.eventExclusive} · health samples ${health.coverage.sampleCount}`)

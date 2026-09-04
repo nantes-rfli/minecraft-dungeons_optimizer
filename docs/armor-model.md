@@ -16,7 +16,7 @@ Artifact cooldown sources are external Scenario, Armor intrinsic, and Armor Ench
 
 Damage bonuses affect direct melee only. Renegade and Spider speed enter attack cadence rather than multiplying final DPS. Wither and Grim Soul Gathering multiply existing resource units without changing pickup events. Wither, Grim, and Spider Life Steal credit direct melee while excluding indirect channels.
 
-Health Synergy consumes realized Artifact activations and resolved maximum Health. Snowball is a one-target periodic hard-disable contribution to Control only. Cowardice requires an explicit full-Health time share and affects direct melee only. Protection is available only as the sole DR source.
+Health Synergy consumes steady-state Artifact activation capacity and resolved maximum Health. Snowball is a one-target periodic hard-disable contribution to Control only. Cowardice requires an explicit full-Health time share and affects direct melee only. Protection is available only as the sole DR source.
 
 ## Optimizer policy
 

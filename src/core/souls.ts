@@ -1,9 +1,9 @@
 import { BASE_SOUL_CAPACITY, INITIAL_SOULS } from '../data/souls'
 import { getArtifactDefinition, getEnchantmentDefinition, getWeaponDefinition } from './catalog'
 import { calculateArtifactEffectiveCooldown } from './artifact'
-import { resolveArtifactCooldown } from './armor'
+import { deriveArmorState, resolveArtifactCooldown } from './armor'
 import { getTierValues } from './enchantment'
-import type { Build, CombatState, DamageMetrics, OnHitSoulGenerationEffect, OwnedArtifact, Scenario, SoulConsumer, SoulIncome, SoulResourceSchedule, SoulState, SoulTrajectory } from './types'
+import type { ArmorState, Build, CombatState, DamageMetrics, OnHitSoulGenerationEffect, OwnedArtifact, Scenario, SoulConsumer, SoulIncome, SoulResourceSchedule, SoulState, SoulTrajectory } from './types'
 
 function nonnegative(name: string, value: number): number {
   if (!Number.isFinite(value) || value < 0) throw new Error(`${name} must be finite and nonnegative`)
@@ -180,14 +180,14 @@ function soulConsumers(build: Build, scenario: Scenario): SoulConsumer[] {
 }
 
 /** Called within the offensive resolver, sharing exactly its HPS and kill rate. */
-export function deriveSoulState(build: Build, damage: DamageMetrics, combat: CombatState, scenario: Scenario): SoulState | undefined {
+export function deriveSoulState(build: Build, damage: DamageMetrics, combat: CombatState, scenario: Scenario, armorState: ArmorState | undefined = deriveArmorState(build, scenario)): SoulState | undefined {
   const baseSoulGathering = getWeaponDefinition(build.weapon.weaponId).soul.baseSoulGathering.value
   const enchantmentSoulGathering = build.enchantments.reduce((sum, selected) => sum + (getEnchantmentDefinition(selected.enchantmentId).soul?.soulGathering.value ?? 0), 0)
   const artifactGathering = artifactSoulGathering(build.artifacts)
   const externalSoulGathering = 0
   const flatSoulGathering = nonnegative('Flat Soul Gathering', baseSoulGathering + enchantmentSoulGathering + artifactGathering + externalSoulGathering)
   if (flatSoulGathering === 0) return undefined
-  const armorSoulGatheringMultiplier = build.armor?.armorId === 'wither-armor' ? 1.5 : 1
+  const armorSoulGatheringMultiplier = armorState?.soulGatheringMultiplier ?? 1
   const totalSoulGathering = nonnegative('Total Soul Gathering', flatSoulGathering * armorSoulGatheringMultiplier)
   const normal = soulIncome(combat.estimatedKillsPerSecond, totalSoulGathering)
   const selected = build.enchantments.find((item) => item.enchantmentId === 'soul-siphon')

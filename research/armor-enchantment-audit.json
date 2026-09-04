@@ -541,7 +541,7 @@
       "mechanicFamily": "healing",
       "runtimeReadiness": "ready-with-limits",
       "blockers": [
-        "Runtime uses realized Artifact activations and resolved Armor maxHealth; overheal is retained as nominal healing capacity."
+        "Runtime uses steady-state cooldown Artifact activation capacity and resolved Armor maxHealth; nominal healing capacity only, with overheal and finite encounter uses not modeled."
       ],
       "builtIntoArmorIds": [],
       "sourceIds": [

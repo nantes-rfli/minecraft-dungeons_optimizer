@@ -40,7 +40,7 @@ Hero-accessible Armor enchantments: **41**. Common **30**, powerful **11**, soul
 | Food Reserves | 1 / 2 / 3 | common | no (1) | none | potion | research-only | black-spot-armor | potion mechanics are not available as meaningful Armor runtime; readiness is research-only. |
 | Frenzied | +10% / +20% / +30% | common | no (1) | none | damage-modifier | research-only | — | damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only. |
 | Gravity Pulse | 100% / 150% / 200% | powerful | no (1) | none | control | research-only | — | control mechanics are not available as meaningful Armor runtime; readiness is research-only. |
-| Health Synergy | 3% / 4% / 5% | common | no (1) | none | healing | ready-with-limits | — | Runtime uses realized Artifact activations and resolved Armor maxHealth; overheal is retained as nominal healing capacity. |
+| Health Synergy | 3% / 4% / 5% | common | no (1) | none | healing | ready-with-limits | — | Runtime uses steady-state cooldown Artifact activation capacity and resolved Armor maxHealth; nominal healing capacity only, with overheal and finite encounter uses not modeled. |
 | Life Boost | 11% / 22% / 33% | common | no (1) | none | healing | needs-state-model | — | healing mechanics are not available as meaningful Armor runtime; readiness is needs-state-model. |
 | Lightning Focus | +25% / +50% / +75% | powerful | no (1) | none | damage-modifier | research-only | — | damage-modifier mechanics are not available as meaningful Armor runtime; readiness is research-only. |
 | Luck of the Sea | 10% / 20% / 30% | common | no (1) | none | economy | utility-only | — | economy mechanics are not available as meaningful Armor runtime; readiness is utility-only. |
@@ -69,7 +69,7 @@ Hero-accessible Armor enchantments: **41**. Common **30**, powerful **11**, soul
 - **Potion Barrier**: 90% for 5/7/9 seconds, with coverage derived from PotionState. Other runtime DR sources are rejected.
 - **Chilling**: 20/40/60%, one second every two seconds, explicit target shares, Control-only.
 
-- **Health Synergy**: 3/4/5% of resolved maximum Health per realized Artifact activation; nominal capacity includes overheal.
+- **Health Synergy**: 3/4/5% of resolved maximum Health times steady-state cooldown Artifact activation capacity per second; nominal capacity, with overheal and finite encounter uses not modeled.
 - **Snowball**: every 5/3/1 seconds, two-second stun, one-target conservative Control-only model; boss eligibility is zero by default.
 - **Cowardice**: 20/30/40% with an explicit full-Health share; direct melee only.
 - **Protection**: 6/11/15% only as the sole DR source; depreciating combinations are rejected.

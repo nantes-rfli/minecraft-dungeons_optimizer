@@ -66,7 +66,7 @@ export function MethodologyPage() {
         <Formula>observedHealthBonus → validated model range → unsupported</Formula>
         <p>ArmorありBuildは<code>100 + observedHealthBonus</code>をPotion / Anima / Pain Cycle / Health Synergy / EHPへ共通利用し、<code>scenario.maxHealth</code>を加算しません。Armor全体のleave-one-out寄与はHealth source切替を混ぜるため削除し、Armor identity・Health・intrinsicはReasons、Armor Enchantだけを個別寄与として表示します。</p>
         <h3>7 Armor / 7 Enchant</h3>
-        <p>Health Synergyはrealized Artifact activation×resolved Max Health、Snowballは1対象のControl-only、Cowardiceは明示的な満タンHP時間割合、Protectionは唯一のDR source時だけ評価します。CDRは公式約77%と現行約84.1%を同一式で再現できずinconclusiveのため、Battle Robe＋Cool Down、複数copy、external合成を引き続きrejectします。</p>
+        <p>Health Synergyはsteady-state Artifact activation capacity×resolved Max Health×Tier率の名目回復容量（overhealと有限encounterの実発動回数は未計算）、Snowballは1対象のControl-only、Cowardiceは明示的な満タンHP時間割合、Protectionは唯一のDR source時だけ評価します。CDRは公式約77%と現行約84.1%を同一式で再現できずinconclusiveのため、Battle Robe＋Cool Down、複数copy、external合成を引き続きrejectします。</p>
       </section>
 
       <section className="panel">

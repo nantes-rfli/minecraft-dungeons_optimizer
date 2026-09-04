@@ -14,8 +14,9 @@ import type {
 import type { SelectedArmorEnchantment } from './armor'
 import { ARMOR_ENCHANTMENTS } from '../data/armors'
 
-export function healthSynergyCapacity(activationsPerSecond: number, resolvedMaxHealth: number, maxHealthFraction: number): number {
-  return activationsPerSecond * resolvedMaxHealth * maxHealthFraction
+/** Cooldown-only runtime Artifacts supply steady-state capacity, not finite encounter uses. */
+export function healthSynergyCapacity(steadyStateActivationCapacityPerSecond: number, resolvedMaxHealth: number, maxHealthFraction: number): number {
+  return steadyStateActivationCapacityPerSecond * resolvedMaxHealth * maxHealthFraction
 }
 
 export function calculateHealing(

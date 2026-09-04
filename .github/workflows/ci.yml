@@ -33,6 +33,8 @@ jobs:
       - run: npm run audit:artifact-evidence
       - run: npm run audit:armor
       - run: npm run audit:armor-enchants
+      - run: npm run audit:armor-runtime
+      - run: npm run audit:armor-expansion
       - run: npm run audit:runtime-support
       - run: npm run audit:dps
       - run: npm run audit:melee

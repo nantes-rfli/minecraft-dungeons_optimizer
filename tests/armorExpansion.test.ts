@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { evaluate, optimize } from '../src/core'
+import { deriveSoulState, evaluate, optimize } from '../src/core'
 import { healthSynergyCapacity } from '../src/core/healing'
 import type { Build, Scenario, SelectedEnchantment } from '../src/core'
 import type { ArmorEnchantmentId, ArmorId, OwnedArmor, SelectedArmorEnchantment } from '../src/core/armor'
@@ -23,6 +23,26 @@ function build(armorId: ArmorId, enchantmentId: ArmorEnchantmentId = 'chilling',
 }
 
 describe('Phase 2-3C Armor property reuse', () => {
+  it('applies the shared +50% Soul Gathering property to Grim and Wither', () => {
+    const soulWeapon = { ...weapon, weaponId: 'soul-scythe' as const }
+    const plain = evaluate({ weapon: soulWeapon, enchantments: selected, artifacts: [] }, scenario)
+    expect(plain.soulState!.totalSoulGathering).toBeGreaterThan(0)
+    const results = (['grim-armor', 'wither-armor'] as const).map((armorId) => {
+      const soulBuild = { ...build(armorId), weapon: soulWeapon }
+      const result = evaluate(soulBuild, scenario)
+      expect(result.soulState!.totalSoulGathering).toBe(plain.soulState!.totalSoulGathering * 1.5)
+      expect(result.soulState!.normalResourceUnitsPerSecond).toBeCloseTo(plain.soulState!.normalResourceUnitsPerSecond * 1.5)
+      expect(result.soulState!.normalPickupEventsPerSecond).toBe(plain.soulState!.normalPickupEventsPerSecond)
+      expect(result.soulState!.totalPickupEventsPerSecond).toBe(plain.soulState!.totalPickupEventsPerSecond)
+      expect(result.soulState!.eligibleSoulGeneratingKillsPerSecond).toBe(plain.soulState!.eligibleSoulGeneratingKillsPerSecond)
+      // The exported helper also derives the same property when no state is supplied.
+      expect(deriveSoulState(soulBuild, result.damage, result.combatState, scenario)).toEqual(result.soulState)
+      expect(evaluate(build(armorId), scenario).soulState).toBeUndefined()
+      return result.soulState
+    })
+    expect(results[0]).toEqual(results[1])
+  })
+
   it('reuses aura, Soul, Life Steal, melee, speed, and DR components', () => {
     const mercenary = evaluate(build('mercenary-armor'), scenario)
     const renegade = evaluate(build('renegade-armor'), scenario)
@@ -72,22 +92,27 @@ describe('Phase 2-3C Armor property reuse', () => {
     const mushroom = [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom' as const, powerLevel: 251 }]
     expect(() => evaluate({ ...build('spider-armor'), artifacts: mushroom }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
     const soulWeapon = { ...weapon, weaponId: 'soul-scythe' as const, enchantmentSlots: [{ candidates: ['soul-siphon' as const], locked: 'soul-siphon' as const }] }
-    expect(() => evaluate({ ...build('grim-armor'), weapon: soulWeapon, enchantments: [{ enchantmentId: 'soul-siphon', tier: 3, source: 'slot' }] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_COMBINATION/)
+    for (const armorId of ['grim-armor', 'wither-armor'] as const) {
+      expect(() => evaluate({ ...build(armorId), weapon: soulWeapon, enchantments: [{ enchantmentId: 'soul-siphon', tier: 3, source: 'slot' }] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_COMBINATION/)
+    }
     expect(() => evaluate(build('scale-mail', 'protection'), scenario)).toThrow(/UNSUPPORTED_PROTECTION_COMBINATION/)
   })
 })
 
 describe('Phase 2-3C state Armor Enchantments', () => {
-  it.each([[1, 0.03], [2, 0.04], [3, 0.05]] as const)('uses Health Synergy Tier %s realized Artifact activation', (tier, fraction) => {
+  it.each([[1, 0.03], [2, 0.04], [3, 0.05]] as const)('uses Health Synergy Tier %s steady-state Artifact activation capacity', (tier, fraction) => {
     expect(ARMOR_ENCHANTMENTS['health-synergy'].tiers[tier]).toBe(fraction)
     expect(healthSynergyCapacity(1, 1000, fraction)).toBe(1000 * fraction)
     const noArtifact = evaluate(build('grim-armor', 'health-synergy', tier), scenario)
     expect(noArtifact.healing.healthSynergyCapacityPerSecond).toBe(0)
     const withArtifact = evaluate({ ...build('grim-armor', 'health-synergy', tier), artifacts: [{ instanceId: 'powder', artifactId: 'shock-powder', powerLevel: 251 }] }, scenario)
-    expect(withArtifact.healing.healthSynergyCapacityPerSecond).toBeCloseTo(withArtifact.temporalState.artifactActivation.totalActivationsPerSecond * 500 * fraction)
+    expect(withArtifact.temporalState.artifactActivation.totalActivationsPerSecond).toBe(1 / 15)
+    expect(withArtifact.healing.healthSynergyCapacityPerSecond).toBeCloseTo(1 / 15 * 500 * fraction)
+    expect(withArtifact.reasons.join(' ')).toMatch(/Health Synergy.*steady-state.*nominal capacity.*overheal not modeled/)
+    expect(withArtifact.confidence.caveats.join(' ')).toMatch(/Health Synergy.*steady-state.*Limited.*overheal/)
   })
 
-  it('increases Health Synergy capacity from the shared realized activation rate', () => {
+  it('increases Health Synergy capacity from the shared steady-state activation capacity', () => {
     const baseBuild = build('grim-armor', 'health-synergy', 3)
     const artifacts = [{ instanceId: 'powder', artifactId: 'shock-powder' as const, powerLevel: 251 }]
     const base = evaluate({ ...baseBuild, artifacts }, scenario)
@@ -109,6 +134,16 @@ describe('Phase 2-3C state Armor Enchantments', () => {
     }, scenario)
     expect(cooled.temporalState.artifactActivation.totalActivationsPerSecond).toBeGreaterThan(base.temporalState.artifactActivation.totalActivationsPerSecond)
     expect(cooled.healing.healthSynergyCapacityPerSecond).toBeGreaterThan(base.healing.healthSynergyCapacityPerSecond!)
+    expect(cooled.healing.healthSynergyCapacityPerSecond).toBeCloseTo(1 / (15 * (1 - 0.37)) * 500 * 0.05)
+  })
+
+  it('keeps steady-state Health Synergy capacity independent of finite encounter duration', () => {
+    const input = { ...build('grim-armor', 'health-synergy'), artifacts: [{ instanceId: 'powder', artifactId: 'shock-powder' as const, powerLevel: 251 }] }
+    const results = [1, 15, 16, 60].map((encounterDurationSeconds) => evaluate(input, { ...scenario, encounterDurationSeconds }))
+    for (const result of results) {
+      expect(result.temporalState.artifactActivation.totalActivationsPerSecond).toBe(1 / 15)
+      expect(result.healing.healthSynergyCapacityPerSecond).toBe(results[0]!.healing.healthSynergyCapacityPerSecond)
+    }
   })
 
   it('models Snowball as one-target Control only with boss immunity and union composition', () => {
