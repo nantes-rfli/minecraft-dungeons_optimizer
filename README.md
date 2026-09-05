@@ -326,6 +326,8 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 
 `npm run generate:evidence-coverage` でsnapshot・report・実測protocolを再生成し、`npm run audit:evidence-coverage` でsourceと生成物の一致を検証します。[実測protocol](./docs/measurement-protocols.md)。Methodologyにread-only Data Coverageを追加しました。
 
+Phase 4 Source Harvestは既存のカテゴリ監査を正本として、7カテゴリ386件のKnown / Unknown / Conflict / Version / Sourcesとproperty-level coverageを[`research/source-harvest.json`](./research/source-harvest.json)へ生成します。Data Browserは同じ生成処理による縮約read modelを使用します。`npm run harvest:sources`で再生成し、`npm run audit:source-harvest`でschema・provenance・重複・競合・版・母集団・全生成物のdriftを検証します。[生成レポート](./docs/source-harvest.md)。このread-only indexからruntime supportやOptimizer候補を自動昇格しません。
+
 ### CIの依存関係インストール
 
 通常の `Validate` はNode.js 22で、lockfileに対応するnpmキャッシュを復元し、`npm ci --prefer-offline --no-audit --no-fund --timing` で毎回クリーンインストールします。install script、ゲーム仕様の全audit、テスト、型検査、lint、buildは毎回実行します。

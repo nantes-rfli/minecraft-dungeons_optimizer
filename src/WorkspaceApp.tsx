@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useSyncExternalStore, type ChangeEvent } from 'react'
+import { lazy, Suspense, useEffect, useState, useSyncExternalStore, type ChangeEvent } from 'react'
 import { useOptimizer } from './optimizer/useOptimizer'
 import { estimateSearchCandidates, SEARCH_WARNING_CANDIDATES, SEARCH_MAX_CANDIDATES } from './core/searchBudget'
 import type {
@@ -38,10 +38,11 @@ import { RangedInventorySection } from './views/RangedEquipment'
 import { RANGED_WEAPONS } from './data/ranged'
 import { AppShell } from './app/AppShell'
 import { useAppRoute, type AppRoute } from './app/routes'
-import { DataBrowserPage } from './screens/DataBrowserPage'
 import { ModelExplorerPage } from './screens/ModelExplorerPage'
 import { ChangesPage } from './screens/ChangesPage'
 import { OptimizeResults } from './screens/OptimizeResults'
+
+const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
 
 const ENCHANTMENT_IDS = Object.keys(ENCHANTMENTS) as EnchantmentId[]
 const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -206,7 +207,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
 
   if (!hydrated) return <main className="loading-state" aria-label="保存データを読み込み中">保存データを読み込んでいます…</main>
 
-  if (route.startsWith('/data')) return <DataBrowserPage route={route} />
+  if (route.startsWith('/data')) return <Suspense fallback={<main id="main-content" tabIndex={-1} role="status" className="page-main">ゲームデータを読み込み中…</main>}><DataBrowserPage route={route} /></Suspense>
   if (route.startsWith('/model')) return <ModelExplorerPage route={route} />
   if (route === '/changes') return <ChangesPage />
 

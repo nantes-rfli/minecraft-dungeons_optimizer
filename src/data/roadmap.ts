@@ -148,11 +148,23 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: '主要UX・route・keyboard・axe回帰', status: 'done' },
     ],
   },
+  {
+    id: 'phase-4',
+    title: 'Phase 4 — Coverage Source Harvest',
+    goal: 'ゲームを起動せず取得できる公開情報を横断し、既知・未知・競合・版・出典をruntimeとは独立したEvidence層へ構造化する。',
+    items: [
+      { label: '7カテゴリ386件の監査済み母集団を重複なく正規化', status: 'done' },
+      { label: 'game-file・公式・Wiki・定量調査のsource registryとprovenance', status: 'done' },
+      { label: 'Known / Unknown / Conflict / Version / stale状態のschema', status: 'done' },
+      { label: 'property-level Harvest coverageとPhase 5 gap candidatesの生成', status: 'done' },
+      { label: 'schema・参照・重複・競合・driftのauditとCI接続', status: 'done' },
+      { label: 'Data BrowserのSource Harvest詳細表示', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-4', title: 'Phase 4 — Coverage Source Harvest', goal: 'ゲームを起動せず取得できるgame-file由来データ、既存snapshot、Wiki、公式patch note、定量的な公開調査を回収し、known / unknown / source / version / confidenceを構造化する。' },
   { id: 'phase-5', title: 'Phase 5 — Evidence Gap Map & Measurement Protocol', goal: 'Coverageを妨げる不足情報をsource-extractable / public-research / observe / measure / experiment / implementation / objective-designへ分類し、必要な取得条件とclose条件を定義する。' },
   { id: 'phase-6', title: 'Phase 6 — Coverage Priority', goal: 'runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先する。' },
   { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: '本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },

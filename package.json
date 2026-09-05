@@ -31,6 +31,8 @@
     "audit:armor-expansion": "node scripts/audit-armor-expansion.ts",
     "generate:evidence-coverage": "node scripts/audit-evidence-coverage.ts --write",
     "audit:evidence-coverage": "node scripts/audit-evidence-coverage.ts",
+    "harvest:sources": "node scripts/audit-source-harvest.ts --write",
+    "audit:source-harvest": "node scripts/audit-source-harvest.ts",
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",
     "audit:ranged-enchants": "node scripts/audit-ranged.ts --enchantments",

@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **61 / 72（85%）**。Phase 3.6の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **67 / 78（86%）**。Phase 4の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -152,11 +152,24 @@ Phase 2-5全体はpartialです。MVPは利用者のneutral damage・完全発�
 
 Inventory JSON、Worker最適化、検索guard、中止、scenario、runtime manifest、数値モデル、Evidence confidenceは変更していません。
 
+## Phase 4 — Coverage Source Harvest（6 / 6）
+
+既存カテゴリ監査を正本として、1.17.0.0 game-file由来公開DB、公式patch / 最終更新境界、Minecraft Wiki、再現条件を評価できる定量的な公開調査をread-only Evidence indexへ正規化しました。
+
+- [x] 7カテゴリ386件の監査済み母集団を重複なく正規化
+- [x] game-file・公式・Wiki・定量調査のsource registryとprovenance
+- [x] Known / Unknown / Conflict / Version / stale状態のschema
+- [x] property-level Harvest coverageとPhase 5 gap candidatesの生成
+- [x] schema・参照・重複・競合・driftのauditとCI接続
+- [x] Data BrowserのSource Harvest詳細表示
+
+生成物は[Source Harvest report](./docs/source-harvest.md)と[machine-readable dataset](./research/source-harvest.json)。`npm run harvest:sources`で再生成し、`npm run audit:source-harvest`で既存監査との母集団・source参照・生成driftを検証します。runtime support、Optimizer候補・score、Inventory JSON、Worker、Evidence confidenceは変更していません。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 3.6でおすすめ装備を完成したセットとして表示し、Data summaryとEvidence / 精度の入口を整理しました。Phase 2-4までの完了、Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 4で7カテゴリ386件のSource Harvestを完了し、Known / Unknown / Conflict / Version / SourcesをData Browserから参照可能にしました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Source Harvest](./docs/source-harvest.md) / [横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -164,9 +177,11 @@ Phase 1-4は独立実測0/5でevidence-blocked。2-1D / F / G / H / I / Jは元�
 P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-coverage.md)で横断確認できます。[制限・優先度・close条件](./docs/runtime-limitations.md)の表はstructured backlogから生成します。
 `[ ]` は未達で、未実装とは限りません。evidence-blockedとnot-implementedの区別は同backlogを参照。
 
+UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優先して表示できる選択肢を検討する。順位・scoreの意味を変えるため、Phase 4のEvidence作業には含めません。
+
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はゲームを起動せず取得できるSource Harvestから始め、Gap Map、Priority、Personal Research Quest、Evidence Capture、Runtime Promotionへ小Phase単位で進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はSource Harvestが生成したgap candidateをPhase 5で整理し、Gap Map、Priority、Personal Research Quest、Evidence Capture、Runtime Promotionへ小Phase単位で進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -177,10 +192,6 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
 ## Future milestones（チェックリスト進捗と分離）
-
-### Phase 4 — Coverage Source Harvest
-
-ゲームを起動せず取得できるgame-file由来データ、既存snapshot、Minecraft Wiki、公式patch note、定量的な公開調査を回収し、known / unknown / source / version / confidenceを構造化します。このPhaseでは本人へ測定を求めません。
 
 ### Phase 5 — Evidence Gap Map & Measurement Protocol
 

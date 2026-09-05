@@ -2,6 +2,14 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 4 Coverage Source Harvest
+
+- 7カテゴリ386件を既存監査からread-only Source Harvestへ正規化し、Known / Unknown / Conflict / Version / stale / provenanceを機械可読化。
+- game-file由来公開DB、公式patch / 最終更新境界、Minecraft Wiki、定量的な公開調査をsource registryへ統合し、旧版・版不明を明示状態として保持。
+- property-level Harvest coverage、Phase 5向けgap candidates、schema / source参照 / 重複 / 競合 / drift監査とCIを追加。
+- Data Browserで項目ごとのKnown、Unknown、Sources、Version、Conflictを表示。
+- runtime support、Optimizer候補・score、Inventory JSON、Worker、Evidence confidence、本人限定公開方針は変更なし。
+
 ## 2026-09 — Phase 3.6 UX Fix-up
 
 - Recommended BuildをMelee / Armor / Ranged / Artifactの装備セットとして再構成し、Enchantの通常枠・Gilded・Built-inを区別。

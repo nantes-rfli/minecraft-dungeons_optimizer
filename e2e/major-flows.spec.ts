@@ -216,7 +216,7 @@ test('information architecture routes, data filters and model drill-down', async
   await expect(page.locator('.catalog-row')).toHaveCount(3)
   await page.getByRole('combobox', { name: '対応状況' }).selectOption('research-only')
   await expect(page.locator('.catalog-row')).toHaveCount(3)
-  await page.locator('.catalog-row').first().getByText(/Harp/).click()
+  await page.locator('.catalog-row').first().locator('summary').getByText('Harp Crossbow', { exact: true }).click()
   await expect(page.locator('.catalog-row').first().getByText('Canonical ID', { exact: true })).toBeVisible()
   await page.goto('/#/model')
   await expect(page.getByRole('list', { name: '最適化モデルの流れ' })).toContainText('Candidate Build')
