@@ -145,11 +145,11 @@ describe('visibility, generated docs and historical gates', () => {
     const html = renderToStaticMarkup(<RuntimeSupportWarnings enchantments={[...selected, ...selected]} />)
     expect(html).toContain('制限付き対応')
     expect(html.match(/Power 210–263/g)).toHaveLength(1)
-    expect(html).toContain('href="#methodology"')
+    expect(html).toContain('href="#/model/evidence/details"')
   })
   it('keeps generated summaries and roadmap counts synchronized', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
-    expect(ROADMAP_PROGRESS).toEqual({ completed: 55, total: 66, percentage: 83 })
+    expect(ROADMAP_PROGRESS).toEqual({ completed: 61, total: 72, percentage: 85 })
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
     expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
     expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)

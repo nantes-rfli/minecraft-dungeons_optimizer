@@ -2,6 +2,14 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 3.6 UX Fix-up
+
+- Recommended BuildをMelee / Armor / Ranged / Artifactの装備セットとして再構成し、Enchantの通常枠・Gilded・Built-inを区別。
+- 次点候補に装備構成と1位からのScore・Damage・Defense差を表示し、計算詳細を段階的に開く構造へ整理。
+- Data summaryをtop-levelカテゴリへ統一し、Enchant 115は近接33・防具41・遠距離41の用途別catalog合計であることを明示。
+- Model Evidence / Accuracy overviewと旧Methodologyへの導線を追加し、RoadmapをSource HarvestからRuntime PromotionまでのPhase 4〜9へ再編。
+- Inventory JSON、Worker探索、数値モデル、runtime support、Evidence confidence、Public Availability保留を維持。
+
 ## 2026-09 — Phase 3.5 Personal UX Refinement
 
 - 装備・最適化・データ・モデル・保存・変更履歴を別routeへ分離し、PC sidebar / mobile menuで同じ情報構造を提供。

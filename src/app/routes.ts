@@ -17,13 +17,14 @@ export type AppRoute =
   | '/model/defense'
   | '/model/control'
   | '/model/evidence'
+  | '/model/evidence/details'
   | '/storage'
   | '/changes'
 
 const ROUTES = new Set<AppRoute>([
   '/inventory', '/optimize', '/data', '/data/melee', '/data/armor', '/data/ranged',
   '/data/artifacts', '/data/enchantments', '/model', '/model/damage', '/model/healing',
-  '/model/defense', '/model/control', '/model/evidence', '/storage', '/changes',
+  '/model/defense', '/model/control', '/model/evidence', '/model/evidence/details', '/storage', '/changes',
 ])
 
 export const hrefFor = (route: AppRoute) => `#${route}`
@@ -32,7 +33,7 @@ export function readRoute(): AppRoute {
   if (typeof window === 'undefined') return '/inventory'
   const hash = window.location.hash.replace(/^#/, '')
   if (hash === 'optimizer') return '/optimize'
-  if (hash === 'methodology') return '/model'
+  if (hash === 'methodology') return '/model/evidence/details'
   return ROUTES.has(hash as AppRoute) ? hash as AppRoute : '/inventory'
 }
 

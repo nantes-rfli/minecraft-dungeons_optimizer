@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **55 / 66（83%）**。Phase 3.5を検証可能なA〜Fの6項目として追加したため分母60→66。future milestonesとFuture Expansionは粒度が異なるため分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **61 / 72（85%）**。Phase 3.6の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -139,11 +139,24 @@ Phase 2-5全体はpartialです。MVPは利用者のneutral damage・完全発�
 
 設計判断とroute責務は[Personal UX information architecture](docs/personal-ux-information-architecture.md)を参照。一般公開は行わず、本人限定で実利用後にPublic Availabilityを判断します。
 
+## Phase 3.6 — UX Fix-up（6 / 6）
+
+本人の実利用で判明した分かりづらさを対象に、既存の計算を変えず結果理解と参照導線を改善しました。
+
+- [x] Recommended BuildをMelee / Armor / Ranged / Artifactの完成セットとして表示
+- [x] Enchantの通常枠・Gilded・Built-inと次点候補の差分を明示
+- [x] Data summaryをtop-levelカテゴリと一致させ、Enchant 115の定義を明示
+- [x] Model Evidence / Accuracy overviewと詳細Methodology導線
+- [x] 結果・Data summary・Evidence overviewのtargeted component分離
+- [x] 主要UX・route・keyboard・axe回帰
+
+Inventory JSON、Worker最適化、検索guard、中止、scenario、runtime manifest、数値モデル、Evidence confidenceは変更していません。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 3.5でInventory / Optimization / Game Data / Model / Storageを役割別画面へ分離し、PCの左ナビゲーションとmobile menuで同じ情報構造を提供しました。Phase 2-4までの完了、Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 3.6でおすすめ装備を完成したセットとして表示し、Data summaryとEvidence / 精度の入口を整理しました。Phase 2-4までの完了、Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -153,7 +166,7 @@ P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-co
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。Phase 3.5後は本人がしばらく実利用し、日常利用上の不満が十分に減った時点でPublic Availabilityを判断します。コードだけで解決できるP0/P1 blockerは必要に応じて並行対応します。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はゲームを起動せず取得できるSource Harvestから始め、Gap Map、Priority、Personal Research Quest、Evidence Capture、Runtime Promotionへ小Phase単位で進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -165,17 +178,37 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 
 ## Future milestones（チェックリスト進捗と分離）
 
-### Public Availability
+### Phase 4 — Coverage Source Harvest
 
-Phase 3.5後、本人がしばらく実利用して日常利用の不満が少なくなった時点で判断します。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認して一般公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
+ゲームを起動せず取得できるgame-file由来データ、既存snapshot、Minecraft Wiki、公式patch note、定量的な公開調査を回収し、known / unknown / source / version / confidenceを構造化します。このPhaseでは本人へ測定を求めません。
 
-### Phase 4 — Research Quest / Evidence Contribution
+### Phase 5 — Evidence Gap Map & Measurement Protocol
 
-一般公開後。未検証項目一覧・priority・measurement protocol表示・submission・Evidence provenance・independent replication・contributor credit・moderation/quality gate。Phase 2-4/2-5の測定protocolを基盤とし、実装詳細は後続で決定します。
+Coverageを妨げる不足情報をsource-extractable / public-research / observe / measure / experiment / implementation / objective-designへ分類し、測定対象・条件・回数・記録項目・close条件を定義します。
 
-### Phase 5 — Evidence Closure & Quality Improvement
+### Phase 6 — Coverage Priority
 
-独立DPS 0/5、P0/P1 blocker、Artifact promotion、Ranged/Armor/Meleeの主要Limited理由、model error/confidenceを継続改善。主要実用buildをlimitationsとEvidence付きで再現可能に比較できる状態を目指します。完全ゲーム再現や全P2/P3のゼロ化は条件にしません。
+runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先します。
+
+### Phase 7 — Personal Research Quest
+
+本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくします。強制しません。
+
+### Phase 8 — Evidence Capture & Validation
+
+game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存します。1件の自己観測だけでVerifiedにしません。
+
+### Phase 9 — Runtime Promotion Pipeline
+
+Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、Evidence、runtime manifest、validation、tests、Coverage、UI、Optimizerを同期します。
+
+### Public Availability — 保留
+
+本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断します。今回の本人限定サイトを共有・一般公開へ変更しません。
+
+### Future candidate — New Drop Comparison / Keep-Salvage
+
+新しく拾った装備を仮追加し、現在Bestとの差、最大改善率、火力・防御・回復・Controlの変化から残す価値を判断する候補です。Phase 10以降として確定しません。
 
 ## Future Expansion（現在の進捗に含めない）
 

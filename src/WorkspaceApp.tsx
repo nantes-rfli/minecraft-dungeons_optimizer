@@ -1,16 +1,13 @@
 "use client"
 
 import { useEffect, useState, useSyncExternalStore, type ChangeEvent } from 'react'
-import { summarizeDamageRegression } from './core/modelError'
 import { useOptimizer } from './optimizer/useOptimizer'
 import { estimateSearchCandidates, SEARCH_WARNING_CANDIDATES, SEARCH_MAX_CANDIDATES } from './core/searchBudget'
 import type {
   ArtifactId,
   EnchantmentId,
   EnchantmentTier,
-  Evaluation,
   Inventory,
-  LocalizedName,
   OwnedArtifact,
   OwnedWeapon,
   Scenario,
@@ -20,7 +17,6 @@ import type {
 import type { ArmorEnchantmentTier, ArmorId, OwnedArmor } from './core/armor'
 import { ARTIFACTS } from './data/artifacts'
 import { ENCHANTMENTS } from './data/enchantments'
-import { DAMAGE_REGRESSION_SAMPLES } from './data/regressionSamples'
 import { DEFAULT_SCENARIO, SCENARIO_PROFILES } from './data/scenarios'
 import { WEAPONS } from './data/weapons'
 import { ARMORS, ARMOR_ENCHANTMENTS } from './data/armors'
@@ -30,27 +26,22 @@ import {
   DEFAULT_GILDED_ENCHANTMENT,
 } from './inventory/gilded'
 import { deserializeInventory, loadInventoryState, saveInventory, serializeInventory } from './inventory/storage'
-import { ControlDetails, ControlSettings } from './views/ControlDetails'
-import { RuntimeSupportWarnings } from './views/RuntimeSupport'
-import { DpsRegressionPanel } from './views/DpsRegressionPanel'
+import { ControlSettings } from './views/ControlDetails'
 import { EnemyCompositionControl } from './views/EnemyCompositionControl'
 import { AmbushShareControl, UndeadShareControl } from './views/EnemyStateControls'
-import { DirectDamageDetails } from './views/DirectDamageDetails'
 import { EnemyDebuffControl } from './views/EnemyDebuffControl'
-import { SoulStateDetails } from './views/SoulStateDetails'
-import { TemporalStateDetails } from './views/TemporalStateDetails'
-import { ChargeConsumeControls, ChargeConsumeDetails } from './views/ChargeConsumeDetails'
-import { StateModelDetails } from './views/StateModelDetails'
-import { DamageEventDetails, DamageEventTargetingControl, PersistentAreaTargetingControl, ProcPowerSupport } from './views/DamageEventControls'
+import { ChargeConsumeControls } from './views/ChargeConsumeDetails'
+import { DamageEventTargetingControl, PersistentAreaTargetingControl, ProcPowerSupport } from './views/DamageEventControls'
 import { enchantmentUnsupportedReason } from './core/damageEvents'
 import { ARMOR_ENCHANTMENT_REFERENCE_CATALOG, ARMOR_ENCHANTMENT_REFERENCE_IDS } from './research/armorEnchantmentAudit'
-import { RangedInventorySection, RangedResult } from './views/RangedEquipment'
+import { RangedInventorySection } from './views/RangedEquipment'
 import { RANGED_WEAPONS } from './data/ranged'
 import { AppShell } from './app/AppShell'
 import { useAppRoute, type AppRoute } from './app/routes'
 import { DataBrowserPage } from './screens/DataBrowserPage'
 import { ModelExplorerPage } from './screens/ModelExplorerPage'
 import { ChangesPage } from './screens/ChangesPage'
+import { OptimizeResults } from './screens/OptimizeResults'
 
 const ENCHANTMENT_IDS = Object.keys(ENCHANTMENTS) as EnchantmentId[]
 const WEAPON_IDS = Object.keys(WEAPONS) as WeaponId[]
@@ -92,70 +83,12 @@ const DEFAULT_INVENTORY: Inventory = {
 }
 
 const PROFILE_ORDER: ScenarioProfileId[] = ['balanced', 'damage', 'survival', 'boss', 'mobbing', 'apocalypse-plus']
-const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const percentage = (value: number): string => `${Math.round(value * 100)}%`
-const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
 const TIER_LABELS = { 1: 'I', 2: 'II', 3: 'III' } as const
 const ENCHANTMENT_TIERS: readonly EnchantmentTier[] = [1, 2, 3]
-const ENCHANTMENT_SOURCE_LABELS = { slot: '通常枠', gilded: '金色', 'built-in': '固有' } as const
 const subscribeToHydration = () => () => undefined
 const getClientHydrationSnapshot = () => true
 const getServerHydrationSnapshot = () => false
-const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
-
-function BilingualName({ name }: { name: LocalizedName }) {
-  return <><span>{name.ja}</span><small lang="en">{name.en}</small></>
-}
-
-function Metric({ label, value }: { label: string; value: number }) {
-  return <div className="metric"><span>{label}</span><strong>{numberFormat.format(value)}</strong></div>
-}
-
-function BuildSummary({ evaluation, compact = false, title }: { evaluation: Evaluation; compact?: boolean; title?: string }) {
-  const weapon = WEAPONS[evaluation.build.weapon.weaponId]
-  return (
-    <article className={compact ? 'result-card compact' : 'result-card'}>
-      <div className="result-heading">
-        <div><p className="eyebrow">{title ?? (compact ? '次点候補' : '推奨ビルド')}</p><h2>{weapon.name.ja}<small lang="en">{weapon.name.en} · Power {evaluation.build.weapon.powerLevel}</small></h2></div>
-        <div className="score"><span>目的スコア / 100</span><strong>{numberFormat.format(evaluation.objectiveScore)}</strong></div>
-      </div>
-      <div className="chips">
-        {evaluation.build.armor && <span className="chip armor"><BilingualName name={ARMORS[evaluation.build.armor.armorId as ArmorId].name} /></span>}
-        {evaluation.build.armorEnchantments?.map((selected, index) => <span className="chip armor" key={`armor-${selected.enchantmentId}-${selected.source}-${index}`}><span>{ARMOR_ENCHANTMENTS[selected.enchantmentId].name.ja} {TIER_LABELS[selected.tier]}</span><small lang="en">{ARMOR_ENCHANTMENTS[selected.enchantmentId].name.en} {TIER_LABELS[selected.tier]} · {ENCHANTMENT_SOURCE_LABELS[selected.source]}</small></span>)}
-        {evaluation.build.enchantments.map((selected, index) => <span className="chip" key={`${selected.enchantmentId}-${selected.source}-${index}`}><span>{ENCHANTMENTS[selected.enchantmentId].name.ja} {TIER_LABELS[selected.tier]}</span><small lang="en">{ENCHANTMENTS[selected.enchantmentId].name.en} {TIER_LABELS[selected.tier]} · {ENCHANTMENT_SOURCE_LABELS[selected.source]}</small></span>)}
-        {evaluation.build.artifacts.map((item) => <span className="chip artifact" key={item.instanceId}><BilingualName name={ARTIFACTS[item.artifactId].name} /></span>)}
-      </div>
-      <p className="control-score">Control utility {percentage(evaluation.control.utility)} · 行動阻害・集敵の評価</p>
-      <RangedResult evaluation={evaluation} />
-      {!compact && <>
-        <div className="metrics-grid">
-          <Metric label={evaluation.damage.ranged ? '単体DPS（近接＋遠距離観測）' : evaluation.damage.damageSource === 'observed-input' ? '単体DPS（表示値ベース）' : '単体DPS（Power換算）'} value={evaluation.damage.singleTargetDps} />
-          <Metric label={evaluation.damage.ranged ? 'AoE DPS（近接＋遠距離観測）' : evaluation.damage.damageSource === 'observed-input' ? 'AoE DPS（表示値ベース）' : 'AoE DPS（Power換算）'} value={evaluation.damage.aoeDps} />
-          <Metric label={evaluation.damage.painCycleState ? 'Net sustain / 秒' : evaluation.build.enchantments.some((item) => item.enchantmentId === 'refreshment') ? '回復・容量 / 秒' : '回復 / 秒'} value={evaluation.healing.totalPerSecond} />
-          <Metric label="実効HP" value={evaluation.defense.effectiveHealth} />
-        </div>
-        <ul className="reasons">{evaluation.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
-        <DirectDamageDetails evaluation={evaluation} />
-        <StateModelDetails evaluation={evaluation} />
-        <ControlDetails evaluation={evaluation} />
-        <TemporalStateDetails evaluation={evaluation} />
-        <RuntimeSupportWarnings enchantments={evaluation.build.enchantments} />
-        <ChargeConsumeDetails evaluation={evaluation} />
-        <SoulStateDetails evaluation={evaluation} />
-        <DamageEventDetails evaluation={evaluation} />
-        <details className="contributions"><summary>効果ごとの数値寄与を見る</summary>
-          {evaluation.damage.painCycleState && <p>回復列は自己damageを差し引いたNet sustainの差分です。自己damageそのものは上の内訳に分離表示しています。</p>}
-          {evaluation.build.enchantments.some((item) => item.enchantmentId === 'refreshment') && <p>回復の差分にはRefreshmentの追加ポーション回復容量（実回復ではない近似）を含みます。</p>}
-          <table className="contribution-table"><caption>効果別の寄与度</caption>
-            <thead><tr><th scope="col">効果</th><th scope="col">Score</th><th scope="col">AoE</th><th scope="col">回復</th><th scope="col">EHP</th><th scope="col">Control Δ</th></tr></thead>
-            <tbody>{evaluation.contributions.map((item, index) => <tr key={`${item.sourceType}-${item.sourceId}-${index}`}><th scope="row">{item.label.ja}<small>{item.label.en}</small></th><td>{item.objectiveDelta >= 0 ? '+' : ''}{numberFormat.format(item.objectiveDelta)}</td><td>{numberFormat.format(item.aoeDpsDelta)}</td><td>{numberFormat.format(item.healingPerSecondDelta)}</td><td>{numberFormat.format(item.effectiveHealthDelta)}</td><td>{numberFormat.format(item.controlUtilityDelta * 100)}pt</td></tr>)}</tbody>
-          </table>
-        </details>
-      </>}
-    </article>
-  )
-}
-
 function nextInstanceId(prefix: string): string {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
 }
@@ -310,7 +243,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     <section className="optimize-controls"><div className="objective-card"><label>目的<select aria-label="最適化の目的" value={scenario.profileId} onChange={(event) => setScenario(SCENARIO_PROFILES[event.target.value as ScenarioProfileId])}>{PROFILE_ORDER.map((id) => <option key={id} value={id}>{SCENARIO_PROFILES[id].name}</option>)}</select></label><div className="optimize-actions"><button className="primary-button" type="button" disabled={optimization.status === 'working' || candidateEstimate > SEARCH_MAX_CANDIDATES} onClick={optimization.start}>最適化する</button><button type="button" disabled={optimization.status !== 'working'} onClick={optimization.cancel}>探索を中止</button></div><p role="status">{optimization.status === 'working' ? '探索中…' : optimization.status === 'complete' ? `探索完了（${Math.round(optimization.durationMs ?? 0)} ms）` : optimization.status === 'cancelled' ? '探索を中止しました。再度開始できます。' : optimization.status === 'error' ? '探索に失敗しました。入力を確認して再実行してください。' : '目的を選び、最適化を開始してください。'}</p><small>候補数の上限推定: {candidateEstimate.toLocaleString()}通り</small>{candidateEstimate > SEARCH_MAX_CANDIDATES ? <p role="alert">安全上限{SEARCH_MAX_CANDIDATES.toLocaleString()}通りを超えています。装備画面で候補を減らすかlockしてください。</p> : candidateEstimate >= SEARCH_WARNING_CANDIDATES && <p>候補が多いため時間がかかる場合があります。</p>}</div>
       <details className="advanced-settings"><summary><span><strong>詳細条件</strong><small>敵・回復・Controlなどのモデル入力</small></span><span aria-hidden="true">＋</span></summary><div className="sliders"><ChargeConsumeControls scenario={scenario} onChange={setScenario} /><ControlSettings scenario={scenario} onChange={setScenario} /><DamageEventTargetingControl value={scenario.damageEventTargeting} maximum={scenario.averageTargetsInReach} onChange={(damageEventTargeting) => setScenario((current) => ({ ...current, damageEventTargeting }))} /><PersistentAreaTargetingControl value={scenario.persistentAreaTargeting} maximum={scenario.averageTargetsInReach} onChange={(persistentAreaTargeting) => setScenario((current) => ({ ...current, persistentAreaTargeting }))} /><EnemyDebuffControl value={scenario.enemyDebuffs} onChange={(enemyDebuffs) => setScenario((current) => ({ ...current, enemyDebuffs }))} /><UndeadShareControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><AmbushShareControl value={scenario.enemyState} onChange={(enemyState) => setScenario((current) => ({ ...current, enemyState }))} /><EnemyCompositionControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><label><span>敵供給上限 / 秒 <output>{scenario.enemySupplyPerSecond.toFixed(1)}</output></span><input type="range" min="0" max="2" step="0.1" value={scenario.enemySupplyPerSecond} onChange={updateNumber('enemySupplyPerSecond')} /></label><label><span>射程内の敵 <output>{scenario.averageTargetsInReach.toFixed(1)}</output></span><input type="range" min="1" max="6" step="0.5" value={scenario.averageTargetsInReach} onChange={updateNumber('averageTargetsInReach')} /></label>{(inventory.rangedWeapons?.length ?? 0) > 0 && <label><span>遠距離に予約する攻撃時間割合</span><input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="明示入力が必要" onChange={(event) => setScenario((current) => ({ ...current, rangedTimeShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label>}<label><span>開始Soul <output>{scenario.initialSoulUnits ?? 0}</output></span><input aria-label="開始Soul" type="range" min="0" max="300" step="5" value={scenario.initialSoulUnits ?? 0} onChange={updateNumber('initialSoulUnits')} /></label><label><span>Cowardice 満タンHP時間割合</span><input aria-label="Cowardice 満タンHP時間割合" type="number" min="0" max="1" step="0.05" placeholder="使用時に入力" value={scenario.cowardiceFullHealthShare ?? ''} onChange={(event) => setScenario((current) => ({ ...current, cowardiceFullHealthShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label><label><span>Artifactのクールダウン短縮 <output>{percentage(scenario.cooldownReduction)}</output></span><input type="range" min="0" max="0.75" step="0.05" value={scenario.cooldownReduction} onChange={updateNumber('cooldownReduction')} /></label><details className="scenario-values"><summary>HP・ダメージの実数値</summary><p>{usesObservedDamage ? '表示ダメージ' : 'Power換算ダメージ'}と同じゲーム内単位で入力してください。</p><label><span>平均敵HP</span><input aria-label="平均敵HP" type="number" min="0.01" step="any" value={scenario.averageEnemyHealth} onChange={updateNumber('averageEnemyHealth')} /></label><label><span>被ダメージ / 秒</span><input aria-label="被ダメージ毎秒" type="number" min="0" step="any" value={scenario.incomingDamagePerSecond} onChange={updateNumber('incomingDamagePerSecond')} /></label><label><span>{(inventory.armors?.length ?? 0) > 0 ? '最大HP（Armor使用時は無効）' : '最大HP'}</span><input aria-label="最大HP" type="number" min="0.01" step="any" disabled={(inventory.armors?.length ?? 0) > 0} value={scenario.maxHealth} onChange={updateNumber('maxHealth')} /></label><label><span>輝き1回の回復量</span><input aria-label="輝き1回の回復量" type="number" min="0" step="any" value={scenario.radianceHealPerProc} onChange={updateNumber('radianceHealPerProc')} /></label></details></div></details>
     </section>
-    <section className="results optimize-results" aria-label="最適化結果">{optimization.error && <div className="error-panel" role="alert">{optimization.error}</div>}{!optimization.result && optimization.status !== 'working' && <div className="empty-state"><span aria-hidden="true">◎</span><h2>結果はここに表示されます</h2><p>まず目的を選び、「最適化する」を押してください。</p></div>}{optimization.status === 'working' && <div className="empty-state working"><span className="spinner" aria-hidden="true" /><h2>すべての候補を比較しています</h2><p>この間も探索を中止できます。</p></div>}{optimization.result && <>{optimization.result.unsupportedChoices.length > 0 && <div className="model-warning" role="note"><strong>未対応の候補は評価から除外しました（0点として採用しません）</strong>{optimization.result.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}</div>}<div className="result-meta"><span>{optimization.result.evaluatedBuildCount}通りを全探索</span><span>Evidence coverage {Math.round(optimization.result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[optimization.result.best.confidence.label]}）</span></div><DpsRegressionPanel summary={DAMAGE_MODEL_ERROR} predictedDps={optimization.result.best.damage.singleTargetDps} /><BuildSummary evaluation={optimization.result.best} /><h3 className="alternatives-title">次点候補</h3><div className="alternatives">{optimization.result.alternatives.slice(0, 4).map((evaluation, index) => <BuildSummary compact evaluation={evaluation} key={`alternative-${evaluation.build.weapon.instanceId}-${index}`} />)}</div><details className="secondary-results"><summary>パレート候補と計算上の注意</summary><h3>Pareto前線</h3><div className="alternatives">{optimization.result.paretoFrontier.slice(0, 3).map((evaluation, index) => <BuildSummary compact title={`PARETO ${index + 1}`} evaluation={evaluation} key={`pareto-${evaluation.build.weapon.instanceId}-${index}`} />)}</div><ul>{optimization.result.best.confidence.caveats.map((caveat) => <li key={caveat}>{caveat}</li>)}</ul></details></> }</section>
+    <OptimizeResults error={optimization.error} result={optimization.result} status={optimization.status} />
   </main>
 
   return null

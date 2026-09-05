@@ -13,7 +13,7 @@ export function RuntimeSupportWarnings({ enchantments }: { enchantments: readonl
   return <aside className="runtime-warnings" aria-label="選択エンチャントの対応制限">
     <h3>制限付き対応</h3>
     {limited.map((entry) => <div key={entry.id}><strong>{entry.name}</strong><ul>{runtimeLimitationLines(entry).map((line) => <li key={line}>{line}</li>)}</ul></div>)}
-    <a href="#methodology">対応範囲・仮定の詳細</a>
+    <a href="#/model/evidence/details">対応範囲・仮定の詳細</a>
   </aside>
 }
 

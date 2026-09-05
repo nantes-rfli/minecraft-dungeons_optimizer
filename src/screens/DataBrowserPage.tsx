@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo, useState } from 'react'
-import coverage from '../../research/evidence-coverage-dashboard.json'
 import meleeAudit from '../../research/melee-enchantment-audit.json'
 import meleeWeaponAudit from '../../research/melee-attack-profile-audit.json'
 import armorEnchantAudit from '../../research/armor-enchantment-audit.json'
@@ -12,6 +11,7 @@ import { hrefFor, type AppRoute } from '../app/routes'
 import { WEAPONS } from '../data/weapons'
 import { ARMOR_ENCHANTMENTS } from '../data/armors'
 import { ARTIFACTS } from '../data/artifacts'
+import { DataSummary } from '../views/DataSummary'
 
 type Support = 'full' | 'limited' | 'research-only'
 type CatalogItem = { id: string; name: string; secondary?: string; family: string; support: Support; known: string; blockers: string[]; source?: string }
@@ -49,7 +49,7 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
     <header className="page-intro"><p className="eyebrow">GAME DATA / REFERENCE</p><h1>データ</h1><p>ゲーム全体の装備・効果と、このツールが評価できる範囲を確認します。自分の所持品は「装備」で管理します。</p></header>
     <nav className="subnav" aria-label="データカテゴリ">{categoryRoutes.map((item) => <a key={item.route} href={hrefFor(item.route)} aria-current={route === item.route ? 'page' : undefined}>{item.label}<span>{item.count}</span></a>)}</nav>
     {route === '/data' ? <>
-      <section className="summary-grid" aria-label="データ対応状況">{coverage.categories.filter((item) => ['melee-enchantment', 'armor', 'ranged-weapon', 'artifact'].includes(item.id)).map((item) => <article key={item.id}><span>{item.label}</span><strong>{item.population}</strong><p><b>{item.runtime.full}</b> Full · <b>{item.runtime.limited}</b> Limited · <b>{item.runtime.researchOnly}</b> Research-only</p></article>)}</section>
+      <DataSummary />
       <section className="panel compact-panel"><h2>対応状況の読み方</h2><div className="status-legend"><p><span className="support full">Full</span>現在のscopeで通常対応</p><p><span className="support limited">Limited</span>Power・組合せなどに制限</p><p><span className="support research-only">Research-only</span>根拠不足のためOptimizer候補外</p></div><p>カテゴリごとに母集団が異なるため、誤解を招く総合パーセントは表示しません。</p></section>
     </> : <section className="catalog-panel">
       <div className="catalog-toolbar"><label>検索<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名・英語名・ID" /></label><label>対応状況<select value={support} onChange={(event) => setSupport(event.target.value as 'all' | Support)}><option value="all">すべて</option><option value="full">Full</option><option value="limited">Limited</option><option value="research-only">Research-only</option></select></label><p role="status">{filtered.length}件</p></div>

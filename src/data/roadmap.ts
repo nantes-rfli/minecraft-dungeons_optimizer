@@ -135,13 +135,31 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 3.5F: Storage / Utility consolidation', status: 'done' },
     ],
   },
+  {
+    id: 'phase-3-6',
+    title: 'Phase 3.6 — UX Fix-up',
+    goal: '実利用で判明した分かりづらさを直し、推奨装備と現在地を短時間で理解できるようにする。',
+    items: [
+      { label: 'Recommended BuildをMelee / Armor / Ranged / Artifactの完成セットとして表示', status: 'done' },
+      { label: 'Enchant sourceと次点候補の差分を明示', status: 'done' },
+      { label: 'Data summaryをtop-levelカテゴリと一致させ、Enchant 115の定義を明示', status: 'done' },
+      { label: 'Model Evidence / Accuracy overviewと詳細Methodology導線', status: 'done' },
+      { label: '結果・Data summary・Evidence overviewのtargeted component分離', status: 'done' },
+      { label: '主要UX・route・keyboard・axe回帰', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'public-availability', title: 'Public Availability', goal: 'Phase 3.5後、本人がしばらく実利用してから判断。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
-  { id: 'phase-4', title: 'Phase 4 — Research Quest / Evidence Contribution', goal: '一般公開後。未検証項目・priority・measurement protocol・submission・provenance・independent replication・credit・moderation/quality gate。詳細は後続で決定。' },
-  { id: 'phase-5', title: 'Phase 5 — Evidence Closure & Quality Improvement', goal: '独立DPS 0/5とP0/P1 Evidenceを重点解消し、Artifact promotion・主要Limited理由・誤差/confidenceを再評価。主要実用buildをlimitations付きで再現可能に比較する。全P2/P3解消や完全ゲーム再現は条件にしない。' },
+  { id: 'phase-4', title: 'Phase 4 — Coverage Source Harvest', goal: 'ゲームを起動せず取得できるgame-file由来データ、既存snapshot、Wiki、公式patch note、定量的な公開調査を回収し、known / unknown / source / version / confidenceを構造化する。' },
+  { id: 'phase-5', title: 'Phase 5 — Evidence Gap Map & Measurement Protocol', goal: 'Coverageを妨げる不足情報をsource-extractable / public-research / observe / measure / experiment / implementation / objective-designへ分類し、必要な取得条件とclose条件を定義する。' },
+  { id: 'phase-6', title: 'Phase 6 — Coverage Priority', goal: 'runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先する。' },
+  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: '本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
+  { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation', goal: 'game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存し、1件の自己観測だけでVerifiedにしない。' },
+  { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline', goal: 'Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、manifest・validation・test・Coverage・UI・Optimizerを同期する。' },
+  { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },
+  { id: 'new-drop-comparison', title: 'Future candidate — New Drop Comparison / Keep-Salvage', goal: '新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。Phase 10以降の確定項目にはしない。' },
 ] as const
 export const FUTURE_EXPANSION_MILESTONES = [
   { id: 'generalization', title: 'Future Expansion A — Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、Game/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage、Measurementを段階的に分離。今回全面汎用化しない。' },
