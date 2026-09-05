@@ -25,6 +25,12 @@ describe('Phase 4 Source Harvest', () => {
     expect(harvest.records.some((record) => record.unknown.length > 0)).toBe(true)
     expect(harvest.records.some((record) => record.conflicts.length > 0)).toBe(true)
     expect(harvest.gaps.every((gap) => gap.currentKnownState !== 'unknown' || gap.notes.length > 0)).toBe(true)
+    for (const record of harvest.records.filter((item) => item.category === 'ranged-enchantment')) {
+      for (const conflict of record.conflicts) expect(conflict.values.map((value) => value.sourceId)).toEqual([
+        'ranged-enchantment:primary-enchantments',
+        'ranged-enchantment:secondary-enchantments',
+      ])
+    }
   })
 
   it('reports property coverage independently from runtime coverage', () => {

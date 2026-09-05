@@ -269,8 +269,14 @@ function rangedWeaponRecords(): HarvestRecord[] {
 
 function rangedEnchantmentRecords(): HarvestRecord[] {
   return rangedEnchantments.entries.map((entry) => {
-    const sourceIds = unique([...entry.sourceIds.map((id) => rangedEnchantSourceIds.get(id)).filter(nonNull), ...officialVersionSources])
-    const conflicts: HarvestConflict[] = entry.conflict ? [{ property: 'publishedMechanic', values: sourceIds.slice(0, 2).map((sourceId, index) => ({ sourceId, value: index === 0 ? entry.tierValues : entry.conflict })), probableReason: 'Primary and secondary published descriptions disagree or use different channel semantics.', resolutionStatus: 'pending' }] : []
+    const primarySourceId = rangedEnchantSourceIds.get('primary-enchantments')
+    const secondarySourceId = rangedEnchantSourceIds.get('secondary-enchantments')
+    const conflictSourceIds = entry.conflict ? [primarySourceId, secondarySourceId].filter(nonNull) : []
+    const sourceIds = unique([...entry.sourceIds.map((id) => rangedEnchantSourceIds.get(id)).filter(nonNull), ...conflictSourceIds, ...officialVersionSources])
+    const conflicts: HarvestConflict[] = entry.conflict && primarySourceId && secondarySourceId ? [{ property: 'publishedMechanic', values: [
+      { sourceId: primarySourceId, value: entry.sourceIds.includes('primary-enchantments') ? entry.tierValues : 'not listed for ranged applicability' },
+      { sourceId: secondarySourceId, value: entry.conflict },
+    ], probableReason: 'Primary and secondary published descriptions disagree or use different channel semantics.', resolutionStatus: 'pending' }] : []
     const known = [fact('identity', { canonicalId: entry.id, names: entry.name }, sourceIds, entry.confidence as HarvestConfidence), fact('rarity', entry.rarity, sourceIds, entry.confidence as HarvestConfidence),
       fact('tiers', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence, entry.tierStatus.includes('not-independently') ? 'stale' : 'accepted', entry.tierStatus), fact('trigger', entry.triggerFamily, sourceIds, entry.confidence as HarvestConfidence), fact('damageChannel', entry.damageChannel, sourceIds, entry.confidence as HarvestConfidence)]
     if (entry.stackable !== null) known.push(fact('stacking', entry.stackable, sourceIds, entry.confidence as HarvestConfidence))

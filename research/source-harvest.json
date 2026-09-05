@@ -45645,6 +45645,7 @@
           },
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -45657,6 +45658,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -45669,6 +45671,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -45682,6 +45685,7 @@
           "value": "on-kill",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -45694,6 +45698,7 @@
           "value": "unresolved-effect-specific",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -45729,11 +45734,11 @@
           "property": "publishedMechanic",
           "values": [
             {
-              "sourceId": "ranged-enchantment:secondary-enchantments",
-              "value": null
+              "sourceId": "ranged-enchantment:primary-enchantments",
+              "value": "not listed for ranged applicability"
             },
             {
-              "sourceId": "official:minecraft-dungeons-1-17-patch-notes",
+              "sourceId": "ranged-enchantment:secondary-enchantments",
               "value": "primary index omits ranged applicability; present in secondary ranged catalog"
             }
           ],
@@ -45743,6 +45748,7 @@
       ],
       "sourceIds": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -46460,6 +46466,7 @@
           },
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -46472,6 +46479,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -46484,6 +46492,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -46497,6 +46506,7 @@
           "value": "on-kill",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -46509,6 +46519,7 @@
           "value": "unresolved-effect-specific",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -46544,11 +46555,11 @@
           "property": "publishedMechanic",
           "values": [
             {
-              "sourceId": "ranged-enchantment:secondary-enchantments",
-              "value": null
+              "sourceId": "ranged-enchantment:primary-enchantments",
+              "value": "not listed for ranged applicability"
             },
             {
-              "sourceId": "official:minecraft-dungeons-1-17-patch-notes",
+              "sourceId": "ranged-enchantment:secondary-enchantments",
               "value": "primary index omits ranged applicability; present in secondary ranged catalog"
             }
           ],
@@ -46558,6 +46569,7 @@
       ],
       "sourceIds": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -48818,6 +48830,7 @@
           },
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -48830,6 +48843,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -48842,6 +48856,7 @@
           "value": null,
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -48855,6 +48870,7 @@
           "value": "on-hit",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -48867,6 +48883,7 @@
           "value": "unresolved-effect-specific",
           "sourceIds": [
             "ranged-enchantment:secondary-enchantments",
+            "ranged-enchantment:primary-enchantments",
             "official:minecraft-dungeons-1-17-patch-notes",
             "official:minecraft-dungeons-final-update"
           ],
@@ -48902,11 +48919,11 @@
           "property": "publishedMechanic",
           "values": [
             {
-              "sourceId": "ranged-enchantment:secondary-enchantments",
-              "value": null
+              "sourceId": "ranged-enchantment:primary-enchantments",
+              "value": "not listed for ranged applicability"
             },
             {
-              "sourceId": "official:minecraft-dungeons-1-17-patch-notes",
+              "sourceId": "ranged-enchantment:secondary-enchantments",
               "value": "primary index omits ranged applicability; present in secondary ranged catalog"
             }
           ],
@@ -48916,6 +48933,7 @@
       ],
       "sourceIds": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95396,6 +95414,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95411,6 +95430,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95426,6 +95446,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95441,6 +95462,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95455,8 +95477,8 @@
       "property": "publishedMechanic",
       "currentKnownState": "conflicting",
       "sourceAttempts": [
-        "ranged-enchantment:secondary-enchantments",
-        "official:minecraft-dungeons-1-17-patch-notes"
+        "ranged-enchantment:primary-enchantments",
+        "ranged-enchantment:secondary-enchantments"
       ],
       "sourceConflict": true,
       "versionIssue": true,
@@ -95950,6 +95972,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95965,6 +95988,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95980,6 +96004,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -95995,6 +96020,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -96009,8 +96035,8 @@
       "property": "publishedMechanic",
       "currentKnownState": "conflicting",
       "sourceAttempts": [
-        "ranged-enchantment:secondary-enchantments",
-        "official:minecraft-dungeons-1-17-patch-notes"
+        "ranged-enchantment:primary-enchantments",
+        "ranged-enchantment:secondary-enchantments"
       ],
       "sourceConflict": true,
       "versionIssue": true,
@@ -97494,6 +97520,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -97509,6 +97536,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -97524,6 +97552,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -97539,6 +97568,7 @@
       "currentKnownState": "unknown",
       "sourceAttempts": [
         "ranged-enchantment:secondary-enchantments",
+        "ranged-enchantment:primary-enchantments",
         "official:minecraft-dungeons-1-17-patch-notes",
         "official:minecraft-dungeons-final-update"
       ],
@@ -97553,8 +97583,8 @@
       "property": "publishedMechanic",
       "currentKnownState": "conflicting",
       "sourceAttempts": [
-        "ranged-enchantment:secondary-enchantments",
-        "official:minecraft-dungeons-1-17-patch-notes"
+        "ranged-enchantment:primary-enchantments",
+        "ranged-enchantment:secondary-enchantments"
       ],
       "sourceConflict": true,
       "versionIssue": true,
