@@ -32,7 +32,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       setError('')
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
-  return <details className="inventory-item" open><summary>{audited.name.ja ?? audited.name.en} · {audited.supportLevel}</summary>
+  return <details className="inventory-item"><summary>{audited.name.ja ?? audited.name.en} · Power {weapon.powerLevel} · {audited.supportLevel}</summary>
     <label>Power<input aria-label={`${weapon.instanceId} Ranged Power`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
     <p>{rangedWeaponUnsupportedReason(weapon) ?? 'Limited: 観測入力あり。対応する組合せのみ評価します。'}</p>
     <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}。{RANGED_WEAPONS[weapon.weaponId]?.intrinsic ?? 'Research-only: 効果を無視して最適化しません。'}</p>
@@ -57,13 +57,13 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
   </details>
 }
 
-export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void }) {
+export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean }) {
   const [selected, setSelected] = useState('bow')
   const weapons = inventory.rangedWeapons ?? []
-  return <section className="control-section"><p className="section-label">遠距離武器 / RANGED — Limited MVP</p>
+  return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED · LIMITED MVP</p><h2>遠距離武器</h2></div></div>
     <label>追加する遠距離武器<select aria-label="追加する遠距離武器" value={selected} onChange={(e) => setSelected(e.target.value)}>{RANGED_WEAPON_AUDIT.entries.map((item) => <option key={item.id} value={item.id}>{item.name.ja ?? item.name.en} · {item.supportLevel}</option>)}</select></label>
     <button type="button" onClick={() => onChange({ ...inventory, rangedWeapons: [...weapons, { instanceId: `ranged-${crypto.randomUUID()}`, weaponId: selected, powerLevel: 251, enchantmentSlots: [] }] })}>遠距離武器を追加</button>
-    {weapons.length > 0 && <><p>未対応の自由候補を含む個体は除外します。対応候補のlockは可能。通常枠・金色の同Enchant重複は未対応です。</p><label>遠距離に予約する攻撃時間割合（0より大きく1未満）<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="明示入力が必要" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label></>}
+    {weapons.length > 0 && <><p>未対応の自由候補を含む個体は除外します。対応候補のlockは可能。通常枠・金色の同Enchant重複は未対応です。</p>{showScenario && <label>遠距離に予約する攻撃時間割合（0より大きく1未満）<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="明示入力が必要" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}</>}
     {weapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}
   </section>
 }

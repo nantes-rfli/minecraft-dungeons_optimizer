@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 3.5 Personal UX Refinement
+
+- 装備・最適化・データ・モデル・保存・変更履歴を別routeへ分離し、PC sidebar / mobile menuで同じ情報構造を提供。
+- 装備はcompact一覧から編集、最適化はpresetを主導線として詳細条件を折りたたみ、Best Buildを先に表示。
+- Game Data browserと段階的なModel explorerを追加し、Evidenceとlimitationsを参照文脈へ整理。
+- localStorage、JSON v1/v2、Worker探索、中止、候補除外、既存の計算結果とruntime supportは維持。
+
 ## 2026-09 — Phase 3 Public Use Readiness
 
 - Workerでの明示的な最適化開始・中止、古い結果の破棄、候補数と時間の安全上限。

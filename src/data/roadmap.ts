@@ -122,11 +122,24 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Phase 3F: Data / Evidence Update Workflow（更新・検証・変更追跡）', status: 'done' },
     ],
   },
+  {
+    id: 'phase-3-5',
+    title: 'Phase 3.5 — Personal UX Refinement',
+    goal: '本人の日常利用で、装備登録から結果確認までを迷わず少ない認知負荷で行える情報構造へ整理する。',
+    items: [
+      { label: 'Phase 3.5A: Information Architecture / Navigation', status: 'done' },
+      { label: 'Phase 3.5B: Inventory / Box UX', status: 'done' },
+      { label: 'Phase 3.5C: Optimization UX', status: 'done' },
+      { label: 'Phase 3.5D: Game Data Browser', status: 'done' },
+      { label: 'Phase 3.5E: Model Explorer', status: 'done' },
+      { label: 'Phase 3.5F: Storage / Utility consolidation', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'public-availability', title: 'Public Availability', goal: 'Phase 3後。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
+  { id: 'public-availability', title: 'Public Availability', goal: 'Phase 3.5後、本人がしばらく実利用してから判断。公開導線・limitations/Evidence・feedback・privacy/analytics/運用確認。Research Questは必須にしない。' },
   { id: 'phase-4', title: 'Phase 4 — Research Quest / Evidence Contribution', goal: '一般公開後。未検証項目・priority・measurement protocol・submission・provenance・independent replication・credit・moderation/quality gate。詳細は後続で決定。' },
   { id: 'phase-5', title: 'Phase 5 — Evidence Closure & Quality Improvement', goal: '独立DPS 0/5とP0/P1 Evidenceを重点解消し、Artifact promotion・主要Limited理由・誤差/confidenceを再評価。主要実用buildをlimitations付きで再現可能に比較する。全P2/P3解消や完全ゲーム再現は条件にしない。' },
 ] as const

@@ -1,12 +1,10 @@
 # Roadmap
 
-## 完成条件
-
 ## Current project target
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **49 / 60（82%）**。Phase 3の従来4項目を検証可能なA〜Fの6項目に分割したため分母58→60。future milestonesとFuture Expansionは粒度が異なるため分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **55 / 66（83%）**。Phase 3.5を検証可能なA〜Fの6項目として追加したため分母60→66。future milestonesとFuture Expansionは粒度が異なるため分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -128,11 +126,24 @@ Phase 2-5全体はpartialです。MVPは利用者のneutral damage・完全発�
 
 検証方法・性能測定・残る制限は[Public Use Readiness](docs/public-use-readiness.md)を参照。一般公開の実行は別milestoneです。
 
+## Phase 3.5 — Personal UX Refinement（6 / 6）
+
+本人の日常利用を主目的に、情報量の多い単一画面を役割別の作業・参照画面へ分離しました。計算モデル、schema、runtime supportは変更していません。
+
+- [x] Phase 3.5A: Information Architecture / Navigation
+- [x] Phase 3.5B: Inventory / Box UX
+- [x] Phase 3.5C: Optimization UX
+- [x] Phase 3.5D: Game Data Browser
+- [x] Phase 3.5E: Model Explorer
+- [x] Phase 3.5F: Storage / Utility consolidation
+
+設計判断とroute責務は[Personal UX information architecture](docs/personal-ux-information-architecture.md)を参照。一般公開は行わず、本人限定で実利用後にPublic Availabilityを判断します。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 3の開発基盤を整備。Phase 2-4までの完了を維持し、Phase 2-5はpartial。Ranged武器71・Enchant41を監査し、Bow/Crossbowと3 EnchantをLimited runtimeへ接続しました。read modelは8カテゴリ、protocolは6件になりました。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。既存Armor 7 / 73、Armor Enchantment 7 / 41とunsupported境界は維持。進捗は `src/data/roadmap.ts` と同期。
+Phase 3.5でInventory / Optimization / Game Data / Model / Storageを役割別画面へ分離し、PCの左ナビゲーションとmobile menuで同じ情報構造を提供しました。Phase 2-4までの完了、Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -142,7 +153,7 @@ P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-co
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。Phase 3 Public Use Readinessの整備を完了し、次はPublic Availabilityの導線・privacy・運用条件を検討します。コードだけで解決できるP0/P1 blockerは必要に応じて並行対応します。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。Phase 3.5後は本人がしばらく実利用し、日常利用上の不満が十分に減った時点でPublic Availabilityを判断します。コードだけで解決できるP0/P1 blockerは必要に応じて並行対応します。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -156,7 +167,7 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 
 ### Public Availability
 
-Phase 3後。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認して一般公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
+Phase 3.5後、本人がしばらく実利用して日常利用の不満が少なくなった時点で判断します。公開導線、limitations/Evidenceの明示、feedback導線、privacy/analytics/operational readinessを必要範囲で確認して一般公開へ。大規模Research Questはまだ必須にしません。今回の本人限定サイトを一般公開する指示ではありません。
 
 ### Phase 4 — Research Quest / Evidence Contribution
 
