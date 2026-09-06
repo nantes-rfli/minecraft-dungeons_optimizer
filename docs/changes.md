@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 6 Coverage Priority
+
+- 2,105 Gapへruntime unlock・rank sensitivity・ownership・coverage・near-unlock・acquisition easeのGlobal / Personal priorityを追加。
+- Gap / Entity / Task Family / Protocol ranking、386 Unlock Bundle、synthetic Owned Research Queueを生成。
+- 6 objectiveのanalysis-only sensitivity、Protocol cost補正、weight sensitivity、全件・重複・NaN・orphan・determinism監査を追加。
+- Runtime support、Optimizer formula、Inventory schema、Evidence、Research Quest UI、Public Availabilityは変更なし。
+
 ## 2026-09 — Phase 5 Evidence Gap Map & Measurement Protocol
 
 - Source Harvestの2,105 GapをGap Causeを維持したままResolution Classと33 Task Familyへ分類。

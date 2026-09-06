@@ -174,11 +174,23 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: '人間向けGap MapとMeasurement Protocol reportを生成', status: 'done' },
     ],
   },
+  {
+    id: 'phase-6',
+    title: 'Phase 6 — Coverage Priority',
+    goal: '2,105 GapをOptimizer実用性への効果で順位付けし、本人が次の調査を迷わず選べるread modelを提供する。',
+    items: [
+      { label: '2,105 GapへGlobal / Personal priority、P0〜P3、理由を付与', status: 'done' },
+      { label: 'analysis-only rank sensitivityを6 objectiveで評価', status: 'done' },
+      { label: 'Unlock Bundle・near-unlock・coverage・critical pathを評価', status: 'done' },
+      { label: 'Protocol costをsetup・反復・variant・availabilityで補正', status: 'done' },
+      { label: 'synthetic InventoryによるOwned / grouped Research Queueを生成', status: 'done' },
+      { label: '全件・score・protocol・determinism・runtime境界をaudit', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-6', title: 'Phase 6 — Coverage Priority', goal: 'runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先する。' },
   { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: '本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
   { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation', goal: 'game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存し、1件の自己観測だけでVerifiedにしない。' },
   { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline', goal: 'Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、manifest・validation・test・Coverage・UI・Optimizerを同期する。' },

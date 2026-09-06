@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **73 / 84（87%）**。Phase 5の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **79 / 90（88%）**。Phase 6の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -178,11 +178,24 @@ Source Harvestを変更せず、2,105 Gapを「なぜ不足しているか」と
 
 生成物は[Evidence Gap Map](./docs/evidence-gap-map.md)、[Measurement Protocol](./docs/measurement-protocols.md)、[machine-readable map](./research/evidence-gap-map.json)。2,105 / 2,105 classified、unclassified 0で、個別Gapごとのprotocol乱造を避けて14本へ束ねています。Priority、ownership signal、Research Quest、Evidence投稿、runtime昇格は未実装です。
 
+## Phase 6 — Coverage Priority（6 / 6）
+
+Phase 5の2,105 Gapを、runtime unlock・rank sensitivity・ownership・coverage・near-unlock・acquisition easeの明示weightで順位付けしました。
+
+- [x] 全2,105 GapへGlobal / Personal score、P0〜P3、human-readable reasonを付与
+- [x] 6 objectiveのanalysis-only bounded fixtureでwinner / Top3 sensitivityを分類
+- [x] 386 EntityのUnlock Bundle、near-unlock、coverage gain、implementation critical pathを生成
+- [x] Protocol estimatedMinutesへsetup・反復・controls・variantsを補正
+- [x] synthetic InventoryからOwned Research QueueとProtocol別groupを生成
+- [x] 全件・重複・NaN・orphan・tier・determinism・runtime不変境界をaudit
+
+生成物は[Coverage Priority](./docs/coverage-priority.md)と[machine-readable model](./research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。Rank sensitivityはEvidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 5でSource Harvestの2,105 Gapを33 Task Familyと14本の再利用可能protocolへ整理しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Map](./docs/evidence-gap-map.md) / [Source Harvest](./docs/source-harvest.md) / [横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 6で2,105 GapをP0〜P3へ順位付けし、Global / Personal、Gap / Entity / Task Family / Protocol、Owned Research Queueを分離しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -194,7 +207,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 6でGap Mapのruntime relevance・unlock effect・acquisition costを入力にCoverage Priorityを設計します。rank sensitivity、本人の所持・利用signal、Priority scoreはPhase 6で初めて扱います。観測入力MVPと独立実測で検証済みのモデルは区別し、残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 7でPersonal Research Questを作り、Phase 6のOwned Research Queueを任意の調査作業へ接続します。観測入力MVPと独立実測で検証済みのモデルは区別し、残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -205,10 +218,6 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
 ## Future milestones（チェックリスト進捗と分離）
-
-### Phase 6 — Coverage Priority
-
-runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先します。
 
 ### Phase 7 — Personal Research Quest
 
