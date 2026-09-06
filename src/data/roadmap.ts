@@ -193,7 +193,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     goal: 'Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査し、公開情報では不足していたPropertyを再現可能な一次データとして抽出・記録する。既存Gapと照合するが、このPhase単独ではruntimeを自動昇格しない。',
     items: [
       { label: '6.5A — Game Data Inventory & Asset Map', status: 'done' },
-      { label: '6.5B — Source Boundary / Provenance', status: 'planned' },
+      { label: '6.5B — Source Boundary / Provenance', status: 'done' },
       { label: '6.5C — UE4 Asset Extractor Foundation', status: 'planned' },
       { label: '6.5D — Representative Semantic Mapping', status: 'planned' },
       { label: '6.5E — Bulk Harvest & Gap Reconciliation', status: 'planned' },

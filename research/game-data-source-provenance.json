@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "dataset": {
+    "id": "mcd-quickbms-local-1.17.0.0-823acded",
+    "game": "Minecraft Dungeons",
+    "claimedVersion": "1.17.0.0",
+    "sourceType": "local-extracted-game-data",
+    "sourceClass": "direct-local-game-asset",
+    "rootLabel": "QuickBMS 1.17.0.0",
+    "sourceFingerprint": {
+      "algorithm": "sha256-path-size-v1",
+      "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+    },
+    "totals": {
+      "files": 134806,
+      "bytes": 4746982687
+    }
+  },
+  "verification": {
+    "gameIdentity": {
+      "status": "supported",
+      "basis": "Observed Dungeons asset namespace and repository research context.",
+      "note": "The local tree is consistent with Minecraft Dungeons assets; this does not authenticate its distribution origin."
+    },
+    "claimedVersion": {
+      "status": "claimed",
+      "basis": "Dataset root label: QuickBMS 1.17.0.0.",
+      "note": "The version has not been independently verified from asset contents or an original package."
+    },
+    "sourceTreeIdentity": {
+      "status": "verified",
+      "basis": "sha256-path-size-v1:823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6.",
+      "note": "The path-and-size fingerprint fixes the observed local tree identity, not the raw contents of every file."
+    },
+    "originalPackageIdentity": {
+      "status": "unknown",
+      "basis": "No original package hash or identity is recorded.",
+      "note": "No byte-level equivalence to an original pak has been established."
+    },
+    "extractionTool": {
+      "name": "QuickBMS",
+      "status": "claimed",
+      "basis": "Dataset root label: QuickBMS 1.17.0.0.",
+      "note": "QuickBMS version, BMS script, flags, and command line are not recorded."
+    },
+    "extractionProcedure": {
+      "status": "unknown",
+      "basis": "No extraction command, flags, script, or date is recorded.",
+      "note": "The procedure cannot currently be reproduced from committed metadata."
+    },
+    "archiveOrigin": {
+      "status": "unknown",
+      "basis": "No archive source, author, or distribution channel is recorded.",
+      "note": "The dataset is not asserted to be an official distribution."
+    },
+    "completeness": {
+      "status": "unknown",
+      "basis": "The observed local tree is inventoried, but no original package is available for comparison.",
+      "note": "Inventory completeness does not establish extraction completeness."
+    }
+  },
+  "boundaries": {
+    "rawAssetsCommitted": false,
+    "absolutePathsCommitted": false,
+    "ciRequiresLocalSource": false,
+    "runtimePromotionAutomatic": false
+  },
+  "evidenceLayers": [
+    {
+      "order": 0,
+      "id": "source-dataset",
+      "label": "Source Dataset"
+    },
+    {
+      "order": 1,
+      "id": "raw-asset-observation",
+      "label": "Raw Asset Observation"
+    },
+    {
+      "order": 2,
+      "id": "extracted-structural-fact",
+      "label": "Extracted Structural Fact"
+    },
+    {
+      "order": 3,
+      "id": "semantic-interpretation",
+      "label": "Semantic Interpretation"
+    },
+    {
+      "order": 4,
+      "id": "normalized-optimizer-fact",
+      "label": "Normalized Optimizer Fact"
+    },
+    {
+      "order": 5,
+      "id": "runtime-promotion",
+      "label": "Runtime Promotion"
+    }
+  ],
+  "confidenceAxes": [
+    {
+      "id": "source",
+      "label": "Source confidence",
+      "description": "Dataset and asset source identity confidence."
+    },
+    {
+      "id": "extraction",
+      "label": "Extraction confidence",
+      "description": "Binary parser structural accuracy confidence."
+    },
+    {
+      "id": "semantics",
+      "label": "Semantic confidence",
+      "description": "Game-mechanics interpretation confidence."
+    },
+    {
+      "id": "version",
+      "label": "Version confidence",
+      "description": "Applicability to claimed Minecraft Dungeons version confidence."
+    }
+  ],
+  "allowedCommittedMetadata": [
+    "relative asset paths",
+    "property names and types",
+    "numeric and boolean values",
+    "class and object names",
+    "hashes",
+    "normalized structural facts",
+    "independently authored interpretations",
+    "provenance records",
+    "audit reports"
+  ],
+  "prohibitedCommittedRawData": [
+    ".uasset",
+    ".uexp",
+    ".umap",
+    ".ubulk",
+    "raw textures",
+    "raw audio",
+    "raw meshes",
+    "raw full game data",
+    "raw asset copies",
+    "binary excerpts"
+  ],
+  "parserContract": {
+    "parserIdRequired": true,
+    "parserSchemaVersionRequired": true,
+    "provenanceRequiredForOfficialArtifact": true,
+    "defaultPromotionStatus": "research-only"
+  }
+}

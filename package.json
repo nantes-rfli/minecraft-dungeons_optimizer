@@ -39,6 +39,8 @@
     "audit:coverage-priority": "node scripts/audit-coverage-priority.ts",
     "generate:game-data-inventory": "node scripts/audit-game-data-inventory.ts --write",
     "audit:game-data-inventory": "node scripts/audit-game-data-inventory.ts",
+    "generate:game-data-provenance": "node scripts/audit-game-data-provenance.ts --write",
+    "audit:game-data-provenance": "node scripts/audit-game-data-provenance.ts",
     "research:source-extract": "node scripts/extract-external-sources.ts",
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",
