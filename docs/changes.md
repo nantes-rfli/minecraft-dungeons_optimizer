@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 4.1 External Source Extraction
+
+- dungeons.toolsの全7カテゴリ386件を確認し、HTML全文ではなくproperty claim、source locator、direct / normalized、取得失敗理由をsnapshot化。
+- sourceTypeのdefault game-file誤分類を廃止し、project-internal / unknown / secondary-databaseを追加。Factのtargetとapplicable versionを分離。
+- Fact / Unknown / Gapへproperty-level source attemptを追加し、CoverageとGapのBefore / Afterを生成。
+- Data BrowserでKnown valueごとのsource / versionとUnknownの確認結果を表示。runtime support、score、formula、Inventory JSONは変更なし。
+
 ## 2026-09 — Phase 4 Coverage Source Harvest
 
 - 7カテゴリ386件を既存監査からread-only Source Harvestへ正規化し、Known / Unknown / Conflict / Version / stale / provenanceを機械可読化。

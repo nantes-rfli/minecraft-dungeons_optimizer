@@ -150,15 +150,15 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
   },
   {
     id: 'phase-4',
-    title: 'Phase 4 — Coverage Source Harvest',
+    title: 'Phase 4 — Coverage Source Harvest（4A / 4B）',
     goal: 'ゲームを起動せず取得できる公開情報を横断し、既知・未知・競合・版・出典をruntimeとは独立したEvidence層へ構造化する。',
     items: [
-      { label: '7カテゴリ386件の監査済み母集団を重複なく正規化', status: 'done' },
-      { label: 'game-file・公式・Wiki・定量調査のsource registryとprovenance', status: 'done' },
-      { label: 'Known / Unknown / Conflict / Version / stale状態のschema', status: 'done' },
-      { label: 'property-level Harvest coverageとPhase 5 gap candidatesの生成', status: 'done' },
-      { label: 'schema・参照・重複・競合・driftのauditとCI接続', status: 'done' },
-      { label: 'Data BrowserのSource Harvest詳細表示', status: 'done' },
+      { label: '4A: 7カテゴリ386件の監査済み母集団を重複なく正規化', status: 'done' },
+      { label: '4B: dungeons.tools詳細386件からproperty claimを抽出', status: 'done' },
+      { label: 'sourceType・Fact version・property-level attemptを分離', status: 'done' },
+      { label: 'Coverage・GapのBefore / Afterと未取得理由を生成', status: 'done' },
+      { label: 'snapshot schema・参照・競合・driftのauditとCI接続', status: 'done' },
+      { label: 'Data BrowserでKnown propertyごとのsource / versionを表示', status: 'done' },
     ],
   },
 ] as const

@@ -346,7 +346,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 2-5はEvidence待ちのpartialを維持。Phase 4で公開Source Harvestをruntimeから分離して完了しました。下記Phase 5〜9とFuture Expansionは次の独立した実装・調査単位であり、この実装チェック項目の進捗率には含めません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 2-5はEvidence待ちのpartialを維持。Phase 4AのSource Harvest基盤と4Bの外部property抽出をruntimeから分離して完了しました。下記Phase 5〜9とFuture Expansionは次の独立した実装・調査単位であり、この実装チェック項目の進捗率には含めません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={ROADMAP_PROGRESS.percentage} aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {

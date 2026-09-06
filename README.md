@@ -35,7 +35,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 
 JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから読み込みます。Rangedなしの旧Inventoryには余分なfieldを追加しません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
 
-共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。Phase 3を6項目に分け、current implementation checklistは49 / 60（82%）。Public Availability・Research Quest・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
+共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。進捗の正本は[`ROADMAP.md`](./ROADMAP.md)です。Public Availability・Research Quest・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
 
 新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
@@ -326,7 +326,7 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 
 `npm run generate:evidence-coverage` でsnapshot・report・実測protocolを再生成し、`npm run audit:evidence-coverage` でsourceと生成物の一致を検証します。[実測protocol](./docs/measurement-protocols.md)。Methodologyにread-only Data Coverageを追加しました。
 
-Phase 4 Source Harvestは既存のカテゴリ監査を正本として、7カテゴリ386件のKnown / Unknown / Conflict / Version / Sourcesとproperty-level coverageを[`research/source-harvest.json`](./research/source-harvest.json)へ生成します。Data Browserは同じ生成処理による縮約read modelを使用します。`npm run harvest:sources`で再生成し、`npm run audit:source-harvest`でschema・provenance・重複・競合・版・母集団・全生成物のdriftを検証します。[生成レポート](./docs/source-harvest.md)。このread-only indexからruntime supportやOptimizer候補を自動昇格しません。
+Phase 4 Source Harvestは4Aの横断基盤に加え、4B External Source Extractionとしてdungeons.toolsの全7カテゴリ386件をproperty単位で確認します。HTML全文ではなく、値・locator・direct / normalized・取得結果を[`research/source-harvest/snapshots`](./research/source-harvest/snapshots)へ固定し、Known / Unknown / Conflict / Version / property-level source attemptを[`research/source-harvest.json`](./research/source-harvest.json)へ生成します。`npm run research:source-extract -- --write`はネットワークを使う任意更新、CIはcommitted snapshotから`npm run harvest:sources` / `npm run audit:source-harvest`を決定的に検証します。[生成レポート](./docs/source-harvest.md) / [Browser性能](./docs/source-harvest-performance.md)。このread-only indexからruntime supportやOptimizer候補を自動昇格しません。
 
 ### CIの依存関係インストール
 

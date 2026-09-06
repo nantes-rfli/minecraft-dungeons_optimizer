@@ -16,12 +16,13 @@ import { DataSummary } from '../views/DataSummary'
 
 type Support = 'full' | 'limited' | 'research-only'
 type HarvestCategory = 'melee-weapon' | 'melee-enchantment' | 'armor' | 'armor-enchantment' | 'ranged-weapon' | 'ranged-enchantment' | 'artifact'
-type HarvestFact = { property: string; value: unknown; confidence: string; status: string; notes?: string }
+type HarvestFact = { property: string; value: unknown; confidence: string; status: string; notes?: string; sourceIds: string[]; targetGameVersion: string; applicableGameVersion?: string; versionStatus: string }
+type HarvestAttempt = { sourceId: string; result: string; note?: string }
 type HarvestRecord = {
   category: HarvestCategory
   id: string
   known: HarvestFact[]
-  unknown: { property: string; kind: string; notes?: string }[]
+  unknown: { property: string; kind: string; notes?: string; sourceAttempts: HarvestAttempt[] }[]
   conflicts: { property: string; probableReason: string; resolutionStatus: string }[]
   sourceIds: string[]
   version: { target: string; currentVersionVerified: boolean; staleRisk: boolean; notes: string }
@@ -40,6 +41,11 @@ function getHarvest(category: HarvestCategory, id: string): HarvestRecord {
 function displayValue(value: unknown): string {
   const rendered = typeof value === 'string' ? value : JSON.stringify(value)
   return rendered.length > 180 ? `${rendered.slice(0, 177)}…` : rendered
+}
+
+function PropertySources({ sourceIds }: { sourceIds: string[] }) {
+  const sources = sourceIds.map((id) => harvestSources.get(id)).filter((source): source is HarvestSource => Boolean(source))
+  return <span className="property-sources">{sources.map((source, index) => <span key={source.id}>{index > 0 && ' · '}{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title}</span>)}</span>
 }
 
 const supportLabel: Record<Support, string> = { full: 'Full', limited: 'Limited', 'research-only': 'Research-only' }
@@ -82,9 +88,9 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
       <div className="catalog-list">{filtered.map((item) => {
         const sources = item.harvest.sourceIds.map((id) => harvestSources.get(id)).filter((source): source is HarvestSource => Boolean(source))
         const acceptedFacts = item.harvest.known.filter((fact) => fact.status === 'accepted')
-        const unresolvedFacts = item.harvest.known.filter((fact) => fact.status !== 'accepted').map((fact) => ({ property: fact.property, kind: fact.status, notes: `${fact.notes ?? 'Current value is not accepted.'} Recorded value: ${displayValue(fact.value)}` }))
-        const unknowns = [...item.blockers.map((notes) => ({ property: 'runtime', kind: 'blocker', notes })), ...item.harvest.unknown.map((entry) => ({ ...entry, notes: entry.notes ?? entry.kind })), ...unresolvedFacts]
-        return <details className="catalog-row" key={item.id}><summary><span><strong>{item.name}</strong>{item.secondary && <small lang="en">{item.secondary}</small>}</span><span>{item.family}</span><span className={`support ${item.support}`}>{supportLabel[item.support]}</span></summary><div className="catalog-detail"><dl><dt>Canonical ID</dt><dd><code>{item.id.replace(/^(melee|armor|ranged)-/, '')}</code></dd><dt>分類</dt><dd>{item.family}</dd><dt>Known</dt><dd><p>{item.known}</p><ul>{acceptedFacts.map((fact) => <li key={fact.property}><code>{fact.property}</code>: {displayValue(fact.value)} <small>({fact.confidence})</small></li>)}</ul></dd><dt>Unknown / Blockers</dt><dd>{unknowns.length ? <ul>{unknowns.map((entry, index) => <li key={`${entry.property}-${index}`}><code>{entry.property}</code>: {entry.notes} <small>({entry.kind})</small></li>)}</ul> : 'この表示範囲ではなし'}</dd><dt>Sources</dt><dd><ul>{sources.map((source) => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title} <small>({source.sourceType}, {source.gameVersion})</small></li>)}</ul></dd><dt>Version</dt><dd>{item.harvest.version.target} · {item.harvest.version.currentVersionVerified ? 'current version verified' : 'current version未独立検証'} · {item.harvest.version.staleRisk ? 'stale riskあり' : 'stale riskなし'}<br /><small>{item.harvest.version.notes}</small></dd><dt>Conflict</dt><dd>{item.harvest.conflicts.length ? <ul>{item.harvest.conflicts.map((conflict) => <li key={conflict.property}><code>{conflict.property}</code>: {conflict.probableReason} ({conflict.resolutionStatus})</li>)}</ul> : '記録なし'}</dd></dl></div></details>
+        const unresolvedFacts = item.harvest.known.filter((fact) => fact.status !== 'accepted').map((fact) => ({ property: fact.property, kind: fact.status, notes: `${fact.notes ?? 'Current value is not accepted.'} Recorded value: ${displayValue(fact.value)}`, sourceAttempts: fact.sourceIds.map((sourceId) => ({ sourceId, result: fact.status })) }))
+        const unknowns: { property: string; kind: string; notes: string; sourceAttempts?: HarvestAttempt[] }[] = [...item.blockers.map((notes) => ({ property: 'runtime', kind: 'blocker', notes })), ...item.harvest.unknown.map((entry) => ({ ...entry, notes: entry.notes ?? entry.kind })), ...unresolvedFacts]
+        return <details className="catalog-row" key={item.id}><summary><span><strong>{item.name}</strong>{item.secondary && <small lang="en">{item.secondary}</small>}</span><span>{item.family}</span><span className={`support ${item.support}`}>{supportLabel[item.support]}</span></summary><div className="catalog-detail"><dl><dt>Canonical ID</dt><dd><code>{item.id.replace(/^(melee|armor|ranged)-/, '')}</code></dd><dt>分類</dt><dd>{item.family}</dd><dt>Known</dt><dd><p>{item.known}</p><ul>{acceptedFacts.map((fact) => <li key={fact.property}><code>{fact.property}</code>: {displayValue(fact.value)} <small>({fact.confidence}, {fact.versionStatus})</small><br /><PropertySources sourceIds={fact.sourceIds} /></li>)}</ul></dd><dt>Unknown / Blockers</dt><dd>{unknowns.length ? <ul>{unknowns.map((entry, index) => <li key={`${entry.property}-${index}`}><code>{entry.property}</code>: {entry.notes} <small>({entry.kind})</small>{entry.sourceAttempts?.length ? <><br /><small>確認先: {entry.sourceAttempts.map((attempt) => `${harvestSources.get(attempt.sourceId)?.title ?? attempt.sourceId} — ${attempt.result}`).join(' · ')}</small></> : null}</li>)}</ul> : 'この表示範囲ではなし'}</dd><dt>Record Sources</dt><dd><ul>{sources.map((source) => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title} <small>({source.sourceType}, {source.gameVersion})</small></li>)}</ul></dd><dt>Version</dt><dd>{item.harvest.version.target} · {item.harvest.version.currentVersionVerified ? 'current version verified' : 'current version未独立検証'} · {item.harvest.version.staleRisk ? 'stale riskあり' : 'stale riskなし'}<br /><small>{item.harvest.version.notes}</small></dd><dt>Conflict</dt><dd>{item.harvest.conflicts.length ? <ul>{item.harvest.conflicts.map((conflict) => <li key={conflict.property}><code>{conflict.property}</code>: {conflict.probableReason} ({conflict.resolutionStatus})</li>)}</ul> : '記録なし'}</dd></dl></div></details>
       })}</div>
       {filtered.length === 0 && <div className="empty-state"><h2>該当するデータがありません</h2><p>検索語または対応状況を変更してください。</p></div>}
     </section>}

@@ -3,7 +3,7 @@
 目的は、仕様を自由に変えながら根拠・対応範囲・保存データを安全に更新できることです。製品のsemantic version・正式版判定は運用しません。変更追跡の正本はGit commit history、軽量な案内は[changes](changes.md)です。
 
 1. **Source snapshot**: 対象データの出典URL、取得日、ゲーム版、装備・Power・Tier・条件、原文/画像の位置を保存します。既存research配下のsnapshotと抽出スクリプトを使い、利用者観測・synthetic fixture・独立実測を区別します。取得失敗や版不明を推測で埋めません。
-2. **Audit**: 対象familyの構造化auditとsource参照を更新します。母集団のprimary/secondary差分、未確認値、競合Evidenceを維持します。例: 遠距離なら `npm run generate:ranged` → `npm run audit:ranged` → `npm run audit:ranged-enchants`。その後 `npm run harvest:sources` → `npm run audit:source-harvest` で横断indexを同期します。既存生成コマンドで再現できることを確認し、生成物だけを手編集しません。
+2. **Audit**: 対象familyの構造化auditとsource参照を更新します。母集団のprimary/secondary差分、未確認値、競合Evidenceを維持します。例: 遠距離なら `npm run generate:ranged` → `npm run audit:ranged` → `npm run audit:ranged-enchants`。外部ページを更新する場合だけネットワーク依存の `npm run research:source-extract -- --write` を実行し、committed snapshotから `npm run harvest:sources` → `npm run audit:source-harvest` で横断indexを同期します。CIは外部サイトへ接続せず、snapshot driftを決定的に検証します。生成物だけを手編集しません。
 3. **Runtime判断**: Evidence・計算式・stacking・channel・state/objective・対応境界・testsが揃った効果だけをpromotionします。弱まった根拠はdemotionまたは明示的なLimitedへ戻します。未対応候補を0点としてOptimizerに登録しません。独立実測がなければPhase 2-5A/B/Cをcloseしません。
 4. **Coverage**: manifest/read modelを更新し、`npm run generate:evidence-coverage` → `npm run audit:evidence-coverage`。Source Harvestのproperty-level coverageはruntime coverageと別に管理します。カテゴリ別denominatorとsupport分類が一致すること、関連生成docsに意図しない差がないことをレビューします。
 5. **Measurement / backlog**: `docs/measurement-protocols.md`、structured backlog、優先度・blocker・close条件を同期します。独立性を満たさない測定はeligibleへ昇格しません。Roadmapの歴史的completion条件を都合よく変更しません。

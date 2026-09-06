@@ -9,6 +9,7 @@ import artifacts from '../../research/artifact-audit.json'
 import artifactEvidenceSources from '../../research/artifact-evidence/sources.json'
 import dpsRegression from '../../research/dps-regression-audit.json'
 import voidStrike from '../../research/void-strike-audit.json'
+import externalSnapshot from '../../research/source-harvest/snapshots/dungeons-tools-2026-09-06.json'
 import { buildCoverageAdapters } from './evidenceCoverage/adapters'
 import type { JsonValue } from './evidenceCoverage/model'
 
@@ -18,10 +19,18 @@ export type HarvestConfidence = 'verified' | 'high' | 'medium' | 'low' | 'unknow
 export type HarvestStatus = 'accepted' | 'conflicting' | 'stale' | 'unknown'
 export type SourceVersionStatus = 'exact-current' | 'claimed-current' | 'historical' | 'unknown'
 export type UnknownKind = 'source-missing' | 'version-unknown' | 'conflicting-public-sources' | 'requires-game-observation' | 'likely-requires-experiment' | 'implementation-related' | 'objective-related'
+export type SourceType = 'game-file' | 'official' | 'wiki' | 'quantitative-test' | 'community' | 'project-internal' | 'secondary-database' | 'unknown'
+export type SourceAttemptResult = 'value-found' | 'not-found' | 'ambiguous' | 'conflicting' | 'version-mismatch' | 'unavailable'
+
+export interface PropertySourceAttempt {
+  readonly sourceId: string
+  readonly result: SourceAttemptResult
+  readonly note?: string
+}
 
 export interface SourceRecord {
   readonly id: string
-  readonly sourceType: 'game-file' | 'official' | 'wiki' | 'quantitative-test' | 'community'
+  readonly sourceType: SourceType
   readonly title: string
   readonly url?: string
   readonly gameVersion: string
@@ -34,7 +43,10 @@ export interface HarvestedFact {
   readonly property: string
   readonly value: JsonValue
   readonly sourceIds: readonly string[]
-  readonly gameVersion?: string
+  readonly targetGameVersion: '1.17.0.0'
+  readonly applicableGameVersion?: string
+  readonly versionStatus: SourceVersionStatus
+  readonly sourceAttempts: readonly PropertySourceAttempt[]
   readonly confidence: HarvestConfidence
   readonly status: HarvestStatus
   readonly notes?: string
@@ -53,7 +65,7 @@ export interface HarvestRecord {
   readonly label: string
   readonly runtimeSupport: string
   readonly known: readonly HarvestedFact[]
-  readonly unknown: readonly { readonly property: string; readonly kind: UnknownKind; readonly notes: string }[]
+  readonly unknown: readonly { readonly property: string; readonly kind: UnknownKind; readonly notes: string; readonly sourceAttempts: readonly PropertySourceAttempt[] }[]
   readonly conflicts: readonly HarvestConflict[]
   readonly sourceIds: readonly string[]
   readonly version: { readonly target: '1.17.0.0'; readonly currentVersionVerified: boolean; readonly staleRisk: boolean; readonly notes: string }
@@ -63,7 +75,7 @@ export interface GapCandidate {
   readonly entity: string
   readonly property: string
   readonly currentKnownState: 'unknown' | 'conflicting' | 'stale'
-  readonly sourceAttempts: readonly string[]
+  readonly sourceAttempts: readonly PropertySourceAttempt[]
   readonly sourceConflict: boolean
   readonly versionIssue: boolean
   readonly likelyAcquisitionType: UnknownKind
@@ -71,7 +83,7 @@ export interface GapCandidate {
   readonly notes: string
 }
 
-const SOURCE_DATE = '2026-09-05'
+const SOURCE_DATE = '2026-09-06'
 const TARGET_VERSION = '1.17.0.0' as const
 const json = (value: unknown): JsonValue => value as JsonValue
 const nonNull = <T>(value: T): value is NonNullable<T> => value !== null && value !== undefined
@@ -93,7 +105,10 @@ function sourceType(raw: string): SourceRecord['sourceType'] {
   if (value.includes('wiki')) return 'wiki'
   if (value.includes('test') || value.includes('observation') || value.includes('regression')) return 'quantitative-test'
   if (value.includes('community') || value.includes('reddit')) return 'community'
-  return 'game-file'
+  if (value.includes('dungeons.tools') || value.includes('game-file') || value.includes('game file') || value.includes('datamine') || value.includes('extracted game') || value.includes('frozen game')) return 'game-file'
+  if (value.includes('github.com/nantes-rfli/minecraft-dungeons_optimizer') || value.includes('project') || value.includes('runtime') || value.includes('generated report') || value.includes('repository')) return 'project-internal'
+  if (value.includes('database')) return 'secondary-database'
+  return 'unknown'
 }
 function addSource(namespace: string, input: { id?: string; type?: string; sourceType?: string; kind?: string; title?: string; label?: string; url?: string; accessedAt?: string; retrievedAt?: string; gameVersion?: string; version?: string; versionTag?: string; confidence?: string; note?: string; facts?: readonly string[] }): string {
   const local = input.id ?? clean(input.url ?? input.title ?? input.label ?? 'source')
@@ -147,15 +162,26 @@ for (const entry of dpsRegression.entries) {
   }
 }
 const voidStrikeSourceIds = voidStrike.sources.map((source) => addSource('quantitative-void-strike', source))
+const externalSourceIds = new Map(externalSnapshot.sources.map((source) => [source.id, addSource('external', source)]))
 
 function embeddedSources(namespace: string, sources: readonly { type?: string; url: string; retrievedAt?: string; checkedContext?: string; confidence?: string; note?: string }[]): string[] {
   return unique(sources.map((source) => addSource(namespace, { ...source, title: source.checkedContext ?? source.url })))
 }
 
-const fact = (property: string, value: unknown, sourceIds: readonly string[], confidence: HarvestConfidence, status: HarvestStatus = 'accepted', notes?: string): HarvestedFact => ({
-  property, value: json(value), sourceIds: unique(sourceIds), gameVersion: TARGET_VERSION, confidence, status, ...(notes ? { notes } : {}),
-})
-const unknown = (property: string, kind: UnknownKind, notes: string) => ({ property, kind, notes })
+function factVersion(sourceIds: readonly string[]): Pick<HarvestedFact, 'targetGameVersion' | 'applicableGameVersion' | 'versionStatus'> {
+  const statuses = unique(sourceIds.map((id) => sourceRecords.get(id)?.versionStatus ?? 'unknown'))
+  const versions = unique(sourceIds.map((id) => sourceRecords.get(id)?.gameVersion).filter(nonNull))
+  const versionStatus: SourceVersionStatus = statuses.length === 1 ? statuses[0] : statuses.every((status) => status === 'exact-current' || status === 'claimed-current') ? 'claimed-current' : 'unknown'
+  const applicableGameVersion = versionStatus === 'exact-current' || versionStatus === 'claimed-current'
+    ? versions.find((value) => value.includes(TARGET_VERSION))
+    : undefined
+  return { targetGameVersion: TARGET_VERSION, ...(applicableGameVersion ? { applicableGameVersion } : {}), versionStatus }
+}
+const fact = (property: string, value: unknown, sourceIds: readonly string[], confidence: HarvestConfidence, status: HarvestStatus = 'accepted', notes?: string): HarvestedFact => {
+  const ids = unique(sourceIds)
+  return { property, value: json(value), sourceIds: ids, ...factVersion(ids), sourceAttempts: ids.map((sourceId) => ({ sourceId, result: status === 'conflicting' ? 'conflicting' : 'value-found' })), confidence, status, ...(notes ? { notes } : {}) }
+}
+const unknown = (property: string, kind: UnknownKind, notes: string, sourceAttempts: readonly PropertySourceAttempt[] = []) => ({ property, kind, notes, sourceAttempts })
 const version = (currentVersionVerified: boolean, staleRisk: boolean, notes: string) => ({ target: TARGET_VERSION, currentVersionVerified, staleRisk, notes })
 
 const runtimeByCategory = new Map(buildCoverageAdapters().flatMap((adapter) => adapter.records.map((record) => [`${adapter.category}:${record.id}`, record.runtimeSupport])))
@@ -166,8 +192,8 @@ const runtime = (category: HarvestCategory, id: string): string => {
 
 function meleeWeaponRecords(): HarvestRecord[] {
   return meleeWeapons.weapons.map((entry) => {
-    const factSourceIds = [...embeddedSources('melee-weapon', entry.sources), ...officialVersionSources]
-    const sourceIds = unique([...factSourceIds, ...(quantitativeDpsByWeapon.get(entry.weaponId) ?? [])])
+    const factSourceIds = embeddedSources('melee-weapon', entry.sources)
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources, ...(quantitativeDpsByWeapon.get(entry.weaponId) ?? [])])
     const known = [
       fact('identity', { canonicalId: entry.weaponId, names: entry.name }, factSourceIds, entry.confidence as HarvestConfidence),
       fact('family', entry.family, factSourceIds, entry.confidence as HarvestConfidence),
@@ -186,20 +212,21 @@ function meleeWeaponRecords(): HarvestRecord[] {
 
 function meleeEnchantmentRecords(): HarvestRecord[] {
   return meleeEnchantments.entries.map((entry) => {
-    const sourceIds = unique([...embeddedSources('melee-enchantment', entry.sources), ...officialVersionSources, ...(entry.id === 'void-strike' ? voidStrikeSourceIds : [])])
+    const factSourceIds = unique([...embeddedSources('melee-enchantment', entry.sources), ...(entry.id === 'void-strike' ? voidStrikeSourceIds : [])])
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
     const tierText = JSON.stringify(entry.tierValues).toLowerCase()
     const known = [
-      fact('identity', { canonicalId: entry.id, names: entry.name }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('availability', { applicability: entry.applicability, rarity: entry.rarity, obtainable: entry.obtainable }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('tiers', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence),
-      fact('trigger', entry.trigger, sourceIds, entry.confidence as HarvestConfidence),
-      fact('stacking', entry.stacking, sourceIds, entry.confidence as HarvestConfidence),
-      fact('maxCopies', entry.stacking.maxCopies, sourceIds, entry.confidence as HarvestConfidence),
-      fact('damageChannel', entry.modelCategory, sourceIds, entry.confidence as HarvestConfidence),
+      fact('identity', { canonicalId: entry.id, names: entry.name }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('availability', { applicability: entry.applicability, rarity: entry.rarity, obtainable: entry.obtainable }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('tiers', entry.tierValues, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('trigger', entry.trigger, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('stacking', entry.stacking, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('maxCopies', entry.stacking.maxCopies, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('damageChannel', entry.modelCategory, factSourceIds, entry.confidence as HarvestConfidence),
     ]
-    if (tierText.includes('chance')) known.push(fact('procChance', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence))
-    if (tierText.includes('duration')) known.push(fact('duration', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence))
-    if (tierText.includes('cooldown')) known.push(fact('cooldown', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence))
+    if (tierText.includes('chance')) known.push(fact('procChance', entry.tierValues, factSourceIds, entry.confidence as HarvestConfidence))
+    if (tierText.includes('duration')) known.push(fact('duration', entry.tierValues, factSourceIds, entry.confidence as HarvestConfidence))
+    if (tierText.includes('cooldown')) known.push(fact('cooldown', entry.tierValues, factSourceIds, entry.confidence as HarvestConfidence))
     const gaps = [entry.runtimeStatus === 'implemented' ? null : unknown('runtimeInteraction', 'implementation-related', entry.notes ?? 'Mechanic is audited but not runtime-ready.'),
       tierText.includes('chance') ? null : unknown('procChance', 'source-missing', 'No independent numeric proc chance is encoded for this mechanic.'),
       tierText.includes('duration') ? null : unknown('duration', 'source-missing', 'No independent numeric duration is encoded for this mechanic.'),
@@ -214,11 +241,12 @@ function meleeEnchantmentRecords(): HarvestRecord[] {
 
 function armorRecords(): HarvestRecord[] {
   return armors.entries.map((entry) => {
-    const sourceIds = unique([...entry.sourceIds.map((id) => armorSourceIds.get(id)).filter(nonNull), ...officialVersionSources])
-    const known = [fact('identity', { canonicalId: entry.id, name: entry.name, levelId: entry.levelId }, sourceIds, 'high'), fact('family', entry.family, sourceIds, 'high'),
-      fact('availability', { rarity: entry.rarity, obtainable: entry.obtainable, eventExclusive: entry.eventExclusive, contentPack: entry.contentPack }, sourceIds, 'high'),
-      fact('baseUniqueRelation', entry.inheritance, sourceIds, 'high'), fact('intrinsicProperties', entry.intrinsicProperties, sourceIds, 'high'),
-      fact('builtInEnchantments', entry.builtInEnchantments, sourceIds, 'high'), fact('soulProperty', entry.soulGear, sourceIds, 'high')]
+    const factSourceIds = unique(entry.sourceIds.map((id) => armorSourceIds.get(id)).filter(nonNull))
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
+    const known = [fact('identity', { canonicalId: entry.id, name: entry.name, levelId: entry.levelId }, factSourceIds, 'high'), fact('family', entry.family, factSourceIds, 'high'),
+      fact('availability', { rarity: entry.rarity, obtainable: entry.obtainable, eventExclusive: entry.eventExclusive, contentPack: entry.contentPack }, factSourceIds, 'high'),
+      fact('baseUniqueRelation', entry.inheritance, factSourceIds, 'high'), fact('intrinsicProperties', entry.intrinsicProperties, factSourceIds, 'high'),
+      fact('builtInEnchantments', entry.builtInEnchantments, factSourceIds, 'high'), fact('soulProperty', entry.soulGear, factSourceIds, 'high')]
     const gaps = [unknown('healthPowerCurve', 'likely-requires-experiment', 'Observed card health remains required; published current endgame curve is unavailable.'),
       ...entry.blockers.map((note, index) => unknown(`runtimeBoundary.${index + 1}`, note.includes('objective') ? 'objective-related' : 'implementation-related', note))]
     return { category: 'armor', id: entry.id, label: entry.name, runtimeSupport: runtime('armor', entry.id), known, unknown: gaps, conflicts: [], sourceIds, version: version(true, false, 'Identity, family and intrinsic properties use the 1.17.0.0-derived index; health scaling is intentionally unverified.') }
@@ -227,13 +255,14 @@ function armorRecords(): HarvestRecord[] {
 
 function armorEnchantmentRecords(): HarvestRecord[] {
   return armorEnchantments.entries.map((entry) => {
-    const sourceIds = unique([...entry.sourceIds.map((id) => armorEnchantSourceIds.get(id) ?? armorCoreSourceIds.get(id)).filter(nonNull), ...officialVersionSources])
+    const factSourceIds = unique(entry.sourceIds.map((id) => armorEnchantSourceIds.get(id) ?? armorCoreSourceIds.get(id)).filter(nonNull))
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
     const conflicts: HarvestConflict[] = entry.id === 'cool-down' ? [{ property: 'tiers.tier3', values: [
       { sourceId: armorCoreSourceIds.get('dungeons-tools-armor')!, value: 0.37, gameVersion: TARGET_VERSION },
       { sourceId: armorCoreSourceIds.get('wiki-cool-down')!, value: 0.38 },
     ], probableReason: 'The current Wiki display and version-targeted game-file-derived value differ.', resolutionStatus: 'preferred-source-retained' }] : []
-    const known = [fact('identity', { canonicalId: entry.id, name: entry.name }, sourceIds, 'high'), fact('tiers', entry.tiers, sourceIds, 'high'),
-      fact('stacking', { stackable: entry.stackable, maxCopies: entry.maxCopies }, sourceIds, 'high'), fact('availability', { builtIntoArmorIds: entry.builtIntoArmorIds, soulRestriction: entry.soulRestriction }, sourceIds, 'high'), fact('effectChannel', entry.mechanicFamily, sourceIds, 'medium')]
+    const known = [fact('identity', { canonicalId: entry.id, name: entry.name }, factSourceIds, 'high'), fact('tiers', entry.tiers, factSourceIds, 'high'),
+      fact('stacking', { stackable: entry.stackable, maxCopies: entry.maxCopies }, factSourceIds, 'high'), fact('availability', { builtIntoArmorIds: entry.builtIntoArmorIds, soulRestriction: entry.soulRestriction }, factSourceIds, 'high'), fact('effectChannel', entry.mechanicFamily, factSourceIds, 'medium')]
     const gaps = [
       unknown('trigger', 'source-missing', 'The category audit classifies the mechanic family but does not normalize its event trigger.'),
       unknown('duration', 'source-missing', 'Duration is not independently normalized in the category audit.'),
@@ -253,13 +282,14 @@ function armorEnchantmentRecords(): HarvestRecord[] {
 function rangedWeaponRecords(): HarvestRecord[] {
   const properties = ['firingMode', 'projectileCount', 'chargeBehavior', 'chargeTimeSeconds', 'recoverySeconds', 'shotsPerSecond', 'burstCount', 'spread', 'multiHitPossibility', 'duplication', 'pierce', 'ricochet'] as const
   return rangedWeapons.entries.map((entry) => {
-    const sourceIds = unique([...entry.sourceIds.map((id) => rangedWeaponSourceIds.get(id)).filter(nonNull), ...officialVersionSources])
-    const known = [fact('identity', { canonicalId: entry.id, names: entry.name }, sourceIds, entry.confidence as HarvestConfidence), fact('family', { family: entry.family, baseWeaponId: entry.baseWeaponId, variantOf: entry.variantOf }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('availability', { obtainable: entry.obtainable, rarity: entry.rarity, eventExclusive: entry.eventExclusive }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('baseUniqueRelation', { baseWeaponId: entry.baseWeaponId, variantOf: entry.variantOf }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('projectileFamily', { projectileFamily: entry.projectileFamily, multiProjectile: entry.multiProjectile }, sourceIds, entry.confidence as HarvestConfidence),
-      fact('intrinsic', entry.intrinsic, sourceIds, entry.confidence as HarvestConfidence), fact('ammo', entry.ammo, sourceIds, entry.confidence as HarvestConfidence), fact('soul', entry.soul, sourceIds, entry.confidence as HarvestConfidence), fact('cardRatings', entry.rawRatings, sourceIds, entry.confidence as HarvestConfidence)]
-    for (const property of properties) if (entry[property] !== null) known.push(fact(property, entry[property], sourceIds, entry.confidence as HarvestConfidence))
+    const factSourceIds = unique(entry.sourceIds.map((id) => rangedWeaponSourceIds.get(id)).filter(nonNull))
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
+    const known = [fact('identity', { canonicalId: entry.id, names: entry.name }, factSourceIds, entry.confidence as HarvestConfidence), fact('family', { family: entry.family, baseWeaponId: entry.baseWeaponId, variantOf: entry.variantOf }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('availability', { obtainable: entry.obtainable, rarity: entry.rarity, eventExclusive: entry.eventExclusive }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('baseUniqueRelation', { baseWeaponId: entry.baseWeaponId, variantOf: entry.variantOf }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('projectileFamily', { projectileFamily: entry.projectileFamily, multiProjectile: entry.multiProjectile }, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('intrinsic', entry.intrinsic, factSourceIds, entry.confidence as HarvestConfidence), fact('ammo', entry.ammo, factSourceIds, entry.confidence as HarvestConfidence), fact('soul', entry.soul, factSourceIds, entry.confidence as HarvestConfidence), fact('cardRatings', entry.rawRatings, factSourceIds, entry.confidence as HarvestConfidence)]
+    for (const property of properties) if (entry[property] !== null) known.push(fact(property, entry[property], factSourceIds, entry.confidence as HarvestConfidence))
     const gaps = properties.filter((property) => entry[property] === null).map((property) => unknown(property, property.includes('Seconds') || property === 'shotsPerSecond' ? 'requires-game-observation' : 'source-missing', 'No accepted current value in the reconciled public sources.'))
     gaps.push(unknown('neutralProjectileDamageDistribution', 'likely-requires-experiment', 'Card damage does not establish per-projectile distribution.'), unknown('procOwnership', 'likely-requires-experiment', 'Per-shot, per-projectile and per-hit ownership is not inferred from metadata.'))
     return { category: 'ranged-weapon', id: entry.id, label: entry.name.ja ?? entry.name.en, runtimeSupport: runtime('ranged-weapon', entry.id), known, unknown: gaps, conflicts: [], sourceIds,
@@ -272,15 +302,16 @@ function rangedEnchantmentRecords(): HarvestRecord[] {
     const primarySourceId = rangedEnchantSourceIds.get('primary-enchantments')
     const secondarySourceId = rangedEnchantSourceIds.get('secondary-enchantments')
     const conflictSourceIds = entry.conflict ? [primarySourceId, secondarySourceId].filter(nonNull) : []
-    const sourceIds = unique([...entry.sourceIds.map((id) => rangedEnchantSourceIds.get(id)).filter(nonNull), ...conflictSourceIds, ...officialVersionSources])
+    const factSourceIds = unique([...entry.sourceIds.map((id) => rangedEnchantSourceIds.get(id)).filter(nonNull), ...conflictSourceIds])
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
     const conflicts: HarvestConflict[] = entry.conflict && primarySourceId && secondarySourceId ? [{ property: 'publishedMechanic', values: [
       { sourceId: primarySourceId, value: entry.sourceIds.includes('primary-enchantments') ? entry.tierValues : 'not listed for ranged applicability' },
       { sourceId: secondarySourceId, value: entry.conflict },
     ], probableReason: 'Primary and secondary published descriptions disagree or use different channel semantics.', resolutionStatus: 'pending' }] : []
-    const known = [fact('identity', { canonicalId: entry.id, names: entry.name }, sourceIds, entry.confidence as HarvestConfidence), fact('rarity', entry.rarity, sourceIds, entry.confidence as HarvestConfidence),
-      fact('tiers', entry.tierValues, sourceIds, entry.confidence as HarvestConfidence, entry.tierStatus.includes('not-independently') ? 'stale' : 'accepted', entry.tierStatus), fact('trigger', entry.triggerFamily, sourceIds, entry.confidence as HarvestConfidence), fact('damageChannel', entry.damageChannel, sourceIds, entry.confidence as HarvestConfidence)]
-    if (entry.stackable !== null) known.push(fact('stacking', entry.stackable, sourceIds, entry.confidence as HarvestConfidence))
-    if (entry.maxCopies !== null) known.push(fact('maxCopies', entry.maxCopies, sourceIds, entry.confidence as HarvestConfidence))
+    const known = [fact('identity', { canonicalId: entry.id, names: entry.name }, factSourceIds, entry.confidence as HarvestConfidence), fact('rarity', entry.rarity, factSourceIds, entry.confidence as HarvestConfidence),
+      fact('tiers', entry.tierValues, factSourceIds, entry.confidence as HarvestConfidence, entry.tierStatus.includes('not-independently') ? 'stale' : 'accepted', entry.tierStatus), fact('trigger', entry.triggerFamily, factSourceIds, entry.confidence as HarvestConfidence), fact('damageChannel', entry.damageChannel, factSourceIds, entry.confidence as HarvestConfidence)]
+    if (entry.stackable !== null) known.push(fact('stacking', entry.stackable, factSourceIds, entry.confidence as HarvestConfidence))
+    if (entry.maxCopies !== null) known.push(fact('maxCopies', entry.maxCopies, factSourceIds, entry.confidence as HarvestConfidence))
     const gaps = [entry.stackable === null ? unknown('stacking', 'source-missing', 'Stackability is not reconciled.') : null, entry.maxCopies === null ? unknown('maxCopies', 'source-missing', 'Maximum copies are not reconciled.') : null,
       unknown('triggerOwnership', 'likely-requires-experiment', 'Per-shot, per-projectile and per-hit ownership remains unresolved unless separately audited.'), unknown('ammoChargeInteractions', 'likely-requires-experiment', 'Ammo and charge interactions are not inferred from same-name melee behavior.')].filter(nonNull)
     return { category: 'ranged-enchantment', id: entry.id, label: entry.name.ja ?? entry.name.en, runtimeSupport: runtime('ranged-enchantment', entry.id), known, unknown: gaps, conflicts, sourceIds,
@@ -292,19 +323,20 @@ function artifactRecords(): HarvestRecord[] {
   const entries = [...artifacts.entries, ...artifacts.populationDifferences]
   return entries.map((entry) => {
     const ids = 'sourceIds' in entry ? entry.sourceIds : []
-    const sourceIds = unique([...ids.map((id) => artifactSourceIds.get(id)).filter(nonNull), ...officialVersionSources])
+    const factSourceIds = unique(ids.map((id) => artifactSourceIds.get(id)).filter(nonNull))
+    const sourceIds = unique([...factSourceIds, ...officialVersionSources])
     const value = entry as typeof artifacts.entries[number] & { cooldownSeconds?: number }
-    const known = [fact('identity', { canonicalId: entry.id, name: entry.name }, sourceIds, 'medium'), fact('family', entry.mechanicFamily, sourceIds, 'medium'),
-      fact('availability', { obtainable: entry.obtainable, contentPack: entry.contentPack, eventExclusive: 'eventExclusive' in entry ? entry.eventExclusive : entry.eventOnly }, sourceIds, 'medium'),
-      fact('cooldown', 'cooldown' in entry ? entry.cooldown : { seconds: value.cooldownSeconds }, sourceIds, 'medium')]
-    if ('duration' in entry) known.push(fact('duration', entry.duration, sourceIds, entry.duration.status === 'unknown' ? 'unknown' : 'medium', entry.duration.status === 'known' || entry.duration.status === 'reported' || entry.duration.status === 'not-applicable' ? 'accepted' : entry.duration.status === 'unknown' ? 'unknown' : 'stale'))
+    const known = [fact('identity', { canonicalId: entry.id, name: entry.name }, factSourceIds, 'medium'), fact('family', entry.mechanicFamily, factSourceIds, 'medium'),
+      fact('availability', { obtainable: entry.obtainable, contentPack: entry.contentPack, eventExclusive: 'eventExclusive' in entry ? entry.eventExclusive : entry.eventOnly }, factSourceIds, 'medium'),
+      fact('cooldown', 'cooldown' in entry ? entry.cooldown : { seconds: value.cooldownSeconds }, factSourceIds, 'medium')]
+    if ('duration' in entry) known.push(fact('duration', entry.duration, factSourceIds, entry.duration.status === 'unknown' ? 'unknown' : 'medium', entry.duration.status === 'known' || entry.duration.status === 'reported' || entry.duration.status === 'not-applicable' ? 'accepted' : entry.duration.status === 'unknown' ? 'unknown' : 'stale'))
     if ('powerScaling' in entry) {
-      known.push(fact('powerScalingClass', entry.powerScaling.kind, sourceIds, 'medium'))
-      known.push(fact('powerScalingEvidence', entry.powerScaling, sourceIds, 'medium', entry.powerScaling.quality.runtimeEligibleSampleCount > 0 ? 'accepted' : 'stale', 'Classification and samples are evidence; no extrapolation is allowed.'))
+      known.push(fact('powerScalingClass', entry.powerScaling.kind, factSourceIds, 'medium'))
+      known.push(fact('powerScalingEvidence', entry.powerScaling, factSourceIds, 'medium', entry.powerScaling.quality.runtimeEligibleSampleCount > 0 ? 'accepted' : 'stale', 'Classification and samples are evidence; no extrapolation is allowed.'))
     }
-    if ('soul' in entry) known.push(fact('soul', entry.soul, sourceIds, 'medium'))
-    if ('targeting' in entry && entry.targeting.status !== 'unknown') known.push(fact('targeting', entry.targeting, sourceIds, entry.targeting.confidence as HarvestConfidence, entry.targeting.status === 'known' || entry.targeting.status === 'reported' ? 'accepted' : 'stale'))
-    if ('stacking' in entry) known.push(fact('stacking', entry.stacking, sourceIds, entry.stacking.confidence as HarvestConfidence, entry.stacking.magnitude === 'unresolved' ? 'unknown' : 'accepted'))
+    if ('soul' in entry) known.push(fact('soul', entry.soul, factSourceIds, 'medium'))
+    if ('targeting' in entry && entry.targeting.status !== 'unknown') known.push(fact('targeting', entry.targeting, factSourceIds, entry.targeting.confidence as HarvestConfidence, entry.targeting.status === 'known' || entry.targeting.status === 'reported' ? 'accepted' : 'stale'))
+    if ('stacking' in entry) known.push(fact('stacking', entry.stacking, factSourceIds, entry.stacking.confidence as HarvestConfidence, entry.stacking.magnitude === 'unresolved' ? 'unknown' : 'accepted'))
     const blockers = 'blockers' in entry ? entry.blockers : []
     const gaps = blockers.map((note, index) => unknown(`mechanicGap.${index + 1}`, note.toLowerCase().includes('sample') || note.toLowerCase().includes('curve') ? 'likely-requires-experiment' : 'requires-game-observation', note))
     if ('interactions' in entry && entry.interactions.status !== 'known') gaps.push(unknown('interactions', 'likely-requires-experiment', entry.interactions.note))
@@ -313,6 +345,56 @@ function artifactRecords(): HarvestRecord[] {
     return { category: 'artifact', id: entry.id, label: entry.name, runtimeSupport: runtime('artifact', entry.id), known, unknown: gaps, conflicts, sourceIds,
       version: version(false, known.some((item) => item.status === 'stale') || conflicts.length > 0, 'Identity/cooldown sources are retained separately from unresolved Power curves, units, targeting and interactions.') }
   })
+}
+
+type SnapshotClaim = {
+  readonly entityId: string
+  readonly property: string
+  readonly value: JsonValue
+  readonly sourceId: string
+  readonly sourceLocator: string
+  readonly interpretation: 'direct' | 'normalized' | 'derived'
+  readonly notes?: string
+}
+type SnapshotAttempt = {
+  readonly entityId: string
+  readonly sourceId: string
+  readonly result: 'value-found' | 'not-found' | 'unavailable'
+  readonly propertiesFound: readonly string[]
+  readonly note?: string
+}
+
+const snapshotClaimsByEntity = new Map<string, SnapshotClaim[]>()
+for (const claim of externalSnapshot.claims as SnapshotClaim[]) snapshotClaimsByEntity.set(claim.entityId, [...(snapshotClaimsByEntity.get(claim.entityId) ?? []), claim])
+const snapshotAttemptsByEntity = new Map((externalSnapshot.attempts as SnapshotAttempt[]).map((attempt) => [attempt.entityId, attempt]))
+
+function mergeExternalClaims(record: HarvestRecord): HarvestRecord {
+  const entityId = `${record.category}:${record.id}`
+  const claims = snapshotClaimsByEntity.get(entityId) ?? []
+  const known = [...record.known]
+  for (const claim of claims) {
+    if (claim.interpretation === 'derived' || !HARVEST_PROPERTY_DEFINITIONS[record.category].includes(claim.property)) continue
+    const existingIndex = known.findIndex((item) => item.property === claim.property)
+    if (existingIndex >= 0 && known[existingIndex].status === 'accepted') continue
+    const id = externalSourceIds.get(claim.sourceId)
+    if (!id) continue
+    const externalFact = fact(claim.property, claim.value, [id], 'medium', 'accepted', [claim.notes, `External locator: ${claim.sourceLocator}.`, `Interpretation: ${claim.interpretation}.`].filter(Boolean).join(' '))
+    if (existingIndex >= 0) known.splice(existingIndex, 1, externalFact)
+    else known.push(externalFact)
+  }
+  const acceptedProperties = new Set(known.filter((item) => item.status === 'accepted').map((item) => item.property))
+  const attempt = snapshotAttemptsByEntity.get(entityId)
+  const fallbackSourceId = attempt ? externalSourceIds.get(attempt.sourceId) : undefined
+  const unknowns = record.unknown
+    .filter((item) => !acceptedProperties.has(item.property))
+    .map((item) => {
+      if (!fallbackSourceId) return item
+      const result: SourceAttemptResult = attempt!.result === 'unavailable' ? 'unavailable' : attempt!.propertiesFound.includes(item.property) ? 'ambiguous' : 'not-found'
+      const note = attempt!.note ?? (result === 'not-found' ? `The available detail page did not expose an accepted ${item.property} value.` : `The page exposed related text but not an unambiguous accepted ${item.property} value.`)
+      return { ...item, sourceAttempts: [{ sourceId: fallbackSourceId, result, note }] }
+    })
+  const claimSourceIds = claims.map((claim) => externalSourceIds.get(claim.sourceId)).filter(nonNull)
+  return { ...record, known, unknown: unknowns, sourceIds: unique([...record.sourceIds, ...claimSourceIds, ...(fallbackSourceId ? [fallbackSourceId] : [])]) }
 }
 
 export const HARVEST_PROPERTY_DEFINITIONS: Readonly<Record<HarvestCategory, readonly string[]>> = {
@@ -326,7 +408,7 @@ export const HARVEST_PROPERTY_DEFINITIONS: Readonly<Record<HarvestCategory, read
 }
 
 export function buildSourceHarvest() {
-  const records = [...rangedWeaponRecords(), ...armorRecords(), ...artifactRecords(), ...rangedEnchantmentRecords(), ...armorEnchantmentRecords(), ...meleeWeaponRecords(), ...meleeEnchantmentRecords()]
+  const records = [...rangedWeaponRecords(), ...armorRecords(), ...artifactRecords(), ...rangedEnchantmentRecords(), ...armorEnchantmentRecords(), ...meleeWeaponRecords(), ...meleeEnchantmentRecords()].map(mergeExternalClaims)
   const coverage = HARVEST_CATEGORIES.map((category) => {
     const categoryRecords = records.filter((record) => record.category === category)
     return { category, population: categoryRecords.length, properties: HARVEST_PROPERTY_DEFINITIONS[category].map((property) => ({ property,
@@ -336,22 +418,45 @@ export function buildSourceHarvest() {
     })) }
   })
   const gaps: GapCandidate[] = records.flatMap((record) => [
-    ...record.unknown.map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: 'unknown' as const, sourceAttempts: record.sourceIds, sourceConflict: false, versionIssue: !record.version.currentVersionVerified || record.version.staleRisk, likelyAcquisitionType: item.kind, runtimeRelevance: item.kind === 'objective-related' ? 'low' as const : item.property.toLowerCase().includes('damage') || item.property.toLowerCase().includes('timing') || item.property.toLowerCase().includes('trigger') ? 'high' as const : 'medium' as const, notes: item.notes })),
-    ...record.known.filter((item) => (item.status === 'stale' || item.status === 'unknown') && !record.unknown.some((gap) => gap.property === item.property)).map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: item.status === 'stale' ? 'stale' as const : 'unknown' as const, sourceAttempts: item.sourceIds, sourceConflict: false, versionIssue: item.status === 'stale' || !record.version.currentVersionVerified, likelyAcquisitionType: item.status === 'stale' ? 'version-unknown' as const : 'source-missing' as const, runtimeRelevance: item.property.toLowerCase().includes('damage') || item.property.toLowerCase().includes('timing') || item.property.toLowerCase().includes('trigger') ? 'high' as const : 'medium' as const, notes: item.notes ?? `${item.property} is retained as ${item.status}, not as a current accepted value.` })),
-    ...record.conflicts.map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: 'conflicting' as const, sourceAttempts: item.values.map((value) => value.sourceId), sourceConflict: true, versionIssue: item.values.some((value) => !value.gameVersion), likelyAcquisitionType: 'conflicting-public-sources' as const, runtimeRelevance: 'high' as const, notes: item.probableReason })),
+    ...record.unknown.map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: 'unknown' as const, sourceAttempts: item.sourceAttempts, sourceConflict: false, versionIssue: !record.version.currentVersionVerified || record.version.staleRisk, likelyAcquisitionType: item.kind, runtimeRelevance: item.kind === 'objective-related' ? 'low' as const : item.property.toLowerCase().includes('damage') || item.property.toLowerCase().includes('timing') || item.property.toLowerCase().includes('trigger') ? 'high' as const : 'medium' as const, notes: item.notes })),
+    ...record.known.filter((item) => (item.status === 'stale' || item.status === 'unknown') && !record.unknown.some((gap) => gap.property === item.property)).map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: item.status === 'stale' ? 'stale' as const : 'unknown' as const, sourceAttempts: item.sourceAttempts, sourceConflict: false, versionIssue: item.status === 'stale' || !record.version.currentVersionVerified, likelyAcquisitionType: item.status === 'stale' ? 'version-unknown' as const : 'source-missing' as const, runtimeRelevance: item.property.toLowerCase().includes('damage') || item.property.toLowerCase().includes('timing') || item.property.toLowerCase().includes('trigger') ? 'high' as const : 'medium' as const, notes: item.notes ?? `${item.property} is retained as ${item.status}, not as a current accepted value.` })),
+    ...record.conflicts.map((item) => ({ entity: `${record.category}:${record.id}`, property: item.property, currentKnownState: 'conflicting' as const, sourceAttempts: item.values.map((value) => ({ sourceId: value.sourceId, result: 'conflicting' as const, note: item.probableReason })), sourceConflict: true, versionIssue: item.values.some((value) => !value.gameVersion), likelyAcquisitionType: 'conflicting-public-sources' as const, runtimeRelevance: 'high' as const, notes: item.probableReason })),
   ])
-  return { schemaVersion: 1, targetGameVersion: TARGET_VERSION, generatedAt: SOURCE_DATE, methodology: { sourceHierarchy: ['game-file', 'official', 'wiki', 'quantitative-test', 'community'], runtimePromotionAllowed: false, unknownValuePolicy: 'preserve-unknown-never-zero-fill' }, sources: [...sourceRecords.values()].sort((a, b) => a.id.localeCompare(b.id, 'en')), records, coverage, gaps }
+  const baseline = {
+    totalGaps: 2449,
+    byCategory: { 'melee-weapon': 334, 'melee-enchantment': 182, armor: 327, 'armor-enchantment': 329, 'ranged-weapon': 848, 'ranged-enchantment': 201, artifact: 228 },
+    selectedCoverage: {
+      'ranged-weapon:projectileCount': 2,
+      'ranged-enchantment:tiers': 3,
+      'ranged-enchantment:stacking': 3,
+      'armor-enchantment:trigger': 0,
+      'armor-enchantment:duration': 0,
+      'armor-enchantment:cooldown': 0,
+      'armor-enchantment:procChance': 0,
+      'artifact:targeting': 5,
+      'artifact:stacking': 2,
+    },
+    byAcquisitionType: { 'source-missing': 1112, 'version-unknown': 164, 'conflicting-public-sources': 6, 'requires-game-observation': 428, 'likely-requires-experiment': 439, 'implementation-related': 271, 'objective-related': 29 },
+  }
+  return { schemaVersion: 2, targetGameVersion: TARGET_VERSION, generatedAt: SOURCE_DATE, extraction: { snapshot: 'research/source-harvest/snapshots/dungeons-tools-2026-09-06.json', sourceCount: externalSnapshot.sources.length, claimCount: externalSnapshot.claims.length, attemptCount: externalSnapshot.attempts.length, unavailableCount: externalSnapshot.attempts.filter((attempt) => attempt.result === 'unavailable').length, addedClaimsBySource: { 'dungeons-tools': externalSnapshot.claims.length, wiki: 0, official: 0, 'quantitative-public-research': 0 } }, comparison: { before: baseline, after: { totalGaps: gaps.length, byCategory: Object.fromEntries(HARVEST_CATEGORIES.map((category) => [category, gaps.filter((gap) => gap.entity.startsWith(`${category}:`)).length])), byAcquisitionType: Object.fromEntries(['source-missing', 'version-unknown', 'conflicting-public-sources', 'requires-game-observation', 'likely-requires-experiment', 'implementation-related', 'objective-related'].map((kind) => [kind, gaps.filter((gap) => gap.likelyAcquisitionType === kind).length])) } }, methodology: { sourceHierarchy: ['game-file', 'official', 'wiki', 'quantitative-test', 'secondary-database', 'community', 'project-internal', 'unknown'], runtimePromotionAllowed: false, unknownValuePolicy: 'preserve-unknown-never-zero-fill' }, sources: [...sourceRecords.values()].sort((a, b) => a.id.localeCompare(b.id, 'en')), records, coverage, gaps }
 }
 
 export function collectSourceHarvestErrors(harvest: ReturnType<typeof buildSourceHarvest>): string[] {
   const errors: string[] = []
-  const sourceTypes = new Set(['game-file', 'official', 'wiki', 'quantitative-test', 'community'])
+  const sourceTypes = new Set<SourceType>(['game-file', 'official', 'wiki', 'quantitative-test', 'community', 'project-internal', 'secondary-database', 'unknown'])
   const versionStatuses = new Set<SourceVersionStatus>(['exact-current', 'claimed-current', 'historical', 'unknown'])
+  const attemptResults = new Set<SourceAttemptResult>(['value-found', 'not-found', 'ambiguous', 'conflicting', 'version-mismatch', 'unavailable'])
   const factStatuses = new Set<HarvestStatus>(['accepted', 'conflicting', 'stale', 'unknown'])
   const confidences = new Set<HarvestConfidence>(['verified', 'high', 'medium', 'low', 'unknown'])
-  if (harvest.schemaVersion !== 1) errors.push(`Unsupported schemaVersion: ${harvest.schemaVersion}`)
+  if (harvest.schemaVersion !== 2) errors.push(`Unsupported schemaVersion: ${harvest.schemaVersion}`)
   if (harvest.targetGameVersion !== TARGET_VERSION) errors.push(`Target gameVersion drift: ${harvest.targetGameVersion}`)
   if (harvest.methodology.runtimePromotionAllowed) errors.push('Source Harvest must remain read-only for runtime promotion')
+  if (harvest.extraction.sourceCount !== externalSnapshot.sources.length || harvest.extraction.claimCount !== externalSnapshot.claims.length || harvest.extraction.attemptCount !== externalSnapshot.attempts.length) errors.push('External extraction summary drift')
+  if (externalSnapshot.attempts.length !== 386 || new Set(externalSnapshot.attempts.map((attempt) => attempt.entityId)).size !== 386) errors.push('External extraction must contain one attempt for every harvested entity')
+  if (externalSnapshot.claims.some((claim) => claim.interpretation === 'derived')) errors.push('Derived external claims must not be promoted by Phase 4.1')
+  const snapshotSourceIds = new Set(externalSnapshot.sources.map((source) => source.id))
+  for (const claim of externalSnapshot.claims) if (!snapshotSourceIds.has(claim.sourceId) || !claim.entityId || !claim.property || !claim.sourceLocator) errors.push(`Invalid extracted claim: ${claim.entityId}:${claim.property}`)
+  for (const attempt of externalSnapshot.attempts) if (!snapshotSourceIds.has(attempt.sourceId) || !attempt.entityId || !attempt.result) errors.push(`Invalid external source attempt: ${attempt.entityId}`)
   const sourceIds = new Set<string>()
   for (const source of harvest.sources) {
     if (sourceIds.has(source.id)) errors.push(`Duplicate source ID: ${source.id}`)
@@ -380,13 +485,23 @@ export function collectSourceHarvestErrors(harvest: ReturnType<typeof buildSourc
       if (!item.property || item.sourceIds.length === 0) errors.push(`${key}: fact provenance missing for ${item.property}`)
       if (!factStatuses.has(item.status)) errors.push(`${key}: invalid fact status ${item.status}`)
       if (!confidences.has(item.confidence)) errors.push(`${key}: invalid confidence ${item.confidence}`)
-      if (item.gameVersion !== TARGET_VERSION) errors.push(`${key}: fact gameVersion drift for ${item.property}`)
+      if (item.targetGameVersion !== TARGET_VERSION) errors.push(`${key}: fact targetGameVersion drift for ${item.property}`)
+      if (!versionStatuses.has(item.versionStatus)) errors.push(`${key}: invalid fact versionStatus ${item.versionStatus}`)
+      if (item.versionStatus === 'unknown' && item.applicableGameVersion === TARGET_VERSION) errors.push(`${key}: unknown-version fact cannot claim current applicability for ${item.property}`)
+      if (item.sourceAttempts.length === 0 || item.sourceAttempts.some((attempt) => attempt.result !== 'value-found' && attempt.result !== 'conflicting')) errors.push(`${key}: invalid fact source attempt for ${item.property}`)
       if (item.status === 'accepted' && record.conflicts.some((conflict) => conflict.property === item.property && conflict.resolutionStatus === 'pending')) errors.push(`${key}: conflicting accepted value ${item.property}`)
       if (item.value === 0 && item.confidence === 'unknown') errors.push(`${key}: unknown fact must not be zero-filled`)
     }
     for (const conflict of record.conflicts) {
       if (!conflict.property || !conflict.probableReason || conflict.values.length < 2) errors.push(`${key}: invalid conflict ${conflict.property}`)
       if (new Set(conflict.values.map((value) => JSON.stringify(value.value))).size < 2) errors.push(`${key}: conflict has no distinct values for ${conflict.property}`)
+    }
+    for (const item of record.unknown) {
+      if (item.sourceAttempts.length === 0) errors.push(`${key}: property source attempt missing for ${item.property}`)
+      for (const attempt of item.sourceAttempts) {
+        if (!sourceIds.has(attempt.sourceId)) errors.push(`${key}:${item.property}: unknown attempt source ${attempt.sourceId}`)
+        if (!attemptResults.has(attempt.result)) errors.push(`${key}:${item.property}: invalid attempt result ${attempt.result}`)
+      }
     }
   }
   if (new Set(harvest.coverage.map((item) => item.category)).size !== HARVEST_CATEGORIES.length) errors.push('Coverage category duplication or omission')
@@ -396,16 +511,26 @@ export function collectSourceHarvestErrors(harvest: ReturnType<typeof buildSourc
   }
   for (const gap of harvest.gaps) {
     if (!keys.has(gap.entity) || !gap.property || gap.sourceAttempts.length === 0 || !gap.notes) errors.push(`Invalid gap candidate: ${gap.entity}:${gap.property}`)
-    for (const id of gap.sourceAttempts) if (!sourceIds.has(id)) errors.push(`${gap.entity}:${gap.property}: unknown gap source ${id}`)
+    for (const attempt of gap.sourceAttempts) {
+      if (!sourceIds.has(attempt.sourceId)) errors.push(`${gap.entity}:${gap.property}: unknown gap source ${attempt.sourceId}`)
+      if (!attemptResults.has(attempt.result)) errors.push(`${gap.entity}:${gap.property}: invalid gap attempt result ${attempt.result}`)
+    }
   }
   return unique(errors)
 }
 
 export function renderSourceHarvest(harvest: ReturnType<typeof buildSourceHarvest>): string {
-  const sourceCounts = Object.fromEntries(['game-file', 'official', 'wiki', 'quantitative-test', 'community'].map((type) => [type, harvest.sources.filter((source) => source.sourceType === type).length]))
+  const sourceCounts = Object.fromEntries(['game-file', 'official', 'wiki', 'quantitative-test', 'secondary-database', 'community', 'project-internal', 'unknown'].map((type) => [type, harvest.sources.filter((source) => source.sourceType === type).length]))
   const sourceVersionCounts = Object.fromEntries(['exact-current', 'claimed-current', 'historical', 'unknown'].map((status) => [status, harvest.sources.filter((source) => source.versionStatus === status).length]))
   const conflictCount = harvest.records.reduce((sum, record) => sum + record.conflicts.length, 0)
   const table = harvest.coverage.flatMap((category) => category.properties.map((property) => `| ${category.category} | ${property.property} | ${property.known} / ${property.population} | ${property.conflicting} |`)).join('\n')
   const gaps = Object.entries(Object.fromEntries(['source-missing', 'version-unknown', 'conflicting-public-sources', 'requires-game-observation', 'likely-requires-experiment', 'implementation-related', 'objective-related'].map((kind) => [kind, harvest.gaps.filter((gap) => gap.likelyAcquisitionType === kind).length]))).map(([kind, count]) => `- ${kind}: ${count}`).join('\n')
-  return `# Phase 4 Coverage Source Harvest\n\nGenerated from the existing category audits. This is a read-only evidence index: it does not feed candidate generation, numeric evaluation, runtime support or confidence promotion.\n\n## Methodology\n\n- Target game version: **${harvest.targetGameVersion}**. Mojang identifies 1.17 as the final content update; this establishes the version boundary only.\n- Source hierarchy: 1.17.0.0 game-file-derived database → official release boundary / patch notes → concrete Wiki mechanics and history → reproducible quantitative testing → community claims.\n- Current-version applicability and source confidence are separate. Missing values remain unknown; zero is never used as a placeholder.\n- Existing audits remain the source of truth. This generated index stores normalized facts and provenance references for cross-category browsing and drift checks.\n\n## Sources\n\n- game-file-derived: ${sourceCounts['game-file']}\n- official: ${sourceCounts.official}\n- Wiki: ${sourceCounts.wiki}\n- quantitative public tests / observations: ${sourceCounts['quantitative-test']}\n- other community: ${sourceCounts.community}\n\nSource version applicability: exact current ${sourceVersionCounts['exact-current']}; claimed current ${sourceVersionCounts['claimed-current']}; historical ${sourceVersionCounts.historical}; unknown/unresolved ${sourceVersionCounts.unknown}.\n\n## Property-level Harvest coverage\n\nRuntime coverage is intentionally not included in these ratios. A property is counted only when an accepted value exists; stale and conflicting values remain separate.\n\n| Category | Property | Known | Conflicts |\n| --- | --- | ---: | ---: |\n${table}\n\n## Unknown and conflict policy\n\nGenerated gap candidates: **${harvest.gaps.length}**. Explicit source conflicts: **${conflictCount}**.\n\n${gaps}\n\nEach gap carries the entity/property, attempted sources, version/conflict flags, likely acquisition type and runtime relevance. Phase 5 can refine measurement conditions without re-harvesting or inventing results.\n\n## Safety boundary\n\nNo runtime support level, optimizer candidate, score formula, Inventory JSON format, Worker behavior or Evidence confidence is changed by this harvest. Research Quest, Evidence submission, Runtime Promotion, Public Availability and New Drop Comparison remain out of scope.\n`
+  const selectedBeforeAfter = Object.entries(harvest.comparison.before.selectedCoverage).map(([key, before]) => {
+    const [category, property] = key.split(':')
+    const coverage = harvest.coverage.find((item) => item.category === category)?.properties.find((item) => item.property === property)
+    return `| ${category} | ${property} | ${before} / ${coverage?.population ?? '?'} | ${coverage?.known ?? '?'} / ${coverage?.population ?? '?'} |`
+  }).join('\n')
+  const gapBeforeAfter = Object.entries(harvest.comparison.before.byAcquisitionType).map(([kind, before]) => `| ${kind} | ${before} | ${harvest.comparison.after.byAcquisitionType[kind as keyof typeof harvest.comparison.after.byAcquisitionType] ?? 0} |`).join('\n')
+  const categoryGapBeforeAfter = Object.entries(harvest.comparison.before.byCategory).map(([category, before]) => `| ${category} | ${before} | ${harvest.comparison.after.byCategory[category as keyof typeof harvest.comparison.after.byCategory] ?? 0} |`).join('\n')
+  return `# Phase 4.1 External Source Extraction\n\nGenerated from the existing category audits plus a committed property-level external extraction snapshot. This is a read-only evidence index: it does not feed candidate generation, numeric evaluation, runtime support or confidence promotion.\n\n## Methodology\n\n- Target game version: **${harvest.targetGameVersion}**. Mojang identifies 1.17 as the final content update; this establishes the version boundary only.\n- Source hierarchy: 1.17.0.0 game-file-derived database → official release boundary / patch notes → concrete Wiki mechanics and history → reproducible quantitative testing → secondary database / community claims.\n- Target version and source applicability are separate on every Fact. A publisher claim is retained as claimed-current, never upgraded to independent exact-current verification.\n- Direct and restrained normalized claims can become Known. Derived claims, missing values and ambiguous wording remain unresolved; zero is never used as a placeholder.\n- External extraction checked ${harvest.extraction.attemptCount} category/entity pages and retained ${harvest.extraction.claimCount} property claims without storing full HTML. ${harvest.extraction.unavailableCount} page attempts were unavailable.\n\n## Sources\n\n- game-file-derived: ${sourceCounts['game-file']}\n- official: ${sourceCounts.official}\n- Wiki: ${sourceCounts.wiki}\n- quantitative public tests / observations: ${sourceCounts['quantitative-test']}\n- secondary database: ${sourceCounts['secondary-database']}\n- other community: ${sourceCounts.community}\n- project internal: ${sourceCounts['project-internal']}\n- unknown classification: ${sourceCounts.unknown}\n\nSource version applicability: exact current ${sourceVersionCounts['exact-current']}; claimed current ${sourceVersionCounts['claimed-current']}; historical ${sourceVersionCounts.historical}; unknown/unresolved ${sourceVersionCounts.unknown}.\n\n## Selected Before / After\n\n| Category | Property | Before | After |\n| --- | --- | ---: | ---: |\n${selectedBeforeAfter}\n\n## Property-level Harvest coverage\n\nRuntime coverage is intentionally not included in these ratios. A property is counted only when an accepted value exists; stale and conflicting values remain separate.\n\n| Category | Property | Known | Conflicts |\n| --- | --- | ---: | ---: |\n${table}\n\n## Gap candidates Before / After\n\nTotal: **${harvest.comparison.before.totalGaps} → ${harvest.comparison.after.totalGaps}**. Explicit source conflicts after extraction: **${conflictCount}**.\n\n| Acquisition type | Before | After |\n| --- | ---: | ---: |\n${gapBeforeAfter}\n\n| Category | Before | After |\n| --- | ---: | ---: |\n${categoryGapBeforeAfter}\n\nCurrent gap distribution:\n\n${gaps}\n\nEach gap carries the entity/property, property-specific attempted sources and result, version/conflict flags, likely acquisition type and runtime relevance. Phase 5 can now focus on remaining observation, measurement, experiment, implementation and objective decisions.\n\n## Safety boundary\n\nNo runtime support level, optimizer candidate, score formula, Inventory JSON format, Worker behavior or Evidence confidence is changed by this harvest. Research Quest, Evidence submission, Runtime Promotion, Public Availability and New Drop Comparison remain out of scope.\n`
 }
