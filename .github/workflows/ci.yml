@@ -48,6 +48,7 @@ jobs:
       - run: npm run audit:source-harvest
       - run: npm run audit:evidence-gap-map
       - run: npm run audit:coverage-priority
+      - run: npm run audit:game-data-inventory
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b

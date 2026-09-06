@@ -149,7 +149,7 @@ describe('visibility, generated docs and historical gates', () => {
   })
   it('keeps generated summaries and roadmap counts synchronized', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
-    expect(ROADMAP_PROGRESS).toEqual({ completed: 79, total: 90, percentage: 88 })
+    expect(ROADMAP_PROGRESS).toEqual({ completed: 80, total: 96, percentage: 83 })
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
     expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
     expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)

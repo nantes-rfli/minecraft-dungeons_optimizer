@@ -21,3 +21,6 @@ coverage/
 
 playwright-report/
 test-results/
+
+# Local Minecraft Dungeons extracted game data
+/local-game-data/

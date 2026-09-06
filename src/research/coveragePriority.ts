@@ -136,13 +136,17 @@ const PERSONAL_WEIGHT_VARIANTS: Readonly<Record<string, PriorityWeights>> = {
 
 const FAMILY_ELIGIBLE_CATEGORIES = new Set(['melee-weapon', 'ranged-weapon', 'armor'])
 
+function isJsonRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
 function sourceFamilyByEntity(): Map<string, string> {
   const families = new Map<string, string>()
   for (const record of buildSourceHarvest().records) {
     if (!FAMILY_ELIGIBLE_CATEGORIES.has(record.category)) continue
     const fact = record.known.find((item) => item.property === 'family' && item.status === 'accepted' && item.sourceIds.length > 0)
     const value = fact?.value
-    const family = typeof value === 'string' ? value : value && typeof value === 'object' && !Array.isArray(value) && typeof value.family === 'string' ? value.family : undefined
+    const family = typeof value === 'string' ? value : isJsonRecord(value) && typeof value.family === 'string' ? value.family : undefined
     if (family) families.set(`${record.category}:${record.id}`, family.trim().toLowerCase())
   }
   return families

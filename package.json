@@ -37,6 +37,8 @@
     "audit:evidence-gap-map": "node scripts/audit-evidence-gap-map.ts",
     "generate:coverage-priority": "node scripts/audit-coverage-priority.ts --write",
     "audit:coverage-priority": "node scripts/audit-coverage-priority.ts",
+    "generate:game-data-inventory": "node scripts/audit-game-data-inventory.ts --write",
+    "audit:game-data-inventory": "node scripts/audit-game-data-inventory.ts",
     "research:source-extract": "node scripts/extract-external-sources.ts",
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",

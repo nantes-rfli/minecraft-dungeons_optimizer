@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **79 / 90（88%）**。Phase 6の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **80 / 96（83%）**。Phase 6.5の6項目を追加し、6.5Aのみ完了。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -191,11 +191,24 @@ Phase 5の2,105 Gapを、runtime unlock・rank sensitivity・ownership・coverag
 
 生成物は[Coverage Priority](./docs/coverage-priority.md)と[machine-readable model](./research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。same-family ownershipはSource Harvestで確認できる実際のfamily relationだけを使います。Rank sensitivityはbounded proxyとして明示し、weight stabilityとともにPriority confidenceへ反映します。これはEvidence confidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
 
+## Phase 6.5 — Direct Game Data Research（1 / 6）
+
+Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査し、公開情報では不足していたPropertyを再現可能な一次データとして抽出・記録します。既存Gapとの照合まで行いますが、このPhase単独ではruntimeを自動昇格しません。
+
+- [x] 6.5A — Game Data Inventory & Asset Map
+- [ ] 6.5B — Source Boundary / Provenance
+- [ ] 6.5C — UE4 Asset Extractor Foundation
+- [ ] 6.5D — Representative Semantic Mapping
+- [ ] 6.5E — Bulk Harvest & Gap Reconciliation
+- [ ] 6.5F — Audit / Report / Coverage
+
+6.5AではQuickBMS source tree全体をpath・filename・extension・sizeだけで棚卸しし、[Game Data Inventory](./docs/game-data-inventory.md)とmachine-readableな[summary](./research/game-data-inventory.json)・[Asset Index](./research/game-data-asset-index.json)を生成します。binary Propertyやgameplay値は読まず、raw assetsとfull manifestはGit管理外に保ちます。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 6で2,105 GapをP0〜P3へ順位付けし、actual family ownership、Global / Personal weight sensitivity、bounded-proxy semantics、ranking stabilityを含むPriority confidence、Gap / Entity / Task Family / Protocol、Owned Research Queueを分離しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5AでQuickBMS 1.17.0.0の全体inventoryとmechanics向けAsset Mapを作成しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。binary gameplay値の抽出とResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -207,7 +220,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 7でPersonal Research Questを作り、Phase 6のOwned Research Queueを任意の調査作業へ接続します。観測入力MVPと独立実測で検証済みのモデルは区別し、残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 6.5Bでlocal sourceの境界とprovenanceを確定し、その後のextractor基盤へAsset Mapを引き渡します。Direct game dataで機械的に取得できる情報をPhase 6.5で調べ、残ったObserve / Measure / ExperimentをPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
