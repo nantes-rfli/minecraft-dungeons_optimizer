@@ -180,11 +180,11 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     goal: '2,105 GapをOptimizer実用性への効果で順位付けし、本人が次の調査を迷わず選べるread modelを提供する。',
     items: [
       { label: '2,105 GapへGlobal / Personal priority、P0〜P3、理由を付与', status: 'done' },
-      { label: 'analysis-only rank sensitivityを6 objectiveで評価', status: 'done' },
+      { label: 'bounded-proxy rank sensitivityを6 objectiveで評価しmethodを明示', status: 'done' },
       { label: 'Unlock Bundle・near-unlock・coverage・critical pathを評価', status: 'done' },
       { label: 'Protocol costをsetup・反復・variant・availabilityで補正', status: 'done' },
-      { label: 'synthetic InventoryによるOwned / grouped Research Queueを生成', status: 'done' },
-      { label: '全件・score・protocol・determinism・runtime境界をaudit', status: 'done' },
+      { label: 'actual family relationとsynthetic InventoryによるOwned / grouped Research Queueを生成', status: 'done' },
+      { label: 'Global / Personal weight sensitivityとstability confidenceを含めてaudit', status: 'done' },
     ],
   },
 ] as const

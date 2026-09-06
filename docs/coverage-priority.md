@@ -1,13 +1,16 @@
 # Coverage Priority
 
-Phase 6のanalysis-only priority read model。未知値をruntimeへ投入せず、Evidenceやruntime supportを変更しない。
+Phase 6のanalysis-only priority read model。未知値をruntimeへ投入せず、Evidenceやruntime supportを変更しない。Priority confidenceとEvidence confidenceは別の指標である。
 
 ## Summary
 
 - Gap: 2105
 - Global tier: P0 86 / P1 1836 / P2 47 / P3 136
 - Rank sensitivity: computed 1072 / insufficient-range 626 / not-applicable 136 / unsupported 271
+- Method: bounded-proxy 1072 / optimizer-perturbation 0 / not-applicable 136 / unsupported 897
 - Winner flip proxyあり: 779 Gap
+- same-family-only: 65 Gap
+- Personal confidence: high 136 / medium 793 / low 1176
 - Unlock Bundle: 386
 - Synthetic owned queue: 15 actionable Gap（P0 4）
 - Potential usability: Global P0を全てcloseした場合 0 Entity candidate、P0+P1では 357 Entity candidate（いずれもruntime昇格ではない）
@@ -41,7 +44,7 @@ Weighted sum: runtime unlock 30%、rank sensitivity 25%、ownership 20%、covera
 | 19 | melee-weapon:dancers-sword:attackSpeedScaling | 81.8 | P0 | 1 | 1 |
 | 20 | melee-weapon:dark-katana:attackSpeedScaling | 81.8 | P0 | 1 | 1 |
 
-P0理由は各Gapのglobal.reasonsに、unlock効果、family coverage、bundle残数、補正後cost、winner flip対象objectiveを保持する。
+P0理由は各Gapのglobal.reasonsに、unlock効果、family coverage、bundle残数、補正後cost、Rank Sensitivity method、weight stabilityを保持する。
 
 ## Global Top 20 Entity
 
@@ -70,7 +73,7 @@ P0理由は各Gapのglobal.reasonsに、unlock効果、family coverage、bundle�
 
 ## Synthetic Personal Top 20 Gap
 
-Synthetic inventoryは Harp Crossbow / Bow / Wither Armor。本人Inventoryは保存せず、ブラウザから同じbuilderへ渡す。Globalではownershipを除外し、Personalだけstrong / same-family / not-ownedを反映する。
+Synthetic inventoryは Harp Crossbow / Bow / Wither Armor。本人Inventoryは保存せず、ブラウザから同じbuilderへ渡す。Globalではownershipを除外し、Personalだけowned / actual same-family / not-ownedを反映する。
 
 | # | ID | Score | Tier | Gap | Entity |
 |---:|---|---:|:---:|---:|---:|
@@ -94,6 +97,8 @@ Synthetic inventoryは Harp Crossbow / Bow / Wither Armor。本人Inventoryは�
 | 18 | ranged-weapon:harp-crossbow:duplication | 70.6 | P1 | 1 | 1 |
 | 19 | ranged-weapon:harp-crossbow:multiHitPossibility | 70.6 | P1 | 1 | 1 |
 | 20 | ranged-weapon:harp-crossbow:pierce | 70.6 | P1 | 1 | 1 |
+
+**same-family-only**はSource Harvestでacceptedな同一family relationが確認できる装備だけに付ける。同categoryであるだけでは付けず、Enchant / Artifactには適用しない。Owned Research Queueは引き続き **availability === owned** だけを含む。
 
 ## Task Family ranking
 
@@ -172,7 +177,7 @@ Top Protocolは MEAS-MELEE-ATTACK-SCALING。同一Protocolのowned Entityはgrou
 
 ## Rank sensitivity
 
-明示できるpropertyだけをnominal 1.0の保守的なrelative rangeで摂動し、6 objectiveごとに3候補fixtureのwinner margin 10% / Top3 margin 6%と比較する。これはfamily-level approximationで、score接続不能・range不明はunsupported / insufficient-rangeとして計算しない。range provenanceを各Gapに保持する。
+現在のmethodは **bounded-proxy**。明示できるpropertyだけをnominal 1.0の保守的なrelative rangeで評価し、6 objectiveごとに3候補fixtureのwinner margin 10% / Top3 margin 6%と比較する。Optimizerを直接perturbしてBest Buildを再計算した値ではないため、**winnerFlipProxyRate** / **top3ChangeProxyRate** として保持し、これだけでPriority confidenceをhighにしない。score接続不能・range不明はunsupported / insufficient-rangeとして計算せず、計算済みproxyはrange provenanceを保持する。
 
 ## Unlock and critical path
 
@@ -180,16 +185,33 @@ unlock:artifact:corrupted-seeds は必要Gapが1件だけのnear-unlock例。 im
 
 ## Cost and queue
 
-Protocolのestimated minutesにsetup、minimum repetitions、controls、variantsの補正を加える。同じProtocolのowned EntityをgroupedResearchQueueへ束ね、Phase 7がentity / gap / protocol / priority / reason / cost / prerequisitesを直接読める。Availabilityはowned / same-family-only / not-owned / unknownを区別する。
+Protocolのestimated minutesにsetup、minimum repetitions、controls、variantsの補正を加える。同じProtocolのowned EntityをgroupedResearchQueueへ束ね、Phase 7がentity / gap / protocol / priority / reason / cost / prerequisitesを直接読める。Availabilityはowned / same-family-only / not-owned / unknownを区別する。Personal reasonには所持relation、Rank Sensitivity method、weight stability、推定時間を含める。
 
-## Weight sensitivity
+## Global Weight Sensitivity
 
-- default: default Top 20との重複 20 / 20
-- ownership-heavy: default Top 20との重複 2 / 20
-- rank-heavy: default Top 20との重複 0 / 20
-- unlock-heavy: default Top 20との重複 20 / 20
+| Variant | Default Top 20との重複 |
+|---|---:|
+| default | 20 / 20 |
+| rank-heavy | 0 / 20 |
+| unlock-heavy | 20 / 20 |
+| coverage-heavy | 2 / 20 |
 
-Ownership-heavy / rank-heavyでTop 20が大きく変わるため、該当Gapのconfidenceは入力availabilityとrange statusからhigh / medium / lowで明示する。
+Globalはownership componentを除外し、ownership-heavy variantを持たない。
+
+## Personal Weight Sensitivity
+
+| Variant | Default Top 20との重複 |
+|---|---:|
+| default | 20 / 20 |
+| ownership-heavy | 12 / 20 |
+| rank-heavy | 19 / 20 |
+| unlock-heavy | 15 / 20 |
+
+Personalはsynthetic ownershipを含め、ownership-heavyで所持Gapへの寄与を増やす。各Gapのscore range、tier stability、Top 20 membership retentionからweight stabilityを決め、不安定なrankingをhigh confidenceにしない。
+
+## Priority confidence
+
+Priority confidenceはRank Sensitivity method、range充足、ownership relation、cost、weight stabilityから決める。bounded-proxyは最大medium、insufficient-rangeまたは大幅なweight変動はlow。同familyだけの場合もownership確定とは区別する。Priority tierがP0でもconfidence lowを許容し、Evidence confidenceとは混同しない。
 
 ## Safety boundary
 

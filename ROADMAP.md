@@ -189,13 +189,13 @@ Phase 5の2,105 Gapを、runtime unlock・rank sensitivity・ownership・coverag
 - [x] synthetic InventoryからOwned Research QueueとProtocol別groupを生成
 - [x] 全件・重複・NaN・orphan・tier・determinism・runtime不変境界をaudit
 
-生成物は[Coverage Priority](./docs/coverage-priority.md)と[machine-readable model](./research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。Rank sensitivityはEvidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
+生成物は[Coverage Priority](./docs/coverage-priority.md)と[machine-readable model](./research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。same-family ownershipはSource Harvestで確認できる実際のfamily relationだけを使います。Rank sensitivityはbounded proxyとして明示し、weight stabilityとともにPriority confidenceへ反映します。これはEvidence confidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
 
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 6で2,105 GapをP0〜P3へ順位付けし、Global / Personal、Gap / Entity / Task Family / Protocol、Owned Research Queueを分離しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 6で2,105 GapをP0〜P3へ順位付けし、actual family ownership、Global / Personal weight sensitivity、bounded-proxy semantics、ranking stabilityを含むPriority confidence、Gap / Entity / Task Family / Protocol、Owned Research Queueを分離しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 

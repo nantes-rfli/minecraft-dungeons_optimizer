@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 6 Coverage Priority Fix-up
+
+- same-family ownershipをcategory proxyからSource Harvestで確認できるactual family relationへ修正。
+- Global / Personal weight sensitivityを分離し、Personal ownership-heavyだけにownership signalを含めるよう変更。
+- Rank Sensitivityをbounded proxyとして明示し、ranking stabilityをPriority confidenceとreasonへ反映。
+- Runtime support、Optimizer formula、Inventory schema、Source Harvest、Evidence Gap Map、Evidence confidenceは変更なし。
+
 ## 2026-09 — Phase 6 Coverage Priority
 
 - 2,105 Gapへruntime unlock・rank sensitivity・ownership・coverage・near-unlock・acquisition easeのGlobal / Personal priorityを追加。
