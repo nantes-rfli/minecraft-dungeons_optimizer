@@ -171,7 +171,10 @@ function embeddedSources(namespace: string, sources: readonly { type?: string; u
 function factVersion(sourceIds: readonly string[]): Pick<HarvestedFact, 'targetGameVersion' | 'applicableGameVersion' | 'versionStatus'> {
   const statuses = unique(sourceIds.map((id) => sourceRecords.get(id)?.versionStatus ?? 'unknown'))
   const versions = unique(sourceIds.map((id) => sourceRecords.get(id)?.gameVersion).filter(nonNull))
-  const versionStatus: SourceVersionStatus = statuses.length === 1 ? statuses[0] : statuses.every((status) => status === 'exact-current' || status === 'claimed-current') ? 'claimed-current' : 'unknown'
+  const [onlyStatus] = statuses
+  const versionStatus: SourceVersionStatus = statuses.length === 1 && onlyStatus
+    ? onlyStatus
+    : statuses.every((status) => status === 'exact-current' || status === 'claimed-current') ? 'claimed-current' : 'unknown'
   const applicableGameVersion = versionStatus === 'exact-current' || versionStatus === 'claimed-current'
     ? versions.find((value) => value.includes(TARGET_VERSION))
     : undefined
@@ -375,7 +378,8 @@ function mergeExternalClaims(record: HarvestRecord): HarvestRecord {
   for (const claim of claims) {
     if (claim.interpretation === 'derived' || !HARVEST_PROPERTY_DEFINITIONS[record.category].includes(claim.property)) continue
     const existingIndex = known.findIndex((item) => item.property === claim.property)
-    if (existingIndex >= 0 && known[existingIndex].status === 'accepted') continue
+    const existingFact = existingIndex >= 0 ? known[existingIndex] : undefined
+    if (existingFact?.status === 'accepted') continue
     const id = externalSourceIds.get(claim.sourceId)
     if (!id) continue
     const externalFact = fact(claim.property, claim.value, [id], 'medium', 'accepted', [claim.notes, `External locator: ${claim.sourceLocator}.`, `Interpretation: ${claim.interpretation}.`].filter(Boolean).join(' '))
