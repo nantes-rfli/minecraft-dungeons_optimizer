@@ -60,7 +60,7 @@ interface MutableDirectory {
 export type DirectorySummary = MutableDirectory
 
 export interface GameDataInventory {
-  schemaVersion: 1
+  schemaVersion: 2
   source: {
     game: 'Minecraft Dungeons'
     version: '1.17.0.0'
@@ -81,13 +81,18 @@ export interface GameDataInventory {
   roots: Array<{ path: string; directories: number; files: number; bytes: number; extensions: CountMap }>
   prefixes: Array<{ prefix: string; meaning: string; count: number }>
   companions: {
-    logicalAssetsWithUasset: number
+    logicalPackagesWithHeader: number
+    uassetPackages: number
     uassetWithUexp: number
     uassetWithUexpAndUbulk: number
-    uassetOnly: number
-    uassetWithUbulkWithoutUexp: number
-    uexpWithoutUasset: number
-    ubulkWithoutUasset: number
+    uassetWithoutUexp: number
+    umapPackages: number
+    umapWithUexp: number
+    umapWithUexpAndUbulk: number
+    umapWithoutUexp: number
+    packagesWithMultipleHeaders: number
+    uexpWithoutPackageHeader: number
+    ubulkWithoutPackageHeader: number
   }
   expectedRoots: Array<{ path: string; present: boolean }>
   directories: DirectorySummary[]
@@ -223,7 +228,7 @@ export function scanGameData(sourceRoot = GAME_DATA_ROOT): { inventory: GameData
     logicalAssets.set(key, group)
   }
   for (const group of logicalAssets.values()) {
-    const packageFiles = group.filter((file) => ['.uasset', '.uexp', '.ubulk'].includes(file.extension))
+    const packageFiles = group.filter((file) => ['.uasset', '.umap', '.uexp', '.ubulk'].includes(file.extension))
     const companionPaths = packageFiles.map((file) => file.relativePath).sort()
     for (const file of packageFiles) if (companionPaths.length > 1) file.companionPaths = companionPaths.filter((candidate) => candidate !== file.relativePath)
   }
@@ -243,29 +248,42 @@ export function scanGameData(sourceRoot = GAME_DATA_ROOT): { inventory: GameData
   }
 
   const companions = {
-    logicalAssetsWithUasset: 0,
+    logicalPackagesWithHeader: 0,
+    uassetPackages: 0,
     uassetWithUexp: 0,
     uassetWithUexpAndUbulk: 0,
-    uassetOnly: 0,
-    uassetWithUbulkWithoutUexp: 0,
-    uexpWithoutUasset: 0,
-    ubulkWithoutUasset: 0,
+    uassetWithoutUexp: 0,
+    umapPackages: 0,
+    umapWithUexp: 0,
+    umapWithUexpAndUbulk: 0,
+    umapWithoutUexp: 0,
+    packagesWithMultipleHeaders: 0,
+    uexpWithoutPackageHeader: 0,
+    ubulkWithoutPackageHeader: 0,
   }
   for (const group of logicalAssets.values()) {
     const extensionSet = new Set(group.map((file) => file.extension))
     const uasset = extensionSet.has('.uasset')
+    const umap = extensionSet.has('.umap')
     const uexp = extensionSet.has('.uexp')
     const ubulk = extensionSet.has('.ubulk')
+    const hasHeader = uasset || umap
+    if (hasHeader) companions.logicalPackagesWithHeader += 1
+    if (uasset && umap) companions.packagesWithMultipleHeaders += 1
     if (uasset) {
-      companions.logicalAssetsWithUasset += 1
+      companions.uassetPackages += 1
       if (uexp) companions.uassetWithUexp += 1
       if (uexp && ubulk) companions.uassetWithUexpAndUbulk += 1
-      if (!uexp && !ubulk) companions.uassetOnly += 1
-      if (!uexp && ubulk) companions.uassetWithUbulkWithoutUexp += 1
-    } else {
-      if (uexp) companions.uexpWithoutUasset += 1
-      if (ubulk) companions.ubulkWithoutUasset += 1
+      if (!uexp) companions.uassetWithoutUexp += 1
     }
+    if (umap) {
+      companions.umapPackages += 1
+      if (uexp) companions.umapWithUexp += 1
+      if (uexp && ubulk) companions.umapWithUexpAndUbulk += 1
+      if (!uexp) companions.umapWithoutUexp += 1
+    }
+    if (!hasHeader && uexp) companions.uexpWithoutPackageHeader += 1
+    if (!hasHeader && ubulk) companions.ubulkWithoutPackageHeader += 1
   }
 
   const directorySummaries = [...directories.values()].map((directory) => ({
@@ -279,7 +297,7 @@ export function scanGameData(sourceRoot = GAME_DATA_ROOT): { inventory: GameData
   const sourceFingerprint = fingerprint.digest('hex')
 
   const inventory: GameDataInventory = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     source: { game: 'Minecraft Dungeons', version: '1.17.0.0', versionBasis: 'QuickBMS directory label', sourceType: 'local-extracted-game-data', rootLabel: GAME_DATA_ROOT_LABEL },
     methodology: {
       scanBasis: 'filesystem-path-name-size-only', binaryContentParsed: false, directoryCountIncludesSourceRoot: true,
@@ -396,15 +414,20 @@ ${inventory.prefixes.map((item) => `| \`${item.prefix}\` | ${item.meaning} | ${i
 
 ### Companion structure
 
-同じdirectory・同じstemを1 logical assetとしてpairingする。
+同じdirectory・同じstemを1 logical packageとしてpairingし、\`.uasset\`と\`.umap\`をpackage header、\`.uexp\`と\`.ubulk\`をpayload companionとして扱う。
 
-- \`.uasset\` logical assets: ${inventory.companions.logicalAssetsWithUasset.toLocaleString('en-US')}
+- Package headers: ${inventory.companions.logicalPackagesWithHeader.toLocaleString('en-US')} logical packages
+- \`.uasset\` packages: ${inventory.companions.uassetPackages.toLocaleString('en-US')}
 - \`.uasset + .uexp\`: ${inventory.companions.uassetWithUexp.toLocaleString('en-US')}
 - \`.uasset + .uexp + .ubulk\`: ${inventory.companions.uassetWithUexpAndUbulk.toLocaleString('en-US')}
-- \`.uasset only\`: ${inventory.companions.uassetOnly.toLocaleString('en-US')}
-- \`.uasset + .ubulk\` without \`.uexp\`: ${inventory.companions.uassetWithUbulkWithoutUexp.toLocaleString('en-US')}
-- \`.uexp\` without matching \`.uasset\`: ${inventory.companions.uexpWithoutUasset.toLocaleString('en-US')}
-- \`.ubulk\` without matching \`.uasset\`: ${inventory.companions.ubulkWithoutUasset.toLocaleString('en-US')}
+- \`.uasset\` without \`.uexp\`: ${inventory.companions.uassetWithoutUexp.toLocaleString('en-US')}
+- \`.umap\` packages: ${inventory.companions.umapPackages.toLocaleString('en-US')}
+- \`.umap + .uexp\`: ${inventory.companions.umapWithUexp.toLocaleString('en-US')}
+- \`.umap + .uexp + .ubulk\`: ${inventory.companions.umapWithUexpAndUbulk.toLocaleString('en-US')}
+- \`.umap\` without \`.uexp\`: ${inventory.companions.umapWithoutUexp.toLocaleString('en-US')}
+- Packages with both \`.uasset\` and \`.umap\` headers: ${inventory.companions.packagesWithMultipleHeaders.toLocaleString('en-US')}
+- \`.uexp\` without a matching \`.uasset\` / \`.umap\` header: ${inventory.companions.uexpWithoutPackageHeader.toLocaleString('en-US')}
+- \`.ubulk\` without a matching \`.uasset\` / \`.umap\` header: ${inventory.companions.ubulkWithoutPackageHeader.toLocaleString('en-US')}
 
 ## Gameplay research map
 
@@ -427,7 +450,7 @@ ${unexpected.map((branch) => `| \`${branch.path}\` | ${branch.matchedTerms.join(
 - path/nameだけではBlueprint class、inheritance、Property、numeric value、実際のgameplay semanticsは確定しない。
 - game versionはfolder/source label由来で、binary内部のversion確認は未実施。
 - native executable側にのみ存在するmechanicsはこのmapから発見できない可能性がある。
-- missing/unpaired companionは欠損とは断定せず、packaging構造の観測値として扱う。
+- \`.uasset\`と\`.umap\`をUnreal package headerとしてcompanion集計する。missing/unpaired companionやmultiple headerは欠損・破損と断定せず、unexpected package structureの観測値として扱う。
 - Engine側は全体棚卸し済みだが、deep parse対象にするかは未決定。
 - full file manifestとraw assetsは\`local-game-data/\`内だけに保存し、Gitへ含めない。
 
@@ -451,11 +474,20 @@ function containsNonFiniteNumber(value: unknown): boolean {
 export function collectArtifactErrors(inventory: GameDataInventory, index: GameDataAssetIndex): string[] {
   const errors: string[] = []
   const serialized = `${JSON.stringify(inventory)}${JSON.stringify(index)}`
-  if (inventory.schemaVersion !== 1 || index.schemaVersion !== 1) errors.push('Unsupported schema version')
+  if (inventory.schemaVersion !== 2 || index.schemaVersion !== 1) errors.push('Unsupported schema version')
   if (inventory.methodology.binaryContentParsed !== false) errors.push('Inventory must not claim binary parsing')
   if (serialized.includes('/Users/') || serialized.includes('\\Users\\') || serialized.includes('file://')) errors.push('Committed artifacts contain an absolute user path')
   if (containsNonFiniteNumber(inventory) || containsNonFiniteNumber(index)) errors.push('Committed artifacts contain non-finite numbers')
   if (Object.values(inventory.totals).some((value) => !Number.isFinite(value) || value < 0)) errors.push('Totals must be finite and non-negative')
+  if (Object.values(inventory.companions).some((value) => !Number.isInteger(value) || value < 0)) errors.push('Companion counts must be non-negative integers')
+  if (inventory.companions.uassetPackages !== (inventory.extensions['.uasset'] ?? 0)) errors.push('Uasset package count does not match extension count')
+  if (inventory.companions.umapPackages !== (inventory.extensions['.umap'] ?? 0)) errors.push('Umap package count does not match extension count')
+  if (inventory.companions.uassetPackages !== inventory.companions.uassetWithUexp + inventory.companions.uassetWithoutUexp) errors.push('Uasset package classification does not partition package count')
+  if (inventory.companions.umapPackages !== inventory.companions.umapWithUexp + inventory.companions.umapWithoutUexp) errors.push('Umap package classification does not partition package count')
+  if (inventory.companions.uassetWithUexpAndUbulk > inventory.companions.uassetWithUexp) errors.push('Uasset bulk companion count exceeds uexp companion count')
+  if (inventory.companions.umapWithUexpAndUbulk > inventory.companions.umapWithUexp) errors.push('Umap bulk companion count exceeds uexp companion count')
+  if (inventory.companions.logicalPackagesWithHeader !== inventory.companions.uassetPackages + inventory.companions.umapPackages - inventory.companions.packagesWithMultipleHeaders) errors.push('Logical package header count is inconsistent')
+  if (inventory.companions.packagesWithMultipleHeaders > 0) errors.push(`Unexpected package structure: ${inventory.companions.packagesWithMultipleHeaders} logical packages have both .uasset and .umap headers`)
   if (Object.values(inventory.extensions).reduce((sum, value) => sum + value, 0) !== inventory.totals.files) errors.push('Extension counts do not sum to total files')
   if (inventory.roots.reduce((sum, root) => sum + root.files, 0) !== inventory.totals.files) errors.push('Root counts do not sum to total files')
   if (inventory.directories.length !== inventory.totals.directories) errors.push('Directory summary count does not match total directories')

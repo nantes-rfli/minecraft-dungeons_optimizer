@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "source": {
     "game": "Minecraft Dungeons",
     "version": "1.17.0.0",
@@ -201,13 +201,18 @@
     }
   ],
   "companions": {
-    "logicalAssetsWithUasset": 45311,
+    "logicalPackagesWithHeader": 49394,
+    "uassetPackages": 45311,
     "uassetWithUexp": 45311,
     "uassetWithUexpAndUbulk": 908,
-    "uassetOnly": 0,
-    "uassetWithUbulkWithoutUexp": 0,
-    "uexpWithoutUasset": 4083,
-    "ubulkWithoutUasset": 0
+    "uassetWithoutUexp": 0,
+    "umapPackages": 4083,
+    "umapWithUexp": 4083,
+    "umapWithUexpAndUbulk": 0,
+    "umapWithoutUexp": 0,
+    "packagesWithMultipleHeaders": 0,
+    "uexpWithoutPackageHeader": 0,
+    "ubulkWithoutPackageHeader": 0
   },
   "expectedRoots": [
     {

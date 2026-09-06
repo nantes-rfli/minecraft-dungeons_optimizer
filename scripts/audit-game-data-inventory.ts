@@ -43,5 +43,7 @@ if (sourceAvailable) {
 if (errors.length) throw new Error([...new Set(errors)].sort().join('\n'))
 const { totals, companions, sourceFingerprint } = committed.inventory
 console.log(`Game Data Inventory audit passed: ${totals.files} files, ${totals.directories} directories, ${totals.bytes} bytes.`)
-console.log(`Companions: ${companions.uassetWithUexp} uasset+uexp; ${companions.uassetWithUexpAndUbulk} with ubulk; ${companions.uassetOnly} uasset-only.`)
+console.log(`Uasset packages: ${companions.uassetPackages}; ${companions.uassetWithUexp} with uexp; ${companions.uassetWithUexpAndUbulk} with uexp+ubulk; ${companions.uassetWithoutUexp} without uexp.`)
+console.log(`Umap packages: ${companions.umapPackages}; ${companions.umapWithUexp} with uexp; ${companions.umapWithUexpAndUbulk} with uexp+ubulk; ${companions.umapWithoutUexp} without uexp.`)
+console.log(`Payloads without package header: ${companions.uexpWithoutPackageHeader} uexp; ${companions.ubulkWithoutPackageHeader} ubulk.`)
 console.log(`Indexed logical assets: ${committed.index.assets.length}; fingerprint ${sourceFingerprint.value}.`)

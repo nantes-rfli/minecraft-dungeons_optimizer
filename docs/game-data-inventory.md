@@ -65,15 +65,20 @@ prefix分類はfilenameからのheuristicであり、asset classの確定では�
 
 ### Companion structure
 
-同じdirectory・同じstemを1 logical assetとしてpairingする。
+同じdirectory・同じstemを1 logical packageとしてpairingし、`.uasset`と`.umap`をpackage header、`.uexp`と`.ubulk`をpayload companionとして扱う。
 
-- `.uasset` logical assets: 45,311
+- Package headers: 49,394 logical packages
+- `.uasset` packages: 45,311
 - `.uasset + .uexp`: 45,311
 - `.uasset + .uexp + .ubulk`: 908
-- `.uasset only`: 0
-- `.uasset + .ubulk` without `.uexp`: 0
-- `.uexp` without matching `.uasset`: 4,083
-- `.ubulk` without matching `.uasset`: 0
+- `.uasset` without `.uexp`: 0
+- `.umap` packages: 4,083
+- `.umap + .uexp`: 4,083
+- `.umap + .uexp + .ubulk`: 0
+- `.umap` without `.uexp`: 0
+- Packages with both `.uasset` and `.umap` headers: 0
+- `.uexp` without a matching `.uasset` / `.umap` header: 0
+- `.ubulk` without a matching `.uasset` / `.umap` header: 0
 
 ## Gameplay research map
 
@@ -121,7 +126,7 @@ prefix分類はfilenameからのheuristicであり、asset classの確定では�
 - path/nameだけではBlueprint class、inheritance、Property、numeric value、実際のgameplay semanticsは確定しない。
 - game versionはfolder/source label由来で、binary内部のversion確認は未実施。
 - native executable側にのみ存在するmechanicsはこのmapから発見できない可能性がある。
-- missing/unpaired companionは欠損とは断定せず、packaging構造の観測値として扱う。
+- `.uasset`と`.umap`をUnreal package headerとしてcompanion集計する。missing/unpaired companionやmultiple headerは欠損・破損と断定せず、unexpected package structureの観測値として扱う。
 - Engine側は全体棚卸し済みだが、deep parse対象にするかは未決定。
 - full file manifestとraw assetsは`local-game-data/`内だけに保存し、Gitへ含めない。
 
