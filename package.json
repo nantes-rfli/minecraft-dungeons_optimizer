@@ -41,6 +41,8 @@
     "audit:game-data-inventory": "node scripts/audit-game-data-inventory.ts",
     "generate:game-data-provenance": "node scripts/audit-game-data-provenance.ts --write",
     "audit:game-data-provenance": "node scripts/audit-game-data-provenance.ts",
+    "extract:game-data-assets": "node scripts/extract-game-data-assets.ts",
+    "audit:game-data-extractor": "node scripts/audit-game-data-extractor.ts",
     "research:source-extract": "node scripts/extract-external-sources.ts",
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",

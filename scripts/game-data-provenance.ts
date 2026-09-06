@@ -4,7 +4,7 @@ import {
 } from '../src/research/gameDataProvenance.ts'
 import type { GameDataInventory } from './game-data-inventory.ts'
 
-export const PROVENANCE_SCHEMA_VERSION = 1 as const
+export const PROVENANCE_SCHEMA_VERSION = 2 as const
 
 export function buildGameDataSourceProvenance(inventory: GameDataInventory): GameDataSourceProvenance {
   const fingerprint = inventory.sourceFingerprint.value
@@ -83,7 +83,7 @@ export function buildGameDataSourceProvenance(inventory: GameDataInventory): Gam
     parserContract: {
       parserIdRequired: true,
       parserSchemaVersionRequired: true,
-      provenanceRequiredForOfficialArtifact: true,
+      provenanceRequiredForFormalArtifact: true,
       defaultPromotionStatus: 'research-only',
     },
   }
@@ -129,6 +129,7 @@ export function collectGameDataProvenanceErrors(provenance: GameDataSourceProven
   if (provenance.boundaries.absolutePathsCommitted !== false) errors.push('Absolute paths must not be committed')
   if (provenance.boundaries.ciRequiresLocalSource !== false) errors.push('CI must not require local source')
   if (provenance.boundaries.runtimePromotionAutomatic !== false) errors.push('Runtime promotion must not be automatic')
+  if (provenance.parserContract.provenanceRequiredForFormalArtifact !== true) errors.push('Formal parser artifacts must require provenance')
   if (!isCanonicalGameDataPath('Dungeons/Content/example') || isCanonicalGameDataPath('/Users/example/asset')) errors.push('Canonical path validator is inconsistent')
   return [...new Set(errors)].sort()
 }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "dataset": {
     "id": "mcd-quickbms-local-1.17.0.0-823acded",
     "game": "Minecraft Dungeons",
@@ -145,7 +145,7 @@
   "parserContract": {
     "parserIdRequired": true,
     "parserSchemaVersionRequired": true,
-    "provenanceRequiredForOfficialArtifact": true,
+    "provenanceRequiredForFormalArtifact": true,
     "defaultPromotionStatus": "research-only"
   }
 }

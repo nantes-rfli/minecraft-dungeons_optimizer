@@ -1,0 +1,1073 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "parser": {
+    "id": "ue4-package-property-parser",
+    "schemaVersion": 1
+  },
+  "support": {
+    "description": "Minecraft Dungeons targeted UE4 legacy package version -7 subset",
+    "magic": "0x9E2A83C1",
+    "legacyFileVersion": -7,
+    "packageExtensions": [
+      ".uasset",
+      ".uexp"
+    ],
+    "propertyTypes": [
+      "ArrayProperty",
+      "BoolProperty",
+      "ByteProperty",
+      "EnumProperty",
+      "FloatProperty",
+      "Int64Property",
+      "IntProperty",
+      "NameProperty",
+      "ObjectProperty",
+      "SoftObjectProperty",
+      "StrProperty",
+      "StructProperty",
+      "UInt32Property"
+    ]
+  },
+  "assets": [
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uasset",
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "121e31b06467c8f4b9b9ff9dbb45ef647a598db5f6c48866846488e973c174fe"
+      },
+      "package": {
+        "magic": "0x9E2A83C1",
+        "legacyFileVersion": -7,
+        "nameCount": 112,
+        "importCount": 117,
+        "exportCount": 5
+      },
+      "objectCount": 5,
+      "cdoNames": [
+        "Default__BP_ArrowBaseRangedWeapon_C"
+      ],
+      "supportedPropertyCount": 17,
+      "unsupportedPropertyCount": 0,
+      "parseErrorCount": 0,
+      "selectedRecordCount": 2,
+      "superclass": {
+        "rawPackageIndex": -28,
+        "resolvedObjectName": "RangedWeaponGearItemInstance"
+      }
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+      },
+      "package": {
+        "magic": "0x9E2A83C1",
+        "legacyFileVersion": -7,
+        "nameCount": 118,
+        "importCount": 46,
+        "exportCount": 15
+      },
+      "objectCount": 15,
+      "cdoNames": [
+        "Default__BP_ScatterCrossBow_Arrow_C"
+      ],
+      "supportedPropertyCount": 12,
+      "unsupportedPropertyCount": 0,
+      "parseErrorCount": 0,
+      "selectedRecordCount": 5,
+      "superclass": {
+        "rawPackageIndex": -2,
+        "resolvedObjectName": "BP_Arrow_C"
+      }
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow.uasset",
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "84e76da76d02b28f7ad99fab93bf255abd9886a63bc53055c3d572870a030912"
+      },
+      "package": {
+        "magic": "0x9E2A83C1",
+        "legacyFileVersion": -7,
+        "nameCount": 150,
+        "importCount": 38,
+        "exportCount": 21
+      },
+      "objectCount": 21,
+      "cdoNames": [
+        "Default__BP_ScatterCrossbow_C"
+      ],
+      "supportedPropertyCount": 5,
+      "unsupportedPropertyCount": 0,
+      "parseErrorCount": 0,
+      "selectedRecordCount": 1,
+      "superclass": {
+        "rawPackageIndex": -7,
+        "resolvedObjectName": "GearActor"
+      }
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+      },
+      "package": {
+        "magic": "0x9E2A83C1",
+        "legacyFileVersion": -7,
+        "nameCount": 113,
+        "importCount": 51,
+        "exportCount": 5
+      },
+      "objectCount": 5,
+      "cdoNames": [
+        "Default__BP_ScatterCrossbowInstance_C"
+      ],
+      "supportedPropertyCount": 37,
+      "unsupportedPropertyCount": 0,
+      "parseErrorCount": 0,
+      "selectedRecordCount": 16,
+      "superclass": {
+        "rawPackageIndex": -3,
+        "resolvedObjectName": "BP_ArrowBaseRangedWeapon_C"
+      }
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowStorable",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowStorable.uasset",
+        "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowStorable.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "385732f8fc14140721f9b9f6c886a8883b4cac987d154fb7a5a38508f05a4753"
+      },
+      "package": {
+        "magic": "0x9E2A83C1",
+        "legacyFileVersion": -7,
+        "nameCount": 94,
+        "importCount": 43,
+        "exportCount": 11
+      },
+      "objectCount": 11,
+      "cdoNames": [
+        "Default__BP_ScatterCrossbowStorable_C"
+      ],
+      "supportedPropertyCount": 10,
+      "unsupportedPropertyCount": 0,
+      "parseErrorCount": 0,
+      "selectedRecordCount": 0,
+      "superclass": {
+        "rawPackageIndex": -4,
+        "resolvedObjectName": "BP_BaseStorable_C"
+      }
+    }
+  ],
+  "records": [
+    {
+      "id": "bp-arrow-base-ranged-weapon--anim-notify-state-data",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "121e31b06467c8f4b9b9ff9dbb45ef647a598db5f6c48866846488e973c174fe"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ArrowBaseRangedWeapon_C",
+        "className": "BP_ArrowBaseRangedWeapon_C",
+        "propertyName": "AnimNotifyStateData",
+        "propertyPath": "AnimNotifyStateData",
+        "propertyType": "ArrayProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "count": 7
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-arrow-base-ranged-weapon--projectile-overrides",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "121e31b06467c8f4b9b9ff9dbb45ef647a598db5f6c48866846488e973c174fe"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ArrowBaseRangedWeapon_C",
+        "className": "BP_ArrowBaseRangedWeapon_C",
+        "propertyName": "ProjectileOverrides",
+        "propertyPath": "ProjectileOverrides",
+        "propertyType": "ArrayProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "count": 7
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-cross-bow-arrow--damage",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-cross-bow-arrow--homing-threshold",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "HomingThreshold",
+        "propertyPath": "HomingThreshold",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 150
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-cross-bow-arrow--ignore-friendly-fire",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "IgnoreFriendlyFire",
+        "propertyPath": "IgnoreFriendlyFire",
+        "propertyType": "BoolProperty"
+      },
+      "rawObservation": {
+        "value": true
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-cross-bow-arrow--pushback-enable-pushback",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "enablePushback",
+        "propertyPath": "pushback.enablePushback",
+        "propertyType": "BoolProperty"
+      },
+      "rawObservation": {
+        "value": true
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-cross-bow-arrow--pushback-pushback-strength",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "pushbackStrength",
+        "propertyPath": "pushback.pushbackStrength",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.6000000238418579
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow--slot-type",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "84e76da76d02b28f7ad99fab93bf255abd9886a63bc53055c3d572870a030912"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbow_C",
+        "className": "BP_ScatterCrossbow_C",
+        "propertyName": "SlotType",
+        "propertyPath": "SlotType",
+        "propertyType": "EnumProperty"
+      },
+      "rawObservation": {
+        "value": "ESlotType::RangedWeapon"
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--anim-notify-state-data",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "AnimNotifyStateData",
+        "propertyPath": "AnimNotifyStateData",
+        "propertyType": "ArrayProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "count": 7
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-active-cancel-porint-factor",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "ActiveCancelPorintFactor",
+        "propertyPath": "AttackDefintion.ActiveCancelPorintFactor",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.5
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-attack-rate-seconds",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "AttackRateSeconds",
+        "propertyPath": "AttackDefintion.AttackRateSeconds",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.6000000238418579
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-angle-offset",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "AngleOffset",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-angle-span",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "AngleSpan",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 20
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-delay-seconds",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "DelaySeconds",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-delay-seconds-per-projectile",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "DelaySecondsPerProjectile",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.029999999329447746
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-max-randomized-angle-factor",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "MaxRandomizedAngleFactor",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.75
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-non-random-first-arrow",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "NonRandomFirstArrow",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "propertyType": "BoolProperty"
+      },
+      "rawObservation": {
+        "value": true
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-number-of-projectiles",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "NumberOfProjectiles",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "propertyType": "IntProperty"
+      },
+      "rawObservation": {
+        "value": 3
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-projectile",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "Projectile",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "propertyType": "ObjectProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-projectile-offset",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "ProjectileOffset",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "propertyType": "StructProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "X": 45,
+          "Y": 0,
+          "Z": 25
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--attack-defintion-projectile-velocity-factor",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "ProjectileVelocityFactor",
+        "propertyPath": "AttackDefintion.ProjectileVelocityFactor",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 1.100000023841858
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--gear-actor",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "GearActor",
+        "propertyPath": "GearActor",
+        "propertyType": "ObjectProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--item-id-name",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "ItemIdName",
+        "propertyPath": "ItemIdName",
+        "propertyType": "NameProperty"
+      },
+      "rawObservation": {
+        "value": "ScatterCrossbow"
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-scatter-crossbow-instance--projectile-stack-count",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "className": "BP_ScatterCrossbowInstance_C",
+        "propertyName": "ProjectileStackCount",
+        "propertyPath": "ProjectileStackCount",
+        "propertyType": "IntProperty"
+      },
+      "rawObservation": {
+        "value": 40
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    }
+  ],
+  "diagnostics": []
+}

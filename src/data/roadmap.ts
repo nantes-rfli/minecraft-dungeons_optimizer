@@ -194,7 +194,7 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     items: [
       { label: '6.5A — Game Data Inventory & Asset Map', status: 'done' },
       { label: '6.5B — Source Boundary / Provenance', status: 'done' },
-      { label: '6.5C — UE4 Asset Extractor Foundation', status: 'planned' },
+      { label: '6.5C — UE4 Asset Extractor Foundation', status: 'done' },
       { label: '6.5D — Representative Semantic Mapping', status: 'planned' },
       { label: '6.5E — Bulk Harvest & Gap Reconciliation', status: 'planned' },
       { label: '6.5F — Audit / Report / Coverage', status: 'planned' },

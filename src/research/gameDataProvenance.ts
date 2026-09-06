@@ -43,6 +43,7 @@ export interface GameDataProvenanceRecord {
     readonly objectName?: string
     readonly className?: string
     readonly propertyName?: string
+    readonly propertyPath?: string
     readonly propertyType?: string
   }
   readonly rawObservation?: { readonly value: JsonValue }
@@ -95,7 +96,7 @@ export const CONFIDENCE_AXES = [
 ] as const
 
 export interface GameDataSourceProvenance {
-  readonly schemaVersion: 1
+  readonly schemaVersion: 2
   readonly dataset: {
     readonly id: string
     readonly game: 'Minecraft Dungeons'
@@ -129,7 +130,7 @@ export interface GameDataSourceProvenance {
   readonly parserContract: {
     readonly parserIdRequired: true
     readonly parserSchemaVersionRequired: true
-    readonly provenanceRequiredForOfficialArtifact: true
+    readonly provenanceRequiredForFormalArtifact: true
     readonly defaultPromotionStatus: 'research-only'
   }
 }
@@ -159,6 +160,7 @@ export function validateGameDataProvenanceRecord(record: GameDataProvenanceRecor
   if (record.asset.contentHash && !/^[a-f0-9]{64}$/.test(record.asset.contentHash.value)) errors.push('Content hash must be lowercase SHA-256')
   if (record.extraction && (!record.extraction.parserId.trim() || !Number.isInteger(record.extraction.parserSchemaVersion) || record.extraction.parserSchemaVersion < 1)) errors.push('Extraction requires parserId and a positive parserSchemaVersion')
   if (['extracted', 'interpreted', 'normalized'].includes(record.status) && (!record.extraction || !record.rawObservation)) errors.push(`${record.status} records require extraction and rawObservation`)
+  if (record.status === 'extracted' && record.interpretation) errors.push('Extracted records must not contain interpretation')
   if (['interpreted', 'normalized'].includes(record.status) && !record.interpretation) errors.push(`${record.status} records require interpretation`)
   if (record.status === 'normalized' && (!record.interpretation?.normalizedProperty || record.interpretation.normalizedValue === undefined)) errors.push('Normalized records require a separate normalized property and value')
   if (record.interpretation && record.interpretation.mappingBasis.length === 0) errors.push('Interpretation requires at least one mapping basis')

@@ -89,4 +89,19 @@ describe('Phase 6.5B game data provenance', () => {
       'Normalized records require a separate normalized property and value',
     ]))
   })
+
+  it('rejects interpretation on an extracted record', () => {
+    const record = createPhase65CExtractionRecord({
+      id: 'raw-damage', datasetId: buildGameDataSourceProvenance(inventory).dataset.id,
+      assetPath: 'Dungeons/Content/example',
+      sourceFiles: ['Dungeons/Content/example.uasset', 'Dungeons/Content/example.uexp'],
+      extraction: { parserId: 'parser', parserSchemaVersion: 1, propertyName: 'damage', propertyType: 'FloatProperty' },
+      rawObservation: { value: 50 },
+      confidence: { source: 'medium', extraction: 'high', semantics: 'unknown', version: 'low' },
+      status: 'extracted',
+    })
+    const invalid = { ...record, interpretation: { statement: 'weapon damage', mappingBasis: ['property-name-direct'] } } as GameDataProvenanceRecord
+
+    expect(validateGameDataProvenanceRecord(invalid)).toContain('Extracted records must not contain interpretation')
+  })
 })
