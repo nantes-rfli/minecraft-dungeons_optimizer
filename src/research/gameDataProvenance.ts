@@ -168,7 +168,7 @@ export function validateGameDataProvenanceRecord(record: GameDataProvenanceRecor
   if (Object.values(record.confidence).some((confidence) => !GAME_DATA_CONFIDENCE_LEVELS.includes(confidence))) errors.push('Record contains an invalid confidence level')
   if (record.crossCheckStatus && !CROSS_CHECK_STATUSES.includes(record.crossCheckStatus)) errors.push('Record contains an invalid cross-check status')
   if (!PROVENANCE_RECORD_STATUSES.includes(record.status)) errors.push('Record contains an invalid status')
-  if (record.promotionStatus !== 'research-only') errors.push('Game data provenance records must remain research-only in Phase 6.5B')
+  if (record.promotionStatus !== 'research-only') errors.push('Game data provenance records must remain research-only during Direct Game Data Research')
   if (/\/Users\/|\\Users\\|file:\/\/|~\/Downloads|\/home\/|\/root\//.test(serialized)) errors.push('Record contains a local absolute or private path')
   if (containsNonFiniteNumber(record)) errors.push('Record contains a non-finite number')
   return [...new Set(errors)].sort()

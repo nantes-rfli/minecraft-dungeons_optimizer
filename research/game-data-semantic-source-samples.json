@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "parser": {
+    "id": "ue4-package-property-parser",
+    "schemaVersion": 1
+  },
+  "selection": {
+    "purpose": "phase-6.5d-representative-semantic-source",
+    "maximumReferenceDepth": 2
+  },
+  "assets": [
+    {
+      "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+      "files": [
+        "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uasset",
+        "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "f2c5c3781ef045089a782d021e14f142d5705cc87b22a9a5a2f9fea1f585d01b"
+      },
+      "objectName": "Default__BP_DoubleAxeInstance_C",
+      "className": "BP_DoubleAxeInstance_C",
+      "parsedPropertyCount": 85,
+      "selectedRecordCount": 2,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+      "files": [
+        "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uasset",
+        "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+      },
+      "objectName": "Default__BP_DeathCapMushroomInstance_C",
+      "className": "BP_DeathCapMushroomInstance_C",
+      "parsedPropertyCount": 8,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease",
+      "files": [
+        "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uasset",
+        "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "4ca3a6d834110ac07706425e8af8d3a5a63fafcacb008ac1aae28aa13b337259"
+      },
+      "objectName": "Default__BP_ItemCooldownDecrease_C",
+      "className": "BP_ItemCooldownDecrease_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 2,
+      "diagnosticCount": 2
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire",
+      "files": [
+        "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire.uasset",
+        "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire.uexp"
+      ],
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "f4720720a7e6bee3bb164442184320d2f0f8e135db35729e5d656260caee24bf"
+      },
+      "objectName": "Default__BP_RapidFire_C",
+      "className": "BP_RapidFire_C",
+      "parsedPropertyCount": 0,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    }
+  ],
+  "records": [
+    {
+      "id": "bp-death-cap-mushroom-instance--effect",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+        "files": [
+          "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uasset",
+          "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DeathCapMushroomInstance_C",
+        "className": "BP_DeathCapMushroomInstance_C",
+        "propertyName": "Effect",
+        "propertyPath": "Effect",
+        "propertyType": "ObjectProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-double-axe-instance--configured-attack-variants-0-attack-animation-time-duration-seconds",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "f2c5c3781ef045089a782d021e14f142d5705cc87b22a9a5a2f9fea1f585d01b"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DoubleAxeInstance_C",
+        "className": "BP_DoubleAxeInstance_C",
+        "propertyName": "AttackAnimationTimeDurationSeconds",
+        "propertyPath": "ConfiguredAttackVariants[0].AttackAnimationTimeDurationSeconds",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 0.6000000238418579
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-double-axe-instance--configured-attack-variants-0-damage",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uasset",
+          "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "f2c5c3781ef045089a782d021e14f142d5705cc87b22a9a5a2f9fea1f585d01b"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DoubleAxeInstance_C",
+        "className": "BP_DoubleAxeInstance_C",
+        "propertyName": "Damage",
+        "propertyPath": "ConfiguredAttackVariants[0].Damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 100
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-item-cooldown-decrease--effect",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease",
+        "files": [
+          "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uasset",
+          "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "4ca3a6d834110ac07706425e8af8d3a5a63fafcacb008ac1aae28aa13b337259"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ItemCooldownDecrease_C",
+        "className": "BP_ItemCooldownDecrease_C",
+        "propertyName": "Effect",
+        "propertyPath": "Effect",
+        "propertyType": "ObjectProperty"
+      },
+      "rawObservation": {
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "ItemCooldownDecreaseGameplayEffect",
+          "className": "Class"
+        }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-item-cooldown-decrease--property-color-prio-prio",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease",
+        "files": [
+          "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uasset",
+          "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "4ca3a6d834110ac07706425e8af8d3a5a63fafcacb008ac1aae28aa13b337259"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ItemCooldownDecrease_C",
+        "className": "BP_ItemCooldownDecrease_C",
+        "propertyName": "Prio",
+        "propertyPath": "PropertyColorPrio.Prio",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 13
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bp-rapid-fire--cdo-declared-property-count",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire",
+        "files": [
+          "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire.uasset",
+          "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "f4720720a7e6bee3bb164442184320d2f0f8e135db35729e5d656260caee24bf"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_RapidFire_C",
+        "className": "BP_RapidFire_C",
+        "propertyName": "$cdo.declaredPropertyCount",
+        "propertyPath": "$cdo.declaredPropertyCount",
+        "propertyType": "StructuralObservation"
+      },
+      "rawObservation": {
+        "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "malformed-property-tag",
+      "objectName": "Default__BP_ItemCooldownDecrease_C",
+      "propertyName": "/Game/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease_1057739530",
+      "message": "Name index 1065353216 is out of range",
+      "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease"
+    },
+    {
+      "code": "struct-parse-failed",
+      "objectName": "Default__BP_ItemCooldownDecrease_C",
+      "propertyName": "Color",
+      "propertyType": "StructProperty",
+      "skipped": true,
+      "message": "Tagged struct LinearColor has no None terminator",
+      "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease"
+    }
+  ]
+}

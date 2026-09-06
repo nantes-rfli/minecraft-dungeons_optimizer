@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "sourceExtractor": {
+    "parserId": "ue4-package-property-parser",
+    "parserSchemaVersion": 1
+  },
+  "normalizedProperties": [
+    {
+      "id": "armor.gameplayEffectClass",
+      "label": "Armor property gameplay effect class",
+      "category": "armor-property",
+      "unit": "asset-reference",
+      "description": "The gameplay-effect class structurally referenced by an armor property; it does not establish the effect magnitude."
+    },
+    {
+      "id": "artifact.gameplayEffectClass",
+      "label": "Artifact gameplay effect class",
+      "category": "artifact",
+      "unit": "asset-reference",
+      "description": "The gameplay-effect class structurally referenced by an artifact instance; it does not establish modifier magnitude or duration."
+    },
+    {
+      "id": "melee.attackAnimationDurationSeconds",
+      "label": "Melee attack animation duration",
+      "category": "melee-weapon",
+      "unit": "seconds",
+      "description": "Serialized duration for one configured melee attack animation variant; not a complete effective attack-cycle measurement."
+    },
+    {
+      "id": "ranged.attackRateSeconds",
+      "label": "Ranged attack-rate interval",
+      "category": "ranged-weapon",
+      "unit": "seconds",
+      "description": "Serialized AttackRateSeconds value retained as a research property while exact runtime cadence semantics remain tentative."
+    },
+    {
+      "id": "ranged.projectileCount",
+      "label": "Ranged projectile count",
+      "category": "ranged-weapon",
+      "unit": "count",
+      "description": "Number of projectile spawn entries emitted by the configured ranged attack definition."
+    }
+  ],
+  "mappings": [
+    {
+      "id": "armor-item-cooldown--effect--gameplay-effect-class",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-item-cooldown-decrease--effect"
+      ],
+      "category": "armor-property",
+      "entity": "Item Cooldown Decrease",
+      "raw": {
+        "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease",
+        "objectName": "Default__BP_ItemCooldownDecrease_C",
+        "propertyPath": "Effect",
+        "propertyType": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "ItemCooldownDecreaseGameplayEffect",
+          "className": "Class"
+        }
+      },
+      "interpretation": {
+        "statement": "The armor property structurally references ItemCooldownDecreaseGameplayEffect as its applied effect class.",
+        "normalizedProperty": "armor.gameplayEffectClass",
+        "normalizedValue": "ItemCooldownDecreaseGameplayEffect",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "accepted",
+        "note": "This accepts only the effect-class relationship; no cooldown reduction magnitude or stacking rule is inferred."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "semantics-not-comparable",
+        "note": "Existing public evidence discusses cooldown reduction behavior, not the internal gameplay-effect class reference."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "armor-item-cooldown--property-color-prio--rejected-reduction",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-item-cooldown-decrease--property-color-prio-prio"
+      ],
+      "category": "armor-property",
+      "entity": "Item Cooldown Decrease",
+      "raw": {
+        "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease",
+        "objectName": "Default__BP_ItemCooldownDecrease_C",
+        "propertyPath": "PropertyColorPrio.Prio",
+        "propertyType": "FloatProperty",
+        "value": 13
+      },
+      "interpretation": {
+        "statement": "PropertyColorPrio.Prio=13 is presentation priority metadata and is rejected as a cooldown-reduction magnitude.",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "rejected",
+        "note": "The enclosing PropertyColorPrio structure identifies UI color/priority context; treating 13 as a percentage would cross the semantic boundary."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "semantics-not-comparable",
+        "note": "Public cooldown values do not make UI priority metadata a gameplay modifier."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "death-cap-mushroom--effect--gameplay-effect-class",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-death-cap-mushroom-instance--effect"
+      ],
+      "category": "artifact",
+      "entity": "Death Cap Mushroom",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+        "objectName": "Default__BP_DeathCapMushroomInstance_C",
+        "propertyPath": "Effect",
+        "propertyType": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      "interpretation": {
+        "statement": "The artifact instance structurally references BP_DeathCapMushroomGameplayEffect_C as its gameplay effect class.",
+        "normalizedProperty": "artifact.gameplayEffectClass",
+        "normalizedValue": "BP_DeathCapMushroomGameplayEffect_C",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "accepted",
+        "note": "The link supports the artifact-to-effect relationship only; duration, attack speed, and movement speed remain outside this mapping."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "semantics-not-comparable",
+        "sourceIds": [
+          "external:external-dungeons-tools:artifact:death-cap-mushroom"
+        ],
+        "note": "The public artifact page supports the artifact identity and buff role but does not expose this internal class reference."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "double-axe--attack-animation-duration--attack-animation-duration-seconds",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-double-axe-instance--configured-attack-variants-0-attack-animation-time-duration-seconds"
+      ],
+      "category": "melee-weapon",
+      "entity": "Double Axe",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+        "objectName": "Default__BP_DoubleAxeInstance_C",
+        "propertyPath": "ConfiguredAttackVariants[0].AttackAnimationTimeDurationSeconds",
+        "propertyType": "FloatProperty",
+        "value": 0.6000000238418579
+      },
+      "interpretation": {
+        "statement": "The first configured Double Axe attack variant serializes an attack animation duration of 0.6000000238418579 seconds.",
+        "normalizedProperty": "melee.attackAnimationDurationSeconds",
+        "normalizedValue": 0.6000000238418579,
+        "normalizationRule": "Raw float precision retained; the public table displays the equivalent value as 0.6 seconds.",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "cross-source-match",
+          "manual-review"
+        ],
+        "status": "accepted",
+        "note": "This is a configured variant duration, not proof of the complete effective attack cycle under all modifiers."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "matches",
+        "sourceIds": [
+          "melee-weapon:https-minecraft-wiki-w-dungeons-3adouble-axe"
+        ],
+        "note": "The existing source harvest records a 0.6-second first hit and two-hit 1.2-second combo."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "double-axe--damage--final-damage",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-double-axe-instance--configured-attack-variants-0-damage"
+      ],
+      "category": "melee-weapon",
+      "entity": "Double Axe",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+        "objectName": "Default__BP_DoubleAxeInstance_C",
+        "propertyPath": "ConfiguredAttackVariants[0].Damage",
+        "propertyType": "FloatProperty",
+        "value": 100
+      },
+      "interpretation": {
+        "statement": "The configured attack variant contains Damage=100, but final card or Power-scaled damage semantics are not established.",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "unresolved",
+        "note": "Power scaling, difficulty, buffs, and native calculation context are not resolved, so no normalized final-damage property is created."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "semantics-not-comparable",
+        "sourceIds": [
+          "melee-weapon:https-minecraft-wiki-w-dungeons-3adouble-axe"
+        ],
+        "note": "The public per-hit ratio table cannot identify the serialized base scalar as a final displayed damage value."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "rapid-fire--empty-cdo--ranged-attack-speed-modifier",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-rapid-fire--cdo-declared-property-count"
+      ],
+      "category": "enchantment",
+      "entity": "Rapid Fire",
+      "raw": {
+        "assetPath": "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire",
+        "objectName": "Default__BP_RapidFire_C",
+        "propertyPath": "$cdo.declaredPropertyCount",
+        "propertyType": "StructuralObservation",
+        "value": 0
+      },
+      "interpretation": {
+        "statement": "The Rapid Fire CDO exposes zero parsed declared properties in this package, so no raw attack-speed modifier can be mapped.",
+        "mappingBasis": [
+          "class-context",
+          "inheritance-context",
+          "manual-review"
+        ],
+        "status": "unresolved",
+        "note": "The tier values may be inherited, native, or stored in a referenced/default object not resolved within the representative depth-two boundary."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "partially-matches",
+        "sourceIds": [
+          "external:external-dungeons-tools:ranged-enchantment:rapid-fire"
+        ],
+        "note": "Public evidence confirms +10%/+15%/+20% attack-speed tiers, but the representative asset contains no serialized property linking those values."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "scatter-crossbow--attack-rate-seconds--attack-rate-seconds",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-scatter-crossbow-instance--attack-defintion-attack-rate-seconds"
+      ],
+      "category": "ranged-weapon",
+      "entity": "Scatter Crossbow",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "propertyPath": "AttackDefintion.AttackRateSeconds",
+        "propertyType": "FloatProperty",
+        "value": 0.6000000238418579
+      },
+      "interpretation": {
+        "statement": "AttackDefintion.AttackRateSeconds serializes 0.6000000238418579 seconds for the Scatter Crossbow instance.",
+        "normalizedProperty": "ranged.attackRateSeconds",
+        "normalizedValue": 0.6000000238418579,
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "tentative",
+        "note": "The field name supplies the unit, but whether it represents fire-cycle cadence, input cooldown, or another effective interval remains unresolved."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "medium",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "public-source-missing",
+        "sourceIds": [
+          "external:external-dungeons-tools:ranged-weapon:scatter-crossbow"
+        ],
+        "note": "The existing public detail source does not expose a quantitative cadence value for comparison."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "scatter-crossbow--damage--final-damage",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-scatter-cross-bow-arrow--damage"
+      ],
+      "category": "ranged-weapon",
+      "entity": "Scatter Crossbow projectile",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "statement": "The raw projectile class contains FloatProperty damage=50, but final displayed or runtime damage semantics are not established.",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "manual-review"
+        ],
+        "status": "unresolved",
+        "note": "The scalar may participate in Power scaling or native calculations; raw value presence is not sufficient to create finalDamage=50."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "semantics-not-comparable",
+        "sourceIds": [
+          "external:external-dungeons-tools:ranged-weapon:scatter-crossbow"
+        ],
+        "note": "The public source identifies three projectiles but does not establish how the raw damage scalar becomes displayed damage."
+      },
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "scatter-crossbow--number-of-projectiles--projectile-count",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bp-scatter-crossbow-instance--attack-defintion-projectile-definition-0-number-of-projectiles"
+      ],
+      "category": "ranged-weapon",
+      "entity": "Scatter Crossbow",
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "objectName": "Default__BP_ScatterCrossbowInstance_C",
+        "propertyPath": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "propertyType": "IntProperty",
+        "value": 3
+      },
+      "interpretation": {
+        "statement": "NumberOfProjectiles=3 specifies three projectile spawn entries for the configured ranged attack definition.",
+        "normalizedProperty": "ranged.projectileCount",
+        "normalizedValue": 3,
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context",
+          "cross-source-match",
+          "manual-review"
+        ],
+        "status": "accepted",
+        "note": "The direct property name, nested projectile-definition context, and independent public count agree."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "matches",
+        "sourceIds": [
+          "external:external-dungeons-tools:ranged-weapon:scatter-crossbow"
+        ],
+        "note": "The existing source harvest independently records projectileCount=3 for Scatter Crossbow."
+      },
+      "runtimePromotion": "not-performed"
+    }
+  ],
+  "summary": {
+    "total": 9,
+    "accepted": 4,
+    "tentative": 1,
+    "unresolved": 3,
+    "rejected": 1,
+    "byCategory": {
+      "ranged-weapon": 3,
+      "enchantment": 1,
+      "artifact": 1,
+      "armor-property": 2,
+      "melee-weapon": 2
+    }
+  }
+}
