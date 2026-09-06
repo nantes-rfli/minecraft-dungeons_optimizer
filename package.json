@@ -33,6 +33,8 @@
     "audit:evidence-coverage": "node scripts/audit-evidence-coverage.ts",
     "harvest:sources": "node scripts/audit-source-harvest.ts --write",
     "audit:source-harvest": "node scripts/audit-source-harvest.ts",
+    "generate:evidence-gap-map": "node scripts/audit-evidence-gap-map.ts --write",
+    "audit:evidence-gap-map": "node scripts/audit-evidence-gap-map.ts",
     "research:source-extract": "node scripts/extract-external-sources.ts",
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",

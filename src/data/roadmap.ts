@@ -161,11 +161,23 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Data BrowserでKnown propertyごとのsource / versionを表示', status: 'done' },
     ],
   },
+  {
+    id: 'phase-5',
+    title: 'Phase 5 — Evidence Gap Map & Measurement Protocol',
+    goal: 'Source Harvestの全Gapを解決方法別に束ね、Phase 6が優先度計算に使える取得cost・runtime relevance・unlock effectを提供する。',
+    items: [
+      { label: 'Source Harvestの2,105 GapをGap Causeを維持したままResolution Classへ分類', status: 'done' },
+      { label: '全Gapを再利用可能なTask Familyへ束ね、implementation / objective familyを分離', status: 'done' },
+      { label: 'Observe / Measure / Experimentのcanonical protocolと旧ID mappingを定義', status: 'done' },
+      { label: 'acquisition cost・runtime relevance・unlock effectのPhase 6 read modelを生成', status: 'done' },
+      { label: 'Gap・family・protocol・生成driftとPhase境界をaudit', status: 'done' },
+      { label: '人間向けGap MapとMeasurement Protocol reportを生成', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-5', title: 'Phase 5 — Evidence Gap Map & Measurement Protocol', goal: 'Coverageを妨げる不足情報をsource-extractable / public-research / observe / measure / experiment / implementation / objective-designへ分類し、必要な取得条件とclose条件を定義する。' },
   { id: 'phase-6', title: 'Phase 6 — Coverage Priority', goal: 'runtime unlock value、rank sensitivity、本人の所持・利用signal、取得costから、Optimizer実用性への効果が高いGapを優先する。' },
   { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: '本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
   { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation', goal: 'game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存し、1件の自己観測だけでVerifiedにしない。' },

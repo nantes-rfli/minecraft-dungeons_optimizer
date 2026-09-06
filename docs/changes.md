@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09 — Phase 5 Evidence Gap Map & Measurement Protocol
+
+- Source Harvestの2,105 GapをGap Causeを維持したままResolution Classと33 Task Familyへ分類。
+- Observe / Measure / Experimentを14本の再利用可能なcanonical protocolへ束ね、既存Ranged protocol 3本の旧ID mappingを保持。
+- Gapごとのacquisition cost、runtime relevance、unlock effectと、implementation / objective-design専用metadataをPhase 6向けread modelへ追加。
+- 全件分類、重複・orphan・protocol要件・生成drift・Phase境界を監査。runtime support、Optimizer score/formula、Inventory JSON、Workerは変更なし。
+
 ## 2026-09 — Phase 4.1 External Source Extraction
 
 - dungeons.toolsの全7カテゴリ386件を確認し、HTML全文ではなくproperty claim、source locator、direct / normalized、取得失敗理由をsnapshot化。

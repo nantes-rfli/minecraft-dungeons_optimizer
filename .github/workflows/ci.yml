@@ -46,6 +46,7 @@ jobs:
       - run: npm run audit:ranged-runtime
       - run: npm run audit:evidence-coverage
       - run: npm run audit:source-harvest
+      - run: npm run audit:evidence-gap-map
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b

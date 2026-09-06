@@ -2,14 +2,29 @@ import type { CoverageBlocker } from './model'
 
 export interface MeasurementProtocol {
   readonly id: string
+  readonly title?: string
+  readonly resolutionClass?: 'observe' | 'measure' | 'experiment'
+  readonly taskFamilyIds?: readonly string[]
+  readonly legacyProtocolIds?: readonly string[]
   readonly subsystem: string
   readonly targetMechanic: string
+  readonly appliesTo?: { readonly categories: readonly string[]; readonly properties: readonly string[] }
+  readonly estimatedMinutes?: { readonly min: number; readonly max: number }
+  readonly prerequisites?: readonly string[]
+  readonly setup?: readonly string[]
+  readonly steps?: readonly string[]
   readonly purpose: string
   readonly requiredGameVersion: string
   readonly equipment: readonly string[]
   readonly scenario: readonly string[]
   readonly observations: readonly string[]
+  readonly recordFields?: readonly string[]
   readonly repetition: { readonly minimumIndependentRuns: number | null; readonly rule: string }
+  readonly controls?: readonly string[]
+  readonly variants?: readonly string[]
+  readonly hypothesis?: readonly string[]
+  readonly closeCondition?: readonly string[]
+  readonly failureModes?: readonly string[]
   readonly acceptance: readonly string[]
   readonly submissionMetadata: readonly string[]
   readonly invalidatingConditions: readonly string[]

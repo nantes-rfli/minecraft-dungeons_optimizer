@@ -11,6 +11,7 @@ try {
   const report = await server.ssrLoadModule('/src/research/evidenceCoverage/report.ts')
   const backlog = await server.ssrLoadModule('/src/research/evidenceCoverage/backlog.ts')
   const protocolModule = await server.ssrLoadModule('/src/research/evidenceCoverage/protocols.ts')
+  const gapModule = await server.ssrLoadModule('/src/research/evidenceGapMap.ts')
   const validator = await server.ssrLoadModule('/src/research/evidenceCoverage/validation.ts')
   const roadmap = await server.ssrLoadModule('/src/data/roadmap.ts')
   const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8')
@@ -35,15 +36,19 @@ try {
   }
   const adapters = adaptersModule.buildCoverageAdapters()
   const snapshot = report.buildEvidenceCoverage(adapters)
-  const protocols = protocolModule.buildMeasurementProtocols(read('docs/model-regression.md'), documents['research/dps-regression-audit.json'].targetGameVersion)
-  const errors = [...adaptersModule.collectAdapterSourceErrors(adapters), ...validator.collectCoverageErrors(snapshot, adapters, resolve), ...validator.collectProtocolErrors(protocols, snapshot.blockers, resolve)]
+  const legacyProtocols = protocolModule.buildMeasurementProtocols(read('docs/model-regression.md'), documents['research/dps-regression-audit.json'].targetGameVersion)
+  const protocols = [...legacyProtocols, ...gapModule.buildPhase5MeasurementProtocols()]
+  const gapMap = gapModule.buildEvidenceGapMap()
+  const errors = [...adaptersModule.collectAdapterSourceErrors(adapters), ...validator.collectCoverageErrors(snapshot, adapters, resolve), ...validator.collectProtocolErrors(protocols, snapshot.blockers, resolve), ...gapModule.collectEvidenceGapMapErrors(gapMap, protocols)]
   const json = (value: unknown) => JSON.stringify(value, null, 2) + '\n'
   const generated = {
     'research/evidence-coverage.json': json(snapshot),
     'research/evidence-coverage-dashboard.json': json(report.buildCoverageDashboard(snapshot, protocols)),
-    'research/measurement-protocols.json': json({ schemaVersion: 1, protocols }),
+    'research/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
+    'research/evidence-gap-map.json': json(gapMap),
     'docs/combined-evidence-coverage.md': report.renderCoverageReport(snapshot),
-    'docs/measurement-protocols.md': report.renderProtocolReport(protocols, snapshot.blockers),
+    'docs/evidence-gap-map.md': gapModule.renderEvidenceGapMap(gapMap),
+    'docs/measurement-protocols.md': `${gapModule.renderPhase5ProtocolReport(protocols)}\n---\n\n${report.renderProtocolReport(legacyProtocols, snapshot.blockers)}`,
   }
   if (json(snapshot) !== json(report.buildEvidenceCoverage(adapters)) || report.renderCoverageReport(snapshot) !== report.renderCoverageReport(report.buildEvidenceCoverage(adapters))) errors.push('Coverage generation is not deterministic')
 

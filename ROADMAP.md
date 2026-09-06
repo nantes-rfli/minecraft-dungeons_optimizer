@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **67 / 78（86%）**。Phase 4の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **73 / 84（87%）**。Phase 5の6項目を追加。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -165,11 +165,24 @@ Inventory JSON、Worker最適化、検索guard、中止、scenario、runtime man
 
 生成物は[Source Harvest report](./docs/source-harvest.md)と[machine-readable dataset](./research/source-harvest.json)。`npm run harvest:sources`で再生成し、`npm run audit:source-harvest`で既存監査との母集団・source参照・生成driftを検証します。runtime support、Optimizer候補・score、Inventory JSON、Worker、Evidence confidenceは変更していません。
 
+## Phase 5 — Evidence Gap Map & Measurement Protocol（6 / 6）
+
+Source Harvestを変更せず、2,105 Gapを「なぜ不足しているか」と「どう解決するか」の別軸で整理しました。
+
+- [x] Source Harvestの2,105 GapをGap Causeを維持したままResolution Classへ分類
+- [x] 全Gapを再利用可能なTask Familyへ束ね、implementation / objective familyを分離
+- [x] Observe / Measure / Experimentのcanonical protocolと旧ID mappingを定義
+- [x] acquisition cost・runtime relevance・unlock effectのPhase 6 read modelを生成
+- [x] Gap・family・protocol・生成driftとPhase境界をaudit
+- [x] 人間向けGap MapとMeasurement Protocol reportを生成
+
+生成物は[Evidence Gap Map](./docs/evidence-gap-map.md)、[Measurement Protocol](./docs/measurement-protocols.md)、[machine-readable map](./research/evidence-gap-map.json)。2,105 / 2,105 classified、unclassified 0で、個別Gapごとのprotocol乱造を避けて14本へ束ねています。Priority、ownership signal、Research Quest、Evidence投稿、runtime昇格は未実装です。
+
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 4A/4Bで7カテゴリ386件のSource Harvestと外部詳細ページ抽出を完了し、Known / Unknown / Conflict / Version / property-level source attemptをData Browserから参照可能にしました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Source Harvest](./docs/source-harvest.md) / [横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 5でSource Harvestの2,105 Gapを33 Task Familyと14本の再利用可能protocolへ整理しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Map](./docs/evidence-gap-map.md) / [Source Harvest](./docs/source-harvest.md) / [横断Coverage](./docs/combined-evidence-coverage.md) / [実測手順](./docs/measurement-protocols.md)。Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -181,7 +194,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次は外部抽出後のgap candidateをPhase 5で整理し、Gap Map、Priority、Personal Research Quest、Evidence Capture、Runtime Promotionへ小Phase単位で進みます。観測入力MVPと独立実測で検証済みのモデルは区別します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持し、0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 6でGap Mapのruntime relevance・unlock effect・acquisition costを入力にCoverage Priorityを設計します。rank sensitivity、本人の所持・利用signal、Priority scoreはPhase 6で初めて扱います。観測入力MVPと独立実測で検証済みのモデルは区別し、残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール
@@ -192,10 +205,6 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
 ## Future milestones（チェックリスト進捗と分離）
-
-### Phase 5 — Evidence Gap Map & Measurement Protocol
-
-Coverageを妨げる不足情報をsource-extractable / public-research / observe / measure / experiment / implementation / objective-designへ分類し、測定対象・条件・回数・記録項目・close条件を定義します。
 
 ### Phase 6 — Coverage Priority
 

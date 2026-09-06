@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "protocols": [
     {
       "id": "phase-1-dps-regression",
@@ -282,6 +282,1156 @@
         "docs/ranged-runtime.md",
         "research/ranged-weapon-audit.json",
         "research/ranged-enchantment-audit.json"
+      ]
+    },
+    {
+      "id": "OBS-RANGED-CARD",
+      "title": "遠距離カード・可視property観測",
+      "resolutionClass": "observe",
+      "taskFamilyIds": [
+        "ranged-card-observation"
+      ],
+      "subsystem": "ranged-weapon / ranged-enchantment",
+      "targetMechanic": "projectile count・burst・spread・max copies",
+      "appliesTo": {
+        "categories": [
+          "ranged-weapon",
+          "ranged-enchantment"
+        ],
+        "properties": [
+          "projectileCount",
+          "burstCount",
+          "spread",
+          "maxCopies"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 1,
+        "max": 5
+      },
+      "equipment": [
+        "対象装備と比較用の同family装備。"
+      ],
+      "scenario": [
+        "Inventoryと装備カードを開き、Power・rarity・built-inを同時に確認する。"
+      ],
+      "observations": [
+        "表示projectile/burst/spread、copy上限、画面名、screenshot参照。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 1,
+        "rule": "同一版・同一装備を1回確認し、表示が条件で変わる場合は各条件を追加確認する。"
+      },
+      "acceptance": [
+        "対象ID・版・表示値を含むscreenshotでpropertyを一意に読める。"
+      ],
+      "invalidatingConditions": [
+        "版・装備ID・Powerが不明、tooltipの推測、別familyからの転記。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象装備と比較用の同family装備。"
+      ],
+      "setup": [
+        "Inventoryと装備カードを開き、Power・rarity・built-inを同時に確認する。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "表示projectile/burst/spread、copy上限、画面名、screenshot参照。"
+      ],
+      "closeCondition": [
+        "対象ID・版・表示値を含むscreenshotでpropertyを一意に読める。"
+      ],
+      "failureModes": [
+        "版・装備ID・Powerが不明、tooltipの推測、別familyからの転記。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "OBS-CURRENT-MECHANIC",
+      "title": "現行版mechanic観測",
+      "resolutionClass": "observe",
+      "taskFamilyIds": [
+        "current-mechanic-observation"
+      ],
+      "subsystem": "melee-enchantment / armor-enchantment",
+      "targetMechanic": "現行版のtrigger・state requirement・visible behavior",
+      "appliesTo": {
+        "categories": [
+          "melee-enchantment",
+          "armor-enchantment"
+        ],
+        "properties": [
+          "currentVersionGameplayVerification",
+          "stateRequirement"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 1,
+        "max": 5
+      },
+      "equipment": [
+        "対象Enchantを単独装着できる装備。"
+      ],
+      "scenario": [
+        "発動前後が見える安全な固定条件。"
+      ],
+      "observations": [
+        "発動アイコン、必要state、対象、表示文、screenshot/video timestamp。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 1,
+        "rule": "表示だけなら1確認、発動確認を含む場合は3回。"
+      },
+      "acceptance": [
+        "必要stateと可視挙動を対象IDへ帰属できる。"
+      ],
+      "invalidatingConditions": [
+        "複数候補を同時装着し帰属不能、旧版映像。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Enchantを単独装着できる装備。"
+      ],
+      "setup": [
+        "発動前後が見える安全な固定条件。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "発動アイコン、必要state、対象、表示文、screenshot/video timestamp。"
+      ],
+      "closeCondition": [
+        "必要stateと可視挙動を対象IDへ帰属できる。"
+      ],
+      "failureModes": [
+        "複数候補を同時装着し帰属不能、旧版映像。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "OBS-ARTIFACT-BEHAVIOR",
+      "title": "Artifact挙動観測",
+      "resolutionClass": "observe",
+      "taskFamilyIds": [
+        "artifact-behavior-observation"
+      ],
+      "subsystem": "artifact",
+      "targetMechanic": "target count・ammo・soul・可視挙動",
+      "appliesTo": {
+        "categories": [
+          "artifact"
+        ],
+        "properties": [
+          "mechanicGap.*"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 1,
+        "max": 5
+      },
+      "equipment": [
+        "対象Artifact、効果を混同しないneutral装備。"
+      ],
+      "scenario": [
+        "単体と必要時のみ複数target。"
+      ],
+      "observations": [
+        "対象数、生成物、消費resource、可視status、screenshot/video。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "同条件で3回、ランダム選択が見える場合は結果が安定するまで追加。"
+      },
+      "acceptance": [
+        "対象Artifactだけに帰属できる可視ルールを記録する。"
+      ],
+      "invalidatingConditions": [
+        "別Artifact/Enchant混入、target数やSoul残量不明。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Artifact、効果を混同しないneutral装備。"
+      ],
+      "setup": [
+        "単体と必要時のみ複数target。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "対象数、生成物、消費resource、可視status、screenshot/video。"
+      ],
+      "closeCondition": [
+        "対象Artifactだけに帰属できる可視ルールを記録する。"
+      ],
+      "failureModes": [
+        "別Artifact/Enchant混入、target数やSoul残量不明。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "MEAS-RANGED-SHOT-CYCLE",
+      "title": "遠距離発射cycle測定",
+      "resolutionClass": "measure",
+      "taskFamilyIds": [
+        "ranged-shot-cycle-measurement"
+      ],
+      "legacyProtocolIds": [
+        "ranged-cadence"
+      ],
+      "subsystem": "ranged-weapon",
+      "targetMechanic": "charge・shot・recovery・shots per second",
+      "appliesTo": {
+        "categories": [
+          "ranged-weapon"
+        ],
+        "properties": [
+          "chargeTimeSeconds",
+          "recoverySeconds",
+          "shotsPerSecond"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 5,
+        "max": 15
+      },
+      "equipment": [
+        "attack speed modifier・関連Artifact・Enchantなし、通常矢。"
+      ],
+      "scenario": [
+        "固定距離で連続発射し、N shotを録画する。"
+      ],
+      "observations": [
+        "最初と最後の発射frame、shots、elapsed time、charge/recovery境界、計算cycle。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "3 series以上、各series 20射以上。BowとCrossbowを別runにする。"
+      },
+      "acceptance": [
+        "平均cycleをraw frameから再計算でき、chargeとrecoveryを分離できる。"
+      ],
+      "invalidatingConditions": [
+        "入力遅延・特殊矢・speed modifier混入、shotとprojectileの混同。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "attack speed modifier・関連Artifact・Enchantなし、通常矢。"
+      ],
+      "setup": [
+        "固定距離で連続発射し、N shotを録画する。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "最初と最後の発射frame、shots、elapsed time、charge/recovery境界、計算cycle。"
+      ],
+      "closeCondition": [
+        "平均cycleをraw frameから再計算でき、chargeとrecoveryを分離できる。"
+      ],
+      "failureModes": [
+        "入力遅延・特殊矢・speed modifier混入、shotとprojectileの混同。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "MEAS-MELEE-ATTACK-SCALING",
+      "title": "近接attack speed測定",
+      "resolutionClass": "measure",
+      "taskFamilyIds": [
+        "melee-attack-scaling-measurement"
+      ],
+      "subsystem": "melee-weapon",
+      "targetMechanic": "attackSpeedScaling",
+      "appliesTo": {
+        "categories": [
+          "melee-weapon"
+        ],
+        "properties": [
+          "attackSpeedScaling"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 5,
+        "max": 15
+      },
+      "equipment": [
+        "対象武器、attack speed modifierなしのbaselineと既知modifier条件。"
+      ],
+      "scenario": [
+        "同じtargetへ完全comboを連続実行。"
+      ],
+      "observations": [
+        "各hit frame、combo開始/終了、modifier、combo数、elapsed time。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "baselineと各variantで3 run以上、各run 10 combo以上。"
+      },
+      "acceptance": [
+        "baseline比と各hit intervalを独立runで再現できる。"
+      ],
+      "invalidatingConditions": [
+        "空振り、combo中断、未知modifier、異なる武器family混在。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象武器、attack speed modifierなしのbaselineと既知modifier条件。"
+      ],
+      "setup": [
+        "同じtargetへ完全comboを連続実行。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "各hit frame、combo開始/終了、modifier、combo数、elapsed time。"
+      ],
+      "closeCondition": [
+        "baseline比と各hit intervalを独立runで再現できる。"
+      ],
+      "failureModes": [
+        "空振り、combo中断、未知modifier、異なる武器family混在。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "MEAS-ENCHANT-TIMING",
+      "title": "Enchant時間測定",
+      "resolutionClass": "measure",
+      "taskFamilyIds": [
+        "enchant-timing-measurement"
+      ],
+      "subsystem": "melee-enchantment / armor-enchantment",
+      "targetMechanic": "duration・cooldown・tick interval",
+      "appliesTo": {
+        "categories": [
+          "melee-enchantment",
+          "armor-enchantment"
+        ],
+        "properties": [
+          "duration",
+          "cooldown"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 5,
+        "max": 15
+      },
+      "equipment": [
+        "対象Enchantを単独装着、Tier/copy/Gildedを固定。"
+      ],
+      "scenario": [
+        "trigger前のbaselineから発動・失効・再発動を録画。"
+      ],
+      "observations": [
+        "trigger/effect end/再使用可能frame、各interval、Tier、失敗trigger。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "各Tier/条件で3独立run、各run 5周期以上。"
+      },
+      "acceptance": [
+        "開始点と終了点を定義し、全intervalをraw timestampから再計算できる。"
+      ],
+      "invalidatingConditions": [
+        "別cooldown/duration modifier混入、発動失敗を周期へ算入。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Enchantを単独装着、Tier/copy/Gildedを固定。"
+      ],
+      "setup": [
+        "trigger前のbaselineから発動・失効・再発動を録画。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "trigger/effect end/再使用可能frame、各interval、Tier、失敗trigger。"
+      ],
+      "closeCondition": [
+        "開始点と終了点を定義し、全intervalをraw timestampから再計算できる。"
+      ],
+      "failureModes": [
+        "別cooldown/duration modifier混入、発動失敗を周期へ算入。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "MEAS-ENCHANT-PROC",
+      "title": "Enchant発動率測定",
+      "resolutionClass": "measure",
+      "taskFamilyIds": [
+        "enchant-proc-measurement"
+      ],
+      "subsystem": "melee-enchantment / armor-enchantment",
+      "targetMechanic": "proc chance",
+      "appliesTo": {
+        "categories": [
+          "melee-enchantment",
+          "armor-enchantment"
+        ],
+        "properties": [
+          "procChance"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 30
+      },
+      "equipment": [
+        "対象Enchant単独、Tier/copy/Gilded固定。"
+      ],
+      "scenario": [
+        "同じ有効triggerを反復し、無効trialを分離する。"
+      ],
+      "observations": [
+        "eligible trials、proc count、非proc count、除外理由、推定率と区間。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "3 run以上、合計100 eligible trials以上。rare procは必要に応じ追加する。"
+      },
+      "acceptance": [
+        "trial母数とproc帰属が再計算可能で、run間のばらつきを報告する。"
+      ],
+      "invalidatingConditions": [
+        "eligibleでないhitを母数化、複数proc source、成功例だけの記録。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Enchant単独、Tier/copy/Gilded固定。"
+      ],
+      "setup": [
+        "同じ有効triggerを反復し、無効trialを分離する。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "eligible trials、proc count、非proc count、除外理由、推定率と区間。"
+      ],
+      "closeCondition": [
+        "trial母数とproc帰属が再計算可能で、run間のばらつきを報告する。"
+      ],
+      "failureModes": [
+        "eligibleでないhitを母数化、複数proc source、成功例だけの記録。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "MEAS-ARTIFACT-TIMING",
+      "title": "Artifact timing測定",
+      "resolutionClass": "measure",
+      "taskFamilyIds": [
+        "artifact-timing-measurement"
+      ],
+      "subsystem": "artifact",
+      "targetMechanic": "delay・cadence・lifetime・tick",
+      "appliesTo": {
+        "categories": [
+          "artifact"
+        ],
+        "properties": [
+          "mechanicGap.*"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 5,
+        "max": 15
+      },
+      "equipment": [
+        "対象Artifact、timing modifierなし。"
+      ],
+      "scenario": [
+        "開始・tick・終了を識別できる固定条件で録画。"
+      ],
+      "observations": [
+        "入力/発動/tick/終了frame、周期数、elapsed time、resource消費。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "各条件3 run以上、周期効果は各run 10 interval以上。"
+      },
+      "acceptance": [
+        "全timestampとevent定義からtimingを再計算できる。"
+      ],
+      "invalidatingConditions": [
+        "lag・入力遅延・別status更新・画面外event。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Artifact、timing modifierなし。"
+      ],
+      "setup": [
+        "開始・tick・終了を識別できる固定条件で録画。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "入力/発動/tick/終了frame、周期数、elapsed time、resource消費。"
+      ],
+      "closeCondition": [
+        "全timestampとevent定義からtimingを再計算できる。"
+      ],
+      "failureModes": [
+        "lag・入力遅延・別status更新・画面外event。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-POWER-SCALING",
+      "title": "装備Power scaling比較",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "power-scaling-experiment"
+      ],
+      "subsystem": "melee-weapon / armor",
+      "targetMechanic": "damage・health Power curve",
+      "appliesTo": {
+        "categories": [
+          "melee-weapon",
+          "armor"
+        ],
+        "properties": [
+          "powerScaling",
+          "healthPowerCurve"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 30,
+        "max": 60
+      },
+      "equipment": [
+        "同一familyの複数Power、他modifierなし。"
+      ],
+      "scenario": [
+        "baseline Powerと低・中・高Power variantを同じ条件で比較。"
+      ],
+      "observations": [
+        "Power、card/observed値、raw hit/health、候補curve残差。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "各Powerで3 run以上、最低5 Power anchor。"
+      },
+      "controls": [
+        "同一entity/family・difficulty・target・modifier。"
+      ],
+      "variants": [
+        "低Power",
+        "中Power",
+        "高Power"
+      ],
+      "hypothesis": [
+        "単一curve",
+        "family固有curve",
+        "band/roundingあり"
+      ],
+      "acceptance": [
+        "hold-out Powerを含め、支持範囲と外挿禁止境界を明記する。"
+      ],
+      "invalidatingConditions": [
+        "別family混在、card値を内部式と断定、版不明sample。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "同一familyの複数Power、他modifierなし。"
+      ],
+      "setup": [
+        "baseline Powerと低・中・高Power variantを同じ条件で比較。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "Power、card/observed値、raw hit/health、候補curve残差。"
+      ],
+      "closeCondition": [
+        "hold-out Powerを含め、支持範囲と外挿禁止境界を明記する。"
+      ],
+      "failureModes": [
+        "別family混在、card値を内部式と断定、版不明sample。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-RANGED-PROJECTILE-DISTRIBUTION",
+      "title": "Projectile damage配分実験",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "projectile-distribution-experiment"
+      ],
+      "legacyProtocolIds": [
+        "ranged-projectiles"
+      ],
+      "subsystem": "ranged-weapon",
+      "targetMechanic": "neutral projectile damage distribution",
+      "appliesTo": {
+        "categories": [
+          "ranged-weapon"
+        ],
+        "properties": [
+          "neutralProjectileDamageDistribution"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 30
+      },
+      "equipment": [
+        "対象武器、Enchantなし、通常矢。"
+      ],
+      "scenario": [
+        "単体baseline、十分離した複数target、重なった複数target。"
+      ],
+      "observations": [
+        "1入力のprojectile数、各projectile/target damage、total damage、ammo。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "baselineと各variantで3 run以上、各run 20入力。"
+      },
+      "controls": [
+        "同一Power・距離・target armor/DR。"
+      ],
+      "variants": [
+        "単体",
+        "分離複数target",
+        "重複複数target"
+      ],
+      "hypothesis": [
+        "card値は1 projectile",
+        "card値は全projectile合計",
+        "projectileごとに非均等配分"
+      ],
+      "acceptance": [
+        "projectileとtargetの帰属を追跡し、card値の単位を一意にする。"
+      ],
+      "invalidatingConditions": [
+        "proc/爆発/特殊矢混入、missを0 damage projectileと混同。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象武器、Enchantなし、通常矢。"
+      ],
+      "setup": [
+        "単体baseline、十分離した複数target、重なった複数target。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "1入力のprojectile数、各projectile/target damage、total damage、ammo。"
+      ],
+      "closeCondition": [
+        "projectileとtargetの帰属を追跡し、card値の単位を一意にする。"
+      ],
+      "failureModes": [
+        "proc/爆発/特殊矢混入、missを0 damage projectileと混同。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-RANGED-PROC-OWNERSHIP",
+      "title": "遠距離Proc帰属実験",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "proc-ownership-experiment"
+      ],
+      "legacyProtocolIds": [
+        "ranged-interactions"
+      ],
+      "subsystem": "ranged-weapon / ranged-enchantment",
+      "targetMechanic": "per-shot・per-projectile・per-hit ownership",
+      "appliesTo": {
+        "categories": [
+          "ranged-weapon",
+          "ranged-enchantment"
+        ],
+        "properties": [
+          "procOwnership",
+          "triggerOwnership"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 30
+      },
+      "equipment": [
+        "単発武器とmulti-projectile武器、対象Enchant単独。"
+      ],
+      "scenario": [
+        "baseline 0 copy、1 copy、必要なら2 copyを同じtarget条件で比較。"
+      ],
+      "observations": [
+        "shots、projectiles、hits、eligible trials、proc、kill attribution。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "各条件3 run以上、合計100 eligible units以上。"
+      },
+      "controls": [
+        "同一Power・target・距離・Tier。"
+      ],
+      "variants": [
+        "単発",
+        "multi-projectile",
+        "multi-hit"
+      ],
+      "hypothesis": [
+        "per-shot",
+        "per-projectile",
+        "per-hit"
+      ],
+      "acceptance": [
+        "どの母数で率が安定するかを独立runで再現する。"
+      ],
+      "invalidatingConditions": [
+        "shot/projectile/hitの混同、複数proc source。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "単発武器とmulti-projectile武器、対象Enchant単独。"
+      ],
+      "setup": [
+        "baseline 0 copy、1 copy、必要なら2 copyを同じtarget条件で比較。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "shots、projectiles、hits、eligible trials、proc、kill attribution。"
+      ],
+      "closeCondition": [
+        "どの母数で率が安定するかを独立runで再現する。"
+      ],
+      "failureModes": [
+        "shot/projectile/hitの混同、複数proc source。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-RANGED-MECHANIC",
+      "title": "遠距離mechanic比較実験",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "ranged-mechanic-experiment"
+      ],
+      "subsystem": "ranged-enchantment",
+      "targetMechanic": "ammo・charge interaction",
+      "appliesTo": {
+        "categories": [
+          "ranged-enchantment"
+        ],
+        "properties": [
+          "ammoChargeInteractions"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 30
+      },
+      "equipment": [
+        "対象EnchantとBow/Crossbow各1、通常矢。"
+      ],
+      "scenario": [
+        "0 copy baselineと1 copy、未charge/partial/full chargeを比較。"
+      ],
+      "observations": [
+        "ammo消費、charge段階、projectile、damage、proc。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "各baseline/variantで3 run以上、各run 20入力。"
+      },
+      "controls": [
+        "同一Power・target・距離。"
+      ],
+      "variants": [
+        "未charge",
+        "partial charge",
+        "full charge"
+      ],
+      "hypothesis": [
+        "ammo単位",
+        "shot単位",
+        "charge段階依存"
+      ],
+      "acceptance": [
+        "ammoとchargeの影響を別々に識別する。"
+      ],
+      "invalidatingConditions": [
+        "特殊矢・別ammo効果・入力失敗。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象EnchantとBow/Crossbow各1、通常矢。"
+      ],
+      "setup": [
+        "0 copy baselineと1 copy、未charge/partial/full chargeを比較。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "ammo消費、charge段階、projectile、damage、proc。"
+      ],
+      "closeCondition": [
+        "ammoとchargeの影響を別々に識別する。"
+      ],
+      "failureModes": [
+        "特殊矢・別ammo効果・入力失敗。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-ENCHANT-POWER",
+      "title": "Enchant Power依存実験",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "enchant-power-dependence-experiment"
+      ],
+      "subsystem": "melee-enchantment / armor-enchantment",
+      "targetMechanic": "absolute outputのPower依存",
+      "appliesTo": {
+        "categories": [
+          "melee-enchantment",
+          "armor-enchantment"
+        ],
+        "properties": [
+          "powerDependence"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 30,
+        "max": 60
+      },
+      "equipment": [
+        "同一Enchant/Tierを持つ複数Power装備。"
+      ],
+      "scenario": [
+        "同じtarget・triggerでPowerだけを変える。"
+      ],
+      "observations": [
+        "Power、Tier、raw output、baseline、ratio、rounding。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "最低5 Power anchor、各Power 3 run以上。"
+      },
+      "controls": [
+        "同一Tier・target・difficulty・他modifier。"
+      ],
+      "variants": [
+        "低Power",
+        "中Power",
+        "高Power"
+      ],
+      "hypothesis": [
+        "Power非依存",
+        "装備Power依存",
+        "別Power curve依存"
+      ],
+      "acceptance": [
+        "hold-out Powerを含め依存有無と適用範囲を示す。"
+      ],
+      "invalidatingConditions": [
+        "TierとPowerを同時変更、別damage source混入。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "同一Enchant/Tierを持つ複数Power装備。"
+      ],
+      "setup": [
+        "同じtarget・triggerでPowerだけを変える。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "Power、Tier、raw output、baseline、ratio、rounding。"
+      ],
+      "closeCondition": [
+        "hold-out Powerを含め依存有無と適用範囲を示す。"
+      ],
+      "failureModes": [
+        "TierとPowerを同時変更、別damage source混入。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
+      ]
+    },
+    {
+      "id": "EXP-ARTIFACT-INTERACTION",
+      "title": "Artifact相互作用・stacking実験",
+      "resolutionClass": "experiment",
+      "taskFamilyIds": [
+        "artifact-interaction-experiment"
+      ],
+      "subsystem": "artifact",
+      "targetMechanic": "stacking・targeting・ownership・overlap",
+      "appliesTo": {
+        "categories": [
+          "artifact"
+        ],
+        "properties": [
+          "stacking",
+          "interactions",
+          "mechanicGap.*"
+        ]
+      },
+      "estimatedMinutes": {
+        "min": 15,
+        "max": 30
+      },
+      "equipment": [
+        "対象Artifact 1個/複数copy、比較対象効果。"
+      ],
+      "scenario": [
+        "0 copy baseline、1 copy、2 copy、順序入替を同じ条件で比較。"
+      ],
+      "observations": [
+        "各source単独値、pair結果、発動順、target、owner、overlap window。"
+      ],
+      "repetition": {
+        "minimumIndependentRuns": 3,
+        "rule": "baselineと各variantで3独立run以上。確率挙動は100 eligible trials以上。"
+      },
+      "controls": [
+        "同一Power・target・difficulty・buff。"
+      ],
+      "variants": [
+        "0 copy",
+        "1 copy",
+        "2 copy",
+        "発動順逆転"
+      ],
+      "hypothesis": [
+        "加算",
+        "乗算",
+        "上限",
+        "更新",
+        "stackしない"
+      ],
+      "acceptance": [
+        "単独baselineからpairを説明し、target/owner/refresh規則を分離する。"
+      ],
+      "invalidatingConditions": [
+        "単独値なし、Powerやtargetを同時変更、kill帰属不明。"
+      ],
+      "blockerIds": [],
+      "prerequisites": [
+        "対象Artifact 1個/複数copy、比較対象効果。"
+      ],
+      "setup": [
+        "0 copy baseline、1 copy、2 copy、順序入替を同じ条件で比較。"
+      ],
+      "steps": [
+        "対象entity・版・Powerと全modifierを記録する。",
+        "同じ条件でbaselineを取得する。",
+        "指定variantを1条件ずつ変更して取得する。",
+        "raw記録から指定fieldを転記し、除外runと理由を残す。",
+        "必要回数とclose条件を満たすか確認する。"
+      ],
+      "recordFields": [
+        "各source単独値、pair結果、発動順、target、owner、overlap window。"
+      ],
+      "closeCondition": [
+        "単独baselineからpairを説明し、target/owner/refresh規則を分離する。"
+      ],
+      "failureModes": [
+        "単独値なし、Powerやtargetを同時変更、kill帰属不明。"
+      ],
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "requiredGameVersion": "1.17.0.0",
+      "submissionMetadata": [
+        "game versionと確度、platform、difficulty、記録日時",
+        "entity ID、Power、全装備・Enchant・Artifactとmodifier",
+        "未編集のscreenshot/video、frame rate、timestamps、run ID、除外runと理由"
+      ],
+      "sourceRefs": [
+        "docs/source-harvest.md",
+        "research/source-harvest.json"
       ]
     }
   ]

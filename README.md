@@ -328,6 +328,8 @@ UIとJSONは監査済み41件をTier付きactual rollとして保持し、runtim
 
 Phase 4 Source Harvestは4Aの横断基盤に加え、4B External Source Extractionとしてdungeons.toolsの全7カテゴリ386件をproperty単位で確認します。HTML全文ではなく、値・locator・direct / normalized・取得結果を[`research/source-harvest/snapshots`](./research/source-harvest/snapshots)へ固定し、Known / Unknown / Conflict / Version / property-level source attemptを[`research/source-harvest.json`](./research/source-harvest.json)へ生成します。`npm run research:source-extract -- --write`はネットワークを使う任意更新、CIはcommitted snapshotから`npm run harvest:sources` / `npm run audit:source-harvest`を決定的に検証します。[生成レポート](./docs/source-harvest.md) / [Browser性能](./docs/source-harvest-performance.md)。このread-only indexからruntime supportやOptimizer候補を自動昇格しません。
 
+Phase 5はSource Harvestの2,105 GapをGap Causeとは別軸のResolution ClassとTask Familyへ分類し、Observe / Measure / Experimentを14本の再利用可能なprotocolへ束ねます。[Gap Map](./docs/evidence-gap-map.md) / [測定protocol](./docs/measurement-protocols.md) / [machine-readable map](./research/evidence-gap-map.json)。`npm run generate:evidence-gap-map`で生成し、`npm run audit:evidence-gap-map`で全件分類・重複・orphan・protocol・生成driftを検証します。Priority score、ownership signal、Research Quest、Evidence投稿、runtime昇格はPhase 5に含みません。
+
 ### CIの依存関係インストール
 
 通常の `Validate` はNode.js 22で、lockfileに対応するnpmキャッシュを復元し、`npm ci --prefer-offline --no-audit --no-fund --timing` で毎回クリーンインストールします。install script、ゲーム仕様の全audit、テスト、型検査、lint、buildは毎回実行します。

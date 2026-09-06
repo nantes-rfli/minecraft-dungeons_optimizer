@@ -710,6 +710,76 @@
           "closeCondition": "baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。"
         }
       ]
+    },
+    {
+      "id": "OBS-RANGED-CARD",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "OBS-CURRENT-MECHANIC",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "OBS-ARTIFACT-BEHAVIOR",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "MEAS-RANGED-SHOT-CYCLE",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "MEAS-MELEE-ATTACK-SCALING",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "MEAS-ENCHANT-TIMING",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "MEAS-ENCHANT-PROC",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "MEAS-ARTIFACT-TIMING",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-POWER-SCALING",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-RANGED-PROJECTILE-DISTRIBUTION",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-RANGED-PROC-OWNERSHIP",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-RANGED-MECHANIC",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-ENCHANT-POWER",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
+    },
+    {
+      "id": "EXP-ARTIFACT-INTERACTION",
+      "purpose": "Source HarvestのGapを再現可能な観測または実験で解決する。測定結果そのものは含まない。",
+      "closeConditions": []
     }
   ]
 }

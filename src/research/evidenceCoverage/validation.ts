@@ -91,6 +91,7 @@ export function collectCoverageErrors(value: unknown, adapters: readonly Coverag
 export function collectProtocolErrors(value: unknown, blockers: readonly CoverageBlocker[], resolve: ReferenceResolver): string[] {
   if (!Array.isArray(value)) return ['Protocols must be an array']
   const errors: string[] = []
+  const check = (ok: boolean, message: string) => { if (!ok) errors.push(message) }
   const ids = new Set<string>()
   for (const protocol of value) {
     if (!object(protocol)) { errors.push('Protocol must be an object'); continue }
@@ -98,8 +99,21 @@ export function collectProtocolErrors(value: unknown, blockers: readonly Coverag
     const id = String(protocol.id)
     if (ids.has(id)) errors.push(`Duplicate protocol ID: ${id}`)
     ids.add(id)
-    for (const field of ['equipment', 'scenario', 'observations', 'acceptance', 'submissionMetadata', 'invalidatingConditions', 'blockerIds', 'sourceRefs']) {
+    for (const field of ['equipment', 'scenario', 'observations', 'acceptance', 'submissionMetadata', 'invalidatingConditions', 'sourceRefs']) {
       if (!strings(protocol[field]) || (protocol[field] as string[]).length === 0) errors.push(`${id}: ${field} required`)
+    }
+    if (!Array.isArray(protocol.blockerIds) || (!protocol.resolutionClass && protocol.blockerIds.length === 0)) errors.push(`${id}: blockerIds required for legacy coverage protocol`)
+    if (protocol.resolutionClass) {
+      check(oneOf(['observe', 'measure', 'experiment'], protocol.resolutionClass), `${id}: invalid resolution class`)
+      check(nonempty(protocol.title), `${id}: title required`)
+      check(strings(protocol.taskFamilyIds) && protocol.taskFamilyIds.length > 0, `${id}: task families required`)
+      check(object(protocol.appliesTo) && strings(protocol.appliesTo.categories) && protocol.appliesTo.categories.length > 0 && strings(protocol.appliesTo.properties) && protocol.appliesTo.properties.length > 0, `${id}: appliesTo required`)
+      check(object(protocol.estimatedMinutes) && Number.isFinite(protocol.estimatedMinutes.min) && Number.isFinite(protocol.estimatedMinutes.max) && Number(protocol.estimatedMinutes.min) > 0 && Number(protocol.estimatedMinutes.max) >= Number(protocol.estimatedMinutes.min), `${id}: estimated time invalid`)
+      if (protocol.resolutionClass === 'experiment') {
+        check(strings(protocol.controls) && protocol.controls.length > 0, `${id}: experiment controls required`)
+        check(strings(protocol.variants) && protocol.variants.length > 0, `${id}: experiment variants required`)
+        check(strings(protocol.hypothesis) && protocol.hypothesis.length > 0, `${id}: experiment hypothesis required`)
+      }
     }
     if (!object(protocol.repetition) || !nonempty(protocol.repetition.rule)
       || !(protocol.repetition.minimumIndependentRuns === null || (Number.isInteger(protocol.repetition.minimumIndependentRuns) && Number(protocol.repetition.minimumIndependentRuns) > 0))) errors.push(`${id}: repetition requirements invalid`)
