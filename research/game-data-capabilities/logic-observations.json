@@ -1,0 +1,661 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-07",
+  "baselineCommit": "1ba581e7e7f34fda5948e49b513bba7e9476095b",
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "status": "capability-observation",
+  "promotionStatus": "research-only",
+  "confidence": {
+    "source": "local-tree-not-authenticated",
+    "extraction": "existing-parser-plus-exploratory-probes",
+    "semantic": "not-runtime-validated",
+    "version": "project-config-corroborated-not-distribution-verified"
+  },
+  "layoutProbe": {
+    "attempted": 22603,
+    "candidateLayoutConsistent": 22540,
+    "unresolved": 63,
+    "warning": "Exploratory fixed-layout boundary probe; not validated UFunction deserialization. Script ending, length and 12-byte tail checked; 63 exceptions retained. No global semantic coverage claim."
+  },
+  "exceptions": [
+    {
+      "path": "Dungeons/Content/Actors/Characters/Enemies/PerfectForm/BP_PerfectFormCharacter",
+      "function": "BlastWaveEffects",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Characters/Friendlies/Animals/Wolf/BP_PettableWolf",
+      "function": "Multicast_OnInteracted",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerCharacter",
+      "function": "Server Update Player Name",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerController",
+      "function": "OnEnchantmentTriggeredClient",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerController",
+      "function": "Spawn Smoke Puff",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerController",
+      "function": "Rollback Position",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Interactables/BP_ElytraFireworkStation",
+      "function": "ReplicatedVFX",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCasting",
+      "function": "Totem Activated",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Decor/Prefabs/_Mountains/ColossalRampart_Props/Outpost_Beacon/BP_Outpost_Beacon",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Decor/Prefabs/_Mountains/LlamaLockin_Statue/BP_LlamaLockin_Statue",
+      "function": "Server_SpawnChest",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Decor/Prefabs/_Mountains/Windswept_Lift/BP_Button_WP_Call_Lift",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Buttons/BP_Button_RR",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Holder/BP_ConduitHolder",
+      "function": "ShowHideProp",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Holder/BP_ConduitHolder",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Prop/BP_ConduitButton",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Stand/BP_ConduitStand",
+      "function": "DisableInteractionServer",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Stand/BP_ConduitStand",
+      "function": "DisablePropAndInteraction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Conduit_Stand/BP_ConduitStand",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Interactive_Volcanic_Rock/BP_VolcanoSeal_FinalAnchor",
+      "function": "TriggerCinematic",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Interactive_Volcanic_Rock/BP_VolcanoSeal_FinalAnchor",
+      "function": "DeactivateRock",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/Moving_Walkways/BP_Button_AM_Walkway",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/PufferFishEasterEgg/BP_PufferFish_EasterEgg",
+      "function": "SpawnChest",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/PufferFishEasterEgg/BP_PufferFish_EasterEgg",
+      "function": "PufferFish_Spin",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Decor/Prefabs/_HiddenDepths/RadiantRavine/DarkConduit/BP_CompleteDarkConduit",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Characters/Friendlies/Seravex/BP_SeravexCharacter",
+      "function": "PlayDeathEffects",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/Easteregg/BP_Button_Squid_easter_egg",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/EndGateway/BP_EndGateway_BC",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/EndGateway/BP_EndGateway_Functional",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/EndPortal/BP_EndPortal",
+      "function": "SkipObjective",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/EndPortal/BP_EndPortal_Travel",
+      "function": "TriggerPortal",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/EndPortal/BP_EndPortal_Travel",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/End_Buttons/BP_Button_EW",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/End_Buttons/BP_Button_SH_Vault",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/End_Plants/End_Bounceblooms/BP_Bouncebloom",
+      "function": "PlayDownAnimation",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/End_Plants/End_Bounceblooms/BP_Bouncebloom",
+      "function": "PlayUpAnimationAndSound",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/End_ShulkerPuzzles/BP_ShulkerPuzzle_Lift",
+      "function": "OnPlayerActivatedCollision",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/SWT_Staircase/BP_Button_Staircase_A",
+      "function": "Fail",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/SWT_Staircase/BP_Button_Staircase_A",
+      "function": "Success",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/SWT_Staircase/BP_Button_Staircase_A",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/TheStronghold/StoneLift/BP_Button_End_Call_Lift",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Decor/Prefabs/_End_Structures_/TheStronghold/WaterPump/BP_WaterPump",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season1/Decor/Prefab/Interactables/Podium/BP_Podium",
+      "function": "HideDialogOnClient",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season1/Decor/Prefab/Interactables/Podium/BP_Podium",
+      "function": "Activated",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season1/Decor/Prefab/Interactables/Podium/BP_Podium",
+      "function": "Enabled",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season1/Decor/Prefab/Interactables/Podium/BP_Podium",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/DingyJungle/Jungle_DesignAssets/BP_Button_Temple",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/DingyJungle/Jungle_DesignAssets/BP_Sun_Statue",
+      "function": "OpenDoor",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/DingyJungle/Jungle_DesignAssets/Ruby/BP_Ruby",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/DingyJungle/Jungle_DesignAssets/Ruby/BP_Sapphire",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/DrawBridge_Switch/BP_DrawBridge_Switch",
+      "function": "DoAnimation",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/Lever/BP_Lever_Correct",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/RedstonePuzzle/BP_BookButton",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/RedstonePuzzle/BP_PistonPuzzleButton",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/RedstonePuzzle/BP_RedstoneDoor_Gap",
+      "function": "OpenCloseDoor",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/RedstonePuzzle/Base/BP_Button",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/RuneActivator/Door/BP_HintPainting",
+      "function": "ShowPainting",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/Waterwheel/BP_WaterWheelObjective",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/Waterwheel/BP_WaterWheelObjective_Rotated",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/_Creepingwinter_Structures/Buttons/BP_Button_LS",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/_Creepingwinter_Structures/Buttons/BP_TempestButton",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/_Creepingwinter_Structures/Buttons/GS_Child_Buttons/BP_Button_GS_Effect",
+      "function": "DoButtonAction",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/_Forge/AirPump/BP_AirPump",
+      "function": "DoPump",
+      "error": "size mismatch"
+    },
+    {
+      "path": "Dungeons/Content/Decor/Prefabs/_Forge/AirPump/BP_AirPump",
+      "function": "DoLoadPump",
+      "error": "size mismatch"
+    }
+  ],
+  "samples": [
+    {
+      "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+      "function": "ExecuteUbergraph_BP_ClaymoreInstance",
+      "exportIndex": 10,
+      "uexpOffset": 4667,
+      "exportSize": 233,
+      "scriptOffset": 44,
+      "storageSize": 177,
+      "memorySize": 241,
+      "scriptSha256": "5b2a524f42d3b55d7abaac78bfb983ff22d0d0c243a8e70ce64cf7b6f5012b7e",
+      "functionFlags": 32769,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+      "function": "ReceiveBeginPlay",
+      "exportIndex": 11,
+      "uexpOffset": 4900,
+      "exportSize": 54,
+      "scriptOffset": 28,
+      "storageSize": 14,
+      "memorySize": 18,
+      "scriptSha256": "f04c4a910d432edd090d97e5faf836d3d9057f614bedc437ac78507a6879963c",
+      "functionFlags": 134744064,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Accelerating/BP_Accelerating",
+      "function": "ExecuteUbergraph_BP_Accelerating",
+      "exportIndex": 4,
+      "uexpOffset": 352,
+      "exportSize": 53,
+      "scriptOffset": 32,
+      "storageSize": 9,
+      "memorySize": 13,
+      "scriptSha256": "d83b685249581429cf78ecd3cbcae286d093b1aaf744bf69a35d0c86cd53c0dd",
+      "functionFlags": 32769,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Accelerating/BP_Accelerating",
+      "function": "ReceiveBeginPlay",
+      "exportIndex": 5,
+      "uexpOffset": 405,
+      "exportSize": 54,
+      "scriptOffset": 28,
+      "storageSize": 14,
+      "memorySize": 18,
+      "scriptSha256": "c1ff153d3862a192b30e5efa007bafdd0d456325d4978509699d6c0a00070371",
+      "functionFlags": 134350848,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Deflecting/BP_DeflectingWithShield",
+      "function": "GetShield",
+      "exportIndex": 1,
+      "uexpOffset": 36,
+      "exportSize": 161,
+      "scriptOffset": 44,
+      "storageSize": 105,
+      "memorySize": 173,
+      "scriptSha256": "f6948b860ebbb39ab2d831050bb1ed9005e7297bf25b79339ec5e4610f5175f2",
+      "functionFlags": 205654016,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Exploding/BP_Exploding",
+      "function": "ExecuteUbergraph_BP_Exploding",
+      "exportIndex": 4,
+      "uexpOffset": 361,
+      "exportSize": 53,
+      "scriptOffset": 32,
+      "storageSize": 9,
+      "memorySize": 13,
+      "scriptSha256": "d83b685249581429cf78ecd3cbcae286d093b1aaf744bf69a35d0c86cd53c0dd",
+      "functionFlags": 32769,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Exploding/BP_Exploding",
+      "function": "ReceiveBeginPlay",
+      "exportIndex": 5,
+      "uexpOffset": 414,
+      "exportSize": 54,
+      "scriptOffset": 28,
+      "storageSize": 14,
+      "memorySize": 18,
+      "scriptSha256": "c1ff153d3862a192b30e5efa007bafdd0d456325d4978509699d6c0a00070371",
+      "functionFlags": 134350848,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Poisoned/BP_PoisonCloud",
+      "function": "ExecuteUbergraph_BP_PoisonCloud",
+      "exportIndex": 5,
+      "uexpOffset": 645,
+      "exportSize": 92,
+      "scriptOffset": 32,
+      "storageSize": 48,
+      "memorySize": 68,
+      "scriptSha256": "f5a66dc1942a42acc7beb5d376b0a3a8f8c824d9fb2b1ad2e9ebabbab06fd9d3",
+      "functionFlags": 32769,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Poisoned/BP_PoisonCloud",
+      "function": "OnCloudStarted",
+      "exportIndex": 6,
+      "uexpOffset": 737,
+      "exportSize": 54,
+      "scriptOffset": 28,
+      "storageSize": 14,
+      "memorySize": 18,
+      "scriptSha256": "701d0bc8c60895d0f02cdd5cfcf482a07a587eed4a99370e767a5c1cf41e8a59",
+      "functionFlags": 134350848,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Poisoned/BP_PoisonCloud",
+      "function": "GetImpactEffect",
+      "exportIndex": 8,
+      "uexpOffset": 827,
+      "exportSize": 510,
+      "scriptOffset": 80,
+      "storageSize": 418,
+      "memorySize": 678,
+      "scriptSha256": "31db9e734256b81b469c52c0ddf5b7e5f6494c3ff02e12d0357ca374378ffb0b",
+      "functionFlags": 205651968,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Poisoned/BP_PoisonCloud",
+      "function": "SpawnImpactEffect",
+      "exportIndex": 16,
+      "uexpOffset": 1644,
+      "exportSize": 157,
+      "scriptOffset": 36,
+      "storageSize": 109,
+      "memorySize": 169,
+      "scriptSha256": "9f753d6b50b58c84511e5a52183cf317556d012ff430a74809d5f4531ee487fb",
+      "functionFlags": 201457664,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/RadianceMelee/BP_HealArea",
+      "function": "ExecuteUbergraph_BP_HealArea",
+      "exportIndex": 4,
+      "uexpOffset": 336,
+      "exportSize": 69,
+      "scriptOffset": 32,
+      "storageSize": 25,
+      "memorySize": 33,
+      "scriptSha256": "9dcba11bbad055dc360add109afa587beba6cc3ab4e7d909d9f3a5a7b333c5d7",
+      "functionFlags": 32769,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/RadianceMelee/BP_HealArea",
+      "function": "ReceiveBeginPlay",
+      "exportIndex": 5,
+      "uexpOffset": 405,
+      "exportSize": 54,
+      "scriptOffset": 28,
+      "storageSize": 14,
+      "memorySize": 18,
+      "scriptSha256": "4ca9666795c69138853ac3302e80531c2f6ea87ad3592e33481fbe2f39e3871e",
+      "functionFlags": 134744064,
+      "boundaryStatus": "candidate-layout-consistent-not-full-disassembly"
+    }
+  ],
+  "nativeBoundarySamples": [
+    {
+      "path": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect",
+      "files": {
+        "uasset": "8d8313c789c81ad9e6b4f002e035221b12a41751440fbaf9131d2097ddf3a18b",
+        "uexp": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6"
+      },
+      "functions": [],
+      "properties": [
+        "UIData"
+      ],
+      "classImports": [
+        {
+          "name": "Object",
+          "package": "/Script/CoreUObject"
+        },
+        {
+          "name": "DefenceGameplayEffect",
+          "package": "/Script/Dungeons"
+        },
+        {
+          "name": "BlueprintGeneratedClass",
+          "package": "/Script/Engine"
+        }
+      ]
+    },
+    {
+      "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+      "files": {
+        "uasset": "f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad",
+        "uexp": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6"
+      },
+      "functions": [],
+      "properties": [
+        "UIData"
+      ],
+      "classImports": [
+        {
+          "name": "Object",
+          "package": "/Script/CoreUObject"
+        },
+        {
+          "name": "DeathCapMushroomGameplayEffect",
+          "package": "/Script/Dungeons"
+        },
+        {
+          "name": "BlueprintGeneratedClass",
+          "package": "/Script/Engine"
+        }
+      ]
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/CriticalHit/BP_CriticalHit",
+      "files": {
+        "uasset": "4b5b5c9e6760873e96147daccc88f9468bd5532e497ff05b68188b8e5a4aa36b",
+        "uexp": "bb060be0dd81f39b1a9f57a67b861240c89e613d9133157079ea586e4a2124e7"
+      },
+      "functions": [],
+      "properties": [
+        "CriticalDamageType"
+      ],
+      "classImports": [
+        {
+          "name": "Object",
+          "package": "/Script/CoreUObject"
+        },
+        {
+          "name": "CriticalHit",
+          "package": "/Script/Dungeons"
+        },
+        {
+          "name": "BlueprintGeneratedClass",
+          "package": "/Script/Engine"
+        }
+      ]
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/FireAspect/BP_FireAspectGameplayEffect",
+      "files": {
+        "uasset": "c71d18f067fecb88a146c0dfdc1cbe8070e2d72be650209fb383af1d4c093096",
+        "uexp": "962aed80fb5ad1b6a69fa8fd84d8150beaf80aace1e7f2a6d4855a8ce7b1074e"
+      },
+      "functions": [],
+      "properties": [
+        "UIData"
+      ],
+      "classImports": [
+        {
+          "name": "Object",
+          "package": "/Script/CoreUObject"
+        },
+        {
+          "name": "FireAspectGameplayEffect",
+          "package": "/Script/Dungeons"
+        },
+        {
+          "name": "BlueprintGeneratedClass",
+          "package": "/Script/Engine"
+        }
+      ]
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/PainCycle/BP_PainCycleActiveGameplayEffect",
+      "files": {
+        "uasset": "3fe4c6250f1d19e8bd809a6d198c7260142430cd25cb5c45352ee910dd3e567b",
+        "uexp": "edef76c9b77cde54705815da82c1593a5fbc83503b745bae081d6f5f588d0a45"
+      },
+      "functions": [],
+      "properties": [
+        "UIData"
+      ],
+      "classImports": [
+        {
+          "name": "Object",
+          "package": "/Script/CoreUObject"
+        },
+        {
+          "name": "PainCycleBuffGameplayEffect",
+          "package": "/Script/Dungeons"
+        },
+        {
+          "name": "BlueprintGeneratedClass",
+          "package": "/Script/Engine"
+        }
+      ]
+    }
+  ],
+  "interpretationSamples": [
+    {
+      "asset": "BP_Exploding",
+      "function": "ExecuteUbergraph_BP_Exploding",
+      "status": "manual-bounded-bytecode-inspection",
+      "finding": "Computed jump using EntryPoint, return Nothing, end. No damage arithmetic in this sampled function. Does not exclude parent/native code."
+    },
+    {
+      "asset": "BP_Accelerating",
+      "function": "ExecuteUbergraph_BP_Accelerating",
+      "status": "manual-bounded-bytecode-inspection",
+      "finding": "Same 9-byte body pattern as Exploding. Does not establish trigger chance or speed scaling."
+    },
+    {
+      "asset": "BP_ClaymoreInstance",
+      "function": "ExecuteUbergraph_BP_ClaymoreInstance",
+      "status": "manual-operand-and-import-inspection-not-general-decompiler",
+      "finding": "Three CreateSound2D calls resolving import -26. This body supplies audio initialization evidence, not the weapon damage formula."
+    },
+    {
+      "asset": "BP_DeflectingWithShield",
+      "function": "GetShield",
+      "status": "partial-manual-inspection",
+      "finding": "GetOwner call and conditional control flow are visible; no approved deflection probability formula reconstructed."
+    }
+  ]
+}

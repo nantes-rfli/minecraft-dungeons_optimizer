@@ -1,0 +1,632 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-07",
+  "baselineCommit": "1ba581e7e7f34fda5948e49b513bba7e9476095b",
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "status": "capability-observation",
+  "promotionStatus": "research-only",
+  "confidence": {
+    "source": "local-tree-not-authenticated",
+    "extraction": "existing-parser-plus-exploratory-probes",
+    "semantic": "not-runtime-validated",
+    "version": "project-config-corroborated-not-distribution-verified"
+  },
+  "warning": "Serialized overrides only; not effective inherited values or approved optimizer coefficients.",
+  "observations": [
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/AllyDamageBoost/BP_AllyDamageBoost",
+      "files": {
+        "uassetSha256": "2004d4f885b5a765c30736bbae1264cd9773e6d2eec0856ccd5117af86ad09e3",
+        "uexpSha256": "8b9a809e1923618549ad1a38657d51f9e2e3df4d4cd0e844e916b6eb34245401"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_AllyDamageBoost_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.2000000476837158,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/DodgeSpeedIncrease/BP_DodgeSpeedIncrease",
+      "files": {
+        "uassetSha256": "c7f2f2172f39284f52819c6229b66fc5b7d2c89922bbd50982bdb0de64d42fd3",
+        "uexpSha256": "84417a4dfc587f666055ae791171935d733be5c23104c18e2c7a3e4e4ba0b5c3"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_DodgeSpeedIncrease_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.5,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/FallResistance/BP_fallResistance",
+      "files": {
+        "uassetSha256": "2a837792822a296efccdea4e25fc85a8f319cc4803018c44b8004baf04e774a2",
+        "uexpSha256": "aa21844baa2d2646f68b951927ffbc16013cf37084ac289965a2bbab3542220b"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_FallResistance_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Resistance",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.25,
+          "path": "Resistance",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/ItemDamageBoost/BP_ItemDamageBoost",
+      "files": {
+        "uassetSha256": "29e6d25439fe3fdc2076e474928c69e5d548bdbd1c4932266fa0024f58140624",
+        "uexpSha256": "ccceb3203906400dc6ab8973e5c6e8fe335ec8efbc0c54ea585cf323c351b282"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_ItemDamageBoost_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.5,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/MeleeDamageBoost/BP_MeleeDamageBoost",
+      "files": {
+        "uassetSha256": "c6383276bc8b5ca04b24de3a284ec8463326e1d94f676cc179b3531d73ae9a11",
+        "uexpSha256": "d2ff825a72654aac26cad397b93bed2c463be40bf45bff2e7cafd5a92d18102e"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_MeleeDamageBoost_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.2999999523162842,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance",
+      "files": {
+        "uassetSha256": "10a34ccba42ca5e4708a1f42de725797c981cebb3a64a522e6dc5d98976ac03f",
+        "uexpSha256": "9bb3275e03767227aaf5ecf46d97bc31aa2954fec77e2d8a976fcfbe9febd23a"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_MissChance_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Chance",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.30000001192092896,
+          "path": "Chance",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/RangedDamageBoost/BP_RangedDamageBoost",
+      "files": {
+        "uassetSha256": "c99948d42e6752120ebbdfad5dbf61ea3048d1e221a4a28cebf3d4ea4de76a60",
+        "uexpSha256": "d3e456dcb48bed756f0bacbada4a803e561773c6a49046577264b90834913b5c"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_RangedDamageBoost_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.2999999523162842,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/ArmorProperties/TeleportChance/BP_TeleportChance",
+      "files": {
+        "uassetSha256": "7aea0c0ae67848742660ab23a06d3d4e298fead14619c88d5a7018eb848f3ffc",
+        "uexpSha256": "039648dd92323d00106829876fb51c9e3b430c63c8c86dbe5da611fda43e7dc4"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_TeleportChance_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Chance",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.05000000074505806,
+          "path": "Chance",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/FireTrail/BP_FireBlockEnemy",
+      "files": {
+        "uassetSha256": "16302f37c859262018c0a960f26ec9112e5815e0c9a87e21bacd518d602c9fde",
+        "uexpSha256": "4d72fca342033568aa840a6fb73b3d551696556ccd527c91f0dd20268f675d90"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_FireBlockEnemy_C",
+          "exportIndex": 2,
+          "exportUexpOffset": 255,
+          "name": "DamageDuration",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 4,
+          "path": "DamageDuration",
+          "byteRange": {
+            "start": 86,
+            "end": 115
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/FireTrail/BP_FireBlockPlayer",
+      "files": {
+        "uassetSha256": "81686852fb97c03db9185a535a51dd4f8e96efb217dde86107c685eb5d4d46d8",
+        "uexpSha256": "4d72fca342033568aa840a6fb73b3d551696556ccd527c91f0dd20268f675d90"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_FireBlockPlayer_C",
+          "exportIndex": 2,
+          "exportUexpOffset": 255,
+          "name": "DamageDuration",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 4,
+          "path": "DamageDuration",
+          "byteRange": {
+            "start": 86,
+            "end": 115
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/JunglePoisonMelee/BP_JunglePoisonMelee",
+      "files": {
+        "uassetSha256": "a9e3d674fff444e1d953bb70f6f5c4d3a3145ee82ce6904f91df24fe5c273d8f",
+        "uexpSha256": "7078998c55bbc5d8b9869da8b401b790366615c31acb4c9eccabe59f30f8f33b"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_JunglePoisonMelee_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamagePercentage",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.20000000298023224,
+          "path": "DamagePercentage",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        },
+        {
+          "object": "Default__BP_JunglePoisonMelee_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Duration",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 5,
+          "path": "Duration",
+          "byteRange": {
+            "start": 58,
+            "end": 87
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/JunglePoisonRanged/BP_JunglePoisonRanged",
+      "files": {
+        "uassetSha256": "95dcc520c0ee96aee4c9b9b1af1d11bcadd11a9b06ba511bcb9e7fec36299e5a",
+        "uexpSha256": "ca1455c3426a122a76dffea90ed0fa0a865a4d884e0c083281153ae6a37970a6"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_JunglePoisonRanged_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamagePercentage",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.10000000149011612,
+          "path": "DamagePercentage",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Components/Enchantments/Weakening/BP_Weakening",
+      "files": {
+        "uassetSha256": "7ba0bb5034d2b5482aa65cef614972abf8b923685a0bbd7a56ad0f76215c1e38",
+        "uexpSha256": "3e5760e7ae75dfe42e87bba3032420caaa56715375ae7586073489b6b39c024d"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_Weakening_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Duration",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 5,
+          "path": "Duration",
+          "byteRange": {
+            "start": 78,
+            "end": 107
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Components/ArmorProperties/EmeraldShield/BP_EmeraldShield",
+      "files": {
+        "uassetSha256": "8dd8fb54781bab3d3f9dc212a86f9e2f8b4d84c0ba4ef41252c4c62bdc9a47f5",
+        "uexpSha256": "8969c0ea1dc8c3bb252852374727e609dc4100071aa6a0cb0d5e89e929fc829c"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_EmeraldShield_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Duration",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.75,
+          "path": "Duration",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Components/ArmorProperties/EnvironmentalProtection/BP_EnvironmentalProtection",
+      "files": {
+        "uassetSha256": "073add36115b0c784b56a4e65eac319eedafc007875d14adc284d0b3c9295072",
+        "uexpSha256": "f319e140d18a726e727ff2f56e09464c3be82f1a6fb45797f86a82ab154c42c4"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_EnvironmentalProtection_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Resistance",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.75,
+          "path": "Resistance",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Components/ArmorProperties/Heavyweight/BP_Heavyweight",
+      "files": {
+        "uassetSha256": "2d99a220f7a5aca8dc5d284e7b6449139ee986a9cd6a997f2f51344da4a6a17c",
+        "uexpSha256": "e00d3ab268493e3d9124d87a5098773b46feec8aae3bed1e7f8f07d340111498"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_Heavyweight_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Resistance",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.75,
+          "path": "Resistance",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/ArtifactCharge/BP_ArtifactChargeGameplayEffect",
+      "files": {
+        "uassetSha256": "23b4039be5c3f3b422ce3eba90805b07276c407b24124b1168e3d361210ac9c3",
+        "uexpSha256": "ca8f8b236226a0a8bc1d8f643722d40f03946f98eb94f0c8cb93d98a37a00f9b"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_ArtifactChargeGameplayEffect_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "StackLimitCount",
+          "type": "IntProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1,
+          "path": "StackLimitCount",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/ArtifactCharge/BP_ArtifactChargeGameplayEffectLevelThree",
+      "files": {
+        "uassetSha256": "fddefb4567b6d9944177c0f1ff93eecd1862becd3bb970eacae2fa6a4f79820a",
+        "uexpSha256": "13a740e4ec028c032bf59dfc1fcbc37a3da84375d9f7d790e449d90fdef2eef1"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_ArtifactChargeGameplayEffectLevelThree_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "StackLimitCount",
+          "type": "IntProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 3,
+          "path": "StackLimitCount",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/ArtifactCharge/BP_ArtifactChargeGameplayEffectLevelTwo",
+      "files": {
+        "uassetSha256": "7ae0a0f59b89d7c08a3cc119766948b596273d28935d07e907fed227eedd5a65",
+        "uexpSha256": "2d21761031e8b3dcdeeef5ebb72e75d3d0b9d38477355ee106a43085d225e69b"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_ArtifactChargeGameplayEffectLevelTwo_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "StackLimitCount",
+          "type": "IntProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 2,
+          "path": "StackLimitCount",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/FireFocus/BP_FireFocus",
+      "files": {
+        "uassetSha256": "69bfdc2ee4f0f93d17e43fcb8a7dff144c4b1eaa1a8e0d13069014d72e5352b9",
+        "uexpSha256": "cbac4c6dc843ee47d99ecd93d8f126f60477c0a4742f8ceef83ea5ca1ca79ec5"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_FireFocus_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamageIncreasePerLevel",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.25,
+          "path": "DamageIncreasePerLevel",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/LightningFocus/BP_LightningFocus",
+      "files": {
+        "uassetSha256": "641c3b1e0fd49e79e0ce9f40c6b55228bf53aa4720405c92c03919f4182ee77b",
+        "uexpSha256": "83999d72d044214cdb9239893c0128a5ee9753868de13855d2f5f0937efa08aa"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_LightningFocus_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamageIncreasePerLevel",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.25,
+          "path": "DamageIncreasePerLevel",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/PoisonFocus/BP_PoisonFocus",
+      "files": {
+        "uassetSha256": "0fe3ac88b7a6874ee36819254434b992746074a3925d6715ec52e0ecc85d11a7",
+        "uexpSha256": "0d9a4ab95b64b8fab49c9bae6cf22fbc88689b265cda53e460d822e2b8edef48"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_PoisonFocus_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamageIncreasePerLevel",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.25,
+          "path": "DamageIncreasePerLevel",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Components/Enchantments/SoulFocus/BP_SoulFocus",
+      "files": {
+        "uassetSha256": "376fce176688d32d9bd360ef5e1ca0b2c9e4e6ea075fee1d2391a67eb1b60893",
+        "uexpSha256": "9dc744c5856a0a57e0a63afac340f8610c789948631364c81bfd392df9ea6392"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_SoulFocus_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "DamageIncreasePerLevel",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 0.10000000149011612,
+          "path": "DamageIncreasePerLevel",
+          "byteRange": {
+            "start": 0,
+            "end": 29
+          }
+        }
+      ],
+      "diagnostics": []
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Components/ArmorProperties/InstantTransmission/BP_InstantTransmission",
+      "files": {
+        "uassetSha256": "a0ce9a75976f284c2441109cf0009e4aecb4b5d06c3ebe86a2a66b395040d83e",
+        "uexpSha256": "b004ebdd87ae89d8ca7842e375e8d483658abb6aad160dfdb7f2468c0fdec4f1"
+      },
+      "properties": [
+        {
+          "object": "Default__BP_InstantTransmission_C",
+          "exportIndex": 1,
+          "exportUexpOffset": 76,
+          "name": "Multiplier",
+          "type": "FloatProperty",
+          "arrayIndex": 0,
+          "serializedSize": 4,
+          "value": 1.5,
+          "path": "Multiplier",
+          "byteRange": {
+            "start": 29,
+            "end": 58
+          }
+        }
+      ],
+      "diagnostics": []
+    }
+  ]
+}

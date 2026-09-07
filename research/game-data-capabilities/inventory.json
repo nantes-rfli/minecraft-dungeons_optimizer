@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-07",
+  "baselineCommit": "1ba581e7e7f34fda5948e49b513bba7e9476095b",
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "status": "capability-observation",
+  "promotionStatus": "research-only",
+  "confidence": {
+    "source": "local-tree-not-authenticated",
+    "extraction": "existing-parser-plus-exploratory-probes",
+    "semantic": "not-runtime-validated",
+    "version": "project-config-corroborated-not-distribution-verified"
+  },
+  "scope": "all 45311 uasset package summaries/imports/exports; umap contents and original archives excluded",
+  "fileCount": 134806,
+  "extensionCounts": {
+    "(none)": 7,
+    ".bin": 3,
+    ".ini": 51,
+    ".json": 462,
+    ".uasset": 45311,
+    ".uexp": 49394,
+    ".ubulk": 908,
+    ".csv": 90,
+    ".umap": 4083,
+    ".ufont": 18,
+    ".locmeta": 5,
+    ".locres": 57,
+    ".png": 30311,
+    ".ushaderbytecode": 4,
+    ".old": 2,
+    ".oldold": 1,
+    ".json_old": 1,
+    ".txt": 15,
+    ".tga": 1232,
+    ".pdn": 31,
+    ".py": 19,
+    ".jpg": 2,
+    ".dat": 4,
+    ".dat_old": 4,
+    ".bak": 4,
+    ".uproject": 1,
+    ".upluginmanifest": 1,
+    ".uplugin": 58,
+    ".res": 2680,
+    ".brk": 9,
+    ".dict": 4,
+    ".icu": 3,
+    ".cfu": 1,
+    ".cnv": 2,
+    ".nrm": 4,
+    ".PNG": 9,
+    ".tps": 3,
+    ".ttf": 12
+  },
+  "packageTables": {
+    "attempted": 45311,
+    "returned": 45311,
+    "thrownErrors": [],
+    "warning": "Returned does not mean all properties decoded. Tolerant CDO diagnostics remain."
+  },
+  "exportCounts": {
+    "Function": 22603,
+    "BlueprintGeneratedClass": 7542,
+    "DataTable": 24,
+    "CurveTable": 0,
+    "CurveFloat": 742,
+    "CurveVector": 32,
+    "AnimSequence": 1186
+  },
+  "functionPackages": 3367,
+  "dataTables": [
+    {
+      "path": "Dungeons/Content/Content_DLC3/UI/Theme/MissionThemes",
+      "uassetSha256": "bc1d97c685c861bccdcb467201d68b3d9bbdf97ae15ae242b190117d614e0776"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/UI/Mobs/MobIcons",
+      "uassetSha256": "91a788409008024363ef8de392820c127447cb1e093531310ae4f546a8f0cb52"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season1/UI/Merchant/slot/generic/ChallengeProgressFormatting",
+      "uassetSha256": "4e3918a9a9f4fe3ffacfe4840b7af042a5a825c6df2c57612db470c017126784"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season3/UI/AdventureHubTheme/AdventureHubThemes",
+      "uassetSha256": "7a5d23721d3e0980a2f7836ed23a95f48ed21870209140caec200d035b5b0ccd"
+    },
+    {
+      "path": "Dungeons/Content/DataTables/Assets/Cosmetics",
+      "uassetSha256": "fa340e130cd08cf0d85398e7956df0e2f0a95b953d7134f865a0fb516de8af34"
+    },
+    {
+      "path": "Dungeons/Content/DataTables/Assets/EndlessStruggle",
+      "uassetSha256": "471f9aaec0e58cbf303ff4c344f6d0a82e9b39869ae8279414f2c2a296667180"
+    },
+    {
+      "path": "Dungeons/Content/DataTables/Assets/PreloadedStorableItems",
+      "uassetSha256": "91cdb7f8a657a9cfa25de8be5085ccd1919be86ae3a35d4d122ebafc29f5cc9f"
+    },
+    {
+      "path": "Dungeons/Content/DataTables/Assets/Skins",
+      "uassetSha256": "8533ec4dee666656e77205f57a67b506b76be7fe8efed4c92d160332f6cf2820"
+    },
+    {
+      "path": "Dungeons/Content/ForceFeedback/ForceFeedbackTable",
+      "uassetSha256": "1cf3e801b2be1585fc752ae0b3f298ea29b840d329d7290a45f0f3f652b9ddbc"
+    },
+    {
+      "path": "Dungeons/Content/UI/Credits/CreditsFormatting",
+      "uassetSha256": "da1459fc75c205c635e9bdf9736d72afda8be45d090f888da32bef5e0e422a0e"
+    },
+    {
+      "path": "Dungeons/Content/UI/Credits/CreditsImages",
+      "uassetSha256": "e358d90720cc557cfc99848918854f03740488d11256e8108a392a764c8b01c2"
+    },
+    {
+      "path": "Dungeons/Content/UI/Currency/currencies",
+      "uassetSha256": "e64123200a281eb469e42b75a6ac00619c420c142f5426ab5bd8364a870cce0a"
+    },
+    {
+      "path": "Dungeons/Content/UI/Debug/DebugMessageDataTable",
+      "uassetSha256": "e9abc8af564952521204c42e667c2affc5947226e2e235512e00b98c310d5c7e"
+    },
+    {
+      "path": "Dungeons/Content/UI/Gamepad/GamepadInputDatatable",
+      "uassetSha256": "c28234d157446df48a21fc71245be44b27ee684db25ac2a04975ca4c60de3a85"
+    },
+    {
+      "path": "Dungeons/Content/UI/Gamepad/PcInputDatatable",
+      "uassetSha256": "daa2ab1d760e1f135b5f58da5418a370836014c078521145c14b7f91fcb4a586"
+    },
+    {
+      "path": "Dungeons/Content/UI/Menu/Buttons/GamepadIconTable",
+      "uassetSha256": "d6fdcf49b4b334aee808f3f29a14896d07dce7c77410111f9a697aa450a3ed5d"
+    },
+    {
+      "path": "Dungeons/Content/UI/Menu/Buttons/JoinStyle",
+      "uassetSha256": "9f048caadc7d2dcbb203baf53dd5ccfd4c307b50f7ceafa61346155066aa9752"
+    },
+    {
+      "path": "Dungeons/Content/UI/Notifications/BlankImage",
+      "uassetSha256": "79b5e8991d1559ac5a42889fd6be5a351bcf336ad2ba1652b6129029e686327c"
+    },
+    {
+      "path": "Dungeons/Content/UI/Notifications/RegularGearNotificationTextDataTable",
+      "uassetSha256": "ef401a1bcedcffc2c8dfd5466d9aa6d965690ee8303f8ca8ce16ea64e09c0483"
+    },
+    {
+      "path": "Dungeons/Content/UI/Notifications/RegularNotificationTextDataTable",
+      "uassetSha256": "c3f92a4139543a756f2af4c6d202997ce6bbca7b37b67bd91b3e597d2fbf92d7"
+    },
+    {
+      "path": "Dungeons/Content/UI/Notifications/SmallGearNotificationTextDataTable",
+      "uassetSha256": "67d1183f40206b11a12c203eec54237f64acc2c0821ffe90bc4af0a9fd809eb7"
+    },
+    {
+      "path": "Dungeons/Content/UI/Splash/SplashTextStyleSet",
+      "uassetSha256": "b3dc84ff32af4e5045623704bfbd7962b6f2d14d80062f670d70a7590cfd8d37"
+    },
+    {
+      "path": "Dungeons/Content/UI/SwitchAccountLinkText",
+      "uassetSha256": "a01e611801dd71da1bf2841b2eaa9c110e02e1bc9022019ab21f1c45ade154e7"
+    },
+    {
+      "path": "Dungeons/Content/UI/UIItemTagData",
+      "uassetSha256": "7fd57be6d303745a5962278f324a2b6edd7ad8a7500a8b6694a22bc899f6a7c5"
+    }
+  ],
+  "nativeBinarySearch": {
+    "scope": "all observed file extensions",
+    "extensions": [
+      ".exe",
+      ".dll",
+      ".pdb",
+      ".so",
+      ".dylib",
+      ".pak"
+    ],
+    "matches": 0,
+    "warning": "Absence is limited to this extracted tree; no original installation searched and no binary-signature scan of every file."
+  },
+  "versionObservation": {
+    "file": "Dungeons/Config/DefaultGame.ini",
+    "line": 8,
+    "property": "ProjectVersion",
+    "value": "1.17.0.0",
+    "sha256": "8d121238c3be135c1f19fae3941262f2ec86aa660535800a659beb7482ab795d",
+    "quickBmsVersion": "unknown"
+  }
+}
