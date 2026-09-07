@@ -199,6 +199,22 @@ export class UePropertyReader {
     if (structType === 'Vector' && reader.remaining() === 12) {
       return { X: reader.readFloat32LE(), Y: reader.readFloat32LE(), Z: reader.readFloat32LE() }
     }
+    if (structType === 'LinearColor') {
+      if (reader.remaining() === 16) {
+        return {
+          R: reader.readFloat32LE(), G: reader.readFloat32LE(),
+          B: reader.readFloat32LE(), A: reader.readFloat32LE(),
+        }
+      }
+      const rawSize = reader.remaining()
+      reader.seek(reader.bytes.byteLength)
+      this.diagnostics.push({
+        code: 'struct-size-mismatch', objectName: this.objectName, propertyName,
+        propertyType: 'StructProperty', rawSize, skipped: true,
+        message: `LinearColor requires exactly 16 serialized bytes; received ${rawSize}`,
+      })
+      return { unsupported: true, structType, rawSize }
+    }
     try {
       const nested = new UePropertyReader(this.names, this.resolver, this.objectName)
       const result = nested.readProperties(reader, path)

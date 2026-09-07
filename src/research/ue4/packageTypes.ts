@@ -9,7 +9,7 @@ export type UeDiagnosticCode =
   | 'unsupported-package-version' | 'invalid-magic' | 'header-out-of-range'
   | 'name-index-out-of-range' | 'import-index-out-of-range' | 'export-index-out-of-range'
   | 'serial-range-out-of-range' | 'unsupported-property-type' | 'malformed-property-tag'
-  | 'struct-parse-failed' | 'array-parse-failed' | 'trailing-bytes'
+  | 'struct-parse-failed' | 'struct-size-mismatch' | 'array-parse-failed' | 'trailing-bytes'
 
 export interface UeDiagnostic {
   readonly code: UeDiagnosticCode

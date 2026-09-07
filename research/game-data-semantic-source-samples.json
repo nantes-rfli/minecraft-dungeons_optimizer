@@ -56,7 +56,7 @@
       "className": "BP_ItemCooldownDecrease_C",
       "parsedPropertyCount": 4,
       "selectedRecordCount": 2,
-      "diagnosticCount": 2
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire",
@@ -305,22 +305,5 @@
       "status": "extracted"
     }
   ],
-  "diagnostics": [
-    {
-      "code": "malformed-property-tag",
-      "objectName": "Default__BP_ItemCooldownDecrease_C",
-      "propertyName": "/Game/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease_1057739530",
-      "message": "Name index 1065353216 is out of range",
-      "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease"
-    },
-    {
-      "code": "struct-parse-failed",
-      "objectName": "Default__BP_ItemCooldownDecrease_C",
-      "propertyName": "Color",
-      "propertyType": "StructProperty",
-      "skipped": true,
-      "message": "Tagged struct LinearColor has no None terminator",
-      "assetPath": "Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease"
-    }
-  ]
+  "diagnostics": []
 }

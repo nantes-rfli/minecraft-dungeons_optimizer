@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **83 / 96（86%）**。Phase 6.5の6項目を追加し、6.5A / 6.5B / 6.5C / 6.5Dを完了。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **84 / 96（88%）**。Phase 6.5の6項目を追加し、6.5A / 6.5B / 6.5C / 6.5D / 6.5Eを完了。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -191,7 +191,7 @@ Phase 5の2,105 Gapを、runtime unlock・rank sensitivity・ownership・coverag
 
 生成物は[Coverage Priority](./docs/coverage-priority.md)と[machine-readable model](./research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。same-family ownershipはSource Harvestで確認できる実際のfamily relationだけを使います。Rank sensitivityはbounded proxyとして明示し、weight stabilityとともにPriority confidenceへ反映します。これはEvidence confidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
 
-## Phase 6.5 — Direct Game Data Research（4 / 6）
+## Phase 6.5 — Direct Game Data Research（5 / 6）
 
 Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査し、公開情報では不足していたPropertyを再現可能な一次データとして抽出・記録します。既存Gapとの照合まで行いますが、このPhase単独ではruntimeを自動昇格しません。
 
@@ -199,16 +199,16 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 - [x] 6.5B — Source Boundary / Provenance
 - [x] 6.5C — UE4 Asset Extractor Foundation
 - [x] 6.5D — Representative Semantic Mapping
-- [ ] 6.5E — Bulk Harvest & Gap Reconciliation
+- [x] 6.5E — Bulk Harvest & Gap Reconciliation
 - [ ] 6.5F — Audit / Report / Coverage
 
-6.5AではQuickBMS source tree全体をpath・filename・extension・sizeだけで棚卸しし、[Game Data Inventory](./docs/game-data-inventory.md)とmachine-readableな[summary](./research/game-data-inventory.json)・[Asset Index](./research/game-data-asset-index.json)を生成します。6.5Bでは[Source Provenance](./docs/game-data-source-provenance.md)と[machine-readable artifact](./research/game-data-source-provenance.json)にdataset identity、verification status、Evidence layer、confidence軸、raw data非commit境界、parser契約を固定しました。6.5Cでは[UE4 Asset Extractor](./docs/game-data-extractor.md)と[machine-readable samples](./research/game-data-extractor-samples.json)を追加し、対象legacy packageのHeader、Name Map、Import/Export、CDO、nested Propertyをsemantic interpretationなしで抽出します。6.5Dでは[Representative Semantic Mapping](./docs/game-data-semantic-mapping.md)と[machine-readable mappings](./research/game-data-semantic-mappings.json)を追加し、5カテゴリ9件のraw factを独立したresearch-only semantic layerでaccepted / tentative / unresolved / rejectedへ分類しました。raw assetsとfull manifestはGit管理外に保ちます。
+6.5AではQuickBMS source tree全体をpath・filename・extension・sizeだけで棚卸しし、[Game Data Inventory](./docs/game-data-inventory.md)とmachine-readableな[summary](./research/game-data-inventory.json)・[Asset Index](./research/game-data-asset-index.json)を生成します。6.5Bでは[Source Provenance](./docs/game-data-source-provenance.md)と[machine-readable artifact](./research/game-data-source-provenance.json)にdataset identity、verification status、Evidence layer、confidence軸、raw data非commit境界、parser契約を固定しました。6.5Cでは[UE4 Asset Extractor](./docs/game-data-extractor.md)と[machine-readable samples](./research/game-data-extractor-samples.json)を追加し、対象legacy packageのHeader、Name Map、Import/Export、CDO、nested Propertyをsemantic interpretationなしで抽出します。6.5Dでは[Representative Semantic Mapping](./docs/game-data-semantic-mapping.md)と[machine-readable mappings](./research/game-data-semantic-mappings.json)を追加し、5カテゴリ9件のraw factを独立したresearch-only semantic layerでaccepted / tentative / unresolved / rejectedへ分類しました。6.5Eでは[Bulk Harvest](./docs/game-data-bulk-harvest.md)と[Gap Reconciliation](./docs/game-data-gap-reconciliation.md)を追加し、954候補をparseして857件のcompact factを抽出、Phase 5 baseline 2,105 Gapを17 closed / 2,088 remainingへ監査可能に分類しました。runtime promotionは行わず、raw assetsとfull parse treeはGit管理外に保ちます。
 
 ## 現在の作業位置
 
 ### Current summary
 
-Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5Aで全体inventoryとAsset Map、6.5Bでsource boundaryとprovenance chain、6.5Cでtargeted UE4 structural extractor、6.5Dで5カテゴリのrepresentative semantic mappingを作成しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。bulk harvest、Gap reconciliation、runtime promotion、Research Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは954候補を走査して946件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
 
 ### Current blockers
 
@@ -220,7 +220,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 6.5E — Bulk Harvest & Gap Reconciliationで、6.5Dの型・confidence・negative-control境界を維持しながら対象Entityへ抽出を広げ、2,105 Gapと照合します。Direct game dataで機械的に取得できる情報をPhase 6.5で調べ、残ったObserve / Measure / ExperimentをPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。次はPhase 6.5F — Audit / Report / Coverageで、direct-game-dataの最終coverageとimpactを集約します。残ったObserve / Measure / ExperimentはPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

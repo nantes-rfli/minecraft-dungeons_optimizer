@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { BinaryReadError, BinaryReader } from '../src/research/ue4/binaryReader'
 import { PackageObjectResolver } from '../src/research/ue4/objectResolver'
 import { parseUePackage, UePackageParseError } from '../src/research/ue4/packageReader'
+import { UePropertyReader } from '../src/research/ue4/propertyReader'
 import type { ParsedProperty, UeExportEntry, UeImportEntry, UeNameEntry } from '../src/research/ue4/packageTypes'
 import { assertSafeAssetPath, flattenProperties } from '../scripts/game-data-extractor'
 
@@ -42,6 +43,7 @@ const fixtureNames = [
   'FloatValue', 'FloatProperty', 'IntValue', 'IntProperty', 'Enabled', 'BoolProperty',
   'Point', 'StructProperty', 'Vector', 'Items', 'ArrayProperty', 'Element', 'ElementStruct',
   'Number', 'ObjectRef', 'ObjectProperty', 'Unknown', 'TextProperty',
+  'Tint', 'LinearColor', 'BadTint',
 ]
 
 const nameIndex = (value: string): number => {
@@ -72,6 +74,7 @@ function buildSyntheticPackage(): { uasset: Uint8Array; uexp: Uint8Array } {
   cdo.raw(propertyTag('IntValue', 'IntProperty', new FixtureWriter().int32(40)).bytes)
   cdo.raw(propertyTag('Enabled', 'BoolProperty', new FixtureWriter(), (writer) => writer.int8(1)).bytes)
   cdo.raw(propertyTag('Point', 'StructProperty', new FixtureWriter().float32(45).float32(0).float32(25), (writer) => writer.fname(nameIndex('Vector')).zeros(16)).bytes)
+  cdo.raw(propertyTag('Tint', 'StructProperty', new FixtureWriter().float32(0.25).float32(0.5).float32(0.75).float32(1), (writer) => writer.fname(nameIndex('LinearColor')).zeros(16)).bytes)
   cdo.raw(propertyTag('Items', 'ArrayProperty', arrayPayload, (writer) => writer.fname(nameIndex('StructProperty'))).bytes)
   cdo.raw(propertyTag('Unknown', 'TextProperty', new FixtureWriter().raw([1, 2, 3])).bytes)
   cdo.fname(nameIndex('None'))
@@ -145,10 +148,27 @@ describe('Minecraft Dungeons targeted UE4 package subset', () => {
     expect(value('IntValue')).toBe(40)
     expect(value('Enabled')).toBe(true)
     expect(value('Point')).toEqual({ X: 45, Y: 0, Z: 25 })
+    expect(value('Tint')).toEqual({ R: 0.25, G: 0.5, B: 0.75, A: 1 })
     expect(value('Items[0].Number')).toBe(3)
     expect(value('Items[0].ObjectRef')).toMatchObject({ rawPackageIndex: -1, kind: 'import', objectName: 'ImportedProjectile_C' })
     expect(value('Unknown')).toEqual({ unsupported: true, rawSize: 3 })
     expect(parsed.diagnostics).toContainEqual(expect.objectContaining({ code: 'unsupported-property-type', propertyName: 'Unknown', skipped: true }))
+  })
+
+  it('rejects a LinearColor payload whose fixed serialized size is not 16 bytes', () => {
+    const fixture = buildSyntheticPackage()
+    const parsed = parseUePackage(fixture.uasset, fixture.uexp, { assetPath: 'Dungeons/Content/Test' })
+    expect(parsed.diagnostics.some((diagnostic) => diagnostic.code === 'struct-size-mismatch')).toBe(false)
+
+    const names: UeNameEntry[] = fixtureNames.map((value, index) => ({ index, value, hashBytes: '00000000' }))
+    const resolver = new PackageObjectResolver([], [])
+    const malformed = propertyTag('BadTint', 'StructProperty', new FixtureWriter().float32(1).float32(1).float32(1), (writer) => writer.fname(nameIndex('LinearColor')).zeros(16))
+    malformed.fname(nameIndex('None'))
+    const reader = new UePropertyReader(names, resolver, 'Default__Test_C')
+    const result = reader.readProperties(new BinaryReader(malformed.uint8Array()))
+
+    expect(result.properties[0]?.value).toEqual({ unsupported: true, structType: 'LinearColor', rawSize: 12 })
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'struct-size-mismatch', rawSize: 12 }))
   })
 
   it('resolves null, import, export, and invalid FPackageIndex values', () => {

@@ -347,7 +347,7 @@ Phase 6.5D keeps the Phase 6.5C extracted records immutable and adds a separate 
 
 \`Extracted structural fact → context review → public/project evidence cross-check → semantic status → normalized research property\`
 
-The parser remains \`${artifact.sourceExtractor.parserId}\` schema ${artifact.sourceExtractor.parserSchemaVersion}. Source and extraction confidence remain medium/high, while the dataset version stays low-confidence and publisher-claimed. Reference following is bounded to depth ${source.selection.maximumReferenceDepth}; inherited effective values and native behavior are not resolved automatically.
+The parser remains \`${artifact.sourceExtractor.parserId}\` schema ${artifact.sourceExtractor.parserSchemaVersion}. Source and extraction confidence remain medium/high, while the dataset version remains low-confidence and is claimed only from the dataset root label. Reference following is bounded to depth ${source.selection.maximumReferenceDepth}; inherited effective values and native behavior are not resolved automatically.
 
 ## Representative categories
 

@@ -8,7 +8,7 @@ Phase 6.5D keeps the Phase 6.5C extracted records immutable and adds a separate 
 
 `Extracted structural fact → context review → public/project evidence cross-check → semantic status → normalized research property`
 
-The parser remains `ue4-package-property-parser` schema 1. Source and extraction confidence remain medium/high, while the dataset version stays low-confidence and publisher-claimed. Reference following is bounded to depth 2; inherited effective values and native behavior are not resolved automatically.
+The parser remains `ue4-package-property-parser` schema 1. Source and extraction confidence remain medium/high, while the dataset version remains low-confidence and is claimed only from the dataset root label. Reference following is bounded to depth 2; inherited effective values and native behavior are not resolved automatically.
 
 ## Representative categories
 
@@ -38,7 +38,7 @@ Double Axe instance — first attack animation duration plus unresolved raw dama
 | --- | ---: | ---: | ---: |
 | `Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance` | 85 | 2 | 0 |
 | `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance` | 8 | 1 | 0 |
-| `Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease` | 4 | 2 | 2 |
+| `Dungeons/Content/Components/ArmorProperties/ItemCooldownDecrease/BP_ItemCooldownDecrease` | 4 | 2 | 0 |
 | `Dungeons/Content/Components/Enchantments/RapidFire/BP_RapidFire` | 0 | 1 | 0 |
 
 The additional semantic sample set parses 4 logical assets and commits 6 extracted source records. The three Scatter Crossbow source records remain in the unchanged Phase 6.5C artifact, for 9 linked records across 6 representative logical assets.
