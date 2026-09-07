@@ -2061,6 +2061,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-bat-crossbow-arrow-02-f946457b5cca34eb",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-bat-crossbow-arrow-02-f946457b5cca34eb"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BatCrossbow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 55
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-bat-crossbow-instance-15604a1a37817323",
       "ruleId": "ranged-instance-projectile-count-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -5364,6 +5407,50 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-bow-arrow-b54e1a883c1715f6",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-bow-arrow-b54e1a883c1715f6"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:bow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:bow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-bow-instance-38dc053adabcb6e9",
       "ruleId": "ranged-instance-attack-rate-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -5835,6 +5922,92 @@
           "inheritance-context"
         ],
         "note": "An empty declared CDO narrows value storage to inherited, native, or referenced data without supplying a value."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-bubble-arrow-5780030247405328",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-bubble-arrow-5780030247405328"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_Bubble_Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_Bubble_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 40
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-bubble-arrow-unique1-8949638709222620",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-bubble-arrow-unique1-8949638709222620"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_Bubble_Arrow_Unique1",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_Bubble_Arrow_Unique1",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 40
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -6422,6 +6595,135 @@
           "inheritance-context"
         ],
         "note": "An empty declared CDO narrows value storage to inherited, native, or referenced data without supplying a value."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-burst-cross-bow-arrow-eef0301cabc83181",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-burst-cross-bow-arrow-eef0301cabc83181"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_BurstCrossBow_Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossBow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-burst-cross-bow-unique1-arrow-963bf0b567f9fd70",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-burst-cross-bow-unique1-arrow-963bf0b567f9fd70"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_BurstCrossBow_Unique1Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossBow_Unique1Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-burst-cross-bow-unique2-arrow-5a6f8ebdd9cd8e4d",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-burst-cross-bow-unique2-arrow-5a6f8ebdd9cd8e4d"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_BurstCrossBow_Unique2Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossBow_Unique2Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -8525,6 +8827,49 @@
           "class-context"
         ],
         "note": "Raw Damage scalars are not final or Power-scaled gameplay damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-cog-crossbow-arrow-8833676f3c206d40",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-cog-crossbow-arrow-8833676f3c206d40"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_CogCrossbowArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -13447,6 +13792,135 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-dual-cross-bows-arrow-b78eab9efcf7ba8d",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-dual-cross-bows-arrow-b78eab9efcf7ba8d"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_DualCrossBows_Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossBows_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-dual-cross-bows-unique1-arrow-296fa188206fa78d",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-dual-cross-bows-unique1-arrow-296fa188206fa78d"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_DualCrossBows_Unique1_Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossBows_Unique1_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-dual-cross-bows-unique2-arrow-8bda5bc224653568",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-dual-cross-bows-unique2-arrow-8bda5bc224653568"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_DualCrossBows_Unique2_Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossBows_Unique2_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 45
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-dual-crossbows-instance-6d3dca9a8bfb221d",
       "ruleId": "ranged-instance-projectile-count-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -13820,6 +14294,50 @@
           "inheritance-context"
         ],
         "note": "An empty declared CDO narrows value storage to inherited, native, or referenced data without supplying a value."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-exploding-crossbow-arrow-e7db69f608c971a5",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-exploding-crossbow-arrow-e7db69f608c971a5"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:exploding-crossbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:exploding-crossbow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 0
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -18036,6 +18554,92 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-harpoon-crossbow-arrow-86379b78aafa8d76",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-harpoon-crossbow-arrow-86379b78aafa8d76"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_HarpoonCrossbowArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 80
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-harpoon-crossbow-arrow-mob-9d208689e21c5a68",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-harpoon-crossbow-arrow-mob-9d208689e21c5a68"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_HarpoonCrossbowArrowMob",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrowMob",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 60
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-harpoon-crossbow-instance-2d790525f8724954",
       "ruleId": "ranged-instance-angle-span-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -18185,6 +18789,49 @@
       ],
       "closePolicy": "may-close-static-gap",
       "canReplaceEmpiricalProtocol": true,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-harpoon-crossbow-unique1-arrow-dce185d9e6789349",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-harpoon-crossbow-unique1-arrow-dce185d9e6789349"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_HarpoonCrossbow_Unique1Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 80
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
     },
     {
@@ -18405,6 +19052,50 @@
           "inheritance-context"
         ],
         "note": "An empty declared CDO narrows value storage to inherited, native, or referenced data without supplying a value."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-heavy-crossbow-arrow-58cce6fba99f80ac",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-heavy-crossbow-arrow-58cce6fba99f80ac"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:heavy-crossbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:heavy-crossbow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -18787,6 +19478,50 @@
           "inheritance-context"
         ],
         "note": "An empty declared CDO narrows value storage to inherited, native, or referenced data without supplying a value."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-hunting-bow-arrow-1a1370c249fd76ab",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-hunting-bow-arrow-1a1370c249fd76ab"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:hunting-bow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:hunting-bow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
       },
       "confidence": {
         "source": "medium",
@@ -20588,6 +21323,49 @@
         "source": "medium",
         "extraction": "high",
         "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-long-bow-arrow-41c6b525273c7d4d",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-long-bow-arrow-41c6b525273c7d4d"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:LongBow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
         "version": "low"
       },
       "crossCheck": {
@@ -23654,6 +24432,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-quill-arrow-mob-a998420a8f71ea6c",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-quill-arrow-mob-a998420a8f71ea6c"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_QuillArrowMob",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_QuillArrowMob",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-ranged-damage-boost-29b3d5a2db091b0d",
       "ruleId": "presentation-priority-negative-control-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -23684,6 +24505,50 @@
         "source": "medium",
         "extraction": "high",
         "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-rapid-cross-bow-arrow-0dc5b3e5658cd5c0",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-rapid-cross-bow-arrow-0dc5b3e5658cd5c0"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:rapid-crossbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:rapid-crossbow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
         "version": "low"
       },
       "crossCheck": {
@@ -28071,6 +28936,50 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-scatter-cross-bow-arrow-aea2bff71f0e7146",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-scatter-cross-bow-arrow-aea2bff71f0e7146"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:scatter-crossbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:scatter-crossbow",
+        "basis": "explicit-alias"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-scatter-crossbow-instance-3f95d97d1027a4b0",
       "ruleId": "ranged-instance-projectile-count-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -28218,6 +29127,49 @@
       "expectedOutcomes": [
         "categorical-value"
       ],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-scatter-crossbow-unique1-arrow-5cebef6cc6b92d8b",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-scatter-crossbow-unique1-arrow-5cebef6cc6b92d8b"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:ScatterCrossbow_Unique1",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 48
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
       "closePolicy": "evidence-only",
       "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
@@ -28462,6 +29414,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-shadow-crossbow-arrow-4e5ec4f2c2f775ac",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-shadow-crossbow-arrow-4e5ec4f2c2f775ac"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_ShadowCrossbowArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 55
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-shadow-crossbow-instance-21b838f9ead9e2e4",
       "ruleId": "ranged-instance-angle-span-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -28611,6 +29606,49 @@
       ],
       "closePolicy": "may-close-static-gap",
       "canReplaceEmpiricalProtocol": true,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-shadow-crossbow-unique1-arrow-0f03ea07a024ec51",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-shadow-crossbow-unique1-arrow-0f03ea07a024ec51"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_ShadowCrossbow_Unique1Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 55
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
     },
     {
@@ -28939,6 +29977,50 @@
         "source": "medium",
         "extraction": "high",
         "semantics": "high",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-short-bow-arrow-463a17f7109c9d3a",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-short-bow-arrow-463a17f7109c9d3a"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:shortbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:shortbow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
         "version": "low"
       },
       "crossCheck": {
@@ -31082,6 +32164,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-slow-bow-arrow-6f8f7422702e0a2b",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-slow-bow-arrow-6f8f7422702e0a2b"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:SlowBow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-slow-bow-instance-2f17577ce351560b",
       "ruleId": "ranged-instance-angle-span-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -31521,6 +32646,50 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-soul-bow-arrow-0ea6193c10a9268c",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-soul-bow-arrow-0ea6193c10a9268c"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:soul-bow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:soul-bow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-soul-bow-instance-0bba64458701a704",
       "ruleId": "ranged-instance-attack-rate-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -31768,6 +32937,50 @@
       ],
       "closePolicy": "may-close-static-gap",
       "canReplaceEmpiricalProtocol": true,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-soul-cross-bow-arrow-e2614ffb703c5d48",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-soul-cross-bow-arrow-e2614ffb703c5d48"
+      ],
+      "category": "ranged-weapon",
+      "entity": "ranged-weapon:soul-crossbow",
+      "entityResolution": {
+        "status": "resolved",
+        "entity": "ranged-weapon:soul-crossbow",
+        "basis": "asset-index-entity"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossBow_Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
     },
     {
@@ -37245,6 +38458,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-void-bow-arrow-2caeebe4354ef453",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-void-bow-arrow-2caeebe4354ef453"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_VoidBowArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 58
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-void-bow-instance-4bf4c162e515634a",
       "ruleId": "ranged-instance-attack-rate-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -37392,6 +38648,49 @@
       "expectedOutcomes": [
         "categorical-value"
       ],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-void-bow-unique1-arrow-d3f3bbbdbd2e8f76",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-void-bow-unique1-arrow-d3f3bbbdbd2e8f76"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_VoidBow_Unique1Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 58
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
       "closePolicy": "evidence-only",
       "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
@@ -38530,6 +39829,92 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-wind-bow-arrow-4a0f69788f162c2e",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-wind-bow-arrow-4a0f69788f162c2e"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_WindBowArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-wind-bow-charged-arrow-aaac716801d888c1",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-wind-bow-charged-arrow-aaac716801d888c1"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_WindBowChargedArrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowChargedArrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-wind-bow-gameplay-effect-cd67394d20ac8c5f",
       "ruleId": "enchantment-empty-cdo-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -38725,6 +40110,49 @@
       "runtimePromotion": "not-performed"
     },
     {
+      "id": "mapping-bulk-bp-wind-bow-unique1-arrow-bf545b21bee388b6",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-wind-bow-unique1-arrow-bf545b21bee388b6"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_WindBow_Unique1Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
+      "runtimePromotion": "not-performed"
+    },
+    {
       "id": "mapping-bulk-bp-wind-bow-unique1-instance-1b4255c0d5661826",
       "ruleId": "ranged-instance-angle-span-v1",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -38871,6 +40299,49 @@
       ],
       "closePolicy": "may-close-static-gap",
       "canReplaceEmpiricalProtocol": true,
+      "runtimePromotion": "not-performed"
+    },
+    {
+      "id": "mapping-bulk-bp-wind-bow-unique2-arrow-38ab36a8c916a40c",
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "sourceRecordIds": [
+        "bulk-bp-wind-bow-unique2-arrow-38ab36a8c916a40c"
+      ],
+      "category": "ranged-weapon",
+      "entity": "unresolved:BP_WindBow_Unique2Arrow",
+      "entityResolution": {
+        "status": "unresolved",
+        "reason": "No exact canonical identity or explicit alias matched"
+      },
+      "raw": {
+        "assetPath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty",
+        "value": 50
+      },
+      "interpretation": {
+        "status": "unresolved",
+        "mappingBasis": [
+          "property-name-direct",
+          "class-context"
+        ],
+        "note": "Raw projectile Damage scalars are not final, displayed, or Power-scaled damage."
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheck": {
+        "status": "not-compared",
+        "note": "Bulk mapping is reconciled against exact Gap identity and expected-outcome gates; public evidence is not treated as automatic agreement."
+      },
+      "gapProperties": [],
+      "expectedOutcomes": [],
+      "closePolicy": "evidence-only",
+      "canReplaceEmpiricalProtocol": false,
       "runtimePromotion": "not-performed"
     },
     {
@@ -39024,13 +40495,13 @@
     }
   ],
   "summary": {
-    "total": 857,
+    "total": 891,
     "accepted": 451,
     "tentative": 29,
-    "unresolved": 354,
+    "unresolved": 388,
     "rejected": 23,
     "ambiguousEntityCount": 0,
-    "unresolvedEntityCount": 608
+    "unresolvedEntityCount": 633
   },
   "runtimePromotion": "not-performed"
 }

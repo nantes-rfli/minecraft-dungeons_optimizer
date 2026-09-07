@@ -7,8 +7,8 @@
     "schemaVersion": 1
   },
   "selection": {
-    "candidateCount": 954,
-    "parsedCount": 946,
+    "candidateCount": 1026,
+    "parsedCount": 1018,
     "skippedCount": 0,
     "failedCount": 8,
     "maximumReferenceDepth": 3,
@@ -16,9 +16,9 @@
     "candidatePolicy": "paired BP mechanics classes under gameplay roots, including DLC/Patch branches"
   },
   "summary": {
-    "extractedFactCount": 857,
-    "diagnosticCount": 75,
-    "fatalParseRate": 0.008385744234800839,
+    "extractedFactCount": 891,
+    "diagnosticCount": 93,
+    "fatalParseRate": 0.007797270955165692,
     "byGameplayRoot": {
       "Armor": {
         "candidates": 164,
@@ -33,10 +33,10 @@
         "records": 586
       },
       "RangedWeapons": {
-        "candidates": 143,
-        "parsed": 143,
+        "candidates": 215,
+        "parsed": 215,
         "failed": 0,
-        "records": 165
+        "records": 199
       },
       "Items": {
         "candidates": 215,
@@ -3241,6 +3241,20 @@
       "serializedItemId": "Whip"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02",
+      "category": "ranged-weapon",
+      "entity": "BatCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "d232f81ef427384207682470c3925b98c0b8a757e6a84dbd74a870d76cc47e25"
+      },
+      "cdoName": "Default__BP_BatCrossbow_Arrow_02_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance",
       "category": "ranged-weapon",
       "entity": "BatCrossbow",
@@ -3269,6 +3283,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "BatCrossbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "Bow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "45e3949dadcd133c703ae2b558808ad00ea57a2c9347f03d3c1c55c5b78b987b"
+      },
+      "cdoName": "Default__BP_Bow_Unique1Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
@@ -3301,6 +3329,20 @@
       "serializedItemId": "Bow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "Bow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "f6bb1f6e9a5f540ba8b8d18da908993265b495c344d411bb61b112dad51d9bb5"
+      },
+      "cdoName": "Default__BP_Bow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "Bow_Unique2",
@@ -3329,6 +3371,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Bow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+      "category": "ranged-weapon",
+      "entity": "Bow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "5d65d9d1284fe54088a471c2a4e0f7e53b8f38d68fa018e91a79cc7209dc25ef"
+      },
+      "cdoName": "Default__BP_BowArrow_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
@@ -3434,6 +3490,34 @@
       "serializedItemId": "Crossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique1/BP_PlayerCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "Crossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "15f495cc33c59424b44bbcfc1fa77f1b6f38dda96c17fb10471b07b81fb52f72"
+      },
+      "cdoName": "Default__BP_PlayerCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 2,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "Crossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "60722c01d2a3c48d13419e6372e4c3b8436035681bffab1125632323f9c0de45"
+      },
+      "cdoName": "Default__BP_Crossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "Crossbow_Unique2",
@@ -3494,6 +3578,34 @@
       "serializedItemId": "Crossbow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_PlayerCrossbowArrow",
+      "category": "ranged-weapon",
+      "entity": "Crossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "248386986f32deecf7f475b87dd4cc9c6f7e47ebc68fdbc870ba973c43a69e5d"
+      },
+      "cdoName": "Default__BP_PlayerCrossbowArrow_C",
+      "parsedPropertyCount": 5,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow_Unique1/BP_ExplodingCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "ExplodingCrossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "3e5e3b332f327130b4a4d54ec61c650e81f6594613c9dc69c8dbc5ef39b2034b"
+      },
+      "cdoName": "Default__BP_ExplodingCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow_Unique1/BP_ExplodingCrossbow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "ExplodingCrossbow_Unique1",
@@ -3522,6 +3634,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "ExplodingCrossbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow_Unique2/BP_ExplodingCrossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "ExplodingCrossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "7a0efc3f870fd2c9bc6ac147a43d70878a6b4f4c98ed989ec3484dead1a7bbdf"
+      },
+      "cdoName": "Default__BP_ExplodingCrossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow_Unique2/BP_ExplodingCrossbow_Unique2Instance",
@@ -3554,6 +3680,20 @@
       "serializedItemId": "ExplodingCrossbow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowArrow",
+      "category": "ranged-weapon",
+      "entity": "ExplodingCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "5f75da8c073ccc2c2e4311f0528b4a5ffd2fb75881fbcdba70ef5317027ab197"
+      },
+      "cdoName": "Default__BP_ExplodingCrossbowArrow_C",
+      "parsedPropertyCount": 10,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowInstance",
       "category": "ranged-weapon",
       "entity": "ExplodingCrossbow",
@@ -3582,6 +3722,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "ExplodingCrossbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow_Unique1/BP_HeavyCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "HeavyCrossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "787857e2008e710359dd28e01717822e443031039544ca196b0c47e21787a4bc"
+      },
+      "cdoName": "Default__BP_HeavyCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow_Unique1/BP_HeavyCrossbow_Unique1Instance",
@@ -3614,6 +3768,20 @@
       "serializedItemId": "HeavyCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow_Unique2/BP_HeavyCrossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "HeavyCrossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "59c7f72a4ecb4bf7ad1353eabb52f6315adbc7fb078ea121188568f565265501"
+      },
+      "cdoName": "Default__BP_HeavyCrossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow_Unique2/BP_HeavyCrossbow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "HeavyCrossbow_Unique2",
@@ -3642,6 +3810,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "HeavyCrossbow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+      "category": "ranged-weapon",
+      "entity": "HeavyCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "bdb2b486fde3d039e6cbaaa881f2551026e5a894a5d6f9c47df4d7b3c4b31e74"
+      },
+      "cdoName": "Default__BP_HeavyCrossbow_Arrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
@@ -3674,6 +3856,20 @@
       "serializedItemId": "HeavyCrossbow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique1/BP_HuntingBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "HuntingBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "a2d176f3e900dcc7f439fee5c74c06d62a4a37ffed4bc0ff4eb9166467ec834d"
+      },
+      "cdoName": "Default__BP_HuntingBow_Unique1Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique1/BP_Huntingbow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "HuntingBow_Unique1",
@@ -3702,6 +3898,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "HuntingBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique2/BP_HuntingBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "HuntingBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "75effe299f14f29a854cdac58e7de51a3c416b79fa09ec4b9f39a71e0266f24c"
+      },
+      "cdoName": "Default__BP_HuntingBow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique2/BP_HuntingBow_Unique2Instance",
@@ -3734,6 +3944,20 @@
       "serializedItemId": "HuntingBow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique3/BP_HuntingBow_Unique3Arrow",
+      "category": "ranged-weapon",
+      "entity": "HuntingBow_Unique3",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "b661ac5642f65983a793d58a888713c722689790bd4a766e81b9c280e9556dd4"
+      },
+      "cdoName": "Default__BP_HuntingBow_Unique3Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 2
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow_Unique3/BP_HuntingBow_Unique3Instance",
       "category": "ranged-weapon",
       "entity": "HuntingBow_Unique3",
@@ -3762,6 +3986,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "HuntingBow_Unique3"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowArrow",
+      "category": "ranged-weapon",
+      "entity": "HuntingBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "e95dcf3c1565c22355720090fae231f6cf74f4cca44c1c622beccaadc86be207"
+      },
+      "cdoName": "Default__BP_HuntingBowArrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowInstance",
@@ -3794,6 +4032,20 @@
       "serializedItemId": "HuntingBow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow_Unique1/BP_Longbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "LongBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "c15fc95161f0c05c419de50a975701413808ab84e68d8b5a467b4d75336da5fc"
+      },
+      "cdoName": "Default__BP_Longbow_Unique1Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow_Unique1/BP_Longbow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "LongBow_Unique1",
@@ -3822,6 +4074,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Longbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow_Unique2/BP_Longbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "LongBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "80e919db95a7d68f7fd7b62043660d3d9ae57a91c6bb45b3750d2cbdd8f97295"
+      },
+      "cdoName": "Default__BP_Longbow_Unique2Arrow_C",
+      "parsedPropertyCount": 2,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow_Unique2/BP_Longbow_Unique2Instance",
@@ -3854,6 +4120,20 @@
       "serializedItemId": "Longbow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+      "category": "ranged-weapon",
+      "entity": "LongBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "d2c2f24c4e311a6b63947ee1fc4844a9aaa38170f2cc951d9e686c1c51b04fe2"
+      },
+      "cdoName": "Default__BP_LongBowArrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
       "category": "ranged-weapon",
       "entity": "LongBow",
@@ -3882,6 +4162,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Longbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow",
+      "category": "ranged-weapon",
+      "entity": "PowerBow_Spooky2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "61a73209584c906c5695f9ee390e8eb72fac2b7d8151b9e61dea9a19170eff14"
+      },
+      "cdoName": "Default__BP_PowerBow_Spooky2Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
@@ -3914,6 +4208,20 @@
       "serializedItemId": "PowerBow_Spooky2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow",
+      "category": "ranged-weapon",
+      "entity": "PowerBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "d0d0d21c76b4b68bb00aad32f4b28f147089e809ff4030ef35ea8f066e0c1760"
+      },
+      "cdoName": "Default__BP_PowerBow_Unique1_Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "PowerBow_Unique1",
@@ -3942,6 +4250,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Powerbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique2/BP_PowerBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "PowerBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "dec6ae7b492c85f461f938cf4dd04b9a8540d891746e195462f59bf9088a31c4"
+      },
+      "cdoName": "Default__BP_PowerBow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique2/BP_PowerBow_Unique2Instance",
@@ -3974,6 +4296,20 @@
       "serializedItemId": "Powerbow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow",
+      "category": "ranged-weapon",
+      "entity": "PowerBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "5c2850ec8d84df4b4a78beda631a0a2cbd2a5db2bce4b25b7182d08fcff9374a"
+      },
+      "cdoName": "Default__BP_PlayerPowerBowArrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
       "category": "ranged-weapon",
       "entity": "PowerBow",
@@ -4002,6 +4338,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Powerbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow_Unique1/BP_RapidCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "RapidCrossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "56b267ea96e2d86fa3295e2a4881c98c88f3f1498673acbc32d7c4e2b1d8eb26"
+      },
+      "cdoName": "Default__BP_RapidCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 5,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow_Unique1/BP_RapidCrossbow_Unique1Instance",
@@ -4034,6 +4384,20 @@
       "serializedItemId": "RapidCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow_Unique2/BP_RapidCrossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "RapidCrossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "1cb8746181c1cddb88bd05029569e922ec0cafe6f66b4da3a9f08527881792c3"
+      },
+      "cdoName": "Default__BP_RapidCrossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow_Unique2/BP_RapidCrossbow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "RapidCrossbow_Unique2",
@@ -4062,6 +4426,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "RapidCrossbow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow",
+      "category": "ranged-weapon",
+      "entity": "RapidCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "c4a9573d6c718fbca6ce6d9bdd45a66fb4390c1bba4b6c5f874dfe4b3186d418"
+      },
+      "cdoName": "Default__BP_RapidCrossBow_Arrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
@@ -4094,6 +4472,20 @@
       "serializedItemId": "RapidCrossbow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1_Arrow",
+      "category": "ranged-weapon",
+      "entity": "ScatterCrossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "caff468f167e6a213edc5db7f315dec9fdf1f7741fd73acae8c2d024ddec52d7"
+      },
+      "cdoName": "Default__BP_ScatterCrossbow_Unique1_Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "ScatterCrossbow_Unique1",
@@ -4122,6 +4514,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "ScatterCrossbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique2/BP_ScatterCrossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "ScatterCrossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "36afd94bfd9c3ae55f829b1d9484968e7203825973310a7d8a3c1333e8ac4cc0"
+      },
+      "cdoName": "Default__BP_ScatterCrossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique2/BP_ScatterCrossbow_Unique2Instance",
@@ -4154,6 +4560,20 @@
       "serializedItemId": "ScatterCrossbow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+      "category": "ranged-weapon",
+      "entity": "ScatterCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+      },
+      "cdoName": "Default__BP_ScatterCrossBow_Arrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
       "category": "ranged-weapon",
       "entity": "ScatterCrossbow",
@@ -4182,6 +4602,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "ScatterCrossbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "ShortBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "904493de2f8dbf9eab8cb55d011043221088ca10545065221795552ed2bdfb31"
+      },
+      "cdoName": "Default__BP_ShortBow_Unique1Arrow_C",
+      "parsedPropertyCount": 5,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
@@ -4214,6 +4648,20 @@
       "serializedItemId": "Shortbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique2/BP_ShortBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "ShortBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "8d4b85ded61d760666a733b4834cd25f66b33bf414c4382af6e274718ead4316"
+      },
+      "cdoName": "Default__BP_ShortBow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique2/BP_ShortBow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "ShortBow_Unique2",
@@ -4242,6 +4690,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Shortbow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique3/BP_Shortbow_Unique3Arrow",
+      "category": "ranged-weapon",
+      "entity": "ShortBow_Unique3",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "4ea9ebe7ba8fd2411ad6245a62bb59590eb8242880e1f1c05ce59a1b7b008781"
+      },
+      "cdoName": "Default__BP_Shortbow_Unique3Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 2
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique3/BP_Shortbow_Unique3Instance",
@@ -4274,6 +4736,20 @@
       "serializedItemId": "Shortbow_Unique3"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+      "category": "ranged-weapon",
+      "entity": "Shortbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "2f9874f135a2c2788c970534a9f5e6b509f4982d2588f44733f02d7b73cffbbf"
+      },
+      "cdoName": "Default__BP_ShortBow_Arrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
       "category": "ranged-weapon",
       "entity": "Shortbow",
@@ -4302,6 +4778,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Shortbow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow_Spooky2/BP_SlowBow_Spooky2Arrow",
+      "category": "ranged-weapon",
+      "entity": "SlowBow_Spooky2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "343767638124189d0e03a86b4c720efe1b9edc8a4d0ab57c4b04965aef4ebb13"
+      },
+      "cdoName": "Default__BP_SlowBow_Spooky2Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow_Spooky2/BP_SlowBow_Spooky2Instance",
@@ -4334,6 +4824,20 @@
       "serializedItemId": "SlowBow_Spooky2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Slowbow_Unique1/BP_SlowBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "Slowbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "aa06cf1e8483cf55da2b530c86950c0525aa39e5a3cb46c55930f3b842bcdba9"
+      },
+      "cdoName": "Default__BP_SlowBow_Unique1Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Slowbow_Unique1/BP_SlowBow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "Slowbow_Unique1",
@@ -4362,6 +4866,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "SlowBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowArrow",
+      "category": "ranged-weapon",
+      "entity": "SlowBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "71dcaaec2f7a2c3cf0675e09e7461ced031a17cd6f3c42a4f97bdfeed7a1256b"
+      },
+      "cdoName": "Default__BP_SlowBowArrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowInstance",
@@ -4394,6 +4912,20 @@
       "serializedItemId": "SlowBow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow_Unique1/BP_SoulBow_Unique1NaturalSoulBowArrow",
+      "category": "ranged-weapon",
+      "entity": "SoulBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "c496a0961c910032268b705bcd008a03a7813a85eb7b060487a6e8182ead131a"
+      },
+      "cdoName": "Default__BP_SoulBow_Unique1NaturalSoulBowArrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow_Unique1/BP_SoulBow_Unique1Storable",
       "category": "ranged-weapon",
       "entity": "SoulBow_Unique1",
@@ -4407,6 +4939,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "SoulBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow_Unique2/BP_Soulbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "SoulBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "f2254fc38d98c6a4497c4cc8d8892ff883ab9dd501cffd945b3e8045e8e98f7a"
+      },
+      "cdoName": "Default__BP_SoulBow_Unique2Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow_Unique2/BP_SoulBow_Unique2Instance",
@@ -4439,6 +4985,20 @@
       "serializedItemId": "SoulBow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowArrow",
+      "category": "ranged-weapon",
+      "entity": "SoulBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "98337a4e12c5b535430d76164d7903f2f99848dd17a57327282b34ef342a7dfa"
+      },
+      "cdoName": "Default__BP_SoulBowArrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowInstance",
       "category": "ranged-weapon",
       "entity": "SoulBow",
@@ -4467,6 +5027,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "SoulBow"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow_Unique1/BP_SoulCrossbow_Unique1_Arrow",
+      "category": "ranged-weapon",
+      "entity": "SoulCrossbow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "2bee300acd6e8b6276c209f9fac40f9ddf18e707499eb35148343f6dfe224b79"
+      },
+      "cdoName": "Default__BP_SoulCrossbow_Unique1_Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow_Unique1/BP_SoulCrossbow_Unique1Instance",
@@ -4499,6 +5073,20 @@
       "serializedItemId": "SoulCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow_Unique2/BP_SoulCrossbow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "SoulCrossbow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "733f31ac36d3a9eb6a1a497317f84977aeefc826500afebbdb85be3aa0b6e204"
+      },
+      "cdoName": "Default__BP_SoulCrossbow_Unique2Arrow_C",
+      "parsedPropertyCount": 5,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow_Unique2/BP_SoulCrossbow_Unique2Instance",
       "category": "ranged-weapon",
       "entity": "SoulCrossbow_Unique2",
@@ -4527,6 +5115,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "SoulCrossbow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossBow_Arrow",
+      "category": "ranged-weapon",
+      "entity": "SoulCrossbow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "07d81447a99199e626c7b0eb237f7a933ea8155c79879af026ce3d44e5668bea"
+      },
+      "cdoName": "Default__BP_SoulCrossBow_Arrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossbowInstance",
@@ -4559,6 +5161,20 @@
       "serializedItemId": "SoulCrossbow"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Unique1/BP_Trickbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "entity": "TrickBow_Unique1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "ca76d5e6c2c431ee178d72a76ce456e0dcc9b0f43c51419601b788a5dcb74b10"
+      },
+      "cdoName": "Default__BP_Trickbow_Unique1Arrow_C",
+      "parsedPropertyCount": 4,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Unique1/BP_Trickbow_Unique1Instance",
       "category": "ranged-weapon",
       "entity": "TrickBow_Unique1",
@@ -4587,6 +5203,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Trickbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Unique2/BP_TrickBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "entity": "TrickBow_Unique2",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "5670f60a805986a6267727f94556065d4fc0ca084b795eb788829d0421991cf4"
+      },
+      "cdoName": "Default__BP_TrickBow_Unique2Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Unique2/BP_TrickBow_Unique2Instance",
@@ -4619,6 +5249,20 @@
       "serializedItemId": "Trickbow_Unique2"
     },
     {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Year1/BP_TrickBow_Year1Arrow",
+      "category": "ranged-weapon",
+      "entity": "TrickBow_Year1",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "d79170b09f4cf821a576378903e98a6a59937cd4b742a37b4515e196aef4880c"
+      },
+      "cdoName": "Default__BP_TrickBow_Year1Arrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow_Year1/BP_Trickbow_Year1Instance",
       "category": "ranged-weapon",
       "entity": "TrickBow_Year1",
@@ -4647,6 +5291,20 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "Trickbow_Year1"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowArrow",
+      "category": "ranged-weapon",
+      "entity": "TrickBow",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "ef2d34079d91de876fdc6b31161e4e87f3420c93a368f23101257729609e0e80"
+      },
+      "cdoName": "Default__BP_TrickBowArrow_C",
+      "parsedPropertyCount": 9,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowInstance",
@@ -9397,6 +10055,19 @@
       "serializedItemId": "TempestKnife"
     },
     {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/Bow_Spooky1/BP_Bow_Spooky1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "e9df67367540df30fda4f6a54bad3925ec10342b36fe7472856b05ac4f161fd2"
+      },
+      "cdoName": "Default__BP_Bow_Spooky1Arrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/Bow_Spooky1/BP_Bow_Spooky1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -9425,6 +10096,19 @@
       "serializedItemId": "Bow_Spooky1"
     },
     {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/SoulBow_Winter1/BP_SoulBow_Winter1NaturalSoulBowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "57c1aa29d06b120c380deab897e413f774453941521fc0afb8d436883c9687f3"
+      },
+      "cdoName": "Default__BP_SoulBow_Winter1NaturalSoulBowArrow_C",
+      "parsedPropertyCount": 6,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/SoulBow_Winter1/BP_SoulBow_Winter1Storable",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -9437,6 +10121,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "SoulBow_Winter1"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "835a9a8fa23e88604a33ff9d922f0cdfedb1a2ad5251a926fb80d829a3d68051"
+      },
+      "cdoName": "Default__BP_WindBow_Unique1Arrow_C",
+      "parsedPropertyCount": 15,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
@@ -9467,6 +10164,19 @@
       "serializedItemId": "WindBow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "56ea0f5cc23b394a75b5e7c92c7487c3690a22c54a2df0197e4c5aa6ba76ec78"
+      },
+      "cdoName": "Default__BP_WindBow_Unique2Arrow_C",
+      "parsedPropertyCount": 15,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -9493,6 +10203,32 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "WindBow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "7878d5e37621bbfb0556c391ca1deb8bb8890dfb66740efa94a73580fb64c1e3"
+      },
+      "cdoName": "Default__BP_WindBowArrow_C",
+      "parsedPropertyCount": 15,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowChargedArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "d13cea0727732f085e4c678807141e0919116a6a08ee814d54738b573679bde1"
+      },
+      "cdoName": "Default__BP_WindBowChargedArrow_C",
+      "parsedPropertyCount": 18,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 2
     },
     {
       "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowInstance",
@@ -10419,6 +11155,19 @@
       "serializedItemId": "CogCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "16c5d9de6b393b4b5f1b181d0a53d72538e38fbbbc7a45801570eee9968eb7de"
+      },
+      "cdoName": "Default__BP_CogCrossbowArrow_C",
+      "parsedPropertyCount": 10,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 2
+    },
+    {
       "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowInstance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -10447,6 +11196,19 @@
       "serializedItemId": "CogCrossbow"
     },
     {
+      "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow_Unique1/BP_TwistingVineBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "2fef2bf43a989b373109ef4ddd0ace59dcc8b2028dd05730634865c69671f4e9"
+      },
+      "cdoName": "Default__BP_TwistingVineBow_Unique1Arrow_C",
+      "parsedPropertyCount": 10,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 2
+    },
+    {
       "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow_Unique1/BP_TwistingVineBow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -10473,6 +11235,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "TwistingVineBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "3f88183088fae6ec607025c392408077f0792718b3e4500630c9af2c271710ad"
+      },
+      "cdoName": "Default__BP_TwistingVineBowArrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 0,
+      "diagnosticCount": 2
     },
     {
       "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowInstance",
@@ -11348,6 +12123,19 @@
       "serializedItemId": "CoralBlade"
     },
     {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_Bubble_Arrow_Unique1",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "6a57ee14278e5cc9b1beaaac0b781803aff25806db12f8448890dcd20641bd61"
+      },
+      "cdoName": "Default__BP_Bubble_Arrow_Unique1_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_BubbleBow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -11374,6 +12162,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "BubbleBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_Bubble_Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "7cba0fc3d7df68eb527844d6acdeee741848724917c2c013b26dd826174a4724"
+      },
+      "cdoName": "Default__BP_Bubble_Arrow_C",
+      "parsedPropertyCount": 15,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_BubbleBowInstance",
@@ -11430,6 +12231,19 @@
       "diagnosticCount": 0
     },
     {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "913f4393f4c74db8590a56889dd509a106879d115bd7302621382fc1d915fa03"
+      },
+      "cdoName": "Default__BP_HarpoonCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 16,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -11458,6 +12272,32 @@
       "serializedItemId": "HarpoonCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "1d3aa193439df4736dfa4999e9748d450c8c31cbce7ec94016c2b68b56faf229"
+      },
+      "cdoName": "Default__BP_HarpoonCrossbowArrow_C",
+      "parsedPropertyCount": 16,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrowMob",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "4409f4b542bc7e4fc7e5e7309cc5a2fb1633ce3c798b16bc9a9c9e78b53aeb48"
+      },
+      "cdoName": "Default__BP_HarpoonCrossbowArrowMob_C",
+      "parsedPropertyCount": 19,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowInstance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -11484,6 +12324,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "HarpoonCrossbow"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_QuillArrowMob",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "2c4382658092bedbc1401e64c5d42f98380aae91d860cfda81037b38a8c4ac33"
+      },
+      "cdoName": "Default__BP_QuillArrowMob_C",
+      "parsedPropertyCount": 20,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Content_DLC5/Actors/Items/Conduit/BP_ConduitInstance",
@@ -12386,6 +13239,19 @@
       "serializedItemId": "VoidTouchedBlades"
     },
     {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "66364e098c6f0cf0288d90ef9d765bc59d66e289b543eadcfc1c577d0068717c"
+      },
+      "cdoName": "Default__BP_ShadowCrossbow_Unique1Arrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 2
+    },
+    {
       "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -12412,6 +13278,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "ShadowCrossbow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "191b9b367fe8cad927de2ce16336c0f7be95937f698f504c4fab20e6ab9ee820"
+      },
+      "cdoName": "Default__BP_ShadowCrossbowArrow_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 2
     },
     {
       "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowInstance",
@@ -12442,6 +13321,19 @@
       "serializedItemId": "ShadowCrossbow"
     },
     {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "3cb7e3bf74e895a61b62cb794a1b0536d400fc5d389c8bd159b3fd0e68d031ec"
+      },
+      "cdoName": "Default__BP_VoidBow_Unique1Arrow_C",
+      "parsedPropertyCount": 8,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 2
+    },
+    {
       "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -12468,6 +13360,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "VoidBow_Unique1"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowArrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "f3789744407ac75d0e9d179f21b7c6cec364c594d37f1dc894ecddd0ffc742c6"
+      },
+      "cdoName": "Default__BP_VoidBowArrow_C",
+      "parsedPropertyCount": 7,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowInstance",
@@ -12989,6 +13894,19 @@
       "serializedItemId": "Battlestaff"
     },
     {
+      "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossBows_Unique1_Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "866b6c22cd1c69d9345cdb3c16bd82b8ca74ce6293091f3894ef3f7f7c99473f"
+      },
+      "cdoName": "Default__BP_DualCrossBows_Unique1_Arrow_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossbows_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -13017,6 +13935,19 @@
       "serializedItemId": "DualCrossbows_Unique1"
     },
     {
+      "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossBows_Unique2_Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "a9378bd4b17637ce0d68e8489fead492814af15d535f8e908eda2a389d59940e"
+      },
+      "cdoName": "Default__BP_DualCrossBows_Unique2_Arrow_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossbows_Unique2Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -13043,6 +13974,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "DualCrossbows_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossBows_Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "945302f752ddb4e1f51456809bffa24714d3ecd8cc8ddbaeb1dabe6d377526a8"
+      },
+      "cdoName": "Default__BP_DualCrossBows_Arrow_C",
+      "parsedPropertyCount": 14,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossbowsInstance",
@@ -13295,6 +14239,19 @@
       "serializedItemId": "Rapier"
     },
     {
+      "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossBow_Unique1Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "66278d0a4b52623872e558ed551806fac6a9fb91ae612d662f2c462cae4e6ba9"
+      },
+      "cdoName": "Default__BP_BurstCrossBow_Unique1Arrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossbow_Unique1Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -13323,6 +14280,19 @@
       "serializedItemId": "BurstCrossbow_Unique1"
     },
     {
+      "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossBow_Unique2Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "51847cfe4c668be1ade712a847ea23f6d83e734657af642d1045b7a4e7179e09"
+      },
+      "cdoName": "Default__BP_BurstCrossBow_Unique2Arrow_C",
+      "parsedPropertyCount": 12,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
+    },
+    {
       "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossbow_Unique2Instance",
       "category": "ranged-weapon",
       "status": "parsed",
@@ -13349,6 +14319,19 @@
       "selectedRecordCount": 0,
       "diagnosticCount": 0,
       "serializedItemId": "BurstCrossbow_Unique2"
+    },
+    {
+      "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossBow_Arrow",
+      "category": "ranged-weapon",
+      "status": "parsed",
+      "contentHash": {
+        "algorithm": "sha256",
+        "value": "efab8700ca90e60a622ece90e4c2a24818a9349d28cdad699197fcd836f6f2e0"
+      },
+      "cdoName": "Default__BP_BurstCrossBow_Arrow_C",
+      "parsedPropertyCount": 13,
+      "selectedRecordCount": 1,
+      "diagnosticCount": 0
     },
     {
       "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossbowInstance",
@@ -15225,6 +16208,42 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-bat-crossbow-arrow-02-f946457b5cca34eb",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "d232f81ef427384207682470c3925b98c0b8a757e6a84dbd74a870d76cc47e25"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_BatCrossbow_Arrow_02_C",
+        "className": "BP_BatCrossbow_Arrow_02_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 55
       },
       "confidence": {
         "source": "medium",
@@ -17907,6 +18926,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-bow-arrow-b54e1a883c1715f6",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "5d65d9d1284fe54088a471c2a4e0f7e53b8f38d68fa018e91a79cc7209dc25ef"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_BowArrow_C",
+        "className": "BP_BowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-bow-instance-38dc053adabcb6e9",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -18255,6 +19310,78 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-bubble-arrow-5780030247405328",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_Bubble_Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_Bubble_Arrow.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_Bubble_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "7cba0fc3d7df68eb527844d6acdeee741848724917c2c013b26dd826174a4724"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_Bubble_Arrow_C",
+        "className": "BP_Bubble_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 40
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-bubble-arrow-unique1-8949638709222620",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_Bubble_Arrow_Unique1",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_Bubble_Arrow_Unique1.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow_Unique1/BP_Bubble_Arrow_Unique1.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "6a57ee14278e5cc9b1beaaac0b781803aff25806db12f8448890dcd20641bd61"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_Bubble_Arrow_Unique1_C",
+        "className": "BP_Bubble_Arrow_Unique1_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 40
       },
       "confidence": {
         "source": "medium",
@@ -18693,6 +19820,114 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-burst-cross-bow-arrow-eef0301cabc83181",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossBow_Arrow.uasset",
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "efab8700ca90e60a622ece90e4c2a24818a9349d28cdad699197fcd836f6f2e0"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_BurstCrossBow_Arrow_C",
+        "className": "BP_BurstCrossBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-burst-cross-bow-unique1-arrow-963bf0b567f9fd70",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossBow_Unique1Arrow",
+        "files": [
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossBow_Unique1Arrow.uasset",
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique1/BP_BurstCrossBow_Unique1Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "66278d0a4b52623872e558ed551806fac6a9fb91ae612d662f2c462cae4e6ba9"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_BurstCrossBow_Unique1Arrow_C",
+        "className": "BP_BurstCrossBow_Unique1Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-burst-cross-bow-unique2-arrow-5a6f8ebdd9cd8e4d",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossBow_Unique2Arrow",
+        "files": [
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossBow_Unique2Arrow.uasset",
+          "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow_Unique2/BP_BurstCrossBow_Unique2Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "51847cfe4c668be1ade712a847ea23f6d83e734657af642d1045b7a4e7179e09"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_BurstCrossBow_Unique2Arrow_C",
+        "className": "BP_BurstCrossBow_Unique2Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
       },
       "confidence": {
         "source": "medium",
@@ -20385,6 +21620,42 @@
       },
       "rawObservation": {
         "value": 90
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-cog-crossbow-arrow-8833676f3c206d40",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowArrow.uasset",
+          "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "16c5d9de6b393b4b5f1b181d0a53d72538e38fbbbc7a45801570eee9968eb7de"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_CogCrossbowArrow_C",
+        "className": "BP_CogCrossbowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -24345,6 +25616,114 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-dual-cross-bows-arrow-b78eab9efcf7ba8d",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossBows_Arrow",
+        "files": [
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossBows_Arrow.uasset",
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossBows_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "945302f752ddb4e1f51456809bffa24714d3ecd8cc8ddbaeb1dabe6d377526a8"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DualCrossBows_Arrow_C",
+        "className": "BP_DualCrossBows_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-dual-cross-bows-unique1-arrow-296fa188206fa78d",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossBows_Unique1_Arrow",
+        "files": [
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossBows_Unique1_Arrow.uasset",
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique1/BP_DualCrossBows_Unique1_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "866b6c22cd1c69d9345cdb3c16bd82b8ca74ce6293091f3894ef3f7f7c99473f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DualCrossBows_Unique1_Arrow_C",
+        "className": "BP_DualCrossBows_Unique1_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-dual-cross-bows-unique2-arrow-8bda5bc224653568",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossBows_Unique2_Arrow",
+        "files": [
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossBows_Unique2_Arrow.uasset",
+          "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows_Unique2/BP_DualCrossBows_Unique2_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "a9378bd4b17637ce0d68e8489fead492814af15d535f8e908eda2a389d59940e"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_DualCrossBows_Unique2_Arrow_C",
+        "className": "BP_DualCrossBows_Unique2_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 45
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-dual-crossbows-instance-6d3dca9a8bfb221d",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -24618,6 +25997,42 @@
         "propertyName": "$cdo.declaredPropertyCount",
         "propertyPath": "$cdo.declaredPropertyCount",
         "propertyType": "StructuralObservation"
+      },
+      "rawObservation": {
+        "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-exploding-crossbow-arrow-e7db69f608c971a5",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "5f75da8c073ccc2c2e4311f0528b4a5ffd2fb75881fbcdba70ef5317027ab197"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ExplodingCrossbowArrow_C",
+        "className": "BP_ExplodingCrossbowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
       },
       "rawObservation": {
         "value": 0
@@ -28029,6 +29444,78 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-harpoon-crossbow-arrow-86379b78aafa8d76",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrow.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "1d3aa193439df4736dfa4999e9748d450c8c31cbce7ec94016c2b68b56faf229"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_HarpoonCrossbowArrow_C",
+        "className": "BP_HarpoonCrossbowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 80
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-harpoon-crossbow-arrow-mob-9d208689e21c5a68",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrowMob",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrowMob.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowArrowMob.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "4409f4b542bc7e4fc7e5e7309cc5a2fb1633ce3c798b16bc9a9c9e78b53aeb48"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_HarpoonCrossbowArrowMob_C",
+        "className": "BP_HarpoonCrossbowArrowMob_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 60
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-harpoon-crossbow-instance-2d790525f8724954",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -28125,6 +29612,42 @@
       },
       "rawObservation": {
         "value": 1
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-harpoon-crossbow-unique1-arrow-dce185d9e6789349",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Arrow.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow_Unique1/BP_HarpoonCrossbow_Unique1Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "913f4393f4c74db8590a56889dd509a106879d115bd7302621382fc1d915fa03"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_HarpoonCrossbow_Unique1Arrow_C",
+        "className": "BP_HarpoonCrossbow_Unique1Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 80
       },
       "confidence": {
         "source": "medium",
@@ -28305,6 +29828,42 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-heavy-crossbow-arrow-58cce6fba99f80ac",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "bdb2b486fde3d039e6cbaaa881f2551026e5a894a5d6f9c47df4d7b3c4b31e74"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_HeavyCrossbow_Arrow_C",
+        "className": "BP_HeavyCrossbow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -28593,6 +30152,42 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-hunting-bow-arrow-1a1370c249fd76ab",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "e95dcf3c1565c22355720090fae231f6cf74f4cca44c1c622beccaadc86be207"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_HuntingBowArrow_C",
+        "className": "BP_HuntingBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -30021,6 +31616,42 @@
           "objectName": "LightFeatherGameplayEffect_C",
           "className": "BlueprintGeneratedClass"
         }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-long-bow-arrow-41c6b525273c7d4d",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "d2c2f24c4e311a6b63947ee1fc4844a9aaa38170f2cc951d9e686c1c51b04fe2"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_LongBowArrow_C",
+        "className": "BP_LongBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -32463,6 +34094,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-quill-arrow-mob-a998420a8f71ea6c",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_QuillArrowMob",
+        "files": [
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_QuillArrowMob.uasset",
+          "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_QuillArrowMob.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "2c4382658092bedbc1401e64c5d42f98380aae91d860cfda81037b38a8c4ac33"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_QuillArrowMob_C",
+        "className": "BP_QuillArrowMob_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-ranged-damage-boost-29b3d5a2db091b0d",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -32487,6 +34154,42 @@
       },
       "rawObservation": {
         "value": 16
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-rapid-cross-bow-arrow-0dc5b3e5658cd5c0",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "c4a9573d6c718fbca6ce6d9bdd45a66fb4390c1bba4b6c5f874dfe4b3186d418"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_RapidCrossBow_Arrow_C",
+        "className": "BP_RapidCrossBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -36027,6 +37730,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-scatter-cross-bow-arrow-aea2bff71f0e7146",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+        "className": "BP_ScatterCrossBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-scatter-crossbow-instance-3f95d97d1027a4b0",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -36123,6 +37862,42 @@
       },
       "rawObservation": {
         "value": 20
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-scatter-crossbow-unique1-arrow-5cebef6cc6b92d8b",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow_Unique1/BP_ScatterCrossbow_Unique1_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "caff468f167e6a213edc5db7f315dec9fdf1f7741fd73acae8c2d024ddec52d7"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ScatterCrossbow_Unique1_Arrow_C",
+        "className": "BP_ScatterCrossbow_Unique1_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 48
       },
       "confidence": {
         "source": "medium",
@@ -36315,6 +38090,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-shadow-crossbow-arrow-4e5ec4f2c2f775ac",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowArrow.uasset",
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "191b9b367fe8cad927de2ce16336c0f7be95937f698f504c4fab20e6ab9ee820"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ShadowCrossbowArrow_C",
+        "className": "BP_ShadowCrossbowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 55
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-shadow-crossbow-instance-21b838f9ead9e2e4",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -36411,6 +38222,42 @@
       },
       "rawObservation": {
         "value": 1
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-shadow-crossbow-unique1-arrow-0f03ea07a024ec51",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Arrow.uasset",
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow_Unique1/BP_ShadowCrossbow_Unique1Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "66364e098c6f0cf0288d90ef9d765bc59d66e289b543eadcfc1c577d0068717c"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ShadowCrossbow_Unique1Arrow_C",
+        "className": "BP_ShadowCrossbow_Unique1Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 55
       },
       "confidence": {
         "source": "medium",
@@ -36675,6 +38522,42 @@
           "objectName": "ShockpowderGameplayEffect_C",
           "className": "BlueprintGeneratedClass"
         }
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-short-bow-arrow-463a17f7109c9d3a",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "2f9874f135a2c2788c970534a9f5e6b509f4982d2588f44733f02d7b73cffbbf"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_ShortBow_Arrow_C",
+        "className": "BP_ShortBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -38379,6 +40262,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-slow-bow-arrow-6f8f7422702e0a2b",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SlowBow/BP_SlowBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "71dcaaec2f7a2c3cf0675e09e7461ced031a17cd6f3c42a4f97bdfeed7a1256b"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_SlowBowArrow_C",
+        "className": "BP_SlowBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-slow-bow-instance-2f17577ce351560b",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -38703,6 +40622,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-soul-bow-arrow-0ea6193c10a9268c",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowArrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowArrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "98337a4e12c5b535430d76164d7903f2f99848dd17a57327282b34ef342a7dfa"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_SoulBowArrow_C",
+        "className": "BP_SoulBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-soul-bow-instance-0bba64458701a704",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -38871,6 +40826,42 @@
       },
       "rawObservation": {
         "value": 1
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-soul-cross-bow-arrow-e2614ffb703c5d48",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossBow_Arrow",
+        "files": [
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossBow_Arrow.uasset",
+          "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossBow_Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "07d81447a99199e626c7b0eb237f7a933ea8155c79879af026ce3d44e5668bea"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_SoulCrossBow_Arrow_C",
+        "className": "BP_SoulCrossBow_Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -43257,6 +45248,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-void-bow-arrow-2caeebe4354ef453",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowArrow.uasset",
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "f3789744407ac75d0e9d179f21b7c6cec364c594d37f1dc894ecddd0ffc742c6"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_VoidBowArrow_C",
+        "className": "BP_VoidBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 58
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-void-bow-instance-4bf4c162e515634a",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -43353,6 +45380,42 @@
       },
       "rawObservation": {
         "value": 0
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-void-bow-unique1-arrow-d3f3bbbdbd2e8f76",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Arrow.uasset",
+          "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow_Unique1/BP_VoidBow_Unique1Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "3cb7e3bf74e895a61b62cb794a1b0536d400fc5d389c8bd159b3fd0e68d031ec"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_VoidBow_Unique1Arrow_C",
+        "className": "BP_VoidBow_Unique1Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 58
       },
       "confidence": {
         "source": "medium",
@@ -44271,6 +46334,78 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-wind-bow-arrow-4a0f69788f162c2e",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowArrow.uasset",
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "7878d5e37621bbfb0556c391ca1deb8bb8890dfb66740efa94a73580fb64c1e3"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_WindBowArrow_C",
+        "className": "BP_WindBowArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-wind-bow-charged-arrow-aaac716801d888c1",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowChargedArrow",
+        "files": [
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowChargedArrow.uasset",
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowChargedArrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "d13cea0727732f085e4c678807141e0919116a6a08ee814d54738b573679bde1"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_WindBowChargedArrow_C",
+        "className": "BP_WindBowChargedArrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-wind-bow-gameplay-effect-cd67394d20ac8c5f",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -44415,6 +46550,42 @@
       "status": "extracted"
     },
     {
+      "id": "bulk-bp-wind-bow-unique1-arrow-bf545b21bee388b6",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow.uasset",
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "835a9a8fa23e88604a33ff9d922f0cdfedb1a2ad5251a926fb80d829a3d68051"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_WindBow_Unique1Arrow_C",
+        "className": "BP_WindBow_Unique1Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
       "id": "bulk-bp-wind-bow-unique1-instance-1b4255c0d5661826",
       "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
       "asset": {
@@ -44511,6 +46682,42 @@
       },
       "rawObservation": {
         "value": 1
+      },
+      "confidence": {
+        "source": "medium",
+        "extraction": "high",
+        "semantics": "unknown",
+        "version": "low"
+      },
+      "crossCheckStatus": "not-compared",
+      "promotionStatus": "research-only",
+      "status": "extracted"
+    },
+    {
+      "id": "bulk-bp-wind-bow-unique2-arrow-38ab36a8c916a40c",
+      "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+      "asset": {
+        "path": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow",
+        "files": [
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow.uasset",
+          "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow.uexp"
+        ],
+        "contentHash": {
+          "algorithm": "sha256",
+          "value": "56ea0f5cc23b394a75b5e7c92c7487c3690a22c54a2df0197e4c5aa6ba76ec78"
+        }
+      },
+      "extraction": {
+        "parserId": "ue4-package-property-parser",
+        "parserSchemaVersion": 1,
+        "objectName": "Default__BP_WindBow_Unique2Arrow_C",
+        "className": "BP_WindBow_Unique2Arrow_C",
+        "propertyName": "damage",
+        "propertyPath": "damage",
+        "propertyType": "FloatProperty"
+      },
+      "rawObservation": {
+        "value": 50
       },
       "confidence": {
         "source": "medium",
@@ -44635,18 +46842,18 @@
     {
       "code": "struct-parse-failed",
       "propertyType": "StructProperty",
-      "count": 30,
+      "count": 39,
+      "fatal": false
+    },
+    {
+      "code": "trailing-bytes",
+      "count": 22,
       "fatal": false
     },
     {
       "code": "malformed-property-tag",
       "count": 17,
       "fatal": true
-    },
-    {
-      "code": "trailing-bytes",
-      "count": 13,
-      "fatal": false
     },
     {
       "code": "unsupported-property-type",

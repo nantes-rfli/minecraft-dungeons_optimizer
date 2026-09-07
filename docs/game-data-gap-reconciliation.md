@@ -42,7 +42,7 @@ No duplicate exact entity/property mapping produced different normalized values.
 
 Implementation (271) and objective-design (29) Gaps remain blocked by definition. Version research, public conflicts, Power curves, proc ownership, damage distribution, effective cadence, stacking, and native/runtime behavior remain open unless an exact accepted static rule proves the requested fact.
 
-Bulk semantic mappings: 857 total — 451 accepted, 29 tentative, 354 unresolved, 23 rejected.
+Bulk semantic mappings: 891 total — 451 accepted, 29 tentative, 388 unresolved, 23 rejected.
 
 Runtime promotion was not performed. Runtime catalogs, Optimizer values, support manifests, score models, and objective weights remain unchanged.
 

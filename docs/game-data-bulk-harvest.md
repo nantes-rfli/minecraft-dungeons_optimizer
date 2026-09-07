@@ -6,25 +6,25 @@ The Asset Index deterministically selects paired `.uasset + .uexp` Blueprint mec
 
 ## Parser coverage
 
-- Candidate logical assets: 954
-- Parsed: 946
+- Candidate logical assets: 1026
+- Parsed: 1018
 - Skipped: 0
 - Fatal failures: 8
-- Fatal parse rate: 0.84%
+- Fatal parse rate: 0.78%
 - Maximum reference depth: 3; cycle key: `datasetId + logical asset path`
 
 | Gameplay root | Candidates | Parsed | Failed | Selected facts |
 | --- | ---: | ---: | ---: | ---: |
 | Armor | 164 | 164 | 0 | 0 |
 | MeleeWeapons | 168 | 164 | 4 | 586 |
-| RangedWeapons | 143 | 143 | 0 | 165 |
+| RangedWeapons | 215 | 215 | 0 | 199 |
 | Items | 215 | 213 | 2 | 18 |
 | Enchantments | 225 | 223 | 2 | 61 |
 | ArmorProperties | 39 | 39 | 0 | 27 |
 
 ## Extracted Gap-relevant facts
 
-857 compact structural facts were retained. Every record is `extracted`, has semantic confidence `unknown`, remains `research-only`, and links to a logical-asset SHA-256 content hash and dataset provenance. Full property trees and raw binaries are not committed.
+891 compact structural facts were retained. Every record is `extracted`, has semantic confidence `unknown`, remains `research-only`, and links to a logical-asset SHA-256 content hash and dataset provenance. Full property trees and raw binaries are not committed.
 
 ## Semantic boundary
 
@@ -34,9 +34,9 @@ Only property paths recognized by the explicit Phase 6.5E rule registry are reta
 
 | Code | Property type | Count | Fatal |
 | --- | --- | ---: | --- |
-| struct-parse-failed | StructProperty | 30 | no |
+| struct-parse-failed | StructProperty | 39 | no |
+| trailing-bytes | — | 22 | no |
 | malformed-property-tag | — | 17 | yes |
-| trailing-bytes | — | 13 | no |
 | unsupported-property-type | MapProperty | 6 | no |
 | unsupported-property-type | SetProperty | 5 | no |
 | trailing-bytes | ArrayProperty | 4 | no |

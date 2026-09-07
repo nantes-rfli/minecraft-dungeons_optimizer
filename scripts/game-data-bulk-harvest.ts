@@ -89,6 +89,7 @@ export function discoverBulkCandidates(index: GameDataAssetIndex): BulkCandidate
     const assetName = basename(asset.path)
     if (!assetName.startsWith('BP_')) return []
     const mechanicsClass = /(?:Instance|GameplayEffect|Storable|Actor|ACtor|Weapon|Armor|Enchantment)$/.test(assetName)
+      || (root.category === 'ranged-weapon' && /(?:Arrow|Projectile)/i.test(assetName))
       || root.category === 'enchantment' || root.label === 'ArmorProperties'
     if (!mechanicsClass) return []
     const expected = [`${asset.path}.uasset`, `${asset.path}.uexp`] as const
