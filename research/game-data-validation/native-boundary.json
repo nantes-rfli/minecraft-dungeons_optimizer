@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-08",
+  "baselineCommit": "1adb4e505ad5ebee0fed193553cca313bcf07949",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "sourceAuthenticity": "unverified-user-provided-archive",
+  "file": "archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+  "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "method": "PE32+ section and resource-tree parsing, no executable launch",
+  "entryPointRva": 94756952,
+  "sections": [
+    {
+      "name": "        ",
+      "rva": 4096,
+      "virtualSize": 50932648,
+      "rawOffset": 1536,
+      "rawBytes": 20691968,
+      "entropy": 7.988387773049436,
+      "characteristics": "0x60000020",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 50937856,
+      "virtualSize": 17778500,
+      "rawOffset": 20693504,
+      "rawBytes": 5724672,
+      "entropy": 7.950101148479215,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 68718592,
+      "virtualSize": 6337216,
+      "rawOffset": 26418176,
+      "rawBytes": 506368,
+      "entropy": 7.874522836361034,
+      "characteristics": "0xc0000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 75059200,
+      "virtualSize": 2820132,
+      "rawOffset": 26924544,
+      "rawBytes": 1558528,
+      "entropy": 7.60533323713904,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 77881344,
+      "virtualSize": 4400,
+      "rawOffset": 28483072,
+      "rawBytes": 1024,
+      "entropy": 7.556058482599664,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 77889536,
+      "virtualSize": 42288,
+      "rawOffset": 28484096,
+      "rawBytes": 30720,
+      "entropy": 7.925181153018504,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 77934592,
+      "virtualSize": 4776,
+      "rawOffset": 28514816,
+      "rawBytes": 2560,
+      "entropy": 7.731413915807125,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": "        ",
+      "rva": 77942784,
+      "virtualSize": 1433228,
+      "rawOffset": 28517376,
+      "rawBytes": 144896,
+      "entropy": 7.949373266441141,
+      "characteristics": "0x42000040",
+      "containsEntry": false
+    },
+    {
+      "name": ".debug",
+      "rva": 79376384,
+      "virtualSize": 4096,
+      "rawOffset": 28662272,
+      "rawBytes": 1536,
+      "entropy": 4.368773481456276,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": ".edata",
+      "rva": 79380480,
+      "virtualSize": 4096,
+      "rawOffset": 28663808,
+      "rawBytes": 3584,
+      "entropy": 5.421538542926392,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": ".idata",
+      "rva": 79384576,
+      "virtualSize": 4096,
+      "rawOffset": 28667392,
+      "rawBytes": 3072,
+      "entropy": 4.224558807303045,
+      "characteristics": "0xc0000040",
+      "containsEntry": false
+    },
+    {
+      "name": ".tls",
+      "rva": 79388672,
+      "virtualSize": 4096,
+      "rawOffset": 28670464,
+      "rawBytes": 512,
+      "entropy": 0.28847476570206254,
+      "characteristics": "0xc0000000",
+      "containsEntry": false
+    },
+    {
+      "name": ".rsrc",
+      "rva": 79392768,
+      "virtualSize": 4096,
+      "rawOffset": 28670976,
+      "rawBytes": 4096,
+      "entropy": 5.0717339498828595,
+      "characteristics": "0x40000040",
+      "containsEntry": false
+    },
+    {
+      "name": ".dungeon",
+      "rva": 79396864,
+      "virtualSize": 15360000,
+      "rawOffset": 28675072,
+      "rawBytes": 0,
+      "entropy": 0,
+      "characteristics": "0xe0000060",
+      "containsEntry": false
+    },
+    {
+      "name": ".boot",
+      "rva": 94756864,
+      "virtualSize": 8937984,
+      "rawOffset": 28675072,
+      "rawBytes": 8937984,
+      "entropy": 7.803346224567408,
+      "characteristics": "0x60000060",
+      "containsEntry": true
+    },
+    {
+      "name": ".reloc",
+      "rva": 103698432,
+      "virtualSize": 4096,
+      "rawOffset": 37613056,
+      "rawBytes": 16,
+      "entropy": 2.73345859334435,
+      "characteristics": "0x40000000",
+      "containsEntry": false
+    }
+  ],
+  "versionResources": [
+    {
+      "resourcePath": [
+        16,
+        1,
+        1033
+      ],
+      "fileVersion": "4.22.3.0",
+      "productVersion": "4.22.3.0",
+      "resourceBytes": 800
+    }
+  ],
+  "nativeMechanicsRecovered": false,
+  "limitations": [
+    "High entropy and .boot entry establish static layout only, not a named packer or successful unpacking.",
+    "Version resources identify engine-like version; game version and authenticity are not established."
+  ],
+  "decision": "Native executable available, but native mechanics not reconstructed. Do not replace Power, CriticalHit, stacking or cooldown formulas with guesses.",
+  "followUp": [
+    "Identify a validated static decoding path or readable same-build binary with provenance.",
+    "Trace native constructors and effect application only after readable code is established."
+  ]
+}

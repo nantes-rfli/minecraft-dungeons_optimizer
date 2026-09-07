@@ -1,0 +1,800 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-08",
+  "baselineCommit": "1adb4e505ad5ebee0fed193553cca313bcf07949",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "sourceAuthenticity": "unverified-user-provided-archive",
+  "differentUassetCompanionPairs": 33,
+  "independentRoundtripChecks": 66,
+  "independentRoundtripPassed": 66,
+  "cdoEqualPairs": 30,
+  "functionBytecodeEqualPairs": 33,
+  "legacyParserCdoEqualPairs": 33,
+  "interpretation": "Legacy reader missed three UI TextProperty differences; equality of a partial parse is insufficient. Other non-CDO changes are retained and not presumed harmless.",
+  "pairs": [
+    {
+      "path": "Dungeons/Content/Actors/Items/Arrow/BP_ShadowArrowProp",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ArrowVobbleComponent",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "c05ab03a3631365b62d97d9ef63094580ab655a5aa663d4f7ce1ee70a71e5b41",
+      "archiveUexpSha256": "7e5c7c3fbc1dc2e361bd64c60e4efdd4b3289554f2832bc43ca429a9bba03bf9"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Blastling/BP_BlastlingProjectileProp",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ArrowVobbleComponent",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "267a5b7f12e1b8641651fd94b0f1b1a0e5c8e2569a445dd3675d4e73c65fa246",
+      "archiveUexpSha256": "37bd386963febdd29acfab7706be5ca0aa5fc9cc464b52ae229aab485670b9c3"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Items/Arrow/BP_ArrowProp",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ArrowVobbleComponent",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "0c450135c18e268d148b025188e16ac7e385c04a8aa0ab730eff6a4b44cb2da8",
+      "archiveUexpSha256": "913dae206f59417905c26751b166d0cb89c62849541a206062d3b54c90a834e7"
+    },
+    {
+      "path": "Dungeons/Content/Actors/Items/Arrow/BP_HeavyHarpoonProp",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ArrowVobbleComponent",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "0374f062302b645e9106b4e6c1648ff74dee09dbda674b20591efeee92bd8582",
+      "archiveUexpSha256": "8e79eecb05f951532a2e50bda8b8c09534fe84e6ec289c38c105992e9af02c6a"
+    },
+    {
+      "path": "Dungeons/Content/Content_DLC5/Actors/Items/Trident/BP_TridentItemProjectileProp",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ArrowVobbleComponent",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "262bacbfacd264b53c6989c190e9238cb78c50918a7f7de70d2a61e78a67db0a",
+      "archiveUexpSha256": "8980edc0a992ac3e5e735239a0b257db1d96265adb5b5b3326ee4a6ae32ed5ef"
+    },
+    {
+      "path": "Dungeons/Content/Content_Season2/UI/SeasonChallenge/UMG_SeasonChallengeComplete",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "PopIn",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "PopIn_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "c162aa9795ddcc53e8b2977b59c1310a262fb3fcd22d53f2e71aa19f0080611e",
+      "archiveUexpSha256": "6e21ade84e23f4bcc0e3823273d1c8b7fe3a5bd2432435d8bc4eb1ae2cd1bc73"
+    },
+    {
+      "path": "Dungeons/Content/UI/Character/CrossSave/UMG_CloudSaveRow",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "Swap",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "Swap_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "63dd8f0431df5a00c6688639ab2836fbb461cb0e5e3876cf1763a166bc025d8c",
+      "archiveUexpSha256": "dfc62b74f41d3946df3a5f8c687cb87bc1dea42186dc8961f340c3174a59c1ed"
+    },
+    {
+      "path": "Dungeons/Content/UI/Chests/UMG_ChestNotificationWidget",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "NavigationBar",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value[2].Value",
+            ".Data[3].Value[0].Value[2].Value"
+          ]
+        },
+        {
+          "object": "NavigationBar",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[19].Value[0].Value[2].Value",
+            ".Data[20].Value[0].Value[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "b4b920511a69768cea29e22dd2362c6ee7bb1ac659b4954a3949b509c4f271ca",
+      "archiveUexpSha256": "fc0ac9eda759c9229113cd667dfa6c7e4fe038dead01fb7e89ec0231ab27ea96"
+    },
+    {
+      "path": "Dungeons/Content/UI/Death/UMG_YouDiedHud",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "timerFadeIn",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[4].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventRepeaterSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "timerFadeIn_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[5][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "3d441c20c8604266ddf85484ce9422dbde639fd3a680da00e73561e43aea7d5c",
+      "archiveUexpSha256": "71628a7cb5a50186470e8896416a6c26e74487cc86d76026166e810e2b19afb1"
+    },
+    {
+      "path": "Dungeons/Content/UI/Hotbar/UMG_LevelUp_Pop",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "EnchantmentIcon",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "EnchantmentIcon_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "fba1ae0323c9d110ab93da4f9d4d490290348f9b2bc050d398ee7d9e96fb4fac",
+      "archiveUexpSha256": "daf2698d735b14f5d24bec6477c2a07596f977a0a327be83048768d1e63da987"
+    },
+    {
+      "path": "Dungeons/Content/UI/Hotbar2/Experience/UMG_ExperienceAP",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "ShowAP",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "ShowAP_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "25495784450fb18d05235096d1a38c4fc00f03cdbcbfc8614e5b91c24a94b9c2",
+      "archiveUexpSha256": "49fde8ad4347c26cc7c80da67b4e449bd995e482f7731d0caa83755b6aeced46"
+    },
+    {
+      "path": "Dungeons/Content/UI/Inventory/UMG_InventoryHUD",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "NavigationBar",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value[2].Value",
+            ".Data[0].Value[1].Value[2].Value",
+            ".Data[0].Value[2].Value[2].Value",
+            ".Data[0].Value[3].Value[2].Value"
+          ]
+        },
+        {
+          "object": "NavigationBar",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[17].Value[0].Value[2].Value",
+            ".Data[17].Value[1].Value[2].Value",
+            ".Data[17].Value[2].Value[2].Value",
+            ".Data[17].Value[3].Value[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "49357d3edf2738b644b6e97873d180abcecf87b20bc56e9dc7aa7926136d2da5",
+      "archiveUexpSha256": "c90c0e05f37ad1f8d3e458b5830091d1cab4262abdd51aea5db5df3c4e8cc4cc"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Behind_Sprite_0",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "6662788ea18bbc6317b2716b9294a4c1c0decd91bd4b966bc7663a3d5e387349",
+      "archiveUexpSha256": "97bc858826ab48a7a89050ee0c7892a160f00592fb3db5b9de7b988470798d44"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Behind_Sprite_1",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "b806170998f11ed44480252dd9a8890f7983ccc136fb81ae68cf6237a7d77a60",
+      "archiveUexpSha256": "0df50a6416a4833e7f9c47d52eeb8dbfeff41d110e9d9fb146e1560a8057544b"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Behind_Sprite_2",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "8ba7da536ca41ffff7a826206f27320e55a5b6c4527a36e0cc4b2f94f447756a",
+      "archiveUexpSha256": "208532243e5459f35952c446293a2b4f59dfbaf8548fc6afb7ed8b850bd41c5e"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Front_Sprite_0",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "258f185ccf963426e162b448ecc4469a7be7d4aad71575a156d99b0e57c67bbf",
+      "archiveUexpSha256": "d7153f847b0b8451d3186042e80d835cae3581fc94934680d5d6cfa721cf1ea9"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Front_Sprite_1",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "584df7b4b6aadcc688488e2a223fd3bb293cbb497e3e7df3f5aece111417885e",
+      "archiveUexpSha256": "b3ce84a52dbcda1c9b8b9485f3840b9b6582a24fc046a6822466113a6ad8b3ad"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Front_Sprite_2",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "7c5db18af330938b118b309cc5de71efd6e15d57f9174fb226026fe8fe6cec48",
+      "archiveUexpSha256": "410dcef0e8692c34e540a4afe0e0f46b56474b847877f989b29060f342312a26"
+    },
+    {
+      "path": "Dungeons/Content/UI/Materials/MissionSelectMap/background/sheets/DLC3_Clouds_Front_Sprite_3",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "BodySetup_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Extras"
+          ]
+        }
+      ],
+      "oldUexpSha256": "def8c8f111c8b4889552c05de843b91e81e05fd056707de6f632bd95462d88c0",
+      "archiveUexpSha256": "f563aab1a63eb458b65c014e7c69b64d2816ee11fa31d26ed473bde7cd10035a"
+    },
+    {
+      "path": "Dungeons/Content/UI/Menu/Common/NavigationBar",
+      "cdoDataEqual": false,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "Default__NavigationBar_C",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value[2].Value",
+            ".Data[2].Value[0].Value[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "ba84c4ccab5902b134dc9a8a77eb6c597ac52cc612ea1a311c9dba3c062cd61e",
+      "archiveUexpSha256": "7d952346da1c1d377cccd667cb1e1be5121ba98c3d108be095bb184cd1be91da"
+    },
+    {
+      "path": "Dungeons/Content/UI/Menu/Common/NavItemData",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "NavItemData",
+          "type": "UAssetAPI.ExportTypes.UserDefinedStructExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".StructData[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "aba1df570c2ad2a4b8254b271118d8df7f7ab8c7955e8bd18c7b3887d20bf8c7",
+      "archiveUexpSha256": "27faa1cebd5ef06ba96c68647b0ababf369f57372c0d45d5ac180e61f3fcbae9"
+    },
+    {
+      "path": "Dungeons/Content/UI/Menu/SettingsMenu/UMG_HintText",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "change",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "change_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "98d62ac113bda048174c05896d75497cfe6cb2c9d65b0706b3d86dcb37ef91f4",
+      "archiveUexpSha256": "9f8440b53cc9e54f00f5ea82ec5953ae996324aff0781e40a8bdd468f73e6ea3"
+    },
+    {
+      "path": "Dungeons/Content/UI/MissionSelectMap/Background/Maps/UMG_MissionMapBackgroundMainland",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MinecartMovement1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[4].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventRepeaterSection_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MinecartMovement1_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[2][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "b22847e9a91f46769bfb10b0268d7617ef2881d584e5294c6ce7e0075f84c778",
+      "archiveUexpSha256": "bb56c38b54ff3ea7c0f2f5cb126b4dc7fe6799abd279dcd5bdbb32c4498ef388"
+    },
+    {
+      "path": "Dungeons/Content/UI/MissionSelectMap/Marker/Buttons/UMG_RealmMarkerButton",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "becomeHovered",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[4].Value[0].Value"
+          ]
+        },
+        {
+          "object": "becomeHovered_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "5052b57efc584ed7a2c87a75711fe728603d1ac594942db25db07b8e1ba42237",
+      "archiveUexpSha256": "56239ba72bde1ec9f1f09562e5b9287308f41a5aec78793e762829039e961c32"
+    },
+    {
+      "path": "Dungeons/Content/UI/Party/buttons/UMG_PrivateGameSlider",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "toggleon",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventRepeaterSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "toggleon_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "690dbe42a2b99237331741a23feb1c2aa0fb85dde080963db67f408cf43e39ae",
+      "archiveUexpSha256": "244be4b097280b13eb20232cd65f3cceb61c7b842b405cab2484e24ce910166f"
+    },
+    {
+      "path": "Dungeons/Content/UI/UMG_Popup_Base",
+      "cdoDataEqual": false,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "Default__UMG_Popup_Base_C",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value[2].Value",
+            ".Data[1].Value[1].Value[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "0e7b1e0039aa76bdb150ee0e7203b2f2c88ec16b0423fb14c5405ebc512632e7",
+      "archiveUexpSha256": "3602f59ccd094660efa60a06759651d1bdc8300923f18e1be3521805907b0c55"
+    },
+    {
+      "path": "Dungeons/Content/UI/UMG_Popup_Upsell",
+      "cdoDataEqual": false,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "Default__UMG_Popup_Upsell_C",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value[2].Value",
+            ".Data[5].Value[1].Value[2].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "5caacf61343287f0e2863491a5278ffd1120c5826b4b51490a00954fc79b09a9",
+      "archiveUexpSha256": "9ec9d64f0437cae2372f93404d5fa51cc2f15552c4346ab003a0230ae9dad044"
+    },
+    {
+      "path": "Dungeons/Content/UI/Video/MediaPlayer1",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MediaPlayer1",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "16093f590e57da624676ddf6f47a407facdd02600f3ef289e7028ed091abf4ae",
+      "archiveUexpSha256": "2f1a0c08bd6819ab89c2cb39e671df487df5b92d05c9667940a367e9581f146a"
+    },
+    {
+      "path": "Dungeons/Content/UI/Video/MediaPlayer2",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MediaPlayer2",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "858b9a825777580ccf685c7c8a400e11b90c919b00434ab3dbb1ddc4e68ce9a9",
+      "archiveUexpSha256": "5a354ab68f1aa0239c3c81c230531abfcf1eba432de298b8749bfe34fe0219a4"
+    },
+    {
+      "path": "Dungeons/Content/UI/Video/MediaPlayer3",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MediaPlayer3",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "d05125ff72432ff765d10be4e838221f7257df4fd131294e62d714cdb9c555e3",
+      "archiveUexpSha256": "d528d7ad72f89922e5c963c49748d25f3d97bf476e86f1267d35e63e4741638d"
+    },
+    {
+      "path": "Dungeons/Content/UI/Video/MediaPlayer4",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MediaPlayer4",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "e0c78438a393d330bb69f18ef6dbd88efd87064c37cdf981cdeba98968da9678",
+      "archiveUexpSha256": "043d9f9114e32df1a82344ec4220dc0a352a18e57cbc96c2a2831909f2a7ad74"
+    },
+    {
+      "path": "Dungeons/Content/UI/Splash/UMG_SplashSequence",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "transition",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[5].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTrack_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[1].Value[0].Value"
+          ]
+        },
+        {
+          "object": "MovieSceneEventTriggerSection_0",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[2].Value[0].Value"
+          ]
+        },
+        {
+          "object": "transition_INST",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[3].Value[2].Value[0].Value",
+            ".Data[3].Value[4].Value[1].Value[0][0].Value[0].Value",
+            ".Data[4].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "e32a0da6e518e7a3ffb483df396aa95feddf4f2c5f9b3b426ccbdaf46736140f",
+      "archiveUexpSha256": "65699d91ede5503f615ba9b0c9c173f07bc8ad74374173f8cace0767d0eb1922"
+    },
+    {
+      "path": "Dungeons/Content/UI/Video/MediaPlayerDebug",
+      "cdoDataEqual": true,
+      "functionBytecodeEqual": true,
+      "changedExports": [
+        {
+          "object": "MediaPlayerDebug",
+          "type": "UAssetAPI.ExportTypes.NormalExport, UAssetAPI",
+          "changedFieldPaths": [
+            ".Data[0].Value[0].Value"
+          ]
+        }
+      ],
+      "oldUexpSha256": "0b7a1c67ce7076b784fa4d2830886a4491614746be32042217c0556b238a7fc9",
+      "archiveUexpSha256": "51b4bb9ae17450c46dd959f433f0e9a3a985b1638925777c0a3cbf972f1d808b"
+    }
+  ]
+}

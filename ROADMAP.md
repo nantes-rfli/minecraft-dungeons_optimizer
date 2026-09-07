@@ -225,6 +225,12 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 今後の推薦は **Phase 6.8（取得器・継承・処理経路の検証）→ Phase 6.9（再設計範囲の判断）** です。Phase 6.6当時の「6.7はoptional、次は7」という推薦を今回の追加調査により更新します。歴史的成果物とGap数は保持し、Phase 7〜9は必要な実測・検証・昇格の計画として残します。今回の変更は内部調査資料のみで、アプリ内ロードマップ・計算・データは変更していません。
 
+### Phase 6.8 — 取得と意味の検証（2026-09-08、進行中）
+
+[検証結果](./docs/game-data-validation.md)と[観測JSON](./research/game-data-validation/README.md)を保存しました。6.8A（追加PAKの全件比較）、6.8B（独立readerの代表検証）、6.8C（代表参照・処理経路）は完了。47 PAK・134,799エントリを検証し、既存抽出物との内容差1,520件を保持しています。97代表アセットのバイナリ往復一致、809 Functionのデコード、25数値・4表・4カーブの読み取りを確認しました。既存readerが見落としていた3組のUI Text差分も記録しました。
+
+**次は6.8D（native計算）と6.8E（timing/notify）です。** 追加ZIPに実行ファイルはありますが、native計算を読めるコード領域は未確立。主要効果の式を復元したとは扱いません。Phase 6.8全体と6.9の再設計判断は未完了です。アプリコード・runtimeデータは変更していません。
+
 ### Runtime / Phase 6.6までのsummary（今回変更なし）
 
 Phase 6.6までのresearch model alignmentが完了しました。Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは1,026候補を走査して1,018件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
@@ -239,7 +245,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。6.5Fの[最終coverage](./docs/game-data-final-coverage.md)と[差異分類](./docs/game-data-model-differences.md)で全Gapのdispositionを確定しました。Phase 6.6の[model alignment](./docs/game-data-model-alignment.md)も完了しました。次はPhase 6.8の取得・意味検証とPhase 6.9の再設計判断です。既存のGap dispositionは履歴として保持し、実測へ送る前に取得可能性を再評価します。Phase 6.6のmodel alignment後に確定した残余Observe / Measure / ExperimentはPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。6.5Fの[最終coverage](./docs/game-data-final-coverage.md)と[差異分類](./docs/game-data-model-differences.md)で全Gapのdispositionを確定しました。Phase 6.6の[model alignment](./docs/game-data-model-alignment.md)も完了しました。次はPhase 6.8D/Eのnative・timing検証とPhase 6.9の再設計判断です。既存のGap dispositionは履歴として保持し、実測へ送る前に取得可能性を再評価します。Phase 6.6のmodel alignment後に確定した残余Observe / Measure / ExperimentはPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

@@ -1,0 +1,769 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-08",
+  "baselineCommit": "1adb4e505ad5ebee0fed193553cca313bcf07949",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "sourceAuthenticity": "unverified-user-provided-archive",
+  "archive": {
+    "name": "Minecraft.Dungeons.v1.17.0.0.ALL.DLC.zip",
+    "sha256": "7ccae0f852b640d9d4c6161798fabbab3c0f3f99c2c8e6c204d9b91634a2e9a1"
+  },
+  "pakCount": 47,
+  "allIndexSha1Verified": true,
+  "entryCount": 134799,
+  "payloadSha1Passed": 134799,
+  "exactPathAndContentMatches": 133277,
+  "samePathContentDifferences": 1520,
+  "differenceExtensions": {
+    ".bin": 3,
+    ".uexp": 990,
+    ".umap": 523,
+    ".ushaderbytecode": 4
+  },
+  "renamedContentMatches": [
+    {
+      "archivePath": "Dungeons/Content/Decor/Prefabs/Paintings/DevPaintings/Materials/UI/MI_UI_DevPortrait_Måns.uasset",
+      "localPath": "Dungeons/Content/Decor/Prefabs/Paintings/DevPaintings/Materials/UI/MI_UI_DevPortrait_M†ns.uasset",
+      "sha256": "b1ee28af1d828b7b8be4854a6e6c49b6cb8934c74469581c149e9a8ae662ad57",
+      "contentEqual": true
+    },
+    {
+      "archivePath": "Dungeons/Content/Decor/Prefabs/Paintings/DevPaintings/Materials/UI/MI_UI_DevPortrait_Måns.uexp",
+      "localPath": "Dungeons/Content/Decor/Prefabs/Paintings/DevPaintings/Materials/UI/MI_UI_DevPortrait_M†ns.uexp",
+      "sha256": "357f2dd5a5bd0b92193cb60e9f380bfd561fb0d068d10b094c69b8e2970f1f5d",
+      "contentEqual": true
+    }
+  ],
+  "localOnlyMetadataFiles": [
+    ".DS_Store",
+    "Dungeons/.DS_Store",
+    "Dungeons/Content/.DS_Store",
+    "Dungeons/Content/Actors/.DS_Store",
+    "Dungeons/Content/Actors/Equipment/.DS_Store",
+    "Dungeons/Content/Actors/Equipment/RangedWeapons/.DS_Store",
+    "Engine/.DS_Store"
+  ],
+  "unresolvedReadErrors": [],
+  "versionConfig": {
+    "path": "Dungeons/Config/DefaultGame.ini",
+    "pak": "pakchunk0-WindowsNoEditor.pak",
+    "bytes": 12349,
+    "sha256": "8d121238c3be135c1f19fae3941262f2ec86aa660535800a659beb7482ab795d",
+    "localExists": true,
+    "match": true,
+    "payloadSha1Verified": true
+  },
+  "paks": [
+    {
+      "pak": "pakchunk0-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 48625,
+      "indexPaddingBytes": 2
+    },
+    {
+      "pak": "pakchunk10-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 3116,
+      "indexPaddingBytes": 14
+    },
+    {
+      "pak": "pakchunk11-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1755,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk12-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1054,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk13-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 681,
+      "indexPaddingBytes": 12
+    },
+    {
+      "pak": "pakchunk14-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 547,
+      "indexPaddingBytes": 0
+    },
+    {
+      "pak": "pakchunk15-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 720,
+      "indexPaddingBytes": 15
+    },
+    {
+      "pak": "pakchunk16-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 800,
+      "indexPaddingBytes": 7
+    },
+    {
+      "pak": "pakchunk18-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1226,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk19-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 395,
+      "indexPaddingBytes": 5
+    },
+    {
+      "pak": "pakchunk20-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 325,
+      "indexPaddingBytes": 13
+    },
+    {
+      "pak": "pakchunk21-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 8,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk22-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/Decor/Prefabs/DoorExit/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 2,
+      "indexPaddingBytes": 0
+    },
+    {
+      "pak": "pakchunk23-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 42,
+      "indexPaddingBytes": 13
+    },
+    {
+      "pak": "pakchunk24-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 214,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk25-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/Decor/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 28,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk26-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1280,
+      "indexPaddingBytes": 13
+    },
+    {
+      "pak": "pakchunk27-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 634,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk28-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 446,
+      "indexPaddingBytes": 15
+    },
+    {
+      "pak": "pakchunk29-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1574,
+      "indexPaddingBytes": 0
+    },
+    {
+      "pak": "pakchunk30-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 825,
+      "indexPaddingBytes": 10
+    },
+    {
+      "pak": "pakchunk31-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1070,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk32-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 2475,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk33-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1174,
+      "indexPaddingBytes": 11
+    },
+    {
+      "pak": "pakchunk34-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 462,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk35-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 654,
+      "indexPaddingBytes": 4
+    },
+    {
+      "pak": "pakchunk36-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 484,
+      "indexPaddingBytes": 11
+    },
+    {
+      "pak": "pakchunk37-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1058,
+      "indexPaddingBytes": 4
+    },
+    {
+      "pak": "pakchunk38-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 227,
+      "indexPaddingBytes": 1
+    },
+    {
+      "pak": "pakchunk39-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 911,
+      "indexPaddingBytes": 12
+    },
+    {
+      "pak": "pakchunk4-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 27378,
+      "indexPaddingBytes": 13
+    },
+    {
+      "pak": "pakchunk40-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/Effects/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1283,
+      "indexPaddingBytes": 5
+    },
+    {
+      "pak": "pakchunk41-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1743,
+      "indexPaddingBytes": 11
+    },
+    {
+      "pak": "pakchunk42-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 920,
+      "indexPaddingBytes": 0
+    },
+    {
+      "pak": "pakchunk43-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1638,
+      "indexPaddingBytes": 4
+    },
+    {
+      "pak": "pakchunk44-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 733,
+      "indexPaddingBytes": 14
+    },
+    {
+      "pak": "pakchunk45-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 2591,
+      "indexPaddingBytes": 2
+    },
+    {
+      "pak": "pakchunk46-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 877,
+      "indexPaddingBytes": 6
+    },
+    {
+      "pak": "pakchunk47-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 536,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk48-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 434,
+      "indexPaddingBytes": 3
+    },
+    {
+      "pak": "pakchunk5-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 802,
+      "indexPaddingBytes": 5
+    },
+    {
+      "pak": "pakchunk50-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/UI/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 1890,
+      "indexPaddingBytes": 12
+    },
+    {
+      "pak": "pakchunk51-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 208,
+      "indexPaddingBytes": 5
+    },
+    {
+      "pak": "pakchunk70-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/AudioForce/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 13165,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk80-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/data/lovika/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 2,
+      "indexPaddingBytes": 5
+    },
+    {
+      "pak": "pakchunk9-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 7669,
+      "indexPaddingBytes": 8
+    },
+    {
+      "pak": "pakchunk99-WindowsNoEditor.pak",
+      "version": 8,
+      "indexEncrypted": true,
+      "indexSha1Verified": true,
+      "mount": "../../../Dungeons/Content/",
+      "methods": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "entryCount": 118,
+      "indexPaddingBytes": 15
+    }
+  ],
+  "limitations": [
+    "Byte equivalence is not distribution authenticity.",
+    "1520 differing files remain separate; neither dataset is silently replaced.",
+    "51 initial errors were corrected by hashing stored encrypted bytes before decrypting uncompressed entries; full plaintext was then compared."
+  ]
+}

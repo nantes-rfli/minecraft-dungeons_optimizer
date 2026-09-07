@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 1,
+  "investigatedAt": "2026-09-08",
+  "baselineCommit": "1adb4e505ad5ebee0fed193553cca313bcf07949",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "sourceAuthenticity": "unverified-user-provided-archive",
+  "resolution": "FPackageIndex followed through OuterIndex; Game package path retained; native parents identified without inventing defaults",
+  "chains": [
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+      "class": "BP_ScatterCrossbowInstance_C",
+      "parent": {
+        "index": -3,
+        "path": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C"
+      },
+      "cdo": "Default__BP_ScatterCrossbowInstance_C",
+      "propertyNames": [
+        "AttackDefintion",
+        "ProjectileStackCount",
+        "AnimNotifyStateData",
+        "GearActor",
+        "InventoryDropSound",
+        "ItemIdName",
+        "ItemId",
+        "RootComponent"
+      ],
+      "objectReferences": [
+        {
+          "property": "GearActor",
+          "index": -4,
+          "path": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow.BP_ScatterCrossbow_C"
+        },
+        {
+          "property": "RootComponent",
+          "index": 0,
+          "path": null
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "3a9087d35a32a81ecc702d0d9da41eecca9a738d1bdd89a93af7dd946b6cc236",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "d7fb47495d059a8bdd782306cae52a5342e24a33121935eaebddb15a750d7a58",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect",
+      "class": "BP_IronHideAmuletGameplayEffect_C",
+      "parent": {
+        "index": -5,
+        "path": "/Script/Dungeons.DefenceGameplayEffect"
+      },
+      "cdo": "Default__BP_IronHideAmuletGameplayEffect_C",
+      "propertyNames": [
+        "UIData"
+      ],
+      "objectReferences": [
+        {
+          "property": "UIData",
+          "index": 3,
+          "path": "Default__BP_IronHideAmuletGameplayEffect_C.BP_ProtectionUIData_C_0"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "8d8313c789c81ad9e6b4f002e035221b12a41751440fbaf9131d2097ddf3a18b",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+      "class": "BP_DeathCapMushroomGameplayEffect_C",
+      "parent": {
+        "index": -5,
+        "path": "/Script/Dungeons.DeathCapMushroomGameplayEffect"
+      },
+      "cdo": "Default__BP_DeathCapMushroomGameplayEffect_C",
+      "propertyNames": [
+        "UIData"
+      ],
+      "objectReferences": [
+        {
+          "property": "UIData",
+          "index": 3,
+          "path": "Default__BP_DeathCapMushroomGameplayEffect_C.BP_MushroomizedUIData_C_0"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Components/ArmorProperties/MeleeDamageBoost/BP_MeleeDamageBoost",
+      "class": "BP_MeleeDamageBoost_C",
+      "parent": {
+        "index": -3,
+        "path": "/Script/Dungeons.MeleeDamageBoost"
+      },
+      "cdo": "Default__BP_MeleeDamageBoost_C",
+      "propertyNames": [
+        "Multiplier",
+        "PropertyColorPrio"
+      ],
+      "objectReferences": [],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "c6383276bc8b5ca04b24de3a284ec8463326e1d94f676cc179b3531d73ae9a11",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "d2ff825a72654aac26cad397b93bed2c463be40bf45bff2e7cafd5a92d18102e",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Components/Enchantments/CriticalHit/BP_CriticalHit",
+      "class": "BP_CriticalHit_C",
+      "parent": {
+        "index": -3,
+        "path": "/Script/Dungeons.CriticalHit"
+      },
+      "cdo": "Default__BP_CriticalHit_C",
+      "propertyNames": [
+        "CriticalDamageType"
+      ],
+      "objectReferences": [],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "4b5b5c9e6760873e96147daccc88f9468bd5532e497ff05b68188b8e5a4aa36b",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "bb060be0dd81f39b1a9f57a67b861240c89e613d9133157079ea586e4a2124e7",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Components/Enchantments/FireAspect/BP_FireAspectGameplayEffect",
+      "class": "BP_FireAspectGameplayEffect_C",
+      "parent": {
+        "index": -5,
+        "path": "/Script/Dungeons.FireAspectGameplayEffect"
+      },
+      "cdo": "Default__BP_FireAspectGameplayEffect_C",
+      "propertyNames": [
+        "UIData"
+      ],
+      "objectReferences": [
+        {
+          "property": "UIData",
+          "index": 3,
+          "path": "Default__BP_FireAspectGameplayEffect_C.BP_BurningUIData_C_0"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "c71d18f067fecb88a146c0dfdc1cbe8070e2d72be650209fb383af1d4c093096",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "962aed80fb5ad1b6a69fa8fd84d8150beaf80aace1e7f2a6d4855a8ce7b1074e",
+          "pak": "pakchunk5-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Components/Enchantments/FireFocus/BP_FireFocus",
+      "class": "BP_FireFocus_C",
+      "parent": {
+        "index": -3,
+        "path": "/Script/Dungeons.ElementalDamageIncreaseEnchant"
+      },
+      "cdo": "Default__BP_FireFocus_C",
+      "propertyNames": [
+        "DamageIncreasePerLevel",
+        "Effect",
+        "TypeId"
+      ],
+      "objectReferences": [
+        {
+          "property": "Effect",
+          "index": -4,
+          "path": "/Script/Dungeons.FireTouchedGameplayEffect"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "69bfdc2ee4f0f93d17e43fcb8a7dff144c4b1eaa1a8e0d13069014d72e5352b9",
+          "pak": "pakchunk0-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "cbac4c6dc843ee47d99ecd93d8f126f60477c0a4742f8ceef83ea5ca1ca79ec5",
+          "pak": "pakchunk0-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Components/Enchantments/PainCycle/BP_PainCycleActiveGameplayEffect",
+      "class": "BP_PainCycleActiveGameplayEffect_C",
+      "parent": {
+        "index": -5,
+        "path": "/Script/Dungeons.PainCycleBuffGameplayEffect"
+      },
+      "cdo": "Default__BP_PainCycleActiveGameplayEffect_C",
+      "propertyNames": [
+        "UIData"
+      ],
+      "objectReferences": [
+        {
+          "property": "UIData",
+          "index": 3,
+          "path": "Default__BP_PainCycleActiveGameplayEffect_C.BP_PainCycleActiveUIData_C_0"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "3fe4c6250f1d19e8bd809a6d198c7260142430cd25cb5c45352ee910dd3e567b",
+          "pak": "pakchunk0-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "edef76c9b77cde54705815da82c1593a5fbc83503b745bae081d6f5f588d0a45",
+          "pak": "pakchunk0-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+      "class": "BP_DeathCapMushroomInstance_C",
+      "parent": {
+        "index": -10,
+        "path": "/Script/Dungeons.DeathCapMushroomInstance"
+      },
+      "cdo": "Default__BP_DeathCapMushroomInstance_C",
+      "propertyNames": [
+        "Effect",
+        "InventoryDropSound",
+        "ItemIdName",
+        "ActivationAnimation",
+        "ItemActorClass",
+        "ItemId",
+        "RootComponent"
+      ],
+      "objectReferences": [
+        {
+          "property": "Effect",
+          "index": -3,
+          "path": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.BP_DeathCapMushroomGameplayEffect_C"
+        },
+        {
+          "property": "ActivationAnimation",
+          "index": -1,
+          "path": "/Game/Actors/Characters/Player/Master/Animations/Player_Master_EatFast.Player_Master_EatFast"
+        },
+        {
+          "property": "ItemActorClass",
+          "index": -2,
+          "path": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor.BP_DeathCapMushroomActor_C"
+        },
+        {
+          "property": "RootComponent",
+          "index": 0,
+          "path": null
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "2c90db9eda3e89ad3fda8a1c28e8d90b255184c89c9bb5775d9b22c4eeae3f6a",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "b9fe7543bbc846be7159dafa9ac9a7718d2f4ecb6363f1bf054765f45b491829",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+      "class": "BP_ArrowBaseRangedWeapon_C",
+      "parent": {
+        "index": -28,
+        "path": "/Script/Dungeons.RangedWeaponGearItemInstance"
+      },
+      "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+      "propertyNames": [
+        "ProjectileOverrides",
+        "AnimNotifyStateData",
+        "RootComponent"
+      ],
+      "objectReferences": [
+        {
+          "property": "RootComponent",
+          "index": 0,
+          "path": null
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "dae14e2aadda482116821f94a8fd2577d065abb1181871810f02ec35e02750dc",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "c881c282b17305e742ba6ce0e4c663f743591eafc9c60e24ffcc38d28d6c15d5",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+      "class": "BP_ScatterCrossBow_Arrow_C",
+      "parent": {
+        "index": -2,
+        "path": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C"
+      },
+      "cdo": "Default__BP_ScatterCrossBow_Arrow_C",
+      "propertyNames": [
+        "UberGraphFrame",
+        "NormalImpactSound",
+        "ChargedImpactSound",
+        "pushback",
+        "ProjectileMovementComponent",
+        "IgnoreFriendlyFire",
+        "HomingThreshold",
+        "ImpactActionHandler",
+        "damage",
+        "RemoteRole"
+      ],
+      "objectReferences": [
+        {
+          "property": "NormalImpactSound",
+          "index": -43,
+          "path": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactNormal.sfx_item_scatterCrossbowArrowImpactNormal"
+        },
+        {
+          "property": "ChargedImpactSound",
+          "index": -42,
+          "path": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactCharged.sfx_item_scatterCrossbowArrowImpactCharged"
+        },
+        {
+          "property": "ProjectileMovementComponent",
+          "index": 5,
+          "path": "Default__BP_ScatterCrossBow_Arrow_C.Projectile Movement Component"
+        },
+        {
+          "property": "ImpactActionHandler",
+          "index": 9,
+          "path": "Default__BP_ScatterCrossBow_Arrow_C.ImpactActionHandler"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "c6b852f0a4f2390c3bcca3d8e9e441df227df138a0365705f30880c5d396a73c",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "3bb75a740544bd29736712c9f778df4d1ec8eace2f032fc79ebb65f136c51587",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+      "class": "BP_Arrow_C",
+      "parent": {
+        "index": -6,
+        "path": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C"
+      },
+      "cdo": "Default__BP_Arrow_C",
+      "propertyNames": [
+        "UberGraphFrame",
+        "NormalWooshSound",
+        "ChargedWooshSound",
+        "Magical Material",
+        "TrailColor",
+        "ProjectileMovementComponent",
+        "ProjectilePropClass",
+        "ImpactActionHandler",
+        "RemoteRole"
+      ],
+      "objectReferences": [
+        {
+          "property": "NormalWooshSound",
+          "index": -125,
+          "path": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_arrowWhoosh.sfx_item_arrowWhoosh"
+        },
+        {
+          "property": "ChargedWooshSound",
+          "index": -125,
+          "path": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_arrowWhoosh.sfx_item_arrowWhoosh"
+        },
+        {
+          "property": "Magical Material",
+          "index": -94,
+          "path": "/Game/Models/Weapons/Arrow/MI_MagicalArrow.MI_MagicalArrow"
+        },
+        {
+          "property": "ProjectileMovementComponent",
+          "index": 40,
+          "path": "Default__BP_Arrow_C.Projectile Movement Component"
+        },
+        {
+          "property": "ProjectilePropClass",
+          "index": -5,
+          "path": "/Game/Actors/Items/Arrow/BP_ArrowProp.BP_ArrowProp_C"
+        },
+        {
+          "property": "ImpactActionHandler",
+          "index": 50,
+          "path": "Default__BP_Arrow_C.ImpactActionHandler"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "2c9220047c60d2b3b4fcdd439b8c602d02a4a14f03a3675b891dcc59b1fbd984",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "3a0e168cc5da88f721f139ec817ed08630665c3d5cffd2d52af5c2a5c9c4389c",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+      "class": "BP_Projectile_C",
+      "parent": {
+        "index": -13,
+        "path": "/Script/Dungeons.Arrow"
+      },
+      "cdo": "Default__BP_Projectile_C",
+      "propertyNames": [
+        "UberGraphFrame",
+        "PS_OnHit",
+        "PS_OnHitCharged",
+        "PS_OnHitMagical",
+        "pushback",
+        "ProjectileMovementComponent",
+        "IsHoming",
+        "ImpactActionHandler",
+        "damage",
+        "DamageType",
+        "bCanBeDamaged"
+      ],
+      "objectReferences": [
+        {
+          "property": "PS_OnHit",
+          "index": -62,
+          "path": "/Game/Effects/ParticleSystems/Combat/P_ArrowHit_Generic.P_ArrowHit_Generic"
+        },
+        {
+          "property": "PS_OnHitCharged",
+          "index": -61,
+          "path": "/Game/Effects/ParticleSystems/Combat/P_ArrowHit_Charged.P_ArrowHit_Charged"
+        },
+        {
+          "property": "PS_OnHitMagical",
+          "index": -63,
+          "path": "/Game/Effects/ParticleSystems/Combat/P_ArrowHitMagic_Generic.P_ArrowHitMagic_Generic"
+        },
+        {
+          "property": "ProjectileMovementComponent",
+          "index": 25,
+          "path": "Default__BP_Projectile_C.Projectile Movement Component"
+        },
+        {
+          "property": "ImpactActionHandler",
+          "index": 27,
+          "path": "Default__BP_Projectile_C.ImpactActionHandler"
+        }
+      ],
+      "sourceFiles": {
+        ".uasset": {
+          "sha256": "731416c11cf17b20894d591c557c142a940d299d8f2beb9f1d85101efe702846",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        },
+        ".uexp": {
+          "sha256": "34a70c62a46602d49ec9761242f6f5e5053d875a8fb078d95f5d4f49fab8e520",
+          "pak": "pakchunk4-WindowsNoEditor.pak"
+        }
+      }
+    }
+  ],
+  "semanticFindings": [
+    {
+      "asset": "BP_DeflectingWithShield",
+      "function": "GetShield",
+      "finding": "GetOwner is cast to BP_IllagerTowerGuardCharacter_C; on success Shield.ChildActor is assigned to the return value. This is an enemy shield-specific path, not evidence of player Deflect probability."
+    },
+    {
+      "asset": "BP_ClaymoreInstance",
+      "function": "ExecuteUbergraph_BP_ClaymoreInstance",
+      "finding": "CreateSound2D calls use SwingSFX, StabSFX and PoundSFX; confirms audio initialization."
+    },
+    {
+      "asset": "BP_PoisonCloud",
+      "function": "GetImpactEffect",
+      "finding": "Traverses EffectMap keys and uses owner class / ClassIsChildOf / Map_Find; SpawnImpactEffect sets an ImpactParticles template. Not a poison damage formula."
+    }
+  ]
+}
