@@ -1,0 +1,462 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+  "sourceFingerprint": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6",
+  "runtimePromotion": "not-performed",
+  "coverageFunnel": {
+    "source": {
+      "totalFiles": 134806,
+      "logicalPackages": 49394,
+      "uassetPackages": 45311,
+      "umapPackages": 4083,
+      "gameplayResearchRoots": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/Armor",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/Actors/Items",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/Components/Enchantments",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/Components/ArmorProperties",
+          "present": true
+        },
+        {
+          "path": "Dungeons/Content/DataTables",
+          "present": true
+        }
+      ]
+    },
+    "gameplayCandidate": {
+      "candidateAssets": 1026,
+      "policy": "paired BP mechanics classes under gameplay roots, including DLC/Patch branches",
+      "boundary": "Selected gameplay mechanics candidates, not whole-game coverage."
+    },
+    "parser": {
+      "parsedAssets": 1018,
+      "failedAssets": 8,
+      "skippedAssets": 0,
+      "gameplayCandidateParseCoverage": 0.9922027290448343,
+      "fatalParseRate": 0.007797270955165692,
+      "byRoot": {
+        "Armor": {
+          "candidates": 164,
+          "parsed": 164,
+          "failed": 0,
+          "records": 0,
+          "parseSuccessRate": 1,
+          "fatalParseRate": 0
+        },
+        "MeleeWeapons": {
+          "candidates": 168,
+          "parsed": 164,
+          "failed": 4,
+          "records": 586,
+          "parseSuccessRate": 0.9761904761904762,
+          "fatalParseRate": 0.023809523809523808
+        },
+        "RangedWeapons": {
+          "candidates": 215,
+          "parsed": 215,
+          "failed": 0,
+          "records": 199,
+          "parseSuccessRate": 1,
+          "fatalParseRate": 0
+        },
+        "Items": {
+          "candidates": 215,
+          "parsed": 213,
+          "failed": 2,
+          "records": 18,
+          "parseSuccessRate": 0.9906976744186047,
+          "fatalParseRate": 0.009302325581395349
+        },
+        "Enchantments": {
+          "candidates": 225,
+          "parsed": 223,
+          "failed": 2,
+          "records": 61,
+          "parseSuccessRate": 0.9911111111111112,
+          "fatalParseRate": 0.008888888888888889
+        },
+        "ArmorProperties": {
+          "candidates": 39,
+          "parsed": 39,
+          "failed": 0,
+          "records": 27,
+          "parseSuccessRate": 1,
+          "fatalParseRate": 0
+        }
+      }
+    },
+    "structural": {
+      "totalParsedProperties": 19905,
+      "retainedFacts": 891,
+      "syntheticStructuralObservations": 61,
+      "semanticRuleRecognizedPropertyCount": 830,
+      "retentionRatio": 0.04476262245666918,
+      "semanticRuleFilteringRatio": 0.041698065812609895,
+      "boundary": "Filtering ratio, not quality; retained facts include synthetic empty-CDO observations, which are not parsed properties."
+    },
+    "semantic": {
+      "accepted": 451,
+      "tentative": 29,
+      "unresolved": 388,
+      "rejected": 23,
+      "rates": {
+        "accepted": 0.5061728395061729,
+        "tentative": 0.03254769921436588,
+        "unresolved": 0.43546576879910215,
+        "rejected": 0.025813692480359147
+      },
+      "byCategory": {
+        "armor-property": {
+          "accepted": 4,
+          "tentative": 0,
+          "unresolved": 0,
+          "rejected": 23
+        },
+        "artifact": {
+          "accepted": 18,
+          "tentative": 0,
+          "unresolved": 0,
+          "rejected": 0
+        },
+        "enchantment": {
+          "accepted": 0,
+          "tentative": 0,
+          "unresolved": 61,
+          "rejected": 0
+        },
+        "melee-weapon": {
+          "accepted": 293,
+          "tentative": 0,
+          "unresolved": 293,
+          "rejected": 0
+        },
+        "ranged-weapon": {
+          "accepted": 136,
+          "tentative": 29,
+          "unresolved": 34,
+          "rejected": 0
+        }
+      }
+    },
+    "gap": {
+      "baselineGapCount": 2105,
+      "closedCount": 17,
+      "partialCount": 22,
+      "evidenceAddedCount": 38,
+      "conflictCount": 0,
+      "blockedCount": 300,
+      "noMatchCount": 1728,
+      "remainingGapCount": 2088,
+      "closedRate": 0.008076009501187649,
+      "directEvidenceTouchedCount": 77,
+      "directEvidenceTouchedRate": 0.03657957244655582
+    }
+  },
+  "semanticRuleCoverage": [
+    {
+      "ruleId": "armor-property-effect-class-v1",
+      "category": "armor-property",
+      "matchedFacts": 4,
+      "resolvedEntities": 1,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "artifact-instance-effect-class-v1",
+      "category": "artifact",
+      "matchedFacts": 18,
+      "resolvedEntities": 7,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "enchantment-empty-cdo-v1",
+      "category": "enchantment",
+      "matchedFacts": 61,
+      "resolvedEntities": 1,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "melee-instance-animation-duration-v1",
+      "category": "melee-weapon",
+      "matchedFacts": 293,
+      "resolvedEntities": 24,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "presentation-priority-negative-control-v1",
+      "category": "armor-property",
+      "matchedFacts": 23,
+      "resolvedEntities": 1,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "ranged-instance-angle-span-v1",
+      "category": "ranged-weapon",
+      "matchedFacts": 68,
+      "resolvedEntities": 22,
+      "mappedGaps": 22,
+      "closedGaps": 0,
+      "partialGaps": 22,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "ranged-instance-attack-rate-v1",
+      "category": "ranged-weapon",
+      "matchedFacts": 29,
+      "resolvedEntities": 19,
+      "mappedGaps": 38,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 38
+    },
+    {
+      "ruleId": "ranged-instance-projectile-count-v1",
+      "category": "ranged-weapon",
+      "matchedFacts": 68,
+      "resolvedEntities": 22,
+      "mappedGaps": 17,
+      "closedGaps": 17,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "raw-damage-negative-control-v1",
+      "category": "melee-weapon",
+      "matchedFacts": 293,
+      "resolvedEntities": 24,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    },
+    {
+      "ruleId": "raw-ranged-damage-negative-control-v1",
+      "category": "ranged-weapon",
+      "matchedFacts": 34,
+      "resolvedEntities": 9,
+      "mappedGaps": 0,
+      "closedGaps": 0,
+      "partialGaps": 0,
+      "evidenceAddedGaps": 0
+    }
+  ],
+  "gapCoverage": {
+    "touchedByCategory": {
+      "ranged-weapon": 77
+    },
+    "touchedByProperty": {
+      "projectileCount": 17,
+      "recoverySeconds": 19,
+      "shotsPerSecond": 19,
+      "spread": 22
+    },
+    "highRuntimeRelevance": {
+      "closed": 0,
+      "partial": 0,
+      "evidence-added": 0,
+      "conflict": 0,
+      "blocked": 0,
+      "no-match": 124
+    },
+    "rankAccuracy": {
+      "closed": 0,
+      "partial": 0,
+      "evidence-added": 0,
+      "conflict": 0,
+      "blocked": 0,
+      "no-match": 124
+    }
+  },
+  "parserDiagnostics": {
+    "summary": [
+      {
+        "code": "struct-parse-failed",
+        "propertyType": "StructProperty",
+        "count": 39,
+        "fatal": false
+      },
+      {
+        "code": "trailing-bytes",
+        "count": 22,
+        "fatal": false
+      },
+      {
+        "code": "malformed-property-tag",
+        "count": 17,
+        "fatal": true
+      },
+      {
+        "code": "unsupported-property-type",
+        "propertyType": "MapProperty",
+        "count": 6,
+        "fatal": false
+      },
+      {
+        "code": "unsupported-property-type",
+        "propertyType": "SetProperty",
+        "count": 5,
+        "fatal": false
+      },
+      {
+        "code": "trailing-bytes",
+        "propertyType": "ArrayProperty",
+        "count": 4,
+        "fatal": false
+      }
+    ],
+    "classification": {
+      "fatal": 17,
+      "safeSkipped": {
+        "count": null,
+        "basis": "Bulk summary does not retain per-diagnostic skipped flags. Nonfatal is not automatically equivalent to safely skipped."
+      },
+      "potentiallyRelevant": 50,
+      "likelyIrrelevant": {
+        "count": 0,
+        "basis": "No retained property context proves irrelevance."
+      },
+      "relevanceUnknown": 26
+    },
+    "hardeningRecommendation": "First retain diagnostic property paths and safe-skip flags in a bounded future probe; investigate Map/Set/struct and malformed tags only with a canonical entity/property link. Current aggregates do not demonstrate high closure ROI.",
+    "failedAssets": [
+      {
+        "assetPath": "Dungeons/Content/Actors/Items/Arrow/Player/BP_BurningArrowGameplayEffect",
+        "gameplayRoot": "Items",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Components/Enchantments/Snowing/BP_SnowingGameplayEffect",
+        "gameplayRoot": "Enchantments",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No canonical category resolver for enchantment"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Components/Enchantments/Stunning/BP_StunningGameplayEffect",
+        "gameplayRoot": "Enchantments",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No canonical category resolver for enchantment"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect",
+        "gameplayRoot": "Items",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueActiveGameplayEffect",
+        "gameplayRoot": "MeleeWeapons",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueBreakGameplayEffect",
+        "gameplayRoot": "MeleeWeapons",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordActiveGameplayEffect",
+        "gameplayRoot": "MeleeWeapons",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      },
+      {
+        "assetPath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordBreakGameplayEffect",
+        "gameplayRoot": "MeleeWeapons",
+        "failureReason": "incomplete-cdo-property-stream",
+        "entityResolution": {
+          "status": "unresolved",
+          "reason": "No exact canonical identity or explicit alias matched"
+        },
+        "affectedGapIds": [],
+        "affectedGapCount": 0,
+        "boundary": "Entity-level exposure only; no property-specific blocking is proven."
+      }
+    ],
+    "boundary": "Aggregate unsupported diagnostics cannot be assigned to individual Gaps. Fatal assets identify entity exposure only."
+  },
+  "traceAudit": {
+    "status": "passed",
+    "closed": 17,
+    "partialAndEvidenceAdded": 60,
+    "chain": "Gap → mapping → provenance record → indexed asset path → SHA256 → dataset → source path-size fingerprint"
+  },
+  "entityResolution": {
+    "ambiguous": 0,
+    "unresolved": 633
+  }
+}

@@ -55,7 +55,9 @@
     "audit:ranged-enchants": "node scripts/audit-ranged.ts --enchantments",
     "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts",
     "test:e2e": "playwright test",
-    "test:performance": "vitest run tests/performance.test.ts"
+    "test:performance": "vitest run tests/performance.test.ts",
+    "generate:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts --write",
+    "audit:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts"
   },
   "dependencies": {
     "react": "19.2.6",
