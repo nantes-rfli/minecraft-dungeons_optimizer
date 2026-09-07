@@ -57,7 +57,9 @@
     "test:e2e": "playwright test",
     "test:performance": "vitest run tests/performance.test.ts",
     "generate:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts --write",
-    "audit:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts"
+    "audit:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts",
+    "generate:game-data-model-alignment": "node scripts/audit-game-data-model-alignment.ts --write",
+    "audit:game-data-model-alignment": "node scripts/audit-game-data-model-alignment.ts"
   },
   "dependencies": {
     "react": "19.2.6",

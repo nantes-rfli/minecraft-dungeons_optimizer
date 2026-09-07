@@ -1,0 +1,41 @@
+# Canonical Research Properties — Phase 6.6
+
+Raw Game Property → Canonical Research Property → Runtime Optimizer Property. Only the research layer is approved here.
+
+| ID | Category | Source layer | Value kind | Aliases | Meaning |
+| --- | --- | --- | --- | --- | --- |
+| armor-enchantment.cooldown | armor-enchantment | empirical-required | runtime-derived | cooldown | Legacy research requirement cooldown for armor-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| armor-enchantment.duration | armor-enchantment | empirical-required | runtime-derived | duration | Legacy research requirement duration for armor-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| armor-enchantment.powerDependence | armor-enchantment | runtime-required | runtime-derived | powerDependence | Legacy research requirement powerDependence for armor-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| armor-enchantment.procChance | armor-enchantment | empirical-required | runtime-derived | procChance | Legacy research requirement procChance for armor-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| armor.gameplayEffectClass | armor-property | structural-reference | reference | Effect | GameplayEffect class reference only; does not establish magnitude, duration, stacking or attribute modification. |
+| armor.healthPowerCurve | armor | runtime-required | runtime-derived | healthPowerCurve | Legacy research requirement healthPowerCurve for armor; requires original protocol/outcome, not a configured scalar substitute. |
+| artifact.duration | artifact | empirical-required | runtime-derived | duration | Legacy research requirement duration for artifact; requires original protocol/outcome, not a configured scalar substitute. |
+| artifact.gameplayEffectClass | artifact | structural-reference | reference | Effect | GameplayEffect class reference only; does not establish magnitude, duration, stacking or attribute modification. |
+| artifact.interactions | artifact | empirical-required | runtime-derived | interactions | Legacy research requirement interactions for artifact; requires original protocol/outcome, not a configured scalar substitute. |
+| artifact.powerScalingEvidence | artifact | runtime-required | runtime-derived | powerScalingEvidence | Legacy research requirement powerScalingEvidence for artifact; requires original protocol/outcome, not a configured scalar substitute. |
+| artifact.stacking | artifact | empirical-required | runtime-derived | stacking | Legacy research requirement stacking for artifact; requires original protocol/outcome, not a configured scalar substitute. |
+| melee-enchantment.cooldown | melee-enchantment | empirical-required | runtime-derived | cooldown | Legacy research requirement cooldown for melee-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| melee-enchantment.duration | melee-enchantment | empirical-required | runtime-derived | duration | Legacy research requirement duration for melee-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| melee-enchantment.powerDependence | melee-enchantment | runtime-required | runtime-derived | powerDependence | Legacy research requirement powerDependence for melee-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| melee-enchantment.procChance | melee-enchantment | empirical-required | runtime-derived | procChance | Legacy research requirement procChance for melee-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| melee-enchantment.runtimeInteraction | melee-enchantment | empirical-required | runtime-derived | runtimeInteraction | Legacy research requirement runtimeInteraction for melee-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| melee.attackAnimationDurationSeconds | melee-weapon | direct-static | number | AttackAnimationTimeDurationSeconds | Configured animation duration for the indexed attack variant. Preserve every index and asset; never collapse to final attack speed. |
+| melee.attackSpeedScaling | melee-weapon | empirical-required | runtime-derived | attackSpeedScaling | Legacy research requirement attackSpeedScaling for melee-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| melee.intrinsicMechanicOwnership | melee-weapon | empirical-required | runtime-derived | intrinsicMechanicOwnership | Legacy research requirement intrinsicMechanicOwnership for melee-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| melee.powerScaling | melee-weapon | runtime-required | runtime-derived | powerScaling | Legacy research requirement powerScaling for melee-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| melee.timing | melee-weapon | empirical-required | runtime-derived | timing | Legacy research requirement timing for melee-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged-enchantment.ammoChargeInteractions | ranged-enchantment | empirical-required | runtime-derived | ammoChargeInteractions | Legacy research requirement ammoChargeInteractions for ranged-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged-enchantment.maxCopies | ranged-enchantment | empirical-required | runtime-derived | maxCopies | Legacy research requirement maxCopies for ranged-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged-enchantment.triggerOwnership | ranged-enchantment | empirical-required | runtime-derived | triggerOwnership | Legacy research requirement triggerOwnership for ranged-enchantment; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.angleSpanDegrees | ranged-weapon | direct-static | number | AngleSpan, ranged.projectileAngleSpanDegrees | Configured projectile angle span, not an effective spread distribution. Preserve the established 6.5 ID. |
+| ranged.chargeTimeSeconds | ranged-weapon | empirical-required | runtime-derived | chargeTimeSeconds | Legacy research requirement chargeTimeSeconds for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.configuredAttackIntervalSeconds | ranged-weapon | direct-static | number | AttackRateSeconds, ranged.attackRateSeconds | Serialized AttackRateSeconds configuration. Runtime ownership and effective shot cadence remain unproven; no reciprocal conversion. |
+| ranged.neutralProjectileDamageDistribution | ranged-weapon | empirical-required | runtime-derived | neutralProjectileDamageDistribution | Legacy research requirement neutralProjectileDamageDistribution for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.procOwnership | ranged-weapon | empirical-required | runtime-derived | procOwnership | Legacy research requirement procOwnership for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.projectileCount | ranged-weapon | direct-static | number | NumberOfProjectiles | Configured count per projectile-definition index; not total projectiles across every attack variant. |
+| ranged.recoverySeconds | ranged-weapon | empirical-required | runtime-derived | recoverySeconds | Legacy research requirement recoverySeconds for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.shotsPerSecond | ranged-weapon | empirical-required | runtime-derived | shotsPerSecond | Legacy research requirement shotsPerSecond for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+| ranged.spread | ranged-weapon | empirical-required | runtime-derived | spread | Legacy research requirement spread for ranged-weapon; requires original protocol/outcome, not a configured scalar substitute. |
+
+Aliases are category-scoped. Deprecated and merged properties: zero; no absence-based deprecation. Configured array indexes remain on every mapping. Runtime/empirical concepts retain their original protocol and expected outcome; no computed value is supplied.

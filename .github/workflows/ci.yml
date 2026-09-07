@@ -55,6 +55,7 @@ jobs:
       - run: npm run audit:game-data-bulk-harvest
       - run: npm run audit:game-data-gap-reconciliation
       - run: npm run audit:game-data-final-coverage
+      - run: npm run audit:game-data-model-alignment
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b

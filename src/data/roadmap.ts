@@ -200,12 +200,26 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: '6.5F — Audit / Report / Coverage', status: 'done' },
     ],
   },
+  {
+    id: 'phase-6-6',
+    title: 'Phase 6.6 — Game Data Model Alignment & Reconciliation',
+    goal: 'Raw Game Property・Canonical Research Property・Runtime Optimizer Propertyを分離し、research modelの対応と残余Gapを監査する。runtime promotionは行わない。',
+    items: [
+      { label: 'Entity Identity Alignment（variant・カテゴリ・alias根拠を保持）', status: 'done' },
+      { label: 'Canonical Research Property Registry（33 property）', status: 'done' },
+      { label: 'Property Alias / Rename Alignment', status: 'done' },
+      { label: 'Structural Reference Normalization', status: 'done' },
+      { label: 'Game-only / Missing Expected Property Review', status: 'done' },
+      { label: 'Semantic Rule Alignment（承認済みA→Bのみ）', status: 'done' },
+      { label: 'Gap Reconciliation Regeneration（17 closed / 2,088 remaining）', status: 'done' },
+      { label: 'Phase 7 Handoff / Phase 6.7 Decision（optional、Next Phase 7）', status: 'done' },
+    ],
+  },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-6-6', title: 'Phase 6.6 — Game Data Model Alignment & Reconciliation', goal: 'Next: canonical alias・構造参照・game-only / expected propertyを確認し、承認したmappingでresearch modelとsemantic ruleを整理する。Phase 7への残余handoffを再生成する。' },
-  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: 'Phase 6.6のmodel alignment後に確定した残余を対象に、本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
+  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: 'Next: Phase 6.6で確定した1,307件のObserve / Measure / Experimentを対象に、本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
   { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation', goal: 'game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存し、1件の自己観測だけでVerifiedにしない。' },
   { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline', goal: 'Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、manifest・validation・test・Coverage・UI・Optimizerを同期する。' },
   { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },

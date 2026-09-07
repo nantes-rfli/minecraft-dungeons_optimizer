@@ -349,3 +349,7 @@ Phase 5はSource Harvestの2,105 GapをGap Causeとは別軸のResolution Class�
 - [品質・性能の記録](docs/public-use-readiness.md)、[Data / Evidence Update Workflow](docs/data-update-workflow.md)、[変更履歴](docs/changes.md)。
 
 製品のsemantic versionや正式版判定は運用しません。変更追跡の正本はGit commit historyです。Inventory JSON `version: 2`、既存localStorage key、research schemaVersion、EvidenceのgameVersionは互換性・根拠管理のため維持します。過去のEvidence参照IDも追跡可能性のため保持します。一般公開は別milestoneで、現在のサイトは本人限定です。
+
+### Phase 6.6 — Game Data Model Alignment
+
+Raw Game Property → Canonical Research Property → Runtime Optimizer Propertyの3層を分離しました。[モデル整理](./docs/game-data-model-alignment.md) / [property registry](./docs/game-data-canonical-properties.md) / [Phase 7 handoff](./research/phase7-research-handoff.json)。`npm run generate:game-data-model-alignment`でraw assetsを使わず再生成し、`npm run audit:game-data-model-alignment`で対応・根拠・Gap partition・生成driftを検証します。6.5 baselineは固定し、runtime値への昇格は行いません。
