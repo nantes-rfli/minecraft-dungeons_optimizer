@@ -44,8 +44,8 @@ Power scaling and health curves are runtime-required; effective cadence, ownersh
 | --- | --- |
 | baselineGapCount | 2105 |
 | closedCount | 17 |
-| partialCount | 21 |
-| evidenceAddedCount | 39 |
+| partialCount | 22 |
+| evidenceAddedCount | 38 |
 | conflictCount | 0 |
 | blockedCount | 300 |
 | noMatchCount | 1728 |

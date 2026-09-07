@@ -65,8 +65,8 @@
     "reconciliation": {
       "baselineGapCount": 2105,
       "closedCount": 17,
-      "partialCount": 21,
-      "evidenceAddedCount": 39,
+      "partialCount": 22,
+      "evidenceAddedCount": 38,
       "conflictCount": 0,
       "blockedCount": 300,
       "noMatchCount": 1728,
@@ -11155,7 +11155,7 @@
         "protocolId": "OBS-RANGED-CARD",
         "taskFamilyId": "ranged-card-observation"
       },
-      "reconciliationStatus": "evidence-added",
+      "reconciliationStatus": "partial",
       "differenceKind": "structural-transform",
       "secondaryDifferenceKinds": [],
       "evidence": {

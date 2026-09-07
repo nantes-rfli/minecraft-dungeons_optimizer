@@ -13735,12 +13735,14 @@
         "value": -4
       },
       "interpretation": {
-        "status": "unresolved",
+        "status": "accepted",
+        "normalizedProperty": "ranged.angleSpanDegrees",
+        "normalizedValue": -4,
         "mappingBasis": [
           "property-name-direct",
           "class-context"
         ],
-        "note": "Configured projectile angle span; it narrows spread research but does not establish effective spread behavior. Canonical approval withheld: serialized-item-id + exact-catalog-slug + catalog-category-evidence"
+        "note": "Configured projectile angle span; it narrows spread research but does not establish effective spread behavior."
       },
       "confidence": {
         "source": "medium",

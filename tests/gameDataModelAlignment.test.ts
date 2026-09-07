@@ -42,6 +42,12 @@ describe('Canonical properties and approval gates',()=>{
       for (const m of mappings) expect(m.canonical?.value).toEqual(m.raw.value)
     }
   })
+  it('preserves the signed configured angle without taking an absolute value',()=>{
+    const angle=result.canonicalMappings.find(m=>m.canonicalEntity==='ranged-weapon:dual-crossbows' && m.raw.propertyPath.endsWith('.AngleSpan'))!
+    expect(angle.status).toBe('accepted')
+    expect(angle.canonical?.value).toBe(-4)
+    expect(result.reconciliation.resolutions.find(r=>r.gapId==='ranged-weapon:dual-crossbows:spread')?.status).toBe('partial')
+  })
   it('retains multiple animation variants separately',()=>{
     const animation=result.canonicalMappings.filter(m=>m.canonical?.propertyId==='melee.attackAnimationDurationSeconds')
     const multi=animation.find(m=>animation.some(n=>n.raw.assetPath===m.raw.assetPath && n.variantIndex!==m.variantIndex))!

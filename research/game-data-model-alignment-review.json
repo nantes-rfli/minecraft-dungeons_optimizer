@@ -2799,8 +2799,8 @@
     "reconciliation": {
       "baselineGapCount": 2105,
       "closedCount": 17,
-      "partialCount": 21,
-      "evidenceAddedCount": 39,
+      "partialCount": 22,
+      "evidenceAddedCount": 38,
       "conflictCount": 0,
       "blockedCount": 300,
       "noMatchCount": 1728,
@@ -5018,8 +5018,8 @@
       "sourceRecordId": "bulk-bp-dual-crossbows-instance-b2d830d7ab500b04",
       "aliasId": "ranged-weapon:DualCrossbows",
       "baselineDifference": "rename-or-alias",
-      "decision": "unresolved",
-      "reason": "Research-only. Raw magnitude, timing reciprocal and reference effect semantics are not runtime facts."
+      "decision": "add-canonical-property",
+      "reason": "Configured projectile angle span, not an effective spread distribution. Preserve the established 6.5 ID."
     },
     {
       "sourceRecordId": "bulk-bp-dual-crossbows-unique1-instance-5c4ebea6ee68abeb",

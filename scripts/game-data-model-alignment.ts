@@ -102,7 +102,7 @@ export function buildModelAlignment(input: AlignmentInputs) {
     const value = raw.value
     const reference = raw.propertyPath === 'Effect' && value !== null && typeof value === 'object' && !Array.isArray(value) && typeof value.objectName === 'string' ? value : null
     const validType = decision && (decision.types as readonly string[]).includes(raw.propertyType)
-      && (reference ? reference.kind === 'import' || reference.kind === 'export' : typeof value === 'number' && Number.isFinite(value) && value >= 0)
+      && (reference ? reference.kind === 'import' || reference.kind === 'export' : typeof value === 'number' && Number.isFinite(value) && (raw.propertyPath.endsWith('.AngleSpan') || value >= 0))
       && (!raw.propertyPath.endsWith('NumberOfProjectiles') || (typeof value === 'number' && Number.isInteger(value)))
     const status = decision?.status === 'rejected' ? 'rejected' : decision?.status === 'approved' && validType && alias.status === 'accepted' ? 'accepted' : 'unresolved'
     const propertyId = decision && 'propertyId' in decision ? decision.propertyId : null

@@ -5,8 +5,8 @@
   "summary": {
     "baselineGapCount": 2105,
     "closedCount": 17,
-    "partialCount": 21,
-    "evidenceAddedCount": 39,
+    "partialCount": 22,
+    "evidenceAddedCount": 38,
     "conflictCount": 0,
     "blockedCount": 300,
     "noMatchCount": 1728,
@@ -4896,14 +4896,16 @@
         "resolutionClass": "observe",
         "expectedOutcome": "categorical-value"
       },
-      "status": "evidence-added",
+      "status": "partial",
       "sourceRecordIds": [
         "bulk-bp-dual-crossbows-instance-b2d830d7ab500b04"
       ],
       "semanticMappingIds": [
         "aligned-mapping-bulk-bp-dual-crossbows-instance-b2d830d7ab500b04"
       ],
-      "reason": "Direct evidence narrows follow-up research, but its semantic status or empirical boundary prevents closure.",
+      "normalizedProperty": "ranged.angleSpanDegrees",
+      "normalizedValue": -4,
+      "reason": "Accepted direct fact ranged.angleSpanDegrees narrows the Gap but does not satisfy its expected outcome or close policy.",
       "remainingNeed": "Complete the observe protocol unless an explicit static replacement rule is added."
     },
     {
@@ -6183,8 +6185,8 @@
       },
       "ranged-weapon": {
         "closed": 17,
-        "partial": 21,
-        "evidence-added": 39,
+        "partial": 22,
+        "evidence-added": 38,
         "conflict": 0,
         "blocked": 0,
         "no-match": 761
@@ -6497,8 +6499,8 @@
       },
       "spread": {
         "closed": 0,
-        "partial": 21,
-        "evidence-added": 1,
+        "partial": 22,
+        "evidence-added": 0,
         "conflict": 0,
         "blocked": 0,
         "no-match": 49
@@ -6595,8 +6597,8 @@
       },
       "source-missing": {
         "closed": 17,
-        "partial": 21,
-        "evidence-added": 1,
+        "partial": 22,
+        "evidence-added": 0,
         "conflict": 0,
         "blocked": 0,
         "no-match": 767
@@ -6645,8 +6647,8 @@
       },
       "observe": {
         "closed": 17,
-        "partial": 21,
-        "evidence-added": 1,
+        "partial": 22,
+        "evidence-added": 0,
         "conflict": 0,
         "blocked": 0,
         "no-match": 281
@@ -6687,8 +6689,8 @@
       },
       "medium": {
         "closed": 17,
-        "partial": 21,
-        "evidence-added": 39,
+        "partial": 22,
+        "evidence-added": 38,
         "conflict": 0,
         "blocked": 271,
         "no-match": 1604
@@ -6721,8 +6723,8 @@
       },
       "runtime-eligibility": {
         "closed": 17,
-        "partial": 21,
-        "evidence-added": 39,
+        "partial": 22,
+        "evidence-added": 38,
         "conflict": 0,
         "blocked": 271,
         "no-match": 1497
@@ -6730,8 +6732,8 @@
     },
     "byStatus": {
       "closed": 17,
-      "partial": 21,
-      "evidence-added": 39,
+      "partial": 22,
+      "evidence-added": 38,
       "conflict": 0,
       "blocked": 300,
       "no-match": 1728

@@ -10440,8 +10440,11 @@
       "aliasId": "ranged-weapon:DualCrossbows",
       "canonicalEntity": "ranged-weapon:dual-crossbows",
       "ruleId": "ranged-instance-angle-span-v1",
-      "status": "unresolved",
-      "canonical": null,
+      "status": "accepted",
+      "canonical": {
+        "propertyId": "ranged.angleSpanDegrees",
+        "value": -4
+      },
       "candidatePropertyId": "ranged.angleSpanDegrees",
       "confidence": {
         "source": "medium",
