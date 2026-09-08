@@ -235,6 +235,10 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 [攻撃タイミング調査](./docs/game-data-timing.md)を追加しました。383アセット・384回の独立reader往復一致を確認し、82 Instanceの293 variant、288 animation export、671通知を整理。連続ダメージ・解放時の発動契機・キャンセル上書きが明示的に存在するため、単一の攻撃速度へ潰さず保持する設計が必要です。nativeの時間適用・通知の受信・実効ヒット列は未確定。6.8Eは設定と代表通知の読解まで進行、6.8D/E全体と6.9は未完了です。runtime・アプリ内ロードマップは変更していません。
 
+### Phase 6.8D/E — 設定使用箇所・native静的展開（2026-09-08、進行中）
+
+[適用経路と到達点](./docs/game-data-mechanic-boundaries.md)を追加。時間設定を含む201アセット・711関数を調べ、今回の名前・明示参照探索では戦闘側の適用処理は未確定。ChainswordのActive/Break Effect参照も確認しました。exeを実行せず最初の圧縮層を15,360,000 byteへ復元し、別decoderと完全一致。ただしゲーム本体のコード・戦闘式は未復元です。6.8D/Eは未完了を維持し、通常コンボ・連続攻撃・キャンセルの具体的な実測計画を保存しました。未確定境界を保持したPhase 6.9の設計案には着手可能と判断し、実装置換はまだ行いません。
+
 ### Runtime / Phase 6.6までのsummary（今回変更なし）
 
 Phase 6.6までのresearch model alignmentが完了しました。Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは1,026候補を走査して1,018件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。

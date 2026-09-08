@@ -1,0 +1,53 @@
+{
+  "status": "research-only",
+  "runtimePromotion": false,
+  "exeSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "method": "Bounded data decompression from statically traced source/destination; no game code executed",
+  "packedInputFileOffset": 28675628,
+  "packedInputRva": 94757420,
+  "packedBytesConsumed": 8937075,
+  "outputRva": 79396864,
+  "destinationVirtualSize": 15360000,
+  "outputBytes": 15360000,
+  "outputSha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+  "nextStageRelativeOffset": 2902367,
+  "nativeMechanicsRecovered": false,
+  "independentDecoder": {
+    "source": "https://github.com/snemes/aplib/blob/master/src/aplib.py",
+    "sha256": "e35517800657b7f8548683675f7309d9413bf6d9b89a0619c26b3080ccada23c",
+    "license": "GPL-3.0; local research only",
+    "outputMatches": true,
+    "inputConsumed": 8937075
+  },
+  "stage1ControlFlow": [
+    {
+      "address": "0x144e7c95f",
+      "instructions": [
+        "144e7c95f: 55                          \tpushq\t%rbp",
+        "144e7c960: e9 3e 7f fd ff              \tjmp\t0x144e548a3 <.dungeon+0x29c8a3>"
+      ],
+      "nextDirectJump": "0x144e548a3"
+    },
+    {
+      "address": "0x144e548a3",
+      "instructions": [
+        "144e548a3: e8 29 08 0b 00              \tcallq\t0x144f050d1 <.dungeon+0x34d0d1>"
+      ],
+      "nextDirectJump": null
+    }
+  ],
+  "symbolFilesInSourceZip": [],
+  "limitations": [
+    "Stage 1 decompression is not full executable reconstruction.",
+    "No native game mechanics or runtime control flow verified.",
+    "The generated PE is an objdump inspection container, not a runnable/unpacked game.",
+    "Output equality and section size do not prove distribution authenticity."
+  ],
+  "localEvidenceHashes": {
+    "decode_stage1.py": "5f408b522abff13693c7b415be80690de239656c388341be81c65d254cf1d634",
+    "boot-static.txt": "a76bcd539014039a712e5f3281ce556f1b7a91b5d564dd4f588d77e28bd920b8",
+    "stage1-entry-disassembly.txt": "9e38f80a8a5b51b4636929a94547b1fbc8982cb4a18d8169cb92f907ca62ab03",
+    "stage1-next-call.txt": "85d09693a4d2993a43f1dbb274f46bacef8a54183c1cb1bd3f86ef73454fe32a",
+    "stage1-continuation.txt": "e3fd79b72e8e0668215126f25dfb611f8fd2e83834b9c63a6bf1a125f3cea66b"
+  }
+}

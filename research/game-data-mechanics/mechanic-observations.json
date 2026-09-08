@@ -1,0 +1,1930 @@
+{
+  "candidateAssets": 201,
+  "functionsScanned": 711,
+  "hits": [
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotIndent/UMG_HotbarSlotRollLite",
+      "function": "UpdateCooldown",
+      "references": [
+        "UMG_HotbarSlotRollLite_C.UpdateCooldown.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotRollLite_C.UpdateCooldown.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotIndent/UMG_HotbarSlotRoll",
+      "function": "UpdateCooldown",
+      "references": [
+        "UMG_HotbarSlotRoll_C.UpdateCooldown.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotRoll_C.UpdateCooldown.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotItemSlotLite",
+      "function": "SetSlot",
+      "references": [
+        "UMG_HotbarSlotItemSlotLite_C.SetSlot.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotItemSlotLite_C.SetSlot.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotItemSlot",
+      "function": "SetSlot",
+      "references": [
+        "UMG_HotbarSlotItemSlot_C.SetSlot.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotItemSlot_C.SetSlot.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotItemSlot",
+      "function": "RefreshCooldown",
+      "references": [
+        "UMG_HotbarSlotItemSlot_C.RefreshCooldown.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotItemSlot_C.RefreshCooldown.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotHealthPotionLite",
+      "function": "SetSlot",
+      "references": [
+        "UMG_HotbarSlotHealthPotionLite_C.SetSlot.CallFunc_GetCooldownSecondsDuration_ReturnValue",
+        "UMG_HotbarSlotHealthPotionLite_C.SetSlot.CallFunc_GetCooldownSecondsRemaining_ReturnValue"
+      ]
+    }
+  ],
+  "exactTargetPropertyReferences": [],
+  "interpretation": "Six substring-hit functions reference UI cooldown return variables, not the six target timing properties. Absence is limited to named candidate assets and decoded explicit references.",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "terms": [
+    "DamageDelaySeconds",
+    "AttackAnimationTimeDurationSeconds",
+    "CooldownSeconds",
+    "CancelPointOverride",
+    "ContinuousDamageInterval",
+    "bTriggerEnchantmentsOnRelease"
+  ],
+  "sourceFiles": [
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance",
+      "sourceHashes": {
+        ".uasset": "2b6aa36cacdf49b819c70a2b89e2a6350fa2e7548aa0d264b48cdbcf96a44a34",
+        ".uexp": "b889c84d38b254cd0a733a03a0da90de5ea8081e8d7607fcd38dbfbfcf852ea8"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/BP_Rapier_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "13592e596effc3d33234411f0b5c70b131091b5da329320d9ae16160db7fa2b4",
+        ".uexp": "367c4bdaf561574d0d71cf5a05c43d2132bcb9600a1dd9c547b62d0104035b74"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/BP_Rapier_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "e6281b3ce5016fc730350074d3e58bbb0e4af216a5bb065ef8707907e73a6855",
+        ".uexp": "250245e32779510b4a1a6ed816907982d4f8aa8996fb2cd677438614352644f2"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Characters/Friendlies/Animals/Sheep/BP_SheepPoisonGreen",
+      "sourceHashes": {
+        ".uasset": "40c7dee2dd612cb043733f16d3cee417f73e956dbf078e1d6b430f57fb444e0c",
+        ".uexp": "f88a1a80638743b364e2f9403c545ac0f18c2e7ccc715b42b15d9db01b270828"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Characters/Friendlies/Animals/Sheep/BP_SheepSpeedBlue",
+      "sourceHashes": {
+        ".uasset": "7384763e9370815de6891f306b4bd1cba42f1ae54a6a7b474e3b3d851426406b",
+        ".uexp": "c1d742fd142cf931cb19c5a1a27cd4bdc4ddd37c53befb301b4c0e75065d791d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Characters/Friendlies/Animals/Bee/BP_BeeCharacter",
+      "sourceHashes": {
+        ".uasset": "90f66952511fc3e50388469a20b37227166d67ff5d47878775cf1446236b34b5",
+        ".uexp": "cb7db68f4bd57215e59125af3458ec5a9c8bc8a1821ba1d5069dd85f079aa75d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "deb6760503e9c577d1fa6f20a3724dbdfaacb72dbaec429148b9a2474a62e649",
+        ".uexp": "baddab2ff9a08e1857db52d53fe069033816056b7644fff500639a3ed3eb7022"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "2d86a9e24dd7e9f59468b2bc6e09b707dcbb24fa123e9eb27789fd6f1486b577",
+        ".uexp": "4d40da1e9d9908001f4c93d08330d8bed1e33915c1f53570e722ee6897e44449"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/BP_BoneclubInstance",
+      "sourceHashes": {
+        ".uasset": "a22f18aeb213363cad4781ea79e5c1f2a46ed8447c6b1cac6ec4bb1aa7376a7a",
+        ".uexp": "546fb6f9c07cad80a6ac427671dfcbb306cb22c02f5b66d8e2ed20b861e7dfab"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/BP_TempestKnifeInstance",
+      "sourceHashes": {
+        ".uasset": "64c687321c3788ec009016e7bee1eaf69fa9f781a2be27ae4285b873cff75d84",
+        ".uexp": "de8d18b75daa61eb80cd36177bced4fd4d06829c061c6b7c3f5a601959356f8b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+      "sourceHashes": {
+        ".uasset": "3bb85a4585867a3b10dea451205579a4ddcd08bad4e17acd42ad03fb09b2bef9",
+        ".uexp": "132333794667c2261cb26ed9f88271711b3c1c24fcbd91519df7557e19aa6788"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance",
+      "sourceHashes": {
+        ".uasset": "c632cc679c18476285e7308e69422c71898e8f72f37f535bb47ae79e3660e456",
+        ".uexp": "c41d6a7a7bc8ed299e425f91b95e4cdfccc9b71adebd818e3947f175952fa653"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "9a4f5af410d3cf3a291936f5510fd9ba82cfaf783336f6faa1bb7e41626edb28",
+        ".uexp": "05ec974865d15821999334a8b7dd299c6d15cbff49f6cae8bb43f586db349b05"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub_Unique1/BP_Boneclub_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "6c1e86a066838b19f1e3b62b03fcc035204c950b41b10da5db623fbafda41d86",
+        ".uexp": "907ee4331899037011609d64d7af3405d48d5fe4b503616e0b43b3673fde3f87"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Claymore_Winter1/BP_Claymore_Winter1Instance",
+      "sourceHashes": {
+        ".uasset": "2669ff2f6705889ee0199c5b64f016ea8273f6e7dbfa319a2599dd56c1f2f8ee",
+        ".uexp": "36f846696f4ef72e7146ca53a2b752bc904141bb8c0dd3597f12d83104c5a84d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/Hoglin/BP_HoglinCharacter",
+      "sourceHashes": {
+        ".uasset": "47533e1617e6d4400d2e1850f37d11e8287cf9912856b75209c49febc54acd6d",
+        ".uexp": "2fcc39fc5507e149b0ca54e773444c093e708263bc72d782b5472bea73cb23d7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/Piglin/BP_PiglinMeleeVariant2Character",
+      "sourceHashes": {
+        ".uasset": "7ba0361949be9a3b10bb02b80ed4f2b8d0f82acf656794138276e003b4d375e0",
+        ".uexp": "9404395c9e4ea1b2a719955de20ff7dd24a81b7ba607fd4d71ebbc9f83fae776"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/Piglin/BP_PiglinMeleeVariant1Character",
+      "sourceHashes": {
+        ".uasset": "bc91eeb96a0993d04c6f0653639ba96dfc50744d1e5cd01f38d6edaaca8e504b",
+        ".uexp": "51b4822dab6580d7f75b8004ce3fef2360f65994adeed6013a7395b8cf2bd641"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/Piglin/BP_PiglinMeleeVariant0Character",
+      "sourceHashes": {
+        ".uasset": "7e8bd1387830f1da31d2b245bb4c7e19bb06b23d66f815a58ecf645464995fc4",
+        ".uexp": "13d2a579d3576ddbeafff4cd42aa9bb91f6b24af7ccabb98c19bf4bf14b6ae20"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/TheTinyScourge/BP_TheTinyScourgeCharacter",
+      "sourceHashes": {
+        ".uasset": "edb641b251160f814244b169691952ab2b451c992a5e11591928628d85b5d63d",
+        ".uexp": "23f938c72fbabe7aa5bc58247ac6d9ff3070c6d0535c792e0c52fc8236d019a4"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/MagmaCubeSmall/BP_MagmaCubeSmallCharacter",
+      "sourceHashes": {
+        ".uasset": "f7c744fb28ae0ccb755e06be9ac88d53e45788a31e2937c545c490bede7e1995",
+        ".uexp": "0ee7f45e09dd4e997bcf86714f2d613dfc4c4464ff5bc11aef5a85b6771ffb39"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/CursedPresence/BP_CursedPresenceCharacter",
+      "sourceHashes": {
+        ".uasset": "3f2c10ef16c5492ffd165b24817c288dffed746e81ac79ffe0475fb20082eef3",
+        ".uexp": "1a40ad6d0546040c23de7ee6569afa490c6e0859be469f8cb6c8f438e596428e"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/BlazeSpawner/BP_BlazeSpawner",
+      "sourceHashes": {
+        ".uasset": "f378660b156fac667fc70e140c7a9ac7d2a3c8d03951460503adcf3d27a311f1",
+        ".uexp": "d5a8dc44f0293ac6cec0e2944b2a1b0240c76ecad61b1e5a6e02248a2f9ca32b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Tempest_Golem/BP_TempestGolemCharacter",
+      "sourceHashes": {
+        ".uasset": "6c50b9586e574aaadd94d8597e2b621f54188179352814c8f50c913ad0a205f2",
+        ".uexp": "c523cd0bca12df64bb36005ca1ecebfe0c9ebdd72b8df81c718a5adade01b20c"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Ravager/BP_RavagerCharacter",
+      "sourceHashes": {
+        ".uasset": "b14417790aeeab0f53e0aea077eaa4be453c6bc7498c8f1818342c829278efc1",
+        ".uexp": "7739c2352eb7b2a6bfcf8e65e40e5fb5a37fc9dac6e7ab73fe4f2da6fed457c3"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Illagers/RampartCaptain/BP_RampartCaptainCharacter",
+      "sourceHashes": {
+        ".uasset": "7d58bc6ea3f5d9edbd60890ee08effc0a225293f527c73d942d35bc634795148",
+        ".uexp": "0ce9355b93178b4f0c91207b1b5062f77a73995fd42b1d3b0ccc43b1b98d41a9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Illagers/Mountaineer/BP_MountaineerVariant2Character",
+      "sourceHashes": {
+        ".uasset": "a1b5d5012ced80632a8eb059b0089de45400936f57acd7f121de14d5f99c4629",
+        ".uexp": "fad3f9aec484ac505d73c3e91439aad9fc558aaf5364b0c003d875e3e8b1d23b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Illagers/Mountaineer/BP_MountaineerCharacter",
+      "sourceHashes": {
+        ".uasset": "1f150c98cab8e5205cce549340c83c06276c0da3a516afad43c1931ae258212c",
+        ".uexp": "ccd0a93e1a00acf40a2004025d8219ec6e4627777a5f185d657481a406ba8285"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/MagmaCubeMedium/BP_MagmaCubeMediumCharacter",
+      "sourceHashes": {
+        ".uasset": "888227ee48432adcaa4e00617be83e2e92d5ad633fd47516016ce49ed4612f80",
+        ".uexp": "15e367ce70a43dce48803068bbdf7cf517fb1801dd31491a90eac41b0c3eb0c7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Illagers/Mountaineer/BP_MountaineerVariant1Character",
+      "sourceHashes": {
+        ".uasset": "7ea4b59d364c628370b8b43c06c719a36aeb2f97aa9262628c4fe6a0de37f184",
+        ".uexp": "e0ab935e9ffbe7739ee34c4e5e958ddee56d866d38bb73517606ee8d95743ec0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Enemies/Squall_Golem/BP_BaseSquallGolemCharacter",
+      "sourceHashes": {
+        ".uasset": "72783313a38fc60c59fc98d2f2e51ec552e9e01b2e111f15e735ddb39371429e",
+        ".uexp": "d6d0541d27a9820738eea78e35619d58f0884b1d7857ba87e669a90a2f3e9289"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/MagmaCube/BP_MagmaCubeCharacter",
+      "sourceHashes": {
+        ".uasset": "f4bba5ac6fbda8f3aafb7e862b770a1bfe583a1a5afc28971bca795d2adde1c2",
+        ".uexp": "94984fcb15fc45bb7174712b14dbce2e66b012df5ad9d48a2e0cf11be5df996f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Friendlies/Animals/Goat/BP_GoatCharacter",
+      "sourceHashes": {
+        ".uasset": "37c9f5cf3de7ef1e79d9369d73cdfe12b7c7e3831d72f3158631398ec876e44b",
+        ".uexp": "ee6685e4132505d533b1ab66b72db893fac115f2049c528226f21a7f6b088a96"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Characters/Friendlies/Animals/GoatBaby/BP_BabyGoatCharacter",
+      "sourceHashes": {
+        ".uasset": "6cdcc5893c602a327d43011234cd27c9cc70bd819a87034e8aa963043d55706e",
+        ".uexp": "c05c96cbbb871c530abbd30ab5f6237d8cd3742db3bbed08a43b70059ce1edcd"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/TheSeekingFlame/BP_TheSeekingFlameCharacter",
+      "sourceHashes": {
+        ".uasset": "2b0db63ce4a68601d69cabd79e0394d36fb7b0efa4390e7e1e1a082afb944951",
+        ".uexp": "1f954eabc6becb81fdd302c5627417c2b27bad4259df42a82821fba0fbab10b4"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/AncientTerror/BP_AncientTerrorReloadedCharacter",
+      "sourceHashes": {
+        ".uasset": "93746ea93c15857babae9bd05caf80c37033d718e7af7972b5bb4d9ec7aec987",
+        ".uexp": "7e622756414682ba654b5f2f44edee374fa6140d12432c885ca3773d39f02e6d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/ZombifiedPiglin/BP_ZombifiedPiglinMeleeVariant2Character",
+      "sourceHashes": {
+        ".uasset": "f61073a3b92925246077e0093d12a5c75333b9c4075812ce92e5bd9b71eee15e",
+        ".uexp": "f1240ad2cec5cf3b606179824585d14a54c39546746f520db5b4ae1d6f59c2ef"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotIndent/UMG_HotbarSlotRollLite",
+      "sourceHashes": {
+        ".uasset": "fd4cc5325838b0f832a8f31e44f68c1d03f644c436d7facda5993055245505a3",
+        ".uexp": "ff1166e04334eec120c9921d3f62e1a180e84cfd0f0fe1b40638a00bb503ef88"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotIndent/UMG_HotbarSlotRoll",
+      "sourceHashes": {
+        ".uasset": "5ef4241ae0bf35615f43888a92166081ed29390fe02efbb088cffd1cc72669e1",
+        ".uexp": "aa6d5dcea4865fbda2425ced4300775d59da460db8cdb8073e2fd22163369e45"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/ZombifiedPiglin/BP_ZombifiedPiglinMeleeVariant0Character",
+      "sourceHashes": {
+        ".uasset": "505e0fab436f0093739354d0d82f734094478802ab3a5dcc8a2fd1c863502dab",
+        ".uexp": "89e5d9920e6b7a9d53acce8128256f49bcdf8b3ac0e266d9566189c82643bf46"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/ZombifiedPiglin/BP_ZombifiedPiglinMeleeVariant1Character",
+      "sourceHashes": {
+        ".uasset": "22f6b72b5f66b24e6c9661d3dcec36b17778b265a53cdd3677f1a5b1f5c5047f",
+        ".uexp": "c6558644eefb9a9fa4c1277368970e49971eb890a7375774bc7ded411b79728c"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotItemSlotLite",
+      "sourceHashes": {
+        ".uasset": "9add41a3c4f39a6a1bd55564b4eeca40a62d5c8b913ecec004402994eef835ae",
+        ".uexp": "42298f19140ecb9077ddc3d39f41827935584dda133a4315512528fb3cdfc99b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotItemSlot",
+      "sourceHashes": {
+        ".uasset": "b577b4d3797dcd4183546a6f5c92eaa217067dfcac1e229b20abe5995980e770",
+        ".uexp": "de01c3d6b28b8ecff721f599d3307955f957dd925604759318ba0469bd4d2112"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Characters/Enemies/WitherSkeleton/BP_WitherSkeletonCharacter",
+      "sourceHashes": {
+        ".uasset": "889f5c07eca8efafe3b57640991c2b0c5033fda5c06ff477acaee3314ba0e4d0",
+        ".uexp": "f280618024ec12daaf608f9341777099b05d6483fcfa76df8c1c5a5b5d8435f0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/UI/Hotbar2/SlotBig/UMG_HotbarSlotHealthPotionLite",
+      "sourceHashes": {
+        ".uasset": "b4128e0f31a878ab68f648b6c46c5326c69721b2537a4b4fe4d6e76bfe61a17c",
+        ".uexp": "33bf2163fedb2cb5d40575d8590f0ccad318f28f8e093012bca444cab3e51cf0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance",
+      "sourceHashes": {
+        ".uasset": "7e2d6ec9a777dc835dd0a83ee3cf3d21a87dcd581aeb4596516f0170d1afeba4",
+        ".uexp": "4f83a0e157f399e2d258e7e063de8a9af97bce5bf8240fcbee73efaed665d7a7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "2d9b9e4995d88305ca6c9b60f314e93944fbe008fca0a2fce9200b438c08d19a",
+        ".uexp": "50dfaa4ca82e1454cdd9b69123bf8ffdf8a269ae7b01f25c854dd30528ea24cd"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "5627cb29fc41ca730bd5c43bb9523f73a33c6470dd2cac9bcf9d2fe0ed9babc1",
+        ".uexp": "4c7d446f3324229d3cee02114636b6edb3d04ccdc7a8d6a3057bfdb8639e3856"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/BP_Daggers_Unique3Instance",
+      "sourceHashes": {
+        ".uasset": "26c9ec95ec53383ec95c4b260d57a0127a00499660706fc71a509e2192a19bbd",
+        ".uexp": "44b9f7e3002cdf6425a2950489d18f6ec075d1299ee7ec2e5c279ff0369e88ca"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique2/BP_DoubleAxe_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "ab0a395356a8903fbd5f8b8516efe2ced96b9960de0108617152a8254b08d4f0",
+        ".uexp": "ccb3fd5b5a70d5fd9d1c64c826172f0673ec4a774ffcec88bff20c7c2722a2dd"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Unique1_Steel/BP_Pickaxe_Unique1_SteelInstance",
+      "sourceHashes": {
+        ".uasset": "f9ac03f223056ccca944b5f6f5110c96d324f7391fe17e91d379956d96d16b26",
+        ".uexp": "3c7b12d92906788a689c6f4add93e01368ee5610f5cd9ebd4ae731c15d322238"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Spooky2/BP_Spear_Spooky2Instance",
+      "sourceHashes": {
+        ".uasset": "583634ec3140ecc16fa47813a3f3c4ed90ec69299c330d468f1d61f5800c11d3",
+        ".uexp": "6987f3c8cc74daf66eb4cad813b84d0556640de3e722c21180a7aa84327238ae"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "410d5632a887f51f171c277209232769ce489e311b4f1cd3f9793dd4dcac70fe",
+        ".uexp": "4077cfcf99e7648b2666a9796ebfa51ff394b2675d67e3824aade19083e81e51"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/BP_Daggers_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "165a2f3d58199a908b7049b471187e07108e8f097bbb37b308930532ea8d5cdd",
+        ".uexp": "b36fd22b795cb1cfab82d16a3c279d1892cdb0d423775d153789794bb2220a06"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance",
+      "sourceHashes": {
+        ".uasset": "780eb030c09ac48eb38fa775f9dd8291023f83e51f36de35a7d453ea0996a675",
+        ".uexp": "164e999996ea62f3af55728142021c859289f18bfd018f4659934a70f4f5f4b8"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique2/BP_Cutlass_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "93bcd4c8b1c0307871f6d4a4e7e18f99875d58cf04597b484b1931a4f10bc17b",
+        ".uexp": "8434b05948cc7ee44fe514173d775db3a90e19fa08db0c2e1f41bb40d0fab48e"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor_Unique1/BP_Anchor_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "a62ac14c2e608cdd9367c720a047d30714058c91d233993e923cb372be3a79f7",
+        ".uexp": "5a68b0dd29291b81973ef6e14b8fd651df78e50c5298b3a9d3d75b04def8b7a1"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance",
+      "sourceHashes": {
+        ".uasset": "6fe4ad3aa7a60167d944a43e1a0a79148a886811967fed778febb8e4d4b539b9",
+        ".uexp": "44fed239e31ccb28e9d34c0987a16ca0f50ca4f5603ac3537c2bb35cbebbb813"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/BP_WhipInstance",
+      "sourceHashes": {
+        ".uasset": "9752ffbff5ea05529440faef150e73ce08a9ca68bec9a95b6cc4e7ff48d461ee",
+        ".uexp": "f074213f34b8d9a921a285b99fd846cd36b574d8506e69e7db030adb6f1bba4e"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade_Unique1/BP_CoralBlade_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "5705e7cf87b9bb5d8646a856c4c5e3ae1f90274136891d29e6c4e0ce078ab281",
+        ".uexp": "48b6686afb452f08e6bc06748306654b22777d7715043ed502a5a154137f23ed"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance",
+      "sourceHashes": {
+        ".uasset": "9605880b58d96f500033d2980a8e1d04956467a37190e5e42681ac8669064e49",
+        ".uexp": "7d444175ac734b7850a063dd236845e628f7276e2979cde6d5c094d35291e1d1"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/BP_CutlassInstance",
+      "sourceHashes": {
+        ".uasset": "5c688e445ab29215fcd151c6e49d0238e4a2bff226dbb84ff9f9781fde4cdbda",
+        ".uexp": "6d51984d0f36ecac3c6e914f8e4a46d0afdcabe028e0171cd89c3055ebc803fe"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "1cfdf697357c19e8bcab631c4dd8cb167a6b9551a43ae3c6fed25d4f112eb2fd",
+        ".uexp": "47723c6bd3faa20ad04c09b6ebf2a143d3d4056442e9dc97fea29e849e727073"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/BP_Gauntlets_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "08909f5c0aea072704ecf871b33001e219c28ac073dd909fe1328aaa9c8e7ea0",
+        ".uexp": "1ebae2b661e6f729ec174a32c5aaf222a19011082d7c6b9890bd2378491506b7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance",
+      "sourceHashes": {
+        ".uasset": "a70ee798e1d1e25cb3e7f3d640662139c1c8ac4a046b01ccf9a52c6cd9c4555e",
+        ".uexp": "e147f79c642994585bf31fa65c5d50cc95d592da902444c1603cf95d1ac76dad"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "ad2c7ff039eacf875893dc836849a8801f59aab9befa15a83ee071bf610c9de0",
+        ".uexp": "36c42962010013216f7bd72913daa5dd71815a102aaf17323fb440be0a39362f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Ancient_Guardian/Mine/BP_BiomineCharacter",
+      "sourceHashes": {
+        ".uasset": "3b9b0d8a97cb9ac23228d439322e789c7d5d83be1676278b61dbb5731a4b01ac",
+        ".uexp": "2def398d6389b652b3527a5b2278a8680f32f8e13a1a1c9171e2398cfc416fe6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/BP_Gauntlets_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "678d09f7bb59c5d99038c28b17d9f5ceb9d349f0e30cea1b6b88fa44a814c781",
+        ".uexp": "2581b026405811747425abb56c78ccefb517ae947aecd36d7011a5b9a19c337d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "1610a010916ec1204b4b1fd6926d4bf92d2587c289aa25c828a2ab90a3a1073b",
+        ".uexp": "5145dfefca9c7f568ab9595c238b130272d6ce6d716af63030f87884f2414a64"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Ancient_Guardian/BP_AncientGuardianCharacter",
+      "sourceHashes": {
+        ".uasset": "8c834febb45dc53c84c29c51cd23f822678afdc4743d6bab671517065d90aeaa",
+        ".uexp": "c1ebe9c121ca8f352d8bd54195bfd27932e805264bcd631d2f157cb9623aed83"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/BP_AxeInstance",
+      "sourceHashes": {
+        ".uasset": "b38edd8b12ed839fd31293f6154fbb4d91e87209a4e7e3485a10905ebbbdd657",
+        ".uexp": "92bc99ce5e8a4750dd49b8edf988ffe0701979a30fd621d38bdffec9241fd246"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+      "sourceHashes": {
+        ".uasset": "021dee0cb7bfed10f9868c924d68f1fa8fa47c5b42671e281281d61017241bdc",
+        ".uexp": "5e84ccc5b189e47ce745352a2660bca29e2d2d10619c75e6f02f5209a6af5a53"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance",
+      "sourceHashes": {
+        ".uasset": "6af68b16fad10d4ef27016399ccb104ed3b901088c6512b7645ba8beb3d1ebbe",
+        ".uexp": "9f56802fca699bac507cb75c25730234d6dc3727625da02f81a9bdd8170f4cc5"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/WaveWhisperer/BP_WaveWhispererCharacter",
+      "sourceHashes": {
+        ".uasset": "bf6c04dec4667e2916d7777f544717b3c222c79a283627d344f02f54a461ab11",
+        ".uexp": "1d712925f6084db20c1b7dd22de7451809d375667a891946cd2f8c19a6b44cec"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique1/BP_Axe_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "9dccceea43e92cb0e36d10ee777ca610129ffd8a122451a361af5cf46f755b82",
+        ".uexp": "066855c7f3a61c17eaf536795163f5e58fe4a1d948749a7dd2de719aebe97fbc"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique2/BP_Axe_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "e00d81d7f61bb601d2846952e24f6fda22c6c5ca8822a22ed1d2bfcb01e567d8",
+        ".uexp": "5c16a8994ea177d7010df974e4c9eeeb316da1372ba1d3e8613d5a6e3c6c3476"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip_Unique1/BP_Whip_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "2d63ae1c30eff176bd53db39336050b1b7ec838cb59d05e09f0e1328a7aeb6cc",
+        ".uexp": "c8da2a780ab9b22b2b37dbc79307e5427d8925c4fc4f4b9d65d88dd2f28c6c43"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+      "sourceHashes": {
+        ".uasset": "5d69dd6957b23704f35c5b5fca315c7b6bf53b9f8994445acf2547bd5065226c",
+        ".uexp": "a4793e11abfa8e5ecea3fab7f86f46cc9aa8a91486c6f6b5d78f85016952e86c"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique1/BP_Spear_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "d1bf6e6c3753fff70438be331b3eaddcd4dba0a1646af813a2808322c1bbdc70",
+        ".uexp": "1c6b99822690f6356a25a1a38b61ccb24c6d152273624a2ad67cea827a044860"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/BP_Pickaxe_SteelInstance",
+      "sourceHashes": {
+        ".uasset": "def6ebbdc25694d4fa89362889f391598779f468e9e3fd0f5899c53e3618404f",
+        ".uexp": "b680b04eef0cb0392a516914e7b5574afb66e0bd717a17875e4e0f812a47620d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance",
+      "sourceHashes": {
+        ".uasset": "750323bacba1f1a57b5150629a3f4c59fd6903d039c47484ac084ea200f729e7",
+        ".uexp": "b62c5835e7d4fac37846bbd3b8348a0acdf227961857b96367bfb68749845b70"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/BP_DaggersInstance",
+      "sourceHashes": {
+        ".uasset": "654d04f203e46285e3b88acdf3ca6593507125165a9b46669ab6ccfa8b0b53f0",
+        ".uexp": "318c08582f452a9d85ddad16cdd0c23023a7dc44acdcda97b48d314c878bdbc9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_DrownedVariant2Character",
+      "sourceHashes": {
+        ".uasset": "1c844093305bb890444b33404de9fde94934203e53f6a05d9f96de9d1761fbaa",
+        ".uexp": "9111a93403b9a97c454fb3dca42cf01a0ac41b35a294ded67ebe6134bf20938b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_TridentDrownedVariant1Character",
+      "sourceHashes": {
+        ".uasset": "8d475e2aecfce859c85b0f4cced36940caeac6511099feba0b17daddd4d32967",
+        ".uexp": "31f7960eae9a89b075097b37e9601396b0f905dfeda78fa572d63ce6b85f0c85"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+      "sourceHashes": {
+        ".uasset": "bf4d0ebf0269a073687d6254ba925971ca90bfe7f934944662fcf668aeda1d9c",
+        ".uexp": "84e76e437523ed678425ec36b424621b82dc1c753bd2303a1eeebfeaf3b2eb91"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Steel/BP_Sword_SteelInstance",
+      "sourceHashes": {
+        ".uasset": "42c07b4bf1adfb159ea0a7765a37f7070b268262d55b9f4139370726728fee61",
+        ".uexp": "bb15b17f8a5dc15f7155717860cdc46c990a47b1f194d0ea0607a67c06269e4a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique2/BP_Spear_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "05e4356e8113f12be842456ad5efb7b7a9293b79f406819fff44c2755a5f9ac5",
+        ".uexp": "06b1851ca34d4ea5cffd12f0ff261abbd6f45e2afd269f0924ab8e592a360370"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_DrownedCharacter",
+      "sourceHashes": {
+        ".uasset": "9db710f43117673c1e8d8907339b009194ab9ab6b88afcdbec63d241559f31be",
+        ".uexp": "2270847e8be4b0b95d2ff83ccd103aac4fb8c5ef075483b487df8489c7d98753"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_TridentDrownedVariant2Character",
+      "sourceHashes": {
+        ".uasset": "88ce3b00dd4133a6387307d48e36dbe1c14a5f2cb4a85cb9b451bbe3ce89de6e",
+        ".uexp": "790a95d8edc368874d458d21018b95268ce64dcf4d87514c4aeea8d1110c692a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/BP_Battlestaff_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "dc447467aeb9ad41aed855a75890f20d894789e1c36f80f21430dc53e995e800",
+        ".uexp": "b935d5f229e5d1577deeb04298d82b0c67bb5830a9fc13fddce492b719ac03b9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/TropicalSlime/TropicalSlimeMedium/BP_TropicalSlimeMediumCharacter",
+      "sourceHashes": {
+        ".uasset": "2b4f949b26bfddf83aeaa12eb38733155e03049e8c8ccae57039b51509c7d087",
+        ".uexp": "75406dcd32669cffa53b8c62ddb82b43ee19e37ce2306ad5b0c430d14c5b5938"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_TridentDrownedCharacter",
+      "sourceHashes": {
+        ".uasset": "64ace6f87f7284caf6aab5baa46cc341f8d3a1cfabea571f7bd0075ff0d1b118",
+        ".uexp": "1840380323a013f14996e7f5ab43a5a0ec9d69a0c493f0e22afec6be8d8b3e26"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Drowned/BP_DrownedVariant1Character",
+      "sourceHashes": {
+        ".uasset": "529d7c1823430b7283dc3920ce7d0bc10468ecffc4218ed36acb909d144aa0cf",
+        ".uexp": "8b55d458a0b5ff85b8924a924d43bd954bb63490c24412e1156b0742d6ade623"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique3/BP_Claymore_Unique3Instance",
+      "sourceHashes": {
+        ".uasset": "1f1eb959fd973fedaca3f87a1f0e2f7b6552e7accb4483f8332bb3a1ebd2c96c",
+        ".uexp": "50ece4cebc4cec16ecf16e43ebc813bafd63059e60308535aa0a275605d2043a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance",
+      "sourceHashes": {
+        ".uasset": "9681ff10aa490f8f36e901c222f1ca8f1af0f641842fb44c281a050aedb7fd79",
+        ".uexp": "c3eab78263a40988a2421b6ce94c27901a02e0e223bbdc5cd63b231038b790b0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique1/BP_Claymore_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "6329694f6796afd5ed878c325ff1e2cce97230842a0e48409fd20dc0c36ea6e6",
+        ".uexp": "7c20ef302097f1c49762fa3e7d54a0372e6ddf77727cd68e1342f9d5e5414911"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/TropicalSlime/TropicalSlimeSmall/BP_TropicalSlimeSmallCharacter",
+      "sourceHashes": {
+        ".uasset": "6bed26c34b6e648c48fc83748f046dc0fcd0a8ec8da0b755718a159ac67a05ed",
+        ".uexp": "f3c4c9f2aa5fc5b0d1a6e4c5a37ace668d13fa39bc1203d47abbd3293d94d846"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique2/BP_Hammer_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "5a24d3da38c91af5907197012c4f5ce83587524753e08564fd7e2fcb38a5f8f6",
+        ".uexp": "fdb2277b19b7d565fdb0f5c8ab1d7319f488dc313323e74b87e3dcc374479cc7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance",
+      "sourceHashes": {
+        ".uasset": "2f241ab91be1b0056660f52309fa638ffcb502b89887c71f42494ec802955fae",
+        ".uexp": "a31acf86ef5999309d0764e90aa4257163d43dc279c72bb9ffab25a94f024943"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/Guardian/BP_GuardianCharacter",
+      "sourceHashes": {
+        ".uasset": "3a9b7b85a5b25689e0665f414f798cf74004aa831446dea43b132117c6f1e0a1",
+        ".uexp": "59d7f0cc1346413e5fb57063ef09028e77560171a0125b049ce77bb639f4583f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "054cd6d71dfa425f02443fe9c52b10d9ceaa635e75b1c64e1c22afc3b4c1289f",
+        ".uexp": "ae7dab259745d07fa7692f7d6411f35b90fc6b9dabebdc1129e1c9a034ea3105"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+      "sourceHashes": {
+        ".uasset": "27aa5f680e0bc309ed144932903757f543731f2d1ebef57727939f89fc66f9f4",
+        ".uexp": "4b9717ed6c19c7b538c642ffa33c1cb4882806d4bb58dca02e17c5da2c1dc2fe"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/TropicalSlime/TropicalSlimeLarge/BP_TropicalSlimeLargeCharacter",
+      "sourceHashes": {
+        ".uasset": "3cda10bebc765faf50fb37a68a03347169d9fec0b3f57c09e74241a6a523d989",
+        ".uexp": "2d7b422632df338cf399a2d2a0d550528b374be0dace0279c1374b6a6670ace2"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/RaidCaptain/BP_Vindicator_RaidCaptain",
+      "sourceHashes": {
+        ".uasset": "154602efe7473f7b9205ac4c5a47724c05226c4eb77ddcde81dbd78f98b0a440",
+        ".uexp": "2aff3dcb889cb0528c97eb646f6bc6cc11467990deef253c3f4505d30b001dd0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/BP_Sickles_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "309ef3305580675eb9f6737ee4234bc5da8f310cf719d3393257f0e33e4d233d",
+        ".uexp": "089708d91c66e905a293abba41e2b1dfadb526189e1be068ff2cf92da4a32089"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/DrownedBaby/BP_BabyDrownedCharacter",
+      "sourceHashes": {
+        ".uasset": "0de7ae76274d2792b69ecd78d69d3e179143b0766a1bd5dab47bace25f0eaf56",
+        ".uexp": "09865d565d0c04548a77c6ce41c3cd34652f9303c8a8546a628d2ea4d8ec3e13"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "697c7968d70ce7fd0b23b7543f910eb4bb5d33bed4469b31c8613736500865b9",
+        ".uexp": "ff1921620551d913e818c1ff61931e54f91c2f04b07df3bce14d767d4c80c39a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/BP_Battlestaff_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "7846e223d6240997f265c9031861f6a2dbf5dd0d2e34ea7fce19ba9999c08a5c",
+        ".uexp": "6c2746602acc90837e53b633876ac9f91448b3b816994d32c8ae227107d7e1e0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/FakeAncientGuardian/BP_Fake_AncientGuardian_V2",
+      "sourceHashes": {
+        ".uasset": "d6e23166e28d7c02c6ebbbfa814d4b89d4455504278a601c8c93253d83a08d79",
+        ".uexp": "87406d54943280fe20202d3b5caff2e8d332795e6f215bf6ececf74441445bd6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "0e15e6250f4a212e078b8a2c1cae36cfba8a41742ec47506a373e6237bb0f251",
+        ".uexp": "d5dc923c638e8987c1f963c1ea4535f2eafdec1b4c560c69abbe3b2b82491f46"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Enemies/ElderGuardian/BP_ElderGuardianCharacter",
+      "sourceHashes": {
+        ".uasset": "bc29f4b382bdf6547b3b25abbb27fd8262b114e972e83bb6a229219a5167ec07",
+        ".uexp": "b6f01d39cae57ee9f9f4df6e21d423b6aca77dff00992c6d0503ff1e81dc5076"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "8dde7bd77b65c1727cf16ed1f8701703df2ef6d20ef12035ec0c21ad10e01914",
+        ".uexp": "accc3591ca20ca8245917c82eecf50346d77c751105d8cc259610b80db63d7d7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Player/BP_PlayerCharacter",
+      "sourceHashes": {
+        ".uasset": "0c14207ee5a89f266070a9d9c5a1672603ef4e0be7e492602e6ea69f01c9adcf",
+        ".uexp": "ece66dcd474572208383ada98b59ee9af1dcd4614b5ceb2d9cfca8f0410a1ac3"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/BabyTurtle/BP_BabyTurtlePetCharacter",
+      "sourceHashes": {
+        ".uasset": "c0aa0281f69d10e23b5565f34f02a5fb85bf163b948e2ec0f632b8f60e50f4fe",
+        ".uexp": "8773df8eb8a7c85589f44ff1c27c909451a5f2863d4940952ffcd48a92f68546"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Year1/BP_Cutlass_Year1Instance",
+      "sourceHashes": {
+        ".uasset": "f94212aef2e958e70318b2d8c5067ac4cc25dbd0403816a9fcdcef1bab370835",
+        ".uexp": "7bc7d228f1b782725d8f2235d7359454728b1da9d14268bf6bc967372a3586c0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "e3497c4de5cc9b81d5b22814dd887560643f81112a18bab62e2a161ecb5d678a",
+        ".uexp": "64258edefc56dc0f76613e3eef1f3243907449a99e46fe220e681f311f8ec8e9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/BabyTurtle/BP_BabyTurtleCharacter",
+      "sourceHashes": {
+        ".uasset": "0ecbc3872b7d3e9d9fbe6f90ac1517f3de2e22098f60067a84af67d8af94c983",
+        ".uexp": "48478f9f78e9e07b4a8e3b3825474ce1dab26c64b61203e5f1bf76405206e5b2"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance",
+      "sourceHashes": {
+        ".uasset": "579f52e81e87e2343d876fef7ea11669879b159c55b074d12a34c2c2bc78971b",
+        ".uexp": "429879542529f0467fb4d65e9b52327b36ac6250e9988eda6e9f70930e0a6dd0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique2/BP_Claymore_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "01f83a6a7bb1bdb818ea9cd1ba72256318401a6f95bc1cc7eaa0f58c092f10eb",
+        ".uexp": "a2a54607435d6e598cc842c09cf906853299163d5dd5300c0d204cf0bc01a036"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/Pufferfish/BP_PufferfishCharacter",
+      "sourceHashes": {
+        ".uasset": "5587f4940ac78c61a7be6f1bdc15fd06fd2cac4b0caf543da4e9dab45221d33f",
+        ".uexp": "523fbfbfe66cb68592cdd7b26639b588b55e1ff9d5a5610fd4c1bb0122710ebd"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/Squid/BP_SquidCharacter",
+      "sourceHashes": {
+        ".uasset": "57bf035e8f669935372013880cc73b37985278046c0375334ec1774c84e36f5a",
+        ".uexp": "86f8b5c68569d861fcea02f5fca00086c2f94a7dcd74f03735a2d88f554e0c21"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance",
+      "sourceHashes": {
+        ".uasset": "f8f3ca5d42eebed8b6ae4e5da88e0e0975c9aae8265c997dc32ab8f6b0984377",
+        ".uexp": "2ac2eb9dc719fb825b827e42aa5ab68571a66972beb5639cf0653885b480d569"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance",
+      "sourceHashes": {
+        ".uasset": "6a84b0d4026b031eeb3bd44ad79ce8cfe4da6fe3ecc13e818608b28d22bea668",
+        ".uexp": "cfe7d927f54d61b6011f44e19d29658659f280919c98ee9fe722aca5bc511b91"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/BP_SoulKnifeInstance",
+      "sourceHashes": {
+        ".uasset": "f8d6db495023900f16e1689acaff5b97d8b96325690245919c07339e7d9f52e9",
+        ".uexp": "3a44b40fb8b07957465a567f7f8a2de29e9fa5f760e54ee606338bc8f5f52bc9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "b14e9c29ad068e160b96bd10a67c2a327c1f0d1f13c99830dbbfc66375717029",
+        ".uexp": "694dc2578fbbf0894bfd1e28d41cc5febd1ae95c227b8b9d8e18d026a1b53482"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "a2fc34eea4a8e3c1e694684c37131075f1cb46c6faa6c061534f3c8b51a63034",
+        ".uexp": "da4e3f10e6e76f0ad937d62011e7a2f084cac4221d144267e0fb0768ba5bd6bf"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/Dolphin/BP_DolphinCharacter",
+      "sourceHashes": {
+        ".uasset": "df411ce636993725f8f779b81c2fcb5968de9748d94171aebcb1f17b5d497863",
+        ".uexp": "9ac6747d7f9acb716e3c877fcaeb473d0aa3ca558186b16285263880d9bc39f4"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "5d2447705176318a5de4098fb7cc9926636faad53e51101b2804389f58abb22f",
+        ".uexp": "82bbaf2b3970114ec9d6f8cd7ddeec28d685e0c70a009bf91ea5c0af6dc8a437"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/Turtle/BP_TurtleCharacter",
+      "sourceHashes": {
+        ".uasset": "cbd3cf08562ef1a04b8e694bbd1c07b89b60eebfef8dbbabe3b3314af273a1d3",
+        ".uexp": "c1aeb5934127aeeec27d86f6b2bad2af925264f0e6187b394d5c411455df9af7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/BP_SoulKnife_Unique2Instance",
+      "sourceHashes": {
+        ".uasset": "058acf94950679287ce15641d6edb56487dcf98dab8c0c3ea4077ad3e1863d35",
+        ".uexp": "79a56e8933e1bd7b7a0f0488d306f2aa0118c6c3e8dfd62c493508dafc9cf6e0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Characters/Friendlies/Animals/GlowSquid/BP_GlowSquidCharacter",
+      "sourceHashes": {
+        ".uasset": "9b7e9f7db5ab0cc61cafb908285a07117331c2f32f86a024bda6f7f0b9c0f4e6",
+        ".uexp": "4bc586b998d268092dd71dd1ff8b7a44e9cb98541d3eea2782a4559f7d3090f6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Whisperer/BP_TreetopWhispererCharacter",
+      "sourceHashes": {
+        ".uasset": "8b60afbd719e5d50b2631eb96bbdba843f7ce02b2aee0c69d6c507a5bbed7ee9",
+        ".uexp": "88f11aa4ce4d37b20d7db5a9af2ea16164318b55bc02d9ba91a29f0c2dc7d4a7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Whisperer/BP_WhispererCharacter",
+      "sourceHashes": {
+        ".uasset": "9c5e4c61a743813a183f546ee789d159588aae55e379fc3f7fee7546f2724dac",
+        ".uexp": "180a7f5fe9a599291b45c4b8acafecd9fea7dcba7d8ea0141cd7cb4f048d2026"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique1/BP_Katana_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "7f7889ab4fc1df161d07a3ca4fde4642085cb7c668f3a2a470d34d8e4fc0e233",
+        ".uexp": "fdbce88391255c93e8e4b3ee2cb4406cee3271027938a8b2a8a1b66c05e71360"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+      "sourceHashes": {
+        ".uasset": "d0b7575f5d28060749c5ba41f1038e34f6ae47f1940a6bfb7fa4d9c13fc307cf",
+        ".uexp": "a1302f46ca10fa70fc90dceb07eeb70ae8d0c336838d58dcdc2f4e7a643f9273"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/RedStoneCube/BP_RedstoneCubeCharacter",
+      "sourceHashes": {
+        ".uasset": "e69614c35358c47792b68d2f78aa4bd3e23d8c3a2efe9f30bbf352b1b0d2227b",
+        ".uexp": "a5b46a72aa767c3ea42921525732cf68b2d12ba1c7d17e39a035bbdd9e032c56"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Mooshroom/BP_MooShroomCharacter",
+      "sourceHashes": {
+        ".uasset": "f06336b3ba2d4b6a70e9d74cb6a1fea8dbd0bacf2925cfe057c9e723d005cfab",
+        ".uexp": "41ec3e3b704b55f0063d200613d0670b5c2eb34404bbabfed1c8ef3f3f0d7448"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/BP_Daggers_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "d1328f29ee57bb825e3e25677ee331706e9f9e8c4af20684ad618aab431d9ee6",
+        ".uexp": "ffceca1e178bf1bf4fe6fdc2d0273759cb647ff60cf4206421e2743e02980ef1"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/MooshroomMonstrosity/BP_MooshroomMonstrosityCharacter",
+      "sourceHashes": {
+        ".uasset": "0fbe3da9fb264315152b4e55b3ea85c7de76b0a2a1ea665b5a347a9b748d1055",
+        ".uexp": "037cc80a5f168d044e0fc2ca22b59053cf1c554a9f0d50244a6657e24cb41488"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/Enchanter/BP_EnchanterCharacter",
+      "sourceHashes": {
+        ".uasset": "a0b460847d8da78ccb048617cb2c82b0aa55e0d14c9b241b812577fef40b236b",
+        ".uexp": "83e7f372191ad0837a14a686c47436a8ecc9db90156fddb1870d350a41cff366"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Wicked_Wraith/BP_WickedWraithCharacter",
+      "sourceHashes": {
+        ".uasset": "a3544d7ba6f7b0d97c9a72fbfd89709a0c0a6424818bf358bdb9eba69f5d29e3",
+        ".uexp": "e0ed838b848d383c3dcf76466b2925f0d00fd8771c8a1d7ebd90d482f52524ee"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/RedstoneGolem/BP_RedstoneGolemCharacter",
+      "sourceHashes": {
+        ".uasset": "f757b4237eb5a49513f4dcba22c3b2a60517197d5b0f8e49198804057770e191",
+        ".uexp": "615127dbbbd7bd37a8cca7856773fd3d25578b3ff36b681a039cda6ac01fe7bc"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/RoyalGuard/BP_IllagerRoyalGuardCharacter",
+      "sourceHashes": {
+        ".uasset": "450851f4fbb3b8f05069ca45c385d1b322078c7e97d05ab845a40ea6e65c026d",
+        ".uexp": "7ac6268df389907913b2f212b9ca57a28347f3a4ddbdee9eb1de2215cf2bf909"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/TowerGuard/BP_IllagerTowerGuardCharacter",
+      "sourceHashes": {
+        ".uasset": "b1530fa14352b712c71eddfca74f170f76e04d1809e4fbfd75b9dcf3988bc27a",
+        ".uexp": "8474f96348c1ece355d9a2b651dbe201cebabe5ac30cd27ccb3707f2b81cebd3"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance",
+      "sourceHashes": {
+        ".uasset": "05f0ed5fa5e8381e39b4073b749245f489861d597e53e5c1674aabb0178b3f22",
+        ".uexp": "3b1e95a5447335b9c1543baac4169edac28e21b3bdef05e9d310dbecec8ddf3a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/Vindicator/BP_IllagerVindicatorVariant2Character",
+      "sourceHashes": {
+        ".uasset": "61baae144c4523723ebcdc2af6b5fe403b10888db24f80f32dcf59990f999623",
+        ".uexp": "f202ca5ef509b497f82e1ca66d9d41d5865a843ac9d287b85e4f4009290a1bff"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/BP_VoidTouchedBladesInstance",
+      "sourceHashes": {
+        ".uasset": "a3aba4e632b1bf8928e7fd2c90ca5fbd50a8fdb561327d37fade028571ccb5c3",
+        ".uexp": "f3aac67df20e8f575a622ecd59d99fc3e1395226a50903f202a1f8b1d630c19a"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades_Unique1/BP_VoidTouchedBlades_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "030768ebdf4fad4b1d18ef9450b237fbe8f393b1225b34387568be83b49ded9e",
+        ".uexp": "68409884e8dcb84e2301b54bfe437ce1e4442385768f5322aa78ea64b90f42df"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/Vindicator/BP_IllagerVindicatorVariant1Character",
+      "sourceHashes": {
+        ".uasset": "1ec76592354e181c25f115e3aaa12378c24fde830a32f48d7f64b267b2c605c5",
+        ".uexp": "d869816bb06f95b8288aac86e1c0517dbc247d1dba661ded197499d9648a6c23"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/Vindicator/BP_IllagerVindicatorCharacter",
+      "sourceHashes": {
+        ".uasset": "d1fefc15c66218ccc6c1a1e557acce5033941ebb35a2886d0fd5407d23d6c651",
+        ".uexp": "da7bdbe065fa4f059e29527648a756303c147bd493c6bfac8701620940119028"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Leaper/BP_TreetopLeaperCharacter",
+      "sourceHashes": {
+        ".uasset": "a0fcd78e769851fa912c91ebdff972491cdcb58569f4bd584c5cfc8bf767875b",
+        ".uexp": "5473ac461d95bdc96efc70d7b3cfc2145f36a0bcfbffd4dc5c1860e1e525c78b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/BP_BackstabberInstance",
+      "sourceHashes": {
+        ".uasset": "192143fbc6fecf85989182dcfe0ec11e4a92f1c63690e46e406ff85f53488216",
+        ".uexp": "0cd8694ab88cf26330fbf4645dbde7ec1e8b7a575a9c2c83d9da845d8a3bafe5"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Leaper/BP_LeaperCharacter",
+      "sourceHashes": {
+        ".uasset": "82a068e0f23ec763cc8b106f00de9251302edaab1be41037bff81210d16a3e80",
+        ".uexp": "113f979f2832e0b57e5b0ba541926d09d6e9fbe7a004cbe5ebc9eb1de89b5b20"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore_Unique1/BP_ObsidianClaymore_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "f9708619c6b97354d8ccfaa816faaca4caaf9f566b1bfb6c3f6af482362c8d22",
+        ".uexp": "a79c5c0e15c5b8b05c0b418be94efc59377b50f43e51485046ffd6ba7b0c3ce8"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber_Unique1/BP_Backstabber_Unique1Instance",
+      "sourceHashes": {
+        ".uasset": "bf36949dfb9fe2cfac7d518985f08f9f03dbdb70846672c97f803f0a9603666f",
+        ".uexp": "c4e5b16b3362561ebb5828b9c7b14c88baaa63260cb71c564cc0ebcd6069be54"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/WatcherOfTheEnd/BP_WatcherOfTheEndCharacter",
+      "sourceHashes": {
+        ".uasset": "b5d5b199e0a66735df58f5133305d935e0bbe32bdd6b32d16abab0be948f2dbc",
+        ".uexp": "71954aa86067c10d8ca0e70c61e511a9a7a47943d3ce5b08c0f4ac9a3ff0a21b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Illagers/ArchIllager/BP_ArchIllagerCharacter",
+      "sourceHashes": {
+        ".uasset": "ef99cf7a9cb86239d988647fabbab37ddc5b8cc462cd2263d4d87b93ca0bfd99",
+        ".uexp": "24f5059d66342fa6aed9b86c36c933dedc013fcf91c966456983e9330f411d38"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Wraith/BP_WraithReloaded",
+      "sourceHashes": {
+        ".uasset": "23ed28876ac2c67a461ee3b3a559ffe6c9a735f1f36fa039ef4e361936d335da",
+        ".uexp": "ca1c064bdc6f83bdb2b80458caca9eee85b69545b6a81500b13044d7f56c03f1"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Vex/BP_VexCharacter",
+      "sourceHashes": {
+        ".uasset": "c939a79e5e407918c4adc9e0253e4dc4165ff6facad5c796f8dd64533430bde7",
+        ".uexp": "a3b6914951eb8ebd9390f8291ed7dbff48a552a691f19a50e40a3b3f4baa7362"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Snareling/BP_SnarelingCharacter",
+      "sourceHashes": {
+        ".uasset": "494bef7985051e5b2ba88dcf45935c780ac9895beb659988f97e26589fb79c39",
+        ".uexp": "ff5f9a89b23c6dccd478aebd6b4b618f56db92c2e2c873e34f9af29dd67f12ff"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Bat/BP_BatCharacter",
+      "sourceHashes": {
+        ".uasset": "74c5882cb009984a3756ae02461f35001f8daf612e7ef975565aa669f69bcd6f",
+        ".uexp": "dc2c1832a431cd4418e4e6bc314060e8d84bbeed2f6d7bbc1cfa23506c6aca04"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/JungleZombie/BP_JungleZombieCharacter",
+      "sourceHashes": {
+        ".uasset": "6448a050997a036d26b06816a342726fa31a40deeb0c73e6dac2f5fcafd21bb8",
+        ".uexp": "2d37273be7fb4060261abbb76339264ce1a7b6b330d47bb7962376808038f4e3"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/VengefulMariner/BP_VengefulMarinerCharacter",
+      "sourceHashes": {
+        ".uasset": "abc6fbb4a1117558cfc89f1f892533da4378183479811e1eb3d81e281544380a",
+        ".uexp": "7b7fce6ce2ca93e20c966c1537fb3d5897fac766d03faf2924b9972459b78204"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/CaveSpider/BP_CaveSpiderCharacter",
+      "sourceHashes": {
+        ".uasset": "7f0b800dd2c1ef15a76aef12426fe87ecf4c12568b0ea38daafbe980c8eb23e7",
+        ".uexp": "c9212d2f7574ebe6ad9909c0599febddc487498ad5b56b1a56e4f0e99151c749"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/AbyssalEye/BP_AbyssalEyeCharacter",
+      "sourceHashes": {
+        ".uasset": "0b01aa4724fec2eb9e7c911cf5993850295d94ef8e6e4d6914c3222bd59c2a92",
+        ".uexp": "bbb687f115db4249828cc630b6576994edd09d61fd656345a4e15b56990d9736"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/SkeletonVanguard/BP_SkeletonVanguardCharacter",
+      "sourceHashes": {
+        ".uasset": "0640e03bfac018c5c1e72cf2d1ceab55b7ce8ed6a0b2a0976eab43217454a189",
+        ".uexp": "17aefdeb5af346b719abdb646dcf1f0dfba701af346977039dfe7192bbca5f01"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Zombie/BP_ZombieVariant2Character",
+      "sourceHashes": {
+        ".uasset": "2b12111fad09f4f81bfc2eaf11c214644451a38feccce142796fd2b88f446bd5",
+        ".uexp": "c6affdb08a037e8bf458c628b5506c9577fa1e0647489baae0b869d5c76506aa"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Spider/BP_SpiderBtCharacter",
+      "sourceHashes": {
+        ".uasset": "9ba47418de6591736e9944f4b35ffca3c3c6025f3d18e63358c555875e74f1af",
+        ".uexp": "ef06470155ef9b6a58c89c7f7776db48816300f8fbffcf3276d0793701ae8004"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/ScuttlingTorment/BP_ScuttlingTormentCharacter",
+      "sourceHashes": {
+        ".uasset": "3d459d186e05322405ea2d2f4c39b1458bf03d2c0a84f88401e1f85a8942c0f0",
+        ".uexp": "a10232012c12b72df00d4a5c3c8ea3dde3870e0d612a4bb0f08f02625a4c20bd"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Zombie/BP_ZombieVariant1Character",
+      "sourceHashes": {
+        ".uasset": "d08431c104e1e2afb90b6425d3080c15cc8129e1b03bcb628798409032ee6a62",
+        ".uexp": "5494548578dec7a25967334bbd66fb99baa2c905bc9bd113bcca7cbe82b24c4b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Zombie/BP_ZombieBtCharacter",
+      "sourceHashes": {
+        ".uasset": "46bf307715de489f43702daf291ec6d1cef224c720d30c1583b8009ae84c28a7",
+        ".uexp": "0f5591d416ee5bc4a03c25c59946bf7fa6f8b79b198dfcc423478c94f7c8f8f6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Slime/SlimeMedium/BP_SlimeMediumCharacter",
+      "sourceHashes": {
+        ".uasset": "a758089be34c30d8d8bb4a152341dd8f0dda0b7062df0c582cc5d59407c46a48",
+        ".uexp": "6259bdef855a6b506bcf90f33382d2c79f23bbd3e834a7aeee7a273d81be10a8"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Endersent/BP_EndersentCharacter",
+      "sourceHashes": {
+        ".uasset": "f4a30bf96371d6623cb668c232b3f53409aa62c3010540bfceb3b9d62749c1ef",
+        ".uexp": "6c4083607d20a8d228de805194b98800f605ba70199e31ced5ba310842e01d7f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Slime/SlimeLarge/BP_SlimeLargeCharacter",
+      "sourceHashes": {
+        ".uasset": "0a498cec88d5bbf03dd4ea5e95776fec474c2173a6cc85867a0127d87e4deea1",
+        ".uexp": "c6b5dc2a766d09371dc71e7bedca7add0ec3b2165063cfe4f1129fc8c02012d2"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Endermite/BP_EndermiteCharacter",
+      "sourceHashes": {
+        ".uasset": "5094ee39952cf77d6834755e6d1f1d77927e27d33f3e546000d9dcc6fcb55814",
+        ".uexp": "da0dc50b48cb897329eeff1d20c0488b29110e6f777caf1c9cb693010eb96a7d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Slime/SlimeSmall/BP_SlimeSmallCharacter",
+      "sourceHashes": {
+        ".uasset": "d1f3c74b5e5fd5e522b2034f95f40e42e5670b5f36b02b1de74dc16acf0d9865",
+        ".uexp": "c86fb2994ce6f85394f54227c87d825441c7498fe6330e510a5506cd997716f6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Silverfish/BP_SilverfishCharacter",
+      "sourceHashes": {
+        ".uasset": "f4594e64c46fde7b6a95d3de919c95d0799607f97163ac33af1a653450a7945a",
+        ".uexp": "054eee281063e75d11ce55d5c6da389a83de6e7a10a0e27b3eee34e26eb3f8de"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/ChickenJockey/BP_ChickenJockeyCharacter",
+      "sourceHashes": {
+        ".uasset": "a9ab0652637a33d12019759b95186465336e88172c5e0060a6103f95c6f28b61",
+        ".uexp": "3a194cbefe4d75553d894d0acd8f0bb770d2249954e4a6ceceb60a5caf149ea6"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/Endling/BP_EndlingCharacter",
+      "sourceHashes": {
+        ".uasset": "9295a944f7fe92d7cb1532f799fc5751bb7511589dc51862c95f708a307b583e",
+        ".uexp": "87a927adab03a8af539c653f9392977412d8bf7d21f8af4900b4f4e2792d12fb"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Enemies/TheSwarm/BP_TheSwarmCharacter",
+      "sourceHashes": {
+        ".uasset": "d8d8cfceae489a295cbcc733bd6ce0af88e76fb8ad32d71bdf9e25aa1f8dca04",
+        ".uexp": "70a871ec320d65cef73049afba21f917ce20d02707217380617e88e8022ae65b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/ChickenJockeyTower/BP_ChickenJockeyTowerCharacter",
+      "sourceHashes": {
+        ".uasset": "6f1c025fd33c48f1dcca7c89d3a1af4d21acd9bd1a7369af04f9035e3fb83100",
+        ".uexp": "5050772203d5a6fe8f1e60124c03ca090872abb8247fadb45a5115049b29b59f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Characters/Friendlies/Seravex/BP_SeravexCharacter",
+      "sourceHashes": {
+        ".uasset": "1027cd39264a0b780c55735df1e96df002cb51f0193d048cec3179864495ece3",
+        ".uexp": "43e69839c6ddef3dbe225ef898f5764c66489fdbadc1ed36c0ad866377376ecb"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/RedStoneMonstrosity/BP_RedstoneMonstrosityCharacter",
+      "sourceHashes": {
+        ".uasset": "01181dc1089a09445732d172f02ecd6bccb61118e1a791db2d76fd32517d45d6",
+        ".uexp": "5e65a80cb15a59a17a89f02e620cca2e5c140c320ed47e1b5fa5b8696793557f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/JungleAbomination/BP_JungleAbominationRemixCharacter",
+      "sourceHashes": {
+        ".uasset": "094acd3eb36b6dd9f47f8fe097f61c1853730c347b5ac11301a577d8514fddba",
+        ".uexp": "98eb37f4e2e244e018aef4026c6aa776e923702c8084a992c65190fc9bea1b11"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/JungleAbomination/BP_JungleAbominationCharacter",
+      "sourceHashes": {
+        ".uasset": "ed34db868b3a55da7464606ce38339604869b978dfd915a1b170687a61a42b28",
+        ".uexp": "4139d3e3e4a6ae1c5d7145dc52926d77a08e4fe353d9b61d97d826384af9a874"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Enderman/BP_EndermanBtCharacter",
+      "sourceHashes": {
+        ".uasset": "d9f08db5e94b6dfbe91a5f7d0c90d2360c9ca5d2be3110975fb155f0b7e485fc",
+        ".uexp": "78586d685fbed9c2b2f66050b2f7b06b72e4cf8da2003797f44869bf794f84b7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/TowerWraith/BP_TowerWraith",
+      "sourceHashes": {
+        ".uasset": "4053ef5f0edd7e661aa6292ee6a2973ca52539153b44789b726881b89bf2a23d",
+        ".uexp": "7bed1162cabb556c1e732d824c568cf881222f7341db907b81892a7d1fc59274"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Husk/BP_Husk",
+      "sourceHashes": {
+        ".uasset": "afa6c19f0681bf927e6542bb4c1a7d5ba1d41a9e3a5b3dc01d2e9484645ec404",
+        ".uexp": "f849c126d2b152406cde08463e51eb07ee614c25fccea2ad1aa67b679841fa2d"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/Creeper/BP_CreeperBtCharacter",
+      "sourceHashes": {
+        ".uasset": "1096ccc062b756b0d14e11a2365595f2813dd457f5bbb83e9280e6484db154e3",
+        ".uexp": "5dd62a516038c2a2f92742315b9d4fc2e4e1cf37865e0306bbe0b31b5eabc07e"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/BabyZombie/BP_BabyZombieCharacter",
+      "sourceHashes": {
+        ".uasset": "ee4e1aa7d2455821985dc49e192ab128feae46e0f5db548f8f29286bbd53de86",
+        ".uexp": "4b4a67576a2da149f67bc711d3bcd83d731129b3cde563434e3c6c1aeff4cd5f"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Enemies/FrozenZombie/BP_FrozenZombieCharacter",
+      "sourceHashes": {
+        ".uasset": "af599d5941d5fcd7d226df1eaa40912a414717ce06dc64ae56727fe2d3785227",
+        ".uexp": "14c8dbf9f1c413054d881281fb2f8e5119dd3d933e2cc9233504a42147b2c1dc"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/BabyKey/SilverBabyKey/BP_SilverBabyKeyCharacter",
+      "sourceHashes": {
+        ".uasset": "85bc36fe0792394dc2a972963e1b942e2a662f42064e3154447856ae05fdea7c",
+        ".uexp": "9df0eec9ce7b539ccc7ba80625e31f8014bb7e727afe44d31ca2e9ba54029bcc"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Animals/ChickenBaby/BP_BabyChicken",
+      "sourceHashes": {
+        ".uasset": "e7dacaef442bee8462eba352c68830e90bada16e0b956f1c6f242f49de45aef4",
+        ".uexp": "0bfe496bb36f4e24fd2812dce782c3efb21e2da6afab65cd26e948c520e1e9f3"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Animals/PolarBear/BP_PolarBearBtCharacter",
+      "sourceHashes": {
+        ".uasset": "afe6c616121a6816f7836f3b99d6530a08e8cf2340c60794b5a147c611468e58",
+        ".uexp": "084624b66c0329561de10e340fd709089edf76a561838163f6409475048b33f0"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Animals/Rabbit/BP_RabbitCharacter",
+      "sourceHashes": {
+        ".uasset": "9ba7d1036c3f2e645ae6d359fddfadf9193632de18f2da06a37cc782d99412a9",
+        ".uexp": "7d97ee01483a240e37dd3d70479fcc9f7dc7de9490e639543cfeef437893d364"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Animals/Wolf/BP_WolfCharacter",
+      "sourceHashes": {
+        ".uasset": "21470172122c0415e9535909f178847ba43470a66fb24da91f190c731c9c5a72",
+        ".uexp": "b5f319e2645fcc8ef1661c208655cf23c138db81a4976d4847f0244a7abaee20"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Animals/Ocelot/BP_OcelotCharacter",
+      "sourceHashes": {
+        ".uasset": "a4903439916857904965cae4ef37b96f8fc433a6c254a610fa26f49af05452ac",
+        ".uexp": "e414b0b70fb8c8ab05c6b28b2ef48c1a37f3e67c787674957cef93d0ce4a96ab"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/IronGolem/BP_IronGolemCharacter",
+      "sourceHashes": {
+        ".uasset": "9d52c7730354e09b37256485d61380a59383125ba963526d31e2c0a3918eb00b",
+        ".uexp": "dd1ebcd141309f9d25ef0ce9f70a3b3137a0581170d6703390b086e1408432e9"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Pets/RubyTurtle/BP_BabyRubyTurtle",
+      "sourceHashes": {
+        ".uasset": "572dece75e9ea5f0c6b17e8333cb0054e25aa3ef0594dffa1b75a604e00c6b3e",
+        ".uexp": "0794dd260470a861db1f52e464a3f3c9b3936c02c36717982e8dde54ba313689"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Pets/Duck/BP_Duck",
+      "sourceHashes": {
+        ".uasset": "4ec9fd7951cd6b933810cdcf1b2b8d08b6f99f53889c751a4547362f6b9aa3d9",
+        ".uexp": "bfbbfc4b125d67054089af98e17db1fed2ffa1691b9693b3a975f50b47c2178b"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Characters/Friendlies/Pets/DarkBabyGoat/BP_DarkBabyGoat",
+      "sourceHashes": {
+        ".uasset": "92803d165d4083dac7d0d8006af18e966637b6eb0256e13f4657d59bd52f8cbb",
+        ".uexp": "55ec817c4afce158e308c8bc7bacef1fbd7240e1eac52cc501281a628bbc4995"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordBreakGameplayEffect",
+      "sourceHashes": {
+        ".uasset": "63e49ceb8c761aea5fab652ba88c569f6c62896caa1653e0f28bd70904845bcd",
+        ".uexp": "29147861631354c8d9e470338c928e917747cdb3da6fd45c4da53d1fce1941f7"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordActiveGameplayEffect",
+      "sourceHashes": {
+        ".uasset": "658c5af55c083567958d531eea0a06cd98892d221a6a0ed0481bdde3cd88fbfa",
+        ".uexp": "32c3be5e85e23fec6fce564577318d74029c2ac0f8c59a84a1ce9a9c00587628"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueActiveGameplayEffect",
+      "sourceHashes": {
+        ".uasset": "130ec87c600319c87f37543f3869c2b3d0c0fffec2c27d441c10deacd00ee480",
+        ".uexp": "32c3be5e85e23fec6fce564577318d74029c2ac0f8c59a84a1ce9a9c00587628"
+      },
+      "binaryEquality": true
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueBreakGameplayEffect",
+      "sourceHashes": {
+        ".uasset": "39bce374def2be97a4cb240a3274862fdf07f711b4c548ec60d7f32bd91d3bee",
+        ".uexp": "29147861631354c8d9e470338c928e917747cdb3da6fd45c4da53d1fce1941f7"
+      },
+      "binaryEquality": true
+    }
+  ],
+  "effects": [
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueActiveGameplayEffect",
+      "nativeParent": "/Script/GameplayAbilities.GameplayEffect",
+      "properties": {
+        "DurationPolicy": "EGameplayEffectDurationType::Infinite",
+        "bExecutePeriodicEffectOnApplication": false,
+        "GameplayCues": [
+          {
+            "MagnitudeAttribute": {
+              "AttributeName": null,
+              "Attribute": 0,
+              "AttributeOwner": 0
+            },
+            "MinLevel": "+0",
+            "MaxLevel": 1.0,
+            "GameplayCueTags": {
+              "GameplayCueTags": [
+                "GameplayCue.StatusEffect.ChainswordUnique1.Active"
+              ]
+            }
+          }
+        ],
+        "InheritableGameplayEffectTags": {
+          "CombinedTags": {
+            "CombinedTags": [
+              "PersistAfterDeath"
+            ]
+          },
+          "Added": {
+            "Added": [
+              "PersistAfterDeath"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueBreakGameplayEffect",
+      "nativeParent": "/Script/GameplayAbilities.GameplayEffect",
+      "properties": {
+        "DurationPolicy": "EGameplayEffectDurationType::Infinite",
+        "bExecutePeriodicEffectOnApplication": false,
+        "GameplayCues": [
+          {
+            "MagnitudeAttribute": {
+              "AttributeName": null,
+              "Attribute": 0,
+              "AttributeOwner": 0
+            },
+            "MinLevel": "+0",
+            "MaxLevel": 1.0,
+            "GameplayCueTags": {
+              "GameplayCueTags": [
+                "GameplayCue.StatusEffect.ChainswordUnique1.Break"
+              ]
+            }
+          }
+        ],
+        "UIData": 3,
+        "InheritableGameplayEffectTags": {
+          "CombinedTags": {
+            "CombinedTags": [
+              "PersistAfterDeath"
+            ]
+          },
+          "Added": {
+            "Added": [
+              "PersistAfterDeath"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordBreakGameplayEffect",
+      "nativeParent": "/Script/GameplayAbilities.GameplayEffect",
+      "properties": {
+        "DurationPolicy": "EGameplayEffectDurationType::Infinite",
+        "bExecutePeriodicEffectOnApplication": false,
+        "GameplayCues": [
+          {
+            "MagnitudeAttribute": {
+              "AttributeName": null,
+              "Attribute": 0,
+              "AttributeOwner": 0
+            },
+            "MinLevel": "+0",
+            "MaxLevel": 1.0,
+            "GameplayCueTags": {
+              "GameplayCueTags": [
+                "GameplayCue.StatusEffect.ChainSword.Break"
+              ]
+            }
+          }
+        ],
+        "UIData": 3,
+        "InheritableGameplayEffectTags": {
+          "CombinedTags": {
+            "CombinedTags": [
+              "PersistAfterDeath"
+            ]
+          },
+          "Added": {
+            "Added": [
+              "PersistAfterDeath"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordActiveGameplayEffect",
+      "nativeParent": "/Script/GameplayAbilities.GameplayEffect",
+      "properties": {
+        "DurationPolicy": "EGameplayEffectDurationType::Infinite",
+        "bExecutePeriodicEffectOnApplication": false,
+        "GameplayCues": [
+          {
+            "MagnitudeAttribute": {
+              "AttributeName": null,
+              "Attribute": 0,
+              "AttributeOwner": 0
+            },
+            "MinLevel": "+0",
+            "MaxLevel": 1.0,
+            "GameplayCueTags": {
+              "GameplayCueTags": [
+                "GameplayCue.StatusEffect.ChainSword.Active"
+              ]
+            }
+          }
+        ],
+        "InheritableGameplayEffectTags": {
+          "CombinedTags": {
+            "CombinedTags": [
+              "PersistAfterDeath"
+            ]
+          },
+          "Added": {
+            "Added": [
+              "PersistAfterDeath"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "representativeChains": [
+    {
+      "class": "BP_ChainswordInstance_C",
+      "parent": "/Script/Dungeons.MeleeWeaponGearItemInstance",
+      "variants": [
+        {
+          "Name": "Forehand",
+          "AttackSequence": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1.Player_Master_ChainswordCombo1",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        },
+        {
+          "Name": "Stretch",
+          "AttackSequence": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop.Player_Master_ChainswordCombo1Loop",
+          "VariantActiveEffect": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordActiveGameplayEffect.BP_ChainSwordActiveGameplayEffect_C",
+          "VariantChangeEffect": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainSwordBreakGameplayEffect.BP_ChainSwordBreakGameplayEffect_C"
+        }
+      ]
+    },
+    {
+      "class": "BP_Chainsword_Unique1Instance_C",
+      "parent": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance.BP_ChainswordInstance_C",
+      "variants": [
+        {
+          "Name": "Forehand",
+          "AttackSequence": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1.Player_Master_ChainswordCombo1",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        },
+        {
+          "Name": "Stretch",
+          "AttackSequence": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop.Player_Master_ChainswordCombo1Loop",
+          "VariantActiveEffect": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueActiveGameplayEffect.BP_ChainSwordUniqueActiveGameplayEffect_C",
+          "VariantChangeEffect": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_ChainSwordUniqueBreakGameplayEffect.BP_ChainSwordUniqueBreakGameplayEffect_C"
+        }
+      ]
+    },
+    {
+      "class": "BP_AnchorInstance_C",
+      "parent": "/Script/Dungeons.MeleeWeaponGearItemInstance",
+      "variants": [
+        {
+          "Name": "HeavyForehand",
+          "AttackSequence": "/Game/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/Animations/Player_Master_AnchorAxe.Player_Master_AnchorAxe",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        }
+      ]
+    },
+    {
+      "class": "BP_ClaymoreInstance_C",
+      "parent": "/Script/Dungeons.MeleeWeaponGearItemInstance",
+      "variants": [
+        {
+          "Name": "Forehand",
+          "AttackSequence": "/Game/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo1.Player_Master_ClaymoreCombo1",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        },
+        {
+          "Name": "Backhand",
+          "AttackSequence": "/Game/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo2.Player_Master_ClaymoreCombo2",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        },
+        {
+          "Name": "Lunge",
+          "AttackSequence": "/Game/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo3.Player_Master_ClaymoreCombo3",
+          "VariantActiveEffect": null,
+          "VariantChangeEffect": null
+        }
+      ]
+    }
+  ]
+}
