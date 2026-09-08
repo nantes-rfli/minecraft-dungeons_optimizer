@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "status": "research-only",
+  "runtimePromotion": false,
+  "investigatedAt": "2026-09-08",
+  "reader": "UAssetAPI 1.1.0 / VER_UE4_22",
+  "readAttempts": 379,
+  "uniqueAssets": 378,
+  "roundtripPassed": 379,
+  "archiveMatchingFiles": 756,
+  "archiveDifferentFiles": [],
+  "animationClasses": {
+    "/Script/Engine.AnimComposite": 256,
+    "/Script/Engine.AnimSequence": 32
+  },
+  "notifyClasses": {
+    "/Script/Dungeons.AnimNotify_DungeonsPlaySound": 289,
+    "/Script/Dungeons.AnimNotifyState_CustomParticle": 291,
+    "/Game/Effects/Blueprints/CameraShake/CameraShakeNotify.CameraShakeNotify_C": 41,
+    "/Script/Engine.AnimNotify_PlayParticleEffect": 29,
+    "/Game/Actors/Equipment/MeleeWeapons/Katana_Unique2/AnimNS_Katana_Unique2.AnimNS_Katana_Unique2_C": 3,
+    "Slash1": 7,
+    "Slash0": 8,
+    "/Game/Actors/Equipment/MeleeWeapons/Hammer_Unique2/AnimNS_Hammer_Unique2.AnimNS_Hammer_Unique2_C": 1,
+    "/Game/Actors/Equipment/MeleeWeapons/Whip/AnimNS_Whip.AnimNS_Whip_C": 1,
+    "/Game/Actors/Equipment/MeleeWeapons/Hammer_Unique1/AnimNS_Hammer_Unique1.AnimNS_Hammer_Unique1_C": 1
+  },
+  "animationExports": 288,
+  "notifyEvents": 671,
+  "weaponsWithExplicitVariants": 82,
+  "explicitVariants": 293,
+  "limitations": [
+    "Configured properties are not verified effective hit intervals.",
+    "Sequence Extras are preserved, not decompressed skeletal tracks.",
+    "Selection is path-based, not proof of all runtime-used melee assets.",
+    "Native defaults, speed scaling, cancel and cooldown scheduling remain unverified."
+  ],
+  "notifyBlueprints": [
+    {
+      "asset": "Dungeons/Content/Effects/Blueprints/CameraShake/CameraShakeNotify",
+      "sourceHashes": {
+        ".uasset": "15cdb857506d82824638dcf1eb934eb8200223c91a343a0221b9d230d309a125",
+        ".uexp": "4558a7d65b9627a2624fd32146bdcf6aa9474d63ebe96aaf17030c180427efb1"
+      },
+      "binaryEquality": true,
+      "functions": [
+        {
+          "name": "Received_Notify",
+          "calls": [
+            "K2_GetComponentToWorld",
+            "PlayWorldCameraShakeAtPawn",
+            "TransformLocation"
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/AnimNS_Katana_Unique2",
+      "sourceHashes": {
+        ".uasset": "36a1f1b9e949cdef9526a6154ff26af4288e5183d15e3db250180e3b47582cb1",
+        ".uexp": "e29ce4b051da67688585c53776137dca902bc94c8df2429ea18961f1a73df5b7"
+      },
+      "binaryEquality": true,
+      "functions": [
+        {
+          "name": "Received_SlotActorNotifyBegin",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyTick",
+          "calls": [
+            "FMax",
+            "GetGearActorMaterialInstanceScalar",
+            "Multiply_FloatFloat",
+            "SetGearActorMaterialInstanceScalar",
+            "Subtract_FloatFloat"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyEnd",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique2/AnimNS_Hammer_Unique2",
+      "sourceHashes": {
+        ".uasset": "6f5326580062cfe84e3cf20ffd286acbd72d0128c8651f507d0e124e41385f6e",
+        ".uexp": "d9ac9c275fc81a29c3a7730f03e65ba200fb9df5486f78fe383f6fe43494dd43"
+      },
+      "binaryEquality": true,
+      "functions": [
+        {
+          "name": "Received_SlotActorNotifyBegin",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyTick",
+          "calls": [
+            "FMax",
+            "GetGearActorMaterialInstanceScalar",
+            "Multiply_FloatFloat",
+            "SetGearActorMaterialInstanceScalar",
+            "Subtract_FloatFloat"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyEnd",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/AnimNS_Whip",
+      "sourceHashes": {
+        ".uasset": "74c7dbee0e13d863c8d7e3766ab5f5351af55642fd50525fd1db4d5bcc6a534b",
+        ".uexp": "b14e91162752bb949e5cd664c800cd792050726f4af9d4a76fd66fc2ac046b07"
+      },
+      "binaryEquality": true,
+      "functions": [
+        {
+          "name": "Received_SlotActorNotifyBegin",
+          "calls": [
+            "GetComponentByClass",
+            "IsValid",
+            "PlayAnimation"
+          ]
+        }
+      ]
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/AnimNS_Hammer_Unique1",
+      "sourceHashes": {
+        ".uasset": "234aa38d44b549421de07423736b49cb4bb1bf5bc51cb17987af1dfb521c60d8",
+        ".uexp": "cadadc83a94d36f320f13d51c318c6db5b34062102885a9443a7f7dec29cecf0"
+      },
+      "binaryEquality": true,
+      "functions": [
+        {
+          "name": "Received_SlotActorNotifyBegin",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyTick",
+          "calls": [
+            "FMax",
+            "GetGearActorMaterialInstanceScalar",
+            "Multiply_FloatFloat",
+            "SetGearActorMaterialInstanceScalar",
+            "Subtract_FloatFloat"
+          ]
+        },
+        {
+          "name": "Received_SlotActorNotifyEnd",
+          "calls": [
+            "SetGearActorMaterialInstanceScalar"
+          ]
+        }
+      ]
+    }
+  ],
+  "namedSlashSearch": {
+    "method": "ASCII token search of all local uasset files; not a complete semantic reference scan",
+    "AnimNotify_Slash0_or_1_matches": 0,
+    "Slash0_or_1_matchingFiles": 17,
+    "extraOutsideSelection": "Dungeons/Content/Content_DLC6/Actors/Items/EndWeapons/PS_EndMasterBackstabberSlash1",
+    "receiverResolved": false
+  },
+  "uniqueAssetsIncludingNotifyBlueprints": 383,
+  "totalReadAttemptsIncludingNotifyBlueprints": 384,
+  "totalArchiveMatchingFilesIncludingNotifyBlueprints": 766
+}

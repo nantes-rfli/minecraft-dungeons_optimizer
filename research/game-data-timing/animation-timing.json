@@ -1,0 +1,4104 @@
+{
+  "status": "research-only",
+  "runtimePromotion": false,
+  "animations": [
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo5Final",
+      "object": "Player_Master_RapierCombo5Final",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e6f8d62c5ccdb06220ecdbffc8b0d8c1c4e748c6c77cab59aca1413e51a4cc31",
+        ".uexp": "7bdb7ac02e1b89364cc7d6ad7f11ccc982426b87fcb138a231cb50906050d809"
+      },
+      "sequenceLength": 1.189000129699707,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo2",
+      "object": "Player_Master_RapierCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "81c8f66a55d58e03bb27a172fc40e61373890d43699c36b62711c7e79a3f3c17",
+        ".uexp": "3ee4b6f1e6b2ae614aef82ec51941b00978256b324db258d7f410af684fb27a4"
+      },
+      "sequenceLength": 0.31599998474121094,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo",
+      "object": "Player_Master_RapierCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "38758b986f5b9280302c29e1a5f511538ae46cb6e2ac0a03b12d993162ef7566",
+        ".uexp": "207cf44039765aed29be7d5a1172147777051d1a6670402a0e4bdc047b9e68f9"
+      },
+      "sequenceLength": 3.7083332538604736,
+      "numFrames": 90,
+      "preservedExtraBytes": 20262,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo2_MiddleDouble",
+      "object": "Player_Master_RapierCombo2_MiddleDouble",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0ec06c096c3e29ed2e564b8946a0b017dcaa6af5d5ef6880057f408480a9fbf3",
+        ".uexp": "9527afa75e262ceebc25561008cc6085b6c63003240a0fb2632afe187d40c71d"
+      },
+      "sequenceLength": 0.33600008487701416,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo1Start",
+      "object": "Player_Master_RapierCombo1Start",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7ba96ff0f097ab9a891b76c19a4ba5544d6a16747f937edfff813f91aa95c16d",
+        ".uexp": "7b05d99b672f30d82ffb66282e279e6ee0558259cf5a89dae0e7a8d7abd48645"
+      },
+      "sequenceLength": 0.33899998664855957,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo2_Left",
+      "object": "Player_Master_RapierCombo2_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eac54eae7efe64481ca34185d2740ea25a325f2245a4f5b5ad33ae7f098521f3",
+        ".uexp": "062bf15af7ac4f26b8d13efc3666c904dd8a293a38e2ef3f27cf7cf1299d02e5"
+      },
+      "sequenceLength": 0.23399996757507324,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/Animations/Player_Master_RapierCombo2_Right",
+      "object": "Player_Master_RapierCombo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "4222afaf0bea4192a6e3412be419498f18690968796d079c6230109a59360ca4",
+        ".uexp": "98698c1da7b07881e0962efc5c62f7e7a277bda81aadfffeed3a27fb0dd8871c"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo2_MiddleDouble",
+      "object": "Player_Master_RapierUnique1Combo2_MiddleDouble",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "97e921aaaf5a4b962fae7b4ab5322e93f2aec16081d18b2405846014f0717ea5",
+        ".uexp": "522ba91734c15e2a2bec5aba8399b6eb5201a7022922494be4683ee1f88db5c1"
+      },
+      "sequenceLength": 0.41600000858306885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo2_Left",
+      "object": "Player_Master_RapierUnique1Combo2_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0c88252163591d29941bec2dbb1b708061f08daca853fb9c0216214ddf376f3a",
+        ".uexp": "9f432c6b11984e0b362654fb0314cea5ee0da97409f83c6b7db8bd07bfce106d"
+      },
+      "sequenceLength": 0.23399996757507324,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo1Start",
+      "object": "Player_Master_RapierUnique1Combo1Start",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c70739bf8f29e766267cb10d451ad1501f11256b9bb87f70f286c4038e8cfa96",
+        ".uexp": "360cabc8fba4167871ce3175575050921807d2b3bc9f2a2d66375f963b26a433"
+      },
+      "sequenceLength": 0.33899998664855957,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo2_Right",
+      "object": "Player_Master_RapierUnique1Combo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "16a5b7af7474a2dfe07886fa56701682f220f37f75ab2fc48325db4751e4c6d1",
+        ".uexp": "3d30a22fd94a78db1418bf7745fa787d26123a603eb111da96a40af960c13f72"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo5Final",
+      "object": "Player_Master_RapierUnique1Combo5Final",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a7c5b794944691f775361d5167e892f1744d11c4ba4d02ece5f709a2f57827ef",
+        ".uexp": "09eadf072b1892d2f28ad5c9d3a8cf12aaa300b4e0a68bd560c4a1b353b7dfc5"
+      },
+      "sequenceLength": 1.189000129699707,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique1/Animations/Player_Master_RapierUnique1Combo2",
+      "object": "Player_Master_RapierUnique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "aeae28f5b9418f072c3e97604c524acb0908920f6b94c82adf8165a1819f16fd",
+        ".uexp": "8892bb2e751ce15962fb2fa51933dae3defb0a8c1d0128fb46956da87085e5d6"
+      },
+      "sequenceLength": 0.4359999895095825,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo2",
+      "object": "Player_Master_RapierUnique2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "284a3db72b717df5cf7600c4ea9f769924b3fe60afe24229f2fc49e86a8cf16a",
+        ".uexp": "0f70eb571dc730ec4cf340b66537810c246bc227a9d86d8d1ffb02854806962a"
+      },
+      "sequenceLength": 0.4359999895095825,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo1Start",
+      "object": "Player_Master_RapierUnique2Combo1Start",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b56bf18a3c6a0339239b07cbef1b64a32d631662f0bb0ec156f876ce54e2f92f",
+        ".uexp": "ddbfba11e00dd1dfae6bed1798dcd3452986b05ca14726afd76874d574079b12"
+      },
+      "sequenceLength": 0.33899998664855957,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo2_Right",
+      "object": "Player_Master_RapierUnique2Combo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7cb454f43a879fd45e0f9aa9e80da43fba6d700ee97b8511f31323f3082c6606",
+        ".uexp": "9828fda903daf9cb3ae8bc62fa39e71c1f918784f5a0da340366bb6c041b8ab5"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo2_Left",
+      "object": "Player_Master_RapierUnique2Combo2_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "9261172ac0751e460c29e120845f46bd1d3e127946c4d40a306d0fdd111ee938",
+        ".uexp": "2ee5a729bf090ccf0d83cf2bbbc810297cf8795aaff5ed19a8f8e302f1de69c0"
+      },
+      "sequenceLength": 0.23399996757507324,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo2_MiddleDouble",
+      "object": "Player_Master_RapierUnique2Combo2_MiddleDouble",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "05317f5569b3cae250848df2f4b8ee5407573a5ab02074e08b1bc2bd9ed8aa7b",
+        ".uexp": "b104c123f7ee26255784c660f183b254bb29e777c4703d18038af24415534c4a"
+      },
+      "sequenceLength": 0.41600000858306885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier_Unique2/Animations/Player_Master_RapierUnique2Combo5Final",
+      "object": "Player_Master_RapierUnique2Combo5Final",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "292a407068de57256ed9ac27d580d7db48f916b1afcbbcbda7db23026b6d8a58",
+        ".uexp": "d066e33899bcaf8524df98648685d1c8c8a4b6e37e471a8ebf3503ec657523f0"
+      },
+      "sequenceLength": 1.189000129699707,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/Animations/Player_Master_ObsidianClaymoreCombo",
+      "object": "Player_Master_ObsidianClaymoreCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "fbbda0a325c2780aa5ee0284236d7d1a4edc67c3dda5906a9adf2e9158e77d23",
+        ".uexp": "8473d3bff1cad495fada2b2c28c344f90f1b5953fcd8954184fb3f1697b5fe4b"
+      },
+      "sequenceLength": 3.866666555404663,
+      "numFrames": 117,
+      "preservedExtraBytes": 47162,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/Animations/Player_Master_ObsidianClaymoreCombo3",
+      "object": "Player_Master_ObsidianClaymoreCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "18d33e6bf593481707bbff33315c8016b92180075d02c088571b6b47b34183ab",
+        ".uexp": "9f8898b6ac2551e8461ede921e6e20e33be2d176274737f6c4e831b9246f79b2"
+      },
+      "sequenceLength": 1.8777776956558228,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/Animations/Player_Master_ObsidianClaymoreCombo1",
+      "object": "Player_Master_ObsidianClaymoreCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3a356df3b4a15d8793f352515cb251ba3fa9db200d40e03d1b8645717d54eeba",
+        ".uexp": "368f27465269b915d7b1090f321152787deb1b98c2fc911440c576aaca141d52"
+      },
+      "sequenceLength": 1.1099998950958252,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/Animations/Player_Master_VoidBladesCombo_1",
+      "object": "Player_Master_VoidBladesCombo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "80fa563d62486504e48041f80c7faecf284211a4df97925403f31bfcfdbdb60e",
+        ".uexp": "db4a6d2e456985818a16263532e22738472b607bf22371459464bbeec4a554cf"
+      },
+      "sequenceLength": 0.4000000059604645,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/Animations/Player_Master_VoidBladesCombo_3",
+      "object": "Player_Master_VoidBladesCombo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "22729204705f4a83faca097e9409f6f3e47529f039daa86d856ced68765241e2",
+        ".uexp": "5fa59fc7c55d455f1f237c4000c9d6d324c1f60bbfb6acea6c7340d9dd0ac3d1"
+      },
+      "sequenceLength": 0.2500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/Animations/Player_Master_VoidBladesCombo_5",
+      "object": "Player_Master_VoidBladesCombo_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f720cb32f8b8573c86139db308c9d59992a7597853f054c104aef65b980c5aa4",
+        ".uexp": "0ea94da0111fbb7f84c98dfb2a1d08a1bb281b0d056dcc286a97f2015cb6a8ee"
+      },
+      "sequenceLength": 0.7233333587646484,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/Animations/Player_Master_VoidBladesCombo_2",
+      "object": "Player_Master_VoidBladesCombo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "594c039068c78d31643901d0a2773b8948693ae3a983a0ceb0242ddd391e0d5c",
+        ".uexp": "454c7dd5dc31b8e0896598013c631c1c27c8b91b02b637a6a8dffc2176ccd980"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/Animations/Player_Master_VoidBladesCombo",
+      "object": "Player_Master_VoidBladesCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "4b204820eaeb21ee8d052785262914b2b6936608af8b99ec778e3fc5baa7b75e",
+        ".uexp": "277a7d1360bef36f091d8f3cabb5808ff0787d8f495168b6d4f9b00c92da1a6e"
+      },
+      "sequenceLength": 2.433333396911621,
+      "numFrames": 74,
+      "preservedExtraBytes": 18386,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/Animations/Player_Master_BackstabberCombo_3",
+      "object": "Player_Master_BackstabberCombo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "19186aa8d8e79523bc990636e1f775892571fb5c5056fe2c0d4be2bfec5800ec",
+        ".uexp": "8635f4c1ce2301db3798a84b68eeb5a724a28b85324dc2c6110a93936f3c75a7"
+      },
+      "sequenceLength": 1.125,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/Animations/Player_Master_MasterBackstabberCombo",
+      "object": "Player_Master_MasterBackstabberCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "8432adbd25349e60c1f5308ec9d10156f41c69f39079c54bdae4d8e17fe43e00",
+        ".uexp": "05977f27cfd4ceb261b9ff6a97cc446fcce8686e37a168ac232252018a1e4f44"
+      },
+      "sequenceLength": 2.0,
+      "numFrames": 61,
+      "preservedExtraBytes": 15578,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/Animations/Player_Master_BackstabberCombo_1",
+      "object": "Player_Master_BackstabberCombo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0e6ea61e797cd52b93491a0692fb302a7171126b6eb2b9700922947939fbcc07",
+        ".uexp": "c374898b1294ec7b9274806f972684248931a3d89865432a1fcdbe7a0b4e21aa"
+      },
+      "sequenceLength": 0.4193333387374878,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/Animations/Player_Master_BackstabberCombo_2",
+      "object": "Player_Master_BackstabberCombo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "59eb2056d5bed45d0db2fa3240eef7f5204c6fb095dd3710ddb24dca55ba2ecf",
+        ".uexp": "22138284b5a734c25775d615644e8e08a94b59133eb145c278d4c1ecdb8a616b"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber_Unique1/Animations/Player_Master_Backstabber_unique1Combo_1",
+      "object": "Player_Master_Backstabber_Unique1Combo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "93fdaf02ad300bd95bf3cad8ffda73dcd6e196085c2c03196ec820881365aa22",
+        ".uexp": "c374898b1294ec7b9274806f972684248931a3d89865432a1fcdbe7a0b4e21aa"
+      },
+      "sequenceLength": 0.4193333387374878,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber_Unique1/Animations/Player_Master_Backstabber_Unique1Combo_3",
+      "object": "Player_Master_Backstabber_Unique1Combo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0cb645e0f3b5ef47776ff4e9c323c92aca3fb61bb7974af8fc6cd190a6cf8d90",
+        ".uexp": "8635f4c1ce2301db3798a84b68eeb5a724a28b85324dc2c6110a93936f3c75a7"
+      },
+      "sequenceLength": 1.125,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber_Unique1/Animations/Player_Master_Backstabber_Unique1Combo_2",
+      "object": "Player_Master_Backstabber_Unique1Combo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "305500122726cd3bf3294b7d4ee73409d851327ffe30dfded55a60fd167168b5",
+        ".uexp": "22138284b5a734c25775d615644e8e08a94b59133eb145c278d4c1ecdb8a616b"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades_Unique1/Animations/Player_Master_VoidBlades_Unique1Combo_1",
+      "object": "Player_Master_VoidBlades_Unique1Combo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b303c3d945378482e0eedeca5ba2d156d2501a52b105b198b39128952e45a7f8",
+        ".uexp": "01ec24901f5d9fc85eb9fff7fa7e2f9b0de2b511dbd7364a70c3a35f478e9336"
+      },
+      "sequenceLength": 0.4000000059604645,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades_Unique1/Animations/Player_Master_VoidBlades_Unique1Combo_3",
+      "object": "Player_Master_VoidBlades_Unique1Combo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b6c0ed1d91ad3e055d4b31a492969d90c56cdd80b5a79eb49e0f387fc14b8922",
+        ".uexp": "aa0f5520533ebd7e68091d512d06c036506905303d7195304e5f338f5d96dd22"
+      },
+      "sequenceLength": 0.2500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades_Unique1/Animations/Player_Master_VoidBlades_Unique1Combo_5",
+      "object": "Player_Master_VoidBlades_Unique1Combo_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3cd2b21aaa1b6ecee53413cfe591a396be6c3bd457c82ee92143e4c119139dce",
+        ".uexp": "f5d894d4622c0c8f35d32f89c4199dc4cdef53b79e111a6982b8daa0fe4e1dd5"
+      },
+      "sequenceLength": 0.7233333587646484,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades_Unique1/Animations/Player_Master_VoidBlades_Unique1Combo_2",
+      "object": "Player_Master_VoidBlades_Unique1Combo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6e3746d626f1f7275cf020ab6fedfca817519ee8eebf4746c1902199b5a156e7",
+        ".uexp": "3900081b30c53afdfc206181710850c3d4fc16acc86f9914fac9b60c595aa9bb"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore_Unique1/Animations/Player_Master_ObsidianClaymore_Unique1Combo1",
+      "object": "Player_Master_ObsidianClaymore_Unique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "9eac969e655733bd305bc161ed1c326b5c5156a9076f009b5150a8153a873030",
+        ".uexp": "8ecf977a339febd02fc998afcc2f6efc44db004e9e32834124c5022d471c50fb"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore_Unique1/Animations/Player_Master_ObsidianClaymore_Unique1Combo3",
+      "object": "Player_Master_ObsidianClaymore_Unique1Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5a80418a1ec6054a972483494b1c4655a9f6df0c6e84ce45481802b0c2c9a41b",
+        ".uexp": "490176eb3d6c6c295a2811098cb10ad97c46792179b21368ad3597430ef694c2"
+      },
+      "sequenceLength": 1.8777776956558228,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/Animations/Player_Master_SpiritKnifeUnique1Stab1",
+      "object": "Player_Master_SpiritKnifeUnique1Stab1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "54a0fd7d7d41b296156a315378191367368f8470d0de91a1cad3f51a1fb3a83f",
+        ".uexp": "5284b798271f7d389a24c0d4cc943f09a24661ae9efb7eb80b75b44cf6fc784f"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/Animations/Player_Master_KatanaUnique2Combo_2",
+      "object": "Player_Master_KatanaUnique2Combo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "41debbc225d7937540351daa9ed81ed597bc4c89da06a3695bfadaa3e2555b64",
+        ".uexp": "2984a6a381290caf01a8f86fb3c6611491c5ab963d470da149c776655471d74b"
+      },
+      "sequenceLength": 1.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/Animations/Player_Master_KatanaUnique2Combo_1",
+      "object": "Player_Master_KatanaUnique2Combo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "26e9190663a0556b47327be75192c0bfec0ab82aba8a50b51c9dd3aa6d2f2de3",
+        ".uexp": "7408eb70128aded52275d61a8f15c80e9264cb2b9a5f7b021fbb4c011f47f01c"
+      },
+      "sequenceLength": 0.800000011920929,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/Animations/Player_Master_KatanaUnique2Combo_3",
+      "object": "Player_Master_KatanaUnique2Combo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eddc2c21283da882f63025a4e79530b054deeefd0092d856a146fa1e4b654959",
+        ".uexp": "7c07e46118ed0b01ab5e5a5ccdcce9b98de5925c08ce2a78a0d5c176ea0cf952"
+      },
+      "sequenceLength": 1.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_Daggers_Unique3Combo_2",
+      "object": "Player_Master_Daggers_Unique3Combo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "42ecfc837b00219472b1803f224d1af424614000a8bbd5b090eae106355b2b34",
+        ".uexp": "10f6369b21e20bce22c1037fb672192b09e058559b5a9cb947260201a2556e15"
+      },
+      "sequenceLength": 0.2990000247955322,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_DaggersCombo_Unique3Deluxe_5",
+      "object": "Player_Master_DaggersCombo_Unique3Deluxe_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c7c8b942a5f54e9a93e746fa522d1360636b81aec59ac319149c224b68a17ddc",
+        ".uexp": "9b60be828053577832771170a80b3b7e7ed1a30a345cdaa7650b153e0d13612b"
+      },
+      "sequenceLength": 0.440000057220459,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_DaggersCombo_Unique3Deluxe_3",
+      "object": "Player_Master_DaggersCombo_Unique3Deluxe_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "39837737fec5fc7b70d87a32eb105ebd2cc26adf953f833f268dba7464f5435a",
+        ".uexp": "2e75f92ae33c15e4e9b7d40ed9cefe3bd3e9f56673846d13bb6de7cb148a9adb"
+      },
+      "sequenceLength": 0.3539999723434448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_DaggersCombo_Unique3Deluxe_6",
+      "object": "Player_Master_DaggersCombo_Unique3Deluxe_6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "2a380a71d24d02292d565069036b84ea13fc899f8d199c7ce7307b5c55780610",
+        ".uexp": "4b01c6e546b9f4ff6fd173e0bcd4380507e33ba74cf8ed21269ce9a098441a43"
+      },
+      "sequenceLength": 0.619999885559082,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_DaggersCombo_Unique3Deluxe_4",
+      "object": "Player_Master_DaggersCombo_Unique3Deluxe_4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "197fc761d312be87b3980b0ff94c1c76454378b79f11366da278b83f8b92eb3c",
+        ".uexp": "647c4cff9c25b14c952bd0c07f223ea1809bcdc83b3065fc23004cf42d016454"
+      },
+      "sequenceLength": 0.2359999418258667,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique3/Animations/Player_Master_Daggers_Unique3Combo_1",
+      "object": "Player_Master_Daggers_Unique3Combo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "442735e490811e8465d874b2694a9c43a3008cafe5e4f6d44067603a90c8091c",
+        ".uexp": "2612a500d8d97b074a9bb80d0d17d02e9d699d5fd23d6382f89239248889247d"
+      },
+      "sequenceLength": 0.29100000858306885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique2/Animations/Player_Master_DoubleAxe_Unique2Combo_SpinAttack1",
+      "object": "Player_Master_DoubleAxe_Unique2Combo_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "042e1ce9b4933de56b043b58f33b2db9cf1318e8085ad72de099d906633ca57e",
+        ".uexp": "971e2a626b3c14524d35d37542c7732f7d0668fc24a1cb02538c3a622a64e536"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique2/Animations/Player_Master_DoubleAxe_Unique2Combo_SpinAttack2",
+      "object": "Player_Master_DoubleAxe_Unique2Combo_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "576f4bb5e3602ec74bb7aa6049c47e4ca67c81cd1aaa89e0e9bcde11e0c0223d",
+        ".uexp": "85a5a52ea03048c5442c25d7b7621b80792d1a3e8bc469870cda77f97c277c32"
+      },
+      "sequenceLength": 1.149999976158142,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Unique1_Steel/Animations/Player_Master_PickAxeUnique1_Hit2",
+      "object": "Player_Master_PickAxeUnique1_Hit2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a2417002dfa0bc3e5e00447d328cdc28fb33f888934cfc689d7bd7162e6f0137",
+        ".uexp": "7c43ecac3e67ff4ec14479be987e8f731034a99bdff75f9a7da18f08d4f1abb5"
+      },
+      "sequenceLength": 0.7099999189376831,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/Animations/Player_Master_MaceUnique2Swing_2",
+      "object": "Player_Master_MaceUnique2Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3237e05a9d1de02d9ab743a8f6bccc89701e3913bcc2c243c91dbcc421caaa80",
+        ".uexp": "079cef8d942fb075d0a5f58c607ac490d9711f5888572cfdf7c145908ee49d09"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/Animations/Anim_Flail_Drop_Inventory",
+      "object": "Anim_Flail_Drop_Inventory",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "7fba1d31effd2404e869d29446f976eaa514047fb2755bda573a5214c116c45e",
+        ".uexp": "415fb4676b661c1dd36ff48be9e3c4176f8bed89b4932ea4899dc1c3a9ebf24d"
+      },
+      "sequenceLength": 5.960000038146973,
+      "numFrames": 150,
+      "preservedExtraBytes": 4334,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/Animations/Player_Master_MaceUnique2Swing_3",
+      "object": "Player_Master_MaceUnique2Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "51c170da1c936d26f9782530174f6c7177a0354f300fcf87800980274839dab8",
+        ".uexp": "dc4938d07cee7f814e68d417d4081f627917d5b0e2c1ff5ff8923619ece0b05f"
+      },
+      "sequenceLength": 0.699999988079071,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/Animations/Player_Master_MaceUnique2Swing_1",
+      "object": "Player_Master_MaceUnique2Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c63c267d9024dade03a1bf1904c23197b95732ca2a7c4d10fc20c3fcb7762080",
+        ".uexp": "103ba2f418a025cd735ec9821a930f95ff684fdd7fa58b1020fba3af7151ba01"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/Animations/SM_Mace_Unique2_FlailStuck",
+      "object": "SM_Mace_Unique2_FlailStuck",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "42a455bb3556fba48e9cc2855f26872a0bade9d17200360d4fd9f02a855b5d49",
+        ".uexp": "b896592a023e3afb5b1f9701d3559c5ff66c19ae35b51bc4248d371663685bd4"
+      },
+      "sequenceLength": 3.0,
+      "numFrames": 73,
+      "preservedExtraBytes": 758,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_2",
+      "object": "Player_Master_DaggersUnique2Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "028c97c4a8e7f10419a56e87ec93fec347b665ea1dc9a0ce9595f519eeae3715",
+        ".uexp": "d67d10e4f6641e1ac70765aff71f911cda287fda9cbe1324b40432587152ce55"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_6",
+      "object": "Player_Master_DaggersUnique2Swing_6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "4af0902d4495dc9b148fffed8a0d6c7da935bf2c42d92fd07dbce3b3613965b3",
+        ".uexp": "c3c0cc0ee776b083bd246c7224f9e1d0307996772fa00abece69b4e6fa16bb7e"
+      },
+      "sequenceLength": 0.619999885559082,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_4",
+      "object": "Player_Master_DaggersUnique2Swing_4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b06878c0305294af5840e856bd8147b3cd1651e38402306395a17173f2f67dc3",
+        ".uexp": "1255d5c008b72b1ee67aead49aac2157b2bcd85d2de57e2925c0c9aa11709cf7"
+      },
+      "sequenceLength": 0.2359999418258667,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_1",
+      "object": "Player_Master_DaggersUnique2Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "410b65299258d567dae57e656fdc335ba52921ea21ec67f1a63fb62042636efb",
+        ".uexp": "20d1a8bf16968fb2abe4c5438face6bfb960fd904d30238654553e5e0f90e0c7"
+      },
+      "sequenceLength": 0.44600000977516174,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_3",
+      "object": "Player_Master_DaggersUnique2Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c546feb96a37d22ee5c9e4179e69ed28eb4c8ac3dc9446345b5739e974f7cfa5",
+        ".uexp": "2b92582239461df5a2521e59a849efe913c92842083e1921b8c269aa999f77d4"
+      },
+      "sequenceLength": 0.3539999723434448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_unique2/Animations/Player_Master_DaggersUnique2Swing_5",
+      "object": "Player_Master_DaggersUnique2Swing_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "069a26c902a65afbb76f0db03d78c0581bcdf691f9f19d1fb7fa2843a8a9e4f3",
+        ".uexp": "5af0a44cf78f9be406951f1cb82a6d14cec8471dc4a943d80765662a8b70fa53"
+      },
+      "sequenceLength": 0.440000057220459,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique2/Animations/Player_Master_CutlassUnique2_DoubleBladedSwordCombo",
+      "object": "Player_Master_CutlassUnique2_DoubleBladedSwordCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "fcc93dc0425ebfcbc7a725d551f80d67c51907c7ccb3e363115f31f6caea3a9f",
+        ".uexp": "5931ef2c20642212b675d4588fdcc7f5159d25f19ee02967ab472b054f89cc7f"
+      },
+      "sequenceLength": 2.0416667461395264,
+      "numFrames": 50,
+      "preservedExtraBytes": 19082,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique2/Animations/Player_Master_CutlassUnique2Combo_2LeftToRight_Alternative",
+      "object": "Player_Master_CutlassUnique2Combo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c4026cb219b4d75baf567f0a655a99661cc4b036c16d50a4cee37a25546b7e71",
+        ".uexp": "fa2a2d362fefd5d67ad2680e22ebf55f194a23b22cff3cc318ab008b66dab70c"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique2/Animations/Player_Master_CutlassUnique2_DoubleBladedSwordCombo1",
+      "object": "Player_Master_CutlassUnique2_DoubleBladedSwordCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7c52e04a42cdaf19a702898f48003a71a9cc28df41f5f1e1564c6171cbcd3bc9",
+        ".uexp": "518ba4a9b12c59ea2385ed17094db7705fbbb140e722e71c61382c57a48ce991"
+      },
+      "sequenceLength": 0.4700000286102295,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/Animations/Player_Master_CutlassCombo_1LeftToRight",
+      "object": "Player_Master_CutlassCombo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "43c8579b1680b42542326d5fdf9c30e60923066231602212e47dd7ea43e6c0d0",
+        ".uexp": "627b626cbf70da21966fdd9202b278de379f3d4c6b256093b3a30576c1ef686b"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/Animations/Player_Master_CutlassCombo_2LeftToRight_Alternative",
+      "object": "Player_Master_CutlassCombo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "ea8a76580212cad4deec883451eba41cf5a6e281eb0328943338d07934fbf76c",
+        ".uexp": "2a3394653fe36e47e27c23429aecbc5bea36316c2f1b269707fcd7fab72c0c59"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/Animations/Player_Master_ScytheUnique1Combo1",
+      "object": "Player_Master_ScytheUnique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1f5661e7460512d288be2b76afac93f0fa4fb28656e27cba070a243be0bebb41",
+        ".uexp": "ff4a69260cdd036c0e25946c9d7593a2d9ab5ac389882367182dc5d0c32867cc"
+      },
+      "sequenceLength": 0.46000000834465027,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/Animations/Player_Master_ScytheUnique1Combo2",
+      "object": "Player_Master_ScytheUnique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "67e645f9f08977e4d5cbabb7468b4fbbf7c73e9cf29aad9c3938c3440fa2c6ec",
+        ".uexp": "05ec454aae0696d2783ecefa2ad16e304e14a594f27d236288444ddaa6eddeb9"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/Animations/Player_Master_GlaiveSpooky2Combo_Attack2",
+      "object": "Player_Master_GlaiveSpooky2Combo_Attack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "79771d0b2d8508e53798a6d8a7dbf4a041b05e6a61d70974aae69ab401388d05",
+        ".uexp": "489ca3f5921c660b5d9407173657ec7a64a80fa05f1acbfa13ca03cbf29e9783"
+      },
+      "sequenceLength": 1.0999999046325684,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/Animations/Player_Master_GlaiveSpooky2Combo_Attack3",
+      "object": "Player_Master_GlaiveSpooky2Combo_Attack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d9c1c02a41fb368ea6609ef5c560bf9d85232591b92ce52e72b99fc44d8c60b5",
+        ".uexp": "b4351dcd96bb9c1d1a46710de90f8d6ee18cd9f36e687c62d2caa1679e971a90"
+      },
+      "sequenceLength": 0.9500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/Animations/Player_Master_GlaiveSpooky2Combo_Attack1",
+      "object": "Player_Master_GlaiveSpooky2Combo_Attack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "2b7eb4d79af248eed4f13f04dea5fb0012110bd377fbc7942b641d3c10021929",
+        ".uexp": "dfa457e314f685e896aa9cdd93e0c878713ba747b4ffe9c4a31b0ef0a90b85bf"
+      },
+      "sequenceLength": 0.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo1",
+      "object": "Player_Master_Gauntlets_Unique2Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "aa43d8b514398be455a78e555709b26b449b9b1fdb9e78fd4ff7edc7f31cc4be",
+        ".uexp": "28114a9a710a0a311cb1b80dcce87d0de88d3ccc42a3e06b5fb4c8a3c05c8285"
+      },
+      "sequenceLength": 0.33000001311302185,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo3",
+      "object": "Player_Master_Gauntlets_Unique2Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3008a60fc1d44aaa1316e2bfbbadcdbcf297dd8598b275e9832fb6b0e1053102",
+        ".uexp": "289945e9aa705f207df91745beb888e38fc127b04ec6b391e2d94311c2aee579"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo5",
+      "object": "Player_Master_Gauntlets_Unique2Combo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "331bbb4c4bc7dd78760514ce40ecc2cf4de4f1047e02c6f615d3381ffc6a74f2",
+        ".uexp": "fc701e9c3b6acf11ab61e3e8377a69401c621905b8af6aba0226dc74f95946af"
+      },
+      "sequenceLength": 0.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo2",
+      "object": "Player_Master_Gauntlets_Unique2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "56b611d512ac3da1a0ee9e71cecf23962ccf7aad3ffcc9197e93a66c078c340a",
+        ".uexp": "b6d2e519896f6f7548f5227648bf24d234c13e15ca5eaee317fe3c527390518b"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo6",
+      "object": "Player_Master_Gauntlets_Unique2Combo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b3944917384d840f95036aba08641f2ad655e374bb2b15b0caf48c38c99360bd",
+        ".uexp": "a01071be6c521a1a248e714859816912e2ef60c5419bff1896c6835905975861"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo4",
+      "object": "Player_Master_Gauntlets_Unique2Combo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3863e45a6183d5401c7ac39e4b83c122d11a9e2a7fba93cd802b02249aa62d9e",
+        ".uexp": "5de3456f28a58733a21ebd480e72e9476af20b7a83e0c592f8692ab207ca203e"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/Animations/Player_Master_Gauntlets_Unique2Combo7Punch2",
+      "object": "Player_Master_Gauntlets_Unique2Combo7Punch2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "704cb06dcaea45403f606cb4896372de9b85803165249afa7adae054f5662904",
+        ".uexp": "c742d96cebb632a4b3d1ea0280516c6cf0b301fe90271ae7c230b2711e0b524d"
+      },
+      "sequenceLength": 0.9906666278839111,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/Animations/Player_Master_AxeCombo_1LeftToRight",
+      "object": "Player_Master_AxeCombo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6789987922ac985ca08c58831ebac066dc48ff403d6501cc86bbc0860136502a",
+        ".uexp": "f0c82e0fff13fc13e633355916cf92534620b3d50fbe68117bb598c7f8b7c7c5"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/Animations/Player_Master_AxeCombo",
+      "object": "Player_Master_AxeCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "f190e424ba88d311486cca385d61252d407700af3573d64598a0288083c2c185",
+        ".uexp": "24decdcb65b46ef2b14a4b74cdae8c04d0cc0bdc547c742a66895f5c22b87e6e"
+      },
+      "sequenceLength": 5.0,
+      "numFrames": 121,
+      "preservedExtraBytes": 48698,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/Animations/Player_Master_AxeCombo_2LeftToRight_Alternative",
+      "object": "Player_Master_AxeCombo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e6d9edde0c452b57f05965cb458f412e206d5abe1e97fd23f79c3f79901ae53a",
+        ".uexp": "ef66e51bd23ed27e79a72b6ce6ba5c188530ee3273a6abef808028909d0cce65"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/Animations/Player_Master_AxeCombo_3SpinAttack",
+      "object": "Player_Master_AxeCombo_3SpinAttack",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "95144da7c07e8f41d5a34c5b312f77280deffd64cfeb9ed85c9bcdc01b2f9e45",
+        ".uexp": "ffe94ae52cc8b259627358f5da314aac368520f4f42b0cd268a48ecc235340c1"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/Animations/Player_Master_GlaiveCombo",
+      "object": "Player_Master_GlaiveCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "79e44ae0b8f2202cc46d5416fc1f7600cf345f5868bed9588159c410c5f4262c",
+        ".uexp": "09975aefc07a380e21c634cda4d983767fc0f49d1b667a5a355b0aeb897feed9"
+      },
+      "sequenceLength": 4.125,
+      "numFrames": 100,
+      "preservedExtraBytes": 40634,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/Animations/Player_Master_GlaiveCombo_Attack2",
+      "object": "Player_Master_GlaiveCombo_Attack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "14a538ab9f337fdd64742e0a4755b10b11d20c3da39d296c689444f50d449be6",
+        ".uexp": "397e168c9d2d58c34ac4d0f2b112e275e43cc4e0f4ad093b5dc7ac1b1d57afa7"
+      },
+      "sequenceLength": 1.0999999046325684,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/Animations/Player_Master_GlaiveCombo_Attack1",
+      "object": "Player_Master_GlaiveCombo_Attack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d5d567f7405bcfe321b06a01caa40035190ef493874f3ec2a07e39d37ea876e0",
+        ".uexp": "83eac94e1602885ddc5fc369ff7f8d2852245dc7e3e1b42a590a9b8bc6b2e974"
+      },
+      "sequenceLength": 0.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/Animations/Player_Master_GlaiveCombo_Attack3",
+      "object": "Player_Master_GlaiveCombo_Attack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "30e628a4e9de3b4f27f07b6e7fc53a10b337ea669f93515cde9707ab8e8539ec",
+        ".uexp": "3b61afa3de255fe44a8c3f4532d00a44955861b62ad5d2a3cd429ff220253b8e"
+      },
+      "sequenceLength": 0.9500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique2/Animations/Player_Master_AxeUnique2Combo_3SpinAttack",
+      "object": "Player_Master_AxeUnique2Combo_3SpinAttack",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "bbc8a6fd57b7aa32d130b20770883a18934f7d8b0f0df42611c8058fcbb47cfa",
+        ".uexp": "f1d22413282693a62e48ed98d449a2eb1171d3af93b39cc344544c3f5c6a5c81"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique2/Animations/Player_Master_AxeUnique2Combo_2LeftToRight_Alternative",
+      "object": "Player_Master_AxeUnique2Combo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "024c1ddb2b1e109e0a40dde5f3af22ff7ee9a5d0c459c8f334783c5a5b2bd56d",
+        ".uexp": "12f6889bb5cb2e9dcc221d1df742056c7a04697868e09ddf53554927b2c6d203"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique2/Animations/Player_Master_Axe_Unique2Combo_1LeftToRight",
+      "object": "Player_Master_Axe_Unique2Combo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "70573cab605e104db59fec577bf3bfff93ced0075a1fb6d44e0cee4e60c05214",
+        ".uexp": "3c2cb94a76d24bf5e275011c3d06bee8dd97959b1495ce5ce2e470c3116112a0"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/Animations/Player_Master_SpearCombo3",
+      "object": "Player_Master_SpearCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0b062130b16e5df7125e64819acdc3158565317273ac224e833455f8bbf19632",
+        ".uexp": "5b49d03b1887820c22b97e1545a4e11be2bcb3406d35492085ac677e86f3a4b5"
+      },
+      "sequenceLength": 1.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/Animations/Player_Master_SpearCombo1",
+      "object": "Player_Master_SpearCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "891792f9aacf6834ece9ac447d2179b9b9b80849f5b509f07665774220ce1a38",
+        ".uexp": "dba7a3bbe3696839e61d96f145368dc9c698b176e4752d3e84e6733bef4c4c5b"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/Animations/Player_Master_SpearCombo",
+      "object": "Player_Master_SpearCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "e2f3ca54856f5fdd539ebfde4100b07affd890b8d520227ef242fa9c0ba5e0b1",
+        ".uexp": "01175b884fea34104c3510e0e61da0b7c8ef039b065eb574ef1311845e6eb659"
+      },
+      "sequenceLength": 4.958333492279053,
+      "numFrames": 120,
+      "preservedExtraBytes": 41174,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/Animations/Player_Master_SpearCombo2",
+      "object": "Player_Master_SpearCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "4de5bccdeb13cb9581ef787d072d8ecb12db3874fa3056731194508b9389d6ab",
+        ".uexp": "fab4f0530776ce140c45acb7a93a03dc29e6f3020afc7e645986f190b8ce6a6d"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique2/Animations/Player_Master_SpearUnique2Combo3",
+      "object": "Player_Master_SpearUnique2Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "bf1448e8445b0104f1a9479a4c73c09c172f23dae144bd867d6899d9be690ad5",
+        ".uexp": "dd319b754cb011ad8ecda248a990af9af6ff8cf04e508b6d6438b291e41743bc"
+      },
+      "sequenceLength": 1.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique2/Animations/Player_Master_SpearUnique2Combo1",
+      "object": "Player_Master_SpearUnique2Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e6ccf24d046af14e4deb4aa1d943ccadb8e0b87435b98fd12ab8db2ab33f1d34",
+        ".uexp": "701d06ef098801dde183cf524e31a5f95f9da72e070ce1ec94be2cc998ae09c1"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique2/Animations/Player_Master_SpearUnique2Combo2",
+      "object": "Player_Master_SpearUnique2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7f6974d5e94f015eb058f8fa55c8c7cb1b89901f3905ff6c0df81a9b0882fc4a",
+        ".uexp": "41302db4f415a71279d3f4bf02ef9d8714a0fa7ad90496758fb1c2eaf758ba27"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique3/Animations/Player_Master_Claymore_Unique3Combo2",
+      "object": "Player_Master_Claymore_Unique3Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8658e32a03eaade557cbd6c424fca466755215e2257a300f974123605434f61c",
+        ".uexp": "3928c4f4bbf193f2766b620a709ff0997ce213c487bc0880c30f84d2a6224d21"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique3/Animations/Player_Master_Claymore_Unique3Combo1",
+      "object": "Player_Master_Claymore_Unique3Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a66d4ea433bd399b5d52826e42f5236b13dda11ec921dec7526ffbe7fa5040ca",
+        ".uexp": "bec3d32b5c5075f98b9eb32db8b8e276d2abd47cd55b8a0a9de520ffa3739283"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique3/Animations/Player_Master_Claymore_Unique3Combo3",
+      "object": "Player_Master_Claymore_Unique3Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7df50af9a08445602a9caac1f9cd862d96bcad2e6f79ac3d2574a688f18464ad",
+        ".uexp": "b4534b697bbaa0f2eeb25a7d0008e33614664031258f41192f3e7ba596228172"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique2/Animations/Player_Master_HammerUnique2Combo_1Strike_Separated_Composite",
+      "object": "Player_Master_HammerUnique2Combo_1Strike_Separated_Composite",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5aa68d445a86cb5e6ac53c1f653f7e30b807b541ab70ea726060fd79b4a4ca05",
+        ".uexp": "fe0fc225a1ce9cd700aed820a3a507b515d8548653482efc9a0128d6ee4256d0"
+      },
+      "sequenceLength": 0.7500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 7
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo4",
+      "object": "Player_Master_SicklesUnique2Combo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "687e2b3fb87c942ac76fdc5ef25a77803dae5c7aaca357fd8a8ed969ed3e8bc3",
+        ".uexp": "388a401cf4a5b12d2baa933378376b443fc7ef92f1b4ba1c0146d92a166152dd"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo6",
+      "object": "Player_Master_SicklesUnique2Combo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1ddc7612d115f4b0c9dc6cb487a470ab59dc8303913a02d4c6c7da0ffc0c0dbd",
+        ".uexp": "3cba1ec12b18b6cdbbbb2a653d8987aba52d95f64a105cce0e51666a2b1caf3f"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo2",
+      "object": "Player_Master_SicklesUnique2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8b812d69e57727efac5481c17ebf2f114936dcc85fd39e0f5e11e5af8fcdde16",
+        ".uexp": "b910cf07546e9af252bb66edbed1ea704a4b6e1e48ffc82d81d156d8077e63cf"
+      },
+      "sequenceLength": 0.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo5",
+      "object": "Player_Master_SicklesUnique2Combo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0e3b4ed6a25afbb3605063f372015f1a8ca24860c92bd3ef4af05fbe09a7d1b5",
+        ".uexp": "764f27024189e0536298670ff52cb8be9dec181ae051b0d1118d8c0168d52248"
+      },
+      "sequenceLength": 0.5499999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo3",
+      "object": "Player_Master_SicklesUnique2Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8bfa79636decab38f18f42f8593c3f73767a81fe5211be5480992054780f12ca",
+        ".uexp": "caeab9618b35fb7c1a35fac1005107942b4af655d18ba3528e73f25670a78d66"
+      },
+      "sequenceLength": 0.4500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique2/Animations/Player_Master_SicklesUnique2Combo1",
+      "object": "Player_Master_SicklesUnique2Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "318a78abf2b6a8f98c9117b67dc5235efbd840c7410740fba04e28082244431b",
+        ".uexp": "f9506c0b7c15dd2a689580d6a6474c16e5fd9868ea5b9299cbccafdf27dcb7be"
+      },
+      "sequenceLength": 0.6000000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/Animations/Player_Master_SwordUnique2Swing_3",
+      "object": "Player_Master_SwordUnique2Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b053f9644e5a754b2840a7f8babadd3c007a2cf2c713abf05b8a65566bef1eba",
+        ".uexp": "dda5ae70b931119206587c3c6ab700c5204286b2b1eb5bfb4a5a8161c55b7372"
+      },
+      "sequenceLength": 0.24241602420806885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/Animations/Player_Master_SwordUnique2Swing_1",
+      "object": "Player_Master_SwordUnique2Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0d394edb79f1bc4cbfb4d8d2a0c60da478603d61a2d2926a5d3de88f0abf8efd",
+        ".uexp": "ec0644ffe759b06489fdcbdf31a8f44ad40b9ccf55d2bdb4fc1e215031586c27"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/Animations/Player_Master_SwordUnique2Swing_2",
+      "object": "Player_Master_SwordUnique2Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5ac34ff4ca7323b81a6abcec715c48970ca92cf713d42b07f6cf7344f4a48849",
+        ".uexp": "1a4e3666a65fcf6877bdf2653c9f2746b1d28710b8013c54eb8a01100cdfcabd"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Year1/Animations/Player_Master_CutlassYear1Combo_1LeftToRight",
+      "object": "Player_Master_CutlassYear1Combo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1734f884cc7a6a2483590700f96ad53be448b746280017807f95d04df4f01be8",
+        ".uexp": "627b626cbf70da21966fdd9202b278de379f3d4c6b256093b3a30576c1ef686b"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Year1/Animations/Player_Master_CutlassYear1Combo_2LeftToRight_Alternative",
+      "object": "Player_Master_CutlassYear1Combo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a99743913011de3dc72145cf4c9ab02ed1ae4ccff659e1931124828826c32ed1",
+        ".uexp": "2a3394653fe36e47e27c23429aecbc5bea36316c2f1b269707fcd7fab72c0c59"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique2/Animations/Player_Master_ClaymoreUnique2Combo3",
+      "object": "Player_Master_ClaymoreUnique2Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1acbaa58eef44d57e586dad78ff843494adab016727bbec3c52cb2dda7ca8a38",
+        ".uexp": "99ee30c770e44791db38fd04a9ffcc355106d99c12ecf5cce570af44524122fd"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique2/Animations/Player_Master_ClaymoreUnique2Combo1",
+      "object": "Player_Master_ClaymoreUnique2Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "851164320ebbdbdf25cdebd90a39896d8b1b2c3e9cf1c0d12ecf870b0dff8689",
+        ".uexp": "6c7f11ab65af60bbb24691c6e7ca6f8953a4764d1ac0d6afd447ca954b0b153b"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique2/Animations/Player_Master_ClaymoreUnique2Combo2",
+      "object": "Player_Master_ClaymoreUnique2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "9c8591e884deb1cfa5bb58810cfd95a17429bb43b26766943f5174802d4fecea",
+        ".uexp": "c5be749cca17d76de21d366f1fecd17297aa7248fa6dbae09486bb4c8964ac54"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/Animations/Player_Master_KatanaCombo_2",
+      "object": "Player_Master_KatanaCombo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "274c7edc860f10eeb6afc84aa1be3fb0b878a31317a42f0360377874c20424b4",
+        ".uexp": "49a8b36f434adb1daaaf22d25375340eaab2d1ba405e73941783e18388a787af"
+      },
+      "sequenceLength": 1.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/Animations/Player_Master_KatanaCombo",
+      "object": "Player_Master_KatanaCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "c47ad9df799867f4c1ea1f001f9b31c6c7b12dfb73eade50da16c5e8d8b1d5e1",
+        ".uexp": "afac4a0133805e17904a6bd7dceb366848d4e4308f6314479952695de9e8f743"
+      },
+      "sequenceLength": 5.0,
+      "numFrames": 121,
+      "preservedExtraBytes": 44378,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/Animations/Player_Master_KatanaCombo_1",
+      "object": "Player_Master_KatanaCombo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b8f0c1e62e2f12fbf02648c25a0b98147f74ed6bb0ff36c6b53a5769300a8407",
+        ".uexp": "5e2700ffb8606b3083ff5aa1495f2058dce45e5eb07eba61e4b46b8959dbfa46"
+      },
+      "sequenceLength": 0.800000011920929,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/Animations/Player_Master_KatanaCombo_3",
+      "object": "Player_Master_KatanaCombo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c24c3fb19c0b0c198e5fc364581d394db073d6759a0e541adc1528e0cc63e47a",
+        ".uexp": "7bc2abd548fa3b76d2a1b2a0139f3a97b5a318e4934b1b8f868ecedc4745410c"
+      },
+      "sequenceLength": 1.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/Animations/Player_Master_SoulKnifeStabNew",
+      "object": "Player_Master_SoulKnifeStabNew",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "0db0c2c8141b6de915c024de0f764c1c52240b355952ecde6ff7cfc6885120e2",
+        ".uexp": "127837edd7cfebc5917ee9ac2da260c69abdee555cfca55b9cdb6f39d9977c62"
+      },
+      "sequenceLength": 1.4166666269302368,
+      "numFrames": 35,
+      "preservedExtraBytes": 9554,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/Animations/Player_Master_SpiritSwordStab1",
+      "object": "Player_Master_SpiritSwordStab1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5f1339488745a73e4097776f272b0126b11d4d5ac26a0612130a72ae1d19c1cc",
+        ".uexp": "6872dc92beebc4d0e730eeecade19f5ae443ad86d96a531e850a8b722c3eb6ae"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/Animations/Player_Master_GlaiveUnique2Combo_Attack2",
+      "object": "Player_Master_GlaiveUnique2Combo_Attack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b03316da2544305eaa83ba68384e0ecc9125c5e0398440cf2fb938cffc67dd83",
+        ".uexp": "542c64fddd1eec75aaf93d803b8e0c0b7a0d87f4ec2a12746d379bd33d3c729e"
+      },
+      "sequenceLength": 1.0999999046325684,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/Animations/Player_Master_GlaiveUnique2Combo_Attack3",
+      "object": "Player_Master_GlaiveUnique2Combo_Attack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "adc9b6d5073dfd4f66774f049139825afed9134213aa6f94cf69f6c197331a51",
+        ".uexp": "19bbc862c86c84708cb37b2533d2bb1afb3f586a342b61cd843ca4ed853434b6"
+      },
+      "sequenceLength": 0.9500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/Animations/Player_Master_GlaiveUnique2Combo_Attack1",
+      "object": "Player_Master_GlaiveUnique2Combo_Attack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "62f54b9a6ca6b87246cef4ca2ec56e0a28fba999225e06d0be46b215d038cedb",
+        ".uexp": "e5bb83e78325fa02eeeef973e4fb6fd7ad6ecfa98930fe0c784e1648059bfbd7"
+      },
+      "sequenceLength": 0.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/Animations/Player_Master_DoubleAxe_Unique1Combo_SpinAttack1",
+      "object": "Player_Master_DoubleAxe_Unique1Combo_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "dbe0586d3eaaf99d5385d5954f3d9408385e42203d6cb0e220197737229d85c9",
+        ".uexp": "416f0dcb1da05a98d1c8ae3dcf9a03ed2cf8519d619afd78b70c950bf2a33c48"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/Animations/Player_Master_DoubleAxe_Unique2Combo_SpinAttack2",
+      "object": "Player_Master_DoubleAxe_Unique2Combo_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1edbc719d82e43fa81e2bf56d149c7d33f84726f74de857049cbc9da2c775fb9",
+        ".uexp": "e586f53e91c817e9570ed0c86376ee9c7deba44fec03e856da4615604698d201"
+      },
+      "sequenceLength": 1.149999976158142,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/Animations/Player_Master_MaceUnique1Swing_2",
+      "object": "Player_Master_MaceUnique1Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "641ebd20a559902b4e4e85cfa8120f9a94daf15bea356c2de0c387acd5ef2d06",
+        ".uexp": "6806feb673995d7978155eeed7f9cd8eb20c5795c019295ea60cfa7d183101bc"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/Animations/Player_Master_MaceUnique1Swing_1",
+      "object": "Player_Master_MaceUnique1Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "030060b9cf1355fc16e4373db3600a857a4e24d444835cb11227cd6bdc09f825",
+        ".uexp": "e4654f82ecf64518a0399fbea06646bd22ad986a3ef8ea2ead2b0d4f52da5227"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/Animations/Player_Master_MaceUnique1Swing_3",
+      "object": "Player_Master_MaceUnique1Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7155d699ffbb809355b19e4c38f4fa94e6f60a1c8ef5a6efb0007756d4962baa",
+        ".uexp": "22045371a673af994e9c7d5630fcdcc42f76620f83bad9f438d6acd6c314ab58"
+      },
+      "sequenceLength": 0.699999988079071,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/Animations/Player_Master_SpiritKnifeUnique2Stab1",
+      "object": "Player_Master_SpiritKnifeUnique2Stab1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "574fc71e020a7f82d0fd42ea48c65dfad2d7a38b72a0f9a5b222db7ccd95e921",
+        ".uexp": "28adcde1ce0a5daa7a047fa68658ff17433a37e87acc2d0f47bb2bb77be2043d"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique1/Animations/Player_Master_KatanaUnique1Combo_2",
+      "object": "Player_Master_KatanaUnique1Combo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eaec3ac7d033cf5e897a9ac2bb617f27535c9b0821c7252fcbd58d8983e6cdd4",
+        ".uexp": "1179def4f39005abf4f1497d44b7206dfddd00fa6f629bb4140e427f1396866b"
+      },
+      "sequenceLength": 1.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique1/Animations/Player_Master_KatanaUnique1Combo_3",
+      "object": "Player_Master_KatanaUnique1Combo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1d8c4e8ec01504cbb279f94ebb8c8642ca8e653d44c40c77b3d2d3367bb0a704",
+        ".uexp": "522d66b16e4ee71908a3f57fc278d07e18aed2fa0787f9867ce7580c609cc917"
+      },
+      "sequenceLength": 1.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique1/Animations/Player_Master_KatanaUnique1Combo_1",
+      "object": "Player_Master_KatanaUnique1Combo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "35383dc915ca9d4de0b6ee2202a93e3b133ea5a052626cfd194ac20ae6b81bb1",
+        ".uexp": "5fc7f540fff8fa77e9bef09d0d001e4f8c67d7fae66b60daaea550ddecea6cb5"
+      },
+      "sequenceLength": 0.800000011920929,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/Animations/Player_Master_DoubleAxeCombo_SpinAttack1",
+      "object": "Player_Master_DoubleAxeCombo_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b4ca0994297a70669e8a0ded5b3a8d6f31cce0f944978000a8c3438029422405",
+        ".uexp": "2b91d6b29110b75170dcdb2446cb135c4a073adf90c469fd344ebe26f571c6dc"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/Animations/Player_Master_DoubleAxeCombo_SpinAttack2",
+      "object": "Player_Master_DoubleAxeCombo_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0176ab7f0a5053e73be9a7652e73a8f8c05b32299304799a25d485b0e54bbdfc",
+        ".uexp": "b04472647aa2633bc5c8b246647592ec703e8d340f6bea9518f6335ac2003a34"
+      },
+      "sequenceLength": 1.149999976158142,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/Animations/Player_Master_DoubleAxeCombo",
+      "object": "Player_Master_DoubleAxeCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "0d33ab548afe71f6f23368b6374da40958ea50d5d9248ac231765bc4163916b5",
+        ".uexp": "3df8706c8acfb2cccdd0d6eb226e62e6ba13e827297f22ff734e99ad7cf7887a"
+      },
+      "sequenceLength": 5.0,
+      "numFrames": 121,
+      "preservedExtraBytes": 50138,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_2",
+      "object": "Player_Master_DaggersUnique1Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8f1366b66361974999657dfad80540ba3ca132cfe547b4334f5f7993482aa2fd",
+        ".uexp": "a619e3dcef0883a08b2d8904512f5ead7591b6cc896b831eaa3ef18f9d573511"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_4",
+      "object": "Player_Master_DaggersUnique1Swing_4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "87f25036f71b576b7b6e70b0add907054c493d7cfd7cb81ca51d723f8a1f4814",
+        ".uexp": "28682784617cc88422d66a1af93012237bd39b174d36b6fddb1e5daedd64c758"
+      },
+      "sequenceLength": 0.2359999418258667,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_6",
+      "object": "Player_Master_DaggersUnique1Swing_6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "68f3e6d174990df795edf061f82d32851ec06dd1ec166a048523e33ad4ec9ac2",
+        ".uexp": "b5205ca40c0dac97077c98eff8197d36c3f172acb1e77e51bf090f812a3283ee"
+      },
+      "sequenceLength": 0.619999885559082,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_3",
+      "object": "Player_Master_DaggersUnique1Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e44d52c883cc133c311465aeba0852d6b70dd6d0d0a836a7ddbf237acd074de4",
+        ".uexp": "3e521fcbd0fb5f6d736cd9eed88c221440644c4b019cbeaebd62ecbcffecacfa"
+      },
+      "sequenceLength": 0.3539999723434448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_1",
+      "object": "Player_Master_DaggersUnique1Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d6f6b8f3beb4f1913154ea351ba8e6ef0c324052d202834b71568cf8c4a7c3b6",
+        ".uexp": "39b09e6a88aba439b550da7622cb9f6238acb8f45e8088bfbc8234f84329a3f3"
+      },
+      "sequenceLength": 0.44600000977516174,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers_Unique1/Animations/Player_Master_DaggersUnique1Swing_5",
+      "object": "Player_Master_DaggersUnique1Swing_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "9365a1977e3a64aca3a3e9115f38527aee0f284bfcd2b5ac4c7d6c924dc8e406",
+        ".uexp": "1d5b3072c3613e7c6a05e4081c5814fce3cb74f44155320da3b7de1f9610623e"
+      },
+      "sequenceLength": 0.440000057220459,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo4",
+      "object": "Player_Master_GauntletsCombo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1b3ff2a11c7377a4bb3ed01d2e64d19bfe212cb8470aee9e10401443c4ef44a8",
+        ".uexp": "4c5ee52c48fc283da9be06a7379c7bb777b0e59f320008c5bedce1b1475a0679"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsPunches",
+      "object": "Player_Master_GauntletsPunches",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "ef5752439f76b816ffc0ee9410c8d658826711a3152b9c9ef572a5606627570d",
+        ".uexp": "dddc5b672a7552fb2005c6c790d0b0d2db05c7a7b62f86351d557a17765175cb"
+      },
+      "sequenceLength": 3.9166667461395264,
+      "numFrames": 95,
+      "preservedExtraBytes": 37586,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo6",
+      "object": "Player_Master_GauntletsCombo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "edd22a57643a97fe8fe0053f3d38b82d5944ac2562027e78feb263c00dd76526",
+        ".uexp": "38ccda70d3862ffd35adda1888cb6e9b71da76007fbdde5060e523a75bd85fa8"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo2",
+      "object": "Player_Master_GauntletsCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "0e93e38eb7021c98187c971592042f99efabbee0e7c90da124ccafde52b470d0",
+        ".uexp": "c83eb8f3d72b620dd944e55c87b523da93034de53d02d253e41aa78fdf4baa1f"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo5",
+      "object": "Player_Master_GauntletsCombo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "cab6dffc9c5d6df5e5fcca8e05f341b62cd31186984a1e4e14a769fa7fbfe229",
+        ".uexp": "33ba1574277556c0a898d6ef953dd66417c790f449fe93bcee52078aad9156c1"
+      },
+      "sequenceLength": 0.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo7Punch2",
+      "object": "Player_Master_GauntletsCombo7Punch2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8e92b22c06efdf5b99f8e2375af3d9f5dc00dc6a4ab76160356f873db0605b25",
+        ".uexp": "8ce2776d12cc405a67b1f25b2712b78107ef190aa5e96a946974cc54f89feb0f"
+      },
+      "sequenceLength": 0.9906666278839111,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo",
+      "object": "Player_Master_GauntletsCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "cb0f45a3764ecf8e1607c62e8b70d8700d0e8165c9270f6562ef0d7320fcee97",
+        ".uexp": "6a646da9bf298634fdf57cffdc91d2a1e2fbaedcd22f66096a9df7a158baf29f"
+      },
+      "sequenceLength": 5.166666507720947,
+      "numFrames": 125,
+      "preservedExtraBytes": 53210,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo3",
+      "object": "Player_Master_GauntletsCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "519695fcd020177e29817a969ef9cd2c78acfbd38a2efd042465c0f2d08d9c4b",
+        ".uexp": "a0b56ed7195877b7baded8ed3d3382ffb4c13c334a10ed935351b7f62f3a6947"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/Animations/Player_Master_GauntletsCombo1",
+      "object": "Player_Master_GauntletsCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "973ea9b78934b2a10e35c68c6c3e949c1ab744e20a147991955e5013cb83afb4",
+        ".uexp": "c6c5bb4d2a3c6047b26edcf3cafd21f606c40fcd657e948b171a04ddd26d3c15"
+      },
+      "sequenceLength": 0.33000001311302185,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo6",
+      "object": "Player_Master_Gauntlets_Unique1Combo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "10b2df4dcd7ea0a1512f1c7f167eafcc14e3b549e2d66c0575e4c7d7b6f4abcf",
+        ".uexp": "e47c7f4999ff0a401556e80adc1100a9a3cc4f6efe1d4c914108e572ae99023a"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo4",
+      "object": "Player_Master_Gauntlets_Unique1Combo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "78061412b44bc9101e6f8ba56f3108ab5de1436619ff13c2011dd828010c2176",
+        ".uexp": "5aba117d42b81e0bdc478427323948c84da928cbd49f073b7d3b5e25bdd9d8ca"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo2",
+      "object": "Player_Master_Gauntlets_Unique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6e273da3c78f71a64f691609bbcf981a2543e72d1dd67b90670c67cd6582fb4e",
+        ".uexp": "965e50dc7f2e334112310c60c76fee15453f595cbe6b4ccfb5417a13fb04b86c"
+      },
+      "sequenceLength": 0.3500000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo5",
+      "object": "Player_Master_Gauntlets_Unique1Combo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "067a2e61d8f2c673388d2537f8a59c4a7f1b77bb7969afbb70542f7c16203468",
+        ".uexp": "b7329746ed4a6f5f9f688df22cb8e7471171744da9c48b0f8ed973bcc02bca55"
+      },
+      "sequenceLength": 0.2999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo7Punch2",
+      "object": "Player_Master_Gauntlets_Unique1Combo7Punch2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c8b662889f277df230c34059f5255a172fd40f93ae75ff7e3fb121b171af7f4b",
+        ".uexp": "2b6a15481ad363556d93cfbfcca47bebbfee300bbbf173b188613682cf66d972"
+      },
+      "sequenceLength": 0.9906666278839111,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo1",
+      "object": "Player_Master_Gauntlets_Unique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6171f44c53c57704e9a85b0929763830186aba85bd2da2416bd3c2e75a75fb56",
+        ".uexp": "fe2cfa02aaa49b7bbfd7a7829bef1bfd008b91a169476065b3289123477733ac"
+      },
+      "sequenceLength": 0.33000001311302185,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/Animations/Player_Master_Gauntlets_Unique1Combo3",
+      "object": "Player_Master_Gauntlets_Unique1Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7b6ba4142940861208463709a4558704dfb545e0b5467e499c42cc1188bbf86b",
+        ".uexp": "3a919e39259937a9a9b378439d951217a8479b433373d25ea34321b821a92fe4"
+      },
+      "sequenceLength": 0.30000007152557373,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/Animations/Player_Master_CutlassUnique1Combo_1LeftToRight",
+      "object": "Player_Master_CutlassUnique1Combo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d47e7189e7420bb1a22ce31f287112c2006c74e83131e0abb197a24b00a3c465",
+        ".uexp": "5864b0766ec6b8dc13de8567f48e4bf865811e1389509e0651ca036ebe1cb312"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/Animations/Player_Master_CutlassUnique1Combo_2LeftToRight_Alternative",
+      "object": "Player_Master_CutlassUnique1Combo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "cef200206801cd7f308b089660c523a6b1699843a31e2261e10681e48d49df88",
+        ".uexp": "d1cff3ddc66930084edd018babfaef57411727502da34e02b205944e39bf3082"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/Animations/Player_Master_ScytheUnique2Combo_2Scythe",
+      "object": "Player_Master_ScytheUnique2Combo_2Scythe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8d507a615385873034f4ba142d53e067210f7546be6fcd7b949629b1f0df0f8d",
+        ".uexp": "2e9b5f9363688553c9dd092d30b9f8eaa103db4cf1783f231420f0c3aaf3dcd6"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/Animations/Player_Master_ScytheUnique2Combo_1Scythe",
+      "object": "Player_Master_ScytheUnique2Combo_1Scythe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "33bb3d0b536fffa715bdd2dbd6cd4c82e544ca1df59aa70a922b904254edc990",
+        ".uexp": "97287fdd03123ff1b3801bf97688e2c792ff8d91de43e255c58651ca3d59c916"
+      },
+      "sequenceLength": 0.46000000834465027,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/Animations/Player_Master_MaceSwing_2",
+      "object": "Player_Master_MaceSwing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d5578978766570051109ea2672b1febafae390dfd0b20f7b7b299cd8af6a19c1",
+        ".uexp": "5a51566b394851a1868405018bf864b0e9d5a012c789871e85df42a81a5159d7"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/Animations/Player_Master_MaceSwing_3",
+      "object": "Player_Master_MaceSwing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8aad705c5ce0bd0a3df87f2cc91a4373f82a56ba6bbdf56cf59258c9f03b8055",
+        ".uexp": "a4ead29c588f85a79a0fa35c25ef3b18fd3f71cf08f36dd0e7b186a340501e58"
+      },
+      "sequenceLength": 0.699999988079071,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 5
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/Animations/Player_Master_MaceSwing_1",
+      "object": "Player_Master_MaceSwing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e392754764c984595bd2ce5e963e7d2ad7932d352bd0aa557ceab6ccbcaba55f",
+        ".uexp": "9136acb78a5c6315938b12c39167dffe9f01c5c3091883bcdd9a5f513873fa74"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique1/Animations/Player_Master_AxeUnique1Combo_1LeftToRight",
+      "object": "Player_Master_AxeUnique1Combo_1LeftToRight",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "675bce1b0b9458b3eaac86dc2de82925df5d54ee77b800dd500fa2a1c05f70e0",
+        ".uexp": "41f725878d2a46e296e3f9c4ed29eaa9a37007ebec546fc1a76bfbe2e7b93a62"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique1/Animations/Player_Master_AxeUnique1Combo_3SpinAttack",
+      "object": "Player_Master_AxeUnique1Combo_3SpinAttack",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a66f2bdbe1516e63f1b87c458b744b23e8a725ab6d947d2eebb41415548153e6",
+        ".uexp": "39e4fcec978204f9837c5c52f7dd54d461e8daa82bea02da8e8c176bcd0cd0a9"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe_Unique1/Animations/Player_Master_AxeUnique1Combo_2LeftToRight_Alternative",
+      "object": "Player_Master_AxeUnique1Combo_2LeftToRight_Alternative",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "97b84090a9c1b3c1433841c45ea2a9b9c4c7f285553675c6ffd11fd0fd0ca06a",
+        ".uexp": "0094fd6c74c257fec9b5404e036d4f1083b3f6d0b663ad6c2bdefd4e697b8ab5"
+      },
+      "sequenceLength": 0.3799999952316284,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip_Unique1/Animations/Player_Master_WhipUnique1Combo_Composite",
+      "object": "Player_Master_WhipUnique1Combo_Composite",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1f37a2ea5b73db35bc485def7efd5ece8b5fed681dd2a5aedb720af0c9136740",
+        ".uexp": "b3dd634266fa2e78500987a85e0cf5344c2641b05add484d146ff129f7064462"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique1/Animations/Player_Master_SpearUnique1Combo2",
+      "object": "Player_Master_SpearUnique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "ce3eb00bee170b6b59fd79ae4c224495a44856c0c6174466fe3382cd988da67e",
+        ".uexp": "ac11ed489462afc2ebb067a6b1082421efbae7fc25661c97b5462c185ddc3f22"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique1/Animations/Player_Master_SpearUnique1Combo3",
+      "object": "Player_Master_SpearUnique1Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a35cff843f0aae17a4f7547462f1434d6a5b94a6cc13d89d1b7a08b891e7e978",
+        ".uexp": "b847d42e240b96579b4d49431654fce71950abcc3dd08d789964eb2dd3cac632"
+      },
+      "sequenceLength": 1.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear_Unique1/Animations/Player_Master_SpearUnique1Combo1",
+      "object": "Player_Master_SpearUnique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1ed4352ec205bcd3f0cac7e52c3c5ad0796bb28a42f7947a92240322d2463097",
+        ".uexp": "e7e5434cbf519558ea68af3d71bbcaff0799b231e3f28df2bf7910abaf059c6c"
+      },
+      "sequenceLength": 0.75,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_3",
+      "object": "Player_Master_DaggersComboDeluxe_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "31b0e6f58dcf3279353a2fff82035484090e4715b8001aa00b191f1aafab51bc",
+        ".uexp": "c1792113b239d7838339ce0b88f8a3b28f06a2703dde25d520c5dd1e8025626b"
+      },
+      "sequenceLength": 0.3539999723434448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_1",
+      "object": "Player_Master_DaggersComboDeluxe_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c07b0cf9cd3111c223941db977907b01c55c0743b1ff5ad52932c374aed790f8",
+        ".uexp": "3bb604b68f034da43674f12c079aad1dc0c7d59065de34dd8e47bbccc4f6a493"
+      },
+      "sequenceLength": 0.44600000977516174,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe",
+      "object": "Player_Master_DaggersComboDeluxe",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "010eb3150da00e2803d2860e6513cdeaf962dc31c3d8a249ee5dbc209a3b09fe",
+        ".uexp": "2d67d3649a251b09d5da43ebc89a849456b061068f5d97d9517133d2b13bc195"
+      },
+      "sequenceLength": 5.208333492279053,
+      "numFrames": 126,
+      "preservedExtraBytes": 47618,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_5",
+      "object": "Player_Master_DaggersComboDeluxe_5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1ec98ed7337b40f05aca1cee366ca38fab16556a48c39e840678ef7815ea7899",
+        ".uexp": "f1c5820db4a5a106c797a2dac011c70a7a91638f24562070dcc4cf48bb097e9b"
+      },
+      "sequenceLength": 0.440000057220459,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_2",
+      "object": "Player_Master_DaggersComboDeluxe_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "df02ef245f721947d93c47fe7c78fa6652da10e2b3074fdbb621398c81596e0e",
+        ".uexp": "0a1be2891863f32bd6d1175e6bd30eedfdbb8c394387c54ed98cca2407226c6c"
+      },
+      "sequenceLength": 0.3999999761581421,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersCombo",
+      "object": "Player_Master_DaggersCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "9247b41f30aa7cb406777bc474c634a0a3b5aa76c7d71b74f3418a731883e6e4",
+        ".uexp": "2d67d3649a251b09d5da43ebc89a849456b061068f5d97d9517133d2b13bc195"
+      },
+      "sequenceLength": 5.208333492279053,
+      "numFrames": 126,
+      "preservedExtraBytes": 47618,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_4",
+      "object": "Player_Master_DaggersComboDeluxe_4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a3bfdb22a01995b848905542c42fd50fa5c870a7331c22a14f5c96ea40cf3e77",
+        ".uexp": "133a9731e081b0459a80c76a03f86ac4b3cea568b76b6fe9eea111d8b8e271e2"
+      },
+      "sequenceLength": 0.2359999418258667,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/Animations/Player_Master_DaggersComboDeluxe_6",
+      "object": "Player_Master_DaggersComboDeluxe_6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "fca7db84d9f2dfe331bda8ccb065cdaa3ddf4cd3affd5a92dfca893de7bf0af6",
+        ".uexp": "83a722568b36d4305452e11dd2c6890202210bf57189dd43bd5a7ef3987237bd"
+      },
+      "sequenceLength": 0.619999885559082,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/Animations/Player_Master_ScytheCombo_2Scythe",
+      "object": "Player_Master_ScytheCombo_2Scythe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f474c3d2de95ac4dd7892d7a6de4a86330021191610925b794a388fb53983280",
+        ".uexp": "d33262291c87aac34b3d18ca901e930719b85bf1c95de5094c31f5bc737817db"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/Animations/Player_Master_ScytheCombo",
+      "object": "Player_Master_ScytheCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "4686cc639f752ea01bed242f83a85fee44f9fe963cafdf77b1e0bb4ed4a30a3e",
+        ".uexp": "965e03ae82add83ca5c509181c4ad5b46e7ff0e53f45dd179e587c162f165c7d"
+      },
+      "sequenceLength": 2.0833332538604736,
+      "numFrames": 51,
+      "preservedExtraBytes": 20018,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/Animations/Player_Master_ScytheCombo_1Scythe",
+      "object": "Player_Master_ScytheCombo_1Scythe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b804df8d8525560e456d80232703922a1a556236085f9e48572109d320e0afce",
+        ".uexp": "22c587c956b3eb000ec3820dd3d43acb8aad615a442a46656d20cf5dc3866fca"
+      },
+      "sequenceLength": 0.46000000834465027,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique1/Animations/Player_Master_ClaymoreUnique1Combo2",
+      "object": "Player_Master_ClaymoreUnique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b53e7e9b0068c72bd20bc2469f6101508653808f63b135c509649726c970e371",
+        ".uexp": "59712f8d56c7bc10f26a4baa2ec020a5e78d68f334026a852c40a1ca68881772"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique1/Animations/Player_Master_ClaymoreUnique1Combo3",
+      "object": "Player_Master_ClaymoreUnique1Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "2279bd76c46c928d3183431e92c0dbc83e167c8040e8ca626b86688f2ae21169",
+        ".uexp": "e13219e0d6e39fdca208c7f7b229f9da7d56299700af2eaaf12403de39f6f413"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore_Unique1/Animations/Player_Master_ClaymoreUnique1Combo1",
+      "object": "Player_Master_ClaymoreUnique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "4e109efdfe908fb63508845c3f8ac267714f473b4d0836eabb86ec5ff74f1069",
+        ".uexp": "3723aea05eb7f10b905d6b8c78bb3504fd031a86434066ed2e72727a78f46f18"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/Animations/Player_Master_HammerUnique1Combo_1Strike_Separated_Composite",
+      "object": "Player_Master_HammerUnique1Combo_1Strike_Separated_Composite",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "26f546cc72c2396d49bd4f438543b89862569ec43ad235d6ca5f5abc0ee0a3e8",
+        ".uexp": "d2015e8806388b0920a905377268a522f9c2e9d0c04e3c332afc30f9cba8ab51"
+      },
+      "sequenceLength": 0.7500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 8
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/Animations/Player_Master_SwordUnique1Swing_1",
+      "object": "Player_Master_SwordUnique1Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f124c5b587084ac63bf0fca3c5c847a685d2b38daad2ad76eeffd13aba496c1f",
+        ".uexp": "180fbbca652d91ffc205c0d08102053a62328710982784c2506c94011cbefa4e"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/Animations/Player_Master_SwordUnique1Swing_3",
+      "object": "Player_Master_SwordUnique1Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d647fd611f68cb6e2eaa94a370f0aba7af5eb401e20cf065a62164d6dcf00a24",
+        ".uexp": "c245cec477a4b296d41affb397aa91ab3e3ad774a22d68c69635028fbb534ed5"
+      },
+      "sequenceLength": 0.24241602420806885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/Animations/Player_Master_SwordUnique1Swing_2",
+      "object": "Player_Master_SwordUnique1Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "584cb62de93a3b870e8fcc91d5d7a0ddb23f595ea6ffe494d4b9cc9b88184877",
+        ".uexp": "469d05485a3c613940e2dc71308f08afd1259b5071a4619de71f5c3d0d5d5a9c"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/Animations/Player_Master_SicklesUnique1Combo1",
+      "object": "Player_Master_SicklesUnique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1231a707afe9a33771ba2d037522b4c40da16cc7dd4cd53e5a2f13b550f6acfb",
+        ".uexp": "c67e33fa64753c02915fbd6a01feb7276f7a1ffc1c640f0c19a8165c572b0fc8"
+      },
+      "sequenceLength": 0.6000000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/Animations/Player_Master_SicklesUnique1Combo5",
+      "object": "Player_Master_SicklesUnique1Combo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e889a190f7fc1d43b23f4544ae79f81893bbb2abff98cc38a5a9f764abfa3078",
+        ".uexp": "ceeff74af2212dd8138f091f7cad6fb81b1018d1a30eebca6d91b77dd8502bcf"
+      },
+      "sequenceLength": 0.5499999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/Animations/Player_Master_SicklesUnique1Combo2",
+      "object": "Player_Master_SicklesUnique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "95d3afdd1ace354ec382f55b18d6f7665430b2bbdbc494b2f9ef72f121fae86a",
+        ".uexp": "accb3786d94e255bbd169bd6989279beb8d5e140b0ee5a82a97a37ffd99c96ba"
+      },
+      "sequenceLength": 0.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/Animations/Player_Master_SicklesUnique1Combo4",
+      "object": "Player_Master_SicklesUnique1Combo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "7a0fb87140311142eb2c01ba0c734801269742cf5dc47e2aae010ab1292c2127",
+        ".uexp": "146ad30b2fbcb566de0b64378540923ea5fe219b145a80fb1b1f6ae9e0f1fd25"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/Animations/Player_Master_SicklesUnique1Combo6",
+      "object": "Player_Master_SicklesUnique1Combo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "2743cab84a624e3f110d2c47ddd6031de0eabebd08b5658f93c4b27973d04cc3",
+        ".uexp": "e6b8f96b32842f25f5eefa1509aa259535bb417f505372e52e8100d56de0833d"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/Animations/Player_Master_GlaiveUnique1Combo_Attack2",
+      "object": "Player_Master_GlaiveUnique1Combo_Attack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f39de0024cd9bae9ac61af04927fed12aaa6553689c7e2498d328183f63f5c19",
+        ".uexp": "1b2edd5178983893f6e8a059e41ae7670d662c4218e4de7f8c135fba1a437fb3"
+      },
+      "sequenceLength": 1.0999999046325684,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/Animations/Player_Master_GlaiveUnique1Combo_Attack3",
+      "object": "Player_Master_GlaiveUnique1Combo_Attack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b05a4db116d931425744f23c3344e796b0980c423cb9df14df6c72d723391aba",
+        ".uexp": "9d4533ae6eef58ad0b935c79c9101912cd0c9f4257395aaf9f8cd0a59581b5fc"
+      },
+      "sequenceLength": 0.9500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/Animations/Player_Master_GlaiveUnique1Combo_Attack1",
+      "object": "Player_Master_GlaiveUnique1Combo_Attack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e8ad76d57ec08e345efb5746fa27b141dedb57ead846f7ccaffb4b14e0ee3746",
+        ".uexp": "42cf1aa82b176189fb1f8726180bbda1ef43fc256388583587edcfe998d4e412"
+      },
+      "sequenceLength": 0.7999999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/Animations/Player_Master_HammerCombo_1Strike_Separated",
+      "object": "Player_Master_HammerCombo_1Strike_Separated",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "87de519f0ef8431d039ff259912c397fca3efd338c1f6cdcd9fac0414bf60c7b",
+        ".uexp": "7332b75f0681d7b89f2c7bd336b9689fc27c51ddad51e73e3b3e5d7956d6635c"
+      },
+      "sequenceLength": 1.3333333730697632,
+      "numFrames": 33,
+      "preservedExtraBytes": 8378,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/Animations/Player_Master_HammerCombo_1Strike_Separated_Composite",
+      "object": "Player_Master_HammerCombo_1Strike_Separated_Composite",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c30bdeeb519f24decab8a2df3854ed08d6d2e102c2cee9795dc8ecd9f40f2246",
+        ".uexp": "3078c6d0b97bcde623bbcae03d1403c9a325de96447e441a5154c5bdc440b018"
+      },
+      "sequenceLength": 0.7500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/Animations/Player_Master_HammerCombo",
+      "object": "Player_Master_HammerCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "384b3043f1ccb8415cd35f6d09310db83c0ae3dcd4c2475c44bfefead25cbbc3",
+        ".uexp": "234122336a601a1e99ea02b0e302b46d0a85b28d8536d4b1db34ef41f09f9270"
+      },
+      "sequenceLength": 3.8333332538604736,
+      "numFrames": 93,
+      "preservedExtraBytes": 22490,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/Animations/Player_Master_SkeletonHammerCombo_1Strike_Separated_Composite",
+      "object": "Player_Master_SkeletonHammerCombo_1Strike_Separated_Composite",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f5e97157f3bdf04b47e0bd674c9cafd278373e14b7cc7e4434617140b16d4eee",
+        ".uexp": "778a6db41580cec7bdc3c1fa4fa91d1e0ee6a48e5a019695cf2205bb6c51ed7d"
+      },
+      "sequenceLength": 0.7500000596046448,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 6
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/Animations/Player_Master_SoulScythe_Spooky2Combo1",
+      "object": "Player_Master_SoulScythe_Spooky2Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "520c0c5ae4d9ed713a7c650803bcde59be5d63d3705fd19b24ebbfaa83047beb",
+        ".uexp": "18530de118cbfcd5a1177ef8133bc37da9feb9433e09d72549d8b7b6dcc8baa0"
+      },
+      "sequenceLength": 0.46000000834465027,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/Animations/Player_Master_SoulScythe_Spooky2Combo2",
+      "object": "Player_Master_SoulScythe_Spooky2Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8950f9c52d5d1b28c9844a31b0cadf74e4a532ca783ba35ab920eda2dcd8bcb3",
+        ".uexp": "ddd24c657d35f88a2794cca6c3dfc6a28c2d3c944937989589ea386ce13b1869"
+      },
+      "sequenceLength": 0.6500000357627869,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/Animations/Player_Master_PickAxe_Hit2",
+      "object": "Player_Master_PickAxe_Hit2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "136fbd8ae2c85b93e49d008e544a3ad3c9581313304028346c12384b5fc40039",
+        ".uexp": "341b9b92abbed032505dfd7bc1e840816ec90499a9c1efd3156e3777adabe1a0"
+      },
+      "sequenceLength": 0.7099999189376831,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/Animations/Player_Master_PickAxe",
+      "object": "Player_Master_PickAxe",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "526228094990ac9642e5b3122557d52c4ac5e7622f7ea464c4576363857d6411",
+        ".uexp": "b6148028e21a63f5f37eacf702037c137aded8a38518d8db5c3ad7fcdaac55e1"
+      },
+      "sequenceLength": 2.7083332538604736,
+      "numFrames": 66,
+      "preservedExtraBytes": 22898,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Steel/Animations/Player_Master_SwordSwing_2",
+      "object": "Player_Master_SwordSwing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5678c8d95b24f962189669a09486d8893d1ef6ae01581874455bd78bfdf0d61c",
+        ".uexp": "73d7a09e0777916630641d2c04542a7462ab1791f670ff5fb667d2d2cfbf8a30"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Steel/Animations/Player_Master_SwordSwing_3",
+      "object": "Player_Master_SwordSwing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eee8ba91549c9d4901dc78d97ff7213aa3eae84304b7b62ded6fb4645aed43cf",
+        ".uexp": "36594b9dedece20e6e09eacf586def533d058f38f9503e5782ec9ada3266f330"
+      },
+      "sequenceLength": 0.24241602420806885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Steel/Animations/Player_Master_SwordSwing_1",
+      "object": "Player_Master_SwordSwing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "426af3f953de05878c6445fa5b0dec6f7e4bfd550f3b300379ebce61df1788de",
+        ".uexp": "0b561a02964c729b9b7ffb82751b22e47bb5b394444dfc22dda75fdbaf509ff5"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Steel/Animations/Player_Master_SwordCombo",
+      "object": "Player_Master_SwordCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "7e0a468d3a614d844d02a65676048055e5122c3c3b09d24130ab590aa9fe4dcd",
+        ".uexp": "0eaa176dfa705acf81defcda6db8084c4f125d6bd0c033d0d0c7c9e5e430403d"
+      },
+      "sequenceLength": 2.0833332538604736,
+      "numFrames": 51,
+      "preservedExtraBytes": 20618,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo2",
+      "object": "Player_Master_SicklesCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d960f2ba05df49751d2e1a6ae01b75bb45b4abd6f067aa7f6b335b6818f7e5fd",
+        ".uexp": "85ac5b4902dad4b8b797c8df8663daae5d373b1bf5acf04dfcca2526b370f059"
+      },
+      "sequenceLength": 0.7000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo6",
+      "object": "Player_Master_SicklesCombo6",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "05b48e670d33f85588d75968bd379e26cdd1326d59ef74d4de93aadb48e40b4c",
+        ".uexp": "b13112399190c6465ed7b6c70b77ddd00eecaf39a69b8d8ac9c01c9adf0070fd"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo4",
+      "object": "Player_Master_SicklesCombo4",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "78b33859b66c080b6e07a8da10eddfe7bd1f85af79eba6301ff4962fde24db3d",
+        ".uexp": "97618fbaf9770c56a2017949cd9cba4ccbc36441961d7400f5d9337ba9665daa"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo1",
+      "object": "Player_Master_SicklesCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "48ef34edc608e4f1931b2fcf2989791aa028334bf2de1f2a4aa4220308f6fc3c",
+        ".uexp": "da39eef5f9a8ff37aa33c4a4f87dd6e8a7774b8b96240656f9f6fb93e368367d"
+      },
+      "sequenceLength": 0.6000000238418579,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo",
+      "object": "Player_Master_SicklesCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "38d01b8785d99d6d581bdaf4af3015d1b198c9039d45cc063546dabf45f23abb",
+        ".uexp": "102e5930f25532c08e7dced601308bf1e85393905690aaad2f95c117e1602c97"
+      },
+      "sequenceLength": 6.208333492279053,
+      "numFrames": 150,
+      "preservedExtraBytes": 56258,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo3",
+      "object": "Player_Master_SicklesCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eac154dc031d81d1a5739570e856fece029b1ce04aa81e8761d0a041f1f69edc",
+        ".uexp": "d9993d7f9d9e5fab61d75e31c8461c3b0446fc44b037b3515566ab41933013e1"
+      },
+      "sequenceLength": 0.4500000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/Animations/Player_Master_SicklesCombo5",
+      "object": "Player_Master_SicklesCombo5",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "1a8cfe037fa892429bfbf4f9ef48e58cfd2da781ff1315414ff2f91ae29a62c3",
+        ".uexp": "a229a9ef03bb9c1e17d010809b674e6d04269bdd92f2c69341d6e74398098749"
+      },
+      "sequenceLength": 0.5499999523162842,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo3",
+      "object": "Player_Master_ClaymoreCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5d55abb6cbd4070471d517b22a5e24d7831d4695bcf7c3840951e635ff6db5ad",
+        ".uexp": "57d2b58daf7499d1ed4052edc5efb5574f12a81438cff769ca1b10f4f1549899"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo1",
+      "object": "Player_Master_ClaymoreCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "998bd6f9316fa46845e58216033996b9d6dac43b658e015494279862dbc3f54e",
+        ".uexp": "0bdd7784ca26c0b2a637b1e51caad456442c16be6f209380fada9f880e8b88b0"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo2",
+      "object": "Player_Master_ClaymoreCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5d6e547f39800d99bff2a553d9d1a7ec5acac9d4641b491d06c1eb93161f5b66",
+        ".uexp": "ce0ac8e7c639d0ee1c28795de2368d8eac9c85f1173714a002fc221faa7f67af"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo",
+      "object": "Player_Master_ClaymoreCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "0d9ccb326bad039015dd6d86c7789f9a7ad95ee69a5e67ca8e70718b575df2a7",
+        ".uexp": "ad88a6b620d65f5c00e433f0698b4c282a17a97fe844983a58e073fa9bea150b"
+      },
+      "sequenceLength": 3.7083332538604736,
+      "numFrames": 90,
+      "preservedExtraBytes": 33590,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1Combo9_SpinAttack3",
+      "object": "Player_Master_BoStaff_Unique1Combo9_SpinAttack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "89ad2ab5204a7bc81418f51ced7e7a9484a6d5f1154761ce5c7ef8e07e3e1c13",
+        ".uexp": "e2ffcd19408a753511a8a467cce9fe9b21ad5a2ddd846551a40d98b7d8df5796"
+      },
+      "sequenceLength": 0.40000009536743164,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1Combo7_SpinAttack1",
+      "object": "Player_Master_BoStaff_Unique1Combo7_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d51e432695648a3864983165aefa1daeb7a6093cd857fcd02414f9253896d7f0",
+        ".uexp": "2e5b5097ba8c86c9f96d345ca7aaf4bec916d1c66dc81c75af3fc467fcc7dd4e"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo10_Final",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo10_Final",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "aa90aa242e87c4b7347e22a30807248b5faacf3e2fa5075ed09f82052f4bd701",
+        ".uexp": "83135435be43715708fb0db82b37de72738fd70e30897efda14cb7f4d59d6f7b"
+      },
+      "sequenceLength": 1.1999998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1Combo3_Swipe",
+      "object": "Player_Master_BoStaff_Unique1Combo3_Swipe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a36535f88d995b9890c8edb9e92e08b2908db10d955e516e72804dfb1b84994f",
+        ".uexp": "4d59fe61d96958bee257e25faad961e0292aca3916ec803316ca31bdd7d742bd"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1Combo8_SpinAttack2",
+      "object": "Player_Master_BoStaff_Unique1Combo8_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "399270036bcea0e822ae27f5fb6dd084b8e48a28b72f1c82e64e1c894a1a06c4",
+        ".uexp": "57f220fcac7b141ad2df214b7ce87cf7f75bd5b1adb7671be9198fa7c578ac9e"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo6_Thrust",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo6_Thrust",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e9ff82ec222022b89813acacaf1f85e9a174d81f890bf2574880dd2fcb1a4ead",
+        ".uexp": "12db7afcded2e1e2e3e4071a09349305c6b84f9b0a66ec01f1a3779bdbe430c9"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo1_Left",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo1_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d5e0f5f6db3be602faa4482fc4fe669f658f3a8c6a083352ee94518c8aefaf87",
+        ".uexp": "7bb553c994bbd4b843ab70ee776a09348b885d25bf88143c9da0dc24c2b06346"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo5_Thrust",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo5_Thrust",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "eede7aad60fb23023434d221eed164691ca897fb1048409585c8ffa6b522f9e3",
+        ".uexp": "045aac6b54924a3469e38e9cb7691f2c830096e2a1c20b7892c700f7d40bf8bb"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1Combo4_Smash",
+      "object": "Player_Master_BoStaff_Unique1Combo4_Smash",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "22820b9f3a17273b04ed5056c901fad366a712a0b5c934d7a86ae81f811d865e",
+        ".uexp": "417f7a115f81eb0b49224133073fa260f73e53fb129a70f1c4360a971d021889"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "c85fc1943c8bc53a7185df92788e121809d5ff0b841cb67d20dd624e69af629b",
+        ".uexp": "00afbfdb90ff6fcd2737bc96ba11a70d6c0098e1a53d36458d8c499a1764cbd7"
+      },
+      "sequenceLength": 7.916666507720947,
+      "numFrames": 191,
+      "preservedExtraBytes": 89258,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique1/Animations/Player_Master_BoStaff_Unique1ExpandingCombo2_Right",
+      "object": "Player_Master_BoStaff_Unique1ExpandingCombo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "cd6e536d039586fb2ea5409b00f118947e3cfd0a075026bfea791412055fd593",
+        ".uexp": "2f67b61c500e1e799ace575e9b210aad68e2441b6f92ded0dd01173c0efb5d95"
+      },
+      "sequenceLength": 0.19999998807907104,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo2_Right",
+      "object": "Player_Master_BoStaffCombo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "dc3b0d34f675d3a913495db3c3ac3046ed45b24fb49a884d1a6f662e8c4f3801",
+        ".uexp": "2892479a344b84e00753094be45d0a599136478c44ef20f2f1412d65f3f87a3a"
+      },
+      "sequenceLength": 0.19999998807907104,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo10_FinalImpact",
+      "object": "Player_Master_BoStaffCombo10_FinalImpact",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "66b07bae6cfca2931a0f5bf5404b4457a204976d97132256d65f9c2980f9ee7f",
+        ".uexp": "ebe2f9f8483668b3bc2fb0b27938b3d67875e39cef0ffa494bd47f5c9a5211f4"
+      },
+      "sequenceLength": 1.1999998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo",
+      "object": "Player_Master_BoStaffCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "87774a2d1a405587ee53b1246b7ef4a98ccc6e7bafe5b9937eb9e0d0264ec67f",
+        ".uexp": "fb2c8c13073892356b15afd6d3652163f61fb7aaeca0f8e4ea5a88772df348a5"
+      },
+      "sequenceLength": 7.916666507720947,
+      "numFrames": 191,
+      "preservedExtraBytes": 89258,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo1_Left",
+      "object": "Player_Master_BoStaffCombo1_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "75c9718c2241dbe68b8c48eac25802df9c13a14ec1095e0e55bad4bc1278e6f2",
+        ".uexp": "5805974f62a80447f3e4471b27634c75db8b9a460aa1e332407946d0a53e0406"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo3_Swipe",
+      "object": "Player_Master_BoStaffCombo3_Swipe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "280bc67e53e0ff34242cd38dd4081b6ffc45f9b86c7476f53f2b313f0733f183",
+        ".uexp": "385ac70f3ae895c5624f805aa29bdf6f86e8d75a0f57e32c5b737d38f70435e7"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo5_Thrust1",
+      "object": "Player_Master_BoStaffCombo5_Thrust1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "de6a2be43bd1c1ac3c314b07b6e7f42e8eff6751f9f15e0b4515dde8d49f2666",
+        ".uexp": "0a9f40823fdc406f7dc46bb3e100eb5242f4746fa558028458b72baa1af10729"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo6_Thrust2",
+      "object": "Player_Master_BoStaffCombo6_Thrust2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5e37817602ff7fb1c0d28e47f2d9ea881756f6c392eafdb05b7ff4beb4000b63",
+        ".uexp": "2e9a610457d66ca298ad357507f5378a06814d641ce8eb6a330f63607b20adb1"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo7_SpinAttack1",
+      "object": "Player_Master_BoStaffCombo7_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a231f027f9e545de68c49b1041c7d962cbd1072aca92929c9faa56069bf53853",
+        ".uexp": "2e5b5097ba8c86c9f96d345ca7aaf4bec916d1c66dc81c75af3fc467fcc7dd4e"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo4_Smash",
+      "object": "Player_Master_BoStaffCombo4_Smash",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3bb91af3b4f7e229b62698d6874b9fde5b5e308b679ce9c169fb73426ef29c94",
+        ".uexp": "6ea9c778abc669b40745d7496a77d601d5e367b23c1305e3f97c1c305c26ecf2"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo9_SpinAttack3",
+      "object": "Player_Master_BoStaffCombo9_SpinAttack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "06a47bbd6b776af39871fef4518c4bb2cbed0cde35561b6a424d3c68c397c7ff",
+        ".uexp": "6848412a82497e687748b7cb68b62cda63e1334fdb05a4afda3a6e6bd360ecfe"
+      },
+      "sequenceLength": 0.40000009536743164,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/Animations/Player_Master_BoStaffCombo8_SpinAttack2",
+      "object": "Player_Master_BoStaffCombo8_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "24d8f87865f3ab947b8b2b35f90521e4c1f94504f059f347e599b903774bf773",
+        ".uexp": "57f220fcac7b141ad2df214b7ce87cf7f75bd5b1adb7671be9198fa7c578ac9e"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo6_Thrust2",
+      "object": "Player_Master_BoStaff_Unique2Combo6_Thrust2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "fcf30fbba58e285b881856a94c7b5b6c9edf84c18e960855a103e86af47b03e6",
+        ".uexp": "4ff9aea232a5218c4e286fd72ab82099e54ddd21814e753d554625e4ed636820"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo2_Right",
+      "object": "Player_Master_BoStaff_Unique2Combo2_Right",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "f417dbd3ff52f5f428d60592143b61193dc354345390c712293e39ab0bb5f18f",
+        ".uexp": "41701af677a51cf95e6282ab9ce2b9e34bdbf479313560a1739b8dedd91fdb44"
+      },
+      "sequenceLength": 0.19999998807907104,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo10_FinalImpact",
+      "object": "Player_Master_BoStaff_Unique2Combo10_FinalImpact",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "ec2b33129d29defe0df450d9ea331f54a608de1f33990af8b88609c78fd3a92a",
+        ".uexp": "0680d4955fdcbfe723928dbeb62a53d7e048f90fc0e40ea91e9e4e46d85bf511"
+      },
+      "sequenceLength": 1.1999998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo1_Left",
+      "object": "Player_Master_BoStaff_Unique2Combo1_Left",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d2bce83a1cc36e76a8e92002ca860590280a2bbe36f40a7ab20a94a84c786866",
+        ".uexp": "470189d8d60a353dbb6c399deece404b64b03d3e652a1c9790b088dddcee3cae"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo3_Swipe",
+      "object": "Player_Master_BoStaff_Unique2Combo3_Swipe",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "884eee5124175801e0df4cc8b497b19798bd66ec52deb89298e3dc823377e3b1",
+        ".uexp": "461370029bada37ef115aeb7fa37ba2c93781628e2a0cef6ba26eb84c9eece34"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo4_Smash",
+      "object": "Player_Master_BoStaff_Unique2Combo4_Smash",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "57493b2b0e1ca600dd056065d009818ebf79030c50e4290db09f47a8d25e916a",
+        ".uexp": "1a6f1a505b715d24698ac828b687c9554037753d5a41428d3da59ae3128fc7c7"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo9_SpinAttack3",
+      "object": "Player_Master_BoStaff_Unique2Combo9_SpinAttack3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "94f866d05469b9881ceba7db90f7dcbf4b469b16f263bc567259a7b45b5fe277",
+        ".uexp": "f6c9be535209c1bf86bd7ed380a8669f951cca167f914eccc2e1a75c7126097d"
+      },
+      "sequenceLength": 0.40000009536743164,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo7_SpinAttack1",
+      "object": "Player_Master_BoStaff_Unique2Combo7_SpinAttack1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "bbf038e76d3e4f3da2e18cb67579e40905ce68e9ec124f2f8c79f26d2fb21dd4",
+        ".uexp": "2e5b5097ba8c86c9f96d345ca7aaf4bec916d1c66dc81c75af3fc467fcc7dd4e"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo8_SpinAttack2",
+      "object": "Player_Master_BoStaff_Unique2Combo8_SpinAttack2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "9a5244d1bc0e7e1abc11b2dfeaadd887ff6534a3da0798b0bb0ab0459b74f048",
+        ".uexp": "eeec7de228fa0d09db99440a8d1c4e9a71c29356a782eac6074651ce8c0a279d"
+      },
+      "sequenceLength": 0.4499998092651367,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 1
+    },
+    {
+      "asset": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff_Unique2/Animations/Player_Master_BoStaff_Unique2Combo5_Thrust1",
+      "object": "Player_Master_BoStaff_Unique2Combo5_Thrust1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8b19a90e10861d66d3c8615aa63d86c1b494964d125ca9cdf96ce8b232d3577b",
+        ".uexp": "8508268858354cec679e18c6543dd6305855ffe394b572f5140f26c40da28883"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/Animations/Player_Master_AnchorAxe",
+      "object": "Player_Master_AnchorAxe",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "9c533aedf4ee93450d5d0a38e155a893281ca4d9c9431b66051a68158e76b34f",
+        ".uexp": "5d65a50b9dd02c3fb238d41d121d783dd392d37dd4f1112a6225806fc96238e1"
+      },
+      "sequenceLength": 2.0,
+      "numFrames": 61,
+      "preservedExtraBytes": 15578,
+      "notifyCount": 8
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor_Unique1/Animations/Player_Master_AnchorAxe_Unique",
+      "object": "Player_Master_AnchorAxe_Unique",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "c85862639200ace88c729d6817a30e84c728798d0287f3516e6306849a69d365",
+        ".uexp": "8b9472340bb2b48eb996410c36e85fe0540c0e33d8c0d9fa8cb7998887780c6d"
+      },
+      "sequenceLength": 2.0,
+      "numFrames": 61,
+      "preservedExtraBytes": 15578,
+      "notifyCount": 9
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_CoralBladeCombo_1",
+      "object": "Player_Master_CoralBladeCombo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "2458b8c2f9c7e3eccf85638e51c620b5967390f12998e7bf76f5030b9a5ba013",
+        ".uexp": "68fb0e108654fcb7baedd926ec6db2309b063d29350cea5699dcae150e6d0cab"
+      },
+      "sequenceLength": 0.5299999713897705,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_CoralBladeCombo_3",
+      "object": "Player_Master_CoralBladeCombo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "57cffbc5c3cf201ffba7b504ed17e407d0f277e84e4c9d8bb472ba90619ba822",
+        ".uexp": "59eb1f83bcefe06a4afc98523a237d5dccc9193a543b17759758ab11f60939aa"
+      },
+      "sequenceLength": 0.85999995470047,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_U_CoralBladeCombo_2",
+      "object": "Player_Master_U_CoralBladeCombo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e11d063050bdf9d2583029cb9c483c058dc1b6a8db56951fffd7eff80fa34ae7",
+        ".uexp": "3fd76ccc3245a3754fe7b92a832cc6d24be1041afd37597eeb02e3370ddf1bc9"
+      },
+      "sequenceLength": 0.4100000262260437,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_CoralBladeCombo",
+      "object": "Player_Master_CoralBladeCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "abc06bdad23edc21f851ad09ce01d75ac31f399161ded9e4860bdfe732637b62",
+        ".uexp": "4af6dc26cdd6520a3f76c565330ac2451b9cf7a14eb0540e5062050f2f40bcad"
+      },
+      "sequenceLength": 1.7999999523162842,
+      "numFrames": 55,
+      "preservedExtraBytes": 11898,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_CoralBladeCombo_2",
+      "object": "Player_Master_CoralBladeCombo_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "b90c81260cea43b20a4d6f6759d7e404d09b974cc64a7328f9416a36d75c8744",
+        ".uexp": "5e6d38c2f26b36b51412b188d6216f0ea27cd130c3772a1b03c6d1d25775264c"
+      },
+      "sequenceLength": 0.4100000262260437,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_U_CoralBladeCombo_3",
+      "object": "Player_Master_U_CoralBladeCombo_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "58bc0f774f22efe36d319135267a75c3c77551aa42bc653a9450d4955aa6952a",
+        ".uexp": "d0fde2fafb5d0115384b6190fc88b2400a6927e43b0cde66908f52ddead4ee8e"
+      },
+      "sequenceLength": 0.85999995470047,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/Animations/Player_Master_U_CoralBladeCombo_1",
+      "object": "Player_Master_U_CoralBladeCombo_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "41d4c13231b24dadd3feba998a824d3f7dcce9c407d19fca9cd4100a2f472894",
+        ".uexp": "0c5467ca13c278b9d3af014f454006999468ac5dd258be964eec58c385aa422e"
+      },
+      "sequenceLength": 0.5299999713897705,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2",
+      "object": "TempestKnife_Unique1_Combo_Hit_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8ccde96f5286726e261709ab2cfd3971c1e599ebcd4f0ad997654302057db6e1",
+        ".uexp": "fca94f610eb19b328970853759f78f3ad59e6d4dd3a6620c9c0538ea38ee3008"
+      },
+      "sequenceLength": 0.4163280725479126,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1",
+      "object": "TempestKnife_Unique1_Combo_Hit_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6460d9c1376a2e6225b905d2a91a301f56e2299da5985746827475c0d2c6393c",
+        ".uexp": "3cfe183b5e8624f3457c84e3298849e00107bbb47a4f81384e46a6be599d2184"
+      },
+      "sequenceLength": 0.25148695707321167,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3",
+      "object": "TempestKnife_Unique1_Combo_Hit_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "74d978729b4914109396391201ced0f7f11b745c5c664b7ffa5f0069e23471dd",
+        ".uexp": "35df014e700d3ec532c9891e9a92bd946fff040c5746795e7cbf8a1fcec3ba5e"
+      },
+      "sequenceLength": 0.786159873008728,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/Animations/TempestKnife_Combo",
+      "object": "TempestKnife_Combo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "99439f48a300e663fc33ef6188e2deb5173e2d89029e9f4757d33fa33cf4c82d",
+        ".uexp": "0d9aa5685cf0d8339f6779d7058cffd7be0e84a9a03864b5e6944b90c3426c2a"
+      },
+      "sequenceLength": 2.4583332538604736,
+      "numFrames": 60,
+      "preservedExtraBytes": 12858,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/Animations/TempestKnife_Combo_Hit_2",
+      "object": "TempestKnife_Combo_Hit_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "426a96358e3982c7da36c4fe37f75bf3f9fdab4099445c094987ac6f9f784d2c",
+        ".uexp": "69c4dc62af7da5faa75af3810e34ae0e9aab49d15f19013fb3b90d015308bfb7"
+      },
+      "sequenceLength": 0.4163280725479126,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/Animations/TempestKnife_Combo_Hit_1",
+      "object": "TempestKnife_Combo_Hit_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "675f4235bda4c7349f7d71765c4b00a8fda0812afbbf047f51968b2a63e4ab44",
+        ".uexp": "5c4d3a72547a9693e9d835da109095f962aa1c3126427d0776427c5184b05054"
+      },
+      "sequenceLength": 0.25148695707321167,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/Animations/TempestKnife_Combo_Hit_3",
+      "object": "TempestKnife_Combo_Hit_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "20b09788983470b12f194fb73ff8d99cfa96396e5babcc7312c7630670590f2f",
+        ".uexp": "0e0dcc1495b1587ebc50a83247ebaaa6431af2842ac4f862236b5347213da16b"
+      },
+      "sequenceLength": 0.786159873008728,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/Animations/Player_Master_Sword_Spooky1Swing_2",
+      "object": "Player_Master_Sword_Spooky1Swing_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "753a220a9de89671d2a9ef58f01513c39ba28d41c5723507a8171d892554e674",
+        ".uexp": "290a5707a2f4d94310a91b5028cb66b4d9df85905d47a7d3cdc5ef67fafe5524"
+      },
+      "sequenceLength": 0.3960229754447937,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/Animations/Player_Master_Sword_Spooky1Swing_3",
+      "object": "Player_Master_Sword_Spooky1Swing_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "cbf844a3c4c8f22121d7072f186a573c4d431d43e02f7a39c6d1d197cee36505",
+        ".uexp": "d69b768e0421261ea04058b8e462c9b67dce480c4450e4ad05b5a0b9f8bd66a4"
+      },
+      "sequenceLength": 0.24241602420806885,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/Animations/Player_Master_Sword_Spooky1Swing_1",
+      "object": "Player_Master_Sword_Spooky1Swing_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5dd1976a1a6aadcb762d0ba77e3eadccb2fe0e4fc725a387444eac3ded2b2872",
+        ".uexp": "8848e512bfffa9fff337d63bcc3a266c9f7138dabffffd014407c45ecc971bbe"
+      },
+      "sequenceLength": 0.5624369978904724,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2",
+      "object": "TempestKnife_Unique2_Combo_Hit_2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "3ccdc1c70e802712d70529804ed121ffa3435882aea30b28e5c76de156517497",
+        ".uexp": "f6d7e3bd519678cbd0d1d721c1e3acc5ee5987f9eb1a5555ad0fb5dd4d66bc56"
+      },
+      "sequenceLength": 0.4163280725479126,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3",
+      "object": "TempestKnife_Unique2_Combo_Hit_3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "e975126ea0aab7693f3982b9238cbdf3523534cff213f91de79631e313bd87d7",
+        ".uexp": "739043a380744f6cc965cda5b5ea7978924d136f04c5455067f22b5a50e0a6e1"
+      },
+      "sequenceLength": 0.786159873008728,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1",
+      "object": "TempestKnife_Unique2_Combo_Hit_1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8b8771aa75d02b5c381d425b23a1259a1c1c96adf5684b41192fd30546efc13d",
+        ".uexp": "25a59d0f5ffb3512cc12e71e7b6a129576b2771c67779a51b6890edff1a45093"
+      },
+      "sequenceLength": 0.25148695707321167,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Claymore_Winter1/Animations/Player_Master_ClaymoreWinter1Combo1",
+      "object": "Player_Master_ClaymoreWinter1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "154d3c4896acaf1e189fb3d5eef936de547633ac8cab5fb04c2316b2fd96178e",
+        ".uexp": "06acd1a5136f2fa6e6371ad0c1eeee0ac45248d953af9807d448dc83c52ab323"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Claymore_Winter1/Animations/Player_Master_ClaymoreWinter1Combo3",
+      "object": "Player_Master_ClaymoreWinter1Combo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8d7e32169f267b62706538357b0991ef426f933ebed516407a781458f7dc7667",
+        ".uexp": "e8de9dc7b707d53235c057b004051187a29ac983e16a6455398b1a19519b5b0e"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Claymore_Winter1/Animations/Player_Master_ClaymoreWinter1Combo2",
+      "object": "Player_Master_ClaymoreWinter1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "c557b12e4bea53b235707e2444067d1a6d57627c220a17e575610eb18b6f2d8a",
+        ".uexp": "91c21b9ca0b7a3d65847309beee95b318546f63438f124fc6ab2b4cd1e9f42e1"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/Animations/Player_Master_BoneclubCombo1",
+      "object": "Player_Master_BoneclubCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "58f269fe9e12348c3292abe217d40060683f1f7b6d507d23fc80cb28cb287f5b",
+        ".uexp": "7428bb977e3c2786fcdba4e2374147c61879f2451ab90e7856cc547f45772d65"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/Animations/Player_Master_BoneclubCombo",
+      "object": "Player_Master_BoneclubCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "bc69e72fd8aae0fce23b097726c5268dfb256f2b806e505c481b35bcb73c5e2c",
+        ".uexp": "6384bd40be8ebf31ff4e0f1bc3e361fb62490356c086050b426f901c157e4bc2"
+      },
+      "sequenceLength": 5.0,
+      "numFrames": 121,
+      "preservedExtraBytes": 34298,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/Animations/Player_Master_BoneclubCombo2",
+      "object": "Player_Master_BoneclubCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "a6e810ab7e6d78ef9190fc8d852773ff0994b41551cfb774f27fb3089a253907",
+        ".uexp": "64bbad4f0852da3c4b8910cbe6a2be6fa8a8412e38471f8095dca413d38e02b9"
+      },
+      "sequenceLength": 0.7899999618530273,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1",
+      "object": "Player_Master_ChainswordCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "8e1366408a0a8291657094ef4f9e764a6fd1e5a3afdba1666ce71b87df24ad81",
+        ".uexp": "ed4c7983d036378e8147c317a73c8fb5ddca2efba1efc1535b71ef3255c28c21"
+      },
+      "sequenceLength": 0.44600000977516174,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 4
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop",
+      "object": "Player_Master_ChainswordCombo1Loop",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "d4a3b58a3cbc05c08337631743f92221a9c657063b252a72fd7225507376e114",
+        ".uexp": "d828216829883c9c3096b950c3082c31455b48a368883ebbd04f24289b9c779d"
+      },
+      "sequenceLength": 0.5,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 2
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo",
+      "object": "Player_Master_ChainswordCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "c66b9f0b620feec9ad7b86816e72671d8030ef82225ddc8b6d502791594cf923",
+        ".uexp": "b70e3d488c96a6ee48d4306ed8f5283334bdba8179f0557ced1f63dca1c563f1"
+      },
+      "sequenceLength": 1.4166666269302368,
+      "numFrames": 35,
+      "preservedExtraBytes": 9962,
+      "notifyCount": 0
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub_Unique1/Animations/Player_Master_Boneclub_Unique1Combo1",
+      "object": "Player_Master_Boneclub_Unique1Combo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "6d65926ed271682ec87754e79c45fca2d48419207cf9a7823dbf5e2e941cb208",
+        ".uexp": "7f641e7b48a86c2c8ae417c41e4401ef4c34b01e435def4e13a52d76d793fc3a"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    },
+    {
+      "asset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub_Unique1/Animations/Player_Master_Boneclub_Unique1Combo2",
+      "object": "Player_Master_Boneclub_Unique1Combo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "be614a106d13462b0c2e8e4069dae1a05fc4ccad28a724e358acefca6bceb416",
+        ".uexp": "850ba633080aee203d07c3852cec030744382a13eff1a9c4b9540bbceaad11fa"
+      },
+      "sequenceLength": 0.7899999618530273,
+      "numFrames": null,
+      "preservedExtraBytes": 16,
+      "notifyCount": 3
+    }
+  ],
+  "claymoreDetail": [
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo3",
+      "object": "Player_Master_ClaymoreCombo3",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5d55abb6cbd4070471d517b22a5e24d7831d4695bcf7c3840951e635ff6db5ad",
+        ".uexp": "57d2b58daf7499d1ed4052edc5efb5574f12a81438cff769ca1b10f4f1549899"
+      },
+      "sequenceLength": 1.2000000476837158,
+      "numFrames": null,
+      "animationTrack": {
+        "AnimSegments": [
+          {
+            "AnimReference": -4,
+            "StartPos": "+0",
+            "AnimStartTime": 2.299999952316284,
+            "AnimEndTime": 3.5,
+            "AnimPlayRate": 1.0,
+            "LoopingCount": 1
+          }
+        ]
+      },
+      "notifies": [
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "Claymore_Swing_Pound",
+          "Notify": 2,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "+0",
+            "LinkValue": 0.5502239465713501,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.5502239465713501,
+          "NotifyResolved": "Player_Master_ClaymoreCombo3.AnimNotify_PlaySound_0",
+          "NotifyClass": "/Script/Dungeons.AnimNotify_DungeonsPlaySound",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "P_Slash",
+          "Notify": 0,
+          "NotifyStateClass": 3,
+          "Duration": 0.10968700051307678,
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": 0,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": 1.7000000476837158,
+            "LinkValue": 0.8522825837135315,
+            "LinkedSequence": 1
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.7425955533981323,
+          "NotifyResolved": null,
+          "NotifyClass": null,
+          "NotifyStateClassResolved": "Player_Master_ClaymoreCombo3.AnimNotifyState_CustomParticle_0",
+          "NotifyStateClassClass": "/Script/Dungeons.AnimNotifyState_CustomParticle"
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "PS_GroundSlam",
+          "Notify": 0,
+          "NotifyStateClass": 4,
+          "Duration": 0.09727999567985535,
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": 0,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": 1.7000000476837158,
+            "LinkValue": 0.8905045986175537,
+            "LinkedSequence": 1
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.793224573135376,
+          "NotifyResolved": null,
+          "NotifyClass": null,
+          "NotifyStateClassResolved": "Player_Master_ClaymoreCombo3.AnimNotifyState_CustomParticle_1",
+          "NotifyStateClassClass": "/Script/Dungeons.AnimNotifyState_CustomParticle"
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "CameraShakeNotify",
+          "Notify": 5,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "+0",
+            "LinkValue": 0.8101666569709778,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.8101666569709778,
+          "NotifyResolved": "Player_Master_ClaymoreCombo3.CameraShakeNotify_C_0",
+          "NotifyClass": "/Game/Effects/Blueprints/CameraShake/CameraShakeNotify.CameraShakeNotify_C",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        }
+      ],
+      "preservedExtraBytes": 16
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo1",
+      "object": "Player_Master_ClaymoreCombo1",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "998bd6f9316fa46845e58216033996b9d6dac43b658e015494279862dbc3f54e",
+        ".uexp": "0bdd7784ca26c0b2a637b1e51caad456442c16be6f209380fada9f880e8b88b0"
+      },
+      "sequenceLength": 1.0,
+      "numFrames": null,
+      "animationTrack": {
+        "AnimSegments": [
+          {
+            "AnimReference": -4,
+            "StartPos": "+0",
+            "AnimStartTime": 0.20000000298023224,
+            "AnimEndTime": 1.2000000476837158,
+            "AnimPlayRate": 1.0,
+            "LoopingCount": 1
+          }
+        ]
+      },
+      "notifies": [
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "Claymore_Swing",
+          "Notify": 2,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "-0",
+            "LinkValue": 0.1391441524028778,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.1391441524028778,
+          "NotifyResolved": "Player_Master_ClaymoreCombo1.AnimNotify_PlaySound_0",
+          "NotifyClass": "/Script/Dungeons.AnimNotify_DungeonsPlaySound",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "P_Slash",
+          "Notify": 0,
+          "NotifyStateClass": 3,
+          "Duration": 0.03333333507180214,
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": 0,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": 1.0,
+            "LinkValue": 0.28247299790382385,
+            "LinkedSequence": 1
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.249139666557312,
+          "NotifyResolved": null,
+          "NotifyClass": null,
+          "NotifyStateClassResolved": "Player_Master_ClaymoreCombo1.AnimNotifyState_CustomParticle_0",
+          "NotifyStateClassClass": "/Script/Dungeons.AnimNotifyState_CustomParticle"
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "CameraShakeNotify",
+          "Notify": 4,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "+0",
+            "LinkValue": 0.2666514813899994,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.2666514813899994,
+          "NotifyResolved": "Player_Master_ClaymoreCombo1.CameraShakeNotify_C_0",
+          "NotifyClass": "/Game/Effects/Blueprints/CameraShake/CameraShakeNotify.CameraShakeNotify_C",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        }
+      ],
+      "preservedExtraBytes": 16
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo2",
+      "object": "Player_Master_ClaymoreCombo2",
+      "class": "/Script/Engine.AnimComposite",
+      "sourceHashes": {
+        ".uasset": "5d6e547f39800d99bff2a553d9d1a7ec5acac9d4641b491d06c1eb93161f5b66",
+        ".uexp": "ce0ac8e7c639d0ee1c28795de2368d8eac9c85f1173714a002fc221faa7f67af"
+      },
+      "sequenceLength": 0.8000000715255737,
+      "numFrames": null,
+      "animationTrack": {
+        "AnimSegments": [
+          {
+            "AnimReference": -4,
+            "StartPos": "+0",
+            "AnimStartTime": 1.399999976158142,
+            "AnimEndTime": 2.200000047683716,
+            "AnimPlayRate": 1.0,
+            "LoopingCount": 1
+          }
+        ]
+      },
+      "notifies": [
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "Claymore_Swing_Stab",
+          "Notify": 2,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "-0",
+            "LinkValue": 0.2985711097717285,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.2985711097717285,
+          "NotifyResolved": "Player_Master_ClaymoreCombo2.AnimNotify_PlaySound_0",
+          "NotifyClass": "/Script/Dungeons.AnimNotify_DungeonsPlaySound",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "P_Combat_Stab",
+          "Notify": 0,
+          "NotifyStateClass": 3,
+          "Duration": 0.03333333507180214,
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": 0,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": 0.8000000715255737,
+            "LinkValue": 0.4394874572753906,
+            "LinkedSequence": 1
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.4061540961265564,
+          "NotifyResolved": null,
+          "NotifyClass": null,
+          "NotifyStateClassResolved": "Player_Master_ClaymoreCombo2.AnimNotifyState_CustomParticle_0",
+          "NotifyStateClassClass": "/Script/Dungeons.AnimNotifyState_CustomParticle"
+        },
+        {
+          "TriggerTimeOffset": "+0",
+          "EndTriggerTimeOffset": "+0",
+          "NotifyName": "CameraShakeNotify",
+          "Notify": 4,
+          "NotifyStateClass": 0,
+          "Duration": "+0",
+          "EndLink": {
+            "LinkedMontage": 0,
+            "SlotIndex": 0,
+            "SegmentIndex": -1,
+            "LinkMethod": null,
+            "CachedLinkMethod": null,
+            "SegmentBeginTime": "+0",
+            "SegmentLength": "+0",
+            "LinkValue": 0.4484284222126007,
+            "LinkedSequence": 0
+          },
+          "NotifyTriggerChance": 1.0,
+          "LinkMethod": null,
+          "LinkValue": 0.4484284222126007,
+          "NotifyResolved": "Player_Master_ClaymoreCombo2.CameraShakeNotify_C_0",
+          "NotifyClass": "/Game/Effects/Blueprints/CameraShake/CameraShakeNotify.CameraShakeNotify_C",
+          "NotifyStateClassResolved": null,
+          "NotifyStateClassClass": null
+        }
+      ],
+      "preservedExtraBytes": 16
+    },
+    {
+      "asset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/Animations/Player_Master_ClaymoreCombo",
+      "object": "Player_Master_ClaymoreCombo",
+      "class": "/Script/Engine.AnimSequence",
+      "sourceHashes": {
+        ".uasset": "0d9ccb326bad039015dd6d86c7789f9a7ad95ee69a5e67ca8e70718b575df2a7",
+        ".uexp": "ad88a6b620d65f5c00e433f0698b4c282a17a97fe844983a58e073fa9bea150b"
+      },
+      "sequenceLength": 3.7083332538604736,
+      "numFrames": 90,
+      "animationTrack": null,
+      "notifies": [],
+      "preservedExtraBytes": 33590
+    }
+  ]
+}

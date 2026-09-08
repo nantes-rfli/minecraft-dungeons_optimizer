@@ -231,6 +231,10 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 **次は6.8D（native計算）と6.8E（timing/notify）です。** 追加ZIPに実行ファイルはありますが、native計算を読めるコード領域は未確立。主要効果の式を復元したとは扱いません。Phase 6.8全体と6.9の再設計判断は未完了です。アプリコード・runtimeデータは変更していません。
 
+### Phase 6.8E — 攻撃設定・通知の追加調査（2026-09-08、進行中）
+
+[攻撃タイミング調査](./docs/game-data-timing.md)を追加しました。383アセット・384回の独立reader往復一致を確認し、82 Instanceの293 variant、288 animation export、671通知を整理。連続ダメージ・解放時の発動契機・キャンセル上書きが明示的に存在するため、単一の攻撃速度へ潰さず保持する設計が必要です。nativeの時間適用・通知の受信・実効ヒット列は未確定。6.8Eは設定と代表通知の読解まで進行、6.8D/E全体と6.9は未完了です。runtime・アプリ内ロードマップは変更していません。
+
 ### Runtime / Phase 6.6までのsummary（今回変更なし）
 
 Phase 6.6までのresearch model alignmentが完了しました。Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは1,026候補を走査して1,018件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
