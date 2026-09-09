@@ -225,7 +225,7 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 [外部研究の整理と追加調査](./docs/external-community-research.md)と[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)を追加しました。32 source・15 claimを整理し、Pancakecatへの帰属が紹介されているHPS表55行×4条件を取得。作者訂正、DR合成の具体例、Dynamoの分類衝突を保持し、既存4武器のHPS差とCommitted連続極限の既存実装を照合しました。研究用DR/有限hit比較とoffline auditも追加しています。
 
-Phase 6.9E DR / Modifier comparisonまで完了。[比較結果](./docs/dr-modifier-comparison.md)に2021 DR動画・表投稿の条件、限定familyとjoint state、same-origin holdout、Ghost/Guarding競合reject、damage channel、Dynamo配置の分岐、順位感度を記録しました。次は6.9FのScenario / Optimizer比較です。全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
+Phase 6.9F Scenario / Optimizer comparisonまで完了。[比較結果](./docs/scenario-optimizer-comparison.md)にfinite damage / overkill、final-blow ownership、actual healing、目的・durationによる順位感度、revision key、再現性・性能、未知候補の理由付き除外を記録しました。Phase 6.9の研究比較は完了しましたが、全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。次は残存blockerの外部観測・限定実測とPhase 8 validationです。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
 
 ### Phase 6.7 — ゲームデータ起点の取得可能性調査（2026-09-07）
 

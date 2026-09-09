@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "modelRevision": "scenario-optimizer-comparison@1",
+  "comparisonKeyContract": [
+    "candidate.modelRevision",
+    "scenario.id",
+    "objective.revision"
+  ],
+  "legacyVsFinite": {
+    "assumption": {
+      "directKillShare": 0.9,
+      "healingFractionPerDirectKill": 0.2
+    },
+    "finiteKills": 4,
+    "assumedDirectKills": 3.6,
+    "assumedHealingCapacity": 72,
+    "finiteDirectOwnedKills": 0,
+    "finiteActualHealing": 0,
+    "note": "legacy steady-state proxy applies Scenario directKillShare and reports capacity; finite events preserve final-blow ownership and cap healing by missing health"
+  },
+  "ownershipComparison": {
+    "direct": {
+      "effectiveDamage": 300,
+      "overkillDamage": 0,
+      "kills": 3,
+      "directOwnedKills": 3,
+      "indirectOwnedKills": 0,
+      "artifactOwnedKills": 0,
+      "actualHealing": 60,
+      "damageTaken": 60,
+      "controlTargetSeconds": 0
+    },
+    "indirect": {
+      "effectiveDamage": 400,
+      "overkillDamage": 40,
+      "kills": 4,
+      "directOwnedKills": 0,
+      "indirectOwnedKills": 4,
+      "artifactOwnedKills": 0,
+      "actualHealing": 0,
+      "damageTaken": 60,
+      "controlTargetSeconds": 0
+    },
+    "damageRanking": [
+      {
+        "candidateId": "indirect-finisher",
+        "comparisonKey": "finite-events@1|ownership-4s@1|damage@1",
+        "score": 100
+      },
+      {
+        "candidateId": "direct-finisher",
+        "comparisonKey": "finite-events@1|ownership-4s@1|damage@1",
+        "score": 75
+      }
+    ],
+    "sustainRanking": [
+      {
+        "candidateId": "direct-finisher",
+        "comparisonKey": "finite-events@1|ownership-4s@1|sustain@1",
+        "score": 63
+      },
+      {
+        "candidateId": "indirect-finisher",
+        "comparisonKey": "finite-events@1|ownership-4s@1|sustain@1",
+        "score": 20
+      }
+    ],
+    "excluded": [
+      {
+        "status": "excluded",
+        "candidateId": "unknown-ownership",
+        "reasons": [
+          "unresolved final-blow ownership: action-0.5/unresolved-component"
+        ]
+      }
+    ]
+  },
+  "durationSensitivity": {
+    "shortScenario": [
+      {
+        "candidateId": "burst",
+        "status": "ranked",
+        "score": 50,
+        "effectiveDamage": 100,
+        "overkillDamage": 0
+      },
+      {
+        "candidateId": "steady",
+        "status": "ranked",
+        "score": 35,
+        "effectiveDamage": 70,
+        "overkillDamage": 0
+      }
+    ],
+    "longScenario": [
+      {
+        "candidateId": "steady",
+        "status": "ranked",
+        "score": 100,
+        "effectiveDamage": 200,
+        "overkillDamage": 40
+      },
+      {
+        "candidateId": "burst",
+        "status": "ranked",
+        "score": 50,
+        "effectiveDamage": 100,
+        "overkillDamage": 0
+      }
+    ]
+  },
+  "reproducibility": {
+    "repeatedRunsEqual": true,
+    "stableTieBreak": "candidateId ascending",
+    "sameInputRuns": 2
+  },
+  "performance": {
+    "candidateCount": 500,
+    "thresholdMs": 1000,
+    "resultCount": 500,
+    "assertion": "wall-clock checked during audit; unstable elapsed value is not serialized"
+  },
+  "blockers": [
+    "event-sequence-observations-missing",
+    "target-switching-rule-unverified",
+    "same-frame-order-unverified",
+    "actual-overheal-observations-missing",
+    "incoming-damage-timeline-missing",
+    "control-event-ownership-unverified",
+    "objective-targets-unvalidated"
+  ],
+  "promotionCount": 0,
+  "newGapClosures": 0
+}

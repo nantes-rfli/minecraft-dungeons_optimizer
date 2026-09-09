@@ -105,3 +105,7 @@ Healing/CCはdamage hitsとproc opportunitiesを別に数える。Radianceの名
 ## 6.9E実装追記（2026-09-09）
 
 [DR / Modifier comparison](../dr-modifier-comparison.md)を実装・検証。2021 DR動画・表投稿の条件を回収し、限定familyとjoint state、same-origin holdout、channel範囲、Ghost/Guarding競合reject、Dynamo配置の分岐、順位感度を固定した。独立holdout未取得のためruntime移行・Gap closeは引き続き0。
+
+## 6.9F実装追記（2026-09-10）
+
+[Scenario / Optimizer comparison](../scenario-optimizer-comparison.md)を実装・検証。有限eventからeffective damage / overkill、final-blow ownership、actual healing、目的別metricsを分離し、Scenario durationとObjective policyによる順位反転、revision付き比較key、決定的tie-break、未知候補の理由付き除外を固定した。event観測と目的targetは未検証のためruntime移行・Gap closeは引き続き0。

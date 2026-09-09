@@ -67,7 +67,9 @@
     "generate:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts --write",
     "audit:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts",
     "generate:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts --write",
-    "audit:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts"
+    "audit:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts",
+    "generate:scenario-optimizer-comparison": "node scripts/audit-scenario-optimizer-comparison.ts --write",
+    "audit:scenario-optimizer-comparison": "node scripts/audit-scenario-optimizer-comparison.ts"
   },
   "dependencies": {
     "react": "19.2.6",

@@ -114,14 +114,16 @@ damageTaken = 1 / (1 + armorScore) × Π (1 − separateReduction_j)
 - [HPS snapshot](../research/external-community/hps-observations.json): 55行の数値・4列・元行番号・export hash。
 - [モデル比較](../research/external-community/model-comparison.json): DR丸め整合性とCommitted有限hit例。独立ゲームEvidenceではない。
 - [DR / Modifier比較](../research/external-community/dr-modifier-comparison.json): 6.9Eの限定family/state、same-origin holdout、channel・競合・順位感度。
+- [Scenario / Optimizer比較](../research/external-community/scenario-optimizer-comparison.json): 6.9Fのfinite hit、final-blow ownership、目的・duration感度、再現性・性能境界。
 - `npm run generate:external-community`: 保存claimから研究用モデル比較を再生成。
 - `npm run audit:external-community`: 参照・重複・取得状態・未昇格・行とmetric・比較結果driftをoffline検証。
+- `npm run audit:scenario-optimizer-comparison`: finite event、ownership、未知候補除外、rank感度、再現性、性能をoffline検証。
 - `tests/externalCommunityResearch.test.ts`: 既存runtimeとの数学比較、HPS差、非線形uptime、入力エラーと有限hitの境界。
 
 公開データを再取得する場合はGoogle Sheetsの同一IDに対する`export?format=csv&gid=0`と`export?format=xlsx`を使い、Sheet1・header・行数・数値型・CSV/XLSX一致を検証する。変更された表は旧snapshotへ上書きせず、新revisionと差分を作る。保存hashは今回取得したbytesの識別子であり、オンライン原本が将来も同じである保証ではない。公開表・動画・投稿の著作物全文やローカルgame raw assetsはコミットしない。
 
 ## 検証結果
 
-2026-09-10: 6.9E追補後に`audit:external-community`、`audit:evidence-adapter`、`audit:attack-event-comparison`、`audit:dr-modifier-comparison`、`audit:damage-events`、`audit:armor-expansion`が成功。`npm test`は57 files / 1,468 tests成功、`npm run lint`、`npx tsc -b`、`npm run build`も成功。buildは500 kB超chunkの警告とroute静的分類の制限を表示したが終了成功。アプリのbundle分割は今回の調査範囲に含めない。
+2026-09-10: 6.9F完了時に`audit:external-community`、`audit:evidence-adapter`、`audit:attack-event-comparison`、`audit:dr-modifier-comparison`、`audit:scenario-optimizer-comparison`が成功。`npm test`は58 files / 1,473 tests成功、`npm run lint`、`npx tsc -b`、`npm run build`も成功。buildは500 kB超chunkの警告とroute静的分類の制限を表示したが終了成功。アプリのbundle分割は今回の調査範囲に含めない。
 
 変更対象は内部Markdown・research JSON・開発script・test・CIとaudit用npm script。runtime・配信設定・依存パッケージは変更していないためSites更新を省略。新しいauditはCIにも追加した。
