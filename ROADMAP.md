@@ -239,6 +239,12 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 [適用経路と到達点](./docs/game-data-mechanic-boundaries.md)を追加。時間設定を含む201アセット・711関数を調べ、今回の名前・明示参照探索では戦闘側の適用処理は未確定。ChainswordのActive/Break Effect参照も確認しました。exeを実行せず最初の圧縮層を15,360,000 byteへ復元し、別decoderと完全一致。ただしゲーム本体のコード・戦闘式は未復元です。6.8D/Eは未完了を維持し、通常コンボ・連続攻撃・キャンセルの具体的な実測計画を保存しました。未確定境界を保持したPhase 6.9の設計案には着手可能と判断し、実装置換はまだ行いません。
 
+### Phase 6.8D — native起動処理の条件付き追跡（2026-09-09、進行中）
+
+[native起動処理の調査](./docs/game-data-native-stage2.md)と[観測JSON](./research/game-data-native-stage2/README.md)を追加。前回復元した圧縮層をCPUエミュレーションで追跡し、限定した仮のWindows環境でSMBIOS問い合わせまで64 API呼び出し・37種類を観測しました。GetThreadContextの応答を変えると分岐と内部状態が変わるため、仮の応答と実Windowsの挙動を区別しています。基準実験と最終チェックポイントは再実行一致。全16セクションのうち変化は起動用 `.dungeon` だけで、ゲーム本体のコード領域への移行・戦闘式は未確認です。
+
+6.8Dの到達条件をD-1（最初の圧縮層、完了）、D-2（起動処理から元コード領域への移行、進行中）、D-3（ゲーム関数・式の同定、未着手）に分けました。次はSMBIOS応答の利用箇所と、環境確認で変わる内部状態を追います。6.8D/E全体は未完了、runtime昇格と新規Gap closeは0。Phase 6.9のモデル比較は未確認境界を保持した案として着手可能ですが、アプリの実装置換は行っていません。
+
 ### Runtime / Phase 6.6までのsummary（今回変更なし）
 
 Phase 6.6までのresearch model alignmentが完了しました。Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは1,026候補を走査して1,018件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。

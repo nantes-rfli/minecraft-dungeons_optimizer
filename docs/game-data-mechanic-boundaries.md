@@ -70,3 +70,5 @@ exeを起動せず、macOSのllvm-objdumpで入口を確認した。`.boot`入�
 **Phase 6.9の設計案は、この未確定境界を明示すれば着手できる。** 最初の比較対象はClaymore・Chainsword・Anchor。設定を表すAttackDefinitionと実効hit列を分離し、効果の発動契機、入力状態、出典hash、未確認のnative規則を表現する。未検証規則からOptimizerのスコアを生成しない。今回は設計・実装の置換はしていない。
 
 [観測と再現資料](../research/game-data-mechanics/README.md)に保存。アプリコードが同じため前回のaudit・1,435テスト・lint・build成功結果を再利用し、今回の入力hash・往復・展開結果は別に検証した。内部調査のみでSites更新は不要。
+
+2026-09-09追記：この静的展開の続きは[CPUエミュレーションによる起動処理の追跡](./game-data-native-stage2.md)に保存した。後続調査はゲスト命令をエミュレートしており、本資料の「実行せず」という記述は最初の静的展開に限る。ゲーム本体のコード・戦闘式は引き続き未確認。

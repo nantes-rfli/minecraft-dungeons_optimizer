@@ -1,0 +1,847 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-09",
+  "phase": "6.8D/E",
+  "status": "research-only; native mechanics unresolved",
+  "runtimePromotion": false,
+  "newlyVerifiedOptimizerMechanics": 0,
+  "newlyClosedGaps": 0,
+  "source": {
+    "exeSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+    "stage1Bytes": 15360000,
+    "stage1EntryVa": "0x144e7c95f",
+    "imageBase": "0x140000000",
+    "distributionAuthenticity": "unverified"
+  },
+  "method": {
+    "guestCpuEmulated": true,
+    "gameProcessLaunched": false,
+    "hostWindowsApiPassthrough": false,
+    "realWindowsDllLoaded": false,
+    "tools": {
+      "capstone": "5.0.6",
+      "unicorn": "2.1.4"
+    },
+    "syntheticExports": {
+      "kernel32.dll": 1269,
+      "user32.dll": 788,
+      "ntdll.dll": 1421,
+      "advapi32.dll": 517,
+      "shell32.dll": 280,
+      "shlwapi.dll": 308
+    },
+    "knownRdtscModel": {
+      "address": "0x144d0434b",
+      "visits": 2,
+      "formula": "0x100000 + visitIndex * 100000; visitIndex starts at 1"
+    },
+    "instrumentedInitialBlockVisits": 120000,
+    "totalBlockVisits": "not measured after initial hook removal",
+    "limits": {
+      "emulationTimeoutMicroseconds": 40000000,
+      "instructionCountLimit": 500000000
+    },
+    "originalRegionEntryStopRange": [
+      "0x140000000",
+      "0x144bb7fff"
+    ],
+    "originalRegionEntryObserved": false,
+    "syntheticProfile": {
+      "initialGeneralRegisters": "zero except explicitly initialized stack and context",
+      "teb": "minimal self-pointer and PEB-pointer; other bytes initially zero",
+      "peb": "image base only; other bytes initially zero",
+      "version": "Windows 10 build 19045 response; not a detected OS",
+      "uiLanguage": "0x0409",
+      "threadId": "0x1234",
+      "processId": "0x5678",
+      "security": "no impersonation token; synthetic primary token with Everyone, Builtin Users, Authenticated Users; IsUserAnAdmin false",
+      "window": "no foreground window; null window text request fails",
+      "paths": "synthetic ResearchGame directory on virtual drive C",
+      "memory": "page-aligned synthetic allocations; original image initially RWX",
+      "tlsCallbacks": "not initialized as a full Windows loader would"
+    }
+  },
+  "baseline": {
+    "profile": "stop-context",
+    "status": "conditional-emulation",
+    "stopReason": "current-thread context boundary",
+    "eventCount": 60,
+    "apiCallsIncludingStoppedBoundary": 58,
+    "uniqueApiNames": 34,
+    "lastEvent": {
+      "dll": "kernel32.dll",
+      "name": "GetThreadContext",
+      "args": [
+        "0xfffffffffffffffe",
+        "0xa0010000",
+        "0x1000",
+        "0x4"
+      ],
+      "requestedContextFlags": "0x100010"
+    },
+    "dungeonSha256": "643f2b429452a516f61739fba30adcfc2320d6245887e04b7fa0eaf532ad8b35",
+    "changedSectionIndexes": [
+      13
+    ],
+    "writtenImageOrStubPages": 187,
+    "contextReads": [],
+    "postContextBlockPrefix": []
+  },
+  "contextCounterfactualProbes": [
+    {
+      "profile": "zero-debug",
+      "status": "conditional-emulation",
+      "stopReason": "unmodeled API: ZwQueryInformationProcess",
+      "eventCount": 64,
+      "apiCallsIncludingStoppedBoundary": 62,
+      "uniqueApiNames": 36,
+      "lastEvent": {
+        "dll": "ntdll.dll",
+        "name": "ZwQueryInformationProcess",
+        "args": [
+          "0xffffffffffffffff",
+          "0x7",
+          "0x703fefd8",
+          "0x8"
+        ]
+      },
+      "dungeonSha256": "b2e84f8db74a9b04731d9543d05852d8f23cb08ba6028bde8506d9d57c04102b",
+      "changedSectionIndexes": [
+        13
+      ],
+      "writtenImageOrStubPages": 187,
+      "contextReads": [
+        {
+          "offset": "0x48",
+          "size": 8,
+          "rip": "0x144e6a8da"
+        },
+        {
+          "offset": "0x50",
+          "size": 8,
+          "rip": "0x144e6a8da"
+        },
+        {
+          "offset": "0x58",
+          "size": 8,
+          "rip": "0x144e6a8da"
+        },
+        {
+          "offset": "0x60",
+          "size": 8,
+          "rip": "0x144e6a8da"
+        }
+      ],
+      "postContextBlockPrefix": [
+        "0x1450c1d77",
+        "0x144e6a6f3",
+        "0x144d05452",
+        "0x1450a0718",
+        "0x1450c2487",
+        "0x1450c997a",
+        "0x1450c1667",
+        "0x1450e71d4",
+        "0x144eb43f4",
+        "0x144ce456d",
+        "0x1450d3793",
+        "0x1450d0303",
+        "0x1450d3a33",
+        "0x780002f0",
+        "0x1450d16aa",
+        "0x1450d0489",
+        "0x1450c166c",
+        "0x1450f2083",
+        "0x144eb51d6",
+        "0x144eb51db",
+        "0x144eb54b4",
+        "0x144eb5536",
+        "0x144eb573f",
+        "0x144eb578b",
+        "0x144eb5839",
+        "0x144eb5c42",
+        "0x144d7927d",
+        "0x1450f1d7a",
+        "0x144eb51d6",
+        "0x144eb51db"
+      ]
+    },
+    {
+      "profile": "marker-debug",
+      "status": "conditional-emulation",
+      "stopReason": "unmodeled API: ZwQueryInformationProcess",
+      "eventCount": 64,
+      "apiCallsIncludingStoppedBoundary": 62,
+      "uniqueApiNames": 36,
+      "lastEvent": {
+        "dll": "ntdll.dll",
+        "name": "ZwQueryInformationProcess",
+        "args": [
+          "0xffffffffffffffff",
+          "0x7",
+          "0x703fefd8",
+          "0x8"
+        ]
+      },
+      "dungeonSha256": "adb25bd648b1324136858b52a7e911d08487097501dc856c1d392128e52539c1",
+      "changedSectionIndexes": [
+        13
+      ],
+      "writtenImageOrStubPages": 187,
+      "contextReads": [
+        {
+          "offset": "0x48",
+          "size": 8,
+          "rip": "0x144e6a8da"
+        }
+      ],
+      "postContextBlockPrefix": [
+        "0x1450c1d77",
+        "0x144d05452",
+        "0x1450a0718",
+        "0x1450c2487",
+        "0x144e52b36",
+        "0x144befad1",
+        "0x144c22935",
+        "0x144c2295b",
+        "0x144c22c97",
+        "0x144c22e4f",
+        "0x144c22ed8",
+        "0x144bfb8e1",
+        "0x144d6c56d",
+        "0x144d6c5fa",
+        "0x144d6c8cd",
+        "0x144d6c954",
+        "0x1450c997a",
+        "0x1450c1667",
+        "0x1450e71d4",
+        "0x144eb43f4",
+        "0x144ce456d",
+        "0x1450d3793",
+        "0x1450d0303",
+        "0x1450d3a33",
+        "0x780002f0",
+        "0x1450d16aa",
+        "0x1450d0489",
+        "0x1450c166c",
+        "0x1450f2083",
+        "0x144eb51d6"
+      ]
+    },
+    {
+      "profile": "failed-context",
+      "status": "conditional-emulation",
+      "stopReason": "unmodeled API: ZwQueryInformationProcess",
+      "eventCount": 64,
+      "apiCallsIncludingStoppedBoundary": 62,
+      "uniqueApiNames": 36,
+      "lastEvent": {
+        "dll": "ntdll.dll",
+        "name": "ZwQueryInformationProcess",
+        "args": [
+          "0xffffffffffffffff",
+          "0x7",
+          "0x703fefd8",
+          "0x8"
+        ]
+      },
+      "dungeonSha256": "b2e84f8db74a9b04731d9543d05852d8f23cb08ba6028bde8506d9d57c04102b",
+      "changedSectionIndexes": [
+        13
+      ],
+      "writtenImageOrStubPages": 187,
+      "contextReads": [],
+      "postContextBlockPrefix": [
+        "0x1450c1d77",
+        "0x144d05452",
+        "0x1450a0718",
+        "0x1450c2487",
+        "0x1450c997a",
+        "0x1450c1667",
+        "0x1450e71d4",
+        "0x144eb43f4",
+        "0x144ce456d",
+        "0x1450d3793",
+        "0x1450d0303",
+        "0x1450d3a33",
+        "0x780002f0",
+        "0x1450d16aa",
+        "0x1450d0489",
+        "0x1450c166c",
+        "0x1450f2083",
+        "0x144eb51d6",
+        "0x144eb51db",
+        "0x144eb54b4",
+        "0x144eb5536",
+        "0x144eb573f",
+        "0x144eb578b",
+        "0x144eb5839",
+        "0x144eb5c42",
+        "0x144d7927d",
+        "0x1450f1d7a",
+        "0x144eb51d6",
+        "0x144eb51db",
+        "0x144eb54b4"
+      ]
+    }
+  ],
+  "firstContextBranchDivergence": {
+    "zeroBasedBlockIndex": 1,
+    "zeroDebug": "0x144e6a6f3",
+    "markerDebug": "0x144d05452"
+  },
+  "firmwareBoundary": {
+    "profile": "zero-debug",
+    "status": "conditional-emulation",
+    "stopReason": "unmodeled API: GetSystemFirmwareTable",
+    "eventCount": 66,
+    "apiCallsIncludingStoppedBoundary": 64,
+    "uniqueApiNames": 37,
+    "lastEvent": {
+      "dll": "kernel32.dll",
+      "name": "GetSystemFirmwareTable",
+      "args": [
+        "0x52534d42",
+        "0x0",
+        "0x0",
+        "0x0"
+      ]
+    },
+    "dungeonSha256": "f991a4e0b28c36e2469817bab6bc9d283a64077838c8adca807dcfbd4fae30d5",
+    "changedSectionIndexes": [
+      13
+    ],
+    "writtenImageOrStubPages": 187,
+    "contextReads": [
+      {
+        "offset": "0x48",
+        "size": 8,
+        "rip": "0x144e6a8da"
+      },
+      {
+        "offset": "0x50",
+        "size": 8,
+        "rip": "0x144e6a8da"
+      },
+      {
+        "offset": "0x58",
+        "size": 8,
+        "rip": "0x144e6a8da"
+      },
+      {
+        "offset": "0x60",
+        "size": 8,
+        "rip": "0x144e6a8da"
+      }
+    ],
+    "postContextBlockPrefix": [
+      "0x1450c1d77",
+      "0x144e6a6f3",
+      "0x144d05452",
+      "0x1450a0718",
+      "0x1450c2487",
+      "0x1450c997a",
+      "0x1450c1667",
+      "0x1450e71d4",
+      "0x144eb43f4",
+      "0x144ce456d",
+      "0x1450d3793",
+      "0x1450d0303",
+      "0x1450d3a33",
+      "0x780002f0",
+      "0x1450d16aa",
+      "0x1450d0489",
+      "0x1450c166c",
+      "0x1450f2083",
+      "0x144eb51d6",
+      "0x144eb51db",
+      "0x144eb54b4",
+      "0x144eb5536",
+      "0x144eb573f",
+      "0x144eb578b",
+      "0x144eb5839",
+      "0x144eb5c42",
+      "0x144d7927d",
+      "0x1450f1d7a",
+      "0x144eb51d6",
+      "0x144eb51db"
+    ]
+  },
+  "apiSequenceAtFirmwareBoundary": [
+    "rdtsc",
+    "rdtsc",
+    "GetModuleHandleA",
+    "LoadLibraryA",
+    "LoadLibraryA",
+    "LoadLibraryA",
+    "LoadLibraryA",
+    "LoadLibraryA",
+    "GetProcAddress",
+    "GetProcAddress",
+    "GetCurrentThreadId",
+    "OpenThread",
+    "GetUserDefaultUILanguage",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetProcessHeap",
+    "RtlAllocateHeap",
+    "GetCurrentDirectoryW",
+    "GetModuleFileNameW",
+    "SetCurrentDirectoryW",
+    "GetCommandLineA",
+    "RtlAddVectoredExceptionHandler",
+    "GetVersion",
+    "SetCurrentDirectoryW",
+    "SetCurrentDirectoryW",
+    "VirtualProtect",
+    "IsBadWritePtr",
+    "VirtualProtect",
+    "VirtualProtect",
+    "ZwSetInformationThread",
+    "RtlAddVectoredExceptionHandler",
+    "RaiseException",
+    "RtlRemoveVectoredExceptionHandler",
+    "GetCurrentThread",
+    "OpenThreadToken",
+    "GetCurrentProcess",
+    "OpenProcessToken",
+    "GetTokenInformation",
+    "VirtualAlloc",
+    "GetTokenInformation",
+    "CloseHandle",
+    "AllocateAndInitializeSid",
+    "EqualSid",
+    "FreeSid",
+    "VirtualFree",
+    "GetProcAddress",
+    "IsUserAnAdmin",
+    "GetForegroundWindow",
+    "GetWindowTextA",
+    "VirtualAlloc",
+    "GetCurrentThread",
+    "GetThreadContext",
+    "VirtualFree",
+    "GetCurrentProcess",
+    "CheckRemoteDebuggerPresent",
+    "ZwQueryInformationProcess",
+    "ZwQueryInformationProcess",
+    "GetSystemFirmwareTable"
+  ],
+  "selectedApiEvents": [
+    {
+      "dll": "ntdll.dll",
+      "name": "RtlAddVectoredExceptionHandler",
+      "args": [
+        "0x1",
+        "0x144ef04ee",
+        "0x208",
+        "0x0"
+      ],
+      "modeledRegistrationOnly": true
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "VirtualProtect",
+      "args": [
+        "0x780081a0",
+        "0x1000",
+        "0x40",
+        "0x703fefe0"
+      ],
+      "modeledOldProtection": 32,
+      "syntheticSymbol": [
+        "ntdll.dll",
+        "DbgUiRemoteBreakin"
+      ]
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "VirtualProtect",
+      "args": [
+        "0x780081a0",
+        "0x1000",
+        "0x20",
+        "0x703fefe8"
+      ],
+      "modeledOldProtection": 64,
+      "syntheticSymbol": [
+        "ntdll.dll",
+        "DbgUiRemoteBreakin"
+      ]
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "VirtualProtect",
+      "args": [
+        "0x78008110",
+        "0x1000",
+        "0x40",
+        "0x703fefe0"
+      ],
+      "modeledOldProtection": 32,
+      "syntheticSymbol": [
+        "ntdll.dll",
+        "DbgBreakPoint"
+      ]
+    },
+    {
+      "dll": "ntdll.dll",
+      "name": "ZwSetInformationThread",
+      "args": [
+        "0xfffffffffffffffe",
+        "0x11",
+        "0x0",
+        "0x0"
+      ],
+      "modeledThreadAttributeOnly": "ThreadHideFromDebugger",
+      "modeledReturn": 0
+    },
+    {
+      "dll": "ntdll.dll",
+      "name": "RtlAddVectoredExceptionHandler",
+      "args": [
+        "0x1",
+        "0x144ee7423",
+        "0x0",
+        "0x0"
+      ],
+      "modeledRegistrationOnly": true
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "RaiseException",
+      "args": [
+        "0xc000008e",
+        "0x0",
+        "0x0",
+        "0x0"
+      ],
+      "handlerProbe": "0x144ee7423"
+    },
+    {
+      "dll": "ntdll.dll",
+      "name": "RtlRemoveVectoredExceptionHandler",
+      "args": [
+        "0x920002",
+        "0x0",
+        "0x0",
+        "0x0"
+      ],
+      "removedHandler": {
+        "first": 1,
+        "handler": "0x144ee7423"
+      }
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "GetThreadContext",
+      "args": [
+        "0xfffffffffffffffe",
+        "0xa0010000",
+        "0x1000",
+        "0x4"
+      ],
+      "requestedContextFlags": "0x100010",
+      "counterfactualProfile": "zero-debug"
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "CheckRemoteDebuggerPresent",
+      "args": [
+        "0xffffffffffffffff",
+        "0x703fefdc",
+        "0x8000",
+        "0x4"
+      ],
+      "modeledCondition": "synthetic process has no attached debugger"
+    },
+    {
+      "dll": "ntdll.dll",
+      "name": "ZwQueryInformationProcess",
+      "args": [
+        "0xffffffffffffffff",
+        "0x7",
+        "0x703fefd8",
+        "0x8"
+      ],
+      "modeledCondition": "ProcessDebugPort zero in synthetic process"
+    },
+    {
+      "dll": "ntdll.dll",
+      "name": "ZwQueryInformationProcess",
+      "args": [
+        "0xffffffffffffffff",
+        "0x1e",
+        "0x703fefd8",
+        "0x8"
+      ],
+      "returnLengthPointer": "0x0",
+      "modeledCondition": "hypothesis: no debug object, STATUS_PORT_NOT_SET"
+    },
+    {
+      "dll": "kernel32.dll",
+      "name": "GetSystemFirmwareTable",
+      "args": [
+        "0x52534d42",
+        "0x0",
+        "0x0",
+        "0x0"
+      ]
+    }
+  ],
+  "narrowExceptionProbe": {
+    "observedCode": "0xc000008e",
+    "results": [
+      {
+        "returnValue": "0xffffffff",
+        "changedContextBytes": []
+      }
+    ],
+    "remainingSyntheticRegistrations": [
+      {
+        "first": 1,
+        "handler": "0x144ef04ee"
+      }
+    ],
+    "scope": "latest registered handler only; surrogate EXCEPTION_POINTERS and partial CONTEXT; only continue-execution with unchanged context resumes"
+  },
+  "sectionHashesAtFirmwareBoundary": [
+    {
+      "index": 0,
+      "name": "        ",
+      "rva": 4096,
+      "virtualSize": 50932648,
+      "initial": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722",
+      "final": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722"
+    },
+    {
+      "index": 1,
+      "name": "        ",
+      "rva": 50937856,
+      "virtualSize": 17778500,
+      "initial": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42",
+      "final": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42"
+    },
+    {
+      "index": 2,
+      "name": "        ",
+      "rva": 68718592,
+      "virtualSize": 6337216,
+      "initial": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d",
+      "final": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d"
+    },
+    {
+      "index": 3,
+      "name": "        ",
+      "rva": 75059200,
+      "virtualSize": 2820132,
+      "initial": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c",
+      "final": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c"
+    },
+    {
+      "index": 4,
+      "name": "        ",
+      "rva": 77881344,
+      "virtualSize": 4400,
+      "initial": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c",
+      "final": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c"
+    },
+    {
+      "index": 5,
+      "name": "        ",
+      "rva": 77889536,
+      "virtualSize": 42288,
+      "initial": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b",
+      "final": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b"
+    },
+    {
+      "index": 6,
+      "name": "        ",
+      "rva": 77934592,
+      "virtualSize": 4776,
+      "initial": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91",
+      "final": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91"
+    },
+    {
+      "index": 7,
+      "name": "        ",
+      "rva": 77942784,
+      "virtualSize": 1433228,
+      "initial": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e",
+      "final": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e"
+    },
+    {
+      "index": 8,
+      "name": ".debug",
+      "rva": 79376384,
+      "virtualSize": 4096,
+      "initial": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec",
+      "final": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec"
+    },
+    {
+      "index": 9,
+      "name": ".edata",
+      "rva": 79380480,
+      "virtualSize": 4096,
+      "initial": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802",
+      "final": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802"
+    },
+    {
+      "index": 10,
+      "name": ".idata",
+      "rva": 79384576,
+      "virtualSize": 4096,
+      "initial": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712",
+      "final": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712"
+    },
+    {
+      "index": 11,
+      "name": ".tls",
+      "rva": 79388672,
+      "virtualSize": 4096,
+      "initial": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401",
+      "final": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401"
+    },
+    {
+      "index": 12,
+      "name": ".rsrc",
+      "rva": 79392768,
+      "virtualSize": 4096,
+      "initial": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e",
+      "final": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e"
+    },
+    {
+      "index": 13,
+      "name": ".dungeon",
+      "rva": 79396864,
+      "virtualSize": 15360000,
+      "initial": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+      "final": "f991a4e0b28c36e2469817bab6bc9d283a64077838c8adca807dcfbd4fae30d5"
+    },
+    {
+      "index": 14,
+      "name": ".boot",
+      "rva": 94756864,
+      "virtualSize": 8937984,
+      "initial": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742",
+      "final": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742"
+    },
+    {
+      "index": 15,
+      "name": ".reloc",
+      "rva": 103698432,
+      "virtualSize": 4096,
+      "initial": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00",
+      "final": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00"
+    }
+  ],
+  "verification": {
+    "replays": {
+      "stop-context": {
+        "fullReportExceptElapsedIdentical": true,
+        "dungeonSha256": "643f2b429452a516f61739fba30adcfc2320d6245887e04b7fa0eaf532ad8b35",
+        "stopReason": "current-thread context boundary"
+      },
+      "zero-debug": {
+        "fullReportExceptElapsedIdentical": true,
+        "dungeonSha256": "f991a4e0b28c36e2469817bab6bc9d283a64077838c8adca807dcfbd4fae30d5",
+        "stopReason": "unmodeled API: GetSystemFirmwareTable"
+      }
+    },
+    "independentSectionChecks": {
+      "independentInputSectionIndexes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        14,
+        15
+      ],
+      "excluded": {
+        "10": "synthetic IAT initialized before baseline hash",
+        "13": "stage1 decompressed input verified separately"
+      },
+      "changedSectionIndexes": [
+        13
+      ]
+    },
+    "sectionIndexUsedInsteadOfName": true,
+    "syntheticIatInitializedBeforeInitialSectionHash": true,
+    "independentNativeExecutionValidation": false,
+    "existingAuditsRerun": {
+      "date": "2026-09-09",
+      "passed": [
+        "audit:game-data-provenance",
+        "audit:game-data-model-alignment",
+        "audit:game-data-gap-reconciliation"
+      ]
+    },
+    "applicationChecksReused": {
+      "sourceBaseline": "02b073e",
+      "testsPassed": 1435,
+      "lint": "passed previously on unchanged source",
+      "build": "passed previously on unchanged source",
+      "reason": "Only ROADMAP.md, docs and research artifacts differ from the validated baseline."
+    }
+  },
+  "limitations": [
+    "All results after stage1 are conditional on a minimal synthetic Windows environment, initial CPU state and stub API contracts.",
+    "Current-thread GetThreadContext has an invalid returned context by Microsoft documentation. Zero/marker/failure profiles are counterfactual branch probes, not measured Windows behavior.",
+    "Wine export names are hashed local snapshots, not genuine Windows DLL exports for a specific OS version. Forwarders and real ordinals are not modeled.",
+    "The original PE image starts with RWX permissions; section protection fidelity and full loader/TEB/PEB semantics are absent.",
+    "Modeled API calls do not reproduce DLL internal code, volatile register effects or full OS object lifecycles.",
+    "Only the known RDTSC site is modeled. CPUID, SYSCALL, interrupts and invalid memory stop; not every other environment-sensitive instruction is explicitly hooked.",
+    "Block counters and tailBlocks in local reports describe only an instrumented prefix. Memory-write page counters cover image and synthetic stubs, not all allocated memory.",
+    "The exception test does not emulate full Windows exception dispatch, unwind, floating-point context, or repeat exceptions.",
+    "Matching replays demonstrate determinism of this model, not agreement with real Windows execution.",
+    "No native damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified."
+  ],
+  "localEvidenceRoot": "local-game-data/phase6.8/native-stage2",
+  "localEvidenceHashes": {
+    "trace_cpu.py": "f62401af98e68d556a9ec712658cfd942cb7608249269e4719319128ff732272",
+    "trace_context.py": "6a5b88634b4353a65c2d6b9ac319a6860de4333a7e2d23b983aead5d5394e159",
+    "trace_process.py": "60da7afeb592468efb32eb4a365313b973b9b2b8cdf5f7626bb68b1dcf999242",
+    "context-probes/trace_context.py": "6a5b88634b4353a65c2d6b9ac319a6860de4333a7e2d23b983aead5d5394e159",
+    "firmware-boundary/trace_process.py": "60da7afeb592468efb32eb4a365313b973b9b2b8cdf5f7626bb68b1dcf999242",
+    "first-trace.json": "35df31698cd14e5ba221da64cb3a90a5057ff49ea11bd188fa0650454efc7874",
+    "teb-trace.json": "c6bd74d03adcd5b28757ca1426fc61115d16b8df8068970cf55470f461f759fb",
+    "clock-trace.json": "4565b633b480048f9dc694f2bc06af6f3976fa8f506fc2b77d8f9b2a5c4e95c0",
+    "clock-slow-trace.json": "607e979870abe6557a10c3ba3d77fe0a4a54f23e9b2f64ee379e540534a5e096",
+    "exports-trace.json": "85e4d1577c78bcba8bff5dfb5e66fe4d23418f00c3a6a46484755935975c5833",
+    "context-probes/stop-context.json": "f1200faf6643d1683e0ff4878472216093ba1bf928a728d85be564c471f574b2",
+    "context-probes/zero-debug.json": "5c51005ea3ccd986bc05eef612131d6733255347125ae3f6a374713c1ce61605",
+    "context-probes/marker-debug.json": "a0e006add5807f662950d30cee2df77ebd9f0fa313c8fc8a8a11af780056e4f9",
+    "context-probes/failed-context.json": "8820607aebcbce351c484ebf471996496eac0b0bcdd0e798f8fe4fba52d3c213",
+    "firmware-boundary/api-trace.json": "948123398417cfc9a0039042e070d88b8d016d45f9ca138b1120e04e254a6399",
+    "replay-checks.json": "7c6bdefd7d462d708d10e12174eb0c9895e4b277146e72f3f31c206f5b0090ed",
+    "section-checks.json": "d33f1bda2e8814d03784f55863a558e0f86e7b92c9c2fd92701bd396629ba238",
+    "imports.json": "b2563d2238810e60d524c37cedbda188a8e7c13efba987723d60461d817f844f",
+    "tools-install.log": "1208a483b1fe8b7a1e37d352b82024119b18fa2231107cefb664a66790b843f7",
+    "tools/capstone/lib/libcapstone.dylib": "d8624131dfd1615b537e5a7b9875765afd34be70cf9cf468215340503ec37afa",
+    "tools/unicorn/lib/libunicorn.2.dylib": "51c4a6f3ce22628ecd3acd1c49b921a818ffb989ca2c473134cc7eb06094f256",
+    "kernel32.spec": "7cefbcd40b4caa130960a85f8553575b3c97249e74257fac1d632f27934d6de0",
+    "user32.spec": "5f401185f736d82efb3ce1eb0bd36f2758a2c1bf92fd6573456213c93b1637af",
+    "ntdll.spec": "66cb15de0beed001125aa55e276e1c1171a93f1f96bd559ce87c74296d07954d",
+    "advapi32.spec": "976ae51433e044ac9d7c4b59fec5ada727c868d0303decef8d0a6315ae1b05da",
+    "shell32.spec": "909f19186b7665f930014b5c29b08c62593a409f03cc13f9b0d5209d549bf1ff",
+    "shlwapi.spec": "0460eba23655ec1ba29399e330727bbc596675e3e5b330e48afeddf86e9c1f74",
+    "save_report.py": "7a9983b72b86f62c32bc5ccbf271f9e4973d97e5e25126cc3596d98ebbef7363",
+    "verify_report.py": "efd120c6d46ec2692642a6d97a840734f679e8618c709dca5fd44ed0284e29c3"
+  }
+}
