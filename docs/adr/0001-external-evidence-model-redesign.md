@@ -93,3 +93,7 @@ Healing/CCはdamage hitsとproc opportunitiesを別に数える。Radianceの名
 - 全面イベントシミュレータへ即置換する案: 未確定の規則を大量実装し、既存の解析式と高速探索を失うリスクがある。研究比較とadapterを先行させる。
 
 今回のprobeは数学整合性を確かめる道具であり、モデルのゲーム内精度を上げたと主張しない。未解決事項と次の取得対象は[外部研究レポート](../external-community-research.md)に集約する。
+
+## 6.9C実装追記（2026-09-09）
+
+[Evidence adapter](../evidence-adapter.md)を実装・検証。研究moduleと版付き台帳から従来Evidenceへの変換境界を追加した。6.9A/B時点の記述は履歴として保持し、runtime移行は引き続き未実施。

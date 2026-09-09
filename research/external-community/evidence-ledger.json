@@ -1,0 +1,1266 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "reddit-10jvyk4@1",
+      "sourceId": "reddit-10jvyk4",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvyk4",
+        "label": "reddit-10jvyk4",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvyk4/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "0388d04daacfe4e07f06c7fb910c9c632d541eb8bb3433dc0e214b5ce64ade46",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-guides",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-10jvyud@1",
+      "sourceId": "reddit-10jvyud",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvyud",
+        "label": "reddit-10jvyud",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvyud/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "74e5924bfc63ea825ff554c4333d82b1cb2cace52313972e7cf6e160af0f3a1f",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-10k4ak9@1",
+      "sourceId": "reddit-10k4ak9",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10k4ak9",
+        "label": "reddit-10k4ak9",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10k4ak9/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "ed4573394d49fc1312d1462355bed17e415df4d7cb28314e97609f1ab4a4fa82",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-guides",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-10jvz0x@1",
+      "sourceId": "reddit-10jvz0x",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvz0x",
+        "label": "reddit-10jvz0x",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz0x/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "bf31b8ba4d8f60783e260233e6bf7a0b702c9666e88faf7f669f4f8f97bd3188",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-10jvz4r@1",
+      "sourceId": "reddit-10jvz4r",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvz4r",
+        "label": "reddit-10jvz4r",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz4r/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "b4cadc031ab8dc65c43a474b417ab6c0c1ea637405e2fd8e499a2ad34f126600",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-10jvz7w@1",
+      "sourceId": "reddit-10jvz7w",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvz7w",
+        "label": "reddit-10jvz7w",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz7w/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "23ff7b2bd79ced7927eaf1540a1ef4936a9234018aa07a2da0b82e563c058bcc",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-10wcs9b@1",
+      "sourceId": "reddit-10wcs9b",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10wcs9b",
+        "label": "reddit-10wcs9b",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10wcs9b/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "82caa291e495f5e0abb350db0b9d2b9377312e1c77616a27c1c865943cf7272b",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-nd98db@1",
+      "sourceId": "reddit-nd98db",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-nd98db",
+        "label": "reddit-nd98db",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/nd98db/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "d28e9ceb486d567ce29b0d7bb65c404394a67a3b2fb646acf0c017c9e0c6234a",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "wiki-weapon-talk@1",
+      "sourceId": "wiki-weapon-talk",
+      "revision": 1,
+      "reference": {
+        "id": "wiki-weapon-talk",
+        "label": "wiki-weapon-talk",
+        "url": "https://minecraft.fandom.com/wiki/Minecraft_Dungeons_talk%3AWeapon",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "eb5438565d06b7572b942f414289c5207f65c26e2c1bee792e271571d5eceb2a",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-100lxg7@1",
+      "sourceId": "reddit-100lxg7",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-100lxg7",
+        "label": "reddit-100lxg7",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/100lxg7/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "585875997ea530697b6a3b5d266bbebdbc596029b3b1341cd2d09eafefe3bfd2",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "shin-modifiers@1",
+      "sourceId": "shin-modifiers",
+      "revision": 1,
+      "reference": {
+        "id": "shin-modifiers",
+        "label": "shin-modifiers",
+        "url": "https://www.youtube.com/watch?v=3adc9uaDUUo",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "6366d1957cff4957650b3ced11b4b99bb6eceebc86a8ee01fd02e93f85d233c3",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-modifiers",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-1u92q4y@1",
+      "sourceId": "reddit-1u92q4y",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1u92q4y",
+        "label": "reddit-1u92q4y",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u92q4y/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "dcd701c9ee3c5b3421caee18a9a1c2990c086d5a0a150659a601e9e23b6e90af",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1u8yqtg@1",
+      "sourceId": "reddit-1u8yqtg",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1u8yqtg",
+        "label": "reddit-1u8yqtg",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u8yqtg/dps_mod/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "1d2d589972b71b4c166ffb3e26466a3eba1f92310b839da6adc6ed1f3c9f31b7",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "anotherraalt",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-1bsib6o@1",
+      "sourceId": "reddit-1bsib6o",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1bsib6o",
+        "label": "reddit-1bsib6o",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1bsib6o/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "774ee83030b68f2d66730a56749dbf5c6e7c380fd72e9829948576a83da2dcc3",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-dr",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-1bvnlie@1",
+      "sourceId": "reddit-1bvnlie",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1bvnlie",
+        "label": "reddit-1bvnlie",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1bvnlie/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "0b8bf774decefdfaccd13ade8e57beac42bc0df511602eb3afac522a6dfac323",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-yskj9s@1",
+      "sourceId": "reddit-yskj9s",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-yskj9s",
+        "label": "reddit-yskj9s",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/yskj9s/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "1b37537bcd1710dc248ecc4d677a5ad357a7b6437ef7d74b309f1b032ebc2d5a",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-15vh9r9@1",
+      "sourceId": "reddit-15vh9r9",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-15vh9r9",
+        "label": "reddit-15vh9r9",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15vh9r9/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "8be828dd2fadd77a842a70d04d250826fcbfbe72d68242114dd4e069561d1bb5",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1ucj2v1@1",
+      "sourceId": "reddit-1ucj2v1",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1ucj2v1",
+        "label": "reddit-1ucj2v1",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ucj2v1/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "e753fb92c9832db5f1c5ca72322b6cf508fc599137252d0a1b1283c970a8b3e2",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "anotherraalt",
+      "reviewed": true
+    },
+    {
+      "id": "pancakecat-hps@1",
+      "sourceId": "pancakecat-hps",
+      "revision": 1,
+      "reference": {
+        "id": "pancakecat-hps",
+        "label": "pancakecat-hps",
+        "url": "https://docs.google.com/spreadsheets/d/1S90t9lTPIGhpcllATfRUniFnsBy-gqB7R_nBkUPSK1k/edit?gid=0#gid=0",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "a677c2d10f9066044e0eed9a1c7165325b013d81566c3479d815adce7ddbc360",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": true
+    },
+    {
+      "id": "reddit-rlirvh@1",
+      "sourceId": "reddit-rlirvh",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-rlirvh",
+        "label": "reddit-rlirvh",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/rlirvh/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "c6bcb3868e3b06034beea9bb233a7604ba3dd147d74c5a03b3b18a27e46b782e",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1m6robj@1",
+      "sourceId": "reddit-1m6robj",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1m6robj",
+        "label": "reddit-1m6robj",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1m6robj/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "8ae1c053984ada784458fb40e89146b42c48887b8f7371a5ece9b3a973562c34",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-14r204d@1",
+      "sourceId": "reddit-14r204d",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-14r204d",
+        "label": "reddit-14r204d",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/14r204d/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "943f11e15a8ea950722669bd655de1c16e0bb58a4651da921a7959bb0b7810c1",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1jb2wcb@1",
+      "sourceId": "reddit-1jb2wcb",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1jb2wcb",
+        "label": "reddit-1jb2wcb",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1jb2wcb/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "76d08a255f905426f8d514b8ce8448f94772deb143cee7af4bf9e6af5a55de2b",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1jpvpee@1",
+      "sourceId": "reddit-1jpvpee",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1jpvpee",
+        "label": "reddit-1jpvpee",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1jpvpee/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "250505a538d8dc6df5908b8171ac4b06039817f9a311de5c49ab5f2624300492",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1rx60v3@1",
+      "sourceId": "reddit-1rx60v3",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1rx60v3",
+        "label": "reddit-1rx60v3",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1rx60v3/what_enchants/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "47a46eb2f5e9204d94f1d9543322062977734be89afa0f18252a4ca657a9806d",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "builds-research-index@1",
+      "sourceId": "builds-research-index",
+      "revision": 1,
+      "reference": {
+        "id": "builds-research-index",
+        "label": "builds-research-index",
+        "url": "https://github.com/maxyharr/minecraft-dungeons-builds/blob/main/research/mechanics.md",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "cd4990705909e92b6fbf8bcbda8a4fe496c8c798373a19aec88cf30006bbd82d",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-p2snll@1",
+      "sourceId": "reddit-p2snll",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-p2snll",
+        "label": "reddit-p2snll",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/p2snll/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "d19627d9818db6f8cf6a86ede194de78350de3bc2405f8b6a499ec2ba59244a3",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-15zrmdc@1",
+      "sourceId": "reddit-15zrmdc",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-15zrmdc",
+        "label": "reddit-15zrmdc",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15zrmdc/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "4b0d453aa0ab6be622ff6105b1ee963450f232401bfd593834a8553f832d3c70",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "reddit-1s4zl8b@1",
+      "sourceId": "reddit-1s4zl8b",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-1s4zl8b",
+        "label": "reddit-1s4zl8b",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1s4zl8b/resources_to_understand_the_game_better/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": null,
+      "snapshot": {
+        "sha256": "4c38dc7b6994af306f9c049852d740baaba77da841d4fd2823da41983fbeea87",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": null,
+      "reviewed": false
+    },
+    {
+      "id": "shin-dr-video@1",
+      "sourceId": "shin-dr-video",
+      "revision": 1,
+      "reference": {
+        "id": "shin-dr-video",
+        "label": "shin-dr-video",
+        "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "24e0ad0e601215027c400c6996a7ddd8a0abff0ba3a14f6bbe0f3bd64931a279",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-dr",
+      "reviewed": false
+    },
+    {
+      "id": "reddit-10jvzb0@1",
+      "sourceId": "reddit-10jvzb0",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-10jvzb0",
+        "label": "reddit-10jvzb0",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvzb0/weapon_statsenchants_guides_2_bl_tier/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "962b6893683ab84c59f1ea24d797c9d36dbdcc6df1622b5e01cb0cace2c6771b",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-guides",
+      "reviewed": false
+    }
+  ],
+  "claims": [
+    {
+      "id": "hps-sheet-link@1",
+      "claimId": "hps-sheet-link",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1u8yqtg@1"
+      ],
+      "entity": null,
+      "property": "source.attribution",
+      "kind": "community_claim",
+      "statement": "anotherraaltが同一IDの表をPancakecatの平均HPS表として紹介。owner証明とは分離。",
+      "locator": "anotherraalt: reply to How would you find hits per second?",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {},
+      "gameVersion": null
+    },
+    {
+      "id": "damage-candidate@1",
+      "claimId": "damage-candidate",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1u8yqtg@1"
+      ],
+      "entity": null,
+      "property": "damage.composition",
+      "kind": "community_formula",
+      "statement": "Full * ((1 + Additive) * (Base * Multiplicative + Dynamo) + Indirect)",
+      "locator": "anotherraalt: first damage formula reply",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {
+        "unit": "per-hit damage; rate conversion separate"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "committed-limit@1",
+      "claimId": "committed-limit",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1ucj2v1@1"
+      ],
+      "entity": null,
+      "property": "damage.committed",
+      "kind": "later_reanalysis",
+      "statement": "1/ln(2) is a continuous-limit multiplier, not a universal finite encounter gain.",
+      "locator": "anotherraalt: original post",
+      "value": 1.4426950408889634,
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "tier": 3,
+        "startingHpFraction": 1,
+        "directOnly": true,
+        "limit": "infinitesimal hits"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-family@1",
+      "claimId": "dr-family",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.composition",
+      "kind": "community_formula",
+      "statement": "ShinkuNY describes inverse armor-score addition, Potion Barrier in the armor family, and Guarding Strike as separate multiplication.",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {
+        "activation": "all listed effects active"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-armor-iron@1",
+      "claimId": "dr-armor-iron",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.total-reduction",
+      "kind": "community_derived",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.606,
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-armor-iron-guard@1",
+      "claimId": "dr-armor-iron-guard",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.total-reduction",
+      "kind": "community_derived",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.803,
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-barrier-iron@1",
+      "claimId": "dr-barrier-iron",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.total-reduction",
+      "kind": "community_derived",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.909,
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "potionBarrier": 0.9,
+        "ironHide": 0.5
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-barrier-guard@1",
+      "claimId": "dr-barrier-guard",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.total-reduction",
+      "kind": "community_derived",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.95,
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "potionBarrier": 0.9,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "growing-staff-erratum@1",
+      "claimId": "growing-staff-erratum",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-10jvyk4@1"
+      ],
+      "entity": null,
+      "property": "attack.average-hps",
+      "kind": "author_correction",
+      "statement": "作者はGrowing StaffのHPSを6.3から4.3へ訂正。",
+      "locator": "ShinkuNY: edited correction comment",
+      "value": {
+        "old": 6.3,
+        "corrected": 4.3
+      },
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "siphon-erratum@1",
+      "claimId": "siphon-erratum",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-10k4ak9@1"
+      ],
+      "entity": null,
+      "property": "soul.siphon-description",
+      "kind": "author_correction",
+      "statement": "作者はbuff前のSoul Siphon説明が残っていたため修正したと報告。",
+      "locator": "ShinkuNY: first correction comment",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {},
+      "gameVersion": null
+    },
+    {
+      "id": "anchor-void-channels@1",
+      "claimId": "anchor-void-channels",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-10jvyk4@1"
+      ],
+      "entity": null,
+      "property": "damage.void-by-channel",
+      "kind": "community_derived",
+      "statement": "Encrusted AnchorのVoid増加率をphysical、poison、総合に分けて提示。",
+      "locator": "ShinkuNY: reply explaining separate Anchor slides",
+      "value": {
+        "physicalBonus": 1.75,
+        "poisonBonus": 0.81,
+        "totalBonus": 1.408
+      },
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "speedCondition": "requires slide cross-check"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "modifier-taxonomy@1",
+      "claimId": "modifier-taxonomy",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "shin-modifiers@1"
+      ],
+      "entity": null,
+      "property": "damage.modifier-families",
+      "kind": "community_claim",
+      "statement": "説明欄はphysical加算、physical乗算、間接、Focus、全体倍率を区別。Sharpness自己stack、jungle poison、Fireworksに例外がある。",
+      "locator": "videoDetails.shortDescription: classification after summary",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {
+        "sourceEra": "2021 per handoff; current applicability unverified"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "sawblade-rate-split@1",
+      "claimId": "sawblade-rate-split",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "pancakecat-hps@1"
+      ],
+      "entity": null,
+      "property": "attack.event-rates",
+      "kind": "community_claim",
+      "statement": "表はSawbladeのenchant試行4/sとdamage6/sを分離。overheat cancel条件の記述あり。",
+      "locator": "Sheet1!A43:F43 and A53:F53",
+      "value": {
+        "procOpportunityRate": 4,
+        "damageRate": 6
+      },
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "attackMode": "overheat cancel as needed",
+        "speedColumns": "all four"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "growing-staff-reported-old@1",
+      "claimId": "growing-staff-reported-old",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-10jvyk4@1"
+      ],
+      "entity": "Growing Staff (guide label; runtime mapping unverified)",
+      "property": "attack.average-hps",
+      "kind": "author_correction",
+      "statement": "作者はGrowing StaffのHPSを6.3から4.3へ訂正。 (reported-old; correction report, not independently recovered slide)",
+      "locator": "ShinkuNY: edited correction comment",
+      "value": 6.3,
+      "unknownReason": null,
+      "unit": "hits/s",
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "growing-staff-reported-corrected@1",
+      "claimId": "growing-staff-reported-corrected",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "reddit-10jvyk4@1"
+      ],
+      "entity": "Growing Staff (guide label; runtime mapping unverified)",
+      "property": "attack.average-hps",
+      "kind": "author_correction",
+      "statement": "作者はGrowing StaffのHPSを6.3から4.3へ訂正。 (reported-corrected; correction report, not independently recovered slide)",
+      "locator": "ShinkuNY: edited correction comment",
+      "value": 4.3,
+      "unknownReason": null,
+      "unit": "hits/s",
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null
+    }
+  ],
+  "relations": [
+    {
+      "id": "dr-armor-iron-derivation@1",
+      "from": "dr-armor-iron@1",
+      "to": "dr-family@1",
+      "kind": "derived-from",
+      "overlap": "partial",
+      "reason": "Same author/post examples of the family formula, not independent observations."
+    },
+    {
+      "id": "dr-armor-iron-guard-derivation@1",
+      "from": "dr-armor-iron-guard@1",
+      "to": "dr-family@1",
+      "kind": "derived-from",
+      "overlap": "partial",
+      "reason": "Same author/post examples of the family formula, not independent observations."
+    },
+    {
+      "id": "dr-barrier-iron-derivation@1",
+      "from": "dr-barrier-iron@1",
+      "to": "dr-family@1",
+      "kind": "derived-from",
+      "overlap": "partial",
+      "reason": "Same author/post examples of the family formula, not independent observations."
+    },
+    {
+      "id": "dr-barrier-guard-derivation@1",
+      "from": "dr-barrier-guard@1",
+      "to": "dr-family@1",
+      "kind": "derived-from",
+      "overlap": "partial",
+      "reason": "Same author/post examples of the family formula, not independent observations."
+    },
+    {
+      "id": "dynamo-conflict@1",
+      "from": "damage-candidate@1",
+      "to": "modifier-taxonomy@1",
+      "kind": "contradicts",
+      "overlap": "unknown",
+      "reason": "Dynamo classification conflict; cross-property application scope is unresolved."
+    },
+    {
+      "id": "growing-staff-correction@1",
+      "from": "growing-staff-reported-corrected@1",
+      "to": "growing-staff-reported-old@1",
+      "kind": "corrects",
+      "overlap": "exact",
+      "reason": "Same guide correction report only; does not replace the separately conditioned sheet value 4.43."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "hps-sheet-link-adoption@1",
+      "decisionId": "hps-sheet-link-adoption",
+      "revision": 1,
+      "claimId": "hps-sheet-link@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {},
+      "gameVersion": null,
+      "blockers": [
+        "author-owner-unverified",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "damage-candidate-adoption@1",
+      "decisionId": "damage-candidate-adoption",
+      "revision": 1,
+      "claimId": "damage-candidate@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "unit": "per-hit damage; rate conversion separate"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "version-unknown",
+        "dynamo-conflicts-with-2021-taxonomy",
+        "channel-eligibility-unverified",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "committed-limit-adoption@1",
+      "decisionId": "committed-limit-adoption",
+      "revision": 1,
+      "claimId": "committed-limit@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "tier": 3,
+        "startingHpFraction": 1,
+        "directOnly": true,
+        "limit": "infinitesimal hits"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "game-law-unverified",
+        "overkill-and-target-state-required",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-family-adoption@1",
+      "decisionId": "dr-family-adoption",
+      "revision": 1,
+      "claimId": "dr-family@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "activation": "all listed effects active"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "version-unknown",
+        "video-not-measured",
+        "family-membership-not-generalized",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-armor-iron-adoption@1",
+      "decisionId": "dr-armor-iron-adoption",
+      "revision": 1,
+      "claimId": "dr-armor-iron@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5
+      },
+      "gameVersion": null,
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-armor-iron-guard-adoption@1",
+      "decisionId": "dr-armor-iron-guard-adoption",
+      "revision": 1,
+      "claimId": "dr-armor-iron-guard@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null,
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-barrier-iron-adoption@1",
+      "decisionId": "dr-barrier-iron-adoption",
+      "revision": 1,
+      "claimId": "dr-barrier-iron@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "potionBarrier": 0.9,
+        "ironHide": 0.5
+      },
+      "gameVersion": null,
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-barrier-guard-adoption@1",
+      "decisionId": "dr-barrier-guard-adoption",
+      "revision": 1,
+      "claimId": "dr-barrier-guard@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "potionBarrier": 0.9,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null,
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "growing-staff-erratum-adoption@1",
+      "decisionId": "growing-staff-erratum-adoption",
+      "revision": 1,
+      "claimId": "growing-staff-erratum@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "slide-condition-review-required",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "siphon-erratum-adoption@1",
+      "decisionId": "siphon-erratum-adoption",
+      "revision": 1,
+      "claimId": "siphon-erratum@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {},
+      "gameVersion": null,
+      "blockers": [
+        "pre-post-image-diff-not-captured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "anchor-void-channels-adoption@1",
+      "decisionId": "anchor-void-channels-adoption",
+      "revision": 1,
+      "claimId": "anchor-void-channels@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "speedCondition": "requires slide cross-check"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "scenario-not-normalized",
+        "not-independent-measurement",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "modifier-taxonomy-adoption@1",
+      "decisionId": "modifier-taxonomy-adoption",
+      "revision": 1,
+      "claimId": "modifier-taxonomy@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "sourceEra": "2021 per handoff; current applicability unverified"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "version-unknown",
+        "application-order-unverified",
+        "dynamo-later-conflict",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "sawblade-rate-split-adoption@1",
+      "decisionId": "sawblade-rate-split-adoption",
+      "revision": 1,
+      "claimId": "sawblade-rate-split@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "attackMode": "overheat cancel as needed",
+        "speedColumns": "all four"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "measurement-method-unknown",
+        "proc-specific-eligibility-unknown",
+        "native-setting-is-not-event-proof",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "growing-staff-reported-old-adoption@1",
+      "decisionId": "growing-staff-reported-old-adoption",
+      "revision": 1,
+      "claimId": "growing-staff-reported-old@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "slide-condition-review-required",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "growing-staff-reported-corrected-adoption@1",
+      "decisionId": "growing-staff-reported-corrected-adoption",
+      "revision": 1,
+      "claimId": "growing-staff-reported-corrected@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "slide-condition-review-required",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    }
+  ]
+}

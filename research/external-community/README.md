@@ -9,3 +9,5 @@
 `npm run generate:external-community`でモデル比較を再生成し、`npm run audit:external-community`で参照・条件境界・driftを検証する。ネットワークもraw game assetsも不要。外部表の再取得手順・今回の限界は[調査レポート](../../docs/external-community-research.md)、移行契約は[ADR](../../docs/adr/0001-external-evidence-model-redesign.md)を参照。
 
 このディレクトリをruntimeやData Browserへ自動importしない。取得済みと採用済み、数式整合性と実測精度、平均HPSとevent列を区別する。将来の更新はrevisionを追加して旧判断を追跡可能にする。
+
+Phase 6.9Cの`evidence-ledger.json`は版付きsource/claim/関係/採用判定。`npm run audit:evidence-adapter`で検証する。仕様・限界は[Evidence adapter](../../docs/evidence-adapter.md)を参照。
