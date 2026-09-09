@@ -69,7 +69,9 @@
     "generate:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts --write",
     "audit:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts",
     "generate:scenario-optimizer-comparison": "node scripts/audit-scenario-optimizer-comparison.ts --write",
-    "audit:scenario-optimizer-comparison": "node scripts/audit-scenario-optimizer-comparison.ts"
+    "audit:scenario-optimizer-comparison": "node scripts/audit-scenario-optimizer-comparison.ts",
+    "generate:phase8-evidence": "node scripts/audit-phase8-evidence.ts --write",
+    "audit:phase8-evidence": "node scripts/audit-phase8-evidence.ts"
   },
   "dependencies": {
     "react": "19.2.6",

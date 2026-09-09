@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "record": {
+        "id": "phase8-dr-ehp-current@1",
+        "recordId": "phase8-dr-ehp-current",
+        "revision": 1,
+        "source": {
+          "sourceId": "reddit-1w4c05n",
+          "revision": 1,
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1w4c05n/damage_reduction/",
+          "label": "Damage reduction discussion (retrieved 2026-09-10)",
+          "retrievedAt": "2026-09-10T00:00:00+09:00",
+          "snapshotSha256": "24fe34d472a3336b79260110144b08372131452e8397d6b2a8592a2e90954c6c",
+          "originKind": "external",
+          "originGroup": "anotherraalt",
+          "repostOfSourceRevisionId": null,
+          "reviewed": true
+        },
+        "claim": {
+          "claimId": "dr-current-ehp-family",
+          "entity": "defense:limited-dr-composition",
+          "property": "defense.composition",
+          "statement": "A current community explanation places Iron Hide and Potion Barrier in an additive effective-health group, while Guarding Strike multiplies the resulting effective health separately.",
+          "value": {
+            "additiveEffectiveHealth": [
+              "iron-hide",
+              "potion-barrier"
+            ],
+            "separateMultipliers": [
+              "guarding-strike"
+            ]
+          }
+        },
+        "context": {
+          "gameVersion": null,
+          "equipment": [
+            {
+              "id": "artifact:iron-hide-amulet",
+              "power": null
+            },
+            {
+              "id": "melee-enchantment:guarding-strike",
+              "power": null
+            }
+          ],
+          "conditions": {
+            "activation": "all named effects active",
+            "damageChannel": null
+          }
+        },
+        "measurement": {
+          "unit": "effective-health multiplier",
+          "repetitions": null,
+          "observations": [],
+          "missingReasons": [
+            "public explanation has no raw hit sequence",
+            "game version and equipment Power are not stated"
+          ]
+        },
+        "locators": [
+          {
+            "kind": "text",
+            "locator": "anotherraalt comment, lines 45-55 in the retained 2026-09-10 retrieval",
+            "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1w4c05n/damage_reduction/"
+          }
+        ],
+        "partition": "unassigned",
+        "corrects": null,
+        "correctionReason": null,
+        "capturedAt": "2026-09-10T00:00:00+09:00"
+      },
+      "assessment": {
+        "outcome": "quarantined",
+        "reasons": [
+          "declared-missing:game version and equipment Power are not stated",
+          "declared-missing:public explanation has no raw hit sequence",
+          "equipment-power-missing",
+          "game-version-missing",
+          "raw-observations-missing",
+          "repetition-count-missing"
+        ]
+      },
+      "changedFields": [
+        "initial-revision"
+      ]
+    },
+    {
+      "record": {
+        "id": "phase8-iron-hide-wiki-tests@1",
+        "recordId": "phase8-iron-hide-wiki-tests",
+        "revision": 1,
+        "source": {
+          "sourceId": "minecraft-wiki-iron-hide-amulet",
+          "revision": 1,
+          "url": "https://minecraft.wiki/w/Dungeons:Iron_Hide_Amulet",
+          "label": "Minecraft Wiki: Iron Hide Amulet (retrieved 2026-09-10)",
+          "retrievedAt": "2026-09-10T00:00:00+09:00",
+          "snapshotSha256": "81ebd4a77c3afcdbbeefdb3e7324fab9483759822c187d7cbe3f74d1a28170ab",
+          "originKind": "external",
+          "originGroup": null,
+          "repostOfSourceRevisionId": null,
+          "reviewed": true
+        },
+        "claim": {
+          "claimId": "iron-hide-reported-tests",
+          "entity": "artifact:iron-hide-amulet",
+          "property": "defense.single-effect-reduction",
+          "statement": "The Iron Hide Amulet page reports two single-effect tests at 50% damage taken and one armor-plus-amulet example, but does not preserve a complete versioned raw trace.",
+          "value": 0.5
+        },
+        "context": {
+          "gameVersion": null,
+          "equipment": [
+            {
+              "id": "artifact:iron-hide-amulet",
+              "power": null
+            }
+          ],
+          "conditions": {
+            "targets": "Zombie and Apocalypse+15 Zombie in separate reported examples",
+            "damageChannel": "direct-mob-attack"
+          }
+        },
+        "measurement": {
+          "unit": "damage-taken fraction",
+          "repetitions": 2,
+          "observations": [
+            {
+              "value": {
+                "baselineDamage": 8,
+                "activeDamage": 4
+              },
+              "locator": "Usage > Properties, first reported test"
+            },
+            {
+              "value": {
+                "baselineDamage": 36000,
+                "activeDamage": 18000
+              },
+              "locator": "Usage > Properties, second reported test"
+            }
+          ],
+          "missingReasons": [
+            "editor/tester origin is unresolved",
+            "game version, frame sequence, equipment Power, and rounding stage are absent"
+          ]
+        },
+        "locators": [
+          {
+            "kind": "text",
+            "locator": "Usage > Properties; testing and stacking paragraphs in the retained 2026-09-10 retrieval",
+            "url": "https://minecraft.wiki/w/Dungeons:Iron_Hide_Amulet"
+          }
+        ],
+        "partition": "unassigned",
+        "corrects": null,
+        "correctionReason": null,
+        "capturedAt": "2026-09-10T00:00:00+09:00"
+      },
+      "assessment": {
+        "outcome": "quarantined",
+        "reasons": [
+          "declared-missing:editor/tester origin is unresolved",
+          "declared-missing:game version, frame sequence, equipment Power, and rounding stage are absent",
+          "equipment-power-missing",
+          "game-version-missing",
+          "origin-independence-unknown"
+        ]
+      },
+      "changedFields": [
+        "initial-revision"
+      ]
+    }
+  ]
+}

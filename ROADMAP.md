@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **105 / 118（89%）**。Phase 6.7の3項目、6.8の5項目、6.9の6項目を追加し、そのうち12項目を完了。Phase 6.8D/Eの2項目は未完了・保留。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **107 / 121（88%）**。Phase 8A/8Bは完了、8Cは独立raw trace待ちです。Phase 6.8D/Eの2項目は未完了・保留。Phase 7・9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -248,7 +248,7 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ## 現在の作業位置（2026-09-10再検討）
 
-**次はPhase 8AのEvidence受入・検証基盤と、8Bの限定した外部Evidence取得です。** Phase番号は履歴として維持し、実行順を **8A → 8B → 必要な残余だけ7 → 8C → 合格した単位だけ9** とします。外部Evidenceだけで検証できる単位はPhase 7を待たず8Cへ進めます。
+**Phase 8A/8Bは完了し、次は限定DR単位の8Cです。** Phase番号は履歴として維持し、実行順を **8A → 8B → 必要な残余だけ7 → 8C → 合格した単位だけ9** とします。最初の単位は第二originの式説明とIron Hide単独testを追加できましたが、版付き独立raw traceがなく保留です。
 
 Phase 6.9で比較経路は揃いました。現在の律速は新しい比較器の数ではなく、game version・観測条件・独立性・適用範囲の不足です。したがってResearch Questの大規模UI、全効果の一括移行、native全面復元を先行させず、既存の版付き台帳・adapter・測定protocolを再利用します。
 
@@ -293,15 +293,21 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 - Historical phaseのfull completion gateをsupport整理の都合で書き換えない。
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
+## Phase 8 — Evidence Capture & Validation（2 / 3、8Cが次）
+
+- [x] 8A — 受入・検証の最小基盤。6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・raw observation・画像/動画/本文locator・originを受け入れる契約を実装しました。外部と自前で同じ規則を使い、構造不正を拒否し、欠落・訂正・競合・転載・calibration/holdoutの混用を理由コード付きで判定します。append-only revision、changed fields、JSON保存・再読込時の判定再計算をテスト済みです。
+
+- [x] 8B — 外部Evidence取得と残余queue再評価。35% Armor + Iron Hide + Guarding Strikeのdirect mob attackを最初の1単位に選び、2026年の第二originによるEHP family説明と、Wikiに掲載されたIron Hide単独raw pair 2件を取得しました。いずれもversion/Power/完全なframe条件が不足するためquarantineで保存し、独立holdoutには数えません。Phase 6.6の1,307件を含むremaining 2,088件を元ID・旧disposition・理由・差分付きで完全partitionしました。external-resolved 0、limited-measurement 5、implementation-missing 271、hold 1,812。出口は保留、runtime昇格・新規Gap closeは0です。詳細は[8A/8Bレポート](./docs/phase8-evidence-intake.md)と[machine-readable queue](./research/phase8-gap-reassessment.json)を参照してください。
+
+- [ ] 8C — 独立holdout・許容範囲・旧新比較から採用/保留/不採用を保存する。same-origin holdout、合成probe、1件の自己観測だけでVerifiedにしない。
+
+**8Cの完了条件。** calibrationと独立holdoutを分離し、許容領域・誤差基準を検証前に設定。旧新モデルの同条件比較、順位感度、再現性を確認し、採用/保留/不採用のAdoptionDecisionを保存します。Phase 1の独立DPS回帰5件gateは別に維持します。
+
 ## Future milestones（チェックリスト進捗と分離）
 
-### Phase 8 — Evidence Capture & Validation（次の重点）
+### Phase 8C — Limited DRの独立検証（次の重点）
 
-**8A — 受入・検証の最小基盤。** 6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・画像/動画locator・originを受け入れる契約を定義します。外部と自前で同じ検証規則を使い、欠落・訂正・競合・転載・calibration/holdoutの混用を理由付きで判定。保存・再読込・異常入力・revision追跡の検証が完了条件です。大規模な投稿UIは必須にしません。
-
-**8B — 外部Evidence取得と残余queue再評価。** 上表から最初の1単位を選び、公開観測の条件と独立性を回収します。6.6の1,307件と現在のblockerを照合し、外部解消・限定実測・実装不足・保留へ振り分け、元ID・判断理由・差分を記録できることが完了条件です。新しい取得結果なしにGapをcloseしません。
-
-**8C — 機能単位の妥当性検証。** calibrationと独立holdoutを分離し、許容領域・誤差基準を検証前に設定。旧新モデルの同条件比較、順位感度、再現性を確認し、採用/保留/不採用のAdoptionDecisionを保存します。same-origin holdout、合成probe、1件の自己観測だけでVerifiedにしません。Phase 1の独立DPS回帰5件gateは別に維持します。
+版1.17.0.0、同一incoming hit、単独・pair・三効果、3独立run×各10 hit以上を取得し、許容範囲と旧新比較から採用/保留/不採用を記録します。
 
 ### Phase 7 — Personal Research Quest（8Bの残余に限定）
 
