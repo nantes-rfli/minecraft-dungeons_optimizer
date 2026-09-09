@@ -219,6 +219,14 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ## 現在の作業位置
 
+### 現在の優先方針 — 外部研究を先行（2026-09-09）
+
+ユーザーの方針変更により、**外部研究の取得・条件照合 → 再設計 → 必要な残余だけ実測/native**へ順序を変更しました。以下の6.7〜6.8D/E節の「次はnative」は各調査時点の履歴です。6.8D/Eは未完了のまま保留し、native復元をPhase 6.9の必須条件にしません。
+
+[外部研究の整理と追加調査](./docs/external-community-research.md)と[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)を追加しました。31 source・13 claimを整理し、Pancakecatへの帰属が紹介されているHPS表55行×4条件を取得。作者訂正、DR合成の具体例、Dynamoの分類衝突を保持し、既存4武器のHPS差とCommitted連続極限の既存実装を照合しました。研究用DR/有限hit比較とoffline auditも追加しています。
+
+Phase 6.9A/Bの設計初版まで進行。次はEvidence adapterと、HPSの条件・entity mapping、DR動画の観測条件、modifier適用範囲を対象にした比較です。全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
+
 ### Phase 6.7 — ゲームデータ起点の取得可能性調査（2026-09-07）
 
 [取得可能性調査](./docs/game-data-capabilities.md)を追加しました。6.7A（全uassetの構造棚卸し）、6.7B（数値・表・関数・native境界の代表試験）、6.7C（Optimizerへの対応と判断）は完了。全効果の解読やruntime昇格の完了ではありません。45,311 uassetを走査し、22,603 Function export、既存保存ルール外の数値、非CDOのDataTable行を確認しました。重要な効果にはnative親への参照があり、現在のツリーに実行ファイルはありません。
@@ -259,7 +267,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Next area
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。6.5Fの[最終coverage](./docs/game-data-final-coverage.md)と[差異分類](./docs/game-data-model-differences.md)で全Gapのdispositionを確定しました。Phase 6.6の[model alignment](./docs/game-data-model-alignment.md)も完了しました。次はPhase 6.8D/Eのnative・timing検証とPhase 6.9の再設計判断です。既存のGap dispositionは履歴として保持し、実測へ送る前に取得可能性を再評価します。Phase 6.6のmodel alignment後に確定した残余Observe / Measure / ExperimentはPhase 7でPersonal Research Quest化し、Phase 8でEvidenceを検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
+Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。6.5Fの[最終coverage](./docs/game-data-final-coverage.md)と[差異分類](./docs/game-data-model-differences.md)で全Gapのdispositionを確定しました。Phase 6.6の[model alignment](./docs/game-data-model-alignment.md)も完了しました。次は[外部研究の条件照合](./docs/external-community-research.md)と[Phase 6.9の段階的再設計](./docs/adr/0001-external-evidence-model-redesign.md)です。Phase 6.8D/Eのnative解析は保留し、外部Evidenceで解消できない重要な問いが残る場合だけ再開します。既存のGap dispositionは履歴として保持し、実測へ送る前に外部取得可能性を再評価します。残余Observe / Measure / ExperimentはPhase 7でPersonal Research Quest化し、外部・自前の両EvidenceをPhase 8で検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
 P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
 
 ## 更新ルール

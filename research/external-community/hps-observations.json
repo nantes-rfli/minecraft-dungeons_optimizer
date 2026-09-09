@@ -1,0 +1,692 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "sourceId": "pancakecat-hps",
+  "retrievedAt": "2026-09-09",
+  "sheet": "Sheet1",
+  "gid": 0,
+  "columns": [
+    "Base Hps",
+    "25% Armor Hps",
+    "Death-cap Hps",
+    "Hps with both"
+  ],
+  "damageColumnPower": 263,
+  "gameVersion": null,
+  "owner": null,
+  "updatedAt": null,
+  "measurementMethod": null,
+  "formulaCellCount": 0,
+  "exportSha256": {
+    "csv": "5208e7f5ad60fb5b3c713d6c4a1e1698ce65247dd478f00333698ab52eebb8c7",
+    "xlsx": "11bad7a9949cba3b0c9a2464f2a742e7286f35f933d29bbfbfebdef737aab1a7"
+  },
+  "notes": [
+    "Numeric HPS observations only; not a complete copy of the workbook.",
+    "CSV and XLSX values cross-checked; formulas absent in downloaded XLSX, upstream derivation unknown.",
+    "Grouped weapon labels preserved, not expanded to canonical IDs.",
+    "F column contains built-in effect averages and mixed damage channels; not imported as neutral base damage."
+  ],
+  "records": [
+    {
+      "sourceRow": 2,
+      "label": "Encrusted Anchor",
+      "metric": "reported-average-hps",
+      "values": [
+        0.42,
+        0.52,
+        0.84,
+        0.94
+      ],
+      "locator": "Sheet1!A2:E2"
+    },
+    {
+      "sourceRow": 3,
+      "label": "Anchor",
+      "metric": "reported-average-hps",
+      "values": [
+        0.42,
+        0.52,
+        0.84,
+        0.94
+      ],
+      "locator": "Sheet1!A3:E3"
+    },
+    {
+      "sourceRow": 4,
+      "label": "Obsidian Claymore/The Starless Night",
+      "metric": "reported-average-hps",
+      "values": [
+        0.7,
+        0.9,
+        1.4,
+        1.6
+      ],
+      "locator": "Sheet1!A4:E4"
+    },
+    {
+      "sourceRow": 5,
+      "label": "Bone Cudgel",
+      "metric": "reported-average-hps",
+      "values": [
+        1.0,
+        1.2,
+        2.0,
+        2.25
+      ],
+      "locator": "Sheet1!A5:E5"
+    },
+    {
+      "sourceRow": 6,
+      "label": "Bone Club",
+      "metric": "reported-average-hps",
+      "values": [
+        1.0,
+        1.2,
+        2.0,
+        2.25
+      ],
+      "locator": "Sheet1!A6:E6"
+    },
+    {
+      "sourceRow": 7,
+      "label": "Broadsword/Frost Slayer",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A7:E7"
+    },
+    {
+      "sourceRow": 8,
+      "label": "Claymore/Great Axeblade/Heartstealer",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A8:E8"
+    },
+    {
+      "sourceRow": 9,
+      "label": "Truthseeker",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A9:E9"
+    },
+    {
+      "sourceRow": 10,
+      "label": "Soul Knife/Eternal Knife",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A10:E10"
+    },
+    {
+      "sourceRow": 11,
+      "label": "Stormlander",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A11:E11"
+    },
+    {
+      "sourceRow": 12,
+      "label": "Great Hammer/Hammer of Gravity",
+      "metric": "reported-average-hps",
+      "values": [
+        1.1,
+        1.3,
+        2.2,
+        2.4
+      ],
+      "locator": "Sheet1!A12:E12"
+    },
+    {
+      "sourceRow": 13,
+      "label": "Vine Whip",
+      "metric": "reported-average-hps",
+      "values": [
+        1.2,
+        1.5,
+        2.4,
+        2.7
+      ],
+      "locator": "Sheet1!A13:E13"
+    },
+    {
+      "sourceRow": 14,
+      "label": "Whip",
+      "metric": "reported-average-hps",
+      "values": [
+        1.2,
+        1.5,
+        2.4,
+        2.7
+      ],
+      "locator": "Sheet1!A14:E14"
+    },
+    {
+      "sourceRow": 15,
+      "label": "Grave Bane",
+      "metric": "reported-average-hps",
+      "values": [
+        1.2,
+        1.5,
+        2.4,
+        2.7
+      ],
+      "locator": "Sheet1!A15:E15"
+    },
+    {
+      "sourceRow": 16,
+      "label": "Venom Glaive",
+      "metric": "reported-average-hps",
+      "values": [
+        1.2,
+        1.5,
+        2.4,
+        2.7
+      ],
+      "locator": "Sheet1!A16:E16"
+    },
+    {
+      "sourceRow": 17,
+      "label": "Glaive",
+      "metric": "reported-average-hps",
+      "values": [
+        1.4,
+        1.75,
+        2.8,
+        3.15
+      ],
+      "locator": "Sheet1!A17:E17"
+    },
+    {
+      "sourceRow": 18,
+      "label": "Pickaxe/Diamond Pickaxe",
+      "metric": "reported-average-hps",
+      "values": [
+        1.4,
+        1.75,
+        2.8,
+        3.15
+      ],
+      "locator": "Sheet1!A18:E18"
+    },
+    {
+      "sourceRow": 19,
+      "label": "Masters Katana",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A19:E19"
+    },
+    {
+      "sourceRow": 20,
+      "label": "Dark Katana",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A20:E20"
+    },
+    {
+      "sourceRow": 21,
+      "label": "Katana",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A21:E21"
+    },
+    {
+      "sourceRow": 22,
+      "label": "Whirlwind",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A22:E22"
+    },
+    {
+      "sourceRow": 23,
+      "label": "Double Axe/Cursed Axe",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A23:E23"
+    },
+    {
+      "sourceRow": 24,
+      "label": "Firebrand",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A24:E24"
+    },
+    {
+      "sourceRow": 25,
+      "label": "Axe/Highland Axe",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A25:E25"
+    },
+    {
+      "sourceRow": 26,
+      "label": "Mace/Flail/Suns Grace",
+      "metric": "reported-average-hps",
+      "values": [
+        1.6,
+        2.0,
+        3.2,
+        3.6
+      ],
+      "locator": "Sheet1!A26:E26"
+    },
+    {
+      "sourceRow": 27,
+      "label": "Spear/Fortune Spear",
+      "metric": "reported-average-hps",
+      "values": [
+        1.7,
+        2.12,
+        3.4,
+        3.82
+      ],
+      "locator": "Sheet1!A27:E27"
+    },
+    {
+      "sourceRow": 28,
+      "label": "Whispering Spear",
+      "metric": "reported-average-hps",
+      "values": [
+        1.9,
+        2.32,
+        3.6,
+        4.02
+      ],
+      "locator": "Sheet1!A28:E28"
+    },
+    {
+      "sourceRow": 29,
+      "label": "Soul Scythe/Frost Scythe/Jailor's Scythe",
+      "metric": "reported-average-hps",
+      "values": [
+        1.8,
+        2.2,
+        3.6,
+        4.0
+      ],
+      "locator": "Sheet1!A29:E29"
+    },
+    {
+      "sourceRow": 30,
+      "label": "Battlestaff of Terror",
+      "metric": "reported-average-hps",
+      "values": [
+        1.97,
+        2.46,
+        3.94,
+        4.43
+      ],
+      "locator": "Sheet1!A30:E30"
+    },
+    {
+      "sourceRow": 31,
+      "label": "Growing Staff",
+      "metric": "reported-average-hps",
+      "values": [
+        1.97,
+        2.46,
+        3.94,
+        4.43
+      ],
+      "locator": "Sheet1!A31:E31"
+    },
+    {
+      "sourceRow": 32,
+      "label": "Battlestaff   ",
+      "metric": "reported-average-hps",
+      "values": [
+        2.1,
+        2.62,
+        4.2,
+        4.72
+      ],
+      "locator": "Sheet1!A32:E32"
+    },
+    {
+      "sourceRow": 33,
+      "label": "Void Touched Blades/The Beginning And The End",
+      "metric": "reported-average-hps",
+      "values": [
+        2.2,
+        2.75,
+        4.4,
+        4.95
+      ],
+      "locator": "Sheet1!A33:E33"
+    },
+    {
+      "sourceRow": 34,
+      "label": "Sword",
+      "metric": "reported-average-hps",
+      "values": [
+        2.3,
+        2.87,
+        4.6,
+        5.17
+      ],
+      "locator": "Sheet1!A34:E34"
+    },
+    {
+      "sourceRow": 35,
+      "label": "Diamond Sword",
+      "metric": "reported-average-hps",
+      "values": [
+        2.3,
+        2.87,
+        4.6,
+        5.17
+      ],
+      "locator": "Sheet1!A35:E35"
+    },
+    {
+      "sourceRow": 36,
+      "label": "Sinister Sword/Hawkbrand",
+      "metric": "reported-average-hps",
+      "values": [
+        2.3,
+        2.87,
+        4.6,
+        5.17
+      ],
+      "locator": "Sheet1!A36:E36"
+    },
+    {
+      "sourceRow": 37,
+      "label": "Cutlass/Nameless Blade",
+      "metric": "reported-average-hps",
+      "values": [
+        2.4,
+        3.0,
+        4.8,
+        5.4
+      ],
+      "locator": "Sheet1!A37:E37"
+    },
+    {
+      "sourceRow": 38,
+      "label": "Sparkler/Dancers Sword",
+      "metric": "reported-average-hps",
+      "values": [
+        2.64,
+        3.21,
+        5.04,
+        5.56
+      ],
+      "locator": "Sheet1!A38:E38"
+    },
+    {
+      "sourceRow": 39,
+      "label": "Backstabber",
+      "metric": "reported-average-hps",
+      "values": [
+        2.6,
+        3.25,
+        5.2,
+        5.85
+      ],
+      "locator": "Sheet1!A39:E39"
+    },
+    {
+      "sourceRow": 40,
+      "label": "Swift Striker",
+      "metric": "reported-average-hps",
+      "values": [
+        2.8,
+        3.45,
+        5.4,
+        6.05
+      ],
+      "locator": "Sheet1!A40:E40"
+    },
+    {
+      "sourceRow": 41,
+      "label": "Resolute Tempest Knife",
+      "metric": "reported-average-hps",
+      "values": [
+        2.8,
+        3.5,
+        5.6,
+        6.3
+      ],
+      "locator": "Sheet1!A41:E41"
+    },
+    {
+      "sourceRow": 42,
+      "label": "Tempest Knife/Chill Gale Knife",
+      "metric": "reported-average-hps",
+      "values": [
+        2.8,
+        3.5,
+        5.6,
+        6.3
+      ],
+      "locator": "Sheet1!A42:E42"
+    },
+    {
+      "sourceRow": 43,
+      "label": "Broken Sawblade/Mechanized Sawblade Enchant Hps",
+      "metric": "proc-opportunities-per-second",
+      "values": [
+        4.0,
+        4.0,
+        4.0,
+        4.0
+      ],
+      "locator": "Sheet1!A43:E43"
+    },
+    {
+      "sourceRow": 44,
+      "label": "Nightmare's Bite",
+      "metric": "reported-average-hps",
+      "values": [
+        3.2,
+        4.0,
+        6.4,
+        7.2
+      ],
+      "locator": "Sheet1!A44:E44"
+    },
+    {
+      "sourceRow": 45,
+      "label": "Sickles/The Last Laugh",
+      "metric": "reported-average-hps",
+      "values": [
+        3.2,
+        4.0,
+        6.4,
+        7.2
+      ],
+      "locator": "Sheet1!A45:E45"
+    },
+    {
+      "sourceRow": 46,
+      "label": "Coral Blade/Sponge Striker",
+      "metric": "reported-average-hps",
+      "values": [
+        3.6,
+        4.5,
+        7.2,
+        8.1
+      ],
+      "locator": "Sheet1!A46:E46"
+    },
+    {
+      "sourceRow": 47,
+      "label": "Soul Fists",
+      "metric": "reported-average-hps",
+      "values": [
+        4.0,
+        5.0,
+        8.0,
+        9.0
+      ],
+      "locator": "Sheet1!A47:E47"
+    },
+    {
+      "sourceRow": 48,
+      "label": "Maulers",
+      "metric": "reported-average-hps",
+      "values": [
+        4.2,
+        5.2,
+        8.2,
+        9.2
+      ],
+      "locator": "Sheet1!A48:E48"
+    },
+    {
+      "sourceRow": 49,
+      "label": "Gauntlets",
+      "metric": "reported-average-hps",
+      "values": [
+        4.0,
+        5.0,
+        8.0,
+        9.0
+      ],
+      "locator": "Sheet1!A49:E49"
+    },
+    {
+      "sourceRow": 50,
+      "label": "Moon Daggers",
+      "metric": "reported-average-hps",
+      "values": [
+        4.2,
+        5.25,
+        8.4,
+        9.4
+      ],
+      "locator": "Sheet1!A50:E50"
+    },
+    {
+      "sourceRow": 51,
+      "label": "Sheer Daggers",
+      "metric": "reported-average-hps",
+      "values": [
+        4.2,
+        5.25,
+        8.4,
+        9.4
+      ],
+      "locator": "Sheet1!A51:E51"
+    },
+    {
+      "sourceRow": 52,
+      "label": "Daggers/Fangs of Frost",
+      "metric": "reported-average-hps",
+      "values": [
+        4.2,
+        5.25,
+        8.4,
+        9.4
+      ],
+      "locator": "Sheet1!A52:E52"
+    },
+    {
+      "sourceRow": 53,
+      "label": "Broken Sawblade/Mechanized Sawblade Damage Hps",
+      "metric": "damage-hits-per-second",
+      "values": [
+        6.0,
+        6.0,
+        6.0,
+        6.0
+      ],
+      "locator": "Sheet1!A53:E53"
+    },
+    {
+      "sourceRow": 54,
+      "label": "Freezing Foil",
+      "metric": "reported-average-hps",
+      "values": [
+        5.2,
+        6.5,
+        10.98,
+        11.8
+      ],
+      "locator": "Sheet1!A54:E54"
+    },
+    {
+      "sourceRow": 55,
+      "label": "Rapier/Bee Stinger",
+      "metric": "reported-average-hps",
+      "values": [
+        5.5,
+        6.7,
+        10.98,
+        11.8
+      ],
+      "locator": "Sheet1!A55:E55"
+    },
+    {
+      "sourceRow": 56,
+      "label": "Fighters Bindings",
+      "metric": "reported-average-hps",
+      "values": [
+        6.8,
+        8.5,
+        13.6,
+        15.0
+      ],
+      "locator": "Sheet1!A56:E56"
+    }
+  ]
+}

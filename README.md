@@ -41,6 +41,8 @@ JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから�
 
 完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。Phase 1-4の公開DPS回帰監査は候補10件・eligible 0件で、full regressionはpending 0 / 5です。
 
+2026-09-09から、native解析を保留して外部研究の活用を優先します。[外部研究の整理・追加調査](./docs/external-community-research.md)では31 source、13 claim、HPS 55行×4条件を保存し、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)でEvidence・攻撃event・damage/DR・Scenario・Optimizerの移行方針を定めました。`npm run audit:external-community`で研究資料とモデル比較をoffline検証できます。runtime昇格・新規Gap closeはなく、サイトの計算は変更していません。
+
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
 ## セットアップ

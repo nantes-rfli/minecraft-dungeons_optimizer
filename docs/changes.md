@@ -2,6 +2,13 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-09-09 — 外部研究優先とPhase 6.9再設計初版
+
+- Phase 6.8D/Eのnative解析を未完了のまま保留し、外部研究・条件照合・残余検証を優先する方針へ変更。
+- 添付の索引と追加取得を31 source・13 claimへ整理し、公開HPS表55行×4条件、作者訂正、modifier衝突、DR合成例を保存。
+- Evidence・attack/event・damage/DR・Scenario・Optimizerの段階的再設計をADRへ記録。
+- research-onlyのDR/Committed比較、offline auditとCI、既存runtimeとの比較テストを追加。runtime昇格・Gap close・Sites更新はなし。
+
 ## 2026-09 — Phase 6 Coverage Priority Fix-up
 
 - same-family ownershipをcategory proxyからSource Harvestで確認できるactual family relationへ修正。

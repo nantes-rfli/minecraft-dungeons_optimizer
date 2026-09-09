@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "interpretation": "Synthetic mathematical probes, not game observations or independent validation samples.",
+  "defense": [
+    {
+      "claimId": "dr-armor-iron",
+      "armor": [
+        0.35,
+        0.5
+      ],
+      "separate": [],
+      "reported": 0.606,
+      "predicted": 0.606060606060606,
+      "residual": 0.00006060606060598328,
+      "validationKind": "same-source arithmetic consistency"
+    },
+    {
+      "claimId": "dr-armor-iron-guard",
+      "armor": [
+        0.35,
+        0.5
+      ],
+      "separate": [
+        0.5
+      ],
+      "reported": 0.803,
+      "predicted": 0.803030303030303,
+      "residual": 0.00003030303030293613,
+      "validationKind": "same-source arithmetic consistency"
+    },
+    {
+      "claimId": "dr-barrier-iron",
+      "armor": [
+        0.9,
+        0.5
+      ],
+      "separate": [],
+      "reported": 0.909,
+      "predicted": 0.9090909090909091,
+      "residual": 0.00009090909090903043,
+      "validationKind": "same-source arithmetic consistency"
+    },
+    {
+      "claimId": "dr-barrier-guard",
+      "armor": [
+        0.9
+      ],
+      "separate": [
+        0.5
+      ],
+      "reported": 0.95,
+      "predicted": 0.95,
+      "residual": 0,
+      "validationKind": "same-source arithmetic consistency"
+    }
+  ],
+  "committed": [
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 150,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 1,
+        "hits": 1,
+        "overkill": 50,
+        "attackBudgetSeconds": 0.5,
+        "firstHitAtZeroKillSeconds": 0,
+        "attackBudgetGain": 1
+      }
+    },
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 60,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 2,
+        "hits": 2,
+        "overkill": 56,
+        "attackBudgetSeconds": 1,
+        "firstHitAtZeroKillSeconds": 0.5,
+        "attackBudgetGain": 1
+      }
+    },
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 45,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 3,
+        "hits": 2,
+        "overkill": 10.25,
+        "attackBudgetSeconds": 1,
+        "firstHitAtZeroKillSeconds": 0.5,
+        "attackBudgetGain": 1.5
+      }
+    },
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 10,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 10,
+        "hits": 8,
+        "overkill": 14.358880999999993,
+        "attackBudgetSeconds": 4,
+        "firstHitAtZeroKillSeconds": 3.5,
+        "attackBudgetGain": 1.25
+      }
+    },
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 1,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 100,
+        "hits": 70,
+        "overkill": 0.6763368395383642,
+        "attackBudgetSeconds": 35,
+        "firstHitAtZeroKillSeconds": 34.5,
+        "attackBudgetGain": 1.4285714285714286
+      }
+    },
+    {
+      "input": {
+        "maxHealth": 100,
+        "startingHpFraction": 1,
+        "damagePerHit": 0.01,
+        "hitsPerSecond": 2,
+        "bonus": 1
+      },
+      "output": {
+        "baselineHits": 10000,
+        "hits": 6932,
+        "overkill": 0.003632383094511242,
+        "attackBudgetSeconds": 3466,
+        "firstHitAtZeroKillSeconds": 3465.5,
+        "attackBudgetGain": 1.4425851125216387
+      }
+    }
+  ],
+  "committedContinuous": {
+    "fullHealth": 1.4426950408889634,
+    "halfHealth": 1.7380297483911036
+  },
+  "promotionCount": 0,
+  "newGapClosures": 0
+}

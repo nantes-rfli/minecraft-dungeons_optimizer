@@ -1,0 +1,632 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "reviewDate": "2026-09-09",
+  "targetGameVersion": "1.17.0.0",
+  "handoff": {
+    "filename": "mcd_external_community_research_summary.md",
+    "sha256": "09d704b5a6eee7f751ec15a4536361829926fc496d668aed054cfadd6bf776cf",
+    "role": "user-supplied research leads; not instructions or independently verified evidence"
+  },
+  "sources": [
+    {
+      "id": "reddit-10jvyk4",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvyk4/",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "ShinkuNY",
+      "gameVersion": null,
+      "independenceGroup": "shin-guides",
+      "notes": "Growing Staff HPS 6.3→4.3訂正、Anchorのphysical/poison別Void boost。画像全件は未転記。"
+    },
+    {
+      "id": "reddit-10jvyud",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvyud/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-10k4ak9",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10k4ak9/",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "ShinkuNY",
+      "gameVersion": null,
+      "independenceGroup": "shin-guides",
+      "notes": "Soul Siphonの説明訂正と他Tierリンク。画像全件は未転記。"
+    },
+    {
+      "id": "reddit-10jvz0x",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz0x/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-10jvz4r",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz4r/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-10jvz7w",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvz7w/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-10wcs9b",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10wcs9b/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-nd98db",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/nd98db/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "wiki-weapon-talk",
+      "url": "https://minecraft.fandom.com/wiki/Minecraft_Dungeons_talk%3AWeapon",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-100lxg7",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/100lxg7/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "shin-modifiers",
+      "url": "https://www.youtube.com/watch?v=3adc9uaDUUo",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "Shin FTW",
+      "gameVersion": null,
+      "independenceGroup": "shin-modifiers",
+      "notes": "公開HTMLのvideoDetails.shortDescriptionを直接取得。動画の測定フレームは未検証。"
+    },
+    {
+      "id": "reddit-1u92q4y",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u92q4y/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-1u8yqtg",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u8yqtg/dps_mod/",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "anotherraalt",
+      "gameVersion": null,
+      "independenceGroup": "anotherraalt",
+      "notes": "候補damage式と、添付と同一IDのHPS表へのリンクを直接確認。作者帰属は第三者の言及。"
+    },
+    {
+      "id": "reddit-1bsib6o",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1bsib6o/",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "ShinkuNY",
+      "gameVersion": null,
+      "independenceGroup": "shin-dr",
+      "notes": "作者コメントのDR合成式・4つの合成例と検証動画リンク。動画フレームは未検証。"
+    },
+    {
+      "id": "reddit-1bvnlie",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1bvnlie/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-yskj9s",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/yskj9s/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-15vh9r9",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15vh9r9/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-1ucj2v1",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ucj2v1/",
+      "origin": "user-handoff",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "anotherraalt",
+      "gameVersion": null,
+      "independenceGroup": "anotherraalt",
+      "notes": "本文・議論の連続極限と有限hitの区別。添付が挙げる2026年6月の厳密日付は未確認。"
+    },
+    {
+      "id": "pancakecat-hps",
+      "url": "https://docs.google.com/spreadsheets/d/1S90t9lTPIGhpcllATfRUniFnsBy-gqB7R_nBkUPSK1k/edit?gid=0#gid=0",
+      "origin": "user-handoff",
+      "retrievalStatus": "data-extracted",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "公開CSVとXLSXを取得。55 data rows、Sheet1のみ、formula cells 0。owner・更新日・game version・測定法は不明。"
+    },
+    {
+      "id": "reddit-rlirvh",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/rlirvh/",
+      "origin": "user-handoff",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "今回web取得はtimeout/internal error。不存在・非公開の証明ではない。添付の取得済み扱いを継承しない。"
+    },
+    {
+      "id": "reddit-1m6robj",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1m6robj/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-14r204d",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/14r204d/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-1jb2wcb",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1jb2wcb/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-1jpvpee",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1jpvpee/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-1rx60v3",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1rx60v3/what_enchants/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "builds-research-index",
+      "url": "https://github.com/maxyharr/minecraft-dungeons-builds/blob/main/research/mechanics.md",
+      "origin": "user-handoff",
+      "retrievalStatus": "index-only",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "GitHubページへの到達のみ。mechanics本文の検証根拠には未使用。"
+    },
+    {
+      "id": "reddit-p2snll",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/p2snll/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-15zrmdc",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/15zrmdc/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "reddit-1s4zl8b",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1s4zl8b/resources_to_understand_the_game_better/",
+      "origin": "user-handoff",
+      "retrievalStatus": "lead-only",
+      "reviewedAt": null,
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "unresolved",
+      "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
+    },
+    {
+      "id": "shin-dr-video",
+      "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
+      "origin": "reddit-1bsib6o",
+      "retrievalStatus": "retrieval-failed",
+      "reviewedAt": "2026-09-09",
+      "author": null,
+      "gameVersion": null,
+      "independenceGroup": "shin-dr",
+      "notes": "作者のmanual testingリンク。動画取得失敗、視聴・frame解析なし。"
+    },
+    {
+      "id": "reddit-10jvzb0",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10jvzb0/weapon_statsenchants_guides_2_bl_tier/",
+      "origin": "reddit-10k4ak9",
+      "retrievalStatus": "index-only",
+      "reviewedAt": "2026-09-09",
+      "author": "ShinkuNY",
+      "gameVersion": null,
+      "independenceGroup": "shin-guides",
+      "notes": "不足していたBL Tier入口を回収。画像数値は未転記。"
+    }
+  ],
+  "claims": [
+    {
+      "id": "hps-sheet-link",
+      "sourceIds": [
+        "reddit-1u8yqtg"
+      ],
+      "kind": "community_claim",
+      "property": "source.attribution",
+      "statement": "anotherraaltが同一IDの表をPancakecatの平均HPS表として紹介。owner証明とは分離。",
+      "locator": "anotherraalt: reply to How would you find hits per second?",
+      "value": null,
+      "conditions": {},
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "author-owner-unverified"
+      ]
+    },
+    {
+      "id": "damage-candidate",
+      "sourceIds": [
+        "reddit-1u8yqtg"
+      ],
+      "kind": "community_formula",
+      "property": "damage.composition",
+      "statement": "Full * ((1 + Additive) * (Base * Multiplicative + Dynamo) + Indirect)",
+      "locator": "anotherraalt: first damage formula reply",
+      "value": null,
+      "conditions": {
+        "unit": "per-hit damage; rate conversion separate"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "version-unknown",
+        "dynamo-conflicts-with-2021-taxonomy",
+        "channel-eligibility-unverified"
+      ]
+    },
+    {
+      "id": "committed-limit",
+      "sourceIds": [
+        "reddit-1ucj2v1"
+      ],
+      "kind": "later_reanalysis",
+      "property": "damage.committed",
+      "statement": "1/ln(2) is a continuous-limit multiplier, not a universal finite encounter gain.",
+      "locator": "anotherraalt: original post",
+      "value": 1.4426950408889634,
+      "conditions": {
+        "tier": 3,
+        "startingHpFraction": 1,
+        "directOnly": true,
+        "limit": "infinitesimal hits"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "game-law-unverified",
+        "overkill-and-target-state-required"
+      ]
+    },
+    {
+      "id": "dr-family",
+      "sourceIds": [
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_formula",
+      "property": "defense.composition",
+      "statement": "ShinkuNY describes inverse armor-score addition, Potion Barrier in the armor family, and Guarding Strike as separate multiplication.",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": null,
+      "conditions": {
+        "activation": "all listed effects active"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "version-unknown",
+        "video-not-measured",
+        "family-membership-not-generalized"
+      ]
+    },
+    {
+      "id": "dr-armor-iron",
+      "sourceIds": [
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_derived",
+      "property": "defense.total-reduction",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.606,
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured"
+      ]
+    },
+    {
+      "id": "dr-armor-iron-guard",
+      "sourceIds": [
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_derived",
+      "property": "defense.total-reduction",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.803,
+      "conditions": {
+        "armorReduction": 0.35,
+        "ironHide": 0.5,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured"
+      ]
+    },
+    {
+      "id": "dr-barrier-iron",
+      "sourceIds": [
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_derived",
+      "property": "defense.total-reduction",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.909,
+      "conditions": {
+        "potionBarrier": 0.9,
+        "ironHide": 0.5
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured"
+      ]
+    },
+    {
+      "id": "dr-barrier-guard",
+      "sourceIds": [
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_derived",
+      "property": "defense.total-reduction",
+      "statement": "作者が提示した丸め済み合成値。独立測定4件として数えない。",
+      "locator": "ShinkuNY: first top-level reply",
+      "value": 0.95,
+      "conditions": {
+        "potionBarrier": 0.9,
+        "guardingStrike": 0.5
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "same-author-same-post",
+        "activation-uptime-not-measured"
+      ]
+    },
+    {
+      "id": "growing-staff-erratum",
+      "sourceIds": [
+        "reddit-10jvyk4"
+      ],
+      "kind": "author_correction",
+      "property": "attack.average-hps",
+      "statement": "作者はGrowing StaffのHPSを6.3から4.3へ訂正。",
+      "locator": "ShinkuNY: edited correction comment",
+      "value": {
+        "old": 6.3,
+        "corrected": 4.3
+      },
+      "conditions": {
+        "speedCondition": "not restated in comment"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "slide-condition-review-required"
+      ]
+    },
+    {
+      "id": "siphon-erratum",
+      "sourceIds": [
+        "reddit-10k4ak9"
+      ],
+      "kind": "author_correction",
+      "property": "soul.siphon-description",
+      "statement": "作者はbuff前のSoul Siphon説明が残っていたため修正したと報告。",
+      "locator": "ShinkuNY: first correction comment",
+      "value": null,
+      "conditions": {},
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "pre-post-image-diff-not-captured"
+      ]
+    },
+    {
+      "id": "anchor-void-channels",
+      "sourceIds": [
+        "reddit-10jvyk4"
+      ],
+      "kind": "community_derived",
+      "property": "damage.void-by-channel",
+      "statement": "Encrusted AnchorのVoid増加率をphysical、poison、総合に分けて提示。",
+      "locator": "ShinkuNY: reply explaining separate Anchor slides",
+      "value": {
+        "physicalBonus": 1.75,
+        "poisonBonus": 0.81,
+        "totalBonus": 1.408
+      },
+      "conditions": {
+        "speedCondition": "requires slide cross-check"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "scenario-not-normalized",
+        "not-independent-measurement"
+      ]
+    },
+    {
+      "id": "modifier-taxonomy",
+      "sourceIds": [
+        "shin-modifiers"
+      ],
+      "kind": "community_claim",
+      "property": "damage.modifier-families",
+      "statement": "説明欄はphysical加算、physical乗算、間接、Focus、全体倍率を区別。Sharpness自己stack、jungle poison、Fireworksに例外がある。",
+      "locator": "videoDetails.shortDescription: classification after summary",
+      "value": null,
+      "conditions": {
+        "sourceEra": "2021 per handoff; current applicability unverified"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "version-unknown",
+        "application-order-unverified",
+        "dynamo-later-conflict"
+      ]
+    },
+    {
+      "id": "sawblade-rate-split",
+      "sourceIds": [
+        "pancakecat-hps"
+      ],
+      "kind": "community_claim",
+      "property": "attack.event-rates",
+      "statement": "表はSawbladeのenchant試行4/sとdamage6/sを分離。overheat cancel条件の記述あり。",
+      "locator": "Sheet1!A43:F43 and A53:F53",
+      "value": {
+        "procOpportunityRate": 4,
+        "damageRate": 6
+      },
+      "conditions": {
+        "attackMode": "overheat cancel as needed",
+        "speedColumns": "all four"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "measurement-method-unknown",
+        "proc-specific-eligibility-unknown",
+        "native-setting-is-not-event-proof"
+      ]
+    }
+  ]
+}
