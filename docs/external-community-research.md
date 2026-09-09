@@ -6,7 +6,7 @@
 
 添付 `mcd_external_community_research_summary.md` は調査の入口として扱った。資料中の推薦・取得済み表示は作業指示や今回の検証結果に読み替えない。元資料のSHA-256と全URLの索引を[台帳](../research/external-community/registry.json)に保持した。
 
-成果は31 source、13件の個別claim、HPS 55行×4条件、再現可能な研究用モデル比較、[再設計ADR](./adr/0001-external-evidence-model-redesign.md)。runtime昇格・新規Gap closeは0。これは「全外部研究を回収済み」でも「モデル置換完了」でもない。
+成果は32 source、15件の個別claim、HPS 55行×4条件、再現可能な研究用モデル比較、[再設計ADR](./adr/0001-external-evidence-model-redesign.md)。runtime昇格・新規Gap closeは0。これは「全外部研究を回収済み」でも「モデル置換完了」でもない。
 
 ## 取得状態を分ける
 
@@ -63,7 +63,7 @@ Damage欄はbuilt-in Crit、Committed、Smiting、Enigma等を平均化済みの
 
 ### DRには具体的な式と動画導線がある
 
-[ShinkuNYのDRコメント](https://www.reddit.com/r/MinecraftDungeons/comments/1bsib6o/)は逆数換算したarmor値の加算を説明し、Potion Barrierをarmor側、Guarding Strikeを別乗算側として明示していた。添付よりfamily分類の根拠が具体的になった。[本人がリンクした検証動画](https://www.youtube.com/watch?v=CiD2YIL1nMY)も特定したが、動画本文・frame測定は取得できていない。
+[ShinkuNYのDRコメント](https://www.reddit.com/r/MinecraftDungeons/comments/1bsib6o/)は逆数換算したarmor値の加算を説明し、Potion Barrierをarmor側、Guarding Strikeを別乗算側として明示していた。6.9A/B時点では未取得だった[本人の検証動画](https://www.youtube.com/watch?v=CiD2YIL1nMY)と[表投稿](https://www.reddit.com/r/MinecraftDungeons/comments/ptddv6/)を6.9Eで追加確認し、条件・未使用行・競合は[DR / Modifier比較](./dr-modifier-comparison.md)へ分離した。
 
 コメントを一般化した**研究側の候補式**:
 
@@ -113,6 +113,7 @@ damageTaken = 1 / (1 + armorScore) × Π (1 − separateReduction_j)
 - [source / claim台帳](../research/external-community/registry.json): 添付全URL、今回の確認範囲、locator、未確定条件。
 - [HPS snapshot](../research/external-community/hps-observations.json): 55行の数値・4列・元行番号・export hash。
 - [モデル比較](../research/external-community/model-comparison.json): DR丸め整合性とCommitted有限hit例。独立ゲームEvidenceではない。
+- [DR / Modifier比較](../research/external-community/dr-modifier-comparison.json): 6.9Eの限定family/state、same-origin holdout、channel・競合・順位感度。
 - `npm run generate:external-community`: 保存claimから研究用モデル比較を再生成。
 - `npm run audit:external-community`: 参照・重複・取得状態・未昇格・行とmetric・比較結果driftをoffline検証。
 - `tests/externalCommunityResearch.test.ts`: 既存runtimeとの数学比較、HPS差、非線形uptime、入力エラーと有限hitの境界。

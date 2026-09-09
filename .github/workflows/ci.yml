@@ -58,6 +58,8 @@ jobs:
       - run: npm run audit:game-data-model-alignment
       - run: npm run audit:external-community
       - run: npm run audit:evidence-adapter
+      - run: npm run audit:attack-event-comparison
+      - run: npm run audit:dr-modifier-comparison
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b

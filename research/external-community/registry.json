@@ -131,6 +131,28 @@
       "notes": "公開HTMLのvideoDetails.shortDescriptionを直接取得。動画の測定フレームは未検証。"
     },
     {
+      "id": "shin-dr-video",
+      "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
+      "origin": "phase-6.9e-followup",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "Shin FTW",
+      "gameVersion": null,
+      "independenceGroup": "shin-dr",
+      "notes": "公開説明欄とYouTube文字起こしを確認。2021-09-23公開。画面上の装備・damage数値の全frame転記ではなく、口頭の単独値・組合せ・例外・測定条件を時刻付きで照合。"
+    },
+    {
+      "id": "reddit-ptddv6",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/ptddv6/",
+      "origin": "phase-6.9e-followup",
+      "retrievalStatus": "content-reviewed",
+      "reviewedAt": "2026-09-09",
+      "author": "ShinkuNY",
+      "gameVersion": null,
+      "independenceGroup": "shin-dr",
+      "notes": "動画作者の2021年表投稿と追記コメントを確認。Mooshroom、raw damage、表示DR、Protection未実測、Weakeningのmob enchant適用外、Shulkerの未制御条件を保持。"
+    },
+    {
       "id": "reddit-1u92q4y",
       "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u92q4y/",
       "origin": "user-handoff",
@@ -327,17 +349,6 @@
       "gameVersion": null,
       "independenceGroup": "unresolved",
       "notes": "添付メモ由来の探索入口。今回の本文確認・数値採用はなし。"
-    },
-    {
-      "id": "shin-dr-video",
-      "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
-      "origin": "reddit-1bsib6o",
-      "retrievalStatus": "retrieval-failed",
-      "reviewedAt": "2026-09-09",
-      "author": null,
-      "gameVersion": null,
-      "independenceGroup": "shin-dr",
-      "notes": "作者のmanual testingリンク。動画取得失敗、視聴・frame解析なし。"
     },
     {
       "id": "reddit-10jvzb0",
@@ -601,6 +612,60 @@
         "version-unknown",
         "application-order-unverified",
         "dynamo-later-conflict"
+      ]
+    },
+    {
+      "id": "dr-video-holdouts",
+      "sourceIds": [
+        "shin-dr-video",
+        "reddit-ptddv6",
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_derived",
+      "property": "defense.family-state-holdouts",
+      "statement": "2021動画・表投稿の未使用行を、2024年の逆数armor式に対するsame-origin holdoutとして保持。独立した検証票には数えない。",
+      "locator": "video 00:48-07:52; Reddit post body and ShinkuNY follow-up comments",
+      "value": {
+        "baselineDamage": 396591,
+        "withheldRows": 6,
+        "rawResidualTolerance": 0.0001,
+        "displayedReductionTolerance": 0.0005
+      },
+      "conditions": {
+        "target": "Mooshroom for the main dataset; one Armored Vindicator outlier excluded",
+        "version": "publication era only; game version unverified",
+        "independence": "same author/origin as the fitted family explanation"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "game-version-unknown",
+        "independent-holdout-missing",
+        "full-frame-transcription-not-captured"
+      ]
+    },
+    {
+      "id": "dr-channel-and-conflict-boundary",
+      "sourceIds": [
+        "shin-dr-video",
+        "reddit-ptddv6",
+        "reddit-1bsib6o"
+      ],
+      "kind": "community_claim",
+      "property": "defense.channel-and-family-conflicts",
+      "statement": "Weakeningはmob enchant damageへ適用しない。Ghost CloakとGuarding Strikeの組合せは2021説明と2024 family説明が衝突するため自動解決しない。",
+      "locator": "Reddit post author comment; video 03:33-04:20 and 06:18-07:05; 2024 formula comment",
+      "value": null,
+      "conditions": {
+        "weakeningExcludedChannels": "Electrified, Burning, Fire Trail",
+        "conflictPolicy": "reject ambiguous Ghost Cloak + Guarding Strike state"
+      },
+      "gameVersion": null,
+      "decision": "research-only",
+      "blockers": [
+        "game-version-unknown",
+        "conflicting-same-author-descriptions",
+        "damage-channel-coverage-incomplete"
       ]
     },
     {

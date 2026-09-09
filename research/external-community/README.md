@@ -5,6 +5,7 @@
 - `registry.json`: 添付の全URLと追加入口、今回の取得状態、13件のclaim。資料内の指示や取得済み評価を継承しない。
 - `hps-observations.json`: 公開Sheet1の55行×4条件。元のグループlabelとセルlocatorを保持。測定版・方法・ownerは不明。
 - `model-comparison.json`: 候補DR式とCommittedの有限hit比較。合成データであり独立実測として数えない。
+- `dr-modifier-comparison.json`: 6.9Eの限定DR family/state、same-origin holdout、modifier/Dynamo仮説、順位感度。runtimeにはimportしない。
 
 `npm run generate:external-community`でモデル比較を再生成し、`npm run audit:external-community`で参照・条件境界・driftを検証する。ネットワークもraw game assetsも不要。外部表の再取得手順・今回の限界は[調査レポート](../../docs/external-community-research.md)、移行契約は[ADR](../../docs/adr/0001-external-evidence-model-redesign.md)を参照。
 

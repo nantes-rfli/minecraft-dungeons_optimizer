@@ -200,6 +200,42 @@
       "reviewed": true
     },
     {
+      "id": "shin-dr-video@1",
+      "sourceId": "shin-dr-video",
+      "revision": 1,
+      "reference": {
+        "id": "shin-dr-video",
+        "label": "shin-dr-video",
+        "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "0cbb9ec673475a3ba7e0bfd4b30cef741cac9fc67b8495725bb2a7a4f302276d",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-dr",
+      "reviewed": true
+    },
+    {
+      "id": "reddit-ptddv6@1",
+      "sourceId": "reddit-ptddv6",
+      "revision": 1,
+      "reference": {
+        "id": "reddit-ptddv6",
+        "label": "reddit-ptddv6",
+        "url": "https://www.reddit.com/r/MinecraftDungeons/comments/ptddv6/",
+        "kind": "published-reference"
+      },
+      "retrievedAt": "2026-09-09",
+      "snapshot": {
+        "sha256": "a72c59396a654ce10779b8f741c9a160017a4662fb7cdf7da5473b6467602525",
+        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
+      },
+      "originGroup": "shin-dr",
+      "reviewed": true
+    },
+    {
       "id": "reddit-1u92q4y@1",
       "sourceId": "reddit-1u92q4y",
       "revision": 1,
@@ -524,24 +560,6 @@
       "reviewed": false
     },
     {
-      "id": "shin-dr-video@1",
-      "sourceId": "shin-dr-video",
-      "revision": 1,
-      "reference": {
-        "id": "shin-dr-video",
-        "label": "shin-dr-video",
-        "url": "https://www.youtube.com/watch?v=CiD2YIL1nMY",
-        "kind": "published-reference"
-      },
-      "retrievedAt": "2026-09-09",
-      "snapshot": {
-        "sha256": "24e0ad0e601215027c400c6996a7ddd8a0abff0ba3a14f6bbe0f3bd64931a279",
-        "reason": "SHA256 of retained registry source record; remote page snapshot unavailable."
-      },
-      "originGroup": "shin-dr",
-      "reviewed": false
-    },
-    {
       "id": "reddit-10jvzb0@1",
       "sourceId": "reddit-10jvzb0",
       "revision": 1,
@@ -809,6 +827,58 @@
       "unit": null,
       "conditions": {
         "sourceEra": "2021 per handoff; current applicability unverified"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-video-holdouts@1",
+      "claimId": "dr-video-holdouts",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "shin-dr-video@1",
+        "reddit-ptddv6@1",
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.family-state-holdouts",
+      "kind": "community_derived",
+      "statement": "2021動画・表投稿の未使用行を、2024年の逆数armor式に対するsame-origin holdoutとして保持。独立した検証票には数えない。",
+      "locator": "video 00:48-07:52; Reddit post body and ShinkuNY follow-up comments",
+      "value": {
+        "baselineDamage": 396591,
+        "withheldRows": 6,
+        "rawResidualTolerance": 0.0001,
+        "displayedReductionTolerance": 0.0005
+      },
+      "unknownReason": null,
+      "unit": null,
+      "conditions": {
+        "target": "Mooshroom for the main dataset; one Armored Vindicator outlier excluded",
+        "version": "publication era only; game version unverified",
+        "independence": "same author/origin as the fitted family explanation"
+      },
+      "gameVersion": null
+    },
+    {
+      "id": "dr-channel-and-conflict-boundary@1",
+      "claimId": "dr-channel-and-conflict-boundary",
+      "revision": 1,
+      "sourceRevisionIds": [
+        "shin-dr-video@1",
+        "reddit-ptddv6@1",
+        "reddit-1bsib6o@1"
+      ],
+      "entity": null,
+      "property": "defense.channel-and-family-conflicts",
+      "kind": "community_claim",
+      "statement": "Weakeningはmob enchant damageへ適用しない。Ghost CloakとGuarding Strikeの組合せは2021説明と2024 family説明が衝突するため自動解決しない。",
+      "locator": "Reddit post author comment; video 03:33-04:20 and 06:18-07:05; 2024 formula comment",
+      "value": null,
+      "unknownReason": "No typed numeric/value payload captured; statement is retained without interpreting it as a runtime value.",
+      "unit": null,
+      "conditions": {
+        "weakeningExcludedChannels": "Electrified, Burning, Fire Trail",
+        "conflictPolicy": "reject ambiguous Ghost Cloak + Guarding Strike state"
       },
       "gameVersion": null
     },
@@ -1188,6 +1258,55 @@
         "version-unknown",
         "application-order-unverified",
         "dynamo-later-conflict",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-video-holdouts-adoption@1",
+      "decisionId": "dr-video-holdouts-adoption",
+      "revision": 1,
+      "claimId": "dr-video-holdouts@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "target": "Mooshroom for the main dataset; one Armored Vindicator outlier excluded",
+        "version": "publication era only; game version unverified",
+        "independence": "same author/origin as the fitted family explanation"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "game-version-unknown",
+        "independent-holdout-missing",
+        "full-frame-transcription-not-captured",
+        "entity-mapping-unverified",
+        "unit-unverified",
+        "game-version-unverified"
+      ],
+      "regression": "not-run",
+      "confidence": "low",
+      "reason": "Preserve original research-only decision; adapter migration provides no new game validation."
+    },
+    {
+      "id": "dr-channel-and-conflict-boundary-adoption@1",
+      "decisionId": "dr-channel-and-conflict-boundary-adoption",
+      "revision": 1,
+      "claimId": "dr-channel-and-conflict-boundary@1",
+      "status": "research-only",
+      "purpose": "research-comparison",
+      "conditions": {
+        "weakeningExcludedChannels": "Electrified, Burning, Fire Trail",
+        "conflictPolicy": "reject ambiguous Ghost Cloak + Guarding Strike state"
+      },
+      "gameVersion": null,
+      "blockers": [
+        "game-version-unknown",
+        "conflicting-same-author-descriptions",
+        "damage-channel-coverage-incomplete",
         "entity-mapping-unverified",
         "unit-unverified",
         "game-version-unverified"

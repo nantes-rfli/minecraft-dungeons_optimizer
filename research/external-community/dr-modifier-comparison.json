@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "modelRevision": "dr-modifier-comparison@1",
+  "sourceBoundary": {
+    "sourceIds": [
+      "shin-dr-video",
+      "reddit-ptddv6",
+      "reddit-1bsib6o",
+      "shin-modifiers",
+      "reddit-1u8yqtg"
+    ],
+    "independenceGroups": [
+      "shin-dr",
+      "shin-modifiers",
+      "anotherraalt"
+    ],
+    "note": "Defense formula and holdouts share the Shin/ShinkuNY origin; withheld rows test implementation drift, not independent game validity."
+  },
+  "defense": {
+    "rounding": {
+      "baselineDamage": 396591,
+      "comparison": "raw integer damage residual < 0.0001 damage-taken; displayed DR residual <= 0.0005"
+    },
+    "holdouts": [
+      {
+        "id": "armor-gong-iron-ghost",
+        "active": [
+          "armor-35",
+          "gong",
+          "iron-hide",
+          "ghost-cloak"
+        ],
+        "reportedReduction": 0.788,
+        "rawDamage": 84060,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.21195652173913046,
+        "rawDamageTaken": 0.2119563984054101,
+        "residualDamageTaken": 1.2333372034767365e-7,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      },
+      {
+        "id": "armor-gong-weakening-ghost",
+        "active": [
+          "armor-35",
+          "gong",
+          "weakening",
+          "ghost-cloak"
+        ],
+        "reportedReduction": 0.803,
+        "rawDamage": 78116,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.196969696969697,
+        "rawDamageTaken": 0.19696866545130878,
+        "residualDamageTaken": 0.000001031518388205921,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      },
+      {
+        "id": "armor-gong-weakening-iron",
+        "active": [
+          "armor-35",
+          "gong",
+          "weakening",
+          "iron-hide"
+        ],
+        "reportedReduction": 0.803,
+        "rawDamage": 78116,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.196969696969697,
+        "rawDamageTaken": 0.19696866545130878,
+        "residualDamageTaken": 0.000001031518388205921,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      },
+      {
+        "id": "armor-iron-guarding",
+        "active": [
+          "armor-35",
+          "iron-hide",
+          "guarding-strike"
+        ],
+        "reportedReduction": 0.803,
+        "rawDamage": 78116,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.196969696969697,
+        "rawDamageTaken": 0.19696866545130878,
+        "residualDamageTaken": 0.000001031518388205921,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      },
+      {
+        "id": "iron-ghost",
+        "active": [
+          "iron-hide",
+          "ghost-cloak"
+        ],
+        "reportedReduction": 0.6667,
+        "rawDamage": 132197,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.3333333333333333,
+        "rawDamageTaken": 0.3333333333333333,
+        "residualDamageTaken": 0,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      },
+      {
+        "id": "armor-iron-ghost",
+        "active": [
+          "armor-35",
+          "iron-hide",
+          "ghost-cloak"
+        ],
+        "reportedReduction": 0.717,
+        "rawDamage": 112080,
+        "baselineDamage": 396591,
+        "predictedDamageTaken": 0.28260869565217395,
+        "rawDamageTaken": 0.28260853120721346,
+        "residualDamageTaken": 1.6444496048206858e-7,
+        "validationKind": "withheld same-origin row; not independent evidence"
+      }
+    ],
+    "channelScope": {
+      "weakening": {
+        "directMobAttack": "applies",
+        "mobEnchantment": "does-not-apply"
+      },
+      "otherEffects": "comparison limited to retrieved direct-attack observations"
+    },
+    "conflictResolution": {
+      "combination": [
+        "ghost-cloak",
+        "guarding-strike"
+      ],
+      "outcome": "reject",
+      "reason": "2021 narration reports diminished Ghost Cloak while the later family explanation treats Guarding Strike as separate; no version-matched independent observation resolves it."
+    },
+    "stateComparison": {
+      "jointStateTaken": 0.37244525547445256,
+      "meanInputTaken": 0.42433234421364985,
+      "comparatorTaken": 0.4,
+      "rankWithJointStates": "candidate-before-comparator",
+      "rankWithMeanReductionInput": "candidate-after-comparator"
+    }
+  },
+  "modifier": {
+    "boundaries": [
+      "direct-physical",
+      "neutral-indirect",
+      "elemental-indirect-with-focus",
+      "full-target-damage",
+      "explicit-exception"
+    ],
+    "taxonomyVsRuntimeProxy": {
+      "input": {
+        "basePhysical": 100,
+        "additivePhysical": [
+          0.33,
+          0.2
+        ],
+        "physicalMultipliers": [
+          0.4
+        ],
+        "dynamo": 0,
+        "otherIndirect": 0,
+        "fullMultiplier": 1
+      },
+      "taxonomyTotal": 214.20000000000002,
+      "factorizedRuntimeProxyTotal": 223.44000000000003,
+      "comparatorTotal": 220,
+      "rankWithTaxonomy": "candidate-after-comparator",
+      "rankWithRuntimeProxy": "candidate-before-comparator"
+    },
+    "dynamoConflict": {
+      "input": {
+        "basePhysical": 100,
+        "additivePhysical": [
+          0.33
+        ],
+        "physicalMultipliers": [],
+        "dynamo": 100,
+        "otherIndirect": 0,
+        "fullMultiplier": 1
+      },
+      "taxonomy2021Total": 233,
+      "formula2026Total": 266,
+      "outcome": "unresolved; do not merge or promote"
+    },
+    "exceptions": {
+      "junglePoison": "physical flat/multiplicative eligibility with named exclusions plus Poison Focus; not generalized",
+      "fireworksArrow": "ranged damage buff exception; not generalized"
+    }
+  },
+  "blockers": [
+    "game-version-unverified",
+    "independent-defense-holdout-missing",
+    "ghost-guarding-conflict",
+    "modifier-application-order-unverified",
+    "dynamo-placement-conflict",
+    "rounding-stage-unverified",
+    "activation-overlap-distribution-unverified"
+  ],
+  "promotionCount": 0,
+  "newGapClosures": 0
+}

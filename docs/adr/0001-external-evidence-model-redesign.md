@@ -101,3 +101,7 @@ Healing/CCはdamage hitsとproc opportunitiesを別に数える。Radianceの名
 ## 6.9D実装追記（2026-09-09）
 
 [Attack/Event comparison](../attack-event-comparison.md)を実装・検証。4 runtime武器とClaymore・Sawbladeをentity/条件付きで対応させ、aggregate rateからevent列を合成しない型境界を追加した。runtime移行・Gap closeは引き続き0。
+
+## 6.9E実装追記（2026-09-09）
+
+[DR / Modifier comparison](../dr-modifier-comparison.md)を実装・検証。2021 DR動画・表投稿の条件を回収し、限定familyとjoint state、same-origin holdout、channel範囲、Ghost/Guarding競合reject、Dynamo配置の分岐、順位感度を固定した。独立holdout未取得のためruntime移行・Gap closeは引き続き0。

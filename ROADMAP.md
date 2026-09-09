@@ -223,9 +223,9 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ユーザーの方針変更により、**外部研究の取得・条件照合 → 再設計 → 必要な残余だけ実測/native**へ順序を変更しました。以下の6.7〜6.8D/E節の「次はnative」は各調査時点の履歴です。6.8D/Eは未完了のまま保留し、native復元をPhase 6.9の必須条件にしません。
 
-[外部研究の整理と追加調査](./docs/external-community-research.md)と[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)を追加しました。31 source・13 claimを整理し、Pancakecatへの帰属が紹介されているHPS表55行×4条件を取得。作者訂正、DR合成の具体例、Dynamoの分類衝突を保持し、既存4武器のHPS差とCommitted連続極限の既存実装を照合しました。研究用DR/有限hit比較とoffline auditも追加しています。
+[外部研究の整理と追加調査](./docs/external-community-research.md)と[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)を追加しました。32 source・15 claimを整理し、Pancakecatへの帰属が紹介されているHPS表55行×4条件を取得。作者訂正、DR合成の具体例、Dynamoの分類衝突を保持し、既存4武器のHPS差とCommitted連続極限の既存実装を照合しました。研究用DR/有限hit比較とoffline auditも追加しています。
 
-Phase 6.9D Attack/Event comparisonまで完了。[比較結果](./docs/attack-event-comparison.md)に6 profileのentity mapping、HPS条件、aggregate rate・event sequence・attack definitionの分離、未使用観測との比較を記録しました。次は6.9EのDR動画の観測条件・modifier適用範囲の比較です。全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
+Phase 6.9E DR / Modifier comparisonまで完了。[比較結果](./docs/dr-modifier-comparison.md)に2021 DR動画・表投稿の条件、限定familyとjoint state、same-origin holdout、Ghost/Guarding競合reject、damage channel、Dynamo配置の分岐、順位感度を記録しました。次は6.9FのScenario / Optimizer比較です。全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
 
 ### Phase 6.7 — ゲームデータ起点の取得可能性調査（2026-09-07）
 

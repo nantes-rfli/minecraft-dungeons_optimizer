@@ -65,7 +65,9 @@
     "generate:evidence-adapter": "node scripts/audit-evidence-adapter.ts --write",
     "audit:evidence-adapter": "node scripts/audit-evidence-adapter.ts",
     "generate:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts --write",
-    "audit:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts"
+    "audit:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts",
+    "generate:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts --write",
+    "audit:dr-modifier-comparison": "node scripts/audit-dr-modifier-comparison.ts"
   },
   "dependencies": {
     "react": "19.2.6",
