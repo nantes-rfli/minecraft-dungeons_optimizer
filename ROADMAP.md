@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **93 / 104（89%）**。Phase 6.5の6項目とPhase 6.6の8項目を完了。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **105 / 118（89%）**。Phase 6.7の3項目、6.8の5項目、6.9の6項目を追加し、そのうち12項目を完了。Phase 6.8D/Eの2項目は未完了・保留。future milestonesとFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -215,47 +215,62 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 - [x] Gap Reconciliation Regeneration
 - [x] Phase 7 Handoff / Phase 6.7 Decision
 
-[Model Alignment](./docs/game-data-model-alignment.md)と[Canonical Registry](./docs/game-data-canonical-properties.md)で3層を固定しました。633件の未同定factのうち49件を解決し、584件を未解決として根拠とともに保持。33 research propertyを登録し、17 closed / 22 partial / 38 evidence-added / 2,088 remainingを再生成しました。新規closeは0。Phase 7へObserve 303 / Measure 498 / Experiment 506の計1,307件を証拠付きでhandoffします。Phase 6.7はhigh potential 0でoptionalのbacklogに留め、正式追加しません。runtime値・scoreは変更していません。
+[Model Alignment](./docs/game-data-model-alignment.md)と[Canonical Registry](./docs/game-data-canonical-properties.md)で3層を固定しました。633件の未同定factのうち49件を解決し、584件を未解決として根拠とともに保持。33 research propertyを登録し、17 closed / 22 partial / 38 evidence-added / 2,088 remainingを再生成しました。新規closeは0。Phase 7へObserve 303 / Measure 498 / Experiment 506の計1,307件を証拠付きでhandoffします。当時はPhase 6.7をhigh potential 0のoptional backlogと判断しましたが、その後の追加調査を以下のPhase 6.7〜6.9へ反映しています。runtime値・scoreは変更していません。
 
-## 現在の作業位置
+## Phase 6.7 — ゲームデータ起点の取得可能性調査（3 / 3）
 
-### 現在の優先方針 — 外部研究を先行（2026-09-09）
+- [x] 6.7A — 全uassetの構造棚卸し
+- [x] 6.7B — 数値・表・関数・native境界の代表試験
+- [x] 6.7C — Optimizerへの対応と次段階の判断
 
-ユーザーの方針変更により、**外部研究の取得・条件照合 → 再設計 → 必要な残余だけ実測/native**へ順序を変更しました。以下の6.7〜6.8D/E節の「次はnative」は各調査時点の履歴です。6.8D/Eは未完了のまま保留し、native復元をPhase 6.9の必須条件にしません。
+[取得可能性調査](./docs/game-data-capabilities.md)で45,311 uasset、22,603 Function exportと非CDOの数値・DataTableを確認しました。全効果の解読ではなく、取得可能性の調査が完了した状態です。
 
-[外部研究の整理と追加調査](./docs/external-community-research.md)と[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)を追加しました。32 source・15 claimを整理し、Pancakecatへの帰属が紹介されているHPS表55行×4条件を取得。作者訂正、DR合成の具体例、Dynamoの分類衝突を保持し、既存4武器のHPS差とCommitted連続極限の既存実装を照合しました。研究用DR/有限hit比較とoffline auditも追加しています。
+## Phase 6.8 — 取得と意味の検証（3 / 5、D/E保留）
 
-Phase 6.9F Scenario / Optimizer comparisonまで完了。[比較結果](./docs/scenario-optimizer-comparison.md)にfinite damage / overkill、final-blow ownership、actual healing、目的・durationによる順位感度、revision key、再現性・性能、未知候補の理由付き除外を記録しました。Phase 6.9の研究比較は完了しましたが、全再設計・runtime移行の完了ではなく、runtime昇格・Gap closeは0。次は残存blockerの外部観測・限定実測とPhase 8 validationです。内部研究・開発用検証だけの変更のため、アプリ内ロードマップ・score・Sitesは更新しません。
+- [x] 6.8A — 追加PAKの全件比較
+- [x] 6.8B — 独立readerの代表検証
+- [x] 6.8C — 代表参照・処理経路の検証
+- [ ] 6.8D — native計算の同定（起動処理の条件付き追跡まで、保留）
+- [ ] 6.8E — 実効timing / notifyの検証（攻撃設定・代表通知の読解まで、保留）
 
-### Phase 6.7 — ゲームデータ起点の取得可能性調査（2026-09-07）
+[取得検証](./docs/game-data-validation.md)では47 PAK・134,799エントリ、既存抽出物との差1,520件を記録。[攻撃設定](./docs/game-data-timing.md)では82 Instance・293 variantと通知を整理しました。[処理境界](./docs/game-data-mechanic-boundaries.md)と[native起動処理](./docs/game-data-native-stage2.md)では最初の圧縮層を独立decoderで検証し、条件付きで起動処理を追跡しましたが、ゲーム本体の戦闘式には未到達です。D-1は完了、D-2は未完了、D-3は未着手。設定値を実効hit列とみなさず、全native復元を後続Phaseの必須条件にしません。
 
-[取得可能性調査](./docs/game-data-capabilities.md)を追加しました。6.7A（全uassetの構造棚卸し）、6.7B（数値・表・関数・native境界の代表試験）、6.7C（Optimizerへの対応と判断）は完了。全効果の解読やruntime昇格の完了ではありません。45,311 uassetを走査し、22,603 Function export、既存保存ルール外の数値、非CDOのDataTable行を確認しました。重要な効果にはnative親への参照があり、現在のツリーに実行ファイルはありません。
+## Phase 6.9 — 外部Evidenceとモデル再設計の研究比較（6 / 6）
 
-今後の推薦は **Phase 6.8（取得器・継承・処理経路の検証）→ Phase 6.9（再設計範囲の判断）** です。Phase 6.6当時の「6.7はoptional、次は7」という推薦を今回の追加調査により更新します。歴史的成果物とGap数は保持し、Phase 7〜9は必要な実測・検証・昇格の計画として残します。今回の変更は内部調査資料のみで、アプリ内ロードマップ・計算・データは変更していません。
+- [x] 6.9A — 外部研究・訂正・条件と現行モデルとの差分整理
+- [x] 6.9B — Evidence / event / modifier / Scenario契約と段階的移行方針
+- [x] 6.9C — 版付きEvidence adapter・関係・採用判断の検証
+- [x] 6.9D — Attack / Event比較（集計rate・実効event・攻撃設定の分離）
+- [x] 6.9E — DR / Modifier比較（family・joint state・競合・順位感度）
+- [x] 6.9F — Scenario / Optimizer比較（有限damage・ownership・実回復・目的別順位）
 
-### Phase 6.8 — 取得と意味の検証（2026-09-08、進行中）
+[外部研究](./docs/external-community-research.md)、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)、[Evidence adapter](./docs/evidence-adapter.md)、[Attack / Event](./docs/attack-event-comparison.md)、[DR / Modifier](./docs/dr-modifier-comparison.md)、[Scenario / Optimizer](./docs/scenario-optimizer-comparison.md)を実装・検証済みです。完了は研究比較と境界の明文化を指し、全再設計・runtime移行・ゲーム内精度検証の完了ではありません。same-origin holdoutや合成Scenarioは独立実測の代わりにしません。
 
-[検証結果](./docs/game-data-validation.md)と[観測JSON](./research/game-data-validation/README.md)を保存しました。6.8A（追加PAKの全件比較）、6.8B（独立readerの代表検証）、6.8C（代表参照・処理経路）は完了。47 PAK・134,799エントリを検証し、既存抽出物との内容差1,520件を保持しています。97代表アセットのバイナリ往復一致、809 Functionのデコード、25数値・4表・4カーブの読み取りを確認しました。既存readerが見落としていた3組のUI Text差分も記録しました。
+## 現在の作業位置（2026-09-10再検討）
 
-**次は6.8D（native計算）と6.8E（timing/notify）です。** 追加ZIPに実行ファイルはありますが、native計算を読めるコード領域は未確立。主要効果の式を復元したとは扱いません。Phase 6.8全体と6.9の再設計判断は未完了です。アプリコード・runtimeデータは変更していません。
+**次はPhase 8AのEvidence受入・検証基盤と、8Bの限定した外部Evidence取得です。** Phase番号は履歴として維持し、実行順を **8A → 8B → 必要な残余だけ7 → 8C → 合格した単位だけ9** とします。外部Evidenceだけで検証できる単位はPhase 7を待たず8Cへ進めます。
 
-### Phase 6.8E — 攻撃設定・通知の追加調査（2026-09-08、進行中）
+Phase 6.9で比較経路は揃いました。現在の律速は新しい比較器の数ではなく、game version・観測条件・独立性・適用範囲の不足です。したがってResearch Questの大規模UI、全効果の一括移行、native全面復元を先行させず、既存の版付き台帳・adapter・測定protocolを再利用します。
 
-[攻撃タイミング調査](./docs/game-data-timing.md)を追加しました。383アセット・384回の独立reader往復一致を確認し、82 Instanceの293 variant、288 animation export、671通知を整理。連続ダメージ・解放時の発動契機・キャンセル上書きが明示的に存在するため、単一の攻撃速度へ潰さず保持する設計が必要です。nativeの時間適用・通知の受信・実効ヒット列は未確定。6.8Eは設定と代表通知の読解まで進行、6.8D/E全体と6.9は未完了です。runtime・アプリ内ロードマップは変更していません。
+### 維持する基準値
 
-### Phase 6.8D/E — 設定使用箇所・native静的展開（2026-09-08、進行中）
+- Phase 6.6時点のbaselineは17 closed / 2,088 remaining。Observe 303 / Measure 498 / Experiment 506の計1,307件は**当時のhandoff母集団**であり、最新の実測待ち件数ではありません。
+- Phase 6.7〜6.9によるruntime昇格・新規Gap closeは0。昇格可能と検証された機能単位はまだありません。
+- Phase 1 Accuracyは3 / 4、独立DPS回帰はeligible 0 / 5。Phase 2のpartialとruntime supportは従来のgateを維持します。
+- 次の取得前に、外部Evidenceで解消可能な項目・実装不足・実測必須を再照合します。旧GapやPriorityを上書きせず、revisionと差分を残してqueueを更新します。
 
-[適用経路と到達点](./docs/game-data-mechanic-boundaries.md)を追加。時間設定を含む201アセット・711関数を調べ、今回の名前・明示参照探索では戦闘側の適用処理は未確定。ChainswordのActive/Break Effect参照も確認しました。exeを実行せず最初の圧縮層を15,360,000 byteへ復元し、別decoderと完全一致。ただしゲーム本体のコード・戦闘式は未復元です。6.8D/Eは未完了を維持し、通常コンボ・連続攻撃・キャンセルの具体的な実測計画を保存しました。未確定境界を保持したPhase 6.9の設計案には着手可能と判断し、実装置換はまだ行いません。
+### 次に検証する対象と順序
 
-### Phase 6.8D — native起動処理の条件付き追跡（2026-09-09、進行中）
+これは実施順の提案であり、既存のP0〜P3 scoreを再計算した結果ではありません。所有装備との関係、順位への影響、条件の回収可能性を8Bで確認し、最初の1単位を選定します。
 
-[native起動処理の調査](./docs/game-data-native-stage2.md)と[観測JSON](./research/game-data-native-stage2/README.md)を追加。前回復元した圧縮層をCPUエミュレーションで追跡し、限定した仮のWindows環境でSMBIOS問い合わせまで64 API呼び出し・37種類を観測しました。GetThreadContextの応答を変えると分岐と内部状態が変わるため、仮の応答と実Windowsの挙動を区別しています。基準実験と最終チェックポイントは再実行一致。全16セクションのうち変化は起動用 `.dungeon` だけで、ゲーム本体のコード領域への移行・戦闘式は未確認です。
+| 順序 | 対象 | この順序にする理由 | 取得・検証の通過条件 |
+|---|---|---|---|
+| 1 | 限定DR / modifier組合せ | 6.9Eで順位反転を確認し、対象を狭めて比較できる | 版・装備・damage channel・activation・丸めの条件を回収し、独立holdoutを確保。Ghost / Guarding競合とDynamo配置は解決するか明示的に対象外へ限定 |
+| 2 | 既存4武器のAttack / Event | Voidやprocの前提を直接改善できる | buff・測定法・版・対象を揃えた独立event列。action / hit / proc / finisherを区別し、aggregate HPSから時刻列を捏造しない |
+| 3 | 有限Scenario / Healing | ownershipとoverkillにより推奨が変わり得るが、観測依存が多い | target switching・同frame順・final blow・欠損HP/overheal・被damageを観測。Objective targetはゲーム規則と分けて妥当性を検証 |
+| 条件付き | Claymore / Sawblade、残るArmor / Ranged / Artifact | 新規coverageより、採用条件の成立を優先 | mechanic・Power・state/objectiveの必要条件が揃った単位から扱う。Artifact 10〜15種はEvidence gate待ちを維持 |
 
-6.8Dの到達条件をD-1（最初の圧縮層、完了）、D-2（起動処理から元コード領域への移行、進行中）、D-3（ゲーム関数・式の同定、未着手）に分けました。次はSMBIOS応答の利用箇所と、環境確認で変わる内部状態を追います。6.8D/E全体は未完了、runtime昇格と新規Gap closeは0。Phase 6.9のモデル比較は未確認境界を保持した案として着手可能ですが、アプリの実装置換は行っていません。
-
-### Runtime / Phase 6.6までのsummary（今回変更なし）
-
-Phase 6.6までのresearch model alignmentが完了しました。Phase 6で2,105 GapをP0〜P3へ順位付けし、Phase 6.5A〜6.5Eでinventory、provenance、targeted extractor、representative semantics、bulk harvestとGap reconciliationを作成しました。Direct game data bulk harvestは1,026候補を走査して1,018件をparseし、17 Gapを閉じて2,088 Gapを正確に残しました。Phase 2-5のpartial、既存runtime supportとunsupported境界は維持しています。[Gap Reconciliation](./docs/game-data-gap-reconciliation.md) / [Bulk Harvest](./docs/game-data-bulk-harvest.md) / [Semantic Mapping](./docs/game-data-semantic-mapping.md) / [UE4 Asset Extractor](./docs/game-data-extractor.md) / [Source Provenance](./docs/game-data-source-provenance.md) / [Game Data Inventory](./docs/game-data-inventory.md) / [Coverage Priority](./docs/coverage-priority.md) / [Gap Map](./docs/evidence-gap-map.md)。runtime promotionとResearch Questは未実装です。進捗は `src/data/roadmap.ts` と同期。
+1単位の出口は、採用範囲付きの「検証合格」、不足Evidenceと次の取得手順付きの「保留」、理由付きの「不採用」のいずれかです。取得件数やテスト通過数だけでは昇格しません。
 
 ### Current blockers
 
@@ -265,10 +280,11 @@ P0〜P3とEvidence blockerは[生成Coverage report](./docs/combined-evidence-co
 
 UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優先して表示できる選択肢を検討する。順位・scoreの意味を変えるため、Phase 4のEvidence作業には含めません。
 
-### Next area
+### 保留と再開条件
 
-Phase 2-5A/B/Cは新しいEvidenceが得られるまでpartialを維持します。6.5Fの[最終coverage](./docs/game-data-final-coverage.md)と[差異分類](./docs/game-data-model-differences.md)で全Gapのdispositionを確定しました。Phase 6.6の[model alignment](./docs/game-data-model-alignment.md)も完了しました。次は[外部研究の条件照合](./docs/external-community-research.md)と[Phase 6.9の段階的再設計](./docs/adr/0001-external-evidence-model-redesign.md)です。Phase 6.8D/Eのnative解析は保留し、外部Evidenceで解消できない重要な問いが残る場合だけ再開します。既存のGap dispositionは履歴として保持し、実測へ送る前に外部取得可能性を再評価します。残余Observe / Measure / ExperimentはPhase 7でPersonal Research Quest化し、外部・自前の両EvidenceをPhase 8で検証してからPhase 9でruntimeへ昇格します。残るArmor/Ranged効果はEvidenceとstate/objectiveが揃うまでResearch-onlyを維持して0点登録しません。
-P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[比較](./docs/runtime-limitations.md#次phaseの比較)。
+- Phase 6.8D/E: 外部観測・限定実測で解消できず、順位や昇格を妨げる具体的な問いが残る場合だけ再開。対象関数・入力条件・終了条件を先に定義します。
+- Phase 2-5A/B/Cと近接partial: 新Evidenceが元のcompletion gateを満たした範囲だけ更新します。未対応効果を0点や倍率1で登録しません。
+- Public Availability、New Drop Comparison、エンジン汎用化・別ゲーム展開: 本人の実利用と検証済みcoverage改善を優先し、確定した次Phaseにはしません。
 
 ## 更新ルール
 
@@ -279,17 +295,25 @@ P0/P1 targeted cleanupは必要な新Evidenceが得られた範囲で実施。[�
 
 ## Future milestones（チェックリスト進捗と分離）
 
-### Phase 7 — Personal Research Quest（6.8/6.9の判断後）
+### Phase 8 — Evidence Capture & Validation（次の重点）
 
-Phase 6.6のmodel alignment後に確定した残余について、本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくします。強制しません。
+**8A — 受入・検証の最小基盤。** 6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・画像/動画locator・originを受け入れる契約を定義します。外部と自前で同じ検証規則を使い、欠落・訂正・競合・転載・calibration/holdoutの混用を理由付きで判定。保存・再読込・異常入力・revision追跡の検証が完了条件です。大規模な投稿UIは必須にしません。
 
-### Phase 8 — Evidence Capture & Validation
+**8B — 外部Evidence取得と残余queue再評価。** 上表から最初の1単位を選び、公開観測の条件と独立性を回収します。6.6の1,307件と現在のblockerを照合し、外部解消・限定実測・実装不足・保留へ振り分け、元ID・判断理由・差分を記録できることが完了条件です。新しい取得結果なしにGapをcloseしません。
 
-game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存します。1件の自己観測だけでVerifiedにしません。
+**8C — 機能単位の妥当性検証。** calibrationと独立holdoutを分離し、許容領域・誤差基準を検証前に設定。旧新モデルの同条件比較、順位感度、再現性を確認し、採用/保留/不採用のAdoptionDecisionを保存します。same-origin holdout、合成probe、1件の自己観測だけでVerifiedにしません。Phase 1の独立DPS回帰5件gateは別に維持します。
 
-### Phase 9 — Runtime Promotion Pipeline
+### Phase 7 — Personal Research Quest（8Bの残余に限定）
 
-Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、Evidence、runtime manifest、validation、tests、Coverage、UI、Optimizerを同期します。
+**7A — 所有装備に結びつく最小queue。** 再評価済みの残余をactual inventoryと既存protocolへ結びつけ、必要装備・条件・所要時間・何が解決するかを提示。所持していない装備や外部取得済みの課題を本人の必須作業にしません。
+
+**7B — 任意の限定実測。** Observe / Measure / Experimentを選び、スキップ・中断・再開できる導線と、8Aへ渡せる観測記録を用意します。実データを1件受け渡して8Cで検証できることが最小完了条件です。queue消化率をモデル精度と扱いません。
+
+### Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）
+
+**9A — 最初の限定移行。** AdoptionDecisionが合格した1単位について許容範囲をvalidatorへ反映し、既存`evaluate / optimize`・Inventory v2・actual rolls・Worker中止・探索上限を維持して導入。runtime manifest、Evidence、説明、Coverage、回帰を同期し、旧新差分・必要なE2E・性能とrollback可能なcommitを確認します。研究用比較器をそのまま本番へ一括接続しません。
+
+**9B — 反復可能な昇格手順。** 9Aで確認した手順を次の単位へ適用し、Research-only → Limited → Fullをそれぞれのgateで判断。合格したモデル変更でもGap closeや装備数の増加を自動的には主張しません。関連audit・`npm test`・tsc・lint・buildを通し、サイトに影響するcommitだけ既存の本人限定Sitesへ反映します。
 
 ### Public Availability — 保留
 

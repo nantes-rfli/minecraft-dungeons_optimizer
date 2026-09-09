@@ -346,7 +346,7 @@ export function MethodologyPage() {
 
       <section className="status-section">
         <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 2-5はEvidence待ちのpartialを維持。Phase 5でSource Harvestの2,105 Gapを解決方法別に整理し、再利用可能な測定protocolへ束ねました。下記Phase 6〜9とFuture Expansionは次の独立した実装・調査単位であり、この実装チェック項目の進捗率には含めません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
+        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 6.9までの研究比較を反映。6.8D/Eは未完了・保留で、runtime昇格・新規Gap closeは0です。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。今後のPhase 7〜9とFuture Expansionは分母に含めません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
         <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={ROADMAP_PROGRESS.percentage} aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
         <div className="roadmap-grid">
           {ROADMAP_PHASES.map((phase) => {
@@ -356,7 +356,7 @@ export function MethodologyPage() {
         </div>
       </section>
 
-      <section className="method-section"><h2>Roadmap — 次の小Phase</h2><p>完了したGap Mapを入力に、Priority → Personal Research Quest → Evidence Capture → Runtime Promotionの順で、Codexへの1回の指示としてまとまりのよい単位へ分割します。Public Availabilityは引き続き保留です。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Roadmap — 次の小Phase</h2><p>次は8AのEvidence受入・検証基盤と8Bの外部取得です。必要な残余だけPhase 7で実測し、8Cの検証に合格した機能単位をPhase 9で移行します。外部Evidenceだけで検証できる単位はPhase 7を待ちません。Public Availabilityは引き続き保留です。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="method-section"><h2>Future Expansion（進捗対象外）</h2>{FUTURE_EXPANSION_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>

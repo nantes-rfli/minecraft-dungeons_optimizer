@@ -212,16 +212,51 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
       { label: 'Game-only / Missing Expected Property Review', status: 'done' },
       { label: 'Semantic Rule Alignment（承認済みA→Bのみ）', status: 'done' },
       { label: 'Gap Reconciliation Regeneration（17 closed / 2,088 remaining）', status: 'done' },
-      { label: 'Phase 7 Handoff / Phase 6.7 Decision（optional、Next Phase 7）', status: 'done' },
+      { label: 'Phase 7 Handoff / Phase 6.7 Decision（当時の判断、後続6.7〜6.9で更新）', status: 'done' },
+    ],
+  },
+  {
+    id: 'phase-6-7',
+    title: 'Phase 6.7 — ゲームデータ起点の取得可能性調査',
+    goal: '取得可能性の調査を完了。全効果の解読やruntime昇格を意味しない。',
+    items: [
+      { label: '6.7A — 全uassetの構造棚卸し', status: 'done' },
+      { label: '6.7B — 数値・表・関数・native境界の代表試験', status: 'done' },
+      { label: '6.7C — Optimizerへの対応と次段階の判断', status: 'done' },
+    ],
+  },
+  {
+    id: 'phase-6-8',
+    title: 'Phase 6.8 — 取得と意味の検証（D/E保留）',
+    goal: '取得器と設定を検証。戦闘式・実効hit列は未確定で、外部観測でも解けない重要な問いが残る場合だけnative解析を再開する。',
+    items: [
+      { label: '6.8A — 追加PAKの全件比較', status: 'done' },
+      { label: '6.8B — 独立readerの代表検証', status: 'done' },
+      { label: '6.8C — 代表参照・処理経路の検証', status: 'done' },
+      { label: '6.8D — native計算の同定（起動処理の条件付き追跡まで、保留）', status: 'in-progress' },
+      { label: '6.8E — 実効timing / notify（攻撃設定・代表通知の読解まで、保留）', status: 'in-progress' },
+    ],
+  },
+  {
+    id: 'phase-6-9',
+    title: 'Phase 6.9 — 外部Evidenceとモデル再設計の研究比較',
+    goal: '研究比較は完了。独立観測・版・条件の検証が残り、runtime昇格・新規Gap closeは0。',
+    items: [
+      { label: '6.9A — 外部研究・訂正・条件と現行モデルの差分', status: 'done' },
+      { label: '6.9B — データ契約と段階的移行方針', status: 'done' },
+      { label: '6.9C — 版付きEvidence adapter', status: 'done' },
+      { label: '6.9D — Attack / Event比較', status: 'done' },
+      { label: '6.9E — DR / Modifier比較', status: 'done' },
+      { label: '6.9F — Scenario / Optimizer比較', status: 'done' },
     ],
   },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest', goal: 'Next: Phase 6.6で確定した1,307件のObserve / Measure / Experimentを対象に、本人の装備登録と任意のObserve / Measure / Experimentを結びつけ、ゲームプレイ中にEvidenceを集めやすくする。強制しない。' },
-  { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation', goal: 'game version、装備、Power、条件、測定値、反復、画像・動画参照、provenanceを再利用可能なEvidenceとして保存し、1件の自己観測だけでVerifiedにしない。' },
-  { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline', goal: 'Evidenceが揃った項目をResearch-only → Limited → Fullへ安全に昇格し、manifest・validation・test・Coverage・UI・Optimizerを同期する。' },
+  { id: 'phase-8', title: 'Phase 8 — Evidence Capture & Validation（次の重点）', goal: '8A: 既存台帳・adapterを使う受入/保存/検証基盤 → 8B: 限定DR/modifierを第一候補に外部Evidenceを取得し残余queueを再評価 → 8C: 独立holdout・許容範囲・旧新比較から採用/保留/不採用を記録。次に既存4武器のevent、有限Scenarioを検証。same-originや合成値だけでVerifiedにしない。' },
+  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest（8Bの残余に限定）', goal: '7A: 外部取得後の不足だけを所有装備とprotocolへ結びつける。7B: 任意のObserve / Measure / Experimentを8Aへ渡して8Cで検証。1,307件は6.6当時の母集団で、最新の実測待ち件数ではない。強制しない。' },
+  { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）', goal: '9A: 最初の検証済み1単位を許容範囲付きで移行し、manifest・説明・Coverage・回帰・性能を同期。9B: 合格した単位へ反復しLimited / Fullを個別判断。現在は昇格可能と検証された単位なし。未知効果を0点で登録しない。' },
   { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },
   { id: 'new-drop-comparison', title: 'Future candidate — New Drop Comparison / Keep-Salvage', goal: '新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。Phase 10以降の確定項目にはしない。' },
 ] as const
