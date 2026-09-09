@@ -122,6 +122,6 @@ damageTaken = 1 / (1 + armorScore) × Π (1 − separateReduction_j)
 
 ## 検証結果
 
-2026-09-09: `audit:external-community`、`audit:evidence-coverage`、`audit:game-data-model-alignment`、`audit:damage-events`、`audit:armor-expansion`、`audit:melee`が成功。`npm test`は54 files / 1,441 tests成功、`npm run lint`、`npx tsc -b`、`npm run build`も成功。buildは500 kB超chunkの警告とroute静的分類の制限を表示したが終了成功。アプリのbundle分割は今回の調査範囲に含めない。
+2026-09-10: 6.9E追補後に`audit:external-community`、`audit:evidence-adapter`、`audit:attack-event-comparison`、`audit:dr-modifier-comparison`、`audit:damage-events`、`audit:armor-expansion`が成功。`npm test`は57 files / 1,468 tests成功、`npm run lint`、`npx tsc -b`、`npm run build`も成功。buildは500 kB超chunkの警告とroute静的分類の制限を表示したが終了成功。アプリのbundle分割は今回の調査範囲に含めない。
 
 変更対象は内部Markdown・research JSON・開発script・test・CIとaudit用npm script。runtime・配信設定・依存パッケージは変更していないためSites更新を省略。新しいauditはCIにも追加した。
