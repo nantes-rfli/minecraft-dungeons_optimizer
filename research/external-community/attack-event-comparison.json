@@ -1,0 +1,483 @@
+{
+  "schemaVersion": 1,
+  "scope": "research-only",
+  "modelRevision": "attack-event-comparison@1",
+  "conditions": {
+    "hpsColumns": [
+      "Base Hps",
+      "25% Armor Hps",
+      "Death-cap Hps",
+      "Hps with both"
+    ],
+    "gameVersion": null,
+    "measurementMethod": null,
+    "interpretation": "Column labels are preserved; buffs, equipment, input cadence, targets, rounding and sample method were not recovered."
+  },
+  "profiles": [
+    {
+      "id": "anchor",
+      "hpsLabel": "Anchor",
+      "assetSuffix": "/Anchor/BP_AnchorInstance",
+      "mapping": "exact",
+      "sourceRow": 3,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 0.42,
+        "metric": "reported-average-hps",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "HeavyForehand",
+            "durationSeconds": 2.5,
+            "damageDelaySeconds": 1,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": {
+        "observation": {
+          "kind": "event-sequence",
+          "cycleSeconds": 2.5,
+          "events": [
+            {
+              "offsetSeconds": 0,
+              "kind": "damage-hit",
+              "variant": "hit-1"
+            }
+          ],
+          "conditions": {
+            "source": "runtime-profile",
+            "speedMultiplier": 1
+          }
+        },
+        "ratePerSecond": 0.4,
+        "relativeDifferencePercent": 4.999999999999982
+      },
+      "comparison": "eligible-same-metric-only; external conditions/version remain unresolved"
+    },
+    {
+      "id": "double-axe",
+      "hpsLabel": "Double Axe/Cursed Axe",
+      "assetSuffix": "/DoubleAxe/BP_DoubleAxeInstance",
+      "mapping": "family-row",
+      "sourceRow": 23,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 1.6,
+        "metric": "reported-average-hps",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "SpinAttack",
+            "durationSeconds": 0.6000000238418579,
+            "damageDelaySeconds": 0.10000000149011612,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "SpinAttack",
+            "durationSeconds": 0.6000000238418579,
+            "damageDelaySeconds": 0.10000000149011612,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": {
+        "observation": {
+          "kind": "event-sequence",
+          "cycleSeconds": 1.2,
+          "events": [
+            {
+              "offsetSeconds": 0,
+              "kind": "damage-hit",
+              "variant": "hit-1"
+            },
+            {
+              "offsetSeconds": 0.6,
+              "kind": "damage-hit",
+              "variant": "hit-2"
+            }
+          ],
+          "conditions": {
+            "source": "runtime-profile",
+            "speedMultiplier": 1
+          }
+        },
+        "ratePerSecond": 1.6666666666666667,
+        "relativeDifferencePercent": -4.0000000000000036
+      },
+      "comparison": "eligible-same-metric-only; external conditions/version remain unresolved"
+    },
+    {
+      "id": "fighters-bindings",
+      "hpsLabel": "Fighters Bindings",
+      "assetSuffix": "/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+      "mapping": "exact-via-serialized-id",
+      "sourceRow": 56,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 6.8,
+        "metric": "reported-average-hps",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "Forehand",
+            "durationSeconds": 0.15000000596046448,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Forehand",
+            "durationSeconds": 0.15000000596046448,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Forehand",
+            "durationSeconds": 0.15000000596046448,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "None",
+            "durationSeconds": 0.125,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": {
+        "observation": {
+          "kind": "event-sequence",
+          "cycleSeconds": 0.575,
+          "events": [
+            {
+              "offsetSeconds": 0,
+              "kind": "damage-hit",
+              "variant": "hit-1"
+            },
+            {
+              "offsetSeconds": 0.15,
+              "kind": "damage-hit",
+              "variant": "hit-2"
+            },
+            {
+              "offsetSeconds": 0.3,
+              "kind": "damage-hit",
+              "variant": "hit-3"
+            },
+            {
+              "offsetSeconds": 0.44999999999999996,
+              "kind": "damage-hit",
+              "variant": "hit-4"
+            }
+          ],
+          "conditions": {
+            "source": "runtime-profile",
+            "speedMultiplier": 1
+          }
+        },
+        "ratePerSecond": 6.9565217391304355,
+        "relativeDifferencePercent": -2.2500000000000075
+      },
+      "comparison": "eligible-same-metric-only; external conditions/version remain unresolved"
+    },
+    {
+      "id": "soul-scythe",
+      "hpsLabel": "Soul Scythe/Frost Scythe/Jailor's Scythe",
+      "assetSuffix": "/SoulScythe/BP_SoulScytheInstance",
+      "mapping": "family-row",
+      "sourceRow": 29,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 1.8,
+        "metric": "reported-average-hps",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "Swing1",
+            "durationSeconds": 0.47999998927116394,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Swing2",
+            "durationSeconds": 0.5600000023841858,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": {
+        "observation": {
+          "kind": "event-sequence",
+          "cycleSeconds": 1.04,
+          "events": [
+            {
+              "offsetSeconds": 0,
+              "kind": "damage-hit",
+              "variant": "hit-1"
+            },
+            {
+              "offsetSeconds": 0.48,
+              "kind": "damage-hit",
+              "variant": "hit-2"
+            }
+          ],
+          "conditions": {
+            "source": "runtime-profile",
+            "speedMultiplier": 1
+          }
+        },
+        "ratePerSecond": 1.923076923076923,
+        "relativeDifferencePercent": -6.399999999999995
+      },
+      "comparison": "eligible-same-metric-only; external conditions/version remain unresolved"
+    },
+    {
+      "id": "claymore",
+      "hpsLabel": "Claymore/Great Axeblade/Heartstealer",
+      "assetSuffix": "/Claymore/BP_ClaymoreInstance",
+      "mapping": "family-row",
+      "sourceRow": 8,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 1.1,
+        "metric": "reported-average-hps",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "Forehand",
+            "durationSeconds": 0.699999988079071,
+            "damageDelaySeconds": 0.20000000298023224,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Backhand",
+            "durationSeconds": 0.5,
+            "damageDelaySeconds": 0.20000000298023224,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Lunge",
+            "durationSeconds": 0.800000011920929,
+            "damageDelaySeconds": 0.5,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": null,
+      "comparison": "ineligible-without-playback-rule"
+    },
+    {
+      "id": "sawblade",
+      "hpsLabel": "Broken Sawblade/Mechanized Sawblade Enchant Hps",
+      "assetSuffix": "/Chainsword/BP_ChainswordInstance",
+      "mapping": "family-row-and-metric-split",
+      "sourceRow": 43,
+      "aggregate": {
+        "kind": "aggregate-rate",
+        "ratePerSecond": 4,
+        "metric": "proc-opportunities-per-second",
+        "conditions": {
+          "column": "Base Hps",
+          "attackSpeedBuff": "none-reported",
+          "measurementMethod": null,
+          "gameVersion": null
+        }
+      },
+      "configuredAsset": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+      "configured": {
+        "kind": "attack-definition",
+        "variants": [
+          {
+            "name": "Forehand",
+            "durationSeconds": 0.20000000298023224,
+            "damageDelaySeconds": 0.10000000149011612,
+            "continuousDamageIntervalSeconds": null,
+            "loopAmount": 1,
+            "triggersAfterDamage": true,
+            "triggersOnRelease": false
+          },
+          {
+            "name": "Stretch",
+            "durationSeconds": 0.20000000298023224,
+            "damageDelaySeconds": 0,
+            "continuousDamageIntervalSeconds": 0.15000000596046448,
+            "loopAmount": 10,
+            "triggersAfterDamage": false,
+            "triggersOnRelease": true
+          }
+        ],
+        "unresolvedPlaybackRules": [
+          "configured-duration-to-effective-time",
+          "cooldown-scheduling",
+          "speed-scaling",
+          "cancel-behavior",
+          "damage-notify-cardinality"
+        ]
+      },
+      "runtime": null,
+      "comparison": "ineligible-without-playback-rule"
+    }
+  ],
+  "sawbladeMetricSplit": {
+    "procOpportunitiesPerSecond": 4,
+    "damageHitsPerSecond": 6,
+    "relationship": "distinct aggregate metrics; no synthetic event sequence"
+  },
+  "unusedObservationComparison": {
+    "kind": "external HPS rows not used to fit runtime profiles",
+    "comparedProfiles": 4,
+    "result": [
+      {
+        "id": "anchor",
+        "runtimeRatePerSecond": 0.4,
+        "externalBaseRatePerSecond": 0.42,
+        "relativeDifferencePercent": 4.999999999999982
+      },
+      {
+        "id": "double-axe",
+        "runtimeRatePerSecond": 1.6666666666666667,
+        "externalBaseRatePerSecond": 1.6,
+        "relativeDifferencePercent": -4.0000000000000036
+      },
+      {
+        "id": "fighters-bindings",
+        "runtimeRatePerSecond": 6.9565217391304355,
+        "externalBaseRatePerSecond": 6.8,
+        "relativeDifferencePercent": -2.2500000000000075
+      },
+      {
+        "id": "soul-scythe",
+        "runtimeRatePerSecond": 1.923076923076923,
+        "externalBaseRatePerSecond": 1.8,
+        "relativeDifferencePercent": -6.399999999999995
+      }
+    ]
+  },
+  "blockers": [
+    "external-game-version",
+    "external-measurement-method",
+    "buff-condition-definition",
+    "configured-playback-rule",
+    "independent-event-sequence-holdout"
+  ],
+  "promotionCount": 0,
+  "newGapClosures": 0
+}

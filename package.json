@@ -63,7 +63,9 @@
     "generate:game-data-model-alignment": "node scripts/audit-game-data-model-alignment.ts --write",
     "audit:game-data-model-alignment": "node scripts/audit-game-data-model-alignment.ts",
     "generate:evidence-adapter": "node scripts/audit-evidence-adapter.ts --write",
-    "audit:evidence-adapter": "node scripts/audit-evidence-adapter.ts"
+    "audit:evidence-adapter": "node scripts/audit-evidence-adapter.ts",
+    "generate:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts --write",
+    "audit:attack-event-comparison": "node scripts/audit-attack-event-comparison.ts"
   },
   "dependencies": {
     "react": "19.2.6",

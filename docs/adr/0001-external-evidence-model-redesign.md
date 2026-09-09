@@ -97,3 +97,7 @@ Healing/CCはdamage hitsとproc opportunitiesを別に数える。Radianceの名
 ## 6.9C実装追記（2026-09-09）
 
 [Evidence adapter](../evidence-adapter.md)を実装・検証。研究moduleと版付き台帳から従来Evidenceへの変換境界を追加した。6.9A/B時点の記述は履歴として保持し、runtime移行は引き続き未実施。
+
+## 6.9D実装追記（2026-09-09）
+
+[Attack/Event comparison](../attack-event-comparison.md)を実装・検証。4 runtime武器とClaymore・Sawbladeをentity/条件付きで対応させ、aggregate rateからevent列を合成しない型境界を追加した。runtime移行・Gap closeは引き続き0。
