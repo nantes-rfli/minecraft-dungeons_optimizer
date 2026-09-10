@@ -296,7 +296,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 ## Phase 7 — Personal Research Quest（2 / 2）
 
 - [x] 7A — Phase 8Bの限定DR残余1単位をactual Inventoryと既存protocolへ接続。35% Armor・Iron Hide・選択済みまたはGildedのGuarding Strikeが揃った場合だけ実施可能とし、通常枠の候補だけなら「選択が必要」と区別。未所持装備は必須taskや進捗分母へ加えない
-- [x] 7B — Observe / Measure / Experiment選択、スキップ・中断・再開、条件別進捗、localStorage保存、Phase 8A Evidence RepositoryとPhase 8C validatorへのJSON受け渡しを実装。自前測定のraw record / SHA-256は入力から自動生成し、外部EvidenceはURL / SHA-256を保持
+- [x] 7B — Observe / Measure / Experiment選択、スキップ・中断・再開、条件別進捗、localStorage保存、Phase 8A Evidence RepositoryとPhase 8C validatorへのJSON受け渡しを実装。自前測定のraw record / SHA-256は入力から自動生成し、外部EvidenceはURL / SHA-256を保持。run IDを反復測定、origin groupをEvidence由来として区別し、同じ測定者の別runは個別に、複製run・重複ID・raw trace再利用は重複として扱う
 
 完了条件: 実データと同じ形式の1 runを8Aの受入契約へ渡し、固定済み8C validatorがeligible holdoutとして評価できること。integration testで確認済み。実ユーザーの観測値はGitへ保存せず、現時点の8C判定はhold、runtime昇格・新規Gap closeは0です。[設計・境界](./docs/phase7-personal-research-quest.md) / [machine-readable audit](./research/phase7-research-quest.json)。
 
@@ -306,7 +306,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 - [x] 8B — 外部Evidence取得と残余queue再評価。35% Armor + Iron Hide + Guarding Strikeのdirect mob attackを最初の1単位に選びました。2026年のEHP family説明はCaramel guide由来の派生sourceであり、旧record @1を残して@2でdependencyとorigin不明を訂正。WikiのIron Hide単独raw pairもtester/editor origin不明のため、active 3件の独立Evidence countは0です。Phase 6.6の1,307件を含むremaining 2,088件のpartition（external-resolved 0、limited-measurement 5、implementation-missing 271、hold 1,812）を維持。出口は保留、runtime昇格・新規Gap closeは0です。詳細は[8A/8Bレポート](./docs/phase8-evidence-intake.md)と[machine-readable queue](./research/phase8-gap-reassessment.json)を参照してください。
 
-- [x] 8C — 検証前gate（1.17.0.0、全8条件、各3独立run×10 hit、誤差基準）を固定し、旧新比較・順位感度・再現性とAdoptionDecisionを保存しました。eligible independent holdoutは0 run / 0 hitのため判定は保留。same-origin rowを除外し、runtime昇格・新規Gap closeは0です。詳細は[8Cレポート](./docs/phase8c-limited-dr-validation.md)を参照してください。
+- [x] 8C — 検証前gate（1.17.0.0、全8条件、各3独立run×10 hit、誤差基準）を固定し、旧新比較・順位感度・再現性とAdoptionDecisionを保存しました。独立runは別々に実施したrun ID / raw traceで数え、origin groupは由来とcalibration/holdout分離に使用します。eligible independent holdoutは0 run / 0 hitのため判定は保留。calibration originのrowを除外し、runtime昇格・新規Gap closeは0です。詳細は[8Cレポート](./docs/phase8c-limited-dr-validation.md)を参照してください。
 
 **8Cの完了条件。** calibrationと独立holdoutを分離し、許容領域・誤差基準を検証前に設定。旧新モデルの同条件比較、順位感度、再現性を確認し、採用/保留/不採用のAdoptionDecisionを保存します。Phase 1の独立DPS回帰5件gateは別に維持します。
 
@@ -314,7 +314,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ### Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）
 
-版1.17.0.0、同一incoming hit、baseline・単独・pair・三効果の全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変更せず8C auditを再実行します。
+版1.17.0.0、同一incoming hit、baseline・単独・pair・三効果の全8条件について、別々に実施した3 run×各10 hit以上を取得できた場合に、固定済みgateを変更せず8C auditを再実行します。同じ測定者でも別runは数え、複製run・重複run ID・raw trace再利用は数えません。
 
 ### Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）
 

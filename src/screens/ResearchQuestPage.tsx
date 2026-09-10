@@ -6,6 +6,7 @@ import {
   buildPhase7Submission,
   captureResearchQuestRun,
   defaultResearchQuestState,
+  independentResearchQuestRuns,
   LIMITED_DR_CONDITION_LABELS,
   loadResearchQuestState,
   PHASE7_GAP_IDS,
@@ -43,7 +44,7 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
   const [message, setMessage] = useState('この記録は装備JSONとは別に、このブラウザへ保存されます。')
   const [exportText, setExportText] = useState('')
   const readiness = useMemo(() => resolveResearchQuestReadiness(inventory), [inventory])
-  const eligibleRuns = state.runs.filter((run) => run.observedDamage.length >= LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun)
+  const eligibleRuns = independentResearchQuestRuns(state.runs).filter((run) => run.observedDamage.length >= LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun)
   const progress = Object.fromEntries(LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => [condition, eligibleRuns.filter((run) => run.condition === condition).length])) as Record<LimitedDrConditionId, number>
   const completedConditions = LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.filter((condition) => progress[condition] >= LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition).length
 
@@ -62,7 +63,10 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
       setDamageText('')
       setActivationText('')
       setExportText('')
-      setMessage(`runを保存しました。8C対象 ${submission.validation.evidenceBoundary.eligibleIndependentHoldoutRuns} / 24 run。`)
+      const duplicated = submission.validation.evidenceBoundary.excludedDuplicateRunIds.includes(nextDraft.id)
+      setMessage(duplicated
+        ? 'runを保存しましたが、複製または同じraw traceの再利用として独立runには数えません。'
+        : `runを保存しました。8C対象 ${submission.validation.evidenceBoundary.eligibleIndependentHoldoutRuns} / 24 run。`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'runを保存できませんでした。')
     }
@@ -104,7 +108,7 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
       </section>
 
       {readiness.ready && state.status === 'active' && <section className="quest-workspace">
-        <div className="condition-progress"><div className="section-heading"><div><p className="section-label">PROTOCOL PROGRESS</p><h2>全8条件の独立run</h2></div><span>各3 run × 10 hit以上</span></div>
+        <div className="condition-progress"><div className="section-heading"><div><p className="section-label">PROTOCOL PROGRESS</p><h2>全8条件の独立run</h2><p>run IDは別々に実施した反復測定、origin groupはEvidenceの測定者・取得元です。同じ測定者の別runは個別に数え、複製runや同じraw traceの再利用は数えません。</p></div><span>各3 run × 10 hit以上</span></div>
           <div className="condition-grid">{LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => <article className={progress[condition] >= 3 ? 'complete' : ''} key={condition}><span>{LIMITED_DR_CONDITION_LABELS[condition]}</span><strong>{progress[condition]} / 3</strong></article>)}</div>
         </div>
 
@@ -113,7 +117,7 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
           <div className="run-fields">
             <label>条件<select value={draft.condition} onChange={(event) => setDraft({ ...draft, condition: event.target.value as LimitedDrConditionId })}>{LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => <option key={condition} value={condition}>{LIMITED_DR_CONDITION_LABELS[condition]}</option>)}</select></label>
             <label>run ID<input value={draft.id} placeholder="例: dr-20260910-01" onChange={(event) => setDraft({ ...draft, id: event.target.value })} /></label>
-            <label>独立origin ID<input value={draft.originGroup} placeholder="測定者・収録単位" onChange={(event) => setDraft({ ...draft, originGroup: event.target.value })} /></label>
+            <label>origin group<input value={draft.originGroup} placeholder="Evidenceの測定者・取得元" onChange={(event) => setDraft({ ...draft, originGroup: event.target.value })} /></label>
             <label>incoming hit ID<input value={draft.incomingHitId} placeholder="全runで同じID" onChange={(event) => setDraft({ ...draft, incomingHitId: event.target.value })} /></label>
             <label>Platform<input value={draft.platform} placeholder="例: Windows" onChange={(event) => setDraft({ ...draft, platform: event.target.value })} /></label>
             <label>Difficulty<input value={draft.difficulty} placeholder="難易度・ミッション" onChange={(event) => setDraft({ ...draft, difficulty: event.target.value })} /></label>

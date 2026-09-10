@@ -8,7 +8,7 @@
 
 ## 7B — 任意の限定実測
 
-Observe / Measure / Experimentを選択でき、現在の残余taskはExperimentだけ。スキップ・中断・再開、条件別進捗、版・platform・difficulty・incoming hit・activation frame・10 hit以上のdamage列を保存する。自前測定は入力内容からraw recordとSHA-256を自動生成し、外部Evidenceでは従来どおりHTTPS URLとSHA-256を保持する。全8条件 × 3独立run × 10 hitの固定gateは変更しない。
+Observe / Measure / Experimentを選択でき、現在の残余taskはExperimentだけ。スキップ・中断・再開、条件別進捗、版・platform・difficulty・incoming hit・activation frame・10 hit以上のdamage列を保存する。自前測定は入力内容からraw recordとSHA-256を自動生成し、外部Evidenceでは従来どおりHTTPS URLとSHA-256を保持する。`run ID`は別々に実施した反復測定、`origin group`はEvidenceの由来・測定者/取得元を表す。同じユーザーが別々に実施したrunは個別に数える一方、同じrunの複製、重複run ID、同じraw traceの再利用は独立runへ数えない。全8条件 × 3独立run × 10 hitの固定gateとcalibration/holdout origin分離は変更しない。
 
 保存済みrunはPhase 8AのEvidence RepositoryとPhase 8Cの`LimitedDrRun`へ同時変換し、同じ画面で固定済みvalidatorを再実行できる。個人観測はブラウザlocalStorageにだけ保存し、Gitへ含めない。
 

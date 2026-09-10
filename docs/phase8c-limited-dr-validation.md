@@ -5,10 +5,11 @@
 ## 事前固定したgate
 
 - ゲーム版1.17.0.0、同一incoming hit、baseline・単独3種・pair 3種・三効果の全8条件
-- 各条件3独立run以上、各run 10 hit以上
-- calibration originとholdout originを分離
+- 各条件3独立run以上、各run 10 hit以上。run IDは別々に実施した反復測定を表し、同じ測定者の別runもそれぞれ数える
+- origin groupはEvidenceの由来・測定者/取得元を表す。runの一意性には使わず、calibration originとholdout originの分離には引き続き使う
+- 重複run IDは拒否し、同一runの複製と同じraw traceの再利用は独立runへ数えない
 - mean absolute damage-taken fraction error <= 0.005、各hitのraw damage error <= 1
-- same-origin row、合成probe、単発自己観測はVerifiedに数えない
+- calibration originと同じrow、合成probe、単発自己観測はVerifiedに数えない
 
 ## 旧新比較と順位感度
 

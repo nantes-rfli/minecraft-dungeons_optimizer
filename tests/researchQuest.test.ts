@@ -6,6 +6,7 @@ import {
   buildPhase7Submission,
   captureResearchQuestRun,
   defaultResearchQuestState,
+  independentResearchQuestRuns,
   parseResearchQuestState,
   RESEARCH_QUEST_STORAGE_KEY,
   resolveResearchQuestReadiness,
@@ -91,6 +92,14 @@ describe('Phase 7 Personal Research Quest', () => {
     const submission = buildPhase7Submission({ ...defaultResearchQuestState(), runs: [captured] })
     expect(submission.rawRecords).toEqual([{ locator: captured.rawTraceUrl, sha256: captured.rawTraceSha256, content: captured.rawTraceRecord }])
     expect(submission.evidenceRepository.entries[0]!.assessment.outcome).toBe('accepted')
+  })
+
+  it('uses distinct run and raw-trace identity for Research Quest progress, not origin-group uniqueness', () => {
+    const samePlayerRuns = [1, 2, 3].map((index) => ({ ...draft(`same-player-${index}`), condition: 'baseline' as const, originGroup: 'same-player', rawTraceSha256: index.toString(16).padStart(64, '0'), capturedAt: `2026-09-10T10:0${index}:00+09:00` }))
+    expect(independentResearchQuestRuns(samePlayerRuns)).toHaveLength(3)
+    const copied = { ...samePlayerRuns[0]!, id: 'copied', rawTraceUrl: 'https://example.test/copied.csv', rawTraceSha256: 'f'.repeat(64) }
+    const reusedTrace = { ...samePlayerRuns[1]!, id: 'reused', rawTraceUrl: samePlayerRuns[0]!.rawTraceUrl, rawTraceSha256: samePlayerRuns[0]!.rawTraceSha256 }
+    expect(independentResearchQuestRuns([...samePlayerRuns, copied, reusedTrace]).map((run) => run.id)).toEqual(['same-player-1', 'same-player-2', 'same-player-3'])
   })
 
   it('rejects short traces and duplicate run identities before handoff', async () => {

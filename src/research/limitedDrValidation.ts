@@ -9,6 +9,8 @@ export interface LimitedDrAcceptancePlan {
   readonly damageChannel: 'direct-mob-attack'
   readonly requiredConditions: readonly LimitedDrConditionId[]
   readonly minimumIndependentRunsPerCondition: number
+  readonly independentRunIdentity: 'distinct-run-id-and-raw-trace'
+  readonly originGroupRole: 'evidence-provenance'
   readonly minimumHitsPerRun: number
   readonly maximumMeanAbsoluteFractionError: number
   readonly maximumPerHitRawDamageError: number
@@ -26,6 +28,8 @@ export interface LimitedDrRun {
   readonly equipment: readonly { readonly id: string; readonly power: number }[]
   readonly activationFrameLocators: readonly string[]
   readonly rawTraceLocator: string
+  readonly rawTraceSha256: string
+  readonly capturedAt: string
   readonly baselineDamage: number
   readonly observedDamage: readonly number[]
 }
@@ -51,6 +55,8 @@ export const LIMITED_DR_ACCEPTANCE_PLAN: LimitedDrAcceptancePlan = {
   damageChannel: 'direct-mob-attack',
   requiredConditions: ['baseline', 'armor-35', 'iron-hide', 'guarding-strike', 'armor-iron', 'armor-guarding', 'iron-guarding', 'armor-iron-guarding'],
   minimumIndependentRunsPerCondition: 3,
+  independentRunIdentity: 'distinct-run-id-and-raw-trace',
+  originGroupRole: 'evidence-provenance',
   minimumHitsPerRun: 10,
   maximumMeanAbsoluteFractionError: 0.005,
   maximumPerHitRawDamageError: 1,
@@ -84,6 +90,7 @@ function validatePlan(plan: LimitedDrAcceptancePlan): void {
   required(!Number.isNaN(Date.parse(plan.frozenAt)), 'acceptance plan needs a valid frozenAt timestamp')
   required(plan.requiredConditions.length === 8 && new Set(plan.requiredConditions).size === 8, 'all eight baseline/single/pair/triple conditions are required')
   required(plan.minimumIndependentRunsPerCondition >= 3, 'at least three independent runs per condition are required')
+  required(plan.independentRunIdentity === 'distinct-run-id-and-raw-trace' && plan.originGroupRole === 'evidence-provenance', 'independent-run identity and provenance roles must remain explicit')
   required(plan.minimumHitsPerRun >= 10, 'at least ten hits per run are required')
   required(plan.maximumMeanAbsoluteFractionError > 0 && plan.maximumMeanAbsoluteFractionError < 1, 'invalid fraction-error tolerance')
   required(Number.isInteger(plan.maximumPerHitRawDamageError) && plan.maximumPerHitRawDamageError >= 0, 'invalid raw-damage tolerance')
@@ -94,8 +101,48 @@ function validateRun(run: LimitedDrRun): void {
   required(run.id.trim() && run.originGroup.trim() && run.incomingHitId.trim() && run.rawTraceLocator.trim(), 'run identity, provenance and raw-trace locator are required')
   required(run.equipment.every((item) => item.id.trim() && Number.isFinite(item.power) && item.power >= 0), `invalid equipment identity or Power: ${run.id}`)
   required(run.condition === 'baseline' || (run.equipment.length > 0 && run.activationFrameLocators.length > 0 && run.activationFrameLocators.every((locator) => locator.trim())), `active condition needs equipment and activation frames: ${run.id}`)
+  required(/^[a-f0-9]{64}$/.test(run.rawTraceSha256) && !Number.isNaN(Date.parse(run.capturedAt)), `invalid raw-trace identity: ${run.id}`)
   required(Number.isFinite(run.baselineDamage) && run.baselineDamage > 0, `invalid baseline damage: ${run.id}`)
   required(run.observedDamage.length > 0 && run.observedDamage.every((value) => Number.isFinite(value) && value >= 0), `invalid observations: ${run.id}`)
+}
+
+const stable = (value: unknown): string => {
+  if (Array.isArray(value)) return `[${value.map(stable).join(',')}]`
+  if (value && typeof value === 'object') return `{${Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, child]) => `${JSON.stringify(key)}:${stable(child)}`).join(',')}}`
+  return JSON.stringify(value)
+}
+
+function repeatedRunKey(run: LimitedDrRun): string {
+  return stable({
+    condition: run.condition,
+    incomingHitId: run.incomingHitId,
+    equipment: run.equipment,
+    activationFrameLocators: run.activationFrameLocators,
+    baselineDamage: run.baselineDamage,
+    observedDamage: run.observedDamage,
+    capturedAt: run.capturedAt,
+  })
+}
+
+/** A run is an independent repetition; provenance groups may repeat, but run/trace identities may not. */
+export function selectIndependentLimitedDrRuns(runs: readonly LimitedDrRun[]) {
+  const seenIds = new Set<string>()
+  const seenLocators = new Set<string>()
+  const seenHashes = new Set<string>()
+  const seenRuns = new Set<string>()
+  const independentRuns: LimitedDrRun[] = []
+  const excludedDuplicateRunIds: string[] = []
+  for (const run of runs) {
+    const runKey = repeatedRunKey(run)
+    const duplicate = seenIds.has(run.id) || seenLocators.has(run.rawTraceLocator) || seenHashes.has(run.rawTraceSha256) || seenRuns.has(runKey)
+    if (duplicate) excludedDuplicateRunIds.push(run.id)
+    else independentRuns.push(run)
+    seenIds.add(run.id)
+    seenLocators.add(run.rawTraceLocator)
+    seenHashes.add(run.rawTraceSha256)
+    seenRuns.add(runKey)
+  }
+  return { independentRuns, excludedDuplicateRunIds }
 }
 
 function compareRow(condition: LimitedDrConditionId, baselineDamage: number, observedDamage: number) {
@@ -123,7 +170,8 @@ export function evaluateLimitedDrValidation(input: LimitedDrValidationInput) {
     ids.add(run.id)
   }
 
-  const eligibleRuns = input.runs.filter((run) => run.partition === 'holdout' && run.gameVersion === input.plan.gameVersion && run.damageChannel === input.plan.damageChannel && !calibrationOrigins.has(run.originGroup) && run.observedDamage.length >= input.plan.minimumHitsPerRun)
+  const { independentRuns, excludedDuplicateRunIds } = selectIndependentLimitedDrRuns(input.runs)
+  const eligibleRuns = independentRuns.filter((run) => run.partition === 'holdout' && run.gameVersion === input.plan.gameVersion && run.damageChannel === input.plan.damageChannel && !calibrationOrigins.has(run.originGroup) && run.observedDamage.length >= input.plan.minimumHitsPerRun)
   const conditionCoverage = Object.fromEntries(input.plan.requiredConditions.map((condition) => {
     const rows = eligibleRuns.filter((run) => run.condition === condition)
     return [condition, { eligibleRuns: rows.length, eligibleHits: rows.reduce((sum, row) => sum + row.observedDamage.length, 0), pass: rows.length >= input.plan.minimumIndependentRunsPerCondition }]
@@ -154,7 +202,11 @@ export function evaluateLimitedDrValidation(input: LimitedDrValidationInput) {
     evidenceBoundary: {
       submittedRuns: input.runs.length,
       eligibleIndependentHoldoutRuns: eligibleRuns.length,
+      excludedDuplicateRunIds,
       calibrationOriginGroups: [...input.calibrationOriginGroups],
+      runIdDefinesIndependentRepetition: true,
+      originGroupDefinesProvenanceNotRunUniqueness: true,
+      repeatedRawTraceCounts: false,
       sameOriginCalibrationIsHoldout: false,
       syntheticProbeCanVerify: false,
     },

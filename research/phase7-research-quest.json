@@ -67,6 +67,10 @@
     "selfObservationRawRecordGenerated": true,
     "selfObservationHashGenerated": true,
     "externalEvidenceKeepsUrlAndHash": true,
+    "independentRunIdentity": "distinct-run-id-and-raw-trace",
+    "originGroupRole": "evidence-provenance",
+    "sameOriginDistinctRunsCountSeparately": true,
+    "duplicateRunsAndRawTracesCount": false,
     "outputIncludes": [
       "evidenceRepository",
       "limitedDrRuns",

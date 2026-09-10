@@ -17,6 +17,8 @@
       "armor-iron-guarding"
     ],
     "minimumIndependentRunsPerCondition": 3,
+    "independentRunIdentity": "distinct-run-id-and-raw-trace",
+    "originGroupRole": "evidence-provenance",
     "minimumHitsPerRun": 10,
     "maximumMeanAbsoluteFractionError": 0.005,
     "maximumPerHitRawDamageError": 1,
@@ -25,11 +27,15 @@
   "evidenceBoundary": {
     "submittedRuns": 0,
     "eligibleIndependentHoldoutRuns": 0,
+    "excludedDuplicateRunIds": [],
     "calibrationOriginGroups": [
       "shin-dr",
       "caramel-dr-guide",
       "anotherraalt"
     ],
+    "runIdDefinesIndependentRepetition": true,
+    "originGroupDefinesProvenanceNotRunUniqueness": true,
+    "repeatedRawTraceCounts": false,
     "sameOriginCalibrationIsHoldout": false,
     "syntheticProbeCanVerify": false
   },

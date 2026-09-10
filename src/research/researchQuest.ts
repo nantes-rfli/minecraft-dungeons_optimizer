@@ -10,6 +10,7 @@ import {
 import {
   evaluateLimitedDrValidation,
   LIMITED_DR_ACCEPTANCE_PLAN,
+  selectIndependentLimitedDrRuns,
   type LimitedDrConditionId,
   type LimitedDrRun,
 } from './limitedDrValidation.ts'
@@ -227,7 +228,7 @@ export async function captureResearchQuestRun(draft: ResearchQuestRunDraft, inve
 export function validateResearchQuestRun(draft: ResearchQuestRunDraft): string[] {
   const errors: string[] = []
   if (!draft.id.trim()) errors.push('run IDを入力してください。')
-  if (!draft.originGroup.trim()) errors.push('独立origin IDを入力してください。')
+  if (!draft.originGroup.trim()) errors.push('Evidenceのorigin groupを入力してください。')
   if (!draft.incomingHitId.trim()) errors.push('incoming hit IDを入力してください。')
   if (draft.originKind === 'external') {
     try { if (new URL(draft.rawTraceUrl).protocol !== 'https:') errors.push('外部Evidenceのraw trace URLはHTTPSで入力してください。') } catch { errors.push('外部Evidenceのraw trace URLは有効なHTTPS URLで入力してください。') }
@@ -260,9 +261,16 @@ export function toLimitedDrRun(draft: ResearchQuestRunDraft): LimitedDrRun {
     equipment: draft.equipment,
     activationFrameLocators: draft.condition === 'baseline' ? [] : draft.activationFrameLocators.filter((value) => value.trim()),
     rawTraceLocator: draft.rawTraceUrl,
+    rawTraceSha256: draft.rawTraceSha256,
+    capturedAt: draft.capturedAt,
     baselineDamage: draft.baselineDamage,
     observedDamage: draft.observedDamage,
   }
+}
+
+export function independentResearchQuestRuns(runs: readonly ResearchQuestRunDraft[]): readonly ResearchQuestRunDraft[] {
+  const byId = new Map(runs.map((run) => [run.id, run]))
+  return selectIndependentLimitedDrRuns(runs.map(toLimitedDrRun)).independentRuns.map((run) => byId.get(run.id)!)
 }
 
 function toEvidenceRecord(draft: ResearchQuestRunDraft, run: LimitedDrRun): EvidenceIntakeRecord {
