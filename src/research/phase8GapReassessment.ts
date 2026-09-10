@@ -32,7 +32,7 @@ export function reassessPhase8Gap(record: Phase8GapInput): Phase8GapReassessment
   }
   if (selectedMeasurementGaps.has(record.gapId)) return {
     gapId: record.gapId, previousDisposition, disposition: 'limited-measurement',
-    evidenceRecordIds: ['phase8-dr-ehp-current@1', 'phase8-iron-hide-wiki-tests@1'], changed: true,
+    evidenceRecordIds: ['phase8-dr-ehp-current@2', 'phase8-caramel-dr-guide@1', 'phase8-iron-hide-wiki-tests@1'], changed: true,
     reason: 'New external material narrows the formula and single-effect behavior, but lacks a versioned independent raw trace for the selected combination.',
   }
   return {

@@ -119,8 +119,19 @@ function validateRecord(record: EvidenceIntakeRecord): void {
   required(!Number.isNaN(Date.parse(record.capturedAt)), `invalid capture timestamp: ${record.id}`)
 }
 
-function claimDomain(record: EvidenceIntakeRecord): string {
-  return stable([record.claim.entity, record.claim.property, record.context.gameVersion, record.context.conditions])
+/** Exact observation domain; equipment order is presentation-only, while duplicate items remain significant. */
+export function claimDomain(record: EvidenceIntakeRecord): string {
+  const equipment = [...record.context.equipment]
+    .map((item) => ({ id: item.id, power: item.power }))
+    .sort((left, right) => left.id.localeCompare(right.id) || (left.power ?? -1) - (right.power ?? -1))
+  return stable({
+    entity: record.claim.entity,
+    property: record.claim.property,
+    gameVersion: record.context.gameVersion,
+    equipment,
+    conditions: record.context.conditions,
+    unit: record.measurement.unit,
+  })
 }
 
 function changedFields(previous: EvidenceIntakeRecord | undefined, record: EvidenceIntakeRecord): string[] {
@@ -147,7 +158,7 @@ function assess(entries: readonly EvidenceIntakeEntry[], record: EvidenceIntakeR
     reasons.push(original ? 'repost-not-independent' : 'repost-origin-unresolved')
   }
 
-  const peers = entries.map((entry) => entry.record).filter((peer) => claimDomain(peer) === claimDomain(record) && peer.id !== record.corrects)
+  const peers = entries.map((entry) => entry.record).filter((peer) => claimDomain(peer) === claimDomain(record) && peer.recordId !== record.recordId)
   if (peers.some((peer) => stable(peer.claim.value) !== stable(record.claim.value))) reasons.push('unresolved-conflict')
 
   if (record.partition !== 'unassigned') {
@@ -204,4 +215,25 @@ export function validateEvidenceRepository(repository: EvidenceRepository): void
   required(repository && repository.schemaVersion === 1 && Array.isArray(repository.entries), 'unsupported repository schema')
   const replayed = buildEvidenceRepository(repository.entries.map((entry) => entry.record))
   required(stable(replayed) === stable(repository), 'repository assessment or revision drift')
+}
+
+/** Returns at most one latest, non-derived record per known origin group. */
+export function independentEvidenceIds(repository: EvidenceRepository, recordIds: readonly string[]): string[] {
+  validateEvidenceRepository(repository)
+  const requested = new Set(recordIds)
+  const latestByRecordId = new Map<string, EvidenceIntakeEntry>()
+  for (const entry of repository.entries) {
+    const previous = latestByRecordId.get(entry.record.recordId)
+    if (!previous || previous.record.revision < entry.record.revision) latestByRecordId.set(entry.record.recordId, entry)
+  }
+  const origins = new Set<string>()
+  const result: string[] = []
+  for (const entry of latestByRecordId.values()) {
+    if (!requested.has(entry.record.id) || entry.assessment.outcome === 'rejected') continue
+    const { originGroup, repostOfSourceRevisionId } = entry.record.source
+    if (!originGroup?.trim() || repostOfSourceRevisionId !== null || origins.has(originGroup)) continue
+    origins.add(originGroup)
+    result.push(entry.record.id)
+  }
+  return result.sort()
 }

@@ -26,18 +26,29 @@
     },
     "outcome": "hold",
     "evidenceRecordIds": [
-      "phase8-dr-ehp-current@1",
+      "phase8-dr-ehp-current@2",
+      "phase8-caramel-dr-guide@1",
       "phase8-iron-hide-wiki-tests@1"
     ],
-    "independentFromPhase69DefenseOrigin": [
+    "supersededEvidenceRecordIds": [
       "phase8-dr-ehp-current@1"
     ],
+    "independentEvidenceRecordIds": [],
+    "originDependencies": [
+      {
+        "recordId": "phase8-dr-ehp-current@2",
+        "derivedFromSourceRevisionId": "caramel-dr-guide@1",
+        "upstreamOrigin": "unresolved"
+      }
+    ],
     "independenceUnresolved": [
+      "phase8-dr-ehp-current@2",
+      "phase8-caramel-dr-guide@1",
       "phase8-iron-hide-wiki-tests@1"
     ],
     "narrowed": [
-      "A second author/origin corroborates the additive-EHP versus separate-Guarding family split.",
-      "Two published single-Iron-Hide raw damage pairs corroborate a 0.5 damage-taken fraction."
+      "The current Reddit explanation exposes its dependency on Caramel/Errie’s DR guide; it does not add an independent origin.",
+      "Two published single-Iron-Hide raw damage pairs corroborate a 0.5 damage-taken fraction, but their tester/editor origin remains unresolved."
     ],
     "blockers": [
       "exact game version absent",
@@ -69,7 +80,9 @@
     "implementation-missing": 271,
     "hold": 1812,
     "selectedUnitGapCount": 5,
-    "evidenceAdded": 2,
+    "repositoryRevisions": 4,
+    "activeEvidenceRecords": 3,
+    "independentEvidenceRecords": 0,
     "promotions": 0,
     "newGapClosures": 0
   },
@@ -10007,7 +10020,8 @@
       "previousDisposition": "phase-7-observe",
       "disposition": "limited-measurement",
       "evidenceRecordIds": [
-        "phase8-dr-ehp-current@1",
+        "phase8-dr-ehp-current@2",
+        "phase8-caramel-dr-guide@1",
         "phase8-iron-hide-wiki-tests@1"
       ],
       "changed": true,
@@ -15970,7 +15984,8 @@
       "previousDisposition": "phase-7-measure",
       "disposition": "limited-measurement",
       "evidenceRecordIds": [
-        "phase8-dr-ehp-current@1",
+        "phase8-dr-ehp-current@2",
+        "phase8-caramel-dr-guide@1",
         "phase8-iron-hide-wiki-tests@1"
       ],
       "changed": true,
@@ -15981,7 +15996,8 @@
       "previousDisposition": "phase-7-measure",
       "disposition": "limited-measurement",
       "evidenceRecordIds": [
-        "phase8-dr-ehp-current@1",
+        "phase8-dr-ehp-current@2",
+        "phase8-caramel-dr-guide@1",
         "phase8-iron-hide-wiki-tests@1"
       ],
       "changed": true,
@@ -15992,7 +16008,8 @@
       "previousDisposition": "phase-7-experiment",
       "disposition": "limited-measurement",
       "evidenceRecordIds": [
-        "phase8-dr-ehp-current@1",
+        "phase8-dr-ehp-current@2",
+        "phase8-caramel-dr-guide@1",
         "phase8-iron-hide-wiki-tests@1"
       ],
       "changed": true,
@@ -16011,7 +16028,8 @@
       "previousDisposition": "phase-7-observe",
       "disposition": "limited-measurement",
       "evidenceRecordIds": [
-        "phase8-dr-ehp-current@1",
+        "phase8-dr-ehp-current@2",
+        "phase8-caramel-dr-guide@1",
         "phase8-iron-hide-wiki-tests@1"
       ],
       "changed": true,

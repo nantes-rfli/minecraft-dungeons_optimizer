@@ -356,7 +356,7 @@ export function MethodologyPage() {
         </div>
       </section>
 
-      <section className="method-section"><h2>Roadmap — 次の小Phase</h2><p>8Aの受入基盤と8Bの外部取得・queue再評価は完了しました。最初の限定DR単位は第二originの式説明とIron Hide単独testを追加できましたが、版付き独立raw traceがなく保留です。次は不足分だけを測定し、8Cで採用・保留・不採用を判断します。Public Availabilityは引き続き保留です。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Roadmap — 次の小Phase</h2><p>8A/8Bとfix-upは完了しました。DR説明はCaramel guide由来の派生sourceへrevision訂正し、原典の独立性は不明です。Wiki単独testもorigin不明のため、active 3件の独立Evidence countは0。限定DR単位は保留し、8Cはまだ実施していません。Public Availabilityも引き続き保留です。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="method-section"><h2>Future Expansion（進捗対象外）</h2>{FUTURE_EXPANSION_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>

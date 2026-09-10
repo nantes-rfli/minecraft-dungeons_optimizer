@@ -248,7 +248,7 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ## 現在の作業位置（2026-09-10再検討）
 
-**Phase 8A/8Bは完了し、次は限定DR単位の8Cです。** Phase番号は履歴として維持し、実行順を **8A → 8B → 必要な残余だけ7 → 8C → 合格した単位だけ9** とします。最初の単位は第二originの式説明とIron Hide単独testを追加できましたが、版付き独立raw traceがなく保留です。
+**Phase 8A/8Bは完了し、8C前のorigin/domain fix-upまで反映済みです。** Phase番号は履歴として維持します。DR説明はCaramel guide由来の派生sourceで、原典の独立性は未確認です。active 3件の独立Evidence countは0、限定DR単位は版付き独立raw trace不足で保留、8Cは未実施です。
 
 Phase 6.9で比較経路は揃いました。現在の律速は新しい比較器の数ではなく、game version・観測条件・独立性・適用範囲の不足です。したがってResearch Questの大規模UI、全効果の一括移行、native全面復元を先行させず、既存の版付き台帳・adapter・測定protocolを再利用します。
 
@@ -297,7 +297,7 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 - [x] 8A — 受入・検証の最小基盤。6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・raw observation・画像/動画/本文locator・originを受け入れる契約を実装しました。外部と自前で同じ規則を使い、構造不正を拒否し、欠落・訂正・競合・転載・calibration/holdoutの混用を理由コード付きで判定します。append-only revision、changed fields、JSON保存・再読込時の判定再計算をテスト済みです。
 
-- [x] 8B — 外部Evidence取得と残余queue再評価。35% Armor + Iron Hide + Guarding Strikeのdirect mob attackを最初の1単位に選び、2026年の第二originによるEHP family説明と、Wikiに掲載されたIron Hide単独raw pair 2件を取得しました。いずれもversion/Power/完全なframe条件が不足するためquarantineで保存し、独立holdoutには数えません。Phase 6.6の1,307件を含むremaining 2,088件を元ID・旧disposition・理由・差分付きで完全partitionしました。external-resolved 0、limited-measurement 5、implementation-missing 271、hold 1,812。出口は保留、runtime昇格・新規Gap closeは0です。詳細は[8A/8Bレポート](./docs/phase8-evidence-intake.md)と[machine-readable queue](./research/phase8-gap-reassessment.json)を参照してください。
+- [x] 8B — 外部Evidence取得と残余queue再評価。35% Armor + Iron Hide + Guarding Strikeのdirect mob attackを最初の1単位に選びました。2026年のEHP family説明はCaramel guide由来の派生sourceであり、旧record @1を残して@2でdependencyとorigin不明を訂正。WikiのIron Hide単独raw pairもtester/editor origin不明のため、active 3件の独立Evidence countは0です。Phase 6.6の1,307件を含むremaining 2,088件のpartition（external-resolved 0、limited-measurement 5、implementation-missing 271、hold 1,812）を維持。出口は保留、runtime昇格・新規Gap closeは0です。詳細は[8A/8Bレポート](./docs/phase8-evidence-intake.md)と[machine-readable queue](./research/phase8-gap-reassessment.json)を参照してください。
 
 - [ ] 8C — 独立holdout・許容範囲・旧新比較から採用/保留/不採用を保存する。same-origin holdout、合成probe、1件の自己観測だけでVerifiedにしない。
 

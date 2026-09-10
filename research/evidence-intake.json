@@ -172,6 +172,189 @@
       "changedFields": [
         "initial-revision"
       ]
+    },
+    {
+      "record": {
+        "id": "phase8-caramel-dr-guide@1",
+        "recordId": "phase8-caramel-dr-guide",
+        "revision": 1,
+        "source": {
+          "sourceId": "caramel-dr-guide",
+          "revision": 1,
+          "url": "https://imgur.com/a/caramel-errie-s-dr-guide-xPPTKHu",
+          "label": "Caramel/Errie’s DR Guide attribution and album",
+          "retrievedAt": "2026-09-10T00:00:00+09:00",
+          "snapshotSha256": "dfcbb9cd5b1deb2f3e0142562aca549024d3ffa7417310dad86ebd2b40ba9143",
+          "originKind": "external",
+          "originGroup": null,
+          "repostOfSourceRevisionId": null,
+          "reviewed": false
+        },
+        "claim": {
+          "claimId": "caramel-dr-guide-provenance",
+          "entity": "defense:limited-dr-composition",
+          "property": "defense.composition-provenance",
+          "statement": "A Reddit attribution post identifies the linked Imgur album as Caramel/Errie’s DR guide; the underlying Discord research and measurement provenance were not recovered.",
+          "value": {
+            "attributedAuthor": "Caramel/Errie",
+            "contentRecovered": false,
+            "upstreamResearchRecovered": false
+          }
+        },
+        "context": {
+          "gameVersion": null,
+          "equipment": [],
+          "conditions": {
+            "publicationContext": "Imgur copy of a guide described as originating in Discord",
+            "measurementOrigin": null
+          }
+        },
+        "measurement": {
+          "unit": null,
+          "repetitions": null,
+          "observations": [],
+          "missingReasons": [
+            "guide images were not retrievable in the text-only review",
+            "underlying Discord post, tester identity, raw measurements, and dependency chain are unavailable"
+          ]
+        },
+        "locators": [
+          {
+            "kind": "text",
+            "locator": "Reddit 1ty0t0p lines 43-58 and linked Imgur album title, reviewed 2026-09-10",
+            "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ty0t0p/does_damage_reduction_stack/"
+          },
+          {
+            "kind": "image",
+            "locator": "Imgur album title: Caramel/Errie’s Dr Guide",
+            "url": "https://imgur.com/a/caramel-errie-s-dr-guide-xPPTKHu"
+          }
+        ],
+        "partition": "unassigned",
+        "corrects": null,
+        "correctionReason": null,
+        "capturedAt": "2026-09-10T00:00:00+09:00"
+      },
+      "assessment": {
+        "outcome": "quarantined",
+        "reasons": [
+          "declared-missing:guide images were not retrievable in the text-only review",
+          "declared-missing:underlying Discord post, tester identity, raw measurements, and dependency chain are unavailable",
+          "equipment-missing",
+          "game-version-missing",
+          "origin-independence-unknown",
+          "raw-observations-missing",
+          "repetition-count-missing",
+          "source-unreviewed",
+          "unit-missing"
+        ]
+      },
+      "changedFields": [
+        "initial-revision"
+      ]
+    },
+    {
+      "record": {
+        "id": "phase8-dr-ehp-current@2",
+        "recordId": "phase8-dr-ehp-current",
+        "revision": 2,
+        "source": {
+          "sourceId": "reddit-1w4c05n",
+          "revision": 2,
+          "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1w4c05n/damage_reduction/",
+          "label": "Damage reduction discussion with Caramel guide dependency (reviewed 2026-09-10)",
+          "retrievedAt": "2026-09-10T00:00:00+09:00",
+          "snapshotSha256": "836a3315ad823390acff8ea9a60887bd8af0d6469d18239d57f92a53f0b66800",
+          "originKind": "external",
+          "originGroup": null,
+          "repostOfSourceRevisionId": "caramel-dr-guide@1",
+          "reviewed": true
+        },
+        "claim": {
+          "claimId": "dr-current-ehp-family",
+          "entity": "defense:limited-dr-composition",
+          "property": "defense.composition",
+          "statement": "The commenter explicitly introduces the explanation as adapted from Caramel’s DR guide; it is a derivative restatement, not an independent origin.",
+          "value": {
+            "additiveEffectiveHealth": [
+              "iron-hide",
+              "potion-barrier"
+            ],
+            "separateMultipliers": [
+              "guarding-strike"
+            ]
+          }
+        },
+        "context": {
+          "gameVersion": null,
+          "equipment": [
+            {
+              "id": "artifact:iron-hide-amulet",
+              "power": null
+            },
+            {
+              "id": "melee-enchantment:guarding-strike",
+              "power": null
+            }
+          ],
+          "conditions": {
+            "activation": "all named effects active",
+            "damageChannel": null
+          }
+        },
+        "measurement": {
+          "unit": "effective-health multiplier",
+          "repetitions": null,
+          "observations": [],
+          "missingReasons": [
+            "derivative explanation has no raw hit sequence",
+            "Caramel guide measurement origin is unresolved",
+            "game version and equipment Power are not stated"
+          ]
+        },
+        "locators": [
+          {
+            "kind": "text",
+            "locator": "anotherraalt comment in Reddit 1w4c05n; dependency attribution cross-checked through Reddit 1ty0t0p and the linked Imgur album",
+            "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1w4c05n/damage_reduction/"
+          },
+          {
+            "kind": "text",
+            "locator": "Caramel attribution post, lines 43-58",
+            "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1ty0t0p/does_damage_reduction_stack/"
+          },
+          {
+            "kind": "image",
+            "locator": "Attributed Caramel/Errie DR guide album",
+            "url": "https://imgur.com/a/caramel-errie-s-dr-guide-xPPTKHu"
+          }
+        ],
+        "partition": "unassigned",
+        "corrects": "phase8-dr-ehp-current@1",
+        "correctionReason": "The original intake incorrectly treated a separately posted derivative explanation as an independent origin.",
+        "capturedAt": "2026-09-10T05:20:00+09:00"
+      },
+      "assessment": {
+        "outcome": "quarantined",
+        "reasons": [
+          "correction-recorded",
+          "declared-missing:Caramel guide measurement origin is unresolved",
+          "declared-missing:derivative explanation has no raw hit sequence",
+          "declared-missing:game version and equipment Power are not stated",
+          "equipment-power-missing",
+          "game-version-missing",
+          "origin-independence-unknown",
+          "raw-observations-missing",
+          "repetition-count-missing",
+          "repost-not-independent"
+        ]
+      },
+      "changedFields": [
+        "claim",
+        "locators",
+        "measurement",
+        "source"
+      ]
     }
   ]
 }

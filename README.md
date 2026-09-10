@@ -43,7 +43,7 @@ JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから�
 
 2026-09-09から、native解析を保留して外部研究の活用を優先します。[外部研究の整理・追加調査](./docs/external-community-research.md)では32 source、15 claim、HPS 55行×4条件を保存し、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)に沿って6.9F Scenario / Optimizer comparisonまで完了しました。[有限Scenario比較](./docs/scenario-optimizer-comparison.md)ではfinite damage / overkill、final-blow ownership、目的・duration感度、未知候補の除外を検証できます。runtime昇格・新規Gap closeはなく、サイトの計算は変更していません。
 
-2026-09-10にPhase 8A/8Bを完了しました。[Evidence受入と限定DR再評価](./docs/phase8-evidence-intake.md)では、外部/自前観測の共通契約、保存・再読込、revision差分、異常・不足・訂正・競合・転載・validation partition混用の判定を実装。新しい公開Evidence 2件を保存し、Phase 6.6のhandoff 1,307件を含むremaining 2,088件を元ID付きで再分類しました。限定DR単位は版付き独立raw trace不足のため保留で、runtime昇格・新規Gap closeは0です。次は不足を限定実測して8Cで採否を判断します。
+2026-09-10にPhase 8A/8Bを完了しました。[Evidence受入と限定DR再評価](./docs/phase8-evidence-intake.md)では、外部/自前観測の共通契約、保存・再読込、revision差分、異常・不足・訂正・競合・転載・validation partition混用の判定を実装。claim domainはentity・property・game version・装備ID/Power・conditions・unitで分離します。DR説明はCaramel guide由来の派生sourceへrevision訂正し、旧recordを保持したままactive 3件の独立Evidence countを0としました。Phase 6.6のhandoff 1,307件を含むremaining 2,088件の分類、runtime昇格0・新規Gap close 0は維持します。8Cは未実施です。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 

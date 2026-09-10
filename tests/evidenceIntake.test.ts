@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildEvidenceRepository, parseEvidenceRepository, serializeEvidenceRepository, type EvidenceIntakeRecord, type EvidenceRepository } from '../src/research/evidenceIntake'
+import { buildEvidenceRepository, independentEvidenceIds, parseEvidenceRepository, serializeEvidenceRepository, type EvidenceIntakeRecord, type EvidenceRepository } from '../src/research/evidenceIntake'
 import { PHASE8_EVIDENCE_RECORDS, buildPhase8Artifacts } from '../scripts/audit-phase8-evidence'
 
 const base = (): EvidenceIntakeRecord => ({
@@ -22,6 +22,8 @@ describe('Phase 8A evidence intake', () => {
   it('keeps incomplete external evidence with explicit quarantine reasons', () => {
     const repository = buildEvidenceRepository(PHASE8_EVIDENCE_RECORDS)
     expect(repository.entries.every((entry) => entry.assessment.outcome === 'quarantined')).toBe(true)
+    expect(parseEvidenceRepository(serializeEvidenceRepository(repository))).toEqual(repository)
+    expect(repository.entries.map((entry) => entry.record.id)).toContain('phase8-dr-ehp-current@1')
     expect(repository.entries[0]!.assessment.reasons).toContain('game-version-missing')
     expect(repository.entries[1]!.assessment.reasons).toContain('origin-independence-unknown')
   })
@@ -29,11 +31,13 @@ describe('Phase 8A evidence intake', () => {
   it('preserves corrections as sequential revisions and records their diff', () => {
     const first = base()
     const second: EvidenceIntakeRecord = { ...first, id: 'fixture@2', revision: 2, claim: { ...first.claim, value: 11 }, corrects: first.id, correctionReason: 'Corrected frame reading', capturedAt: '2026-09-10T01:00:00+09:00' }
-    const repository = buildEvidenceRepository([first, second])
-    expect(repository.entries).toHaveLength(2)
+    const third: EvidenceIntakeRecord = { ...second, id: 'fixture@3', revision: 3, claim: { ...second.claim, value: 12 }, corrects: second.id, correctionReason: 'Corrected a second frame reading', capturedAt: '2026-09-10T02:00:00+09:00' }
+    const repository = buildEvidenceRepository([first, second, third])
+    expect(repository.entries).toHaveLength(3)
     expect(repository.entries[1]!.changedFields).toEqual(['claim'])
     expect(repository.entries[1]!.assessment.reasons).toContain('correction-recorded')
     expect(repository.entries[1]!.assessment.outcome).toBe('accepted')
+    expect(repository.entries[2]!.assessment.reasons).not.toContain('unresolved-conflict')
     expect(repository.entries[0]!.record.claim.value).toBe(10)
   })
 
@@ -57,6 +61,35 @@ describe('Phase 8A evidence intake', () => {
     const repost: EvidenceIntakeRecord = { ...base(), id: 'repost@1', recordId: 'repost', source: { ...base().source, sourceId: 'repost', repostOfSourceRevisionId: 'missing@1' }, partition: 'unassigned' }
     expect(buildEvidenceRepository([repost]).entries[0]!.assessment).toMatchObject({ outcome: 'rejected', reasons: expect.arrayContaining(['repost-origin-unresolved']) })
   })
+
+  it('distinguishes entity, property, version, equipment ID/Power, conditions and unit in the claim domain', () => {
+    const first = { ...base(), partition: 'unassigned' as const }
+    const variants: EvidenceIntakeRecord[] = [
+      { ...base(), id: 'entity@1', recordId: 'entity', claim: { ...base().claim, claimId: 'entity', entity: 'fixture:other', value: 11 }, partition: 'unassigned' },
+      { ...base(), id: 'property@1', recordId: 'property', claim: { ...base().claim, claimId: 'property', property: 'damage-per-second', value: 12 }, partition: 'unassigned' },
+      { ...base(), id: 'version@1', recordId: 'version', context: { ...base().context, gameVersion: '1.16.2.0' }, claim: { ...base().claim, claimId: 'version', value: 13 }, partition: 'unassigned' },
+      { ...base(), id: 'equipment@1', recordId: 'equipment', context: { ...base().context, equipment: [{ id: 'fixture:other', power: 251 }] }, claim: { ...base().claim, claimId: 'equipment', value: 14 }, partition: 'unassigned' },
+      { ...base(), id: 'power@1', recordId: 'power', context: { ...base().context, equipment: [{ id: 'fixture:item', power: 263 }] }, claim: { ...base().claim, claimId: 'power', value: 15 }, partition: 'unassigned' },
+      { ...base(), id: 'conditions@1', recordId: 'conditions', context: { ...base().context, conditions: { target: 'armored-dummy' } }, claim: { ...base().claim, claimId: 'conditions', value: 16 }, partition: 'unassigned' },
+      { ...base(), id: 'unit@1', recordId: 'unit', measurement: { ...base().measurement, unit: 'damage-per-second' }, claim: { ...base().claim, claimId: 'unit', value: 17 }, partition: 'unassigned' },
+    ]
+    const repository = buildEvidenceRepository([first, ...variants])
+    for (const entry of repository.entries.slice(1)) expect(entry.assessment.reasons).not.toContain('unresolved-conflict')
+  })
+
+  it('flags contradictory values only when the complete observation domain matches', () => {
+    const first = { ...base(), partition: 'unassigned' as const }
+    const conflict: EvidenceIntakeRecord = { ...base(), id: 'same-domain@1', recordId: 'same-domain', claim: { ...base().claim, claimId: 'same-domain', value: 99 }, partition: 'unassigned' }
+    expect(buildEvidenceRepository([first, conflict]).entries[1]!.assessment.reasons).toContain('unresolved-conflict')
+  })
+
+  it('does not count unknown or derivative origins as independent evidence', () => {
+    const repository = buildEvidenceRepository(PHASE8_EVIDENCE_RECORDS)
+    const current = repository.entries.find((entry) => entry.record.id === 'phase8-dr-ehp-current@2')!
+    expect(current.record.source.repostOfSourceRevisionId).toBe('caramel-dr-guide@1')
+    expect(current.assessment.reasons).toEqual(expect.arrayContaining(['origin-independence-unknown', 'repost-not-independent', 'correction-recorded']))
+    expect(independentEvidenceIds(repository, ['phase8-dr-ehp-current@2', 'phase8-caramel-dr-guide@1', 'phase8-iron-hide-wiki-tests@1'])).toEqual([])
+  })
 })
 
 describe('Phase 8B queue reassessment', () => {
@@ -67,5 +100,7 @@ describe('Phase 8B queue reassessment', () => {
     expect(counts['external-resolved'] + counts['limited-measurement'] + counts['implementation-missing'] + counts.hold).toBe(counts.total)
     expect(new Set(reassessment.records.map((record) => record.gapId)).size).toBe(counts.total)
     expect(reassessment.selectedUnit).toMatchObject({ outcome: 'hold', promotionCount: 0, newGapClosures: 0 })
+    expect(reassessment.selectedUnit.independentEvidenceRecordIds).toEqual([])
+    expect(reassessment.selectedUnit.supersededEvidenceRecordIds).toEqual(['phase8-dr-ehp-current@1'])
   })
 })
