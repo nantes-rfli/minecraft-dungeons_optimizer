@@ -101,7 +101,8 @@ function validateRecord(record: EvidenceIntakeRecord): void {
   required(record.id === `${record.recordId}@${record.revision}` && record.recordId.trim(), `invalid record identity: ${record.id}`)
   required(Number.isInteger(record.revision) && record.revision > 0, `invalid record revision: ${record.id}`)
   required(record.source.sourceId.trim() && Number.isInteger(record.source.revision) && record.source.revision > 0, `invalid source revision: ${record.id}`)
-  required(new URL(record.source.url).protocol === 'https:', `invalid source URL: ${record.id}`)
+  const sourceProtocol = new URL(record.source.url).protocol
+  required(sourceProtocol === 'https:' || (record.source.originKind === 'self-observation' && sourceProtocol === 'urn:'), `invalid source URL: ${record.id}`)
   required(record.source.label.trim() && !Number.isNaN(Date.parse(record.source.retrievedAt)), `invalid source metadata: ${record.id}`)
   required(/^[a-f0-9]{64}$/.test(record.source.snapshotSha256), `invalid snapshot hash: ${record.id}`)
   required(['external', 'self-observation'].includes(record.source.originKind), `invalid origin: ${record.id}`)

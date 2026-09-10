@@ -52,6 +52,17 @@ describe('Phase 8A evidence intake', () => {
     expect(() => parseEvidenceRepository(JSON.stringify(tampered))).toThrow('drift')
   })
 
+  it('accepts generated self-observation URNs but keeps external sources HTTPS-only', () => {
+    const selfObserved: EvidenceIntakeRecord = {
+      ...base(),
+      source: { ...base().source, url: 'urn:minecraft-dungeons-optimizer:phase7:raw-trace:self-1', originKind: 'self-observation' },
+      locators: [{ kind: 'table', locator: 'urn:minecraft-dungeons-optimizer:phase7:raw-trace:self-1', url: null }],
+    }
+    expect(buildEvidenceRepository([selfObserved]).entries[0]!.assessment.outcome).toBe('accepted')
+    const external = { ...selfObserved, source: { ...selfObserved.source, originKind: 'external' as const } }
+    expect(() => buildEvidenceRepository([external])).toThrow('invalid source URL')
+  })
+
   it('detects conflicts, unresolved reposts and calibration/holdout origin reuse', () => {
     const first = base()
     const conflict: EvidenceIntakeRecord = { ...base(), id: 'conflict@1', recordId: 'conflict', claim: { ...base().claim, claimId: 'other', value: 12 }, partition: 'unassigned' }

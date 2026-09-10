@@ -295,8 +295,8 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 
 ## Phase 7 — Personal Research Quest（2 / 2）
 
-- [x] 7A — Phase 8Bの限定DR残余1単位をactual Inventoryと既存protocolへ接続。35% Armor・Iron Hide・Guarding Strikeがすべて登録済みの場合だけ実施可能とし、未所持装備は必須taskや進捗分母へ加えない
-- [x] 7B — Observe / Measure / Experiment選択、スキップ・中断・再開、条件別進捗、raw trace入力、localStorage保存、Phase 8A Evidence RepositoryとPhase 8C validatorへのJSON受け渡しを実装
+- [x] 7A — Phase 8Bの限定DR残余1単位をactual Inventoryと既存protocolへ接続。35% Armor・Iron Hide・選択済みまたはGildedのGuarding Strikeが揃った場合だけ実施可能とし、通常枠の候補だけなら「選択が必要」と区別。未所持装備は必須taskや進捗分母へ加えない
+- [x] 7B — Observe / Measure / Experiment選択、スキップ・中断・再開、条件別進捗、localStorage保存、Phase 8A Evidence RepositoryとPhase 8C validatorへのJSON受け渡しを実装。自前測定のraw record / SHA-256は入力から自動生成し、外部EvidenceはURL / SHA-256を保持
 
 完了条件: 実データと同じ形式の1 runを8Aの受入契約へ渡し、固定済み8C validatorがeligible holdoutとして評価できること。integration testで確認済み。実ユーザーの観測値はGitへ保存せず、現時点の8C判定はhold、runtime昇格・新規Gap closeは0です。[設計・境界](./docs/phase7-personal-research-quest.md) / [machine-readable audit](./research/phase7-research-quest.json)。
 

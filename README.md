@@ -45,7 +45,7 @@ JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから�
 
 2026-09-10にPhase 8A/B/Cを完了しました。[Evidence受入と限定DR再評価](./docs/phase8-evidence-intake.md)では、外部/自前観測の共通契約、保存・再読込、revision差分、異常・不足・訂正・競合・転載・validation partition混用の判定を実装。claim domainはentity・property・game version・装備ID/Power・conditions・unitで分離します。[Limited DR独立検証](./docs/phase8c-limited-dr-validation.md)では検証前gate、旧新比較、順位感度、再現性、AdoptionDecisionを保存しました。eligible independent holdoutは0 run / 0 hitのため判定は保留で、remaining 2,088件の分類、runtime昇格0・新規Gap close 0を維持します。
 
-Phase 7 Personal Research Questでは、Phase 8Bの限定DR残余1単位を実際のInventoryへ接続しました。35% Armor・Iron Hide・Guarding Strikeを登録済みの場合だけExperimentを開始でき、全8条件の進捗、スキップ・中断・再開、raw trace URL / SHA-256 / hit列を端末内へ保存します。書き出しJSONはPhase 8AのEvidence Repositoryと固定済みPhase 8C validatorへ同時に渡せます。実測値はGitへ保存せず、8C判定はhold、runtime昇格・新規Gap closeは0のままです。[設計・境界](./docs/phase7-personal-research-quest.md)。
+Phase 7 Personal Research Questでは、Phase 8Bの限定DR残余1単位を実際のInventoryへ接続しました。35% Armor・Iron Hide・選択済みまたはGildedのGuarding Strikeが揃った場合だけExperimentを開始でき、候補にあるだけなら「選択が必要」と表示します。全8条件の進捗、スキップ・中断・再開、hit列と条件情報を端末内へ保存し、自前測定のraw record / SHA-256はアプリが自動生成します。外部Evidenceは従来どおりURL / SHA-256を保持できます。書き出しJSONはPhase 8AのEvidence Repositoryと固定済みPhase 8C validatorへ同時に渡せます。実測値はGitへ保存せず、8C判定はhold、runtime昇格・新規Gap closeは0のままです。[設計・境界](./docs/phase7-personal-research-quest.md)。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 

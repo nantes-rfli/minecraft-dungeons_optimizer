@@ -22,21 +22,36 @@
     ],
     "readyFixture": {
       "ready": true,
+      "guardingStrikeStatus": "usable",
       "armorInstanceId": "audit-armor",
       "ironHideInstanceId": "audit-iron",
       "guardingWeaponInstanceId": "audit-weapon",
-      "missing": []
+      "missing": [],
+      "selectionRequired": []
+    },
+    "selectionRequiredFixture": {
+      "ready": false,
+      "guardingStrikeStatus": "selection-required",
+      "armorInstanceId": "audit-armor",
+      "ironHideInstanceId": "audit-iron",
+      "guardingWeaponInstanceId": null,
+      "missing": [],
+      "selectionRequired": [
+        "近接武器の候補からガードストライクを選択"
+      ]
     },
     "unavailableFixture": {
       "ready": false,
+      "guardingStrikeStatus": "missing",
       "armorInstanceId": null,
       "ironHideInstanceId": null,
       "guardingWeaponInstanceId": null,
       "missing": [
         "35% damage reduction付き防具",
         "アイアンハイドアミュレット",
-        "ガードストライクを候補または金色枠に持つ近接武器"
-      ]
+        "ガードストライクを持つ近接武器"
+      ],
+      "selectionRequired": []
     }
   },
   "capture": {
@@ -49,9 +64,13 @@
     "canSkipPauseResume": true,
     "draftPersistsAcrossReload": true,
     "storageSchemaVersion": 1,
+    "selfObservationRawRecordGenerated": true,
+    "selfObservationHashGenerated": true,
+    "externalEvidenceKeepsUrlAndHash": true,
     "outputIncludes": [
       "evidenceRepository",
       "limitedDrRuns",
+      "rawRecords",
       "frozen8cValidation"
     ],
     "minimumConditions": 8,

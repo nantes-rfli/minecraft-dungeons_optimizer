@@ -3,6 +3,7 @@ import type { ArmorId } from '../core/armor.ts'
 import { ARMORS } from '../data/armors.ts'
 import {
   buildEvidenceRepository,
+  type EvidenceOriginKind,
   type EvidenceIntakeRecord,
   type EvidenceRepository,
 } from './evidenceIntake.ts'
@@ -21,8 +22,10 @@ export interface ResearchQuestRunDraft {
   readonly condition: LimitedDrConditionId
   readonly originGroup: string
   readonly incomingHitId: string
+  readonly originKind: EvidenceOriginKind
   readonly rawTraceUrl: string
   readonly rawTraceSha256: string
+  readonly rawTraceRecord: string | null
   readonly activationFrameLocators: readonly string[]
   readonly baselineDamage: number
   readonly observedDamage: readonly number[]
@@ -45,10 +48,18 @@ export interface ResearchQuestState {
 
 export interface ResearchQuestReadiness {
   readonly ready: boolean
+  readonly guardingStrikeStatus: 'usable' | 'selection-required' | 'missing'
   readonly armorInstanceId: string | null
   readonly ironHideInstanceId: string | null
   readonly guardingWeaponInstanceId: string | null
   readonly missing: readonly string[]
+  readonly selectionRequired: readonly string[]
+}
+
+export interface GeneratedRawRecord {
+  readonly locator: string
+  readonly sha256: string
+  readonly content: string
 }
 
 export interface Phase7Submission {
@@ -58,6 +69,7 @@ export interface Phase7Submission {
   readonly generatedAt: string
   readonly evidenceRepository: EvidenceRepository
   readonly runs: readonly LimitedDrRun[]
+  readonly rawRecords: readonly GeneratedRawRecord[]
   readonly validation: ReturnType<typeof evaluateLimitedDrValidation>
 }
 
@@ -91,25 +103,42 @@ export function defaultResearchQuestState(now = new Date().toISOString()): Resea
   return { schemaVersion: 1, questId: 'limited-dr-composition', status: 'not-started', mode: 'experiment', runs: [], draft: null, updatedAt: now }
 }
 
-function hasGuardingStrike(weapon: OwnedWeapon): boolean {
-  return weapon.enchantmentSlots.some((slot) => slot.candidates.includes('guarding-strike')) || weapon.gilded?.enchantmentId === 'guarding-strike'
+function hasUsableGuardingStrike(weapon: OwnedWeapon): boolean {
+  return weapon.enchantmentSlots.some((slot) => slot.locked === 'guarding-strike') || weapon.gilded?.enchantmentId === 'guarding-strike'
+}
+
+function hasGuardingStrikeCandidate(weapon: OwnedWeapon): boolean {
+  return weapon.enchantmentSlots.some((slot) => slot.candidates.includes('guarding-strike'))
 }
 
 export function resolveResearchQuestReadiness(inventory: Inventory): ResearchQuestReadiness {
   const armor = (inventory.armors ?? []).find((item) => item.armorId in ARMORS && ARMORS[item.armorId as ArmorId].armorDamageReduction === 0.35)
   const ironHide = inventory.artifacts.find((item) => item.artifactId === 'iron-hide-amulet')
-  const guardingWeapon = inventory.weapons.find(hasGuardingStrike)
+  const guardingWeapon = inventory.weapons.find(hasUsableGuardingStrike)
+  const guardingCandidate = inventory.weapons.find(hasGuardingStrikeCandidate)
+  const guardingStrikeStatus = guardingWeapon ? 'usable' : guardingCandidate ? 'selection-required' : 'missing'
   const missing = [
     ...(!armor ? ['35% damage reduction付き防具'] : []),
     ...(!ironHide ? ['アイアンハイドアミュレット'] : []),
-    ...(!guardingWeapon ? ['ガードストライクを候補または金色枠に持つ近接武器'] : []),
+    ...(guardingStrikeStatus === 'missing' ? ['ガードストライクを持つ近接武器'] : []),
   ]
+  const selectionRequired = guardingStrikeStatus === 'selection-required' ? ['近接武器の候補からガードストライクを選択'] : []
   return {
-    ready: missing.length === 0,
+    ready: missing.length === 0 && selectionRequired.length === 0,
+    guardingStrikeStatus,
     armorInstanceId: armor?.instanceId ?? null,
     ironHideInstanceId: ironHide?.instanceId ?? null,
     guardingWeaponInstanceId: guardingWeapon?.instanceId ?? null,
     missing,
+    selectionRequired,
+  }
+}
+
+function normalizeRun(run: ResearchQuestRunDraft): ResearchQuestRunDraft {
+  return {
+    ...run,
+    originKind: run.originKind ?? 'self-observation',
+    rawTraceRecord: run.rawTraceRecord ?? null,
   }
 }
 
@@ -118,11 +147,11 @@ function requireValidState(value: ResearchQuestState): void {
   if (!['not-started', 'active', 'paused', 'skipped'].includes(value.status)) throw new Error('Research Questの状態が不正です。')
   if (!['observe', 'measure', 'experiment'].includes(value.mode) || !Array.isArray(value.runs)) throw new Error('Research Questの記録形式が不正です。')
   for (const run of value.runs) {
-    if (!run || typeof run.id !== 'string' || !(run.condition in LIMITED_DR_CONDITION_LABELS) || !Array.isArray(run.observedDamage) || !Array.isArray(run.activationFrameLocators) || !Array.isArray(run.equipment)) {
+    if (!run || typeof run.id !== 'string' || !(run.condition in LIMITED_DR_CONDITION_LABELS) || !['external', 'self-observation'].includes(run.originKind) || (run.rawTraceRecord !== null && typeof run.rawTraceRecord !== 'string') || !Array.isArray(run.observedDamage) || !Array.isArray(run.activationFrameLocators) || !Array.isArray(run.equipment)) {
       throw new Error('Research Questのrun記録が不正です。')
     }
   }
-  if (value.draft !== null && (!value.draft || typeof value.draft.id !== 'string' || !(value.draft.condition in LIMITED_DR_CONDITION_LABELS) || !Array.isArray(value.draft.observedDamage) || !Array.isArray(value.draft.activationFrameLocators) || !Array.isArray(value.draft.equipment))) {
+  if (value.draft !== null && (!value.draft || typeof value.draft.id !== 'string' || !(value.draft.condition in LIMITED_DR_CONDITION_LABELS) || !['external', 'self-observation'].includes(value.draft.originKind) || (value.draft.rawTraceRecord !== null && typeof value.draft.rawTraceRecord !== 'string') || !Array.isArray(value.draft.observedDamage) || !Array.isArray(value.draft.activationFrameLocators) || !Array.isArray(value.draft.equipment))) {
     throw new Error('Research Questの入力途中データが不正です。')
   }
 }
@@ -130,8 +159,10 @@ function requireValidState(value: ResearchQuestState): void {
 export function parseResearchQuestState(serialized: string): ResearchQuestState {
   let value: unknown
   try { value = JSON.parse(serialized) } catch { throw new Error('Research Questの保存データを読み取れません。') }
-  requireValidState(value as ResearchQuestState)
-  return value as ResearchQuestState
+  const parsed = value as ResearchQuestState
+  const normalized = { ...parsed, runs: parsed.runs?.map(normalizeRun), draft: parsed.draft ? normalizeRun(parsed.draft) : null }
+  requireValidState(normalized)
+  return normalized
 }
 
 export function loadResearchQuestState(): ResearchQuestState {
@@ -149,7 +180,7 @@ function equipmentForCondition(draft: ResearchQuestRunDraft, inventory: Inventor
   const armor = (inventory.armors ?? []).find((item) => item.instanceId === readiness.armorInstanceId)
   const ironHide = inventory.artifacts.find((item) => item.instanceId === readiness.ironHideInstanceId)
   const guardingWeapon = inventory.weapons.find((item) => item.instanceId === readiness.guardingWeaponInstanceId)
-  const guardingSlotIndex = guardingWeapon?.enchantmentSlots.findIndex((slot) => slot.candidates.includes('guarding-strike')) ?? -1
+  const guardingSlotIndex = guardingWeapon?.enchantmentSlots.findIndex((slot) => slot.locked === 'guarding-strike') ?? -1
   const guardingSource = guardingWeapon?.gilded?.enchantmentId === 'guarding-strike'
     ? `gilded:tier-${guardingWeapon.gilded.tier}`
     : `slot-${guardingSlotIndex + 1}:tier-3`
@@ -163,10 +194,34 @@ function equipmentForCondition(draft: ResearchQuestRunDraft, inventory: Inventor
   ]
 }
 
-export function captureResearchQuestRun(draft: ResearchQuestRunDraft, inventory: Inventory): ResearchQuestRunDraft {
+async function sha256(value: string): Promise<string> {
+  const digest = await globalThis.crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('')
+}
+
+function selfObservationRecord(draft: ResearchQuestRunDraft): string {
+  return JSON.stringify({
+    schemaVersion: 1,
+    kind: 'limited-dr-self-observation',
+    run: {
+      id: draft.id, condition: draft.condition, originGroup: draft.originGroup,
+      incomingHitId: draft.incomingHitId, activationFrameLocators: draft.activationFrameLocators,
+      baselineDamage: draft.baselineDamage, observedDamage: draft.observedDamage,
+      platform: draft.platform, difficulty: draft.difficulty, capturedAt: draft.capturedAt,
+      reviewed: draft.reviewed, equipment: draft.equipment,
+    },
+  })
+}
+
+export async function captureResearchQuestRun(draft: ResearchQuestRunDraft, inventory: Inventory): Promise<ResearchQuestRunDraft> {
   const readiness = resolveResearchQuestReadiness(inventory)
-  if (!readiness.ready) throw new Error(`調査に必要な所持装備が不足しています: ${readiness.missing.join('、')}`)
-  return { ...draft, equipment: draft.condition === 'baseline' ? [] : equipmentForCondition(draft, inventory) }
+  const blockers = [...readiness.missing, ...readiness.selectionRequired]
+  if (!readiness.ready) throw new Error(`調査の準備が完了していません: ${blockers.join('、')}`)
+  const captured = { ...draft, equipment: draft.condition === 'baseline' ? [] : equipmentForCondition(draft, inventory) }
+  if (captured.originKind === 'external') return { ...captured, rawTraceRecord: null }
+  const rawTraceUrl = `urn:minecraft-dungeons-optimizer:phase7:raw-trace:${encodeURIComponent(captured.id)}`
+  const rawTraceRecord = selfObservationRecord({ ...captured, rawTraceUrl, rawTraceSha256: '', rawTraceRecord: null })
+  return { ...captured, rawTraceUrl, rawTraceSha256: await sha256(rawTraceRecord), rawTraceRecord }
 }
 
 export function validateResearchQuestRun(draft: ResearchQuestRunDraft): string[] {
@@ -174,7 +229,11 @@ export function validateResearchQuestRun(draft: ResearchQuestRunDraft): string[]
   if (!draft.id.trim()) errors.push('run IDを入力してください。')
   if (!draft.originGroup.trim()) errors.push('独立origin IDを入力してください。')
   if (!draft.incomingHitId.trim()) errors.push('incoming hit IDを入力してください。')
-  try { if (new URL(draft.rawTraceUrl).protocol !== 'https:') errors.push('raw trace URLはHTTPSで入力してください。') } catch { errors.push('raw trace URLは有効なHTTPS URLで入力してください。') }
+  if (draft.originKind === 'external') {
+    try { if (new URL(draft.rawTraceUrl).protocol !== 'https:') errors.push('外部Evidenceのraw trace URLはHTTPSで入力してください。') } catch { errors.push('外部Evidenceのraw trace URLは有効なHTTPS URLで入力してください。') }
+  } else if (!draft.rawTraceUrl.startsWith('urn:minecraft-dungeons-optimizer:phase7:raw-trace:') && !draft.rawTraceUrl.startsWith('https:')) {
+    errors.push('自前測定のraw record locatorが不正です。')
+  }
   if (!/^[a-f0-9]{64}$/.test(draft.rawTraceSha256)) errors.push('raw traceのSHA-256を64桁の小文字16進数で入力してください。')
   if (!(draft.baselineDamage > 0)) errors.push('baseline damageは0より大きい値が必要です。')
   if (draft.observedDamage.length < LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun) errors.push('1 runにつき10 hit以上が必要です。')
@@ -207,12 +266,13 @@ export function toLimitedDrRun(draft: ResearchQuestRunDraft): LimitedDrRun {
 }
 
 function toEvidenceRecord(draft: ResearchQuestRunDraft, run: LimitedDrRun): EvidenceIntakeRecord {
+  const selfGenerated = draft.originKind === 'self-observation' && draft.rawTraceUrl.startsWith('urn:')
   return {
     id: `phase7-${draft.id}@1`, recordId: `phase7-${draft.id}`, revision: 1,
     source: {
       sourceId: `phase7-source-${draft.id}`, revision: 1, url: draft.rawTraceUrl,
       label: `Personal Research Quest raw trace ${draft.id}`, retrievedAt: draft.capturedAt,
-      snapshotSha256: draft.rawTraceSha256, originKind: 'self-observation', originGroup: draft.originGroup,
+      snapshotSha256: draft.rawTraceSha256, originKind: draft.originKind, originGroup: draft.originGroup,
       repostOfSourceRevisionId: null, reviewed: draft.reviewed,
     },
     claim: {
@@ -227,7 +287,7 @@ function toEvidenceRecord(draft: ResearchQuestRunDraft, run: LimitedDrRun): Evid
       unit: 'raw-damage-per-hit', repetitions: draft.observedDamage.length,
       observations: draft.observedDamage.map((value, index) => ({ value, locator: `${draft.rawTraceUrl}#hit-${index + 1}` })), missingReasons: [],
     },
-    locators: [{ kind: 'table', locator: draft.rawTraceUrl, url: draft.rawTraceUrl }], partition: 'holdout',
+    locators: [{ kind: 'table', locator: draft.rawTraceUrl, url: selfGenerated ? null : draft.rawTraceUrl }], partition: 'holdout',
     corrects: null, correctionReason: null, capturedAt: draft.capturedAt,
   }
 }
@@ -244,6 +304,7 @@ export function buildPhase7Submission(state: ResearchQuestState, generatedAt = n
   return {
     schemaVersion: 1, phase: '7B', questId: 'limited-dr-composition', generatedAt,
     evidenceRepository, runs,
+    rawRecords: state.runs.flatMap((draft) => draft.rawTraceRecord === null ? [] : [{ locator: draft.rawTraceUrl, sha256: draft.rawTraceSha256, content: draft.rawTraceRecord }]),
     validation: evaluateLimitedDrValidation({ plan: LIMITED_DR_ACCEPTANCE_PLAN, calibrationOriginGroups: ['shin-dr', 'caramel-dr-guide', 'anotherraalt'], runs, excludedReferenceRows: [] }),
   }
 }
