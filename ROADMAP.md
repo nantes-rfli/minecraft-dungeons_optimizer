@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **108 / 121（89%）**。Phase 8A/B/Cは完了し、8CのAdoptionDecisionは独立raw trace不足により保留です。Phase 6.8D/Eの2項目は未完了・保留。Phase 7・9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **110 / 123（89%）**。Phase 7とPhase 8A/B/Cは完了し、8CのAdoptionDecisionは独立raw trace不足により保留です。Phase 6.8D/Eの2項目は未完了・保留。8C follow-up・Phase 9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -248,7 +248,7 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ## 現在の作業位置（2026-09-10再検討）
 
-**Phase 8A/B/Cは完了し、8CのAdoptionDecisionは保留です。** Phase番号は履歴として維持します。DR説明はCaramel guide由来の派生sourceで、原典の独立性は未確認です。active 3件の独立Evidence countは0。事前gate、旧新比較、順位感度、再現性判定を保存しましたが、版付き独立raw trace不足のためruntime昇格は0です。
+**Phase 7とPhase 8A/B/Cは完了し、8CのAdoptionDecisionは保留です。** Phase番号は履歴として維持します。DR説明はCaramel guide由来の派生sourceで、原典の独立性は未確認です。active 3件の独立Evidence countは0。事前gate、旧新比較、順位感度、再現性判定を保存し、所持装備からraw traceを収集するPersonal Research Questを追加しましたが、実測データ自体はまだないためruntime昇格は0です。
 
 Phase 6.9で比較経路は揃いました。現在の律速は新しい比較器の数ではなく、game version・観測条件・独立性・適用範囲の不足です。したがってResearch Questの大規模UI、全効果の一括移行、native全面復元を先行させず、既存の版付き台帳・adapter・測定protocolを再利用します。
 
@@ -293,6 +293,13 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 - Historical phaseのfull completion gateをsupport整理の都合で書き換えない。
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
+## Phase 7 — Personal Research Quest（2 / 2）
+
+- [x] 7A — Phase 8Bの限定DR残余1単位をactual Inventoryと既存protocolへ接続。35% Armor・Iron Hide・Guarding Strikeがすべて登録済みの場合だけ実施可能とし、未所持装備は必須taskや進捗分母へ加えない
+- [x] 7B — Observe / Measure / Experiment選択、スキップ・中断・再開、条件別進捗、raw trace入力、localStorage保存、Phase 8A Evidence RepositoryとPhase 8C validatorへのJSON受け渡しを実装
+
+完了条件: 実データと同じ形式の1 runを8Aの受入契約へ渡し、固定済み8C validatorがeligible holdoutとして評価できること。integration testで確認済み。実ユーザーの観測値はGitへ保存せず、現時点の8C判定はhold、runtime昇格・新規Gap closeは0です。[設計・境界](./docs/phase7-personal-research-quest.md) / [machine-readable audit](./research/phase7-research-quest.json)。
+
 ## Phase 8 — Evidence Capture & Validation（3 / 3）
 
 - [x] 8A — 受入・検証の最小基盤。6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・raw observation・画像/動画/本文locator・originを受け入れる契約を実装しました。外部と自前で同じ規則を使い、構造不正を拒否し、欠落・訂正・競合・転載・calibration/holdoutの混用を理由コード付きで判定します。append-only revision、changed fields、JSON保存・再読込時の判定再計算をテスト済みです。
@@ -308,12 +315,6 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 ### Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）
 
 版1.17.0.0、同一incoming hit、baseline・単独・pair・三効果の全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変更せず8C auditを再実行します。
-
-### Phase 7 — Personal Research Quest（8Bの残余に限定）
-
-**7A — 所有装備に結びつく最小queue。** 再評価済みの残余をactual inventoryと既存protocolへ結びつけ、必要装備・条件・所要時間・何が解決するかを提示。所持していない装備や外部取得済みの課題を本人の必須作業にしません。
-
-**7B — 任意の限定実測。** Observe / Measure / Experimentを選び、スキップ・中断・再開できる導線と、8Aへ渡せる観測記録を用意します。実データを1件受け渡して8Cで検証できることが最小完了条件です。queue消化率をモデル精度と扱いません。
 
 ### Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）
 

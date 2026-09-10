@@ -45,6 +45,18 @@ export interface LimitedDrValidationInput {
   readonly excludedReferenceRows: readonly LimitedDrReferenceRow[]
 }
 
+export const LIMITED_DR_ACCEPTANCE_PLAN: LimitedDrAcceptancePlan = {
+  frozenAt: '2026-09-10T06:00:00+09:00',
+  gameVersion: '1.17.0.0',
+  damageChannel: 'direct-mob-attack',
+  requiredConditions: ['baseline', 'armor-35', 'iron-hide', 'guarding-strike', 'armor-iron', 'armor-guarding', 'iron-guarding', 'armor-iron-guarding'],
+  minimumIndependentRunsPerCondition: 3,
+  minimumHitsPerRun: 10,
+  maximumMeanAbsoluteFractionError: 0.005,
+  maximumPerHitRawDamageError: 1,
+  rankingComparatorDamageTaken: 0.18,
+}
+
 const CONDITION_EFFECTS: Readonly<Record<LimitedDrConditionId, readonly DefenseEffectId[]>> = {
   baseline: [],
   'armor-35': ['armor-35'],
@@ -56,7 +68,7 @@ const CONDITION_EFFECTS: Readonly<Record<LimitedDrConditionId, readonly DefenseE
   'armor-iron-guarding': ['armor-35', 'iron-hide', 'guarding-strike'],
 }
 
-const required = (condition: unknown, message: string): asserts condition => {
+const required: (condition: unknown, message: string) => asserts condition = (condition, message) => {
   if (!condition) throw new Error(`Phase 8C: ${message}`)
 }
 

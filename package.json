@@ -73,7 +73,9 @@
     "generate:phase8-evidence": "node scripts/audit-phase8-evidence.ts --write",
     "audit:phase8-evidence": "node scripts/audit-phase8-evidence.ts",
     "generate:phase8c-limited-dr": "node scripts/audit-phase8c-limited-dr.ts --write",
-    "audit:phase8c-limited-dr": "node scripts/audit-phase8c-limited-dr.ts"
+    "audit:phase8c-limited-dr": "node scripts/audit-phase8c-limited-dr.ts",
+    "generate:phase7-research-quest": "node scripts/audit-phase7-research-quest.ts --write",
+    "audit:phase7-research-quest": "node scripts/audit-phase7-research-quest.ts"
   },
   "dependencies": {
     "react": "19.2.6",

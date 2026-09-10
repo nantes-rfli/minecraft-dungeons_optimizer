@@ -7,6 +7,7 @@ const groups: { label: string; items: { route: AppRoute; label: string; icon: st
   { label: 'ツール', items: [
     { route: '/inventory', label: '装備', icon: '◇' },
     { route: '/optimize', label: '最適化', icon: '◎' },
+    { route: '/research', label: '調査クエスト', icon: '⌁' },
   ] },
   { label: '情報', items: [
     { route: '/data', label: 'データ', icon: '▦' },

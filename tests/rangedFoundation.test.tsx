@@ -98,8 +98,8 @@ describe('ranged population and persistence', () => {
   it('keeps future milestones out of implementation progress and synchronizes both roadmaps', () => {
     const items = ROADMAP_PHASES.flatMap((phase) => phase.items)
     expect(ROADMAP_PROGRESS.total).toBe(items.length)
-    expect(FUTURE_MILESTONES).toHaveLength(5)
-    expect(FUTURE_MILESTONES.slice(0, 3).map((milestone) => milestone.id)).toEqual(['phase-8', 'phase-7', 'phase-9'])
+    expect(FUTURE_MILESTONES).toHaveLength(4)
+    expect(FUTURE_MILESTONES.slice(0, 2).map((milestone) => milestone.id)).toEqual(['phase-8', 'phase-9'])
     expect(FUTURE_EXPANSION_MILESTONES).toHaveLength(3)
     const text = fs.readFileSync(new URL('../ROADMAP.md', import.meta.url), 'utf8')
     for (const item of [...FUTURE_MILESTONES, ...FUTURE_EXPANSION_MILESTONES]) expect(text).toContain(item.title)

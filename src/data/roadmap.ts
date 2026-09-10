@@ -251,6 +251,15 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
     ],
   },
   {
+    id: 'phase-7',
+    title: 'Phase 7 — Personal Research Quest',
+    goal: 'Phase 8Bの残余を所持装備へ結びつけ、任意のraw traceを8A/8Cへ安全に受け渡す。実測値そのものはGitへ保存しない。',
+    items: [
+      { label: '7A — 所有装備に結びつく最小queue', status: 'done' },
+      { label: '7B — 任意実測・中断再開・8A/8C受け渡し', status: 'done' },
+    ],
+  },
+  {
     id: 'phase-8',
     title: 'Phase 8 — Evidence Capture & Validation',
     goal: '8A/B/C完了。8Cは事前gate・旧新比較・順位感度・再現性・AdoptionDecisionを保存し、独立raw trace不足により保留。runtime昇格・新規Gap closeは0。',
@@ -265,7 +274,6 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
   { id: 'phase-8', title: 'Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）', goal: '版1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変えずauditを再実行。same-originや式の再掲だけでVerifiedにしない。' },
-  { id: 'phase-7', title: 'Phase 7 — Personal Research Quest（8Bの残余に限定）', goal: '7A: 外部取得後の不足だけを所有装備とprotocolへ結びつける。7B: 任意のObserve / Measure / Experimentを8Aへ渡して8Cで検証。1,307件は6.6当時の母集団で、最新の実測待ち件数ではない。強制しない。' },
   { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）', goal: '9A: 最初の検証済み1単位を許容範囲付きで移行し、manifest・説明・Coverage・回帰・性能を同期。9B: 合格した単位へ反復しLimited / Fullを個別判断。現在は昇格可能と検証された単位なし。未知効果を0点で登録しない。' },
   { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },
   { id: 'new-drop-comparison', title: 'Future candidate — New Drop Comparison / Keep-Salvage', goal: '新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。Phase 10以降の確定項目にはしない。' },

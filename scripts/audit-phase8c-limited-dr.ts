@@ -1,25 +1,13 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { evaluateLimitedDrValidation, type LimitedDrAcceptancePlan } from '../src/research/limitedDrValidation.ts'
+import { evaluateLimitedDrValidation, LIMITED_DR_ACCEPTANCE_PLAN } from '../src/research/limitedDrValidation.ts'
 
 const repositoryRoot = path.resolve(new URL('..', import.meta.url).pathname)
 
-const plan: LimitedDrAcceptancePlan = {
-  frozenAt: '2026-09-10T06:00:00+09:00',
-  gameVersion: '1.17.0.0',
-  damageChannel: 'direct-mob-attack',
-  requiredConditions: ['baseline', 'armor-35', 'iron-hide', 'guarding-strike', 'armor-iron', 'armor-guarding', 'iron-guarding', 'armor-iron-guarding'],
-  minimumIndependentRunsPerCondition: 3,
-  minimumHitsPerRun: 10,
-  maximumMeanAbsoluteFractionError: 0.005,
-  maximumPerHitRawDamageError: 1,
-  rankingComparatorDamageTaken: 0.18,
-}
-
 export function buildPhase8cValidation() {
   return evaluateLimitedDrValidation({
-    plan,
+    plan: LIMITED_DR_ACCEPTANCE_PLAN,
     calibrationOriginGroups: ['shin-dr', 'caramel-dr-guide', 'anotherraalt'],
     runs: [],
     excludedReferenceRows: [{

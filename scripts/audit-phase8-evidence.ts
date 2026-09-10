@@ -96,7 +96,7 @@ export function buildPhase8Artifacts() {
   const remaining = aligned.records.filter((record) => record.reconciliationStatus !== 'closed')
   const records = remaining.map(reassessPhase8Gap)
   const dispositions = ['external-resolved', 'limited-measurement', 'implementation-missing', 'hold'] as const
-  const counts = Object.fromEntries(dispositions.map((disposition) => [disposition, records.filter((record) => record.disposition === disposition).length]))
+  const counts = Object.fromEntries(dispositions.map((disposition) => [disposition, records.filter((record) => record.disposition === disposition).length])) as Record<(typeof dispositions)[number], number>
   const selectedIds = records.filter((record) => record.disposition === 'limited-measurement').map((record) => record.gapId)
   const activeEvidenceRecordIds = ['phase8-dr-ehp-current@2', 'phase8-caramel-dr-guide@1', 'phase8-iron-hide-wiki-tests@1']
   const reassessment = {
@@ -132,7 +132,7 @@ function report(reassessment: ReturnType<typeof buildPhase8Artifacts>['reassessm
 
 const { repository, reassessment } = buildPhase8Artifacts()
 const repositoryText = serializeEvidenceRepository(repository)
-const phase8Report = `> 現在地: その後Phase 8Cを実施し、保留判定を保存しました。[独立検証レポート](./phase8c-limited-dr-validation.md)を参照してください。\n\n${report(reassessment)}`
+const phase8Report = `> 現在地: その後Phase 8Cで保留判定を保存し、Phase 7で本人用raw trace収集導線を実装しました。[独立検証レポート](./phase8c-limited-dr-validation.md) / [Personal Research Quest](./phase7-personal-research-quest.md)\n\n${report(reassessment)}`
 assert.deepEqual(parseEvidenceRepository(repositoryText), repository)
 assert.equal(reassessment.baseline.phase66HandoffCount, 1307)
 assert.equal(reassessment.summary.total, 2088)

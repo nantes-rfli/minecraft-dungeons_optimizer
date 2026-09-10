@@ -1,4 +1,4 @@
-> 現在地: その後Phase 8Cを実施し、保留判定を保存しました。[独立検証レポート](./phase8c-limited-dr-validation.md)を参照してください。
+> 現在地: その後Phase 8Cで保留判定を保存し、Phase 7で本人用raw trace収集導線を実装しました。[独立検証レポート](./phase8c-limited-dr-validation.md) / [Personal Research Quest](./phase7-personal-research-quest.md)
 
 # Phase 8A / 8B — Evidence Intake and Limited DR Reassessment
 

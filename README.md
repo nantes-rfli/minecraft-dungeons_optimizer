@@ -35,7 +35,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 
 JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから読み込みます。Rangedなしの旧Inventoryには余分なfieldを追加しません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
 
-共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。進捗の正本は[`ROADMAP.md`](./ROADMAP.md)です。Public Availability・Research Quest・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
+共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。進捗の正本は[`ROADMAP.md`](./ROADMAP.md)です。Public Availability・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
 
 新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
@@ -44,6 +44,8 @@ JSONはversion 2を書き出し、旧version 1を同じlocalStorageキーから�
 2026-09-09から、native解析を保留して外部研究の活用を優先します。[外部研究の整理・追加調査](./docs/external-community-research.md)では32 source、15 claim、HPS 55行×4条件を保存し、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)に沿って6.9F Scenario / Optimizer comparisonまで完了しました。[有限Scenario比較](./docs/scenario-optimizer-comparison.md)ではfinite damage / overkill、final-blow ownership、目的・duration感度、未知候補の除外を検証できます。runtime昇格・新規Gap closeはなく、サイトの計算は変更していません。
 
 2026-09-10にPhase 8A/B/Cを完了しました。[Evidence受入と限定DR再評価](./docs/phase8-evidence-intake.md)では、外部/自前観測の共通契約、保存・再読込、revision差分、異常・不足・訂正・競合・転載・validation partition混用の判定を実装。claim domainはentity・property・game version・装備ID/Power・conditions・unitで分離します。[Limited DR独立検証](./docs/phase8c-limited-dr-validation.md)では検証前gate、旧新比較、順位感度、再現性、AdoptionDecisionを保存しました。eligible independent holdoutは0 run / 0 hitのため判定は保留で、remaining 2,088件の分類、runtime昇格0・新規Gap close 0を維持します。
+
+Phase 7 Personal Research Questでは、Phase 8Bの限定DR残余1単位を実際のInventoryへ接続しました。35% Armor・Iron Hide・Guarding Strikeを登録済みの場合だけExperimentを開始でき、全8条件の進捗、スキップ・中断・再開、raw trace URL / SHA-256 / hit列を端末内へ保存します。書き出しJSONはPhase 8AのEvidence Repositoryと固定済みPhase 8C validatorへ同時に渡せます。実測値はGitへ保存せず、8C判定はhold、runtime昇格・新規Gap closeは0のままです。[設計・境界](./docs/phase7-personal-research-quest.md)。
 
 画面は日本語を主表示、英語の装備名を補助表示にしています。計算ロジックでは言語に依存しないIDを使用するため、表示名を変更してもOptimizer Coreには影響しません。
 
@@ -87,6 +89,7 @@ npm run audit:cc
 npm run audit:charge-enchants
 npm run audit:runtime-support
 npm run audit:phase8-evidence
+npm run audit:phase7-research-quest
 npm run audit:artifacts
 npm run audit:artifact-control
 npm run audit:artifact-soul

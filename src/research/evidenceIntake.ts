@@ -70,7 +70,7 @@ export interface EvidenceRepository {
   readonly entries: readonly EvidenceIntakeEntry[]
 }
 
-const required = (condition: unknown, message: string): asserts condition => {
+const required: (condition: unknown, message: string) => asserts condition = (condition, message) => {
   if (!condition) throw new Error(`Evidence intake: ${message}`)
 }
 

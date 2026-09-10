@@ -19,12 +19,13 @@ export type AppRoute =
   | '/model/evidence'
   | '/model/evidence/details'
   | '/storage'
+  | '/research'
   | '/changes'
 
 const ROUTES = new Set<AppRoute>([
   '/inventory', '/optimize', '/data', '/data/melee', '/data/armor', '/data/ranged',
   '/data/artifacts', '/data/enchantments', '/model', '/model/damage', '/model/healing',
-  '/model/defense', '/model/control', '/model/evidence', '/model/evidence/details', '/storage', '/changes',
+  '/model/defense', '/model/control', '/model/evidence', '/model/evidence/details', '/storage', '/research', '/changes',
 ])
 
 export const hrefFor = (route: AppRoute) => `#${route}`
@@ -58,5 +59,6 @@ export function routeTitle(route: AppRoute): string {
   if (route.startsWith('/data')) return 'データ'
   if (route.startsWith('/model')) return 'モデル'
   if (route === '/storage') return '保存・復元'
+  if (route === '/research') return '調査クエスト'
   return '変更履歴'
 }

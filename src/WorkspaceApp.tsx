@@ -41,6 +41,7 @@ import { useAppRoute, type AppRoute } from './app/routes'
 import { ModelExplorerPage } from './screens/ModelExplorerPage'
 import { ChangesPage } from './screens/ChangesPage'
 import { OptimizeResults } from './screens/OptimizeResults'
+import { ResearchQuestPage } from './screens/ResearchQuestPage'
 
 const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
 
@@ -209,6 +210,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
 
   if (route.startsWith('/data')) return <Suspense fallback={<main id="main-content" tabIndex={-1} role="status" className="page-main">ゲームデータを読み込み中…</main>}><DataBrowserPage route={route} /></Suspense>
   if (route.startsWith('/model')) return <ModelExplorerPage route={route} />
+  if (route === '/research') return <ResearchQuestPage inventory={inventory} />
   if (route === '/changes') return <ChangesPage />
 
   if (route === '/storage') return <main id="main-content" tabIndex={-1} className="page-main narrow-page">

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "phase": "7",
+  "completedAt": "2026-09-10",
+  "scope": "personal-research-quest",
+  "queue": {
+    "reassessedUnitCount": 1,
+    "requiredOwnedItems": [
+      "armor:35-percent-dr",
+      "artifact:iron-hide-amulet",
+      "melee-enchantment:guarding-strike"
+    ],
+    "missingOwnedItemsBecomeRequiredTasks": false,
+    "linkedProtocolId": "damage-reduction-composition",
+    "resolutionClass": "experiment",
+    "gapIds": [
+      "artifact:iron-hide-amulet:interactions",
+      "melee-enchantment:guarding-strike:procChance",
+      "melee-enchantment:guarding-strike:cooldown",
+      "melee-enchantment:guarding-strike:powerDependence",
+      "melee-enchantment:guarding-strike:currentVersionGameplayVerification"
+    ],
+    "readyFixture": {
+      "ready": true,
+      "armorInstanceId": "audit-armor",
+      "ironHideInstanceId": "audit-iron",
+      "guardingWeaponInstanceId": "audit-weapon",
+      "missing": []
+    },
+    "unavailableFixture": {
+      "ready": false,
+      "armorInstanceId": null,
+      "ironHideInstanceId": null,
+      "guardingWeaponInstanceId": null,
+      "missing": [
+        "35% damage reduction付き防具",
+        "アイアンハイドアミュレット",
+        "ガードストライクを候補または金色枠に持つ近接武器"
+      ]
+    }
+  },
+  "capture": {
+    "modes": [
+      "observe",
+      "measure",
+      "experiment"
+    ],
+    "selectedModeWithTask": "experiment",
+    "canSkipPauseResume": true,
+    "draftPersistsAcrossReload": true,
+    "storageSchemaVersion": 1,
+    "outputIncludes": [
+      "evidenceRepository",
+      "limitedDrRuns",
+      "frozen8cValidation"
+    ],
+    "minimumConditions": 8,
+    "minimumRuns": 24,
+    "minimumHits": 240
+  },
+  "boundaries": {
+    "runtimePromotionCount": 0,
+    "newGapClosures": 0,
+    "phase8cDecisionRemains": "hold",
+    "personalDataCommitted": false,
+    "queueCompletionIsModelAccuracy": false
+  }
+}
