@@ -4,7 +4,7 @@
 
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
-製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **107 / 121（88%）**。Phase 8A/8Bは完了、8Cは独立raw trace待ちです。Phase 6.8D/Eの2項目は未完了・保留。Phase 7・9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
+製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **108 / 121（89%）**。Phase 8A/B/Cは完了し、8CのAdoptionDecisionは独立raw trace不足により保留です。Phase 6.8D/Eの2項目は未完了・保留。Phase 7・9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
 
 ## Phase 0 — Optimizer Core（5 / 5 完了）
 
@@ -248,7 +248,7 @@ Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査
 
 ## 現在の作業位置（2026-09-10再検討）
 
-**Phase 8A/8Bは完了し、8C前のorigin/domain fix-upまで反映済みです。** Phase番号は履歴として維持します。DR説明はCaramel guide由来の派生sourceで、原典の独立性は未確認です。active 3件の独立Evidence countは0、限定DR単位は版付き独立raw trace不足で保留、8Cは未実施です。
+**Phase 8A/B/Cは完了し、8CのAdoptionDecisionは保留です。** Phase番号は履歴として維持します。DR説明はCaramel guide由来の派生sourceで、原典の独立性は未確認です。active 3件の独立Evidence countは0。事前gate、旧新比較、順位感度、再現性判定を保存しましたが、版付き独立raw trace不足のためruntime昇格は0です。
 
 Phase 6.9で比較経路は揃いました。現在の律速は新しい比較器の数ではなく、game version・観測条件・独立性・適用範囲の不足です。したがってResearch Questの大規模UI、全効果の一括移行、native全面復元を先行させず、既存の版付き台帳・adapter・測定protocolを再利用します。
 
@@ -293,21 +293,21 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 - Historical phaseのfull completion gateをsupport整理の都合で書き換えない。
 - 新しい未対応事項はlimitations backlogへ記録し、未対応を0点として登録しない。
 
-## Phase 8 — Evidence Capture & Validation（2 / 3、8Cが次）
+## Phase 8 — Evidence Capture & Validation（3 / 3）
 
 - [x] 8A — 受入・検証の最小基盤。6.9Cの台帳とadapterを再利用し、SourceRevision・claim・version・装備/Power・条件・単位・反復・raw observation・画像/動画/本文locator・originを受け入れる契約を実装しました。外部と自前で同じ規則を使い、構造不正を拒否し、欠落・訂正・競合・転載・calibration/holdoutの混用を理由コード付きで判定します。append-only revision、changed fields、JSON保存・再読込時の判定再計算をテスト済みです。
 
 - [x] 8B — 外部Evidence取得と残余queue再評価。35% Armor + Iron Hide + Guarding Strikeのdirect mob attackを最初の1単位に選びました。2026年のEHP family説明はCaramel guide由来の派生sourceであり、旧record @1を残して@2でdependencyとorigin不明を訂正。WikiのIron Hide単独raw pairもtester/editor origin不明のため、active 3件の独立Evidence countは0です。Phase 6.6の1,307件を含むremaining 2,088件のpartition（external-resolved 0、limited-measurement 5、implementation-missing 271、hold 1,812）を維持。出口は保留、runtime昇格・新規Gap closeは0です。詳細は[8A/8Bレポート](./docs/phase8-evidence-intake.md)と[machine-readable queue](./research/phase8-gap-reassessment.json)を参照してください。
 
-- [ ] 8C — 独立holdout・許容範囲・旧新比較から採用/保留/不採用を保存する。same-origin holdout、合成probe、1件の自己観測だけでVerifiedにしない。
+- [x] 8C — 検証前gate（1.17.0.0、全8条件、各3独立run×10 hit、誤差基準）を固定し、旧新比較・順位感度・再現性とAdoptionDecisionを保存しました。eligible independent holdoutは0 run / 0 hitのため判定は保留。same-origin rowを除外し、runtime昇格・新規Gap closeは0です。詳細は[8Cレポート](./docs/phase8c-limited-dr-validation.md)を参照してください。
 
 **8Cの完了条件。** calibrationと独立holdoutを分離し、許容領域・誤差基準を検証前に設定。旧新モデルの同条件比較、順位感度、再現性を確認し、採用/保留/不採用のAdoptionDecisionを保存します。Phase 1の独立DPS回帰5件gateは別に維持します。
 
 ## Future milestones（チェックリスト進捗と分離）
 
-### Phase 8C — Limited DRの独立検証（次の重点）
+### Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）
 
-版1.17.0.0、同一incoming hit、単独・pair・三効果、3独立run×各10 hit以上を取得し、許容範囲と旧新比較から採用/保留/不採用を記録します。
+版1.17.0.0、同一incoming hit、baseline・単独・pair・三効果の全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変更せず8C auditを再実行します。
 
 ### Phase 7 — Personal Research Quest（8Bの残余に限定）
 

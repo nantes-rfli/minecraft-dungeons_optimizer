@@ -132,6 +132,7 @@ function report(reassessment: ReturnType<typeof buildPhase8Artifacts>['reassessm
 
 const { repository, reassessment } = buildPhase8Artifacts()
 const repositoryText = serializeEvidenceRepository(repository)
+const phase8Report = `> 現在地: その後Phase 8Cを実施し、保留判定を保存しました。[独立検証レポート](./phase8c-limited-dr-validation.md)を参照してください。\n\n${report(reassessment)}`
 assert.deepEqual(parseEvidenceRepository(repositoryText), repository)
 assert.equal(reassessment.baseline.phase66HandoffCount, 1307)
 assert.equal(reassessment.summary.total, 2088)
@@ -144,7 +145,7 @@ assert.deepEqual(reassessment.selectedUnit.independentEvidenceRecordIds, [])
 const outputs = new Map([
   ['research/evidence-intake.json', repositoryText],
   ['research/phase8-gap-reassessment.json', `${JSON.stringify(reassessment, null, 2)}\n`],
-  ['docs/phase8-evidence-intake.md', report(reassessment)],
+  ['docs/phase8-evidence-intake.md', phase8Report],
 ])
 if (process.argv.includes('--write')) for (const [file, contents] of outputs) fs.writeFileSync(path.join(repositoryRoot, file), contents)
 for (const [file, contents] of outputs) assert.equal(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'), contents, `${file} drift; run generate:phase8-evidence`)

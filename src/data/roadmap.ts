@@ -253,18 +253,18 @@ export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
   {
     id: 'phase-8',
     title: 'Phase 8 — Evidence Capture & Validation',
-    goal: '8A/8B完了。限定DR単位は独立raw trace不足で保留し、runtime昇格・新規Gap closeは0。次は同条件holdoutを取得して8Cで採否を決める。',
+    goal: '8A/B/C完了。8Cは事前gate・旧新比較・順位感度・再現性・AdoptionDecisionを保存し、独立raw trace不足により保留。runtime昇格・新規Gap closeは0。',
     items: [
       { label: '8A — Evidence受入・保存・再読込・検証基盤', status: 'done' },
       { label: '8B — 限定DR外部Evidence取得・2,088件queue再評価', status: 'done' },
-      { label: '8C — 独立holdout・許容範囲・採用判断', status: 'in-progress' },
+      { label: '8C — 独立holdout・許容範囲・採用判断（保留）', status: 'done' },
     ],
   },
 ] as const
 
 /** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
 export const FUTURE_MILESTONES = [
-  { id: 'phase-8', title: 'Phase 8C — Limited DRの独立検証（次の重点）', goal: '版1.17.0.0、同一incoming hit、単独・pair・三効果、3独立run×各10 hit以上を取得し、許容範囲と旧新比較から採用/保留/不採用を記録。same-originや式の再掲だけでVerifiedにしない。' },
+  { id: 'phase-8', title: 'Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）', goal: '版1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変えずauditを再実行。same-originや式の再掲だけでVerifiedにしない。' },
   { id: 'phase-7', title: 'Phase 7 — Personal Research Quest（8Bの残余に限定）', goal: '7A: 外部取得後の不足だけを所有装備とprotocolへ結びつける。7B: 任意のObserve / Measure / Experimentを8Aへ渡して8Cで検証。1,307件は6.6当時の母集団で、最新の実測待ち件数ではない。強制しない。' },
   { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）', goal: '9A: 最初の検証済み1単位を許容範囲付きで移行し、manifest・説明・Coverage・回帰・性能を同期。9B: 合格した単位へ反復しLimited / Fullを個別判断。現在は昇格可能と検証された単位なし。未知効果を0点で登録しない。' },
   { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },

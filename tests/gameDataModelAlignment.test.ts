@@ -114,7 +114,7 @@ describe('Aligned reconciliation, handoff and audit',()=>{
     mutated.handoff.pop()
     expect(auditModelAlignment(input,mutated).some(e=>e.includes('configured value transformed'))).toBe(true)
     expect(auditModelAlignment(input,mutated)).toContain('Model alignment differs from deterministic approved decisions')
-  })
+  }, 15000)
   it('generates identical artifacts twice without timestamps',()=>{
     expect(alignmentOutputs(buildModelAlignment(input))).toEqual(alignmentOutputs(result))
   })

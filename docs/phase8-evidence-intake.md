@@ -1,3 +1,5 @@
+> 現在地: その後Phase 8Cを実施し、保留判定を保存しました。[独立検証レポート](./phase8c-limited-dr-validation.md)を参照してください。
+
 # Phase 8A / 8B — Evidence Intake and Limited DR Reassessment
 
 調査日: 2026-09-10。Phase 8Aの受入・保存・検証基盤を実装し、Phase 8Bの最初の単位として35% Armor + Iron Hide + Guarding Strike（direct mob attack）を再評価した。runtime昇格・Gap closeは0。8Cは未実施。

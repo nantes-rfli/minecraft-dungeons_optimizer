@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "phase": "8C",
+  "scope": "research-only",
+  "plan": {
+    "frozenAt": "2026-09-10T06:00:00+09:00",
+    "gameVersion": "1.17.0.0",
+    "damageChannel": "direct-mob-attack",
+    "requiredConditions": [
+      "baseline",
+      "armor-35",
+      "iron-hide",
+      "guarding-strike",
+      "armor-iron",
+      "armor-guarding",
+      "iron-guarding",
+      "armor-iron-guarding"
+    ],
+    "minimumIndependentRunsPerCondition": 3,
+    "minimumHitsPerRun": 10,
+    "maximumMeanAbsoluteFractionError": 0.005,
+    "maximumPerHitRawDamageError": 1,
+    "rankingComparatorDamageTaken": 0.18
+  },
+  "evidenceBoundary": {
+    "submittedRuns": 0,
+    "eligibleIndependentHoldoutRuns": 0,
+    "calibrationOriginGroups": [
+      "shin-dr",
+      "caramel-dr-guide",
+      "anotherraalt"
+    ],
+    "sameOriginCalibrationIsHoldout": false,
+    "syntheticProbeCanVerify": false
+  },
+  "conditionCoverage": {
+    "baseline": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "armor-35": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "iron-hide": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "guarding-strike": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "armor-iron": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "armor-guarding": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "iron-guarding": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    },
+    "armor-iron-guarding": {
+      "eligibleRuns": 0,
+      "eligibleHits": 0,
+      "pass": false
+    }
+  },
+  "comparison": {
+    "eligibleHitCount": 0,
+    "proposedMeanAbsoluteFractionError": null,
+    "legacyMeanAbsoluteFractionError": null,
+    "proposedMaximumRawDamageError": null,
+    "proposedWithinTolerance": false,
+    "proposedOutperformsLegacy": false,
+    "rows": []
+  },
+  "excludedReferenceComparisons": [
+    {
+      "id": "shin-2021-armor-iron-guarding",
+      "condition": "armor-iron-guarding",
+      "baselineDamage": 396591,
+      "observedDamage": 78116,
+      "exclusionReasons": [
+        "same-origin calibration/holdout",
+        "game-version-unverified",
+        "single published observation rather than 3 runs x 10 hits"
+      ],
+      "observedDamageTaken": 0.19696866545130878,
+      "proposedDamageTaken": 0.196969696969697,
+      "legacyDamageTaken": 0.1625,
+      "proposedAbsoluteFractionError": 0.000001031518388205921,
+      "legacyAbsoluteFractionError": 0.03446866545130878,
+      "proposedRawDamageError": 0.4090909091028152,
+      "legacyRawDamageError": 13669.962499999994
+    }
+  ],
+  "rankingSensitivity": {
+    "comparatorDamageTaken": 0.18,
+    "proposedTripleDamageTaken": 0.196969696969697,
+    "legacyTripleDamageTaken": 0.1625,
+    "proposedRank": "candidate-after-comparator",
+    "legacyRank": "candidate-before-comparator",
+    "rankChanges": true
+  },
+  "reproducibility": {
+    "commonIncomingHit": true,
+    "measurementRunsAvailable": false,
+    "complete": false
+  },
+  "adoptionDecision": {
+    "decision": "hold",
+    "blockers": [
+      "insufficient-independent-holdout:baseline",
+      "insufficient-independent-holdout:armor-35",
+      "insufficient-independent-holdout:iron-hide",
+      "insufficient-independent-holdout:guarding-strike",
+      "insufficient-independent-holdout:armor-iron",
+      "insufficient-independent-holdout:armor-guarding",
+      "insufficient-independent-holdout:iron-guarding",
+      "insufficient-independent-holdout:armor-iron-guarding",
+      "no-eligible-independent-raw-trace"
+    ],
+    "promotionCount": 0,
+    "newGapClosures": 0
+  }
+}
