@@ -116,12 +116,11 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     id: 'P3',
     track: 'product',
     title: 'Runtime Promotion Pipeline Foundation',
-    status: 'current',
+    status: 'done',
     goal: 'parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。',
     dependsOn: ['P2'],
     unlocks: ['P3B', 'P4'],
     completionCriteria: '未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられる。',
-    nextAction: 'promotion eligibilityと変更・監査契約の基盤を実装する。',
   },
   {
     id: 'P3B',

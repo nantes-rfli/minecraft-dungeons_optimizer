@@ -40,7 +40,7 @@ JSONはversion 3を書き出し、旧version 1 / 2を同じlocalStorageキーか
 
 新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
-現在の目標、各TrackのDone / Current / Next / Blocked / Later、dependencyとcompletion conditionは[ROADMAP.md](./ROADMAP.md)で管理しています。Researchでは独立Evidence取得を継続し、ProductではRuntime Promotion Pipelineの基盤整備を並行して進めます。採用可能なparameter / mechanicは現在0件で、未検証値を0や1としてruntimeへ昇格しません。公開DPS回帰監査も候補10件・eligible 0件、full regressionはpending 0 / 5です。
+現在の目標、各TrackのDone / Current / Next / Blocked / Later、dependencyとcompletion conditionは[ROADMAP.md](./ROADMAP.md)で管理しています。Researchでは独立Evidence取得を継続し、Productでは[Runtime Promotion Pipeline](./docs/runtime-promotion-pipeline.md)の基盤を実装済みです。採用可能なparameter / mechanicは現在0件で、未検証値を0や1としてruntimeへ昇格しません。公開DPS回帰監査も候補10件・eligible 0件、full regressionはpending 0 / 5です。
 
 2026-09-09から、native解析を保留して外部研究の活用を優先します。[外部研究の整理・追加調査](./docs/external-community-research.md)では32 source、15 claim、HPS 55行×4条件を保存し、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)に沿って6.9F Scenario / Optimizer comparisonまで完了しました。[有限Scenario比較](./docs/scenario-optimizer-comparison.md)ではfinite damage / overkill、final-blow ownership、目的・duration感度、未知候補の除外を検証できます。runtime昇格・新規Gap closeはなく、サイトの計算は変更していません。
 

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "policy": {
+    "atomicArtifacts": [
+      "runtime",
+      "support-manifest",
+      "explanation",
+      "coverage",
+      "regression"
+    ],
+    "unknownValuesAreEligible": false,
+    "eligibleTargetsRequireBundle": true
+  },
+  "candidates": [
+    {
+      "targetId": "defense.damage-taken-composition",
+      "targetKind": "mechanic",
+      "decisionRef": "research/phase8c-limited-dr-validation.json#/adoptionDecision",
+      "outcome": "held",
+      "gameVersion": "1.17.0.0",
+      "valueStatus": "known",
+      "regression": "not-run",
+      "blockers": [
+        "insufficient-independent-holdout:baseline",
+        "insufficient-independent-holdout:armor-35",
+        "insufficient-independent-holdout:iron-hide",
+        "insufficient-independent-holdout:guarding-strike",
+        "insufficient-independent-holdout:armor-iron",
+        "insufficient-independent-holdout:armor-guarding",
+        "insufficient-independent-holdout:iron-guarding",
+        "insufficient-independent-holdout:armor-iron-guarding",
+        "no-eligible-independent-raw-trace"
+      ],
+      "eligibility": {
+        "status": "ineligible",
+        "reasons": [
+          "adoption-held",
+          "regression-not-run",
+          "blocker:insufficient-independent-holdout:baseline",
+          "blocker:insufficient-independent-holdout:armor-35",
+          "blocker:insufficient-independent-holdout:iron-hide",
+          "blocker:insufficient-independent-holdout:guarding-strike",
+          "blocker:insufficient-independent-holdout:armor-iron",
+          "blocker:insufficient-independent-holdout:armor-guarding",
+          "blocker:insufficient-independent-holdout:iron-guarding",
+          "blocker:insufficient-independent-holdout:armor-iron-guarding",
+          "blocker:no-eligible-independent-raw-trace"
+        ]
+      }
+    }
+  ],
+  "promotions": [],
+  "summary": {
+    "candidates": 1,
+    "eligible": 0,
+    "promoted": 0
+  }
+}

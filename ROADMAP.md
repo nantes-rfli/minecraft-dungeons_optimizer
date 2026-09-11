@@ -11,7 +11,7 @@
 - Catalog / Inventory / Runtime / Evidenceの分離、parameter-level Evidence classification、Evidence-aware optimizer boundaryは実装済み。
 - Research Quest、Evidence Repository、game data research artifacts、validation / audit infrastructureは実装済み。
 - Researchでは独立raw trace取得を継続する。限定DRのeligible independent holdoutは0 run / 0 hitで、AdoptionDecisionは保留。
-- ProductではRuntime Promotion Pipelineの基盤を次の実装対象とする。現時点でpromotion eligibleなparameter / mechanicは0件で、今回runtime promotionは行わない。
+- ProductではRuntime Promotion Pipelineの基盤を実装済み。現時点でpromotion eligibleなparameter / mechanicは0件で、今回runtime promotionは行わない。
 - runtime / Inventory / Evidence truth / optimizer scoreはこのRoadmap rebaselineで変更しない。
 
 ### Runtime coverage snapshot
@@ -59,10 +59,11 @@ Armorは監査母集団73件中7件、Armor Enchantは41件中7件をLimited run
 
 - **P1 — Catalog / Inventory Foundation**: runtime未対応の監査済み装備を所持品とResearch対象として保持し、Optimizer候補へ混ぜない。完了条件: 保存・JSON移行・装備カテゴリ入力が既存回帰を維持すること。
 - **P2 — Evidence-aware Runtime Boundary**: Full / Limited / Research-onlyとEvidence Statusを分離し、Unknown / Estimatedを0や1へ代替しない。完了条件: 利用者がEvidence適用方針と制限理由を確認できること。
+- **P3 — Runtime Promotion Pipeline Foundation**: parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化した。参照: [pipeline contract](./docs/runtime-promotion-pipeline.md)。
 
 ### Current
 
-- **P3 — Runtime Promotion Pipeline Foundation**: parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。依存: P2。完了条件: 未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられること。
+- eligibleなruntime promotion対象なし。Product TrackはP3Bの再開条件を待ちながら、P2で利用可能なruntime scopeを維持する。
 
 ### Next
 
@@ -123,6 +124,7 @@ handoffはparameter / mechanic単位で行う。Track全体の完了、Full / Li
 - [Research workflow / Personal Research Quest](./docs/phase7-personal-research-quest.md)
 - [Evidence intake and validation](./docs/phase8-evidence-intake.md)
 - [Runtime Promotion boundary / limitations](./docs/runtime-limitations.md)
+- [Runtime Promotion pipeline contract](./docs/runtime-promotion-pipeline.md)
 - [Coverage and limitations](./docs/combined-evidence-coverage.md)
 
 ## Update Rules

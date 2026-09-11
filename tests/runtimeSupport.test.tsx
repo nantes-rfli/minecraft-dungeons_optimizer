@@ -156,7 +156,7 @@ describe('visibility, generated docs and historical gates', () => {
     for (const phase of ['2-1D', '2-1F', '2-1G', '2-1H', '2-1I', '2-1J']) {
       expect(historical).toContain(`- [ ] Phase ${phase} partial`)
     }
-    expect(ROADMAP_WORK_UNITS.find((unit) => unit.id === 'P3')!.status).toBe('current')
+    expect(ROADMAP_WORK_UNITS.find((unit) => unit.id === 'P3')!.status).toBe('done')
   })
   it('keeps edited documentation links and priority counts valid', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'docs/historical-roadmap.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md', 'docs/runtime-limitations.md']) {
