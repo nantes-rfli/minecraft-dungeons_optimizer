@@ -426,6 +426,12 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .status-legend p { display: flex; gap: 8px; align-items: center; }
 .support { width: max-content; border: 1px solid currentColor; padding: 3px 6px; font: 10px 'DM Mono', monospace; white-space: nowrap; }
 .support.full { color: var(--accent); }.support.limited { color: var(--warning); }.support.research-only { color: #8c9890; }
+.evidence-policy { display: flex; gap: 10px; margin: 0 0 18px; border: 1px solid var(--line); padding: 14px 16px; background: var(--surface); }
+.evidence-policy legend { padding: 0 6px; color: var(--muted); font: 12px 'DM Mono', monospace; }
+.evidence-policy label { display: flex; flex: 1; gap: 10px; align-items: start; border: 1px solid #334137; padding: 12px; cursor: pointer; }
+.evidence-policy input { margin-top: 3px; accent-color: var(--accent); }.evidence-policy span { display: grid; gap: 4px; }.evidence-policy small { color: var(--muted); }
+.catalog-item-editor { display: grid; grid-template-columns: 140px minmax(220px, 1fr) auto auto; gap: 12px; align-items: end; }.catalog-item-editor label { display: grid; gap: 6px; }
+.evidence-result { margin-bottom: 18px; border-left: 3px solid var(--accent); padding: 16px 18px; background: #111a14; }.evidence-result.estimated { border-color: var(--warning); }.evidence-result > p { margin-bottom: 0; }.evidence-result ul { display: grid; gap: 10px; padding-left: 18px; }.evidence-result li span, .evidence-result li small { display: block; margin-top: 3px; color: var(--muted); }
 .catalog-toolbar { display: grid; grid-template-columns: minmax(240px, 1fr) 190px auto; gap: 10px; align-items: end; border-bottom: 1px solid var(--line); padding: 18px; }
 .catalog-toolbar label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; }
 .catalog-toolbar p { margin: 0 0 10px; color: #78857b; font: 11px 'DM Mono', monospace; }
@@ -576,6 +582,7 @@ button:disabled { cursor: not-allowed; opacity: .6; }
   .enchant-summary dl { flex-direction: column; }
   .dps-evidence-card { grid-template-columns: 1fr; gap: 12px; }
   .catalog-toolbar { grid-template-columns: 1fr; }.catalog-toolbar p { margin: 0; }
+  .evidence-policy { display: grid; }.catalog-item-editor { grid-template-columns: 1fr; }
   .catalog-row > summary { grid-template-columns: 1fr auto; }.catalog-row > summary > span:nth-child(2) { grid-column: 1; }.catalog-row .support { grid-column: 2; grid-row: 1 / span 2; }
   .catalog-detail dl { grid-template-columns: 1fr; gap: 4px; }.catalog-detail dd { margin-bottom: 8px; }
   .storage-card { align-items: start; flex-direction: column; }

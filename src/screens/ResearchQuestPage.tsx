@@ -17,6 +17,7 @@ import {
   type ResearchQuestState,
 } from '../research/researchQuest'
 import { LIMITED_DR_ACCEPTANCE_PLAN, type LimitedDrConditionId } from '../research/limitedDrValidation'
+import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 
 const MODES: readonly { id: ResearchQuestMode; label: string; description: string }[] = [
   { id: 'observe', label: 'Observe', description: '表示・発動・状態を記録する課題' },
@@ -87,13 +88,15 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
 
   return <main id="main-content" tabIndex={-1} className="page-main research-page">
     <header className="page-intro page-intro-row">
-      <div><p className="eyebrow">PERSONAL RESEARCH / PHASE 7</p><h1>調査クエスト</h1><p>所持装備で実施できる不足Evidenceだけを選び、途中保存しながら8A/8Cへ渡せるraw traceを作ります。</p></div>
+      <div><p className="eyebrow">PERSONAL RESEARCH / PHASE 7</p><h1>調査クエスト</h1><p>所持装備で実施できる不足Evidenceだけを選び、途中保存しながら8A/8Cへ渡せるraw traceを作ります。runtime未対応の所持品も{inventory.catalogItems?.length ?? 0}件保持しています。</p></div>
       <div className="research-progress"><strong>{eligibleRuns.length}<small>/ 24 RUN</small></strong><span>{completedConditions} / 8 条件完了</span></div>
     </header>
 
     <section className="research-mode-tabs" aria-label="調査方法">
       {MODES.map((mode) => <button key={mode.id} type="button" aria-pressed={state.mode === mode.id} onClick={() => updateState({ mode: mode.id })}><strong>{mode.label}</strong><span>{mode.description}</span></button>)}
     </section>
+
+    {(inventory.catalogItems?.length ?? 0) > 0 && <details className="handoff-card research-inventory"><summary>runtime未対応の所持品を確認（{inventory.catalogItems!.length}件）</summary><p>これらは常設のEvidence改善対象として保持され、対応値が揃うまでOptimizerには入りません。</p><ul>{inventory.catalogItems!.map((item) => { const catalog = getEquipmentCatalogEntry(item.category, item.catalogId); return <li key={item.instanceId}>{catalog?.name.ja ?? catalog?.name.en ?? item.catalogId} · Power {item.powerLevel}{item.notes ? ` · ${item.notes}` : ''}</li> })}</ul></details>}
 
     {state.mode !== 'experiment' ? <section className="empty-state research-empty"><span aria-hidden="true">○</span><h2>現在の残余queueには{state.mode === 'observe' ? 'Observe' : 'Measure'}課題がありません</h2><p>8Bで選定した最初の単位はExperimentです。外部取得済み・所持外の課題を必須にはしません。</p></section> : <>
       <section className={`quest-card ${readiness.ready ? 'ready' : 'unavailable'}`}>

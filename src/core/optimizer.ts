@@ -18,6 +18,7 @@ import type {
 } from './types'
 import { validateInventory, validateScenario } from './validation'
 import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsupportedReason } from './ranged'
+import { artifactUsesEstimatedParameters, evidencePolicy } from './evidenceStatus'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -182,8 +183,16 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   assertSearchBudget(inventory)
 
   const unsupportedChoices = new Set<string>()
+  const policy = evidencePolicy(scenario)
+  const runtimeArtifacts = policy === 'include-estimated'
+    ? inventory.artifacts
+    : inventory.artifacts.filter((artifact) => {
+      if (!artifactUsesEstimatedParameters(artifact.artifactId)) return true
+      unsupportedChoices.add(`${artifact.instanceId}: Estimated parameterを使用するため「高確度のみ」では除外`)
+      return false
+    })
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
-    const weaponBuilds = buildsForWeapon(weapon, inventory.artifacts, unsupportedChoices)
+    const weaponBuilds = buildsForWeapon(weapon, runtimeArtifacts, unsupportedChoices)
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',

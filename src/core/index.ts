@@ -21,6 +21,8 @@ export {
   summarizePowerScalingValidation,
 } from './powerScalingValidation'
 export type * from './types'
+export type * from './evidenceStatus'
+export { evidencePolicy, estimatedParametersForBuild } from './evidenceStatus'
 
 export { soulTrajectory, soulIncome, siphonIncome, animaHealingCapacity, deriveSoulState, simulateSoulResourceSchedule, artifactSoulGathering } from './souls'
 

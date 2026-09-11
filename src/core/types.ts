@@ -1,7 +1,9 @@
 import type { ArmorEnchantmentId, ArmorId, OwnedArmor, RuntimeArmorState, SelectedArmorEnchantment } from './armor'
 import type { OwnedRangedWeapon, RangedDamageState, SelectedRangedEnchantment } from './rangedTypes'
+import type { EvidencePolicy } from './evidenceStatus'
 
 export type Confidence = 'high' | 'medium' | 'low'
+export type EquipmentCategory = 'melee' | 'armor' | 'ranged' | 'artifact'
 export type EnchantmentTier = 1 | 2 | 3
 
 export interface SourceReference {
@@ -436,11 +438,21 @@ export interface OwnedArtifact {
   readonly powerLevel: number
 }
 
+export interface CatalogInventoryItem {
+  readonly instanceId: string
+  readonly category: EquipmentCategory
+  readonly catalogId: string
+  readonly powerLevel: number
+  readonly notes?: string
+}
+
 export interface Inventory {
   readonly rangedWeapons?: readonly OwnedRangedWeapon[]
   readonly weapons: readonly OwnedWeapon[]
   readonly armors?: readonly OwnedArmor[]
   readonly artifacts: readonly OwnedArtifact[]
+  /** Audited equipment that can be owned/researched but is not a runtime candidate. */
+  readonly catalogItems?: readonly CatalogInventoryItem[]
 }
 
 export interface Build {
@@ -582,6 +594,8 @@ export interface EnemyStateAssumptions {
 }
 
 export interface Scenario {
+  /** Controls whether parameters explicitly classified as Estimated may enter candidate evaluation. */
+  readonly evidencePolicy?: EvidencePolicy
   /** Explicit reserved attack-time budget; required only with Ranged. No simultaneous full melee/ranged DPS. */
   readonly rangedTimeShare?: number
   /** External inputs; omission preserves compatibility with older scenarios. */

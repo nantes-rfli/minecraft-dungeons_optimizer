@@ -1,4 +1,5 @@
 import type { OptimizationResult } from '../core/types'
+import { estimatedParametersForBuild, type EvidencePolicy } from '../core/evidenceStatus'
 import { summarizeDamageRegression } from '../core/modelError'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
 import { BuildAlternative, RecommendedBuild } from '../views/RecommendedBuild'
@@ -21,15 +22,18 @@ export interface OptimizeResultsProps {
   readonly error: string | null
   readonly result: OptimizationResult | null
   readonly status: 'idle' | 'working' | 'complete' | 'cancelled' | 'error'
+  readonly evidencePolicy?: EvidencePolicy
 }
 
-export function OptimizeResults({ error, result, status }: OptimizeResultsProps) {
+export function OptimizeResults({ error, result, status, evidencePolicy = 'include-estimated' }: OptimizeResultsProps) {
+  const estimatedParameters = result ? estimatedParametersForBuild(result.best.build) : []
   return <section className="results optimize-results" aria-label="最適化結果">
     {error && <div className="error-panel" role="alert">{error}</div>}
     {!result && status !== 'working' && <div className="empty-state"><span aria-hidden="true">◎</span><h2>結果はここに表示されます</h2><p>まず目的を選び、「最適化する」を押してください。</p></div>}
     {status === 'working' && <div className="empty-state working"><span className="spinner" aria-hidden="true" /><h2>すべての候補を比較しています</h2><p>この間も探索を中止できます。</p></div>}
     {result && <>
       {result.unsupportedChoices.length > 0 && <div className="model-warning" role="note"><strong>未対応の候補は評価から除外しました（0点として採用しません）</strong>{result.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}</div>}
+      <div className={`evidence-result ${estimatedParameters.length ? 'estimated' : 'strict'}`} role="note"><strong>{evidencePolicy === 'include-estimated' ? 'Estimatedを含めて評価' : '確度の高い情報のみで評価'}</strong>{estimatedParameters.length > 0 ? <><p>次のmechanic / parameterに推定値を使用しました。</p><ul>{estimatedParameters.map((parameter) => <li key={`${parameter.mechanicId}-${parameter.parameterId}`}><strong>{parameter.label}</strong><span>{parameter.basis}</span><small>{parameter.conditions} · version: {parameter.gameVersion} · confidence: {parameter.confidence}</small></li>)}</ul></> : <p>この結果には登録済みのEstimated parameterを使用していません。</p>}</div>
       <div className="result-meta"><span>{result.evaluatedBuildCount}通りを全探索</span><span>Evidence coverage {Math.round(result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[result.best.confidence.label]}）</span></div>
       <RecommendedBuild evaluation={result.best} />
       <section className="result-reasons" aria-labelledby="result-reasons-title"><h3 id="result-reasons-title">選ばれた理由</h3><ul>{result.best.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section>

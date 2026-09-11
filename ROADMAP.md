@@ -2,6 +2,8 @@
 
 ## Current project target
 
+Catalog / Inventory / Runtime / Evidenceを分離し、監査済みのruntime未対応装備も所持品・Research対象として登録できます。OptimizerはEstimatedを除外する経路と、根拠を明示して含める経路を選択できます。詳細は[分離設計](./docs/catalog-evidence-runtime-separation.md)を参照してください。
+
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
 製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **110 / 123（89%）**。Phase 7とPhase 8A/B/Cは完了し、8CのAdoptionDecisionは独立raw trace不足により保留です。Phase 6.8D/Eの2項目は未完了・保留。8C follow-up・Phase 9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。

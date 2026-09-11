@@ -20,11 +20,23 @@ const inventory: Inventory = {
     { instanceId: 'artifact-1', artifactId: 'iron-hide-amulet', powerLevel: 248 },
     { instanceId: 'artifact-2', artifactId: 'iron-hide-amulet', powerLevel: 251 },
   ],
+  catalogItems: [{ instanceId: 'catalog-1', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251, notes: 'Research Quest用' }],
 }
 
 describe('inventory JSON', () => {
   it('round-trips owned items including duplicate artifact definitions', () => {
     expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
+  })
+
+  it('writes schema v3 and retains audited runtime-unsupported equipment', () => {
+    const serialized = serializeInventory(inventory)
+    expect(JSON.parse(serialized).version).toBe(3)
+    expect(deserializeInventory(serialized).catalogItems).toEqual(inventory.catalogItems)
+  })
+
+  it('rejects non-audited catalog-only equipment', () => {
+    const json = serializeInventory(inventory).replace('gong-of-weakening', 'invented-artifact')
+    expect(() => deserializeInventory(json)).toThrow('監査済み')
   })
 
   it('rejects unknown identifiers with a useful error', () => {

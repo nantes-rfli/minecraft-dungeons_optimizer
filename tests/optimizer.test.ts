@@ -49,6 +49,18 @@ describe('optimize', () => {
     expect(result.paretoFrontier.length).toBeGreaterThan(0)
   })
 
+  it('keeps catalog-only inventory outside runtime evaluation', () => {
+    const result = optimize({ ...inventory, catalogItems: [{ instanceId: 'gong', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251 }] }, DEFAULT_SCENARIO)
+    expect(result.evaluatedBuildCount).toBe(12)
+    expect(result.best.build.artifacts).toEqual(inventory.artifacts)
+  })
+
+  it('excludes Estimated artifact mechanics in high-confidence-only mode', () => {
+    const result = optimize(inventory, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
+    expect(result.best.build.artifacts).toEqual([])
+    expect(result.unsupportedChoices).toEqual(expect.arrayContaining([expect.stringContaining('Estimated parameter')]))
+  })
+
   it('changes rankings when scenario weights change', () => {
     const damage = optimize(inventory, {
       ...DEFAULT_SCENARIO,
