@@ -18,7 +18,7 @@ import type {
 } from './types'
 import { validateInventory, validateScenario } from './validation'
 import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsupportedReason } from './ranged'
-import { artifactUsesEstimatedParameters, evidencePolicy } from './evidenceStatus'
+import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -187,8 +187,8 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   const runtimeArtifacts = policy === 'include-estimated'
     ? inventory.artifacts
     : inventory.artifacts.filter((artifact) => {
-      if (!artifactUsesEstimatedParameters(artifact.artifactId)) return true
-      unsupportedChoices.add(`${artifact.instanceId}: Estimated parameterを使用するため「高確度のみ」では除外`)
+      if (artifactEvidenceAllowed(artifact.artifactId, policy)) return true
+      unsupportedChoices.add(`${artifact.instanceId}: Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外`)
       return false
     })
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
@@ -234,7 +234,13 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     }))
   })
   if (rangedWeapons.length > 0 && rangedBuilds.length === 0) throw new OptimizerInputError('NO_SUPPORTED_RANGED_CANDIDATES', `No supported Ranged candidates. ${[...unsupportedChoices].join(' ')}`)
-  const evaluations = rangedBuilds
+  const evidenceAllowedBuilds = rangedBuilds.filter((build) => {
+    const blocked = blockedParameterEvidenceForBuild(build, policy)
+    if (blocked.length === 0) return true
+    unsupportedChoices.add(`${build.weapon.instanceId}: Evidence policyで除外（${blocked.map((item) => `${item.mechanicId}/${item.parameterId}:${item.status}`).join('、')}）`)
+    return false
+  })
+  const evaluations = evidenceAllowedBuilds
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
 

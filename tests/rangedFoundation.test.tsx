@@ -43,7 +43,7 @@ describe('ranged population and persistence', () => {
   it('imports old JSON losslessly without adding optional ranged fields', () => {
     expect(deserializeInventory(JSON.stringify({ version: 1, inventory: legacy }))).toEqual(legacy)
     expect(deserializeInventory(serializeInventory(legacy))).not.toHaveProperty('rangedWeapons')
-    expect(JSON.parse(serializeInventory(legacy)).version).toBe(3)
+    expect(JSON.parse(serializeInventory(legacy)).version).toBe(4)
   })
   it.each([1, 2, 3] as const)('round-trips Gilded %s and locked research-only alternatives', (tier) => {
     const inventory: Inventory = { ...legacy, rangedWeapons: [{ ...weapon, gilded: { enchantmentId: 'critical-hit', tier } }] }
@@ -58,7 +58,7 @@ describe('ranged population and persistence', () => {
     expect(loadInventory({ weapons: [], artifacts: [] })).toEqual(legacy)
     expect(JSON.parse(data.get(key)!).version).toBe(1)
     saveInventory({ ...legacy, rangedWeapons: [weapon] })
-    expect(JSON.parse(data.get(key)!).version).toBe(3)
+    expect(JSON.parse(data.get(key)!).version).toBe(4)
     expect(loadInventory(legacy).rangedWeapons).toEqual([weapon])
   })
   it('rejects malformed ranged fields without silently dropping them', () => {

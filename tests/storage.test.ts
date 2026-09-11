@@ -20,7 +20,14 @@ const inventory: Inventory = {
     { instanceId: 'artifact-1', artifactId: 'iron-hide-amulet', powerLevel: 248 },
     { instanceId: 'artifact-2', artifactId: 'iron-hide-amulet', powerLevel: 251 },
   ],
-  catalogItems: [{ instanceId: 'catalog-1', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251, notes: 'Research Quest用' }],
+  catalogItems: [{
+    instanceId: 'catalog-1', category: 'armor', catalogId: 'champion-s-armor', powerLevel: 251, notes: 'Research Quest用',
+    research: {
+      enchantments: [{ enchantmentId: 'protection', tier: 3, source: 'gilded' }],
+      intrinsicProperties: [{ kind: 'damage-reduction', raw: '35% damage reduction' }],
+      observations: [{ parameterId: 'incoming-damage', value: '65000', unit: 'damage', conditions: 'Apocalypse +25', gameVersion: '1.17.0.0', notes: 'fixed hit' }],
+    },
+  }],
 }
 
 describe('inventory JSON', () => {
@@ -28,14 +35,14 @@ describe('inventory JSON', () => {
     expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
   })
 
-  it('writes schema v3 and retains audited runtime-unsupported equipment', () => {
+  it('writes schema v4 and retains research attributes for audited runtime-unsupported equipment', () => {
     const serialized = serializeInventory(inventory)
-    expect(JSON.parse(serialized).version).toBe(3)
+    expect(JSON.parse(serialized).version).toBe(4)
     expect(deserializeInventory(serialized).catalogItems).toEqual(inventory.catalogItems)
   })
 
   it('rejects non-audited catalog-only equipment', () => {
-    const json = serializeInventory(inventory).replace('gong-of-weakening', 'invented-artifact')
+    const json = serializeInventory(inventory).replace('champion-s-armor', 'invented-armor')
     expect(() => deserializeInventory(json)).toThrow('監査済み')
   })
 

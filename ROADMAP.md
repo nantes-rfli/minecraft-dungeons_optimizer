@@ -4,6 +4,15 @@
 
 Catalog / Inventory / Runtime / Evidenceを分離し、監査済みのruntime未対応装備も所持品・Research対象として登録できます。OptimizerはEstimatedを除外する経路と、根拠を明示して含める経路を選択できます。詳細は[分離設計](./docs/catalog-evidence-runtime-separation.md)を参照してください。
 
+## 現行の並行Delivery Track
+
+Phase番号は履歴と成果物の所在を示すラベルであり、現在の作業順を固定する直列gateではありません。現行開発は次の2 trackを並行して進めます。
+
+- **Research track:** Personal Research Quest、raw trace収集、Evidence Repository、8C follow-up。parameter単位の根拠を改善し、条件を満たした単位だけRuntime Promotionへ渡す。
+- **Product track:** Catalog / Inventory UX、runtimeで安全に扱える既存scopeのOptimizer改善、Phase 9の昇格pipeline整備。未完了の調査値を0や1として埋めず、Research trackの完了を製品改善全体の開始条件にしない。
+
+両trackはEvidenceの採用判定点で合流します。Research Questや8C全体の完了はPhase 9着手の前提ではなく、合格したmechanic / parameter単位だけを反復可能な手順で昇格します。以下のPhase一覧と既存artifactは履歴記録として維持します。
+
 手持ちの近接・防具・遠距離・アーティファクトを登録し、Evidenceとlimitationsを明示しながら、火力・回復・防御・Controlなどの目的別推奨buildを再現可能に比較できる状態を目指します。
 
 製品バージョンは運用せず、Phase / Milestone / Current state / Git historyで継続的に更新します。**current implementation checklist** は **110 / 123（89%）**。Phase 7とPhase 8A/B/Cは完了し、8CのAdoptionDecisionは独立raw trace不足により保留です。Phase 6.8D/Eの2項目は未完了・保留。8C follow-up・Phase 9とFuture Expansionは次の独立した実装・調査単位であり、分母に含めません。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。公開前にaudit・`npm test`・tsc・lint・buildと主要E2Eを検証します。
@@ -319,6 +328,8 @@ UX backlog（今回未実装）: 次点候補では1位と異なるEnchantを優
 版1.17.0.0、同一incoming hit、baseline・単独・pair・三効果の全8条件について、別々に実施した3 run×各10 hit以上を取得できた場合に、固定済みgateを変更せず8C auditを再実行します。同じ測定者でも別runは数え、複製run・重複run ID・raw trace再利用は数えません。
 
 ### Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）
+
+このpipelineの整備とProduct trackの改善はResearch Quest全体の完了を待たずに並行して進め、8Cで合格した単位だけを昇格対象にします。
 
 **9A — 最初の限定移行。** AdoptionDecisionが合格した1単位について許容範囲をvalidatorへ反映し、既存`evaluate / optimize`・Inventory v2・actual rolls・Worker中止・探索上限を維持して導入。runtime manifest、Evidence、説明、Coverage、回帰を同期し、旧新差分・必要なE2E・性能とrollback可能なcommitを確認します。研究用比較器をそのまま本番へ一括接続しません。
 

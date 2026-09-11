@@ -1,6 +1,7 @@
-import type { Inventory, OwnedWeapon } from '../core/types.ts'
+import type { CatalogInventoryItem, Inventory, OwnedWeapon } from '../core/types.ts'
 import type { ArmorId } from '../core/armor.ts'
 import { ARMORS } from '../data/armors.ts'
+import { auditedArmorIntrinsicProperties } from './auditedCatalog.ts'
 import {
   buildEvidenceRepository,
   type EvidenceOriginKind,
@@ -112,14 +113,29 @@ function hasGuardingStrikeCandidate(weapon: OwnedWeapon): boolean {
   return weapon.enchantmentSlots.some((slot) => slot.candidates.includes('guarding-strike'))
 }
 
+function catalogHasGuardingStrike(item: CatalogInventoryItem): boolean {
+  if (item.category !== 'melee') return false
+  return item.research?.enchantments?.some((enchantment) => enchantment.enchantmentId === 'guarding-strike') ?? false
+}
+
+function catalogArmorHas35PercentDr(item: CatalogInventoryItem): boolean {
+  if (item.category !== 'armor') return false
+  const catalogProperties = auditedArmorIntrinsicProperties(item.catalogId)
+  const instanceProperties = item.research?.intrinsicProperties ?? []
+  return [...catalogProperties, ...instanceProperties].some((property) => property.kind === 'damage-reduction' && /(?:^|\D)35\s*%/.test(property.raw))
+}
+
 export function resolveResearchQuestReadiness(inventory: Inventory): ResearchQuestReadiness {
-  const armor = (inventory.armors ?? []).find((item) => item.armorId in ARMORS && ARMORS[item.armorId as ArmorId].armorDamageReduction === 0.35)
+  const runtimeArmor = (inventory.armors ?? []).find((item) => item.armorId in ARMORS && ARMORS[item.armorId as ArmorId].armorDamageReduction === 0.35)
+  const catalogArmor = (inventory.catalogItems ?? []).find(catalogArmorHas35PercentDr)
+  const armorInstanceId = runtimeArmor?.instanceId ?? catalogArmor?.instanceId ?? null
   const ironHide = inventory.artifacts.find((item) => item.artifactId === 'iron-hide-amulet')
   const guardingWeapon = inventory.weapons.find(hasUsableGuardingStrike)
+  const catalogGuardingWeapon = (inventory.catalogItems ?? []).find(catalogHasGuardingStrike)
   const guardingCandidate = inventory.weapons.find(hasGuardingStrikeCandidate)
-  const guardingStrikeStatus = guardingWeapon ? 'usable' : guardingCandidate ? 'selection-required' : 'missing'
+  const guardingStrikeStatus = guardingWeapon || catalogGuardingWeapon ? 'usable' : guardingCandidate ? 'selection-required' : 'missing'
   const missing = [
-    ...(!armor ? ['35% damage reduction付き防具'] : []),
+    ...(!armorInstanceId ? ['35% damage reduction付き防具'] : []),
     ...(!ironHide ? ['アイアンハイドアミュレット'] : []),
     ...(guardingStrikeStatus === 'missing' ? ['ガードストライクを持つ近接武器'] : []),
   ]
@@ -127,9 +143,9 @@ export function resolveResearchQuestReadiness(inventory: Inventory): ResearchQue
   return {
     ready: missing.length === 0 && selectionRequired.length === 0,
     guardingStrikeStatus,
-    armorInstanceId: armor?.instanceId ?? null,
+    armorInstanceId,
     ironHideInstanceId: ironHide?.instanceId ?? null,
-    guardingWeaponInstanceId: guardingWeapon?.instanceId ?? null,
+    guardingWeaponInstanceId: guardingWeapon?.instanceId ?? catalogGuardingWeapon?.instanceId ?? null,
     missing,
     selectionRequired,
   }
@@ -179,8 +195,10 @@ export function saveResearchQuestState(state: ResearchQuestState): void {
 function equipmentForCondition(draft: ResearchQuestRunDraft, inventory: Inventory) {
   const readiness = resolveResearchQuestReadiness(inventory)
   const armor = (inventory.armors ?? []).find((item) => item.instanceId === readiness.armorInstanceId)
+  const catalogArmor = (inventory.catalogItems ?? []).find((item) => item.instanceId === readiness.armorInstanceId && item.category === 'armor')
   const ironHide = inventory.artifacts.find((item) => item.instanceId === readiness.ironHideInstanceId)
   const guardingWeapon = inventory.weapons.find((item) => item.instanceId === readiness.guardingWeaponInstanceId)
+  const catalogGuardingWeapon = (inventory.catalogItems ?? []).find((item) => item.instanceId === readiness.guardingWeaponInstanceId && item.category === 'melee')
   const guardingSlotIndex = guardingWeapon?.enchantmentSlots.findIndex((slot) => slot.locked === 'guarding-strike') ?? -1
   const guardingSource = guardingWeapon?.gilded?.enchantmentId === 'guarding-strike'
     ? `gilded:tier-${guardingWeapon.gilded.tier}`
@@ -190,8 +208,10 @@ function equipmentForCondition(draft: ResearchQuestRunDraft, inventory: Inventor
   const usesGuarding = draft.condition.includes('guarding')
   return [
     ...(usesArmor && armor ? [{ id: `armor:${armor.armorId}`, power: armor.powerLevel }] : []),
+    ...(usesArmor && !armor && catalogArmor ? [{ id: `armor:${catalogArmor.catalogId}`, power: catalogArmor.powerLevel }] : []),
     ...(usesIron && ironHide ? [{ id: `artifact:${ironHide.artifactId}`, power: ironHide.powerLevel }] : []),
     ...(usesGuarding && guardingWeapon ? [{ id: `melee:${guardingWeapon.weaponId}:guarding-strike:${guardingSource}`, power: guardingWeapon.powerLevel }] : []),
+    ...(usesGuarding && !guardingWeapon && catalogGuardingWeapon ? [{ id: `melee:${catalogGuardingWeapon.catalogId}:guarding-strike:research-record`, power: catalogGuardingWeapon.powerLevel }] : []),
   ]
 }
 

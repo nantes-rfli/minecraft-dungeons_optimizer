@@ -21,8 +21,49 @@ import { CATALOG_ONLY_EQUIPMENT } from '../data/equipmentCatalog'
 const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 
 interface InventoryDocument {
-  readonly version: 3
+  readonly version: 4
   readonly inventory: Inventory
+}
+
+function optionalString(value: unknown, field: string): string | undefined {
+  if (value === undefined || value === '') return undefined
+  return requireString(value, field)
+}
+
+function parseCatalogResearch(value: unknown, field: string): CatalogInventoryItem['research'] {
+  if (value === undefined) return undefined
+  if (!isRecord(value)) throw new Error(`${field}の形式が正しくありません。`)
+  const enchantments = value.enchantments === undefined ? undefined : (() => {
+    if (!Array.isArray(value.enchantments)) throw new Error(`${field}.enchantmentsは配列にしてください。`)
+    return value.enchantments.map((item, index) => {
+      const itemField = `${field}.enchantments[${index}]`
+      if (!isRecord(item) || ![1, 2, 3].includes(item.tier as number) || !['slot', 'gilded', 'built-in'].includes(item.source as string)) throw new Error(`${itemField}の形式が正しくありません。`)
+      return { enchantmentId: requireString(item.enchantmentId, `${itemField}.enchantmentId`), tier: item.tier as EnchantmentTier, source: item.source as 'slot' | 'gilded' | 'built-in' }
+    })
+  })()
+  const intrinsicProperties = value.intrinsicProperties === undefined ? undefined : (() => {
+    if (!Array.isArray(value.intrinsicProperties)) throw new Error(`${field}.intrinsicPropertiesは配列にしてください。`)
+    return value.intrinsicProperties.map((item, index) => {
+      const itemField = `${field}.intrinsicProperties[${index}]`
+      if (!isRecord(item)) throw new Error(`${itemField}の形式が正しくありません。`)
+      return { kind: requireString(item.kind, `${itemField}.kind`), raw: requireString(item.raw, `${itemField}.raw`) }
+    })
+  })()
+  const observations = value.observations === undefined ? undefined : (() => {
+    if (!Array.isArray(value.observations)) throw new Error(`${field}.observationsは配列にしてください。`)
+    return value.observations.map((item, index) => {
+      const itemField = `${field}.observations[${index}]`
+      if (!isRecord(item)) throw new Error(`${itemField}の形式が正しくありません。`)
+      return {
+        parameterId: requireString(item.parameterId, `${itemField}.parameterId`), value: requireString(item.value, `${itemField}.value`),
+        ...(optionalString(item.unit, `${itemField}.unit`) ? { unit: optionalString(item.unit, `${itemField}.unit`) } : {}),
+        ...(optionalString(item.conditions, `${itemField}.conditions`) ? { conditions: optionalString(item.conditions, `${itemField}.conditions`) } : {}),
+        ...(optionalString(item.gameVersion, `${itemField}.gameVersion`) ? { gameVersion: optionalString(item.gameVersion, `${itemField}.gameVersion`) } : {}),
+        ...(optionalString(item.notes, `${itemField}.notes`) ? { notes: optionalString(item.notes, `${itemField}.notes`) } : {}),
+      }
+    })
+  })()
+  return { ...(enchantments ? { enchantments } : {}), ...(intrinsicProperties ? { intrinsicProperties } : {}), ...(observations ? { observations } : {}) }
 }
 
 function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
@@ -33,9 +74,10 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const catalog = CATALOG_ONLY_EQUIPMENT.find((item) => item.category === category && item.id === catalogId)
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
+  const research = parseCatalogResearch(value.research, `${field}.research`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`), category: catalog.category,
-    catalogId, powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`), ...(notes ? { notes } : {}),
+    catalogId, powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`), ...(notes ? { notes } : {}), ...(research ? { research } : {}),
   }
 }
 
@@ -171,7 +213,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
 }
 
 export function serializeInventory(inventory: Inventory): string {
-  return JSON.stringify({ version: 3, inventory } satisfies InventoryDocument, null, 2)
+  return JSON.stringify({ version: 4, inventory } satisfies InventoryDocument, null, 2)
 }
 
 export function deserializeInventory(json: string): Inventory {
@@ -181,8 +223,8 @@ export function deserializeInventory(json: string): Inventory {
   } catch {
     throw new Error('JSONの構文が正しくありません。')
   }
-  if (!isRecord(parsed) || ![1, 2, 3].includes(parsed.version as number) || !isRecord(parsed.inventory)) {
-    throw new Error('対応していないデータ形式です（version 1〜3が必要です）。')
+  if (!isRecord(parsed) || ![1, 2, 3, 4].includes(parsed.version as number) || !isRecord(parsed.inventory)) {
+    throw new Error('対応していないデータ形式です（version 1〜4が必要です）。')
   }
   const { weapons, armors, artifacts, rangedWeapons, catalogItems } = parsed.inventory
   if (rangedWeapons !== undefined && !Array.isArray(rangedWeapons)) throw new Error('rangedWeaponsは配列にしてください。')

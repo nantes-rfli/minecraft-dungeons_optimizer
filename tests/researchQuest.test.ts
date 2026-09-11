@@ -47,6 +47,16 @@ describe('Phase 7 Personal Research Quest', () => {
     expect(renderToStaticMarkup(createElement(ResearchQuestPage, { inventory: candidateOnly }))).toContain('選択が必要')
   })
 
+  it('uses an audited runtime-unsupported 35% DR armor for Research Quest without promoting it to runtime', async () => {
+    const catalogArmor: Inventory = {
+      ...inventory(), armors: [],
+      catalogItems: [{ instanceId: 'catalog-armor', category: 'armor', catalogId: 'champion-s-armor', powerLevel: 251 }],
+    }
+    expect(resolveResearchQuestReadiness(catalogArmor)).toMatchObject({ ready: true, armorInstanceId: 'catalog-armor' })
+    const captured = await captureResearchQuestRun(draft('catalog-run'), catalogArmor)
+    expect(captured.equipment[0]).toEqual({ id: 'armor:champion-s-armor', power: 251 })
+  })
+
   it('renders the three acquisition modes and an owned-filtered task summary', () => {
     const html = renderToStaticMarkup(createElement(ResearchQuestPage, { inventory: inventory() }))
     for (const label of ['Observe', 'Measure', 'Experiment', '限定DRの組合せ', '24 runs · 240 hits']) expect(html).toContain(label)

@@ -438,12 +438,40 @@ export interface OwnedArtifact {
   readonly powerLevel: number
 }
 
+export interface CatalogResearchEnchantment {
+  readonly enchantmentId: string
+  readonly tier: EnchantmentTier
+  readonly source: 'slot' | 'gilded' | 'built-in'
+}
+
+export interface CatalogResearchIntrinsicProperty {
+  readonly kind: string
+  readonly raw: string
+}
+
+export interface CatalogResearchObservation {
+  readonly parameterId: string
+  readonly value: string
+  readonly unit?: string
+  readonly conditions?: string
+  readonly gameVersion?: string
+  readonly notes?: string
+}
+
+export interface CatalogResearchAttributes {
+  readonly enchantments?: readonly CatalogResearchEnchantment[]
+  readonly intrinsicProperties?: readonly CatalogResearchIntrinsicProperty[]
+  readonly observations?: readonly CatalogResearchObservation[]
+}
+
 export interface CatalogInventoryItem {
   readonly instanceId: string
   readonly category: EquipmentCategory
   readonly catalogId: string
   readonly powerLevel: number
   readonly notes?: string
+  /** Per-instance facts for Research Quest; never implies runtime support. */
+  readonly research?: CatalogResearchAttributes
 }
 
 export interface Inventory {

@@ -17,6 +17,8 @@ export interface EquipmentCatalogEntry {
   readonly runtimeSupport: RuntimeSupportLevel
   readonly legacyRuntimeSupport: 'full' | 'limited' | 'research-only'
   readonly auditStatus: string
+  readonly intrinsicProperties: readonly { readonly kind: string; readonly raw: string }[]
+  readonly builtInEnchantments: readonly { readonly enchantmentId: string; readonly tier?: number }[]
 }
 
 const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLevel => {
@@ -26,14 +28,17 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'
 }
 
-const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string): EquipmentCatalogEntry => {
+const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)
-  return { category, id, name, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus }
+  return { category, id, name, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, ...details }
 }
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
   ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status)),
-  ...armorAudit.entries.map((item) => entry('armor', item.id, { en: item.name }, item.runtimeReadiness)),
+  ...armorAudit.entries.map((item) => entry('armor', item.id, { en: item.name }, item.runtimeReadiness, {
+    intrinsicProperties: item.intrinsicProperties.map(({ kind, raw }) => ({ kind, raw })),
+    builtInEnchantments: item.builtInEnchantments.map(({ enchantmentId, tier }) => ({ enchantmentId, tier })),
+  })),
   ...rangedAudit.entries.map((item) => entry('ranged', item.id, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.auditStatus)),
   ...artifactAudit.entries.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness)),
   ...artifactAudit.populationDifferences.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness)),
