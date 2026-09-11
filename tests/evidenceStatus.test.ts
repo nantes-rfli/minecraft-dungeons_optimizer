@@ -61,6 +61,16 @@ describe('parameter evidence status', () => {
     ]))
   })
 
+  it('reports each mechanic parameter once when equipment copies are duplicated', () => {
+    const parameters = parameterEvidenceForBuild(build('critical-hit', [
+      { instanceId: 'mushroom-1', artifactId: 'death-cap-mushroom', powerLevel: 251 },
+      { instanceId: 'mushroom-2', artifactId: 'death-cap-mushroom', powerLevel: 251 },
+    ]))
+    const keys = parameters.map((parameter) => `${parameter.mechanicId}/${parameter.parameterId}`)
+    expect(new Set(keys).size).toBe(keys.length)
+    expect(keys).toContain('death-cap-mushroom/duplicate-stacking')
+  })
+
   it('includes non-Artifact estimates in the result disclosure', () => {
     const estimatedBuild = build('guarding-strike')
     expect(estimatedParametersForBuild(estimatedBuild)).toEqual(expect.arrayContaining([

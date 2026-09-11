@@ -136,11 +136,21 @@ const isDuplicateInteractionParameter = (parameter: ParameterEvidence) => parame
 
 export function evidencePolicy(scenario: Scenario): EvidencePolicy { return scenario.evidencePolicy ?? 'include-estimated' }
 
+function uniqueParameterEvidence(parameters: readonly ParameterEvidence[]): readonly ParameterEvidence[] {
+  const seen = new Set<string>()
+  return parameters.filter((parameter) => {
+    const key = `${parameter.mechanicId}/${parameter.parameterId}`
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
+
 export function parameterEvidenceForBuild(build: Build): readonly ParameterEvidence[] {
   const weaponParameters = build.weapon.observedDamagePerHit === undefined
     ? sharedWeaponEvidence
     : [{ mechanicId: 'melee:observed-input', parameterId: 'damage-per-hit', label: '入力済み表示damage', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: '登録した個体とPowerに限定。', gameVersion: 'user supplied', confidence: 'medium' } satisfies ParameterEvidence]
-  return [
+  return uniqueParameterEvidence([
     ...weaponParameters,
     ...evidenceForMechanic(`melee:${build.weapon.weaponId}`),
     ...build.enchantments.flatMap((item) => evidenceForMechanic(`melee-enchantment:${item.enchantmentId}`)),
@@ -152,7 +162,7 @@ export function parameterEvidenceForBuild(build: Build): readonly ParameterEvide
     ] as ParameterEvidence[] : []),
     ...(build.rangedEnchantments ?? []).flatMap((item) => evidenceForMechanic(`ranged-enchantment:${item.enchantmentId}`)),
     ...build.artifacts.flatMap((item, _, items) => evidenceForMechanic(item.artifactId).filter((parameter) => !isDuplicateInteractionParameter(parameter) || items.filter((candidate) => candidate.artifactId === item.artifactId).length > 1)),
-  ]
+  ])
 }
 
 export function blockedParameterEvidenceForBuild(build: Build, policy: EvidencePolicy): readonly ParameterEvidence[] { return parameterEvidenceForBuild(build).filter((parameter) => !isEvidenceStatusAllowed(parameter.status, policy)) }
