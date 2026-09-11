@@ -37,8 +37,13 @@ describe('P3 runtime promotion pipeline', () => {
 
   it('rejects an incomplete or drifting atomic artifact declaration', () => {
     const manifest = buildRuntimePromotionManifest({ gameVersion: '1.17.0.0', candidates: [accepted], promotions: [bundle] })
-    const mutated = structuredClone(manifest)
-    mutated.promotions[0]!.artifacts.coverage.sha256 = 'not-a-hash'
+    const mutated = {
+      ...manifest,
+      promotions: [{
+        ...manifest.promotions[0]!,
+        artifacts: { ...manifest.promotions[0]!.artifacts, coverage: { ...manifest.promotions[0]!.artifacts.coverage, sha256: 'not-a-hash' } },
+      }],
+    }
     expect(collectRuntimePromotionErrors(mutated)).toContain('fixture.damage: invalid coverage hash')
   })
 })
