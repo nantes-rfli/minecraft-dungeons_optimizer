@@ -9,6 +9,7 @@ export interface RoadmapWorkUnit {
   readonly goal: string
   readonly dependsOn?: readonly string[]
   readonly unlocks?: readonly string[]
+  readonly dependencyCondition?: string
   readonly completionCriteria: string
   readonly nextAction?: string
 }
@@ -57,7 +58,8 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     title: 'Evidence Validation / Adoption',
     status: 'next',
     goal: '取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。',
-    dependsOn: ['R2（対象単位）'],
+    dependsOn: ['R2'],
+    dependencyCondition: '対象parameter / mechanicについて独立Evidenceが取得済み',
     unlocks: ['P3B'],
     completionCriteria: 'accepted / rejected / heldと理由が再現可能で、未検証値を昇格対象にしない。',
   },
@@ -78,7 +80,8 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     title: 'Targeted Deep Research',
     status: 'later',
     goal: '外部観測でも解けないruntime-relevantな問いに限りnative計算・effective timingを追加調査する。',
-    dependsOn: ['R2 / R3で必要性が確認された対象'],
+    dependsOn: ['R2', 'R3'],
+    dependencyCondition: 'R2 / R3で追加のnative調査が必要と判断された対象に限る',
     completionCriteria: '対象の問い、停止条件、runtime relevanceを先に固定し、推測値を生成せず結論を記録する。',
   },
   {
@@ -126,7 +129,8 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     title: 'First Eligible Runtime Promotion',
     status: 'blocked',
     goal: 'R3でacceptedになった最初の1 parameter / mechanicをEnd-to-Endで昇格し、reference implementationにする。',
-    dependsOn: ['P3', 'R3（対象単位）'],
+    dependsOn: ['P3', 'R3'],
+    dependencyCondition: '対象parameter / mechanicがR3でaccepted',
     unlocks: ['P4'],
     completionCriteria: '同一変更でruntime、manifest、説明、coverage、regressionが同期し、既存挙動を保護する。',
     nextAction: 'eligible targetなし。P3の基盤整備を継続し、acceptedな対象を待つ。',
@@ -137,7 +141,8 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     title: 'Runtime Coverage Expansion',
     status: 'next',
     goal: 'P3Bを通過した小さい単位ごとにruntime coverageを拡張する。',
-    dependsOn: ['P3B（対象単位）'],
+    dependsOn: ['P3B'],
+    dependencyCondition: '対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み',
     unlocks: ['P5'],
     completionCriteria: '追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。',
   },
@@ -169,6 +174,39 @@ export const FUTURE_CANDIDATES: readonly FutureCandidate[] = [
 ] as const
 
 export const ROADMAP_STATUS_ORDER: readonly RoadmapWorkStatus[] = ['done', 'current', 'next', 'blocked', 'later']
+
+const ROADMAP_TRACK_IDS = new Set<string>(['research', 'product'])
+const ROADMAP_STATUS_IDS = new Set<string>(ROADMAP_STATUS_ORDER)
+
+export function collectRoadmapWorkUnitErrors(workUnits: readonly RoadmapWorkUnit[]): string[] {
+  const errors: string[] = []
+  const ids = workUnits.map((unit) => unit.id)
+  const knownIds = new Set(ids)
+
+  if (!workUnits.length) errors.push('Roadmap work units must not be empty')
+  if (ids.some((id) => !id.trim())) errors.push('Roadmap work unit IDs must be present')
+  if (knownIds.size !== ids.length) errors.push('Roadmap work unit IDs must be unique')
+
+  for (const unit of workUnits) {
+    const unitId = unit.id || '(missing ID)'
+    if (!ROADMAP_TRACK_IDS.has(unit.track)) errors.push(`${unitId}: invalid roadmap track`)
+    if (!ROADMAP_STATUS_IDS.has(unit.status)) errors.push(`${unitId}: invalid roadmap status`)
+    if (!unit.completionCriteria?.trim()) errors.push(`${unitId}: missing completion criteria`)
+
+    for (const [references, label] of [[unit.dependsOn, 'dependency'], [unit.unlocks, 'unlock']] as const) {
+      if (!references) continue
+      const seen = new Set<string>()
+      for (const reference of references) {
+        if (seen.has(reference)) errors.push(`${unitId}: duplicate ${label} ${reference}`)
+        seen.add(reference)
+        if (reference === unit.id) errors.push(`${unitId}: self-reference in ${label}`)
+        else if (!knownIds.has(reference)) errors.push(`${unitId}: unknown ${label} ${reference}`)
+      }
+    }
+  }
+
+  return errors
+}
 
 export function workUnitsForTrack(track: RoadmapTrackId): readonly RoadmapWorkUnit[] {
   return ROADMAP_WORK_UNITS.filter((unit) => unit.track === track)

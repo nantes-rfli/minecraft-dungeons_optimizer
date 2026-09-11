@@ -73,17 +73,10 @@ try {
   }
   const roadmapText = read('ROADMAP.md')
   const historicalRoadmapText = read('docs/historical-roadmap.md')
-  const workUnits = roadmap.ROADMAP_WORK_UNITS as { id: string; track: string; title: string; status: string; completionCriteria: string }[]
-  const statuses = new Set(['done', 'current', 'next', 'blocked', 'later'])
-  if (!workUnits.length || new Set(workUnits.map((unit) => unit.id)).size !== workUnits.length) errors.push('Roadmap work unit IDs must be present and unique')
+  const workUnits = roadmap.ROADMAP_WORK_UNITS as { id: string; title: string }[]
+  errors.push(...roadmap.collectRoadmapWorkUnitErrors(workUnits))
   for (const unit of workUnits) {
-    if (!['research', 'product'].includes(unit.track)) errors.push(`${unit.id}: invalid roadmap track`)
-    if (!statuses.has(unit.status)) errors.push(`${unit.id}: invalid roadmap status`)
-    if (!unit.completionCriteria) errors.push(`${unit.id}: missing completion criteria`)
     if (!roadmapText.includes(`**${unit.id} — ${unit.title}**`)) errors.push(`${unit.id}: ROADMAP.md drift`)
-  }
-  for (const track of ['research', 'product']) for (const status of statuses) {
-    if (!workUnits.some((unit) => unit.track === track && unit.status === status)) errors.push(`${track}: missing ${status} work unit`)
   }
   for (const candidate of roadmap.FUTURE_CANDIDATES as { title: string }[]) if (!roadmapText.includes(candidate.title)) errors.push(`Future candidate drift: ${candidate.title}`)
   if (!roadmapText.includes('[Historical Roadmap](./docs/historical-roadmap.md)')) errors.push('Current roadmap must link the historical roadmap')
