@@ -21,6 +21,9 @@
       "gameVersion": "1.17.0.0",
       "valueStatus": "known",
       "regression": "not-run",
+      "regressionRef": "research/runtime-promotion-regression.json#/targets/0",
+      "regressionGameVersion": "1.17.0.0",
+      "regressionSourceRef": null,
       "blockers": [
         "insufficient-independent-holdout:baseline",
         "insufficient-independent-holdout:armor-35",

@@ -3,12 +3,17 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import phase8c from '../research/phase8c-limited-dr-validation.json' with { type: 'json' }
-import { buildRuntimePromotionManifest, collectRuntimePromotionErrors, PROMOTION_ARTIFACT_KINDS } from '../src/research/runtimePromotion.ts'
+import regressionArtifact from '../research/runtime-promotion-regression.json' with { type: 'json' }
+import { buildRuntimePromotionManifest, collectRuntimePromotionErrors, collectRuntimePromotionRegressionSourceErrors, PROMOTION_ARTIFACT_KINDS, type PromotionRegressionResult, type RuntimePromotionRegressionArtifact } from '../src/research/runtimePromotion.ts'
 
 const root = path.resolve(new URL('..', import.meta.url).pathname)
+const regressionArtifactPath = 'research/runtime-promotion-regression.json'
 
 export function buildCurrentRuntimePromotionManifest() {
   const decision = phase8c.adoptionDecision
+  const regressionIndex = regressionArtifact.targets.findIndex((result) => result.targetId === 'defense.damage-taken-composition')
+  const regression = regressionArtifact.targets[regressionIndex] as PromotionRegressionResult | undefined
+  assert(regression, 'defense.damage-taken-composition: regression result missing')
   return buildRuntimePromotionManifest({
     gameVersion: phase8c.plan.gameVersion,
     candidates: [{
@@ -18,7 +23,10 @@ export function buildCurrentRuntimePromotionManifest() {
       outcome: decision.decision === 'adopt' ? 'accepted' : decision.decision === 'reject' ? 'rejected' : 'held',
       gameVersion: phase8c.plan.gameVersion,
       valueStatus: 'known',
-      regression: decision.decision === 'adopt' ? 'passed' : 'not-run',
+      regression: regression.status,
+      regressionRef: `${regressionArtifactPath}#/targets/${regressionIndex}`,
+      regressionGameVersion: regression.gameVersion,
+      regressionSourceRef: regression.sourceRef,
       blockers: decision.blockers,
     }],
     promotions: [],
@@ -26,8 +34,8 @@ export function buildCurrentRuntimePromotionManifest() {
 }
 
 function report(manifest: ReturnType<typeof buildCurrentRuntimePromotionManifest>): string {
-  const rows = manifest.candidates.map((candidate) => `| ${candidate.targetId} | ${candidate.targetKind} | ${candidate.outcome} | ${candidate.eligibility.status} | ${candidate.eligibility.reasons.join('<br>')} | [decision](../${candidate.decisionRef}) |`).join('\n')
-  return `# Runtime Promotion Pipeline\n\nP3で固定した、parameter / mechanic単位のruntime昇格契約。正本は[machine-readable manifest](../research/runtime-promotion-manifest.json)。\n\n## Current state\n\nCandidate ${manifest.summary.candidates} · Eligible ${manifest.summary.eligible} · Promoted ${manifest.summary.promoted}。現在は昇格可能な対象がないため、runtime値・support level・Optimizer候補・Gap closureは変更しない。\n\n| Target | Kind | Adoption | Eligibility | Reasons | Source decision |\n| --- | --- | --- | --- | --- | --- |\n${rows}\n\n## Atomic promotion contract\n\nAdoptionDecisionがaccepted、対象版が一致、値が既知、blockerが空、regressionがpassedの場合だけeligibleになる。eligibleになった対象は同じpromotion bundleで次の5成果物をすべて宣言し、それぞれのSHA-256を固定する。\n\n${PROMOTION_ARTIFACT_KINDS.map((kind) => `- \`${kind}\``).join('\n')}\n\n欠落、内容drift、decision参照の不一致、非eligible対象のbundle、eligible対象のbundle未登録はauditで拒否する。rollbackは対象commitのrevertを基本契約とする。未検証値を0や1として登録せず、support分類やGap closeを自動推定しない。\n\n## First promotion procedure\n\n1. R3でparameter / mechanic単位のaccepted decisionを保存する。\n2. runtime実装、support manifest、利用者向け説明、coverage、regressionを同じ変更で作成する。\n3. 5ファイルのpathとSHA-256、support level、rollback noteをpromotion bundleへ登録する。\n4. \`npm run audit:runtime-promotion\`と関連audit、test、lint、buildを通す。\n5. P3Bの最初のeligible単位をreference implementationとして記録する。\n`
+  const rows = manifest.candidates.map((candidate) => `| ${candidate.targetId} | ${candidate.targetKind} | ${candidate.outcome} | ${candidate.regression} | ${candidate.eligibility.status} | ${candidate.eligibility.reasons.join('<br>')} | [decision](../${candidate.decisionRef}) · [regression](../${candidate.regressionRef}) |`).join('\n')
+  return `# Runtime Promotion Pipeline\n\nP3で固定した、parameter / mechanic単位のruntime昇格契約。正本は[machine-readable manifest](../research/runtime-promotion-manifest.json)。\n\n## Current state\n\nCandidate ${manifest.summary.candidates} · Eligible ${manifest.summary.eligible} · Promoted ${manifest.summary.promoted}。現在は昇格可能な対象がないため、runtime値・support level・Optimizer候補・Gap closureは変更しない。\n\n| Target | Kind | Adoption | Regression | Eligibility | Reasons | Sources |\n| --- | --- | --- | --- | --- | --- | --- |\n${rows}\n\n## Independent gates\n\nResearch AdoptionDecisionとProduct Regressionは独立したgateであり、acceptedになっただけではeligibleにならない。AdoptionDecisionがaccepted、対象版が一致、値が既知、Research blockerが空、独立したProduct regression sourceがpassedの場合だけeligibleになる。\n\n## Atomic promotion contract\n\neligibleになった対象は同じpromotion bundleで次の5成果物をすべて宣言し、それぞれのSHA-256を固定する。\n\n${PROMOTION_ARTIFACT_KINDS.map((kind) => `- \`${kind}\``).join('\n')}\n\n欠落、内容drift、decision参照の不一致、regression sourceとの不一致、非eligible対象のbundle、eligible対象のbundle未登録はauditで拒否する。rollbackは対象commitのrevertを基本契約とする。未検証値を0や1として登録せず、support分類やGap closeを自動推定しない。\n\n## First promotion procedure\n\n1. R3でparameter / mechanic単位のaccepted decisionを保存する。\n2. Product側のruntime変更とregressionを準備する。\n3. regressionを実行し、結果とprovenanceをmachine-readable regression sourceへ保存する。\n4. eligibilityを再評価し、全gateを通った対象だけをeligibleにする。\n5. eligible対象についてruntime、support manifest、利用者向け説明、coverage、regressionの5ファイルとSHA-256、support level、rollback noteを同じpromotion bundleへ登録する。\n6. \`npm run audit:runtime-promotion\`と関連audit、test、lint、buildを通す。\n7. P3Bの最初のeligible単位をreference implementationとして記録する。\n`
 }
 
 const manifest = buildCurrentRuntimePromotionManifest()
@@ -40,6 +48,7 @@ const outputs = new Map([
 if (process.argv.includes('--write')) for (const [file, contents] of outputs) fs.writeFileSync(path.join(root, file), contents)
 for (const [file, contents] of outputs) assert.equal(fs.readFileSync(path.join(root, file), 'utf8'), contents, `${file} drift; run generate:runtime-promotion`)
 assert.deepEqual(collectRuntimePromotionErrors(manifest), [])
+assert.deepEqual(collectRuntimePromotionRegressionSourceErrors(manifest, regressionArtifact as RuntimePromotionRegressionArtifact, regressionArtifactPath), [])
 for (const promotion of manifest.promotions) for (const kind of PROMOTION_ARTIFACT_KINDS) {
   const artifact = promotion.artifacts[kind]
   const contents = fs.readFileSync(path.join(root, artifact.path))

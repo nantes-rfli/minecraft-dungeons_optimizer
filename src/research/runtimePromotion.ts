@@ -2,6 +2,20 @@ export const PROMOTION_ARTIFACT_KINDS = ['runtime', 'support-manifest', 'explana
 export type PromotionArtifactKind = (typeof PROMOTION_ARTIFACT_KINDS)[number]
 export type PromotionTargetKind = 'parameter' | 'mechanic'
 export type AdoptionOutcome = 'accepted' | 'held' | 'rejected'
+export type PromotionRegressionStatus = 'passed' | 'not-run' | 'failed'
+
+export interface PromotionRegressionResult {
+  readonly targetId: string
+  readonly status: PromotionRegressionStatus
+  readonly gameVersion: string
+  readonly sourceRef: string | null
+}
+
+export interface RuntimePromotionRegressionArtifact {
+  readonly schemaVersion: 1
+  readonly gameVersion: string
+  readonly targets: readonly PromotionRegressionResult[]
+}
 
 export interface PromotionCandidateInput {
   readonly targetId: string
@@ -10,7 +24,10 @@ export interface PromotionCandidateInput {
   readonly outcome: AdoptionOutcome
   readonly gameVersion: string | null
   readonly valueStatus: 'known' | 'unknown'
-  readonly regression: 'passed' | 'not-run' | 'failed'
+  readonly regression: PromotionRegressionStatus
+  readonly regressionRef: string
+  readonly regressionGameVersion: string
+  readonly regressionSourceRef: string | null
   readonly blockers: readonly string[]
 }
 
@@ -58,8 +75,43 @@ function eligibilityReasons(candidate: PromotionCandidateInput, gameVersion: str
     ...(candidate.gameVersion !== gameVersion ? ['game-version-mismatch'] : []),
     ...(candidate.valueStatus !== 'known' ? ['value-unknown'] : []),
     ...(candidate.regression !== 'passed' ? [`regression-${candidate.regression}`] : []),
+    ...(candidate.regressionGameVersion !== gameVersion ? ['regression-game-version-mismatch'] : []),
+    ...(candidate.regression === 'passed' && !candidate.regressionSourceRef ? ['regression-source-missing'] : []),
     ...candidate.blockers.map((blocker) => `blocker:${blocker}`),
   ]
+}
+
+export function collectRuntimePromotionRegressionSourceErrors(
+  manifest: RuntimePromotionManifest,
+  regressionArtifact: RuntimePromotionRegressionArtifact,
+  artifactPath: string,
+): string[] {
+  const errors: string[] = []
+  const check = (condition: unknown, message: string) => { if (!condition) errors.push(message) }
+  check(regressionArtifact.schemaVersion === 1, 'regression source schemaVersion must be 1')
+  check(regressionArtifact.gameVersion === manifest.gameVersion, 'regression source gameVersion mismatch')
+  const targetIds = new Set<string>()
+  for (const result of regressionArtifact.targets) {
+    check(ID.test(result.targetId), `${result.targetId}: invalid regression target ID`)
+    check(!targetIds.has(result.targetId), `${result.targetId}: duplicate regression result`)
+    targetIds.add(result.targetId)
+    check(['passed', 'not-run', 'failed'].includes(result.status), `${result.targetId}: invalid regression source status`)
+    check(Boolean(result.gameVersion.trim()), `${result.targetId}: regression gameVersion is required`)
+    check(result.sourceRef === null || Boolean(result.sourceRef.trim()), `${result.targetId}: invalid regression source reference`)
+    check(result.status !== 'passed' || Boolean(result.sourceRef), `${result.targetId}: passed regression requires source provenance`)
+  }
+  for (const candidate of manifest.candidates) {
+    const resultIndex = regressionArtifact.targets.findIndex((result) => result.targetId === candidate.targetId)
+    const result = regressionArtifact.targets[resultIndex]
+    check(Boolean(result), `${candidate.targetId}: regression source result missing`)
+    if (!result) continue
+    check(candidate.regressionRef === `${artifactPath}#/targets/${resultIndex}`, `${candidate.targetId}: regression result reference drift`)
+    check(candidate.regression === result.status, `${candidate.targetId}: regression status drift`)
+    check(candidate.regressionGameVersion === result.gameVersion, `${candidate.targetId}: regression result gameVersion drift`)
+    check(candidate.regressionSourceRef === result.sourceRef, `${candidate.targetId}: regression provenance drift`)
+  }
+  for (const result of regressionArtifact.targets) check(manifest.candidates.some((candidate) => candidate.targetId === result.targetId), `${result.targetId}: orphan regression result`)
+  return errors
 }
 
 export function buildRuntimePromotionManifest(input: {
@@ -111,6 +163,10 @@ export function collectRuntimePromotionErrors(manifest: RuntimePromotionManifest
     check(['accepted', 'held', 'rejected'].includes(candidate.outcome), `${candidate.targetId}: invalid adoption outcome`)
     check(['known', 'unknown'].includes(candidate.valueStatus), `${candidate.targetId}: invalid value status`)
     check(['passed', 'not-run', 'failed'].includes(candidate.regression), `${candidate.targetId}: invalid regression status`)
+    check(Boolean(candidate.regressionRef.trim()), `${candidate.targetId}: regression result reference is required`)
+    check(Boolean(candidate.regressionGameVersion.trim()), `${candidate.targetId}: regression gameVersion is required`)
+    check(candidate.regressionSourceRef === null || Boolean(candidate.regressionSourceRef.trim()), `${candidate.targetId}: invalid regression provenance`)
+    check(candidate.regression !== 'passed' || Boolean(candidate.regressionSourceRef), `${candidate.targetId}: passed regression requires source provenance`)
     check(new Set(candidate.blockers).size === candidate.blockers.length && candidate.blockers.every((item) => item.trim()), `${candidate.targetId}: invalid blockers`)
     const expectedReasons = eligibilityReasons(candidate, manifest.gameVersion)
     check(JSON.stringify(candidate.eligibility.reasons) === JSON.stringify(expectedReasons), `${candidate.targetId}: eligibility reasons drift`)
