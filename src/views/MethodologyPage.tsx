@@ -7,7 +7,14 @@ import { summarizeDamageRegression } from '../core/modelError'
 import { ARTIFACTS } from '../data/artifacts'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
-import { ROADMAP_PHASES, ROADMAP_PROGRESS, FUTURE_MILESTONES, FUTURE_EXPANSION_MILESTONES, type RoadmapStatus } from '../data/roadmap'
+import {
+  FUTURE_CANDIDATES,
+  ROADMAP_STATUS_ORDER,
+  ROADMAP_TRACKS,
+  workUnitsForTrack,
+  type RoadmapTrackId,
+  type RoadmapWorkStatus,
+} from '../data/roadmap'
 import { WEAPONS } from '../data/weapons'
 import { HEALTH_POTION_SOURCE, REFRESHMENT_SOURCE, SHARPNESS_SOURCE, UNCHANTING_SOURCE, WEAKENING_SOURCE, WEAKENING_STACKING_SOURCE } from '../data/sources'
 import {
@@ -23,11 +30,14 @@ import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../research/range
 import { hrefFor } from '../app/routes'
 
 const Formula = ({ children }: { children: string }) => <code className="formula">{children}</code>
-const STATUS_LABELS: Readonly<Record<RoadmapStatus, string>> = {
+const STATUS_LABELS: Readonly<Record<RoadmapWorkStatus, string>> = {
   done: '完了',
-  'in-progress': '進行中',
-  planned: '未着手',
+  current: '進行中',
+  next: '次',
+  blocked: '保留',
+  later: '将来',
 }
+const TRACK_ORDER: readonly RoadmapTrackId[] = ['research', 'product']
 const DPS_AUDIT = auditJson as unknown as DpsRegressionAudit
 const DPS_AUDIT_SUMMARY = summarizeDpsRegressionAudit(DPS_AUDIT)
 const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
@@ -345,19 +355,23 @@ export function MethodologyPage() {
       </section>
 
       <section className="status-section">
-        <p className="section-label">仕様書に対する現在地</p>
-        <div className="progress-heading"><div><h2>current implementation checklist</h2><p>Phase 8A/B/Cまでを反映。8Cの検証手続きは完了しましたが、限定DR単位のAdoptionDecisionは独立raw trace不足で保留し、runtime昇格・新規Gap closeは0です。これはチェック項目の完了率であり、精度や作業量の達成率ではありません。Phase 7・9とFuture Expansionは分母に含めません。</p></div><strong>{ROADMAP_PROGRESS.percentage}%<small>{ROADMAP_PROGRESS.completed} / {ROADMAP_PROGRESS.total} 項目</small></strong></div>
-        <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={ROADMAP_PROGRESS.percentage} aria-label={`ロードマップ進捗${ROADMAP_PROGRESS.percentage}%`}><span style={{ width: `${ROADMAP_PROGRESS.percentage}%` }} /></div>
-        <div className="roadmap-grid">
-          {ROADMAP_PHASES.map((phase) => {
-            const completed = phase.items.filter((item) => item.status === 'done').length
-            return <article className="roadmap-phase" key={phase.id}><div><p>{completed} / {phase.items.length}</p><h3>{phase.title}</h3></div><p>{phase.goal}</p><ul>{phase.items.map((item) => <li key={item.label}><span className={`status ${item.status}`}>{STATUS_LABELS[item.status]}</span>{item.label}</li>)}</ul></article>
+        <p className="section-label">DUAL-TRACK ROADMAP</p>
+        <div className="roadmap-heading"><div><h2>ResearchとProductを並行して進める</h2><p>旧Phaseと総合percentageは履歴へ移しました。Research全体の完了を待たず、採用条件を満たしたparameter / mechanicだけをProductへ渡します。</p></div><a href="https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/historical-roadmap.md" target="_blank" rel="noreferrer">Historical Roadmap</a></div>
+        <div className="track-grid">
+          {TRACK_ORDER.map((trackId) => {
+            const track = ROADMAP_TRACKS[trackId]
+            const units = workUnitsForTrack(trackId)
+            return <article className={`roadmap-track ${trackId}`} key={trackId}><header><p>{trackId.toUpperCase()}</p><h3>{track.title}</h3><span>{track.goal}</span></header>{ROADMAP_STATUS_ORDER.map((status) => {
+              const matching = units.filter((unit) => unit.status === status)
+              if (!matching.length) return null
+              return <section className="roadmap-status-group" key={status}><h4>{STATUS_LABELS[status]}</h4><div>{matching.map((unit) => <article className="roadmap-unit" key={unit.id}><div><strong>{unit.id}</strong><span className={`status ${unit.status}`}>{STATUS_LABELS[unit.status]}</span></div><h5>{unit.title}</h5><p>{unit.goal}</p>{unit.nextAction && <small>Next: {unit.nextAction}</small>}</article>)}</div></section>
+            })}</article>
           })}
         </div>
+        <div className="handoff-flow" aria-label="ResearchからProductへのhandoff"><span>Research Evidence</span><b>→</b><span>Adoption Decision</span><b>→</b><span>Promotion Eligibility</span><b>→</b><span>Runtime / Coverage</span></div>
       </section>
 
-      <section className="method-section"><h2>Roadmap — 次の小Phase</h2><p>8A/B/Cとorigin/domain fix-upは完了しました。8Cは事前gate・旧新比較・順位感度・再現性・AdoptionDecisionを保存済みです。active 3件の独立Evidence countとeligible holdoutは0のため限定DR単位は保留、runtime昇格も0です。Public Availabilityも引き続き保留です。</p>{FUTURE_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
-      <section className="method-section"><h2>Future Expansion（進捗対象外）</h2>{FUTURE_EXPANSION_MILESTONES.map((milestone) => <article key={milestone.id}><h3>{milestone.title}</h3><p>{milestone.goal}</p></article>)}</section>
+      <section className="method-section"><h2>Future Candidates</h2><p>以下は実施決定前の候補で、Current / Nextには含めません。</p>{FUTURE_CANDIDATES.map((candidate) => <article key={candidate.id}><h3>{candidate.title}</h3><p>{candidate.goal}</p></article>)}</section>
       <section className="warning-panel">
         <h2>精度上の重要な制約</h2>
         <p>Power換算は公開Anchor表をlog補間し、1.17.0.0の内部Power rating比を適用するmedium-confidence値です。Void Strikeは公開community測定に基づくlow-confidenceのDecision Bモデル（付与hit 1倍、armed後1.25倍、3.6秒でTier III 7倍、5秒で消滅）で、frame実測済みではありません。厳密なcurve、tier別minimum、外部damage消費は未確定です。同じtargetへの連続hitを前提とするため、target switchingがあるmobbingではVoid Strike DPSを過大評価し得ます。version不明のWiki damage表29件とは最大45.06%ずれます。Evidence coverageとDPS実測回帰は別指標で、前者は正解確率ではありません。</p>

@@ -13,7 +13,7 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 import type { ArtifactId } from '../src/core/types'
 import { digest } from './fixtures/runtimeBaselineDigest'
-import { ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
+import { ROADMAP_WORK_UNITS } from '../src/data/roadmap'
 
 describe('artifact source audit and separate runtime manifest', () => {
   it('validates the reconciled 45-definition population and catalog equality', () => {
@@ -110,7 +110,7 @@ describe('generated coverage, conditional shortlist and UI', () => {
     expect(html).not.toMatch(/<input|<option/)
     expect(html).not.toContain('Powershaker')
   })
-  it('keeps generated summaries, valid links and phase counts synchronized', () => {
+  it('keeps generated summaries, valid links and historical phase state synchronized', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'docs/artifact-audit.md', 'docs/artifact-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(artifactRuntimeSupportSummaryText())
     for (const entry of ARTIFACT_RUNTIME_SUPPORT.entries) for (const ref of entry.assumptionRefs) expect(existsSync(ref)).toBe(true)
     for (const file of ['docs/artifact-model.md', 'docs/artifact-audit.md', 'docs/artifact-runtime-support.md', 'docs/artifact-expansion-plan.md']) {
@@ -121,10 +121,10 @@ describe('generated coverage, conditional shortlist and UI', () => {
       }
     }
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
-    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)
-    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
-    expect(roadmap).toContain(`${ROADMAP_PROGRESS.completed} / ${ROADMAP_PROGRESS.total}（${ROADMAP_PROGRESS.percentage}%）`)
-    expect(ROADMAP_PHASES.flatMap((phase) => phase.items).find((item) => item.label.startsWith('Phase 2-2A:'))!.status).toBe('done')
-    expect(roadmap).toContain('- [ ] アーティファクトを10〜15種類へ拡張')
+    const historical = readFileSync('docs/historical-roadmap.md', 'utf8')
+    expect(roadmap).not.toMatch(/^## Phase /m)
+    expect(ROADMAP_WORK_UNITS.find((unit) => unit.id === 'P1')!.status).toBe('done')
+    expect(historical).toContain('- [x] Phase 2-2A:')
+    expect(historical).toContain('- [ ] アーティファクトを10〜15種類へ拡張')
   })
 })

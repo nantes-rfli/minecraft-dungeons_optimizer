@@ -36,11 +36,11 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 
 JSONはversion 3を書き出し、旧version 1 / 2を同じlocalStorageキーから読み込みます。v3の`catalogItems`はruntime未対応でも監査済みの所持品を保持し、Optimizer候補には混ぜません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
 
-共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。Roadmapは製品バージョンを使わずPhase / Milestone / Current stateで管理します。進捗の正本は[`ROADMAP.md`](./ROADMAP.md)です。Public Availability・Evidence Closure & Quality Improvement・Future Expansionは別milestoneです。
+共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。現行RoadmapはResearch / Productの独立Trackと、parameter単位のhandoffで管理します。Current / Nextの正本は[`ROADMAP.md`](./ROADMAP.md)、旧Phaseの参照記録は[Historical Roadmap](./docs/historical-roadmap.md)です。Public Availabilityやengine generalizationは実施決定前のFuture Candidatesとして分離します。
 
 新しい検証: `npm run audit:ranged` / `npm run audit:ranged-enchants` / `npm run audit:ranged-runtime`。正本を更新した場合は`npm run generate:ranged`、続いて`npm run generate:evidence-coverage`。既存全audit・tests・tsc・lint・buildも公開前に実行します。
 
-完成条件、現在の進捗、次の実装項目は [ROADMAP.md](./ROADMAP.md) で管理しています。Phase 0 / 0.5 / 0.5.1 / 1Aが完了し、Phase 1は3 / 4項目まで進行しています。Phase 1-4の公開DPS回帰監査は候補10件・eligible 0件で、full regressionはpending 0 / 5です。
+現在の目標、各TrackのDone / Current / Next / Blocked / Later、dependencyとcompletion conditionは[ROADMAP.md](./ROADMAP.md)で管理しています。Researchでは独立Evidence取得を継続し、ProductではRuntime Promotion Pipelineの基盤整備を並行して進めます。採用可能なparameter / mechanicは現在0件で、未検証値を0や1としてruntimeへ昇格しません。公開DPS回帰監査も候補10件・eligible 0件、full regressionはpending 0 / 5です。
 
 2026-09-09から、native解析を保留して外部研究の活用を優先します。[外部研究の整理・追加調査](./docs/external-community-research.md)では32 source、15 claim、HPS 55行×4条件を保存し、[再設計ADR](./docs/adr/0001-external-evidence-model-redesign.md)に沿って6.9F Scenario / Optimizer comparisonまで完了しました。[有限Scenario比較](./docs/scenario-optimizer-comparison.md)ではfinite damage / overkill、final-blow ownership、目的・duration感度、未知候補の除外を検証できます。runtime昇格・新規Gap closeはなく、サイトの計算は変更していません。
 

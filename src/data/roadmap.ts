@@ -1,295 +1,175 @@
-export type RoadmapStatus = 'done' | 'in-progress' | 'planned'
+export type RoadmapTrackId = 'research' | 'product'
+export type RoadmapWorkStatus = 'done' | 'current' | 'next' | 'blocked' | 'later'
 
-export interface RoadmapItem {
-  readonly label: string
-  readonly status: RoadmapStatus
+export interface RoadmapWorkUnit {
+  readonly id: string
+  readonly track: RoadmapTrackId
+  readonly title: string
+  readonly status: RoadmapWorkStatus
+  readonly goal: string
+  readonly dependsOn?: readonly string[]
+  readonly unlocks?: readonly string[]
+  readonly completionCriteria: string
+  readonly nextAction?: string
 }
 
-export interface RoadmapPhase {
+export interface FutureCandidate {
   readonly id: string
   readonly title: string
   readonly goal: string
-  readonly items: readonly RoadmapItem[]
 }
 
-export const ROADMAP_PHASES: readonly RoadmapPhase[] = [
+export const ROADMAP_TRACKS: Readonly<Record<RoadmapTrackId, { readonly title: string; readonly goal: string }>> = {
+  research: {
+    title: 'Research Track',
+    goal: 'Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。',
+  },
+  product: {
+    title: 'Product Track',
+    goal: '現在利用可能なEvidenceを安全な境界で製品へ反映し、実用性を高める。',
+  },
+}
+
+export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
   {
-    id: 'phase-0',
-    title: 'Phase 0 — Optimizer Core',
-    goal: '手持ちの近接武器を、目的別に比較できる検証版を完成させる。',
-    items: [
-      { label: '個体別の手持ち・候補エンチャント・Power入力', status: 'done' },
-      { label: '確定済みスロット・金色エンチャント Tier I / II / III の入力', status: 'done' },
-      { label: '全探索・目的別シナリオ・Pareto前線', status: 'done' },
-      { label: '効果別の寄与度・根拠・信頼度表示', status: 'done' },
-      { label: 'localStorage・version付きJSON入出力', status: 'done' },
-    ],
+    id: 'R1',
+    track: 'research',
+    title: 'Research Infrastructure',
+    status: 'done',
+    goal: 'Source Harvest、Gap Map、Priority、game-file artifact、Research Quest、Evidence Repository、validation / auditを再現可能にする。',
+    unlocks: ['R2', 'R3'],
+    completionCriteria: 'checked-in artifactから監査を再実行でき、raw traceとadoption decisionをruntimeから分離できる。',
   },
   {
-    id: 'phase-0-5',
-    title: 'Phase 0.5 — Core Model Integrity',
-    goal: '実測・装備拡張の前に、Build依存関係とstackingの整合性を固める。',
-    items: [
-      { label: 'tier・sourceを保持するEnchant選択モデル', status: 'done' },
-      { label: 'Enchantment stackingと重複Build制御', status: 'done' },
-      { label: 'Artifact stacking behavior', status: 'done' },
-      { label: 'Build依存kill rateとCombat State境界', status: 'done' },
-      { label: '主要Evidenceを反映するモデル信頼度', status: 'done' },
-      { label: 'Weapon Power未反映の明示警告', status: 'done' },
-      { label: 'Golden Testと設計ドキュメント更新', status: 'done' },
-    ],
+    id: 'R2',
+    track: 'research',
+    title: 'Evidence Acquisition',
+    status: 'current',
+    goal: 'Personal Research Quest、独立raw trace、Measure / Experimentを優先度順に取得する。',
+    dependsOn: ['R1'],
+    unlocks: ['R3'],
+    completionCriteria: '対象parameterごとにversion・conditions・unit・run identityを備えた独立Evidenceを保存できる。',
+    nextAction: 'Limited DRの8条件を別runとして取得する。',
   },
   {
-    id: 'phase-0-5-1',
-    title: 'Phase 0.5.1 — Core Model Cleanup',
-    goal: 'Phase 1へ進む前に、残ったCore Model Integrityの不整合を解消する。',
-    items: [
-      { label: 'Radianceのコピー別stacking係数', status: 'done' },
-      { label: 'Gilded Tier I / II / III 編集UIと永続化', status: 'done' },
-      { label: 'directWeaponKillsPerSecondの共通境界', status: 'done' },
-    ],
+    id: 'R3',
+    track: 'research',
+    title: 'Evidence Validation / Adoption',
+    status: 'next',
+    goal: '取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。',
+    dependsOn: ['R2（対象単位）'],
+    unlocks: ['P3B'],
+    completionCriteria: 'accepted / rejected / heldと理由が再現可能で、未検証値を昇格対象にしない。',
   },
   {
-    id: 'phase-1-a',
-    title: 'Phase 1A — Melee Attack Profile Audit',
-    goal: '全近接武器の公開Attack Profileを構造化し、確実な値と未解決値を分離する。',
-    items: [
-      { label: '82武器の登録・分類・coverage再生成', status: 'done' },
-    ],
+    id: 'R3B',
+    track: 'research',
+    title: 'Limited DR Adoption Decision',
+    status: 'blocked',
+    goal: '固定済みの独立holdout gateでLimited DRの採用可否を判断する。',
+    dependsOn: ['R2'],
+    unlocks: ['P3B'],
+    completionCriteria: '1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得し、gateを変えず再監査できる。',
+    nextAction: '独立raw traceの取得を待つ。',
   },
   {
-    id: 'phase-1',
-    title: 'Phase 1 — Accuracy',
-    goal: '暫定値を、ゲーム内の比較に使える検証可能なモデルへ置き換える。',
-    items: [
-      { label: '3武器の公開per-hit timingをruntime登録', status: 'done' },
-      { label: '内部Power ratingの意味確定とW/Gモデルcross-validation', status: 'done' },
-      { label: '虚無の一撃の公開測定curveとper-hit resetモデル', status: 'done' },
-      { label: '独立DPS回帰（公開監査10件、eligible 0 / 5）と誤差範囲', status: 'in-progress' },
-    ],
+    id: 'R4',
+    track: 'research',
+    title: 'Targeted Deep Research',
+    status: 'later',
+    goal: '外部観測でも解けないruntime-relevantな問いに限りnative計算・effective timingを追加調査する。',
+    dependsOn: ['R2 / R3で必要性が確認された対象'],
+    completionCriteria: '対象の問い、停止条件、runtime relevanceを先に固定し、推測値を生成せず結論を記録する。',
   },
   {
-    id: 'phase-2',
-    title: 'Phase 2 — Equipment Coverage',
-    goal: '実用的なビルド全体を比較できるデータ範囲へ広げる。',
-    items: [
-      { label: 'Phase 2-1A: 近接エンチャント33種の監査・分類・runtime境界', status: 'done' },
-      { label: 'Phase 2-1B: Sharpness / Unchanting + Enemy Composition（7 / 33）', status: 'done' },
-      { label: 'Phase 2-1C: Refreshment / Weakening状態モデル（9 / 33）', status: 'done' },
-      { label: 'Phase 2-1D partial: DamageEvent + Shockwave / Swirling / Thundering（12 / 33、3種はPower範囲限定）', status: 'in-progress' },
-      { label: 'Phase 2-1E: Ambush / Smiting / Committed（catalog 15 / 33、広域12・範囲限定3）', status: 'done' },
-      { label: 'Phase 2-1F partial: Artifact Synergy / Rampaging（catalog 17 / 33、Echo research-only）', status: 'in-progress' },
-      { label: 'Phase 2-1G partial: Soul Scythe / Soul subsystem / Anima / Siphon（19 / 33、Enigma research-only）', status: 'in-progress' },
-      { label: 'Phase 2-1H partial: Fire / Poison / Exploding（22 / 33、stack・Void・overlap制限）', status: 'in-progress' },
-      { label: 'Phase 2-1I partial: Control第4軸 + Chains / Stunning / Freezing / Gravity（26 / 33、stack・duration・免疫制限）', status: 'in-progress' },
-      { label: 'Phase 2-1J partial: Pain Cycle / Dynamo（28 / 33、自己damage・有限consume・合成制限）', status: 'in-progress' },
-      { label: 'Phase 2-1K: Melee Runtime Consolidation（分類・manifest・監査・表示・実用性回帰）', status: 'done' },
-      { label: '近接エンチャントを25〜30種類へ拡張（meaningful runtimeで達成、全33種完全対応ではない）', status: 'done' },
-      { label: 'Phase 2-2A: Artifact Audit & Runtime Foundation（primary44 / secondary45 / union45を照合）', status: 'done' },
-      { label: 'Phase 2-2B: Artifact Control & Debuff Batch（Shock Powder Limited、Fishing Rod / Gong research-only）', status: 'done' },
-      { label: 'Phase 2-2C: 有限Soul Scheduler + Soul Artifact監査（3候補はResearch-only）', status: 'done' },
-      { label: 'Phase 2-2D: Event / Healing / Control Batch（3 family分離、3候補はResearch-only）', status: 'done' },
-      { label: 'Phase 2-2E: Artifact Evidence Acquisition / Curve Extraction（公開Evidenceを再現可能化、6候補はResearch-only）', status: 'done' },
-      { label: 'アーティファクトを10〜15種類へ拡張（Evidence gate待ち・他Phaseと並行）', status: 'planned' },
-      { label: 'Phase 2-3A: Armor Audit & Runtime Foundation（primary71 / secondary73 / runtime0を照合）', status: 'done' },
-      { label: 'Phase 2-3B: Armor Core Runtime Batch（Armor 3 / 73、Enchant 3 / 41）', status: 'done' },
-      { label: 'Phase 2-3C: Armor Expansion & State Enchant（Armor 7 / 73、Enchant 7 / 41）', status: 'done' },
-      { label: '防具・防具エンチャントのMVP coverageを再評価してclose', status: 'done' },
-      { label: 'Phase 2-4A: Common Coverage / Evidence Read Model', status: 'done' },
-      { label: 'Phase 2-4B: Combined Coverage Snapshot / Report', status: 'done' },
-      { label: 'Phase 2-4C: Blocker / Priority Aggregation', status: 'done' },
-      { label: 'Phase 2-4D: Measurement Protocol Foundation', status: 'done' },
-      { label: 'Phase 2-4E: Read-only Coverage Dashboard', status: 'done' },
-      { label: 'Phase 2-4F: Coverage Audit / CI', status: 'done' },
-      { label: 'Phase 2-5A partial: Ranged Population / Taxonomy（71種照合、詳細・日本語名のEvidence待ち）', status: 'in-progress' },
-      { label: 'Phase 2-5B partial: Attack / Projectile Model（観測入力対応、独立cadence実測待ち）', status: 'in-progress' },
-      { label: 'Phase 2-5C partial: Ranged Enchantment Audit（38/41照合、channel・stack/Tier未解決）', status: 'in-progress' },
-      { label: 'Phase 2-5D: Observed Ranged Runtime MVP（Bow / Crossbow Limited、3 Enchant）', status: 'done' },
-      { label: 'Phase 2-5E: Inventory / Optimizer / Explanation / JSON v2', status: 'done' },
-      { label: 'Phase 2-5F: Common Coverage / Measurement / CI Consolidation', status: 'done' },
-    ],
+    id: 'R5',
+    track: 'research',
+    title: 'Evidence Maintenance / Version Drift',
+    status: 'later',
+    goal: 'source revision、game version、conflict、採用済みEvidenceのdriftを追跡する。',
+    dependsOn: ['R1'],
+    completionCriteria: 'drift検出と再検証条件がparameter単位で記録される。',
   },
   {
-    id: 'phase-3',
-    title: 'Phase 3 — Public Use Readiness',
-    goal: '一般利用に耐えるための安定性・性能・操作性を整備し、仕様変更へ安全に追従する。',
-    items: [
-      { label: 'Phase 3A: Worker / Cancel / Responsiveness（候補数・時間上限、stale結果破棄）', status: 'done' },
-      { label: 'Phase 3B: Performance Baseline（synthetic small / medium / large）', status: 'done' },
-      { label: 'Phase 3C: Major Flow E2E（保存・復元・入力エラー・遠距離なしも検証）', status: 'done' },
-      { label: 'Phase 3D: Accessibility（主要フロー自動監査・keyboard・残制限記録）', status: 'done' },
-      { label: 'Phase 3E: Bundle / Loading（Methodology遅延読込・Worker分離）', status: 'done' },
-      { label: 'Phase 3F: Data / Evidence Update Workflow（更新・検証・変更追跡）', status: 'done' },
-    ],
+    id: 'P1',
+    track: 'product',
+    title: 'Catalog / Inventory Foundation',
+    status: 'done',
+    goal: 'runtime未対応の監査済み装備を所持品とResearch対象として保持し、Optimizer候補へ混ぜない。',
+    unlocks: ['P2', 'P4'],
+    completionCriteria: '保存・JSON移行・装備カテゴリ入力が既存回帰を維持する。',
   },
   {
-    id: 'phase-3-5',
-    title: 'Phase 3.5 — Personal UX Refinement',
-    goal: '本人の日常利用で、装備登録から結果確認までを迷わず少ない認知負荷で行える情報構造へ整理する。',
-    items: [
-      { label: 'Phase 3.5A: Information Architecture / Navigation', status: 'done' },
-      { label: 'Phase 3.5B: Inventory / Box UX', status: 'done' },
-      { label: 'Phase 3.5C: Optimization UX', status: 'done' },
-      { label: 'Phase 3.5D: Game Data Browser', status: 'done' },
-      { label: 'Phase 3.5E: Model Explorer', status: 'done' },
-      { label: 'Phase 3.5F: Storage / Utility consolidation', status: 'done' },
-    ],
+    id: 'P2',
+    track: 'product',
+    title: 'Evidence-aware Runtime Boundary',
+    status: 'done',
+    goal: 'Full / Limited / Research-onlyとEvidence Statusを分離し、Unknown / Estimatedを0や1へ代替しない。',
+    dependsOn: ['P1'],
+    unlocks: ['P3'],
+    completionCriteria: '利用者がEvidence適用方針と制限理由を確認できる。',
   },
   {
-    id: 'phase-3-6',
-    title: 'Phase 3.6 — UX Fix-up',
-    goal: '実利用で判明した分かりづらさを直し、推奨装備と現在地を短時間で理解できるようにする。',
-    items: [
-      { label: 'Recommended BuildをMelee / Armor / Ranged / Artifactの完成セットとして表示', status: 'done' },
-      { label: 'Enchant sourceと次点候補の差分を明示', status: 'done' },
-      { label: 'Data summaryをtop-levelカテゴリと一致させ、Enchant 115の定義を明示', status: 'done' },
-      { label: 'Model Evidence / Accuracy overviewと詳細Methodology導線', status: 'done' },
-      { label: '結果・Data summary・Evidence overviewのtargeted component分離', status: 'done' },
-      { label: '主要UX・route・keyboard・axe回帰', status: 'done' },
-    ],
+    id: 'P3',
+    track: 'product',
+    title: 'Runtime Promotion Pipeline Foundation',
+    status: 'current',
+    goal: 'parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。',
+    dependsOn: ['P2'],
+    unlocks: ['P3B', 'P4'],
+    completionCriteria: '未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられる。',
+    nextAction: 'promotion eligibilityと変更・監査契約の基盤を実装する。',
   },
   {
-    id: 'phase-4',
-    title: 'Phase 4 — Coverage Source Harvest（4A / 4B）',
-    goal: 'ゲームを起動せず取得できる公開情報を横断し、既知・未知・競合・版・出典をruntimeとは独立したEvidence層へ構造化する。',
-    items: [
-      { label: '4A: 7カテゴリ386件の監査済み母集団を重複なく正規化', status: 'done' },
-      { label: '4B: dungeons.tools詳細386件からproperty claimを抽出', status: 'done' },
-      { label: 'sourceType・Fact version・property-level attemptを分離', status: 'done' },
-      { label: 'Coverage・GapのBefore / Afterと未取得理由を生成', status: 'done' },
-      { label: 'snapshot schema・参照・競合・driftのauditとCI接続', status: 'done' },
-      { label: 'Data BrowserでKnown propertyごとのsource / versionを表示', status: 'done' },
-    ],
+    id: 'P3B',
+    track: 'product',
+    title: 'First Eligible Runtime Promotion',
+    status: 'blocked',
+    goal: 'R3でacceptedになった最初の1 parameter / mechanicをEnd-to-Endで昇格し、reference implementationにする。',
+    dependsOn: ['P3', 'R3（対象単位）'],
+    unlocks: ['P4'],
+    completionCriteria: '同一変更でruntime、manifest、説明、coverage、regressionが同期し、既存挙動を保護する。',
+    nextAction: 'eligible targetなし。P3の基盤整備を継続し、acceptedな対象を待つ。',
   },
   {
-    id: 'phase-5',
-    title: 'Phase 5 — Evidence Gap Map & Measurement Protocol',
-    goal: 'Source Harvestの全Gapを解決方法別に束ね、Phase 6が優先度計算に使える取得cost・runtime relevance・unlock effectを提供する。',
-    items: [
-      { label: 'Source Harvestの2,105 GapをGap Causeを維持したままResolution Classへ分類', status: 'done' },
-      { label: '全Gapを再利用可能なTask Familyへ束ね、implementation / objective familyを分離', status: 'done' },
-      { label: 'Observe / Measure / Experimentのcanonical protocolと旧ID mappingを定義', status: 'done' },
-      { label: 'acquisition cost・runtime relevance・unlock effectのPhase 6 read modelを生成', status: 'done' },
-      { label: 'Gap・family・protocol・生成driftとPhase境界をaudit', status: 'done' },
-      { label: '人間向けGap MapとMeasurement Protocol reportを生成', status: 'done' },
-    ],
+    id: 'P4',
+    track: 'product',
+    title: 'Runtime Coverage Expansion',
+    status: 'next',
+    goal: 'P3Bを通過した小さい単位ごとにruntime coverageを拡張する。',
+    dependsOn: ['P3B（対象単位）'],
+    unlocks: ['P5'],
+    completionCriteria: '追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。',
   },
   {
-    id: 'phase-6',
-    title: 'Phase 6 — Coverage Priority',
-    goal: '2,105 GapをOptimizer実用性への効果で順位付けし、本人が次の調査を迷わず選べるread modelを提供する。',
-    items: [
-      { label: '2,105 GapへGlobal / Personal priority、P0〜P3、理由を付与', status: 'done' },
-      { label: 'bounded-proxy rank sensitivityを6 objectiveで評価しmethodを明示', status: 'done' },
-      { label: 'Unlock Bundle・near-unlock・coverage・critical pathを評価', status: 'done' },
-      { label: 'Protocol costをsetup・反復・variant・availabilityで補正', status: 'done' },
-      { label: 'actual family relationとsynthetic InventoryによるOwned / grouped Research Queueを生成', status: 'done' },
-      { label: 'Global / Personal weight sensitivityとstability confidenceを含めてaudit', status: 'done' },
-    ],
+    id: 'P5',
+    track: 'product',
+    title: 'Recommendation / Optimizer Quality',
+    status: 'later',
+    goal: 'available runtime scope内でobjective、scoring、推薦品質、説明を改善する。',
+    dependsOn: ['P2'],
+    completionCriteria: '変更した目的・順位・説明を代表fixtureと回帰で検証できる。',
   },
   {
-    id: 'phase-6-5',
-    title: 'Phase 6.5 — Direct Game Data Research',
-    goal: 'Minecraft Dungeons 1.17.0.0のローカル展開済みgame assetsを直接調査し、公開情報では不足していたPropertyを再現可能な一次データとして抽出・記録する。既存Gapと照合するが、このPhase単独ではruntimeを自動昇格しない。',
-    items: [
-      { label: '6.5A — Game Data Inventory & Asset Map', status: 'done' },
-      { label: '6.5B — Source Boundary / Provenance', status: 'done' },
-      { label: '6.5C — UE4 Asset Extractor Foundation', status: 'done' },
-      { label: '6.5D — Representative Semantic Mapping', status: 'done' },
-      { label: '6.5E — Bulk Harvest & Gap Reconciliation', status: 'done' },
-      { label: '6.5F — Audit / Report / Coverage', status: 'done' },
-    ],
-  },
-  {
-    id: 'phase-6-6',
-    title: 'Phase 6.6 — Game Data Model Alignment & Reconciliation',
-    goal: 'Raw Game Property・Canonical Research Property・Runtime Optimizer Propertyを分離し、research modelの対応と残余Gapを監査する。runtime promotionは行わない。',
-    items: [
-      { label: 'Entity Identity Alignment（variant・カテゴリ・alias根拠を保持）', status: 'done' },
-      { label: 'Canonical Research Property Registry（33 property）', status: 'done' },
-      { label: 'Property Alias / Rename Alignment', status: 'done' },
-      { label: 'Structural Reference Normalization', status: 'done' },
-      { label: 'Game-only / Missing Expected Property Review', status: 'done' },
-      { label: 'Semantic Rule Alignment（承認済みA→Bのみ）', status: 'done' },
-      { label: 'Gap Reconciliation Regeneration（17 closed / 2,088 remaining）', status: 'done' },
-      { label: 'Phase 7 Handoff / Phase 6.7 Decision（当時の判断、後続6.7〜6.9で更新）', status: 'done' },
-    ],
-  },
-  {
-    id: 'phase-6-7',
-    title: 'Phase 6.7 — ゲームデータ起点の取得可能性調査',
-    goal: '取得可能性の調査を完了。全効果の解読やruntime昇格を意味しない。',
-    items: [
-      { label: '6.7A — 全uassetの構造棚卸し', status: 'done' },
-      { label: '6.7B — 数値・表・関数・native境界の代表試験', status: 'done' },
-      { label: '6.7C — Optimizerへの対応と次段階の判断', status: 'done' },
-    ],
-  },
-  {
-    id: 'phase-6-8',
-    title: 'Phase 6.8 — 取得と意味の検証（D/E保留）',
-    goal: '取得器と設定を検証。戦闘式・実効hit列は未確定で、外部観測でも解けない重要な問いが残る場合だけnative解析を再開する。',
-    items: [
-      { label: '6.8A — 追加PAKの全件比較', status: 'done' },
-      { label: '6.8B — 独立readerの代表検証', status: 'done' },
-      { label: '6.8C — 代表参照・処理経路の検証', status: 'done' },
-      { label: '6.8D — native計算の同定（起動処理の条件付き追跡まで、保留）', status: 'in-progress' },
-      { label: '6.8E — 実効timing / notify（攻撃設定・代表通知の読解まで、保留）', status: 'in-progress' },
-    ],
-  },
-  {
-    id: 'phase-6-9',
-    title: 'Phase 6.9 — 外部Evidenceとモデル再設計の研究比較',
-    goal: '研究比較は完了。独立観測・版・条件の検証が残り、runtime昇格・新規Gap closeは0。',
-    items: [
-      { label: '6.9A — 外部研究・訂正・条件と現行モデルの差分', status: 'done' },
-      { label: '6.9B — データ契約と段階的移行方針', status: 'done' },
-      { label: '6.9C — 版付きEvidence adapter', status: 'done' },
-      { label: '6.9D — Attack / Event比較', status: 'done' },
-      { label: '6.9E — DR / Modifier比較', status: 'done' },
-      { label: '6.9F — Scenario / Optimizer比較', status: 'done' },
-    ],
-  },
-  {
-    id: 'phase-7',
-    title: 'Phase 7 — Personal Research Quest',
-    goal: 'Phase 8Bの残余を所持装備へ結びつけ、任意のraw traceを8A/8Cへ安全に受け渡す。実測値そのものはGitへ保存しない。',
-    items: [
-      { label: '7A — 所有装備に結びつく最小queue', status: 'done' },
-      { label: '7B — 任意実測・中断再開・8A/8C受け渡し', status: 'done' },
-    ],
-  },
-  {
-    id: 'phase-8',
-    title: 'Phase 8 — Evidence Capture & Validation',
-    goal: '8A/B/C完了。8Cは事前gate・旧新比較・順位感度・再現性・AdoptionDecisionを保存し、独立raw trace不足により保留。runtime昇格・新規Gap closeは0。',
-    items: [
-      { label: '8A — Evidence受入・保存・再読込・検証基盤', status: 'done' },
-      { label: '8B — 限定DR外部Evidence取得・2,088件queue再評価', status: 'done' },
-      { label: '8C — 独立holdout・許容範囲・採用判断（保留）', status: 'done' },
-    ],
+    id: 'P6',
+    track: 'product',
+    title: 'Product UX / Public-use Readiness',
+    status: 'later',
+    goal: 'Inventory workflow、UX、performance、regression、本人実利用での有用性を継続改善する。',
+    dependsOn: ['P1', 'P2'],
+    completionCriteria: '主要フローがaccessibility・performance・E2E基準を満たし、公開判断は別途明示される。',
   },
 ] as const
 
-/** Broad milestones are not checklist-sized work units and do not enter the progress denominator. */
-export const FUTURE_MILESTONES = [
-  { id: 'phase-8', title: 'Phase 8C follow-up — Limited DR raw trace取得（保留解除条件）', goal: '版1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得できた場合に、固定済みgateを変えずauditを再実行。same-originや式の再掲だけでVerifiedにしない。' },
-  { id: 'phase-9', title: 'Phase 9 — Runtime Promotion Pipeline（8C合格単位ごと）', goal: '9A: 最初の検証済み1単位を許容範囲付きで移行し、manifest・説明・Coverage・回帰・性能を同期。9B: 合格した単位へ反復しLimited / Fullを個別判断。現在は昇格可能と検証された単位なし。未知効果を0点で登録しない。' },
-  { id: 'public-availability', title: 'Public Availability — 保留', goal: '本人が実利用して「普通に便利」と感じられるCoverageとUXになった時点で再判断する。今回、共有・一般公開は行わない。' },
-  { id: 'new-drop-comparison', title: 'Future candidate — New Drop Comparison / Keep-Salvage', goal: '新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。Phase 10以降の確定項目にはしない。' },
-] as const
-export const FUTURE_EXPANSION_MILESTONES = [
-  { id: 'generalization', title: 'Future Expansion A — Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、Game/Evidence adapter、Equipment/Effect、Build、Scenario、Objective、Optimizer、Coverage、Measurementを段階的に分離。今回全面汎用化しない。' },
-  { id: 'dungeons-ii', title: 'Future Expansion B — Minecraft Dungeons II', goal: '汎用化の最初の実戦対象。新slot/effect、matchmaking・利用者層、新データ取得パイプラインへの適用を検討。' },
-  { id: 'cross-game', title: 'Future Expansion C — 異なるゲームでの汎用性検証', goal: 'Monster Hunter系など異なる装備設計を候補として記録。現時点では実装対象外。' },
+export const FUTURE_CANDIDATES: readonly FutureCandidate[] = [
+  { id: 'generalization', title: 'Optimizer Engine Generalization', goal: 'Dungeons 1で実証後、必要になった境界だけを段階的に分離する。' },
+  { id: 'new-drop-comparison', title: 'New Drop Comparison / Keep-Salvage', goal: '新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。' },
+  { id: 'public-availability', title: 'Public Availability', goal: '本人実利用でCoverageとUXが十分に有用だと確認できた時点で再判断する。' },
+  { id: 'future-games', title: 'Minecraft Dungeons II / other future game support', goal: '新しいゲーム要件が具体化した時点でResearchまたはProductへ正式移行する。' },
 ] as const
 
-export const ROADMAP_PROGRESS = (() => {
-  const items = ROADMAP_PHASES.flatMap((phase) => phase.items)
-  const completed = items.filter((item) => item.status === 'done').length
-  return {
-    completed,
-    total: items.length,
-    percentage: Math.round((completed / items.length) * 100),
-  }
-})()
+export const ROADMAP_STATUS_ORDER: readonly RoadmapWorkStatus[] = ['done', 'current', 'next', 'blocked', 'later']
+
+export function workUnitsForTrack(track: RoadmapTrackId): readonly RoadmapWorkUnit[] {
+  return ROADMAP_WORK_UNITS.filter((unit) => unit.track === track)
+}

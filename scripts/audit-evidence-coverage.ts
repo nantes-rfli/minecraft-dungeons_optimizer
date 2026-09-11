@@ -71,17 +71,24 @@ try {
     if (write) limitations = expected
     else if (limitations !== expected) errors.push('runtime-limitations generated table is stale')
   }
-  const { completed, total, percentage } = roadmap.ROADMAP_PROGRESS
   const roadmapText = read('ROADMAP.md')
-  if (!roadmapText.includes(`**${completed} / ${total}（${percentage}%）**`)) errors.push('Roadmap total progress drift')
-  const checkboxes = roadmapText.split('\n').filter((line: string) => /^- \[[ x]\] /.test(line))
-  if (checkboxes.length !== total || checkboxes.filter((line: string) => line.startsWith('- [x]')).length !== completed) errors.push('Roadmap checkbox progress drift')
-  for (const phase of ['A', 'B', 'C', 'D', 'E', 'F']) if (!roadmapText.includes(`- [x] Phase 2-4${phase}:`)) errors.push(`Phase 2-4${phase} missing`)
-  for (const phase of ['A', 'B', 'C', 'D', 'E', 'F']) {
-    const item = roadmap.ROADMAP_PHASES.flatMap((entry: { items: { label: string; status: string }[] }) => entry.items).find((entry: { label: string }) => entry.label.startsWith(`Phase 2-5${phase}`))
-    if (!item || !roadmapText.includes(`- [${item.status === 'done' ? 'x' : ' '}] ${item.label}`)) errors.push(`Ranged subphase ${phase} status drift`)
+  const historicalRoadmapText = read('docs/historical-roadmap.md')
+  const workUnits = roadmap.ROADMAP_WORK_UNITS as { id: string; track: string; title: string; status: string; completionCriteria: string }[]
+  const statuses = new Set(['done', 'current', 'next', 'blocked', 'later'])
+  if (!workUnits.length || new Set(workUnits.map((unit) => unit.id)).size !== workUnits.length) errors.push('Roadmap work unit IDs must be present and unique')
+  for (const unit of workUnits) {
+    if (!['research', 'product'].includes(unit.track)) errors.push(`${unit.id}: invalid roadmap track`)
+    if (!statuses.has(unit.status)) errors.push(`${unit.id}: invalid roadmap status`)
+    if (!unit.completionCriteria) errors.push(`${unit.id}: missing completion criteria`)
+    if (!roadmapText.includes(`**${unit.id} — ${unit.title}**`)) errors.push(`${unit.id}: ROADMAP.md drift`)
   }
-  for (const milestone of [...roadmap.FUTURE_MILESTONES, ...roadmap.FUTURE_EXPANSION_MILESTONES]) if (!roadmapText.includes(milestone.title)) errors.push(`Future milestone drift: ${milestone.title}`)
+  for (const track of ['research', 'product']) for (const status of statuses) {
+    if (!workUnits.some((unit) => unit.track === track && unit.status === status)) errors.push(`${track}: missing ${status} work unit`)
+  }
+  for (const candidate of roadmap.FUTURE_CANDIDATES as { title: string }[]) if (!roadmapText.includes(candidate.title)) errors.push(`Future candidate drift: ${candidate.title}`)
+  if (!roadmapText.includes('[Historical Roadmap](./docs/historical-roadmap.md)')) errors.push('Current roadmap must link the historical roadmap')
+  if (!historicalRoadmapText.includes('superseded by Product P3 Runtime Promotion Pipeline')) errors.push('Old Phase 9 supersession is not recorded')
+  if (/^## Phase /m.test(roadmapText) || /110 \/ 123|89%/.test(roadmapText)) errors.push('Historical phase or denominator leaked into current roadmap')
   if (!write) for (const [file, content] of Object.entries(generated)) {
     if (!fs.existsSync(path.join(root, file)) || read(file) !== content) errors.push(`${file}: stale generated output; run npm run generate:evidence-coverage`)
   }

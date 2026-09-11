@@ -8,7 +8,7 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { optimize } from '../src/core'
 import type { Inventory } from '../src/core/types'
 import type { OwnedRangedWeapon } from '../src/core/rangedTypes'
-import { FUTURE_MILESTONES, FUTURE_EXPANSION_MILESTONES, ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
+import { FUTURE_CANDIDATES, ROADMAP_WORK_UNITS } from '../src/data/roadmap'
 
 const legacy: Inventory = { weapons: [{ instanceId: 'm', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit'] }] }], artifacts: [] }
 const weapon: OwnedRangedWeapon = { instanceId: 'r', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 2 }, { enchantmentId: 'multishot', tier: 3 }], locked: 'power' }], gilded: { enchantmentId: 'critical-hit', tier: 1 }, observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 10, sourceNote: 'SYNTHETIC TEST ONLY' } }
@@ -95,14 +95,12 @@ describe('ranged population and persistence', () => {
     expect(result).toContain('間接遠距離DPS')
     expect(result).toContain('SYNTHETIC TEST ONLY')
   })
-  it('keeps future milestones out of implementation progress and synchronizes both roadmaps', () => {
-    const items = ROADMAP_PHASES.flatMap((phase) => phase.items)
-    expect(ROADMAP_PROGRESS.total).toBe(items.length)
-    expect(FUTURE_MILESTONES).toHaveLength(4)
-    expect(FUTURE_MILESTONES.slice(0, 2).map((milestone) => milestone.id)).toEqual(['phase-8', 'phase-9'])
-    expect(FUTURE_EXPANSION_MILESTONES).toHaveLength(3)
+  it('keeps future candidates and historical phases outside current track work', () => {
+    expect(FUTURE_CANDIDATES).toHaveLength(4)
+    expect(ROADMAP_WORK_UNITS.every((unit) => !unit.id.startsWith('phase-'))).toBe(true)
     const text = fs.readFileSync(new URL('../ROADMAP.md', import.meta.url), 'utf8')
-    for (const item of [...FUTURE_MILESTONES, ...FUTURE_EXPANSION_MILESTONES]) expect(text).toContain(item.title)
-    expect(text).toContain(`${ROADMAP_PROGRESS.completed} / ${ROADMAP_PROGRESS.total}（${ROADMAP_PROGRESS.percentage}%）`)
+    for (const item of FUTURE_CANDIDATES) expect(text).toContain(item.title)
+    expect(text).not.toMatch(/110 \/ 123|89%|^## Phase /m)
+    expect(fs.readFileSync(new URL('../docs/historical-roadmap.md', import.meta.url), 'utf8')).toContain('旧 Phase 9')
   })
 })

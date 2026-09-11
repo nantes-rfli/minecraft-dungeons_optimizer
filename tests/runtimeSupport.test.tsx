@@ -11,7 +11,7 @@ import { evaluate, evaluateCandidate } from '../src/core/evaluate'
 import { optimize } from '../src/core/optimizer'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { ENCHANTMENTS } from '../src/data/enchantments'
-import { ROADMAP_PHASES, ROADMAP_PROGRESS } from '../src/data/roadmap'
+import { ROADMAP_WORK_UNITS } from '../src/data/roadmap'
 import type { EnchantmentId } from '../src/core/types'
 
 const full = ['ambush', 'anima-conduit', 'artifact-synergy', 'committed', 'critical-hit', 'freezing', 'gravity', 'guarding-strike', 'leeching', 'radiance', 'rampaging', 'refreshment', 'sharpness', 'smiting', 'soul-siphon', 'stunning', 'unchanting', 'void-strike', 'weakening']
@@ -147,19 +147,19 @@ describe('visibility, generated docs and historical gates', () => {
     expect(html.match(/Power 210–263/g)).toHaveLength(1)
     expect(html).toContain('href="#/model/evidence/details"')
   })
-  it('keeps generated summaries and roadmap counts synchronized', () => {
+  it('keeps generated summaries and historical runtime gates available without mixing them into current progress', () => {
     for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
-    expect(ROADMAP_PROGRESS).toEqual({ completed: 110, total: 123, percentage: 89 })
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
-    expect(roadmap.match(/^- \[x\]/gm)).toHaveLength(ROADMAP_PROGRESS.completed)
-    expect(roadmap.match(/^- \[[ x]\]/gm)).toHaveLength(ROADMAP_PROGRESS.total)
+    const historical = readFileSync('docs/historical-roadmap.md', 'utf8')
+    expect(roadmap).not.toMatch(/^## Phase /m)
+    expect(roadmap).not.toMatch(/110 \/ 123|89%/)
     for (const phase of ['2-1D', '2-1F', '2-1G', '2-1H', '2-1I', '2-1J']) {
-      expect(roadmap).toContain(`- [ ] Phase ${phase} partial`)
-      expect(ROADMAP_PHASES.flatMap((item) => item.items).find((item) => item.label.startsWith(`Phase ${phase} partial`))!.status).toBe('in-progress')
+      expect(historical).toContain(`- [ ] Phase ${phase} partial`)
     }
+    expect(ROADMAP_WORK_UNITS.find((unit) => unit.id === 'P3')!.status).toBe('current')
   })
   it('keeps edited documentation links and priority counts valid', () => {
-    for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md', 'docs/runtime-limitations.md']) {
+    for (const file of ['README.md', 'ROADMAP.md', 'docs/historical-roadmap.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md', 'docs/runtime-limitations.md']) {
       const source = readFileSync(file, 'utf8')
       for (const match of source.matchAll(/\]\(([^)]+)\)/g)) {
         const target = match[1]!.split('#')[0]!

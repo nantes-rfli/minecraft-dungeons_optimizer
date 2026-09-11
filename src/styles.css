@@ -212,22 +212,35 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .support-columns p { display: grid; margin: 10px 0; color: #c8d0c8; font-size: 12px; }
 .support-columns small { color: #9ba99f; font: 12px 'DM Mono', monospace; }
 .status { padding: 4px 6px; text-align: center; font: 12px 'DM Mono', monospace; }
-.status.done { color: #d8ff73; background: #22301b; }.status.in-progress { color: #e8d887; background: #302d1b; }.status.planned { color: #9aa49c; background: #242a25; }
-.progress-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; }
-.progress-heading h2 { margin-bottom: 6px; }
-.progress-heading p { margin: 0; color: #8f9a91; font-size: 12px; }
-.progress-heading strong { display: grid; color: #d8ff73; font: 500 30px 'DM Mono', monospace; text-align: right; }
-.progress-heading strong small { color: #9ba99f; font-size: 12px; }
-.progress-track { height: 6px; margin: 20px 0 24px; overflow: hidden; background: #252e27; }
-.progress-track span { display: block; height: 100%; background: #d8ff73; }
-.roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.roadmap-phase { border: 1px solid #29332b; padding: 18px; background: #0f1611; }
-.roadmap-phase > div { display: grid; grid-template-columns: 48px 1fr; gap: 10px; align-items: baseline; }
-.roadmap-phase > div p { color: #d8ff73; font: 12px 'DM Mono', monospace; }
-.roadmap-phase h3 { margin: 0; font-size: 15px; }
-.roadmap-phase > p { min-height: 42px; color: #77847a; font-size: 12px; line-height: 1.6; }
-.roadmap-phase ul { display: grid; gap: 7px; margin: 14px 0 0; padding: 0; list-style: none; }
-.roadmap-phase li { display: grid; grid-template-columns: 50px 1fr; gap: 8px; align-items: center; color: #9ca79e; font-size: 12px; line-height: 1.45; }
+.status.done { color: #d8ff73; background: #22301b; }
+.status.current { color: #e8d887; background: #302d1b; }
+.status.next { color: #9ec9e8; background: #1c2931; }
+.status.blocked { color: #ffad9f; background: #34211e; }
+.status.later { color: #9aa49c; background: #242a25; }
+.roadmap-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 24px; }
+.roadmap-heading h2 { margin-bottom: 6px; }
+.roadmap-heading p { max-width: 760px; margin: 0; color: #8f9a91; font-size: 14px; line-height: 1.7; }
+.roadmap-heading a { flex: 0 0 auto; color: #d8ff73; font: 14px 'DM Mono', monospace; }
+.track-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.roadmap-track { border: 1px solid #29332b; padding: 20px; background: #0f1611; }
+.roadmap-track.research { border-top: 2px solid #83aee8; }
+.roadmap-track.product { border-top: 2px solid #d8ff73; }
+.roadmap-track > header { min-height: 138px; border-bottom: 1px solid #29332b; }
+.roadmap-track > header p { margin: 0 0 8px; color: #9ec9a4; font: 12px 'DM Mono', monospace; letter-spacing: .12em; }
+.roadmap-track > header h3 { margin: 0 0 10px; font-size: 22px; }
+.roadmap-track > header span { color: #9ca79e; font-size: 14px; line-height: 1.7; }
+.roadmap-status-group { margin-top: 20px; }
+.roadmap-status-group h4 { margin: 0 0 9px; color: #cbd4cc; font: 12px 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; }
+.roadmap-status-group > div { display: grid; gap: 8px; }
+.roadmap-unit { border: 1px solid #29332b; padding: 14px; background: #0b120d; }
+.roadmap-unit > div { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.roadmap-unit > div strong { color: #d8ff73; font: 14px 'DM Mono', monospace; }
+.roadmap-unit h5 { margin: 10px 0 6px; font-size: 16px; }
+.roadmap-unit p { margin: 0; color: #929f94; font-size: 14px; line-height: 1.65; }
+.roadmap-unit small { display: block; margin-top: 10px; color: #e8d887; font-size: 13px; line-height: 1.55; }
+.handoff-flow { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; align-items: center; margin-top: 22px; border: 1px solid #344137; padding: 16px; background: #101711; }
+.handoff-flow span { color: #cbd4cc; font: 13px 'DM Mono', monospace; }
+.handoff-flow b { color: #d8ff73; font-weight: 500; }
 .warning-panel { border-color: #5a512d; background: #1d1c12; }
 .regression-methodology > p:not(.section-label) { color: #929f94; font-size: 12px; line-height: 1.8; }
 .regression-audit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 18px 0; }
@@ -246,7 +259,8 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
   .workspace { grid-template-columns: 1fr; }
   .controls { position: static; }
   .method-grid { grid-template-columns: 1fr; }
-  .roadmap-grid { grid-template-columns: 1fr; }
+  .track-grid { grid-template-columns: 1fr; }
+  .roadmap-track > header { min-height: 0; padding-bottom: 18px; }
 }
 
 @media (max-width: 520px) {
@@ -260,8 +274,7 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
   .regression-panel dl { grid-template-columns: repeat(2, 1fr); }
   .regression-audit-grid { grid-template-columns: repeat(2, 1fr); }
   .site-nav { padding: 0 12px; }
-  .progress-heading { display: grid; }
-  .progress-heading strong { justify-items: start; text-align: left; }
+  .roadmap-heading { display: grid; }
 }
 
 .control-metrics > div { display: flex; justify-content: space-between; gap: 1rem; padding: .4rem 0; border-bottom: 1px solid #29332b; }
