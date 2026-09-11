@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { ESTIMATED_PARAMETER_EVIDENCE, isEvidenceStatusAllowed, parameterEvidenceForBuild, estimatedParametersForBuild } from '../src/core/evidenceStatus'
-import type { Build } from '../src/core'
+import { artifactEvidenceAllowed, ESTIMATED_PARAMETER_EVIDENCE, isEvidenceStatusAllowed, parameterEvidenceForBuild, estimatedParametersForBuild } from '../src/core/evidenceStatus'
+import { optimize, type Build } from '../src/core'
+import { DEFAULT_SCENARIO } from '../src/data/scenarios'
+import { OptimizeResults } from '../src/screens/OptimizeResults'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+
+const build = (enchantmentId: Build['enchantments'][number]['enchantmentId'] = 'critical-hit', artifacts: Build['artifacts'] = []): Build => ({
+  weapon: { instanceId: 'weapon', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: [enchantmentId] }] },
+  enchantments: [{ enchantmentId, tier: 3, source: 'slot' }], artifacts,
+})
 
 describe('parameter evidence status', () => {
   it('retains basis, conditions, version and confidence for every estimate', () => {
@@ -15,9 +24,10 @@ describe('parameter evidence status', () => {
   })
 
   it('reports only estimates used by the selected build', () => {
-    const build = { artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] } as Pick<Build, 'artifacts'>
-    expect(estimatedParametersForBuild(build).map((parameter) => parameter.mechanicId)).toEqual(['death-cap-mushroom', 'death-cap-mushroom'])
-    expect(estimatedParametersForBuild({ artifacts: [] })).toEqual([])
+    expect(estimatedParametersForBuild(build('critical-hit', [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }])).filter((parameter) => parameter.mechanicId === 'death-cap-mushroom')).toEqual([
+      expect.objectContaining({ parameterId: 'duration-curve' }),
+    ])
+    expect(estimatedParametersForBuild(build())).toEqual([])
   })
 
   it('allows only explicitly classified statuses and never treats runtime support as evidence', () => {
@@ -29,13 +39,36 @@ describe('parameter evidence status', () => {
   })
 
   it('records mechanic and parameter identifiers for every build input', () => {
-    const build = {
-      weapon: { instanceId: 'weapon', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit'] }] },
-      enchantments: [{ enchantmentId: 'critical-hit', tier: 3, source: 'slot' }], artifacts: [],
-    } as Build
-    expect(parameterEvidenceForBuild(build)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ mechanicId: 'melee:double-axe', parameterId: 'damage-and-attack-profile', status: 'derived' }),
-      expect.objectContaining({ mechanicId: 'melee-enchantment:critical-hit', status: 'derived' }),
+    expect(parameterEvidenceForBuild(build())).toEqual(expect.arrayContaining([
+      expect.objectContaining({ mechanicId: 'melee:double-axe', parameterId: 'attack-timing', status: 'derived' }),
+      expect.objectContaining({ mechanicId: 'melee-enchantment:critical-hit', parameterId: 'trigger-chance', status: 'measured' }),
+      expect.objectContaining({ mechanicId: 'melee-enchantment:critical-hit', parameterId: 'damage-multiplier', status: 'measured' }),
     ]))
+  })
+
+  it('keeps an unre-evaluated runtime parameter unclassified instead of deriving it from support', () => {
+    expect(artifactEvidenceAllowed('shock-powder', 'high-confidence-only')).toBe(true)
+    expect(parameterEvidenceForBuild(build('critical-hit', [
+      { instanceId: 'shock', artifactId: 'shock-powder', powerLevel: 251 },
+    ]))).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ mechanicId: 'shock-powder', parameterId: 'stacking-interaction' }),
+    ]))
+    expect(parameterEvidenceForBuild(build('critical-hit', [
+      { instanceId: 'shock-1', artifactId: 'shock-powder', powerLevel: 251 },
+      { instanceId: 'shock-2', artifactId: 'shock-powder', powerLevel: 251 },
+    ]))).toEqual(expect.arrayContaining([
+      expect.objectContaining({ mechanicId: 'shock-powder', parameterId: 'stacking-interaction', status: 'unclassified' }),
+    ]))
+  })
+
+  it('includes non-Artifact estimates in the result disclosure', () => {
+    const estimatedBuild = build('guarding-strike')
+    expect(estimatedParametersForBuild(estimatedBuild)).toEqual(expect.arrayContaining([
+      expect.objectContaining({ mechanicId: 'melee-enchantment:guarding-strike', parameterId: 'activation-coverage-model' }),
+    ]))
+    const result = optimize({ weapons: [estimatedBuild.weapon], artifacts: [] }, { ...DEFAULT_SCENARIO, evidencePolicy: 'include-estimated' })
+    const html = renderToStaticMarkup(createElement(OptimizeResults, { error: null, result, status: 'complete', evidencePolicy: 'include-estimated' }))
+    expect(html).toContain('ガードストライク / activation coverage')
+    expect(html).toContain('melee-enchantment:guarding-strike')
   })
 })

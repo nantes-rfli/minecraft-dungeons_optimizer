@@ -1,4 +1,10 @@
-import type { Build, Confidence, Scenario } from './types'
+import { ATTACK_PROFILES } from '../data/attackProfiles'
+import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import { ENCHANTMENTS } from '../data/enchantments'
+import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
+import { RANGED_ENCHANTMENTS } from '../data/ranged'
+import { WEAPONS } from '../data/weapons'
+import type { Build, Confidence, Evidence, Scenario } from './types'
 
 export const EVIDENCE_STATUSES = ['verified', 'measured', 'derived', 'estimated', 'unknown', 'unclassified'] as const
 export type EvidenceStatus = (typeof EVIDENCE_STATUSES)[number]
@@ -22,60 +28,135 @@ export function isEvidenceStatusAllowed(status: EvidenceStatus, policy: Evidence
   return policy === 'include-estimated' && status === 'estimated'
 }
 
-const derived = (mechanicId: string, parameterId: string, label = mechanicId): ParameterEvidence => ({
-  mechanicId, parameterId, label, status: 'derived',
-  basis: '版付きの監査資料とruntime定義から導出した実装値。Runtime support levelとは独立に分類。',
-  conditions: '現在のOptimizerが明示的に対応するmechanic境界内。',
-  gameVersion: '1.17.0.0', confidence: 'medium',
+function evidenceStatusForSource(evidence: Evidence<unknown>): EvidenceStatus {
+  if (evidence.source.kind === 'model-assumption') return 'estimated'
+  if (evidence.source.kind === 'frame-analysis' || evidence.source.kind === 'community-test') return 'measured'
+  // Reaching this function means the parameter has its own Evidence<T> record.
+  // The status is derived from that explicit source, never from runtime support.
+  return 'derived'
+}
+
+function fromEvidence(mechanicId: string, parameterId: string, label: string, evidence: Evidence<unknown>, status = evidenceStatusForSource(evidence)): ParameterEvidence {
+  return {
+    mechanicId, parameterId, label, status,
+    basis: evidence.note ? `${evidence.source.label} — ${evidence.note}` : evidence.source.label,
+    conditions: '登録sourceが示すparameterの範囲に限定。Runtime support levelからは分類しない。',
+    gameVersion: evidence.source.label.includes('1.17') ? '1.17.0.0' : 'source version; applicability requires review',
+    confidence: evidence.confidence,
+  }
+}
+
+function unclassified(mechanicId: string, parameterId: string, label: string, basis = 'parameter単位の再評価済みEvidenceが未登録。'): ParameterEvidence {
+  return { mechanicId, parameterId, label, status: 'unclassified', basis, conditions: '数値評価へ投入しない。', gameVersion: 'unknown', confidence: 'low' }
+}
+
+const sharedWeaponEvidence: readonly ParameterEvidence[] = [
+  fromEvidence('melee:shared', 'gear-power-curve', '近接共通 / Gear Power曲線', GEAR_POWER_CURVE),
+  fromEvidence('melee:shared', 'cross-weapon-damage-scaling', '近接共通 / 武器間damage scaling', CROSS_WEAPON_DAMAGE_SCALING),
+]
+
+const weaponEvidence = Object.values(WEAPONS).flatMap((weapon): readonly ParameterEvidence[] => {
+  const mechanicId = `melee:${weapon.id}`
+  const profile = ATTACK_PROFILES[weapon.id]
+  return [
+    fromEvidence(mechanicId, 'internal-power-rating', `${weapon.name.ja} / internal Power`, weapon.internalPowerRating),
+    fromEvidence(mechanicId, 'area-rating', `${weapon.name.ja} / area`, weapon.area),
+    fromEvidence(mechanicId, 'attack-timing', `${weapon.name.ja} / attack timing`, profile),
+    fromEvidence(mechanicId, 'hit-sequence', `${weapon.name.ja} / hit sequence`, profile),
+    fromEvidence(mechanicId, 'base-soul-gathering', `${weapon.name.ja} / base soul gathering`, weapon.soul.baseSoulGathering),
+  ]
 })
 
-const runtimeParameterGroups: readonly ParameterEvidence[] = [
-  ...(['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe'] as const).map((id) => derived(`melee:${id}`, 'damage-and-attack-profile')),
-  ...(['critical-hit', 'radiance', 'leeching', 'void-strike', 'guarding-strike', 'sharpness', 'unchanting', 'refreshment', 'weakening', 'shockwave', 'swirling', 'thundering', 'ambush', 'smiting', 'committed', 'artifact-synergy', 'rampaging', 'anima-conduit', 'soul-siphon', 'fire-aspect', 'poison-cloud', 'exploding', 'chains', 'stunning', 'freezing', 'gravity', 'pain-cycle', 'dynamo'] as const).map((id) => derived(`melee-enchantment:${id}`, 'tier-values-and-runtime-semantics')),
-  ...(['battle-robe', 'renegade-armor', 'wither-armor', 'mercenary-armor', 'grim-armor', 'scale-mail', 'spider-armor'] as const).map((id) => derived(`armor:${id}`, 'intrinsic-runtime-parameters')),
-  ...(['cool-down', 'potion-barrier', 'chilling', 'health-synergy', 'snowball', 'cowardice', 'protection'] as const).map((id) => derived(`armor-enchantment:${id}`, 'tier-values-and-runtime-semantics')),
-  ...(['bow', 'crossbow'] as const).map((id) => derived(`ranged:${id}`, 'observed-shot-input-and-runtime-semantics')),
-  ...(['power', 'critical-hit', 'unchanting'] as const).map((id) => derived(`ranged-enchantment:${id}`, 'tier-values-and-runtime-semantics')),
-  derived('shock-powder', 'duration-and-control-model', 'ショックパウダー / 効果時間とControl'),
-  derived('death-cap-mushroom', 'attack-speed-and-damage-bonus', 'シロタマゴテングタケ / 効果量'),
-  derived('iron-hide-amulet', 'damage-reduction', 'アイアンハイドアミュレット / 軽減量'),
-]
+const camelToKebab = (value: string) => value.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+
+const enchantmentEvidence = Object.values(ENCHANTMENTS).flatMap((enchantment): readonly ParameterEvidence[] => {
+  const mechanicId = `melee-enchantment:${enchantment.id}`
+  const tierParameterIds = new Set(Object.values(enchantment.tiers.value).flatMap((tier) => Object.keys(tier).map(camelToKebab)))
+  return [
+    ...[...tierParameterIds].map((parameterId) => fromEvidence(mechanicId, parameterId, `${enchantment.name.ja} / ${parameterId}`, enchantment.tiers)),
+    fromEvidence(mechanicId, 'stacking-interaction', `${enchantment.name.ja} / stacking`, enchantment.stacking),
+    ...(enchantment.applicability ? [fromEvidence(mechanicId, 'applicability', `${enchantment.name.ja} / applicability`, enchantment.applicability)] : []),
+    ...(enchantment.soul ? [fromEvidence(mechanicId, 'soul-gathering', `${enchantment.name.ja} / soul gathering`, enchantment.soul.soulGathering)] : []),
+  ]
+})
+
+const armorEvidence = Object.values(ARMORS).flatMap((armor): readonly ParameterEvidence[] => {
+  const mechanicId = `armor:${armor.id}`
+  const parameters = [
+    ['melee-damage-bonus', armor.meleeDamageBonus], ['weapon-damage-aura-bonus', armor.weaponDamageAuraBonus],
+    ['melee-attack-speed-bonus', armor.meleeAttackSpeedBonus], ['damage-reduction', armor.armorDamageReduction],
+    ['soul-gathering-multiplier', armor.soulGatheringMultiplier], ['life-steal-fraction', armor.lifeStealFraction],
+    ['artifact-cooldown-reduction', armor.artifactCooldownReduction],
+  ] as const
+  return parameters.filter(([, value]) => value !== 0 && value !== 1).map(([parameterId]) => ({
+    mechanicId, parameterId, label: `${armor.name.ja} / ${parameterId}`, status: 'derived' as const,
+    basis: `Armor auditのintrinsic property「${armor.intrinsicProperties.find((property) => property.kind.includes(parameterId.split('-')[0]!))?.raw ?? parameterId}」から個別に正規化。`,
+    conditions: '監査済みintrinsic propertyの自己効果だけ。', gameVersion: '1.17.0.0', confidence: 'medium' as const,
+  }))
+})
+
+const armorEnchantmentEvidence = Object.values(ARMOR_ENCHANTMENTS).flatMap((enchantment): readonly ParameterEvidence[] => [
+  { mechanicId: `armor-enchantment:${enchantment.id}`, parameterId: 'tier-values', label: `${enchantment.name.ja} / tier values`, status: 'derived', basis: `Armor Enchantment auditで${enchantment.effect}のtier値を個別採用。`, conditions: 'runtimeMaxCopies=1の実装範囲。', gameVersion: '1.17.0.0', confidence: 'medium' },
+  { mechanicId: `armor-enchantment:${enchantment.id}`, parameterId: 'stacking-interaction', label: `${enchantment.name.ja} / stacking`, status: 'unclassified', basis: '複数copyのinteractionは未再評価。', conditions: '複数copyを数値評価へ投入しない。', gameVersion: 'unknown', confidence: 'low' },
+])
+
+const rangedEnchantmentEvidence = Object.entries(RANGED_ENCHANTMENTS).flatMap(([id, enchantment]): readonly ParameterEvidence[] => [
+  { mechanicId: `ranged-enchantment:${id}`, parameterId: 'tier-values', label: `${enchantment.name.ja} / tier values`, status: 'derived', basis: `${enchantment.sourceUrl}の公開tier値を個別に正規化。`, conditions: 'neutral single-projectile runtime scope。', gameVersion: 'source version; applicability requires review', confidence: 'medium' },
+  { mechanicId: `ranged-enchantment:${id}`, parameterId: 'effect-semantics', label: `${enchantment.name.ja} / effect semantics`, status: 'derived', basis: `${enchantment.sourceUrl}の効果記述を${enchantment.kind}として個別に正規化。`, conditions: 'neutral single-projectile runtime scope。', gameVersion: 'source version; applicability requires review', confidence: 'medium' },
+])
 
 export const ESTIMATED_PARAMETER_EVIDENCE: readonly ParameterEvidence[] = [
   { mechanicId: 'death-cap-mushroom', parameterId: 'duration-curve', label: 'シロタマゴテングタケ / 効果時間', status: 'estimated', basis: '公開サンプルに対する線形近似（8 + 0.052 × Power）', conditions: 'Powerごとの実測曲線が揃うまでの近似。外部クールダウン短縮は別計算。', gameVersion: '1.17.0.0 applicability not independently verified', confidence: 'medium' },
   { mechanicId: 'death-cap-mushroom', parameterId: 'duplicate-stacking', label: 'シロタマゴテングタケ / 複数個の更新挙動', status: 'estimated', basis: '公開コミュニティ記述からrefreshとしてモデル化', conditions: '最大3個、効果量は重複せず、時間だけをずらして更新する想定。', gameVersion: 'unknown', confidence: 'low' },
   { mechanicId: 'iron-hide-amulet', parameterId: 'duration-curve', label: 'アイアンハイドアミュレット / 効果時間', status: 'estimated', basis: '公開durationサンプルに対する線形近似（8 + 0.052 × Power）', conditions: 'Powerごとの実測曲線が揃うまでの近似。', gameVersion: '1.17.0.0 applicability not independently verified', confidence: 'low' },
   { mechanicId: 'iron-hide-amulet', parameterId: 'duplicate-stacking', label: 'アイアンハイドアミュレット / 複数個の更新挙動', status: 'estimated', basis: '公開コミュニティ記述からrefreshとしてモデル化', conditions: '最大3個、軽減量は重複せず、時間だけをずらして更新する想定。', gameVersion: 'unknown', confidence: 'low' },
+  { mechanicId: 'melee-enchantment:guarding-strike', parameterId: 'activation-coverage-model', label: 'ガードストライク / activation coverage', status: 'estimated', basis: 'direct kill rateと効果時間から期待coverageを近似。', conditions: 'proc chance・cooldown・current-version interactionの独立検証前。', gameVersion: '1.17.0.0 applicability not independently verified', confidence: 'low' },
 ]
 
-export const PARAMETER_EVIDENCE: readonly ParameterEvidence[] = [...runtimeParameterGroups, ...ESTIMATED_PARAMETER_EVIDENCE]
+const artifactEvidence: readonly ParameterEvidence[] = [
+  ...ESTIMATED_PARAMETER_EVIDENCE.filter((item) => item.mechanicId === 'death-cap-mushroom' || item.mechanicId === 'iron-hide-amulet'),
+  { mechanicId: 'death-cap-mushroom', parameterId: 'attack-speed-bonus', label: 'シロタマゴテングタケ / attack speed', status: 'measured', basis: 'Minecraft Wikiのcommunity test記録。', conditions: '自己attack speed効果。', gameVersion: 'source version; applicability requires review', confidence: 'high' },
+  { mechanicId: 'iron-hide-amulet', parameterId: 'damage-reduction', label: 'アイアンハイドアミュレット / damage reduction', status: 'measured', basis: 'Minecraft Wikiのcommunity test記録。', conditions: '自己damage reduction効果。', gameVersion: 'source version; applicability requires review', confidence: 'medium' },
+  { mechanicId: 'shock-powder', parameterId: 'duration-curve', label: 'ショックパウダー / duration', status: 'derived', basis: '公開されたPower別duration表を範囲内補間。', conditions: 'Power 12〜262のみ。', gameVersion: 'source version; applicability requires review', confidence: 'medium' },
+  unclassified('shock-powder', 'stacking-interaction', 'ショックパウダー / stacking', '重複時のrefresh / overlap挙動が未解決。'),
+]
 
-const unclassified = (mechanicId: string): ParameterEvidence => ({ mechanicId, parameterId: 'runtime-parameters', label: mechanicId, status: 'unclassified', basis: 'parameter単位のEvidence分類が未登録。', conditions: '数値評価へ投入しない。', gameVersion: 'unknown', confidence: 'low' })
+export const PARAMETER_EVIDENCE: readonly ParameterEvidence[] = [
+  ...sharedWeaponEvidence, ...weaponEvidence, ...enchantmentEvidence,
+  ...ESTIMATED_PARAMETER_EVIDENCE.filter((item) => item.mechanicId.startsWith('melee-enchantment:')),
+  ...armorEvidence, ...armorEnchantmentEvidence, ...rangedEnchantmentEvidence, ...artifactEvidence,
+]
 
 function evidenceForMechanic(mechanicId: string): readonly ParameterEvidence[] {
   const registered = PARAMETER_EVIDENCE.filter((parameter) => parameter.mechanicId === mechanicId)
-  return registered.length ? registered : [unclassified(mechanicId)]
+  return registered.length ? registered : [unclassified(mechanicId, 'runtime-parameters', mechanicId)]
 }
+
+const isDuplicateInteractionParameter = (parameter: ParameterEvidence) => parameter.parameterId === 'stacking-interaction' || parameter.parameterId === 'duplicate-stacking'
 
 export function evidencePolicy(scenario: Scenario): EvidencePolicy { return scenario.evidencePolicy ?? 'include-estimated' }
 
 export function parameterEvidenceForBuild(build: Build): readonly ParameterEvidence[] {
+  const weaponParameters = build.weapon.observedDamagePerHit === undefined
+    ? sharedWeaponEvidence
+    : [{ mechanicId: 'melee:observed-input', parameterId: 'damage-per-hit', label: '入力済み表示damage', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: '登録した個体とPowerに限定。', gameVersion: 'user supplied', confidence: 'medium' } satisfies ParameterEvidence]
   return [
+    ...weaponParameters,
     ...evidenceForMechanic(`melee:${build.weapon.weaponId}`),
     ...build.enchantments.flatMap((item) => evidenceForMechanic(`melee-enchantment:${item.enchantmentId}`)),
     ...(build.armor ? evidenceForMechanic(`armor:${build.armor.armorId}`) : []),
-    ...(build.armorEnchantments ?? []).flatMap((item) => evidenceForMechanic(`armor-enchantment:${item.enchantmentId}`)),
-    ...(build.rangedWeapon ? evidenceForMechanic(`ranged:${build.rangedWeapon.weaponId}`) : []),
+    ...(build.armorEnchantments ?? []).flatMap((item, _, items) => evidenceForMechanic(`armor-enchantment:${item.enchantmentId}`).filter((parameter) => parameter.parameterId !== 'stacking-interaction' || items.filter((candidate) => candidate.enchantmentId === item.enchantmentId).length > 1)),
+    ...(build.rangedWeapon ? [
+      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'projectile-damage', label: '遠距離 / projectile damage', status: build.rangedWeapon.observation ? 'measured' : 'unclassified', basis: build.rangedWeapon.observation?.sourceNote ?? '利用者観測値が未登録。', conditions: 'neutral single projectile', gameVersion: build.rangedWeapon.observation?.gameVersion ?? 'unknown', confidence: build.rangedWeapon.observation ? 'medium' : 'low' },
+      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'shot-cycle', label: '遠距離 / shot cycle', status: build.rangedWeapon.observation ? 'measured' : 'unclassified', basis: build.rangedWeapon.observation?.sourceNote ?? '利用者観測値が未登録。', conditions: 'complete shot cycle', gameVersion: build.rangedWeapon.observation?.gameVersion ?? 'unknown', confidence: build.rangedWeapon.observation ? 'medium' : 'low' },
+    ] as ParameterEvidence[] : []),
     ...(build.rangedEnchantments ?? []).flatMap((item) => evidenceForMechanic(`ranged-enchantment:${item.enchantmentId}`)),
-    ...build.artifacts.flatMap((item) => evidenceForMechanic(item.artifactId)),
+    ...build.artifacts.flatMap((item, _, items) => evidenceForMechanic(item.artifactId).filter((parameter) => !isDuplicateInteractionParameter(parameter) || items.filter((candidate) => candidate.artifactId === item.artifactId).length > 1)),
   ]
 }
 
 export function blockedParameterEvidenceForBuild(build: Build, policy: EvidencePolicy): readonly ParameterEvidence[] { return parameterEvidenceForBuild(build).filter((parameter) => !isEvidenceStatusAllowed(parameter.status, policy)) }
 
-export function estimatedParametersForBuild(build: Pick<Build, 'artifacts'>): readonly ParameterEvidence[] {
-  const artifactIds = new Set(build.artifacts.map((artifact) => artifact.artifactId))
-  return ESTIMATED_PARAMETER_EVIDENCE.filter((parameter) => artifactIds.has(parameter.mechanicId as Build['artifacts'][number]['artifactId']))
-}
+export function estimatedParametersForBuild(build: Build): readonly ParameterEvidence[] { return parameterEvidenceForBuild(build).filter((parameter) => parameter.status === 'estimated') }
 
-export function artifactEvidenceAllowed(artifactId: Build['artifacts'][number]['artifactId'], policy: EvidencePolicy): boolean { return evidenceForMechanic(artifactId).every((parameter) => isEvidenceStatusAllowed(parameter.status, policy)) }
+export function artifactEvidenceAllowed(artifactId: Build['artifacts'][number]['artifactId'], policy: EvidencePolicy): boolean { return evidenceForMechanic(artifactId).filter((parameter) => !isDuplicateInteractionParameter(parameter)).every((parameter) => isEvidenceStatusAllowed(parameter.status, policy)) }

@@ -246,7 +246,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
 
   const best = evaluations[0]
   if (!best) {
-    throw new Error('Optimizer invariant failed: inventory generated no candidate builds.')
+    throw new OptimizerInputError('NO_EVIDENCE_ALLOWED_CANDIDATES', `選択したEvidence policyで評価できる候補がありません。${[...unsupportedChoices].join(' ')}`)
   }
 
   // Cache only for this optimization call: no stale scenarios or global growth.

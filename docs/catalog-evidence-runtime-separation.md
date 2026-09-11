@@ -15,7 +15,7 @@ OptimizerをResearch Questやnative解析の完了待ちにせず、現在のrun
 
 ## Estimatedの利用
 
-`Estimated`にはmechanic ID、parameter ID、根拠、適用条件、対象version、confidenceを必須とします。現在はDeath Cap MushroomとIron Hide Amuletのduration curve・duplicate refresh挙動を登録しています。
+`Estimated`にはmechanic ID、parameter ID、根拠、適用条件、対象version、confidenceを必須とします。Death Cap MushroomとIron Hide Amuletのduration curve・duplicate refresh挙動に加え、装備種別を問わず実際のbuildが使う推定parameterを登録します。
 
 Optimizerでは次の2経路を選べます。
 
@@ -23,6 +23,8 @@ Optimizerでは次の2経路を選べます。
 - Estimatedを含める: 候補として評価し、選ばれたbuildで使用したparameterと根拠を結果へ表示する。
 
 `Unknown / Unclassified`はどちらの経路でも候補生成・数値評価へ渡しません。`Full / Limited`からEvidence statusを推定しません。Research Quest、外部Evidence、game files、native解析でEvidenceが更新されたparameterだけを個別に昇格させます。
+
+既存runtimeを一括で`Derived`にはしません。武器のinternal Power・area・attack timing・hit sequence、Enchantのproc chance・倍率・stackingなど、実際に参照するparameterを分け、登録sourceと個別auditから根拠を説明できる値だけを`Measured / Derived`にします。runtime実装は残しても、未再評価のparameterは`Unclassified`のまま評価対象外です。
 
 ## Migration
 
