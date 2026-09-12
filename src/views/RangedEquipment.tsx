@@ -33,7 +33,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       setError('')
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
-  return <details className="inventory-item"><summary><span>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}<small lang="en">{audited.name.en}</small></span><span>パワー {weapon.powerLevel}</span></summary>
+  return <details className="inventory-item equipment-card"><summary><span className="equipment-icon ranged" aria-hidden="true"><span>➶</span><small>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja).slice(0, 1)}</small></span><span className="equipment-title"><strong>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}</strong><small lang="en">{audited.name.en}</small></span><span className="equipment-meta">パワー {weapon.powerLevel}</span><span className="edit-label">編集</span></summary>
     <label>パワー<input aria-label={`${weapon.instanceId} 遠距離武器のパワー`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
     <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
     <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>
@@ -57,11 +57,12 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
   </details>
 }
 
-export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean }) {
+export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true, visibleWeapons }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean; visibleWeapons?: readonly OwnedRangedWeapon[] }) {
   const weapons = inventory.rangedWeapons ?? []
+  const renderedWeapons = visibleWeapons ?? weapons
   return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED</p><h2>遠距離武器</h2></div></div>
     {weapons.length > 0 && showScenario && <label>遠距離に使う攻撃時間の割合<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="入力してください" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}
-    {weapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}
+    {renderedWeapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}
   </section>
 }
 

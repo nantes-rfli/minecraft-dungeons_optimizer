@@ -3,7 +3,8 @@ import type { ArmorId, OwnedArmor } from '../core/armor'
 import type { OwnedRangedWeapon } from '../core/rangedTypes'
 import { ARMORS } from '../data/armors'
 import { ARTIFACTS } from '../data/artifacts'
-import { EQUIPMENT_CATALOG, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { ENCHANTMENTS } from '../data/enchantments'
+import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
 
@@ -34,29 +35,90 @@ export function collectionSummary(inventory: Inventory) {
   }
 }
 
-export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string): Inventory {
+export interface InventoryStatistics {
+  readonly totalItems: number
+  readonly collectedTypes: number
+  readonly totalTypes: number
+  readonly gildedItems: number
+  readonly gildedRate: number
+  readonly duplicateTypes: readonly { category: EquipmentCategory; id: string; name: string; count: number }[]
+  readonly powerDistribution: readonly { label: string; count: number }[]
+  readonly enchantments: readonly { id: string; name: string; count: number }[]
+  readonly missing: readonly EquipmentCatalogEntry[]
+}
+
+export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
+  const summary = collectionSummary(inventory)
+  const instances = [
+    ...inventory.weapons.map((item) => ({ category: 'melee' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
+    ...(inventory.armors ?? []).map((item) => ({ category: 'armor' as const, id: item.armorId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
+    ...(inventory.rangedWeapons ?? []).map((item) => ({ category: 'ranged' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
+    ...inventory.artifacts.map((item) => ({ category: 'artifact' as const, id: item.artifactId, power: item.powerLevel, gilded: false })),
+    ...(inventory.catalogItems ?? []).map((item) => ({
+      category: item.category,
+      id: item.catalogId,
+      power: item.powerLevel,
+      gilded: Boolean(item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')),
+    })),
+  ]
+  const counts = new Map<string, number>()
+  instances.forEach((item) => counts.set(equipmentKey(item.category, item.id), (counts.get(equipmentKey(item.category, item.id)) ?? 0) + 1))
+  const duplicateTypes = [...counts.entries()].filter(([, count]) => count > 1).map(([key, count]) => {
+    const [category, ...idParts] = key.split(':')
+    const id = idParts.join(':')
+    const catalog = getEquipmentCatalogEntry(category as EquipmentCategory, id)
+    return { category: category as EquipmentCategory, id, name: catalog?.name.ja ?? catalog?.name.en ?? id, count }
+  }).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja'))
+  const powerBands = [
+    { label: '1–99', min: 1, max: 99 },
+    { label: '100–199', min: 100, max: 199 },
+    { label: '200–249', min: 200, max: 249 },
+    { label: '250–263', min: 250, max: 263 },
+    { label: '264+', min: 264, max: Number.POSITIVE_INFINITY },
+  ]
+  const enchantmentCounts = new Map<string, number>()
+  const countEnchant = (id: string) => enchantmentCounts.set(id, (enchantmentCounts.get(id) ?? 0) + 1)
+  inventory.weapons.forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach(countEnchant); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach((roll) => countEnchant(roll.enchantmentId)); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach((roll) => countEnchant(roll.enchantmentId)); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.catalogItems ?? []).forEach((item) => item.research?.enchantments?.forEach((enchantment) => countEnchant(enchantment.enchantmentId)))
+  const gildedItems = instances.filter((item) => item.gilded).length
+  return {
+    totalItems: instances.length,
+    collectedTypes: summary.collected,
+    totalTypes: summary.total,
+    gildedItems,
+    gildedRate: instances.length === 0 ? 0 : gildedItems / instances.length,
+    duplicateTypes,
+    powerDistribution: powerBands.map((band) => ({ label: band.label, count: instances.filter((item) => item.power >= band.min && item.power <= band.max).length })),
+    enchantments: [...enchantmentCounts.entries()].map(([id, count]) => ({ id, name: ENCHANTMENTS[id as keyof typeof ENCHANTMENTS]?.name.ja ?? id, count })).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja')),
+    missing: summary.missing,
+  }
+}
+
+export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string, powerLevel = 251): Inventory {
   if (selected.category === 'melee' && selected.id in WEAPONS) {
     const weapon: OwnedWeapon = {
-      instanceId, weaponId: selected.id as WeaponId, powerLevel: 251,
+      instanceId, weaponId: selected.id as WeaponId, powerLevel,
       enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'] }, { candidates: ['leeching', 'guarding-strike'] }, { candidates: ['void-strike', 'critical-hit'] }],
     }
     return { ...inventory, weapons: [...inventory.weapons, weapon] }
   }
   if (selected.category === 'armor' && selected.id in ARMORS) {
     const armor: OwnedArmor = {
-      instanceId, armorId: selected.id as ArmorId, powerLevel: 251, observedHealthBonus: 1_880_000,
+      instanceId, armorId: selected.id as ArmorId, powerLevel, observedHealthBonus: 1_880_000,
       enchantmentSlots: [{ candidates: [{ enchantmentId: 'cool-down', tier: 3 }, { enchantmentId: 'potion-barrier', tier: 3 }, { enchantmentId: 'chilling', tier: 3 }] }],
     }
     return { ...inventory, armors: [...(inventory.armors ?? []), armor] }
   }
   if (selected.category === 'ranged' && selected.id in RANGED_WEAPONS) {
-    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel: 251, enchantmentSlots: [] }
+    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel, enchantmentSlots: [] }
     return { ...inventory, rangedWeapons: [...(inventory.rangedWeapons ?? []), weapon] }
   }
   if (selected.category === 'artifact' && selected.id in ARTIFACTS) {
-    const artifact: OwnedArtifact = { instanceId, artifactId: selected.id as ArtifactId, powerLevel: 251 }
+    const artifact: OwnedArtifact = { instanceId, artifactId: selected.id as ArtifactId, powerLevel }
     return { ...inventory, artifacts: [...inventory.artifacts, artifact] }
   }
-  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel: 251 }
+  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel }
   return { ...inventory, catalogItems: [...(inventory.catalogItems ?? []), item] }
 }
