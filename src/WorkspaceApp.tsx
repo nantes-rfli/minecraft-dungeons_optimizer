@@ -43,6 +43,7 @@ import { OptimizeResults } from './screens/OptimizeResults'
 import { ResearchQuestPage } from './screens/ResearchQuestPage'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry } from './data/equipmentCatalog'
 import { addEquipmentToInventory, equipmentKey, inventoryStatistics } from './inventory/collection'
+import { InventoryGameGrid, VisualEquipmentPicker } from './components/InventoryGameGrid'
 
 const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
 
@@ -119,8 +120,13 @@ function EquipmentIcon({ category, label }: { category: keyof typeof CATEGORY_LA
 }
 
 function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory: Inventory; open: boolean; onClose: () => void; onChange: (inventory: Inventory) => void }) {
-  const [selectedKey, setSelectedKey] = useState(equipmentKey(EQUIPMENT_CATALOG[0]!.category, EQUIPMENT_CATALOG[0]!.id))
+  const [category, setCategory] = useState<keyof typeof CATEGORY_LABELS>('melee')
+  const [classFilter, setClassFilter] = useState<'normal' | 'unique'>('normal')
+  const [query, setQuery] = useState('')
+  const initial = EQUIPMENT_CATALOG.find((item) => item.category === 'melee' && item.rarityFamily === 'normal') ?? EQUIPMENT_CATALOG[0]!
+  const [selectedKey, setSelectedKey] = useState(equipmentKey(initial.category, initial.id))
   const [powerLevel, setPowerLevel] = useState(251)
+  const [rarity, setRarity] = useState<'common' | 'rare' | 'unique'>('common')
   const [message, setMessage] = useState('')
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const selected = EQUIPMENT_CATALOG.find((item) => equipmentKey(item.category, item.id) === selectedKey) ?? EQUIPMENT_CATALOG[0]!
@@ -132,15 +138,26 @@ function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory:
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [open, onClose])
   const add = () => {
-    onChange(addEquipmentToInventory(inventory, selected, nextInstanceId(selected.id), powerLevel))
+    onChange(addEquipmentToInventory(inventory, selected, nextInstanceId(selected.id), powerLevel, selected.rarityFamily === 'unique' ? 'unique' : selected.category === 'artifact' ? undefined : rarity))
     setMessage(`${selected.name.ja}を装備に追加しました。`)
+  }
+  const chooseCategory = (next: keyof typeof CATEGORY_LABELS) => {
+    const nextClass = next === 'artifact' ? 'normal' : classFilter
+    const first = EQUIPMENT_CATALOG.find((item) => item.category === next && (next === 'artifact' || item.rarityFamily === nextClass))
+    setCategory(next); setSelectedKey(first ? equipmentKey(first.category, first.id) : ''); setQuery(''); setMessage('')
+  }
+  const chooseClass = (next: 'normal' | 'unique') => {
+    const first = EQUIPMENT_CATALOG.find((item) => item.category === category && item.rarityFamily === next)
+    setClassFilter(next); setSelectedKey(first ? equipmentKey(first.category, first.id) : ''); setMessage('')
   }
   if (!open) return null
   return <><button className="drawer-scrim" type="button" aria-label="装備登録を閉じる" onClick={onClose} /><aside className="equipment-drawer" role="dialog" aria-modal="true" aria-labelledby="equipment-drawer-title">
     <header><div><p className="section-label">ADD EQUIPMENT</p><h2 id="equipment-drawer-title">装備を登録</h2></div><button ref={closeButtonRef} type="button" className="drawer-close" onClick={onClose} aria-label="装備登録を閉じる">×</button></header>
-    <div className="drawer-form"><label>装備<select value={selectedKey} onChange={(event) => { setSelectedKey(event.target.value); setMessage('') }}>{(['melee', 'armor', 'ranged', 'artifact'] as const).map((category) => <optgroup key={category} label={CATEGORY_LABELS[category]}>{EQUIPMENT_CATALOG.filter((item) => item.category === category).map((item) => <option key={equipmentKey(category, item.id)} value={equipmentKey(category, item.id)}>{item.name.ja}（{item.name.en}）</option>)}</optgroup>)}</select></label>
+    <div className="drawer-form"><fieldset className="picker-step"><legend><b>1</b> カテゴリ</legend><div className="picker-segments">{(['melee', 'ranged', 'armor', 'artifact'] as const).map((value) => <button type="button" key={value} aria-pressed={category === value} onClick={() => chooseCategory(value)}>{CATEGORY_LABELS[value]}</button>)}</div></fieldset>
+      {category !== 'artifact' && <fieldset className="picker-step"><legend><b>2</b> 装備クラス</legend><div className="picker-segments two">{(['normal', 'unique'] as const).map((value) => <button type="button" key={value} aria-pressed={classFilter === value} onClick={() => chooseClass(value)}>{value === 'normal' ? '通常装備' : 'Unique'}</button>)}</div></fieldset>}
+      <fieldset className="picker-step picker-browser"><legend><b>3</b> 装備を選択</legend><label className="picker-search"><span className="sr-only">装備を検索</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名・英語名で検索" /></label><VisualEquipmentPicker category={category} classFilter={classFilter} query={query} selectedKey={selectedKey} onSelect={(key) => { setSelectedKey(key); setMessage('') }} /></fieldset>
       <div className="drawer-selection"><EquipmentIcon category={selected.category} label={selected.name.ja ?? selected.name.en} /><div><strong>{selected.name.ja}</strong><small lang="en">{selected.name.en}</small><span>{CATEGORY_LABELS[selected.category]}</span></div></div>
-      <label>パワー<input type="number" min="1" value={powerLevel} onChange={(event) => setPowerLevel(Number(event.target.value))} /></label>
+      <fieldset className="picker-step instance-properties"><legend><b>4</b> 個体情報</legend>{category !== 'artifact' && selected.rarityFamily !== 'unique' && <label>レアリティ<select value={rarity} onChange={(event) => setRarity(event.target.value as typeof rarity)}><option value="common">Common</option><option value="rare">Rare</option></select></label>}<label>Power<input type="number" min="1" value={powerLevel} onChange={(event) => setPowerLevel(Number(event.target.value))} /></label></fieldset>
       <button className="primary-button" type="button" disabled={!Number.isInteger(powerLevel) || powerLevel < 1} onClick={add}>装備に追加</button><p role="status">{message}</p>
     </div>
   </aside></>
@@ -202,7 +219,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   const [inventoryCategory, setInventoryCategory] = useState<'all' | keyof typeof CATEGORY_LABELS>('all')
   const [inventoryGilded, setInventoryGilded] = useState<'all' | 'gilded' | 'standard'>('all')
   const [inventorySort, setInventorySort] = useState<'name' | 'power-desc' | 'power-asc' | 'recent'>('recent')
-  const [inventoryView, setInventoryView] = useState<'compact' | 'list' | 'grid'>('list')
+  const [inventoryView, setInventoryView] = useState<'compact' | 'list' | 'grid'>('grid')
 
   useEffect(() => {
     if (!hydrated || loadError) return
@@ -298,14 +315,14 @@ function OptimizerPage({ route }: { route: AppRoute }) {
       {inventoryTab === 'statistics' ? <InventoryStatisticsView inventory={inventory} /> : <>
         <section className="inventory-toolbar" aria-label="装備一覧の表示設定"><label className="inventory-search"><span className="sr-only">装備を検索</span><input type="search" value={inventoryQuery} onChange={(event) => setInventoryQuery(event.target.value)} placeholder="装備名・Powerで検索" /></label><label><span>種類</span><select value={inventoryCategory} onChange={(event) => setInventoryCategory(event.target.value as typeof inventoryCategory)}><option value="all">すべて</option>{Object.entries(CATEGORY_LABELS).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label><label><span>金色</span><select value={inventoryGilded} onChange={(event) => setInventoryGilded(event.target.value as typeof inventoryGilded)}><option value="all">すべて</option><option value="gilded">金色のみ</option><option value="standard">通常のみ</option></select></label><label><span>並び順</span><select value={inventorySort} onChange={(event) => setInventorySort(event.target.value as typeof inventorySort)}><option value="recent">登録順</option><option value="name">名前順</option><option value="power-desc">Power 高い順</option><option value="power-asc">Power 低い順</option></select></label><div className="view-switcher" aria-label="表示形式">{(['compact', 'list', 'grid'] as const).map((view) => <button type="button" key={view} aria-pressed={inventoryView === view} onClick={() => setInventoryView(view)}>{view === 'compact' ? 'コンパクト' : view === 'list' ? 'リスト' : 'グリッド'}</button>)}</div></section>
         <p className="inventory-result-count" role="status">{visibleCount}件を表示</p>
-        <div className={`inventory-collection view-${inventoryView}`}>
+        {inventoryView === 'grid' ? <InventoryGameGrid inventory={inventory} onChange={setInventory} query={inventoryQuery} category={inventoryCategory} gilded={inventoryGilded} sort={inventorySort} /> : <div className={`inventory-collection view-${inventoryView}`}>
         {visibleWeapons.length > 0 && <section className="inventory-group"><div className="section-heading"><div><p className="section-label">MELEE</p><h2>近接武器</h2></div><span>{visibleWeapons.length}</span></div><div className="equipment-list">{visibleWeapons.map((weapon) => <details className="equipment-card" key={weapon.instanceId}><summary><EquipmentIcon category="melee" label={WEAPONS[weapon.weaponId].name.ja} /><span className="equipment-title"><strong>{WEAPONS[weapon.weaponId].name.ja}</strong><small lang="en">{WEAPONS[weapon.weaponId].name.en}</small></span><span className="equipment-meta">Power {weapon.powerLevel}<small>{weapon.enchantmentSlots.flatMap((slot) => slot.candidates).slice(0, 3).map((id) => ENCHANTMENTS[id].name.ja).join(' · ')}</small></span>{weapon.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary><div className="editor-body"><button type="button" className="danger-button" aria-label={`${WEAPONS[weapon.weaponId].name.ja}を削除`} onClick={() => setInventory((current) => ({ ...current, weapons: current.weapons.filter((item) => item.instanceId !== weapon.instanceId) }))}>削除</button><div className="weapon-fields"><label>Power <input type="number" min="1" max="263" value={weapon.powerLevel} onChange={(event) => updateWeapon(weapon.instanceId, (item) => ({ ...item, powerLevel: Number(event.target.value) }))} /></label><label>表示ダメージ <input aria-label={`${WEAPONS[weapon.weaponId].name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => updateWeapon(weapon.instanceId, (item) => ({ ...item, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label></div><ProcPowerSupport weapon={weapon} />{weapon.enchantmentSlots.map((slot, slotIndex) => <fieldset key={slotIndex}><legend>スロット {slotIndex + 1}</legend>{ENCHANTMENT_IDS.map((id) => <label className="mini-check" key={id} title={enchantmentUnsupportedReason(weapon, id)}><input type="checkbox" disabled={!slot.candidates.includes(id) && Boolean(enchantmentUnsupportedReason(weapon, id))} checked={slot.candidates.includes(id)} onChange={() => toggleCandidate(weapon.instanceId, slotIndex, id)} />{ENCHANTMENTS[id].name.ja} III</label>)}<label className="slot-lock">確定済み<select aria-label={`スロット${slotIndex + 1}の確定済みエンチャント`} value={slot.locked ?? ''} onChange={(event) => updateSlotLock(weapon.instanceId, slotIndex, event.target.value ? event.target.value as EnchantmentId : undefined)}><option value="">未確定（全候補を比較）</option>{slot.candidates.map((id) => <option key={id} value={id} disabled={Boolean(enchantmentUnsupportedReason(weapon, id))}>{ENCHANTMENTS[id].name.ja} III</option>)}</select></label></fieldset>)}<div className="gilded-editor"><label className="mini-check"><input type="checkbox" checked={weapon.gilded !== undefined} onChange={(event) => setGildedEnabled(weapon.instanceId, event.target.checked)} />金色エンチャントを含める</label>{weapon.gilded && <div className="gilded-fields"><label><span>Enchant</span><select aria-label={`${WEAPONS[weapon.weaponId].name.ja}の金色エンチャント`} value={weapon.gilded.enchantmentId} onChange={(event) => updateGildedEnchantment(weapon.instanceId, event.target.value as EnchantmentId)}>{ENCHANTMENT_IDS.map((id) => <option key={id} value={id} disabled={Boolean(enchantmentUnsupportedReason(weapon, id))}>{ENCHANTMENTS[id].name.ja}</option>)}</select></label><label><span>Tier</span><select aria-label={`${WEAPONS[weapon.weaponId].name.ja}の金色エンチャントTier`} value={weapon.gilded.tier} onChange={(event) => updateGildedTier(weapon.instanceId, Number(event.target.value) as EnchantmentTier)}>{ENCHANTMENT_TIERS.map((tier) => <option key={tier} value={tier}>{TIER_LABELS[tier]}</option>)}</select></label></div>}</div></div></details>)}</div></section>}
         {visibleArmors.length > 0 && <section className="inventory-group"><div className="section-heading"><div><p className="section-label">ARMOR</p><h2>防具</h2></div><span>{visibleArmors.length}</span></div>{visibleArmors.map((armor) => <OwnedArmorEditor key={armor.instanceId} armor={armor} onChange={(next) => updateArmor(armor.instanceId, () => next)} onRemove={() => setInventory((current) => ({ ...current, armors: (current.armors ?? []).filter((item) => item.instanceId !== armor.instanceId) }))} />)}</section>}
         {visibleRanged.length > 0 && <RangedInventorySection inventory={inventory} onChange={setInventory} scenario={scenario} onScenarioChange={setScenario} showScenario={false} visibleWeapons={visibleRanged} />}
         {visibleArtifacts.length > 0 && <section className="inventory-group"><div className="section-heading"><div><p className="section-label">ARTIFACT</p><h2>アーティファクト</h2></div><span>{visibleArtifacts.length}</span></div><div className="equipment-list">{visibleArtifacts.map((artifact) => { const bounds = artifactPowerBounds(artifact.artifactId); return <details className="equipment-card" key={artifact.instanceId}><summary><EquipmentIcon category="artifact" label={ARTIFACTS[artifact.artifactId].name.ja} /><span className="equipment-title"><strong>{ARTIFACTS[artifact.artifactId].name.ja}</strong><small lang="en">{ARTIFACTS[artifact.artifactId].name.en}</small></span><span className="equipment-meta">パワー {artifact.powerLevel}</span><span className="edit-label">編集</span></summary><div className="editor-body artifact-editor"><label>パワー<input aria-label={`${ARTIFACTS[artifact.artifactId].name.ja}のパワー`} type="number" min={bounds.min} max={bounds.max} value={artifact.powerLevel} onChange={(event) => setInventory((current) => ({ ...current, artifacts: current.artifacts.map((item) => item.instanceId === artifact.instanceId ? { ...item, powerLevel: Number(event.target.value) } : item) }))} /></label><button type="button" className="danger-button" onClick={() => setInventory((current) => ({ ...current, artifacts: current.artifacts.filter((item) => item.instanceId !== artifact.instanceId) }))}>削除</button></div></details>})}</div></section>}
         <CatalogOnlyInventory inventory={inventory} onChange={setInventory} items={visibleCatalog} />
         {visibleCount === 0 && <div className="empty-state"><span>◇</span><h2>該当する装備がありません</h2><p>検索語やフィルタを変更してください。</p></div>}
-        </div></>}
+        </div>}</>}
       <AddEquipmentDrawer inventory={inventory} open={drawerOpen} onClose={() => setDrawerOpen(false)} onChange={setInventory} />
     </main>
   }

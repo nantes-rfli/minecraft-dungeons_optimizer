@@ -430,13 +430,17 @@ export interface OwnedWeapon {
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
   readonly locked?: boolean
+  readonly rarity?: EquipmentRarity
 }
 
 export interface OwnedArtifact {
   readonly instanceId: string
   readonly artifactId: ArtifactId
   readonly powerLevel: number
+  readonly rarity?: EquipmentRarity
 }
+
+export type EquipmentRarity = 'common' | 'rare' | 'unique'
 
 export interface CatalogResearchEnchantment {
   readonly enchantmentId: string
@@ -472,6 +476,7 @@ export interface CatalogInventoryItem {
   readonly notes?: string
   /** Per-instance facts for Research Quest; never implies runtime support. */
   readonly research?: CatalogResearchAttributes
+  readonly rarity?: EquipmentRarity
 }
 
 export interface Inventory {

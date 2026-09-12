@@ -96,29 +96,29 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
   }
 }
 
-export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string, powerLevel = 251): Inventory {
+export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string, powerLevel = 251, rarity?: 'common' | 'rare' | 'unique'): Inventory {
   if (selected.category === 'melee' && selected.id in WEAPONS) {
     const weapon: OwnedWeapon = {
-      instanceId, weaponId: selected.id as WeaponId, powerLevel,
+      instanceId, weaponId: selected.id as WeaponId, powerLevel, ...(rarity ? { rarity } : {}),
       enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'] }, { candidates: ['leeching', 'guarding-strike'] }, { candidates: ['void-strike', 'critical-hit'] }],
     }
     return { ...inventory, weapons: [...inventory.weapons, weapon] }
   }
   if (selected.category === 'armor' && selected.id in ARMORS) {
     const armor: OwnedArmor = {
-      instanceId, armorId: selected.id as ArmorId, powerLevel, observedHealthBonus: 1_880_000,
+      instanceId, armorId: selected.id as ArmorId, powerLevel, observedHealthBonus: 1_880_000, ...(rarity ? { rarity } : {}),
       enchantmentSlots: [{ candidates: [{ enchantmentId: 'cool-down', tier: 3 }, { enchantmentId: 'potion-barrier', tier: 3 }, { enchantmentId: 'chilling', tier: 3 }] }],
     }
     return { ...inventory, armors: [...(inventory.armors ?? []), armor] }
   }
   if (selected.category === 'ranged' && selected.id in RANGED_WEAPONS) {
-    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel, enchantmentSlots: [] }
+    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel, enchantmentSlots: [], ...(rarity ? { rarity } : {}) }
     return { ...inventory, rangedWeapons: [...(inventory.rangedWeapons ?? []), weapon] }
   }
   if (selected.category === 'artifact' && selected.id in ARTIFACTS) {
-    const artifact: OwnedArtifact = { instanceId, artifactId: selected.id as ArtifactId, powerLevel }
+    const artifact: OwnedArtifact = { instanceId, artifactId: selected.id as ArtifactId, powerLevel, ...(rarity ? { rarity } : {}) }
     return { ...inventory, artifacts: [...inventory.artifacts, artifact] }
   }
-  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel }
+  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel, ...(rarity ? { rarity } : {}) }
   return { ...inventory, catalogItems: [...(inventory.catalogItems ?? []), item] }
 }

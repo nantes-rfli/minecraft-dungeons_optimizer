@@ -1,4 +1,4 @@
-import type { EnchantmentTier } from './types'
+import type { EnchantmentTier, EquipmentRarity } from './types'
 
 export type RangedShotMode = 'uncharged' | 'charged' | 'single'
 export interface RangedRoll { readonly enchantmentId: string; readonly tier: EnchantmentTier }
@@ -9,6 +9,7 @@ export interface OwnedRangedWeapon {
   readonly powerLevel: number
   readonly enchantmentSlots: readonly { readonly candidates: readonly RangedRoll[]; readonly locked?: string }[]
   readonly gilded?: RangedRoll
+  readonly rarity?: EquipmentRarity
   /** Neutral, single-projectile damage, before selectable enchants/Armor/Strength/target DR. */
   readonly observation?: {
     readonly gameVersion: '1.17.0.0'

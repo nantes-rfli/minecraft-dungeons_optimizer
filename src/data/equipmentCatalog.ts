@@ -20,6 +20,13 @@ export interface EquipmentCatalogEntry {
   readonly auditStatus: string
   readonly intrinsicProperties: readonly { readonly kind: string; readonly raw: string }[]
   readonly builtInEnchantments: readonly { readonly enchantmentId: string; readonly tier?: number }[]
+  readonly family?: string
+  /** Catalog-confirmed class only. Common and Rare remain per-instance choices. */
+  readonly rarityFamily: 'normal' | 'unique' | 'not-applicable'
+  /** True only when the audited catalog explicitly identifies Soul equipment. */
+  readonly soulGear?: true
+  /** Local, licensed asset path. The UI uses a category fallback when omitted. */
+  readonly icon?: string
 }
 
 const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLevel => {
@@ -29,19 +36,26 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'
 }
 
-const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
+const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> & Partial<Pick<EquipmentCatalogEntry, 'family' | 'rarityFamily' | 'soulGear'>> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)
-  return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, ...details }
+  return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, rarityFamily: category === 'artifact' ? 'not-applicable' : 'normal', ...details }
 }
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
-  ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status)),
+  ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status, {
+    intrinsicProperties: [], builtInEnchantments: [], family: item.family,
+    rarityFamily: 'variantOf' in item && item.variantOf ? 'unique' : 'normal',
+    ...(item.weaponId in WEAPONS && WEAPONS[item.weaponId as keyof typeof WEAPONS].soul.baseSoulGathering.value > 0 ? { soulGear: true as const } : {}),
+  })),
   ...armorAudit.entries.map((item) => entry('armor', item.id, { en: item.name }, item.runtimeReadiness, {
     intrinsicProperties: item.intrinsicProperties.map(({ kind, raw }) => ({ kind, raw })),
     builtInEnchantments: item.builtInEnchantments.map(({ enchantmentId, tier }) => ({ enchantmentId, tier })),
+    family: item.family, rarityFamily: item.rarity === 'unique' ? 'unique' : 'normal', ...(item.soulGear ? { soulGear: true as const } : {}),
   })),
-  ...rangedAudit.entries.map((item) => entry('ranged', item.id, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.auditStatus)),
-  ...artifactAudit.entries.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness)),
+  ...rangedAudit.entries.map((item) => entry('ranged', item.id, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.auditStatus, {
+    intrinsicProperties: [], builtInEnchantments: [], family: item.family, rarityFamily: item.rarity === 'unique' ? 'unique' : 'normal', ...(item.soul.related ? { soulGear: true as const } : {}),
+  })),
+  ...artifactAudit.entries.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness, { intrinsicProperties: [], builtInEnchantments: [], ...(item.soul?.required ? { soulGear: true as const } : {}) })),
   ...artifactAudit.populationDifferences.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness)),
 ].sort((left, right) => left.category.localeCompare(right.category) || left.name.en.localeCompare(right.name.en))
 

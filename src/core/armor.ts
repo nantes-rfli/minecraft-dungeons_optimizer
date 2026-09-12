@@ -1,5 +1,5 @@
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
-import type { Build, Scenario } from './types'
+import type { Build, EquipmentRarity, Scenario } from './types'
 
 export const BASE_HERO_HEALTH = 100
 
@@ -112,6 +112,7 @@ export interface OwnedArmor<TArmorId extends string = string, TArmorEnchantmentI
   readonly locked?: boolean
   /** Required for Mystery Armor and any future variable intrinsic roll. */
   readonly actualIntrinsicRolls?: readonly ArmorIntrinsicProperty[]
+  readonly rarity?: EquipmentRarity
 }
 
 export interface SelectedArmorEnchantment {

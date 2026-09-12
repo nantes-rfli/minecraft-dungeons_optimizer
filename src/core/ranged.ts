@@ -39,8 +39,10 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
       shotCycleSeconds: number(item.shotCycleSeconds, 'shotCycleSeconds', Number.EPSILON),
       availableAmmo: number(item.availableAmmo, 'availableAmmo', 0, true), sourceNote: text(item.sourceNote, 'sourceNote') }
   }
+  if (value.rarity !== undefined && !['common', 'rare', 'unique'].includes(value.rarity as string)) fail('rarityはcommon / rare / uniqueのいずれかにしてください。')
   return { instanceId: text(value.instanceId, 'instanceId'), weaponId, powerLevel: number(value.powerLevel, 'powerLevel', 1, true),
-    enchantmentSlots: slots, ...(value.gilded === undefined ? {} : { gilded: roll(value.gilded) }), ...(observation ? { observation } : {}) }
+    enchantmentSlots: slots, ...(value.gilded === undefined ? {} : { gilded: roll(value.gilded) }), ...(observation ? { observation } : {}),
+    ...(value.rarity === undefined ? {} : { rarity: value.rarity as OwnedRangedWeapon['rarity'] }) }
 }
 
 export function rangedWeaponUnsupportedReason(weapon: OwnedRangedWeapon): string | null {

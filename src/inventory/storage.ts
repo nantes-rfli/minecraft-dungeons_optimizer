@@ -9,6 +9,7 @@ import type {
   EnchantmentSlot,
   EnchantmentTier,
   Inventory,
+  EquipmentRarity,
   OwnedArtifact,
   OwnedWeapon,
   WeaponId,
@@ -23,6 +24,12 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 interface InventoryDocument {
   readonly version: 4
   readonly inventory: Inventory
+}
+
+function parseRarity(value: unknown, field: string): EquipmentRarity | undefined {
+  if (value === undefined) return undefined
+  if (!['common', 'rare', 'unique'].includes(value as string)) throw new Error(`${field}はcommon / rare / uniqueのいずれかにしてください。`)
+  return value as EquipmentRarity
 }
 
 function optionalString(value: unknown, field: string): string | undefined {
@@ -75,9 +82,10 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const research = parseCatalogResearch(value.research, `${field}.research`)
+  const rarity = parseRarity(value.rarity, `${field}.rarity`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`), category: catalog.category,
-    catalogId, powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`), ...(notes ? { notes } : {}), ...(research ? { research } : {}),
+    catalogId, powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`), ...(notes ? { notes } : {}), ...(research ? { research } : {}), ...(rarity ? { rarity } : {}),
   }
 }
 
@@ -153,6 +161,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
       tier: value.gilded.tier as EnchantmentTier,
     }
   }
+  const rarity = parseRarity(value.rarity, `${field}.rarity`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     weaponId: weaponId as WeaponId,
@@ -161,6 +170,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     enchantmentSlots: value.enchantmentSlots.map((slot, slotIndex) => parseSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`)),
     ...(gilded ? { gilded } : {}),
     ...locked,
+    ...(rarity ? { rarity } : {}),
   }
 }
 
@@ -169,10 +179,12 @@ function parseArtifact(value: unknown, index: number): OwnedArtifact {
   if (!isRecord(value)) throw new Error(`${field}の形式が正しくありません。`)
   const artifactId = requireString(value.artifactId, `${field}.artifactId`)
   if (!(artifactId in ARTIFACTS)) throw new Error(`${field}.artifactIdに未対応ID「${artifactId}」があります。`)
+  const rarity = parseRarity(value.rarity, `${field}.rarity`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     artifactId: artifactId as ArtifactId,
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
+    ...(rarity ? { rarity } : {}),
   }
 }
 
@@ -201,6 +213,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
     if (!isAuditedArmorEnchantmentId(enchantmentId)) throw new Error(`${field}.gilded.enchantmentIdに未監査ID「${enchantmentId}」があります。`)
     gilded = { enchantmentId, tier: value.gilded.tier as ArmorEnchantmentTier }
   }
+  const rarity = parseRarity(value.rarity, `${field}.rarity`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     armorId: requireString(value.armorId, `${field}.armorId`),
@@ -209,6 +222,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
     enchantmentSlots,
     ...(gilded ? { gilded } : {}),
     ...(value.locked === undefined ? {} : { locked: value.locked === true }),
+    ...(rarity ? { rarity } : {}),
   }
 }
 
