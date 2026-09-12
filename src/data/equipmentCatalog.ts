@@ -7,6 +7,7 @@ import { ARMORS } from './armors'
 import { RANGED_WEAPONS } from './ranged'
 import { ARTIFACTS } from './artifacts'
 import type { EquipmentCategory } from '../core/types'
+import { japaneseEquipmentName } from './equipmentNames.ja'
 
 export type RuntimeSupportLevel = 'full' | 'limited' | 'unsupported'
 
@@ -30,7 +31,7 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
 
 const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)
-  return { category, id, name, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, ...details }
+  return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, ...details }
 }
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [

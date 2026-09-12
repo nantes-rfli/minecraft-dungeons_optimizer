@@ -51,7 +51,7 @@ describe('Phase 4 Source Harvest', () => {
 
   it('exposes harvest provenance and conflicts in the Data Browser', () => {
     const html = renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/enchantments' }))
-    for (const label of ['Known', 'Unknown / Blockers', '確認先', 'Version', 'Conflict', 'stale risk', 'claimed-current']) expect(html).toContain(label)
+    for (const label of ['確認できているデータ', '確認中の項目', '確認先', 'ゲームバージョン', '情報の競合', '古い可能性', 'claimed-current']) expect(html).toContain(label)
     expect(html).toContain('preferred-source-retained')
     expect(html).toContain('Minecraft Dungeons 1.17.0.0 Patch Notes')
   })

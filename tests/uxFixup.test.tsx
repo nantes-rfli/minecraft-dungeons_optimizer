@@ -27,9 +27,9 @@ describe('Phase 3.6 UX fix-up', () => {
 
   it('keeps Data top-level populations aligned and explains the enchant aggregate', () => {
     const html = renderToStaticMarkup(<DataSummary />)
-    for (const entry of ['近接武器', '>82<', '防具', '>73<', '遠距離武器', '>71<', 'Artifact', '>45<', 'Enchant', '>115<']) expect(html).toContain(entry)
-    expect(html).toContain('用途別catalogの件数合計')
-    expect(html).toContain('各カテゴリで1件ずつ')
+    for (const entry of ['近接武器', '>82<', '防具', '>73<', '遠距離武器', '>71<', 'アーティファクト', '>45<', 'エンチャント', '>115<']) expect(html).toContain(entry)
+    expect(html).toContain('装備の種類ごとに探せます')
+    expect(html).toContain('日本語名')
   })
 
   it('provides a concise evidence overview without embedding the legacy methodology', () => {

@@ -4,11 +4,12 @@ import type { OwnedRangedWeapon, RangedRoll, RangedShotMode } from '../core/rang
 import { parseRangedWeapon, rangedWeaponUnsupportedReason } from '../core/ranged'
 import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../research/rangedAudit'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 
 const enchantOptions = RANGED_ENCHANTMENT_AUDIT.entries
 function RollEditor({ value, label, onChange }: { value: RangedRoll; label: string; onChange: (roll: RangedRoll) => void }) {
   return <div className="weapon-fields"><label>{label}<select aria-label={label} value={value.enchantmentId} onChange={(e) => onChange({ ...value, enchantmentId: e.target.value })}>
-    {enchantOptions.map((entry) => <option key={entry.id} value={entry.id}>{entry.name.ja ?? entry.name.en} · {entry.supportLevel}</option>)}
+    {enchantOptions.map((entry) => <option key={entry.id} value={entry.id}>{entry.name.ja ?? entry.name.en}</option>)}
   </select></label><label>Tier<select aria-label={`${label} Tier`} value={value.tier} onChange={(e) => onChange({ ...value, tier: Number(e.target.value) as EnchantmentTier })}>{[1, 2, 3].map((tier) => <option key={tier} value={tier}>{['I', 'II', 'III'][tier - 1]}</option>)}</select></label></div>
 }
 function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
@@ -32,12 +33,11 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       setError('')
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
-  return <details className="inventory-item"><summary>{audited.name.ja ?? audited.name.en} · Power {weapon.powerLevel} · {audited.supportLevel}</summary>
-    <label>Power<input aria-label={`${weapon.instanceId} Ranged Power`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
-    <p>{rangedWeaponUnsupportedReason(weapon) ?? 'Limited: 観測入力あり。対応する組合せのみ評価します。'}</p>
-    <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}。{RANGED_WEAPONS[weapon.weaponId]?.intrinsic ?? 'Research-only: 効果を無視して最適化しません。'}</p>
-    <fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の観測入力（1.17.0.0）</legend>
-      <p>Enchant・Strength・Armor補正・敵DRを含まない1矢のdamageを入力。弓はチャージ状態を一致させてください。Powerからは推定しません。変更は「観測値を適用」で保存します。</p>
+  return <details className="inventory-item"><summary><span>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}<small lang="en">{audited.name.en}</small></span><span>パワー {weapon.powerLevel}</span></summary>
+    <label>パワー<input aria-label={`${weapon.instanceId} 遠距離武器のパワー`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
+    <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
+    <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>
+      <p>補正のない1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。</p>
       <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => setDraft({ ...draft, mode: e.target.value as RangedShotMode })}><option value="uncharged">弓・未チャージ</option><option value="charged">弓・フルチャージ</option><option value="single">クロスボウ・単射</option></select></label>
       {(['damage', 'cycle', 'ammo'] as const).map((field) => <label key={field}>{field === 'damage' ? 'neutral 1矢damage' : field === 'cycle' ? '完全発射周期（秒・charge/recovery込み）' : '戦闘中に使える通常矢数（補給なし）'}<input aria-label={`${weapon.instanceId} ${field}`} type="number" min={field === 'ammo' ? 0 : 0.000001} step={field === 'ammo' ? 1 : 'any'} value={draft[field]} onChange={(e) => setDraft({ ...draft, [field]: e.target.value })} /></label>)}
       <label>観測メモ / 出典<input aria-label={`${weapon.instanceId} 観測メモ`} value={draft.note} placeholder="対象・装備・版・記録箇所" onChange={(e) => setDraft({ ...draft, note: e.target.value })} /></label>
@@ -52,18 +52,15 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
     </fieldset>)}
     {weapon.enchantmentSlots.length < 3 && <button type="button" onClick={() => onChange({ ...weapon, enchantmentSlots: [...weapon.enchantmentSlots, { candidates: [{ enchantmentId: 'power', tier: 3 }] }] })}>Rangedスロットを追加</button>}
     <label><input type="checkbox" checked={!!weapon.gilded} onChange={(e) => onChange({ ...weapon, gilded: e.target.checked ? { enchantmentId: 'critical-hit', tier: 1 } : undefined })} />Ranged 金色エンチャント</label>
-    {weapon.gilded && <RollEditor value={weapon.gilded} label={`${weapon.instanceId} Ranged Gilded`} onChange={(gilded) => onChange({ ...weapon, gilded })} />}
+    {weapon.gilded && <RollEditor value={weapon.gilded} label={`${weapon.instanceId} 金色エンチャント`} onChange={(gilded) => onChange({ ...weapon, gilded })} />}</div></details>
     <button type="button" aria-label={`${weapon.instanceId} 遠距離武器を削除`} onClick={onRemove}>遠距離武器を削除</button>
   </details>
 }
 
 export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean }) {
-  const [selected, setSelected] = useState('bow')
   const weapons = inventory.rangedWeapons ?? []
-  return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED · LIMITED MVP</p><h2>遠距離武器</h2></div></div>
-    <label>追加する遠距離武器<select aria-label="追加する遠距離武器" value={selected} onChange={(e) => setSelected(e.target.value)}>{RANGED_WEAPON_AUDIT.entries.map((item) => <option key={item.id} value={item.id}>{item.name.ja ?? item.name.en} · {item.supportLevel}</option>)}</select></label>
-    <button type="button" onClick={() => onChange({ ...inventory, rangedWeapons: [...weapons, { instanceId: `ranged-${crypto.randomUUID()}`, weaponId: selected, powerLevel: 251, enchantmentSlots: [] }] })}>遠距離武器を追加</button>
-    {weapons.length > 0 && <><p>未対応の自由候補を含む個体は除外します。対応候補のlockは可能。通常枠・金色の同Enchant重複は未対応です。</p>{showScenario && <label>遠距離に予約する攻撃時間割合（0より大きく1未満）<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="明示入力が必要" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}</>}
+  return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED</p><h2>遠距離武器</h2></div></div>
+    {weapons.length > 0 && showScenario && <label>遠距離に使う攻撃時間の割合<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="入力してください" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}
     {weapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}
   </section>
 }

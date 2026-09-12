@@ -82,14 +82,15 @@ describe('ranged population and persistence', () => {
     expect(setItem).not.toHaveBeenCalled()
     expect(loadInventory(legacy)).toEqual(legacy)
   })
-  it('renders controls, supported selection, source and separate damage channels', () => {
+  it('renders user-facing controls, source and separate damage channels', () => {
     const input = { ...legacy, rangedWeapons: [weapon] }
     const scenario = { ...DEFAULT_SCENARIO, rangedTimeShare: 0.5 }
     const markup = renderToStaticMarkup(<RangedInventorySection inventory={input} onChange={() => {}} scenario={scenario} onScenarioChange={() => {}} />)
     expect(markup).toContain('遠距離時間割合')
-    expect(markup).toContain('research-only')
-    expect(markup).toContain('Ranged Gilded Tier')
+    expect(markup).toContain('最適化に使う詳しい数値を入力する')
+    expect(markup).toContain('金色エンチャント Tier')
     expect(markup).toContain('観測値を適用')
+    expect(markup).not.toContain('research-only')
     const result = renderToStaticMarkup(<RangedResult evaluation={optimize(input, scenario).best} />)
     expect(result).toContain('直接遠距離DPS')
     expect(result).toContain('間接遠距離DPS')

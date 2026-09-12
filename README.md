@@ -20,7 +20,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 - エンチャント: 上記manifest集計の範囲（通常枠Tier III、金色枠Tier I / II / III）。未確定のmodifier組合せは理由付き除外。[mechanics監査](./research/melee-enchantment-coverage.md)。
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）/ ショックパウダー（Shock Powder、Power 12〜262・1copyのLimited hard Control）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
-- 手持ち管理: 個体別 Power、候補エンチャント、同種アーティファクト複数所持、監査済みruntime未対応装備、ブラウザ自動保存、version付きJSON入出力
+- 装備コレクション: 全271種を日本語名で登録可能。収集率、カテゴリ別進捗、未収集候補、同じ装備の複数個体、ブラウザ自動保存、version付きJSON入出力
 - 精度選択: `確度の高い情報のみ` / `Estimatedを含める`。Estimated使用時はmechanic・parameter・根拠・条件・version・confidenceを結果へ表示
 - 比較: 6種類のシナリオプロファイル、Damage / Healing / Defense / Controlの4軸Utility、Pareto前線、効果ごとの数値寄与
 - Soul: 開始0〜300を編集可能。容量300、連続収入、overflow、積分平均、離散Artifact消費のevent schedulerを実装。Soul Artifact 3候補はEvidence不足のため未登録。
@@ -34,7 +34,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 
 手順: 遠距離武器を追加 → ゲーム内のneutral観測値を入力・適用 → 自由候補またはlockと金色Tierを指定 → 遠距離の攻撃時間割合を明示 → 結果のdirect melee / direct rangedと制約を確認。近接時間は残りの割合となり、同時に両方100%のDPSは加算しません。特殊効果や未対応の自由候補がある個体は理由付き除外、全候補が未対応ならエラーです。
 
-JSONはversion 3を書き出し、旧version 1 / 2を同じlocalStorageキーから読み込みます。v3の`catalogItems`はruntime未対応でも監査済みの所持品を保持し、Optimizer候補には混ぜません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・日本語名・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
+JSONはversion 4を書き出し、旧version 1〜3を同じlocalStorageキーから読み込みます。`catalogItems`は計算対象外の装備もコレクションとして保持し、Optimizer候補には混ぜません。保存は従来どおり端末内だけで、Research Questへの送信はありません。[監査](./docs/ranged-weapon-audit.md) / [Enchant監査](./docs/ranged-enchantment-audit.md) / [runtime・入力・残るgate](./docs/ranged-runtime.md)。詳細taxonomy・current cadence/interactionの独立実測が不足するためPhase全体はpartialです。
 
 共通Coverageは8カテゴリ、Measurement Protocolは既存3＋遠距離3。横断の総合率は出しません。現行RoadmapはResearch / Productの独立Trackと、parameter単位のhandoffで管理します。Current / Nextの正本は[`ROADMAP.md`](./ROADMAP.md)、旧Phaseの参照記録は[Historical Roadmap](./docs/historical-roadmap.md)です。Public Availabilityやengine generalizationは実施決定前のFuture Candidatesとして分離します。
 
