@@ -31,7 +31,7 @@ function removeOwnedItem(inventory: Inventory, instanceId: string): Inventory {
   return { ...inventory, weapons: keep(inventory.weapons), armors: keep(inventory.armors), rangedWeapons: keep(inventory.rangedWeapons), artifacts: keep(inventory.artifacts), catalogItems: keep(inventory.catalogItems) }
 }
 
-function SelectedEquipmentPane({ item, duplicateCount, inventory, onChange, onOpenFullEditor, onClose }: { item: InventoryGridItem; duplicateCount: number; inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; onClose: () => void }) {
+export function SelectedEquipmentPane({ item, duplicateCount, inventory, onChange, onOpenFullEditor, onClose }: { item: InventoryGridItem; duplicateCount: number; inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; onClose: () => void }) {
   const [editing, setEditing] = useState(false)
   return <aside className="selected-equipment-pane" aria-label="選択した装備の詳細">
     <button className="sheet-close" type="button" onClick={onClose} aria-label="装備詳細を閉じる">×</button>

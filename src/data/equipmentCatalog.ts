@@ -2,6 +2,7 @@ import meleeAudit from '../../research/melee-attack-profile-audit.json'
 import armorAudit from '../../research/armor-audit.json'
 import rangedAudit from '../../research/ranged-weapon-audit.json'
 import artifactAudit from '../../research/artifact-audit.json'
+import equipmentIconManifest from '../../generated/equipment-icons/manifest.json'
 import { WEAPONS } from './weapons'
 import { ARMORS } from './armors'
 import { RANGED_WEAPONS } from './ranged'
@@ -39,9 +40,11 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
 // Existing accepted melee audit values explicitly record Soul gathering for these items.
 const AUDITED_MELEE_SOUL_GEAR_IDS = new Set(['moon-daggers', 'soul-fists', 'soul-knife', 'eternal-knife', 'truthseeker', 'soul-scythe', 'frost-scythe', 'jailors-scythe', 'skull-scythe'])
 
+const equipmentIcons = new Map(equipmentIconManifest.entries.filter((item) => item.status === 'matched' && item.outputWebp).map((item) => [`${item.category}:${item.catalogId}`, `/${item.outputWebp!.replace(/^public\//, '')}`]))
+
 const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> & Partial<Pick<EquipmentCatalogEntry, 'family' | 'rarityFamily' | 'soulGear'>> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)
-  return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, rarityFamily: category === 'artifact' ? 'not-applicable' : 'normal', ...details }
+  return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, rarityFamily: category === 'artifact' ? 'not-applicable' : 'normal', icon: equipmentIcons.get(`${category}:${id}`), ...details }
 }
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [

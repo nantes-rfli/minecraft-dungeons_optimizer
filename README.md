@@ -20,7 +20,7 @@ Fullは現在のOptimizer scope内の通常対応で、完全なゲーム再現�
 - エンチャント: 上記manifest集計の範囲（通常枠Tier III、金色枠Tier I / II / III）。未確定のmodifier組合せは理由付き除外。[mechanics監査](./research/melee-enchantment-coverage.md)。
 - アーティファクト: シロタマゴテングタケ（Death Cap Mushroom）/ アイアンハイドアミュレット（Iron Hide Amulet）/ ショックパウダー（Shock Powder、Power 12〜262・1copyのLimited hard Control）
 - 公開 API: `evaluate(build, scenario)` / `optimize(inventory, scenario)`
-- 装備コレクション: 全271種を日本語名で登録可能。収集率、カテゴリ別進捗、未収集候補、同じ装備の複数個体、ブラウザ自動保存、version付きJSON入出力
+- 装備コレクション: 全271種を日本語名で登録可能。ローカルゲームデータから抽出・監査した実アイコン269件、残り2件のfallback、収集率、カテゴリ別進捗、未収集候補、同じ装備の複数個体、ブラウザ自動保存、version付きJSON入出力。[抽出・再生成手順](./docs/equipment-icons.md)
 - 精度選択: `確度の高い情報のみ` / `Estimatedを含める`。Estimated使用時はmechanic・parameter・根拠・条件・version・confidenceを結果へ表示
 - 比較: 6種類のシナリオプロファイル、Damage / Healing / Defense / Controlの4軸Utility、Pareto前線、効果ごとの数値寄与
 - Soul: 開始0〜300を編集可能。容量300、連続収入、overflow、積分平均、離散Artifact消費のevent schedulerを実装。Soul Artifact 3候補はEvidence不足のため未登録。
@@ -98,6 +98,7 @@ npm run audit:artifact-event
 npm run audit:artifact-evidence
 npm run audit:armor
 npm run audit:armor-enchants
+npm run icons:audit
 npm test
 npx tsc -b
 npm run lint
