@@ -7,8 +7,9 @@ import { describe, expect, it } from 'vitest'
 import manifest from '../generated/equipment-icons/manifest.json'
 import uiManifest from '../generated/ui-icons/manifest.json'
 import { auditManifest, auditUiManifest, decodeDxt5, equipmentIconWebPath, type EquipmentIconManifest, type UiIconManifest } from '../scripts/equipment-icons'
-import { SelectedEquipmentPane, VisualEquipmentPicker } from '../src/components/InventoryGameGrid'
+import { InventoryGameGrid, SelectedEquipmentPane, VisualEquipmentPicker } from '../src/components/InventoryGameGrid'
 import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from '../src/components/EquipmentArtwork'
+import { shouldRenderUiIcon } from '../src/components/uiIconState'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 import type { Inventory } from '../src/core'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../src/data/equipmentCatalog'
@@ -72,7 +73,7 @@ describe('equipment icon extraction and integration', () => {
   })
 
   it('tracks and renders the extracted Soul and equipment category UI icons', async () => {
-    expect(auditUiManifest(uiManifest as UiIconManifest)).toEqual([])
+    expect(auditUiManifest(uiManifest as UiIconManifest, true)).toEqual([])
     expect(uiManifest.entries).toHaveLength(5)
     for (const entry of uiManifest.entries) {
       expect(entry.status).toBe('matched')
@@ -83,8 +84,30 @@ describe('equipment icon extraction and integration', () => {
       expect(metadata.width).toBeLessThanOrEqual(64)
       expect(metadata.height).toBeLessThanOrEqual(64)
     }
+    expect(Object.fromEntries(uiManifest.entries.map((entry) => [entry.id, entry.sourceAsset]))).toMatchObject({
+      'category-melee': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee',
+      'category-ranged': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged',
+      'category-armor': 'Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon',
+      'category-artifact': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume',
+    })
     expect(renderToStaticMarkup(createElement(SoulMarker))).toContain('src="/assets/ui/soul.webp"')
     expect(renderToStaticMarkup(createElement(EquipmentCategoryIcon, { category: 'melee' }))).toContain('src="/assets/ui/category-melee.webp"')
+  })
+
+  it('keeps category and Soul fallbacks available after missing or failed image loads', () => {
+    expect(shouldRenderUiIcon(undefined, undefined)).toBe(false)
+    expect(shouldRenderUiIcon('/assets/ui/category-armor.webp', '/assets/ui/category-armor.webp')).toBe(false)
+    expect(shouldRenderUiIcon('/assets/ui/category-armor.webp', undefined)).toBe(true)
+  })
+
+  it('shows the smaller Grid Soul marker only for Soul gear', () => {
+    const baseProps = { onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all' as const, gilded: 'all' as const, sort: 'recent' as const }
+    const soulInventory: Inventory = { weapons: [{ instanceId: 'moon-daggers-1', weaponId: 'moon-daggers', powerLevel: 251, rarity: 'unique', enchantmentSlots: [] }], artifacts: [] }
+    const regularInventory: Inventory = { weapons: [{ instanceId: 'double-axe-1', weaponId: 'double-axe', powerLevel: 251, rarity: 'rare', enchantmentSlots: [] }], artifacts: [] }
+    const soulHtml = renderToStaticMarkup(createElement(InventoryGameGrid, { ...baseProps, inventory: soulInventory }))
+    const regularHtml = renderToStaticMarkup(createElement(InventoryGameGrid, { ...baseProps, inventory: regularInventory }))
+    expect(soulHtml).toContain('class="soul-marker soul-marker--small"')
+    expect(regularHtml).not.toContain('aria-label="Soul 装備"')
   })
 
   it('shares the catalog icon across picker, inventory grid data, and selected detail', () => {

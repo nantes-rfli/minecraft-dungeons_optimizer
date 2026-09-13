@@ -4,6 +4,7 @@ import { useState } from 'react'
 import uiIconManifest from '../../generated/ui-icons/manifest.json'
 import type { EquipmentCategory } from '../core/types'
 import type { EquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { shouldRenderUiIcon } from './uiIconState'
 
 const CATEGORY_GLYPHS: Record<EquipmentCategory, string> = { melee: '⚔', armor: '⬟', ranged: '➶', artifact: '✦' }
 
@@ -23,14 +24,14 @@ export function EquipmentCategoryIcon({ category }: { category: EquipmentCategor
   const source = uiIcons.get(categoryIconIds[category])
   const [failedSource, setFailedSource] = useState<string>()
   return <span className={`equipment-category-icon ${category}`} aria-hidden="true">
-    {source && failedSource !== source ? <img src={source} alt="" width="56" height="56" loading="lazy" decoding="async" onError={() => setFailedSource(source)} /> : CATEGORY_GLYPHS[category]}
+    {shouldRenderUiIcon(source, failedSource) ? <img src={source} alt="" width="56" height="56" loading="lazy" decoding="async" onError={() => setFailedSource(source)} /> : CATEGORY_GLYPHS[category]}
   </span>
 }
 
-export function SoulMarker() {
+export function SoulMarker({ size = 'medium' }: { size?: 'small' | 'medium' }) {
   const source = uiIcons.get('soul')
   const [failedSource, setFailedSource] = useState<string>()
-  return <span className="soul-marker" role="img" aria-label="Soul 装備">
-    {source && failedSource !== source ? <img src={source} alt="" width="32" height="32" loading="eager" decoding="async" onError={() => setFailedSource(source)} /> : <span aria-hidden="true">◉</span>}
+  return <span className={`soul-marker soul-marker--${size}`} role="img" aria-label="Soul 装備">
+    {shouldRenderUiIcon(source, failedSource) ? <img src={source} alt="" width="32" height="32" loading="eager" decoding="async" onError={() => setFailedSource(source)} /> : <span aria-hidden="true">◉</span>}
   </span>
 }

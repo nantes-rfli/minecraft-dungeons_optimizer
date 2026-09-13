@@ -75,8 +75,8 @@ const UI_ICON_SOURCES: readonly Pick<UiIconManifestEntry, 'id' | 'sourceAsset' |
   { id: 'soul', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/soul_icon', outputWebp: 'public/assets/ui/soul.webp' },
   { id: 'category-melee', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee', outputWebp: 'public/assets/ui/category-melee.webp' },
   { id: 'category-ranged', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged', outputWebp: 'public/assets/ui/category-ranged.webp' },
-  { id: 'category-armor', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour', outputWebp: 'public/assets/ui/category-armor.webp' },
-  { id: 'category-artifact', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_item', outputWebp: 'public/assets/ui/category-artifact.webp' },
+  { id: 'category-armor', sourceAsset: 'Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon', outputWebp: 'public/assets/ui/category-armor.webp' },
+  { id: 'category-artifact', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume', outputWebp: 'public/assets/ui/category-artifact.webp' },
 ]
 
 const MISSING_ICON_RESEARCH: Readonly<Record<string, { candidates?: readonly string[]; notes: string }>> = {
@@ -322,13 +322,13 @@ function decodeTexture(candidate: Pick<Candidate, 'absoluteAsset'>): { pixels: B
   const byteLength = uexp.readUInt32LE(bulkHeader + 4)
   const storedLength = uexp.readUInt32LE(bulkHeader + 8)
   if (!byteLength || byteLength !== storedLength) throw new Error('Texture2D first-mip bulk data is missing or external.')
-  const side = Math.sqrt(format === 'PF_DXT5' ? byteLength : byteLength / 4)
-  const width = side
-  const height = side
-  if (width <= 0 || height <= 0 || width > 4096 || height > 4096) throw new Error(`Invalid cooked mip dimensions: ${width}x${height}`)
-  if (!Number.isInteger(side) || format === 'PF_DXT5' && Math.ceil(width / 4) * Math.ceil(height / 4) * 16 !== byteLength) throw new Error('Texture2D first mip is not a supported square inventory icon.')
   const start = bulkHeader + 20
-  if (start + byteLength > uexp.length) throw new Error('Texture2D payload length is invalid.')
+  if (start + byteLength + 8 > uexp.length) throw new Error('Texture2D payload length is invalid.')
+  const width = uexp.readUInt32LE(start + byteLength)
+  const height = uexp.readUInt32LE(start + byteLength + 4)
+  if (width <= 0 || height <= 0 || width > 4096 || height > 4096) throw new Error(`Invalid cooked mip dimensions: ${width}x${height}`)
+  const expectedByteLength = format === 'PF_DXT5' ? Math.ceil(width / 4) * Math.ceil(height / 4) * 16 : width * height * 4
+  if (expectedByteLength !== byteLength) throw new Error(`Texture2D first-mip dimensions do not match its payload: ${width}x${height}`)
   const payload = uexp.subarray(start, start + byteLength)
   if (format === 'PF_DXT5') {
     const pixels = decodeDxt5(payload, width, height)
@@ -370,16 +370,26 @@ async function processUiIcons(dataRoot: string, convert: boolean): Promise<UiIco
   }))
 }
 
-export function auditUiManifest(manifest: UiIconManifest): string[] {
+export function auditUiManifest(manifest: UiIconManifest, verifyOutputs = false): string[] {
   const errors: string[] = []
   const expected = new Set(UI_ICON_SOURCES.map((entry) => entry.id))
+  const expectedById = new Map(UI_ICON_SOURCES.map((entry) => [entry.id, entry]))
   const seen = new Set<string>()
   for (const entry of manifest.entries) {
     if (!expected.has(entry.id)) errors.push(`Unknown UI icon: ${entry.id}`)
     if (seen.has(entry.id)) errors.push(`Duplicate UI icon: ${entry.id}`)
     seen.add(entry.id)
+    const specification = expectedById.get(entry.id)
+    if (specification && entry.sourceAsset !== specification.sourceAsset) errors.push(`UI icon source mismatch: ${entry.id}`)
+    if (specification && entry.outputWebp !== specification.outputWebp) errors.push(`UI icon output mismatch: ${entry.id}`)
     if (entry.status === 'matched' && (!entry.sourceAsset || !entry.outputWebp)) errors.push(`Matched UI icon lacks source/output: ${entry.id}`)
     if (!entry.outputWebp.startsWith('public/assets/ui/')) errors.push(`UI icon path mismatch: ${entry.id}`)
+    if (verifyOutputs && entry.status === 'matched') {
+      const absoluteOutput = path.join(repositoryRoot, entry.outputWebp)
+      if (!entry.sha256) errors.push(`Matched UI icon lacks sha256: ${entry.id}`)
+      else if (!fs.existsSync(absoluteOutput)) errors.push(`UI icon output is missing: ${entry.id}`)
+      else if (crypto.createHash('sha256').update(fs.readFileSync(absoluteOutput)).digest('hex') !== entry.sha256) errors.push(`UI icon hash mismatch: ${entry.id}`)
+    }
   }
   for (const missing of expected) if (!seen.has(missing)) errors.push(`Missing UI icon mapping: ${missing}`)
   return errors
@@ -461,9 +471,18 @@ async function main(): Promise<void> {
     const errors = auditManifest(manifest)
     console.log(renderSummary(manifest.entries))
     const uiManifest = readJson<UiIconManifest>(path.relative(repositoryRoot, UI_MANIFEST_PATH))
-    const uiErrors = auditUiManifest(uiManifest)
+    const uiErrors = auditUiManifest(uiManifest, true)
     console.log(`\nUI icons: ${uiManifest.entries.filter((entry) => entry.status === 'matched').length} / ${uiManifest.entries.length}`)
     errors.push(...uiErrors)
+    if (errors.length) throw new Error(errors.join('\n'))
+    return
+  }
+  if (command === 'ui') {
+    const uiManifest: UiIconManifest = { schemaVersion: 1, gameVersion: GAME_VERSION, entries: await processUiIcons(dataRoot, true) }
+    fs.mkdirSync(path.dirname(UI_MANIFEST_PATH), { recursive: true })
+    fs.writeFileSync(UI_MANIFEST_PATH, `${JSON.stringify(uiManifest, null, 2)}\n`)
+    const errors = auditUiManifest(uiManifest, true)
+    console.log(`UI icons: ${uiManifest.entries.filter((entry) => entry.status === 'matched').length} / ${uiManifest.entries.length}`)
     if (errors.length) throw new Error(errors.join('\n'))
     return
   }
@@ -482,7 +501,7 @@ async function main(): Promise<void> {
   fs.writeFileSync(UI_MANIFEST_PATH, `${JSON.stringify(uiManifest, null, 2)}\n`)
   console.log(renderSummary(entries))
   const errors = auditManifest(manifest, catalog)
-  errors.push(...auditUiManifest(uiManifest))
+  errors.push(...auditUiManifest(uiManifest, command !== 'discover'))
   if (errors.length) throw new Error(errors.join('\n'))
 }
 

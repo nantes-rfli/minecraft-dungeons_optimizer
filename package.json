@@ -48,6 +48,7 @@
     "icons:extract": "node scripts/equipment-icons.ts extract",
     "icons:convert": "node scripts/equipment-icons.ts convert",
     "icons:audit": "node scripts/equipment-icons.ts audit",
+    "icons:ui": "node scripts/equipment-icons.ts ui",
     "icons:all": "node scripts/equipment-icons.ts all",
     "audit:game-data-extractor": "node scripts/audit-game-data-extractor.ts",
     "generate:game-data-semantic-mapping": "node scripts/audit-game-data-semantic-mapping.ts --write",
