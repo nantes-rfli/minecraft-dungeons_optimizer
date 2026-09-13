@@ -5,7 +5,7 @@ import uiIconManifest from '../../generated/ui-icons/manifest.json'
 import type { EquipmentCategory } from '../core/types'
 import type { EquipmentCatalogEntry } from '../data/equipmentCatalog'
 
-export const CATEGORY_GLYPHS: Record<EquipmentCategory, string> = { melee: '⚔', armor: '⬟', ranged: '➶', artifact: '✦' }
+const CATEGORY_GLYPHS: Record<EquipmentCategory, string> = { melee: '⚔', armor: '⬟', ranged: '➶', artifact: '✦' }
 
 const uiIcons = new Map(uiIconManifest.entries.filter((entry) => entry.status === 'matched' && entry.outputWebp).map((entry) => [entry.id, `/${entry.outputWebp!.replace(/^public\//, '')}`]))
 const categoryIconIds: Record<EquipmentCategory, string> = { melee: 'category-melee', ranged: 'category-ranged', armor: 'category-armor', artifact: 'category-artifact' }

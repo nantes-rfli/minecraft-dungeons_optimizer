@@ -6,7 +6,7 @@ import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
 import { hrefForEquipment } from '../app/routes'
 import { inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
-import { CATEGORY_GLYPHS, EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
+import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
 
 const EQUIPMENT_CATEGORY_LABELS = { melee: '近接', armor: '防具', ranged: '遠距離', artifact: 'アーティファクト' } as const
 const RARITY_LABELS: Record<EquipmentRarity | 'unrecorded', string> = { common: 'コモン', rare: 'レア', unique: 'ユニーク', unrecorded: '未記録' }
