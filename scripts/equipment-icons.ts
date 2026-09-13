@@ -73,10 +73,10 @@ const GAME_VERSION = '1.17.0.0'
 
 const UI_ICON_SOURCES: readonly Pick<UiIconManifestEntry, 'id' | 'sourceAsset' | 'outputWebp'>[] = [
   { id: 'soul', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/soul_icon', outputWebp: 'public/assets/ui/soul.webp' },
-  { id: 'category-melee', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee', outputWebp: 'public/assets/ui/category-melee.webp' },
-  { id: 'category-ranged', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged', outputWebp: 'public/assets/ui/category-ranged.webp' },
-  { id: 'category-armor', sourceAsset: 'Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon', outputWebp: 'public/assets/ui/category-armor.webp' },
-  { id: 'category-artifact', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume', outputWebp: 'public/assets/ui/category-artifact.webp' },
+  { id: 'category-melee', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/gear_icon_bright', outputWebp: 'public/assets/ui/category-melee.webp' },
+  { id: 'category-ranged', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/bow_icon_bright', outputWebp: 'public/assets/ui/category-ranged.webp' },
+  { id: 'category-armor', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/armour_icon_bright', outputWebp: 'public/assets/ui/category-armor.webp' },
+  { id: 'category-artifact', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/item_icon_bright', outputWebp: 'public/assets/ui/category-artifact.webp' },
 ]
 
 const MISSING_ICON_RESEARCH: Readonly<Record<string, { candidates?: readonly string[]; notes: string }>> = {

@@ -12,35 +12,35 @@
     },
     {
       "id": "category-melee",
-      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Item2/gear_icon_bright",
       "outputWebp": "public/assets/ui/category-melee.webp",
-      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Item2",
       "status": "matched",
-      "sha256": "03266ad2b9f141b0e31b332755250cf795a42dae09f4a041cde41781658a5a77"
+      "sha256": "27e4574af54cf955ceaf715ae0cf480c280b6845ef2a4dfb94b00439493e0fcd"
     },
     {
       "id": "category-ranged",
-      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Item2/bow_icon_bright",
       "outputWebp": "public/assets/ui/category-ranged.webp",
-      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Item2",
       "status": "matched",
-      "sha256": "04c189787b7005c2bcce532362026598b887330f1baae80a4d2ce9b4616180f7"
+      "sha256": "d032d15acf00a59b910763d7aa7d57128f5ba818b453b04ed37a18a9693b8236"
     },
     {
       "id": "category-armor",
-      "sourceAsset": "Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Item2/armour_icon_bright",
       "outputWebp": "public/assets/ui/category-armor.webp",
-      "sourcePackage": "Dungeons/Content/UI/Materials/MissionSelectMap/marker",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Item2",
       "status": "matched",
-      "sha256": "1f80d898a319692816de11017439a0c0015a66bcffd8970d0b73565af2115471"
+      "sha256": "58af7a58483195993a07baa209843a3dc9b80e67362f44404d738aa55e7a4726"
     },
     {
       "id": "category-artifact",
-      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Item2/item_icon_bright",
       "outputWebp": "public/assets/ui/category-artifact.webp",
-      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Item2",
       "status": "matched",
-      "sha256": "901bf2b909cb45889de0f4fb73fbf8b61267d4811f1a1c101b786d31b8930a21"
+      "sha256": "fce7d54d74df78dd6acaa4a371265f462ba0e27a169dc19e70f4b700ffe56131"
     }
   ]
 }

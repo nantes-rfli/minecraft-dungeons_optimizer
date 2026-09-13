@@ -85,11 +85,13 @@ describe('equipment icon extraction and integration', () => {
       expect(metadata.height).toBeLessThanOrEqual(64)
     }
     expect(Object.fromEntries(uiManifest.entries.map((entry) => [entry.id, entry.sourceAsset]))).toMatchObject({
-      'category-melee': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee',
-      'category-ranged': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged',
-      'category-armor': 'Dungeons/Content/UI/Materials/MissionSelectMap/marker/shield_dungeon',
-      'category-artifact': 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_consume',
+      'category-melee': 'Dungeons/Content/UI/Materials/Inventory2/Item2/gear_icon_bright',
+      'category-ranged': 'Dungeons/Content/UI/Materials/Inventory2/Item2/bow_icon_bright',
+      'category-armor': 'Dungeons/Content/UI/Materials/Inventory2/Item2/armour_icon_bright',
+      'category-artifact': 'Dungeons/Content/UI/Materials/Inventory2/Item2/item_icon_bright',
     })
+    const categoryEntries = uiManifest.entries.filter((entry) => entry.id.startsWith('category-'))
+    expect(new Set(categoryEntries.map((entry) => entry.sourcePackage))).toEqual(new Set(['Dungeons/Content/UI/Materials/Inventory2/Item2']))
     expect(renderToStaticMarkup(createElement(SoulMarker))).toContain('src="/assets/ui/soul.webp"')
     expect(renderToStaticMarkup(createElement(EquipmentCategoryIcon, { category: 'melee' }))).toContain('src="/assets/ui/category-melee.webp"')
   })
