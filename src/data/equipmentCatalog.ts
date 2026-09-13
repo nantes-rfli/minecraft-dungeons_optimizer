@@ -36,6 +36,9 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'
 }
 
+// Existing accepted melee audit values explicitly record Soul gathering for these items.
+const AUDITED_MELEE_SOUL_GEAR_IDS = new Set(['moon-daggers', 'soul-fists', 'soul-knife', 'eternal-knife', 'truthseeker', 'soul-scythe', 'frost-scythe', 'jailors-scythe', 'skull-scythe'])
+
 const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> & Partial<Pick<EquipmentCatalogEntry, 'family' | 'rarityFamily' | 'soulGear'>> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)
   return { category, id, name: { en: name.en, ja: japaneseEquipmentName(category, id, name.ja) }, runtimeSupport, legacyRuntimeSupport: runtimeSupport === 'unsupported' ? 'research-only' : runtimeSupport, auditStatus, rarityFamily: category === 'artifact' ? 'not-applicable' : 'normal', ...details }
@@ -45,7 +48,7 @@ export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
   ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status, {
     intrinsicProperties: [], builtInEnchantments: [], family: item.family,
     rarityFamily: 'variantOf' in item && item.variantOf ? 'unique' : 'normal',
-    ...(item.weaponId in WEAPONS && WEAPONS[item.weaponId as keyof typeof WEAPONS].soul.baseSoulGathering.value > 0 ? { soulGear: true as const } : {}),
+    ...(AUDITED_MELEE_SOUL_GEAR_IDS.has(item.weaponId) ? { soulGear: true as const } : {}),
   })),
   ...armorAudit.entries.map((item) => entry('armor', item.id, { en: item.name }, item.runtimeReadiness, {
     intrinsicProperties: item.intrinsicProperties.map(({ kind, raw }) => ({ kind, raw })),

@@ -3,9 +3,11 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import type { Inventory } from '../src/core'
 import { InventoryGameGrid, VisualEquipmentPicker } from '../src/components/InventoryGameGrid'
+import { getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../src/data/equipmentCatalog'
 import { inventoryGridItems } from '../src/inventory/gridPresentation'
 import { equipmentDisplaySections } from '../src/data/equipmentPresentation'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
+import { hrefForEquipment } from '../src/app/routes'
 
 const inventory: Inventory = {
   weapons: [
@@ -17,7 +19,7 @@ const inventory: Inventory = {
 
 describe('inventory and data presentation', () => {
   it('renders every owned instance as an accessible selectable game slot', () => {
-    const html = renderToStaticMarkup(createElement(InventoryGameGrid, { inventory, onChange: () => undefined, query: '', category: 'all', gilded: 'all', sort: 'recent' }))
+    const html = renderToStaticMarkup(createElement(InventoryGameGrid, { inventory, onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all', gilded: 'all', sort: 'recent' }))
     expect(inventoryGridItems(inventory)).toHaveLength(2)
     expect(html.match(/role="option"/g)).toHaveLength(2)
     expect(html).toContain('aria-label="両刃斧、Double Axe"')
@@ -25,6 +27,8 @@ describe('inventory and data presentation', () => {
     expect(html).toContain('data-gilded="true"')
     expect(html).toContain('Soul 装備')
     expect(html).toContain('Power')
+    expect(html).toContain('role="tooltip"')
+    expect(html).toContain('<strong>両刃斧</strong><small lang="en">Double Axe</small>')
   })
 
   it('filters the visual picker by class and Japanese or English search text', () => {
@@ -51,5 +55,25 @@ describe('inventory and data presentation', () => {
     expect(ranged.flatMap((section) => section.fields).find((field) => field.id === 'ammo')?.value).toBe('99')
     expect(armor.flatMap((section) => section.fields).some((field) => field.id === 'health')).toBe(true)
     expect(artifact.flatMap((section) => section.fields).some((field) => field.id === 'cooldown')).toBe(true)
+  })
+
+  it('prefers structured catalog presentation values without Harvest duplication', () => {
+    const catalog: EquipmentCatalogEntry = {
+      category: 'armor', id: 'fixture', name: { ja: '試験防具', en: 'Fixture Armor' }, runtimeSupport: 'unsupported', legacyRuntimeSupport: 'research-only', auditStatus: 'audited',
+      family: 'soul-robe', rarityFamily: 'unique', soulGear: true,
+      intrinsicProperties: [{ kind: 'soul-gathering', raw: '+50% soul gathering' }], builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }],
+    }
+    const fields = equipmentDisplaySections({ category: 'armor', nameJa: catalog.name.ja!, nameEn: catalog.name.en, family: 'fallback', catalog, facts: [] }).flatMap((section) => section.fields)
+    expect(fields.find((field) => field.id === 'rarity')?.value).toBe('Unique')
+    expect(fields.find((field) => field.id === 'soul')?.value).toBe('あり')
+    expect(fields.find((field) => field.id === 'intrinsic')?.value).toContain('+50% soul gathering')
+    expect(fields.find((field) => field.id === 'builtIn')?.value).toBe('cool-down Tier 1')
+  })
+
+  it('targets an exact equipment entry and marks audited catalog-only Soul gear', () => {
+    expect(hrefForEquipment('/data/melee', 'double-axe')).toBe('#/data/melee?item=double-axe')
+    const soulGear = getEquipmentCatalogEntry('melee', 'moon-daggers')
+    expect(soulGear?.runtimeSupport).toBe('unsupported')
+    expect(soulGear?.soulGear).toBe(true)
   })
 })

@@ -29,10 +29,21 @@ const ROUTES = new Set<AppRoute>([
 ])
 
 export const hrefFor = (route: AppRoute) => `#${route}`
+export const hrefForEquipment = (route: Extract<AppRoute, `/data/${string}`>, itemId: string) => `#${route}?item=${encodeURIComponent(itemId)}`
+
+function hashLocation(): { route: string; search: URLSearchParams } {
+  const [route = '', query = ''] = window.location.hash.replace(/^#/, '').split('?', 2)
+  return { route, search: new URLSearchParams(query) }
+}
+
+export function readRouteItem(): string | null {
+  if (typeof window === 'undefined') return null
+  return hashLocation().search.get('item')
+}
 
 export function readRoute(): AppRoute {
   if (typeof window === 'undefined') return '/inventory'
-  const hash = window.location.hash.replace(/^#/, '')
+  const hash = hashLocation().route
   if (hash === 'optimizer') return '/optimize'
   if (hash === 'methodology') return '/model/evidence/details'
   return ROUTES.has(hash as AppRoute) ? hash as AppRoute : '/inventory'

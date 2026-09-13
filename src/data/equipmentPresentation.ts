@@ -1,3 +1,5 @@
+import type { EquipmentCatalogEntry } from './equipmentCatalog'
+
 export interface DisplayField {
   readonly id: string
   readonly label: string
@@ -11,6 +13,14 @@ export interface EquipmentDisplaySection {
 
 export type EquipmentPresentationCategory = 'melee' | 'ranged' | 'armor' | 'artifact' | 'enchantment'
 export type PresentationFact = { readonly property: string; readonly value: unknown; readonly status: string }
+export type EquipmentPresentationInput = {
+  readonly category: EquipmentPresentationCategory
+  readonly nameJa: string
+  readonly nameEn?: string
+  readonly family: string
+  readonly catalog?: EquipmentCatalogEntry
+  readonly facts: readonly PresentationFact[]
+}
 
 type FieldDefinition = { id: string; label: string; properties?: readonly string[] }
 
@@ -48,12 +58,25 @@ function renderValue(value: unknown): string {
   return JSON.stringify(value)
 }
 
-export function equipmentDisplaySections(input: { category: EquipmentPresentationCategory; nameJa: string; nameEn?: string; family: string; facts: readonly PresentationFact[] }): readonly EquipmentDisplaySection[] {
+function catalogValue(input: EquipmentPresentationInput, field: FieldDefinition): string | undefined {
+  const catalog = input.catalog
+  if (!catalog) return undefined
+  if (field.id === 'family' && catalog.family) return catalog.family
+  if (field.id === 'rarity' && catalog.rarityFamily !== 'not-applicable') return catalog.rarityFamily === 'unique' ? 'Unique' : 'Common / Rare'
+  if (field.id === 'soul' && catalog.soulGear) return 'あり'
+  if ((field.id === 'builtIn') && catalog.builtInEnchantments.length) return catalog.builtInEnchantments.map((item) => `${item.enchantmentId}${item.tier ? ` Tier ${item.tier}` : ''}`).join(' / ')
+  if ((field.id === 'intrinsic' || field.id === 'common') && catalog.intrinsicProperties.length) return catalog.intrinsicProperties.map((item) => item.raw).join(' / ')
+  return undefined
+}
+
+export function equipmentDisplaySections(input: EquipmentPresentationInput): readonly EquipmentDisplaySection[] {
   const accepted = new Map(input.facts.filter((fact) => fact.status === 'accepted').map((fact) => [fact.property, fact.value]))
   const value = (field: FieldDefinition) => {
     if (field.id === 'nameJa') return input.nameJa
     if (field.id === 'nameEn') return input.nameEn ?? '—'
     if (field.id === 'category') return categoryLabel[input.category]
+    const structured = catalogValue(input, field)
+    if (structured !== undefined) return structured
     if (field.id === 'family' && !field.properties?.some((property) => accepted.has(property))) return input.family || '—'
     const match = field.properties?.find((property) => accepted.has(property))
     return match ? renderValue(accepted.get(match)) : '—'

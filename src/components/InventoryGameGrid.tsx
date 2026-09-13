@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import type { EquipmentCategory, EquipmentRarity, Inventory } from '../core'
 import { EQUIPMENT_CATALOG, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
-import { hrefFor } from '../app/routes'
+import { hrefForEquipment } from '../app/routes'
 import { inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
 
 const EQUIPMENT_CATEGORY_LABELS = { melee: '近接', armor: '防具', ranged: '遠距離', artifact: 'アーティファクト' } as const
@@ -31,7 +31,7 @@ function removeOwnedItem(inventory: Inventory, instanceId: string): Inventory {
   return { ...inventory, weapons: keep(inventory.weapons), armors: keep(inventory.armors), rangedWeapons: keep(inventory.rangedWeapons), artifacts: keep(inventory.artifacts), catalogItems: keep(inventory.catalogItems) }
 }
 
-function SelectedEquipmentPane({ item, duplicateCount, inventory, onChange, onClose }: { item: InventoryGridItem; duplicateCount: number; inventory: Inventory; onChange: (inventory: Inventory) => void; onClose: () => void }) {
+function SelectedEquipmentPane({ item, duplicateCount, inventory, onChange, onOpenFullEditor, onClose }: { item: InventoryGridItem; duplicateCount: number; inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; onClose: () => void }) {
   const [editing, setEditing] = useState(false)
   return <aside className="selected-equipment-pane" aria-label="選択した装備の詳細">
     <button className="sheet-close" type="button" onClick={onClose} aria-label="装備詳細を閉じる">×</button>
@@ -39,12 +39,12 @@ function SelectedEquipmentPane({ item, duplicateCount, inventory, onChange, onCl
     <p className="section-label">SELECTED EQUIPMENT</p><h2>{item.catalog.name.ja}</h2><p className="detail-english" lang="en">{item.catalog.name.en}</p>
     <dl className="detail-facts"><div><dt>カテゴリ</dt><dd>{EQUIPMENT_CATEGORY_LABELS[item.category]}</dd></div><div><dt>レアリティ</dt><dd>{RARITY_LABELS[item.rarity]}</dd></div><div><dt>Power</dt><dd>{item.powerLevel}</dd></div><div><dt>金色</dt><dd>{item.gilded ? 'あり' : 'なし'}</dd></div><div><dt>Soul</dt><dd>{item.catalog.soulGear ? 'Soul 装備' : '—'}</dd></div><div><dt>所持数</dt><dd>{duplicateCount}</dd></div></dl>
     <section className="detail-enchantments"><h3>登録済み Enchant</h3>{item.enchantments.length ? <ul>{item.enchantments.map((name, index) => <li key={`${name}-${index}`}>{name}</li>)}</ul> : <p>—</p>}{item.notes && <p className="instance-note">{item.notes}</p>}</section>
-    {editing && <form className="quick-instance-editor" onSubmit={(event) => event.preventDefault()}><label>Power<input aria-label="選択装備のPower" type="number" min="1" value={item.powerLevel} onChange={(event) => onChange(updateOwnedItem(inventory, item, { powerLevel: Number(event.target.value) }))} /></label>{item.category !== 'artifact' && item.catalog.rarityFamily !== 'unique' && <label>レアリティ<select aria-label="選択装備のレアリティ" value={item.rarity === 'unrecorded' ? '' : item.rarity} onChange={(event) => event.target.value && onChange(updateOwnedItem(inventory, item, { rarity: event.target.value as EquipmentRarity }))}><option value="" disabled>選択してください</option><option value="common">Common</option><option value="rare">Rare</option></select></label>}</form>}
-    <div className="detail-actions"><button type="button" onClick={() => setEditing((value) => !value)} aria-expanded={editing}>{editing ? '編集を閉じる' : '編集'}</button><a href={hrefFor(`/data/${item.category === 'artifact' ? 'artifacts' : item.category}`)}>{EQUIPMENT_CATEGORY_LABELS[item.category]}データを見る</a><button className="danger-button" type="button" onClick={() => { onChange(removeOwnedItem(inventory, item.instanceId)); onClose() }}>削除</button></div>
+    {editing && <form className="quick-instance-editor" onSubmit={(event) => event.preventDefault()}><label>Power<input aria-label="選択装備のPower" type="number" min="1" value={item.powerLevel} onChange={(event) => onChange(updateOwnedItem(inventory, item, { powerLevel: Number(event.target.value) }))} /></label>{item.category !== 'artifact' && item.catalog.rarityFamily !== 'unique' && <label>レアリティ<select aria-label="選択装備のレアリティ" value={item.rarity === 'unrecorded' ? '' : item.rarity} onChange={(event) => event.target.value && onChange(updateOwnedItem(inventory, item, { rarity: event.target.value as EquipmentRarity }))}><option value="" disabled>選択してください</option><option value="common">Common</option><option value="rare">Rare</option></select></label>}<button type="button" className="full-editor-button" onClick={() => onOpenFullEditor(item.catalog.name.en, item.instanceId)}>Enchant・金色を詳細編集</button></form>}
+    <div className="detail-actions"><button type="button" onClick={() => setEditing((value) => !value)} aria-expanded={editing}>{editing ? '編集を閉じる' : '編集'}</button><a href={hrefForEquipment(`/data/${item.category === 'artifact' ? 'artifacts' : item.category}`, item.catalogId)}>{EQUIPMENT_CATEGORY_LABELS[item.category]}データを見る</a><button className="danger-button" type="button" onClick={() => { onChange(removeOwnedItem(inventory, item.instanceId)); onClose() }}>削除</button></div>
   </aside>
 }
 
-export function InventoryGameGrid({ inventory, onChange, query, category, gilded, sort }: { inventory: Inventory; onChange: (inventory: Inventory) => void; query: string; category: 'all' | EquipmentCategory; gilded: 'all' | 'gilded' | 'standard'; sort: 'name' | 'power-desc' | 'power-asc' | 'recent' }) {
+export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query, category, gilded, sort }: { inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; query: string; category: 'all' | EquipmentCategory; gilded: 'all' | 'gilded' | 'standard'; sort: 'name' | 'power-desc' | 'power-asc' | 'recent' }) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const items = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase()
@@ -54,12 +54,12 @@ export function InventoryGameGrid({ inventory, onChange, query, category, gilded
   const selected = items.find((item) => item.instanceId === selectedId) ?? null
   return <div className={`inventory-game-layout ${selected ? 'has-selection' : ''}`}>
     <section className="inventory-grid-panel" aria-label="所持装備グリッド"><div className="game-inventory-grid" role="listbox" aria-label="所持装備">
-      {items.map((item) => { const label = `${item.catalog.name.ja}、${item.catalog.name.en}`; return <button key={item.instanceId} type="button" role="option" aria-selected={selectedId === item.instanceId} aria-label={label} title={label} className="inventory-slot" data-rarity={item.rarity} data-gilded={item.gilded || undefined} onClick={() => setSelectedId(item.instanceId)}>
-        <EquipmentArtwork catalog={item.catalog} />{item.catalog.soulGear && <span className="soul-marker" aria-label="Soul 装備">◉</span>}<span className="slot-power"><i aria-hidden="true">{CATEGORY_GLYPHS[item.category]}</i><b>{item.powerLevel}</b></span><span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span>
+      {items.map((item) => { const label = `${item.catalog.name.ja}、${item.catalog.name.en}`; const tooltipId = `slot-tooltip-${item.instanceId.replace(/[^a-zA-Z0-9_-]/g, '-')}`; return <button key={item.instanceId} type="button" role="option" aria-selected={selectedId === item.instanceId} aria-label={label} aria-describedby={tooltipId} className="inventory-slot" data-rarity={item.rarity} data-gilded={item.gilded || undefined} onClick={() => setSelectedId(item.instanceId)}>
+        <EquipmentArtwork catalog={item.catalog} />{item.catalog.soulGear && <span className="soul-marker" aria-label="Soul 装備">◉</span>}<span className="slot-power"><i aria-hidden="true">{CATEGORY_GLYPHS[item.category]}</i><b>{item.powerLevel}</b></span><span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span><span className="slot-name-tooltip" id={tooltipId} role="tooltip"><strong>{item.catalog.name.ja}</strong><small lang="en">{item.catalog.name.en}</small></span>
       </button> })}
       {items.length === 0 && <div className="grid-empty"><strong>該当する装備がありません</strong><p>検索語や絞り込みを変更してください。</p></div>}
     </div></section>
-    {selected ? <SelectedEquipmentPane item={selected} duplicateCount={inventoryGridItems(inventory).filter((item) => item.category === selected.category && item.catalogId === selected.catalogId).length} inventory={inventory} onChange={onChange} onClose={() => setSelectedId(null)} /> : <aside className="selected-equipment-pane detail-empty"><span aria-hidden="true">◇</span><h2>装備を選択してください</h2><p>スロットを選ぶと、この個体の Power・Enchant・金色状態を確認できます。</p></aside>}
+    {selected ? <SelectedEquipmentPane item={selected} duplicateCount={inventoryGridItems(inventory).filter((item) => item.category === selected.category && item.catalogId === selected.catalogId).length} inventory={inventory} onChange={onChange} onOpenFullEditor={onOpenFullEditor} onClose={() => setSelectedId(null)} /> : <aside className="selected-equipment-pane detail-empty"><span aria-hidden="true">◇</span><h2>装備を選択してください</h2><p>スロットを選ぶと、この個体の Power・Enchant・金色状態を確認できます。</p></aside>}
   </div>
 }
 

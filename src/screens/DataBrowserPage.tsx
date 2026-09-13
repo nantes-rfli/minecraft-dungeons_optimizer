@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import meleeAudit from '../../research/melee-enchantment-audit.json'
 import meleeWeaponAudit from '../../research/melee-attack-profile-audit.json'
 import armorEnchantAudit from '../../research/armor-enchantment-audit.json'
@@ -8,13 +8,14 @@ import armorSupport from '../../research/armor-runtime-support.json'
 import sourceHarvest from '../../research/source-harvest-browser.json'
 import { ARTIFACT_AUDIT } from '../research/artifactAudit'
 import { RANGED_ENCHANTMENT_AUDIT, RANGED_WEAPON_AUDIT } from '../research/rangedAudit'
-import { hrefFor, type AppRoute } from '../app/routes'
+import { hrefFor, readRouteItem, type AppRoute } from '../app/routes'
 import { WEAPONS } from '../data/weapons'
 import { ARMOR_ENCHANTMENTS } from '../data/armors'
 import { ARTIFACTS } from '../data/artifacts'
 import { DataSummary } from '../views/DataSummary'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { equipmentDisplaySections, type EquipmentPresentationCategory } from '../data/equipmentPresentation'
+import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 
 type Support = 'full' | 'limited' | 'research-only'
 type HarvestCategory = 'melee-weapon' | 'melee-enchantment' | 'armor' | 'armor-enchantment' | 'ranged-weapon' | 'ranged-enchantment' | 'artifact'
@@ -91,6 +92,14 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
   const [query, setQuery] = useState('')
   const items = useMemo(() => itemsFor(route), [route])
   const filtered = items.filter((item) => `${item.name} ${item.secondary ?? ''} ${item.id}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+  const targetItemId = readRouteItem()
+  useEffect(() => {
+    if (!targetItemId) return
+    const target = document.querySelector<HTMLDetailsElement>(`[data-equipment-id="${CSS.escape(targetItemId)}"]`)
+    if (!target) return
+    target.open = true
+    requestAnimationFrame(() => target.scrollIntoView({ block: 'center' }))
+  }, [route, targetItemId])
   return <main id="main-content" tabIndex={-1} className="page-main">
     <header className="page-intro"><p className="eyebrow">GAME DATA / REFERENCE</p><h1>装備データ</h1><p>ゲームに登場する装備と効果を、日本語名から探せます。英語名も小さく併記しています。</p></header>
     <nav className="subnav" aria-label="データカテゴリ">{categoryRoutes.map((item) => <a key={item.route} href={hrefFor(item.route)} aria-current={route === item.route ? 'page' : undefined}>{item.label}<span>{item.count}</span></a>)}</nav>
@@ -105,8 +114,9 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
         const unresolvedFacts = item.harvest.known.filter((fact) => fact.status !== 'accepted').map((fact) => ({ property: fact.property, kind: fact.status, notes: `${fact.notes ?? 'Current value is not accepted.'} Recorded value: ${displayValue(fact.value)}`, sourceAttempts: fact.sourceIds.map((sourceId) => ({ sourceId, result: fact.status })) }))
         const unknowns: { property: string; kind: string; notes: string; sourceAttempts?: HarvestAttempt[] }[] = [...item.blockers.map((notes) => ({ property: 'runtime', kind: 'blocker', notes })), ...item.harvest.unknown.map((entry) => ({ ...entry, notes: entry.notes ?? entry.kind })), ...unresolvedFacts]
         const presentationCategory: EquipmentPresentationCategory = route === '/data/melee' ? 'melee' : route === '/data/ranged' ? 'ranged' : route === '/data/armor' ? 'armor' : route === '/data/artifacts' ? 'artifact' : 'enchantment'
-        const sections = equipmentDisplaySections({ category: presentationCategory, nameJa: item.name, nameEn: item.secondary, family: item.family, facts: item.harvest.known })
-        return <details className="catalog-row" key={item.id}><summary><span><strong>{item.name}</strong>{item.secondary && <small lang="en">{item.secondary}</small>}</span><span>{item.family}</span><span className="catalog-known">{item.known}</span></summary><div className="catalog-detail"><p className="catalog-user-summary">{item.known}</p><div className="equipment-data-sections">{sections.map((section) => <section className="property-table" aria-label={`${item.name}の${section.title}`} key={section.title}><h3>{section.title}</h3><dl>{section.fields.map((field) => <div key={field.id}><dt>{field.label}</dt><dd>{field.value}</dd></div>)}</dl></section>)}</div><details className="technical-detail"><summary>技術情報・出典</summary><dl><dt>管理ID</dt><dd><code>{item.id.replace(/^(melee|armor|ranged)-/, '')}</code></dd><dt>計算での扱い</dt><dd>{supportLabel[item.support]}</dd><dt>確認済み項目</dt><dd>{acceptedFacts.length}</dd><dt>対象バージョン</dt><dd>{item.harvest.version.target}</dd><dt>確認できているデータ</dt><dd>{acceptedFacts.length ? <ul>{acceptedFacts.map((fact) => <li key={fact.property}><code>{propertyLabel(fact.property)}</code>: {displayValue(fact.value)} <small>({fact.confidence}, {fact.versionStatus})</small><br /><PropertySources sourceIds={fact.sourceIds} /></li>)}</ul> : 'ありません'}</dd><dt>確認中の項目</dt><dd>{unknowns.length ? <ul>{unknowns.map((entry, index) => <li key={`${entry.property}-${index}`}><code>{entry.property}</code>: {entry.notes} <small>({entry.kind})</small>{entry.sourceAttempts?.length ? <><br /><small>確認先: {entry.sourceAttempts.map((attempt) => `${harvestSources.get(attempt.sourceId)?.title ?? attempt.sourceId} — ${attempt.result}`).join(' · ')}</small></> : null}</li>)}</ul> : 'ありません'}</dd><dt>出典</dt><dd><ul>{sources.map((source) => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title} <small>({source.sourceType}, {source.gameVersion})</small></li>)}</ul></dd><dt>ゲームバージョン</dt><dd>{item.harvest.version.target} · {item.harvest.version.staleRisk ? '古い可能性あり' : '古い可能性なし'}<br /><small>{item.harvest.version.notes}</small></dd><dt>情報の競合</dt><dd>{item.harvest.conflicts.length ? <ul>{item.harvest.conflicts.map((conflict) => <li key={conflict.property}><code>{conflict.property}</code>: {conflict.probableReason} ({conflict.resolutionStatus})</li>)}</ul> : 'ありません'}</dd></dl></details></div></details>
+        const catalog = presentationCategory === 'enchantment' ? undefined : getEquipmentCatalogEntry(presentationCategory, item.id)
+        const sections = equipmentDisplaySections({ category: presentationCategory, nameJa: item.name, nameEn: item.secondary, family: item.family, catalog, facts: item.harvest.known })
+        return <details className="catalog-row" data-equipment-id={item.id} open={targetItemId === item.id || undefined} key={item.id}><summary><span><strong>{item.name}</strong>{item.secondary && <small lang="en">{item.secondary}</small>}</span><span>{item.family}</span><span className="catalog-known">{item.known}</span></summary><div className="catalog-detail"><p className="catalog-user-summary">{item.known}</p><div className="equipment-data-sections">{sections.map((section) => <section className="property-table" aria-label={`${item.name}の${section.title}`} key={section.title}><h3>{section.title}</h3><dl>{section.fields.map((field) => <div key={field.id}><dt>{field.label}</dt><dd>{field.value}</dd></div>)}</dl></section>)}</div><details className="technical-detail"><summary>技術情報・出典</summary><dl><dt>管理ID</dt><dd><code>{item.id.replace(/^(melee|armor|ranged)-/, '')}</code></dd><dt>計算での扱い</dt><dd>{supportLabel[item.support]}</dd><dt>確認済み項目</dt><dd>{acceptedFacts.length}</dd><dt>対象バージョン</dt><dd>{item.harvest.version.target}</dd><dt>確認できているデータ</dt><dd>{acceptedFacts.length ? <ul>{acceptedFacts.map((fact) => <li key={fact.property}><code>{propertyLabel(fact.property)}</code>: {displayValue(fact.value)} <small>({fact.confidence}, {fact.versionStatus})</small><br /><PropertySources sourceIds={fact.sourceIds} /></li>)}</ul> : 'ありません'}</dd><dt>確認中の項目</dt><dd>{unknowns.length ? <ul>{unknowns.map((entry, index) => <li key={`${entry.property}-${index}`}><code>{entry.property}</code>: {entry.notes} <small>({entry.kind})</small>{entry.sourceAttempts?.length ? <><br /><small>確認先: {entry.sourceAttempts.map((attempt) => `${harvestSources.get(attempt.sourceId)?.title ?? attempt.sourceId} — ${attempt.result}`).join(' · ')}</small></> : null}</li>)}</ul> : 'ありません'}</dd><dt>出典</dt><dd><ul>{sources.map((source) => <li key={source.id}>{source.url ? <a href={source.url} target="_blank" rel="noreferrer">{source.title}</a> : source.title} <small>({source.sourceType}, {source.gameVersion})</small></li>)}</ul></dd><dt>ゲームバージョン</dt><dd>{item.harvest.version.target} · {item.harvest.version.staleRisk ? '古い可能性あり' : '古い可能性なし'}<br /><small>{item.harvest.version.notes}</small></dd><dt>情報の競合</dt><dd>{item.harvest.conflicts.length ? <ul>{item.harvest.conflicts.map((conflict) => <li key={conflict.property}><code>{conflict.property}</code>: {conflict.probableReason} ({conflict.resolutionStatus})</li>)}</ul> : 'ありません'}</dd></dl></details></div></details>
       })}</div>
       {filtered.length === 0 && <div className="empty-state"><h2>該当するデータがありません</h2><p>検索語または対応状況を変更してください。</p></div>}
     </section>}
