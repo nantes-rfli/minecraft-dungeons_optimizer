@@ -304,9 +304,9 @@ export function decodeDxt5(data: Buffer, width: number, height: number): Buffer 
   return output
 }
 
-function decodeTexture(candidate: Pick<Candidate, 'absoluteAsset'>): { pixels: Buffer; width: number; height: number; hasAlpha: boolean } {
-  const uasset = fs.readFileSync(candidate.absoluteAsset)
-  const uexpPath = candidate.absoluteAsset.replace(/\.uasset$/i, '.uexp')
+export function decodeTextureAsset(absoluteAsset: string): { pixels: Buffer; width: number; height: number; hasAlpha: boolean } {
+  const uasset = fs.readFileSync(absoluteAsset)
+  const uexpPath = absoluteAsset.replace(/\.uasset$/i, '.uexp')
   if (!fs.existsSync(uexpPath)) throw new Error('The Texture2D has no matching .uexp payload.')
   const uexp = fs.readFileSync(uexpPath)
   const format = uasset.includes(Buffer.from('PF_DXT5\0')) ? 'PF_DXT5' : uasset.includes(Buffer.from('PF_B8G8R8A8\0')) ? 'PF_B8G8R8A8' : undefined
@@ -342,6 +342,10 @@ function decodeTexture(candidate: Pick<Candidate, 'absoluteAsset'>): { pixels: B
     pixels[index + 3] = payload[index + 3]!
   }
   return { pixels, width, height, hasAlpha: pixels.some((value, index) => index % 4 === 3 && value < 255) }
+}
+
+function decodeTexture(candidate: Pick<Candidate, 'absoluteAsset'>): ReturnType<typeof decodeTextureAsset> {
+  return decodeTextureAsset(candidate.absoluteAsset)
 }
 
 async function processUiIcons(dataRoot: string, convert: boolean): Promise<UiIconManifestEntry[]> {

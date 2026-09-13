@@ -50,6 +50,8 @@
     "icons:audit": "node scripts/equipment-icons.ts audit",
     "icons:ui": "node scripts/equipment-icons.ts ui",
     "icons:all": "node scripts/equipment-icons.ts all",
+    "icons:enchantments": "node scripts/enchantment-icons.ts all",
+    "icons:enchantments:audit": "node scripts/enchantment-icons.ts audit",
     "audit:game-data-extractor": "node scripts/audit-game-data-extractor.ts",
     "generate:game-data-semantic-mapping": "node scripts/audit-game-data-semantic-mapping.ts --write",
     "audit:game-data-semantic-mapping": "node scripts/audit-game-data-semantic-mapping.ts",

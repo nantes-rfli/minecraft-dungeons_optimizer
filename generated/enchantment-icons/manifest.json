@@ -1,0 +1,881 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "entries": [
+    {
+      "enchantmentId": "accelerate",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Accelerating/T_Accelerating_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Accelerating",
+      "outputWebp": "public/assets/enchantments/accelerate.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "2fec9d52ca20fc2b36d03b9c9e7f6ae9e914234d07d1c3f947627288afde9f2e"
+    },
+    {
+      "enchantmentId": "acrobat",
+      "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/Acrobat/T_Acrobat_Icon",
+      "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/Acrobat",
+      "outputWebp": "public/assets/enchantments/acrobat.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "6b523f1170a0e886d981a627aa2a099b4c85d822f73980bc4f0aa090354adc70"
+    },
+    {
+      "enchantmentId": "ambush",
+      "sourceAsset": "Dungeons/Content/Content_DLC6/Components/Enchantments/Backstabber/T_Backstabber_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC6/Components/Enchantments/Backstabber",
+      "outputWebp": "public/assets/enchantments/ambush.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "158ddd55690570baa43dd0fdccf0f9d12793bf567143ae69d425e988c9d13f68"
+    },
+    {
+      "enchantmentId": "anima-conduit",
+      "status": "multiple-candidates",
+      "candidates": [
+        "Dungeons/Content/Components/Enchantments/AnimaConduitMelee/T_AnimaConduitMelee_Icon",
+        "Dungeons/Content/Components/Enchantments/AnimaConduitRanged/T_AnimaConduitRanged_Icon"
+      ],
+      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+    },
+    {
+      "enchantmentId": "artifact-charge",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/ArtifactCharge/T_ArtifactCharge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/ArtifactCharge",
+      "outputWebp": "public/assets/enchantments/artifact-charge.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "f067c0bb5d555f9f803198173c22864643b15ca2672fe57cfa907c208f3e231c"
+    },
+    {
+      "enchantmentId": "artifact-synergy",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/DamageSynergy/T_DamageSynergy_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/DamageSynergy",
+      "outputWebp": "public/assets/enchantments/artifact-synergy.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "680439207209b07174d857f08324101875b37d2cd3dd0afba15c7273ab8c6594"
+    },
+    {
+      "enchantmentId": "bag-of-souls",
+      "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/BagOfSouls/T_BagOfSouls_Icon",
+      "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/BagOfSouls",
+      "outputWebp": "public/assets/enchantments/bag-of-souls.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "37fbf8f091be0163845c2000fb8e89d5a94fd2f41504b97276393ec14f76aaca"
+    },
+    {
+      "enchantmentId": "beast-boss",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastBoss/T_BeastBoss_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastBoss",
+      "outputWebp": "public/assets/enchantments/beast-boss.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "9707cd4bd4340bf7c200cbbe1f5c84a96fa18c075ed0caa6678ba1bd1e164bb6"
+    },
+    {
+      "enchantmentId": "beast-burst",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastBurst/T_BeastBurst_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastBurst",
+      "outputWebp": "public/assets/enchantments/beast-burst.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "0a9953642a7e878b50e10d8ed9045e74b486c7809d0bd12965d0c31f63e81fa0"
+    },
+    {
+      "enchantmentId": "beast-surge",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastSurge/T_BeastSurge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/BeastSurge",
+      "outputWebp": "public/assets/enchantments/beast-surge.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "ffc1952580995d0d9666b32586481ade81775336459eee9e0e27674f0f59b49e"
+    },
+    {
+      "enchantmentId": "bonus-shot",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/BonusShot/T_BonusShot_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/BonusShot",
+      "outputWebp": "public/assets/enchantments/bonus-shot.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "519690f28a1c919be339cce99427a5e9883707a99ed877d843a82692472f1b64"
+    },
+    {
+      "enchantmentId": "burning",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Burning/T_Burning_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Burning",
+      "outputWebp": "public/assets/enchantments/burning.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "9327004e6adf01049c35221d08615b67cc9c3208e056b8a71cab457fd293fbe3"
+    },
+    {
+      "enchantmentId": "burst-bowstring",
+      "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/BurstBowstring/T_BurstBowstring_Icon",
+      "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/BurstBowstring",
+      "outputWebp": "public/assets/enchantments/burst-bowstring.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "805da8cf92636fb250378b8e5b22bd03a254110ce4f50c3f4d8e0752c16cc6f1"
+    },
+    {
+      "enchantmentId": "busy-bee",
+      "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/BusyBee/T_BusyBee_Icon",
+      "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/BusyBee",
+      "outputWebp": "public/assets/enchantments/busy-bee.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "7e3efdec45e6b673113126a84b0297bd899950eef841f29303d987ee92ef07d2"
+    },
+    {
+      "enchantmentId": "chain-reaction",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/ChainReaction/T_ChainReaction_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/ChainReaction",
+      "outputWebp": "public/assets/enchantments/chain-reaction.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "0e7b05dfb960baae597b44982108106e14e824ac7de08d39045a6e964788e84b"
+    },
+    {
+      "enchantmentId": "chains",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Chains/T_Chains_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Chains",
+      "outputWebp": "public/assets/enchantments/chains.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "60162e370d7e9b2ba01686d99b9f893be5486823d90ce22246141786a230200a"
+    },
+    {
+      "enchantmentId": "chilling",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Chilling/T_Chilling_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Chilling",
+      "outputWebp": "public/assets/enchantments/chilling.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "4f89a42b36bc5a7b6bad4adb329c5a96f9b9eeb9b888226ba47673fd248f8c01"
+    },
+    {
+      "enchantmentId": "committed",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Committed/T_Committed_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Committed",
+      "outputWebp": "public/assets/enchantments/committed.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "1db0577550db86895e2f5c3d6a7d0814d3a46a2b1a742110bab26676112bbfe6"
+    },
+    {
+      "enchantmentId": "cool-down",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Celerity/T_Celerity_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Celerity",
+      "outputWebp": "public/assets/enchantments/cool-down.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "baff0cc5ddb01b9b6d0a3c8eafecdbd620634ef2ba5c85ad8b014f7d92d55e15"
+    },
+    {
+      "enchantmentId": "cooldown-shot",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/CooldownShot/T_CooldownShot_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/CooldownShot",
+      "outputWebp": "public/assets/enchantments/cooldown-shot.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "da3a014e94a7578712cca84e33b6584f1fdb20173eb80ae24ad887ff8a6cd69d"
+    },
+    {
+      "enchantmentId": "cowardice",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Cowardice/T_Cowardice_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Cowardice",
+      "outputWebp": "public/assets/enchantments/cowardice.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "0d3d34a7f5216c7ebe7a53726e0d7740f55c7dfda62be9e701982ecc1d1c54a0"
+    },
+    {
+      "enchantmentId": "critical-hit",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/CriticalHit/T_CriticalHit_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/CriticalHit",
+      "outputWebp": "public/assets/enchantments/critical-hit.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "c41b567038b2d8af5d7407b476ff5c4eaa341fee86c77392fa6d033f43c5fe08"
+    },
+    {
+      "enchantmentId": "death-barter",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/DeathBarter/T_DeathBarter_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/DeathBarter",
+      "outputWebp": "public/assets/enchantments/death-barter.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "32440833b89c5c0429124c15bb986d8d6ace352e7635525292a0e3329ca2bfe4"
+    },
+    {
+      "enchantmentId": "deflect",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Deflecting/T_Deflecting_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Deflecting",
+      "outputWebp": "public/assets/enchantments/deflect.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "5547ddff0c093fdafd8afad76c875b58e4844aae6301c3b412858fef2b9d9268"
+    },
+    {
+      "enchantmentId": "dipping-poison",
+      "sourceAsset": "Dungeons/Content/Content_DLC6/Components/Enchantments/DippingPoison/T_DippingPoison_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC6/Components/Enchantments/DippingPoison",
+      "outputWebp": "public/assets/enchantments/dipping-poison.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "ff5e777a44505dc3fe830cff9821aa1de80413d9c143f2c4449f053693c5d8d9"
+    },
+    {
+      "enchantmentId": "dynamo",
+      "status": "multiple-candidates",
+      "candidates": [
+        "Dungeons/Content/Patch2/Components/Enchantments/DynamoMelee/T_DynamoMelee_Icon",
+        "Dungeons/Content/Patch2/Components/Enchantments/DynamoRanged/T_DynamoRanged_Icon"
+      ],
+      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+    },
+    {
+      "enchantmentId": "echo",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Echo/T_Echo_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Echo",
+      "outputWebp": "public/assets/enchantments/echo.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "2c24c879f26203c886b1e3a5b1878fdccd1edf04ee765fea57a0c88efd9d6a69"
+    },
+    {
+      "enchantmentId": "electrified",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Electrified/T_Electrified_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Electrified",
+      "outputWebp": "public/assets/enchantments/electrified.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "12de2a724cf27b4a368d8ca515581a16cb02f372eec03970647823c4e0474fa0"
+    },
+    {
+      "enchantmentId": "enigma-resonator",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/EnigmaResonatorMelee/T_EnigmaResonatorMelee_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/EnigmaResonatorMelee",
+      "outputWebp": "public/assets/enchantments/enigma-resonator.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "notes": "Category-specific definitions reference pixel-identical base artwork.",
+      "sha256": "f7a8d304ba9ca31e863a3114dd77a791d4f71e08b99ac91ab532ba9739ccdd0e"
+    },
+    {
+      "enchantmentId": "exploding",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Exploding/T_Exploding_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Exploding",
+      "outputWebp": "public/assets/enchantments/exploding.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "1fd0d115c6fe2a36697df878cc809fec9512c1374d5fc80ad59c7c47151f33c4"
+    },
+    {
+      "enchantmentId": "explorer",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Explorer/T_Explorer_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Explorer",
+      "outputWebp": "public/assets/enchantments/explorer.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "8da2ce8d2cd6bcaec38642caaa109006db43607eaaeb1f8b99748c3830bfdff8"
+    },
+    {
+      "enchantmentId": "final-shout",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/FinalShout/T_FinalShout_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/FinalShout",
+      "outputWebp": "public/assets/enchantments/final-shout.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "92f2f0844e262d3f8a58ffbf4a815adb3df73e97388115dbac013fd2e669ec6c"
+    },
+    {
+      "enchantmentId": "fire-aspect",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/FireAspect/T_FireAspect_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/FireAspect",
+      "outputWebp": "public/assets/enchantments/fire-aspect.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "cf4a46330667897934d4a74573f255e6d49dce562d51444dbda152996b19e9d5"
+    },
+    {
+      "enchantmentId": "fire-focus",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/FireFocus/T_FireFocus_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/FireFocus",
+      "outputWebp": "public/assets/enchantments/fire-focus.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3bc07756e37c0e4cc3f4a0e4bfe0d2e022a1f28114626f87c59a39228d2fb526"
+    },
+    {
+      "enchantmentId": "fire-trail",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/FireTrail/T_FireTrail_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/FireTrail",
+      "outputWebp": "public/assets/enchantments/fire-trail.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "b2d4f7059abac352503864424b52092eb1f72ac7a978cbed16eced58da2e336d"
+    },
+    {
+      "enchantmentId": "food-reserves",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/FoodReserves/T_FoodReserves_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/FoodReserves",
+      "outputWebp": "public/assets/enchantments/food-reserves.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "6218a19a49bb80e9025de3ae1a42bed78141a1750e03ae033ca53945a31d043d"
+    },
+    {
+      "enchantmentId": "freezing",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Freezing/T_Freezing_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Freezing",
+      "outputWebp": "public/assets/enchantments/freezing.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "e464874e56aca882b1b8151e022c1468d329c0c846204638ea59cf7426543f27"
+    },
+    {
+      "enchantmentId": "frenzied",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Frenzied/T_Frenzied_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Frenzied",
+      "outputWebp": "public/assets/enchantments/frenzied.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "c5cd715a0940951269def49a8d9fe00099c85adec7eb4c167a5801e21e7f7c4c"
+    },
+    {
+      "enchantmentId": "fuse-shot",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/FuseShot/T_FuseShot_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/FuseShot",
+      "outputWebp": "public/assets/enchantments/fuse-shot.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "33ea739cc12279652446842f8384eade05a51667be3e170acf575c0007111cf3"
+    },
+    {
+      "enchantmentId": "gravity",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Gravity/T_Gravity_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Gravity",
+      "outputWebp": "public/assets/enchantments/gravity.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3927d04e54a6ae6ef7850647d38d3b169249c0d4fc7c18634ae606549d29a05c"
+    },
+    {
+      "enchantmentId": "gravity-pulse",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/GravityPulse/T_GravityPulse_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/GravityPulse",
+      "outputWebp": "public/assets/enchantments/gravity-pulse.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "07e6c47f02d560b6ba15fb582786c8c8985fae95c2894b9eedc7e2d01dd944b4"
+    },
+    {
+      "enchantmentId": "growing",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Growing/T_Growing_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Growing",
+      "outputWebp": "public/assets/enchantments/growing.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "eb5350e563cc3588aa965cbea7cbb0b6e1354c2fe798eb377ae133781bc21ead"
+    },
+    {
+      "enchantmentId": "guarding-strike",
+      "sourceAsset": "Dungeons/Content/Content_DLC5/Components/Enchantments/GuardingStrike/T_GuardingStrike_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC5/Components/Enchantments/GuardingStrike",
+      "outputWebp": "public/assets/enchantments/guarding-strike.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3dd5f91cfcb7e100de3dc94cc401688debcc92fd5a3393ab1263dab0019cbc70"
+    },
+    {
+      "enchantmentId": "health-synergy",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/HealthSynergy/T_HealthSynergy_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/HealthSynergy",
+      "outputWebp": "public/assets/enchantments/health-synergy.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "aea352533f3f0338aa54ae7b198052f8ffb2a7bfef261e1967f793fa1eb2bf22"
+    },
+    {
+      "enchantmentId": "infinity",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Infinity/T_Infinity_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Infinity",
+      "outputWebp": "public/assets/enchantments/infinity.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "c48214cd2fe81de031bd7606e4a69f6c31c5d4f201d2dd15976f82a8bc27875c"
+    },
+    {
+      "enchantmentId": "leeching",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Leeching/T_Leeching_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Leeching",
+      "outputWebp": "public/assets/enchantments/leeching.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "b26913f9a64a48913f46b097eec07ef9d43de048b2f928e18aea103e7623a564"
+    },
+    {
+      "enchantmentId": "levitation-shot",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/LevitationShot/T_LevitationShot_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/LevitationShot",
+      "outputWebp": "public/assets/enchantments/levitation-shot.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "456bfaf5cefb61c66c47bc116bad59542443795b85915f95146198df660a6c53"
+    },
+    {
+      "enchantmentId": "life-boost",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/ResurrectionSurge/T_ResurrectionSurge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/ResurrectionSurge",
+      "outputWebp": "public/assets/enchantments/life-boost.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "bf263f9602f47c4ef14eefd90043a208e7b533093d15b9c7aac8caf9a86f34e1"
+    },
+    {
+      "enchantmentId": "lightning-focus",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/LightningFocus/T_LightningFocus_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/LightningFocus",
+      "outputWebp": "public/assets/enchantments/lightning-focus.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "909ff03714e3b43d19fdef56d0b48a60ecbead488dddb655e7dc41936dc267a8"
+    },
+    {
+      "enchantmentId": "looting",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Looting/T_Looting_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Looting",
+      "outputWebp": "public/assets/enchantments/looting.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "1184cef198025c2be787ae98fe6ffd06585550bc198338ac4413649ffd790fc9"
+    },
+    {
+      "enchantmentId": "luck-of-the-sea",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/LuckOfTheSea/T_LuckOfTheSea_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/LuckOfTheSea",
+      "outputWebp": "public/assets/enchantments/luck-of-the-sea.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "406dc3a55154d524cdcd8c490de2d15e3a53306bc70385f17fca64cdf86fa11c"
+    },
+    {
+      "enchantmentId": "lucky-explorer",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/EmeraldDivination/T_EmeraldDivination_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/EmeraldDivination",
+      "outputWebp": "public/assets/enchantments/lucky-explorer.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "60820351eb26a14d16e9c8f69ef29c21bef9a6c7af54a3a5fb241cd3bf1d64c9"
+    },
+    {
+      "enchantmentId": "multi-roll",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/MultiDodge/T_MultiDodge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/MultiDodge",
+      "outputWebp": "public/assets/enchantments/multi-roll.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "6c293cc2ab4a35452a6eb66f0098ce54fabdae65145da720dd006cc856977584"
+    },
+    {
+      "enchantmentId": "multishot",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/MultiShot/T_MultiShot_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/MultiShot",
+      "outputWebp": "public/assets/enchantments/multishot.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "71d1070b3a0790ab84749134ddcc43dc83b5e60c7435bf20b5ac99cc1e223ade"
+    },
+    {
+      "enchantmentId": "overcharge",
+      "sourceAsset": "Dungeons/Content/Content_DLC5/Components/Enchantments/MultiCharge/T_MultiCharge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC5/Components/Enchantments/MultiCharge",
+      "outputWebp": "public/assets/enchantments/overcharge.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "9e2c89781d6016250e88117e9b0011ad966f09948570d8d55bf5e8687be4538a"
+    },
+    {
+      "enchantmentId": "pain-cycle",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/PainCycle/T_PainCycle_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/PainCycle",
+      "outputWebp": "public/assets/enchantments/pain-cycle.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "80f7d43942b8e7cce78cf5fad70a4dec2959d3fa3e3a5278ac607f5147822d77"
+    },
+    {
+      "enchantmentId": "piercing",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Piercing/T_Piercing_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Piercing",
+      "outputWebp": "public/assets/enchantments/piercing.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3f7d779e36f0df9bdedf03fc8d6ef3079a620bcc7e8f1f7e991667aede0ad73b"
+    },
+    {
+      "enchantmentId": "poison-cloud",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/PoisonedMelee/T_PoisonedMelee_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/PoisonedMelee",
+      "outputWebp": "public/assets/enchantments/poison-cloud.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "notes": "Category-specific definitions reference pixel-identical base artwork.",
+      "sha256": "62d16730eacf79c289840439009d87a399169786677d3e93a2f5b82df840d752"
+    },
+    {
+      "enchantmentId": "poison-focus",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/PoisonFocus/T_PoisonFocus_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/PoisonFocus",
+      "outputWebp": "public/assets/enchantments/poison-focus.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "ee10a4783c9f5f68f3b3a3c2291619f1f2019dcc9d5e4d7bbaeb4c8e14088795"
+    },
+    {
+      "enchantmentId": "potion-barrier",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/PotionFortification/T_PotionFortification_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/PotionFortification",
+      "outputWebp": "public/assets/enchantments/potion-barrier.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "1fb6a6fc4587b24727cfdda1f83d79765527c9bd4e1a44caba4c1d774270603f"
+    },
+    {
+      "enchantmentId": "power",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Power/T_Power_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Power",
+      "outputWebp": "public/assets/enchantments/power.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "de0f9086991360537a1e735c0a3d7f91c75d19903038086e069141de05da43d3"
+    },
+    {
+      "enchantmentId": "prospector",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Prospector/T_Prospector_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Prospector",
+      "outputWebp": "public/assets/enchantments/prospector.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "689120536ae3da1a78e02ca37bb2b44330dd75d0ed103549677fab6eaecfeb2d"
+    },
+    {
+      "enchantmentId": "protection",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Protection/T_Protection_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Protection",
+      "outputWebp": "public/assets/enchantments/protection.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "ac52fe19abd780408dc0fe1f05736ba87a384e80f40c62f64d08f32fdf9a22fe"
+    },
+    {
+      "enchantmentId": "punch",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Punch/T_Punch_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Punch",
+      "outputWebp": "public/assets/enchantments/punch.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3094211d668a15ae4a9ae00b4d52fc3a4c6bed5f00d07cf49842fd141ea2015f"
+    },
+    {
+      "enchantmentId": "radiance",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/RadianceMelee/T_RadianceMelee_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/RadianceMelee",
+      "outputWebp": "public/assets/enchantments/radiance.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "2b2e2235c05f09572b1115687f18d4d44cf66e7302db598b79b0f46e4f4d0890"
+    },
+    {
+      "enchantmentId": "radiance-shot",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/RadianceRanged/T_RadianceRanged_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/RadianceRanged",
+      "outputWebp": "public/assets/enchantments/radiance-shot.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "bbdd5ac80227a603df34b1eed05f3bb2136ba0f3e388a448355ea0b8f3af93d4"
+    },
+    {
+      "enchantmentId": "rampaging",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Rampaging/T_Rampaging_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Rampaging",
+      "outputWebp": "public/assets/enchantments/rampaging.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "34eb6bac3785196f7acea90acc36922c2a35a1e2014a4448e9b3255899dce2b4"
+    },
+    {
+      "enchantmentId": "rapid-fire",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/RapidFire/T_RapidFire_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/RapidFire",
+      "outputWebp": "public/assets/enchantments/rapid-fire.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "25062261bb6ef5218539ffe01a9587d7b1cec245aef9d9389c4a61037bd529ed"
+    },
+    {
+      "enchantmentId": "reckless",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/Reckless/T_Reckless_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/Reckless",
+      "outputWebp": "public/assets/enchantments/reckless.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "5f37cdaf297ed86b88597cd86c6a3fa0a36d057025381cb10d742f4342f0369c"
+    },
+    {
+      "enchantmentId": "recycler",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Recycler/T_Recycler_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Recycler",
+      "outputWebp": "public/assets/enchantments/recycler.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "73d3050e4d515f2eec4369591ef92d550d650d9b27c8abe305741514814aa357"
+    },
+    {
+      "enchantmentId": "refreshment",
+      "status": "multiple-candidates",
+      "candidates": [
+        "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstMelee/T_PotionThirstMelee_Icon",
+        "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstRanged/T_PotionThirstRanged_Icon"
+      ],
+      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+    },
+    {
+      "enchantmentId": "ricochet",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Ricochet/T_Ricochet_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Ricochet",
+      "outputWebp": "public/assets/enchantments/ricochet.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "187d9dbd4cfb411beb5a7ff88d7e2a992ace301ed624e030f69d261e3c1b0e36"
+    },
+    {
+      "enchantmentId": "roll-charge",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/RollCharge/T_RollCharge_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/RollCharge",
+      "outputWebp": "public/assets/enchantments/roll-charge.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "0a12a5348cea339d9478f8c9e582251b01cc8c526c859c9b3ac228b274342b81"
+    },
+    {
+      "enchantmentId": "rush",
+      "sourceAsset": "Dungeons/Content/Content_DLC3/Components/Enchantments/Rushdown/T_Rushdown_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Components/Enchantments/Rushdown",
+      "outputWebp": "public/assets/enchantments/rush.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "1adb3d711aecf0db5f384aaf6bfe4e1ccde885a83fd4a93498e66551d0529fe4"
+    },
+    {
+      "enchantmentId": "shadow-surge",
+      "sourceAsset": "Dungeons/Content/Content_DLC6/Components/Enchantments/ShadowFlash/T_ShadowFlash_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC6/Components/Enchantments/ShadowFlash",
+      "outputWebp": "public/assets/enchantments/shadow-surge.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "46667c1a2ed33411eb978ff6f7baf40a063507ef91910a2f605b5bd306178c39"
+    },
+    {
+      "enchantmentId": "sharpness",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Sharpness/T_Sharpness_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Sharpness",
+      "outputWebp": "public/assets/enchantments/sharpness.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "9be0e4e4736bf2ab32fd69a3044cdba85f78078c86beeefb4b808ee0f3e79ab4"
+    },
+    {
+      "enchantmentId": "shock-web",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/ShockWeb/T_ShockWeb_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/ShockWeb",
+      "outputWebp": "public/assets/enchantments/shock-web.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "afa12e1f37990ebdc6cedf830ce806aace1ba3130a34b3bc945208ecc2742b17"
+    },
+    {
+      "enchantmentId": "shockwave",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Shockwave/T_Shockwave_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Shockwave",
+      "outputWebp": "public/assets/enchantments/shockwave.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "12db832325a6f315473a3c5c47bfee665e0b0ee4796eb58d7f3a12cf68513a46"
+    },
+    {
+      "enchantmentId": "smiting",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Smiting/T_Smiting_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Smiting",
+      "outputWebp": "public/assets/enchantments/smiting.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "8f99f9e689d9f05a7b2aef086e4584231cadba04fd80a195a75a5a85b6cd1059"
+    },
+    {
+      "enchantmentId": "snowball",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Snowing/T_Snowing_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Snowing",
+      "outputWebp": "public/assets/enchantments/snowball.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "3a72b000b3be0e46745d166b270a4560e7d6c9d2e64a4966575f4fdf4dabdb6d"
+    },
+    {
+      "enchantmentId": "soul-focus",
+      "sourceAsset": "Dungeons/Content/Content_DLC4/Components/Enchantments/SoulFocus/T_SoulFocus_Icon",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Components/Enchantments/SoulFocus",
+      "outputWebp": "public/assets/enchantments/soul-focus.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "2739ec8644e479203ca5627751023c91c5855008724461035eec3e10fb8fa0de"
+    },
+    {
+      "enchantmentId": "soul-siphon",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/SoulSiphon/T_SoulSiphon_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/SoulSiphon",
+      "outputWebp": "public/assets/enchantments/soul-siphon.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "38c48ae4c6a64cbb40130a5f6877a2b0adf33ea0e64f7dadd040191b7c9c4690"
+    },
+    {
+      "enchantmentId": "soul-speed",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/SpiritSpeed/T_SpiritSpeed_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/SpiritSpeed",
+      "outputWebp": "public/assets/enchantments/soul-speed.webp",
+      "status": "matched",
+      "matchMethod": "documented-internal-id-alias",
+      "sha256": "4918a71cd754f99dfd3d5ead3991f354a7d84a61b22992481f1c350a1a4e4c2f"
+    },
+    {
+      "enchantmentId": "speed-synergy",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/SpeedSynergy/T_SpeedSynergy_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/SpeedSynergy",
+      "outputWebp": "public/assets/enchantments/speed-synergy.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "06c3e41984c213a9f84512ce4f3be900241c12c8c663f4ee4b4e6f463a3c7e5f"
+    },
+    {
+      "enchantmentId": "stunning",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Stunning/T_Stunning_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Stunning",
+      "outputWebp": "public/assets/enchantments/stunning.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "5c949b73c5d4336243d8e56293b00290a1f6fa33cc8043136761f4cf727ecaa1"
+    },
+    {
+      "enchantmentId": "supercharge",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Supercharge/T_Supercharge_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Supercharge",
+      "outputWebp": "public/assets/enchantments/supercharge.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "5e3a371ca5f3442661f01088286460db50056096b77ce7aed45fd76fce2b66e6"
+    },
+    {
+      "enchantmentId": "surprise-gift",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/SurpriseGift/T_SurpriseGift_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/SurpriseGift",
+      "outputWebp": "public/assets/enchantments/surprise-gift.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "0b6df8020283a290bec6e37442a0799e9e583a9f8c152d14f65cdc5045d96ed7"
+    },
+    {
+      "enchantmentId": "swiftfooted",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Swiftfooted/T_Swiftfooted_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Swiftfooted",
+      "outputWebp": "public/assets/enchantments/swiftfooted.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3d864783ebc3bd3bc8211cc055ada9b64c0b2084b16b87a726c8db7860b8abeb"
+    },
+    {
+      "enchantmentId": "swirling",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Swirling/T_Swirling_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Swirling",
+      "outputWebp": "public/assets/enchantments/swirling.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "09535ba09ae1f1f1c92edde88c0590c01e69735a0bda51dc176342d78f6e7571"
+    },
+    {
+      "enchantmentId": "tempo-theft",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/TempoTheft/T_TempoTheft_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/TempoTheft",
+      "outputWebp": "public/assets/enchantments/tempo-theft.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "66885c76f6337fae81d4139a6957a7916c9b39fbb781d9da96014596cb4e7a26"
+    },
+    {
+      "enchantmentId": "thorns",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Thorns/T_Thorns_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Thorns",
+      "outputWebp": "public/assets/enchantments/thorns.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "cf716a0aa7e8c11ad87c16e192d968f6437cc27af63b1ee6758a1afb897a6e5f"
+    },
+    {
+      "enchantmentId": "thundering",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Thundering/T_Thundering_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Thundering",
+      "outputWebp": "public/assets/enchantments/thundering.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "8df37818891325d574c4dab3f206f9ef311143e54831f7f9a0b8571e3cf2ad4b"
+    },
+    {
+      "enchantmentId": "tumblebee",
+      "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/TumbleBee/T_TumbleBee_Icon",
+      "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/TumbleBee",
+      "outputWebp": "public/assets/enchantments/tumblebee.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "3a728c7dfa3a0fc33bc969ae14959ed301ea461d1fdbef404b8613fb83ad03c7"
+    },
+    {
+      "enchantmentId": "unchanting",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Unchanting/T_Unchanting_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Unchanting",
+      "outputWebp": "public/assets/enchantments/unchanting.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "d93d70588188effcdc89a3d2967d0ddab8f82553e057c98c50069e2f431f5553"
+    },
+    {
+      "enchantmentId": "void-strike",
+      "status": "multiple-candidates",
+      "candidates": [
+        "Dungeons/Content/Components/Enchantments/VoidTouchedMelee/T_VoidTouchedMelee_Icon",
+        "Dungeons/Content/Components/Enchantments/VoidTouchedRanged/T_VoidTouchedRanged_Icon"
+      ],
+      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+    },
+    {
+      "enchantmentId": "weakening",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/Weakening/T_Weakening_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/Weakening",
+      "outputWebp": "public/assets/enchantments/weakening.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "eaa323c39b1ea448844bad3ea9d30a441eca39782ad140ef50d7c20d5d5f9f7c"
+    },
+    {
+      "enchantmentId": "wild-rage",
+      "sourceAsset": "Dungeons/Content/Components/Enchantments/WildRage/T_WildRage_Icon",
+      "sourcePackage": "Dungeons/Content/Components/Enchantments/WildRage",
+      "outputWebp": "public/assets/enchantments/wild-rage.webp",
+      "status": "matched",
+      "matchMethod": "definition-reference",
+      "sha256": "7ce60570443b8a84d0b8eb659de2fcff92fc1254cf9e41b39fb92917750cfdcf"
+    }
+  ]
+}

@@ -1,0 +1,904 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "entries": [
+    {
+      "id": "accelerate",
+      "name": {
+        "en": "Accelerate"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "acrobat",
+      "name": {
+        "en": "Acrobat"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "ambush",
+      "name": {
+        "en": "Ambush"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "anima-conduit",
+      "name": {
+        "en": "Anima Conduit"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "artifact-charge",
+      "name": {
+        "en": "Artifact Charge"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "artifact-synergy",
+      "name": {
+        "en": "Artifact Synergy"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "bag-of-souls",
+      "name": {
+        "en": "Bag of Souls"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "beast-boss",
+      "name": {
+        "en": "Beast Boss"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "beast-burst",
+      "name": {
+        "en": "Beast Burst"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "beast-surge",
+      "name": {
+        "en": "Beast Surge"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "bonus-shot",
+      "name": {
+        "en": "Bonus Shot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "burning",
+      "name": {
+        "en": "Burning"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "burst-bowstring",
+      "name": {
+        "en": "Burst Bowstring"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "busy-bee",
+      "name": {
+        "en": "Busy Bee"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "chain-reaction",
+      "name": {
+        "en": "Chain Reaction"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "chains",
+      "name": {
+        "en": "Chains"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "chilling",
+      "name": {
+        "en": "Chilling"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "committed",
+      "name": {
+        "en": "Committed"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "cool-down",
+      "name": {
+        "en": "Cool Down"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "cooldown-shot",
+      "name": {
+        "en": "Cooldown Shot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "cowardice",
+      "name": {
+        "en": "Cowardice"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "critical-hit",
+      "name": {
+        "en": "Critical Hit",
+        "ja": "クリティカルヒット"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "death-barter",
+      "name": {
+        "en": "Death Barter"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "deflect",
+      "name": {
+        "en": "Deflect"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "dipping-poison",
+      "name": {
+        "en": "Dipping Poison"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "dynamo",
+      "name": {
+        "en": "Dynamo"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "echo",
+      "name": {
+        "en": "Echo"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "electrified",
+      "name": {
+        "en": "Electrified"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "enigma-resonator",
+      "name": {
+        "en": "Enigma Resonator"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "exploding",
+      "name": {
+        "en": "Exploding"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "explorer",
+      "name": {
+        "en": "Explorer"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "final-shout",
+      "name": {
+        "en": "Final Shout"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "fire-aspect",
+      "name": {
+        "en": "Fire Aspect"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "fire-focus",
+      "name": {
+        "en": "Fire Focus"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "fire-trail",
+      "name": {
+        "en": "Fire Trail"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "food-reserves",
+      "name": {
+        "en": "Food Reserves"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "freezing",
+      "name": {
+        "en": "Freezing"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "frenzied",
+      "name": {
+        "en": "Frenzied"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "fuse-shot",
+      "name": {
+        "en": "Fuse Shot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "gravity",
+      "name": {
+        "en": "Gravity"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "gravity-pulse",
+      "name": {
+        "en": "Gravity Pulse"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "growing",
+      "name": {
+        "en": "Growing"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "guarding-strike",
+      "name": {
+        "en": "Guarding Strike",
+        "ja": "ガードストライク"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "health-synergy",
+      "name": {
+        "en": "Health Synergy"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "infinity",
+      "name": {
+        "en": "Infinity"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "leeching",
+      "name": {
+        "en": "Leeching",
+        "ja": "吸血"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "levitation-shot",
+      "name": {
+        "en": "Levitation Shot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "life-boost",
+      "name": {
+        "en": "Life Boost"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "lightning-focus",
+      "name": {
+        "en": "Lightning Focus"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "looting",
+      "name": {
+        "en": "Looting"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "luck-of-the-sea",
+      "name": {
+        "en": "Luck of the Sea"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "lucky-explorer",
+      "name": {
+        "en": "Lucky Explorer"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "multi-roll",
+      "name": {
+        "en": "Multi-Roll"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "multishot",
+      "name": {
+        "en": "Multishot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "overcharge",
+      "name": {
+        "en": "Overcharge"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "pain-cycle",
+      "name": {
+        "en": "Pain Cycle"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "piercing",
+      "name": {
+        "en": "Piercing"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "poison-cloud",
+      "name": {
+        "en": "Poison Cloud"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "poison-focus",
+      "name": {
+        "en": "Poison Focus"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "potion-barrier",
+      "name": {
+        "en": "Potion Barrier"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "power",
+      "name": {
+        "en": "Power",
+        "ja": "パワー"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "prospector",
+      "name": {
+        "en": "Prospector"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged",
+        "armor"
+      ]
+    },
+    {
+      "id": "protection",
+      "name": {
+        "en": "Protection"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "punch",
+      "name": {
+        "en": "Punch"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "radiance",
+      "name": {
+        "en": "Radiance",
+        "ja": "輝き"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "radiance-shot",
+      "name": {
+        "en": "Radiance Shot"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "rampaging",
+      "name": {
+        "en": "Rampaging"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "rapid-fire",
+      "name": {
+        "en": "Rapid Fire"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "reckless",
+      "name": {
+        "en": "Reckless"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "recycler",
+      "name": {
+        "en": "Recycler"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "refreshment",
+      "name": {
+        "en": "Refreshment"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "ricochet",
+      "name": {
+        "en": "Ricochet"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "roll-charge",
+      "name": {
+        "en": "Roll Charge"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "rush",
+      "name": {
+        "en": "Rush"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "shadow-surge",
+      "name": {
+        "en": "Shadow Surge"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "sharpness",
+      "name": {
+        "en": "Sharpness"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "shock-web",
+      "name": {
+        "en": "Shock Web"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "shockwave",
+      "name": {
+        "en": "Shockwave"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "smiting",
+      "name": {
+        "en": "Smiting"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "snowball",
+      "name": {
+        "en": "Snowball"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "soul-focus",
+      "name": {
+        "en": "Soul Focus"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "soul-siphon",
+      "name": {
+        "en": "Soul Siphon"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "soul-speed",
+      "name": {
+        "en": "Soul Speed"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "speed-synergy",
+      "name": {
+        "en": "Speed Synergy"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "stunning",
+      "name": {
+        "en": "Stunning"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "supercharge",
+      "name": {
+        "en": "Supercharge"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "surprise-gift",
+      "name": {
+        "en": "Surprise Gift"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "swiftfooted",
+      "name": {
+        "en": "Swiftfooted"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "swirling",
+      "name": {
+        "en": "Swirling"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "tempo-theft",
+      "name": {
+        "en": "Tempo Theft"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    },
+    {
+      "id": "thorns",
+      "name": {
+        "en": "Thorns"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "thundering",
+      "name": {
+        "en": "Thundering"
+      },
+      "applicableCategories": [
+        "melee"
+      ]
+    },
+    {
+      "id": "tumblebee",
+      "name": {
+        "en": "Tumblebee"
+      },
+      "applicableCategories": [
+        "armor"
+      ]
+    },
+    {
+      "id": "unchanting",
+      "name": {
+        "en": "Unchanting",
+        "ja": "エンチャント解除"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "void-strike",
+      "name": {
+        "en": "Void Strike",
+        "ja": "虚無の一撃"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "weakening",
+      "name": {
+        "en": "Weakening"
+      },
+      "applicableCategories": [
+        "melee",
+        "ranged"
+      ]
+    },
+    {
+      "id": "wild-rage",
+      "name": {
+        "en": "Wild Rage"
+      },
+      "applicableCategories": [
+        "ranged"
+      ]
+    }
+  ]
+}
