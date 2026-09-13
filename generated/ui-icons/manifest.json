@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "entries": [
+    {
+      "id": "soul",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Item2/soul_icon",
+      "outputWebp": "public/assets/ui/soul.webp",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Item2",
+      "status": "matched",
+      "sha256": "99d47d87aacd10d22d117c505740fe373b9c50fa5a1ba3b92eda6168b2870afe"
+    },
+    {
+      "id": "category-melee",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee",
+      "outputWebp": "public/assets/ui/category-melee.webp",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "status": "matched",
+      "sha256": "03266ad2b9f141b0e31b332755250cf795a42dae09f4a041cde41781658a5a77"
+    },
+    {
+      "id": "category-ranged",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged",
+      "outputWebp": "public/assets/ui/category-ranged.webp",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "status": "matched",
+      "sha256": "04c189787b7005c2bcce532362026598b887330f1baae80a4d2ce9b4616180f7"
+    },
+    {
+      "id": "category-armor",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour",
+      "outputWebp": "public/assets/ui/category-armor.webp",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "status": "matched",
+      "sha256": "1ef118cc8cfcd33305462a0f7f1cf8bc2a8517867eaf6ceae77130c771bdc0aa"
+    },
+    {
+      "id": "category-artifact",
+      "sourceAsset": "Dungeons/Content/UI/Materials/Inventory2/Filter/filter_item",
+      "outputWebp": "public/assets/ui/category-artifact.webp",
+      "sourcePackage": "Dungeons/Content/UI/Materials/Inventory2/Filter",
+      "status": "matched",
+      "sha256": "40743ce729fc0bc69dd920b77c0aa4e2c2bf5f5c483bcc5f45014667f2b7e7f8"
+    }
+  ]
+}

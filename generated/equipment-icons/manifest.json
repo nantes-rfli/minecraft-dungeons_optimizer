@@ -1073,7 +1073,7 @@
       "category": "armor",
       "catalogId": "ender-armor",
       "status": "not-found",
-      "notes": "No unambiguous inventory icon asset was found."
+      "notes": "Additional full-index search found no CuriousArmor, Ender Armor, preview, inventory-icon, or shared-atlas candidate in the extracted 1.17.0.0 data."
     },
     {
       "category": "armor",
@@ -1662,7 +1662,10 @@
       "category": "armor",
       "catalogId": "vanguard-armor",
       "status": "not-found",
-      "notes": "No unambiguous inventory icon asset was found."
+      "candidates": [
+        "Dungeons/Content/Actors/Characters/Enemies/SkeletonVanguard/T_DesertArmor"
+      ],
+      "notes": "Additional full-index and reference-name search found only the Skeleton Vanguard enemy body texture; it is not an equipment inventory icon and was intentionally rejected."
     },
     {
       "category": "armor",

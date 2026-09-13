@@ -40,8 +40,10 @@ Every catalog ID has exactly one manifest entry with one of `matched`, `multiple
 
 Matched files are checked for successful decoding, non-zero dimensions and size, a maximum size of 128×128, preserved alpha, and non-fully-transparent content. SHA-256 hashes make accidental duplicate assignments visible in the audit output without rejecting intentional shared artwork.
 
-At game version 1.17.0.0, the local dataset maps and exports 269 of 271 catalog entries. `Ender Armor` (`CuriousArmor`) and `Vanguard Armor` (`DesertArmor`) have no corresponding inventory-icon Texture2D in the extracted data and intentionally retain the category fallback.
+At game version 1.17.0.0, the local dataset maps and exports 269 of 271 catalog entries. A second full-index search found no `CuriousArmor`, Ender Armor, preview, inventory-icon, or shared-atlas candidate. For Vanguard Armor (`DesertArmor`), the only related image is the Skeleton Vanguard enemy body texture; it is not an equipment inventory icon. Both entries retain the category fallback, with the findings recorded in the manifest.
+
+The same command also exports the game UI's Inventory 2 Soul marker and melee, ranged, armour, and item/artifact filter icons to `public/assets/ui/`. Their exact source assets, hashes, and extraction state are recorded in `generated/ui-icons/manifest.json`; `icons:audit` validates both manifests without requiring local game data.
 
 ## UI integration
 
-`EquipmentCatalogEntry.icon` is populated from the generated manifest. `EquipmentArtwork` is the single renderer shared by the Inventory Grid, Visual Equipment Picker, and Selected Equipment Detail. Entries without a matched icon keep the existing category glyph fallback.
+`EquipmentCatalogEntry.icon` is populated from the generated manifest. `EquipmentArtwork` is the single renderer shared by compact/list/grid Inventory views, the Visual Equipment Picker, selection confirmation and detail, Statistics, and the Data Browser. It fixes intrinsic dimensions, decodes asynchronously, lazily loads list images, and raises only immediately visible or selected artwork to eager/high priority. Load failures and missing entries keep the existing category glyph fallback. `SoulMarker` and `EquipmentCategoryIcon` use the extracted game UI textures with equivalent in-component fallbacks.

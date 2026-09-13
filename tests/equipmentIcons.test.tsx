@@ -5,8 +5,11 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import sharp from 'sharp'
 import { describe, expect, it } from 'vitest'
 import manifest from '../generated/equipment-icons/manifest.json'
-import { auditManifest, decodeDxt5, equipmentIconWebPath, type EquipmentIconManifest } from '../scripts/equipment-icons'
-import { EquipmentArtwork, SelectedEquipmentPane, VisualEquipmentPicker } from '../src/components/InventoryGameGrid'
+import uiManifest from '../generated/ui-icons/manifest.json'
+import { auditManifest, auditUiManifest, decodeDxt5, equipmentIconWebPath, type EquipmentIconManifest, type UiIconManifest } from '../scripts/equipment-icons'
+import { SelectedEquipmentPane, VisualEquipmentPicker } from '../src/components/InventoryGameGrid'
+import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from '../src/components/EquipmentArtwork'
+import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 import type { Inventory } from '../src/core'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../src/data/equipmentCatalog'
 import { inventoryGridItems } from '../src/inventory/gridPresentation'
@@ -59,10 +62,29 @@ describe('equipment icon extraction and integration', () => {
   it('renders an image when the catalog has an icon and the existing fallback otherwise', () => {
     const matched = getEquipmentCatalogEntry('melee', 'double-axe')!
     const fallback: EquipmentCatalogEntry = { ...matched, id: 'fallback', icon: undefined }
-    expect(renderToStaticMarkup(createElement(EquipmentArtwork, { catalog: matched }))).toContain(`<img src="${matched.icon}"`)
+    const imageHtml = renderToStaticMarkup(createElement(EquipmentArtwork, { catalog: matched }))
+    expect(imageHtml).toContain(`<img src="${matched.icon}"`)
+    expect(imageHtml).toContain('width="128" height="128" loading="lazy" decoding="async" fetchPriority="low"')
+    expect(renderToStaticMarkup(createElement(EquipmentArtwork, { catalog: matched, priority: true }))).toContain('loading="eager" decoding="async" fetchPriority="high"')
     const fallbackHtml = renderToStaticMarkup(createElement(EquipmentArtwork, { catalog: fallback }))
     expect(fallbackHtml).not.toContain('<img')
     expect(fallbackHtml).toContain('⚔')
+  })
+
+  it('tracks and renders the extracted Soul and equipment category UI icons', async () => {
+    expect(auditUiManifest(uiManifest as UiIconManifest)).toEqual([])
+    expect(uiManifest.entries).toHaveLength(5)
+    for (const entry of uiManifest.entries) {
+      expect(entry.status).toBe('matched')
+      const metadata = await sharp(path.join(repositoryRoot, entry.outputWebp)).metadata()
+      expect(metadata.format).toBe('webp')
+      expect(metadata.width).toBeGreaterThan(0)
+      expect(metadata.height).toBeGreaterThan(0)
+      expect(metadata.width).toBeLessThanOrEqual(64)
+      expect(metadata.height).toBeLessThanOrEqual(64)
+    }
+    expect(renderToStaticMarkup(createElement(SoulMarker))).toContain('src="/assets/ui/soul.webp"')
+    expect(renderToStaticMarkup(createElement(EquipmentCategoryIcon, { category: 'melee' }))).toContain('src="/assets/ui/category-melee.webp"')
   })
 
   it('shares the catalog icon across picker, inventory grid data, and selected detail', () => {
@@ -74,5 +96,14 @@ describe('equipment icon extraction and integration', () => {
     expect(item.catalog.icon).toBe(catalog.icon)
     expect(picker).toContain(`src="${catalog.icon}"`)
     expect(detail).toContain(`src="${catalog.icon}"`)
+    expect(detail).toContain('loading="eager"')
+  })
+
+  it('uses catalog artwork in the Data Browser list and detail header', () => {
+    const catalog = getEquipmentCatalogEntry('melee', 'anchor')!
+    const html = renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/melee' }))
+    expect(html).toContain('class="catalog-identity"')
+    expect(html).toContain('class="catalog-detail-header"')
+    expect(html).toContain(`src="${catalog.icon}"`)
   })
 })

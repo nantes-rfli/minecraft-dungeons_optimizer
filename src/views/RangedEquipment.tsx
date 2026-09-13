@@ -5,6 +5,8 @@ import { parseRangedWeapon, rangedWeaponUnsupportedReason } from '../core/ranged
 import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../research/rangedAudit'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
+import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { EquipmentArtwork } from '../components/EquipmentArtwork'
 
 const enchantOptions = RANGED_ENCHANTMENT_AUDIT.entries
 function RollEditor({ value, label, onChange }: { value: RangedRoll; label: string; onChange: (roll: RangedRoll) => void }) {
@@ -25,6 +27,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
   }
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
+  const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
   const changeSlot = (index: number, slot: OwnedRangedWeapon['enchantmentSlots'][number]) => onChange({ ...weapon, enchantmentSlots: weapon.enchantmentSlots.map((item, i) => i === index ? slot : item) })
   const saveObservation = () => {
     try {
@@ -33,7 +36,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       setError('')
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
-  return <details className="inventory-item equipment-card"><summary><span className="equipment-icon ranged" aria-hidden="true"><span>➶</span><small>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja).slice(0, 1)}</small></span><span className="equipment-title"><strong>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}</strong><small lang="en">{audited.name.en}</small></span><span className="equipment-meta">パワー {weapon.powerLevel}</span><span className="edit-label">編集</span></summary>
+  return <details className="inventory-item equipment-card"><summary><EquipmentArtwork catalog={catalog} compact /><span className="equipment-title"><strong>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}</strong><small lang="en">{audited.name.en}</small></span><span className="equipment-meta">パワー {weapon.powerLevel}</span><span className="edit-label">編集</span></summary>
     <label>パワー<input aria-label={`${weapon.instanceId} 遠距離武器のパワー`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
     <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
     <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>

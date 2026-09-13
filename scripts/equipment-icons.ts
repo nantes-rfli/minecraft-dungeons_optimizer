@@ -27,6 +27,22 @@ export interface EquipmentIconManifest {
   readonly entries: readonly EquipmentIconManifestEntry[]
 }
 
+export interface UiIconManifestEntry {
+  readonly id: 'soul' | 'category-melee' | 'category-ranged' | 'category-armor' | 'category-artifact'
+  readonly sourceAsset: string
+  readonly sourcePackage: string
+  readonly outputWebp: string
+  readonly status: 'matched' | 'not-found' | 'export-failed' | 'convert-failed' | 'invalid-output'
+  readonly notes?: string
+  readonly sha256?: string
+}
+
+export interface UiIconManifest {
+  readonly schemaVersion: 1
+  readonly gameVersion: string
+  readonly entries: readonly UiIconManifestEntry[]
+}
+
 interface CatalogItem {
   category: EquipmentIconCategory
   id: string
@@ -52,7 +68,24 @@ interface Candidate {
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const DEFAULT_DATA_ROOT = path.join(repositoryRoot, 'local-game-data', 'QuickBMS 1.17.0.0')
 const MANIFEST_PATH = path.join(repositoryRoot, 'generated', 'equipment-icons', 'manifest.json')
+const UI_MANIFEST_PATH = path.join(repositoryRoot, 'generated', 'ui-icons', 'manifest.json')
 const GAME_VERSION = '1.17.0.0'
+
+const UI_ICON_SOURCES: readonly Pick<UiIconManifestEntry, 'id' | 'sourceAsset' | 'outputWebp'>[] = [
+  { id: 'soul', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Item2/soul_icon', outputWebp: 'public/assets/ui/soul.webp' },
+  { id: 'category-melee', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_melee', outputWebp: 'public/assets/ui/category-melee.webp' },
+  { id: 'category-ranged', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_ranged', outputWebp: 'public/assets/ui/category-ranged.webp' },
+  { id: 'category-armor', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_armour', outputWebp: 'public/assets/ui/category-armor.webp' },
+  { id: 'category-artifact', sourceAsset: 'Dungeons/Content/UI/Materials/Inventory2/Filter/filter_item', outputWebp: 'public/assets/ui/category-artifact.webp' },
+]
+
+const MISSING_ICON_RESEARCH: Readonly<Record<string, { candidates?: readonly string[]; notes: string }>> = {
+  'armor:ender-armor': { notes: 'Additional full-index search found no CuriousArmor, Ender Armor, preview, inventory-icon, or shared-atlas candidate in the extracted 1.17.0.0 data.' },
+  'armor:vanguard-armor': {
+    candidates: ['Dungeons/Content/Actors/Characters/Enemies/SkeletonVanguard/T_DesertArmor'],
+    notes: 'Additional full-index and reference-name search found only the Skeleton Vanguard enemy body texture; it is not an equipment inventory icon and was intentionally rejected.',
+  },
+}
 
 const INTERNAL_FAMILY_ALIASES: Readonly<Record<string, string>> = {
   'broken-sawblade': 'Chainsword',
@@ -218,9 +251,10 @@ export function mapCatalog(catalog: readonly CatalogItem[], candidates: readonly
       candidate.semanticNames.includes(normalize(item.name)) ||
       (targetFamily && normalize(candidate.entityBase) === normalize(targetFamily))
     )).map((candidate) => candidate.sourceAsset)
+    const research = MISSING_ICON_RESEARCH[key(item)]
     return possible.length > 1
       ? { category: item.category, catalogId: item.id, status: 'multiple-candidates', candidates: possible, notes: 'Automatic evidence did not identify one unambiguous asset.' }
-      : { category: item.category, catalogId: item.id, status: 'not-found', ...(possible.length ? { candidates: possible } : {}), notes: 'No unambiguous inventory icon asset was found.' }
+      : { category: item.category, catalogId: item.id, status: 'not-found', ...((research?.candidates ?? possible).length ? { candidates: research?.candidates ?? possible } : {}), notes: research?.notes ?? 'No unambiguous inventory icon asset was found.' }
   })
 }
 
@@ -270,7 +304,7 @@ export function decodeDxt5(data: Buffer, width: number, height: number): Buffer 
   return output
 }
 
-function decodeTexture(candidate: Candidate): { pixels: Buffer; width: number; height: number; hasAlpha: boolean } {
+function decodeTexture(candidate: Pick<Candidate, 'absoluteAsset'>): { pixels: Buffer; width: number; height: number; hasAlpha: boolean } {
   const uasset = fs.readFileSync(candidate.absoluteAsset)
   const uexpPath = candidate.absoluteAsset.replace(/\.uasset$/i, '.uexp')
   if (!fs.existsSync(uexpPath)) throw new Error('The Texture2D has no matching .uexp payload.')
@@ -308,6 +342,47 @@ function decodeTexture(candidate: Candidate): { pixels: Buffer; width: number; h
     pixels[index + 3] = payload[index + 3]!
   }
   return { pixels, width, height, hasAlpha: pixels.some((value, index) => index % 4 === 3 && value < 255) }
+}
+
+async function processUiIcons(dataRoot: string, convert: boolean): Promise<UiIconManifestEntry[]> {
+  return Promise.all(UI_ICON_SOURCES.map(async (spec): Promise<UiIconManifestEntry> => {
+    const absoluteAsset = path.join(dataRoot, `${spec.sourceAsset}.uasset`)
+    const base = { ...spec, sourcePackage: path.posix.dirname(spec.sourceAsset) }
+    if (!fs.existsSync(absoluteAsset)) return { ...base, status: 'not-found', notes: 'The documented game UI texture was not present in the extracted data.' }
+    if (!convert) return { ...base, status: 'matched' }
+    let decoded: ReturnType<typeof decodeTexture>
+    try {
+      decoded = decodeTexture({ absoluteAsset })
+    } catch (error) {
+      return { ...base, status: 'export-failed', notes: error instanceof Error ? error.message : String(error) }
+    }
+    try {
+      const webpPath = path.join(repositoryRoot, spec.outputWebp)
+      fs.mkdirSync(path.dirname(webpPath), { recursive: true })
+      await sharp(decoded.pixels, { raw: { width: decoded.width, height: decoded.height, channels: 4 } }).resize({ width: 64, height: 64, fit: 'inside', withoutEnlargement: true }).webp({ lossless: true }).toFile(webpPath)
+      const metadata = await sharp(webpPath).metadata()
+      const stats = await sharp(webpPath).stats()
+      if (!metadata.width || !metadata.height || metadata.width > 64 || metadata.height > 64 || stats.channels[3]?.min === 0 && stats.channels[3]?.max === 0) return { ...base, status: 'invalid-output', notes: `Validation failed for ${metadata.width ?? 0}x${metadata.height ?? 0} WebP output.` }
+      return { ...base, status: 'matched', sha256: crypto.createHash('sha256').update(fs.readFileSync(webpPath)).digest('hex') }
+    } catch (error) {
+      return { ...base, status: 'convert-failed', notes: error instanceof Error ? error.message : String(error) }
+    }
+  }))
+}
+
+export function auditUiManifest(manifest: UiIconManifest): string[] {
+  const errors: string[] = []
+  const expected = new Set(UI_ICON_SOURCES.map((entry) => entry.id))
+  const seen = new Set<string>()
+  for (const entry of manifest.entries) {
+    if (!expected.has(entry.id)) errors.push(`Unknown UI icon: ${entry.id}`)
+    if (seen.has(entry.id)) errors.push(`Duplicate UI icon: ${entry.id}`)
+    seen.add(entry.id)
+    if (entry.status === 'matched' && (!entry.sourceAsset || !entry.outputWebp)) errors.push(`Matched UI icon lacks source/output: ${entry.id}`)
+    if (!entry.outputWebp.startsWith('public/assets/ui/')) errors.push(`UI icon path mismatch: ${entry.id}`)
+  }
+  for (const missing of expected) if (!seen.has(missing)) errors.push(`Missing UI icon mapping: ${missing}`)
+  return errors
 }
 
 async function processMatch(entry: EquipmentIconManifestEntry, candidate: Candidate): Promise<EquipmentIconManifestEntry> {
@@ -385,6 +460,10 @@ async function main(): Promise<void> {
     const manifest = readJson<EquipmentIconManifest>(path.relative(repositoryRoot, MANIFEST_PATH))
     const errors = auditManifest(manifest)
     console.log(renderSummary(manifest.entries))
+    const uiManifest = readJson<UiIconManifest>(path.relative(repositoryRoot, UI_MANIFEST_PATH))
+    const uiErrors = auditUiManifest(uiManifest)
+    console.log(`\nUI icons: ${uiManifest.entries.filter((entry) => entry.status === 'matched').length} / ${uiManifest.entries.length}`)
+    errors.push(...uiErrors)
     if (errors.length) throw new Error(errors.join('\n'))
     return
   }
@@ -398,8 +477,12 @@ async function main(): Promise<void> {
   const manifest: EquipmentIconManifest = { schemaVersion: 1, gameVersion: GAME_VERSION, entries }
   fs.mkdirSync(path.dirname(MANIFEST_PATH), { recursive: true })
   fs.writeFileSync(MANIFEST_PATH, `${JSON.stringify(manifest, null, 2)}\n`)
+  const uiManifest: UiIconManifest = { schemaVersion: 1, gameVersion: GAME_VERSION, entries: await processUiIcons(dataRoot, command !== 'discover') }
+  fs.mkdirSync(path.dirname(UI_MANIFEST_PATH), { recursive: true })
+  fs.writeFileSync(UI_MANIFEST_PATH, `${JSON.stringify(uiManifest, null, 2)}\n`)
   console.log(renderSummary(entries))
   const errors = auditManifest(manifest, catalog)
+  errors.push(...auditUiManifest(uiManifest))
   if (errors.length) throw new Error(errors.join('\n'))
 }
 

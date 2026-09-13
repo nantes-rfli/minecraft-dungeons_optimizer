@@ -44,6 +44,7 @@ import { ResearchQuestPage } from './screens/ResearchQuestPage'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry } from './data/equipmentCatalog'
 import { addEquipmentToInventory, equipmentKey, inventoryStatistics } from './inventory/collection'
 import { InventoryGameGrid, VisualEquipmentPicker } from './components/InventoryGameGrid'
+import { EquipmentArtwork, EquipmentCategoryIcon } from './components/EquipmentArtwork'
 import { inventoryGridItems } from './inventory/gridPresentation'
 
 const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
@@ -115,9 +116,9 @@ function OwnedArmorEditor({ armor, onChange, onRemove }: { armor: OwnedArmor; on
   </details>
 }
 
-function EquipmentIcon({ category, label }: { category: keyof typeof CATEGORY_LABELS; label: string }) {
-  const glyph = { melee: '⚔', armor: '⬟', ranged: '➶', artifact: '✦' }[category]
-  return <span className={`equipment-icon ${category}`} aria-hidden="true"><span>{glyph}</span><small>{label.slice(0, 1)}</small></span>
+function EquipmentIcon({ category, id, label }: { category: keyof typeof CATEGORY_LABELS; id?: string; label?: string }) {
+  const catalog = id ? getEquipmentCatalogEntry(category, id) : EQUIPMENT_CATALOG.find((entry) => entry.category === category && (entry.name.ja === label || entry.name.en === label))
+  return catalog ? <EquipmentArtwork catalog={catalog} compact /> : <span className={`equipment-icon ${category}`}><EquipmentCategoryIcon category={category} /></span>
 }
 
 function AddEquipmentDrawer({ inventory, open, onClose, onChange, onEditAfterAdd }: { inventory: Inventory; open: boolean; onClose: () => void; onChange: (inventory: Inventory) => void; onEditAfterAdd: (name: string, instanceId: string) => void }) {
@@ -162,10 +163,10 @@ function AddEquipmentDrawer({ inventory, open, onClose, onChange, onEditAfterAdd
   if (!open) return null
   return <><button className="drawer-scrim" type="button" aria-label="装備登録を閉じる" onClick={onClose} /><aside className="equipment-drawer" role="dialog" aria-modal="true" aria-labelledby="equipment-drawer-title">
     <header><div><p className="section-label">ADD EQUIPMENT</p><h2 id="equipment-drawer-title">装備を登録</h2></div><button ref={closeButtonRef} type="button" className="drawer-close" onClick={onClose} aria-label="装備登録を閉じる">×</button></header>
-    <div className="drawer-form"><fieldset className="picker-step"><legend><b>1</b> カテゴリ</legend><div className="picker-segments">{(['melee', 'ranged', 'armor', 'artifact'] as const).map((value) => <button type="button" key={value} aria-pressed={category === value} onClick={() => chooseCategory(value)}>{CATEGORY_LABELS[value]}</button>)}</div></fieldset>
+    <div className="drawer-form"><fieldset className="picker-step"><legend><b>1</b> カテゴリ</legend><div className="picker-segments">{(['melee', 'ranged', 'armor', 'artifact'] as const).map((value) => <button type="button" key={value} aria-pressed={category === value} onClick={() => chooseCategory(value)}><EquipmentCategoryIcon category={value} />{CATEGORY_LABELS[value]}</button>)}</div></fieldset>
       {category !== 'artifact' && <fieldset className="picker-step"><legend><b>2</b> 装備クラス</legend><div className="picker-segments two">{(['normal', 'unique'] as const).map((value) => <button type="button" key={value} aria-pressed={classFilter === value} onClick={() => chooseClass(value)}>{value === 'normal' ? '通常装備' : 'Unique'}</button>)}</div></fieldset>}
       <fieldset className="picker-step picker-browser"><legend><b>3</b> 装備を選択</legend><label className="picker-search"><span className="sr-only">装備を検索</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名・英語名で検索" /></label><VisualEquipmentPicker category={category} classFilter={classFilter} query={query} selectedKey={selectedKey} onSelect={(key) => { setSelectedKey(key); setMessage('') }} /></fieldset>
-      <div className="drawer-selection"><EquipmentIcon category={selected.category} label={selected.name.ja ?? selected.name.en} /><div><strong>{selected.name.ja}</strong><small lang="en">{selected.name.en}</small><span>{CATEGORY_LABELS[selected.category]}</span></div></div>
+      <div className="drawer-selection"><EquipmentArtwork catalog={selected} compact priority /><div><strong>{selected.name.ja}</strong><small lang="en">{selected.name.en}</small><span>{CATEGORY_LABELS[selected.category]}</span></div></div>
       <fieldset className="picker-step instance-properties"><legend><b>4</b> 個体情報</legend>{category !== 'artifact' && selected.rarityFamily !== 'unique' && <label>レアリティ<select value={rarity} onChange={(event) => setRarity(event.target.value as typeof rarity)}><option value="common">Common</option><option value="rare">Rare</option></select></label>}<label>Power<input type="number" min="1" value={powerLevel} onChange={(event) => setPowerLevel(Number(event.target.value))} /></label>{category !== 'artifact' && <label className="edit-after-add"><input type="checkbox" checked={editAfterAdd} onChange={(event) => setEditAfterAdd(event.target.checked)} /><span>登録後にEnchant・金色を設定</span><small>実在する効果を詳細編集で選びます。</small></label>}</fieldset>
       <button className="primary-button" type="button" disabled={!Number.isInteger(powerLevel) || powerLevel < 1} onClick={add}>装備に追加</button><p role="status">{message}</p>
     </div>
@@ -178,9 +179,9 @@ function InventoryStatisticsView({ inventory }: { inventory: Inventory }) {
   return <div className="inventory-statistics">
     <section className="stat-overview" aria-label="装備サマリー"><article><span>所持個体</span><strong>{stats.totalItems}</strong></article><article><span>所持種類</span><strong>{stats.collectedTypes}<small> / {stats.totalTypes}</small></strong></article><article><span>金色率</span><strong>{Math.round(stats.gildedRate * 100)}<small>% · {stats.gildedItems}個</small></strong></article><article><span>重複種類</span><strong>{stats.duplicateTypes.length}</strong></article></section>
     <div className="statistics-grid"><section className="statistics-panel"><div className="section-heading"><div><p className="section-label">POWER</p><h2>Power分布</h2></div></div><div className="bar-chart">{stats.powerDistribution.map((item) => <div key={item.label}><span>{item.label}</span><i><b style={{ width: `${item.count / maxPowerBand * 100}%` }} /></i><strong>{item.count}</strong></div>)}</div></section>
-      <section className="statistics-panel"><div className="section-heading"><div><p className="section-label">DUPLICATES</p><h2>同一装備の重複</h2></div></div>{stats.duplicateTypes.length ? <ol className="rank-list">{stats.duplicateTypes.slice(0, 8).map((item) => <li key={equipmentKey(item.category, item.id)}><EquipmentIcon category={item.category} label={item.name} /><span>{item.name}<small>{CATEGORY_LABELS[item.category]}</small></span><strong>× {item.count}</strong></li>)}</ol> : <p className="quiet-empty">重複している装備はありません。</p>}</section>
+      <section className="statistics-panel"><div className="section-heading"><div><p className="section-label">DUPLICATES</p><h2>同一装備の重複</h2></div></div>{stats.duplicateTypes.length ? <ol className="rank-list">{stats.duplicateTypes.slice(0, 8).map((item) => <li key={equipmentKey(item.category, item.id)}><EquipmentIcon category={item.category} id={item.id} /><span>{item.name}<small>{CATEGORY_LABELS[item.category]}</small></span><strong>× {item.count}</strong></li>)}</ol> : <p className="quiet-empty">重複している装備はありません。</p>}</section>
       <section className="statistics-panel"><div className="section-heading"><div><p className="section-label">ENCHANT</p><h2>よく付いているEnchant</h2></div></div>{stats.enchantments.length ? <ol className="rank-list enchant-ranks">{stats.enchantments.slice(0, 8).map((item, index) => <li key={item.id}><b>{String(index + 1).padStart(2, '0')}</b><span>{item.name}<small>{item.id}</small></span><strong>{item.count}</strong></li>)}</ol> : <p className="quiet-empty">Enchantが登録されていません。</p>}</section>
-      <section className="statistics-panel missing-panel"><div className="section-heading"><div><p className="section-label">MISSING</p><h2>未所持装備</h2></div><span>{stats.missing.length}種類</span></div><div className="missing-equipment-list">{stats.missing.slice(0, 24).map((item) => <span key={equipmentKey(item.category, item.id)}><EquipmentIcon category={item.category} label={item.name.ja ?? item.name.en} />{item.name.ja}</span>)}</div>{stats.missing.length > 24 && <p>ほか {stats.missing.length - 24}種類</p>}</section>
+      <section className="statistics-panel missing-panel"><div className="section-heading"><div><p className="section-label">MISSING</p><h2>未所持装備</h2></div><span>{stats.missing.length}種類</span></div><div className="missing-equipment-list">{stats.missing.slice(0, 24).map((item) => <span key={equipmentKey(item.category, item.id)}><EquipmentIcon category={item.category} id={item.id} />{item.name.ja}</span>)}</div>{stats.missing.length > 24 && <p>ほか {stats.missing.length - 24}種類</p>}</section>
     </div><p className="statistics-note">レアリティ分布は、各個体のレアリティを保存できるようになった段階で追加予定です。現在は未記録の値を推測していません。</p>
   </div>
 }
@@ -195,7 +196,7 @@ function CatalogOnlyInventory({ inventory, onChange, items = inventory.catalogIt
       const intrinsicProperties = item.research?.intrinsicProperties ?? []
       const observations = item.research?.observations ?? []
       const displayName = catalog?.name.ja ?? catalog?.name.en ?? item.catalogId
-      return <details className="equipment-card" key={item.instanceId}><summary><EquipmentIcon category={item.category} label={displayName} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{catalog?.name.en}</small></span><span className="equipment-meta">パワー {item.powerLevel}<small>{CATEGORY_LABELS[item.category]}</small></span><span className="edit-label">記録を見る</span></summary><div className="editor-body catalog-item-editor">
+      return <details className="equipment-card" key={item.instanceId}><summary><EquipmentIcon category={item.category} id={item.catalogId} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{catalog?.name.en}</small></span><span className="equipment-meta">パワー {item.powerLevel}<small>{CATEGORY_LABELS[item.category]}</small></span><span className="edit-label">記録を見る</span></summary><div className="editor-body catalog-item-editor">
         <label>パワー<input aria-label={`${catalog?.name.en ?? item.catalogId}のパワー`} type="number" min="1" value={item.powerLevel} onChange={(event) => update(item.instanceId, (current) => ({ ...current, powerLevel: Number(event.target.value) }))} /></label>
         <label>自分用メモ<input value={item.notes ?? ''} placeholder="入手場所やお気に入りポイントなど" onChange={(event) => update(item.instanceId, (current) => ({ ...current, notes: event.target.value || undefined }))} /></label>
         <details className="advanced-collection-fields"><summary>エンチャントや実測値も記録する</summary><div>

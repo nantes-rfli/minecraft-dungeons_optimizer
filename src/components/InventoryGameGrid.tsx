@@ -2,20 +2,16 @@
 
 import { useMemo, useState } from 'react'
 import type { EquipmentCategory, EquipmentRarity, Inventory } from '../core'
-import { EQUIPMENT_CATALOG, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
 import { hrefForEquipment } from '../app/routes'
 import { inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
+import { CATEGORY_GLYPHS, EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
 
 const EQUIPMENT_CATEGORY_LABELS = { melee: '近接', armor: '防具', ranged: '遠距離', artifact: 'アーティファクト' } as const
-const CATEGORY_GLYPHS: Record<EquipmentCategory, string> = { melee: '⚔', armor: '⬟', ranged: '➶', artifact: '✦' }
 const RARITY_LABELS: Record<EquipmentRarity | 'unrecorded', string> = { common: 'コモン', rare: 'レア', unique: 'ユニーク', unrecorded: '未記録' }
 
-export function EquipmentArtwork({ catalog, compact = false }: { catalog: EquipmentCatalogEntry; compact?: boolean }) {
-  return <span className={`equipment-artwork ${compact ? 'compact' : ''}`} aria-hidden="true">
-    {catalog.icon ? <img src={catalog.icon} alt="" /> : <><b>{CATEGORY_GLYPHS[catalog.category]}</b><small>{(catalog.name.ja ?? catalog.name.en).slice(0, 1)}</small></>}
-  </span>
-}
+export { EquipmentArtwork } from './EquipmentArtwork'
 
 function updateOwnedItem(inventory: Inventory, target: InventoryGridItem, patch: { powerLevel?: number; rarity?: EquipmentRarity }): Inventory {
   const update = <T extends { instanceId: string }>(items: readonly T[]): T[] => items.map((owned) => owned.instanceId === target.instanceId ? { ...owned, ...patch } : owned)
@@ -35,7 +31,7 @@ export function SelectedEquipmentPane({ item, duplicateCount, inventory, onChang
   const [editing, setEditing] = useState(false)
   return <aside className="selected-equipment-pane" aria-label="選択した装備の詳細">
     <button className="sheet-close" type="button" onClick={onClose} aria-label="装備詳細を閉じる">×</button>
-    <div className="detail-art"><EquipmentArtwork catalog={item.catalog} /><span className="detail-category-glyph" aria-hidden="true">{CATEGORY_GLYPHS[item.category]}</span></div>
+    <div className="detail-art"><EquipmentArtwork catalog={item.catalog} priority /><span className="detail-category-glyph"><EquipmentCategoryIcon category={item.category} /></span></div>
     <p className="section-label">SELECTED EQUIPMENT</p><h2>{item.catalog.name.ja}</h2><p className="detail-english" lang="en">{item.catalog.name.en}</p>
     <dl className="detail-facts"><div><dt>カテゴリ</dt><dd>{EQUIPMENT_CATEGORY_LABELS[item.category]}</dd></div><div><dt>レアリティ</dt><dd>{RARITY_LABELS[item.rarity]}</dd></div><div><dt>Power</dt><dd>{item.powerLevel}</dd></div><div><dt>金色</dt><dd>{item.gilded ? 'あり' : 'なし'}</dd></div><div><dt>Soul</dt><dd>{item.catalog.soulGear ? 'Soul 装備' : '—'}</dd></div><div><dt>所持数</dt><dd>{duplicateCount}</dd></div></dl>
     <section className="detail-enchantments"><h3>登録済み Enchant</h3>{item.enchantments.length ? <ul>{item.enchantments.map((name, index) => <li key={`${name}-${index}`}>{name}</li>)}</ul> : <p>—</p>}{item.notes && <p className="instance-note">{item.notes}</p>}</section>
@@ -54,8 +50,8 @@ export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query
   const selected = items.find((item) => item.instanceId === selectedId) ?? null
   return <div className={`inventory-game-layout ${selected ? 'has-selection' : ''}`}>
     <section className="inventory-grid-panel" aria-label="所持装備グリッド"><div className="game-inventory-grid" role="listbox" aria-label="所持装備">
-      {items.map((item) => { const label = `${item.catalog.name.ja}、${item.catalog.name.en}`; const tooltipId = `slot-tooltip-${item.instanceId.replace(/[^a-zA-Z0-9_-]/g, '-')}`; return <button key={item.instanceId} type="button" role="option" aria-selected={selectedId === item.instanceId} aria-label={label} aria-describedby={tooltipId} className="inventory-slot" data-rarity={item.rarity} data-gilded={item.gilded || undefined} onClick={() => setSelectedId(item.instanceId)}>
-        <EquipmentArtwork catalog={item.catalog} />{item.catalog.soulGear && <span className="soul-marker" aria-label="Soul 装備">◉</span>}<span className="slot-power"><i aria-hidden="true">{CATEGORY_GLYPHS[item.category]}</i><b>{item.powerLevel}</b></span><span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span><span className="slot-name-tooltip" id={tooltipId} role="tooltip"><strong>{item.catalog.name.ja}</strong><small lang="en">{item.catalog.name.en}</small></span>
+      {items.map((item, index) => { const label = `${item.catalog.name.ja}、${item.catalog.name.en}`; const tooltipId = `slot-tooltip-${item.instanceId.replace(/[^a-zA-Z0-9_-]/g, '-')}`; return <button key={item.instanceId} type="button" role="option" aria-selected={selectedId === item.instanceId} aria-label={label} aria-describedby={tooltipId} className="inventory-slot" data-rarity={item.rarity} data-gilded={item.gilded || undefined} onClick={() => setSelectedId(item.instanceId)}>
+        <EquipmentArtwork catalog={item.catalog} priority={index < 12} />{item.catalog.soulGear && <SoulMarker />}<span className="slot-power"><i><EquipmentCategoryIcon category={item.category} /></i><b>{item.powerLevel}</b></span><span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span><span className="slot-name-tooltip" id={tooltipId} role="tooltip"><strong>{item.catalog.name.ja}</strong><small lang="en">{item.catalog.name.en}</small></span>
       </button> })}
       {items.length === 0 && <div className="grid-empty"><strong>該当する装備がありません</strong><p>検索語や絞り込みを変更してください。</p></div>}
     </div></section>
