@@ -27,7 +27,7 @@ describe('inventory enchantment additional fix-up', () => {
 
   it('keeps catalog-backed editing while removing the separate collection section', () => {
     const html = renderToStaticMarkup(createElement(CatalogInventoryItems, { inventory, onChange: () => undefined, items: groupedMelee() }))
-    expect(html).toContain('パワー')
+    expect(html).toContain('Power')
     expect(html).toContain('レアリティ')
     expect(html).toContain('エンチャント')
     expect(html).toContain('GILDED ENCHANTMENT')
