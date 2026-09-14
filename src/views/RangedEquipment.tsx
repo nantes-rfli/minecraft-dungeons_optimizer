@@ -7,10 +7,8 @@ import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
-import { EnchantmentSlotEditor } from '../components/EnchantmentSlotEditor'
-import { GildedEnchantmentEditor } from '../components/GildedEnchantmentEditor'
-import { InventoryDeleteButton } from '../components/InventoryDeleteButton'
-function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
+import { EquipmentInstanceEditor } from '../components/EquipmentInstanceEditor'
+export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
   const errorId = useId()
   const observed = weapon.observation
   const observationDraft = () => ({ mode: observed?.mode ?? (weapon.weaponId.includes('crossbow') ? 'single' : 'uncharged'), damage: observed?.projectileDamage.toString() ?? '', cycle: observed?.shotCycleSeconds.toString() ?? '', ammo: observed?.availableAmmo.toString() ?? '', note: observed?.sourceNote ?? '' })
@@ -32,8 +30,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
   return <details className="inventory-item equipment-card"><summary><EquipmentArtwork catalog={catalog} compact /><span className="equipment-title"><strong>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}</strong><small lang="en">{audited.name.en}</small></span><span className="equipment-meta">パワー {weapon.powerLevel}</span><span className="edit-label">編集</span></summary>
-    <label>パワー<input aria-label={`${weapon.instanceId} 遠距離武器のパワー`} type="number" min="1" value={weapon.powerLevel} onChange={(e) => onChange({ ...weapon, powerLevel: Number(e.target.value) })} /></label>
-    <p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
+    <EquipmentInstanceEditor category="ranged" catalog={catalog} powerLevel={weapon.powerLevel} rarity={weapon.rarity} notes={weapon.notes} enchantmentSlots={weapon.enchantmentSlots} gilded={weapon.gilded} onPowerChange={(powerLevel) => onChange({ ...weapon, powerLevel })} onRarityChange={(rarity) => onChange({ ...weapon, rarity })} onNotesChange={(notes) => onChange({ ...weapon, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...weapon, gilded })} onDelete={onRemove} extraFields={<><p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
     <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>
       <p>補正のない1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。</p>
       <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => setDraft({ ...draft, mode: e.target.value as RangedShotMode })}><option value="uncharged">弓・未チャージ</option><option value="charged">弓・フルチャージ</option><option value="single">クロスボウ・単射</option></select></label>
@@ -41,10 +38,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       <label>観測メモ / 出典<input aria-label={`${weapon.instanceId} 観測メモ`} value={draft.note} placeholder="対象・装備・版・記録箇所" onChange={(e) => setDraft({ ...draft, note: e.target.value })} /></label>
       <button type="button" onClick={saveObservation}>観測値を適用</button>{observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined })}>観測値を解除</button>}
       {error && <p id={errorId} role="alert">{error}</p>}
-    </fieldset></div></details>
-    <EnchantmentSlotEditor slots={weapon.enchantmentSlots} category="ranged" soulGear={catalog.soulGear} onChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} />
-    <GildedEnchantmentEditor value={weapon.gilded} category="ranged" soulGear={catalog.soulGear} onChange={(gilded) => onChange({ ...weapon, gilded })} />
-    <InventoryDeleteButton label={japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)} onClick={onRemove} />
+    </fieldset></div></details></>} />
   </details>
 }
 

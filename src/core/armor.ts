@@ -102,6 +102,7 @@ export interface OwnedArmor<TArmorId extends string = string, TArmorEnchantmentI
   /** Required for Mystery Armor and any future variable intrinsic roll. */
   readonly actualIntrinsicRolls?: readonly ArmorIntrinsicProperty[]
   readonly rarity?: EquipmentRarity
+  readonly notes?: string
 }
 
 export interface SelectedArmorEnchantment {

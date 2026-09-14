@@ -124,11 +124,11 @@ describe('equipment icon extraction and integration', () => {
     expect(detail).toContain('loading="eager"')
   })
 
-  it('uses catalog artwork in the Data Browser list and detail header', () => {
+  it('uses catalog artwork in the Data Browser summary without a duplicate detail header', () => {
     const catalog = getEquipmentCatalogEntry('melee', 'anchor')!
     const html = renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/melee' }))
     expect(html).toContain('class="catalog-identity"')
-    expect(html).toContain('class="catalog-detail-header"')
+    expect(html).not.toContain('class="catalog-detail-header"')
     expect(html).toContain(`src="${catalog.icon}"`)
   })
 })

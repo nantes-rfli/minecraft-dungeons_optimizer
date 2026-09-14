@@ -200,6 +200,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     if (!resolveEnchantment(gilded.enchantmentId)?.applicableCategories.includes('melee')) throw new Error(`${field}.gildedは近接へ適用できません。`)
   }
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
+  const notes = optionalString(value.notes, `${field}.notes`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     weaponId: weaponId as WeaponId,
@@ -209,6 +210,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     ...(gilded ? { gilded } : {}),
     ...locked,
     ...(rarity ? { rarity } : {}),
+    ...(notes ? { notes } : {}),
   }
 }
 
@@ -218,11 +220,13 @@ function parseArtifact(value: unknown, index: number): OwnedArtifact {
   const artifactId = requireString(value.artifactId, `${field}.artifactId`)
   if (!(artifactId in ARTIFACTS)) throw new Error(`${field}.artifactIdに未対応ID「${artifactId}」があります。`)
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
+  const notes = optionalString(value.notes, `${field}.notes`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     artifactId: artifactId as ArtifactId,
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
     ...(rarity ? { rarity } : {}),
+    ...(notes ? { notes } : {}),
   }
 }
 
@@ -263,6 +267,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
     gilded = { enchantmentId, tier: value.gilded.tier as ArmorEnchantmentTier }
   }
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
+  const notes = optionalString(value.notes, `${field}.notes`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     armorId: requireString(value.armorId, `${field}.armorId`),
@@ -272,6 +277,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
     ...(gilded ? { gilded } : {}),
     ...(value.locked === undefined ? {} : { locked: value.locked === true }),
     ...(rarity ? { rarity } : {}),
+    ...(notes ? { notes } : {}),
   }
 }
 

@@ -10,6 +10,7 @@ export interface OwnedRangedWeapon {
   readonly enchantmentSlots: readonly OwnedEnchantmentSlot<string>[]
   readonly gilded?: RangedRoll
   readonly rarity?: EquipmentRarity
+  readonly notes?: string
   /** Neutral, single-projectile damage, before selectable enchants/Armor/Strength/target DR. */
   readonly observation?: {
     readonly gameVersion: '1.17.0.0'

@@ -436,6 +436,7 @@ export interface OwnedWeapon {
   readonly gilded?: GildedEnchantment
   readonly locked?: boolean
   readonly rarity?: EquipmentRarity
+  readonly notes?: string
 }
 
 export interface OwnedArtifact {
@@ -443,6 +444,7 @@ export interface OwnedArtifact {
   readonly artifactId: ArtifactId
   readonly powerLevel: number
   readonly rarity?: EquipmentRarity
+  readonly notes?: string
 }
 
 export type EquipmentRarity = 'common' | 'rare' | 'unique'
