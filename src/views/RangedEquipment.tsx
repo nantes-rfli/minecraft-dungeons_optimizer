@@ -2,16 +2,17 @@ import { useId, useState } from 'react'
 import type { Inventory, Scenario, EnchantmentTier, Evaluation } from '../core/types'
 import type { OwnedRangedWeapon, RangedRoll, RangedShotMode } from '../core/rangedTypes'
 import { parseRangedWeapon, rangedWeaponUnsupportedReason } from '../core/ranged'
-import { RANGED_WEAPON_AUDIT, RANGED_ENCHANTMENT_AUDIT } from '../research/rangedAudit'
+import { RANGED_WEAPON_AUDIT } from '../research/rangedAudit'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
+import { EnchantmentSlotEditor } from '../components/EnchantmentSlotEditor'
+import { ENCHANTMENT_CATALOG, type EnchantmentCatalogEntry } from '../data/enchantmentCatalog'
 
-const enchantOptions = RANGED_ENCHANTMENT_AUDIT.entries
-function RollEditor({ value, label, onChange }: { value: RangedRoll; label: string; onChange: (roll: RangedRoll) => void }) {
+function RollEditor({ value, label, options, onChange }: { value: RangedRoll; label: string; options: readonly EnchantmentCatalogEntry[]; onChange: (roll: RangedRoll) => void }) {
   return <div className="weapon-fields"><label>{label}<select aria-label={label} value={value.enchantmentId} onChange={(e) => onChange({ ...value, enchantmentId: e.target.value })}>
-    {enchantOptions.map((entry) => <option key={entry.id} value={entry.id}>{entry.name.ja ?? entry.name.en}</option>)}
+    {options.map((entry) => <option key={entry.id} value={entry.id}>{entry.name.ja} / {entry.name.en}</option>)}
   </select></label><label>Tier<select aria-label={`${label} Tier`} value={value.tier} onChange={(e) => onChange({ ...value, tier: Number(e.target.value) as EnchantmentTier })}>{[1, 2, 3].map((tier) => <option key={tier} value={tier}>{['I', 'II', 'III'][tier - 1]}</option>)}</select></label></div>
 }
 function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
@@ -28,7 +29,7 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
   const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
-  const changeSlot = (index: number, slot: OwnedRangedWeapon['enchantmentSlots'][number]) => onChange({ ...weapon, enchantmentSlots: weapon.enchantmentSlots.map((item, i) => i === index ? slot : item) })
+  const gildedOptions = ENCHANTMENT_CATALOG.filter((entry) => entry.applicableCategories.includes('ranged') && entry.availability.gilded && (!entry.soulGearOnly || catalog.soulGear))
   const saveObservation = () => {
     try {
       if ([draft.damage, draft.cycle, draft.ammo, draft.note].some((value) => value.trim() === '')) throw new Error('観測値とメモをすべて入力してください。')
@@ -47,15 +48,9 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       <button type="button" onClick={saveObservation}>観測値を適用</button>{observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined })}>観測値を解除</button>}
       {error && <p id={errorId} role="alert">{error}</p>}
     </fieldset>
-    {weapon.enchantmentSlots.map((slot, index) => <fieldset key={index}><legend>Ranged slot {index + 1}</legend>
-      {slot.candidates.map((candidate, i) => <div key={i}><RollEditor value={candidate} label={`${weapon.instanceId} slot ${index + 1} 候補 ${i + 1}`} onChange={(next) => changeSlot(index, { ...slot, candidates: slot.candidates.map((item, j) => j === i ? next : item), locked: undefined })} />{slot.candidates.length > 1 && <button type="button" onClick={() => changeSlot(index, { candidates: slot.candidates.filter((_, j) => i !== j) })}>候補を削除</button>}</div>)}
-      {slot.candidates.length < 3 && <button type="button" onClick={() => changeSlot(index, { ...slot, candidates: [...slot.candidates, { enchantmentId: enchantOptions.find((entry) => !slot.candidates.some((item) => item.enchantmentId === entry.id))!.id, tier: 3 }] })}>候補を追加</button>}
-      <label>確定候補<select aria-label={`${weapon.instanceId} slot ${index + 1} lock`} value={slot.locked ?? ''} onChange={(e) => changeSlot(index, { ...slot, locked: e.target.value || undefined })}><option value="">自由（未対応が混ざる個体は除外）</option>{slot.candidates.map((item, i) => <option key={i} value={item.enchantmentId}>{item.enchantmentId}</option>)}</select></label>
-      <button type="button" onClick={() => onChange({ ...weapon, enchantmentSlots: weapon.enchantmentSlots.filter((_, i) => i !== index) })}>スロットを削除</button>
-    </fieldset>)}
-    {weapon.enchantmentSlots.length < 3 && <button type="button" onClick={() => onChange({ ...weapon, enchantmentSlots: [...weapon.enchantmentSlots, { candidates: [{ enchantmentId: 'power', tier: 3 }] }] })}>Rangedスロットを追加</button>}
-    <label><input type="checkbox" checked={!!weapon.gilded} onChange={(e) => onChange({ ...weapon, gilded: e.target.checked ? { enchantmentId: 'critical-hit', tier: 1 } : undefined })} />Ranged 金色エンチャント</label>
-    {weapon.gilded && <RollEditor value={weapon.gilded} label={`${weapon.instanceId} 金色エンチャント`} onChange={(gilded) => onChange({ ...weapon, gilded })} />}</div></details>
+    <EnchantmentSlotEditor slots={weapon.enchantmentSlots} category="ranged" soulGear={catalog.soulGear} onChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} />
+    <label><input type="checkbox" checked={!!weapon.gilded} onChange={(e) => onChange({ ...weapon, gilded: e.target.checked && gildedOptions[0] ? { enchantmentId: gildedOptions[0].id, tier: 1 } : undefined })} />Ranged 金色エンチャント</label>
+    {weapon.gilded && <RollEditor value={weapon.gilded} label={`${weapon.instanceId} 金色エンチャント`} options={gildedOptions} onChange={(gilded) => onChange({ ...weapon, gilded })} />}</div></details>
     <button type="button" aria-label={`${weapon.instanceId} 遠距離武器を削除`} onClick={onRemove}>遠距離武器を削除</button>
   </details>
 }

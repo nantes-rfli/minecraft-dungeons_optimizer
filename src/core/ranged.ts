@@ -24,11 +24,19 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
   if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length > 3) return fail('Rangedスロットは0〜3個です（0はEnchantなし）。')
   const slots = value.enchantmentSlots.map((slot) => {
     if (!record(slot) || !Array.isArray(slot.candidates) || slot.candidates.length < 1 || slot.candidates.length > 3) return fail('Ranged各スロットの候補は1〜3個です。')
-    const candidates = slot.candidates.map(roll)
-    if (new Set(candidates.map((item) => item.enchantmentId)).size !== candidates.length) return fail('Rangedスロットの候補IDが重複しています。')
-    const locked = slot.locked === undefined ? undefined : text(slot.locked, 'locked')
-    if (locked && !candidates.some((candidate) => candidate.enchantmentId === locked)) return fail('Ranged lockedは候補内から選択してください。')
-    return { candidates, ...(locked ? { locked } : {}) }
+    const legacyTiers = new Map<string, EnchantmentTier>()
+    const candidates = slot.candidates.map((candidate) => {
+      if (typeof candidate === 'string') {
+        if (!isAuditedRangedEnchantment(candidate)) return fail(`未監査Ranged Enchant: ${candidate}`)
+        return candidate
+      }
+      const parsed = roll(candidate); legacyTiers.set(parsed.enchantmentId, parsed.tier); return parsed.enchantmentId
+    })
+    if (new Set(candidates).size !== candidates.length) return fail('Rangedスロットの候補IDが重複しています。')
+    const rawSelected = slot.selected ?? (slot.locked === undefined ? undefined : { enchantmentId: slot.locked, tier: legacyTiers.get(String(slot.locked)) })
+    const selected = rawSelected === undefined ? undefined : roll(rawSelected)
+    if (selected && !candidates.includes(selected.enchantmentId)) return fail('Ranged selectedは候補内から選択してください。')
+    return { candidates, ...(selected ? { selected } : {}) }
   })
   let observation: OwnedRangedWeapon['observation']
   if (value.observation !== undefined) {
@@ -50,15 +58,21 @@ export function rangedWeaponUnsupportedReason(weapon: OwnedRangedWeapon): string
   if (!weapon.observation) return `${weapon.weaponId}: neutral projectile damage・完全発射周期・矢数・観測メモが必要です。`
   if (!RANGED_WEAPONS[weapon.weaponId]!.modes.includes(weapon.observation.mode)) return `${weapon.weaponId}: shot modeが一致しません。`
   for (const slot of weapon.enchantmentSlots) {
-    const effective = slot.locked ? slot.candidates.filter((item) => item.enchantmentId === slot.locked) : slot.candidates
-    if (effective.some((item) => !isRuntimeRangedEnchantment(item.enchantmentId))) return `${weapon.weaponId}: 未対応候補を含む自由スロットです。対応候補をlockするか別個体を選択してください。`
+    const candidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? candidate : (candidate as RangedRoll).enchantmentId)
+    const locked = (slot as { locked?: string }).locked
+    const effective = slot.selected ? [slot.selected.enchantmentId] : locked ? [locked] : candidates
+    if (effective.some((id) => !isRuntimeRangedEnchantment(id))) return `${weapon.weaponId}: 未対応候補を含む自由スロットです。対応候補を選択するか別個体を選択してください。`
   }
   if (weapon.gilded && !isRuntimeRangedEnchantment(weapon.gilded.enchantmentId)) return `${weapon.weaponId}: 金色EnchantがResearch-onlyです。`
   return null
 }
 
 export function rangedOptions(weapon: OwnedRangedWeapon): readonly SelectedRangedEnchantment[][] {
-  const groups = weapon.enchantmentSlots.map((slot) => slot.candidates.filter((item) => !slot.locked || item.enchantmentId === slot.locked))
+  const groups = weapon.enchantmentSlots.map((slot) => {
+    const candidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? { enchantmentId: candidate, tier: 3 as const } : candidate as RangedRoll)
+    const locked = (slot as { locked?: string }).locked
+    return slot.selected ? [slot.selected] : locked ? candidates.filter((candidate) => candidate.enchantmentId === locked) : candidates
+  })
   const products = groups.reduce<RangedRoll[][]>((out, group) => out.flatMap((product) => group.map((item) => [...product, item])), [[]])
   return products.map((items) => [...items.map((item) => ({ ...item, source: 'slot' as const })), ...(weapon.gilded ? [{ ...weapon.gilded, source: 'gilded' as const }] : [])])
     .filter((items) => new Set(items.map((item) => item.enchantmentId)).size === items.length)

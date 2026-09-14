@@ -106,11 +106,11 @@ export function defaultResearchQuestState(now = new Date().toISOString()): Resea
 }
 
 function hasUsableGuardingStrike(weapon: OwnedWeapon): boolean {
-  return weapon.enchantmentSlots.some((slot) => slot.locked === 'guarding-strike') || weapon.gilded?.enchantmentId === 'guarding-strike'
+  return weapon.enchantmentSlots.some((slot) => slot.selected?.enchantmentId === 'guarding-strike' || (slot as { locked?: string }).locked === 'guarding-strike') || weapon.gilded?.enchantmentId === 'guarding-strike'
 }
 
 function hasGuardingStrikeCandidate(weapon: OwnedWeapon): boolean {
-  return weapon.enchantmentSlots.some((slot) => slot.candidates.includes('guarding-strike'))
+  return weapon.enchantmentSlots.some((slot) => slot.candidates.some((candidate) => (typeof candidate === 'string' ? candidate : (candidate as { enchantmentId: string }).enchantmentId) === 'guarding-strike'))
 }
 
 function catalogHasGuardingStrike(item: CatalogInventoryItem): boolean {
@@ -199,10 +199,11 @@ function equipmentForCondition(draft: ResearchQuestRunDraft, inventory: Inventor
   const ironHide = inventory.artifacts.find((item) => item.instanceId === readiness.ironHideInstanceId)
   const guardingWeapon = inventory.weapons.find((item) => item.instanceId === readiness.guardingWeaponInstanceId)
   const catalogGuardingWeapon = (inventory.catalogItems ?? []).find((item) => item.instanceId === readiness.guardingWeaponInstanceId && item.category === 'melee')
-  const guardingSlotIndex = guardingWeapon?.enchantmentSlots.findIndex((slot) => slot.locked === 'guarding-strike') ?? -1
+  const guardingSlotIndex = guardingWeapon?.enchantmentSlots.findIndex((slot) => slot.selected?.enchantmentId === 'guarding-strike' || (slot as { locked?: string }).locked === 'guarding-strike') ?? -1
+  const guardingSlot = guardingWeapon?.enchantmentSlots[guardingSlotIndex]
   const guardingSource = guardingWeapon?.gilded?.enchantmentId === 'guarding-strike'
     ? `gilded:tier-${guardingWeapon.gilded.tier}`
-    : `slot-${guardingSlotIndex + 1}:tier-3`
+    : `slot-${guardingSlotIndex + 1}:tier-${guardingSlot?.selected?.tier ?? 3}`
   const usesArmor = draft.condition.includes('armor')
   const usesIron = draft.condition.includes('iron')
   const usesGuarding = draft.condition.includes('guarding')

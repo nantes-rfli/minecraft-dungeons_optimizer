@@ -18,6 +18,8 @@ import { equipmentDisplaySections, type EquipmentPresentationCategory } from '..
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
 import { EnchantmentIdentity } from '../components/EnchantmentArtwork'
+import { EnchantmentDiamond } from '../components/EnchantmentSlotEditor'
+import { ENCHANTMENT_CATALOG, type EnchantmentCatalogEntry } from '../data/enchantmentCatalog'
 
 type Support = 'full' | 'limited' | 'research-only'
 type HarvestCategory = 'melee-weapon' | 'melee-enchantment' | 'armor' | 'armor-enchantment' | 'ranged-weapon' | 'ranged-enchantment' | 'artifact'
@@ -64,8 +66,21 @@ const categoryRoutes: { route: AppRoute; label: string; count: number }[] = [
   { route: '/data/armor', label: '防具', count: 73 },
   { route: '/data/ranged', label: '遠距離', count: 71 },
   { route: '/data/artifacts', label: 'アーティファクト', count: 45 },
-  { route: '/data/enchantments', label: 'エンチャント', count: 115 },
+  { route: '/data/enchantments', label: 'エンチャント', count: ENCHANTMENT_CATALOG.length },
 ]
+
+const enchantmentCategoryLabel = { melee: '近接', ranged: '遠距離', armor: '防具' } as const
+function EnchantmentCatalogView({ query, onQueryChange, targetItemId }: { query: string; onQueryChange: (value: string) => void; targetItemId: string | null }) {
+  const filtered = ENCHANTMENT_CATALOG.filter((entry) => `${entry.name.ja ?? ''} ${entry.name.en} ${entry.id}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+  const tier = (entry: EnchantmentCatalogEntry, index: number) => entry.applicableCategories.map((category) => entry.tierValuesByCategory[category]?.[index] ? `${enchantmentCategoryLabel[category]}: ${entry.tierValuesByCategory[category]?.[index]}` : null).filter(Boolean).join(' / ') || '確認中'
+  const enchantmentHarvest = harvestRecords.filter((record) => record.category.endsWith('-enchantment'))
+  const enchantmentSourceIds = [...new Set(enchantmentHarvest.flatMap((record) => record.sourceIds))]
+  return <section className="catalog-panel enchantment-catalog-panel"><div className="catalog-toolbar"><label>エンチャントを検索<input type="search" value={query} onChange={(event) => onQueryChange(event.target.value)} placeholder="日本語名または英語名" /></label><p role="status">{filtered.length}件</p></div>
+    <div className="catalog-list">{filtered.map((entry) => <details className="catalog-row enchantment-catalog-row" data-equipment-id={entry.id} open={targetItemId === entry.id || undefined} key={entry.id}><summary><span className="catalog-identity"><EnchantmentDiamond enchantmentId={entry.id} category={entry.applicableCategories[0] ?? 'melee'} /><span><strong>{entry.name.ja ?? entry.name.en}</strong>{entry.name.ja && <small lang="en">{entry.name.en}</small>}</span></span><span>{entry.rarity === 'powerful' ? 'Powerful' : entry.rarity === 'common' ? 'Common' : '確認中'}</span><span>{entry.applicableCategories.map((category) => enchantmentCategoryLabel[category]).join(' · ')}</span></summary><div className="catalog-detail"><header className="catalog-detail-header"><EnchantmentDiamond enchantmentId={entry.id} category={entry.applicableCategories[0] ?? 'melee'} /><div><strong>{entry.name.ja ?? entry.name.en}</strong>{entry.name.ja && <small lang="en">{entry.name.en}</small>}<span>{entry.id}</span></div></header><section className="property-table" aria-label={`${entry.name.en}のゲームデータ`}><h3>エンチャント情報</h3><dl><div><dt>Rarity</dt><dd>{entry.rarity === 'powerful' ? 'Powerful' : entry.rarity === 'common' ? 'Common' : '確認中'}</dd></div><div><dt>適用カテゴリ</dt><dd>{entry.applicableCategories.map((category) => enchantmentCategoryLabel[category]).join(' / ')}</dd></div><div><dt>Soul限定</dt><dd>{entry.soulGearOnly ? 'Yes' : '—'}</dd></div>{[0, 1, 2].map((index) => <div key={index}><dt>Tier {['I', 'II', 'III'][index]}</dt><dd>{tier(entry, index)}</dd></div>)}<div><dt>通常slotで取得可能</dt><dd>{entry.availability.normalSlot ? 'Yes' : '—'}</dd></div><div><dt>Gildedで取得可能</dt><dd>{entry.availability.gilded ? 'Yes' : '—'}</dd></div><div><dt>Built-inで存在</dt><dd>{entry.availability.builtIn ? 'Yes' : '—'}</dd></div></dl></section></div></details>)}</div>
+    {filtered.length === 0 && <div className="empty-state"><h2>該当するデータがありません</h2><p>日本語名または英語名を変更してください。</p></div>}
+    <details className="technical-detail canonical-enchantment-sources"><summary>技術情報・出典</summary><dl><dt>確認できているデータ</dt><dd>{enchantmentHarvest.reduce((total, record) => total + record.known.filter((fact) => fact.status === 'accepted').length, 0)}項目</dd><dt>確認中の項目</dt><dd>{enchantmentHarvest.reduce((total, record) => total + record.unknown.length, 0)}項目</dd><dt>確認先</dt><dd>{enchantmentSourceIds.map((id) => harvestSources.get(id)?.title ?? id).join(' · ')}</dd><dt>ゲームバージョン</dt><dd>1.17.0.0 · 古い可能性と claimed-current をレコード単位で保持</dd><dt>情報の競合</dt><dd>{[...new Set(enchantmentHarvest.flatMap((record) => record.conflicts.map((conflict) => `${conflict.probableReason} (${conflict.resolutionStatus})`)))].join(' · ') || 'ありません'}</dd></dl></details>
+  </section>
+}
 
 const attackStatus = (status: string, hitsPerSecond: number | null): string => status === 'exact' && hitsPerSecond !== null
   ? `攻撃の速さは毎秒約${hitsPerSecond.toFixed(2)}ヒットです。`
@@ -92,7 +107,7 @@ function itemsFor(route: AppRoute): CatalogItem[] {
 
 export function DataBrowserPage({ route }: { route: AppRoute }) {
   const [query, setQuery] = useState('')
-  const items = useMemo(() => itemsFor(route), [route])
+  const items = useMemo(() => route === '/data/enchantments' ? [] : itemsFor(route), [route])
   const filtered = items.filter((item) => `${item.name} ${item.secondary ?? ''} ${item.id}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
   const targetItemId = readRouteItem()
   useEffect(() => {
@@ -108,7 +123,7 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
     {route === '/data' ? <>
       <DataSummary />
       <details className="panel compact-panel"><summary>データの収録状況について</summary><p>すべての装備はコレクションに登録できます。計算への利用条件や調査状況は、各装備の「技術情報」で確認できます。</p></details>
-    </> : <section className="catalog-panel">
+    </> : route === '/data/enchantments' ? <EnchantmentCatalogView query={query} onQueryChange={setQuery} targetItemId={targetItemId} /> : <section className="catalog-panel">
       <div className="catalog-toolbar"><label>装備を検索<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名または英語名" /></label><p role="status">{filtered.length}件</p></div>
       <div className="catalog-list">{filtered.map((item) => {
         const sources = item.harvest.sourceIds.map((id) => harvestSources.get(id)).filter((source): source is HarvestSource => Boolean(source))

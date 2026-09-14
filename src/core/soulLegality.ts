@@ -10,12 +10,20 @@ export function soulEnchantmentUnsupportedReason(weaponId: OwnedWeapon['weaponId
   return undefined
 }
 
-/** Reject even unselected illegal inventory candidates, including fixed and gilded slots. */
+/**
+ * Inventory validation only enforces whether an enchantment can exist on the
+ * equipment. Runtime/research support is intentionally checked by the Optimizer
+ * so a faithful owned-item record is never lost.
+ */
 export function validateWeaponSoulLegality(weapon: OwnedWeapon): void {
-  const ids = weapon.enchantmentSlots.flatMap((slot) => [...slot.candidates, ...(slot.locked ? [slot.locked] : [])])
+  const ids = weapon.enchantmentSlots.flatMap((slot) => [
+    ...slot.candidates.map((candidate) => typeof candidate === 'string' ? candidate : (candidate as { enchantmentId: string }).enchantmentId),
+    ...(slot.selected ? [slot.selected.enchantmentId] : (slot as { locked?: string }).locked ? [(slot as { locked: string }).locked] : []),
+  ])
   if (weapon.gilded) ids.push(weapon.gilded.enchantmentId)
   for (const id of ids) {
-    const reason = soulEnchantmentUnsupportedReason(weapon.weaponId, id)
-    if (reason) throw new OptimizerInputError('INVALID_SOUL_ENCHANTMENT', reason)
+    if (isSoulEnchantmentId(id) && !getWeaponDefinition(weapon.weaponId).soul.acceptsSoulEnchantments) {
+      throw new OptimizerInputError('INVALID_SOUL_ENCHANTMENT', `${id}はSoul gear限定です。${weapon.weaponId}には装着できません。`)
+    }
   }
 }

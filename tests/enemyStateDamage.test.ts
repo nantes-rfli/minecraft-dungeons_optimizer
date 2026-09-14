@@ -258,7 +258,7 @@ describe('enemy-state validation, evidence and inventory integration', () => {
     const stored = new Map<string, string>()
     vi.stubGlobal('localStorage', { getItem: (key: string) => stored.get(key) ?? null, setItem: (key: string, value: string) => stored.set(key, value) })
     for (const tier of [1, 2, 3] as const) {
-      const inventory: Inventory = { weapons: [{ ...weapon, instanceId: id, enchantmentSlots: [{ candidates: [id, 'sharpness'], locked: 'sharpness' }], gilded: { enchantmentId: id, tier } }], artifacts: [] }
+      const inventory: Inventory = { weapons: [{ ...weapon, instanceId: id, enchantmentSlots: [{ candidates: [id, 'sharpness'], selected: { enchantmentId: 'sharpness', tier: 3 } }], gilded: { enchantmentId: id, tier } }], artifacts: [] }
       expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
       saveInventory(inventory)
       expect(loadInventory({ weapons: [], artifacts: [] })).toEqual(inventory)

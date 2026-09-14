@@ -87,7 +87,7 @@ describe('Soul gear promotion and legality', () => {
     const build = buildFor([selected('enigma-resonator' as EnchantmentId)])
     expect(() => evaluate(build, scenario)).toThrow('research-only')
     expect(() => optimize({ weapons: [build.weapon], artifacts: [] }, scenario)).toThrow('research-only')
-    expect(() => deserializeInventory(serializeInventory({ weapons: [build.weapon], artifacts: [] }))).toThrow()
+    expect(deserializeInventory(serializeInventory({ weapons: [build.weapon], artifacts: [] })).weapons[0]?.enchantmentSlots[0]?.candidates).toEqual(['enigma-resonator'])
     expect(audit.entries.find((entry) => entry.id === 'enigma-resonator')?.blockers.length).toBeGreaterThanOrEqual(4)
   })
 })

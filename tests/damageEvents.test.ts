@@ -207,7 +207,7 @@ describe('input boundaries, storage and UI', () => {
   it.each(PROC_DAMAGE_IDS)('%s preserves slots, locks, gilded tiers and localStorage', (id) => {
     for (const tier of [1, 2, 3] as const) {
       const build = buildFor([selected('radiance'), selected(id, tier, 'gilded')])
-      const inventory: Inventory = { weapons: [{ ...build.weapon, enchantmentSlots: [{ candidates: ['radiance', id], locked: 'radiance' }] }], artifacts: [] }
+      const inventory: Inventory = { weapons: [{ ...build.weapon, enchantmentSlots: [{ candidates: ['radiance', id], selected: { enchantmentId: 'radiance', tier: 3 } }] }], artifacts: [] }
       const restored = deserializeInventory(serializeInventory(inventory))
       expect(restored).toEqual(inventory)
       const memory = new Map<string, string>()

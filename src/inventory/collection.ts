@@ -1,4 +1,4 @@
-import type { ArtifactId, CatalogInventoryItem, EquipmentCategory, Inventory, OwnedArtifact, OwnedWeapon, WeaponId } from '../core'
+import type { ArtifactId, CatalogInventoryItem, EnchantmentTier, EquipmentCategory, Inventory, OwnedArtifact, OwnedEnchantmentSlot, OwnedWeapon, WeaponId } from '../core'
 import type { ArmorId, OwnedArmor } from '../core/armor'
 import type { OwnedRangedWeapon } from '../core/rangedTypes'
 import { ARMORS } from '../data/armors'
@@ -78,10 +78,15 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
   ]
   const enchantmentCounts = new Map<string, number>()
   const countEnchant = (id: string) => enchantmentCounts.set(id, (enchantmentCounts.get(id) ?? 0) + 1)
-  inventory.weapons.forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach(countEnchant); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
-  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach((roll) => countEnchant(roll.enchantmentId)); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
-  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.flatMap((slot) => slot.candidates).forEach((roll) => countEnchant(roll.enchantmentId)); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
-  ;(inventory.catalogItems ?? []).forEach((item) => item.research?.enchantments?.forEach((enchantment) => countEnchant(enchantment.enchantmentId)))
+  inventory.weapons.forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.catalogItems ?? []).forEach((item) => {
+    if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) })
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+    if (item.gilded) countEnchant(item.gilded.enchantmentId)
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+  })
   const gildedItems = instances.filter((item) => item.gilded).length
   return {
     totalItems: instances.length,
@@ -96,29 +101,29 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
   }
 }
 
-export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string, powerLevel = 251, rarity?: 'common' | 'rare' | 'unique'): Inventory {
+export function addEquipmentToInventory(inventory: Inventory, selected: EquipmentCatalogEntry, instanceId: string, powerLevel = 251, rarity?: 'common' | 'rare' | 'unique', enchantment?: { slots: readonly OwnedEnchantmentSlot<string>[]; gilded?: { enchantmentId: string; tier: EnchantmentTier } }): Inventory {
   if (selected.category === 'melee' && selected.id in WEAPONS) {
     const weapon: OwnedWeapon = {
       instanceId, weaponId: selected.id as WeaponId, powerLevel, ...(rarity ? { rarity } : {}),
-      enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'] }, { candidates: ['leeching', 'guarding-strike'] }, { candidates: ['void-strike', 'critical-hit'] }],
+      enchantmentSlots: enchantment?.slots ?? [], ...(enchantment?.gilded ? { gilded: enchantment.gilded } : {}),
     }
     return { ...inventory, weapons: [...inventory.weapons, weapon] }
   }
   if (selected.category === 'armor' && selected.id in ARMORS) {
     const armor: OwnedArmor = {
       instanceId, armorId: selected.id as ArmorId, powerLevel, observedHealthBonus: 1_880_000, ...(rarity ? { rarity } : {}),
-      enchantmentSlots: [{ candidates: [{ enchantmentId: 'cool-down', tier: 3 }, { enchantmentId: 'potion-barrier', tier: 3 }, { enchantmentId: 'chilling', tier: 3 }] }],
+      enchantmentSlots: enchantment?.slots ?? [], ...(enchantment?.gilded ? { gilded: enchantment.gilded } : {}),
     }
     return { ...inventory, armors: [...(inventory.armors ?? []), armor] }
   }
   if (selected.category === 'ranged' && selected.id in RANGED_WEAPONS) {
-    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel, enchantmentSlots: [], ...(rarity ? { rarity } : {}) }
+    const weapon: OwnedRangedWeapon = { instanceId, weaponId: selected.id, powerLevel, enchantmentSlots: enchantment?.slots ?? [], ...(enchantment?.gilded ? { gilded: enchantment.gilded } : {}), ...(rarity ? { rarity } : {}) }
     return { ...inventory, rangedWeapons: [...(inventory.rangedWeapons ?? []), weapon] }
   }
   if (selected.category === 'artifact' && selected.id in ARTIFACTS) {
     const artifact: OwnedArtifact = { instanceId, artifactId: selected.id as ArtifactId, powerLevel, ...(rarity ? { rarity } : {}) }
     return { ...inventory, artifacts: [...inventory.artifacts, artifact] }
   }
-  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel, ...(rarity ? { rarity } : {}) }
+  const item: CatalogInventoryItem = { instanceId, category: selected.category, catalogId: selected.id, powerLevel, ...(rarity ? { rarity } : {}), ...(selected.category !== 'artifact' && enchantment?.slots ? { enchantmentSlots: enchantment.slots } : {}), ...(selected.category !== 'artifact' && enchantment?.gilded ? { gilded: enchantment.gilded } : {}) }
   return { ...inventory, catalogItems: [...(inventory.catalogItems ?? []), item] }
 }

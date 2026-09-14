@@ -36,7 +36,21 @@
         "Dungeons/Content/Components/Enchantments/AnimaConduitMelee/T_AnimaConduitMelee_Icon",
         "Dungeons/Content/Components/Enchantments/AnimaConduitRanged/T_AnimaConduitRanged_Icon"
       ],
-      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+      "categoryOutputs": {
+        "melee": {
+          "sourceAsset": "Dungeons/Content/Components/Enchantments/AnimaConduitMelee/T_AnimaConduitMelee_Icon",
+          "sourcePackage": "Dungeons/Content/Components/Enchantments/AnimaConduitMelee",
+          "outputWebp": "public/assets/enchantments/anima-conduit-melee.webp",
+          "sha256": "48d74a718e8b8124af7621111d7183d2a88b91b6a2ddaff26d5cd9feb4a7837e"
+        },
+        "ranged": {
+          "sourceAsset": "Dungeons/Content/Components/Enchantments/AnimaConduitRanged/T_AnimaConduitRanged_Icon",
+          "sourcePackage": "Dungeons/Content/Components/Enchantments/AnimaConduitRanged",
+          "outputWebp": "public/assets/enchantments/anima-conduit-ranged.webp",
+          "sha256": "8b8f6571fc7bceed9ab712fa9307795abefcb754e3215bb1ae704b5f01159298"
+        }
+      },
+      "notes": "Category-specific definition references use distinct icon textures; each applicable category is exported separately."
     },
     {
       "enchantmentId": "artifact-charge",
@@ -234,7 +248,21 @@
         "Dungeons/Content/Patch2/Components/Enchantments/DynamoMelee/T_DynamoMelee_Icon",
         "Dungeons/Content/Patch2/Components/Enchantments/DynamoRanged/T_DynamoRanged_Icon"
       ],
-      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+      "categoryOutputs": {
+        "melee": {
+          "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/DynamoMelee/T_DynamoMelee_Icon",
+          "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/DynamoMelee",
+          "outputWebp": "public/assets/enchantments/dynamo-melee.webp",
+          "sha256": "e14652ce70acb65e0549ba5c7dff471670ef647de264a8fbaa8c22509897fe2e"
+        },
+        "ranged": {
+          "sourceAsset": "Dungeons/Content/Patch2/Components/Enchantments/DynamoRanged/T_DynamoRanged_Icon",
+          "sourcePackage": "Dungeons/Content/Patch2/Components/Enchantments/DynamoRanged",
+          "outputWebp": "public/assets/enchantments/dynamo-ranged.webp",
+          "sha256": "efaf0a849763feeb52de08e31ddc58939ccfed23f54f3dbfc824dfa958b0f5ff"
+        }
+      },
+      "notes": "Category-specific definition references use distinct icon textures; each applicable category is exported separately."
     },
     {
       "enchantmentId": "echo",
@@ -641,7 +669,21 @@
         "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstMelee/T_PotionThirstMelee_Icon",
         "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstRanged/T_PotionThirstRanged_Icon"
       ],
-      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+      "categoryOutputs": {
+        "melee": {
+          "sourceAsset": "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstMelee/T_PotionThirstMelee_Icon",
+          "sourcePackage": "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstMelee",
+          "outputWebp": "public/assets/enchantments/refreshment-melee.webp",
+          "sha256": "05cdd215972f426389a46b8d1be26bcd8f26771dfb1a53219018c0fc5a551193"
+        },
+        "ranged": {
+          "sourceAsset": "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstRanged/T_PotionThirstRanged_Icon",
+          "sourcePackage": "Dungeons/Content/Content_DLC5/Components/Enchantments/PotionThirstRanged",
+          "outputWebp": "public/assets/enchantments/refreshment-ranged.webp",
+          "sha256": "06580d4302b73761edf58d82271fc318fbcc0c0aa9342c0a59fc6e821b435256"
+        }
+      },
+      "notes": "Category-specific definition references use distinct icon textures; each applicable category is exported separately."
     },
     {
       "enchantmentId": "ricochet",
@@ -857,7 +899,21 @@
         "Dungeons/Content/Components/Enchantments/VoidTouchedMelee/T_VoidTouchedMelee_Icon",
         "Dungeons/Content/Components/Enchantments/VoidTouchedRanged/T_VoidTouchedRanged_Icon"
       ],
-      "notes": "Category-specific definition references use distinct icon textures; no single canonical artwork was forced."
+      "categoryOutputs": {
+        "melee": {
+          "sourceAsset": "Dungeons/Content/Components/Enchantments/VoidTouchedMelee/T_VoidTouchedMelee_Icon",
+          "sourcePackage": "Dungeons/Content/Components/Enchantments/VoidTouchedMelee",
+          "outputWebp": "public/assets/enchantments/void-strike-melee.webp",
+          "sha256": "a46503fb013c35b2fbe3977dc7a780b5c114c54480472ade07c44aa03cfc7385"
+        },
+        "ranged": {
+          "sourceAsset": "Dungeons/Content/Components/Enchantments/VoidTouchedRanged/T_VoidTouchedRanged_Icon",
+          "sourcePackage": "Dungeons/Content/Components/Enchantments/VoidTouchedRanged",
+          "outputWebp": "public/assets/enchantments/void-strike-ranged.webp",
+          "sha256": "585bb8a42e875a70d239920714d3072e607bea17e8e46b060b1d47000ab04313"
+        }
+      },
+      "notes": "Category-specific definition references use distinct icon textures; each applicable category is exported separately."
     },
     {
       "enchantmentId": "weakening",

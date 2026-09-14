@@ -6,11 +6,11 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 
 const scenario: Scenario = { ...DEFAULT_SCENARIO, cooldownReduction: 0, incomingDamagePerSecond: 100, maxHealth: 999_999 }
-const weapon = { instanceId: 'weapon', weaponId: 'double-axe' as const, powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit' as const], locked: 'critical-hit' as const }] }
+const weapon = { instanceId: 'weapon', weaponId: 'double-axe' as const, powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit' as const], selected: { enchantmentId: 'critical-hit' as const, tier: 3 as const } }] }
 const selected: SelectedEnchantment[] = [{ enchantmentId: 'critical-hit', tier: 3, source: 'slot' }]
 
 function armor(armorId: ArmorId, enchantmentId: ArmorEnchantmentId = 'chilling', tier: 1 | 2 | 3 = 3): OwnedArmor {
-  return { instanceId: armorId, armorId, powerLevel: 251, observedHealthBonus: 400, enchantmentSlots: [{ candidates: [{ enchantmentId, tier }], locked: enchantmentId }] }
+  return { instanceId: armorId, armorId, powerLevel: 251, observedHealthBonus: 400, enchantmentSlots: [{ candidates: [enchantmentId], selected: { enchantmentId, tier } }] }
 }
 
 function build(armorId: ArmorId, enchantmentId: ArmorEnchantmentId = 'chilling', tier: 1 | 2 | 3 = 3): Build {
@@ -159,7 +159,7 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(() => optimize({ weapons: [weapon], armors: [{ ...supported, observedHealthBonus: undefined }], artifacts: [] }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
   })
 
-  it('round-trips Armor JSON and migrates old JSON without changing its shape', () => {
+  it('round-trips canonical Armor JSON without changing its shape', () => {
     const inventory = { weapons: [weapon], armors: [armor('battle-robe')], artifacts: [] }
     expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
     const legacy = { weapons: [weapon], artifacts: [] }

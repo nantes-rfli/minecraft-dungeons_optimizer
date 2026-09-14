@@ -406,13 +406,18 @@ export interface ArtifactStacking {
   readonly behavior: 'stack' | 'refresh' | 'independent' | 'non-stackable'
 }
 
-export interface EnchantmentSlot {
-  readonly candidates: readonly EnchantmentId[]
-  readonly locked?: EnchantmentId
+export interface OwnedEnchantmentSlot<TEnchantmentId extends string = string> {
+  readonly candidates: readonly TEnchantmentId[]
+  readonly selected?: {
+    readonly enchantmentId: TEnchantmentId
+    readonly tier: EnchantmentTier
+  }
 }
 
-export interface GildedEnchantment {
-  readonly enchantmentId: EnchantmentId
+export type EnchantmentSlot = OwnedEnchantmentSlot<string>
+
+export interface GildedEnchantment<TEnchantmentId extends string = string> {
+  readonly enchantmentId: TEnchantmentId
   readonly tier: EnchantmentTier
 }
 
@@ -477,6 +482,8 @@ export interface CatalogInventoryItem {
   /** Per-instance facts for Research Quest; never implies runtime support. */
   readonly research?: CatalogResearchAttributes
   readonly rarity?: EquipmentRarity
+  readonly enchantmentSlots?: readonly OwnedEnchantmentSlot<string>[]
+  readonly gilded?: GildedEnchantment<string>
 }
 
 export interface Inventory {

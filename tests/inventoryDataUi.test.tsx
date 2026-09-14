@@ -8,11 +8,12 @@ import { inventoryGridItems } from '../src/inventory/gridPresentation'
 import { equipmentDisplaySections } from '../src/data/equipmentPresentation'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 import { hrefForEquipment } from '../src/app/routes'
+import { ENCHANTMENT_CATALOG } from '../src/data/enchantmentCatalog'
 
 const inventory: Inventory = {
   weapons: [
     { instanceId: 'common-axe', weaponId: 'double-axe', powerLevel: 250, rarity: 'rare', enchantmentSlots: [{ candidates: ['critical-hit'] }] },
-    { instanceId: 'gilded-soul', weaponId: 'soul-scythe', powerLevel: 251, rarity: 'unique', enchantmentSlots: [{ candidates: ['anima-conduit'] }], gilded: { enchantmentId: 'soul-siphon', tier: 3 } },
+    { instanceId: 'gilded-soul', weaponId: 'soul-scythe', powerLevel: 251, rarity: 'unique', enchantmentSlots: [{ candidates: ['anima-conduit'], selected: { enchantmentId: 'anima-conduit', tier: 2 } }], gilded: { enchantmentId: 'soul-siphon', tier: 3 } },
   ],
   armors: [], rangedWeapons: [], artifacts: [], catalogItems: [],
 }
@@ -28,6 +29,8 @@ describe('inventory and data presentation', () => {
     expect(html).toContain('Soul 装備')
     expect(html).toContain('Power')
     expect(html).toContain('role="tooltip"')
+    expect(html).toContain('選択済み 流れ込む魂')
+    expect(html).not.toContain('選択済み クリティカルヒット')
     expect(html).toContain('<strong>両刃斧</strong><small lang="en">Double Axe</small>')
   })
 
@@ -44,6 +47,20 @@ describe('inventory and data presentation', () => {
     expect(deserializeInventory(serializeInventory(inventory)).weapons.map((item) => item.rarity)).toEqual(['rare', 'unique'])
     const legacy = JSON.stringify({ version: 4, inventory: { weapons: [{ instanceId: 'legacy', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit'] }] }], artifacts: [] } })
     expect(deserializeInventory(legacy).weapons[0]?.rarity).toBeUndefined()
+  })
+
+  it('uses only selected enchantments in compact inventory summaries', () => {
+    const items = inventoryGridItems(inventory)
+    expect(items.find((item) => item.instanceId === 'common-axe')?.enchantments).toEqual([])
+    expect(items.find((item) => item.instanceId === 'gilded-soul')?.enchantments).toEqual(['流れ込む魂'])
+  })
+
+  it('has one canonical catalog entry per enchantment with category and fixed rarity metadata', () => {
+    expect(new Set(ENCHANTMENT_CATALOG.map((entry) => entry.id)).size).toBe(ENCHANTMENT_CATALOG.length)
+    expect(ENCHANTMENT_CATALOG.filter((entry) => entry.id === 'critical-hit')).toHaveLength(1)
+    expect(ENCHANTMENT_CATALOG.find((entry) => entry.id === 'critical-hit')).toMatchObject({ name: { ja: 'クリティカルヒット', en: 'Critical Hit' }, rarity: 'powerful', applicableCategories: ['melee', 'ranged'] })
+    expect(ENCHANTMENT_CATALOG.every((entry) => entry.name.ja)).toBe(true)
+    expect(ENCHANTMENT_CATALOG.every((entry) => entry.rarity === 'common' || entry.rarity === 'powerful')).toBe(true)
   })
 
   it('keeps a category-specific field structure and renders missing facts as dashes', () => {

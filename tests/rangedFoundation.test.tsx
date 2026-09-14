@@ -11,7 +11,7 @@ import type { OwnedRangedWeapon } from '../src/core/rangedTypes'
 import { FUTURE_CANDIDATES, ROADMAP_WORK_UNITS } from '../src/data/roadmap'
 
 const legacy: Inventory = { weapons: [{ instanceId: 'm', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit'] }] }], artifacts: [] }
-const weapon: OwnedRangedWeapon = { instanceId: 'r', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 2 }, { enchantmentId: 'multishot', tier: 3 }], locked: 'power' }], gilded: { enchantmentId: 'critical-hit', tier: 1 }, observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 10, sourceNote: 'SYNTHETIC TEST ONLY' } }
+const weapon: OwnedRangedWeapon = { instanceId: 'r', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [{ candidates: ['power', 'multishot'], selected: { enchantmentId: 'power', tier: 2 } }], gilded: { enchantmentId: 'critical-hit', tier: 1 }, observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 10, sourceNote: 'SYNTHETIC TEST ONLY' } }
 afterEach(() => vi.unstubAllGlobals())
 
 describe('ranged population and persistence', () => {
@@ -43,7 +43,7 @@ describe('ranged population and persistence', () => {
   it('imports old JSON losslessly without adding optional ranged fields', () => {
     expect(deserializeInventory(JSON.stringify({ version: 1, inventory: legacy }))).toEqual(legacy)
     expect(deserializeInventory(serializeInventory(legacy))).not.toHaveProperty('rangedWeapons')
-    expect(JSON.parse(serializeInventory(legacy)).version).toBe(4)
+    expect(JSON.parse(serializeInventory(legacy)).version).toBe(5)
   })
   it.each([1, 2, 3] as const)('round-trips Gilded %s and locked research-only alternatives', (tier) => {
     const inventory: Inventory = { ...legacy, rangedWeapons: [{ ...weapon, gilded: { enchantmentId: 'critical-hit', tier } }] }
@@ -58,11 +58,11 @@ describe('ranged population and persistence', () => {
     expect(loadInventory({ weapons: [], artifacts: [] })).toEqual(legacy)
     expect(JSON.parse(data.get(key)!).version).toBe(1)
     saveInventory({ ...legacy, rangedWeapons: [weapon] })
-    expect(JSON.parse(data.get(key)!).version).toBe(4)
+    expect(JSON.parse(data.get(key)!).version).toBe(5)
     expect(loadInventory(legacy).rangedWeapons).toEqual([weapon])
   })
   it('rejects malformed ranged fields without silently dropping them', () => {
-    for (const rangedWeapons of [null, 'bad', [{ ...weapon, observation: { ...weapon.observation, projectileDamage: 0 } }], [{ ...weapon, instanceId: 'm' }], [{ ...weapon, enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 4 }] }] }]]) {
+    for (const rangedWeapons of [null, 'bad', [{ ...weapon, observation: { ...weapon.observation, projectileDamage: 0 } }], [{ ...weapon, instanceId: 'm' }], [{ ...weapon, enchantmentSlots: [{ candidates: ['power'], selected: { enchantmentId: 'power', tier: 4 } }] }]]) {
       expect(() => deserializeInventory(JSON.stringify({ version: 2, inventory: { ...legacy, rangedWeapons } }))).toThrow()
     }
   })

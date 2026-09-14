@@ -53,7 +53,9 @@ describe('temporal audit and source/runtime boundary', () => {
       const build = buildFor([selected('echo' as EnchantmentId), selected(companion)])
       expect(() => evaluate(build, scenario)).toThrow()
       expect(() => optimize({ weapons: [build.weapon], artifacts: [] }, scenario)).toThrow()
-      expect(() => deserializeInventory(serializeInventory({ weapons: [build.weapon], artifacts: [] }))).toThrow()
+      const restored = deserializeInventory(serializeInventory({ weapons: [build.weapon], artifacts: [] }))
+      expect(restored.weapons[0]?.enchantmentSlots.flatMap((slot) => slot.candidates)).toContain('echo')
+      expect(() => optimize(restored, scenario)).toThrow()
     }
   })
 })

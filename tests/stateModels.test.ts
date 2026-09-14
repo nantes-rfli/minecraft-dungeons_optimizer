@@ -253,7 +253,7 @@ describe('state-model contributions, confidence and inventory paths', () => {
     vi.stubGlobal('localStorage', { getItem: (key: string) => stored.get(key) ?? null, setItem: (key: string, value: string) => stored.set(key, value) })
     for (const tier of [1, 2, 3] as const) {
       const build = buildFor([selected('radiance'), selected(id, tier, 'gilded')])
-      const inventory: Inventory = { weapons: [{ ...build.weapon, enchantmentSlots: [{ candidates: ['radiance', id], locked: 'radiance' }] }], artifacts: [] }
+      const inventory: Inventory = { weapons: [{ ...build.weapon, enchantmentSlots: [{ candidates: ['radiance', id], selected: { enchantmentId: 'radiance', tier: 3 } }] }], artifacts: [] }
       const roundTrip = deserializeInventory(serializeInventory(inventory))
       expect(roundTrip).toEqual(inventory)
       saveInventory(roundTrip)

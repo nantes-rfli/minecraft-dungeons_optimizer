@@ -19,6 +19,8 @@ import type {
 import { validateInventory, validateScenario } from './validation'
 import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsupportedReason } from './ranged'
 import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
+import { ENCHANTMENTS } from '../data/enchantments'
+import { soulEnchantmentUnsupportedReason } from './soulLegality'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -42,35 +44,47 @@ function artifactLoadouts(artifacts: readonly OwnedArtifact[]): OwnedArtifact[][
   return combinations(artifacts, Math.min(3, artifacts.length))
 }
 
+function normalizedSlot(slot: { readonly candidates: readonly unknown[]; readonly selected?: { readonly enchantmentId: string; readonly tier: 1 | 2 | 3 } }): { candidates: { enchantmentId: string; tier: 1 | 2 | 3 }[]; selected?: { enchantmentId: string; tier: 1 | 2 | 3 } } {
+  const candidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? { enchantmentId: candidate, tier: 3 as const } : candidate as { enchantmentId: string; tier: 1 | 2 | 3 })
+  const legacyLocked = (slot as { locked?: string }).locked
+  const selected = slot.selected ?? (legacyLocked ? candidates.find((candidate) => candidate.enchantmentId === legacyLocked) : undefined)
+  return { candidates, ...(selected ? { selected } : {}) }
+}
+
 function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: Set<string>): Build[] {
   const choices = weapon.enchantmentSlots.map((slot) => {
-    const ids = slot.locked ? [slot.locked] : slot.candidates
-    return ids.filter((id) => {
-      const reason = enchantmentUnsupportedReason(weapon, id)
+    const normalized = normalizedSlot(slot)
+    const options = normalized.selected ? [normalized.selected] : normalized.candidates
+    return options.filter((option) => {
+      const reason = soulEnchantmentUnsupportedReason(weapon.weaponId, option.enchantmentId) ?? (option.enchantmentId in ENCHANTMENTS
+        ? enchantmentUnsupportedReason(weapon, option.enchantmentId as EnchantmentId)
+        : `${option.enchantmentId}: Optimizerでは未対応です。`)
       if (!reason) return true
-      if (slot.locked) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
+      if (normalized.selected) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
       unsupportedChoices.add(`${weapon.instanceId}: ${reason}`)
       return false
     })
   })
   if (weapon.gilded) {
-    const reason = enchantmentUnsupportedReason(weapon, weapon.gilded.enchantmentId)
+    const reason = soulEnchantmentUnsupportedReason(weapon.weaponId, weapon.gilded.enchantmentId) ?? (weapon.gilded.enchantmentId in ENCHANTMENTS
+      ? enchantmentUnsupportedReason(weapon, weapon.gilded.enchantmentId as EnchantmentId)
+      : `${weapon.gilded.enchantmentId}: Optimizerでは未対応です。`)
     if (reason) throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', reason)
   }
   if (choices.some((group) => group.length === 0)) {
     throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', `武器${weapon.instanceId}に評価可能な候補のないスロットがあります。${[...unsupportedChoices].join(' ')}`)
   }
-  const enchantmentChoices = cartesianProduct<EnchantmentId>(choices)
+  const enchantmentChoices = cartesianProduct(choices)
   const artifactChoices = artifactLoadouts(artifacts)
   return enchantmentChoices.flatMap((selected) => {
     const enchantments = [
-      ...selected.map((enchantmentId) => ({
-        enchantmentId,
-        tier: 3 as const,
+      ...selected.map((choice) => ({
+        enchantmentId: choice.enchantmentId as EnchantmentId,
+        tier: choice.tier,
         source: 'slot' as const,
       })),
       ...(weapon.gilded ? [{
-        enchantmentId: weapon.gilded.enchantmentId,
+        enchantmentId: weapon.gilded.enchantmentId as EnchantmentId,
         tier: weapon.gilded.tier,
         source: 'gilded' as const,
       }] : []),
@@ -104,18 +118,19 @@ function optionsForArmor(armor: ArmorOption['armor'], unsupportedChoices: Set<st
     return []
   }
   const groups = armor.enchantmentSlots.map((slot, index) => {
-    if (slot.locked && !isRuntimeArmorEnchantmentId(slot.locked)) {
-      unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANTMENT: locked slot ${index + 1} contains ${slot.locked}`)
+    const normalized = normalizedSlot(slot)
+    if (normalized.selected && !isRuntimeArmorEnchantmentId(normalized.selected.enchantmentId)) {
+      unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANTMENT: selected slot ${index + 1} contains ${normalized.selected.enchantmentId}`)
       return []
     }
-    if (!slot.locked) {
-      const unsupported = slot.candidates.find((roll) => !isRuntimeArmorEnchantmentId(roll.enchantmentId))
+    if (!normalized.selected) {
+      const unsupported = normalized.candidates.find((candidate) => !isRuntimeArmorEnchantmentId(candidate.enchantmentId))
       if (unsupported) {
         unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE: slot ${index + 1} contains ${unsupported.enchantmentId}`)
         return []
       }
     }
-    return slot.candidates.filter((roll) => (!slot.locked || roll.enchantmentId === slot.locked) && isRuntimeArmorEnchantmentId(roll.enchantmentId))
+    return normalized.selected ? [normalized.selected] : normalized.candidates.filter((candidate) => isRuntimeArmorEnchantmentId(candidate.enchantmentId))
   })
   if (groups.some((group) => group.length === 0)) return []
   if (armor.gilded && !isRuntimeArmorEnchantmentId(armor.gilded.enchantmentId)) {

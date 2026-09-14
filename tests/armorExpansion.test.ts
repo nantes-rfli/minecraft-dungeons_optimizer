@@ -9,11 +9,11 @@ import { ARMOR_ENCHANTMENT_REFERENCE_IDS } from '../src/research/armorEnchantmen
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 
 const scenario: Scenario = { ...DEFAULT_SCENARIO, cooldownReduction: 0, incomingDamagePerSecond: 100, maxHealth: 500 }
-const weapon = { instanceId: 'weapon', weaponId: 'double-axe' as const, powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit' as const], locked: 'critical-hit' as const }] }
+const weapon = { instanceId: 'weapon', weaponId: 'double-axe' as const, powerLevel: 251, observedDamagePerHit: 100, enchantmentSlots: [{ candidates: ['critical-hit' as const], selected: { enchantmentId: 'critical-hit' as const, tier: 3 as const } }] }
 const selected: SelectedEnchantment[] = [{ enchantmentId: 'critical-hit', tier: 3, source: 'slot' }]
 
 function ownedArmor(armorId: ArmorId, enchantmentId: string = 'chilling', tier: 1 | 2 | 3 = 3): OwnedArmor {
-  return { instanceId: armorId, armorId, powerLevel: 251, observedHealthBonus: 400, enchantmentSlots: [{ candidates: [{ enchantmentId, tier }], locked: enchantmentId }] }
+  return { instanceId: armorId, armorId, powerLevel: 251, observedHealthBonus: 400, enchantmentSlots: [{ candidates: [enchantmentId], selected: { enchantmentId, tier } }] }
 }
 
 function build(armorId: ArmorId, enchantmentId: ArmorEnchantmentId = 'chilling', tier: 1 | 2 | 3 = 3): Build {

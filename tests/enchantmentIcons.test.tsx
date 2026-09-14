@@ -29,6 +29,7 @@ describe('enchantment icon extraction and UI integration', () => {
     expect(manifest.entries).toHaveLength(97)
     expect(manifest.entries.filter((entry) => entry.status === 'matched')).toHaveLength(93)
     expect(manifest.entries.filter((entry) => entry.status === 'multiple-candidates').map((entry) => entry.enchantmentId)).toEqual(['anima-conduit', 'dynamo', 'refreshment', 'void-strike'])
+    expect(manifest.entries.filter((entry) => entry.status === 'multiple-candidates').every((entry) => Object.keys(entry.categoryOutputs ?? {}).length === 2)).toBe(true)
     expect(manifest.entries.filter((entry) => entry.status === 'not-found')).toEqual([])
   }, 30_000)
 
@@ -60,6 +61,7 @@ describe('enchantment icon extraction and UI integration', () => {
     const image = renderToStaticMarkup(createElement(EnchantmentArtwork, { enchantmentId: 'radiance' }))
     expect(image).toContain('src="/assets/enchantments/radiance.webp"')
     expect(image).toContain('width="32" height="32" loading="lazy" decoding="async"')
+    expect(renderToStaticMarkup(createElement(EnchantmentArtwork, { enchantmentId: 'void-strike', category: 'melee' }))).toContain('/assets/enchantments/void-strike-melee.webp')
     expect(renderToStaticMarkup(createElement(EnchantmentArtwork, { enchantmentId: 'void-strike' }))).toContain('enchantment-artwork-fallback')
     expect(shouldRenderUiIcon('/assets/enchantments/radiance.webp', '/assets/enchantments/radiance.webp')).toBe(false)
     const identity = renderToStaticMarkup(createElement(EnchantmentIdentity, { value: '輝き' }))
@@ -69,7 +71,7 @@ describe('enchantment icon extraction and UI integration', () => {
   })
 
   it('adds icons to registered inventory enchantments without changing the empty state', () => {
-    const inventory: Inventory = { weapons: [{ instanceId: 'double-axe-1', weaponId: 'double-axe', powerLevel: 251, rarity: 'rare', enchantmentSlots: [{ candidates: ['radiance'] }] }], artifacts: [] }
+    const inventory: Inventory = { weapons: [{ instanceId: 'double-axe-1', weaponId: 'double-axe', powerLevel: 251, rarity: 'rare', enchantmentSlots: [{ candidates: ['radiance'], selected: { enchantmentId: 'radiance', tier: 3 } }] }], artifacts: [] }
     const item = inventoryGridItems(inventory)[0]!
     const html = renderToStaticMarkup(createElement(SelectedEquipmentPane, { item, duplicateCount: 1, inventory, onChange: () => undefined, onOpenFullEditor: () => undefined, onClose: () => undefined }))
     expect(html).toContain('/assets/enchantments/radiance.webp')
@@ -77,7 +79,7 @@ describe('enchantment icon extraction and UI integration', () => {
     const emptyInventory: Inventory = { weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [] }], artifacts: [] }
     const emptyItem = inventoryGridItems(emptyInventory)[0]!
     const emptyHtml = renderToStaticMarkup(createElement(SelectedEquipmentPane, { item: emptyItem, duplicateCount: 1, inventory: emptyInventory, onChange: () => undefined, onOpenFullEditor: () => undefined, onClose: () => undefined }))
-    expect(emptyHtml).toMatch(/登録済み Enchant<\/h3><p>—<\/p>/)
+    expect(emptyHtml).toMatch(/通常エンチャント<\/h3><p>未記録<\/p>/)
   })
 
   it('reuses the same artwork for confirmed built-in enchantments', () => {

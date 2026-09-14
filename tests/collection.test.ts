@@ -3,6 +3,7 @@ import type { Inventory } from '../src/core'
 import { EQUIPMENT_CATALOG } from '../src/data/equipmentCatalog'
 import { hasJapaneseEquipmentName } from '../src/data/equipmentNames.ja'
 import { addEquipmentToInventory, collectionSummary, equipmentKey, inventoryStatistics, ownedEquipmentKeys } from '../src/inventory/collection'
+import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 
 const emptyInventory = (): Inventory => ({ weapons: [], armors: [], rangedWeapons: [], artifacts: [], catalogItems: [] })
 
@@ -34,10 +35,30 @@ describe('equipment collection', () => {
     expect(collectionSummary(twice).collected).toBe(1)
   })
 
+  it.each(['melee', 'armor', 'ranged'] as const)('registers and round-trips a 3×3 selected and gilded draft for %s', (category) => {
+    const item = EQUIPMENT_CATALOG.find((entry) => entry.category === category && entry.runtimeSupport !== 'unsupported')!
+    const candidates = category === 'melee' ? ['critical-hit', 'sharpness', 'radiance'] : category === 'armor' ? ['chilling', 'thorns', 'protection'] : ['power', 'multishot', 'rapid-fire']
+    const slots = [1, 2, 3].map((tier) => ({ candidates, selected: { enchantmentId: candidates[tier - 1]!, tier: tier as 1 | 2 | 3 } }))
+    const registered = addEquipmentToInventory(emptyInventory(), item, `${category}-full`, 251, 'rare', { slots, gilded: { enchantmentId: candidates[0]!, tier: 2 } })
+    const restored = deserializeInventory(serializeInventory(registered))
+    const owned = category === 'melee' ? restored.weapons[0] : category === 'armor' ? restored.armors?.[0] : restored.rangedWeapons?.[0]
+    expect(owned?.enchantmentSlots).toEqual(slots)
+    expect(owned?.gilded).toEqual({ enchantmentId: candidates[0], tier: 2 })
+  })
+
+  it('never attaches normal or gilded enchantments to an artifact', () => {
+    const item = EQUIPMENT_CATALOG.find((entry) => entry.category === 'artifact')!
+    const registered = addEquipmentToInventory(emptyInventory(), item, 'artifact', 251, undefined, { slots: [{ candidates: ['cool-down'] }], gilded: { enchantmentId: 'cool-down', tier: 3 } })
+    const owned = registered.artifacts[0] ?? registered.catalogItems?.[0]
+    expect(owned).not.toHaveProperty('enchantmentSlots')
+    expect(owned).not.toHaveProperty('gilded')
+  })
+
   it('summarizes power, gilded items, duplicates, missing equipment and enchantments without inventing rarity', () => {
     const item = EQUIPMENT_CATALOG.find((entry) => entry.category === 'melee' && entry.id === 'fighters-bindings')!
-    const once = addEquipmentToInventory(emptyInventory(), item, 'bindings-1', 249)
-    const twice = addEquipmentToInventory(once, item, 'bindings-2', 251)
+    const recorded = { slots: [{ candidates: ['critical-hit'], selected: { enchantmentId: 'critical-hit', tier: 3 as const } }] }
+    const once = addEquipmentToInventory(emptyInventory(), item, 'bindings-1', 249, undefined, recorded)
+    const twice = addEquipmentToInventory(once, item, 'bindings-2', 251, undefined, recorded)
     const gilded: Inventory = { ...twice, weapons: twice.weapons.map((weapon, index) => index === 0 ? { ...weapon, gilded: { enchantmentId: 'critical-hit', tier: 3 } } : weapon) }
     const stats = inventoryStatistics(gilded)
 

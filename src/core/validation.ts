@@ -109,11 +109,13 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
       )
     }
     const selected = build.enchantments[index]
-    const legalOptions = options.locked ? [options.locked] : options.candidates
+    const legacyLocked = (options as { locked?: EnchantmentId }).locked
+    const recorded = options.selected ?? (legacyLocked ? { enchantmentId: legacyLocked, tier: 3 as const } : undefined)
+    const legalOptions = recorded ? [recorded.enchantmentId] : options.candidates
     if (
       !selected ||
       selected.source !== 'slot' ||
-      selected.tier !== 3 ||
+      selected.tier !== (recorded?.tier ?? 3) ||
       !legalOptions.includes(selected.enchantmentId)
     ) {
       throw new OptimizerInputError(
@@ -179,9 +181,12 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
     build.armor.enchantmentSlots.forEach((slot, index) => {
       if (slot.candidates.length === 0) throw new OptimizerInputError('INVALID_ARMOR', `Armorスロット${index + 1}に候補がありません。`)
       const choice = selected[index]
-      const roll = choice && slot.candidates.find((candidate) => candidate.enchantmentId === choice.enchantmentId && candidate.tier === choice.tier)
-      const legalId = slot.locked ?? choice?.enchantmentId
-      if (!choice || choice.source !== 'slot' || !roll || choice.enchantmentId !== legalId || !isRuntimeArmorEnchantmentId(choice.enchantmentId)) throw new OptimizerInputError('INVALID_BUILD', `Armorスロット${index + 1}にないEnchant/Tierが選択されています。`)
+      const legacyCandidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? { enchantmentId: candidate, tier: 3 as const } : candidate as { enchantmentId: string; tier: 1 | 2 | 3 })
+      const legacyLocked = (slot as { locked?: string }).locked
+      const recorded = slot.selected ?? (legacyLocked ? legacyCandidates.find((candidate) => candidate.enchantmentId === legacyLocked) : undefined)
+      const legalId = recorded?.enchantmentId ?? choice?.enchantmentId
+      const legalTier = recorded?.tier ?? legacyCandidates.find((candidate) => candidate.enchantmentId === choice?.enchantmentId)?.tier ?? 3
+      if (!choice || choice.source !== 'slot' || !legacyCandidates.some((candidate) => candidate.enchantmentId === choice.enchantmentId) || choice.enchantmentId !== legalId || choice.tier !== legalTier || !isRuntimeArmorEnchantmentId(choice.enchantmentId)) throw new OptimizerInputError('INVALID_BUILD', `Armorスロット${index + 1}にないEnchant/Tierが選択されています。`)
     })
     if (build.armor.gilded) {
       const choice = selected[build.armor.enchantmentSlots.length]

@@ -173,7 +173,7 @@ describe('new enchantment inventory and exhaustive legality', () => {
     vi.stubGlobal('localStorage', { getItem: (key: string) => values.get(key) ?? null, setItem: (key: string, value: string) => values.set(key, value) })
     for (const tier of [1, 2, 3] as const) {
       const inventory: Inventory = {
-        weapons: [{ ...weapon, instanceId: 'stored', enchantmentSlots: [{ candidates: ['sharpness', 'unchanting'], locked: id === 'sharpness' ? 'unchanting' : 'sharpness' }], gilded: { enchantmentId: id, tier } }],
+        weapons: [{ ...weapon, instanceId: 'stored', enchantmentSlots: [{ candidates: ['sharpness', 'unchanting'], selected: { enchantmentId: id === 'sharpness' ? 'unchanting' : 'sharpness', tier: 3 } }], gilded: { enchantmentId: id, tier } }],
         artifacts: [],
       }
       expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
@@ -210,10 +210,12 @@ describe('new enchantment inventory and exhaustive legality', () => {
     console.info(`Twenty-eight-candidate exhaustive search: ${result.evaluatedBuildCount} builds in ${(performance.now() - started).toFixed(1)}ms`)
   }, 60_000)
 
-  it('rejects every remaining unsupported enchantment through JSON input', () => {
-    const inventory: Inventory = { weapons: [buildFor([selected('sharpness')]).weapon], artifacts: [] }
+  it('preserves game enchantments that are not yet supported by the Optimizer', () => {
+    const inventory: Inventory = { weapons: [{ ...buildFor([selected('sharpness')]).weapon, weaponId: 'soul-scythe' }], artifacts: [] }
     for (const entry of audit.entries.filter((item) => item.runtimeStatus !== 'implemented')) {
-      expect(() => deserializeInventory(serializeInventory(inventory).replace('sharpness', entry.id))).toThrow('未対応ID')
+      const restored = deserializeInventory(serializeInventory(inventory).replace('sharpness', entry.id))
+      expect(restored.weapons[0]?.enchantmentSlots[0]?.candidates).toContain(entry.id)
+      expect(() => optimize(restored, DEFAULT_SCENARIO)).toThrow()
     }
   })
 })

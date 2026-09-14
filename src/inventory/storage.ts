@@ -1,11 +1,9 @@
 import { ARTIFACTS } from '../data/artifacts'
-import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
 import { validateWeaponSoulLegality } from '../core/soulLegality'
 import type {
   ArtifactId,
   CatalogInventoryItem,
-  EnchantmentId,
   EnchantmentSlot,
   EnchantmentTier,
   Inventory,
@@ -17,12 +15,13 @@ import type {
 import type { ArmorEnchantmentTier, OwnedArmor } from '../core/armor'
 import { isAuditedArmorEnchantmentId } from '../research/armorEnchantmentAudit'
 import { parseRangedWeapon } from '../core/ranged'
-import { CATALOG_ONLY_EQUIPMENT } from '../data/equipmentCatalog'
+import { CATALOG_ONLY_EQUIPMENT, getEquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { resolveEnchantment } from '../data/enchantmentCatalog'
 
 const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 
 interface InventoryDocument {
-  readonly version: 4
+  readonly version: 5
   readonly inventory: Inventory
 }
 
@@ -83,9 +82,15 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const research = parseCatalogResearch(value.research, `${field}.research`)
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
+  const enchantmentSlots = value.enchantmentSlots === undefined ? undefined : (() => {
+    if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length > 3) throw new Error(`${field}.enchantmentSlotsは0〜3スロットにしてください。`)
+    return value.enchantmentSlots.map((slot, slotIndex) => parseGenericSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`, catalog.category))
+  })()
+  const gilded = value.gilded === undefined ? undefined : parseGenericSelection(value.gilded, `${field}.gilded`, catalog.category)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`), category: catalog.category,
     catalogId, powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`), ...(notes ? { notes } : {}), ...(research ? { research } : {}), ...(rarity ? { rarity } : {}),
+    ...(enchantmentSlots ? { enchantmentSlots } : {}), ...(gilded ? { gilded } : {}),
   }
 }
 
@@ -119,24 +124,56 @@ function requireNonNegativeNumber(value: unknown, field: string): number {
   return value
 }
 
-function parseEnchantmentId(value: unknown, field: string): EnchantmentId {
+function parseGenericSelection(value: unknown, field: string, category: 'melee' | 'armor' | 'ranged' | 'artifact') {
+  if (!isRecord(value) || ![1, 2, 3].includes(value.tier as number)) throw new Error(`${field}の形式が正しくありません。`)
+  const enchantmentId = parseOwnedEnchantmentId(value.enchantmentId, `${field}.enchantmentId`)
+  const definition = resolveEnchantment(enchantmentId)
+  if (category === 'artifact' || !definition?.applicableCategories.includes(category)) throw new Error(`${field}は${category}に適用できません。`)
+  return { enchantmentId, tier: value.tier as EnchantmentTier }
+}
+
+function parseGenericSlot(value: unknown, field: string, category: 'melee' | 'armor' | 'ranged' | 'artifact') {
+  if (!isRecord(value) || !Array.isArray(value.candidates) || value.candidates.length < 1 || value.candidates.length > 3) throw new Error(`${field}.candidatesには候補を1〜3件指定してください。`)
+  const candidates = value.candidates.map((candidate, index) => parseOwnedEnchantmentId(candidate, `${field}.candidates[${index}]`))
+  if (new Set(candidates).size !== candidates.length) throw new Error(`${field}.candidatesに同じIDを重複して指定できません。`)
+  if (category === 'artifact' || candidates.some((id) => !resolveEnchantment(id)?.applicableCategories.includes(category))) throw new Error(`${field}に${category}へ適用できない候補があります。`)
+  const selected = value.selected === undefined ? undefined : parseGenericSelection(value.selected, `${field}.selected`, category)
+  if (selected && !candidates.includes(selected.enchantmentId)) throw new Error(`${field}.selectedは候補内から選択してください。`)
+  return { candidates, ...(selected ? { selected } : {}) }
+}
+
+function parseOwnedEnchantmentId(value: unknown, field: string): string {
   const id = requireString(value, field)
-  if (!(id in ENCHANTMENTS)) throw new Error(`${field}に未対応ID「${id}」があります。`)
-  return id as EnchantmentId
+  if (!resolveEnchantment(id)) throw new Error(`${field}にゲームデータ未登録ID「${id}」があります。`)
+  return id
+}
+
+function validateSoulOnlyOwnedEnchantments(category: 'melee' | 'armor' | 'ranged', catalogId: string, slots: readonly EnchantmentSlot[], gilded?: { readonly enchantmentId: string }): void {
+  if (getEquipmentCatalogEntry(category, catalogId)?.soulGear) return
+  const ids = [...slots.flatMap((slot) => slot.candidates), ...(gilded ? [gilded.enchantmentId] : [])]
+  const invalid = ids.find((id) => resolveEnchantment(id)?.soulGearOnly)
+  if (invalid) throw new Error(`${invalid}はSoul gear限定です。${catalogId}には設定できません。`)
 }
 
 function parseSlot(value: unknown, field: string): EnchantmentSlot {
-  if (!isRecord(value) || !Array.isArray(value.candidates) || value.candidates.length === 0) {
-    throw new Error(`${field}.candidatesには候補を1つ以上指定してください。`)
+  if (!isRecord(value) || !Array.isArray(value.candidates) || value.candidates.length < 1 || value.candidates.length > 3) {
+    throw new Error(`${field}.candidatesには候補を1〜3件指定してください。`)
   }
   const candidates = value.candidates.map((candidate, index) =>
-    parseEnchantmentId(candidate, `${field}.candidates[${index}]`),
+    parseOwnedEnchantmentId(candidate, `${field}.candidates[${index}]`),
   )
-  const locked = value.locked === undefined ? undefined : parseEnchantmentId(value.locked, `${field}.locked`)
-  if (locked && !candidates.includes(locked)) {
-    throw new Error(`${field}.lockedは候補内から選択してください。`)
+  if (candidates.some((id) => !resolveEnchantment(id)?.applicableCategories.includes('melee'))) throw new Error(`${field}.candidatesに近接へ適用できないIDがあります。`)
+  if (new Set(candidates).size !== candidates.length) throw new Error(`${field}.candidatesに同じIDを重複して指定できません。`)
+  const rawSelected = value.selected ?? (value.locked === undefined ? undefined : { enchantmentId: value.locked, tier: 3 })
+  // Legacy melee `locked` had no tier because the old UI always treated it as Tier III.
+  const selected = rawSelected === undefined ? undefined : (() => {
+    if (!isRecord(rawSelected) || ![1, 2, 3].includes(rawSelected.tier as number)) throw new Error(`${field}.selectedの形式が正しくありません。`)
+    return { enchantmentId: parseOwnedEnchantmentId(rawSelected.enchantmentId, `${field}.selected.enchantmentId`), tier: rawSelected.tier as EnchantmentTier }
+  })()
+  if (selected && !candidates.includes(selected.enchantmentId)) {
+    throw new Error(`${field}.selectedは候補内から選択してください。`)
   }
-  return { candidates: [...new Set(candidates)], ...(locked ? { locked } : {}) }
+  return { candidates, ...(selected ? { selected } : {}) }
 }
 
 function parseWeapon(value: unknown, index: number): OwnedWeapon {
@@ -144,8 +181,8 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
   if (!isRecord(value)) throw new Error(`${field}の形式が正しくありません。`)
   const weaponId = requireString(value.weaponId, `${field}.weaponId`)
   if (!(weaponId in WEAPONS)) throw new Error(`${field}.weaponIdに未対応ID「${weaponId}」があります。`)
-  if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length < 1 || value.enchantmentSlots.length > 3) {
-    throw new Error(`${field}.enchantmentSlotsは1〜3スロットにしてください。`)
+  if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length > 3) {
+    throw new Error(`${field}.enchantmentSlotsは0〜3スロットにしてください。`)
   }
   const locked = value.locked === undefined ? {} : { locked: value.locked === true }
   const observedDamage = value.observedDamagePerHit === undefined
@@ -157,9 +194,10 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
       throw new Error(`${field}.gildedの形式が正しくありません。`)
     }
     gilded = {
-      enchantmentId: parseEnchantmentId(value.gilded.enchantmentId, `${field}.gilded.enchantmentId`),
+      enchantmentId: parseOwnedEnchantmentId(value.gilded.enchantmentId, `${field}.gilded.enchantmentId`),
       tier: value.gilded.tier as EnchantmentTier,
     }
+    if (!resolveEnchantment(gilded.enchantmentId)?.applicableCategories.includes('melee')) throw new Error(`${field}.gildedは近接へ適用できません。`)
   }
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
   return {
@@ -191,20 +229,31 @@ function parseArtifact(value: unknown, index: number): OwnedArtifact {
 function parseArmor(value: unknown, index: number): OwnedArmor {
   const field = `inventory.armors[${index}]`
   if (!isRecord(value)) throw new Error(`${field}の形式が正しくありません。`)
-  if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length < 1 || value.enchantmentSlots.length > 3) throw new Error(`${field}.enchantmentSlotsは1〜3スロットにしてください。`)
+  if (!Array.isArray(value.enchantmentSlots) || value.enchantmentSlots.length > 3) throw new Error(`${field}.enchantmentSlotsは0〜3スロットにしてください。`)
   const enchantmentSlots = value.enchantmentSlots.map((slot, slotIndex) => {
     const slotField = `${field}.enchantmentSlots[${slotIndex}]`
-    if (!isRecord(slot) || !Array.isArray(slot.candidates) || slot.candidates.length === 0) throw new Error(`${slotField}.candidatesには候補を1つ以上指定してください。`)
+    if (!isRecord(slot) || !Array.isArray(slot.candidates) || slot.candidates.length < 1 || slot.candidates.length > 3) throw new Error(`${slotField}.candidatesには候補を1〜3件指定してください。`)
+    const legacyTiers = new Map<string, ArmorEnchantmentTier>()
     const candidates = slot.candidates.map((candidate, candidateIndex) => {
       const candidateField = `${slotField}.candidates[${candidateIndex}]`
-      if (!isRecord(candidate) || ![1, 2, 3].includes(candidate.tier as number)) throw new Error(`${candidateField}の形式が正しくありません。`)
-      const enchantmentId = requireString(candidate.enchantmentId, `${candidateField}.enchantmentId`)
+      const enchantmentId = isRecord(candidate) ? requireString(candidate.enchantmentId, `${candidateField}.enchantmentId`) : requireString(candidate, candidateField)
       if (!isAuditedArmorEnchantmentId(enchantmentId)) throw new Error(`${candidateField}.enchantmentIdに未監査ID「${enchantmentId}」があります。`)
-      return { enchantmentId, tier: candidate.tier as ArmorEnchantmentTier }
+      if (isRecord(candidate)) {
+        if (![1, 2, 3].includes(candidate.tier as number)) throw new Error(`${candidateField}.tierの形式が正しくありません。`)
+        legacyTiers.set(enchantmentId, candidate.tier as ArmorEnchantmentTier)
+      }
+      return enchantmentId
     })
-    const locked = slot.locked === undefined ? undefined : requireString(slot.locked, `${slotField}.locked`)
-    if (locked && !candidates.some((candidate) => candidate.enchantmentId === locked)) throw new Error(`${slotField}.lockedは候補内から選択してください。`)
-    return { candidates, ...(locked ? { locked } : {}) }
+    if (new Set(candidates).size !== candidates.length) throw new Error(`${slotField}.candidatesに同じIDを重複して指定できません。`)
+    const rawSelected = slot.selected ?? (slot.locked === undefined ? undefined : { enchantmentId: slot.locked, tier: legacyTiers.get(String(slot.locked)) })
+    const selected = rawSelected === undefined ? undefined : (() => {
+      if (!isRecord(rawSelected) || ![1, 2, 3].includes(rawSelected.tier as number)) throw new Error(`${slotField}.selectedの形式が正しくありません。`)
+      const enchantmentId = requireString(rawSelected.enchantmentId, `${slotField}.selected.enchantmentId`)
+      if (!isAuditedArmorEnchantmentId(enchantmentId)) throw new Error(`${slotField}.selectedに未監査ID「${enchantmentId}」があります。`)
+      return { enchantmentId, tier: rawSelected.tier as ArmorEnchantmentTier }
+    })()
+    if (selected && !candidates.includes(selected.enchantmentId)) throw new Error(`${slotField}.selectedは候補内から選択してください。`)
+    return { candidates, ...(selected ? { selected } : {}) }
   })
   let gilded: OwnedArmor['gilded']
   if (value.gilded !== undefined) {
@@ -227,7 +276,7 @@ function parseArmor(value: unknown, index: number): OwnedArmor {
 }
 
 export function serializeInventory(inventory: Inventory): string {
-  return JSON.stringify({ version: 4, inventory } satisfies InventoryDocument, null, 2)
+  return JSON.stringify({ version: 5, inventory } satisfies InventoryDocument, null, 2)
 }
 
 export function deserializeInventory(json: string): Inventory {
@@ -237,8 +286,8 @@ export function deserializeInventory(json: string): Inventory {
   } catch {
     throw new Error('JSONの構文が正しくありません。')
   }
-  if (!isRecord(parsed) || ![1, 2, 3, 4].includes(parsed.version as number) || !isRecord(parsed.inventory)) {
-    throw new Error('対応していないデータ形式です（version 1〜4が必要です）。')
+  if (!isRecord(parsed) || ![1, 2, 3, 4, 5].includes(parsed.version as number) || !isRecord(parsed.inventory)) {
+    throw new Error('対応していないデータ形式です（version 1〜5が必要です）。')
   }
   const { weapons, armors, artifacts, rangedWeapons, catalogItems } = parsed.inventory
   if (rangedWeapons !== undefined && !Array.isArray(rangedWeapons)) throw new Error('rangedWeaponsは配列にしてください。')
@@ -254,6 +303,11 @@ export function deserializeInventory(json: string): Inventory {
     ...(Array.isArray(catalogItems) ? { catalogItems: catalogItems.map(parseCatalogItem) } : {}),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
+  inventory.armors?.forEach((armor) => validateSoulOnlyOwnedEnchantments('armor', armor.armorId, armor.enchantmentSlots, armor.gilded))
+  inventory.rangedWeapons?.forEach((weapon) => validateSoulOnlyOwnedEnchantments('ranged', weapon.weaponId, weapon.enchantmentSlots, weapon.gilded))
+  inventory.catalogItems?.forEach((item) => {
+    if (item.category !== 'artifact') validateSoulOnlyOwnedEnchantments(item.category, item.catalogId, item.enchantmentSlots ?? [], item.gilded)
+  })
   const allIds = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])].map((item) => item.instanceId)
   if (new Set(allIds).size !== allIds.length) throw new Error('装備の管理IDが重複しています。')
   return inventory

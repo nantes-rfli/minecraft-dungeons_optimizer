@@ -16,6 +16,12 @@ export interface EnchantmentIconManifestEntry {
   readonly status: EnchantmentIconStatus
   readonly matchMethod?: 'definition-reference' | 'documented-internal-id-alias'
   readonly candidates?: readonly string[]
+  readonly categoryOutputs?: Partial<Record<EnchantmentCategory, {
+    readonly sourceAsset: string
+    readonly sourcePackage: string
+    readonly outputWebp: string
+    readonly sha256?: string
+  }>>
   readonly notes?: string
   readonly sha256?: string
 }
@@ -73,6 +79,7 @@ const INTERNAL_ID_ALIASES: Readonly<Record<string, readonly string[]>> = {
 }
 
 const normalize = (value: string): string => value.normalize('NFKD').replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
+const categoryForEntity = (entity: string): EnchantmentCategory | undefined => /Melee$/i.test(entity) ? 'melee' : /Ranged$/i.test(entity) ? 'ranged' : undefined
 
 function readJson<T>(relativePath: string): T {
   return JSON.parse(fs.readFileSync(path.join(repositoryRoot, relativePath), 'utf8')) as T
@@ -137,7 +144,21 @@ export function mapEnchantmentCatalog(catalog: readonly EnchantmentCatalogSource
         const candidate = referenced[0]!
         return { enchantmentId: item.id, sourceAsset: candidate.sourceAsset, sourcePackage: candidate.sourcePackage, outputWebp: `public/assets/enchantments/${item.id}.webp`, status: 'matched', matchMethod: method, notes: 'Category-specific definitions reference pixel-identical base artwork.' }
       }
-      return { enchantmentId: item.id, status: 'multiple-candidates', candidates: referenced.map((candidate) => candidate.sourceAsset), notes: 'Category-specific definition references use distinct icon textures; no single canonical artwork was forced.' }
+      const categoryOutputs = Object.fromEntries(referenced.flatMap((candidate) => {
+        const category = categoryForEntity(candidate.entity)
+        return category && item.applicableCategories.includes(category) ? [[category, {
+          sourceAsset: candidate.sourceAsset,
+          sourcePackage: candidate.sourcePackage,
+          outputWebp: `public/assets/enchantments/${item.id}-${category}.webp`,
+        }]] : []
+      })) as EnchantmentIconManifestEntry['categoryOutputs']
+      return {
+        enchantmentId: item.id,
+        status: 'multiple-candidates',
+        candidates: referenced.map((candidate) => candidate.sourceAsset),
+        ...(Object.keys(categoryOutputs).length === referenced.length ? { categoryOutputs } : {}),
+        notes: 'Category-specific definition references use distinct icon textures; each applicable category is exported separately.',
+      }
     }
     return { enchantmentId: item.id, status: 'not-found', notes: 'No unambiguous base icon was found in an Enchantment definition directory.' }
   })
@@ -164,6 +185,20 @@ async function extractEntry(entry: EnchantmentIconManifestEntry, candidate: Icon
   }
 }
 
+async function extractCategoryOutputs(entry: EnchantmentIconManifestEntry, candidates: ReadonlyMap<string, IconCandidate>): Promise<EnchantmentIconManifestEntry> {
+  if (!entry.categoryOutputs) return entry
+  const outputs: NonNullable<EnchantmentIconManifestEntry['categoryOutputs']> = {}
+  for (const [category, output] of Object.entries(entry.categoryOutputs) as [EnchantmentCategory, NonNullable<EnchantmentIconManifestEntry['categoryOutputs']>[EnchantmentCategory]][]) {
+    if (!output) continue
+    const candidate = candidates.get(output.sourceAsset)
+    if (!candidate) return { ...entry, status: 'export-failed', notes: `Category-specific source is missing: ${output.sourceAsset}` }
+    const extracted = await extractEntry({ enchantmentId: entry.enchantmentId, status: 'matched', ...output }, candidate)
+    if (extracted.status !== 'matched' || !extracted.sha256) return { ...entry, status: extracted.status, notes: extracted.notes }
+    outputs[category] = { ...output, sha256: extracted.sha256 }
+  }
+  return { ...entry, categoryOutputs: outputs }
+}
+
 export async function auditEnchantmentIconManifest(manifest: EnchantmentIconManifest, verifyOutputs = false, catalog = loadEnchantmentCatalog()): Promise<string[]> {
   const errors: string[] = []
   const expected = new Set(catalog.map((item) => item.id))
@@ -173,7 +208,7 @@ export async function auditEnchantmentIconManifest(manifest: EnchantmentIconMani
     if (seen.has(entry.enchantmentId)) errors.push(`Duplicate enchantment mapping: ${entry.enchantmentId}`)
     seen.add(entry.enchantmentId)
     if (entry.status === 'matched' && (!entry.sourceAsset || !entry.sourcePackage || !entry.outputWebp)) errors.push(`Matched entry lacks source/output: ${entry.enchantmentId}`)
-    if (entry.status === 'multiple-candidates' && (entry.candidates?.length ?? 0) < 2) errors.push(`Ambiguous entry lacks candidates: ${entry.enchantmentId}`)
+    if (entry.status === 'multiple-candidates' && (entry.candidates?.length ?? 0) < 2) errors.push(`Category-specific entry lacks candidates: ${entry.enchantmentId}`)
     if (entry.outputWebp && entry.outputWebp !== `public/assets/enchantments/${entry.enchantmentId}.webp`) errors.push(`Output path mismatch: ${entry.enchantmentId}`)
     if (verifyOutputs && entry.status === 'matched') {
       const output = path.join(repositoryRoot, entry.outputWebp!)
@@ -184,6 +219,15 @@ export async function auditEnchantmentIconManifest(manifest: EnchantmentIconMani
         const metadata = await sharp(output).metadata()
         const stats = await sharp(output).stats()
         if (!metadata.width || !metadata.height || metadata.width > 64 || metadata.height > 64 || !metadata.hasAlpha || !fs.statSync(output).size || stats.channels[3]?.max === 0) errors.push(`Invalid WebP output: ${entry.enchantmentId}`)
+      }
+    }
+    if (verifyOutputs && entry.status === 'multiple-candidates') {
+      if (!entry.categoryOutputs || Object.keys(entry.categoryOutputs).length !== entry.candidates?.length) errors.push(`Category-specific outputs are incomplete: ${entry.enchantmentId}`)
+      for (const [category, output] of Object.entries(entry.categoryOutputs ?? {})) {
+        if (!output.sha256) { errors.push(`Category-specific output lacks sha256: ${entry.enchantmentId}/${category}`); continue }
+        const absolute = path.join(repositoryRoot, output.outputWebp)
+        if (!fs.existsSync(absolute)) errors.push(`Category-specific output is missing: ${entry.enchantmentId}/${category}`)
+        else if (crypto.createHash('sha256').update(fs.readFileSync(absolute)).digest('hex') !== output.sha256) errors.push(`Category-specific output hash mismatch: ${entry.enchantmentId}/${category}`)
       }
     }
   }
@@ -212,7 +256,9 @@ async function main(): Promise<void> {
   let entries = mapEnchantmentCatalog(catalog, candidates)
   if (command === 'all') {
     const byAsset = new Map(candidates.map((candidate) => [candidate.sourceAsset, candidate]))
-    entries = await Promise.all(entries.map((entry) => entry.status === 'matched' ? extractEntry(entry, byAsset.get(entry.sourceAsset!)!) : Promise.resolve(entry)))
+    entries = await Promise.all(entries.map((entry) => entry.status === 'matched'
+      ? extractEntry(entry, byAsset.get(entry.sourceAsset!)!)
+      : entry.status === 'multiple-candidates' ? extractCategoryOutputs(entry, byAsset) : Promise.resolve(entry)))
   }
   const manifest: EnchantmentIconManifest = { schemaVersion: 1, gameVersion: GAME_VERSION, entries }
   fs.mkdirSync(path.dirname(MANIFEST_PATH), { recursive: true })

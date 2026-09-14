@@ -1,5 +1,5 @@
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
-import type { Build, EquipmentRarity, Scenario } from './types'
+import type { Build, EquipmentRarity, OwnedEnchantmentSlot, Scenario } from './types'
 
 export const BASE_HERO_HEALTH = 100
 
@@ -81,25 +81,14 @@ export interface ArmorDefinition<TArmorId extends string = string, TArmorEnchant
   readonly builtInEnchantments: readonly ArmorBuiltInEnchantment<TArmorEnchantmentId>[]
 }
 
-export interface EquipmentEnchantmentSlot<TEnchantmentId extends string> {
-  readonly candidates: readonly TEnchantmentId[]
-  readonly locked?: TEnchantmentId
-}
+export type EquipmentEnchantmentSlot<TEnchantmentId extends string> = OwnedEnchantmentSlot<TEnchantmentId>
 
 export interface ArmorGildedEnchantment<TArmorEnchantmentId extends string = string> {
   readonly enchantmentId: TArmorEnchantmentId
   readonly tier: 1 | 2 | 3
 }
 
-export interface ArmorEnchantmentRoll<TArmorEnchantmentId extends string = string> {
-  readonly enchantmentId: TArmorEnchantmentId
-  readonly tier: ArmorEnchantmentTier
-}
-
-export interface ArmorEnchantmentSlot<TArmorEnchantmentId extends string = string> {
-  readonly candidates: readonly ArmorEnchantmentRoll<TArmorEnchantmentId>[]
-  readonly locked?: TArmorEnchantmentId
-}
+export type ArmorEnchantmentSlot<TArmorEnchantmentId extends string = string> = OwnedEnchantmentSlot<TArmorEnchantmentId>
 
 export interface OwnedArmor<TArmorId extends string = string, TArmorEnchantmentId extends string = string> {
   readonly instanceId: string

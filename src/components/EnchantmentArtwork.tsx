@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from 'react'
-import { resolveEnchantment } from '../data/enchantmentCatalog'
+import { resolveEnchantment, type EnchantmentCatalogCategory } from '../data/enchantmentCatalog'
 import { shouldRenderUiIcon } from './uiIconState'
 
-export function EnchantmentArtwork({ enchantmentId, size = 'small', decorative = true }: { enchantmentId: string; size?: 'small' | 'medium'; decorative?: boolean }) {
+export function EnchantmentArtwork({ enchantmentId, category, size = 'small', decorative = true }: { enchantmentId: string; category?: EnchantmentCatalogCategory; size?: 'small' | 'medium'; decorative?: boolean }) {
   const enchantment = resolveEnchantment(enchantmentId)
-  const source = enchantment?.icon
+  const source = (category ? enchantment?.iconsByCategory?.[category] : undefined) ?? enchantment?.icon
   const [failedSource, setFailedSource] = useState<string>()
   const showImage = shouldRenderUiIcon(source, failedSource)
   const accessible = decorative ? { 'aria-hidden': true as const } : { role: 'img', 'aria-label': enchantment?.name.ja ? `${enchantment.name.ja} / ${enchantment.name.en}` : enchantment?.name.en ?? enchantmentId }
