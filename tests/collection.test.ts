@@ -54,6 +54,40 @@ describe('equipment collection', () => {
     expect(owned).not.toHaveProperty('gilded')
   })
 
+  it('does not invent an observed health bonus when registering armor', () => {
+    const item = EQUIPMENT_CATALOG.find((entry) => entry.category === 'armor' && entry.runtimeSupport !== 'unsupported')!
+    const registered = addEquipmentToInventory(emptyInventory(), item, 'new-armor')
+    expect(registered.armors?.[0]).not.toHaveProperty('observedHealthBonus')
+  })
+
+  it('counts saved rarities without inferring missing values and excludes artifacts', () => {
+    const inventory: Inventory = {
+      weapons: [{ instanceId: 'common-weapon', weaponId: 'fighters-bindings', powerLevel: 251, rarity: 'common', enchantmentSlots: [] }],
+      armors: [{ instanceId: 'rare-armor', armorId: 'battle-robe', powerLevel: 251, rarity: 'rare', enchantmentSlots: [] }],
+      rangedWeapons: [{ instanceId: 'unique-ranged', weaponId: 'shortbow', powerLevel: 251, rarity: 'unique', enchantmentSlots: [] }],
+      artifacts: [{ instanceId: 'ignored-artifact', artifactId: 'death-cap-mushroom', powerLevel: 251, rarity: 'rare' }],
+      catalogItems: [
+        { instanceId: 'common-catalog', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251, rarity: 'common' },
+        { instanceId: 'unrecorded-catalog', category: 'armor', catalogId: 'hungry-horror', powerLevel: 251 },
+      ],
+    }
+    expect(inventoryStatistics(inventory).rarityDistribution).toEqual([
+      { rarity: 'common', label: 'Common', count: 2 },
+      { rarity: 'rare', label: 'Rare', count: 1 },
+      { rarity: 'unique', label: 'Unique', count: 1 },
+      { rarity: 'unrecorded', label: '未記録', count: 1 },
+    ])
+  })
+
+  it('combines the same enchantment across categories without retaining a first-seen category', () => {
+    const inventory: Inventory = {
+      weapons: [{ instanceId: 'melee', weaponId: 'fighters-bindings', powerLevel: 251, enchantmentSlots: [{ candidates: ['void-strike'], selected: { enchantmentId: 'void-strike', tier: 3 } }] }],
+      armors: [], rangedWeapons: [], artifacts: [],
+      catalogItems: [{ instanceId: 'ranged', category: 'ranged', catalogId: 'bow-of-lost-souls', powerLevel: 251, enchantmentSlots: [{ candidates: ['void-strike'], selected: { enchantmentId: 'void-strike', tier: 2 } }] }],
+    }
+    expect(inventoryStatistics(inventory).enchantments).toContainEqual({ id: 'void-strike', name: '虚無の一撃', count: 2 })
+  })
+
   it('summarizes power, gilded items, duplicates, missing equipment and enchantments without inventing rarity', () => {
     const item = EQUIPMENT_CATALOG.find((entry) => entry.category === 'melee' && entry.id === 'fighters-bindings')!
     const recorded = { slots: [{ candidates: ['critical-hit'], selected: { enchantmentId: 'critical-hit', tier: 3 as const } }] }

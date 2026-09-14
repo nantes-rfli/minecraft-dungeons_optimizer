@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId, useState, type ReactNode } from 'react'
 import type { Inventory, Scenario, Evaluation } from '../core/types'
 import type { OwnedRangedWeapon, RangedShotMode } from '../core/rangedTypes'
 import { parseRangedWeapon, rangedWeaponUnsupportedReason } from '../core/ranged'
@@ -9,6 +9,7 @@ import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
 import { EnchantmentSlotEditor } from '../components/EnchantmentSlotEditor'
 import { GildedEnchantmentEditor } from '../components/GildedEnchantmentEditor'
+import { InventoryDeleteButton } from '../components/InventoryDeleteButton'
 function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
   const errorId = useId()
   const observed = weapon.observation
@@ -43,16 +44,16 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
     </fieldset></div></details>
     <EnchantmentSlotEditor slots={weapon.enchantmentSlots} category="ranged" soulGear={catalog.soulGear} onChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} />
     <GildedEnchantmentEditor value={weapon.gilded} category="ranged" soulGear={catalog.soulGear} onChange={(gilded) => onChange({ ...weapon, gilded })} />
-    <button type="button" aria-label={`${weapon.instanceId} 遠距離武器を削除`} onClick={onRemove}>遠距離武器を削除</button>
+    <InventoryDeleteButton label={japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)} onClick={onRemove} />
   </details>
 }
 
-export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true, visibleWeapons }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean; visibleWeapons?: readonly OwnedRangedWeapon[] }) {
+export function RangedInventorySection({ inventory, onChange, scenario, onScenarioChange, showScenario = true, visibleWeapons, additionalItems, additionalCount = 0 }: { inventory: Inventory; onChange: (value: Inventory) => void; scenario: Scenario; onScenarioChange: (value: Scenario) => void; showScenario?: boolean; visibleWeapons?: readonly OwnedRangedWeapon[]; additionalItems?: ReactNode; additionalCount?: number }) {
   const weapons = inventory.rangedWeapons ?? []
   const renderedWeapons = visibleWeapons ?? weapons
-  return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED</p><h2>遠距離武器</h2></div></div>
+  return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED</p><h2>遠距離武器</h2></div><span>{renderedWeapons.length + additionalCount}</span></div>
     {weapons.length > 0 && showScenario && <label>遠距離に使う攻撃時間の割合<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="入力してください" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}
-    {renderedWeapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}
+    <div className="equipment-list">{renderedWeapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}{additionalItems}</div>
   </section>
 }
 

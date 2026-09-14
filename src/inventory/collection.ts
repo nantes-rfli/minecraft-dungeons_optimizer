@@ -3,7 +3,7 @@ import type { ArmorId, OwnedArmor } from '../core/armor'
 import type { OwnedRangedWeapon } from '../core/rangedTypes'
 import { ARMORS } from '../data/armors'
 import { ARTIFACTS } from '../data/artifacts'
-import { resolveEnchantment, type EnchantmentCatalogCategory } from '../data/enchantmentCatalog'
+import { resolveEnchantment } from '../data/enchantmentCatalog'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
@@ -43,22 +43,24 @@ export interface InventoryStatistics {
   readonly gildedRate: number
   readonly duplicateTypes: readonly { category: EquipmentCategory; id: string; name: string; count: number }[]
   readonly powerDistribution: readonly { label: string; count: number }[]
-  readonly enchantments: readonly { id: string; name: string; count: number; category: EnchantmentCatalogCategory }[]
+  readonly rarityDistribution: readonly { rarity: 'common' | 'rare' | 'unique' | 'unrecorded'; label: string; count: number }[]
+  readonly enchantments: readonly { id: string; name: string; count: number }[]
   readonly missing: readonly EquipmentCatalogEntry[]
 }
 
 export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
   const summary = collectionSummary(inventory)
   const instances = [
-    ...inventory.weapons.map((item) => ({ category: 'melee' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
-    ...(inventory.armors ?? []).map((item) => ({ category: 'armor' as const, id: item.armorId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
-    ...(inventory.rangedWeapons ?? []).map((item) => ({ category: 'ranged' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded) })),
-    ...inventory.artifacts.map((item) => ({ category: 'artifact' as const, id: item.artifactId, power: item.powerLevel, gilded: false })),
+    ...inventory.weapons.map((item) => ({ category: 'melee' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded), rarity: item.rarity })),
+    ...(inventory.armors ?? []).map((item) => ({ category: 'armor' as const, id: item.armorId, power: item.powerLevel, gilded: Boolean(item.gilded), rarity: item.rarity })),
+    ...(inventory.rangedWeapons ?? []).map((item) => ({ category: 'ranged' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded), rarity: item.rarity })),
+    ...inventory.artifacts.map((item) => ({ category: 'artifact' as const, id: item.artifactId, power: item.powerLevel, gilded: false, rarity: item.rarity })),
     ...(inventory.catalogItems ?? []).map((item) => ({
       category: item.category,
       id: item.catalogId,
       power: item.powerLevel,
       gilded: Boolean(item.gilded ?? item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')),
+      rarity: item.rarity,
     })),
   ]
   const counts = new Map<string, number>()
@@ -77,22 +79,21 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
     { label: '264+', min: 264, max: Number.POSITIVE_INFINITY },
   ]
   const enchantmentCounts = new Map<string, number>()
-  const enchantmentCategories = new Map<string, EnchantmentCatalogCategory>()
-  const countEnchant = (id: string, category: EnchantmentCatalogCategory) => {
+  const countEnchant = (id: string) => {
     enchantmentCounts.set(id, (enchantmentCounts.get(id) ?? 0) + 1)
-    if (!enchantmentCategories.has(id)) enchantmentCategories.set(id, category)
   }
-  inventory.weapons.forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'melee') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'melee') })
-  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'armor') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'armor') })
-  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'ranged') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'ranged') })
+  inventory.weapons.forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
   ;(inventory.catalogItems ?? []).forEach((item) => {
     if (item.category === 'artifact') return
-    if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, item.category) })
-    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId, item.category))
-    if (item.gilded) countEnchant(item.gilded.enchantmentId, item.category)
-    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId, item.category))
+    if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) })
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+    if (item.gilded) countEnchant(item.gilded.enchantmentId)
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
   })
   const gildedItems = instances.filter((item) => item.gilded).length
+  const rarityItems = instances.filter((item) => item.category !== 'artifact')
   return {
     totalItems: instances.length,
     collectedTypes: summary.collected,
@@ -101,7 +102,8 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
     gildedRate: instances.length === 0 ? 0 : gildedItems / instances.length,
     duplicateTypes,
     powerDistribution: powerBands.map((band) => ({ label: band.label, count: instances.filter((item) => item.power >= band.min && item.power <= band.max).length })),
-    enchantments: [...enchantmentCounts.entries()].map(([id, count]) => ({ id, name: resolveEnchantment(id)?.name.ja ?? resolveEnchantment(id)?.name.en ?? id, count, category: enchantmentCategories.get(id) ?? 'melee' })).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja')),
+    rarityDistribution: ([['common', 'Common'], ['rare', 'Rare'], ['unique', 'Unique'], ['unrecorded', '未記録']] as const).map(([rarity, label]) => ({ rarity, label, count: rarityItems.filter((item) => (item.rarity ?? 'unrecorded') === rarity).length })),
+    enchantments: [...enchantmentCounts.entries()].map(([id, count]) => ({ id, name: resolveEnchantment(id)?.name.ja ?? resolveEnchantment(id)?.name.en ?? id, count })).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja')),
     missing: summary.missing,
   }
 }
@@ -116,7 +118,7 @@ export function addEquipmentToInventory(inventory: Inventory, selected: Equipmen
   }
   if (selected.category === 'armor' && selected.id in ARMORS) {
     const armor: OwnedArmor = {
-      instanceId, armorId: selected.id as ArmorId, powerLevel, observedHealthBonus: 1_880_000, ...(rarity ? { rarity } : {}),
+      instanceId, armorId: selected.id as ArmorId, powerLevel, ...(rarity ? { rarity } : {}),
       enchantmentSlots: enchantment?.slots ?? [], ...(enchantment?.gilded ? { gilded: enchantment.gilded } : {}),
     }
     return { ...inventory, armors: [...(inventory.armors ?? []), armor] }

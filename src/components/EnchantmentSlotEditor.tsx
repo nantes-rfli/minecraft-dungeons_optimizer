@@ -11,9 +11,10 @@ const CATEGORY_LABELS = { melee: '近接', ranged: '遠距離', armor: '防具' 
 
 export type EnchantmentDiamondVariant = 'full' | 'compact' | 'icon-only'
 
-export function EnchantmentDiamond({ enchantmentId, category, selected = false, variant = 'full' }: { enchantmentId: string; category: EnchantmentCatalogCategory; selected?: boolean; variant?: EnchantmentDiamondVariant }) {
+export function EnchantmentDiamond({ enchantmentId, category, selected = false, variant = 'full' }: { enchantmentId: string; category?: EnchantmentCatalogCategory; selected?: boolean; variant?: EnchantmentDiamondVariant }) {
   const enchantment = ENCHANTMENT_CATALOG.find((entry) => entry.id === enchantmentId)
-  return <span className={`enchantment-diamond enchantment-diamond--${variant}`} data-rarity={enchantment?.rarity ?? 'unknown'} data-selected={selected || undefined} title={`${enchantment?.rarity === 'powerful' ? 'Powerful' : enchantment?.rarity === 'common' ? 'Common' : 'Rarity未確認'} · ${CATEGORY_LABELS[category]}`}>
+  const rarityLabel = enchantment?.rarity === 'powerful' ? 'Powerful' : enchantment?.rarity === 'common' ? 'Common' : 'Rarity未確認'
+  return <span className={`enchantment-diamond enchantment-diamond--${variant}`} data-rarity={enchantment?.rarity ?? 'unknown'} data-selected={selected || undefined} title={category ? `${rarityLabel} · ${CATEGORY_LABELS[category]}` : rarityLabel}>
     <span className="enchantment-diamond-frame"><EnchantmentArtwork enchantmentId={enchantmentId} category={category} /></span>
     {variant === 'full' && <span className="enchantment-diamond-copy"><strong>{enchantment?.name.ja ?? enchantment?.name.en ?? enchantmentId}</strong>{enchantment?.name.ja && <small lang="en">{enchantment.name.en}</small>}<small>{enchantment?.rarity === 'powerful' ? 'Powerful' : enchantment?.rarity === 'common' ? 'Common' : 'Rarity確認中'}</small></span>}
   </span>

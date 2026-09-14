@@ -46,9 +46,10 @@ describe('enchantment UX final fix-up', () => {
     expect(html).toContain('入手形態')
     expect(html).toContain('内部ID')
     expect(html).not.toContain('class="property-table"')
+    expect(html).not.toContain('enchantment-detail-header')
     const critical = resolveEnchantment('critical-hit')!
-    expect(html.split(critical.name.ja!).length - 1).toBe(2)
-    expect(html.split(critical.name.en).length - 1).toBe(2)
+    expect(html.split(critical.name.ja!).length - 1).toBe(1)
+    expect(html.split(critical.name.en).length - 1).toBe(1)
   })
 
   it('counts owned-model gilded values first and resolves research-only names canonically', () => {
@@ -62,7 +63,7 @@ describe('enchantment UX final fix-up', () => {
     }
     const stats = inventoryStatistics(inventory)
     expect(stats.gildedItems).toBe(1)
-    expect(stats.enchantments).toContainEqual(expect.objectContaining({ id: 'tumblebee', name: 'タンブルビー', count: 1, category: 'armor' }))
+    expect(stats.enchantments).toContainEqual(expect.objectContaining({ id: 'tumblebee', name: 'タンブルビー', count: 1 }))
     expect(stats.enchantments.some((entry) => entry.id === 'burning')).toBe(false)
     const html = renderToStaticMarkup(createElement(InventoryStatisticsView, { inventory }))
     expect(html).toContain('enchantment-diamond--compact')
