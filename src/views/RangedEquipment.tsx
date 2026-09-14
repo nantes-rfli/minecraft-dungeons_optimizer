@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
-import type { Inventory, Scenario, EnchantmentTier, Evaluation } from '../core/types'
-import type { OwnedRangedWeapon, RangedRoll, RangedShotMode } from '../core/rangedTypes'
+import type { Inventory, Scenario, Evaluation } from '../core/types'
+import type { OwnedRangedWeapon, RangedShotMode } from '../core/rangedTypes'
 import { parseRangedWeapon, rangedWeaponUnsupportedReason } from '../core/ranged'
 import { RANGED_WEAPON_AUDIT } from '../research/rangedAudit'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
@@ -8,13 +8,7 @@ import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
 import { EnchantmentSlotEditor } from '../components/EnchantmentSlotEditor'
-import { ENCHANTMENT_CATALOG, type EnchantmentCatalogEntry } from '../data/enchantmentCatalog'
-
-function RollEditor({ value, label, options, onChange }: { value: RangedRoll; label: string; options: readonly EnchantmentCatalogEntry[]; onChange: (roll: RangedRoll) => void }) {
-  return <div className="weapon-fields"><label>{label}<select aria-label={label} value={value.enchantmentId} onChange={(e) => onChange({ ...value, enchantmentId: e.target.value })}>
-    {options.map((entry) => <option key={entry.id} value={entry.id}>{entry.name.ja} / {entry.name.en}</option>)}
-  </select></label><label>Tier<select aria-label={`${label} Tier`} value={value.tier} onChange={(e) => onChange({ ...value, tier: Number(e.target.value) as EnchantmentTier })}>{[1, 2, 3].map((tier) => <option key={tier} value={tier}>{['I', 'II', 'III'][tier - 1]}</option>)}</select></label></div>
-}
+import { GildedEnchantmentEditor } from '../components/GildedEnchantmentEditor'
 function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
   const errorId = useId()
   const observed = weapon.observation
@@ -29,7 +23,6 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
   const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
-  const gildedOptions = ENCHANTMENT_CATALOG.filter((entry) => entry.applicableCategories.includes('ranged') && entry.availability.gilded && (!entry.soulGearOnly || catalog.soulGear))
   const saveObservation = () => {
     try {
       if ([draft.damage, draft.cycle, draft.ammo, draft.note].some((value) => value.trim() === '')) throw new Error('観測値とメモをすべて入力してください。')
@@ -47,10 +40,9 @@ function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRanged
       <label>観測メモ / 出典<input aria-label={`${weapon.instanceId} 観測メモ`} value={draft.note} placeholder="対象・装備・版・記録箇所" onChange={(e) => setDraft({ ...draft, note: e.target.value })} /></label>
       <button type="button" onClick={saveObservation}>観測値を適用</button>{observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined })}>観測値を解除</button>}
       {error && <p id={errorId} role="alert">{error}</p>}
-    </fieldset>
+    </fieldset></div></details>
     <EnchantmentSlotEditor slots={weapon.enchantmentSlots} category="ranged" soulGear={catalog.soulGear} onChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} />
-    <label><input type="checkbox" checked={!!weapon.gilded} onChange={(e) => onChange({ ...weapon, gilded: e.target.checked && gildedOptions[0] ? { enchantmentId: gildedOptions[0].id, tier: 1 } : undefined })} />Ranged 金色エンチャント</label>
-    {weapon.gilded && <RollEditor value={weapon.gilded} label={`${weapon.instanceId} 金色エンチャント`} options={gildedOptions} onChange={(gilded) => onChange({ ...weapon, gilded })} />}</div></details>
+    <GildedEnchantmentEditor value={weapon.gilded} category="ranged" soulGear={catalog.soulGear} onChange={(gilded) => onChange({ ...weapon, gilded })} />
     <button type="button" aria-label={`${weapon.instanceId} 遠距離武器を削除`} onClick={onRemove}>遠距離武器を削除</button>
   </details>
 }

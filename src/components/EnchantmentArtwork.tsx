@@ -15,8 +15,8 @@ export function EnchantmentArtwork({ enchantmentId, category, size = 'small', de
   </span>
 }
 
-export function EnchantmentIdentity({ value, tier }: { value: string; tier?: number }) {
+export function EnchantmentIdentity({ value, tier, category }: { value: string; tier?: number; category?: EnchantmentCatalogCategory }) {
   const enchantment = resolveEnchantment(value)
   if (!enchantment) return <span className="enchantment-identity enchantment-identity--unresolved">{value}{tier ? ` Tier ${tier}` : ''}</span>
-  return <span className="enchantment-identity"><EnchantmentArtwork enchantmentId={enchantment.id} /><span><strong>{enchantment.name.ja ?? enchantment.name.en}</strong>{enchantment.name.ja && <small lang="en">{enchantment.name.en}</small>}{tier ? <small>Tier {tier}</small> : null}</span></span>
+  return <span className="enchantment-identity"><EnchantmentArtwork enchantmentId={enchantment.id} category={category} /><span><strong>{enchantment.name.ja ?? enchantment.name.en}</strong>{enchantment.name.ja && <small lang="en">{enchantment.name.en}</small>}{tier ? <small>Tier {tier}</small> : null}</span></span>
 }

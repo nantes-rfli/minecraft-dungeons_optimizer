@@ -3,7 +3,7 @@ import type { ArmorId, OwnedArmor } from '../core/armor'
 import type { OwnedRangedWeapon } from '../core/rangedTypes'
 import { ARMORS } from '../data/armors'
 import { ARTIFACTS } from '../data/artifacts'
-import { ENCHANTMENTS } from '../data/enchantments'
+import { resolveEnchantment, type EnchantmentCatalogCategory } from '../data/enchantmentCatalog'
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry, type EquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
@@ -43,7 +43,7 @@ export interface InventoryStatistics {
   readonly gildedRate: number
   readonly duplicateTypes: readonly { category: EquipmentCategory; id: string; name: string; count: number }[]
   readonly powerDistribution: readonly { label: string; count: number }[]
-  readonly enchantments: readonly { id: string; name: string; count: number }[]
+  readonly enchantments: readonly { id: string; name: string; count: number; category: EnchantmentCatalogCategory }[]
   readonly missing: readonly EquipmentCatalogEntry[]
 }
 
@@ -58,7 +58,7 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
       category: item.category,
       id: item.catalogId,
       power: item.powerLevel,
-      gilded: Boolean(item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')),
+      gilded: Boolean(item.gilded ?? item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')),
     })),
   ]
   const counts = new Map<string, number>()
@@ -77,15 +77,20 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
     { label: '264+', min: 264, max: Number.POSITIVE_INFINITY },
   ]
   const enchantmentCounts = new Map<string, number>()
-  const countEnchant = (id: string) => enchantmentCounts.set(id, (enchantmentCounts.get(id) ?? 0) + 1)
-  inventory.weapons.forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
-  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
-  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  const enchantmentCategories = new Map<string, EnchantmentCatalogCategory>()
+  const countEnchant = (id: string, category: EnchantmentCatalogCategory) => {
+    enchantmentCounts.set(id, (enchantmentCounts.get(id) ?? 0) + 1)
+    if (!enchantmentCategories.has(id)) enchantmentCategories.set(id, category)
+  }
+  inventory.weapons.forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'melee') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'melee') })
+  ;(inventory.armors ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'armor') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'armor') })
+  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, 'ranged') }); if (item.gilded) countEnchant(item.gilded.enchantmentId, 'ranged') })
   ;(inventory.catalogItems ?? []).forEach((item) => {
-    if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) })
-    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
-    if (item.gilded) countEnchant(item.gilded.enchantmentId)
-    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+    if (item.category === 'artifact') return
+    if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId, item.category) })
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId, item.category))
+    if (item.gilded) countEnchant(item.gilded.enchantmentId, item.category)
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId, item.category))
   })
   const gildedItems = instances.filter((item) => item.gilded).length
   return {
@@ -96,7 +101,7 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
     gildedRate: instances.length === 0 ? 0 : gildedItems / instances.length,
     duplicateTypes,
     powerDistribution: powerBands.map((band) => ({ label: band.label, count: instances.filter((item) => item.power >= band.min && item.power <= band.max).length })),
-    enchantments: [...enchantmentCounts.entries()].map(([id, count]) => ({ id, name: ENCHANTMENTS[id as keyof typeof ENCHANTMENTS]?.name.ja ?? id, count })).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja')),
+    enchantments: [...enchantmentCounts.entries()].map(([id, count]) => ({ id, name: resolveEnchantment(id)?.name.ja ?? resolveEnchantment(id)?.name.en ?? id, count, category: enchantmentCategories.get(id) ?? 'melee' })).sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'ja')),
     missing: summary.missing,
   }
 }
