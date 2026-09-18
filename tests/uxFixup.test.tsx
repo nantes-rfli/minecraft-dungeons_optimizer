@@ -8,9 +8,9 @@ import { RecommendedBuild } from '../src/views/RecommendedBuild'
 import { ModelEvidencePage } from '../src/screens/ModelEvidencePage'
 
 const inventory: Inventory = {
-  weapons: [{ instanceId: 'melee', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100_000, enchantmentSlots: [{ candidates: ['critical-hit'], locked: 'critical-hit' }], gilded: { enchantmentId: 'sharpness', tier: 2 } }],
-  armors: [{ instanceId: 'armor', armorId: 'battle-robe', powerLevel: 251, observedHealthBonus: 1_880_000, enchantmentSlots: [{ candidates: [{ enchantmentId: 'chilling', tier: 3 }], locked: 'chilling' }] }],
-  rangedWeapons: [{ instanceId: 'ranged', weaponId: 'bow', powerLevel: 251, observation: { gameVersion: '1.17.0.0', mode: 'uncharged', projectileDamage: 80_000, shotCycleSeconds: 1, availableAmmo: 50, sourceNote: 'SYNTHETIC TEST ONLY' }, enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 3 }], locked: 'power' }] }],
+  weapons: [{ instanceId: 'melee', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100_000, enchantmentSlots: [{ candidates: ['critical-hit'], selected: { enchantmentId: 'critical-hit', tier: 3 } }], gilded: { enchantmentId: 'sharpness', tier: 2 } }],
+  armors: [{ instanceId: 'armor', armorId: 'battle-robe', powerLevel: 251, observedHealthBonus: 1_880_000, enchantmentSlots: [{ candidates: ['chilling'], selected: { enchantmentId: 'chilling', tier: 3 } }] }],
+  rangedWeapons: [{ instanceId: 'ranged', weaponId: 'bow', powerLevel: 251, observation: { gameVersion: '1.17.0.0', mode: 'uncharged', projectileDamage: 80_000, shotCycleSeconds: 1, availableAmmo: 50, sourceNote: 'SYNTHETIC TEST ONLY' }, enchantmentSlots: [{ candidates: ['power'], selected: { enchantmentId: 'power', tier: 3 } }] }],
   artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }, { instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }],
 }
 
