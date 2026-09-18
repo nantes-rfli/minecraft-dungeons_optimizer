@@ -103,7 +103,7 @@ describe('Phase 2-3B Armor runtime', () => {
 
   it('rejects multiple Cool Down copies instead of applying an unverified stacking formula', () => {
     const owned = armor('wither-armor', 'cool-down')
-    const armorWithTwoSlots = { ...owned, enchantmentSlots: [...owned.enchantmentSlots, { candidates: [{ enchantmentId: 'cool-down' as const, tier: 2 as const }], locked: 'cool-down' as const }] }
+    const armorWithTwoSlots = { ...owned, enchantmentSlots: [...owned.enchantmentSlots, { candidates: ['cool-down' as const], selected: { enchantmentId: 'cool-down' as const, tier: 2 as const } }] }
     expect(() => evaluate({ ...build('wither-armor', 'cool-down'), armor: armorWithTwoSlots, armorEnchantments: [
       { enchantmentId: 'cool-down', tier: 3, source: 'slot' },
       { enchantmentId: 'cool-down', tier: 2, source: 'slot' },
@@ -120,7 +120,7 @@ describe('Phase 2-3B Armor runtime', () => {
     const barrier = evaluate(build('battle-robe', 'potion-barrier', 3), scenario)
     expect(barrier.defense.potionBarrierCoverage).toBeCloseTo(9 / 45)
     expect(barrier.defense.damageTakenMultiplier).toBeCloseTo(0.82)
-    const refreshmentWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['refreshment' as const], locked: 'refreshment' as const }] }
+    const refreshmentWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['refreshment' as const], selected: { enchantmentId: 'refreshment' as const, tier: 3 as const } }] }
     const refreshment = evaluate({ ...build('battle-robe', 'potion-barrier', 3), weapon: refreshmentWeapon, enchantments: [{ enchantmentId: 'refreshment', tier: 3, source: 'slot' }] }, { ...scenario, averageEnemyHealth: 50, enemySupplyPerSecond: 10 })
     expect(refreshment.defense.potionBarrierCoverage).toBeGreaterThan(barrier.defense.potionBarrierCoverage!)
     const noTargets = evaluate(build('battle-robe', 'chilling', 3), { ...scenario, crowdControl: { ...scenario.crowdControl, chillingEligibleTargetShare: 0, chillingAffectedTargetShare: 1 } })
@@ -134,7 +134,7 @@ describe('Phase 2-3B Armor runtime', () => {
   it.each([[1, 0.2], [2, 0.4], [3, 0.6]] as const)('uses Chilling tier %s as periodic Control and union-composes Freezing', (tier, reduction) => {
     const chilled = evaluate(build('battle-robe', 'chilling', tier), { ...scenario, crowdControl: { ...scenario.crowdControl, chillingEligibleTargetShare: 1, chillingAffectedTargetShare: 1 } })
     expect(chilled.control.chilling?.attackSlowEquivalentCoverage).toBeCloseTo(0.5 * reduction)
-    const freezingWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['freezing' as const], locked: 'freezing' as const }] }
+    const freezingWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['freezing' as const], selected: { enchantmentId: 'freezing' as const, tier: 3 as const } }] }
     const combined = evaluate({ ...build('battle-robe', 'chilling', tier), weapon: freezingWeapon, enchantments: [{ enchantmentId: 'freezing', tier: 3, source: 'slot' }] }, { ...scenario, crowdControl: { ...scenario.crowdControl, freezingEligibleTargetShare: 1, chillingEligibleTargetShare: 1, chillingAffectedTargetShare: 1 } })
     const freezingCoverage = combined.control.freezing!.attackSlowEquivalentCoverage
     expect(combined.control.attackSlowEquivalentCoverage).toBeCloseTo(1 - (1 - freezingCoverage) * (1 - 0.5 * reduction))
@@ -146,11 +146,11 @@ describe('Phase 2-3B Armor runtime', () => {
     const optimized = optimize({ weapons: [weapon], armors: [supported], artifacts: [] }, scenario)
     expect(optimized.best.build.armor?.armorId).toBe('battle-robe')
     expect(optimized.best.build.armorEnchantments).toEqual([{ enchantmentId: 'chilling', tier: 3, source: 'slot' }])
-    const mixed = { ...supported, enchantmentSlots: [{ candidates: [{ enchantmentId: 'chilling', tier: 3 as const }, { enchantmentId: 'thorns', tier: 3 as const }] }] }
+    const mixed = { ...supported, enchantmentSlots: [{ candidates: ['chilling', 'thorns'] }] }
     expect(() => optimize({ weapons: [weapon], armors: [mixed], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE/)
-    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'chilling' }] }
+    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, selected: { enchantmentId: 'chilling', tier: 3 as const } }] }
     expect(optimize({ weapons: [weapon], armors: [locked], artifacts: [] }, scenario).best.build.armorEnchantments?.[0]?.enchantmentId).toBe('chilling')
-    const lockedUnsupported = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'thorns' }] }
+    const lockedUnsupported = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, selected: { enchantmentId: 'thorns', tier: 3 as const } }] }
     expect(() => optimize({ weapons: [weapon], armors: [lockedUnsupported], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_ENCHANTMENT/)
     const supportedGilded = { ...armor('wither-armor', 'chilling'), gilded: { enchantmentId: 'cool-down', tier: 2 as const } }
     expect(optimize({ weapons: [weapon], armors: [supportedGilded], artifacts: [] }, scenario).best.build.armorEnchantments).toContainEqual({ enchantmentId: 'cool-down', tier: 2, source: 'gilded' })
