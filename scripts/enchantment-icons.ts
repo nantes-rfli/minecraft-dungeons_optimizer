@@ -156,7 +156,7 @@ export function mapEnchantmentCatalog(catalog: readonly EnchantmentCatalogSource
         enchantmentId: item.id,
         status: 'multiple-candidates',
         candidates: referenced.map((candidate) => candidate.sourceAsset),
-        ...(Object.keys(categoryOutputs).length === referenced.length ? { categoryOutputs } : {}),
+        ...(Object.keys(categoryOutputs ?? {}).length === referenced.length ? { categoryOutputs } : {}),
         notes: 'Category-specific definition references use distinct icon textures; each applicable category is exported separately.',
       }
     }
