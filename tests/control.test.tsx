@@ -274,7 +274,7 @@ describe('Control optimizer, persistence and UI', () => {
     const result = optimize({ weapons: [weapon], artifacts: [] }, DEFAULT_SCENARIO)
     expect(result.evaluatedBuildCount).toBe(1)
     expect(result.unsupportedChoices.join(' ')).toMatch(/Chains.*1個/)
-    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ candidates: ['chains'], locked: 'chains' }] }], artifacts: [] }, DEFAULT_SCENARIO)).toThrow(/Chains.*1個/)
+    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ candidates: ['chains'], selected: { enchantmentId: 'chains', tier: 3 as const } }] }], artifacts: [] }, DEFAULT_SCENARIO)).toThrow(/Chains.*1個/)
     expect(() => optimize({ weapons: [buildFor([selection('chains'), selection('chains')]).weapon], artifacts: [] }, DEFAULT_SCENARIO)).toThrow(/Chains/)
   })
   it.each(['stunning', 'freezing', 'gravity'] as const)('%s rejects non-stackable normal/gilded pairs', (id) => {
