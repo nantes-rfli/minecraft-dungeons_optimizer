@@ -49,7 +49,7 @@ export const ENCHANTMENT_CATALOG: readonly EnchantmentCatalogEntry[] = catalogSn
     const meleeTiers = melee?.tierValues ? [1, 2, 3].map((tier) => melee.tierValues?.[String(tier)]?.raw ?? '—') : undefined
     return {
       id: item.id,
-      name: { en: item.name.en, ...(ja ? { ja } : {}) },
+      name: { en: item.name.en, ja },
       applicableCategories: item.applicableCategories as readonly EnchantmentCatalogCategory[],
       ...(iconPaths.get(item.id) ? { icon: iconPaths.get(item.id) } : {}),
       ...(categoryIconPaths.get(item.id) ? { iconsByCategory: categoryIconPaths.get(item.id) } : {}),
