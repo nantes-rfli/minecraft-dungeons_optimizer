@@ -17,8 +17,8 @@ export function soulEnchantmentUnsupportedReason(weaponId: OwnedWeapon['weaponId
  */
 export function validateWeaponSoulLegality(weapon: OwnedWeapon): void {
   const ids = weapon.enchantmentSlots.flatMap((slot) => [
-    ...slot.candidates.map((candidate) => typeof candidate === 'string' ? candidate : (candidate as { enchantmentId: string }).enchantmentId),
-    ...(slot.selected ? [slot.selected.enchantmentId] : (slot as { locked?: string }).locked ? [(slot as { locked: string }).locked] : []),
+    ...slot.candidates,
+    ...(slot.selected ? [slot.selected.enchantmentId] : []),
   ])
   if (weapon.gilded) ids.push(weapon.gilded.enchantmentId)
   for (const id of ids) {
