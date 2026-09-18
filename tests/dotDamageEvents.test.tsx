@@ -202,7 +202,7 @@ describe('optimizer, storage, descriptions and confidence', () => {
       expect(result.best.reasons.join(' ')).toContain(id === 'fire-aspect' ? 'Fire Aspect' : id === 'poison-cloud' ? 'Poison Cloud' : 'Exploding')
     }
     const build = buildFor([selected(id)])
-    const locked = { ...build.weapon, enchantmentSlots: [{ candidates: [id], locked: id }] }
+    const locked = { ...build.weapon, enchantmentSlots: [{ candidates: [id], selected: { enchantmentId: id, tier: 3 as const } }] }
     expect(optimize({ weapons: [locked], artifacts: [] }, scenario).best.build.enchantments[0]!.enchantmentId).toBe(id)
   })
   it.each(DOT_EXPLOSION_IDS)('%s rejects normal/gilded duplicates and Void combinations, never zero-scores them', (id) => {
@@ -224,7 +224,7 @@ describe('optimizer, storage, descriptions and confidence', () => {
     const result = optimize({ weapons: [weapon], artifacts: [] }, scenario)
     expect(result.evaluatedBuildCount).toBe(1)
     expect(result.unsupportedChoices.join(' ')).toContain('外挿')
-    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ candidates: [id], locked: id }] }], artifacts: [] }, scenario)).toThrow('外挿')
+    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ candidates: [id], selected: { enchantmentId: id, tier: 3 as const } }] }], artifacts: [] }, scenario)).toThrow('外挿')
     expect(() => optimize({ weapons: [{ ...weapon, gilded: { enchantmentId: id, tier: 1 } }], artifacts: [] }, scenario)).toThrow('外挿')
   })
   it.each(DOT_DAMAGE_IDS)('%s reduces direct-kill effects at the supply cap', (id) => {
