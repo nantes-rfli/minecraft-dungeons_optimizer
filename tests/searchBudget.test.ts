@@ -8,7 +8,7 @@ const inventory: Inventory = { weapons: [{ instanceId: 'w', weaponId: 'double-ax
 describe('search budget', () => {
   it('counts optional equipment, locks, candidate slots and unordered artifact triples', () => {
     expect(estimateSearchCandidates(inventory)).toBe(2)
-    const input: Inventory = { ...inventory, weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'], locked: 'critical-hit' }] }], artifacts: Array.from({ length: 4 }, (_, i) => ({ instanceId: `a${i}`, artifactId: 'death-cap-mushroom', powerLevel: 251 })) }
+    const input: Inventory = { ...inventory, weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'], selected: { enchantmentId: 'critical-hit', tier: 3 as const } }] }], artifacts: Array.from({ length: 4 }, (_, i) => ({ instanceId: `a${i}`, artifactId: 'death-cap-mushroom', powerLevel: 251 })) }
     expect(estimateSearchCandidates(input)).toBe(4)
     expect(optimize(input, DEFAULT_SCENARIO).evaluatedBuildCount).toBe(4)
   })
