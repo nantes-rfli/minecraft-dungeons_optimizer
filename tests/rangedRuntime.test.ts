@@ -24,7 +24,7 @@ describe('observed ranged runtime and shared API', () => {
     expect(optimized.best.confidence.factors.some((factor) => factor.id === 'ranged-user-observation' && factor.confidence === 'low')).toBe(true)
   })
   it('compares two archetypes and selects a candidate enchant with Gilded preserved', () => {
-    const bow: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 3 }, { enchantmentId: 'unchanting', tier: 1 }] }], gilded: { enchantmentId: 'critical-hit', tier: 2 } }
+    const bow: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: ['power', 'unchanting'] }], gilded: { enchantmentId: 'critical-hit', tier: 2 } }
     const crossbow = ranged('crossbow')
     const result = optimize(inventory([bow, crossbow]), scenario)
     expect(result.evaluatedBuildCount).toBe(3)
@@ -69,9 +69,9 @@ describe('observed ranged runtime and shared API', () => {
     expect(result.unsupportedChoices.join(' ')).toContain('harp-crossbow')
   })
   it('rejects mixed free slots but permits an explicit supported lock', () => {
-    const mixed: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 2 }, { enchantmentId: 'multishot', tier: 3 }] }] }
+    const mixed: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: ['power', 'multishot'] }] }
     expect(() => optimize(inventory([mixed]), scenario)).toThrow('未対応候補')
-    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'power' }] }
+    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, selected: { enchantmentId: 'power', tier: 2 as const } }] }
     expect(optimize(inventory([locked]), scenario).best.build.rangedEnchantments?.[0]?.tier).toBe(2)
     expect(() => evaluate({ ...withRanged(mixed), rangedEnchantments: [{ enchantmentId: 'power', tier: 2, source: 'slot' }] }, scenario)).toThrow('未対応候補')
   })
@@ -83,7 +83,7 @@ describe('observed ranged runtime and shared API', () => {
   it('rejects Gilded omissions, unsupported Gilded, mismatched source/Tier and duplicate copies', () => {
     expect(() => evaluate(withRanged({ ...ranged(), gilded: { enchantmentId: 'power', tier: 2 } }), scenario)).toThrow('一致')
     expect(() => optimize(inventory([{ ...ranged(), gilded: { enchantmentId: 'void-strike', tier: 3 } }]), scenario)).toThrow('Research-only')
-    const duplicate: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 3 }] }], gilded: { enchantmentId: 'power', tier: 1 } }
+    const duplicate: OwnedRangedWeapon = { ...ranged(), enchantmentSlots: [{ candidates: ['power'] }], gilded: { enchantmentId: 'power', tier: 1 } }
     expect(() => optimize(inventory([duplicate]), scenario)).toThrow('stacking')
     expect(() => evaluate({ ...withRanged(), rangedEnchantments: [{ enchantmentId: 'power', tier: 3, source: 'slot' }] }, scenario)).toThrow('一致')
   })
@@ -102,14 +102,14 @@ describe('observed ranged runtime and shared API', () => {
     expect(() => optimize(inventory([{ ...ranged(), instanceId: legacy.weapon.instanceId }]), scenario)).toThrow()
   })
   it('keeps Armor melee-only bonuses isolated and rejects unresolved ranged synergies', () => {
-    const armor = { instanceId: 'armor', armorId: 'scale-mail', powerLevel: 251, observedHealthBonus: 100, enchantmentSlots: [{ candidates: [{ enchantmentId: 'cool-down', tier: 3 as const }] }] }
+    const armor = { instanceId: 'armor', armorId: 'scale-mail', powerLevel: 251, observedHealthBonus: 100, enchantmentSlots: [{ candidates: ['cool-down'] }] }
     const result = optimize({ ...inventory([ranged()]), armors: [armor] }, scenario)
     expect(result.best.damage.ranged).toEqual(evaluate(withRanged(), scenario).damage.ranged)
     expect(result.best.damage.directWeaponAoeDps).toBeGreaterThan(evaluate(withRanged(), scenario).damage.directWeaponAoeDps)
     for (const armorId of ['renegade-armor', 'wither-armor', 'spider-armor', 'hunters-armor']) {
       expect(() => optimize({ ...inventory([ranged()]), armors: [{ ...armor, armorId }] }, scenario)).toThrow()
     }
-    expect(() => optimize({ ...inventory([ranged()]), armors: [{ ...armor, enchantmentSlots: [{ candidates: [{ enchantmentId: 'cowardice', tier: 3 }] }] }] }, { ...scenario, cowardiceFullHealthShare: 1 })).toThrow('Cowardice')
+    expect(() => optimize({ ...inventory([ranged()]), armors: [{ ...armor, enchantmentSlots: [{ candidates: ['cowardice'] }] }] }, { ...scenario, cowardiceFullHealthShare: 1 })).toThrow('Cowardice')
   })
   it('does not change legacy results or add ranged fields when no ranged gear is supplied', () => {
     const first = evaluate(legacy, DEFAULT_SCENARIO)
