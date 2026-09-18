@@ -63,6 +63,7 @@ test('major equipment flow, observed ranged, locks, gilded, JSON and persistence
   await armorSlotPicker.getByRole('button', { name: /Chilling/ }).click()
   const armorSlot = battleRobe.locator('fieldset.enchantment-slot').first()
   await armorSlot.getByRole('button', { name: /Chilling/ }).click()
+  await battleRobe.getByRole('spinbutton', { name: /追加HP/ }).fill('400')
   const firstWeapon = page.locator('details.equipment-card').first()
   await firstWeapon.locator(':scope > summary').click()
   const firstSlot = firstWeapon.locator('fieldset.enchantment-slot').first()
