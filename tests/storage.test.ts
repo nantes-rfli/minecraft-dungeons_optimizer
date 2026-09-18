@@ -87,7 +87,7 @@ describe('inventory JSON', () => {
     [{ candidates: ['radiance', 'radiance'] }],
     [{ candidates: ['radiance'], selected: { enchantmentId: 'critical-hit', tier: 3 } }],
     [{ candidates: ['radiance'], selected: { enchantmentId: 'radiance', tier: 4 } }],
-  ])('rejects invalid canonical slot state %#', (enchantmentSlots) => {
+  ] as unknown[])('rejects invalid canonical slot state %#', (enchantmentSlots) => {
     const invalid = JSON.stringify({ version: 5, inventory: { weapons: [{ instanceId: 'invalid', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots }], artifacts: [] } })
     expect(() => deserializeInventory(invalid)).toThrow()
   })
