@@ -177,12 +177,12 @@ function entityIdsFromInventory(inventory: Inventory): Set<string> {
   }
   for (const armor of inventory.armors ?? []) {
     ids.add(`armor:${armor.armorId}`)
-    for (const slot of armor.enchantmentSlots) for (const roll of slot.candidates) ids.add(`armor-enchantment:${roll.enchantmentId}`)
+    for (const slot of armor.enchantmentSlots) for (const id of slot.candidates) ids.add(`armor-enchantment:${id}`)
     if (armor.gilded) ids.add(`armor-enchantment:${armor.gilded.enchantmentId}`)
   }
   for (const ranged of inventory.rangedWeapons ?? []) {
     ids.add(`ranged-weapon:${ranged.weaponId}`)
-    for (const slot of ranged.enchantmentSlots) for (const roll of slot.candidates) ids.add(`ranged-enchantment:${roll.enchantmentId}`)
+    for (const slot of ranged.enchantmentSlots) for (const id of slot.candidates) ids.add(`ranged-enchantment:${id}`)
     if (ranged.gilded) ids.add(`ranged-enchantment:${ranged.gilded.enchantmentId}`)
   }
   for (const artifact of inventory.artifacts) ids.add(`artifact:${artifact.artifactId}`)

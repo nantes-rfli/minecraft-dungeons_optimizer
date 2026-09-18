@@ -265,7 +265,7 @@ describe('enemy-state validation, evidence and inventory integration', () => {
       const result = optimize(inventory, withShares())
       expect(result.evaluatedBuildCount).toBe(1)
       expect(result.best.build.enchantments.at(-1)).toEqual(selected(id, tier, 'gilded'))
-      const locked: Build['weapon'] = { ...inventory.weapons[0]!, gilded: undefined, enchantmentSlots: [{ candidates: [id, 'sharpness'], locked: id }] }
+      const locked: Build['weapon'] = { ...inventory.weapons[0]!, gilded: undefined, enchantmentSlots: [{ candidates: [id, 'sharpness'], selected: { enchantmentId: id, tier: 3 as const } }] }
       expect(optimize({ weapons: [locked], artifacts: [] }, withShares()).best.build.enchantments[0]!.enchantmentId).toBe(id)
       const free: Build['weapon'] = { ...locked, enchantmentSlots: [{ candidates: [id, 'sharpness'] }] }
       expect(optimize({ weapons: [free], artifacts: [] }, withShares()).evaluatedBuildCount).toBe(2)

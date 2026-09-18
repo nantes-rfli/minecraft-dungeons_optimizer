@@ -15,13 +15,13 @@ export function performanceInventory(size: PerformanceSize): Inventory {
     })),
     armors: Array.from({ length: count / 2 }, (_, i) => ({
       instanceId: `perf-armor-${i}`, armorId: 'battle-robe', powerLevel: 251, observedHealthBonus: 1_880_000,
-      enchantmentSlots: [{ candidates: [{ enchantmentId: 'health-synergy', tier: 3 }, { enchantmentId: 'snowball', tier: 3 }] }],
+      enchantmentSlots: [{ candidates: ['health-synergy', 'snowball'] }],
       gilded: { enchantmentId: 'chilling', tier: 1 },
     })),
     rangedWeapons: Array.from({ length: count / 2 }, (_, i) => ({
       instanceId: `perf-ranged-${i}`, weaponId: i % 2 ? 'crossbow' : 'bow', powerLevel: 251,
       observation: { gameVersion: '1.17.0.0', mode: i % 2 ? 'single' : 'uncharged', projectileDamage: 100_000, shotCycleSeconds: 1, availableAmmo: 50, sourceNote: 'SYNTHETIC PERFORMANCE FIXTURE — not game Evidence' },
-      enchantmentSlots: [{ candidates: [{ enchantmentId: 'power', tier: 3 }, { enchantmentId: 'unchanting', tier: 3 }] }],
+      enchantmentSlots: [{ candidates: ['power', 'unchanting'] }],
       gilded: { enchantmentId: 'critical-hit', tier: 1 },
     })),
     artifacts: Array.from({ length: 3 }, (_, i) => ({ instanceId: `perf-artifact-${i}`, artifactId: 'death-cap-mushroom', powerLevel: 251 })),

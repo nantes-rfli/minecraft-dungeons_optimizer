@@ -104,7 +104,7 @@ describe('equipment icon extraction and integration', () => {
 
   it('shows the smaller Grid Soul marker only for Soul gear', () => {
     const baseProps = { onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all' as const, gilded: 'all' as const, sort: 'recent' as const }
-    const soulInventory: Inventory = { weapons: [{ instanceId: 'moon-daggers-1', weaponId: 'moon-daggers', powerLevel: 251, rarity: 'unique', enchantmentSlots: [] }], artifacts: [] }
+    const soulInventory: Inventory = { weapons: [{ instanceId: 'moon-daggers-1', weaponId: 'soul-scythe', powerLevel: 251, rarity: 'unique', enchantmentSlots: [] }], artifacts: [] }
     const regularInventory: Inventory = { weapons: [{ instanceId: 'double-axe-1', weaponId: 'double-axe', powerLevel: 251, rarity: 'rare', enchantmentSlots: [] }], artifacts: [] }
     const soulHtml = renderToStaticMarkup(createElement(InventoryGameGrid, { ...baseProps, inventory: soulInventory }))
     const regularHtml = renderToStaticMarkup(createElement(InventoryGameGrid, { ...baseProps, inventory: regularInventory }))

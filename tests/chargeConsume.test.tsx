@@ -209,7 +209,7 @@ describe('integration and rejection boundaries', () => {
     const result = optimize({ weapons: [weapon], artifacts: [] }, settings)
     expect(result.evaluatedBuildCount).toBe(1)
     expect(result.unsupportedChoices.join()).toContain('210–263')
-    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ ...weapon.enchantmentSlots[0]!, locked: 'dynamo' }] }], artifacts: [] }, settings)).toThrow(/210–263/)
+    expect(() => optimize({ weapons: [{ ...weapon, enchantmentSlots: [{ ...weapon.enchantmentSlots[0]!, selected: { enchantmentId: 'dynamo', tier: 3 as const } }] }], artifacts: [] }, settings)).toThrow(/210–263/)
     expect(() => optimize({ weapons: [{ ...weapon, gilded: { enchantmentId: 'dynamo', tier: 3 } }], artifacts: [] }, settings)).toThrow(/210–263/)
     expect(() => optimize({ weapons: [buildFor(['pain-cycle', 'dynamo']).weapon], artifacts: [] }, settings)).toThrow(/Evidence/)
     const mixed = { ...buildFor(['pain-cycle', 'radiance']).weapon, enchantmentSlots: [{ candidates: ['pain-cycle', 'critical-hit'] as EnchantmentId[] }, { candidates: ['critical-hit', 'radiance'] as EnchantmentId[] }] }
