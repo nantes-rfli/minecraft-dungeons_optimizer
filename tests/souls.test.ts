@@ -61,7 +61,7 @@ describe('Soul gear promotion and legality', () => {
   })
   it('rejects illegal unselected candidates and locked slots instead of silently dropping them', () => {
     const build = buildFor([selected('critical-hit')], 'anchor')
-    for (const slot of [{ candidates: ['critical-hit', 'soul-siphon'] as EnchantmentId[] }, { candidates: ['critical-hit'] as EnchantmentId[], locked: 'soul-siphon' as const }]) {
+    for (const slot of [{ candidates: ['critical-hit', 'soul-siphon'] as EnchantmentId[] }, { candidates: ['critical-hit', 'soul-siphon'] as EnchantmentId[], selected: { enchantmentId: 'soul-siphon' as const, tier: 3 as const } }]) {
       const weapon = { ...build.weapon, enchantmentSlots: [slot] }
       expect(() => validateBuild({ ...build, weapon })).toThrow('Soul gear限定')
       expect(() => optimize({ weapons: [weapon], artifacts: [] }, scenario)).toThrow('Soul gear限定')
