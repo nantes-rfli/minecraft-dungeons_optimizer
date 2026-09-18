@@ -28,7 +28,6 @@ export interface EquipmentInstanceEditorProps {
 
 export function EquipmentInstanceEditor({ category, catalog, powerLevel, rarity, notes, enchantmentSlots, gilded, powerMin = 1, powerMax, onPowerChange, onRarityChange, onNotesChange, onEnchantmentSlotsChange, onGildedChange, onDelete, extraFields }: EquipmentInstanceEditorProps) {
   const displayName = catalog.name.ja ?? catalog.name.en
-  const supportsEnchantments = category !== 'artifact' && Boolean(onEnchantmentSlotsChange) && Boolean(onGildedChange)
   const rarityOptions = catalog.rarityFamily === 'unique' ? [['unique', 'Unique']] as const : [['common', 'Common'], ['rare', 'Rare']] as const
   return <div className="editor-body equipment-instance-editor" data-category={category}>
     <section className="equipment-instance-section equipment-instance-base" aria-label={`${displayName}の個体情報`}><h3>個体情報</h3><div className="equipment-instance-fields">
@@ -36,7 +35,7 @@ export function EquipmentInstanceEditor({ category, catalog, powerLevel, rarity,
       {category !== 'artifact' && onRarityChange && <label className="equipment-rarity-field">レアリティ<select aria-label={`${displayName}のレアリティ`} value={rarity ?? ''} onChange={(event) => onRarityChange(event.target.value === '' ? undefined : event.target.value as EquipmentRarity)}><option value="">未記録</option>{rarityOptions.map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>}
       <label className="equipment-notes-field">自分用メモ<input value={notes ?? ''} placeholder="入手場所やお気に入りポイントなど" onChange={(event) => onNotesChange(event.target.value || undefined)} /></label>
     </div></section>
-    {supportsEnchantments && <><EnchantmentSlotEditor slots={enchantmentSlots ?? []} category={category} soulGear={Boolean(catalog.soulGear)} onChange={onEnchantmentSlotsChange} /><GildedEnchantmentEditor value={gilded} category={category} soulGear={Boolean(catalog.soulGear)} onChange={onGildedChange} /></>}
+    {category !== 'artifact' && onEnchantmentSlotsChange && onGildedChange && <><EnchantmentSlotEditor slots={enchantmentSlots ?? []} category={category} soulGear={Boolean(catalog.soulGear)} onChange={onEnchantmentSlotsChange} /><GildedEnchantmentEditor value={gilded} category={category} soulGear={Boolean(catalog.soulGear)} onChange={onGildedChange} /></>}
     {extraFields && <section className="equipment-instance-section equipment-runtime-fields" aria-label={`${displayName}の詳細値`}><h3>詳細値</h3>{extraFields}</section>}
     <div className="equipment-editor-actions"><InventoryDeleteButton label={displayName} onClick={onDelete} /></div>
   </div>
