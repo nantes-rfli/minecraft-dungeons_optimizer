@@ -77,7 +77,7 @@ describe('Phase 2-3C Armor property reuse', () => {
     const damageWeapon = {
       ...weapon,
       enchantmentSlots: [
-        { candidates: ['thundering' as const], locked: 'thundering' as const },
+        { candidates: ['thundering' as const], selected: { enchantmentId: 'thundering' as const, tier: 3 as const } },
         { candidates: ['fire-aspect' as const], locked: 'fire-aspect' as const },
       ],
     }
@@ -120,7 +120,7 @@ describe('Phase 2-3C state Armor Enchantments', () => {
       ...baseBuild.armor!,
       enchantmentSlots: [
         ...baseBuild.armor!.enchantmentSlots,
-        { candidates: [{ enchantmentId: 'cool-down', tier: 3 as const }], locked: 'cool-down' },
+        { candidates: ['cool-down'], selected: { enchantmentId: 'cool-down', tier: 3 as const } },
       ],
     }
     const cooled = evaluate({
@@ -176,7 +176,7 @@ describe('Phase 2-3C state Armor Enchantments', () => {
 
   it('rejects missing Cowardice state and keeps indirect damage unchanged', () => {
     expect(() => evaluate(build('grim-armor', 'cowardice'), scenario)).toThrow(/MISSING_COWARDICE_FULL_HEALTH_SHARE/)
-    const procWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['thundering' as const], locked: 'thundering' as const }] }
+    const procWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['thundering' as const], selected: { enchantmentId: 'thundering' as const, tier: 3 as const } }] }
     const procEnchantments: SelectedEnchantment[] = [{ enchantmentId: 'thundering', tier: 3, source: 'slot' }]
     const cowardice = evaluate({ ...build('grim-armor', 'cowardice'), weapon: procWeapon, enchantments: procEnchantments }, { ...scenario, cowardiceFullHealthShare: 1 })
     const plain = evaluate({ ...build('grim-armor', 'chilling'), weapon: procWeapon, enchantments: procEnchantments }, scenario)
@@ -190,7 +190,7 @@ describe('Phase 2-3C state Armor Enchantments', () => {
   it('rejects Protection with every modeled DR family', () => {
     expect(() => evaluate(build('mercenary-armor', 'protection'), scenario)).toThrow(/UNSUPPORTED_PROTECTION_COMBINATION/)
     expect(() => evaluate({ ...build('grim-armor', 'protection'), artifacts: [{ instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_PROTECTION_COMBINATION/)
-    const guardWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['guarding-strike' as const], locked: 'guarding-strike' as const }] }
+    const guardWeapon = { ...weapon, enchantmentSlots: [{ candidates: ['guarding-strike' as const], selected: { enchantmentId: 'guarding-strike' as const, tier: 3 as const } }] }
     expect(() => evaluate({ ...build('grim-armor', 'protection'), weapon: guardWeapon, enchantments: [{ enchantmentId: 'guarding-strike', tier: 3, source: 'slot' }] }, scenario)).toThrow(/UNSUPPORTED_PROTECTION_COMBINATION/)
   })
 })
@@ -207,9 +207,9 @@ describe('Phase 2-3C inventory and contribution policy', () => {
 
   it('keeps unsupported free alternatives strict while allowing a supported lock', () => {
     const armor = ownedArmor('grim-armor', 'chilling')
-    const mixed = { ...armor, enchantmentSlots: [{ candidates: [{ enchantmentId: 'chilling', tier: 3 as const }, { enchantmentId: 'thorns', tier: 3 as const }] }] }
+    const mixed = { ...armor, enchantmentSlots: [{ candidates: ['chilling', 'thorns'] }] }
     expect(() => optimize({ weapons: [weapon], armors: [mixed], artifacts: [] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE/)
-    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, locked: 'chilling' }] }
+    const locked = { ...mixed, enchantmentSlots: [{ ...mixed.enchantmentSlots[0]!, selected: { enchantmentId: 'chilling', tier: 3 as const } }] }
     expect(optimize({ weapons: [weapon], armors: [locked], artifacts: [] }, scenario).best.build.armorEnchantments?.[0]?.enchantmentId).toBe('chilling')
   })
 
@@ -224,7 +224,7 @@ describe('Phase 2-3C inventory and contribution policy', () => {
   it('keeps CDR stacking inconclusive and rejects Battle Robe plus Cool Down and multiple copies', () => {
     expect(() => evaluate(build('battle-robe', 'cool-down'), scenario)).toThrow(/UNSUPPORTED_ARTIFACT_COOLDOWN_COMBINATION/)
     const armor = ownedArmor('grim-armor', 'cool-down')
-    const twoSlots = { ...armor, enchantmentSlots: [...armor.enchantmentSlots, { candidates: [{ enchantmentId: 'cool-down' as const, tier: 3 as const }], locked: 'cool-down' as const }] }
+    const twoSlots = { ...armor, enchantmentSlots: [...armor.enchantmentSlots, { candidates: ['cool-down' as const], selected: { enchantmentId: 'cool-down' as const, tier: 3 as const } }] }
     expect(() => evaluate({ ...build('grim-armor', 'cool-down'), armor: twoSlots, armorEnchantments: [{ enchantmentId: 'cool-down', tier: 3, source: 'slot' }, { enchantmentId: 'cool-down', tier: 3, source: 'slot' }] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_COMBINATION/)
   })
 })
