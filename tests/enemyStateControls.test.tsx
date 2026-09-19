@@ -47,7 +47,7 @@ describe('enemy-state controlled inputs', () => {
     expect(html).toContain('full HP')
     expect(html).toContain('相関')
     expect(html).toContain('Catalog runtime 28 / 33')
-    expect(html).toContain('Phase 2-1Dはpartial')
+    expect(html).toContain('Damage Eventsはpartial')
     expect(html).toContain('Research Track')
     expect(html).toContain('Product Track')
     expect(html).toContain('Runtime Promotion Pipeline Foundation')
