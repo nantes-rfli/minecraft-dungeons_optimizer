@@ -106,7 +106,7 @@ describe('generated coverage, conditional shortlist and UI', () => {
   })
   it('shows separate counts and three runtime rows without selectable research items', () => {
     const html = renderToStaticMarkup(<ArtifactRuntimeSupportSection />)
-    for (const text of ['Full 2', 'Limited 1', 'Research-only 42', 'Death Cap Mushroom', 'Iron Hide Amulet', 'Shock Powder', 'Corrupted Seeds', 'Phase 2-2A complete']) expect(html).toContain(text)
+    for (const text of ['Full 2', 'Limited 1', 'Research-only 42', 'Death Cap Mushroom', 'Iron Hide Amulet', 'Shock Powder', 'Corrupted Seeds', 'Artifact監査の範囲']) expect(html).toContain(text)
     expect(html).not.toMatch(/<input|<option/)
     expect(html).not.toContain('Powershaker')
   })
