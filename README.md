@@ -94,7 +94,7 @@ e2e/            browser-level major flow tests
 
 ## Development
 
-通常の変更では、その変更に関係する検証だけをローカルで実行します。全体検証はGitHub Actionsの `Validate` workflowが担当します。
+通常の変更では、その変更に関係する検証だけをローカルで実行します。全体検証はGitHub Actionsの `Validate` workflowが担当します。Markdownだけの変更ではChromium準備とE2Eを省略し、それ以外の変更と手動実行ではE2Eを実行します。
 
 代表的なコマンド:
 
