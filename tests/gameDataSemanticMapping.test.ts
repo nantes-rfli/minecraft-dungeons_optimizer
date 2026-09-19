@@ -11,9 +11,9 @@ import {
   type GameDataSemanticSourceArtifact,
 } from '../scripts/game-data-semantic-mapping'
 
-const provenance = JSON.parse(fs.readFileSync('research/game-data-source-provenance.json', 'utf8')) as GameDataSourceProvenance
-const extractor = JSON.parse(fs.readFileSync('research/game-data-extractor-samples.json', 'utf8')) as GameDataExtractorArtifact
-const semanticSource = JSON.parse(fs.readFileSync('research/game-data-semantic-source-samples.json', 'utf8')) as GameDataSemanticSourceArtifact
+const provenance = JSON.parse(fs.readFileSync('research/sources/game-data-source-provenance.json', 'utf8')) as GameDataSourceProvenance
+const extractor = JSON.parse(fs.readFileSync('research/raw/game-data-extractor-samples.json', 'utf8')) as GameDataExtractorArtifact
+const semanticSource = JSON.parse(fs.readFileSync('research/raw/game-data-semantic-source-samples.json', 'utf8')) as GameDataSemanticSourceArtifact
 const sourceHarvest = JSON.parse(fs.readFileSync('research/source-harvest.json', 'utf8')) as { sources: readonly { id: string }[] }
 const sourceRecords: GameDataProvenanceRecord[] = [...extractor.records, ...semanticSource.records]
 const sourceIds = new Set(sourceHarvest.sources.map((source) => source.id))
