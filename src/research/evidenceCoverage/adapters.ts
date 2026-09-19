@@ -1,17 +1,17 @@
 import attackAudit from '../../../research/melee-attack-profile-audit.json'
 import meleeAudit from '../../../research/melee-enchantment-audit.json'
-import meleeSupport from '../../../research/melee-runtime-support.json'
+import meleeSupport from '../../../research/runtime/melee-runtime-support.json'
 import artifactAudit from '../../../research/artifact-audit.json'
-import artifactSupport from '../../../research/artifact-runtime-support.json'
+import artifactSupport from '../../../research/runtime/artifact-runtime-support.json'
 import artifactDecisions from '../../../research/artifact-evidence/evidence-decisions.json'
 import artifactSamples from '../../../research/artifact-evidence/published-samples.json'
 import artifactSources from '../../../research/artifact-evidence/sources.json'
 import artifactCurves from '../../../research/artifact-curve-audit.json'
 import armorAudit from '../../../research/armor-audit.json'
-import armorSupport from '../../../research/armor-runtime-support.json'
+import armorSupport from '../../../research/runtime/armor-runtime-support.json'
 import armorHealth from '../../../research/armor-health-audit.json'
 import armorEnchantAudit from '../../../research/armor-enchantment-audit.json'
-import armorCore from '../../../research/armor-core-runtime-audit.json'
+import armorCore from '../../../research/runtime/armor-core-runtime-audit.json'
 import armorExpansion from '../../../research/armor-expansion-state-enchant-audit.json'
 import dpsAudit from '../../../research/dps-regression-audit.json'
 import { ARMOR_ENCHANTMENTS } from '../../data/armors'
@@ -21,11 +21,11 @@ import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../../data/ranged'
 import { facet, pointer, recordKey, type CoverageAdapter, type CoverageBlocker, type CoverageCategory, type CoverageRecord, type JsonValue, type SupportState } from './model'
 
 const paths = {
-  attack: 'research/melee-attack-profile-audit.json', melee: 'research/melee-enchantment-audit.json', meleeSupport: 'research/melee-runtime-support.json',
-  artifact: 'research/artifact-audit.json', artifactSupport: 'research/artifact-runtime-support.json', decisions: 'research/artifact-evidence/evidence-decisions.json',
+  attack: 'research/melee-attack-profile-audit.json', melee: 'research/melee-enchantment-audit.json', meleeSupport: 'research/runtime/melee-runtime-support.json',
+  artifact: 'research/artifact-audit.json', artifactSupport: 'research/runtime/artifact-runtime-support.json', decisions: 'research/artifact-evidence/evidence-decisions.json',
   samples: 'research/artifact-evidence/published-samples.json', artifactSources: 'research/artifact-evidence/sources.json', curves: 'research/artifact-curve-audit.json',
-  armor: 'research/armor-audit.json', armorSupport: 'research/armor-runtime-support.json', armorHealth: 'research/armor-health-audit.json',
-  armorEnchant: 'research/armor-enchantment-audit.json', armorCore: 'research/armor-core-runtime-audit.json', armorExpansion: 'research/armor-expansion-state-enchant-audit.json',
+  armor: 'research/armor-audit.json', armorSupport: 'research/runtime/armor-runtime-support.json', armorHealth: 'research/armor-health-audit.json',
+  armorEnchant: 'research/armor-enchantment-audit.json', armorCore: 'research/runtime/armor-core-runtime-audit.json', armorExpansion: 'research/armor-expansion-state-enchant-audit.json',
   dps: 'research/dps-regression-audit.json',
   ranged: 'research/ranged-weapon-audit.json', rangedEnchant: 'research/ranged-enchantment-audit.json',
 } as const
