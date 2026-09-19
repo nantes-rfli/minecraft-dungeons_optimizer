@@ -8,7 +8,7 @@ As of 2026-09-19:
 
 - 100 tracked files
 - about 43.5 MB total
-- 37 files / about 21.8 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, and Domain / Canonical migrations
+- 35 files / about 19.1 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, Domain / Canonical, and Game Data Analysis migrations
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
 Large artifacts such as `analysis/coverage-priority.json`, `source-harvest.json`, `raw/game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
@@ -22,7 +22,7 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 | Source / Evidence | What was observed or retrieved, plus provenance | `source-harvest/snapshots/`, `external-community/`, `artifact-evidence/sources.json`, `sources/ranged-source-snapshot.json`, `sources/game-data-source-provenance.json` |
 | Extracted Raw Facts | Machine-extracted facts before project semantic adoption | `raw/game-data-inventory.json`, `raw/game-data-asset-index.json`, `raw/game-data-extractor-samples.json`, `raw/game-data-bulk-harvest.json`, `raw/game-data-semantic-source-samples.json`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/` |
 | Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `domain/game-data-canonical-properties.json`, `domain/game-data-canonical-mappings.json`, `domain/game-data-entity-aliases.json`, `domain/game-data-semantic-mappings.json`, equipment / enchantment / artifact audit manifests |
-| Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `evidence-gap-map.json`, `analysis/coverage-priority.json`, model differences / alignment review, comparison artifacts |
+| Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `analysis/coverage-priority.json`, `analysis/game-data-final-coverage.json`, `analysis/game-data-model-differences.json`, `evidence-gap-map.json`, alignment review / comparison artifacts |
 | Runtime / Promotion | What the application may use and the gates for changing that boundary | `runtime/melee-runtime-support.json`, `runtime/armor-runtime-support.json`, `runtime/artifact-runtime-support.json`, `runtime/runtime-backlog.json`, `runtime/phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
 | Workflow / Protocol | Acquisition and validation workflow state, not game truth itself | `workflow/measurement-protocols.json`, `workflow/phase7-research-quest.json`, `workflow/phase7-research-handoff.json`, `workflow/evidence-intake.json`, `workflow/phase8-gap-reassessment.json` |
 
