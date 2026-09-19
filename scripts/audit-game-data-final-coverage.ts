@@ -6,8 +6,8 @@ const root = fileURLToPath(new URL('..', import.meta.url))
 const result = buildFinalCoverage(loadInputs(root))
 const reports = renderReports(result)
 const outputs = {
-  'research/game-data-final-coverage.json': serialize(result.finalCoverage),
-  'research/game-data-model-differences.json': serialize(result.modelDifferences),
+  'research/analysis/game-data-final-coverage.json': serialize(result.finalCoverage),
+  'research/analysis/game-data-model-differences.json': serialize(result.modelDifferences),
   'docs/game-data-final-coverage.md': reports.coverage,
   'docs/game-data-model-differences.md': reports.differences,
 }

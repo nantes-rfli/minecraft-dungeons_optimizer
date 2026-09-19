@@ -182,4 +182,4 @@ Review useful game-only fields and missing expected fields without assuming miss
 | phase67Scheduled | false |
 
 
-Full Gap records, retained-fact records, traceable change candidates and deterministic partitions are in [game-data-model-differences.json](../research/game-data-model-differences.json).
+Full Gap records, retained-fact records, traceable change candidates and deterministic partitions are in [game-data-model-differences.json](../research/analysis/game-data-model-differences.json).
