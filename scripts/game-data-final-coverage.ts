@@ -76,6 +76,8 @@ export function classifyGap(gap: EvidenceGap, resolution?: GapReconciliationReco
 
 export function loadInputs(root: string) {
   const artifactPaths: Record<string, string> = {
+    'game-data-inventory': 'raw/game-data-inventory',
+    'game-data-asset-index': 'raw/game-data-asset-index',
     'game-data-source-provenance': 'sources/game-data-source-provenance',
     'game-data-extractor-samples': 'raw/game-data-extractor-samples',
     'game-data-semantic-source-samples': 'raw/game-data-semantic-source-samples',
