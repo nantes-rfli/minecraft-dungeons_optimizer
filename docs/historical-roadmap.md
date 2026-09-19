@@ -221,7 +221,7 @@ Phase 5の2,105 Gapを、runtime unlock・rank sensitivity・ownership・coverag
 - [x] synthetic InventoryからOwned Research QueueとProtocol別groupを生成
 - [x] 全件・重複・NaN・orphan・tier・determinism・runtime不変境界をaudit
 
-生成物は[Coverage Priority](./coverage-priority.md)と[machine-readable model](../research/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。same-family ownershipはSource Harvestで確認できる実際のfamily relationだけを使います。Rank sensitivityはbounded proxyとして明示し、weight stabilityとともにPriority confidenceへ反映します。これはEvidence confidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
+生成物は[Coverage Priority](./coverage-priority.md)と[machine-readable model](../research/analysis/coverage-priority.json)。GlobalとPersonalは混ぜず、本人Inventoryはrepoへ保存しません。same-family ownershipはSource Harvestで確認できる実際のfamily relationだけを使います。Rank sensitivityはbounded proxyとして明示し、weight stabilityとともにPriority confidenceへ反映します。これはEvidence confidenceでもruntime値でもなく、Research Quest UI・Evidence入力・Runtime Promotionは未実装です。
 
 ## Phase 6.5 — Direct Game Data Research（6 / 6）
 
