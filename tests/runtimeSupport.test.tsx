@@ -148,7 +148,7 @@ describe('visibility, generated docs and historical gates', () => {
     expect(html).toContain('href="#/model/evidence/details"')
   })
   it('keeps generated summaries and historical runtime gates available without mixing them into current progress', () => {
-    for (const file of ['README.md', 'ROADMAP.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
+    for (const file of ['README.md', 'ROADMAP.md', 'docs/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md']) expect(readFileSync(file, 'utf8')).toContain(runtimeSupportSummaryText())
     const roadmap = readFileSync('ROADMAP.md', 'utf8')
     const historical = readFileSync('docs/historical-roadmap.md', 'utf8')
     expect(roadmap).not.toMatch(/^## Phase /m)
@@ -159,7 +159,7 @@ describe('visibility, generated docs and historical gates', () => {
     expect(ROADMAP_WORK_UNITS.find((unit) => unit.id === 'P3')!.status).toBe('done')
   })
   it('keeps edited documentation links and priority counts valid', () => {
-    for (const file of ['README.md', 'ROADMAP.md', 'docs/historical-roadmap.md', 'research/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md', 'docs/runtime-limitations.md']) {
+    for (const file of ['README.md', 'ROADMAP.md', 'docs/historical-roadmap.md', 'docs/melee-enchantment-coverage.md', 'docs/melee-runtime-support.md', 'docs/runtime-limitations.md']) {
       const source = readFileSync(file, 'utf8')
       for (const match of source.matchAll(/\]\(([^)]+)\)/g)) {
         const target = match[1]!.split('#')[0]!
