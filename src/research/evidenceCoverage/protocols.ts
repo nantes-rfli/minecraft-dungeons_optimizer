@@ -82,7 +82,7 @@ export function buildMeasurementProtocols(modelRegressionMarkdown: string, targe
       observations: ['入力受付、発動、effect end、再使用可能、次回入力受付のframe/timestamp', '各条件の全interval、使用回数とtotal duration、失敗入力・遅延・FPS'],
       repetition: { minimumIndependentRuns: 3, rule: '各単独/pair条件で独立3 run以上、各runで10 cooldown周期以上。protocol設計上の最低条件であり測定済み件数ではない。' },
       acceptance: ['同条件baselineと全source単独を併記し、pair・複合で再現する。', 'frame分解能・分布・開始点差を明示し、候補式は全anchorを説明するまで採用しない。', '37% / 38%表示差とhistorical anchorを別に保持し、現在版の答えへ混ぜない。'], submissionMetadata: metadata,
-      invalidatingConditions: ['未知のexternal cooldown・Refreshment等が混入', '入力遅延をcooldownとして計測', '版・Tier・Power混在、連続区間を独立runとして分割'], blockerIds: ['backlog:armor-cooldown'], sourceRefs: ['research/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition', 'research/armor-expansion-state-enchant-audit.json#/cooldownStacking'],
+      invalidatingConditions: ['未知のexternal cooldown・Refreshment等が混入', '入力遅延をcooldownとして計測', '版・Tier・Power混在、連続区間を独立runとして分割'], blockerIds: ['backlog:armor-cooldown'], sourceRefs: ['research/runtime/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition', 'research/armor-expansion-state-enchant-audit.json#/cooldownStacking'],
     },
     {
       id: 'damage-reduction-composition', subsystem: 'armor / armor-enchantment / melee-enchantment / artifact', targetMechanic: 'Armor DR・Protection・Potion Barrier・Iron Hide・Guarding・Weakening合成', purpose: '一定のincoming hitを使い、被ダメージ軽減のfamily・順序・重複を識別する。', requiredGameVersion: targetGameVersion,
@@ -91,7 +91,7 @@ export function buildMeasurementProtocols(modelRegressionMarkdown: string, targe
       observations: ['各hitのHP前後、raw incoming damage baseline、発動/失効frame、敵debuff状態', '非発動・単独・pair・複合のdamage sequenceと同時active window', '表示丸め、damage channel、proc/無効hitとその理由'],
       repetition: { minimumIndependentRuns: 3, rule: '条件ごと独立3 run以上、各runのactive window内で10有効hit以上を確保。windowを跨ぐ場合は再発動を明示する。' },
       acceptance: ['全source単独baselineからpairの差を再現し、順序を入れ替えて比較。', '瞬間DRと時間平均uptimeを分離。rounding・分散を説明できるまで一般式を確定しない。', '対象・版・Tier・damage channelが一致するraw traceだけを検証へ採用。'], submissionMetadata: metadata,
-      invalidatingConditions: ['HP回復やabsorptionをDRに含める', 'active window外、攻撃者のWeakening状態不明、違うdamage channelを混ぜる', '既存モデル出力や過去版の率だけを観測結果として使用'], blockerIds: ['backlog:armor-dr'], sourceRefs: ['research/armor-core-runtime-audit.json#/decisions/damageReductionComposition', 'research/armor-expansion-state-enchant-audit.json#/armorEnchantments', 'docs/armor-runtime-batch.md'],
+      invalidatingConditions: ['HP回復やabsorptionをDRに含める', 'active window外、攻撃者のWeakening状態不明、違うdamage channelを混ぜる', '既存モデル出力や過去版の率だけを観測結果として使用'], blockerIds: ['backlog:armor-dr'], sourceRefs: ['research/runtime/armor-core-runtime-audit.json#/decisions/damageReductionComposition', 'research/armor-expansion-state-enchant-audit.json#/armorEnchantments', 'docs/armor-runtime-batch.md'],
     },
     ...rangedProtocols,
   ]
