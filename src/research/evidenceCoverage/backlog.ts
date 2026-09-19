@@ -1,4 +1,4 @@
-import backlogJson from '../../../research/runtime-backlog.json'
+import backlogJson from '../../../research/runtime/runtime-backlog.json'
 import type { BacklogEntry, CoverageBlocker } from './model'
 
 export const RUNTIME_BACKLOG = backlogJson.entries as readonly BacklogEntry[]
@@ -40,5 +40,5 @@ export function collectBacklogMigrationErrors(originalTable: string, entries: re
   }
 }
 export function buildBacklogBlockers(entries: readonly BacklogEntry[] = RUNTIME_BACKLOG): CoverageBlocker[] {
-  return entries.map((entry, index) => ({ id: `backlog:${entry.id}`, label: entry.label, categories: entry.categories, recordKeys: entry.recordKeys, kind: entry.kind, priority: entry.priority, origin: 'backlog', description: entry.blocked, closeCondition: entry.closeCondition, sourceRefs: [`research/runtime-backlog.json#/entries/${index}`, ...entry.sourceRefs], supportContext: entry.support }))
+  return entries.map((entry, index) => ({ id: `backlog:${entry.id}`, label: entry.label, categories: entry.categories, recordKeys: entry.recordKeys, kind: entry.kind, priority: entry.priority, origin: 'backlog', description: entry.blocked, closeCondition: entry.closeCondition, sourceRefs: [`research/runtime/runtime-backlog.json#/entries/${index}`, ...entry.sourceRefs], supportContext: entry.support }))
 }
