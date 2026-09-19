@@ -146,7 +146,7 @@ Eligible 0 / 5; rejected 10. Version confidence: {"probable":6,"unknown":4}ã€‚æŽ
 
 Normalized hero-accessible/obtainable published display union, including seasonal legacy items; not raw game IDs.
 
-Sources: [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.json) / [research/ranged-source-snapshot.json](../research/ranged-source-snapshot.json) / [src/data/ranged.ts](../src/data/ranged.ts)
+Sources: [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.json) / [research/sources/ranged-source-snapshot.json](../research/sources/ranged-source-snapshot.json) / [src/data/ranged.ts](../src/data/ranged.ts)
 
 | Evidence dimension | Source state |
 | --- | --- |
@@ -159,7 +159,7 @@ Sources: [research/ranged-weapon-audit.json](../research/ranged-weapon-audit.jso
 
 Union of hero ranged roll catalogs. Exclusive intrinsic-only and unused effects remain weapon taxonomy, not roll candidates.
 
-Sources: [research/ranged-enchantment-audit.json](../research/ranged-enchantment-audit.json) / [research/ranged-source-snapshot.json](../research/ranged-source-snapshot.json) / [src/data/ranged.ts](../src/data/ranged.ts)
+Sources: [research/ranged-enchantment-audit.json](../research/ranged-enchantment-audit.json) / [research/sources/ranged-source-snapshot.json](../research/sources/ranged-source-snapshot.json) / [src/data/ranged.ts](../src/data/ranged.ts)
 
 | Evidence dimension | Source state |
 | --- | --- |

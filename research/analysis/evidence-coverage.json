@@ -870,7 +870,7 @@
       },
       "sourceRefs": [
         "research/ranged-weapon-audit.json",
-        "research/ranged-source-snapshot.json",
+        "research/sources/ranged-source-snapshot.json",
         "src/data/ranged.ts"
       ],
       "details": {
@@ -1225,7 +1225,7 @@
       },
       "sourceRefs": [
         "research/ranged-enchantment-audit.json",
-        "research/ranged-source-snapshot.json",
+        "research/sources/ranged-source-snapshot.json",
         "src/data/ranged.ts"
       ],
       "details": {
