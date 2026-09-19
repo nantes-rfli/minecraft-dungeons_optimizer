@@ -7,7 +7,7 @@ Generated from mechanics audit by `npm run audit:enchants`. Runtime summary uses
 Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-only 5 · Broad Power 22 · Power-limited 6
 
 Fullは現Optimizer scope内の通常対応で、完全なゲーム再現ではありません。Limitedは具体的な機能境界、Research-onlyは未登録です。
-[Runtime support matrix](../docs/melee-runtime-support.md) / [limitations and close gates](../docs/runtime-limitations.md)。
+[Runtime support matrix](./melee-runtime-support.md) / [limitations and close gates](./runtime-limitations.md)。
 Phase partialは履歴上の未達gate、Evidence confidenceは根拠品質で、supportとは別軸です。
 
 ## Mechanics research scope
@@ -68,7 +68,7 @@ Research classifications below are not Full/Limited labels.
 | Void Strike | implemented | time-ramping-damage | — |
 | Weakening | implemented | enemy-debuff | — |
 
-Tier raw values, sources, confidence, conflicting claims, stacking and applicability remain in [mechanics audit](melee-enchantment-audit.json).
+Tier raw values, sources, confidence, conflicting claims, stacking and applicability remain in [mechanics audit](../research/melee-enchantment-audit.json).
 Low confidence is not an automatic Limited verdict. Unimplemented effects are never registered as zero-score candidates.
 
 ## Historical phase gates
@@ -76,13 +76,13 @@ Low confidence is not an automatic Limited verdict. Unimplemented effects are ne
 Parent 25–30 meaningful runtime is complete in Phase 2-1K; it does not mean all 33 mechanics are fully reproduced.
 Phase 1-4 / 2-1D / 2-1F / 2-1G / 2-1H / 2-1I / 2-1J remain partial under their original gates.
 
-- [1-4: independent run-level regression](../docs/model-regression.md)
-- [2-1B: direct modifiers](../docs/damage-modifiers.md)
-- [2-1C: PotionState](../docs/potion-state.md) / [Enemy debuffs](../docs/enemy-debuffs.md)
-- [2-1D: Power-range proc damage](../docs/damage-events.md)
-- [2-1E: enemy-state damage](../docs/enemy-state-damage.md)
-- [2-1F: Temporal State / Echo](../docs/temporal-enchantments.md)
-- [2-1G: Soul subsystem / Enigma](../docs/soul-subsystem.md)
-- [2-1H: DoT / Exploding](../docs/dot-and-explosion-damage.md)
-- [2-1I: independent Control](../docs/cc-utility.md)
-- [2-1J: finite charge / consume](../docs/charge-consume-enchantments.md)
+- [1-4: independent run-level regression](./model-regression.md)
+- [2-1B: direct modifiers](./damage-modifiers.md)
+- [2-1C: PotionState](./potion-state.md) / [Enemy debuffs](./enemy-debuffs.md)
+- [2-1D: Power-range proc damage](./damage-events.md)
+- [2-1E: enemy-state damage](./enemy-state-damage.md)
+- [2-1F: Temporal State / Echo](./temporal-enchantments.md)
+- [2-1G: Soul subsystem / Enigma](./soul-subsystem.md)
+- [2-1H: DoT / Exploding](./dot-and-explosion-damage.md)
+- [2-1I: independent Control](./cc-utility.md)
+- [2-1J: finite charge / consume](./charge-consume-enchantments.md)

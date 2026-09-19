@@ -8,10 +8,10 @@ As of 2026-09-19:
 
 - 100 tracked files
 - about 43.5 MB total
-- 28 files / about 10.6 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, Domain / Canonical, Game Data Analysis, Reconciliation, and Model Alignment migrations
+- 26 files / about 10.6 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, Domain / Canonical, Game Data Analysis, Reconciliation, Model Alignment, and generated-report migrations
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
-Large artifacts such as `analysis/coverage-priority.json`, `source-harvest.json`, `raw/game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
+Large artifacts such as `analysis/coverage-priority.json`, `source-harvest.json`, `raw/game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large. Human-readable generated melee coverage reports now live under `docs/` rather than the research data root.
 
 ## Classification model
 
