@@ -15,11 +15,11 @@ import {
 } from './game-data-semantic-mapping.ts'
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
-const semanticSourcePath = path.join(repositoryRoot, 'research/game-data-semantic-source-samples.json')
+const semanticSourcePath = path.join(repositoryRoot, 'research/raw/game-data-semantic-source-samples.json')
 const mappingPath = path.join(repositoryRoot, 'research/game-data-semantic-mappings.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-semantic-mapping.md')
 const provenance = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json'), 'utf8')) as GameDataSourceProvenance
-const extractor = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/game-data-extractor-samples.json'), 'utf8')) as GameDataExtractorArtifact
+const extractor = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/raw/game-data-extractor-samples.json'), 'utf8')) as GameDataExtractorArtifact
 const sourceHarvest = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/source-harvest.json'), 'utf8')) as { sources: readonly { id: string }[] }
 const write = process.argv.includes('--write')
 
@@ -49,7 +49,7 @@ const errors = [
   ...collectSemanticMappingErrors(committedMapping, [...extractor.records, ...committedSource.records], knownCrossCheckSourceIds),
 ]
 
-if (serializeSemanticMapping(committedSource) !== committedSourceText) errors.push('research/game-data-semantic-source-samples.json is not canonical JSON')
+if (serializeSemanticMapping(committedSource) !== committedSourceText) errors.push('research/raw/game-data-semantic-source-samples.json is not canonical JSON')
 if (serializeSemanticMapping(committedMapping) !== committedMappingText) errors.push('research/game-data-semantic-mappings.json is not canonical JSON')
 if (serializeSemanticMapping(artifact) !== committedMappingText) errors.push('Committed semantic mappings differ from deterministic generation')
 if (report !== fs.readFileSync(reportPath, 'utf8')) errors.push('docs/game-data-semantic-mapping.md is stale')
