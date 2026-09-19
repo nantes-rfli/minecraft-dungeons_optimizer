@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "targets": [
+    {
+      "targetId": "defense.damage-taken-composition",
+      "status": "not-run",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": null
+    }
+  ]
+}
