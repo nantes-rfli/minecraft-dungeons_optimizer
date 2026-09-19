@@ -170,7 +170,7 @@ export function MethodologyPage() {
         <p>subweightは4つとも初期1、0の軸は無視し、全て0ならutility0。Scenario weights are ranking choices, not measured game mechanics. これらの好みはEvidence confidenceに混ぜません。重なるCCを敵行動150%抑制などと解釈しないでください。</p>
         <div className="control-policy-table"><table><thead><tr><th>Preset</th><th>Damage</th><th>Healing</th><th>Defense</th><th>Control</th></tr></thead><tbody>{Object.values(SCENARIO_PROFILES).map((s) => <tr key={s.profileId}><th>{s.profileId}</th><td>{s.weights.damage}</td><td>{s.weights.healing}</td><td>{s.weights.defense}</td><td>{s.weights.control}</td></tr>)}</tbody></table></div>
         <p>ParetoはAoE DPS・回復・EHP・Control utilityの4軸。寄与度にはcontrolUtilityDeltaを追加。Control重み0なら旧スコアに一致します。CCなしbuildのDamage/Healing/Defenseとtemporal/soul/DoT状態は変更前commitの4buildと比較しています（software回帰でありゲーム実測ではありません）。</p>
-        <p>ChainsのstackとCCのroll/refresh/免疫/半径の不確実性によりPhase 2-1Iはpartialです。CC未選択buildへCCの低信頼度factorを追加しません。</p>
+        <p>ChainsのstackとCCのroll/refresh/免疫/半径の不確実性によりCC Utilityはpartialです。CC未選択buildへCCの低信頼度factorを追加しません。</p>
         <p>出典: <a href="https://www.dungeons.tools/enchantments/chains">Chains</a> / <a href="https://www.dungeons.tools/enchantments/stunning">Stunning</a> / <a href="https://www.dungeons.tools/enchantments/freezing">Freezing</a> / <a href="https://www.dungeons.tools/enchantments/gravity">Gravity</a> / <a href="https://minecraft.wiki/w/Dungeons%3AFreezing">Freezing mechanics</a> / <a href="https://www.reddit.com/r/MinecraftDungeons/comments/10chuqi/">Stunning定量説明</a> / <a href="https://www.reddit.com/r/MinecraftDungeons/comments/z369zy/">免疫報告</a>。</p>
       </section>
 
@@ -217,7 +217,7 @@ export function MethodologyPage() {
         <p>速度→Void/Synergy/proc/Committed→DPS→直接撃破→uを固定点で解きます（許容誤差1e-8、最大100回、非収束はエラー）。例: 初期50 DPS、敵HP100、直接撃破率100%、供給100/秒、Rampaging III → 初回u=52.763%、11回でu=62.654%、速度1.31327倍、65.6636 DPS。数式の整合性であり実測ではありません。</p>
         <p>Death Cap常時なら2→2.5倍で相対+25%。Void倍率は間隔短縮で低下し得ます。平均速度の線形近似はon/off分布やFighter’s Bindingsのframe上限を再現せず、寄与を過大評価し得ます。新しいScenarioスライダーはありません。</p>
         <p>EchoはCD 5/4/3秒・non-stackableを確認済みですが、repeat対象hit、animation/cadence、combo進行、Void、on-hit、直接撃破資格が未解決。無料のdamagePerHit/3を足さず、needs-state-modelのまま候補・JSONから拒否します。</p>
-        <p>Echoは未登録、Artifact Synergy / Rampagingは現scope内のFullです。Phase 2-1Fのfull completion gateは未達のためpartialを維持します。</p>
+        <p>Echoは未登録、Artifact Synergy / Rampagingは現scope内のFullです。Temporal State全体は未解決項目が残るためpartialを維持します。</p>
         <p>出典: <a href={ARTIFACT_SYNERGY_SOURCE.url} target="_blank" rel="noreferrer">Artifact Synergy</a> / <a href={RAMPAGING_SOURCE.url} target="_blank" rel="noreferrer">Rampaging</a>。Tier metadataとモデル仮定はconfidenceを分け、使用buildだけへ反映します。</p>
       </section>
 
