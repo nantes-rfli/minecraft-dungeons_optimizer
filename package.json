@@ -89,7 +89,9 @@
     "generate:phase7-research-quest": "node scripts/audit-phase7-research-quest.ts --write",
     "audit:phase7-research-quest": "node scripts/audit-phase7-research-quest.ts",
     "generate:roadmap": "node scripts/audit-roadmap.ts --write",
-    "audit:roadmap": "node scripts/audit-roadmap.ts"
+    "audit:roadmap": "node scripts/audit-roadmap.ts",
+    "generate:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts --write",
+    "audit:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts"
   },
   "dependencies": {
     "react": "19.2.6",

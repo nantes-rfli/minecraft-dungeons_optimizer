@@ -10,7 +10,7 @@
 |---|---|---|---|---|
 | Anchor | Anchor | Anchor | exact | runtime 0.4 / 外部0.42 HPS |
 | Double Axe | Double Axe/Cursed Axe | DoubleAxe | family row | 1.666667 / 1.6 |
-| Fighters Bindings | Fighters Bindings | Gauntlets_Unique3 | serialized ID経由exact | 6.956522 / 6.8 |
+| Fighters Bindings | Fighters Bindings | Gauntlets_Unique3 | provisional（Step 3B assertion） | 6.956522 / 6.8 |
 | Soul Scythe | Soul Scythe/Frost Scythe/Jailor's Scythe | SoulScythe | family row | 1.923077 / 1.8 |
 | Claymore | Claymore/Great Axeblade/Heartstealer | Claymore | family row | playback rule未確認のためrate比較不可 |
 | Sawblade | Broken/Mechanized Sawblade | Chainsword | family row + metric split | proc 4/sとdamage hit 6/sを別観測として保持 |
@@ -22,3 +22,5 @@
 `npm run generate:attack-event-comparison`で[machine-readable比較](../research/external-community/attack-event-comparison.json)を再生成し、`npm run audit:attack-event-comparison`で6 mapping、既存4 rate、Sawbladeのmetric分離、artifact driftを監査する。`tests/attackEventComparison.test.ts`はaggregate/sequence/definition境界と異常系を検証する。
 
 6.9Dの通過条件であるentity/条件照合、集計rateとevent列の区別、未使用観測との比較は満たした。外部game version・測定法、buff条件、設定→実効eventのplayback rule、独立event-sequence holdoutはblockerとして残す。次は6.9EのDR/modifier比較であり、これらの未知値を0や倍率1としてOptimizerへ登録しない。
+
+Step 3BでFighter’s Bindingsのidentity判断を[temporary Domain assertion](../src/domain/temporary/fightersBindingsIdentity.ts)へ集約した。旧exact判定には名前への正式なbridgeがなく、aliasはunresolved、icon ordinal heuristicには矛盾があるため暫定比較として保持する。
