@@ -1,4 +1,4 @@
-import snapshot from '../../research/ranged-source-snapshot.json'
+import snapshot from '../../research/sources/ranged-source-snapshot.json'
 import { RANGED_ENCHANTMENTS, RANGED_LIMITATIONS, RANGED_WEAPONS, isRuntimeRangedEnchantment, isRuntimeRangedWeapon } from '../data/ranged'
 
 // Secondary Gear list transcribed as family membership; aliases are explicit, not fuzzy matched.
