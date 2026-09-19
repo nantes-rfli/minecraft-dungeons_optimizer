@@ -42,8 +42,8 @@ try {
   const errors = [...adaptersModule.collectAdapterSourceErrors(adapters), ...validator.collectCoverageErrors(snapshot, adapters, resolve), ...validator.collectProtocolErrors(protocols, snapshot.blockers, resolve), ...gapModule.collectEvidenceGapMapErrors(gapMap, protocols)]
   const json = (value: unknown) => JSON.stringify(value, null, 2) + '\n'
   const generated = {
-    'research/evidence-coverage.json': json(snapshot),
-    'research/evidence-coverage-dashboard.json': json(report.buildCoverageDashboard(snapshot, protocols)),
+    'research/analysis/evidence-coverage.json': json(snapshot),
+    'research/analysis/evidence-coverage-dashboard.json': json(report.buildCoverageDashboard(snapshot, protocols)),
     'research/workflow/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
     'research/evidence-gap-map.json': json(gapMap),
     'docs/combined-evidence-coverage.md': report.renderCoverageReport(snapshot),
