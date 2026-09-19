@@ -99,7 +99,7 @@ ${snapshot.categories.map((c) => `### ${c.label}\n\n${c.populationDefinition}\n\
 
 ## 正本と拡張境界
 
-カテゴリの監査・support manifest・2-2E Evidenceは従来どおり正本です。優先度付きbacklogのみresearch/runtime-backlog.jsonへ移し、runtime-limitationsの表を生成します。移行時は元22行の全7列をvalidatorで往復比較しました。Markdownの自由文からpriorityやblocker kindを推測しません。
+カテゴリの監査・support manifest・2-2E Evidenceは従来どおり正本です。優先度付きbacklogのみresearch/runtime/runtime-backlog.jsonへ移し、runtime-limitationsの表を生成します。移行時は元22行の全7列をvalidatorで往復比較しました。Markdownの自由文からpriorityやblocker kindを推測しません。
 
 measurement protocolは実験定義で、観測結果ではありません。DPSのEligibilityはdocs/model-regression.mdから再利用します。Research Questの投稿・認証・DBは未実装です。次はPhase 2-5 Ranged Audit & Runtimeでadapterを追加します。Optimizer数値・inventory schemaは変更しません。
 `
