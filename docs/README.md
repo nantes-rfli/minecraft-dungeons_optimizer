@@ -17,6 +17,7 @@ For normal development and current project decisions:
 - [Evidence intake and validation](phase8-evidence-intake.md) — Evidence repository / validation flow
 - [Changes](changes.md) — curated meaningful changes; Git history is the detailed source of truth
 - [Research artifact layout](../research/README.md) — classification and future migration rules for machine-readable research artifacts
+- [Raw package snapshot — Step 3A](game-data-raw-package-snapshot.md) — generated pre-semantic snapshot contract for the first logical package
 
 ## Architecture / policy
 

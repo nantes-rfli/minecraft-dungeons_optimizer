@@ -20,6 +20,12 @@ export interface UeDiagnostic {
   readonly propertyType?: string
   readonly rawSize?: number
   readonly skipped?: boolean
+  readonly byteRange?: BinaryByteRange
+}
+
+export interface BinaryByteRange {
+  readonly start: number
+  readonly end: number
 }
 
 export interface UePackageSummary {
@@ -40,6 +46,7 @@ export interface UeNameEntry {
   readonly index: number
   readonly value: string
   readonly hashBytes: string
+  readonly byteRange?: BinaryByteRange
 }
 
 export interface UeFName {
@@ -54,6 +61,7 @@ export interface UeImportEntry {
   readonly className: UeFName
   readonly outerIndex: number
   readonly objectName: UeFName
+  readonly byteRange?: BinaryByteRange
 }
 
 export interface UeExportEntry {
@@ -66,6 +74,7 @@ export interface UeExportEntry {
   readonly objectFlags: number
   readonly serialSize: number
   readonly serialOffset: number
+  readonly byteRange?: BinaryByteRange
 }
 
 export interface ResolvedPackageIndex {
@@ -80,11 +89,36 @@ export interface ParsedProperty {
   readonly name: string
   readonly type: string
   readonly arrayIndex: number
+  readonly order?: number
   readonly serializedSize: number
   readonly value: JsonValue
   readonly path: string
   readonly byteRange: { readonly start: number; readonly end: number }
-  readonly metadata?: { readonly structType?: string; readonly innerType?: string; readonly enumType?: string }
+  readonly valueByteRange?: BinaryByteRange
+  readonly nameReference?: UeFName
+  readonly typeReference?: UeFName
+  readonly propertyGuid?: string
+  readonly metadata?: {
+    readonly structType?: string
+    readonly structTypeReference?: UeFName
+    readonly structGuid?: string
+    readonly innerType?: string
+    readonly innerTypeReference?: UeFName
+    readonly enumType?: string
+    readonly enumTypeReference?: UeFName
+    readonly boolValue?: boolean
+    readonly mapKeyTypeReference?: UeFName
+    readonly mapValueTypeReference?: UeFName
+    readonly arrayStruct?: {
+      readonly wrapperName: UeFName
+      readonly wrapperType: UeFName
+      readonly wrapperSerializedSize: number
+      readonly wrapperArrayIndex: number
+      readonly structType: UeFName
+      readonly structGuid: string
+      readonly propertyGuid?: string
+    }
+  }
 }
 
 export interface ParsedExportObject {
@@ -96,6 +130,12 @@ export interface ParsedExportObject {
   readonly isClassDefaultObject: boolean
   readonly properties: readonly ParsedProperty[]
   readonly diagnostics: readonly UeDiagnostic[]
+  readonly propertyStream?: {
+    readonly byteRange: BinaryByteRange
+    readonly termination: 'terminated' | 'not-terminated'
+    readonly terminatorByteRange?: BinaryByteRange
+    readonly unparsedByteRanges: readonly BinaryByteRange[]
+  }
 }
 
 export interface ParsedUePackage {
