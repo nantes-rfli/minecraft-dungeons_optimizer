@@ -510,8 +510,8 @@ export function collectArtifactErrors(inventory: GameDataInventory, index: GameD
 
 export function reconcileSource(generated: { inventory: GameDataInventory; index: GameDataAssetIndex; files: FileRecord[] }, committed: { inventory: GameDataInventory; index: GameDataAssetIndex }): string[] {
   const errors: string[] = []
-  if (serializeJson(generated.inventory) !== serializeJson(committed.inventory)) errors.push('research/game-data-inventory.json is stale for local source')
-  if (serializeJson(generated.index) !== serializeJson(committed.index)) errors.push('research/game-data-asset-index.json is stale for local source')
+  if (serializeJson(generated.inventory) !== serializeJson(committed.inventory)) errors.push('research/raw/game-data-inventory.json is stale for local source')
+  if (serializeJson(generated.index) !== serializeJson(committed.index)) errors.push('research/raw/game-data-asset-index.json is stale for local source')
   const sourceFiles = new Set(generated.files.map((file) => file.relativePath))
   for (const asset of committed.index.assets) for (const file of asset.files) if (!sourceFiles.has(file)) errors.push(`Indexed path is missing from source: ${file}`)
   return errors

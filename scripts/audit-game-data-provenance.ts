@@ -10,7 +10,7 @@ import {
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const write = process.argv.includes('--write')
-const inventoryPath = path.join(repositoryRoot, 'research/game-data-inventory.json')
+const inventoryPath = path.join(repositoryRoot, 'research/raw/game-data-inventory.json')
 const provenancePath = path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-source-provenance.md')
 

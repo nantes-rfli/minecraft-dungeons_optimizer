@@ -8,8 +8,8 @@ import {
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const write = process.argv.includes('--write')
-const inventoryPath = path.join(repositoryRoot, 'research/game-data-inventory.json')
-const indexPath = path.join(repositoryRoot, 'research/game-data-asset-index.json')
+const inventoryPath = path.join(repositoryRoot, 'research/raw/game-data-inventory.json')
+const indexPath = path.join(repositoryRoot, 'research/raw/game-data-asset-index.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-inventory.md')
 const sourceAvailable = fs.existsSync(GAME_DATA_ROOT)
 
