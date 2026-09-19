@@ -152,7 +152,8 @@
       "id": "fighters-bindings",
       "hpsLabel": "Fighters Bindings",
       "assetSuffix": "/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
-      "mapping": "exact-via-serialized-id",
+      "mapping": "provisional",
+      "identityAssertionId": "identity:fighters-bindings@1",
       "sourceRow": 56,
       "aggregate": {
         "kind": "aggregate-rate",
@@ -248,7 +249,7 @@
         "ratePerSecond": 6.9565217391304355,
         "relativeDifferencePercent": -2.2500000000000075
       },
-      "comparison": "eligible-same-metric-only; external conditions/version remain unresolved"
+      "comparison": "provisional-identity-only; identity and external conditions/version remain unresolved"
     },
     {
       "id": "soul-scythe",
