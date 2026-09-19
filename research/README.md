@@ -8,7 +8,7 @@ As of 2026-09-19:
 
 - 99 tracked files
 - about 45.6 MB total
-- 63 files / about 43.1 MB are directly under `research/`
+- 61 files / about 43.1 MB are directly under `research/` after the first Runtime Promotion slice migration
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
 Large artifacts such as `coverage-priority.json`, `source-harvest.json`, `game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
@@ -23,7 +23,7 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 | Extracted Raw Facts | Machine-extracted facts before project semantic adoption | `game-data-inventory.json`, `game-data-asset-index.json`, `game-data-extractor-samples.json`, `game-data-bulk-harvest.json`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/` |
 | Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `game-data-canonical-properties.json`, `game-data-canonical-mappings.json`, `game-data-entity-aliases.json`, semantic mappings, equipment / enchantment / artifact audit manifests |
 | Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `evidence-gap-map.json`, `evidence-coverage*.json`, `coverage-priority.json`, model differences / alignment review, comparison artifacts |
-| Runtime / Promotion | What the application may use and the gates for changing that boundary | runtime support manifests, `runtime-backlog.json`, `phase8c-limited-dr-validation.json`, `runtime-promotion-*.json` |
+| Runtime / Promotion | What the application may use and the gates for changing that boundary | runtime support manifests, `runtime-backlog.json`, `phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
 | Workflow / Protocol | Acquisition and validation workflow state, not game truth itself | `measurement-protocols.json`, `phase7-research-quest.json`, `phase7-research-handoff.json`, `evidence-intake.json`, `phase8-gap-reassessment.json` |
 
 ### Secondary attributes
@@ -72,7 +72,7 @@ Current scripts use literal repository paths extensively. Examples include:
 - Evidence Coverage / Gap Map sharing `research/evidence-coverage*.json`, `research/evidence-gap-map.json`, and `research/measurement-protocols.json`
 - game-data harvest / reconciliation reading and writing multiple root-level `research/game-data-*.json` paths
 - Phase 8 reading the aligned gap disposition and Phase 7 handoff by literal path
-- Runtime Promotion importing validation/regression JSON directly and embedding research paths in its manifest
+- Runtime Promotion imports its regression source from `research/runtime/` and embeds canonical research paths in its manifest; future moves must update both code and stored refs
 
 Therefore directory moves are **code changes**, not cosmetic Git moves.
 
@@ -80,7 +80,7 @@ Therefore directory moves are **code changes**, not cosmetic Git moves.
 
 Use small slices with clear ownership:
 
-1. **Runtime Promotion slice** — `runtime-promotion-manifest.json` + `runtime-promotion-regression.json`. Small artifact count and a concentrated producer/consumer boundary make this a good pilot.
+1. **Completed pilot: Runtime Promotion slice** — `runtime/runtime-promotion-manifest.json` + `runtime/runtime-promotion-regression.json` now live under the Runtime / Promotion layer with generator, test, docs, and stored refs updated together.
 2. **Workflow state** — Phase 7 / Phase 8 intake and handoff artifacts, after all cross-references are enumerated.
 3. **Runtime support manifests / backlog** — after UI and audit readers are inventoried.
 4. **Coverage / Gap / Priority chain** — move as a connected pipeline, not file by file, because the generators share artifacts.
