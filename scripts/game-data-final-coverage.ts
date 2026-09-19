@@ -79,6 +79,7 @@ export function loadInputs(root: string) {
     'game-data-source-provenance': 'sources/game-data-source-provenance',
     'game-data-extractor-samples': 'raw/game-data-extractor-samples',
     'game-data-semantic-source-samples': 'raw/game-data-semantic-source-samples',
+    'game-data-semantic-mappings': 'domain/game-data-semantic-mappings',
   }
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${artifactPaths[name] ?? name}.json`), 'utf8'))
   return {
