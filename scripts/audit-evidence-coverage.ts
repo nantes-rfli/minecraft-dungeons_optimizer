@@ -15,7 +15,7 @@ try {
   const validator = await server.ssrLoadModule('/src/research/evidenceCoverage/validation.ts')
   const roadmap = await server.ssrLoadModule('/src/data/roadmap.ts')
   const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8')
-  const documents = { ...adaptersModule.COVERAGE_SOURCE_DOCUMENTS, 'research/runtime-backlog.json': JSON.parse(read('research/runtime-backlog.json')) }
+  const documents = { ...adaptersModule.COVERAGE_SOURCE_DOCUMENTS, 'research/runtime/runtime-backlog.json': JSON.parse(read('research/runtime/runtime-backlog.json')) }
   const resolve = (ref: string) => {
     const [file, fragment] = ref.split('#')
     if (!file || path.isAbsolute(file) || file.split('/').includes('..') || !fs.existsSync(path.join(root, file))) return { valid: false }
