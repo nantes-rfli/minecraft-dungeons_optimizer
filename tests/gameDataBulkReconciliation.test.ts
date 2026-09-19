@@ -8,7 +8,7 @@ import { buildBulkSemanticArtifact, buildGapReconciliationArtifact, serializeRec
 import { discoverBulkCandidates, serializeBulkArtifact, walkBoundedReferences, type GameDataAssetIndex, type GameDataBulkHarvestArtifact } from '../scripts/game-data-bulk-harvest'
 
 const index = JSON.parse(fs.readFileSync('research/raw/game-data-asset-index.json', 'utf8')) as GameDataAssetIndex
-const bulk = JSON.parse(fs.readFileSync('research/game-data-bulk-harvest.json', 'utf8')) as GameDataBulkHarvestArtifact
+const bulk = JSON.parse(fs.readFileSync('research/raw/game-data-bulk-harvest.json', 'utf8')) as GameDataBulkHarvestArtifact
 const semantic = JSON.parse(fs.readFileSync('research/game-data-bulk-semantic-mappings.json', 'utf8')) as GameDataBulkSemanticArtifact
 const reconciliation = JSON.parse(fs.readFileSync('research/game-data-gap-reconciliation.json', 'utf8')) as GameDataGapReconciliationArtifact
 const gapMap = JSON.parse(fs.readFileSync('research/evidence-gap-map.json', 'utf8')) as { gaps: readonly EvidenceGap[] }
