@@ -9,7 +9,7 @@ import {
 } from '../scripts/game-data-provenance'
 import type { GameDataInventory } from '../scripts/game-data-inventory'
 
-const inventory = JSON.parse(fs.readFileSync('research/game-data-inventory.json', 'utf8')) as GameDataInventory
+const inventory = JSON.parse(fs.readFileSync('research/raw/game-data-inventory.json', 'utf8')) as GameDataInventory
 
 describe('Phase 6.5B game data provenance', () => {
   it('generates deterministic provenance linked to the committed inventory', () => {

@@ -7,7 +7,7 @@ import { validateSemanticRuleRegistry } from '../src/research/gameDataSemanticRu
 import { buildBulkSemanticArtifact, buildGapReconciliationArtifact, serializeReconciliation, type GameDataBulkSemanticArtifact, type GameDataGapReconciliationArtifact } from '../scripts/game-data-gap-reconciliation'
 import { discoverBulkCandidates, serializeBulkArtifact, walkBoundedReferences, type GameDataAssetIndex, type GameDataBulkHarvestArtifact } from '../scripts/game-data-bulk-harvest'
 
-const index = JSON.parse(fs.readFileSync('research/game-data-asset-index.json', 'utf8')) as GameDataAssetIndex
+const index = JSON.parse(fs.readFileSync('research/raw/game-data-asset-index.json', 'utf8')) as GameDataAssetIndex
 const bulk = JSON.parse(fs.readFileSync('research/game-data-bulk-harvest.json', 'utf8')) as GameDataBulkHarvestArtifact
 const semantic = JSON.parse(fs.readFileSync('research/game-data-bulk-semantic-mappings.json', 'utf8')) as GameDataBulkSemanticArtifact
 const reconciliation = JSON.parse(fs.readFileSync('research/game-data-gap-reconciliation.json', 'utf8')) as GameDataGapReconciliationArtifact
