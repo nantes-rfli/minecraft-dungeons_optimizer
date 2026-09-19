@@ -75,7 +75,12 @@ export function classifyGap(gap: EvidenceGap, resolution?: GapReconciliationReco
 }
 
 export function loadInputs(root: string) {
-  const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${name}.json`), 'utf8'))
+  const artifactPaths: Record<string, string> = {
+    'game-data-source-provenance': 'sources/game-data-source-provenance',
+    'game-data-extractor-samples': 'raw/game-data-extractor-samples',
+    'game-data-semantic-source-samples': 'raw/game-data-semantic-source-samples',
+  }
+  const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${artifactPaths[name] ?? name}.json`), 'utf8'))
   return {
     inventory: read('game-data-inventory') as { totals: { files: number }; companions: Record<string, number>; expectedRoots: unknown[]; sourceFingerprint: { value: string } },
     index: read('game-data-asset-index') as { sourceFingerprint: string; assets: { path: string }[] },
