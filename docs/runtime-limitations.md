@@ -1,6 +1,6 @@
 # Runtime limitations / Phase 2-1K
 
-現行supportの正本は[manifest](../research/melee-runtime-support.json)、一覧と実数は[生成matrix](melee-runtime-support.md)。mechanicsの根拠は[research audit](../research/melee-enchantment-audit.json)。Phaseのpartial履歴と現在の機能範囲は別軸です。近接拡張はここで一旦freezeし、新Evidenceまたは明示的なobjective設計が得られるまで未登録5種を追加しません。
+現行supportの正本は[manifest](../research/runtime/melee-runtime-support.json)、一覧と実数は[生成matrix](melee-runtime-support.md)。mechanicsの根拠は[research audit](../research/melee-enchantment-audit.json)。Phaseのpartial履歴と現在の機能範囲は別軸です。近接拡張はここで一旦freezeし、新Evidenceまたは明示的なobjective設計が得られるまで未登録5種を追加しません。
 
 ## 判定ルールと再確認
 
@@ -14,7 +14,7 @@
 
 ## Backlogとclose gates
 
-優先度付きbacklogの正本は[structured backlog](../research/runtime-backlog.json)へ移しました。下表は `npm run generate:evidence-coverage` で生成し、`npm run audit:evidence-coverage` で照合します。個別監査・support manifestの正本性は維持します。[横断Coverage](combined-evidence-coverage.md) / [実測protocol](measurement-protocols.md)。
+優先度付きbacklogの正本は[structured backlog](../research/runtime/runtime-backlog.json)へ移しました。下表は `npm run generate:evidence-coverage` で生成し、`npm run audit:evidence-coverage` で照合します。個別監査・support manifestの正本性は維持します。[横断Coverage](combined-evidence-coverage.md) / [実測protocol](measurement-protocols.md)。
 
 Priorityはproduct decisionでありEvidence confidenceではありません。P0=通常利用を大きく阻害、P1=一般的な組合せ、P2=コピー・特殊条件・別目的、P3=新しい外部Evidence待ち。`evidence-blocked`は未作業TODOではなく、現時点でコードだけではcloseできない項目です。P1/P2でもEvidence待ちは明示します。
 
