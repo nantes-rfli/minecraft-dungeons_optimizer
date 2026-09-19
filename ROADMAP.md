@@ -25,21 +25,21 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 Armorは監査母集団73件中7件、Armor Enchantは41件中7件をLimited runtime対応。RangedはBow / Crossbowと3 Enchantを観測入力付きLimited runtime対応。カテゴリごとに意味と母集団が異なるため、横断の総合percentageは表示しない。
 
 <!-- roadmap-data:start -->
-# Work Units
+## Work Units
 
 Generated from `src/data/roadmap.ts`. Do not edit this block directly.
 
-## Research Track
+### Research Track
 
 Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。
 
-### Done
+#### Done
 
 - **R1 — Research Infrastructure**: Source Harvest、Gap Map、Priority、game-file artifact、Research Quest、Evidence Repository、validation / auditを再現可能にする。
   - Unlocks: R2, R3
   - Completion: checked-in artifactから監査を再実行でき、raw traceとadoption decisionをruntimeから分離できる。
 
-### Current
+#### Current
 
 - **R2 — Evidence Acquisition**: Personal Research Quest、独立raw trace、Measure / Experimentを優先度順に取得する。
   - Depends on: R1
@@ -47,7 +47,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Completion: 対象parameterごとにversion・conditions・unit・run identityを備えた独立Evidenceを保存できる。
   - Next: Limited DRの8条件を別runとして取得する。
 
-### Next
+#### Next
 
 - **R3 — Evidence Validation / Adoption**: 取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。
   - Depends on: R2
@@ -55,7 +55,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Unlocks: P3B
   - Completion: accepted / rejected / heldと理由が再現可能で、未検証値を昇格対象にしない。
 
-### Blocked
+#### Blocked
 
 - **R3B — Limited DR Adoption Decision**: 固定済みの独立holdout gateでLimited DRの採用可否を判断する。
   - Depends on: R2
@@ -63,7 +63,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Completion: 1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得し、gateを変えず再監査できる。
   - Next: 独立raw traceの取得を待つ。
 
-### Later
+#### Later
 
 - **R4 — Targeted Deep Research**: 外部観測でも解けないruntime-relevantな問いに限りnative計算・effective timingを追加調査する。
   - Depends on: R2, R3
@@ -74,11 +74,11 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Depends on: R1
   - Completion: drift検出と再検証条件がparameter単位で記録される。
 
-## Product Track
+### Product Track
 
 現在利用可能なEvidenceを安全な境界で製品へ反映し、実用性を高める。
 
-### Done
+#### Done
 
 - **P1 — Catalog / Inventory Foundation**: runtime未対応の監査済み装備を所持品とResearch対象として保持し、Optimizer候補へ混ぜない。
   - Unlocks: P2, P4
@@ -94,7 +94,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Unlocks: P3B, P4
   - Completion: 未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられる。
 
-### Next
+#### Next
 
 - **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。
   - Depends on: P3B
@@ -102,7 +102,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Unlocks: P5
   - Completion: 追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。
 
-### Blocked
+#### Blocked
 
 - **P3B — First Eligible Runtime Promotion**: R3でacceptedになった最初の1 parameter / mechanicをEnd-to-Endで昇格し、reference implementationにする。
   - Depends on: P3, R3
@@ -111,7 +111,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Completion: 同一変更でruntime、manifest、説明、coverage、regressionが同期し、既存挙動を保護する。
   - Next: eligible targetなし。P3の基盤整備を継続し、acceptedな対象を待つ。
 
-### Later
+#### Later
 
 - **P5 — Recommendation / Optimizer Quality**: available runtime scope内でobjective、scoring、推薦品質、説明を改善する。
   - Depends on: P2
@@ -121,7 +121,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Depends on: P1, P2
   - Completion: 主要フローがaccessibility・performance・E2E基準を満たし、公開判断は別途明示される。
 
-## Future Candidates
+### Future Candidates
 
 - **Optimizer Engine Generalization**: Dungeons 1で実証後、必要になった境界だけを段階的に分離する。
 - **New Drop Comparison / Keep-Salvage**: 新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。
