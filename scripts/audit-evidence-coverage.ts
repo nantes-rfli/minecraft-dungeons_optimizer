@@ -44,7 +44,7 @@ try {
   const generated = {
     'research/evidence-coverage.json': json(snapshot),
     'research/evidence-coverage-dashboard.json': json(report.buildCoverageDashboard(snapshot, protocols)),
-    'research/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
+    'research/workflow/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
     'research/evidence-gap-map.json': json(gapMap),
     'docs/combined-evidence-coverage.md': report.renderCoverageReport(snapshot),
     'docs/evidence-gap-map.md': gapModule.renderEvidenceGapMap(gapMap),
