@@ -11,7 +11,7 @@ import {
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const write = process.argv.includes('--write')
 const inventoryPath = path.join(repositoryRoot, 'research/game-data-inventory.json')
-const provenancePath = path.join(repositoryRoot, 'research/game-data-source-provenance.json')
+const provenancePath = path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-source-provenance.md')
 
 const inventory = JSON.parse(fs.readFileSync(inventoryPath, 'utf8')) as GameDataInventory
@@ -23,7 +23,7 @@ if (write) {
 
 const committed = JSON.parse(fs.readFileSync(provenancePath, 'utf8')) as GameDataSourceProvenance
 const errors = collectGameDataProvenanceErrors(committed, inventory)
-if (serializeProvenance(generated) !== fs.readFileSync(provenancePath, 'utf8')) errors.push('research/game-data-source-provenance.json is stale')
+if (serializeProvenance(generated) !== fs.readFileSync(provenancePath, 'utf8')) errors.push('research/sources/game-data-source-provenance.json is stale')
 if (renderGameDataProvenanceReport(committed) !== fs.readFileSync(reportPath, 'utf8')) errors.push('docs/game-data-source-provenance.md is stale')
 if (serializeProvenance(buildGameDataSourceProvenance(inventory)) !== serializeProvenance(generated)) errors.push('Provenance generation is not deterministic')
 

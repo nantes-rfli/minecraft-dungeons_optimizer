@@ -8,7 +8,7 @@ As of 2026-09-19:
 
 - 100 tracked files
 - about 45.6 MB total
-- 47 files / about 32.8 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, and ranged source snapshot migrations
+- 46 files / about 32.8 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, and Source / Evidence migrations
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
 Large artifacts such as `analysis/coverage-priority.json`, `source-harvest.json`, `game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
@@ -19,7 +19,7 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 
 | Layer | Meaning | Current examples |
 | --- | --- | --- |
-| Source / Evidence | What was observed or retrieved, plus provenance | `source-harvest/snapshots/`, `external-community/`, `artifact-evidence/sources.json`, `sources/ranged-source-snapshot.json`, `game-data-source-provenance.json` |
+| Source / Evidence | What was observed or retrieved, plus provenance | `source-harvest/snapshots/`, `external-community/`, `artifact-evidence/sources.json`, `sources/ranged-source-snapshot.json`, `sources/game-data-source-provenance.json` |
 | Extracted Raw Facts | Machine-extracted facts before project semantic adoption | `game-data-inventory.json`, `game-data-asset-index.json`, `game-data-extractor-samples.json`, `game-data-bulk-harvest.json`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/` |
 | Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `game-data-canonical-properties.json`, `game-data-canonical-mappings.json`, `game-data-entity-aliases.json`, semantic mappings, equipment / enchantment / artifact audit manifests |
 | Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `evidence-gap-map.json`, `analysis/coverage-priority.json`, model differences / alignment review, comparison artifacts |
