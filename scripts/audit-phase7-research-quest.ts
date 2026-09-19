@@ -84,7 +84,7 @@ assert.equal(result.capture.minimumHits, 240)
 assert.equal(result.boundaries.runtimePromotionCount, 0)
 
 const outputs = new Map([
-  ['research/phase7-research-quest.json', `${JSON.stringify(result, null, 2)}\n`],
+  ['research/workflow/phase7-research-quest.json', `${JSON.stringify(result, null, 2)}\n`],
   ['docs/phase7-personal-research-quest.md', report()],
 ])
 if (process.argv.includes('--write')) for (const [file, contents] of outputs) fs.writeFileSync(path.join(repositoryRoot, file), contents)
