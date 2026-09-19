@@ -41,13 +41,15 @@ describe('enemy-state controlled inputs', () => {
       expect(renderToStaticMarkup(<AmbushShareControl value={onAmbush.mock.lastCall![0]} onChange={onAmbush} />)).toContain(`${Number(value) * 100}%`)
     }
   })
-  it('explains fresh-target and AoE assumptions without a Committed slider or full-support claim', () => {
+  it('keeps methodology focused on the current overview and canonical detail links', () => {
     const html = renderToStaticMarkup(<MethodologyPage />)
-    expect(html).toContain('1.4427')
-    expect(html).toContain('full HP')
-    expect(html).toContain('相関')
+    expect(html).toContain('Optimizer全体の計算フロー')
+    expect(html).toContain('手持ち候補を全組み合わせ')
+    expect(html).toContain('単体DPSとAoEを分離')
+    expect(html).toContain('モデル別の詳細仕様')
+    expect(html).toContain('enemy-state-damage.md')
+    expect(html).toContain('damage-events.md')
     expect(html).toContain('Catalog runtime 28 / 33')
-    expect(html).toContain('Damage Eventsはpartial')
     expect(html).toContain('Research Track')
     expect(html).toContain('Product Track')
     expect(html).toContain('Runtime Promotion Pipeline Foundation')
