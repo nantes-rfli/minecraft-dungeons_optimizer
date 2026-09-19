@@ -112,7 +112,7 @@ npm run test:e2e
 
 ## Project status
 
-現在の目標、Research / Product Track、Current / Next / Blockedは [ROADMAP.md](./ROADMAP.md) を正本とします。
+現在の目標と人間向けoverviewは [ROADMAP.md](./ROADMAP.md)、Work UnitのTrack / status / dependency / completion / next actionは [src/data/roadmap.ts](./src/data/roadmap.ts) を構造化正本とします。ROADMAPのWork Unitsはそこから生成します。
 
 旧Phase 0〜8の経緯や過去の完了記録は [Historical Roadmap](./docs/historical-roadmap.md) に凍結しています。現行の判断へ旧Phase番号や過去のpercentageを再利用しません。
 
@@ -134,6 +134,7 @@ npm run test:e2e
 - [Evidence & Coverage](./docs/combined-evidence-coverage.md)
 - [Evidence intake and validation](./docs/phase8-evidence-intake.md)
 - [Personal Research Quest](./docs/phase7-personal-research-quest.md)
+- [Research artifact layout](./research/README.md)
 - [Runtime Promotion Pipeline](./docs/runtime-promotion-pipeline.md)
 - [Public-use readiness](./docs/public-use-readiness.md)
 - [Changes](./docs/changes.md)
