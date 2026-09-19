@@ -352,7 +352,7 @@ export function renderEvidenceGapMap(map: EvidenceGapMap): string {
 export function renderPhase5ProtocolReport(protocols: readonly MeasurementProtocol[]): string {
   const phase5 = protocols.filter((protocol) => protocol.resolutionClass)
   const bullets = (lines: readonly string[]) => lines.map((line) => `- ${line}`).join('\n')
-  return `# Phase 5 Measurement Protocols\n\n[構造化protocol](../research/measurement-protocols.json) / [Gap Map](evidence-gap-map.md)\n\nゲーム内で結果を集める前の再利用可能な手順です。各protocolはbaseline、必要なvariant、反復、記録項目、close条件を定義し、結果やruntime昇格を含みません。\n\n${phase5.map((p) => {
+  return `# Phase 5 Measurement Protocols\n\n[構造化protocol](../research/workflow/measurement-protocols.json) / [Gap Map](evidence-gap-map.md)\n\nゲーム内で結果を集める前の再利用可能な手順です。各protocolはbaseline、必要なvariant、反復、記録項目、close条件を定義し、結果やruntime昇格を含みません。\n\n${phase5.map((p) => {
     const controlSteps = p.controls?.map((line, index) => `${p.steps!.length + index + 1}. Control: ${line}`).join('\n') ?? ''
     const hypothesis = p.hypothesis?.length ? `\n\n### 仮説\n\n${bullets(p.hypothesis)}` : ''
     const legacy = p.legacyProtocolIds?.length ? `\n\n既存protocolの再利用: ${p.legacyProtocolIds.join(', ')} をcanonical手順へ統合。旧IDはmappingとして保持します。` : ''
