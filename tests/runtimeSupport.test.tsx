@@ -135,7 +135,7 @@ describe('fc83d2bd exact software-output regression; not independent game eviden
 describe('visibility, generated docs and historical gates', () => {
   it('renders all three levels without creating selectable research candidates', () => {
     const html = renderToStaticMarkup(<RuntimeSupportSection />)
-    for (const text of ['Full runtime support', 'Limited', 'Research-only', 'Historical phase partial', 'Evidence confidence', 'mechanics blocker', 'objective blocker']) expect(html).toContain(text)
+    for (const text of ['Full runtime support', 'Limited', 'Research-only', 'Support level', 'Evidence confidence', 'mechanics blocker', 'objective blocker']) expect(html).toContain(text)
     expect(html).not.toMatch(/<input|<option/)
     expect(renderToStaticMarkup(<RuntimeSupportBadge id="sharpness" />)).toContain('Full')
   })
