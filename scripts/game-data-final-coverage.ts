@@ -88,7 +88,7 @@ export function loadInputs(root: string) {
     reconciliation: read('game-data-gap-reconciliation') as GameDataGapReconciliationArtifact,
     gaps: (read('evidence-gap-map') as { gaps: EvidenceGap[] }).gaps,
     publicHarvest: read('source-harvest') as { sources: { id: string }[] },
-    priority: read('coverage-priority') as { gapPriorities: { gapId: string }[] },
+    priority: read('analysis/coverage-priority') as { gapPriorities: { gapId: string }[] },
   }
 }
 export type CoverageInputs = ReturnType<typeof loadInputs>
