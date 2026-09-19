@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
-import phase8c from '../research/phase8c-limited-dr-validation.json' with { type: 'json' }
+import phase8c from '../research/runtime/phase8c-limited-dr-validation.json' with { type: 'json' }
 import regressionArtifact from '../research/runtime/runtime-promotion-regression.json' with { type: 'json' }
 import { buildRuntimePromotionManifest, collectRuntimePromotionErrors, collectRuntimePromotionRegressionSourceErrors, PROMOTION_ARTIFACT_KINDS, type PromotionRegressionResult, type RuntimePromotionRegressionArtifact } from '../src/research/runtimePromotion.ts'
 
@@ -20,7 +20,7 @@ export function buildCurrentRuntimePromotionManifest() {
     candidates: [{
       targetId: 'defense.damage-taken-composition',
       targetKind: 'mechanic',
-      decisionRef: 'research/phase8c-limited-dr-validation.json#/adoptionDecision',
+      decisionRef: 'research/runtime/phase8c-limited-dr-validation.json#/adoptionDecision',
       outcome: decision.decision === 'adopt' ? 'accepted' : decision.decision === 'reject' ? 'rejected' : 'held',
       gameVersion: phase8c.plan.gameVersion,
       valueStatus: 'known',
