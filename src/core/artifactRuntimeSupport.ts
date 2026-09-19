@@ -1,4 +1,4 @@
-import manifest from '../../research/artifact-runtime-support.json'
+import manifest from '../../research/runtime/artifact-runtime-support.json'
 import type { ArtifactMechanicFamily } from './artifactMechanics'
 import type { RuntimeSupportLevel } from './runtimeSupport'
 
