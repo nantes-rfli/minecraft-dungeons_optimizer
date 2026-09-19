@@ -19,7 +19,7 @@ export function loadAlignmentInputs(root: string) {
   return { ...input, differences: read('game-data-model-differences') as BaselineDifferences,
     finalCoverage: read('game-data-final-coverage') as ReturnType<typeof buildFinalCoverage>['finalCoverage'],
     catalog: (read('source-harvest') as { records: CatalogRecord[] }).records,
-    baselineHashes: Object.fromEntries(['game-data-final-coverage', 'game-data-model-differences', 'game-data-bulk-harvest', 'game-data-bulk-semantic-mappings', 'game-data-gap-reconciliation', 'evidence-gap-map'].map(name => [name, crypto.createHash('sha256').update(fs.readFileSync(path.join(root, `research/${name}.json`))).digest('hex')])) }
+    baselineHashes: Object.fromEntries(['game-data-final-coverage', 'game-data-model-differences', 'game-data-bulk-harvest', 'game-data-bulk-semantic-mappings', 'game-data-gap-reconciliation', 'evidence-gap-map'].map(name => [name, crypto.createHash('sha256').update(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`))).digest('hex')])) }
 }
 export type AlignmentInputs = ReturnType<typeof loadAlignmentInputs>
 
