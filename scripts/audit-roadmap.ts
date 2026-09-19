@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import {
   FUTURE_CANDIDATES,
   ROADMAP_STATUS_ORDER,
@@ -10,7 +11,7 @@ import {
   type RoadmapWorkStatus,
 } from '../src/data/roadmap.ts'
 
-const root = path.resolve(new URL('..', import.meta.url).pathname)
+const root = fileURLToPath(new URL('..', import.meta.url))
 const roadmapPath = path.join(root, 'ROADMAP.md')
 const statusHeading: Readonly<Record<RoadmapWorkStatus, string>> = {
   done: 'Done',
