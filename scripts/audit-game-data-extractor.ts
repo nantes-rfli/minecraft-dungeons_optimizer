@@ -12,7 +12,7 @@ import {
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const artifactPath = path.join(repositoryRoot, 'research/raw/game-data-extractor-samples.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-extractor.md')
-const provenance = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/game-data-source-provenance.json'), 'utf8')) as GameDataSourceProvenance
+const provenance = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json'), 'utf8')) as GameDataSourceProvenance
 const committedText = fs.readFileSync(artifactPath, 'utf8')
 const committed = JSON.parse(committedText) as GameDataExtractorArtifact
 const errors = collectExtractorArtifactErrors(committed, provenance.dataset.id)
