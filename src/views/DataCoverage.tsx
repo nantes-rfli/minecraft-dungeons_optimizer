@@ -4,7 +4,7 @@ const sourceUrl = (ref: string) => `https://github.com/nantes-rfli/minecraft-dun
 
 export function DataCoverageSection() {
   return <section className="panel" id="data-coverage" aria-labelledby="data-coverage-title">
-    <p className="section-label">PHASE 2-4 / DATA COVERAGE</p>
+    <p className="section-label">DATA COVERAGE</p>
     <h2 id="data-coverage-title">使える範囲と、次に必要な根拠</h2>
     <p>Fullは現在のscopeで通常対応、LimitedはPower・コピー・併用などに制限、Research-onlyは候補未登録です。Evidenceの質や実測済みかどうかは別に扱います。<strong>Coverageは正解確率でも、Roadmapの完成率でもありません。</strong></p>
     <div className="control-policy-table"><table>
