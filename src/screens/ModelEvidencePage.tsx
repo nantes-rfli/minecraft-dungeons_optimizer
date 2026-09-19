@@ -1,4 +1,4 @@
-import coverage from '../../research/evidence-coverage-dashboard.json'
+import coverage from '../../research/analysis/evidence-coverage-dashboard.json'
 import auditJson from '../../research/dps-regression-audit.json'
 import { hrefFor } from '../app/routes'
 import { RUNTIME_BACKLOG } from '../research/evidenceCoverage/backlog'
