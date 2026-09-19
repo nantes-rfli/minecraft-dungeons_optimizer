@@ -15,7 +15,7 @@ interface CatalogRecord { category: CanonicalResearchProperty['category']; id: s
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
-  const baselineArtifactPaths: Record<string, string> = { 'game-data-bulk-harvest': 'raw/game-data-bulk-harvest', 'game-data-final-coverage': 'analysis/game-data-final-coverage', 'game-data-model-differences': 'analysis/game-data-model-differences' }
+  const baselineArtifactPaths: Record<string, string> = { 'game-data-bulk-harvest': 'raw/game-data-bulk-harvest', 'game-data-bulk-semantic-mappings': 'domain/game-data-bulk-semantic-mappings', 'game-data-gap-reconciliation': 'analysis/game-data-gap-reconciliation', 'game-data-final-coverage': 'analysis/game-data-final-coverage', 'game-data-model-differences': 'analysis/game-data-model-differences' }
   return { ...input, differences: read('game-data-model-differences') as BaselineDifferences,
     finalCoverage: read('game-data-final-coverage') as ReturnType<typeof buildFinalCoverage>['finalCoverage'],
     catalog: (read('source-harvest') as { records: CatalogRecord[] }).records,

@@ -8,7 +8,7 @@ As of 2026-09-19:
 
 - 100 tracked files
 - about 43.5 MB total
-- 35 files / about 19.1 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, Domain / Canonical, and Game Data Analysis migrations
+- 33 files / about 17.5 MB are directly under `research/` after the Runtime Promotion, Workflow, Runtime Support, Coverage / Priority, Source / Evidence, Raw Facts, Domain / Canonical, Game Data Analysis, and Reconciliation migrations
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
 Large artifacts such as `analysis/coverage-priority.json`, `source-harvest.json`, `raw/game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
@@ -21,8 +21,8 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 | --- | --- | --- |
 | Source / Evidence | What was observed or retrieved, plus provenance | `source-harvest/snapshots/`, `external-community/`, `artifact-evidence/sources.json`, `sources/ranged-source-snapshot.json`, `sources/game-data-source-provenance.json` |
 | Extracted Raw Facts | Machine-extracted facts before project semantic adoption | `raw/game-data-inventory.json`, `raw/game-data-asset-index.json`, `raw/game-data-extractor-samples.json`, `raw/game-data-bulk-harvest.json`, `raw/game-data-semantic-source-samples.json`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/` |
-| Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `domain/game-data-canonical-properties.json`, `domain/game-data-canonical-mappings.json`, `domain/game-data-entity-aliases.json`, `domain/game-data-semantic-mappings.json`, equipment / enchantment / artifact audit manifests |
-| Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `analysis/coverage-priority.json`, `analysis/game-data-final-coverage.json`, `analysis/game-data-model-differences.json`, `evidence-gap-map.json`, alignment review / comparison artifacts |
+| Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `domain/game-data-canonical-properties.json`, `domain/game-data-canonical-mappings.json`, `domain/game-data-entity-aliases.json`, `domain/game-data-semantic-mappings.json`, `domain/game-data-bulk-semantic-mappings.json`, equipment / enchantment / artifact audit manifests |
+| Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `analysis/coverage-priority.json`, `analysis/game-data-gap-reconciliation.json`, `analysis/game-data-final-coverage.json`, `analysis/game-data-model-differences.json`, `evidence-gap-map.json`, alignment review / comparison artifacts |
 | Runtime / Promotion | What the application may use and the gates for changing that boundary | `runtime/melee-runtime-support.json`, `runtime/armor-runtime-support.json`, `runtime/artifact-runtime-support.json`, `runtime/runtime-backlog.json`, `runtime/phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
 | Workflow / Protocol | Acquisition and validation workflow state, not game truth itself | `workflow/measurement-protocols.json`, `workflow/phase7-research-quest.json`, `workflow/phase7-research-handoff.json`, `workflow/evidence-intake.json`, `workflow/phase8-gap-reassessment.json` |
 
@@ -70,7 +70,7 @@ Current scripts use literal repository paths extensively. Examples include:
 
 - Source Harvest writers targeting `research/source-harvest*.json`
 - Evidence Coverage snapshots now live under `research/analysis/`; Gap Map remains at root as `research/evidence-gap-map.json`; Priority and Coverage snapshots live under `research/analysis/`, while measurement protocols live under `research/workflow/`
-- game-data harvest / reconciliation reading and writing multiple root-level `research/game-data-*.json` paths
+- game-data reconciliation now writes bulk semantic mappings under `research/domain/` and the base reconciliation under `research/analysis/`; model-alignment outputs still include several root-level `research/game-data-*.json` paths
 - Phase 8 still reads the aligned gap disposition from the analysis chain, while its Phase 7 handoff now uses the canonical `research/workflow/` path
 - Runtime Promotion imports its regression source from `research/runtime/` and embeds canonical research paths in its manifest; future moves must update both code and stored refs
 
@@ -84,7 +84,7 @@ Use small slices with clear ownership:
 2. **Completed: Workflow state** — measurement protocols, Phase 7 quest/handoff, and Phase 8 intake/reassessment artifacts now live under `workflow/`, with their generators/readers updated together.
 3. **Completed: Runtime support manifests / backlog** — melee / armor / artifact support manifests, Armor core runtime audit, and the structured backlog now live under `runtime/`, with Core, Coverage, audit, docs, and tests updated together.
 4. **In progress: Coverage / Gap / Priority chain** — Evidence Coverage snapshot/dashboard now live under `analysis/`. Gap Map / Priority remain root-level because moving the canonical Gap Map also changes the large Priority artifact's embedded source path; migrate those together when regeneration can be handled atomically.
-5. **Large game-data chain** — last. Inventory → extraction → semantic mapping → alignment → gap reconciliation has many hard-coded paths and large generated outputs.
+5. **In progress: Large game-data chain** — Inventory, extraction, representative semantic mapping, bulk semantic mapping / reconciliation, and final coverage are classified. Model-alignment outputs remain the main root-level slice and should move only with their producer, downstream readers, tests, docs, and stored refs.
 
 The existing nested source / game-data directories should be retained unless a specific dependency-safe migration improves clarity. `sources/` is now established for clearly classified standalone source snapshots such as the ranged factual snapshot. `raw/` is established for machine-extracted representative facts that have not yet been adopted into Domain / Canonical data. `domain/` is established for normalized research artifacts, including the canonical property registry, entity aliases, canonical mappings, and representative semantic mappings.
 

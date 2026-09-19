@@ -83,6 +83,8 @@ export function loadInputs(root: string) {
     'game-data-semantic-source-samples': 'raw/game-data-semantic-source-samples',
     'game-data-semantic-mappings': 'domain/game-data-semantic-mappings',
     'game-data-bulk-harvest': 'raw/game-data-bulk-harvest',
+    'game-data-bulk-semantic-mappings': 'domain/game-data-bulk-semantic-mappings',
+    'game-data-gap-reconciliation': 'analysis/game-data-gap-reconciliation',
   }
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${artifactPaths[name] ?? name}.json`), 'utf8'))
   return {
