@@ -217,7 +217,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     'game-data-aligned-semantic-mappings': { ...common, mappings: result.semantic.mappings },
     'game-data-aligned-gap-reconciliation': { ...result.reconciliation, newlyClosedGapIds: result.newlyClosed },
     'game-data-aligned-gap-disposition': { ...common, summary, records: result.dispositionRecords, potentials: result.potentials },
-    'phase7-research-handoff': { ...common, summary: summary.phase7, records: result.handoff },
+    'workflow/phase7-research-handoff': { ...common, summary: summary.phase7, records: result.handoff },
     'game-data-model-alignment-review': { ...common, inputs: result.inputs, summary, retainedFactReview: result.reviewFacts, missingExpectedPropertyReview: result.missingReview, changeDecisions: result.changeDecisions },
   }
   const table = (rows: readonly (readonly unknown[])[], headers: string[]) => `| ${headers.join(' | ')} |\n| ${headers.map(()=>'---').join(' | ')} |\n${rows.map(row=>`| ${row.map(x=>String(x).replaceAll('|','\\|').replaceAll('\n',' ')).join(' | ')} |`).join('\n')}\n`
