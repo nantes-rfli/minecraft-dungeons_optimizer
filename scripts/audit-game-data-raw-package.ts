@@ -15,7 +15,7 @@ const artifactPath = path.join(repositoryRoot, RAW_PACKAGE_ARTIFACT_PATH)
 const reportPath = path.join(repositoryRoot, RAW_PACKAGE_REPORT_PATH)
 const committedText = fs.readFileSync(artifactPath, 'utf8')
 const committed = JSON.parse(committedText) as RawPackageSnapshot
-const errors = collectRawPackageSnapshotErrors(committed, provenance)
+const errors = collectRawPackageSnapshotErrors(committed, provenance, repositoryRoot)
 
 if (serializeRawPackageSnapshot(committed) !== committedText) errors.push(`${RAW_PACKAGE_ARTIFACT_PATH} is not canonical JSON`)
 if (renderRawPackageSnapshotReport(committed) !== fs.readFileSync(reportPath, 'utf8')) errors.push(`${RAW_PACKAGE_REPORT_PATH} is stale`)
@@ -33,4 +33,5 @@ if (hasRawPackageSource(repositoryRoot)) {
 if (errors.length) throw new Error([...new Set(errors)].sort().join('\n'))
 console.log(`Raw package snapshot audit passed: ${committed.logicalPackage.path}.`)
 console.log(`${committed.package.exports.length} exports; ${committed.package.objects.filter((object) => object.extraction.state === 'decoded').length} decoded CDO; ${committed.package.diagnostics.length} diagnostics.`)
+console.log(`Extractor/parser code identity matched: ${committed.extraction.codeIdentity.algorithm}:${committed.extraction.codeIdentity.value}.`)
 console.log(hasRawPackageSource(repositoryRoot) ? 'Local input sizes, SHA-256 hashes, and deterministic regeneration matched.' : 'Local source absent; committed snapshot contract validated.')

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "snapshotKind": "generated-raw-package",
   "dataset": {
     "id": "mcd-quickbms-local-1.17.0.0-823acded",
@@ -30,7 +30,7 @@
     }
   },
   "extraction": {
-    "runId": "sha256:48cba2b27c483a824434bf419f083cec2a74d6f6e183f414985d4955d4ca868d",
+    "runId": "sha256:9c49ae9bfa0f5a9e02d01b0aa9c028ce6c05260f00c8f74ccf3070df91ca5d5e",
     "parser": {
       "id": "ue4-package-property-parser",
       "schemaVersion": 1
@@ -45,6 +45,48 @@
       "propertySelection": "none",
       "crossPackageReferenceResolution": "not-performed",
       "nonCdoExportDecoding": "not-extracted"
+    },
+    "codeIdentity": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "f4ff109de312ca191e3d81bdb8a9d478c2861111efccacefa87ce7e2ac449b08",
+      "files": [
+        {
+          "path": "scripts/extract-game-data-raw-package.ts",
+          "sha256": "785337d2139195fde9bfa7618bca7e93c4c34dd72f7784ed9aa847ca61c32adb"
+        },
+        {
+          "path": "scripts/game-data-extractor.ts",
+          "sha256": "a287234b2d083f26726e5b9068a0e48a884e5837c8fd01d4af2fa8612773982c"
+        },
+        {
+          "path": "scripts/game-data-raw-package.ts",
+          "sha256": "0e9959ff2dffeee67f683295b95b887bc42d1704659a90e40e32cbe2c8cfd837"
+        },
+        {
+          "path": "src/research/gameDataProvenance.ts",
+          "sha256": "310bfea71cc7d85389af69e14c636bea80c1bf581af6837e2cbd9377e4b1ea9d"
+        },
+        {
+          "path": "src/research/ue4/binaryReader.ts",
+          "sha256": "d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565"
+        },
+        {
+          "path": "src/research/ue4/objectResolver.ts",
+          "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+        },
+        {
+          "path": "src/research/ue4/packageReader.ts",
+          "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+        },
+        {
+          "path": "src/research/ue4/packageTypes.ts",
+          "sha256": "640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb"
+        },
+        {
+          "path": "src/research/ue4/propertyReader.ts",
+          "sha256": "c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e"
+        }
+      ]
     }
   },
   "boundaries": {

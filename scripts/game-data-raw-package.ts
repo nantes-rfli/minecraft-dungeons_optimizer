@@ -12,10 +12,22 @@ import {
   PARSER_ID, PARSER_SCHEMA_VERSION, assertSafeAssetPath, hashLogicalAsset, localDatasetRoot,
 } from './game-data-extractor.ts'
 
-export const RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION = 1 as const
+export const RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION = 2 as const
 export const RAW_PACKAGE_PATH = 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance' as const
 export const RAW_PACKAGE_ARTIFACT_PATH = 'research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json' as const
 export const RAW_PACKAGE_REPORT_PATH = 'docs/game-data-raw-package-snapshot.md' as const
+
+export const RAW_PACKAGE_CODE_PATHS = [
+  'scripts/extract-game-data-raw-package.ts',
+  'scripts/game-data-extractor.ts',
+  'scripts/game-data-raw-package.ts',
+  'src/research/gameDataProvenance.ts',
+  'src/research/ue4/binaryReader.ts',
+  'src/research/ue4/objectResolver.ts',
+  'src/research/ue4/packageReader.ts',
+  'src/research/ue4/packageTypes.ts',
+  'src/research/ue4/propertyReader.ts',
+] as const
 
 export const EXPECTED_RAW_PACKAGE_FILES = [
   {
@@ -104,7 +116,7 @@ interface RawObjectSnapshot {
 }
 
 export interface RawPackageSnapshot {
-  readonly schemaVersion: 1
+  readonly schemaVersion: 2
   readonly snapshotKind: 'generated-raw-package'
   readonly dataset: {
     readonly id: string
@@ -125,6 +137,7 @@ export interface RawPackageSnapshot {
     readonly runId: string
     readonly parser: { readonly id: typeof PARSER_ID; readonly schemaVersion: typeof PARSER_SCHEMA_VERSION }
     readonly configuration: typeof EXTRACTION_CONFIGURATION
+    readonly codeIdentity: RawPackageCodeIdentity
   }
   readonly boundaries: {
     readonly semanticFiltering: 'not-applied'
@@ -147,6 +160,15 @@ export interface RawPackageSnapshot {
     readonly diagnostics: readonly UeDiagnostic[]
     readonly unavailableRanges: readonly RawUnavailableRange[]
   }
+}
+
+export interface RawPackageCodeIdentity {
+  readonly algorithm: 'sha256-path-content-v1'
+  readonly value: string
+  readonly files: readonly {
+    readonly path: typeof RAW_PACKAGE_CODE_PATHS[number]
+    readonly sha256: string
+  }[]
 }
 
 export function hasRawPackageSource(repositoryRoot: string): boolean {
@@ -191,6 +213,7 @@ export function buildRawPackageSnapshot(repositoryRoot: string, provenance: Game
     uexp.byteLength,
     parsed.exports.map((entry) => ({ start: entry.serialOffset - parsed.summary.totalHeaderSize, end: entry.serialOffset - parsed.summary.totalHeaderSize + entry.serialSize })),
   ).map((range) => ({ ...range, sourceFile: uexpPath, state: 'not-extracted' as const, reason: 'unassigned-uexp-region' }))
+  const codeIdentity = buildRawPackageCodeIdentity(repositoryRoot)
   const runDescriptor = {
     schemaVersion: RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION,
     datasetId: provenance.dataset.id,
@@ -198,6 +221,7 @@ export function buildRawPackageSnapshot(repositoryRoot: string, provenance: Game
     sourceFiles,
     parser: { id: PARSER_ID, schemaVersion: PARSER_SCHEMA_VERSION },
     configuration: EXTRACTION_CONFIGURATION,
+    codeIdentity,
   }
   return {
     schemaVersion: RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION,
@@ -217,6 +241,7 @@ export function buildRawPackageSnapshot(repositoryRoot: string, provenance: Game
       runId: contentAddress(runDescriptor),
       parser: { id: PARSER_ID, schemaVersion: PARSER_SCHEMA_VERSION },
       configuration: EXTRACTION_CONFIGURATION,
+      codeIdentity,
     },
     boundaries: {
       semanticFiltering: 'not-applied',
@@ -234,6 +259,18 @@ export function buildRawPackageSnapshot(repositoryRoot: string, provenance: Game
       unavailableRanges: [...packageUnavailableRanges, ...unassignedUexpRanges],
     },
   }
+}
+
+export function buildRawPackageCodeIdentity(repositoryRoot: string): RawPackageCodeIdentity {
+  const aggregate = crypto.createHash('sha256')
+  const files = [...RAW_PACKAGE_CODE_PATHS].sort().map((relativePath) => {
+    const bytes = fs.readFileSync(path.join(repositoryRoot, relativePath))
+    aggregate.update(relativePath, 'utf8')
+    aggregate.update(Uint8Array.of(0))
+    aggregate.update(bytes)
+    return { path: relativePath, sha256: crypto.createHash('sha256').update(bytes).digest('hex') }
+  })
+  return { algorithm: 'sha256-path-content-v1', value: aggregate.digest('hex'), files }
 }
 
 function buildRawObject(
@@ -380,7 +417,7 @@ export function serializeRawPackageSnapshot(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`
 }
 
-export function collectRawPackageSnapshotErrors(snapshot: RawPackageSnapshot, provenance: GameDataSourceProvenance): string[] {
+export function collectRawPackageSnapshotErrors(snapshot: RawPackageSnapshot, provenance: GameDataSourceProvenance, repositoryRoot: string): string[] {
   const errors: string[] = []
   const serialized = serializeRawPackageSnapshot(snapshot)
   if (snapshot.schemaVersion !== RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION) errors.push('Unsupported Raw package snapshot schema version')
@@ -391,6 +428,8 @@ export function collectRawPackageSnapshotErrors(snapshot: RawPackageSnapshot, pr
   if (snapshot.logicalPackage.path !== RAW_PACKAGE_PATH) errors.push('Logical package path is not the Step 3A target')
   if (JSON.stringify(snapshot.logicalPackage.sourceFiles) !== JSON.stringify(EXPECTED_RAW_PACKAGE_FILES)) errors.push('Source file size or SHA-256 does not match the expected input')
   if (snapshot.extraction.parser.id !== PARSER_ID || snapshot.extraction.parser.schemaVersion !== PARSER_SCHEMA_VERSION) errors.push('Parser identity is invalid')
+  const currentCodeIdentity = buildRawPackageCodeIdentity(repositoryRoot)
+  if (JSON.stringify(snapshot.extraction.codeIdentity) !== JSON.stringify(currentCodeIdentity)) errors.push('Extractor/parser code identity does not match the current source code')
   if (snapshot.extraction.configuration.propertySelection !== 'none') errors.push('A property selection was applied before Raw persistence')
   if (snapshot.boundaries.semanticFiltering !== 'not-applied') errors.push('Semantic filtering boundary is invalid')
   if (snapshot.boundaries.domainIdentityMapping !== 'not-applied') errors.push('Domain identity mapping boundary is invalid')
@@ -422,6 +461,7 @@ export function collectRawPackageSnapshotErrors(snapshot: RawPackageSnapshot, pr
     sourceFiles: snapshot.logicalPackage.sourceFiles,
     parser: snapshot.extraction.parser,
     configuration: snapshot.extraction.configuration,
+    codeIdentity: snapshot.extraction.codeIdentity,
   }
   if (snapshot.extraction.runId !== contentAddress(descriptor)) errors.push('Extraction run ID is not the deterministic content address')
   return [...new Set(errors)].sort()
@@ -464,6 +504,7 @@ export function renderRawPackageSnapshotReport(snapshot: RawPackageSnapshot): st
   const cdo = snapshot.package.objects.find((object) => object.extraction.state === 'decoded')
   const propertyCount = countProperties(cdo?.properties ?? [])
   const sourceRows = snapshot.logicalPackage.sourceFiles.map((source) => `| \`${source.path}\` | ${source.size} | \`${source.sha256}\` |`).join('\n')
+  const codeRows = snapshot.extraction.codeIdentity.files.map((source) => `| \`${source.path}\` | \`${source.sha256}\` |`).join('\n')
   return `# Raw Game Source package snapshot — Step 3A
 
 This generated artifact proves the first one-package Raw flow:
@@ -477,10 +518,17 @@ The only logical package in scope is \`${snapshot.logicalPackage.path}\`. The sn
 - Dataset: \`${snapshot.dataset.id}\`
 - Claimed game version: \`${snapshot.dataset.claimedGameVersion}\` (status: \`${snapshot.dataset.claimedGameVersionStatus}\`)
 - Parser: \`${snapshot.extraction.parser.id}\` schema ${snapshot.extraction.parser.schemaVersion}
+- Extractor/parser code: \`${snapshot.extraction.codeIdentity.algorithm}:${snapshot.extraction.codeIdentity.value}\`
 - Extraction run: \`${snapshot.extraction.runId}\`
 - Logical package hash: \`${snapshot.logicalPackage.contentHash.algorithm}:${snapshot.logicalPackage.contentHash.value}\`
 
-The run ID is a deterministic SHA-256 content address of the snapshot schema, dataset ID, logical package path, individual input file size/hash metadata, parser identity, and extraction configuration. No clock time or machine-specific absolute path participates.
+The run ID is a deterministic SHA-256 content address of the snapshot schema, dataset ID, logical package path, individual input file size/hash metadata, parser identity, extraction configuration, and the extractor/parser code identity below. No clock time or machine-specific absolute path participates. Parser schema version and code identity are separate checks.
+
+| Snapshot-affecting code path | SHA-256 |
+|---|---|
+${codeRows}
+
+The aggregate code fingerprint processes these sorted repository-relative paths as \`relative UTF-8 path + NUL + raw file bytes\`. CI recomputes it from the checked-out code even when local game files are absent, so code drift requires a regenerated committed snapshot.
 
 ## Input files
 

@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import type { GameDataSourceProvenance } from '../src/research/gameDataProvenance'
 import {
+  RAW_PACKAGE_CODE_PATHS, buildRawPackageCodeIdentity,
   collectRawPackageSnapshotErrors, serializeRawPackageSnapshot, type RawPackageSnapshot,
 } from '../scripts/game-data-raw-package'
 
@@ -10,11 +11,30 @@ const provenance = JSON.parse(fs.readFileSync('research/sources/game-data-source
 
 describe('Step 3A Raw package snapshot', () => {
   it('retains one complete generated package result before semantics', () => {
-    expect(collectRawPackageSnapshotErrors(snapshot, provenance)).toEqual([])
+    expect(collectRawPackageSnapshotErrors(snapshot, provenance, process.cwd())).toEqual([])
     expect(snapshot.extraction.configuration.propertySelection).toBe('none')
     expect(snapshot.boundaries.semanticFiltering).toBe('not-applied')
     expect(snapshot.boundaries.domainIdentityMapping).toBe('not-applied')
     expect(snapshot.boundaries.manualAnnotations).toBe('separate-not-included')
+  })
+
+  it('fingerprints snapshot-affecting code independently of parser schema version', () => {
+    const current = buildRawPackageCodeIdentity(process.cwd())
+
+    expect(snapshot.extraction.codeIdentity).toEqual(current)
+    expect(current.files.map((file) => file.path)).toEqual([...RAW_PACKAGE_CODE_PATHS].sort())
+    expect(current.files.every((file) => /^[a-f0-9]{64}$/.test(file.sha256))).toBe(true)
+
+    const stale = {
+      ...snapshot,
+      extraction: {
+        ...snapshot.extraction,
+        codeIdentity: { ...snapshot.extraction.codeIdentity, value: '0'.repeat(64) },
+      },
+    }
+    const staleErrors = collectRawPackageSnapshotErrors(stale, provenance, process.cwd())
+    expect(staleErrors).toContain('Extractor/parser code identity does not match the current source code')
+    expect(staleErrors).toContain('Extraction run ID is not the deterministic content address')
   })
 
   it('preserves source identity and explicit extraction states', () => {
