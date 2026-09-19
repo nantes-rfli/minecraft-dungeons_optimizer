@@ -1,4 +1,4 @@
-import coverage from '../../research/evidence-coverage-dashboard.json'
+import coverage from '../../research/analysis/evidence-coverage-dashboard.json'
 
 const category = (id: string) => {
   const item = coverage.categories.find((entry) => entry.id === id)
