@@ -8,7 +8,7 @@ As of 2026-09-19:
 
 - 100 tracked files
 - about 45.6 MB total
-- 58 files / about 41.3 MB are directly under `research/` after the Runtime Promotion and Workflow slice migrations
+- 53 files / about 41.2 MB are directly under `research/` after the Runtime Promotion, Workflow, and Runtime Support slice migrations
 - the size itself is not the problem; the main issue is that semantic role is difficult to infer from a flat root
 
 Large artifacts such as `coverage-priority.json`, `source-harvest.json`, `game-data-asset-index.json`, and the alignment / gap artifacts are active inputs or generated audit outputs. They must not be deleted or archived only because they are large.
@@ -23,7 +23,7 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 | Extracted Raw Facts | Machine-extracted facts before project semantic adoption | `game-data-inventory.json`, `game-data-asset-index.json`, `game-data-extractor-samples.json`, `game-data-bulk-harvest.json`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/` |
 | Domain / Canonical | Normalized identities, properties, mappings, and audited game-domain facts | `game-data-canonical-properties.json`, `game-data-canonical-mappings.json`, `game-data-entity-aliases.json`, semantic mappings, equipment / enchantment / artifact audit manifests |
 | Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `evidence-gap-map.json`, `evidence-coverage*.json`, `coverage-priority.json`, model differences / alignment review, comparison artifacts |
-| Runtime / Promotion | What the application may use and the gates for changing that boundary | runtime support manifests, `runtime-backlog.json`, `phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
+| Runtime / Promotion | What the application may use and the gates for changing that boundary | `runtime/melee-runtime-support.json`, `runtime/armor-runtime-support.json`, `runtime/artifact-runtime-support.json`, `runtime/runtime-backlog.json`, `phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
 | Workflow / Protocol | Acquisition and validation workflow state, not game truth itself | `measurement-protocols.json`, `workflow/phase7-research-quest.json`, `workflow/phase7-research-handoff.json`, `workflow/evidence-intake.json`, `workflow/phase8-gap-reassessment.json` |
 
 ### Secondary attributes
@@ -82,7 +82,7 @@ Use small slices with clear ownership:
 
 1. **Completed pilot: Runtime Promotion slice** — `runtime/runtime-promotion-manifest.json` + `runtime/runtime-promotion-regression.json` now live under the Runtime / Promotion layer with generator, test, docs, and stored refs updated together.
 2. **Completed: Workflow state** — Phase 7 quest/handoff and Phase 8 intake/reassessment artifacts now live under `workflow/`, with the Game Data alignment producer and Phase 8 reader updated together.
-3. **Runtime support manifests / backlog** — after UI and audit readers are inventoried.
+3. **Completed: Runtime support manifests / backlog** — melee / armor / artifact support manifests, Armor core runtime audit, and the structured backlog now live under `runtime/`, with Core, Coverage, audit, docs, and tests updated together.
 4. **Coverage / Gap / Priority chain** — move as a connected pipeline, not file by file, because the generators share artifacts.
 5. **Large game-data chain** — last. Inventory → extraction → semantic mapping → alignment → gap reconciliation has many hard-coded paths and large generated outputs.
 

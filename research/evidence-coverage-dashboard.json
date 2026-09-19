@@ -58,7 +58,7 @@
       },
       "sourceRefs": [
         "research/melee-enchantment-audit.json",
-        "research/melee-runtime-support.json"
+        "research/runtime/melee-runtime-support.json"
       ]
     },
     {
@@ -89,7 +89,7 @@
       },
       "sourceRefs": [
         "research/artifact-audit.json",
-        "research/artifact-runtime-support.json",
+        "research/runtime/artifact-runtime-support.json",
         "research/artifact-evidence/evidence-decisions.json",
         "research/artifact-evidence/published-samples.json",
         "research/artifact-evidence/sources.json",
@@ -124,7 +124,7 @@
       },
       "sourceRefs": [
         "research/armor-audit.json",
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "research/armor-health-audit.json"
       ]
     },
@@ -156,7 +156,7 @@
       },
       "sourceRefs": [
         "research/armor-enchantment-audit.json",
-        "research/armor-core-runtime-audit.json",
+        "research/runtime/armor-core-runtime-audit.json",
         "research/armor-expansion-state-enchant-audit.json",
         "src/data/armors.ts"
       ]
@@ -301,8 +301,8 @@
       "description": "Battle Robe + Cool Down、external合成、multi-copy",
       "closeCondition": "current internal式または再現可能なcooldown trace",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/23",
-        "research/armor-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/23",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ],
@@ -322,8 +322,8 @@
       "description": "Iron Hide / Guarding / Weakeningとの一般式、Protection併用",
       "closeCondition": "current traceで各family/orderを検証",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/22",
-        "research/armor-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/22",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ],
@@ -342,8 +342,8 @@
       "description": "Power fallbackなし",
       "closeCondition": "210–263のversion/roll付きcurve検証時だけfallback追加",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/21",
-        "research/armor-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/21",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ],
@@ -366,8 +366,8 @@
       "description": "Void併用",
       "closeCondition": "各eventの増幅・消費・reset/reapply・kill traceを独立確認",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/13",
-        "research/melee-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/13",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
       "supportContext": "limited"
@@ -387,8 +387,8 @@
       "description": "8 modifierとPain併用",
       "closeCondition": "各pairのflat bonus増幅順・direct/AoE/kill資格・consume traceを測定",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/17",
-        "research/melee-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/17",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
       "supportContext": "limited"
@@ -408,8 +408,8 @@
       "description": "8 modifierとDynamo併用",
       "closeCondition": "各pairの加算/乗算・critical対象・Void timing・同時consumeを測定。Tier混合も検証",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/16",
-        "research/melee-runtime-support.json",
+        "research/runtime/runtime-backlog.json#/entries/16",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ],
       "supportContext": "limited"
@@ -430,7 +430,7 @@
       "description": "公開の現行版cadence・charge/recovery分離・独立DPS regressionなし。Power fallbackなし。",
       "closeCondition": "1.17.0.0で装備/neutral card/shot mode/全frame/矢数が揃う複数archetype各3独立run。chargeとrecoveryを別に確認。",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/0",
+        "research/runtime/runtime-backlog.json#/entries/0",
         "research/ranged-weapon-audit.json",
         "docs/ranged-runtime.md"
       ],
@@ -452,7 +452,7 @@
       "description": "Void/DoT/Soul、Armor ranged bonus/aura/Life Steal/Cowardice、特殊矢とroll",
       "closeCondition": "baseline・単独・pairを比較した1.17.0.0のchannel別damage/proc/kill帰属、stacking、Tier/sourceの独立trace。",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/2",
+        "research/runtime/runtime-backlog.json#/entries/2",
         "docs/ranged-runtime.md",
         "research/ranged-enchantment-audit.json"
       ],
@@ -472,7 +472,7 @@
       "description": "複数矢・貫通・跳弾・爆発のdamage配分、proc対象、弾消費が未検証",
       "closeCondition": "Scatter/Burst/Exploding等で1入力→射数→projectile→target damage→ammoを分離した現行版raw traceと実装。",
       "sourceRefs": [
-        "research/runtime-backlog.json#/entries/1",
+        "research/runtime/runtime-backlog.json#/entries/1",
         "research/ranged-weapon-audit.json",
         "research/ranged-enchantment-audit.json"
       ],

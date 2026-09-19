@@ -105,7 +105,7 @@
         "backlog:armor-cooldown"
       ],
       "sourceRefs": [
-        "research/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition",
+        "research/runtime/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition",
         "research/armor-expansion-state-enchant-audit.json#/cooldownStacking"
       ]
     },
@@ -153,7 +153,7 @@
         "backlog:armor-dr"
       ],
       "sourceRefs": [
-        "research/armor-core-runtime-audit.json#/decisions/damageReductionComposition",
+        "research/runtime/armor-core-runtime-audit.json#/decisions/damageReductionComposition",
         "research/armor-expansion-state-enchant-audit.json#/armorEnchantments",
         "docs/armor-runtime-batch.md"
       ]

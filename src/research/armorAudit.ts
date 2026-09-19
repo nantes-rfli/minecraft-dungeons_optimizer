@@ -1,6 +1,6 @@
 import armorAuditJson from '../../research/armor-audit.json'
 import armorHealthAuditJson from '../../research/armor-health-audit.json'
-import armorSupportJson from '../../research/armor-runtime-support.json'
+import armorSupportJson from '../../research/runtime/armor-runtime-support.json'
 import { ARMOR_INTRINSIC_PROPERTY_KINDS } from '../core/armor'
 import { ARMORS } from '../data/armors'
 

@@ -1,4 +1,4 @@
-import auditJson from '../../research/armor-core-runtime-audit.json'
+import auditJson from '../../research/runtime/armor-core-runtime-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 
 export const ARMOR_CORE_RUNTIME_AUDIT = auditJson

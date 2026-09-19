@@ -8,13 +8,13 @@ import { buildMeasurementProtocols, markdownSection, resolveProtocolCloseConditi
 import { collectBacklogMigrationErrors, readTableRows, renderBacklogTable, RUNTIME_BACKLOG } from '../src/research/evidenceCoverage/backlog'
 import { DataCoverageSection } from '../src/views/DataCoverage'
 import type { JsonValue } from '../src/research/evidenceCoverage/model'
-import backlogJson from '../research/runtime-backlog.json'
+import backlogJson from '../research/runtime/runtime-backlog.json'
 
 const adapters = buildCoverageAdapters()
 const snapshot = buildEvidenceCoverage(adapters)
 const modelDoc = fs.readFileSync(new URL('../docs/model-regression.md', import.meta.url), 'utf8')
 const protocols = buildMeasurementProtocols(modelDoc, '1.17.0.0')
-const sourceDocuments: Readonly<Record<string, JsonValue>> = { ...COVERAGE_SOURCE_DOCUMENTS, 'research/runtime-backlog.json': backlogJson }
+const sourceDocuments: Readonly<Record<string, JsonValue>> = { ...COVERAGE_SOURCE_DOCUMENTS, 'research/runtime/runtime-backlog.json': backlogJson }
 const resolve = (ref: string) => {
   const [file, fragment] = ref.split('#')
   if (!file || !fs.existsSync(new URL(`../${file}`, import.meta.url))) return { valid: false }

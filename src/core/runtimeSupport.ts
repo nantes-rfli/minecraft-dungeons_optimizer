@@ -1,4 +1,4 @@
-import manifest from '../../research/melee-runtime-support.json'
+import manifest from '../../research/runtime/melee-runtime-support.json'
 import { runtimeSupportSummaryDataText, summarizeRuntimeSupportData } from '../research/runtimeSupportSummary'
 
 export const RUNTIME_SUPPORT_LEVELS = ['full', 'limited', 'research-only'] as const
