@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -67,10 +69,33 @@ jobs:
       - run: npx tsc -b
       - run: npm run lint
       - run: npm run build
+      - name: Decide whether E2E is needed
+        id: e2e
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          changed_files="$(git diff --name-only HEAD^ HEAD)"
+          if [[ -n "$changed_files" ]] && ! grep -Evq '\.md        with:
+          name: browser-validation
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+ <<< "$changed_files"; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
       - run: npx playwright install --with-deps chromium
+        if: steps.e2e.outputs.run == 'true'
       - run: npm run test:e2e
+        if: steps.e2e.outputs.run == 'true'
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.e2e.outputs.run == 'true'
         with:
           name: browser-validation
           path: |
