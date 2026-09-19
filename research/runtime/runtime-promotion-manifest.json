@@ -21,7 +21,7 @@
       "gameVersion": "1.17.0.0",
       "valueStatus": "known",
       "regression": "not-run",
-      "regressionRef": "research/runtime-promotion-regression.json#/targets/0",
+      "regressionRef": "research/runtime/runtime-promotion-regression.json#/targets/0",
       "regressionGameVersion": "1.17.0.0",
       "regressionSourceRef": null,
       "blockers": [

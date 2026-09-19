@@ -1,6 +1,6 @@
 # Runtime Promotion Pipeline
 
-P3で固定した、parameter / mechanic単位のruntime昇格契約。正本は[machine-readable manifest](../research/runtime-promotion-manifest.json)。
+P3で固定した、parameter / mechanic単位のruntime昇格契約。正本は[machine-readable manifest](../research/runtime/runtime-promotion-manifest.json)。
 
 ## Current state
 
@@ -8,7 +8,7 @@ Candidate 1 · Eligible 0 · Promoted 0。現在は昇格可能な対象がな�
 
 | Target | Kind | Adoption | Regression | Eligibility | Reasons | Sources |
 | --- | --- | --- | --- | --- | --- | --- |
-| defense.damage-taken-composition | mechanic | held | not-run | ineligible | adoption-held<br>regression-not-run<br>blocker:insufficient-independent-holdout:baseline<br>blocker:insufficient-independent-holdout:armor-35<br>blocker:insufficient-independent-holdout:iron-hide<br>blocker:insufficient-independent-holdout:guarding-strike<br>blocker:insufficient-independent-holdout:armor-iron<br>blocker:insufficient-independent-holdout:armor-guarding<br>blocker:insufficient-independent-holdout:iron-guarding<br>blocker:insufficient-independent-holdout:armor-iron-guarding<br>blocker:no-eligible-independent-raw-trace | [decision](../research/phase8c-limited-dr-validation.json#/adoptionDecision) · [regression](../research/runtime-promotion-regression.json#/targets/0) |
+| defense.damage-taken-composition | mechanic | held | not-run | ineligible | adoption-held<br>regression-not-run<br>blocker:insufficient-independent-holdout:baseline<br>blocker:insufficient-independent-holdout:armor-35<br>blocker:insufficient-independent-holdout:iron-hide<br>blocker:insufficient-independent-holdout:guarding-strike<br>blocker:insufficient-independent-holdout:armor-iron<br>blocker:insufficient-independent-holdout:armor-guarding<br>blocker:insufficient-independent-holdout:iron-guarding<br>blocker:insufficient-independent-holdout:armor-iron-guarding<br>blocker:no-eligible-independent-raw-trace | [decision](../research/phase8c-limited-dr-validation.json#/adoptionDecision) · [regression](../research/runtime/runtime-promotion-regression.json#/targets/0) |
 
 ## Independent gates
 
