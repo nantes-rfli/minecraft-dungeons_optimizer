@@ -92,7 +92,7 @@ export const PHASE8_EVIDENCE_RECORDS: readonly EvidenceIntakeRecord[] = [
 export function buildPhase8Artifacts() {
   const repository = buildEvidenceRepository(PHASE8_EVIDENCE_RECORDS)
   const aligned = read('research/game-data-aligned-gap-disposition.json') as { records: { gapId: string; disposition: string; reconciliationStatus: string }[] }
-  const handoff = read('research/phase7-research-handoff.json') as { summary: Record<string, number>; records: { gapId: string }[] }
+  const handoff = read('research/workflow/phase7-research-handoff.json') as { summary: Record<string, number>; records: { gapId: string }[] }
   const remaining = aligned.records.filter((record) => record.reconciliationStatus !== 'closed')
   const records = remaining.map(reassessPhase8Gap)
   const dispositions = ['external-resolved', 'limited-measurement', 'implementation-missing', 'hold'] as const
@@ -143,8 +143,8 @@ assert.equal(reassessment.selectedUnit.outcome, 'hold')
 assert.deepEqual(reassessment.selectedUnit.independentEvidenceRecordIds, [])
 
 const outputs = new Map([
-  ['research/evidence-intake.json', repositoryText],
-  ['research/phase8-gap-reassessment.json', `${JSON.stringify(reassessment, null, 2)}\n`],
+  ['research/workflow/evidence-intake.json', repositoryText],
+  ['research/workflow/phase8-gap-reassessment.json', `${JSON.stringify(reassessment, null, 2)}\n`],
   ['docs/phase8-evidence-intake.md', phase8Report],
 ])
 if (process.argv.includes('--write')) for (const [file, contents] of outputs) fs.writeFileSync(path.join(repositoryRoot, file), contents)
