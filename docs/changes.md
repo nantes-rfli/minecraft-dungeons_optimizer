@@ -8,6 +8,7 @@ Git commit historyを変更追跡の正本とします。ここには意味の�
 - 自前測定のraw record / SHA-256と外部EvidenceのURL / SHA-256を同じ受入契約へ渡し、run identityとoriginを分離。
 - Evidence Repositoryと固定済みvalidation gateへJSONで受け渡せるようにし、実データと同形式のintegration testを追加。
 - 実ユーザーの観測値はGitへ保存せず、eligible independent holdout 0のためruntime昇格・新規Gap closeはなし。
+
 ## 2026-09-09 — 外部研究優先とPhase 6.9再設計初版
 
 - Phase 6.8D/Eのnative解析を未完了のまま保留し、外部研究・条件照合・残余検証を優先する方針へ変更。
