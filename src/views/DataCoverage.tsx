@@ -1,4 +1,4 @@
-import coverage from '../../research/evidence-coverage-dashboard.json'
+import coverage from '../../research/analysis/evidence-coverage-dashboard.json'
 
 const sourceUrl = (ref: string) => `https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/${ref.split('#')[0]}`
 
