@@ -19,4 +19,4 @@ const extract = (file: string, kind: 'weapons' | 'enchantments') => {
     provenance: 'Publisher claims extraction from game files; this project did not independently inspect game binaries.',
     htmlSha256: createHash('sha256').update(html).digest('hex'), rows }
 }
-fs.writeFileSync('research/ranged-source-snapshot.json', JSON.stringify({ schemaVersion: 1, weapons: extract(weaponsFile, 'weapons'), enchantments: extract(enchantsFile, 'enchantments') }, null, 2) + '\n')
+fs.writeFileSync('research/sources/ranged-source-snapshot.json', JSON.stringify({ schemaVersion: 1, weapons: extract(weaponsFile, 'weapons'), enchantments: extract(enchantsFile, 'enchantments') }, null, 2) + '\n')
