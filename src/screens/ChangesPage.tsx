@@ -1,5 +1,26 @@
 import { hrefFor } from '../app/routes'
+import { CHANGE_ENTRIES } from '../data/changes'
 
 export function ChangesPage() {
-  return <main id="main-content" tabIndex={-1} className="page-main narrow-page"><header className="page-intro"><p className="eyebrow">CHANGELOG</p><h1>変更履歴</h1><p>意味のあるPhase単位の変更を記録します。Git履歴が詳細の正本です。</p></header><section className="timeline"><article><time>2026-09</time><div><h2>Phase 7 — Personal Research Quest</h2><p>所持装備に合う限定DR調査、途中保存、条件別進捗、8A/8Cへ渡せるraw trace JSONを追加しました。</p></div></article><article><time>2026-09</time><div><h2>Phase 3.5 — Personal UX Refinement</h2><p>装備・最適化・データ・モデル・保存を分離し、日常操作に必要な情報から段階的に見られる構成へ変更しました。</p></div></article><article><time>2026-09</time><div><h2>Phase 3 — Public Use Readiness</h2><p>Workerでの開始・中止、性能fixture、主要操作E2E、a11y監査、Evidence更新手順を整備しました。</p></div></article><article><time>2026-09</time><div><h2>Ranged observed-value MVP</h2><p>Bow / CrossbowのLimited runtime、遠距離観測入力、JSON schema v2を追加しました。</p></div></article></section><section className="about-card"><h2>このツールについて</h2><p>手持ち装備を、根拠と制限を明示した計算モデルで比較する個人用ツールです。Minecraft、Mojang、Microsoftの公式ツールではありません。</p><p><a href={hrefFor('/data')}>データを見る</a> · <a href={hrefFor('/model')}>モデルを見る</a> · <a href="https://github.com/nantes-rfli/minecraft-dungeons_optimizer" target="_blank" rel="noreferrer">GitHub</a></p></section></main>
+  return <main id="main-content" tabIndex={-1} className="page-main narrow-page">
+    <header className="page-intro">
+      <p className="eyebrow">CHANGELOG</p>
+      <h1>変更履歴</h1>
+      <p>意味のある変更を簡潔に記録します。Git履歴が詳細の正本で、この一覧は <code>docs/changes.md</code> から表示しています。</p>
+    </header>
+    <section className="timeline">
+      {CHANGE_ENTRIES.map((entry) => <article key={`${entry.date}:${entry.title}`}>
+        <time>{entry.date}</time>
+        <div>
+          <h2>{entry.title}</h2>
+          {entry.bullets.length > 0 && <ul>{entry.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
+        </div>
+      </article>)}
+    </section>
+    <section className="about-card">
+      <h2>このツールについて</h2>
+      <p>手持ち装備を、根拠と制限を明示した計算モデルで比較する個人用ツールです。Minecraft、Mojang、Microsoftの公式ツールではありません。</p>
+      <p><a href={hrefFor('/data')}>データを見る</a> · <a href={hrefFor('/model')}>モデルを見る</a> · <a href="https://github.com/nantes-rfli/minecraft-dungeons_optimizer/blob/main/docs/changes.md" target="_blank" rel="noreferrer">Changes document</a> · <a href="https://github.com/nantes-rfli/minecraft-dungeons_optimizer" target="_blank" rel="noreferrer">GitHub</a></p>
+    </section>
+  </main>
 }

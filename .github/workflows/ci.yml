@@ -64,6 +64,7 @@ jobs:
       - run: npm run audit:dr-modifier-comparison
       - run: npm run audit:scenario-optimizer-comparison
       - run: npm run audit:runtime-promotion
+      - run: npm run audit:roadmap
       - run: npm test
       - run: git diff --exit-code -- README.md ROADMAP.md docs research
       - run: npx tsc -b

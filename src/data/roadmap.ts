@@ -23,11 +23,11 @@ export interface FutureCandidate {
 export const ROADMAP_TRACKS: Readonly<Record<RoadmapTrackId, { readonly title: string; readonly goal: string }>> = {
   research: {
     title: 'Research Track',
-    goal: 'Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。',
+    goal: 'Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。Runtime実装そのものはこのTrackの完了条件に含めない。',
   },
   product: {
     title: 'Product Track',
-    goal: '現在利用可能なEvidenceを安全な境界で製品へ反映し、実用性を高める。',
+    goal: '現在利用可能なEvidenceを安全な境界で製品へ反映し、coverage・推薦品質・説明・UXを改善する。Research全体の完了を待たず、eligibleな単位だけを扱う。',
   },
 }
 
@@ -120,7 +120,7 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     goal: 'parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。',
     dependsOn: ['P2'],
     unlocks: ['P3B', 'P4'],
-    completionCriteria: '未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられる。',
+    completionCriteria: '未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化して安全に受け入れられる。',
   },
   {
     id: 'P3B',
@@ -139,7 +139,7 @@ export const ROADMAP_WORK_UNITS: readonly RoadmapWorkUnit[] = [
     track: 'product',
     title: 'Runtime Coverage Expansion',
     status: 'next',
-    goal: 'P3Bを通過した小さい単位ごとにruntime coverageを拡張する。',
+    goal: 'P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。',
     dependsOn: ['P3B'],
     dependencyCondition: '対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み',
     unlocks: ['P5'],

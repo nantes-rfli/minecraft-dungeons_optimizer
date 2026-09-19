@@ -8,11 +8,9 @@
 
 ## Current State
 
-- Catalog / Inventory / Runtime / Evidenceの分離、parameter-level Evidence classification、Evidence-aware optimizer boundaryは実装済み。
-- Research Quest、Evidence Repository、game data research artifacts、validation / audit infrastructureは実装済み。
-- Researchでは独立raw trace取得を継続する。限定DRのeligible independent holdoutは0 run / 0 hitで、AdoptionDecisionは保留。
-- ProductではRuntime Promotion Pipelineの基盤を実装済み。現時点でpromotion eligibleなparameter / mechanicは0件で、今回runtime promotionは行わない。
-- runtime / Inventory / Evidence truth / optimizer scoreはこのRoadmap rebaselineで変更しない。
+Work UnitのTrack・status・dependency・completion condition・next actionは `src/data/roadmap.ts` を正本とし、下のWork Unitsへ自動反映する。ROADMAP.md側では同じ進捗情報を手書きで重複管理しない。
+
+runtime / Inventory / Evidence truth / optimizer scoreはRoadmap更新だけでは変更しない。現在のruntime coverageは各manifest / auditの生成summaryを参照する。
 
 ### Runtime coverage snapshot
 
@@ -26,57 +24,110 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 
 Armorは監査母集団73件中7件、Armor Enchantは41件中7件をLimited runtime対応。RangedはBow / Crossbowと3 Enchantを観測入力付きLimited runtime対応。カテゴリごとに意味と母集団が異なるため、横断の総合percentageは表示しない。
 
-## Research Track
+<!-- roadmap-data:start -->
+## Work Units
 
-目的: Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。Runtime実装そのものはこのTrackの完了条件に含めない。
+Generated from `src/data/roadmap.ts`. Do not edit this block directly.
 
-### Done
+### Research Track
 
-- **R1 — Research Infrastructure**: Source Harvest、Gap Map、Priority、game-file artifact、Research Quest、Evidence Repository、validation / auditを再現可能にする。完了条件: checked-in artifactから監査を再実行でき、raw traceとadoption decisionをruntimeから分離できること。
+Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。Runtime実装そのものはこのTrackの完了条件に含めない。
 
-### Current
+#### Done
 
-- **R2 — Evidence Acquisition**: Personal Research Quest、独立raw trace、Measure / Experimentを優先度順に取得する。依存: R1。完了条件: 対象parameterごとにversion・conditions・unit・run identityを備えた独立Evidenceを保存できること。次のaction: Limited DRの8条件を別runとして取得する。
+- **R1 — Research Infrastructure**: Source Harvest、Gap Map、Priority、game-file artifact、Research Quest、Evidence Repository、validation / auditを再現可能にする。
+  - Unlocks: R2, R3
+  - Completion: checked-in artifactから監査を再実行でき、raw traceとadoption decisionをruntimeから分離できる。
 
-### Next
+#### Current
 
-- **R3 — Evidence Validation / Adoption**: 取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。参照: R2。実行条件: 対象parameter / mechanicについて独立Evidenceが取得済み。unlocks: Product P3B。完了条件: accepted / rejected / heldと理由が再現可能で、未検証値を昇格対象にしないこと。
+- **R2 — Evidence Acquisition**: Personal Research Quest、独立raw trace、Measure / Experimentを優先度順に取得する。
+  - Depends on: R1
+  - Unlocks: R3
+  - Completion: 対象parameterごとにversion・conditions・unit・run identityを備えた独立Evidenceを保存できる。
+  - Next: Limited DRの8条件を別runとして取得する。
 
-### Blocked
+#### Next
 
-- **R3B — Limited DR Adoption Decision**: 独立raw trace不足で保留。再開条件: 1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得し、固定済みgateを変更せず再監査できること。
+- **R3 — Evidence Validation / Adoption**: 取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。
+  - Depends on: R2
+  - Entry condition: 対象parameter / mechanicについて独立Evidenceが取得済み
+  - Unlocks: P3B
+  - Completion: accepted / rejected / heldと理由が再現可能で、未検証値を昇格対象にしない。
 
-### Later
+#### Blocked
 
-- **R4 — Targeted Deep Research**: 外部観測でも解けないruntime-relevantな問いに限りnative計算・effective timingを追加調査する。参照: R2, R3。実行条件: R2 / R3で追加のnative調査が必要と判断された対象に限る。
-- **R5 — Evidence Maintenance / Version Drift**: source revision、game version、conflict、採用済みEvidenceのdriftを監視し、再検証条件を明確にする。
+- **R3B — Limited DR Adoption Decision**: 固定済みの独立holdout gateでLimited DRの採用可否を判断する。
+  - Depends on: R2
+  - Unlocks: P3B
+  - Completion: 1.17.0.0、同一incoming hit、全8条件、3独立run×各10 hit以上を取得し、gateを変えず再監査できる。
+  - Next: 独立raw traceの取得を待つ。
 
-## Product Track
+#### Later
 
-目的: 現在利用可能なEvidenceを安全な境界で製品へ反映し、coverage・推薦品質・説明・UXを改善する。Research全体の完了を待たず、eligibleな単位だけを扱う。
+- **R4 — Targeted Deep Research**: 外部観測でも解けないruntime-relevantな問いに限りnative計算・effective timingを追加調査する。
+  - Depends on: R2, R3
+  - Entry condition: R2 / R3で追加のnative調査が必要と判断された対象に限る
+  - Completion: 対象の問い、停止条件、runtime relevanceを先に固定し、推測値を生成せず結論を記録する。
 
-### Done
+- **R5 — Evidence Maintenance / Version Drift**: source revision、game version、conflict、採用済みEvidenceのdriftを追跡する。
+  - Depends on: R1
+  - Completion: drift検出と再検証条件がparameter単位で記録される。
 
-- **P1 — Catalog / Inventory Foundation**: runtime未対応の監査済み装備を所持品とResearch対象として保持し、Optimizer候補へ混ぜない。完了条件: 保存・JSON移行・装備カテゴリ入力が既存回帰を維持すること。
-- **P2 — Evidence-aware Runtime Boundary**: Full / Limited / Research-onlyとEvidence Statusを分離し、Unknown / Estimatedを0や1へ代替しない。完了条件: 利用者がEvidence適用方針と制限理由を確認できること。
-- **P3 — Runtime Promotion Pipeline Foundation**: parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化した。参照: [pipeline contract](./docs/runtime-promotion-pipeline.md)。
+### Product Track
 
-### Current
+現在利用可能なEvidenceを安全な境界で製品へ反映し、coverage・推薦品質・説明・UXを改善する。Research全体の完了を待たず、eligibleな単位だけを扱う。
 
-- eligibleなruntime promotion対象なし。Product TrackはP3Bの再開条件を待ちながら、P2で利用可能なruntime scopeを維持する。
+#### Done
 
-### Next
+- **P1 — Catalog / Inventory Foundation**: runtime未対応の監査済み装備を所持品とResearch対象として保持し、Optimizer候補へ混ぜない。
+  - Unlocks: P2, P4
+  - Completion: 保存・JSON移行・装備カテゴリ入力が既存回帰を維持する。
 
-- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。参照: P3B。実行条件: 対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み。巨大な全装備Promotion Phaseは作らない。
+- **P2 — Evidence-aware Runtime Boundary**: Full / Limited / Research-onlyとEvidence Statusを分離し、Unknown / Estimatedを0や1へ代替しない。
+  - Depends on: P1
+  - Unlocks: P3
+  - Completion: 利用者がEvidence適用方針と制限理由を確認できる。
 
-### Blocked
+- **P3 — Runtime Promotion Pipeline Foundation**: parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。
+  - Depends on: P2
+  - Unlocks: P3B, P4
+  - Completion: 未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化して安全に受け入れられる。
 
-- **P3B — First Eligible Runtime Promotion**: R3でacceptedになった最初の1 parameter / mechanicをEnd-to-Endで昇格し、reference implementationにする。参照: P3, R3。実行条件: 対象parameter / mechanicがR3でaccepted。完了条件: 同一変更でruntime、manifest、説明、coverage、regressionが同期し、既存挙動を保護すること。actual promotion targetはまだeligibleではないが、P3の基盤整備は進行可能であり、Product Track全体は停止しない。
+#### Next
 
-### Later
+- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。
+  - Depends on: P3B
+  - Entry condition: 対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み
+  - Unlocks: P5
+  - Completion: 追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。
+
+#### Blocked
+
+- **P3B — First Eligible Runtime Promotion**: R3でacceptedになった最初の1 parameter / mechanicをEnd-to-Endで昇格し、reference implementationにする。
+  - Depends on: P3, R3
+  - Entry condition: 対象parameter / mechanicがR3でaccepted
+  - Unlocks: P4
+  - Completion: 同一変更でruntime、manifest、説明、coverage、regressionが同期し、既存挙動を保護する。
+  - Next: eligible targetなし。P3の基盤整備を継続し、acceptedな対象を待つ。
+
+#### Later
 
 - **P5 — Recommendation / Optimizer Quality**: available runtime scope内でobjective、scoring、推薦品質、説明を改善する。
+  - Depends on: P2
+  - Completion: 変更した目的・順位・説明を代表fixtureと回帰で検証できる。
+
 - **P6 — Product UX / Public-use Readiness**: Inventory workflow、UX、performance、regression、本人実利用での有用性を継続改善する。
+  - Depends on: P1, P2
+  - Completion: 主要フローがaccessibility・performance・E2E基準を満たし、公開判断は別途明示される。
+
+### Future Candidates
+
+- **Optimizer Engine Generalization**: Dungeons 1で実証後、必要になった境界だけを段階的に分離する。
+- **New Drop Comparison / Keep-Salvage**: 新しく拾った装備を仮追加し、現在Bestとの差と残す価値を判断する。
+- **Public Availability**: 本人実利用でCoverageとUXが十分に有用だと確認できた時点で再判断する。
+- **Minecraft Dungeons II / other future game support**: 新しいゲーム要件が具体化した時点でResearchまたはProductへ正式移行する。
+<!-- roadmap-data:end -->
 
 ## Cross-track Handoff
 
@@ -91,31 +142,6 @@ Research Evidence
 
 handoffはparameter / mechanic単位で行う。Track全体の完了、Full / Limited分類、既存runtimeであることのいずれからもEvidence Statusを推定しない。
 
-## Recommended Execution Order
-
-1. このRoadmap rebaselineを正本として固定する。
-2. R2 Evidence AcquisitionとP3 Pipeline Foundationを並行して進める。
-3. Evidenceが得られた対象だけをR3でvalidation / adoptionする。
-4. 最初のeligible対象をP3BでEnd-to-End promotionし、監査可能なreference implementationにする。
-5. Research acquisition → adoption → runtime promotion → regression / coverageを小さい単位で反復する。
-6. available runtime scopeに応じてP4/P5/P6を継続し、未解決Researchの全完了を待たない。
-
-## Blocked / Waiting
-
-- Limited DR AdoptionDecision: 独立raw trace待ち。
-- First Eligible Runtime Promotion: acceptedなparameter / mechanic待ち。
-- native / effective timing調査: 外部観測で解けない重要課題が特定されるまで条件付き保留。
-- Public Availability: 本人実利用でcoverageとUXの有用性を確認するまで保留。
-
-## Future Candidates
-
-以下はCurrent Trackへ自動追加しない。実施決定後にResearchまたはProductのwork unitへ移す。
-
-- Optimizer Engine Generalization
-- New Drop Comparison / Keep-Salvage
-- Public Availability
-- Minecraft Dungeons II / other future game support
-
 ## Document Links
 
 - [Historical Roadmap](./docs/historical-roadmap.md)
@@ -129,7 +155,8 @@ handoffはparameter / mechanic単位で行う。Track全体の完了、Full / Li
 
 ## Update Rules
 
-- work unitごとにTrack、status、dependency、completion condition、next actionを更新する。
+- Work Unitの変更は `src/data/roadmap.ts` だけを編集し、`npm run generate:roadmap` でこの文書へ反映する。
+- CIの `npm run audit:roadmap` でWork Unitsのdriftとdependency graphを検証する。
 - Research / Productは個別にDone / Current / Next / Blocked / Laterを管理する。
 - Historical Phaseを現行進捗へ戻さず、作業量の異なるTrackを合算percentageにしない。
 - 未対応効果を0点としてOptimizerへ登録しない。runtime / Evidence truthを変える変更はRoadmap更新と分離する。
