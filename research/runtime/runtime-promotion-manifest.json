@@ -16,7 +16,7 @@
     {
       "targetId": "defense.damage-taken-composition",
       "targetKind": "mechanic",
-      "decisionRef": "research/phase8c-limited-dr-validation.json#/adoptionDecision",
+      "decisionRef": "research/runtime/phase8c-limited-dr-validation.json#/adoptionDecision",
       "outcome": "held",
       "gameVersion": "1.17.0.0",
       "valueStatus": "known",
