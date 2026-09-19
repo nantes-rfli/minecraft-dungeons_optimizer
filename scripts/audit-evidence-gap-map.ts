@@ -22,7 +22,7 @@ try {
   const generated = {
     'research/evidence-gap-map.json': json(map),
     'docs/evidence-gap-map.md': gapModule.renderEvidenceGapMap(map),
-    'research/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
+    'research/workflow/measurement-protocols.json': json({ schemaVersion: 2, protocols }),
     'docs/measurement-protocols.md': `${gapModule.renderPhase5ProtocolReport(protocols)}\n---\n\n${reportModule.renderProtocolReport(legacyProtocols, coverage.blockers)}`,
   }
   if (json(map) !== json(gapModule.buildEvidenceGapMap())) errors.push('Evidence Gap Map generation is not deterministic')
