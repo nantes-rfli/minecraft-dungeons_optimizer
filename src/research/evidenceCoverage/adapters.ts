@@ -134,7 +134,7 @@ function ranged(category: 'ranged-weapon' | 'ranged-enchantment'): CoverageAdapt
       verificationStatus: entry.currentVersionApplicability, sampleCount: weapon ? RANGED_WEAPON_AUDIT.selection.independentMeasuredRuns : null,
       powerCoverage: weapon ? { policy: 'user-observed neutral projectile damage + complete cycle; no Power fallback', curveAvailable: false } : { policy: 'tier mechanics, ranged-specific, no melee reuse' } }))
   return { category, label: weapon ? 'Ranged weapon / attack profile' : 'Ranged enchantment', populationDefinition: audit.population.definition,
-    sourceRefs: [path, 'research/ranged-source-snapshot.json', runtimePath], records,
+    sourceRefs: [path, 'research/sources/ranged-source-snapshot.json', runtimePath], records,
     blockers: records.flatMap((item, index) => limitations(item, audit.entries[index]!.blockers, pointer(path, 'entries', index))),
     details: { populationReconciliation: audit.population, taxonomyScope: 'Weapon audit owns projectile/attack/intrinsic facts; no duplicate profile denominator.', phaseStatus: 'partial', independentGameVerification: false } }
 }
