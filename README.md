@@ -77,6 +77,7 @@ Catalogに存在すること、ユーザーが所持していること、runtime
 - [Catalog / Inventory / Runtime / Evidence separation](./docs/catalog-evidence-runtime-separation.md)
 - [Evidence Model ADR](./docs/adr/0001-external-evidence-model-redesign.md)
 - [Runtime Promotion Pipeline](./docs/runtime-promotion-pipeline.md)
+- [Raw package snapshot — Step 3A](./docs/game-data-raw-package-snapshot.md)
 - [Game Data Model Alignment](./docs/game-data-model-alignment.md)
 - [Canonical Game Data Properties](./docs/game-data-canonical-properties.md)
 

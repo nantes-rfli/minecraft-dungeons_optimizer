@@ -20,6 +20,7 @@ export class BinaryReadError extends Error {
 export class BinaryReader {
   private readonly view: DataView
   private position: number
+  private readonly baseOffset: number
   readonly bytes: Uint8Array
   readonly label: string
 
@@ -27,16 +28,22 @@ export class BinaryReader {
     bytes: Uint8Array,
     offset = 0,
     label = 'binary input',
+    baseOffset = 0,
   ) {
     this.bytes = bytes
     this.label = label
     this.view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
     this.position = offset
+    this.baseOffset = baseOffset
     this.assertRange(offset, 0)
   }
 
   tell(): number {
     return this.position
+  }
+
+  absoluteTell(): number {
+    return this.baseOffset + this.position
   }
 
   remaining(): number {
@@ -131,7 +138,8 @@ export class BinaryReader {
   }
 
   subReader(length: number, label = this.label): BinaryReader {
-    return new BinaryReader(this.readBytes(length), 0, label)
+    const baseOffset = this.absoluteTell()
+    return new BinaryReader(this.readBytes(length), 0, label, baseOffset)
   }
 
   private assertReadable(length: number): void {

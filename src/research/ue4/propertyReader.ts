@@ -1,12 +1,28 @@
 import { BinaryReadError, BinaryReader } from './binaryReader.ts'
 import { PackageObjectResolver } from './objectResolver.ts'
 import type { JsonValue } from '../gameDataProvenance.ts'
-import type { ParsedProperty, UeDiagnostic, UeFName, UeNameEntry } from './packageTypes.ts'
+import type { BinaryByteRange, ParsedProperty, UeDiagnostic, UeFName, UeNameEntry } from './packageTypes.ts'
 
 interface PropertyMetadata {
   structType?: string
+  structTypeReference?: UeFName
+  structGuid?: string
   innerType?: string
+  innerTypeReference?: UeFName
   enumType?: string
+  enumTypeReference?: UeFName
+  boolValue?: boolean
+  mapKeyTypeReference?: UeFName
+  mapValueTypeReference?: UeFName
+  arrayStruct?: {
+    wrapperName: UeFName
+    wrapperType: UeFName
+    wrapperSerializedSize: number
+    wrapperArrayIndex: number
+    structType: UeFName
+    structGuid: string
+    propertyGuid?: string
+  }
 }
 
 class UnsupportedPropertyMetadataError extends Error {
@@ -30,6 +46,9 @@ export interface PropertyReadResult {
   readonly properties: readonly ParsedProperty[]
   readonly diagnostics: readonly UeDiagnostic[]
   readonly terminated: boolean
+  readonly byteRange: BinaryByteRange
+  readonly terminatorByteRange?: BinaryByteRange
+  readonly unparsedByteRanges: readonly BinaryByteRange[]
 }
 
 const bytesToGuid = (bytes: Uint8Array): string => [...bytes].map((byte) => byte.toString(16).padStart(2, '0')).join('')
@@ -51,10 +70,12 @@ export class UePropertyReader {
   }
 
   readProperties(reader: BinaryReader, parentPath = ''): PropertyReadResult {
+    const streamStart = reader.absoluteTell()
     const properties: ParsedProperty[] = []
     let terminated = false
+    let terminatorByteRange: BinaryByteRange | undefined
     while (reader.remaining() >= 8) {
-      const tagStart = reader.tell()
+      const tagStart = reader.absoluteTell()
       let propertyName: UeFName
       try {
         propertyName = this.readFName(reader)
@@ -64,11 +85,12 @@ export class UePropertyReader {
       }
       if (propertyName.value === 'None') {
         terminated = true
+        terminatorByteRange = { start: tagStart, end: reader.absoluteTell() }
         break
       }
 
       try {
-        const property = this.readProperty(reader, propertyName.value, parentPath, tagStart)
+        const property = this.readProperty(reader, propertyName, parentPath, tagStart, properties.length)
         properties.push(property)
       } catch (error) {
         if (error instanceof UnsupportedPropertyMetadataError) {
@@ -79,7 +101,7 @@ export class UePropertyReader {
           })
           break
         }
-        this.pushMalformed(error, propertyName.value)
+        this.pushMalformed(error, propertyName.value, { start: tagStart, end: reader.absoluteTell() })
         break
       }
     }
@@ -89,20 +111,28 @@ export class UePropertyReader {
         message: `${reader.remaining()} trailing byte(s) remain after property parsing stopped`,
       })
     }
-    return { properties, diagnostics: [...this.diagnostics], terminated }
+    const streamEnd = reader.absoluteTell()
+    return {
+      properties, diagnostics: [...this.diagnostics], terminated,
+      byteRange: { start: streamStart, end: streamEnd },
+      ...(terminatorByteRange ? { terminatorByteRange } : {}),
+      unparsedByteRanges: reader.remaining() > 0 ? [{ start: streamEnd, end: streamEnd + reader.remaining() }] : [],
+    }
   }
 
-  private readProperty(reader: BinaryReader, name: string, parentPath: string, tagStart: number, pathOverride?: string): ParsedProperty {
-    const propertyType = this.readFName(reader).value
+  private readProperty(reader: BinaryReader, nameReference: UeFName, parentPath: string, tagStart: number, order: number, pathOverride?: string): ParsedProperty {
+    const name = nameReference.value
+    const typeReference = this.readFName(reader)
+    const propertyType = typeReference.value
     const size = reader.readInt32LE()
     const arrayIndex = reader.readInt32LE()
     if (size < 0) throw new Error(`Negative serialized size ${size} for ${name}`)
     const metadata = this.readMetadata(reader, propertyType)
     const hasPropertyGuid = reader.readUInt8()
     if (hasPropertyGuid > 1) throw new Error(`Invalid property GUID flag ${hasPropertyGuid} for ${name}`)
-    if (hasPropertyGuid === 1) bytesToGuid(reader.readBytes(16))
+    const propertyGuid = hasPropertyGuid === 1 ? bytesToGuid(reader.readBytes(16)) : undefined
 
-    const valueStart = reader.tell()
+    const valueStart = reader.absoluteTell()
     if (size > reader.remaining()) throw new BinaryReadError(`Property payload exceeds containing object for ${name}`, valueStart, size, reader.remaining())
     const valueReader = reader.subReader(size, `${this.objectName ?? 'object'}.${name}`)
     const path = pathOverride ?? (parentPath ? `${parentPath}.${name}` : name)
@@ -114,33 +144,41 @@ export class UePropertyReader {
       })
     }
     return {
-      name, type: propertyType, arrayIndex, serializedSize: size, value, path,
-      byteRange: { start: tagStart, end: reader.tell() },
+      name, type: propertyType, arrayIndex, order, serializedSize: size, value, path,
+      byteRange: { start: tagStart, end: reader.absoluteTell() },
+      valueByteRange: { start: valueStart, end: valueStart + size },
+      nameReference, typeReference,
+      ...(propertyGuid ? { propertyGuid } : {}),
       ...(Object.keys(metadata).length ? { metadata } : {}),
     }
   }
 
   private readMetadata(reader: BinaryReader, propertyType: string): PropertyMetadata {
     if (propertyType === 'StructProperty') {
-      const structType = this.readFName(reader).value
-      bytesToGuid(reader.readBytes(16))
-      return { structType }
+      const structTypeReference = this.readFName(reader)
+      const structGuid = bytesToGuid(reader.readBytes(16))
+      return { structType: structTypeReference.value, structTypeReference, structGuid }
     }
     if (propertyType === 'BoolProperty') {
-      return { enumType: reader.readUInt8() === 0 ? 'false' : 'true' }
+      const boolValue = reader.readUInt8() !== 0
+      return { enumType: boolValue ? 'true' : 'false', boolValue }
     }
     if (propertyType === 'ByteProperty' || propertyType === 'EnumProperty') {
-      return { enumType: this.readFName(reader).value }
+      const enumTypeReference = this.readFName(reader)
+      return { enumType: enumTypeReference.value, enumTypeReference }
     }
     if (propertyType === 'ArrayProperty') {
-      const innerType = this.readFName(reader).value
-      return { innerType }
+      const innerTypeReference = this.readFName(reader)
+      return { innerType: innerTypeReference.value, innerTypeReference }
     }
-    if (propertyType === 'SetProperty') return { innerType: this.readFName(reader).value }
+    if (propertyType === 'SetProperty') {
+      const innerTypeReference = this.readFName(reader)
+      return { innerType: innerTypeReference.value, innerTypeReference }
+    }
     if (propertyType === 'MapProperty') {
-      const keyType = this.readFName(reader).value
-      const valueType = this.readFName(reader).value
-      return { innerType: `${keyType}:${valueType}` }
+      const mapKeyTypeReference = this.readFName(reader)
+      const mapValueTypeReference = this.readFName(reader)
+      return { innerType: `${mapKeyTypeReference.value}:${mapValueTypeReference.value}`, mapKeyTypeReference, mapValueTypeReference }
     }
     if (METADATA_FREE_PROPERTY_TYPES.has(propertyType)) return {}
     throw new UnsupportedPropertyMetadataError(propertyType)
@@ -241,19 +279,23 @@ export class UePropertyReader {
         switch (metadata.innerType) {
           case 'StructProperty': {
             if (index !== 0) break
-            const wrapperName = this.readFName(reader).value
-            const wrapperType = this.readFName(reader).value
+            const wrapperName = this.readFName(reader)
+            const wrapperType = this.readFName(reader)
             const wrapperSize = reader.readInt32LE()
-            reader.readInt32LE() // Array index.
-            if (wrapperType !== 'StructProperty') throw new Error(`Array struct wrapper ${wrapperName} is tagged as ${wrapperType}`)
-            const structType = this.readFName(reader).value
-            bytesToGuid(reader.readBytes(16))
+            const wrapperArrayIndex = reader.readInt32LE()
+            if (wrapperType.value !== 'StructProperty') throw new Error(`Array struct wrapper ${wrapperName.value} is tagged as ${wrapperType.value}`)
+            const structType = this.readFName(reader)
+            const structGuid = bytesToGuid(reader.readBytes(16))
             const hasGuid = reader.readUInt8()
             if (hasGuid > 1) throw new Error(`Invalid array struct GUID flag ${hasGuid}`)
-            if (hasGuid === 1) reader.skip(16)
+            const propertyGuid = hasGuid === 1 ? bytesToGuid(reader.readBytes(16)) : undefined
+            metadata.arrayStruct = {
+              wrapperName, wrapperType, wrapperSerializedSize: wrapperSize, wrapperArrayIndex,
+              structType, structGuid, ...(propertyGuid ? { propertyGuid } : {}),
+            }
             const elementsReader = reader.subReader(wrapperSize, `${this.objectName ?? 'object'}.${propertyName} elements`)
             for (let structIndex = 0; structIndex < count; structIndex += 1) {
-              if (structType === 'Vector') {
+              if (structType.value === 'Vector') {
                 values.push({ X: elementsReader.readFloat32LE(), Y: elementsReader.readFloat32LE(), Z: elementsReader.readFloat32LE() })
                 continue
               }
@@ -301,10 +343,11 @@ export class UePropertyReader {
     ].includes(propertyType)
   }
 
-  private pushMalformed(error: unknown, propertyName: string | undefined): void {
+  private pushMalformed(error: unknown, propertyName: string | undefined, byteRange?: BinaryByteRange): void {
     this.diagnostics.push({
       code: 'malformed-property-tag', objectName: this.objectName,
       ...(propertyName ? { propertyName } : {}),
+      ...(byteRange ? { byteRange } : {}),
       message: error instanceof Error ? error.message : String(error),
     })
   }

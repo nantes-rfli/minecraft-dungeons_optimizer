@@ -45,7 +45,7 @@ export function parseUePackage(uasset: Uint8Array, uexp: Uint8Array, options: Pa
     }
     const objectBytes = uexp.subarray(uexpOffset, uexpOffset + entry.serialSize)
     const propertyReader = new UePropertyReader(names, resolver, entry.objectName.value)
-    const result = propertyReader.readProperties(new BinaryReader(objectBytes, 0, entry.objectName.value))
+    const result = propertyReader.readProperties(new BinaryReader(objectBytes, 0, entry.objectName.value, uexpOffset))
     diagnostics.push(...result.diagnostics.map((diagnostic) => ({ ...diagnostic, assetPath: options.assetPath })))
     if (options.strict && !result.terminated) {
       throwParse('malformed-property-tag', `CDO ${entry.objectName.value} did not reach a property terminator`, options.assetPath)
@@ -56,6 +56,12 @@ export function parseUePackage(uasset: Uint8Array, uexp: Uint8Array, options: Pa
       ...(classResolution.objectName ? { className: classResolution.objectName } : {}),
       exportIndex: entry.index, serialOffset: entry.serialOffset, serialSize: entry.serialSize,
       isClassDefaultObject: true, properties: result.properties, diagnostics: result.diagnostics,
+      propertyStream: {
+        byteRange: result.byteRange,
+        termination: result.terminated ? 'terminated' as const : 'not-terminated' as const,
+        ...(result.terminatorByteRange ? { terminatorByteRange: result.terminatorByteRange } : {}),
+        unparsedByteRanges: result.unparsedByteRanges,
+      },
     }
   })
   return { summary, names, imports, exports, objects, diagnostics }
@@ -131,7 +137,8 @@ function readNameMap(uasset: Uint8Array, summary: UePackageSummary, assetPath?: 
   const entries: UeNameEntry[] = []
   try {
     for (let index = 0; index < summary.nameCount; index += 1) {
-      entries.push({ index, value: reader.readFString(), hashBytes: hex(reader.readBytes(4)) })
+      const start = reader.absoluteTell()
+      entries.push({ index, value: reader.readFString(), hashBytes: hex(reader.readBytes(4)), byteRange: { start, end: reader.absoluteTell() } })
     }
   } catch (error) {
     throwParse('header-out-of-range', `Failed to read Name Map: ${error instanceof Error ? error.message : String(error)}`, assetPath)
@@ -148,9 +155,10 @@ function readImportTable(
   const reader = new BinaryReader(uasset, summary.importOffset, assetPath ?? 'Import Table')
   const entries: UeImportEntry[] = []
   for (let index = 0; index < summary.importCount; index += 1) {
-    const start = reader.tell()
-    entries.push({ index, classPackage: readFName(reader), className: readFName(reader), outerIndex: reader.readInt32LE(), objectName: readFName(reader) })
-    if (reader.tell() - start !== TARGET_IMPORT_ENTRY_SIZE) throwParse('header-out-of-range', 'Target Import Table entry is not 28 bytes', assetPath)
+    const start = reader.absoluteTell()
+    const entry = { index, classPackage: readFName(reader), className: readFName(reader), outerIndex: reader.readInt32LE(), objectName: readFName(reader) }
+    entries.push({ ...entry, byteRange: { start, end: reader.absoluteTell() } })
+    if (reader.absoluteTell() - start !== TARGET_IMPORT_ENTRY_SIZE) throwParse('header-out-of-range', 'Target Import Table entry is not 28 bytes', assetPath)
   }
   return entries
 }
@@ -164,7 +172,7 @@ function readExportTable(
   const reader = new BinaryReader(uasset, summary.exportOffset, assetPath ?? 'Export Table')
   const entries: UeExportEntry[] = []
   for (let index = 0; index < summary.exportCount; index += 1) {
-    const start = reader.tell()
+    const start = reader.absoluteTell()
     const classIndex = reader.readInt32LE()
     const superIndex = reader.readInt32LE()
     const templateIndex = reader.readInt32LE()
@@ -174,7 +182,7 @@ function readExportTable(
     const serialSize = reader.readInt64LE()
     const serialOffset = reader.readInt64LE()
     reader.seek(start + TARGET_EXPORT_ENTRY_SIZE)
-    entries.push({ index, classIndex, superIndex, templateIndex, outerIndex, objectName, objectFlags, serialSize, serialOffset })
+    entries.push({ index, classIndex, superIndex, templateIndex, outerIndex, objectName, objectFlags, serialSize, serialOffset, byteRange: { start, end: reader.absoluteTell() } })
   }
   return entries
 }
