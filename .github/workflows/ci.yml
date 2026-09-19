@@ -79,7 +79,24 @@ jobs:
           fi
 
           changed_files="$(git diff --name-only HEAD^ HEAD)"
-          if [[ -n "$changed_files" ]] && ! grep -Evq '\.md$' <<< "$changed_files"; then
+          if [[ -n "$changed_files" ]] && grep -Evq '\.md
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - run: npx playwright install --with-deps chromium
+        if: steps.e2e.outputs.run == 'true'
+      - run: npm run test:e2e
+        if: steps.e2e.outputs.run == 'true'
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.e2e.outputs.run == 'true'
+        with:
+          name: browser-validation
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14
+ <<< "$changed_files"; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
