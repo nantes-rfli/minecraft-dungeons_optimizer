@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCurrentRuntimePromotionManifest } from '../scripts/audit-runtime-promotion'
-import regressionArtifact from '../research/runtime-promotion-regression.json'
+import regressionArtifact from '../research/runtime/runtime-promotion-regression.json'
 import { buildRuntimePromotionManifest, collectRuntimePromotionErrors, collectRuntimePromotionRegressionSourceErrors, PROMOTION_ARTIFACT_KINDS, type PromotionBundle, type PromotionCandidateInput, type RuntimePromotionRegressionArtifact } from '../src/research/runtimePromotion'
 
 const accepted: PromotionCandidateInput = {
@@ -41,7 +41,7 @@ describe('P3 runtime promotion pipeline', () => {
   it('detects drift from the independent regression source', () => {
     const manifest = buildCurrentRuntimePromotionManifest()
     const drifted = { ...manifest, candidates: [{ ...manifest.candidates[0]!, regression: 'failed' as const }] }
-    expect(collectRuntimePromotionRegressionSourceErrors(drifted, regressionArtifact as RuntimePromotionRegressionArtifact, 'research/runtime-promotion-regression.json')).toContain('defense.damage-taken-composition: regression status drift')
+    expect(collectRuntimePromotionRegressionSourceErrors(drifted, regressionArtifact as RuntimePromotionRegressionArtifact, 'research/runtime/runtime-promotion-regression.json')).toContain('defense.damage-taken-composition: regression status drift')
   })
 
   it.each([
