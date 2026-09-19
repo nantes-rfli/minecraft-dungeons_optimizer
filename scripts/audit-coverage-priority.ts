@@ -13,7 +13,7 @@ try {
   const errors = priorityModule.collectCoveragePriorityErrors(model)
   const json = `${JSON.stringify(model, null, 2)}\n`
   const generated = {
-    'research/coverage-priority.json': json,
+    'research/analysis/coverage-priority.json': json,
     'docs/coverage-priority.md': priorityModule.renderCoveragePriority(model),
   }
   const rerun = `${JSON.stringify(priorityModule.buildCoveragePriority(), null, 2)}\n`
