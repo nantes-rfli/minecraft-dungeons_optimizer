@@ -214,12 +214,12 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },
     'domain/game-data-entity-aliases': { ...common, aliases: result.aliases, rejectedAliases: result.rejectedAliases, researchEntities: result.researchEntities, summary: summary.entity },
     'domain/game-data-canonical-mappings': { ...common, mappings: result.canonicalMappings },
-    'game-data-gap-property-alignment': { ...common, families: result.families, byCategory: Object.fromEntries(unique(result.families.map(f=>f.category)).map(c=>[c, { total: result.families.filter(f=>f.category===c).length, ...counts(result.families.filter(f=>f.category===c).map(f=>f.status)) }])) },
-    'game-data-aligned-semantic-mappings': { ...common, mappings: result.semantic.mappings },
-    'game-data-aligned-gap-reconciliation': { ...result.reconciliation, newlyClosedGapIds: result.newlyClosed },
-    'game-data-aligned-gap-disposition': { ...common, summary, records: result.dispositionRecords, potentials: result.potentials },
+    'analysis/game-data-gap-property-alignment': { ...common, families: result.families, byCategory: Object.fromEntries(unique(result.families.map(f=>f.category)).map(c=>[c, { total: result.families.filter(f=>f.category===c).length, ...counts(result.families.filter(f=>f.category===c).map(f=>f.status)) }])) },
+    'domain/game-data-aligned-semantic-mappings': { ...common, mappings: result.semantic.mappings },
+    'analysis/game-data-aligned-gap-reconciliation': { ...result.reconciliation, newlyClosedGapIds: result.newlyClosed },
+    'analysis/game-data-aligned-gap-disposition': { ...common, summary, records: result.dispositionRecords, potentials: result.potentials },
     'workflow/phase7-research-handoff': { ...common, summary: summary.phase7, records: result.handoff },
-    'game-data-model-alignment-review': { ...common, inputs: result.inputs, summary, retainedFactReview: result.reviewFacts, missingExpectedPropertyReview: result.missingReview, changeDecisions: result.changeDecisions },
+    'analysis/game-data-model-alignment-review': { ...common, inputs: result.inputs, summary, retainedFactReview: result.reviewFacts, missingExpectedPropertyReview: result.missingReview, changeDecisions: result.changeDecisions },
   }
   const table = (rows: readonly (readonly unknown[])[], headers: string[]) => `| ${headers.join(' | ')} |\n| ${headers.map(()=>'---').join(' | ')} |\n${rows.map(row=>`| ${row.map(x=>String(x).replaceAll('|','\\|').replaceAll('\n',' ')).join(' | ')} |`).join('\n')}\n`
   const propertyDocs = `# Canonical Research Properties — Phase 6.6\n\nRaw Game Property → Canonical Research Property → Runtime Optimizer Property. Only the research layer is approved here.\n\n${table(result.properties.map(p=>[p.id,p.category,p.sourceLayer,p.valueKind,p.aliases.join(', '),p.semanticMeaning]),['ID','Category','Source layer','Value kind','Aliases','Meaning'])}\nAliases are category-scoped. Deprecated and merged properties: zero; no absence-based deprecation. Configured array indexes remain on every mapping. Runtime/empirical concepts retain their original protocol and expected outcome; no computed value is supplied.\n`

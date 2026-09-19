@@ -91,7 +91,7 @@ export const PHASE8_EVIDENCE_RECORDS: readonly EvidenceIntakeRecord[] = [
 
 export function buildPhase8Artifacts() {
   const repository = buildEvidenceRepository(PHASE8_EVIDENCE_RECORDS)
-  const aligned = read('research/game-data-aligned-gap-disposition.json') as { records: { gapId: string; disposition: string; reconciliationStatus: string }[] }
+  const aligned = read('research/analysis/game-data-aligned-gap-disposition.json') as { records: { gapId: string; disposition: string; reconciliationStatus: string }[] }
   const handoff = read('research/workflow/phase7-research-handoff.json') as { summary: Record<string, number>; records: { gapId: string }[] }
   const remaining = aligned.records.filter((record) => record.reconciliationStatus !== 'closed')
   const records = remaining.map(reassessPhase8Gap)
