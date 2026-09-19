@@ -30,7 +30,7 @@ const blocker = (entry: MeleeEnchantmentAuditEntry): string => {
 
 const buildReport = (audit: MeleeEnchantmentAudit): string => {
   const summary = summarizeMeleeEnchantmentAudit(audit)
-  const support = JSON.parse(fs.readFileSync(path.join(projectRoot, 'research/melee-runtime-support.json'), 'utf8'))
+  const support = JSON.parse(fs.readFileSync(path.join(projectRoot, 'research/runtime/melee-runtime-support.json'), 'utf8'))
   const rows = audit.entries.map((entry) =>
     `| ${entry.name.en} | ${entry.runtimeStatus} | ${entry.modelCategory} | ${blocker(entry)} |`,
   ).join('\n')
