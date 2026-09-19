@@ -39,13 +39,13 @@ function renderRoadmapData(): string {
     const groups = ROADMAP_STATUS_ORDER.map((status) => {
       const matching = units.filter((unit) => unit.status === status)
       if (!matching.length) return null
-      return `### ${statusHeading[status]}\n\n${matching.map(renderUnit).join('\n\n')}`
+      return `#### ${statusHeading[status]}\n\n${matching.map(renderUnit).join('\n\n')}`
     }).filter((section): section is string => Boolean(section))
-    return `## ${track.title}\n\n${track.goal}\n\n${groups.join('\n\n')}`
+    return `### ${track.title}\n\n${track.goal}\n\n${groups.join('\n\n')}`
   }).join('\n\n')
 
   const future = FUTURE_CANDIDATES.map((candidate) => `- **${candidate.title}**: ${candidate.goal}`).join('\n')
-  return `<!-- roadmap-data:start -->\n# Work Units\n\nGenerated from \`src/data/roadmap.ts\`. Do not edit this block directly.\n\n${trackSections}\n\n## Future Candidates\n\n${future}\n<!-- roadmap-data:end -->`
+  return `<!-- roadmap-data:start -->\n## Work Units\n\nGenerated from \`src/data/roadmap.ts\`. Do not edit this block directly.\n\n${trackSections}\n\n### Future Candidates\n\n${future}\n<!-- roadmap-data:end -->`
 }
 
 const errors = collectRoadmapWorkUnitErrors(ROADMAP_WORK_UNITS)
