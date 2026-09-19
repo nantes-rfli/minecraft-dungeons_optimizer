@@ -210,9 +210,9 @@ export type ModelAlignment = ReturnType<typeof buildModelAlignment>
 export function alignmentOutputs(result: ModelAlignment): Record<string, string> {
   const { common, summary } = result
   const artifacts = {
-    'game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },
-    'game-data-entity-aliases': { ...common, aliases: result.aliases, rejectedAliases: result.rejectedAliases, researchEntities: result.researchEntities, summary: summary.entity },
-    'game-data-canonical-mappings': { ...common, mappings: result.canonicalMappings },
+    'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },
+    'domain/game-data-entity-aliases': { ...common, aliases: result.aliases, rejectedAliases: result.rejectedAliases, researchEntities: result.researchEntities, summary: summary.entity },
+    'domain/game-data-canonical-mappings': { ...common, mappings: result.canonicalMappings },
     'game-data-gap-property-alignment': { ...common, families: result.families, byCategory: Object.fromEntries(unique(result.families.map(f=>f.category)).map(c=>[c, { total: result.families.filter(f=>f.category===c).length, ...counts(result.families.filter(f=>f.category===c).map(f=>f.status)) }])) },
     'game-data-aligned-semantic-mappings': { ...common, mappings: result.semantic.mappings },
     'game-data-aligned-gap-reconciliation': { ...result.reconciliation, newlyClosedGapIds: result.newlyClosed },
