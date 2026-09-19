@@ -31,7 +31,7 @@ Generated from `src/data/roadmap.ts`. Do not edit this block directly.
 
 ### Research Track
 
-Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。
+Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採用判断可能な状態にする。Runtime実装そのものはこのTrackの完了条件に含めない。
 
 #### Done
 
@@ -76,7 +76,7 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
 
 ### Product Track
 
-現在利用可能なEvidenceを安全な境界で製品へ反映し、実用性を高める。
+現在利用可能なEvidenceを安全な境界で製品へ反映し、coverage・推薦品質・説明・UXを改善する。Research全体の完了を待たず、eligibleな単位だけを扱う。
 
 #### Done
 
@@ -92,11 +92,11 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
 - **P3 — Runtime Promotion Pipeline Foundation**: parameter単位のeligibility、manifest更新、説明、coverage、regressionを一つの反復可能な変更として扱う。
   - Depends on: P2
   - Unlocks: P3B, P4
-  - Completion: 未検証値を昇格せず、対象が0件でも状態を正しく表現し、最初のeligible単位を安全に受け入れられる。
+  - Completion: 未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化して安全に受け入れられる。
 
 #### Next
 
-- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。
+- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。
   - Depends on: P3B
   - Entry condition: 対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み
   - Unlocks: P5
