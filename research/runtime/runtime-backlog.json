@@ -86,7 +86,7 @@
         "melee-enchantment:shockwave"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -106,7 +106,7 @@
         "melee-enchantment:swirling"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -126,7 +126,7 @@
         "melee-enchantment:thundering"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -146,7 +146,7 @@
         "melee-enchantment:echo"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -166,7 +166,7 @@
         "melee-enchantment:enigma-resonator"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -186,7 +186,7 @@
         "melee-enchantment:fire-aspect"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -206,7 +206,7 @@
         "melee-enchantment:poison-cloud"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -226,7 +226,7 @@
         "melee-enchantment:fire-aspect"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -248,7 +248,7 @@
         "melee-enchantment:exploding"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -268,7 +268,7 @@
         "melee-enchantment:chains"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -288,7 +288,7 @@
         "melee-enchantment:stunning"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -308,7 +308,7 @@
         "melee-enchantment:pain-cycle"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -328,7 +328,7 @@
         "melee-enchantment:dynamo"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -348,7 +348,7 @@
         "melee-enchantment:dynamo"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -368,7 +368,7 @@
         "melee-enchantment:busy-bee"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -389,7 +389,7 @@
         "melee-enchantment:prospector"
       ],
       "sourceRefs": [
-        "research/melee-runtime-support.json",
+        "research/runtime/melee-runtime-support.json",
         "research/melee-enchantment-audit.json"
       ]
     },
@@ -407,7 +407,7 @@
       ],
       "recordKeys": [],
       "sourceRefs": [
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ]
@@ -427,7 +427,7 @@
       ],
       "recordKeys": [],
       "sourceRefs": [
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ]
@@ -447,7 +447,7 @@
       ],
       "recordKeys": [],
       "sourceRefs": [
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ]
@@ -466,7 +466,7 @@
       ],
       "recordKeys": [],
       "sourceRefs": [
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ]
@@ -485,7 +485,7 @@
       ],
       "recordKeys": [],
       "sourceRefs": [
-        "research/armor-runtime-support.json",
+        "research/runtime/armor-runtime-support.json",
         "docs/armor-runtime-batch.md",
         "docs/armor-expansion-state-enchants.md"
       ]
