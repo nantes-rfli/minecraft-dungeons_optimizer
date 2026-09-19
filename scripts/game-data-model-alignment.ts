@@ -14,7 +14,8 @@ type BaselineDifferences = ReturnType<typeof buildFinalCoverage>['modelDifferenc
 interface CatalogRecord { category: CanonicalResearchProperty['category']; id: string; known: { property: string; sourceIds: string[] }[] }
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
-  const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${name}.json`), 'utf8'))
+  const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
+  const baselineArtifactPaths: Record<string, string> = { 'game-data-bulk-harvest': 'raw/game-data-bulk-harvest' }
   return { ...input, differences: read('game-data-model-differences') as BaselineDifferences,
     finalCoverage: read('game-data-final-coverage') as ReturnType<typeof buildFinalCoverage>['finalCoverage'],
     catalog: (read('source-harvest') as { records: CatalogRecord[] }).records,

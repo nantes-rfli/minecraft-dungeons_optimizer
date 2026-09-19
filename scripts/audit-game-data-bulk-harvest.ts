@@ -9,7 +9,7 @@ import { localDatasetRoot } from './game-data-extractor.ts'
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const provenance = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json'), 'utf8')) as GameDataSourceProvenance
 const index = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/raw/game-data-asset-index.json'), 'utf8')) as GameDataAssetIndex
-const artifactPath = path.join(repositoryRoot, 'research/game-data-bulk-harvest.json')
+const artifactPath = path.join(repositoryRoot, 'research/raw/game-data-bulk-harvest.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-bulk-harvest.md')
 const hasLocalSource = fs.existsSync(localDatasetRoot(repositoryRoot))
 let generated: GameDataBulkHarvestArtifact | undefined

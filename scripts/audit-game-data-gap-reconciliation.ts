@@ -7,7 +7,7 @@ import { buildBulkSemanticArtifact, buildGapReconciliationArtifact, collectBulkS
 import type { GameDataBulkHarvestArtifact } from './game-data-bulk-harvest.ts'
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
-const bulk = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/game-data-bulk-harvest.json'), 'utf8')) as GameDataBulkHarvestArtifact
+const bulk = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/raw/game-data-bulk-harvest.json'), 'utf8')) as GameDataBulkHarvestArtifact
 const gapMap = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/evidence-gap-map.json'), 'utf8')) as { gaps: readonly EvidenceGap[] }
 const semanticPath = path.join(repositoryRoot, 'research/game-data-bulk-semantic-mappings.json')
 const reconciliationPath = path.join(repositoryRoot, 'research/game-data-gap-reconciliation.json')
