@@ -128,6 +128,7 @@ npm run test:e2e
 
 入口として読む文書:
 
+- [Documentation index](./docs/README.md)
 - [Roadmap](./ROADMAP.md)
 - [Historical Roadmap](./docs/historical-roadmap.md)
 - [Runtime limitations](./docs/runtime-limitations.md)
