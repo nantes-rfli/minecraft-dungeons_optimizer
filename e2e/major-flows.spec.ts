@@ -268,6 +268,23 @@ test('information architecture routes, data filters and model drill-down', async
   await audit(page)
 })
 
+test('Fighter’s Bindings temporary Domain is traceable in the Data Browser', async ({ page }) => {
+  await page.goto('/#/data/melee?item=fighters-bindings')
+  const entry = page.locator('[data-equipment-id="fighters-bindings"]')
+  await expect(entry).toHaveAttribute('open', '')
+  await expect(entry.getByRole('heading', { name: 'Fighter’s Bindings', exact: true })).toBeVisible()
+  await expect(entry.getByText('provisional', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('Gauntlets_Unique3', { exact: true })).toBeVisible()
+  await expect(entry.locator('[data-domain-field$="configuredDamage"]')).toHaveCount(4)
+  await expect(entry.locator('.domain-unresolved-list li').filter({ hasText: '最終ダメージ' })).toBeVisible()
+  await entry.getByText('provenanceを確認', { exact: true }).first().click()
+  await expect(entry.getByText('Raw package', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('Dataset', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('Extraction run', { exact: true }).first()).toBeVisible()
+  const results = await new AxeBuilder({ page }).include('.fighters-domain').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(results.violations).toEqual([])
+})
+
 test('inventory grid tooltip, exact data link and full editor handoff', async ({ page }) => {
   await page.goto('/#/inventory')
   const slot = page.getByRole('option', { name: '両刃斧、Double Axe', exact: true })
