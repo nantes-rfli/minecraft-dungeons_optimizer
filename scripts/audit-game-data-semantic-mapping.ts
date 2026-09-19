@@ -16,7 +16,7 @@ import {
 
 const repositoryRoot = fileURLToPath(new URL('..', import.meta.url))
 const semanticSourcePath = path.join(repositoryRoot, 'research/raw/game-data-semantic-source-samples.json')
-const mappingPath = path.join(repositoryRoot, 'research/game-data-semantic-mappings.json')
+const mappingPath = path.join(repositoryRoot, 'research/domain/game-data-semantic-mappings.json')
 const reportPath = path.join(repositoryRoot, 'docs/game-data-semantic-mapping.md')
 const provenance = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/sources/game-data-source-provenance.json'), 'utf8')) as GameDataSourceProvenance
 const extractor = JSON.parse(fs.readFileSync(path.join(repositoryRoot, 'research/raw/game-data-extractor-samples.json'), 'utf8')) as GameDataExtractorArtifact
