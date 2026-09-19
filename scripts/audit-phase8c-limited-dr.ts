@@ -43,7 +43,7 @@ assert.equal(result.adoptionDecision.promotionCount, 0)
 assert.equal(result.adoptionDecision.newGapClosures, 0)
 
 const outputs = new Map([
-  ['research/phase8c-limited-dr-validation.json', `${JSON.stringify(result, null, 2)}\n`],
+  ['research/runtime/phase8c-limited-dr-validation.json', `${JSON.stringify(result, null, 2)}\n`],
   ['docs/phase8c-limited-dr-validation.md', report(result)],
 ])
 if (process.argv.includes('--write')) for (const [file, contents] of outputs) fs.writeFileSync(path.join(repositoryRoot, file), contents)
