@@ -797,7 +797,7 @@ source別の単独値と組合せtraceを取得し、合成式・起点・丸め
 
 backlog:armor-cooldown: current internal式または再現可能なcooldown trace
 
-Sources: [research/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition](../research/armor-core-runtime-audit.json) / [research/armor-expansion-state-enchant-audit.json#/cooldownStacking](../research/armor-expansion-state-enchant-audit.json)
+Sources: [research/runtime/armor-core-runtime-audit.json#/decisions/artifactCooldownComposition](../research/runtime/armor-core-runtime-audit.json) / [research/armor-expansion-state-enchant-audit.json#/cooldownStacking](../research/armor-expansion-state-enchant-audit.json)
 
 ## damage-reduction-composition
 
@@ -845,7 +845,7 @@ Sources: [research/armor-core-runtime-audit.json#/decisions/artifactCooldownComp
 
 backlog:armor-dr: current traceで各family/orderを検証
 
-Sources: [research/armor-core-runtime-audit.json#/decisions/damageReductionComposition](../research/armor-core-runtime-audit.json) / [research/armor-expansion-state-enchant-audit.json#/armorEnchantments](../research/armor-expansion-state-enchant-audit.json) / [docs/armor-runtime-batch.md](../docs/armor-runtime-batch.md)
+Sources: [research/runtime/armor-core-runtime-audit.json#/decisions/damageReductionComposition](../research/runtime/armor-core-runtime-audit.json) / [research/armor-expansion-state-enchant-audit.json#/armorEnchantments](../research/armor-expansion-state-enchant-audit.json) / [docs/armor-runtime-batch.md](../docs/armor-runtime-batch.md)
 
 ## ranged-cadence
 
