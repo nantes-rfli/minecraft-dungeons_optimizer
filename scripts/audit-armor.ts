@@ -30,7 +30,7 @@ try {
     '## Runtime batch', '', '| Armor | Supported properties | Explicit boundaries |', '| --- | --- | --- |', runtimeRows, '',
     'Owned Armor, actual slot rolls, locked rolls, fixed gilded Enchants, and built-ins are separate sources. The optimizer enumerates only owned rolls. A free slot containing any research-only alternative excludes that Armor candidate; locking a supported roll permits evaluation.', '',
     '## Six-Armor deep audit', '', '| Armor | Intrinsic properties | Reusable subsystem | Original blocker | Audit readiness | audited candidate |', '| --- | --- | --- | --- | --- | --- |', deepRows, '',
-    'Numeric and combination decisions are recorded in `research/armor-core-runtime-audit.json` and verified by `npm run audit:armor-runtime`.', '',
+    'Numeric and combination decisions are recorded in `research/runtime/armor-core-runtime-audit.json` and verified by `npm run audit:armor-runtime`.', '',
   ].join('\n'))
   const supportRows = support.entries.map((entry: { name: string; supportLevel: string; reasons: readonly string[]; boundaries: readonly string[] }) => `| ${entry.name} | ${entry.supportLevel} | ${entry.reasons.join('; ')} | ${entry.boundaries.join('; ') || '—'} |`).join('\n')
   fs.writeFileSync(path.join(root, 'docs/armor-runtime-support.md'), [
