@@ -12,7 +12,7 @@ import {
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(scriptDirectory, '..')
 const auditPath = path.join(projectRoot, 'research', 'melee-attack-profile-audit.json')
-const reportPath = path.join(projectRoot, 'research', 'melee-attack-profile-coverage.md')
+const reportPath = path.join(projectRoot, 'docs', 'melee-attack-profile-coverage.md')
 
 const legacyRuntimeProxySnapshot: Readonly<Record<string, number>> = {
   'fighters-bindings': 7,
