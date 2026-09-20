@@ -93,7 +93,9 @@
     "generate:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts --write",
     "audit:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts",
     "generate:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts --write",
-    "audit:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts"
+    "audit:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts",
+    "generate:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts --write",
+    "audit:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts"
   },
   "dependencies": {
     "react": "19.2.6",

@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "scope": "temporary-domain-only",
+  "identityAssertion": {
+    "id": "identity:battle-robe@1",
+    "status": "provisional",
+    "rawIdentity": "BattleRobe",
+    "domainId": "battle-robe",
+    "displayName": "Battle Robe",
+    "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+    "gearActorObjectName": "BP_BattleRobe_C",
+    "gearActorClassName": "BlueprintGeneratedClass",
+    "gearActorGamePackagePath": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe",
+    "evidence": [
+      {
+        "path": "src/data/armors.ts",
+        "locator": "ARMORS['battle-robe']",
+        "role": "support",
+        "detail": "The repository catalog associates battle-robe with Battle Robe, but is not an authoritative game-source identity bridge."
+      }
+    ],
+    "unresolved": [
+      "Reviewed game-source bridge from internal ID to displayed item name"
+    ]
+  },
+  "mappings": {
+    "identity": {
+      "id": "battle-robe:identity@1",
+      "rawFields": [
+        "ItemIdName",
+        "ItemId.SerializedId"
+      ],
+      "meaning": "Internal identifiers support only the provisional Battle Robe identity assertion."
+    },
+    "gearActorReference": {
+      "id": "battle-robe:gear-actor-reference@1",
+      "rawField": "GearActor",
+      "meaning": "Serialized ObjectProperty → class import → outer package import chain; the target package contents are not resolved."
+    }
+  },
+  "projection": {
+    "kind": "temporary-battle-robe-projection",
+    "identity": {
+      "status": "provisional",
+      "domainId": "battle-robe",
+      "displayName": "Battle Robe",
+      "assertionId": "identity:battle-robe@1",
+      "evidence": {
+        "itemName": {
+          "state": "known",
+          "value": "BattleRobe",
+          "trace": {
+            "mappingId": "battle-robe:identity@1",
+            "identityAssertionId": "identity:battle-robe@1",
+            "raw": {
+              "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+              "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+              "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+              "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+              "packageHash": {
+                "algorithm": "sha256-path-content-v1",
+                "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+              },
+              "nodePointer": "/package/objects/1/properties/2"
+            }
+          }
+        },
+        "serializedId": {
+          "state": "known",
+          "value": "BattleRobe",
+          "trace": {
+            "mappingId": "battle-robe:identity@1",
+            "identityAssertionId": "identity:battle-robe@1",
+            "raw": {
+              "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+              "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+              "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+              "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+              "packageHash": {
+                "algorithm": "sha256-path-content-v1",
+                "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+              },
+              "nodePointer": "/package/objects/1/properties/3/decoding/properties/0"
+            }
+          }
+        }
+      }
+    },
+    "gearActorReference": {
+      "state": "known",
+      "value": {
+        "rawPackageIndex": -2,
+        "objectName": "BP_BattleRobe_C",
+        "className": "BlueprintGeneratedClass",
+        "gamePackagePath": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+      },
+      "trace": {
+        "mappingId": "battle-robe:gear-actor-reference@1",
+        "identityAssertionId": "identity:battle-robe@1",
+        "objectProperty": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/objects/1/properties/0"
+        },
+        "classImport": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/imports/1"
+        },
+        "outerPackageImport": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/imports/11"
+        }
+      }
+    },
+    "unresolved": [
+      "armor-property-ownership"
+    ]
+  }
+}
