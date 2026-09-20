@@ -333,6 +333,26 @@ test('Battle Robe temporary Domain keeps provisional identity and unresolved own
   expect(results.violations).toEqual([])
 })
 
+test('Death Cap Mushroom temporary Domain keeps Effect semantics unresolved and traceable', async ({ page }) => {
+  await page.goto('/#/data/artifacts?item=death-cap-mushroom')
+  const entry = page.locator('[data-equipment-id="death-cap-mushroom"]')
+  await expect(entry).toHaveAttribute('open', '')
+  await expect(entry.getByRole('heading', { name: 'Death Cap Mushroom', exact: true })).toBeVisible()
+  await expect(entry.getByText('accepted', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('DeathCapMushroom', { exact: true })).toHaveCount(2)
+  await expect(entry.getByText('BP_DeathCapMushroomGameplayEffect_C', { exact: true })).toBeVisible()
+  await expect(entry.getByText('gameplay-effect-semantics', { exact: true })).toBeVisible()
+  await entry.getByText('cross-package provenanceを確認', { exact: true }).click()
+  await expect(entry.getByText('ObjectProperty', { exact: true })).toBeVisible()
+  await expect(entry.getByText('class import', { exact: true })).toBeVisible()
+  await expect(entry.getByText('outer package import', { exact: true })).toBeVisible()
+  await expect(entry.getByText('target Raw snapshot', { exact: true })).toBeVisible()
+  await expect(entry).not.toContainText('8 + 0.052')
+  await expect(entry).not.toContainText('30秒')
+  const results = await new AxeBuilder({ page }).include('.death-cap-domain').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(results.violations).toEqual([])
+})
+
 test('inventory grid tooltip, exact data link and full editor handoff', async ({ page }) => {
   await page.goto('/#/inventory')
   const slot = page.getByRole('option', { name: '両刃斧、Double Axe', exact: true })

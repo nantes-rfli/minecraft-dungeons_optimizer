@@ -26,6 +26,8 @@ import { ScatterCrossbowDataBrowser } from './dataBrowser/ScatterCrossbowDataBro
 import { scatterCrossbowBrowserProjection } from './dataBrowser/scatterCrossbowBrowserModel'
 import { BattleRobeDataBrowser } from './dataBrowser/BattleRobeDataBrowser'
 import { battleRobeBrowserProjection } from './dataBrowser/battleRobeBrowserModel'
+import { DeathCapMushroomDataBrowser } from './dataBrowser/DeathCapMushroomDataBrowser'
+import { deathCapMushroomBrowserProjection } from './dataBrowser/deathCapMushroomBrowserModel'
 
 type Support = 'full' | 'limited' | 'research-only'
 type HarvestCategory = 'melee-weapon' | 'melee-enchantment' | 'armor' | 'armor-enchantment' | 'ranged-weapon' | 'ranged-enchantment' | 'artifact'
@@ -41,7 +43,7 @@ type HarvestRecord = {
   version: { target: string; currentVersionVerified: boolean; staleRisk: boolean; notes: string }
 }
 type HarvestSource = { id: string; title: string; url?: string; sourceType: string; gameVersion: string; versionStatus: string }
-type CatalogItem = { id: string; name: string; secondary?: string; family: string; support: Support; known: string; blockers: string[]; harvest: HarvestRecord }
+type CatalogItem = { id: string; name: string; secondary?: string; family: string; support: Support; known: string; blockers: string[]; harvest?: HarvestRecord }
 
 const harvestRecords = sourceHarvest.records as HarvestRecord[]
 const harvestSources = new Map((sourceHarvest.sources as HarvestSource[]).map((source) => [source.id, source]))
@@ -117,7 +119,8 @@ function itemsFor(route: AppRoute): CatalogItem[] {
     return { id: item.id, name: japaneseEquipmentName('ranged', item.id, item.name.ja), secondary: item.name.en, family: `${japaneseEquipmentName('ranged', item.family)}系`, support: item.supportLevel as Support, known: isScatterCrossbow ? definitions.state === 'known' ? `Domainでconfigured projectile definition ${definitions.value.length}件を確認。最終挙動は未確定です。` : 'Domainのconfigured projectile definitionは未確定です。' : `${firingModeName[item.firingMode] ?? '固有方式'}の遠距離武器です。`, blockers: item.intrinsic.completeMechanicVerification ? [] : ['特殊効果・発射周期の独立検証が未完了'], harvest: getHarvest('ranged-weapon', item.id) }
   })
   if (route === '/data/artifacts') return [
-    ...ARTIFACT_AUDIT.entries.map((item) => ({ id: item.id, name: japaneseEquipmentName('artifact', item.id), secondary: item.name, family: 'アーティファクト', support: (item.id in ARTIFACTS ? item.runtimeReadiness === 'ready-with-limits' ? 'limited' : 'full' : 'research-only') as Support, known: `再使用できるまで${item.cooldown.seconds}秒です。`, blockers: item.blockers, harvest: getHarvest('artifact', item.id) })),
+    ...ARTIFACT_AUDIT.entries.filter((item) => item.id !== deathCapMushroomBrowserProjection.identity.domainId).map((item) => ({ id: item.id, name: japaneseEquipmentName('artifact', item.id), secondary: item.name, family: 'アーティファクト', support: (item.id in ARTIFACTS ? item.runtimeReadiness === 'ready-with-limits' ? 'limited' : 'full' : 'research-only') as Support, known: `再使用できるまで${item.cooldown.seconds}秒です。`, blockers: item.blockers, harvest: getHarvest('artifact', item.id) })),
+    ...(deathCapMushroomBrowserProjection.identity.domainId && deathCapMushroomBrowserProjection.identity.displayName ? [{ id: deathCapMushroomBrowserProjection.identity.domainId, name: deathCapMushroomBrowserProjection.identity.displayName, family: 'Temporary Domain', support: 'research-only' as const, known: 'GameplayEffect packageへのserialized relationを確認。gameplay semanticsは未解決です。', blockers: [...deathCapMushroomBrowserProjection.unresolved] }] : []),
     ...ARTIFACT_AUDIT.populationDifferences.map((item) => ({ id: item.id, name: japaneseEquipmentName('artifact', item.id), secondary: item.name, family: 'アーティファクト', support: 'research-only' as const, known: `再使用できるまで${item.cooldownSeconds}秒です。`, blockers: item.blockers, harvest: getHarvest('artifact', item.id) })),
   ]
   return [
@@ -148,6 +151,8 @@ export function DataBrowserPage({ route }: { route: AppRoute }) {
     </> : route === '/data/enchantments' ? <EnchantmentCatalogView query={query} onQueryChange={setQuery} targetItemId={targetItemId} /> : <section className="catalog-panel">
       <div className="catalog-toolbar"><label>装備を検索<input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名または英語名" /></label><p role="status">{filtered.length}件</p></div>
       <div className="catalog-list">{filtered.map((item) => {
+        if (item.id === deathCapMushroomBrowserProjection.identity.domainId) return <details className="catalog-row" data-equipment-id={item.id} open={targetItemId === item.id || undefined} key={item.id}><summary><span className="catalog-identity"><span><strong>{item.name}</strong></span></span><span>{item.family}</span><span className="catalog-known">{item.known}</span></summary><div className="catalog-detail"><DeathCapMushroomDataBrowser /></div></details>
+        if (!item.harvest) return null
         const sources = item.harvest.sourceIds.map((id) => harvestSources.get(id)).filter((source): source is HarvestSource => Boolean(source))
         const acceptedFacts = item.harvest.known.filter((fact) => fact.status === 'accepted')
         const unresolvedFacts = item.harvest.known.filter((fact) => fact.status !== 'accepted').map((fact) => ({ property: fact.property, kind: fact.status, notes: `${fact.notes ?? 'Current value is not accepted.'} Recorded value: ${displayValue(fact.value)}`, sourceAttempts: fact.sourceIds.map((sourceId) => ({ sourceId, result: fact.status })) }))
