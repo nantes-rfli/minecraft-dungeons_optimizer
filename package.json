@@ -95,7 +95,9 @@
     "generate:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts --write",
     "audit:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts",
     "generate:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts --write",
-    "audit:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts"
+    "audit:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts",
+    "generate:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts --write",
+    "audit:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts"
   },
   "dependencies": {
     "react": "19.2.6",
