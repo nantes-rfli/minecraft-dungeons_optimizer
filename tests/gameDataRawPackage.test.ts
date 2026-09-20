@@ -13,9 +13,10 @@ const snapshots = new Map(RAW_PACKAGE_SPECS.map((spec) => [
 const fighters = snapshots.get('fighters-bindings-instance')!
 const instance = snapshots.get('scatter-crossbow-instance')!
 const projectile = snapshots.get('scatter-crossbow-projectile')!
+const battleRobe = snapshots.get('battle-robe-instance')!
 
 describe('Step 3A Raw package snapshots', () => {
-  it('validates all three package contracts without local game files', () => {
+  it('validates all four package contracts without local game files', () => {
     for (const spec of RAW_PACKAGE_SPECS) {
       const snapshot = snapshots.get(spec.id)!
       expect(collectRawPackageSnapshotErrors(snapshot, provenance, process.cwd(), spec)).toEqual([])
@@ -30,14 +31,21 @@ describe('Step 3A Raw package snapshots', () => {
   it('keeps package-specific audit knowledge behind package specs', () => {
     expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'fighters-bindings-instance')?.auditAssertions).toEqual(expect.any(Function))
     expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'scatter-crossbow-instance')?.auditAssertions).toEqual(expect.any(Function))
+    expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'battle-robe-instance')?.auditAssertions).toEqual(expect.any(Function))
     const sharedCollector = collectRawPackageSnapshotErrors.toString()
     expect(sharedCollector).not.toContain("spec.id === 'scatter-crossbow-instance'")
+    expect(sharedCollector).not.toContain("spec.id === 'battle-robe-instance'")
     expect(sharedCollector).not.toContain("serialized.includes('fighters-bindings')")
   })
 
   it('fingerprints snapshot-affecting code and detects code/run drift', () => {
     const current = buildRawPackageCodeIdentity(process.cwd())
     expect(fighters.extraction.codeIdentity).toEqual(current)
+    expect([fighters, instance, projectile].map((snapshot) => snapshot.extraction.runId)).toEqual([
+      'sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911',
+      'sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4',
+      'sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb',
+    ])
     expect(current.files.map((file) => file.path)).toEqual([...RAW_PACKAGE_CODE_PATHS].sort())
     const stale = { ...fighters, extraction: { ...fighters.extraction, codeIdentity: { ...fighters.extraction.codeIdentity, value: '0'.repeat(64) } } }
     const errors = collectRawPackageSnapshotErrors(stale, provenance, process.cwd(), RAW_PACKAGE_SPECS[0])
@@ -65,7 +73,7 @@ describe('Step 3A Raw package snapshots', () => {
       "'another-package-spec',\n    'Dungeons/Content/Actors/Equipment/RangedWeapons/AnotherPackage'",
     ))
     const reportOnly = identityAfter(rawPackagePath, (source) => source.replace(
-      'This generated artifact covers the deliberately small three-package Raw flow:',
+      'This generated artifact covers the deliberately small four-package Raw flow:',
       'Report-only wording changed.',
     ))
     const coreDrift = identityAfter(rawPackagePath, (source) => source.replace(
@@ -124,6 +132,23 @@ describe('Step 3A Raw package snapshots', () => {
     expect(new Set([fighters, instance, projectile].map((snapshot) => snapshot.logicalPackage.contentHash.value)).size).toBe(3)
     expect(new Set([fighters, instance, projectile].map((snapshot) => snapshot.extraction.runId)).size).toBe(3)
     expect(new Set([fighters, instance, projectile].flatMap((snapshot) => snapshot.logicalPackage.sourceFiles.map((file) => file.path))).size).toBe(6)
+  })
+
+  it('retains Battle Robe Instance observations without Armor Property ownership', () => {
+    expect(rawValue(battleRobe, 'ItemIdName')).toBe('BattleRobe')
+    expect(rawValue(battleRobe, 'ItemId.SerializedId')).toBe('BattleRobe')
+    expect(rawValue(battleRobe, 'GearActor')).toEqual({
+      rawPackageIndex: -2, kind: 'import', index: 1,
+      objectName: 'BP_BattleRobe_C', className: 'BlueprintGeneratedClass',
+    })
+    expect(battleRobe.package.exports[0]?.superReference).toMatchObject({
+      rawPackageIndex: -6, kind: 'import', objectName: 'ArmorGearItemInstance',
+    })
+    expect(battleRobe.package.imports[11]).toMatchObject({
+      rawPackageIndex: -12, outerIndex: 0,
+      objectName: { value: '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe' },
+    })
+    expect(serializeRawPackageSnapshot(battleRobe)).not.toMatch(/MeleeDamageBoost|ItemCooldownDecrease|30% melee|40% artifact/i)
   })
 })
 

@@ -1,10 +1,10 @@
 # Raw Game Source package snapshots — Step 3A
 
-This generated artifact covers the deliberately small three-package Raw flow:
+This generated artifact covers the deliberately small four-package Raw flow:
 
 `Game files → extraction → Raw package snapshot`
 
-The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, and Scatter Crossbow projectile. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
+The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, and Battle Robe Instance. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
 
 ## Reproducibility identity
 
@@ -77,6 +77,22 @@ The source binaries remain local and are not committed. Every package has its ow
 - 14 non-CDO export payloads explicitly marked `not-extracted` with complete unavailable ranges
 - 0 package diagnostics and 2 package-level unparsed/unassigned ranges
 
+## Package: `Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance`
+
+- Extraction run: `sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46`
+- Logical package hash: `sha256-path-content-v1:9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684`
+
+| Dataset-relative input | Bytes | SHA-256 |
+|---|---:|---|
+| `Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uasset` | 3106 | `6af8045b8ca4d52bb534b22d30af72713b435fa4b25ce0b0d56c2f551e2bd4de` |
+| `Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp` | 556 | `4bd24eb00177471089622e6247b0292d7b89686e67c273ef477bf0138cc6d54f` |
+
+- 53 Name Map entries, 23 imports, and 5 exports in serialized order
+- 5 export objects with raw package indexes, class/super/template/outer references, object flags, and source byte ranges
+- 1 decoded CDO property stream containing 6 property nodes; names/types retain FName indexes and numbers, tag order, array indexes, serialized sizes, metadata, values or explicit unavailable state, and byte ranges
+- 4 non-CDO export payloads explicitly marked `not-extracted` with complete unavailable ranges
+- 0 package diagnostics and 2 package-level unparsed/unassigned ranges
+
 Decoded zero and false values are retained only with `state: decoded`; unavailable states omit `value`. Raw object/package indexes are not rewritten as application identities.
 
 ## Boundaries
@@ -86,4 +102,4 @@ Decoded zero and false values are retained only with `state: decoded`; unavailab
 - Manual annotations: `separate-not-included`
 - Raw binary bytes: `not-committed`
 
-Canonical generated snapshots are stored beneath `research/raw/packages/` at their logical package paths. The Scatter Crossbow Instance projectile reference remains a package-local ObjectProperty index plus the unmodified Import Table and outer chain; no cross-package resolver or Domain identity is added. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
+Canonical generated snapshots are stored beneath `research/raw/packages/` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains; no cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
