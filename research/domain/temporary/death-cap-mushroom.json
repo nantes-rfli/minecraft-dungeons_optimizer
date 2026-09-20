@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "scope": "temporary-domain-only",
+  "identityAssertion": {
+    "id": "identity:death-cap-mushroom@1",
+    "status": "accepted",
+    "confidence": "high",
+    "rawIdentity": "DeathCapMushroom",
+    "domainId": "death-cap-mushroom",
+    "displayName": "Death Cap Mushroom",
+    "instancePackagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+    "effectPackagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+    "effectGamePackagePath": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+    "effectObjectName": "BP_DeathCapMushroomGameplayEffect_C",
+    "effectClassName": "BlueprintGeneratedClass",
+    "evidence": {
+      "path": "research/domain/game-data-entity-aliases.json",
+      "locator": "aliases[id=artifact:DeathCapMushroom]",
+      "expectedStatus": "accepted",
+      "expectedConfidence": "high",
+      "expectedCanonicalEntity": "artifact:death-cap-mushroom"
+    }
+  },
+  "mappings": {
+    "identity": {
+      "id": "death-cap-mushroom:identity@1",
+      "rawFields": [
+        "ItemIdName",
+        "ItemId.SerializedId"
+      ],
+      "meaning": "Both serialized internal identifiers must exactly equal DeathCapMushroom."
+    },
+    "effectReference": {
+      "id": "death-cap-mushroom:effect-reference@1",
+      "rawField": "Effect",
+      "meaning": "Explicitly validated ObjectProperty → class import → outer package import → supplied Raw snapshot chain."
+    }
+  },
+  "projection": {
+    "kind": "temporary-death-cap-mushroom-projection",
+    "identity": {
+      "status": "accepted",
+      "confidence": "high",
+      "domainId": "death-cap-mushroom",
+      "displayName": "Death Cap Mushroom",
+      "assertionId": "identity:death-cap-mushroom@1",
+      "evidence": {
+        "itemName": {
+          "state": "known",
+          "value": "DeathCapMushroom",
+          "trace": {
+            "mappingId": "death-cap-mushroom:identity@1",
+            "identityAssertionId": "identity:death-cap-mushroom@1",
+            "raw": {
+              "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+              "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+              "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+              "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+              "packageHash": {
+                "algorithm": "sha256-path-content-v1",
+                "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+              },
+              "nodePointer": "/package/objects/1/properties/2"
+            }
+          }
+        },
+        "serializedId": {
+          "state": "known",
+          "value": "DeathCapMushroom",
+          "trace": {
+            "mappingId": "death-cap-mushroom:identity@1",
+            "identityAssertionId": "identity:death-cap-mushroom@1",
+            "raw": {
+              "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+              "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+              "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+              "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+              "packageHash": {
+                "algorithm": "sha256-path-content-v1",
+                "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+              },
+              "nodePointer": "/package/objects/1/properties/5/decoding/properties/0"
+            }
+          }
+        }
+      }
+    },
+    "effectReference": {
+      "state": "known",
+      "value": {
+        "rawPackageIndex": -3,
+        "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+        "className": "BlueprintGeneratedClass",
+        "targetRawPackagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect"
+      },
+      "trace": {
+        "mappingId": "death-cap-mushroom:effect-reference@1",
+        "identityAssertionId": "identity:death-cap-mushroom@1",
+        "objectProperty": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/objects/1/properties/0"
+        },
+        "classImport": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/imports/2"
+        },
+        "outerPackageImport": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/imports/18"
+        },
+        "targetRawSnapshot": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "sourceFingerprint": {
+            "algorithm": "sha256-path-size-v1",
+            "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+          },
+          "extractionRunId": "sha256:b5897b8ebc25497b6242bffc3487778cf5a3331c5564e8098bef5b2082b741ca",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "70d8ee04479f796280089d43088019420547c1c31bd050591674dfa0d33794fc"
+          }
+        }
+      }
+    },
+    "unresolved": [
+      "gameplay-effect-semantics"
+    ]
+  }
+}
