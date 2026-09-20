@@ -61,6 +61,8 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     expect(browserSources).not.toContain('projectFightersBindings')
     expect(browserSources).not.toContain('game-data-raw-package')
     expect(fs.readdirSync('src/domain/temporary').sort()).toEqual([
+      'battleRobe.ts',
+      'battleRobeIdentity.ts',
       'fightersBindings.ts',
       'fightersBindingsIdentity.ts',
       'projectionPrimitives.ts',
