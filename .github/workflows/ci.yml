@@ -55,6 +55,7 @@ jobs:
       - run: npm run audit:game-data-extractor
       - run: npm run audit:game-data-raw-package
       - run: npm run audit:fighters-bindings-domain
+      - run: npm run audit:scatter-crossbow-domain
       - run: npm run audit:game-data-semantic-mapping
       - run: npm run audit:game-data-bulk-harvest
       - run: npm run audit:game-data-gap-reconciliation

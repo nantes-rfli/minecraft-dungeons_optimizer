@@ -91,7 +91,9 @@
     "generate:roadmap": "node scripts/audit-roadmap.ts --write",
     "audit:roadmap": "node scripts/audit-roadmap.ts",
     "generate:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts --write",
-    "audit:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts"
+    "audit:fighters-bindings-domain": "node scripts/audit-fighters-bindings-domain.ts",
+    "generate:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts --write",
+    "audit:scatter-crossbow-domain": "node scripts/audit-scatter-crossbow-domain.ts"
   },
   "dependencies": {
     "react": "19.2.6",
