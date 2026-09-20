@@ -164,6 +164,9 @@ describe('Scatter Crossbow temporary Domain', () => {
     instance.package.objects[1].extraction = { state: 'not-extracted' }
     const result = project(instance, projectileFixture())
     expect(result.identity.status).toBe('unresolved')
+    expect(result.identity).not.toHaveProperty('confidence')
+    expect(result.identity).not.toHaveProperty('domainId')
+    expect(result.identity).not.toHaveProperty('displayName')
     expect(result.configuredProjectileDefinitions).toMatchObject({ state: 'not-extracted' })
     expect(result.configuredProjectileVelocityFactor).toMatchObject({ state: 'not-extracted' })
   })

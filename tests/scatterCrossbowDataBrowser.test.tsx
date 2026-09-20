@@ -37,14 +37,16 @@ describe('Scatter Crossbow Data Browser vertical slice', () => {
     expect(row).toContain('BP_ScatterCrossBow_Arrow')
   })
 
-  it('imports the Domain artifact only and keeps excluded mechanics explicitly unprojected', () => {
+  it('uses the committed Domain artifact without adding application-side projection judgments', () => {
     const row = scatterCrossbowRow(renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/ranged' })))
-    const browserSources = [fs.readFileSync('src/screens/DataBrowserPage.tsx', 'utf8'), fs.readFileSync('src/screens/dataBrowser/ScatterCrossbowDataBrowser.tsx', 'utf8'), fs.readFileSync('src/screens/dataBrowser/scatterCrossbowBrowserModel.ts', 'utf8')].join('\n')
+    const modelSource = fs.readFileSync('src/screens/dataBrowser/scatterCrossbowBrowserModel.ts', 'utf8')
+    const browserSources = [fs.readFileSync('src/screens/DataBrowserPage.tsx', 'utf8'), fs.readFileSync('src/screens/dataBrowser/ScatterCrossbowDataBrowser.tsx', 'utf8'), modelSource].join('\n')
     expect(browserSources).toContain("research/domain/temporary/scatter-crossbow.json")
     expect(browserSources).not.toContain('research/raw/')
-    expect(browserSources).not.toContain('projectScatterCrossbow')
     expect(browserSources).not.toContain('game-data-raw-package')
-    for (const field of ['AttackRateSeconds', 'ProjectileStackCount', 'damage', 'HomingThreshold', 'ammo', 'charge', 'effective cadence', 'final damage', 'Power scaling']) expect(row).toContain(`<strong>未投影</strong> ${field}`)
-    expect(row).toContain('値を推測・導出していません')
+    expect(modelSource).toContain('import type { projectScatterCrossbow, scatterCrossbowMappings }')
+    expect(modelSource).not.toMatch(/import \{ projectScatterCrossbow/)
+    expect(row).not.toContain('現在Domainでは未投影')
+    expect(browserSources).not.toContain('notProjected')
   })
 })

@@ -1,9 +1,9 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { scatterCrossbowIdentity as assertion } from './scatterCrossbowIdentity.ts'
-
-type RawObject = RawPackageSnapshot['package']['objects'][number]
-type RawNode = NonNullable<RawObject['properties']>[number]
-type UnavailableState = 'unknown' | 'unsupported' | 'parse-failed' | 'not-extracted'
+import {
+  locateRawNode, nestedRawNode, projectionTrace, rawCdoCandidates, rawTrace, readRawValue, topLevelRawNode,
+  type Field, type Located, type RawCdoCandidate, type RawTrace, type Trace, type UnavailableState,
+} from './projectionPrimitives.ts'
 
 export const scatterCrossbowMappings = {
   identity: { id: 'scatter-crossbow:identity@1', rawFields: ['ItemIdName', 'ItemId.SerializedId'], meaning: 'Both serialized internal identifiers must exactly equal ScatterCrossbow.' },
@@ -18,17 +18,6 @@ export const scatterCrossbowMappings = {
   ignoreFriendlyFire: { id: 'scatter-crossbow:configured-ignore-friendly-fire@1', rawField: 'IgnoreFriendlyFire', meaning: 'Serialized configured friendly-fire ignore flag.' },
 } as const
 
-type RawTrace = {
-  artifactPath: string
-  datasetId: string
-  extractionRunId: string
-  packagePath: string
-  packageHash: RawPackageSnapshot['logicalPackage']['contentHash']
-  nodePointer: string
-}
-type Trace = { mappingId: string; identityAssertionId: typeof assertion.id; raw: RawTrace }
-type Field<T> = { state: 'known'; value: T; trace: Trace } | { state: UnavailableState; reason: string; trace: Trace }
-type Located = { node?: RawNode; pointer: string; unavailable?: UnavailableState }
 type ReferenceTrace = {
   mappingId: typeof scatterCrossbowMappings.projectileReference.id
   identityAssertionId: typeof assertion.id
@@ -41,52 +30,22 @@ type ProjectileReference =
   | { state: 'known'; value: { rawPackageIndex: number; objectName: string; className: string; targetRawPackagePath: string }; trace: ReferenceTrace }
   | { state: UnavailableState; reason: string; trace: Trace }
 
-function rawTrace(raw: RawPackageSnapshot, pointer: string): RawTrace {
-  return {
-    artifactPath: `research/raw/packages/${raw.logicalPackage.path}.raw.json`,
-    datasetId: raw.dataset.id,
-    extractionRunId: raw.extraction.runId,
-    packagePath: raw.logicalPackage.path,
-    packageHash: raw.logicalPackage.contentHash,
-    nodePointer: pointer,
-  }
-}
-
 /** Pure two-snapshot projection. The Raw extractor remains unaware of cross-package resolution. */
 export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projectileRaw: RawPackageSnapshot) {
   if (instanceRaw.schemaVersion !== 2 || instanceRaw.logicalPackage.path !== assertion.instancePackagePath) throw new Error('Unsupported instance Raw package for Scatter Crossbow projection')
   if (projectileRaw.schemaVersion !== 2 || projectileRaw.logicalPackage.path !== assertion.projectilePackagePath) throw new Error('Unsupported projectile Raw package for Scatter Crossbow projection')
 
-  function cdo(raw: RawPackageSnapshot): { object?: RawObject; index: number; unavailable?: UnavailableState } {
-    const matches = raw.package.objects.map((object, index) => ({ object, index })).filter(({ object }) => object.isClassDefaultObject)
-    if (matches.length !== 1) return { index: -1, unavailable: 'unknown' }
-    return matches[0]!
+  function cdo(raw: RawPackageSnapshot): RawCdoCandidate | undefined {
+    const matches = rawCdoCandidates(raw)
+    return matches.length === 1 ? matches[0] : undefined
   }
-  function locate(nodes: readonly RawNode[] | undefined, pointer: string, name: string): Located {
-    const matches = nodes?.map((node, index) => ({ node, pointer: `${pointer}/${index}` })).filter(({ node }) => node.name.value === name && node.arrayIndex === 0) ?? []
-    return matches.length === 1 ? matches[0]! : { pointer, unavailable: 'unknown' }
-  }
-  function top(raw: RawPackageSnapshot, selected: ReturnType<typeof cdo>, name: string): Located {
-    if (!selected.object) return { pointer: '/package/objects', unavailable: selected.unavailable }
-    const root = `/package/objects/${selected.index}`
-    return selected.object.extraction.state === 'decoded' ? locate(selected.object.properties, `${root}/properties`, name) : { pointer: root, unavailable: selected.object.extraction.state }
-  }
-  function nested(parent: Located, name: string, expectedParentType = 'StructProperty'): Located {
-    if (!parent.node) return parent
-    if (parent.node.decoding.state !== 'decoded') return { pointer: parent.pointer, unavailable: parent.node.decoding.state }
-    if (parent.node.type.value !== expectedParentType) return { pointer: parent.pointer, unavailable: 'unknown' }
-    return locate(parent.node.decoding.properties, `${parent.pointer}/decoding/properties`, name)
-  }
+  const top = (_raw: RawPackageSnapshot, selected: RawCdoCandidate | undefined, name: string): Located => topLevelRawNode(selected, name)
+  const nested = nestedRawNode
   function trace(raw: RawPackageSnapshot, located: Located, mappingId: string): Trace {
-    return { mappingId, identityAssertionId: assertion.id, raw: rawTrace(raw, located.pointer) }
+    return projectionTrace(raw, located, mappingId, assertion.id)
   }
   function read<T extends string | number | boolean>(raw: RawPackageSnapshot, located: Located, mappingId: string, expectedType: string, valueType: 'string' | 'number' | 'boolean'): Field<T> {
-    const provenance = trace(raw, located, mappingId)
-    if (!located.node) return { state: located.unavailable ?? 'unknown', reason: 'Raw node missing, ambiguous, or parent unavailable', trace: provenance }
-    if (located.node.decoding.state !== 'decoded') return { state: located.node.decoding.state, reason: 'Raw node unavailable', trace: provenance }
-    const value = located.node.decoding.value
-    if (located.node.type.value !== expectedType || typeof value !== valueType || (typeof value === 'number' && !Number.isFinite(value))) return { state: 'unknown', reason: 'Unexpected Raw type or value', trace: provenance }
-    return { state: 'known', value: value as T, trace: provenance }
+    return readRawValue<T>(raw, located, mappingId, assertion.id, expectedType, valueType)
   }
 
   const instanceCdo = cdo(instanceRaw)
@@ -175,7 +134,7 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
     trace: definitionsTrace,
     value: definitions.node.decoding.elements.map((element, arrayPosition) => {
       const pointer = `${definitions.pointer}/decoding/elements/${arrayPosition}`
-      const child = (name: string): Located => element.decoding.state === 'decoded' ? locate(element.properties, `${pointer}/properties`, name) : { pointer, unavailable: element.decoding.state }
+      const child = (name: string): Located => element.decoding.state === 'decoded' ? locateRawNode(element.properties, `${pointer}/properties`, name) : { pointer, unavailable: element.decoding.state }
       const reference = resolveProjectileReference(child(scatterCrossbowMappings.projectileReference.rawField))
       return {
         sourceIndex: element.index,
@@ -189,7 +148,7 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
 
   return {
     kind: 'temporary-scatter-crossbow-projection' as const,
-    identity: { status: identityResolved ? assertion.status : 'unresolved' as const, confidence: identityResolved ? assertion.confidence : undefined, ...(identityResolved ? { domainId: assertion.domainId, displayName: assertion.displayName } : {}), assertionId: assertion.id, evidence: { itemName, serializedId } },
+    identity: { status: identityResolved ? assertion.status : 'unresolved' as const, ...(identityResolved ? { confidence: assertion.confidence, domainId: assertion.domainId, displayName: assertion.displayName } : {}), assertionId: assertion.id, evidence: { itemName, serializedId } },
     configuredProjectileDefinitions,
     configuredProjectileVelocityFactor,
   }
