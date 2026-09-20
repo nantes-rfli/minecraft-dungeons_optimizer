@@ -1,10 +1,10 @@
 # Raw Game Source package snapshots — Step 3A
 
-This generated artifact covers the deliberately small four-package Raw flow:
+This generated artifact covers the deliberately small six-package Raw flow:
 
 `Game files → extraction → Raw package snapshot`
 
-The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, and Battle Robe Instance. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
+The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, Battle Robe Instance, Death Cap Mushroom Instance, and Death Cap Mushroom GameplayEffect. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, or includes manual annotations.
 
 ## Reproducibility identity
 
@@ -93,6 +93,38 @@ The source binaries remain local and are not committed. Every package has its ow
 - 4 non-CDO export payloads explicitly marked `not-extracted` with complete unavailable ranges
 - 0 package diagnostics and 2 package-level unparsed/unassigned ranges
 
+## Package: `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance`
+
+- Extraction run: `sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682`
+- Logical package hash: `sha256-path-content-v1:973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113`
+
+| Dataset-relative input | Bytes | SHA-256 |
+|---|---:|---|
+| `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uasset` | 3718 | `2c90db9eda3e89ad3fda8a1c28e8d90b255184c89c9bb5775d9b22c4eeae3f6a` |
+| `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp` | 614 | `b9fe7543bbc846be7159dafa9ac9a7718d2f4ecb6363f1bf054765f45b491829` |
+
+- 61 Name Map entries, 29 imports, and 5 exports in serialized order
+- 5 export objects with raw package indexes, class/super/template/outer references, object flags, and source byte ranges
+- 1 decoded CDO property stream containing 8 property nodes; names/types retain FName indexes and numbers, tag order, array indexes, serialized sizes, metadata, values or explicit unavailable state, and byte ranges
+- 4 non-CDO export payloads explicitly marked `not-extracted` with complete unavailable ranges
+- 0 package diagnostics and 2 package-level unparsed/unassigned ranges
+
+## Package: `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect`
+
+- Extraction run: `sha256:b5897b8ebc25497b6242bffc3487778cf5a3331c5564e8098bef5b2082b741ca`
+- Logical package hash: `sha256-path-content-v1:70d8ee04479f796280089d43088019420547c1c31bd050591674dfa0d33794fc`
+
+| Dataset-relative input | Bytes | SHA-256 |
+|---|---:|---|
+| `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uasset` | 1551 | `f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad` |
+| `Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp` | 129 | `5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6` |
+
+- 20 Name Map entries, 11 imports, and 3 exports in serialized order
+- 3 export objects with raw package indexes, class/super/template/outer references, object flags, and source byte ranges
+- 1 decoded CDO property stream containing 1 property nodes; names/types retain FName indexes and numbers, tag order, array indexes, serialized sizes, metadata, values or explicit unavailable state, and byte ranges
+- 2 non-CDO export payloads explicitly marked `not-extracted` with complete unavailable ranges
+- 0 package diagnostics and 2 package-level unparsed/unassigned ranges
+
 Decoded zero and false values are retained only with `state: decoded`; unavailable states omit `value`. Raw object/package indexes are not rewritten as application identities.
 
 ## Boundaries
@@ -102,4 +134,4 @@ Decoded zero and false values are retained only with `state: decoded`; unavailab
 - Manual annotations: `separate-not-included`
 - Raw binary bytes: `not-committed`
 
-Canonical generated snapshots are stored beneath `research/raw/packages/` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains; no cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
+Canonical generated snapshots are stored beneath `research/raw/packages/` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains. Death Cap Mushroom’s serialized Effect import outer chain names `/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect`; that exact package is present in the selected local dataset and has its own independent Raw snapshot in this slice. This confirms package identity and traceability without interpreting duration, attack speed, movement speed, Power scaling, stacking, or effective uptime. No generic cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.

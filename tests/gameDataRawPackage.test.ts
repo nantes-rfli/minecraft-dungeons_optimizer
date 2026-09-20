@@ -14,9 +14,11 @@ const fighters = snapshots.get('fighters-bindings-instance')!
 const instance = snapshots.get('scatter-crossbow-instance')!
 const projectile = snapshots.get('scatter-crossbow-projectile')!
 const battleRobe = snapshots.get('battle-robe-instance')!
+const deathCapInstance = snapshots.get('death-cap-mushroom-instance')!
+const deathCapEffect = snapshots.get('death-cap-mushroom-gameplay-effect')!
 
 describe('Step 3A Raw package snapshots', () => {
-  it('validates all four package contracts without local game files', () => {
+  it('validates all six package contracts without local game files', () => {
     for (const spec of RAW_PACKAGE_SPECS) {
       const snapshot = snapshots.get(spec.id)!
       expect(collectRawPackageSnapshotErrors(snapshot, provenance, process.cwd(), spec)).toEqual([])
@@ -32,9 +34,12 @@ describe('Step 3A Raw package snapshots', () => {
     expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'fighters-bindings-instance')?.auditAssertions).toEqual(expect.any(Function))
     expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'scatter-crossbow-instance')?.auditAssertions).toEqual(expect.any(Function))
     expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'battle-robe-instance')?.auditAssertions).toEqual(expect.any(Function))
+    expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'death-cap-mushroom-instance')?.auditAssertions).toEqual(expect.any(Function))
+    expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'death-cap-mushroom-gameplay-effect')?.auditAssertions).toEqual(expect.any(Function))
     const sharedCollector = collectRawPackageSnapshotErrors.toString()
     expect(sharedCollector).not.toContain("spec.id === 'scatter-crossbow-instance'")
     expect(sharedCollector).not.toContain("spec.id === 'battle-robe-instance'")
+    expect(sharedCollector).not.toContain("spec.id === 'death-cap-mushroom-instance'")
     expect(sharedCollector).not.toContain("serialized.includes('fighters-bindings')")
   })
 
@@ -73,7 +78,7 @@ describe('Step 3A Raw package snapshots', () => {
       "'another-package-spec',\n    'Dungeons/Content/Actors/Equipment/RangedWeapons/AnotherPackage'",
     ))
     const reportOnly = identityAfter(rawPackagePath, (source) => source.replace(
-      'This generated artifact covers the deliberately small four-package Raw flow:',
+      'This generated artifact covers the deliberately small six-package Raw flow:',
       'Report-only wording changed.',
     ))
     const coreDrift = identityAfter(rawPackagePath, (source) => source.replace(
@@ -149,6 +154,43 @@ describe('Step 3A Raw package snapshots', () => {
       objectName: { value: '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe' },
     })
     expect(serializeRawPackageSnapshot(battleRobe)).not.toMatch(/MeleeDamageBoost|ItemCooldownDecrease|30% melee|40% artifact/i)
+  })
+
+  it('retains Death Cap Mushroom identity and the serialized Effect import chain', () => {
+    expect(rawValue(deathCapInstance, 'ItemIdName')).toBe('DeathCapMushroom')
+    expect(rawValue(deathCapInstance, 'ItemId.SerializedId')).toBe('DeathCapMushroom')
+    expect(rawValue(deathCapInstance, 'Effect')).toEqual({
+      rawPackageIndex: -3, kind: 'import', index: 2,
+      objectName: 'BP_DeathCapMushroomGameplayEffect_C', className: 'BlueprintGeneratedClass',
+    })
+    expect(deathCapInstance.package.imports[2]).toMatchObject({
+      rawPackageIndex: -3, outerIndex: -19,
+      objectName: { value: 'BP_DeathCapMushroomGameplayEffect_C' },
+      outerReference: {
+        rawPackageIndex: -19, kind: 'import',
+        objectName: '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect',
+      },
+    })
+    expect(deathCapInstance.package.imports[18]).toMatchObject({
+      rawPackageIndex: -19, outerIndex: 0,
+      objectName: { value: '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect' },
+    })
+  })
+
+  it('snapshots the exact GameplayEffect target package without gameplay semantics', () => {
+    expect(deathCapEffect.logicalPackage.path).toBe(
+      deathCapInstance.package.imports[18]?.objectName.value.replace('/Game/', 'Dungeons/Content/'),
+    )
+    expect(deathCapEffect.package.exports[0]).toMatchObject({
+      objectName: { value: 'BP_DeathCapMushroomGameplayEffect_C' },
+      superReference: { rawPackageIndex: -5, kind: 'import', objectName: 'DeathCapMushroomGameplayEffect' },
+    })
+    expect(rawValue(deathCapEffect, 'UIData')).toEqual({
+      rawPackageIndex: 3, kind: 'export', index: 2,
+      objectName: 'BP_MushroomizedUIData_C_0', className: 'BP_MushroomizedUIData_C',
+    })
+    expect(serializeRawPackageSnapshot(deathCapInstance)).not.toMatch(/duration|attack speed|movement speed|power scaling|stacking|effective uptime/i)
+    expect(serializeRawPackageSnapshot(deathCapEffect)).not.toMatch(/duration|attack speed|movement speed|power scaling|stacking|effective uptime/i)
   })
 })
 
