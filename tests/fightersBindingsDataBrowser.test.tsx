@@ -63,6 +63,8 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     expect(fs.readdirSync('src/domain/temporary').sort()).toEqual([
       'battleRobe.ts',
       'battleRobeIdentity.ts',
+      'deathCapMushroom.ts',
+      'deathCapMushroomIdentity.ts',
       'fightersBindings.ts',
       'fightersBindingsIdentity.ts',
       'projectionPrimitives.ts',
