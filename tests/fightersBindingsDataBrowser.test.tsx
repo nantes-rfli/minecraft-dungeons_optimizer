@@ -60,6 +60,11 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     expect(browserSources).not.toContain('research/raw/')
     expect(browserSources).not.toContain('projectFightersBindings')
     expect(browserSources).not.toContain('game-data-raw-package')
-    expect(fs.readdirSync('src/domain/temporary').sort()).toEqual(['fightersBindings.ts', 'fightersBindingsIdentity.ts'])
+    expect(fs.readdirSync('src/domain/temporary').sort()).toEqual([
+      'fightersBindings.ts',
+      'fightersBindingsIdentity.ts',
+      'scatterCrossbow.ts',
+      'scatterCrossbowIdentity.ts',
+    ])
   })
 })
