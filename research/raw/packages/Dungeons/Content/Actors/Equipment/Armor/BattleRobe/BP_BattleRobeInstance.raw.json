@@ -1,0 +1,2072 @@
+{
+  "schemaVersion": 2,
+  "snapshotKind": "generated-raw-package",
+  "dataset": {
+    "id": "mcd-quickbms-local-1.17.0.0-823acded",
+    "claimedGameVersion": "1.17.0.0",
+    "claimedGameVersionStatus": "claimed",
+    "sourceFingerprint": {
+      "algorithm": "sha256-path-size-v1",
+      "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+    }
+  },
+  "logicalPackage": {
+    "path": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uasset",
+        "size": 3106,
+        "sha256": "6af8045b8ca4d52bb534b22d30af72713b435fa4b25ce0b0d56c2f551e2bd4de"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+        "size": 556,
+        "sha256": "4bd24eb00177471089622e6247b0292d7b89686e67c273ef477bf0138cc6d54f"
+      }
+    ],
+    "contentHash": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+    }
+  },
+  "extraction": {
+    "runId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+    "parser": {
+      "id": "ue4-package-property-parser",
+      "schemaVersion": 1
+    },
+    "configuration": {
+      "logicalPackageUnit": "one-logical-package-one-extraction-result",
+      "packageExtensions": [
+        ".uasset",
+        ".uexp"
+      ],
+      "strictPropertyTermination": false,
+      "propertySelection": "none",
+      "crossPackageReferenceResolution": "not-performed",
+      "nonCdoExportDecoding": "not-extracted"
+    },
+    "codeIdentity": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "883d79e4fb1ed938b0cc7f1e666182c53a0957902e978d5b9890e91cd344a322",
+      "files": [
+        {
+          "path": "scripts/game-data-package-source.ts",
+          "sha256": "14c2cf119186ae9187211cfdd1e637979d589a0c4c23c58de0bc62224a6d99db"
+        },
+        {
+          "path": "scripts/game-data-raw-package.ts#snapshot-core",
+          "sha256": "7348ca88aa389131ac483e33be6377f3f761b9afa9bbe08fc30a180095af04fd"
+        },
+        {
+          "path": "src/research/ue4/binaryReader.ts",
+          "sha256": "d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565"
+        },
+        {
+          "path": "src/research/ue4/objectResolver.ts",
+          "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+        },
+        {
+          "path": "src/research/ue4/packageReader.ts",
+          "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+        },
+        {
+          "path": "src/research/ue4/packageTypes.ts",
+          "sha256": "640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb"
+        },
+        {
+          "path": "src/research/ue4/propertyReader.ts",
+          "sha256": "c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e"
+        }
+      ]
+    }
+  },
+  "boundaries": {
+    "semanticFiltering": "not-applied",
+    "domainIdentityMapping": "not-applied",
+    "manualAnnotations": "separate-not-included",
+    "rawBinaryBytes": "not-committed"
+  },
+  "package": {
+    "summary": {
+      "magic": 2653586369,
+      "legacyFileVersion": -7,
+      "fileVersionUE4": 0,
+      "fileVersionLicenseeUE4": 0,
+      "totalHeaderSize": 3106,
+      "nameCount": 53,
+      "nameOffset": 193,
+      "exportCount": 5,
+      "exportOffset": 2470,
+      "importCount": 23,
+      "importOffset": 1826
+    },
+    "nameMap": [
+      {
+        "index": 0,
+        "value": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe",
+        "hashBytes": "68001260",
+        "byteRange": {
+          "start": 193,
+          "end": 255
+        }
+      },
+      {
+        "index": 1,
+        "value": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+        "hashBytes": "4b636b49",
+        "byteRange": {
+          "start": 255,
+          "end": 325
+        }
+      },
+      {
+        "index": 2,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_battleRobePlace",
+        "hashBytes": "25692036",
+        "byteRange": {
+          "start": 325,
+          "end": 414
+        }
+      },
+      {
+        "index": 3,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_battleRobePlace.sfx_item_battleRobePlace",
+        "hashBytes": "0d35a5e8",
+        "byteRange": {
+          "start": 414,
+          "end": 528
+        }
+      },
+      {
+        "index": 4,
+        "value": "/Script/CoreUObject",
+        "hashBytes": "f8492d3e",
+        "byteRange": {
+          "start": 528,
+          "end": 556
+        }
+      },
+      {
+        "index": 5,
+        "value": "/Script/Dungeons",
+        "hashBytes": "0bb1ca79",
+        "byteRange": {
+          "start": 556,
+          "end": 581
+        }
+      },
+      {
+        "index": 6,
+        "value": "/Script/Engine",
+        "hashBytes": "86408549",
+        "byteRange": {
+          "start": 581,
+          "end": 604
+        }
+      },
+      {
+        "index": 7,
+        "value": "ArmorGearItemInstance",
+        "hashBytes": "e6bda3cf",
+        "byteRange": {
+          "start": 604,
+          "end": 634
+        }
+      },
+      {
+        "index": 8,
+        "value": "BattleRobe",
+        "hashBytes": "9b3fce64",
+        "byteRange": {
+          "start": 634,
+          "end": 653
+        }
+      },
+      {
+        "index": 9,
+        "value": "BillboardComponent",
+        "hashBytes": "93dcfb06",
+        "byteRange": {
+          "start": 653,
+          "end": 680
+        }
+      },
+      {
+        "index": 10,
+        "value": "BlueprintGeneratedClass",
+        "hashBytes": "299b702d",
+        "byteRange": {
+          "start": 680,
+          "end": 712
+        }
+      },
+      {
+        "index": 11,
+        "value": "BP_BattleRobe_C",
+        "hashBytes": "c8d6448e",
+        "byteRange": {
+          "start": 712,
+          "end": 736
+        }
+      },
+      {
+        "index": 12,
+        "value": "BP_BattleRobeInstance_C",
+        "hashBytes": "22a8ddc2",
+        "byteRange": {
+          "start": 736,
+          "end": 768
+        }
+      },
+      {
+        "index": 13,
+        "value": "Class",
+        "hashBytes": "74777891",
+        "byteRange": {
+          "start": 768,
+          "end": 782
+        }
+      },
+      {
+        "index": 14,
+        "value": "ComponentClass",
+        "hashBytes": "31fef655",
+        "byteRange": {
+          "start": 782,
+          "end": 805
+        }
+      },
+      {
+        "index": 15,
+        "value": "ComponentTemplate",
+        "hashBytes": "d4aa22c2",
+        "byteRange": {
+          "start": 805,
+          "end": 831
+        }
+      },
+      {
+        "index": 16,
+        "value": "Default__ArmorGearItemInstance",
+        "hashBytes": "6a7ab784",
+        "byteRange": {
+          "start": 831,
+          "end": 870
+        }
+      },
+      {
+        "index": 17,
+        "value": "Default__BlueprintGeneratedClass",
+        "hashBytes": "01cf3033",
+        "byteRange": {
+          "start": 870,
+          "end": 911
+        }
+      },
+      {
+        "index": 18,
+        "value": "Default__BP_BattleRobe_C",
+        "hashBytes": "cb95062e",
+        "byteRange": {
+          "start": 911,
+          "end": 944
+        }
+      },
+      {
+        "index": 19,
+        "value": "Default__BP_BattleRobeInstance_C",
+        "hashBytes": "0afc9ddc",
+        "byteRange": {
+          "start": 944,
+          "end": 985
+        }
+      },
+      {
+        "index": 20,
+        "value": "Default__SceneComponent",
+        "hashBytes": "622de8bc",
+        "byteRange": {
+          "start": 985,
+          "end": 1017
+        }
+      },
+      {
+        "index": 21,
+        "value": "Default__SCS_Node",
+        "hashBytes": "e18e610c",
+        "byteRange": {
+          "start": 1017,
+          "end": 1043
+        }
+      },
+      {
+        "index": 22,
+        "value": "Default__SimpleConstructionScript",
+        "hashBytes": "1867db40",
+        "byteRange": {
+          "start": 1043,
+          "end": 1085
+        }
+      },
+      {
+        "index": 23,
+        "value": "DefaultSceneRoot",
+        "hashBytes": "bc8c9e05",
+        "byteRange": {
+          "start": 1085,
+          "end": 1110
+        }
+      },
+      {
+        "index": 24,
+        "value": "DefaultSceneRoot_GEN_VARIABLE",
+        "hashBytes": "ae7e8448",
+        "byteRange": {
+          "start": 1110,
+          "end": 1148
+        }
+      },
+      {
+        "index": 25,
+        "value": "DefaultSceneRootNode",
+        "hashBytes": "3a50bde5",
+        "byteRange": {
+          "start": 1148,
+          "end": 1177
+        }
+      },
+      {
+        "index": 26,
+        "value": "Engine",
+        "hashBytes": "b70144e6",
+        "byteRange": {
+          "start": 1177,
+          "end": 1192
+        }
+      },
+      {
+        "index": 27,
+        "value": "GearActor",
+        "hashBytes": "c1561601",
+        "byteRange": {
+          "start": 1192,
+          "end": 1210
+        }
+      },
+      {
+        "index": 28,
+        "value": "Guid",
+        "hashBytes": "4350fa68",
+        "byteRange": {
+          "start": 1210,
+          "end": 1223
+        }
+      },
+      {
+        "index": 29,
+        "value": "InternalVariableName",
+        "hashBytes": "3dff0afd",
+        "byteRange": {
+          "start": 1223,
+          "end": 1252
+        }
+      },
+      {
+        "index": 30,
+        "value": "InventoryDropSound",
+        "hashBytes": "6047014e",
+        "byteRange": {
+          "start": 1252,
+          "end": 1279
+        }
+      },
+      {
+        "index": 31,
+        "value": "ItemId",
+        "hashBytes": "5dc2885d",
+        "byteRange": {
+          "start": 1279,
+          "end": 1294
+        }
+      },
+      {
+        "index": 32,
+        "value": "ItemIdName",
+        "hashBytes": "f5d42106",
+        "byteRange": {
+          "start": 1294,
+          "end": 1313
+        }
+      },
+      {
+        "index": 33,
+        "value": "NameProperty",
+        "hashBytes": "82f2084a",
+        "byteRange": {
+          "start": 1313,
+          "end": 1334
+        }
+      },
+      {
+        "index": 34,
+        "value": "None",
+        "hashBytes": "f403c50d",
+        "byteRange": {
+          "start": 1334,
+          "end": 1347
+        }
+      },
+      {
+        "index": 35,
+        "value": "Object",
+        "hashBytes": "654bed01",
+        "byteRange": {
+          "start": 1347,
+          "end": 1362
+        }
+      },
+      {
+        "index": 36,
+        "value": "ObjectProperty",
+        "hashBytes": "41dbb3ea",
+        "byteRange": {
+          "start": 1362,
+          "end": 1385
+        }
+      },
+      {
+        "index": 37,
+        "value": "Package",
+        "hashBytes": "73478815",
+        "byteRange": {
+          "start": 1385,
+          "end": 1401
+        }
+      },
+      {
+        "index": 38,
+        "value": "Paperdoll",
+        "hashBytes": "eadba21e",
+        "byteRange": {
+          "start": 1401,
+          "end": 1419
+        }
+      },
+      {
+        "index": 39,
+        "value": "PaperdollComponent",
+        "hashBytes": "bd2b7c20",
+        "byteRange": {
+          "start": 1419,
+          "end": 1446
+        }
+      },
+      {
+        "index": 40,
+        "value": "RootComponent",
+        "hashBytes": "14b7619a",
+        "byteRange": {
+          "start": 1446,
+          "end": 1468
+        }
+      },
+      {
+        "index": 41,
+        "value": "SceneComponent",
+        "hashBytes": "4818645f",
+        "byteRange": {
+          "start": 1468,
+          "end": 1491
+        }
+      },
+      {
+        "index": 42,
+        "value": "SCS_Node",
+        "hashBytes": "31d3d2c5",
+        "byteRange": {
+          "start": 1491,
+          "end": 1508
+        }
+      },
+      {
+        "index": 43,
+        "value": "SerializableItemId",
+        "hashBytes": "bcbd290f",
+        "byteRange": {
+          "start": 1508,
+          "end": 1535
+        }
+      },
+      {
+        "index": 44,
+        "value": "SerializedId",
+        "hashBytes": "78075b3f",
+        "byteRange": {
+          "start": 1535,
+          "end": 1556
+        }
+      },
+      {
+        "index": 45,
+        "value": "SimpleConstructionScript",
+        "hashBytes": "142b5220",
+        "byteRange": {
+          "start": 1556,
+          "end": 1589
+        }
+      },
+      {
+        "index": 46,
+        "value": "SM_GuardArmor_GuardSet_GEN_VARIABLE",
+        "hashBytes": "f17dcecc",
+        "byteRange": {
+          "start": 1589,
+          "end": 1633
+        }
+      },
+      {
+        "index": 47,
+        "value": "SM_L_ShoulderPad_GuardSet_GEN_VARIABLE",
+        "hashBytes": "d7ce79b0",
+        "byteRange": {
+          "start": 1633,
+          "end": 1680
+        }
+      },
+      {
+        "index": 48,
+        "value": "SM_R_ShoulderPad_GuardSet_GEN_VARIABLE",
+        "hashBytes": "e52071d4",
+        "byteRange": {
+          "start": 1680,
+          "end": 1727
+        }
+      },
+      {
+        "index": 49,
+        "value": "SoftObjectProperty",
+        "hashBytes": "5b4baefa",
+        "byteRange": {
+          "start": 1727,
+          "end": 1754
+        }
+      },
+      {
+        "index": 50,
+        "value": "StaticMeshComponent",
+        "hashBytes": "6ef14522",
+        "byteRange": {
+          "start": 1754,
+          "end": 1782
+        }
+      },
+      {
+        "index": 51,
+        "value": "StructProperty",
+        "hashBytes": "30009cfc",
+        "byteRange": {
+          "start": 1782,
+          "end": 1805
+        }
+      },
+      {
+        "index": 52,
+        "value": "VariableGuid",
+        "hashBytes": "ab967eda",
+        "byteRange": {
+          "start": 1805,
+          "end": 1826
+        }
+      }
+    ],
+    "imports": [
+      {
+        "index": 0,
+        "classPackage": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "ArmorGearItemInstance"
+        },
+        "outerIndex": -14,
+        "objectName": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "Default__ArmorGearItemInstance"
+        },
+        "byteRange": {
+          "start": 1826,
+          "end": 1854
+        },
+        "rawPackageIndex": -1,
+        "outerReference": {
+          "rawPackageIndex": -14,
+          "kind": "import",
+          "index": 13,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 1,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 10,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -12,
+        "objectName": {
+          "nameIndex": 11,
+          "number": 0,
+          "value": "BP_BattleRobe_C"
+        },
+        "byteRange": {
+          "start": 1854,
+          "end": 1882
+        },
+        "rawPackageIndex": -2,
+        "outerReference": {
+          "rawPackageIndex": -12,
+          "kind": "import",
+          "index": 11,
+          "objectName": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 2,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 10,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 17,
+          "number": 0,
+          "value": "Default__BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 1882,
+          "end": 1910
+        },
+        "rawPackageIndex": -3,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 3,
+        "classPackage": {
+          "nameIndex": 0,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+        },
+        "className": {
+          "nameIndex": 11,
+          "number": 0,
+          "value": "BP_BattleRobe_C"
+        },
+        "outerIndex": -12,
+        "objectName": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "Default__BP_BattleRobe_C"
+        },
+        "byteRange": {
+          "start": 1910,
+          "end": 1938
+        },
+        "rawPackageIndex": -4,
+        "outerReference": {
+          "rawPackageIndex": -12,
+          "kind": "import",
+          "index": 11,
+          "objectName": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 4,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -13,
+        "objectName": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Object"
+        },
+        "byteRange": {
+          "start": 1938,
+          "end": 1966
+        },
+        "rawPackageIndex": -5,
+        "outerReference": {
+          "rawPackageIndex": -13,
+          "kind": "import",
+          "index": 12,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 5,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -14,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "ArmorGearItemInstance"
+        },
+        "byteRange": {
+          "start": 1966,
+          "end": 1994
+        },
+        "rawPackageIndex": -6,
+        "outerReference": {
+          "rawPackageIndex": -14,
+          "kind": "import",
+          "index": 13,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 6,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 9,
+          "number": 0,
+          "value": "BillboardComponent"
+        },
+        "byteRange": {
+          "start": 1994,
+          "end": 2022
+        },
+        "rawPackageIndex": -7,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 7,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 10,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 2022,
+          "end": 2050
+        },
+        "rawPackageIndex": -8,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 8,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 41,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "byteRange": {
+          "start": 2050,
+          "end": 2078
+        },
+        "rawPackageIndex": -9,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 9,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "byteRange": {
+          "start": 2078,
+          "end": 2106
+        },
+        "rawPackageIndex": -10,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 10,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 2106,
+          "end": 2134
+        },
+        "rawPackageIndex": -11,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 11,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 37,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 0,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+        },
+        "byteRange": {
+          "start": 2134,
+          "end": 2162
+        },
+        "rawPackageIndex": -12,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 12,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 37,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "byteRange": {
+          "start": 2162,
+          "end": 2190
+        },
+        "rawPackageIndex": -13,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 13,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 37,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "byteRange": {
+          "start": 2190,
+          "end": 2218
+        },
+        "rawPackageIndex": -14,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 14,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 37,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "byteRange": {
+          "start": 2218,
+          "end": 2246
+        },
+        "rawPackageIndex": -15,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 15,
+        "classPackage": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 39,
+          "number": 0,
+          "value": "PaperdollComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 38,
+          "number": 0,
+          "value": "Paperdoll"
+        },
+        "byteRange": {
+          "start": 2246,
+          "end": 2274
+        },
+        "rawPackageIndex": -16,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "Default__BP_BattleRobe_C",
+          "className": "BP_BattleRobe_C"
+        }
+      },
+      {
+        "index": 16,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 41,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 24,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 2274,
+          "end": 2302
+        },
+        "rawPackageIndex": -17,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_BattleRobe_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 17,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 41,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 20,
+          "number": 0,
+          "value": "Default__SceneComponent"
+        },
+        "byteRange": {
+          "start": 2302,
+          "end": 2330
+        },
+        "rawPackageIndex": -18,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 18,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 42,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 21,
+          "number": 0,
+          "value": "Default__SCS_Node"
+        },
+        "byteRange": {
+          "start": 2330,
+          "end": 2358
+        },
+        "rawPackageIndex": -19,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 19,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "outerIndex": -15,
+        "objectName": {
+          "nameIndex": 22,
+          "number": 0,
+          "value": "Default__SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 2358,
+          "end": 2386
+        },
+        "rawPackageIndex": -20,
+        "outerReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 20,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 50,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 46,
+          "number": 0,
+          "value": "SM_GuardArmor_GuardSet_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 2386,
+          "end": 2414
+        },
+        "rawPackageIndex": -21,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_BattleRobe_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 21,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 50,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "SM_L_ShoulderPad_GuardSet_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 2414,
+          "end": 2442
+        },
+        "rawPackageIndex": -22,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_BattleRobe_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 22,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 50,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 48,
+          "number": 0,
+          "value": "SM_R_ShoulderPad_GuardSet_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 2442,
+          "end": 2470
+        },
+        "rawPackageIndex": -23,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_BattleRobe_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      }
+    ],
+    "exports": [
+      {
+        "index": 0,
+        "classIndex": -8,
+        "superIndex": -6,
+        "templateIndex": -3,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "BP_BattleRobeInstance_C"
+        },
+        "objectFlags": 9,
+        "serialSize": 105,
+        "serialOffset": 3106,
+        "byteRange": {
+          "start": 2470,
+          "end": 2574
+        },
+        "rawPackageIndex": 1,
+        "classReference": {
+          "rawPackageIndex": -8,
+          "kind": "import",
+          "index": 7,
+          "objectName": "BlueprintGeneratedClass",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": -6,
+          "kind": "import",
+          "index": 5,
+          "objectName": "ArmorGearItemInstance",
+          "className": "Class"
+        },
+        "templateReference": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "Default__BlueprintGeneratedClass",
+          "className": "BlueprintGeneratedClass"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 1,
+        "classIndex": 1,
+        "superIndex": 0,
+        "templateIndex": -1,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 19,
+          "number": 0,
+          "value": "Default__BP_BattleRobeInstance_C"
+        },
+        "objectFlags": 49,
+        "serialSize": 226,
+        "serialOffset": 3211,
+        "byteRange": {
+          "start": 2574,
+          "end": 2678
+        },
+        "rawPackageIndex": 2,
+        "classReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_BattleRobeInstance_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Default__ArmorGearItemInstance",
+          "className": "ArmorGearItemInstance"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 2,
+        "classIndex": -9,
+        "superIndex": 0,
+        "templateIndex": -18,
+        "outerIndex": 1,
+        "objectName": {
+          "nameIndex": 24,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "serialSize": 12,
+        "serialOffset": 3437,
+        "byteRange": {
+          "start": 2678,
+          "end": 2782
+        },
+        "rawPackageIndex": 3,
+        "classReference": {
+          "rawPackageIndex": -9,
+          "kind": "import",
+          "index": 8,
+          "objectName": "SceneComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -18,
+          "kind": "import",
+          "index": 17,
+          "objectName": "Default__SceneComponent",
+          "className": "SceneComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_BattleRobeInstance_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 3,
+        "classIndex": -10,
+        "superIndex": 0,
+        "templateIndex": -19,
+        "outerIndex": 5,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 168,
+        "serialOffset": 3449,
+        "byteRange": {
+          "start": 2782,
+          "end": 2886
+        },
+        "rawPackageIndex": 4,
+        "classReference": {
+          "rawPackageIndex": -10,
+          "kind": "import",
+          "index": 9,
+          "objectName": "SCS_Node",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -19,
+          "kind": "import",
+          "index": 18,
+          "objectName": "Default__SCS_Node",
+          "className": "SCS_Node"
+        },
+        "outerReference": {
+          "rawPackageIndex": 5,
+          "kind": "export",
+          "index": 4,
+          "objectName": "SimpleConstructionScript_0",
+          "className": "SimpleConstructionScript"
+        }
+      },
+      {
+        "index": 4,
+        "classIndex": -11,
+        "superIndex": 0,
+        "templateIndex": -20,
+        "outerIndex": 1,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 41,
+        "serialOffset": 3617,
+        "byteRange": {
+          "start": 2886,
+          "end": 2990
+        },
+        "rawPackageIndex": 5,
+        "classReference": {
+          "rawPackageIndex": -11,
+          "kind": "import",
+          "index": 10,
+          "objectName": "SimpleConstructionScript",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -20,
+          "kind": "import",
+          "index": 19,
+          "objectName": "Default__SimpleConstructionScript",
+          "className": "SimpleConstructionScript"
+        },
+        "outerReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_BattleRobeInstance_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "exportIndex": 0,
+        "rawPackageIndex": 1,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "BP_BattleRobeInstance_C"
+        },
+        "objectFlags": 9,
+        "references": {
+          "class": {
+            "rawPackageIndex": -8,
+            "kind": "import",
+            "index": 7,
+            "objectName": "BlueprintGeneratedClass",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "ArmorGearItemInstance",
+            "className": "Class"
+          },
+          "template": {
+            "rawPackageIndex": -3,
+            "kind": "import",
+            "index": 2,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 3106,
+          "serialSize": 105,
+          "combinedPackageByteRange": {
+            "start": 3106,
+            "end": 3211
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 0,
+            "end": 105
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 0,
+            "end": 105,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 1,
+        "rawPackageIndex": 2,
+        "objectName": {
+          "nameIndex": 19,
+          "number": 0,
+          "value": "Default__BP_BattleRobeInstance_C"
+        },
+        "objectFlags": 49,
+        "references": {
+          "class": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_BattleRobeInstance_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -1,
+            "kind": "import",
+            "index": 0,
+            "objectName": "Default__ArmorGearItemInstance",
+            "className": "ArmorGearItemInstance"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": true,
+        "serialization": {
+          "serialOffset": 3211,
+          "serialSize": 226,
+          "combinedPackageByteRange": {
+            "start": 3211,
+            "end": 3437
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 105,
+            "end": 331
+          }
+        },
+        "extraction": {
+          "state": "decoded"
+        },
+        "propertyStream": {
+          "termination": "terminated",
+          "byteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 105,
+            "end": 331
+          },
+          "terminatorByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 323,
+            "end": 331
+          }
+        },
+        "properties": [
+          {
+            "order": 0,
+            "name": {
+              "nameIndex": 27,
+              "number": 0,
+              "value": "GearActor"
+            },
+            "type": {
+              "nameIndex": 36,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "GearActor",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 105,
+                "end": 134
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 130,
+                "end": 134
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": -2,
+                "kind": "import",
+                "index": 1,
+                "objectName": "BP_BattleRobe_C",
+                "className": "BlueprintGeneratedClass"
+              }
+            }
+          },
+          {
+            "order": 1,
+            "name": {
+              "nameIndex": 30,
+              "number": 0,
+              "value": "InventoryDropSound"
+            },
+            "type": {
+              "nameIndex": 49,
+              "number": 0,
+              "value": "SoftObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "InventoryDropSound",
+            "serializedSize": 12,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 134,
+                "end": 171
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 159,
+                "end": 171
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_battleRobePlace.sfx_item_battleRobePlace",
+                "subPathString": ""
+              }
+            }
+          },
+          {
+            "order": 2,
+            "name": {
+              "nameIndex": 32,
+              "number": 0,
+              "value": "ItemIdName"
+            },
+            "type": {
+              "nameIndex": 33,
+              "number": 0,
+              "value": "NameProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ItemIdName",
+            "serializedSize": 8,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 171,
+                "end": 204
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 196,
+                "end": 204
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": "BattleRobe"
+            }
+          },
+          {
+            "order": 3,
+            "name": {
+              "nameIndex": 31,
+              "number": 0,
+              "value": "ItemId"
+            },
+            "type": {
+              "nameIndex": 51,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ItemId",
+            "serializedSize": 41,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 204,
+                "end": 294
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 253,
+                "end": 294
+              }
+            },
+            "metadata": {
+              "structType": "SerializableItemId",
+              "structTypeReference": {
+                "nameIndex": 43,
+                "number": 0,
+                "value": "SerializableItemId"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            },
+            "decoding": {
+              "state": "decoded",
+              "properties": [
+                {
+                  "order": 0,
+                  "name": {
+                    "nameIndex": 44,
+                    "number": 0,
+                    "value": "SerializedId"
+                  },
+                  "type": {
+                    "nameIndex": 33,
+                    "number": 0,
+                    "value": "NameProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "ItemId.SerializedId",
+                  "serializedSize": 8,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                      "start": 253,
+                      "end": 286
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                      "start": 278,
+                      "end": 286
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": "BattleRobe"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "order": 4,
+            "name": {
+              "nameIndex": 40,
+              "number": 0,
+              "value": "RootComponent"
+            },
+            "type": {
+              "nameIndex": 36,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "RootComponent",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 294,
+                "end": 323
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+                "start": 319,
+                "end": 323
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": 0,
+                "kind": "null"
+              }
+            }
+          }
+        ],
+        "diagnostics": [],
+        "unavailableRanges": []
+      },
+      {
+        "exportIndex": 2,
+        "rawPackageIndex": 3,
+        "objectName": {
+          "nameIndex": 24,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "references": {
+          "class": {
+            "rawPackageIndex": -9,
+            "kind": "import",
+            "index": 8,
+            "objectName": "SceneComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -18,
+            "kind": "import",
+            "index": 17,
+            "objectName": "Default__SceneComponent",
+            "className": "SceneComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_BattleRobeInstance_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 3437,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 3437,
+            "end": 3449
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 331,
+            "end": 343
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 331,
+            "end": 343,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 3,
+        "rawPackageIndex": 4,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -10,
+            "kind": "import",
+            "index": 9,
+            "objectName": "SCS_Node",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -19,
+            "kind": "import",
+            "index": 18,
+            "objectName": "Default__SCS_Node",
+            "className": "SCS_Node"
+          },
+          "outer": {
+            "rawPackageIndex": 5,
+            "kind": "export",
+            "index": 4,
+            "objectName": "SimpleConstructionScript_0",
+            "className": "SimpleConstructionScript"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 3449,
+          "serialSize": 168,
+          "combinedPackageByteRange": {
+            "start": 3449,
+            "end": 3617
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 343,
+            "end": 511
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 343,
+            "end": 511,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 4,
+        "rawPackageIndex": 5,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -11,
+            "kind": "import",
+            "index": 10,
+            "objectName": "SimpleConstructionScript",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -20,
+            "kind": "import",
+            "index": 19,
+            "objectName": "Default__SimpleConstructionScript",
+            "className": "SimpleConstructionScript"
+          },
+          "outer": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_BattleRobeInstance_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 3617,
+          "serialSize": 41,
+          "combinedPackageByteRange": {
+            "start": 3617,
+            "end": 3658
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 511,
+            "end": 552
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+            "start": 511,
+            "end": 552,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "unavailableRanges": [
+      {
+        "start": 2990,
+        "end": 3106,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uasset",
+        "state": "not-extracted",
+        "reason": "unparsed-uasset-region"
+      },
+      {
+        "start": 552,
+        "end": 556,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+        "state": "not-extracted",
+        "reason": "unassigned-uexp-region"
+      }
+    ]
+  }
+}

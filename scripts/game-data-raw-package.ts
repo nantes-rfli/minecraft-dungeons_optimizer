@@ -34,7 +34,7 @@ interface RawPackageExpectedFile {
 }
 
 export interface RawPackageSpec {
-  readonly id: 'fighters-bindings-instance' | 'scatter-crossbow-instance' | 'scatter-crossbow-projectile'
+  readonly id: 'fighters-bindings-instance' | 'scatter-crossbow-instance' | 'scatter-crossbow-projectile' | 'battle-robe-instance'
   readonly packagePath: string
   readonly artifactPath: string
   readonly expectedFiles: readonly [RawPackageExpectedFile, RawPackageExpectedFile]
@@ -120,6 +120,20 @@ export const RAW_PACKAGE_SPECS = [
       { path: 'HomingThreshold', value: 150 },
       { path: 'damage', value: 50 },
     ],
+  ),
+  packageSpec(
+    'battle-robe-instance',
+    'Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance',
+    'Default__BP_BattleRobeInstance_C', 5,
+    [
+      { size: 3106, sha256: '6af8045b8ca4d52bb534b22d30af72713b435fa4b25ce0b0d56c2f551e2bd4de' },
+      { size: 556, sha256: '4bd24eb00177471089622e6247b0292d7b89686e67c273ef477bf0138cc6d54f' },
+    ],
+    [
+      { path: 'ItemIdName', value: 'BattleRobe' },
+      { path: 'ItemId.SerializedId', value: 'BattleRobe' },
+    ],
+    auditBattleRobeInstanceSnapshot,
   ),
 ] as const satisfies readonly RawPackageSpec[]
 
@@ -599,6 +613,46 @@ function auditScatterCrossbowInstanceSnapshot({ snapshot, properties, errors }: 
   }
 }
 
+function auditBattleRobeInstanceSnapshot({ snapshot, properties, serialized, errors }: RawPackageAuditAssertionContext): void {
+  const itemIdName = properties.find((property) => property.path === 'ItemIdName')
+  const serializedId = properties.find((property) => property.path === 'ItemId.SerializedId')
+  if (itemIdName?.type.value !== 'NameProperty' || serializedId?.type.value !== 'NameProperty') {
+    errors.push('Battle Robe serialized identity fields were not retained as NameProperty values')
+  }
+
+  const generatedClass = snapshot.package.exports[0]
+  if (generatedClass?.objectName.value !== 'BP_BattleRobeInstance_C' || generatedClass.superIndex !== -6
+    || generatedClass.superReference.objectName !== 'ArmorGearItemInstance') {
+    errors.push('Battle Robe generated class parent reference was not retained')
+  }
+  const parentClass = snapshot.package.imports[5]
+  const scriptPackage = snapshot.package.imports[13]
+  if (parentClass?.rawPackageIndex !== -6 || parentClass.objectName.value !== 'ArmorGearItemInstance' || parentClass.outerIndex !== -14
+    || parentClass.outerReference.rawPackageIndex !== -14 || parentClass.outerReference.objectName !== '/Script/Dungeons'
+    || scriptPackage?.rawPackageIndex !== -14 || scriptPackage.objectName.value !== '/Script/Dungeons'
+    || scriptPackage.outerReference.rawPackageIndex !== 0) {
+    errors.push('Battle Robe ArmorGearItemInstance import outer chain was not retained')
+  }
+
+  const gearActor = properties.find((property) => property.path === 'GearActor')
+  const expectedGearActor = { rawPackageIndex: -2, kind: 'import', index: 1, objectName: 'BP_BattleRobe_C', className: 'BlueprintGeneratedClass' }
+  if (gearActor?.type.value !== 'ObjectProperty' || JSON.stringify(gearActor.decoding.value) !== JSON.stringify(expectedGearActor)) {
+    errors.push('Battle Robe GearActor package-local ObjectProperty reference was not retained')
+  }
+  const actorClass = snapshot.package.imports[1]
+  const actorPackage = snapshot.package.imports[11]
+  if (actorClass?.rawPackageIndex !== -2 || actorClass.objectName.value !== 'BP_BattleRobe_C' || actorClass.outerIndex !== -12
+    || actorClass.outerReference.rawPackageIndex !== -12 || actorClass.outerReference.objectName !== '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe'
+    || actorPackage?.rawPackageIndex !== -12 || actorPackage.objectName.value !== '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe'
+    || actorPackage.outerReference.rawPackageIndex !== 0) {
+    errors.push('Battle Robe GearActor import outer chain was not retained')
+  }
+
+  if (/MeleeDamageBoost|ItemCooldownDecrease|30% melee|40% artifact/i.test(serialized)) {
+    errors.push('Unobserved Battle Robe Armor Property ownership leaked into Raw')
+  }
+}
+
 function flattenRawProperties(properties: readonly RawPropertyNode[]): RawPropertyNode[] {
   const result: RawPropertyNode[] = []
   const visit = (property: RawPropertyNode): void => {
@@ -669,11 +723,11 @@ ${sourceRows}
   }).join('\n')
   return `# Raw Game Source package snapshots — Step 3A
 
-This generated artifact covers the deliberately small three-package Raw flow:
+This generated artifact covers the deliberately small four-package Raw flow:
 
 \`Game files → extraction → Raw package snapshot\`
 
-The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, and Scatter Crossbow projectile. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
+The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, and Battle Robe Instance. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
 
 ## Reproducibility identity
 
@@ -702,7 +756,7 @@ Decoded zero and false values are retained only with \`state: decoded\`; unavail
 - Manual annotations: \`${first.boundaries.manualAnnotations}\`
 - Raw binary bytes: \`${first.boundaries.rawBinaryBytes}\`
 
-Canonical generated snapshots are stored beneath \`research/raw/packages/\` at their logical package paths. The Scatter Crossbow Instance projectile reference remains a package-local ObjectProperty index plus the unmodified Import Table and outer chain; no cross-package resolver or Domain identity is added. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
+Canonical generated snapshots are stored beneath \`research/raw/packages/\` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains; no cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
 `
 }
 
