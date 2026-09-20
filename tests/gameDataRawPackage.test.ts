@@ -27,6 +27,14 @@ describe('Step 3A Raw package snapshots', () => {
     }
   })
 
+  it('keeps package-specific audit knowledge behind package specs', () => {
+    expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'fighters-bindings-instance')?.auditAssertions).toEqual(expect.any(Function))
+    expect(RAW_PACKAGE_SPECS.find((spec) => spec.id === 'scatter-crossbow-instance')?.auditAssertions).toEqual(expect.any(Function))
+    const sharedCollector = collectRawPackageSnapshotErrors.toString()
+    expect(sharedCollector).not.toContain("spec.id === 'scatter-crossbow-instance'")
+    expect(sharedCollector).not.toContain("serialized.includes('fighters-bindings')")
+  })
+
   it('fingerprints snapshot-affecting code and detects code/run drift', () => {
     const current = buildRawPackageCodeIdentity(process.cwd())
     expect(fighters.extraction.codeIdentity).toEqual(current)

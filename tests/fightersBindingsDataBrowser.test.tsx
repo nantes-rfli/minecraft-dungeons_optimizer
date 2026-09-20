@@ -63,6 +63,7 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     expect(fs.readdirSync('src/domain/temporary').sort()).toEqual([
       'fightersBindings.ts',
       'fightersBindingsIdentity.ts',
+      'projectionPrimitives.ts',
       'scatterCrossbow.ts',
       'scatterCrossbowIdentity.ts',
     ])

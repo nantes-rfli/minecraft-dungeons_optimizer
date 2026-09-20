@@ -41,6 +41,7 @@ export interface RawPackageSpec {
   readonly expectedCdoName: string
   readonly expectedExportCount: number
   readonly assertions: readonly RawPropertyAssertion[]
+  readonly auditAssertions?: (context: RawPackageAuditAssertionContext) => void
 }
 
 interface RawPropertyAssertion {
@@ -48,10 +49,18 @@ interface RawPropertyAssertion {
   readonly value: JsonValue
 }
 
+interface RawPackageAuditAssertionContext {
+  readonly snapshot: RawPackageSnapshot
+  readonly properties: readonly RawPropertyNode[]
+  readonly serialized: string
+  readonly errors: string[]
+}
+
 function packageSpec(
   id: RawPackageSpec['id'], packagePath: string, expectedCdoName: string, expectedExportCount: number,
   files: readonly [{ readonly size: number; readonly sha256: string }, { readonly size: number; readonly sha256: string }],
   assertions: readonly RawPropertyAssertion[],
+  auditAssertions?: RawPackageSpec['auditAssertions'],
 ): RawPackageSpec {
   return {
     id, packagePath,
@@ -60,7 +69,7 @@ function packageSpec(
       { path: `${packagePath}.uasset`, ...files[0] },
       { path: `${packagePath}.uexp`, ...files[1] },
     ],
-    expectedCdoName, expectedExportCount, assertions,
+    expectedCdoName, expectedExportCount, assertions, auditAssertions,
   }
 }
 
@@ -74,6 +83,7 @@ export const RAW_PACKAGE_SPECS = [
       { size: 5558, sha256: 'a4793e11abfa8e5ecea3fab7f86f46cc9aa8a91486c6f6b5d78f85016952e86c' },
     ],
     [{ path: 'ItemIdName', value: 'Gauntlets_Unique3' }],
+    auditFightersBindingsSnapshot,
   ),
   packageSpec(
     'scatter-crossbow-instance',
@@ -93,6 +103,7 @@ export const RAW_PACKAGE_SPECS = [
       { path: 'ItemIdName', value: 'ScatterCrossbow' },
       { path: 'ItemId.SerializedId', value: 'ScatterCrossbow' },
     ],
+    auditScatterCrossbowInstanceSnapshot,
   ),
   packageSpec(
     'scatter-crossbow-projectile',
@@ -551,8 +562,7 @@ export function collectRawPackageSnapshotErrors(
       errors.push(`Raw assertion failed for ${spec.id}: ${assertion.path}`)
     }
   }
-  if (spec.id === 'scatter-crossbow-instance') validateScatterProjectileImportChain(snapshot, properties, errors)
-  if (serialized.includes('fighters-bindings')) errors.push('Raw Internal ID was converted to a Domain ID')
+  spec.auditAssertions?.({ snapshot, properties, serialized, errors })
   if (/"(?:normalizedProperty|normalizedValue|interpretation|manualAnnotation)"/.test(serialized)) errors.push('Semantic or manual annotation fields are present in Raw')
   if (/\/Users\/|\\Users\\|file:\/\/|~\/Downloads|\/home\/|\/root\//.test(serialized)) errors.push('Snapshot contains a local absolute or private path')
   if (serialized.includes('NaN') || serialized.includes('Infinity')) errors.push('Snapshot contains a non-finite number')
@@ -571,7 +581,11 @@ export function collectRawPackageSnapshotErrors(
   return [...new Set(errors)].sort()
 }
 
-function validateScatterProjectileImportChain(snapshot: RawPackageSnapshot, properties: readonly RawPropertyNode[], errors: string[]): void {
+function auditFightersBindingsSnapshot({ serialized, errors }: RawPackageAuditAssertionContext): void {
+  if (serialized.includes('fighters-bindings')) errors.push('Raw Internal ID was converted to a Domain ID')
+}
+
+function auditScatterCrossbowInstanceSnapshot({ snapshot, properties, errors }: RawPackageAuditAssertionContext): void {
   const projectile = properties.find((property) => property.path === 'AttackDefintion.ProjectileDefinition[0].Projectile')
   const expectedReference = { rawPackageIndex: -5, kind: 'import', index: 4, objectName: 'BP_ScatterCrossBow_Arrow_C', className: 'BlueprintGeneratedClass' }
   if (JSON.stringify(projectile?.decoding.value) !== JSON.stringify(expectedReference)) errors.push('Scatter projectile package-local ObjectProperty reference was not retained')
