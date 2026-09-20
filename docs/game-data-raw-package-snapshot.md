@@ -11,29 +11,27 @@ The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, a
 - Dataset: `mcd-quickbms-local-1.17.0.0-823acded`
 - Claimed game version: `1.17.0.0` (status: `claimed`)
 - Parser: `ue4-package-property-parser` schema 1
-- Extractor/parser code: `sha256-path-content-v1:3c3dd4b41c16da6921bfb387bad6f5354fe148fa1e548e01c16dfba08ecad4dc`
+- Extractor/parser code: `sha256-path-content-v1:883d79e4fb1ed938b0cc7f1e666182c53a0957902e978d5b9890e91cd344a322`
 
 The run ID of each package is a deterministic SHA-256 content address of the snapshot schema, dataset ID, logical package path, individual input file size/hash metadata, parser identity, extraction configuration, and extractor/parser code identity. No clock time or machine-specific absolute path participates.
 
 | Snapshot-affecting code path | SHA-256 |
 |---|---|
-| `scripts/extract-game-data-raw-package.ts` | `4cb8388de5f57812fa4d81c4a3f24cbe80e54c8ac8365df99aca370884581483` |
-| `scripts/game-data-extractor.ts` | `a287234b2d083f26726e5b9068a0e48a884e5837c8fd01d4af2fa8612773982c` |
-| `scripts/game-data-raw-package.ts` | `7f0928992d6ef1629befa36922f0ee30743a8ebf2418388e2e37e70bc95fa0a0` |
-| `src/research/gameDataProvenance.ts` | `310bfea71cc7d85389af69e14c636bea80c1bf581af6837e2cbd9377e4b1ea9d` |
+| `scripts/game-data-package-source.ts` | `14c2cf119186ae9187211cfdd1e637979d589a0c4c23c58de0bc62224a6d99db` |
+| `scripts/game-data-raw-package.ts#snapshot-core` | `7348ca88aa389131ac483e33be6377f3f761b9afa9bbe08fc30a180095af04fd` |
 | `src/research/ue4/binaryReader.ts` | `d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565` |
 | `src/research/ue4/objectResolver.ts` | `8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742` |
 | `src/research/ue4/packageReader.ts` | `818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36` |
 | `src/research/ue4/packageTypes.ts` | `640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb` |
 | `src/research/ue4/propertyReader.ts` | `c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e` |
 
-The aggregate code fingerprint processes these sorted repository-relative paths as `relative UTF-8 path + NUL + raw file bytes`. CI recomputes it from checked-out code even when local game files are absent, so code drift requires regenerated committed snapshots.
+The aggregate code fingerprint processes sorted code units as `identity path + NUL + bytes`. The Raw package entry is limited to the marked imports and snapshot-core sections; package specs, audit assertions, orchestration, and report rendering are excluded. The focused source helper and UE4 parser/decoder dependencies are fingerprinted as complete files. CI recomputes this identity from checked-out code even when local game files are absent, so snapshot-affecting drift requires regenerated committed snapshots without invalidating snapshots for report or unrelated package-spec changes.
 
 The source binaries remain local and are not committed. Every package has its own source-file identity, logical hash, and deterministic run ID.
 
 ## Package: `Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance`
 
-- Extraction run: `sha256:e431b3f8f02791d1e402d4d2c363379f0a97ea60379f6b9dd257a9c170161379`
+- Extraction run: `sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911`
 - Logical package hash: `sha256-path-content-v1:4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3`
 
 | Dataset-relative input | Bytes | SHA-256 |
@@ -49,7 +47,7 @@ The source binaries remain local and are not committed. Every package has its ow
 
 ## Package: `Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance`
 
-- Extraction run: `sha256:bbe66fa4905b1af596501868e1a39ae2014969128163a66ed40aa1f532a20c3f`
+- Extraction run: `sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4`
 - Logical package hash: `sha256-path-content-v1:15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154`
 
 | Dataset-relative input | Bytes | SHA-256 |
@@ -65,7 +63,7 @@ The source binaries remain local and are not committed. Every package has its ow
 
 ## Package: `Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow`
 
-- Extraction run: `sha256:3079a24abbf3c3a9e0c644286a397eea9b12d78a05bfc0c098715ed600d1f572`
+- Extraction run: `sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb`
 - Logical package hash: `sha256-path-content-v1:0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f`
 
 | Dataset-relative input | Bytes | SHA-256 |

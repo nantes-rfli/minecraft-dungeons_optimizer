@@ -1,3 +1,4 @@
+// raw-snapshot-code-identity:imports:start
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -10,16 +11,15 @@ import type {
 } from '../src/research/ue4/packageTypes.ts'
 import {
   PARSER_ID, PARSER_SCHEMA_VERSION, assertSafeAssetPath, hashLogicalAsset, localDatasetRoot,
-} from './game-data-extractor.ts'
+} from './game-data-package-source.ts'
+// raw-snapshot-code-identity:imports:end
 
 export const RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION = 2 as const
 export const RAW_PACKAGE_REPORT_PATH = 'docs/game-data-raw-package-snapshot.md' as const
 
 export const RAW_PACKAGE_CODE_PATHS = [
-  'scripts/extract-game-data-raw-package.ts',
-  'scripts/game-data-extractor.ts',
-  'scripts/game-data-raw-package.ts',
-  'src/research/gameDataProvenance.ts',
+  'scripts/game-data-raw-package.ts#snapshot-core',
+  'scripts/game-data-package-source.ts',
   'src/research/ue4/binaryReader.ts',
   'src/research/ue4/objectResolver.ts',
   'src/research/ue4/packageReader.ts',
@@ -111,6 +111,13 @@ export const RAW_PACKAGE_SPECS = [
     ],
   ),
 ] as const satisfies readonly RawPackageSpec[]
+
+// raw-snapshot-code-identity:core:start
+const RAW_PACKAGE_CORE_SOURCE_PATH = 'scripts/game-data-raw-package.ts' as const
+const CORE_SOURCE_MARKERS = [
+  [`// raw-snapshot-code-identity:${'imports:start'}`, `// raw-snapshot-code-identity:${'imports:end'}`],
+  [`// raw-snapshot-code-identity:${'core:start'}`, `// raw-snapshot-code-identity:${'core:end'}`],
+] as const
 
 const EXTRACTION_CONFIGURATION = {
   logicalPackageUnit: 'one-logical-package-one-extraction-result' as const,
@@ -243,11 +250,6 @@ export interface RawPackageCodeIdentity {
   }[]
 }
 
-export function hasRawPackageSource(repositoryRoot: string, spec: RawPackageSpec): boolean {
-  const root = localDatasetRoot(repositoryRoot)
-  return spec.expectedFiles.every((source) => fs.existsSync(path.join(root, source.path)))
-}
-
 export function buildRawPackageSnapshot(repositoryRoot: string, provenance: GameDataSourceProvenance, spec: RawPackageSpec): RawPackageSnapshot {
   assertSafeAssetPath(spec.packagePath)
   const datasetRoot = localDatasetRoot(repositoryRoot)
@@ -333,16 +335,32 @@ export function buildRawPackageSnapshot(repositoryRoot: string, provenance: Game
   }
 }
 
-export function buildRawPackageCodeIdentity(repositoryRoot: string): RawPackageCodeIdentity {
+export function buildRawPackageCodeIdentity(
+  repositoryRoot: string,
+  readSource: (absolutePath: string) => Buffer = (absolutePath) => fs.readFileSync(absolutePath),
+): RawPackageCodeIdentity {
   const aggregate = crypto.createHash('sha256')
   const files = [...RAW_PACKAGE_CODE_PATHS].sort().map((relativePath) => {
-    const bytes = fs.readFileSync(path.join(repositoryRoot, relativePath))
+    const bytes = relativePath === `${RAW_PACKAGE_CORE_SOURCE_PATH}#snapshot-core`
+      ? rawPackageCoreSource(readSource(path.join(repositoryRoot, RAW_PACKAGE_CORE_SOURCE_PATH)))
+      : readSource(path.join(repositoryRoot, relativePath))
     aggregate.update(relativePath, 'utf8')
     aggregate.update(Uint8Array.of(0))
     aggregate.update(bytes)
     return { path: relativePath, sha256: crypto.createHash('sha256').update(bytes).digest('hex') }
   })
   return { algorithm: 'sha256-path-content-v1', value: aggregate.digest('hex'), files }
+}
+
+function rawPackageCoreSource(fileBytes: Buffer): Buffer {
+  const source = fileBytes.toString('utf8')
+  const sections = CORE_SOURCE_MARKERS.map(([startMarker, endMarker]) => {
+    const start = source.indexOf(startMarker)
+    const end = source.indexOf(endMarker, start + startMarker.length)
+    if (start < 0 || end < 0) throw new Error(`Raw snapshot code identity marker is missing: ${startMarker}`)
+    return source.slice(start, end + endMarker.length)
+  })
+  return Buffer.from(sections.join('\n'), 'utf8')
 }
 
 function buildRawObject(
@@ -487,6 +505,12 @@ function contentAddress(value: unknown): string {
 
 export function serializeRawPackageSnapshot(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`
+}
+// raw-snapshot-code-identity:core:end
+
+export function hasRawPackageSource(repositoryRoot: string, spec: RawPackageSpec): boolean {
+  const root = localDatasetRoot(repositoryRoot)
+  return spec.expectedFiles.every((source) => fs.existsSync(path.join(root, source.path)))
 }
 
 export function collectRawPackageSnapshotErrors(
@@ -650,7 +674,7 @@ The run ID of each package is a deterministic SHA-256 content address of the sna
 |---|---|
 ${codeRows}
 
-The aggregate code fingerprint processes these sorted repository-relative paths as \`relative UTF-8 path + NUL + raw file bytes\`. CI recomputes it from checked-out code even when local game files are absent, so code drift requires regenerated committed snapshots.
+The aggregate code fingerprint processes sorted code units as \`identity path + NUL + bytes\`. The Raw package entry is limited to the marked imports and snapshot-core sections; package specs, audit assertions, orchestration, and report rendering are excluded. The focused source helper and UE4 parser/decoder dependencies are fingerprinted as complete files. CI recomputes this identity from checked-out code even when local game files are absent, so snapshot-affecting drift requires regenerated committed snapshots without invalidating snapshots for report or unrelated package-spec changes.
 
 The source binaries remain local and are not committed. Every package has its own source-file identity, logical hash, and deterministic run ID.
 

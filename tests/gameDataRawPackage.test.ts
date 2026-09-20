@@ -37,6 +37,40 @@ describe('Step 3A Raw package snapshots', () => {
     expect(errors).toContain('Extraction run ID is not the deterministic content address')
   })
 
+  it('isolates core/parser drift from package-spec and report-only changes', () => {
+    const baseline = buildRawPackageCodeIdentity(process.cwd())
+    const identityAfter = (relativePath: string, mutate: (source: string) => string) => buildRawPackageCodeIdentity(
+      process.cwd(),
+      (absolutePath) => {
+        const bytes = fs.readFileSync(absolutePath)
+        if (!absolutePath.endsWith(relativePath)) return bytes
+        const source = bytes.toString('utf8')
+        const changed = mutate(source)
+        if (changed === source) throw new Error(`Drift fixture did not change ${relativePath}`)
+        return Buffer.from(changed)
+      },
+    )
+    const rawPackagePath = 'scripts/game-data-raw-package.ts'
+
+    const specOnly = identityAfter(rawPackagePath, (source) => source.replace(
+      "'scatter-crossbow-projectile',\n    'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow'",
+      "'another-package-spec',\n    'Dungeons/Content/Actors/Equipment/RangedWeapons/AnotherPackage'",
+    ))
+    const reportOnly = identityAfter(rawPackagePath, (source) => source.replace(
+      'This generated artifact covers the deliberately small three-package Raw flow:',
+      'Report-only wording changed.',
+    ))
+    const coreDrift = identityAfter(rawPackagePath, (source) => source.replace(
+      'strictPropertyTermination: false', 'strictPropertyTermination: true',
+    ))
+    const parserDrift = identityAfter('src/research/ue4/propertyReader.ts', (source) => `${source}\n// parser drift fixture\n`)
+
+    expect(specOnly).toEqual(baseline)
+    expect(reportOnly).toEqual(baseline)
+    expect(coreDrift.value).not.toBe(baseline.value)
+    expect(parserDrift.value).not.toBe(baseline.value)
+  })
+
   it('keeps Fighter’s Bindings auditable under the unchanged Raw contract', () => {
     const cdo = fighters.package.objects.find((object) => object.extraction.state === 'decoded')
     const variants = cdo?.properties?.[0]
