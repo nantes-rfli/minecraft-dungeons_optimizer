@@ -311,6 +311,28 @@ test('Scatter Crossbow temporary Domain and projectile reference are traceable i
   expect(results.violations).toEqual([])
 })
 
+test('Battle Robe temporary Domain keeps provisional identity and unresolved ownership traceable', async ({ page }) => {
+  await page.goto('/#/data/armor?item=battle-robe')
+  const entry = page.locator('[data-equipment-id="battle-robe"]')
+  await expect(entry).toHaveAttribute('open', '')
+  await expect(entry.getByRole('heading', { name: 'Battle Robe', exact: true })).toBeVisible()
+  await expect(entry.getByText('provisional', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('BattleRobe', { exact: true })).toHaveCount(2)
+  await expect(entry.getByText('BP_BattleRobe_C', { exact: true })).toBeVisible()
+  await expect(entry.getByText('/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe', { exact: true })).toBeVisible()
+  await expect(entry.locator('.domain-unresolved-list')).toContainText('armor-property-ownership')
+  await entry.getByText('reference provenanceを確認', { exact: true }).click()
+  await expect(entry.getByText('ObjectProperty', { exact: true })).toBeVisible()
+  await expect(entry.getByText('class import', { exact: true })).toBeVisible()
+  await expect(entry.getByText('outer package import', { exact: true })).toBeVisible()
+  await expect(entry).not.toContainText('MeleeDamageBoost')
+  await expect(entry).not.toContainText('ItemCooldownDecrease')
+  await expect(entry).not.toContainText('+30%')
+  await expect(entry).not.toContainText('-40%')
+  const results = await new AxeBuilder({ page }).include('.battle-robe-domain').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(results.violations).toEqual([])
+})
+
 test('inventory grid tooltip, exact data link and full editor handoff', async ({ page }) => {
   await page.goto('/#/inventory')
   const slot = page.getByRole('option', { name: '両刃斧、Double Axe', exact: true })
