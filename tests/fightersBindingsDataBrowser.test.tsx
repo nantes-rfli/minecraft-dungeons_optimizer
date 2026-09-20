@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
-import { fightersBindingsDomainArtifact } from '../src/domain/temporary/fightersBindingsBrowserModel'
+import { fightersBindingsDomainArtifact } from '../src/screens/dataBrowser/fightersBindingsBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
 const rawArtifactPath = `research/raw/packages/${fightersBindingsDomainArtifact.projection.configuredAttacks.trace.raw.packagePath}.raw.json`
@@ -45,8 +45,8 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     const row = fightersBindingsRow(renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/melee' })))
     const browserSources = [
       fs.readFileSync('src/screens/DataBrowserPage.tsx', 'utf8'),
-      fs.readFileSync('src/domain/temporary/FightersBindingsDataBrowser.tsx', 'utf8'),
-      fs.readFileSync('src/domain/temporary/fightersBindingsBrowserModel.ts', 'utf8'),
+      fs.readFileSync('src/screens/dataBrowser/FightersBindingsDataBrowser.tsx', 'utf8'),
+      fs.readFileSync('src/screens/dataBrowser/fightersBindingsBrowserModel.ts', 'utf8'),
     ].join('\n')
 
     expect(row).toContain('Domain field')
@@ -60,5 +60,6 @@ describe('Fighter’s Bindings Data Browser vertical slice', () => {
     expect(browserSources).not.toContain('research/raw/')
     expect(browserSources).not.toContain('projectFightersBindings')
     expect(browserSources).not.toContain('game-data-raw-package')
+    expect(fs.readdirSync('src/domain/temporary').sort()).toEqual(['fightersBindings.ts', 'fightersBindingsIdentity.ts'])
   })
 })
