@@ -20,7 +20,7 @@ function TraceStep({ label, trace }: { label: string; trace: RawTrace }) {
     <dt>Extraction run</dt><dd><code>{trace.extractionRunId}</code></dd>
     <dt>Package hash</dt><dd><code>{trace.packageHash.algorithm}: {trace.packageHash.value}</code></dd>
     {trace.nodePointer && <><dt>Raw node</dt><dd><code>{trace.nodePointer}</code></dd></>}
-    {'sourceFingerprint' in trace && <><dt>Source fingerprint</dt><dd><code>{trace.sourceFingerprint.algorithm}: {trace.sourceFingerprint.value}</code></dd></>}
+    {trace.sourceFingerprint && <><dt>Source fingerprint</dt><dd><code>{trace.sourceFingerprint.algorithm}: {trace.sourceFingerprint.value}</code></dd></>}
   </dl></li>
 }
 
