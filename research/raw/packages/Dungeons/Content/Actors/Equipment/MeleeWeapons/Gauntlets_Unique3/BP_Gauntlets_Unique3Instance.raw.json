@@ -30,7 +30,7 @@
     }
   },
   "extraction": {
-    "runId": "sha256:9c49ae9bfa0f5a9e02d01b0aa9c028ce6c05260f00c8f74ccf3070df91ca5d5e",
+    "runId": "sha256:e431b3f8f02791d1e402d4d2c363379f0a97ea60379f6b9dd257a9c170161379",
     "parser": {
       "id": "ue4-package-property-parser",
       "schemaVersion": 1
@@ -48,11 +48,11 @@
     },
     "codeIdentity": {
       "algorithm": "sha256-path-content-v1",
-      "value": "f4ff109de312ca191e3d81bdb8a9d478c2861111efccacefa87ce7e2ac449b08",
+      "value": "3c3dd4b41c16da6921bfb387bad6f5354fe148fa1e548e01c16dfba08ecad4dc",
       "files": [
         {
           "path": "scripts/extract-game-data-raw-package.ts",
-          "sha256": "785337d2139195fde9bfa7618bca7e93c4c34dd72f7784ed9aa847ca61c32adb"
+          "sha256": "4cb8388de5f57812fa4d81c4a3f24cbe80e54c8ac8365df99aca370884581483"
         },
         {
           "path": "scripts/game-data-extractor.ts",
@@ -60,7 +60,7 @@
         },
         {
           "path": "scripts/game-data-raw-package.ts",
-          "sha256": "0e9959ff2dffeee67f683295b95b887bc42d1704659a90e40e32cbe2c8cfd837"
+          "sha256": "7f0928992d6ef1629befa36922f0ee30743a8ebf2418388e2e37e70bc95fa0a0"
         },
         {
           "path": "src/research/gameDataProvenance.ts",

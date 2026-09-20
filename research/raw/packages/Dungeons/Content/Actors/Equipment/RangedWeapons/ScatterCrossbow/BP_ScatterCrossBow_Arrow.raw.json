@@ -1,0 +1,4701 @@
+{
+  "schemaVersion": 2,
+  "snapshotKind": "generated-raw-package",
+  "dataset": {
+    "id": "mcd-quickbms-local-1.17.0.0-823acded",
+    "claimedGameVersion": "1.17.0.0",
+    "claimedGameVersionStatus": "claimed",
+    "sourceFingerprint": {
+      "algorithm": "sha256-path-size-v1",
+      "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+    }
+  },
+  "logicalPackage": {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+        "size": 6788,
+        "sha256": "c6b852f0a4f2390c3bcca3d8e9e441df227df138a0365705f30880c5d396a73c"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+        "size": 3383,
+        "sha256": "3bb75a740544bd29736712c9f778df4d1ec8eace2f032fc79ebb65f136c51587"
+      }
+    ],
+    "contentHash": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+    }
+  },
+  "extraction": {
+    "runId": "sha256:3079a24abbf3c3a9e0c644286a397eea9b12d78a05bfc0c098715ed600d1f572",
+    "parser": {
+      "id": "ue4-package-property-parser",
+      "schemaVersion": 1
+    },
+    "configuration": {
+      "logicalPackageUnit": "one-logical-package-one-extraction-result",
+      "packageExtensions": [
+        ".uasset",
+        ".uexp"
+      ],
+      "strictPropertyTermination": false,
+      "propertySelection": "none",
+      "crossPackageReferenceResolution": "not-performed",
+      "nonCdoExportDecoding": "not-extracted"
+    },
+    "codeIdentity": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "3c3dd4b41c16da6921bfb387bad6f5354fe148fa1e548e01c16dfba08ecad4dc",
+      "files": [
+        {
+          "path": "scripts/extract-game-data-raw-package.ts",
+          "sha256": "4cb8388de5f57812fa4d81c4a3f24cbe80e54c8ac8365df99aca370884581483"
+        },
+        {
+          "path": "scripts/game-data-extractor.ts",
+          "sha256": "a287234b2d083f26726e5b9068a0e48a884e5837c8fd01d4af2fa8612773982c"
+        },
+        {
+          "path": "scripts/game-data-raw-package.ts",
+          "sha256": "7f0928992d6ef1629befa36922f0ee30743a8ebf2418388e2e37e70bc95fa0a0"
+        },
+        {
+          "path": "src/research/gameDataProvenance.ts",
+          "sha256": "310bfea71cc7d85389af69e14c636bea80c1bf581af6837e2cbd9377e4b1ea9d"
+        },
+        {
+          "path": "src/research/ue4/binaryReader.ts",
+          "sha256": "d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565"
+        },
+        {
+          "path": "src/research/ue4/objectResolver.ts",
+          "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+        },
+        {
+          "path": "src/research/ue4/packageReader.ts",
+          "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+        },
+        {
+          "path": "src/research/ue4/packageTypes.ts",
+          "sha256": "640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb"
+        },
+        {
+          "path": "src/research/ue4/propertyReader.ts",
+          "sha256": "c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e"
+        }
+      ]
+    }
+  },
+  "boundaries": {
+    "semanticFiltering": "not-applied",
+    "domainIdentityMapping": "not-applied",
+    "manualAnnotations": "separate-not-included",
+    "rawBinaryBytes": "not-committed"
+  },
+  "package": {
+    "summary": {
+      "magic": 2653586369,
+      "legacyFileVersion": -7,
+      "fileVersionUE4": 0,
+      "fileVersionLicenseeUE4": 0,
+      "totalHeaderSize": 6788,
+      "nameCount": 118,
+      "nameOffset": 193,
+      "exportCount": 15,
+      "exportOffset": 4800,
+      "importCount": 46,
+      "importOffset": 3512
+    },
+    "nameMap": [
+      {
+        "index": 0,
+        "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "hashBytes": "c94af0df",
+        "byteRange": {
+          "start": 193,
+          "end": 279
+        }
+      },
+      {
+        "index": 1,
+        "value": "/Game/Actors/Items/Arrow/BP_Arrow",
+        "hashBytes": "972381a2",
+        "byteRange": {
+          "start": 279,
+          "end": 321
+        }
+      },
+      {
+        "index": 2,
+        "value": "/Game/Actors/Items/Arrow/BP_Projectile",
+        "hashBytes": "0ad22f8e",
+        "byteRange": {
+          "start": 321,
+          "end": 368
+        }
+      },
+      {
+        "index": 3,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactCharged",
+        "hashBytes": "2d4a5387",
+        "byteRange": {
+          "start": 368,
+          "end": 475
+        }
+      },
+      {
+        "index": 4,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactNormal",
+        "hashBytes": "10531f59",
+        "byteRange": {
+          "start": 475,
+          "end": 581
+        }
+      },
+      {
+        "index": 5,
+        "value": "/Game/Models/Weapons/Arrow/MI_SoulArrow",
+        "hashBytes": "7ce24b70",
+        "byteRange": {
+          "start": 581,
+          "end": 629
+        }
+      },
+      {
+        "index": 6,
+        "value": "/Script/CoreUObject",
+        "hashBytes": "f8492d3e",
+        "byteRange": {
+          "start": 629,
+          "end": 657
+        }
+      },
+      {
+        "index": 7,
+        "value": "/Script/Dungeons",
+        "hashBytes": "0bb1ca79",
+        "byteRange": {
+          "start": 657,
+          "end": 682
+        }
+      },
+      {
+        "index": 8,
+        "value": "/Script/Engine",
+        "hashBytes": "86408549",
+        "byteRange": {
+          "start": 682,
+          "end": 705
+        }
+      },
+      {
+        "index": 9,
+        "value": "Actor",
+        "hashBytes": "2dcf2359",
+        "byteRange": {
+          "start": 705,
+          "end": 719
+        }
+      },
+      {
+        "index": 10,
+        "value": "ArrayProperty",
+        "hashBytes": "49b0e369",
+        "byteRange": {
+          "start": 719,
+          "end": 741
+        }
+      },
+      {
+        "index": 11,
+        "value": "Arrow",
+        "hashBytes": "74fcfea3",
+        "byteRange": {
+          "start": 741,
+          "end": 755
+        }
+      },
+      {
+        "index": 12,
+        "value": "Arrow_GEN_VARIABLE",
+        "hashBytes": "755b6e1f",
+        "byteRange": {
+          "start": 755,
+          "end": 782
+        }
+      },
+      {
+        "index": 13,
+        "value": "AssociatedGuid",
+        "hashBytes": "ab66808c",
+        "byteRange": {
+          "start": 782,
+          "end": 805
+        }
+      },
+      {
+        "index": 14,
+        "value": "AudioComponent",
+        "hashBytes": "5561c374",
+        "byteRange": {
+          "start": 805,
+          "end": 828
+        }
+      },
+      {
+        "index": 15,
+        "value": "bIsValid",
+        "hashBytes": "411e1cce",
+        "byteRange": {
+          "start": 828,
+          "end": 845
+        }
+      },
+      {
+        "index": 16,
+        "value": "BlueprintComponentChangedPropertyInfo",
+        "hashBytes": "c0be1356",
+        "byteRange": {
+          "start": 845,
+          "end": 891
+        }
+      },
+      {
+        "index": 17,
+        "value": "BlueprintCookedComponentInstancingData",
+        "hashBytes": "cc8e8b28",
+        "byteRange": {
+          "start": 891,
+          "end": 938
+        }
+      },
+      {
+        "index": 18,
+        "value": "BlueprintGeneratedClass",
+        "hashBytes": "299b702d",
+        "byteRange": {
+          "start": 938,
+          "end": 970
+        }
+      },
+      {
+        "index": 19,
+        "value": "BoolProperty",
+        "hashBytes": "1004b08a",
+        "byteRange": {
+          "start": 970,
+          "end": 991
+        }
+      },
+      {
+        "index": 20,
+        "value": "BP_Arrow_C",
+        "hashBytes": "6eed4dbc",
+        "byteRange": {
+          "start": 991,
+          "end": 1010
+        }
+      },
+      {
+        "index": 21,
+        "value": "BP_Projectile_C",
+        "hashBytes": "f39c18bc",
+        "byteRange": {
+          "start": 1010,
+          "end": 1034
+        }
+      },
+      {
+        "index": 22,
+        "value": "BP_ScatterCrossBow_Arrow_C",
+        "hashBytes": "f41debb9",
+        "byteRange": {
+          "start": 1034,
+          "end": 1069
+        }
+      },
+      {
+        "index": 23,
+        "value": "ByteProperty",
+        "hashBytes": "e64e2dc0",
+        "byteRange": {
+          "start": 1069,
+          "end": 1090
+        }
+      },
+      {
+        "index": 24,
+        "value": "ChangedPropertyList",
+        "hashBytes": "66138df8",
+        "byteRange": {
+          "start": 1090,
+          "end": 1118
+        }
+      },
+      {
+        "index": 25,
+        "value": "ChargedImpactSound",
+        "hashBytes": "ec2b84c4",
+        "byteRange": {
+          "start": 1118,
+          "end": 1145
+        }
+      },
+      {
+        "index": 26,
+        "value": "Class",
+        "hashBytes": "74777891",
+        "byteRange": {
+          "start": 1145,
+          "end": 1159
+        }
+      },
+      {
+        "index": 27,
+        "value": "Color",
+        "hashBytes": "ac916567",
+        "byteRange": {
+          "start": 1159,
+          "end": 1173
+        }
+      },
+      {
+        "index": 28,
+        "value": "ComponentClass",
+        "hashBytes": "31fef655",
+        "byteRange": {
+          "start": 1173,
+          "end": 1196
+        }
+      },
+      {
+        "index": 29,
+        "value": "ComponentKey",
+        "hashBytes": "d0532c15",
+        "byteRange": {
+          "start": 1196,
+          "end": 1217
+        }
+      },
+      {
+        "index": 30,
+        "value": "ComponentOverrideRecord",
+        "hashBytes": "bf259452",
+        "byteRange": {
+          "start": 1217,
+          "end": 1249
+        }
+      },
+      {
+        "index": 31,
+        "value": "ComponentTemplate",
+        "hashBytes": "d4aa22c2",
+        "byteRange": {
+          "start": 1249,
+          "end": 1275
+        }
+      },
+      {
+        "index": 32,
+        "value": "CookedComponentInstancingData",
+        "hashBytes": "cd5e488b",
+        "byteRange": {
+          "start": 1275,
+          "end": 1313
+        }
+      },
+      {
+        "index": 33,
+        "value": "damage",
+        "hashBytes": "9519c1da",
+        "byteRange": {
+          "start": 1313,
+          "end": 1328
+        }
+      },
+      {
+        "index": 34,
+        "value": "Default__BlueprintGeneratedClass",
+        "hashBytes": "01cf3033",
+        "byteRange": {
+          "start": 1328,
+          "end": 1369
+        }
+      },
+      {
+        "index": 35,
+        "value": "Default__BP_Arrow_C",
+        "hashBytes": "5941609f",
+        "byteRange": {
+          "start": 1369,
+          "end": 1397
+        }
+      },
+      {
+        "index": 36,
+        "value": "Default__BP_ScatterCrossBow_Arrow_C",
+        "hashBytes": "19f4aaa4",
+        "byteRange": {
+          "start": 1397,
+          "end": 1441
+        }
+      },
+      {
+        "index": 37,
+        "value": "Default__Function",
+        "hashBytes": "a2af0a40",
+        "byteRange": {
+          "start": 1441,
+          "end": 1467
+        }
+      },
+      {
+        "index": 38,
+        "value": "Default__InheritableComponentHandler",
+        "hashBytes": "2aa0aeca",
+        "byteRange": {
+          "start": 1467,
+          "end": 1512
+        }
+      },
+      {
+        "index": 39,
+        "value": "Default__IntProperty",
+        "hashBytes": "9cc56151",
+        "byteRange": {
+          "start": 1512,
+          "end": 1541
+        }
+      },
+      {
+        "index": 40,
+        "value": "Default__SceneComponent",
+        "hashBytes": "622de8bc",
+        "byteRange": {
+          "start": 1541,
+          "end": 1573
+        }
+      },
+      {
+        "index": 41,
+        "value": "Default__SCS_Node",
+        "hashBytes": "e18e610c",
+        "byteRange": {
+          "start": 1573,
+          "end": 1599
+        }
+      },
+      {
+        "index": 42,
+        "value": "Default__SimpleConstructionScript",
+        "hashBytes": "1867db40",
+        "byteRange": {
+          "start": 1599,
+          "end": 1641
+        }
+      },
+      {
+        "index": 43,
+        "value": "Default__StructProperty",
+        "hashBytes": "1a35101f",
+        "byteRange": {
+          "start": 1641,
+          "end": 1673
+        }
+      },
+      {
+        "index": 44,
+        "value": "DefaultSceneRoot",
+        "hashBytes": "bc8c9e05",
+        "byteRange": {
+          "start": 1673,
+          "end": 1698
+        }
+      },
+      {
+        "index": 45,
+        "value": "DefaultSceneRoot_GEN_VARIABLE",
+        "hashBytes": "ae7e8448",
+        "byteRange": {
+          "start": 1698,
+          "end": 1736
+        }
+      },
+      {
+        "index": 46,
+        "value": "DefaultSceneRootNode",
+        "hashBytes": "3a50bde5",
+        "byteRange": {
+          "start": 1736,
+          "end": 1765
+        }
+      },
+      {
+        "index": 47,
+        "value": "DungeonsProjectileMovementComp",
+        "hashBytes": "11ab3b74",
+        "byteRange": {
+          "start": 1765,
+          "end": 1804
+        }
+      },
+      {
+        "index": 48,
+        "value": "enablePushback",
+        "hashBytes": "6eb49534",
+        "byteRange": {
+          "start": 1804,
+          "end": 1827
+        }
+      },
+      {
+        "index": 49,
+        "value": "ENetRole",
+        "hashBytes": "b44d02b3",
+        "byteRange": {
+          "start": 1827,
+          "end": 1844
+        }
+      },
+      {
+        "index": 50,
+        "value": "Engine",
+        "hashBytes": "b70144e6",
+        "byteRange": {
+          "start": 1844,
+          "end": 1859
+        }
+      },
+      {
+        "index": 51,
+        "value": "EntryPoint",
+        "hashBytes": "af580b23",
+        "byteRange": {
+          "start": 1859,
+          "end": 1878
+        }
+      },
+      {
+        "index": 52,
+        "value": "EParticleSysParamType",
+        "hashBytes": "20a6d4a2",
+        "byteRange": {
+          "start": 1878,
+          "end": 1908
+        }
+      },
+      {
+        "index": 53,
+        "value": "ExecuteUbergraph_BP_ScatterCrossBow_Arrow",
+        "hashBytes": "83adf8b9",
+        "byteRange": {
+          "start": 1908,
+          "end": 1958
+        }
+      },
+      {
+        "index": 54,
+        "value": "FloatProperty",
+        "hashBytes": "fba7defd",
+        "byteRange": {
+          "start": 1958,
+          "end": 1980
+        }
+      },
+      {
+        "index": 55,
+        "value": "Function",
+        "hashBytes": "72f2b989",
+        "byteRange": {
+          "start": 1980,
+          "end": 1997
+        }
+      },
+      {
+        "index": 56,
+        "value": "Guid",
+        "hashBytes": "4350fa68",
+        "byteRange": {
+          "start": 1997,
+          "end": 2010
+        }
+      },
+      {
+        "index": 57,
+        "value": "HomingThreshold",
+        "hashBytes": "5e63ff8d",
+        "byteRange": {
+          "start": 2010,
+          "end": 2034
+        }
+      },
+      {
+        "index": 58,
+        "value": "IgnoreFriendlyFire",
+        "hashBytes": "7709a820",
+        "byteRange": {
+          "start": 2034,
+          "end": 2061
+        }
+      },
+      {
+        "index": 59,
+        "value": "ImpactActionHandler",
+        "hashBytes": "a18ac65b",
+        "byteRange": {
+          "start": 2061,
+          "end": 2089
+        }
+      },
+      {
+        "index": 60,
+        "value": "InheritableComponentHandler",
+        "hashBytes": "691eb1c6",
+        "byteRange": {
+          "start": 2089,
+          "end": 2125
+        }
+      },
+      {
+        "index": 61,
+        "value": "InstanceParameters",
+        "hashBytes": "2f3b968e",
+        "byteRange": {
+          "start": 2125,
+          "end": 2152
+        }
+      },
+      {
+        "index": 62,
+        "value": "InternalVariableName",
+        "hashBytes": "3dff0afd",
+        "byteRange": {
+          "start": 2152,
+          "end": 2181
+        }
+      },
+      {
+        "index": 63,
+        "value": "IntProperty",
+        "hashBytes": "a5d3364a",
+        "byteRange": {
+          "start": 2181,
+          "end": 2201
+        }
+      },
+      {
+        "index": 64,
+        "value": "Length",
+        "hashBytes": "490f5b0c",
+        "byteRange": {
+          "start": 2201,
+          "end": 2216
+        }
+      },
+      {
+        "index": 65,
+        "value": "Material",
+        "hashBytes": "edb0f231",
+        "byteRange": {
+          "start": 2216,
+          "end": 2233
+        }
+      },
+      {
+        "index": 66,
+        "value": "MaterialInstanceConstant",
+        "hashBytes": "043b12ad",
+        "byteRange": {
+          "start": 2233,
+          "end": 2266
+        }
+      },
+      {
+        "index": 67,
+        "value": "MI_SoulArrow",
+        "hashBytes": "d3b52341",
+        "byteRange": {
+          "start": 2266,
+          "end": 2287
+        }
+      },
+      {
+        "index": 68,
+        "value": "Name",
+        "hashBytes": "391d38d9",
+        "byteRange": {
+          "start": 2287,
+          "end": 2300
+        }
+      },
+      {
+        "index": 69,
+        "value": "NameProperty",
+        "hashBytes": "82f2084a",
+        "byteRange": {
+          "start": 2300,
+          "end": 2321
+        }
+      },
+      {
+        "index": 70,
+        "value": "None",
+        "hashBytes": "f403c50d",
+        "byteRange": {
+          "start": 2321,
+          "end": 2334
+        }
+      },
+      {
+        "index": 71,
+        "value": "NormalImpactSound",
+        "hashBytes": "52452a49",
+        "byteRange": {
+          "start": 2334,
+          "end": 2360
+        }
+      },
+      {
+        "index": 72,
+        "value": "Object",
+        "hashBytes": "654bed01",
+        "byteRange": {
+          "start": 2360,
+          "end": 2375
+        }
+      },
+      {
+        "index": 73,
+        "value": "ObjectProperty",
+        "hashBytes": "41dbb3ea",
+        "byteRange": {
+          "start": 2375,
+          "end": 2398
+        }
+      },
+      {
+        "index": 74,
+        "value": "OverrideMaterials",
+        "hashBytes": "e1b6dbc3",
+        "byteRange": {
+          "start": 2398,
+          "end": 2424
+        }
+      },
+      {
+        "index": 75,
+        "value": "OwnerClass",
+        "hashBytes": "196fc15f",
+        "byteRange": {
+          "start": 2424,
+          "end": 2443
+        }
+      },
+      {
+        "index": 76,
+        "value": "P_Charged_Arrow_GEN_VARIABLE",
+        "hashBytes": "e5042731",
+        "byteRange": {
+          "start": 2443,
+          "end": 2480
+        }
+      },
+      {
+        "index": 77,
+        "value": "P_Combat_Arrow",
+        "hashBytes": "a7eb4419",
+        "byteRange": {
+          "start": 2480,
+          "end": 2503
+        }
+      },
+      {
+        "index": 78,
+        "value": "P_Combat_Arrow_GEN_VARIABLE",
+        "hashBytes": "c688136c",
+        "byteRange": {
+          "start": 2503,
+          "end": 2539
+        }
+      },
+      {
+        "index": 79,
+        "value": "Package",
+        "hashBytes": "73478815",
+        "byteRange": {
+          "start": 2539,
+          "end": 2555
+        }
+      },
+      {
+        "index": 80,
+        "value": "ParamType",
+        "hashBytes": "b62cd2c7",
+        "byteRange": {
+          "start": 2555,
+          "end": 2573
+        }
+      },
+      {
+        "index": 81,
+        "value": "ParticleSysParam",
+        "hashBytes": "2264078b",
+        "byteRange": {
+          "start": 2573,
+          "end": 2598
+        }
+      },
+      {
+        "index": 82,
+        "value": "ParticleSystemComponent",
+        "hashBytes": "89c08b91",
+        "byteRange": {
+          "start": 2598,
+          "end": 2630
+        }
+      },
+      {
+        "index": 83,
+        "value": "PointerToUberGraphFrame",
+        "hashBytes": "54a23c9a",
+        "byteRange": {
+          "start": 2630,
+          "end": 2662
+        }
+      },
+      {
+        "index": 84,
+        "value": "Projectile Movement Component",
+        "hashBytes": "93161238",
+        "byteRange": {
+          "start": 2662,
+          "end": 2700
+        }
+      },
+      {
+        "index": 85,
+        "value": "ProjectileMovementComponent",
+        "hashBytes": "83b66d01",
+        "byteRange": {
+          "start": 2700,
+          "end": 2736
+        }
+      },
+      {
+        "index": 86,
+        "value": "PSPT_Color",
+        "hashBytes": "5b356564",
+        "byteRange": {
+          "start": 2736,
+          "end": 2755
+        }
+      },
+      {
+        "index": 87,
+        "value": "PSPT_Scalar",
+        "hashBytes": "8ca9c5a4",
+        "byteRange": {
+          "start": 2755,
+          "end": 2775
+        }
+      },
+      {
+        "index": 88,
+        "value": "pushback",
+        "hashBytes": "1145c7ca",
+        "byteRange": {
+          "start": 2775,
+          "end": 2792
+        }
+      },
+      {
+        "index": 89,
+        "value": "Pushback",
+        "hashBytes": "11451517",
+        "byteRange": {
+          "start": 2792,
+          "end": 2809
+        }
+      },
+      {
+        "index": 90,
+        "value": "pushbackStrength",
+        "hashBytes": "bd8363d9",
+        "byteRange": {
+          "start": 2809,
+          "end": 2834
+        }
+      },
+      {
+        "index": 91,
+        "value": "ReceiveBeginPlay",
+        "hashBytes": "817d62ca",
+        "byteRange": {
+          "start": 2834,
+          "end": 2859
+        }
+      },
+      {
+        "index": 92,
+        "value": "Records",
+        "hashBytes": "b4fec60d",
+        "byteRange": {
+          "start": 2859,
+          "end": 2875
+        }
+      },
+      {
+        "index": 93,
+        "value": "RemoteRole",
+        "hashBytes": "4a5d1e0f",
+        "byteRange": {
+          "start": 2875,
+          "end": 2894
+        }
+      },
+      {
+        "index": 94,
+        "value": "ROLE_None",
+        "hashBytes": "34c9e600",
+        "byteRange": {
+          "start": 2894,
+          "end": 2912
+        }
+      },
+      {
+        "index": 95,
+        "value": "Scalar",
+        "hashBytes": "2459faae",
+        "byteRange": {
+          "start": 2912,
+          "end": 2927
+        }
+      },
+      {
+        "index": 96,
+        "value": "Scalar_Low",
+        "hashBytes": "2df4a919",
+        "byteRange": {
+          "start": 2927,
+          "end": 2946
+        }
+      },
+      {
+        "index": 97,
+        "value": "SceneComponent",
+        "hashBytes": "4818645f",
+        "byteRange": {
+          "start": 2946,
+          "end": 2969
+        }
+      },
+      {
+        "index": 98,
+        "value": "ScriptStruct",
+        "hashBytes": "4b158488",
+        "byteRange": {
+          "start": 2969,
+          "end": 2990
+        }
+      },
+      {
+        "index": 99,
+        "value": "SCS_Node",
+        "hashBytes": "31d3d2c5",
+        "byteRange": {
+          "start": 2990,
+          "end": 3007
+        }
+      },
+      {
+        "index": 100,
+        "value": "SCSVariableName",
+        "hashBytes": "44084d29",
+        "byteRange": {
+          "start": 3007,
+          "end": 3031
+        }
+      },
+      {
+        "index": 101,
+        "value": "sfx_item_arrowWhoosh",
+        "hashBytes": "acc5ad6e",
+        "byteRange": {
+          "start": 3031,
+          "end": 3060
+        }
+      },
+      {
+        "index": 102,
+        "value": "sfx_item_arrowWhoosh_GEN_VARIABLE",
+        "hashBytes": "3a8f1dc3",
+        "byteRange": {
+          "start": 3060,
+          "end": 3102
+        }
+      },
+      {
+        "index": 103,
+        "value": "sfx_item_scatterCrossbowArrowImpactCharged",
+        "hashBytes": "a56c7ecf",
+        "byteRange": {
+          "start": 3102,
+          "end": 3153
+        }
+      },
+      {
+        "index": 104,
+        "value": "sfx_item_scatterCrossbowArrowImpactNormal",
+        "hashBytes": "ce382c9e",
+        "byteRange": {
+          "start": 3153,
+          "end": 3203
+        }
+      },
+      {
+        "index": 105,
+        "value": "SimpleConstructionScript",
+        "hashBytes": "142b5220",
+        "byteRange": {
+          "start": 3203,
+          "end": 3236
+        }
+      },
+      {
+        "index": 106,
+        "value": "Sound",
+        "hashBytes": "2deff013",
+        "byteRange": {
+          "start": 3236,
+          "end": 3250
+        }
+      },
+      {
+        "index": 107,
+        "value": "SoundCue",
+        "hashBytes": "83b23170",
+        "byteRange": {
+          "start": 3250,
+          "end": 3267
+        }
+      },
+      {
+        "index": 108,
+        "value": "Sphere_GEN_VARIABLE",
+        "hashBytes": "c168942f",
+        "byteRange": {
+          "start": 3267,
+          "end": 3295
+        }
+      },
+      {
+        "index": 109,
+        "value": "SphereComponent",
+        "hashBytes": "c1effe74",
+        "byteRange": {
+          "start": 3295,
+          "end": 3319
+        }
+      },
+      {
+        "index": 110,
+        "value": "StaticMeshComponent",
+        "hashBytes": "6ef14522",
+        "byteRange": {
+          "start": 3319,
+          "end": 3347
+        }
+      },
+      {
+        "index": 111,
+        "value": "StructProperty",
+        "hashBytes": "30009cfc",
+        "byteRange": {
+          "start": 3347,
+          "end": 3370
+        }
+      },
+      {
+        "index": 112,
+        "value": "UberGraphFrame",
+        "hashBytes": "1e699538",
+        "byteRange": {
+          "start": 3370,
+          "end": 3393
+        }
+      },
+      {
+        "index": 113,
+        "value": "UberGraphFramePointerProperty",
+        "hashBytes": "7b7538e3",
+        "byteRange": {
+          "start": 3393,
+          "end": 3431
+        }
+      },
+      {
+        "index": 114,
+        "value": "UberGraphFunction",
+        "hashBytes": "39ffe2e5",
+        "byteRange": {
+          "start": 3431,
+          "end": 3457
+        }
+      },
+      {
+        "index": 115,
+        "value": "VariableGuid",
+        "hashBytes": "ab967eda",
+        "byteRange": {
+          "start": 3457,
+          "end": 3478
+        }
+      },
+      {
+        "index": 116,
+        "value": "Vector",
+        "hashBytes": "a61c0464",
+        "byteRange": {
+          "start": 3478,
+          "end": 3493
+        }
+      },
+      {
+        "index": 117,
+        "value": "Vector_Low",
+        "hashBytes": "c08d0e65",
+        "byteRange": {
+          "start": 3493,
+          "end": 3512
+        }
+      }
+    ],
+    "imports": [
+      {
+        "index": 0,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "AudioComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "sfx_item_arrowWhoosh_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 3512,
+          "end": 3540
+        },
+        "rawPackageIndex": -1,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 1,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -27,
+        "objectName": {
+          "nameIndex": 20,
+          "number": 0,
+          "value": "BP_Arrow_C"
+        },
+        "byteRange": {
+          "start": 3540,
+          "end": 3568
+        },
+        "rawPackageIndex": -2,
+        "outerReference": {
+          "rawPackageIndex": -27,
+          "kind": "import",
+          "index": 26,
+          "objectName": "/Game/Actors/Items/Arrow/BP_Arrow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 2,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -28,
+        "objectName": {
+          "nameIndex": 21,
+          "number": 0,
+          "value": "BP_Projectile_C"
+        },
+        "byteRange": {
+          "start": 3568,
+          "end": 3596
+        },
+        "rawPackageIndex": -3,
+        "outerReference": {
+          "rawPackageIndex": -28,
+          "kind": "import",
+          "index": 27,
+          "objectName": "/Game/Actors/Items/Arrow/BP_Projectile",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 3,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 34,
+          "number": 0,
+          "value": "Default__BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 3596,
+          "end": 3624
+        },
+        "rawPackageIndex": -4,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 4,
+        "classPackage": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/Actors/Items/Arrow/BP_Arrow"
+        },
+        "className": {
+          "nameIndex": 20,
+          "number": 0,
+          "value": "BP_Arrow_C"
+        },
+        "outerIndex": -27,
+        "objectName": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Default__BP_Arrow_C"
+        },
+        "byteRange": {
+          "start": 3624,
+          "end": 3652
+        },
+        "rawPackageIndex": -5,
+        "outerReference": {
+          "rawPackageIndex": -27,
+          "kind": "import",
+          "index": 26,
+          "objectName": "/Game/Actors/Items/Arrow/BP_Arrow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 5,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 55,
+          "number": 0,
+          "value": "Function"
+        },
+        "byteRange": {
+          "start": 3652,
+          "end": 3680
+        },
+        "rawPackageIndex": -6,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 6,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 63,
+          "number": 0,
+          "value": "IntProperty"
+        },
+        "byteRange": {
+          "start": 3680,
+          "end": 3708
+        },
+        "rawPackageIndex": -7,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 7,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 72,
+          "number": 0,
+          "value": "Object"
+        },
+        "byteRange": {
+          "start": 3708,
+          "end": 3736
+        },
+        "rawPackageIndex": -8,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 8,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 111,
+          "number": 0,
+          "value": "StructProperty"
+        },
+        "byteRange": {
+          "start": 3736,
+          "end": 3764
+        },
+        "rawPackageIndex": -9,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 9,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -33,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DungeonsProjectileMovementComp"
+        },
+        "byteRange": {
+          "start": 3764,
+          "end": 3792
+        },
+        "rawPackageIndex": -10,
+        "outerReference": {
+          "rawPackageIndex": -33,
+          "kind": "import",
+          "index": 32,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 10,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -33,
+        "objectName": {
+          "nameIndex": 59,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "byteRange": {
+          "start": 3792,
+          "end": 3820
+        },
+        "rawPackageIndex": -11,
+        "outerReference": {
+          "rawPackageIndex": -33,
+          "kind": "import",
+          "index": 32,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 11,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "AudioComponent"
+        },
+        "byteRange": {
+          "start": 3820,
+          "end": 3848
+        },
+        "rawPackageIndex": -12,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 12,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 3848,
+          "end": 3876
+        },
+        "rawPackageIndex": -13,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 13,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 60,
+          "number": 0,
+          "value": "InheritableComponentHandler"
+        },
+        "byteRange": {
+          "start": 3876,
+          "end": 3904
+        },
+        "rawPackageIndex": -14,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 14,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 82,
+          "number": 0,
+          "value": "ParticleSystemComponent"
+        },
+        "byteRange": {
+          "start": 3904,
+          "end": 3932
+        },
+        "rawPackageIndex": -15,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 15,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 97,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "byteRange": {
+          "start": 3932,
+          "end": 3960
+        },
+        "rawPackageIndex": -16,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 16,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 99,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "byteRange": {
+          "start": 3960,
+          "end": 3988
+        },
+        "rawPackageIndex": -17,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 17,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 105,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 3988,
+          "end": 4016
+        },
+        "rawPackageIndex": -18,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 18,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 26,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 110,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "byteRange": {
+          "start": 4016,
+          "end": 4044
+        },
+        "rawPackageIndex": -19,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 19,
+        "classPackage": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DungeonsProjectileMovementComp"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 84,
+          "number": 0,
+          "value": "Projectile Movement Component"
+        },
+        "byteRange": {
+          "start": 4044,
+          "end": 4072
+        },
+        "rawPackageIndex": -20,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "Default__BP_Arrow_C",
+          "className": "BP_Arrow_C"
+        }
+      },
+      {
+        "index": 20,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 55,
+          "number": 0,
+          "value": "Function"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 91,
+          "number": 0,
+          "value": "ReceiveBeginPlay"
+        },
+        "byteRange": {
+          "start": 4072,
+          "end": 4100
+        },
+        "rawPackageIndex": -21,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 21,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 55,
+          "number": 0,
+          "value": "Function"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 37,
+          "number": 0,
+          "value": "Default__Function"
+        },
+        "byteRange": {
+          "start": 4100,
+          "end": 4128
+        },
+        "rawPackageIndex": -22,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 22,
+        "classPackage": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 59,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 59,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "byteRange": {
+          "start": 4128,
+          "end": 4156
+        },
+        "rawPackageIndex": -23,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "Default__BP_Arrow_C",
+          "className": "BP_Arrow_C"
+        }
+      },
+      {
+        "index": 23,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 60,
+          "number": 0,
+          "value": "InheritableComponentHandler"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 38,
+          "number": 0,
+          "value": "Default__InheritableComponentHandler"
+        },
+        "byteRange": {
+          "start": 4156,
+          "end": 4184
+        },
+        "rawPackageIndex": -24,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 24,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 63,
+          "number": 0,
+          "value": "IntProperty"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 39,
+          "number": 0,
+          "value": "Default__IntProperty"
+        },
+        "byteRange": {
+          "start": 4184,
+          "end": 4212
+        },
+        "rawPackageIndex": -25,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 25,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 66,
+          "number": 0,
+          "value": "MaterialInstanceConstant"
+        },
+        "outerIndex": -31,
+        "objectName": {
+          "nameIndex": 67,
+          "number": 0,
+          "value": "MI_SoulArrow"
+        },
+        "byteRange": {
+          "start": 4212,
+          "end": 4240
+        },
+        "rawPackageIndex": -26,
+        "outerReference": {
+          "rawPackageIndex": -31,
+          "kind": "import",
+          "index": 30,
+          "objectName": "/Game/Models/Weapons/Arrow/MI_SoulArrow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 26,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/Actors/Items/Arrow/BP_Arrow"
+        },
+        "byteRange": {
+          "start": 4240,
+          "end": 4268
+        },
+        "rawPackageIndex": -27,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 27,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Game/Actors/Items/Arrow/BP_Projectile"
+        },
+        "byteRange": {
+          "start": 4268,
+          "end": 4296
+        },
+        "rawPackageIndex": -28,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 28,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 3,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactCharged"
+        },
+        "byteRange": {
+          "start": 4296,
+          "end": 4324
+        },
+        "rawPackageIndex": -29,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 29,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactNormal"
+        },
+        "byteRange": {
+          "start": 4324,
+          "end": 4352
+        },
+        "rawPackageIndex": -30,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 30,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "/Game/Models/Weapons/Arrow/MI_SoulArrow"
+        },
+        "byteRange": {
+          "start": 4352,
+          "end": 4380
+        },
+        "rawPackageIndex": -31,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 31,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "byteRange": {
+          "start": 4380,
+          "end": 4408
+        },
+        "rawPackageIndex": -32,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 32,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "byteRange": {
+          "start": 4408,
+          "end": 4436
+        },
+        "rawPackageIndex": -33,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 33,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 79,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "byteRange": {
+          "start": 4436,
+          "end": 4464
+        },
+        "rawPackageIndex": -34,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 34,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 82,
+          "number": 0,
+          "value": "ParticleSystemComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 76,
+          "number": 0,
+          "value": "P_Charged_Arrow_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4464,
+          "end": 4492
+        },
+        "rawPackageIndex": -35,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 35,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 82,
+          "number": 0,
+          "value": "ParticleSystemComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 78,
+          "number": 0,
+          "value": "P_Combat_Arrow_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4492,
+          "end": 4520
+        },
+        "rawPackageIndex": -36,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 36,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 97,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4520,
+          "end": 4548
+        },
+        "rawPackageIndex": -37,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 37,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 97,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 40,
+          "number": 0,
+          "value": "Default__SceneComponent"
+        },
+        "byteRange": {
+          "start": 4548,
+          "end": 4576
+        },
+        "rawPackageIndex": -38,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 38,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 98,
+          "number": 0,
+          "value": "ScriptStruct"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 83,
+          "number": 0,
+          "value": "PointerToUberGraphFrame"
+        },
+        "byteRange": {
+          "start": 4576,
+          "end": 4604
+        },
+        "rawPackageIndex": -39,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 39,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 99,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 41,
+          "number": 0,
+          "value": "Default__SCS_Node"
+        },
+        "byteRange": {
+          "start": 4604,
+          "end": 4632
+        },
+        "rawPackageIndex": -40,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 40,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 105,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "outerIndex": -34,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 0,
+          "value": "Default__SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 4632,
+          "end": 4660
+        },
+        "rawPackageIndex": -41,
+        "outerReference": {
+          "rawPackageIndex": -34,
+          "kind": "import",
+          "index": 33,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 41,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -29,
+        "objectName": {
+          "nameIndex": 103,
+          "number": 0,
+          "value": "sfx_item_scatterCrossbowArrowImpactCharged"
+        },
+        "byteRange": {
+          "start": 4660,
+          "end": 4688
+        },
+        "rawPackageIndex": -42,
+        "outerReference": {
+          "rawPackageIndex": -29,
+          "kind": "import",
+          "index": 28,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactCharged",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 42,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 104,
+          "number": 0,
+          "value": "sfx_item_scatterCrossbowArrowImpactNormal"
+        },
+        "byteRange": {
+          "start": 4688,
+          "end": 4716
+        },
+        "rawPackageIndex": -43,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowArrowImpactNormal",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 43,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 109,
+          "number": 0,
+          "value": "SphereComponent"
+        },
+        "outerIndex": -3,
+        "objectName": {
+          "nameIndex": 108,
+          "number": 0,
+          "value": "Sphere_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4716,
+          "end": 4744
+        },
+        "rawPackageIndex": -44,
+        "outerReference": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_Projectile_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 44,
+        "classPackage": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 110,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -2,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "Arrow_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4744,
+          "end": 4772
+        },
+        "rawPackageIndex": -45,
+        "outerReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 45,
+        "classPackage": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 111,
+          "number": 0,
+          "value": "StructProperty"
+        },
+        "outerIndex": -32,
+        "objectName": {
+          "nameIndex": 43,
+          "number": 0,
+          "value": "Default__StructProperty"
+        },
+        "byteRange": {
+          "start": 4772,
+          "end": 4800
+        },
+        "rawPackageIndex": -46,
+        "outerReference": {
+          "rawPackageIndex": -32,
+          "kind": "import",
+          "index": 31,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      }
+    ],
+    "exports": [
+      {
+        "index": 0,
+        "classIndex": -9,
+        "superIndex": 0,
+        "templateIndex": -46,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 112,
+          "number": 0,
+          "value": "UberGraphFrame"
+        },
+        "objectFlags": 1,
+        "serialSize": 36,
+        "serialOffset": 6788,
+        "byteRange": {
+          "start": 4800,
+          "end": 4904
+        },
+        "rawPackageIndex": 1,
+        "classReference": {
+          "rawPackageIndex": -9,
+          "kind": "import",
+          "index": 8,
+          "objectName": "StructProperty",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -46,
+          "kind": "import",
+          "index": 45,
+          "objectName": "Default__StructProperty",
+          "className": "StructProperty"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 1,
+        "classIndex": -13,
+        "superIndex": -2,
+        "templateIndex": -4,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 22,
+          "number": 0,
+          "value": "BP_ScatterCrossBow_Arrow_C"
+        },
+        "objectFlags": 9,
+        "serialSize": 228,
+        "serialOffset": 6824,
+        "byteRange": {
+          "start": 4904,
+          "end": 5008
+        },
+        "rawPackageIndex": 2,
+        "classReference": {
+          "rawPackageIndex": -13,
+          "kind": "import",
+          "index": 12,
+          "objectName": "BlueprintGeneratedClass",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "templateReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "Default__BlueprintGeneratedClass",
+          "className": "BlueprintGeneratedClass"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 2,
+        "classIndex": 2,
+        "superIndex": 0,
+        "templateIndex": -5,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 36,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossBow_Arrow_C"
+        },
+        "objectFlags": 57,
+        "serialSize": 418,
+        "serialOffset": 7052,
+        "byteRange": {
+          "start": 5008,
+          "end": 5112
+        },
+        "rawPackageIndex": 3,
+        "classReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "Default__BP_Arrow_C",
+          "className": "BP_Arrow_C"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 3,
+        "classIndex": -12,
+        "superIndex": 0,
+        "templateIndex": -1,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "sfx_item_arrowWhoosh_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "serialSize": 41,
+        "serialOffset": 7470,
+        "byteRange": {
+          "start": 5112,
+          "end": 5216
+        },
+        "rawPackageIndex": 4,
+        "classReference": {
+          "rawPackageIndex": -12,
+          "kind": "import",
+          "index": 11,
+          "objectName": "AudioComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "sfx_item_arrowWhoosh_GEN_VARIABLE",
+          "className": "AudioComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 4,
+        "classIndex": -10,
+        "superIndex": 0,
+        "templateIndex": -20,
+        "outerIndex": 3,
+        "objectName": {
+          "nameIndex": 84,
+          "number": 0,
+          "value": "Projectile Movement Component"
+        },
+        "objectFlags": 262185,
+        "serialSize": 12,
+        "serialOffset": 7511,
+        "byteRange": {
+          "start": 5216,
+          "end": 5320
+        },
+        "rawPackageIndex": 5,
+        "classReference": {
+          "rawPackageIndex": -10,
+          "kind": "import",
+          "index": 9,
+          "objectName": "DungeonsProjectileMovementComp",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -20,
+          "kind": "import",
+          "index": 19,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "outerReference": {
+          "rawPackageIndex": 3,
+          "kind": "export",
+          "index": 2,
+          "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+          "className": "BP_ScatterCrossBow_Arrow_C"
+        }
+      },
+      {
+        "index": 5,
+        "classIndex": -7,
+        "superIndex": 0,
+        "templateIndex": -25,
+        "outerIndex": 7,
+        "objectName": {
+          "nameIndex": 51,
+          "number": 0,
+          "value": "EntryPoint"
+        },
+        "objectFlags": 1,
+        "serialSize": 32,
+        "serialOffset": 7523,
+        "byteRange": {
+          "start": 5320,
+          "end": 5424
+        },
+        "rawPackageIndex": 6,
+        "classReference": {
+          "rawPackageIndex": -7,
+          "kind": "import",
+          "index": 6,
+          "objectName": "IntProperty",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -25,
+          "kind": "import",
+          "index": 24,
+          "objectName": "Default__IntProperty",
+          "className": "IntProperty"
+        },
+        "outerReference": {
+          "rawPackageIndex": 7,
+          "kind": "export",
+          "index": 6,
+          "objectName": "ExecuteUbergraph_BP_ScatterCrossBow_Arrow",
+          "className": "Function"
+        }
+      },
+      {
+        "index": 6,
+        "classIndex": -6,
+        "superIndex": 0,
+        "templateIndex": -22,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 53,
+          "number": 0,
+          "value": "ExecuteUbergraph_BP_ScatterCrossBow_Arrow"
+        },
+        "objectFlags": 1,
+        "serialSize": 69,
+        "serialOffset": 7555,
+        "byteRange": {
+          "start": 5424,
+          "end": 5528
+        },
+        "rawPackageIndex": 7,
+        "classReference": {
+          "rawPackageIndex": -6,
+          "kind": "import",
+          "index": 5,
+          "objectName": "Function",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -22,
+          "kind": "import",
+          "index": 21,
+          "objectName": "Default__Function",
+          "className": "Function"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 7,
+        "classIndex": -6,
+        "superIndex": -21,
+        "templateIndex": -22,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 91,
+          "number": 0,
+          "value": "ReceiveBeginPlay"
+        },
+        "objectFlags": 1,
+        "serialSize": 54,
+        "serialOffset": 7624,
+        "byteRange": {
+          "start": 5528,
+          "end": 5632
+        },
+        "rawPackageIndex": 8,
+        "classReference": {
+          "rawPackageIndex": -6,
+          "kind": "import",
+          "index": 5,
+          "objectName": "Function",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": -21,
+          "kind": "import",
+          "index": 20,
+          "objectName": "ReceiveBeginPlay",
+          "className": "Function"
+        },
+        "templateReference": {
+          "rawPackageIndex": -22,
+          "kind": "import",
+          "index": 21,
+          "objectName": "Default__Function",
+          "className": "Function"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 8,
+        "classIndex": -11,
+        "superIndex": 0,
+        "templateIndex": -23,
+        "outerIndex": 3,
+        "objectName": {
+          "nameIndex": 59,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "objectFlags": 262185,
+        "serialSize": 12,
+        "serialOffset": 7678,
+        "byteRange": {
+          "start": 5632,
+          "end": 5736
+        },
+        "rawPackageIndex": 9,
+        "classReference": {
+          "rawPackageIndex": -11,
+          "kind": "import",
+          "index": 10,
+          "objectName": "ImpactActionHandler",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -23,
+          "kind": "import",
+          "index": 22,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "outerReference": {
+          "rawPackageIndex": 3,
+          "kind": "export",
+          "index": 2,
+          "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+          "className": "BP_ScatterCrossBow_Arrow_C"
+        }
+      },
+      {
+        "index": 9,
+        "classIndex": -14,
+        "superIndex": 0,
+        "templateIndex": -24,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 60,
+          "number": 0,
+          "value": "InheritableComponentHandler"
+        },
+        "objectFlags": 0,
+        "serialSize": 1355,
+        "serialOffset": 7690,
+        "byteRange": {
+          "start": 5736,
+          "end": 5840
+        },
+        "rawPackageIndex": 10,
+        "classReference": {
+          "rawPackageIndex": -14,
+          "kind": "import",
+          "index": 13,
+          "objectName": "InheritableComponentHandler",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -24,
+          "kind": "import",
+          "index": 23,
+          "objectName": "Default__InheritableComponentHandler",
+          "className": "InheritableComponentHandler"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 10,
+        "classIndex": -15,
+        "superIndex": 0,
+        "templateIndex": -36,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 78,
+          "number": 0,
+          "value": "P_Combat_Arrow_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "serialSize": 844,
+        "serialOffset": 9045,
+        "byteRange": {
+          "start": 5840,
+          "end": 5944
+        },
+        "rawPackageIndex": 11,
+        "classReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "ParticleSystemComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -36,
+          "kind": "import",
+          "index": 35,
+          "objectName": "P_Combat_Arrow_GEN_VARIABLE",
+          "className": "ParticleSystemComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 11,
+        "classIndex": -16,
+        "superIndex": 0,
+        "templateIndex": -38,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "serialSize": 12,
+        "serialOffset": 9889,
+        "byteRange": {
+          "start": 5944,
+          "end": 6048
+        },
+        "rawPackageIndex": 12,
+        "classReference": {
+          "rawPackageIndex": -16,
+          "kind": "import",
+          "index": 15,
+          "objectName": "SceneComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -38,
+          "kind": "import",
+          "index": 37,
+          "objectName": "Default__SceneComponent",
+          "className": "SceneComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 12,
+        "classIndex": -17,
+        "superIndex": 0,
+        "templateIndex": -40,
+        "outerIndex": 14,
+        "objectName": {
+          "nameIndex": 99,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 168,
+        "serialOffset": 9901,
+        "byteRange": {
+          "start": 6048,
+          "end": 6152
+        },
+        "rawPackageIndex": 13,
+        "classReference": {
+          "rawPackageIndex": -17,
+          "kind": "import",
+          "index": 16,
+          "objectName": "SCS_Node",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -40,
+          "kind": "import",
+          "index": 39,
+          "objectName": "Default__SCS_Node",
+          "className": "SCS_Node"
+        },
+        "outerReference": {
+          "rawPackageIndex": 14,
+          "kind": "export",
+          "index": 13,
+          "objectName": "SimpleConstructionScript_0",
+          "className": "SimpleConstructionScript"
+        }
+      },
+      {
+        "index": 13,
+        "classIndex": -18,
+        "superIndex": 0,
+        "templateIndex": -41,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 105,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 41,
+        "serialOffset": 10069,
+        "byteRange": {
+          "start": 6152,
+          "end": 6256
+        },
+        "rawPackageIndex": 14,
+        "classReference": {
+          "rawPackageIndex": -18,
+          "kind": "import",
+          "index": 17,
+          "objectName": "SimpleConstructionScript",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -41,
+          "kind": "import",
+          "index": 40,
+          "objectName": "Default__SimpleConstructionScript",
+          "className": "SimpleConstructionScript"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 14,
+        "classIndex": -19,
+        "superIndex": 0,
+        "templateIndex": -45,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "Arrow_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "serialSize": 57,
+        "serialOffset": 10110,
+        "byteRange": {
+          "start": 6256,
+          "end": 6360
+        },
+        "rawPackageIndex": 15,
+        "classReference": {
+          "rawPackageIndex": -19,
+          "kind": "import",
+          "index": 18,
+          "objectName": "StaticMeshComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "Arrow_GEN_VARIABLE",
+          "className": "StaticMeshComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "exportIndex": 0,
+        "rawPackageIndex": 1,
+        "objectName": {
+          "nameIndex": 112,
+          "number": 0,
+          "value": "UberGraphFrame"
+        },
+        "objectFlags": 1,
+        "references": {
+          "class": {
+            "rawPackageIndex": -9,
+            "kind": "import",
+            "index": 8,
+            "objectName": "StructProperty",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -46,
+            "kind": "import",
+            "index": 45,
+            "objectName": "Default__StructProperty",
+            "className": "StructProperty"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 6788,
+          "serialSize": 36,
+          "combinedPackageByteRange": {
+            "start": 6788,
+            "end": 6824
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 0,
+            "end": 36
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 0,
+            "end": 36,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 1,
+        "rawPackageIndex": 2,
+        "objectName": {
+          "nameIndex": 22,
+          "number": 0,
+          "value": "BP_ScatterCrossBow_Arrow_C"
+        },
+        "objectFlags": 9,
+        "references": {
+          "class": {
+            "rawPackageIndex": -13,
+            "kind": "import",
+            "index": 12,
+            "objectName": "BlueprintGeneratedClass",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": -2,
+            "kind": "import",
+            "index": 1,
+            "objectName": "BP_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "template": {
+            "rawPackageIndex": -4,
+            "kind": "import",
+            "index": 3,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 6824,
+          "serialSize": 228,
+          "combinedPackageByteRange": {
+            "start": 6824,
+            "end": 7052
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 36,
+            "end": 264
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 36,
+            "end": 264,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 2,
+        "rawPackageIndex": 3,
+        "objectName": {
+          "nameIndex": 36,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossBow_Arrow_C"
+        },
+        "objectFlags": 57,
+        "references": {
+          "class": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -5,
+            "kind": "import",
+            "index": 4,
+            "objectName": "Default__BP_Arrow_C",
+            "className": "BP_Arrow_C"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": true,
+        "serialization": {
+          "serialOffset": 7052,
+          "serialSize": 418,
+          "combinedPackageByteRange": {
+            "start": 7052,
+            "end": 7470
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 264,
+            "end": 682
+          }
+        },
+        "extraction": {
+          "state": "decoded"
+        },
+        "propertyStream": {
+          "termination": "terminated",
+          "byteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 264,
+            "end": 682
+          },
+          "terminatorByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 674,
+            "end": 682
+          }
+        },
+        "properties": [
+          {
+            "order": 0,
+            "name": {
+              "nameIndex": 112,
+              "number": 0,
+              "value": "UberGraphFrame"
+            },
+            "type": {
+              "nameIndex": 111,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayIndex": 0,
+            "path": "UberGraphFrame",
+            "serializedSize": 8,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 264,
+                "end": 321
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 313,
+                "end": 321
+              }
+            },
+            "metadata": {
+              "structType": "PointerToUberGraphFrame",
+              "structTypeReference": {
+                "nameIndex": 83,
+                "number": 0,
+                "value": "PointerToUberGraphFrame"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            },
+            "decoding": {
+              "state": "decoded",
+              "properties": []
+            }
+          },
+          {
+            "order": 1,
+            "name": {
+              "nameIndex": 71,
+              "number": 0,
+              "value": "NormalImpactSound"
+            },
+            "type": {
+              "nameIndex": 73,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "NormalImpactSound",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 321,
+                "end": 350
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 346,
+                "end": 350
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": -43,
+                "kind": "import",
+                "index": 42,
+                "objectName": "sfx_item_scatterCrossbowArrowImpactNormal",
+                "className": "SoundCue"
+              }
+            }
+          },
+          {
+            "order": 2,
+            "name": {
+              "nameIndex": 25,
+              "number": 0,
+              "value": "ChargedImpactSound"
+            },
+            "type": {
+              "nameIndex": 73,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ChargedImpactSound",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 350,
+                "end": 379
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 375,
+                "end": 379
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": -42,
+                "kind": "import",
+                "index": 41,
+                "objectName": "sfx_item_scatterCrossbowArrowImpactCharged",
+                "className": "SoundCue"
+              }
+            }
+          },
+          {
+            "order": 3,
+            "name": {
+              "nameIndex": 88,
+              "number": 0,
+              "value": "pushback"
+            },
+            "type": {
+              "nameIndex": 111,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayIndex": 0,
+            "path": "pushback",
+            "serializedSize": 63,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 379,
+                "end": 491
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 428,
+                "end": 491
+              }
+            },
+            "metadata": {
+              "structType": "Pushback",
+              "structTypeReference": {
+                "nameIndex": 89,
+                "number": 0,
+                "value": "Pushback"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            },
+            "decoding": {
+              "state": "decoded",
+              "properties": [
+                {
+                  "order": 0,
+                  "name": {
+                    "nameIndex": 48,
+                    "number": 0,
+                    "value": "enablePushback"
+                  },
+                  "type": {
+                    "nameIndex": 19,
+                    "number": 0,
+                    "value": "BoolProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "pushback.enablePushback",
+                  "serializedSize": 0,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                      "start": 428,
+                      "end": 454
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                      "start": 454,
+                      "end": 454
+                    }
+                  },
+                  "metadata": {
+                    "enumType": "true",
+                    "boolValue": true
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": true
+                  }
+                },
+                {
+                  "order": 1,
+                  "name": {
+                    "nameIndex": 90,
+                    "number": 0,
+                    "value": "pushbackStrength"
+                  },
+                  "type": {
+                    "nameIndex": 54,
+                    "number": 0,
+                    "value": "FloatProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "pushback.pushbackStrength",
+                  "serializedSize": 4,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                      "start": 454,
+                      "end": 483
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                      "start": 479,
+                      "end": 483
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": 0.6000000238418579
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "order": 4,
+            "name": {
+              "nameIndex": 85,
+              "number": 0,
+              "value": "ProjectileMovementComponent"
+            },
+            "type": {
+              "nameIndex": 73,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ProjectileMovementComponent",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 491,
+                "end": 520
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 516,
+                "end": 520
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": 5,
+                "kind": "export",
+                "index": 4,
+                "objectName": "Projectile Movement Component",
+                "className": "DungeonsProjectileMovementComp"
+              }
+            }
+          },
+          {
+            "order": 5,
+            "name": {
+              "nameIndex": 58,
+              "number": 0,
+              "value": "IgnoreFriendlyFire"
+            },
+            "type": {
+              "nameIndex": 19,
+              "number": 0,
+              "value": "BoolProperty"
+            },
+            "arrayIndex": 0,
+            "path": "IgnoreFriendlyFire",
+            "serializedSize": 0,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 520,
+                "end": 546
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 546,
+                "end": 546
+              }
+            },
+            "metadata": {
+              "enumType": "true",
+              "boolValue": true
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": true
+            }
+          },
+          {
+            "order": 6,
+            "name": {
+              "nameIndex": 57,
+              "number": 0,
+              "value": "HomingThreshold"
+            },
+            "type": {
+              "nameIndex": 54,
+              "number": 0,
+              "value": "FloatProperty"
+            },
+            "arrayIndex": 0,
+            "path": "HomingThreshold",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 546,
+                "end": 575
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 571,
+                "end": 575
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": 150
+            }
+          },
+          {
+            "order": 7,
+            "name": {
+              "nameIndex": 59,
+              "number": 0,
+              "value": "ImpactActionHandler"
+            },
+            "type": {
+              "nameIndex": 73,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ImpactActionHandler",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 575,
+                "end": 604
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 600,
+                "end": 604
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": 9,
+                "kind": "export",
+                "index": 8,
+                "objectName": "ImpactActionHandler",
+                "className": "ImpactActionHandler"
+              }
+            }
+          },
+          {
+            "order": 8,
+            "name": {
+              "nameIndex": 33,
+              "number": 0,
+              "value": "damage"
+            },
+            "type": {
+              "nameIndex": 54,
+              "number": 0,
+              "value": "FloatProperty"
+            },
+            "arrayIndex": 0,
+            "path": "damage",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 604,
+                "end": 633
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 629,
+                "end": 633
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": 50
+            }
+          },
+          {
+            "order": 9,
+            "name": {
+              "nameIndex": 93,
+              "number": 0,
+              "value": "RemoteRole"
+            },
+            "type": {
+              "nameIndex": 23,
+              "number": 0,
+              "value": "ByteProperty"
+            },
+            "arrayIndex": 0,
+            "path": "RemoteRole",
+            "serializedSize": 8,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 633,
+                "end": 674
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "start": 666,
+                "end": 674
+              }
+            },
+            "metadata": {
+              "enumType": "ENetRole",
+              "enumTypeReference": {
+                "nameIndex": 49,
+                "number": 0,
+                "value": "ENetRole"
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": "ROLE_None"
+            }
+          }
+        ],
+        "diagnostics": [],
+        "unavailableRanges": []
+      },
+      {
+        "exportIndex": 3,
+        "rawPackageIndex": 4,
+        "objectName": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "sfx_item_arrowWhoosh_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "references": {
+          "class": {
+            "rawPackageIndex": -12,
+            "kind": "import",
+            "index": 11,
+            "objectName": "AudioComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -1,
+            "kind": "import",
+            "index": 0,
+            "objectName": "sfx_item_arrowWhoosh_GEN_VARIABLE",
+            "className": "AudioComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7470,
+          "serialSize": 41,
+          "combinedPackageByteRange": {
+            "start": 7470,
+            "end": 7511
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 682,
+            "end": 723
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 682,
+            "end": 723,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 4,
+        "rawPackageIndex": 5,
+        "objectName": {
+          "nameIndex": 84,
+          "number": 0,
+          "value": "Projectile Movement Component"
+        },
+        "objectFlags": 262185,
+        "references": {
+          "class": {
+            "rawPackageIndex": -10,
+            "kind": "import",
+            "index": 9,
+            "objectName": "DungeonsProjectileMovementComp",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -20,
+            "kind": "import",
+            "index": 19,
+            "objectName": "Projectile Movement Component",
+            "className": "DungeonsProjectileMovementComp"
+          },
+          "outer": {
+            "rawPackageIndex": 3,
+            "kind": "export",
+            "index": 2,
+            "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+            "className": "BP_ScatterCrossBow_Arrow_C"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7511,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 7511,
+            "end": 7523
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 723,
+            "end": 735
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 723,
+            "end": 735,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 5,
+        "rawPackageIndex": 6,
+        "objectName": {
+          "nameIndex": 51,
+          "number": 0,
+          "value": "EntryPoint"
+        },
+        "objectFlags": 1,
+        "references": {
+          "class": {
+            "rawPackageIndex": -7,
+            "kind": "import",
+            "index": 6,
+            "objectName": "IntProperty",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -25,
+            "kind": "import",
+            "index": 24,
+            "objectName": "Default__IntProperty",
+            "className": "IntProperty"
+          },
+          "outer": {
+            "rawPackageIndex": 7,
+            "kind": "export",
+            "index": 6,
+            "objectName": "ExecuteUbergraph_BP_ScatterCrossBow_Arrow",
+            "className": "Function"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7523,
+          "serialSize": 32,
+          "combinedPackageByteRange": {
+            "start": 7523,
+            "end": 7555
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 735,
+            "end": 767
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 735,
+            "end": 767,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 6,
+        "rawPackageIndex": 7,
+        "objectName": {
+          "nameIndex": 53,
+          "number": 0,
+          "value": "ExecuteUbergraph_BP_ScatterCrossBow_Arrow"
+        },
+        "objectFlags": 1,
+        "references": {
+          "class": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "Function",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -22,
+            "kind": "import",
+            "index": 21,
+            "objectName": "Default__Function",
+            "className": "Function"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7555,
+          "serialSize": 69,
+          "combinedPackageByteRange": {
+            "start": 7555,
+            "end": 7624
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 767,
+            "end": 836
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 767,
+            "end": 836,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 7,
+        "rawPackageIndex": 8,
+        "objectName": {
+          "nameIndex": 91,
+          "number": 0,
+          "value": "ReceiveBeginPlay"
+        },
+        "objectFlags": 1,
+        "references": {
+          "class": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "Function",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": -21,
+            "kind": "import",
+            "index": 20,
+            "objectName": "ReceiveBeginPlay",
+            "className": "Function"
+          },
+          "template": {
+            "rawPackageIndex": -22,
+            "kind": "import",
+            "index": 21,
+            "objectName": "Default__Function",
+            "className": "Function"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7624,
+          "serialSize": 54,
+          "combinedPackageByteRange": {
+            "start": 7624,
+            "end": 7678
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 836,
+            "end": 890
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 836,
+            "end": 890,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 8,
+        "rawPackageIndex": 9,
+        "objectName": {
+          "nameIndex": 59,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "objectFlags": 262185,
+        "references": {
+          "class": {
+            "rawPackageIndex": -11,
+            "kind": "import",
+            "index": 10,
+            "objectName": "ImpactActionHandler",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -23,
+            "kind": "import",
+            "index": 22,
+            "objectName": "ImpactActionHandler",
+            "className": "ImpactActionHandler"
+          },
+          "outer": {
+            "rawPackageIndex": 3,
+            "kind": "export",
+            "index": 2,
+            "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+            "className": "BP_ScatterCrossBow_Arrow_C"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7678,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 7678,
+            "end": 7690
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 890,
+            "end": 902
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 890,
+            "end": 902,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 9,
+        "rawPackageIndex": 10,
+        "objectName": {
+          "nameIndex": 60,
+          "number": 0,
+          "value": "InheritableComponentHandler"
+        },
+        "objectFlags": 0,
+        "references": {
+          "class": {
+            "rawPackageIndex": -14,
+            "kind": "import",
+            "index": 13,
+            "objectName": "InheritableComponentHandler",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -24,
+            "kind": "import",
+            "index": 23,
+            "objectName": "Default__InheritableComponentHandler",
+            "className": "InheritableComponentHandler"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7690,
+          "serialSize": 1355,
+          "combinedPackageByteRange": {
+            "start": 7690,
+            "end": 9045
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 902,
+            "end": 2257
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 902,
+            "end": 2257,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 10,
+        "rawPackageIndex": 11,
+        "objectName": {
+          "nameIndex": 78,
+          "number": 0,
+          "value": "P_Combat_Arrow_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "references": {
+          "class": {
+            "rawPackageIndex": -15,
+            "kind": "import",
+            "index": 14,
+            "objectName": "ParticleSystemComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -36,
+            "kind": "import",
+            "index": 35,
+            "objectName": "P_Combat_Arrow_GEN_VARIABLE",
+            "className": "ParticleSystemComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 9045,
+          "serialSize": 844,
+          "combinedPackageByteRange": {
+            "start": 9045,
+            "end": 9889
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 2257,
+            "end": 3101
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 2257,
+            "end": 3101,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 11,
+        "rawPackageIndex": 12,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "references": {
+          "class": {
+            "rawPackageIndex": -16,
+            "kind": "import",
+            "index": 15,
+            "objectName": "SceneComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -38,
+            "kind": "import",
+            "index": 37,
+            "objectName": "Default__SceneComponent",
+            "className": "SceneComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 9889,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 9889,
+            "end": 9901
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3101,
+            "end": 3113
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3101,
+            "end": 3113,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 12,
+        "rawPackageIndex": 13,
+        "objectName": {
+          "nameIndex": 99,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -17,
+            "kind": "import",
+            "index": 16,
+            "objectName": "SCS_Node",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -40,
+            "kind": "import",
+            "index": 39,
+            "objectName": "Default__SCS_Node",
+            "className": "SCS_Node"
+          },
+          "outer": {
+            "rawPackageIndex": 14,
+            "kind": "export",
+            "index": 13,
+            "objectName": "SimpleConstructionScript_0",
+            "className": "SimpleConstructionScript"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 9901,
+          "serialSize": 168,
+          "combinedPackageByteRange": {
+            "start": 9901,
+            "end": 10069
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3113,
+            "end": 3281
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3113,
+            "end": 3281,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 13,
+        "rawPackageIndex": 14,
+        "objectName": {
+          "nameIndex": 105,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -18,
+            "kind": "import",
+            "index": 17,
+            "objectName": "SimpleConstructionScript",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -41,
+            "kind": "import",
+            "index": 40,
+            "objectName": "Default__SimpleConstructionScript",
+            "className": "SimpleConstructionScript"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 10069,
+          "serialSize": 41,
+          "combinedPackageByteRange": {
+            "start": 10069,
+            "end": 10110
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3281,
+            "end": 3322
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3281,
+            "end": 3322,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 14,
+        "rawPackageIndex": 15,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "Arrow_GEN_VARIABLE"
+        },
+        "objectFlags": 4194345,
+        "references": {
+          "class": {
+            "rawPackageIndex": -19,
+            "kind": "import",
+            "index": 18,
+            "objectName": "StaticMeshComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -45,
+            "kind": "import",
+            "index": 44,
+            "objectName": "Arrow_GEN_VARIABLE",
+            "className": "StaticMeshComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "BP_ScatterCrossBow_Arrow_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 10110,
+          "serialSize": 57,
+          "combinedPackageByteRange": {
+            "start": 10110,
+            "end": 10167
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3322,
+            "end": 3379
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+            "start": 3322,
+            "end": 3379,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "unavailableRanges": [
+      {
+        "start": 6360,
+        "end": 6788,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+        "state": "not-extracted",
+        "reason": "unparsed-uasset-region"
+      },
+      {
+        "start": 3379,
+        "end": 3383,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+        "state": "not-extracted",
+        "reason": "unassigned-uexp-region"
+      }
+    ]
+  }
+}
