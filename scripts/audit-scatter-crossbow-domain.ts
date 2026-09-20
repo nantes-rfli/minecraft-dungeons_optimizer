@@ -17,6 +17,12 @@ if (projection.configuredProjectileDefinitions.state === 'known') {
   assert.equal(projection.configuredProjectileDefinitions.value.length, 1)
   const entry = projection.configuredProjectileDefinitions.value[0]!
   assert.equal(entry.projectile.reference.state, 'known')
+  if (entry.projectile.reference.state === 'known') assert.deepEqual(entry.projectile.reference.value, {
+    rawPackageIndex: -5,
+    objectName: scatterCrossbowIdentity.projectileObjectName,
+    className: scatterCrossbowIdentity.projectileClassName,
+    targetRawPackagePath: scatterCrossbowIdentity.projectilePackagePath,
+  })
   assert.ok(entry.projectile.configuration)
 }
 const aliases = JSON.parse(fs.readFileSync(new URL(scatterCrossbowIdentity.evidence.path, root), 'utf8')) as { aliases: { id: string; status: string; confidence: string; canonicalEntity?: string }[] }

@@ -38,7 +38,7 @@ type ReferenceTrace = {
   targetRawSnapshot: Omit<RawTrace, 'nodePointer'>
 }
 type ProjectileReference =
-  | { state: 'known'; value: { rawPackageIndex: number; className: string; targetPackagePath: string }; trace: ReferenceTrace }
+  | { state: 'known'; value: { rawPackageIndex: number; objectName: string; className: string; targetRawPackagePath: string }; trace: ReferenceTrace }
   | { state: UnavailableState; reason: string; trace: Trace }
 
 function rawTrace(raw: RawPackageSnapshot, pointer: string): RawTrace {
@@ -117,7 +117,7 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
     const value = located.node.decoding.value
     if (located.node.type.value !== 'ObjectProperty' || !value || typeof value !== 'object' || Array.isArray(value)) return { state: 'unknown', reason: 'Projectile is not a decoded ObjectProperty reference', trace: fallbackTrace }
     const reference = value as Record<string, unknown>
-    if (reference.kind !== 'import' || typeof reference.rawPackageIndex !== 'number' || typeof reference.index !== 'number') return { state: 'unknown', reason: 'Projectile ObjectProperty is not an import reference', trace: fallbackTrace }
+    if (reference.kind !== 'import' || typeof reference.rawPackageIndex !== 'number' || typeof reference.index !== 'number' || typeof reference.objectName !== 'string' || typeof reference.className !== 'string') return { state: 'unknown', reason: 'Projectile ObjectProperty is not an import reference', trace: fallbackTrace }
     const classImportMatches = instanceRaw.package.imports.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.rawPackageIndex === reference.rawPackageIndex && entry.index === reference.index)
     if (classImportMatches.length !== 1) return { state: 'unknown', reason: 'Projectile class import is missing or ambiguous', trace: fallbackTrace }
     const classImport = classImportMatches[0]!
@@ -125,8 +125,8 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
     if (outerMatches.length !== 1) return { state: 'unknown', reason: 'Projectile outer package import is missing or ambiguous', trace: fallbackTrace }
     const outer = outerMatches[0]!
     const sameDataset = instanceRaw.dataset.id === projectileRaw.dataset.id && instanceRaw.dataset.sourceFingerprint.value === projectileRaw.dataset.sourceFingerprint.value
-    const validKnownChain = reference.objectName === assertion.projectileClassName && reference.className === 'BlueprintGeneratedClass'
-      && classImport.entry.objectName.value === assertion.projectileClassName && classImport.entry.className.value === 'BlueprintGeneratedClass'
+    const validKnownChain = reference.objectName === assertion.projectileObjectName && reference.className === assertion.projectileClassName
+      && classImport.entry.objectName.value === assertion.projectileObjectName && classImport.entry.className.value === assertion.projectileClassName
       && classImport.entry.outerIndex === outer.entry.rawPackageIndex
       && outer.entry.className.value === 'Package' && outer.entry.objectName.value === assertion.projectileGamePackagePath
       && outer.entry.outerIndex === 0 && outer.entry.outerReference.rawPackageIndex === 0
@@ -142,7 +142,12 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
     }
     return {
       state: 'known',
-      value: { rawPackageIndex: reference.rawPackageIndex, className: assertion.projectileClassName, targetPackagePath: assertion.projectilePackagePath },
+      value: {
+        rawPackageIndex: reference.rawPackageIndex,
+        objectName: reference.objectName,
+        className: reference.className,
+        targetRawPackagePath: projectileRaw.logicalPackage.path,
+      },
       trace: {
         mappingId: scatterCrossbowMappings.projectileReference.id,
         identityAssertionId: assertion.id,

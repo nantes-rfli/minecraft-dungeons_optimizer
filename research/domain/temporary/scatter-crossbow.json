@@ -11,7 +11,8 @@
     "instancePackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
     "projectilePackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
     "projectileGamePackagePath": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
-    "projectileClassName": "BP_ScatterCrossBow_Arrow_C",
+    "projectileObjectName": "BP_ScatterCrossBow_Arrow_C",
+    "projectileClassName": "BlueprintGeneratedClass",
     "evidence": {
       "path": "research/domain/game-data-entity-aliases.json",
       "locator": "aliases[id=ranged-weapon:ScatterCrossbow]",
@@ -207,8 +208,9 @@
               "state": "known",
               "value": {
                 "rawPackageIndex": -5,
-                "className": "BP_ScatterCrossBow_Arrow_C",
-                "targetPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+                "objectName": "BP_ScatterCrossBow_Arrow_C",
+                "className": "BlueprintGeneratedClass",
+                "targetRawPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
               },
               "trace": {
                 "mappingId": "scatter-crossbow:projectile-reference@1",

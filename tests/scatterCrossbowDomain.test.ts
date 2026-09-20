@@ -69,8 +69,14 @@ describe('Scatter Crossbow temporary Domain', () => {
     const projected = result.configuredProjectileDefinitions.value[0]!.projectile
     expect(projected.reference.state).toBe('known')
     if (projected.reference.state !== 'known' || !projected.configuration) throw new Error('missing linked projectile')
+    expect(projected.reference.value).toEqual({
+      rawPackageIndex: -5,
+      objectName: 'BP_ScatterCrossBow_Arrow_C',
+      className: 'BlueprintGeneratedClass',
+      targetRawPackagePath: assertion.projectilePackagePath,
+    })
     expect(pointer(instance, projected.reference.trace.objectProperty.nodePointer)).toMatchObject({ name: { value: 'Projectile' }, decoding: { value: { rawPackageIndex: -5 } } })
-    expect(pointer(instance, projected.reference.trace.classImport.nodePointer)).toMatchObject({ rawPackageIndex: -5, objectName: { value: assertion.projectileClassName }, outerIndex: -21 })
+    expect(pointer(instance, projected.reference.trace.classImport.nodePointer)).toMatchObject({ rawPackageIndex: -5, objectName: { value: assertion.projectileObjectName }, className: { value: assertion.projectileClassName }, outerIndex: -21 })
     expect(pointer(instance, projected.reference.trace.outerPackageImport.nodePointer)).toMatchObject({ rawPackageIndex: -21, objectName: { value: assertion.projectileGamePackagePath } })
     expect(projected.reference.trace.targetRawSnapshot).toMatchObject({ packagePath: projectile.logicalPackage.path, packageHash: projectile.logicalPackage.contentHash })
     for (const field of Object.values(projected.configuration)) {

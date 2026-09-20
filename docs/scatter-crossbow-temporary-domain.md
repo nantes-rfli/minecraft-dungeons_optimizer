@@ -16,6 +16,8 @@ The projector explicitly validates the known reference chain:
 
 It also requires the two snapshots to share dataset identity and source fingerprint. This is a local assertion for the known structure, not a general `/Game/` resolver. The extractor's `crossPackageReferenceResolution` remains `not-performed`. A successful trace records separate pointers for the ObjectProperty, class import, outer package import, and target Raw snapshot. If any link fails, no projectile configuration is attached to the weapon.
 
+The projected reference value preserves the Raw structural names: `objectName` is `BP_ScatterCrossBow_Arrow_C`, `className` is `BlueprintGeneratedClass`, and `targetRawPackagePath` names the supplied `Dungeons/Content/...` snapshot. These names are not a projectile Domain identity.
+
 Only after that reference succeeds, the projectile's `pushback.enablePushback`, `pushback.pushbackStrength`, and `IgnoreFriendlyFire` become configured fields. Each projected value points to its exact Raw property node. `known` means only that the serialized parameter decoded with the expected type; it does not assert effective gameplay behavior. Decoded zero and false are retained. `unknown`, `unsupported`, `parse-failed`, and `not-extracted` are not converted into values.
 
 `AttackRateSeconds`, `ProjectileStackCount`, `damage`, `HomingThreshold`, chargeability, ammo, effective cadence, final damage, and Power scaling are deliberately absent. Existing tentative/unresolved semantic judgments remain unchanged.

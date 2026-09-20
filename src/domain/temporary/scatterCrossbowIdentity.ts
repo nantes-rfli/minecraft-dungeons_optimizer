@@ -9,7 +9,8 @@ export const scatterCrossbowIdentity = {
   instancePackagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance',
   projectilePackagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow',
   projectileGamePackagePath: '/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow',
-  projectileClassName: 'BP_ScatterCrossBow_Arrow_C',
+  projectileObjectName: 'BP_ScatterCrossBow_Arrow_C',
+  projectileClassName: 'BlueprintGeneratedClass',
   evidence: {
     path: 'research/domain/game-data-entity-aliases.json',
     locator: 'aliases[id=ranged-weapon:ScatterCrossbow]',
