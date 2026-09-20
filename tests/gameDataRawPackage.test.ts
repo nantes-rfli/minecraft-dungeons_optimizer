@@ -2,63 +2,97 @@ import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import type { GameDataSourceProvenance } from '../src/research/gameDataProvenance'
 import {
-  RAW_PACKAGE_CODE_PATHS, buildRawPackageCodeIdentity,
+  RAW_PACKAGE_CODE_PATHS, RAW_PACKAGE_SPECS, buildRawPackageCodeIdentity,
   collectRawPackageSnapshotErrors, serializeRawPackageSnapshot, type RawPackageSnapshot,
 } from '../scripts/game-data-raw-package'
 
-const snapshot = JSON.parse(fs.readFileSync('research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json', 'utf8')) as RawPackageSnapshot
 const provenance = JSON.parse(fs.readFileSync('research/sources/game-data-source-provenance.json', 'utf8')) as GameDataSourceProvenance
+const snapshots = new Map(RAW_PACKAGE_SPECS.map((spec) => [
+  spec.id, JSON.parse(fs.readFileSync(spec.artifactPath, 'utf8')) as RawPackageSnapshot,
+]))
+const fighters = snapshots.get('fighters-bindings-instance')!
+const instance = snapshots.get('scatter-crossbow-instance')!
+const projectile = snapshots.get('scatter-crossbow-projectile')!
 
-describe('Step 3A Raw package snapshot', () => {
-  it('retains one complete generated package result before semantics', () => {
-    expect(collectRawPackageSnapshotErrors(snapshot, provenance, process.cwd())).toEqual([])
-    expect(snapshot.extraction.configuration.propertySelection).toBe('none')
-    expect(snapshot.boundaries.semanticFiltering).toBe('not-applied')
-    expect(snapshot.boundaries.domainIdentityMapping).toBe('not-applied')
-    expect(snapshot.boundaries.manualAnnotations).toBe('separate-not-included')
-  })
-
-  it('fingerprints snapshot-affecting code independently of parser schema version', () => {
-    const current = buildRawPackageCodeIdentity(process.cwd())
-
-    expect(snapshot.extraction.codeIdentity).toEqual(current)
-    expect(current.files.map((file) => file.path)).toEqual([...RAW_PACKAGE_CODE_PATHS].sort())
-    expect(current.files.every((file) => /^[a-f0-9]{64}$/.test(file.sha256))).toBe(true)
-
-    const stale = {
-      ...snapshot,
-      extraction: {
-        ...snapshot.extraction,
-        codeIdentity: { ...snapshot.extraction.codeIdentity, value: '0'.repeat(64) },
-      },
+describe('Step 3A Raw package snapshots', () => {
+  it('validates all three package contracts without local game files', () => {
+    for (const spec of RAW_PACKAGE_SPECS) {
+      const snapshot = snapshots.get(spec.id)!
+      expect(collectRawPackageSnapshotErrors(snapshot, provenance, process.cwd(), spec)).toEqual([])
+      expect(snapshot.extraction.configuration.propertySelection).toBe('none')
+      expect(snapshot.boundaries).toEqual({
+        semanticFiltering: 'not-applied', domainIdentityMapping: 'not-applied',
+        manualAnnotations: 'separate-not-included', rawBinaryBytes: 'not-committed',
+      })
     }
-    const staleErrors = collectRawPackageSnapshotErrors(stale, provenance, process.cwd())
-    expect(staleErrors).toContain('Extractor/parser code identity does not match the current source code')
-    expect(staleErrors).toContain('Extraction run ID is not the deterministic content address')
   })
 
-  it('preserves source identity and explicit extraction states', () => {
-    expect(snapshot.logicalPackage.sourceFiles).toEqual([
-      expect.objectContaining({ size: 5607, sha256: '5d69dd6957b23704f35c5b5fca315c7b6bf53b9f8994445acf2547bd5065226c' }),
-      expect.objectContaining({ size: 5558, sha256: 'a4793e11abfa8e5ecea3fab7f86f46cc9aa8a91486c6f6b5d78f85016952e86c' }),
-    ])
-    expect(snapshot.package.objects.map((object) => object.extraction.state)).toEqual([
-      'not-extracted', 'decoded', 'not-extracted', 'not-extracted', 'not-extracted',
-    ])
-    expect(snapshot.package.objects.filter((object) => object.extraction.state === 'not-extracted').every((object) => object.unavailableRanges.length === 1)).toBe(true)
+  it('fingerprints snapshot-affecting code and detects code/run drift', () => {
+    const current = buildRawPackageCodeIdentity(process.cwd())
+    expect(fighters.extraction.codeIdentity).toEqual(current)
+    expect(current.files.map((file) => file.path)).toEqual([...RAW_PACKAGE_CODE_PATHS].sort())
+    const stale = { ...fighters, extraction: { ...fighters.extraction, codeIdentity: { ...fighters.extraction.codeIdentity, value: '0'.repeat(64) } } }
+    const errors = collectRawPackageSnapshotErrors(stale, provenance, process.cwd(), RAW_PACKAGE_SPECS[0])
+    expect(errors).toContain('Extractor/parser code identity does not match the current source code')
+    expect(errors).toContain('Extraction run ID is not the deterministic content address')
   })
 
-  it('keeps the Raw property tree, ordering, indexes, metadata, ranges, and internal ID', () => {
-    const cdo = snapshot.package.objects.find((object) => object.extraction.state === 'decoded')
+  it('keeps Fighter’s Bindings auditable under the unchanged Raw contract', () => {
+    const cdo = fighters.package.objects.find((object) => object.extraction.state === 'decoded')
     const variants = cdo?.properties?.[0]
     const firstDamage = variants?.decoding.elements?.[0]?.properties?.find((property) => property.name.value === 'Damage')
-    const itemId = cdo?.properties?.find((property) => property.name.value === 'ItemIdName')
+    expect(variants).toMatchObject({ order: 0, name: { value: 'ConfiguredAttackVariants' }, type: { value: 'ArrayProperty' } })
+    expect(variants?.decoding.elements).toHaveLength(4)
+    expect(firstDamage?.decoding).toEqual({ state: 'decoded', value: 25 })
+    expect(serializeRawPackageSnapshot(fighters)).not.toContain('fighters-bindings')
+  })
 
-    expect(variants).toMatchObject({ order: 0, name: { value: 'ConfiguredAttackVariants' }, type: { value: 'ArrayProperty' }, arrayIndex: 0 })
-    expect(variants?.metadata?.arrayStruct?.structType.value).toBe('MeleeAttackComponentAttackVariant')
-    expect(firstDamage).toMatchObject({ type: { value: 'FloatProperty' }, decoding: { state: 'decoded', value: 25 } })
-    expect(firstDamage?.byteRanges.tag.sourceFile).toMatch(/\.uexp$/)
-    expect(itemId?.decoding).toEqual({ state: 'decoded', value: 'Gauntlets_Unique3' })
-    expect(serializeRawPackageSnapshot(snapshot)).not.toContain('fighters-bindings')
+  it('retains Scatter Crossbow Instance raw observations without interpretation', () => {
+    expect(rawValue(instance, 'ItemIdName')).toBe('ScatterCrossbow')
+    expect(rawValue(instance, 'ItemId.SerializedId')).toBe('ScatterCrossbow')
+    expect(rawValue(instance, 'AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles')).toBe(3)
+    expect(rawValue(instance, 'AttackDefintion.ProjectileDefinition[0].AngleSpan')).toBe(20)
+    expect(rawValue(instance, 'AttackDefintion.AttackRateSeconds')).toBe(0.6000000238418579)
+    expect(rawValue(instance, 'ProjectileStackCount')).toBe(40)
+    expect(serializeRawPackageSnapshot(instance)).not.toMatch(/ammo|quiver|effectiveCadence|spread|chargeable/i)
+  })
+
+  it('retains the package-local projectile index, Import Table, and outer chain', () => {
+    expect(rawValue(instance, 'AttackDefintion.ProjectileDefinition[0].Projectile')).toEqual({
+      rawPackageIndex: -5, kind: 'import', index: 4,
+      objectName: 'BP_ScatterCrossBow_Arrow_C', className: 'BlueprintGeneratedClass',
+    })
+    expect(instance.package.imports[4]).toMatchObject({
+      rawPackageIndex: -5, outerIndex: -21, objectName: { value: 'BP_ScatterCrossBow_Arrow_C' },
+      outerReference: { rawPackageIndex: -21, kind: 'import' },
+    })
+    expect(instance.package.imports[20]).toMatchObject({
+      rawPackageIndex: -21, outerIndex: 0,
+      objectName: { value: '/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow' },
+      outerReference: { rawPackageIndex: 0, kind: 'null' },
+    })
+  })
+
+  it('retains projectile values and independent identities', () => {
+    expect(rawValue(projectile, 'damage')).toBe(50)
+    expect(rawValue(projectile, 'pushback.enablePushback')).toBe(true)
+    expect(rawValue(projectile, 'pushback.pushbackStrength')).toBe(0.6000000238418579)
+    expect(rawValue(projectile, 'IgnoreFriendlyFire')).toBe(true)
+    expect(rawValue(projectile, 'HomingThreshold')).toBe(150)
+    expect(new Set([fighters, instance, projectile].map((snapshot) => snapshot.logicalPackage.contentHash.value)).size).toBe(3)
+    expect(new Set([fighters, instance, projectile].map((snapshot) => snapshot.extraction.runId)).size).toBe(3)
+    expect(new Set([fighters, instance, projectile].flatMap((snapshot) => snapshot.logicalPackage.sourceFiles.map((file) => file.path))).size).toBe(6)
   })
 })
+
+function rawValue(snapshot: RawPackageSnapshot, propertyPath: string): unknown {
+  const cdo = snapshot.package.objects.find((object) => object.extraction.state === 'decoded')
+  const queue = [...(cdo?.properties ?? [])]
+  while (queue.length) {
+    const property = queue.shift()!
+    if (property.path === propertyPath) return property.decoding.value
+    queue.push(...(property.decoding.properties ?? []))
+    property.decoding.elements?.forEach((element) => queue.push(...(element.properties ?? [])))
+  }
+  return undefined
+}

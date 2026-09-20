@@ -1,0 +1,4656 @@
+{
+  "schemaVersion": 2,
+  "snapshotKind": "generated-raw-package",
+  "dataset": {
+    "id": "mcd-quickbms-local-1.17.0.0-823acded",
+    "claimedGameVersion": "1.17.0.0",
+    "claimedGameVersionStatus": "claimed",
+    "sourceFingerprint": {
+      "algorithm": "sha256-path-size-v1",
+      "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+    }
+  },
+  "logicalPackage": {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+        "size": 6219,
+        "sha256": "3a9087d35a32a81ecc702d0d9da41eecca9a738d1bdd89a93af7dd946b6cc236"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+        "size": 1869,
+        "sha256": "d7fb47495d059a8bdd782306cae52a5342e24a33121935eaebddb15a750d7a58"
+      }
+    ],
+    "contentHash": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+    }
+  },
+  "extraction": {
+    "runId": "sha256:bbe66fa4905b1af596501868e1a39ae2014969128163a66ed40aa1f532a20c3f",
+    "parser": {
+      "id": "ue4-package-property-parser",
+      "schemaVersion": 1
+    },
+    "configuration": {
+      "logicalPackageUnit": "one-logical-package-one-extraction-result",
+      "packageExtensions": [
+        ".uasset",
+        ".uexp"
+      ],
+      "strictPropertyTermination": false,
+      "propertySelection": "none",
+      "crossPackageReferenceResolution": "not-performed",
+      "nonCdoExportDecoding": "not-extracted"
+    },
+    "codeIdentity": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "3c3dd4b41c16da6921bfb387bad6f5354fe148fa1e548e01c16dfba08ecad4dc",
+      "files": [
+        {
+          "path": "scripts/extract-game-data-raw-package.ts",
+          "sha256": "4cb8388de5f57812fa4d81c4a3f24cbe80e54c8ac8365df99aca370884581483"
+        },
+        {
+          "path": "scripts/game-data-extractor.ts",
+          "sha256": "a287234b2d083f26726e5b9068a0e48a884e5837c8fd01d4af2fa8612773982c"
+        },
+        {
+          "path": "scripts/game-data-raw-package.ts",
+          "sha256": "7f0928992d6ef1629befa36922f0ee30743a8ebf2418388e2e37e70bc95fa0a0"
+        },
+        {
+          "path": "src/research/gameDataProvenance.ts",
+          "sha256": "310bfea71cc7d85389af69e14c636bea80c1bf581af6837e2cbd9377e4b1ea9d"
+        },
+        {
+          "path": "src/research/ue4/binaryReader.ts",
+          "sha256": "d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565"
+        },
+        {
+          "path": "src/research/ue4/objectResolver.ts",
+          "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+        },
+        {
+          "path": "src/research/ue4/packageReader.ts",
+          "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+        },
+        {
+          "path": "src/research/ue4/packageTypes.ts",
+          "sha256": "640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb"
+        },
+        {
+          "path": "src/research/ue4/propertyReader.ts",
+          "sha256": "c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e"
+        }
+      ]
+    }
+  },
+  "boundaries": {
+    "semanticFiltering": "not-applied",
+    "domainIdentityMapping": "not-applied",
+    "manualAnnotations": "separate-not-included",
+    "rawBinaryBytes": "not-committed"
+  },
+  "package": {
+    "summary": {
+      "magic": 2653586369,
+      "legacyFileVersion": -7,
+      "fileVersionUE4": 0,
+      "fileVersionLicenseeUE4": 0,
+      "totalHeaderSize": 6219,
+      "nameCount": 113,
+      "nameOffset": 193,
+      "exportCount": 5,
+      "exportOffset": 5543,
+      "importCount": 51,
+      "importOffset": 4115
+    },
+    "nameMap": [
+      {
+        "index": 0,
+        "value": "/Game/Actors/Characters/Player/Master/Montages/Player_Crossbow_Repeating_Montage",
+        "hashBytes": "a2c44f18",
+        "byteRange": {
+          "start": 193,
+          "end": 282
+        }
+      },
+      {
+        "index": 1,
+        "value": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+        "hashBytes": "d4c298c6",
+        "byteRange": {
+          "start": 282,
+          "end": 352
+        }
+      },
+      {
+        "index": 2,
+        "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow",
+        "hashBytes": "06824f3b",
+        "byteRange": {
+          "start": 352,
+          "end": 432
+        }
+      },
+      {
+        "index": 3,
+        "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+        "hashBytes": "c94af0df",
+        "byteRange": {
+          "start": 432,
+          "end": 518
+        }
+      },
+      {
+        "index": 4,
+        "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "hashBytes": "3594c957",
+        "byteRange": {
+          "start": 518,
+          "end": 606
+        }
+      },
+      {
+        "index": 5,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowShoot",
+        "hashBytes": "9cf2e825",
+        "byteRange": {
+          "start": 606,
+          "end": 700
+        }
+      },
+      {
+        "index": 6,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowCharge",
+        "hashBytes": "9a10490f",
+        "byteRange": {
+          "start": 700,
+          "end": 781
+        }
+      },
+      {
+        "index": 7,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowChargedFast",
+        "hashBytes": "98cc6def",
+        "byteRange": {
+          "start": 781,
+          "end": 867
+        }
+      },
+      {
+        "index": 8,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowLoad",
+        "hashBytes": "4f8eca60",
+        "byteRange": {
+          "start": 867,
+          "end": 946
+        }
+      },
+      {
+        "index": 9,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_crossbowLoad",
+        "hashBytes": "058d3301",
+        "byteRange": {
+          "start": 946,
+          "end": 1030
+        }
+      },
+      {
+        "index": 10,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_longbowShoot",
+        "hashBytes": "939816df",
+        "byteRange": {
+          "start": 1030,
+          "end": 1114
+        }
+      },
+      {
+        "index": 11,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_shootBow",
+        "hashBytes": "72b39968",
+        "byteRange": {
+          "start": 1114,
+          "end": 1194
+        }
+      },
+      {
+        "index": 12,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_scatterCrossbowPlace",
+        "hashBytes": "98d5f2b3",
+        "byteRange": {
+          "start": 1194,
+          "end": 1288
+        }
+      },
+      {
+        "index": 13,
+        "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_scatterCrossbowPlace.sfx_item_scatterCrossbowPlace",
+        "hashBytes": "0fcad9a4",
+        "byteRange": {
+          "start": 1288,
+          "end": 1412
+        }
+      },
+      {
+        "index": 14,
+        "value": "/Script/CoreUObject",
+        "hashBytes": "f8492d3e",
+        "byteRange": {
+          "start": 1412,
+          "end": 1440
+        }
+      },
+      {
+        "index": 15,
+        "value": "/Script/Dungeons",
+        "hashBytes": "0bb1ca79",
+        "byteRange": {
+          "start": 1440,
+          "end": 1465
+        }
+      },
+      {
+        "index": 16,
+        "value": "/Script/Engine",
+        "hashBytes": "86408549",
+        "byteRange": {
+          "start": 1465,
+          "end": 1488
+        }
+      },
+      {
+        "index": 17,
+        "value": "ActiveCancelPorintFactor",
+        "hashBytes": "5b1a5619",
+        "byteRange": {
+          "start": 1488,
+          "end": 1521
+        }
+      },
+      {
+        "index": 18,
+        "value": "AngleOffset",
+        "hashBytes": "c68b7cf0",
+        "byteRange": {
+          "start": 1521,
+          "end": 1541
+        }
+      },
+      {
+        "index": 19,
+        "value": "AngleSpan",
+        "hashBytes": "985847ea",
+        "byteRange": {
+          "start": 1541,
+          "end": 1559
+        }
+      },
+      {
+        "index": 20,
+        "value": "Animation",
+        "hashBytes": "b471c8c4",
+        "byteRange": {
+          "start": 1559,
+          "end": 1577
+        }
+      },
+      {
+        "index": 21,
+        "value": "AnimMontage",
+        "hashBytes": "7a079d8f",
+        "byteRange": {
+          "start": 1577,
+          "end": 1597
+        }
+      },
+      {
+        "index": 22,
+        "value": "AnimNotifyStateData",
+        "hashBytes": "0d7e27f2",
+        "byteRange": {
+          "start": 1597,
+          "end": 1625
+        }
+      },
+      {
+        "index": 23,
+        "value": "ArrayProperty",
+        "hashBytes": "49b0e369",
+        "byteRange": {
+          "start": 1625,
+          "end": 1647
+        }
+      },
+      {
+        "index": 24,
+        "value": "Arrow_GEN_VARIABLE",
+        "hashBytes": "755b6e1f",
+        "byteRange": {
+          "start": 1647,
+          "end": 1674
+        }
+      },
+      {
+        "index": 25,
+        "value": "AttackDefintion",
+        "hashBytes": "32058144",
+        "byteRange": {
+          "start": 1674,
+          "end": 1698
+        }
+      },
+      {
+        "index": 26,
+        "value": "AttackRateSeconds",
+        "hashBytes": "526e001d",
+        "byteRange": {
+          "start": 1698,
+          "end": 1724
+        }
+      },
+      {
+        "index": 27,
+        "value": "AudioComponent",
+        "hashBytes": "5561c374",
+        "byteRange": {
+          "start": 1724,
+          "end": 1747
+        }
+      },
+      {
+        "index": 28,
+        "value": "BillboardComponent",
+        "hashBytes": "93dcfb06",
+        "byteRange": {
+          "start": 1747,
+          "end": 1774
+        }
+      },
+      {
+        "index": 29,
+        "value": "BlueprintGeneratedClass",
+        "hashBytes": "299b702d",
+        "byteRange": {
+          "start": 1774,
+          "end": 1806
+        }
+      },
+      {
+        "index": 30,
+        "value": "BoolProperty",
+        "hashBytes": "1004b08a",
+        "byteRange": {
+          "start": 1806,
+          "end": 1827
+        }
+      },
+      {
+        "index": 31,
+        "value": "BP_ArrowBaseRangedWeapon_C",
+        "hashBytes": "fa74dd3b",
+        "byteRange": {
+          "start": 1827,
+          "end": 1862
+        }
+      },
+      {
+        "index": 32,
+        "value": "BP_ScatterCrossBow_Arrow_C",
+        "hashBytes": "f41debb9",
+        "byteRange": {
+          "start": 1862,
+          "end": 1897
+        }
+      },
+      {
+        "index": 33,
+        "value": "BP_ScatterCrossbow_C",
+        "hashBytes": "dd98dd43",
+        "byteRange": {
+          "start": 1897,
+          "end": 1926
+        }
+      },
+      {
+        "index": 34,
+        "value": "BP_ScatterCrossbowInstance_C",
+        "hashBytes": "84f57440",
+        "byteRange": {
+          "start": 1926,
+          "end": 1963
+        }
+      },
+      {
+        "index": 35,
+        "value": "Class",
+        "hashBytes": "74777891",
+        "byteRange": {
+          "start": 1963,
+          "end": 1977
+        }
+      },
+      {
+        "index": 36,
+        "value": "ComponentClass",
+        "hashBytes": "31fef655",
+        "byteRange": {
+          "start": 1977,
+          "end": 2000
+        }
+      },
+      {
+        "index": 37,
+        "value": "ComponentTemplate",
+        "hashBytes": "d4aa22c2",
+        "byteRange": {
+          "start": 2000,
+          "end": 2026
+        }
+      },
+      {
+        "index": 38,
+        "value": "Default__BlueprintGeneratedClass",
+        "hashBytes": "01cf3033",
+        "byteRange": {
+          "start": 2026,
+          "end": 2067
+        }
+      },
+      {
+        "index": 39,
+        "value": "Default__BP_ArrowBaseRangedWeapon_C",
+        "hashBytes": "179d9c26",
+        "byteRange": {
+          "start": 2067,
+          "end": 2111
+        }
+      },
+      {
+        "index": 40,
+        "value": "Default__BP_ScatterCrossBow_Arrow_C",
+        "hashBytes": "19f4aaa4",
+        "byteRange": {
+          "start": 2111,
+          "end": 2155
+        }
+      },
+      {
+        "index": 41,
+        "value": "Default__BP_ScatterCrossbow_C",
+        "hashBytes": "267cc549",
+        "byteRange": {
+          "start": 2155,
+          "end": 2193
+        }
+      },
+      {
+        "index": 42,
+        "value": "Default__BP_ScatterCrossbowInstance_C",
+        "hashBytes": "9479a193",
+        "byteRange": {
+          "start": 2193,
+          "end": 2239
+        }
+      },
+      {
+        "index": 43,
+        "value": "Default__SceneComponent",
+        "hashBytes": "622de8bc",
+        "byteRange": {
+          "start": 2239,
+          "end": 2271
+        }
+      },
+      {
+        "index": 44,
+        "value": "Default__SCS_Node",
+        "hashBytes": "e18e610c",
+        "byteRange": {
+          "start": 2271,
+          "end": 2297
+        }
+      },
+      {
+        "index": 45,
+        "value": "Default__SimpleConstructionScript",
+        "hashBytes": "1867db40",
+        "byteRange": {
+          "start": 2297,
+          "end": 2339
+        }
+      },
+      {
+        "index": 46,
+        "value": "DefaultSceneRoot",
+        "hashBytes": "bc8c9e05",
+        "byteRange": {
+          "start": 2339,
+          "end": 2364
+        }
+      },
+      {
+        "index": 47,
+        "value": "DefaultSceneRoot_GEN_VARIABLE",
+        "hashBytes": "ae7e8448",
+        "byteRange": {
+          "start": 2364,
+          "end": 2402
+        }
+      },
+      {
+        "index": 48,
+        "value": "DefaultSceneRootNode",
+        "hashBytes": "3a50bde5",
+        "byteRange": {
+          "start": 2402,
+          "end": 2431
+        }
+      },
+      {
+        "index": 49,
+        "value": "DelaySeconds",
+        "hashBytes": "522398b7",
+        "byteRange": {
+          "start": 2431,
+          "end": 2452
+        }
+      },
+      {
+        "index": 50,
+        "value": "DelaySecondsPerProjectile",
+        "hashBytes": "09c45504",
+        "byteRange": {
+          "start": 2452,
+          "end": 2486
+        }
+      },
+      {
+        "index": 51,
+        "value": "DungeonsProjectileMovementComp",
+        "hashBytes": "11ab3b74",
+        "byteRange": {
+          "start": 2486,
+          "end": 2525
+        }
+      },
+      {
+        "index": 52,
+        "value": "Engine",
+        "hashBytes": "b70144e6",
+        "byteRange": {
+          "start": 2525,
+          "end": 2540
+        }
+      },
+      {
+        "index": 53,
+        "value": "FloatProperty",
+        "hashBytes": "fba7defd",
+        "byteRange": {
+          "start": 2540,
+          "end": 2562
+        }
+      },
+      {
+        "index": 54,
+        "value": "GearActor",
+        "hashBytes": "c1561601",
+        "byteRange": {
+          "start": 2562,
+          "end": 2580
+        }
+      },
+      {
+        "index": 55,
+        "value": "Guid",
+        "hashBytes": "4350fa68",
+        "byteRange": {
+          "start": 2580,
+          "end": 2593
+        }
+      },
+      {
+        "index": 56,
+        "value": "ImpactActionHandler",
+        "hashBytes": "a18ac65b",
+        "byteRange": {
+          "start": 2593,
+          "end": 2621
+        }
+      },
+      {
+        "index": 57,
+        "value": "InternalVariableName",
+        "hashBytes": "3dff0afd",
+        "byteRange": {
+          "start": 2621,
+          "end": 2650
+        }
+      },
+      {
+        "index": 58,
+        "value": "IntProperty",
+        "hashBytes": "a5d3364a",
+        "byteRange": {
+          "start": 2650,
+          "end": 2670
+        }
+      },
+      {
+        "index": 59,
+        "value": "InventoryDropSound",
+        "hashBytes": "6047014e",
+        "byteRange": {
+          "start": 2670,
+          "end": 2697
+        }
+      },
+      {
+        "index": 60,
+        "value": "ItemId",
+        "hashBytes": "5dc2885d",
+        "byteRange": {
+          "start": 2697,
+          "end": 2712
+        }
+      },
+      {
+        "index": 61,
+        "value": "ItemIdName",
+        "hashBytes": "f5d42106",
+        "byteRange": {
+          "start": 2712,
+          "end": 2731
+        }
+      },
+      {
+        "index": 62,
+        "value": "MaxRandomizedAngleFactor",
+        "hashBytes": "dd11bb70",
+        "byteRange": {
+          "start": 2731,
+          "end": 2764
+        }
+      },
+      {
+        "index": 63,
+        "value": "NameProperty",
+        "hashBytes": "82f2084a",
+        "byteRange": {
+          "start": 2764,
+          "end": 2785
+        }
+      },
+      {
+        "index": 64,
+        "value": "None",
+        "hashBytes": "f403c50d",
+        "byteRange": {
+          "start": 2785,
+          "end": 2798
+        }
+      },
+      {
+        "index": 65,
+        "value": "NonRandomFirstArrow",
+        "hashBytes": "3bbf927b",
+        "byteRange": {
+          "start": 2798,
+          "end": 2826
+        }
+      },
+      {
+        "index": 66,
+        "value": "NotifyStateName",
+        "hashBytes": "1b5ab376",
+        "byteRange": {
+          "start": 2826,
+          "end": 2850
+        }
+      },
+      {
+        "index": 67,
+        "value": "NumberOfProjectiles",
+        "hashBytes": "02b02a81",
+        "byteRange": {
+          "start": 2850,
+          "end": 2878
+        }
+      },
+      {
+        "index": 68,
+        "value": "Object",
+        "hashBytes": "654bed01",
+        "byteRange": {
+          "start": 2878,
+          "end": 2893
+        }
+      },
+      {
+        "index": 69,
+        "value": "ObjectProperty",
+        "hashBytes": "41dbb3ea",
+        "byteRange": {
+          "start": 2893,
+          "end": 2916
+        }
+      },
+      {
+        "index": 70,
+        "value": "P_Combat_Arrow_GEN_VARIABLE",
+        "hashBytes": "c688136c",
+        "byteRange": {
+          "start": 2916,
+          "end": 2952
+        }
+      },
+      {
+        "index": 71,
+        "value": "Package",
+        "hashBytes": "73478815",
+        "byteRange": {
+          "start": 2952,
+          "end": 2968
+        }
+      },
+      {
+        "index": 72,
+        "value": "Paperdoll",
+        "hashBytes": "eadba21e",
+        "byteRange": {
+          "start": 2968,
+          "end": 2986
+        }
+      },
+      {
+        "index": 73,
+        "value": "PaperdollComponent",
+        "hashBytes": "bd2b7c20",
+        "byteRange": {
+          "start": 2986,
+          "end": 3013
+        }
+      },
+      {
+        "index": 74,
+        "value": "ParticleSystemComponent",
+        "hashBytes": "89c08b91",
+        "byteRange": {
+          "start": 3013,
+          "end": 3045
+        }
+      },
+      {
+        "index": 75,
+        "value": "Player_Crossbow_Repeating_Montage",
+        "hashBytes": "dbca1708",
+        "byteRange": {
+          "start": 3045,
+          "end": 3087
+        }
+      },
+      {
+        "index": 76,
+        "value": "Projectile",
+        "hashBytes": "2f492e58",
+        "byteRange": {
+          "start": 3087,
+          "end": 3106
+        }
+      },
+      {
+        "index": 77,
+        "value": "Projectile Movement Component",
+        "hashBytes": "93161238",
+        "byteRange": {
+          "start": 3106,
+          "end": 3144
+        }
+      },
+      {
+        "index": 78,
+        "value": "ProjectileDefinition",
+        "hashBytes": "493ddb3c",
+        "byteRange": {
+          "start": 3144,
+          "end": 3173
+        }
+      },
+      {
+        "index": 79,
+        "value": "ProjectileOffset",
+        "hashBytes": "0c15890d",
+        "byteRange": {
+          "start": 3173,
+          "end": 3198
+        }
+      },
+      {
+        "index": 80,
+        "value": "ProjectileStackCount",
+        "hashBytes": "729e8a73",
+        "byteRange": {
+          "start": 3198,
+          "end": 3227
+        }
+      },
+      {
+        "index": 81,
+        "value": "ProjectileVelocityFactor",
+        "hashBytes": "e4b37ff4",
+        "byteRange": {
+          "start": 3227,
+          "end": 3260
+        }
+      },
+      {
+        "index": 82,
+        "value": "RangedAttack",
+        "hashBytes": "9ebcb578",
+        "byteRange": {
+          "start": 3260,
+          "end": 3281
+        }
+      },
+      {
+        "index": 83,
+        "value": "RangedAttackProjectileSpawnDescription",
+        "hashBytes": "e17db963",
+        "byteRange": {
+          "start": 3281,
+          "end": 3328
+        }
+      },
+      {
+        "index": 84,
+        "value": "RootComponent",
+        "hashBytes": "14b7619a",
+        "byteRange": {
+          "start": 3328,
+          "end": 3350
+        }
+      },
+      {
+        "index": 85,
+        "value": "ScatterCrossbow",
+        "hashBytes": "87be7642",
+        "byteRange": {
+          "start": 3350,
+          "end": 3374
+        }
+      },
+      {
+        "index": 86,
+        "value": "SceneComponent",
+        "hashBytes": "4818645f",
+        "byteRange": {
+          "start": 3374,
+          "end": 3397
+        }
+      },
+      {
+        "index": 87,
+        "value": "SCS_Node",
+        "hashBytes": "31d3d2c5",
+        "byteRange": {
+          "start": 3397,
+          "end": 3414
+        }
+      },
+      {
+        "index": 88,
+        "value": "SerializableItemId",
+        "hashBytes": "bcbd290f",
+        "byteRange": {
+          "start": 3414,
+          "end": 3441
+        }
+      },
+      {
+        "index": 89,
+        "value": "SerializedId",
+        "hashBytes": "78075b3f",
+        "byteRange": {
+          "start": 3441,
+          "end": 3462
+        }
+      },
+      {
+        "index": 90,
+        "value": "sfx_item_arrowWhoosh_GEN_VARIABLE",
+        "hashBytes": "3a8f1dc3",
+        "byteRange": {
+          "start": 3462,
+          "end": 3504
+        }
+      },
+      {
+        "index": 91,
+        "value": "sfx_item_bowCharge",
+        "hashBytes": "dde22d30",
+        "byteRange": {
+          "start": 3504,
+          "end": 3531
+        }
+      },
+      {
+        "index": 92,
+        "value": "sfx_item_bowChargedFast",
+        "hashBytes": "65042274",
+        "byteRange": {
+          "start": 3531,
+          "end": 3563
+        }
+      },
+      {
+        "index": 93,
+        "value": "sfx_item_bowLoad",
+        "hashBytes": "0515ef7e",
+        "byteRange": {
+          "start": 3563,
+          "end": 3588
+        }
+      },
+      {
+        "index": 94,
+        "value": "sfx_item_crossbowLoad",
+        "hashBytes": "9beb420e",
+        "byteRange": {
+          "start": 3588,
+          "end": 3618
+        }
+      },
+      {
+        "index": 95,
+        "value": "sfx_item_longbowShoot",
+        "hashBytes": "0dfe67d0",
+        "byteRange": {
+          "start": 3618,
+          "end": 3648
+        }
+      },
+      {
+        "index": 96,
+        "value": "sfx_item_scatterCrossbowShoot",
+        "hashBytes": "386050dc",
+        "byteRange": {
+          "start": 3648,
+          "end": 3686
+        }
+      },
+      {
+        "index": 97,
+        "value": "sfx_item_shootBow",
+        "hashBytes": "48b26a21",
+        "byteRange": {
+          "start": 3686,
+          "end": 3712
+        }
+      },
+      {
+        "index": 98,
+        "value": "SimpleConstructionScript",
+        "hashBytes": "142b5220",
+        "byteRange": {
+          "start": 3712,
+          "end": 3745
+        }
+      },
+      {
+        "index": 99,
+        "value": "SK_BowRigTpose_GEN_VARIABLE",
+        "hashBytes": "141d9ed8",
+        "byteRange": {
+          "start": 3745,
+          "end": 3781
+        }
+      },
+      {
+        "index": 100,
+        "value": "SkeletalMeshComponent",
+        "hashBytes": "bd37520d",
+        "byteRange": {
+          "start": 3781,
+          "end": 3811
+        }
+      },
+      {
+        "index": 101,
+        "value": "SoftObjectProperty",
+        "hashBytes": "5b4baefa",
+        "byteRange": {
+          "start": 3811,
+          "end": 3838
+        }
+      },
+      {
+        "index": 102,
+        "value": "SoundCue",
+        "hashBytes": "83b23170",
+        "byteRange": {
+          "start": 3838,
+          "end": 3855
+        }
+      },
+      {
+        "index": 103,
+        "value": "StaticMesh1_GEN_VARIABLE",
+        "hashBytes": "e509734e",
+        "byteRange": {
+          "start": 3855,
+          "end": 3888
+        }
+      },
+      {
+        "index": 104,
+        "value": "StaticMesh2_GEN_VARIABLE",
+        "hashBytes": "114e0a7a",
+        "byteRange": {
+          "start": 3888,
+          "end": 3921
+        }
+      },
+      {
+        "index": 105,
+        "value": "StaticMesh3_GEN_VARIABLE",
+        "hashBytes": "4481dd69",
+        "byteRange": {
+          "start": 3921,
+          "end": 3954
+        }
+      },
+      {
+        "index": 106,
+        "value": "StaticMesh4_GEN_VARIABLE",
+        "hashBytes": "e3c8f812",
+        "byteRange": {
+          "start": 3954,
+          "end": 3987
+        }
+      },
+      {
+        "index": 107,
+        "value": "StaticMeshComponent",
+        "hashBytes": "6ef14522",
+        "byteRange": {
+          "start": 3987,
+          "end": 4015
+        }
+      },
+      {
+        "index": 108,
+        "value": "StrProperty",
+        "hashBytes": "3bc17224",
+        "byteRange": {
+          "start": 4015,
+          "end": 4035
+        }
+      },
+      {
+        "index": 109,
+        "value": "StructProperty",
+        "hashBytes": "30009cfc",
+        "byteRange": {
+          "start": 4035,
+          "end": 4058
+        }
+      },
+      {
+        "index": 110,
+        "value": "TriggerSound",
+        "hashBytes": "f629b7cd",
+        "byteRange": {
+          "start": 4058,
+          "end": 4079
+        }
+      },
+      {
+        "index": 111,
+        "value": "VariableGuid",
+        "hashBytes": "ab967eda",
+        "byteRange": {
+          "start": 4079,
+          "end": 4100
+        }
+      },
+      {
+        "index": 112,
+        "value": "Vector",
+        "hashBytes": "a61c0464",
+        "byteRange": {
+          "start": 4100,
+          "end": 4115
+        }
+      }
+    ],
+    "imports": [
+      {
+        "index": 0,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 21,
+          "number": 0,
+          "value": "AnimMontage"
+        },
+        "outerIndex": -18,
+        "objectName": {
+          "nameIndex": 75,
+          "number": 0,
+          "value": "Player_Crossbow_Repeating_Montage"
+        },
+        "byteRange": {
+          "start": 4115,
+          "end": 4143
+        },
+        "rawPackageIndex": -1,
+        "outerReference": {
+          "rawPackageIndex": -18,
+          "kind": "import",
+          "index": 17,
+          "objectName": "/Game/Actors/Characters/Player/Master/Montages/Player_Crossbow_Repeating_Montage",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 1,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 27,
+          "number": 0,
+          "value": "AudioComponent"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 90,
+          "number": 0,
+          "value": "sfx_item_arrowWhoosh_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4143,
+          "end": 4171
+        },
+        "rawPackageIndex": -2,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 2,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 29,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -19,
+        "objectName": {
+          "nameIndex": 31,
+          "number": 0,
+          "value": "BP_ArrowBaseRangedWeapon_C"
+        },
+        "byteRange": {
+          "start": 4171,
+          "end": 4199
+        },
+        "rawPackageIndex": -3,
+        "outerReference": {
+          "rawPackageIndex": -19,
+          "kind": "import",
+          "index": 18,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 3,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 29,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -20,
+        "objectName": {
+          "nameIndex": 33,
+          "number": 0,
+          "value": "BP_ScatterCrossbow_C"
+        },
+        "byteRange": {
+          "start": 4199,
+          "end": 4227
+        },
+        "rawPackageIndex": -4,
+        "outerReference": {
+          "rawPackageIndex": -20,
+          "kind": "import",
+          "index": 19,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 4,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 29,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -21,
+        "objectName": {
+          "nameIndex": 32,
+          "number": 0,
+          "value": "BP_ScatterCrossBow_Arrow_C"
+        },
+        "byteRange": {
+          "start": 4227,
+          "end": 4255
+        },
+        "rawPackageIndex": -5,
+        "outerReference": {
+          "rawPackageIndex": -21,
+          "kind": "import",
+          "index": 20,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 5,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 29,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 38,
+          "number": 0,
+          "value": "Default__BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 4255,
+          "end": 4283
+        },
+        "rawPackageIndex": -6,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 6,
+        "classPackage": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+        },
+        "className": {
+          "nameIndex": 31,
+          "number": 0,
+          "value": "BP_ArrowBaseRangedWeapon_C"
+        },
+        "outerIndex": -19,
+        "objectName": {
+          "nameIndex": 39,
+          "number": 0,
+          "value": "Default__BP_ArrowBaseRangedWeapon_C"
+        },
+        "byteRange": {
+          "start": 4283,
+          "end": 4311
+        },
+        "rawPackageIndex": -7,
+        "outerReference": {
+          "rawPackageIndex": -19,
+          "kind": "import",
+          "index": 18,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 7,
+        "classPackage": {
+          "nameIndex": 3,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+        },
+        "className": {
+          "nameIndex": 32,
+          "number": 0,
+          "value": "BP_ScatterCrossBow_Arrow_C"
+        },
+        "outerIndex": -21,
+        "objectName": {
+          "nameIndex": 40,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossBow_Arrow_C"
+        },
+        "byteRange": {
+          "start": 4311,
+          "end": 4339
+        },
+        "rawPackageIndex": -8,
+        "outerReference": {
+          "rawPackageIndex": -21,
+          "kind": "import",
+          "index": 20,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 8,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow"
+        },
+        "className": {
+          "nameIndex": 33,
+          "number": 0,
+          "value": "BP_ScatterCrossbow_C"
+        },
+        "outerIndex": -20,
+        "objectName": {
+          "nameIndex": 41,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossbow_C"
+        },
+        "byteRange": {
+          "start": 4339,
+          "end": 4367
+        },
+        "rawPackageIndex": -9,
+        "outerReference": {
+          "rawPackageIndex": -20,
+          "kind": "import",
+          "index": 19,
+          "objectName": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 9,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -29,
+        "objectName": {
+          "nameIndex": 68,
+          "number": 0,
+          "value": "Object"
+        },
+        "byteRange": {
+          "start": 4367,
+          "end": 4395
+        },
+        "rawPackageIndex": -10,
+        "outerReference": {
+          "rawPackageIndex": -29,
+          "kind": "import",
+          "index": 28,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 10,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 28,
+          "number": 0,
+          "value": "BillboardComponent"
+        },
+        "byteRange": {
+          "start": 4395,
+          "end": 4423
+        },
+        "rawPackageIndex": -11,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 11,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 29,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 4423,
+          "end": 4451
+        },
+        "rawPackageIndex": -12,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 12,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 86,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "byteRange": {
+          "start": 4451,
+          "end": 4479
+        },
+        "rawPackageIndex": -13,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 13,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 87,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "byteRange": {
+          "start": 4479,
+          "end": 4507
+        },
+        "rawPackageIndex": -14,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 14,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 35,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 98,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 4507,
+          "end": 4535
+        },
+        "rawPackageIndex": -15,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 15,
+        "classPackage": {
+          "nameIndex": 15,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 51,
+          "number": 0,
+          "value": "DungeonsProjectileMovementComp"
+        },
+        "outerIndex": -8,
+        "objectName": {
+          "nameIndex": 77,
+          "number": 0,
+          "value": "Projectile Movement Component"
+        },
+        "byteRange": {
+          "start": 4535,
+          "end": 4563
+        },
+        "rawPackageIndex": -16,
+        "outerReference": {
+          "rawPackageIndex": -8,
+          "kind": "import",
+          "index": 7,
+          "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+          "className": "BP_ScatterCrossBow_Arrow_C"
+        }
+      },
+      {
+        "index": 16,
+        "classPackage": {
+          "nameIndex": 15,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 56,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "outerIndex": -8,
+        "objectName": {
+          "nameIndex": 56,
+          "number": 0,
+          "value": "ImpactActionHandler"
+        },
+        "byteRange": {
+          "start": 4563,
+          "end": 4591
+        },
+        "rawPackageIndex": -17,
+        "outerReference": {
+          "rawPackageIndex": -8,
+          "kind": "import",
+          "index": 7,
+          "objectName": "Default__BP_ScatterCrossBow_Arrow_C",
+          "className": "BP_ScatterCrossBow_Arrow_C"
+        }
+      },
+      {
+        "index": 17,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 0,
+          "number": 0,
+          "value": "/Game/Actors/Characters/Player/Master/Montages/Player_Crossbow_Repeating_Montage"
+        },
+        "byteRange": {
+          "start": 4591,
+          "end": 4619
+        },
+        "rawPackageIndex": -18,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 18,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+        },
+        "byteRange": {
+          "start": 4619,
+          "end": 4647
+        },
+        "rawPackageIndex": -19,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 19,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbow"
+        },
+        "byteRange": {
+          "start": 4647,
+          "end": 4675
+        },
+        "rawPackageIndex": -20,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 20,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 3,
+          "number": 0,
+          "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+        },
+        "byteRange": {
+          "start": 4675,
+          "end": 4703
+        },
+        "rawPackageIndex": -21,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 21,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowShoot"
+        },
+        "byteRange": {
+          "start": 4703,
+          "end": 4731
+        },
+        "rawPackageIndex": -22,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 22,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowCharge"
+        },
+        "byteRange": {
+          "start": 4731,
+          "end": 4759
+        },
+        "rawPackageIndex": -23,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 23,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowChargedFast"
+        },
+        "byteRange": {
+          "start": 4759,
+          "end": 4787
+        },
+        "rawPackageIndex": -24,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 24,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowLoad"
+        },
+        "byteRange": {
+          "start": 4787,
+          "end": 4815
+        },
+        "rawPackageIndex": -25,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 25,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 9,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_crossbowLoad"
+        },
+        "byteRange": {
+          "start": 4815,
+          "end": 4843
+        },
+        "rawPackageIndex": -26,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 26,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 10,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_longbowShoot"
+        },
+        "byteRange": {
+          "start": 4843,
+          "end": 4871
+        },
+        "rawPackageIndex": -27,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 27,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 11,
+          "number": 0,
+          "value": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_shootBow"
+        },
+        "byteRange": {
+          "start": 4871,
+          "end": 4899
+        },
+        "rawPackageIndex": -28,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 28,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "byteRange": {
+          "start": 4899,
+          "end": 4927
+        },
+        "rawPackageIndex": -29,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 29,
+        "classPackage": {
+          "nameIndex": 14,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 71,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "byteRange": {
+          "start": 4927,
+          "end": 4955
+        },
+        "rawPackageIndex": -30,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 30,
+        "classPackage": {
+          "nameIndex": 15,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 73,
+          "number": 0,
+          "value": "PaperdollComponent"
+        },
+        "outerIndex": -9,
+        "objectName": {
+          "nameIndex": 72,
+          "number": 0,
+          "value": "Paperdoll"
+        },
+        "byteRange": {
+          "start": 4955,
+          "end": 4983
+        },
+        "rawPackageIndex": -31,
+        "outerReference": {
+          "rawPackageIndex": -9,
+          "kind": "import",
+          "index": 8,
+          "objectName": "Default__BP_ScatterCrossbow_C",
+          "className": "BP_ScatterCrossbow_C"
+        }
+      },
+      {
+        "index": 31,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 74,
+          "number": 0,
+          "value": "ParticleSystemComponent"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 70,
+          "number": 0,
+          "value": "P_Combat_Arrow_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 4983,
+          "end": 5011
+        },
+        "rawPackageIndex": -32,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 32,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 86,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -3,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5011,
+          "end": 5039
+        },
+        "rawPackageIndex": -33,
+        "outerReference": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_ArrowBaseRangedWeapon_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 33,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 86,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5039,
+          "end": 5067
+        },
+        "rawPackageIndex": -34,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 34,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 86,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5067,
+          "end": 5095
+        },
+        "rawPackageIndex": -35,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 35,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 86,
+          "number": 0,
+          "value": "SceneComponent"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 43,
+          "number": 0,
+          "value": "Default__SceneComponent"
+        },
+        "byteRange": {
+          "start": 5095,
+          "end": 5123
+        },
+        "rawPackageIndex": -36,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 36,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 87,
+          "number": 0,
+          "value": "SCS_Node"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 44,
+          "number": 0,
+          "value": "Default__SCS_Node"
+        },
+        "byteRange": {
+          "start": 5123,
+          "end": 5151
+        },
+        "rawPackageIndex": -37,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 37,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 98,
+          "number": 0,
+          "value": "SimpleConstructionScript"
+        },
+        "outerIndex": -30,
+        "objectName": {
+          "nameIndex": 45,
+          "number": 0,
+          "value": "Default__SimpleConstructionScript"
+        },
+        "byteRange": {
+          "start": 5151,
+          "end": 5179
+        },
+        "rawPackageIndex": -38,
+        "outerReference": {
+          "rawPackageIndex": -30,
+          "kind": "import",
+          "index": 29,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 38,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 100,
+          "number": 0,
+          "value": "SkeletalMeshComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 99,
+          "number": 0,
+          "value": "SK_BowRigTpose_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5179,
+          "end": 5207
+        },
+        "rawPackageIndex": -39,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 39,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -22,
+        "objectName": {
+          "nameIndex": 96,
+          "number": 0,
+          "value": "sfx_item_scatterCrossbowShoot"
+        },
+        "byteRange": {
+          "start": 5207,
+          "end": 5235
+        },
+        "rawPackageIndex": -40,
+        "outerReference": {
+          "rawPackageIndex": -22,
+          "kind": "import",
+          "index": 21,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_scatterCrossbowShoot",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 40,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -23,
+        "objectName": {
+          "nameIndex": 91,
+          "number": 0,
+          "value": "sfx_item_bowCharge"
+        },
+        "byteRange": {
+          "start": 5235,
+          "end": 5263
+        },
+        "rawPackageIndex": -41,
+        "outerReference": {
+          "rawPackageIndex": -23,
+          "kind": "import",
+          "index": 22,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowCharge",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 41,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -24,
+        "objectName": {
+          "nameIndex": 92,
+          "number": 0,
+          "value": "sfx_item_bowChargedFast"
+        },
+        "byteRange": {
+          "start": 5263,
+          "end": 5291
+        },
+        "rawPackageIndex": -42,
+        "outerReference": {
+          "rawPackageIndex": -24,
+          "kind": "import",
+          "index": 23,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowChargedFast",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 42,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -25,
+        "objectName": {
+          "nameIndex": 93,
+          "number": 0,
+          "value": "sfx_item_bowLoad"
+        },
+        "byteRange": {
+          "start": 5291,
+          "end": 5319
+        },
+        "rawPackageIndex": -43,
+        "outerReference": {
+          "rawPackageIndex": -25,
+          "kind": "import",
+          "index": 24,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_bowLoad",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 43,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -26,
+        "objectName": {
+          "nameIndex": 94,
+          "number": 0,
+          "value": "sfx_item_crossbowLoad"
+        },
+        "byteRange": {
+          "start": 5319,
+          "end": 5347
+        },
+        "rawPackageIndex": -44,
+        "outerReference": {
+          "rawPackageIndex": -26,
+          "kind": "import",
+          "index": 25,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_crossbowLoad",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 44,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -27,
+        "objectName": {
+          "nameIndex": 95,
+          "number": 0,
+          "value": "sfx_item_longbowShoot"
+        },
+        "byteRange": {
+          "start": 5347,
+          "end": 5375
+        },
+        "rawPackageIndex": -45,
+        "outerReference": {
+          "rawPackageIndex": -27,
+          "kind": "import",
+          "index": 26,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_longbowShoot",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 45,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 102,
+          "number": 0,
+          "value": "SoundCue"
+        },
+        "outerIndex": -28,
+        "objectName": {
+          "nameIndex": 97,
+          "number": 0,
+          "value": "sfx_item_shootBow"
+        },
+        "byteRange": {
+          "start": 5375,
+          "end": 5403
+        },
+        "rawPackageIndex": -46,
+        "outerReference": {
+          "rawPackageIndex": -28,
+          "kind": "import",
+          "index": 27,
+          "objectName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_shootBow",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 46,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 103,
+          "number": 0,
+          "value": "StaticMesh1_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5403,
+          "end": 5431
+        },
+        "rawPackageIndex": -47,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 47,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 104,
+          "number": 0,
+          "value": "StaticMesh2_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5431,
+          "end": 5459
+        },
+        "rawPackageIndex": -48,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 48,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 105,
+          "number": 0,
+          "value": "StaticMesh3_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5459,
+          "end": 5487
+        },
+        "rawPackageIndex": -49,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 49,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -4,
+        "objectName": {
+          "nameIndex": 106,
+          "number": 0,
+          "value": "StaticMesh4_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5487,
+          "end": 5515
+        },
+        "rawPackageIndex": -50,
+        "outerReference": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ScatterCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 50,
+        "classPackage": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 107,
+          "number": 0,
+          "value": "StaticMeshComponent"
+        },
+        "outerIndex": -5,
+        "objectName": {
+          "nameIndex": 24,
+          "number": 0,
+          "value": "Arrow_GEN_VARIABLE"
+        },
+        "byteRange": {
+          "start": 5515,
+          "end": 5543
+        },
+        "rawPackageIndex": -51,
+        "outerReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      }
+    ],
+    "exports": [
+      {
+        "index": 0,
+        "classIndex": -12,
+        "superIndex": -3,
+        "templateIndex": -6,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 34,
+          "number": 0,
+          "value": "BP_ScatterCrossbowInstance_C"
+        },
+        "objectFlags": 9,
+        "serialSize": 105,
+        "serialOffset": 6219,
+        "byteRange": {
+          "start": 5543,
+          "end": 5647
+        },
+        "rawPackageIndex": 1,
+        "classReference": {
+          "rawPackageIndex": -12,
+          "kind": "import",
+          "index": 11,
+          "objectName": "BlueprintGeneratedClass",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_ArrowBaseRangedWeapon_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "templateReference": {
+          "rawPackageIndex": -6,
+          "kind": "import",
+          "index": 5,
+          "objectName": "Default__BlueprintGeneratedClass",
+          "className": "BlueprintGeneratedClass"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 1,
+        "classIndex": 1,
+        "superIndex": 0,
+        "templateIndex": -7,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossbowInstance_C"
+        },
+        "objectFlags": 57,
+        "serialSize": 1539,
+        "serialOffset": 6324,
+        "byteRange": {
+          "start": 5647,
+          "end": 5751
+        },
+        "rawPackageIndex": 2,
+        "classReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_ScatterCrossbowInstance_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -7,
+          "kind": "import",
+          "index": 6,
+          "objectName": "Default__BP_ArrowBaseRangedWeapon_C",
+          "className": "BP_ArrowBaseRangedWeapon_C"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 2,
+        "classIndex": -13,
+        "superIndex": 0,
+        "templateIndex": -36,
+        "outerIndex": 1,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "serialSize": 12,
+        "serialOffset": 7863,
+        "byteRange": {
+          "start": 5751,
+          "end": 5855
+        },
+        "rawPackageIndex": 3,
+        "classReference": {
+          "rawPackageIndex": -13,
+          "kind": "import",
+          "index": 12,
+          "objectName": "SceneComponent",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -36,
+          "kind": "import",
+          "index": 35,
+          "objectName": "Default__SceneComponent",
+          "className": "SceneComponent"
+        },
+        "outerReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_ScatterCrossbowInstance_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      },
+      {
+        "index": 3,
+        "classIndex": -14,
+        "superIndex": 0,
+        "templateIndex": -37,
+        "outerIndex": 5,
+        "objectName": {
+          "nameIndex": 87,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 168,
+        "serialOffset": 7875,
+        "byteRange": {
+          "start": 5855,
+          "end": 5959
+        },
+        "rawPackageIndex": 4,
+        "classReference": {
+          "rawPackageIndex": -14,
+          "kind": "import",
+          "index": 13,
+          "objectName": "SCS_Node",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -37,
+          "kind": "import",
+          "index": 36,
+          "objectName": "Default__SCS_Node",
+          "className": "SCS_Node"
+        },
+        "outerReference": {
+          "rawPackageIndex": 5,
+          "kind": "export",
+          "index": 4,
+          "objectName": "SimpleConstructionScript_0",
+          "className": "SimpleConstructionScript"
+        }
+      },
+      {
+        "index": 4,
+        "classIndex": -15,
+        "superIndex": 0,
+        "templateIndex": -38,
+        "outerIndex": 1,
+        "objectName": {
+          "nameIndex": 98,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "serialSize": 41,
+        "serialOffset": 8043,
+        "byteRange": {
+          "start": 5959,
+          "end": 6063
+        },
+        "rawPackageIndex": 5,
+        "classReference": {
+          "rawPackageIndex": -15,
+          "kind": "import",
+          "index": 14,
+          "objectName": "SimpleConstructionScript",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -38,
+          "kind": "import",
+          "index": 37,
+          "objectName": "Default__SimpleConstructionScript",
+          "className": "SimpleConstructionScript"
+        },
+        "outerReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_ScatterCrossbowInstance_C",
+          "className": "BlueprintGeneratedClass"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "exportIndex": 0,
+        "rawPackageIndex": 1,
+        "objectName": {
+          "nameIndex": 34,
+          "number": 0,
+          "value": "BP_ScatterCrossbowInstance_C"
+        },
+        "objectFlags": 9,
+        "references": {
+          "class": {
+            "rawPackageIndex": -12,
+            "kind": "import",
+            "index": 11,
+            "objectName": "BlueprintGeneratedClass",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": -3,
+            "kind": "import",
+            "index": 2,
+            "objectName": "BP_ArrowBaseRangedWeapon_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "template": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 6219,
+          "serialSize": 105,
+          "combinedPackageByteRange": {
+            "start": 6219,
+            "end": 6324
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 0,
+            "end": 105
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 0,
+            "end": 105,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 1,
+        "rawPackageIndex": 2,
+        "objectName": {
+          "nameIndex": 42,
+          "number": 0,
+          "value": "Default__BP_ScatterCrossbowInstance_C"
+        },
+        "objectFlags": 57,
+        "references": {
+          "class": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_ScatterCrossbowInstance_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -7,
+            "kind": "import",
+            "index": 6,
+            "objectName": "Default__BP_ArrowBaseRangedWeapon_C",
+            "className": "BP_ArrowBaseRangedWeapon_C"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": true,
+        "serialization": {
+          "serialOffset": 6324,
+          "serialSize": 1539,
+          "combinedPackageByteRange": {
+            "start": 6324,
+            "end": 7863
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 105,
+            "end": 1644
+          }
+        },
+        "extraction": {
+          "state": "decoded"
+        },
+        "propertyStream": {
+          "termination": "terminated",
+          "byteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 105,
+            "end": 1644
+          },
+          "terminatorByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1636,
+            "end": 1644
+          }
+        },
+        "properties": [
+          {
+            "order": 0,
+            "name": {
+              "nameIndex": 25,
+              "number": 0,
+              "value": "AttackDefintion"
+            },
+            "type": {
+              "nameIndex": 109,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayIndex": 0,
+            "path": "AttackDefintion",
+            "serializedSize": 508,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 105,
+                "end": 662
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 154,
+                "end": 662
+              }
+            },
+            "metadata": {
+              "structType": "RangedAttack",
+              "structTypeReference": {
+                "nameIndex": 82,
+                "number": 0,
+                "value": "RangedAttack"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            },
+            "decoding": {
+              "state": "decoded",
+              "properties": [
+                {
+                  "order": 0,
+                  "name": {
+                    "nameIndex": 20,
+                    "number": 0,
+                    "value": "Animation"
+                  },
+                  "type": {
+                    "nameIndex": 69,
+                    "number": 0,
+                    "value": "ObjectProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "AttackDefintion.Animation",
+                  "serializedSize": 4,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 154,
+                      "end": 183
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 179,
+                      "end": 183
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": {
+                      "rawPackageIndex": -1,
+                      "kind": "import",
+                      "index": 0,
+                      "objectName": "Player_Crossbow_Repeating_Montage",
+                      "className": "AnimMontage"
+                    }
+                  }
+                },
+                {
+                  "order": 1,
+                  "name": {
+                    "nameIndex": 78,
+                    "number": 0,
+                    "value": "ProjectileDefinition"
+                  },
+                  "type": {
+                    "nameIndex": 23,
+                    "number": 0,
+                    "value": "ArrayProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "AttackDefintion.ProjectileDefinition",
+                  "serializedSize": 351,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 183,
+                      "end": 567
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 216,
+                      "end": 567
+                    }
+                  },
+                  "metadata": {
+                    "innerType": "StructProperty",
+                    "innerTypeReference": {
+                      "nameIndex": 109,
+                      "number": 0,
+                      "value": "StructProperty"
+                    },
+                    "arrayStruct": {
+                      "wrapperName": {
+                        "nameIndex": 78,
+                        "number": 0,
+                        "value": "ProjectileDefinition"
+                      },
+                      "wrapperType": {
+                        "nameIndex": 109,
+                        "number": 0,
+                        "value": "StructProperty"
+                      },
+                      "wrapperSerializedSize": 298,
+                      "wrapperArrayIndex": 0,
+                      "structType": {
+                        "nameIndex": 83,
+                        "number": 0,
+                        "value": "RangedAttackProjectileSpawnDescription"
+                      },
+                      "structGuid": "00000000000000000000000000000000"
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "elements": [
+                      {
+                        "index": 0,
+                        "decoding": {
+                          "state": "decoded"
+                        },
+                        "properties": [
+                          {
+                            "order": 0,
+                            "name": {
+                              "nameIndex": 76,
+                              "number": 0,
+                              "value": "Projectile"
+                            },
+                            "type": {
+                              "nameIndex": 69,
+                              "number": 0,
+                              "value": "ObjectProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 269,
+                                "end": 298
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 294,
+                                "end": 298
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": {
+                                "rawPackageIndex": -5,
+                                "kind": "import",
+                                "index": 4,
+                                "objectName": "BP_ScatterCrossBow_Arrow_C",
+                                "className": "BlueprintGeneratedClass"
+                              }
+                            }
+                          },
+                          {
+                            "order": 1,
+                            "name": {
+                              "nameIndex": 67,
+                              "number": 0,
+                              "value": "NumberOfProjectiles"
+                            },
+                            "type": {
+                              "nameIndex": 58,
+                              "number": 0,
+                              "value": "IntProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 298,
+                                "end": 327
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 323,
+                                "end": 327
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 3
+                            }
+                          },
+                          {
+                            "order": 2,
+                            "name": {
+                              "nameIndex": 49,
+                              "number": 0,
+                              "value": "DelaySeconds"
+                            },
+                            "type": {
+                              "nameIndex": 53,
+                              "number": 0,
+                              "value": "FloatProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 327,
+                                "end": 356
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 352,
+                                "end": 356
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 0
+                            }
+                          },
+                          {
+                            "order": 3,
+                            "name": {
+                              "nameIndex": 50,
+                              "number": 0,
+                              "value": "DelaySecondsPerProjectile"
+                            },
+                            "type": {
+                              "nameIndex": 53,
+                              "number": 0,
+                              "value": "FloatProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 356,
+                                "end": 385
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 381,
+                                "end": 385
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 0.029999999329447746
+                            }
+                          },
+                          {
+                            "order": 4,
+                            "name": {
+                              "nameIndex": 19,
+                              "number": 0,
+                              "value": "AngleSpan"
+                            },
+                            "type": {
+                              "nameIndex": 53,
+                              "number": 0,
+                              "value": "FloatProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 385,
+                                "end": 414
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 410,
+                                "end": 414
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 20
+                            }
+                          },
+                          {
+                            "order": 5,
+                            "name": {
+                              "nameIndex": 18,
+                              "number": 0,
+                              "value": "AngleOffset"
+                            },
+                            "type": {
+                              "nameIndex": 53,
+                              "number": 0,
+                              "value": "FloatProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 414,
+                                "end": 443
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 439,
+                                "end": 443
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 0
+                            }
+                          },
+                          {
+                            "order": 6,
+                            "name": {
+                              "nameIndex": 62,
+                              "number": 0,
+                              "value": "MaxRandomizedAngleFactor"
+                            },
+                            "type": {
+                              "nameIndex": 53,
+                              "number": 0,
+                              "value": "FloatProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+                            "serializedSize": 4,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 443,
+                                "end": 472
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 468,
+                                "end": 472
+                              }
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": 0.75
+                            }
+                          },
+                          {
+                            "order": 7,
+                            "name": {
+                              "nameIndex": 65,
+                              "number": 0,
+                              "value": "NonRandomFirstArrow"
+                            },
+                            "type": {
+                              "nameIndex": 30,
+                              "number": 0,
+                              "value": "BoolProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+                            "serializedSize": 0,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 472,
+                                "end": 498
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 498,
+                                "end": 498
+                              }
+                            },
+                            "metadata": {
+                              "enumType": "true",
+                              "boolValue": true
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": true
+                            }
+                          },
+                          {
+                            "order": 8,
+                            "name": {
+                              "nameIndex": 79,
+                              "number": 0,
+                              "value": "ProjectileOffset"
+                            },
+                            "type": {
+                              "nameIndex": 109,
+                              "number": 0,
+                              "value": "StructProperty"
+                            },
+                            "arrayIndex": 0,
+                            "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+                            "serializedSize": 12,
+                            "byteRanges": {
+                              "tag": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 498,
+                                "end": 559
+                              },
+                              "value": {
+                                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                                "start": 547,
+                                "end": 559
+                              }
+                            },
+                            "metadata": {
+                              "structType": "Vector",
+                              "structTypeReference": {
+                                "nameIndex": 112,
+                                "number": 0,
+                                "value": "Vector"
+                              },
+                              "structGuid": "00000000000000000000000000000000"
+                            },
+                            "decoding": {
+                              "state": "decoded",
+                              "value": {
+                                "X": 45,
+                                "Y": 0,
+                                "Z": 25
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "order": 2,
+                  "name": {
+                    "nameIndex": 26,
+                    "number": 0,
+                    "value": "AttackRateSeconds"
+                  },
+                  "type": {
+                    "nameIndex": 53,
+                    "number": 0,
+                    "value": "FloatProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "AttackDefintion.AttackRateSeconds",
+                  "serializedSize": 4,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 567,
+                      "end": 596
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 592,
+                      "end": 596
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": 0.6000000238418579
+                  }
+                },
+                {
+                  "order": 3,
+                  "name": {
+                    "nameIndex": 17,
+                    "number": 0,
+                    "value": "ActiveCancelPorintFactor"
+                  },
+                  "type": {
+                    "nameIndex": 53,
+                    "number": 0,
+                    "value": "FloatProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "AttackDefintion.ActiveCancelPorintFactor",
+                  "serializedSize": 4,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 596,
+                      "end": 625
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 621,
+                      "end": 625
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": 0.5
+                  }
+                },
+                {
+                  "order": 4,
+                  "name": {
+                    "nameIndex": 81,
+                    "number": 0,
+                    "value": "ProjectileVelocityFactor"
+                  },
+                  "type": {
+                    "nameIndex": 53,
+                    "number": 0,
+                    "value": "FloatProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "AttackDefintion.ProjectileVelocityFactor",
+                  "serializedSize": 4,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 625,
+                      "end": 654
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 650,
+                      "end": 654
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": 1.100000023841858
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "order": 1,
+            "name": {
+              "nameIndex": 80,
+              "number": 0,
+              "value": "ProjectileStackCount"
+            },
+            "type": {
+              "nameIndex": 58,
+              "number": 0,
+              "value": "IntProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ProjectileStackCount",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 662,
+                "end": 691
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 687,
+                "end": 691
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": 40
+            }
+          },
+          {
+            "order": 2,
+            "name": {
+              "nameIndex": 22,
+              "number": 0,
+              "value": "AnimNotifyStateData"
+            },
+            "type": {
+              "nameIndex": 23,
+              "number": 0,
+              "value": "ArrayProperty"
+            },
+            "arrayIndex": 0,
+            "path": "AnimNotifyStateData",
+            "serializedSize": 694,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 691,
+                "end": 1418
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 724,
+                "end": 1418
+              }
+            },
+            "metadata": {
+              "innerType": "StructProperty",
+              "innerTypeReference": {
+                "nameIndex": 109,
+                "number": 0,
+                "value": "StructProperty"
+              },
+              "arrayStruct": {
+                "wrapperName": {
+                  "nameIndex": 22,
+                  "number": 0,
+                  "value": "AnimNotifyStateData"
+                },
+                "wrapperType": {
+                  "nameIndex": 109,
+                  "number": 0,
+                  "value": "StructProperty"
+                },
+                "wrapperSerializedSize": 641,
+                "wrapperArrayIndex": 0,
+                "structType": {
+                  "nameIndex": 22,
+                  "number": 0,
+                  "value": "AnimNotifyStateData"
+                },
+                "structGuid": "00000000000000000000000000000000"
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "elements": [
+                {
+                  "index": 0,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[0].NotifyStateName",
+                      "serializedSize": 26,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 777,
+                          "end": 828
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 802,
+                          "end": 828
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_BowFireNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[0].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 828,
+                          "end": 857
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 853,
+                          "end": 857
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -46,
+                          "kind": "import",
+                          "index": 45,
+                          "objectName": "sfx_item_shootBow",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 1,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[1].NotifyStateName",
+                      "serializedSize": 32,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 865,
+                          "end": 922
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 890,
+                          "end": 922
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_BowChargeShotNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[1].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 922,
+                          "end": 951
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 947,
+                          "end": 951
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -45,
+                          "kind": "import",
+                          "index": 44,
+                          "objectName": "sfx_item_longbowShoot",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 2,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[2].NotifyStateName",
+                      "serializedSize": 28,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 959,
+                          "end": 1012
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 984,
+                          "end": 1012
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_BowChargeNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[2].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1012,
+                          "end": 1041
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1037,
+                          "end": 1041
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -41,
+                          "kind": "import",
+                          "index": 40,
+                          "objectName": "sfx_item_bowCharge",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 3,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[3].NotifyStateName",
+                      "serializedSize": 32,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1049,
+                          "end": 1106
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1074,
+                          "end": 1106
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_BowChargeFastNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[3].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1106,
+                          "end": 1135
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1131,
+                          "end": 1135
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -42,
+                          "kind": "import",
+                          "index": 41,
+                          "objectName": "sfx_item_bowChargedFast",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 4,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[4].NotifyStateName",
+                      "serializedSize": 26,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1143,
+                          "end": 1194
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1168,
+                          "end": 1194
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_BowLoadNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[4].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1194,
+                          "end": 1223
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1219,
+                          "end": 1223
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -43,
+                          "kind": "import",
+                          "index": 42,
+                          "objectName": "sfx_item_bowLoad",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 5,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[5].NotifyStateName",
+                      "serializedSize": 31,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1231,
+                          "end": 1287
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1256,
+                          "end": 1287
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_CrossbowLoadNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[5].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1287,
+                          "end": 1316
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1312,
+                          "end": 1316
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -44,
+                          "kind": "import",
+                          "index": 43,
+                          "objectName": "sfx_item_crossbowLoad",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "index": 6,
+                  "decoding": {
+                    "state": "decoded"
+                  },
+                  "properties": [
+                    {
+                      "order": 0,
+                      "name": {
+                        "nameIndex": 66,
+                        "number": 0,
+                        "value": "NotifyStateName"
+                      },
+                      "type": {
+                        "nameIndex": 108,
+                        "number": 0,
+                        "value": "StrProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[6].NotifyStateName",
+                      "serializedSize": 32,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1324,
+                          "end": 1381
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1349,
+                          "end": 1381
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": "BP_CrossbowShootNotifyState"
+                      }
+                    },
+                    {
+                      "order": 1,
+                      "name": {
+                        "nameIndex": 110,
+                        "number": 0,
+                        "value": "TriggerSound"
+                      },
+                      "type": {
+                        "nameIndex": 69,
+                        "number": 0,
+                        "value": "ObjectProperty"
+                      },
+                      "arrayIndex": 0,
+                      "path": "AnimNotifyStateData[6].TriggerSound",
+                      "serializedSize": 4,
+                      "byteRanges": {
+                        "tag": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1381,
+                          "end": 1410
+                        },
+                        "value": {
+                          "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                          "start": 1406,
+                          "end": 1410
+                        }
+                      },
+                      "decoding": {
+                        "state": "decoded",
+                        "value": {
+                          "rawPackageIndex": -40,
+                          "kind": "import",
+                          "index": 39,
+                          "objectName": "sfx_item_scatterCrossbowShoot",
+                          "className": "SoundCue"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "order": 3,
+            "name": {
+              "nameIndex": 54,
+              "number": 0,
+              "value": "GearActor"
+            },
+            "type": {
+              "nameIndex": 69,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "GearActor",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1418,
+                "end": 1447
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1443,
+                "end": 1447
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": -4,
+                "kind": "import",
+                "index": 3,
+                "objectName": "BP_ScatterCrossbow_C",
+                "className": "BlueprintGeneratedClass"
+              }
+            }
+          },
+          {
+            "order": 4,
+            "name": {
+              "nameIndex": 59,
+              "number": 0,
+              "value": "InventoryDropSound"
+            },
+            "type": {
+              "nameIndex": 101,
+              "number": 0,
+              "value": "SoftObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "InventoryDropSound",
+            "serializedSize": 12,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1447,
+                "end": 1484
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1472,
+                "end": 1484
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_scatterCrossbowPlace.sfx_item_scatterCrossbowPlace",
+                "subPathString": ""
+              }
+            }
+          },
+          {
+            "order": 5,
+            "name": {
+              "nameIndex": 61,
+              "number": 0,
+              "value": "ItemIdName"
+            },
+            "type": {
+              "nameIndex": 63,
+              "number": 0,
+              "value": "NameProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ItemIdName",
+            "serializedSize": 8,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1484,
+                "end": 1517
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1509,
+                "end": 1517
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": "ScatterCrossbow"
+            }
+          },
+          {
+            "order": 6,
+            "name": {
+              "nameIndex": 60,
+              "number": 0,
+              "value": "ItemId"
+            },
+            "type": {
+              "nameIndex": 109,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayIndex": 0,
+            "path": "ItemId",
+            "serializedSize": 41,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1517,
+                "end": 1607
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1566,
+                "end": 1607
+              }
+            },
+            "metadata": {
+              "structType": "SerializableItemId",
+              "structTypeReference": {
+                "nameIndex": 88,
+                "number": 0,
+                "value": "SerializableItemId"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            },
+            "decoding": {
+              "state": "decoded",
+              "properties": [
+                {
+                  "order": 0,
+                  "name": {
+                    "nameIndex": 89,
+                    "number": 0,
+                    "value": "SerializedId"
+                  },
+                  "type": {
+                    "nameIndex": 63,
+                    "number": 0,
+                    "value": "NameProperty"
+                  },
+                  "arrayIndex": 0,
+                  "path": "ItemId.SerializedId",
+                  "serializedSize": 8,
+                  "byteRanges": {
+                    "tag": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 1566,
+                      "end": 1599
+                    },
+                    "value": {
+                      "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                      "start": 1591,
+                      "end": 1599
+                    }
+                  },
+                  "decoding": {
+                    "state": "decoded",
+                    "value": "ScatterCrossbow"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "order": 7,
+            "name": {
+              "nameIndex": 84,
+              "number": 0,
+              "value": "RootComponent"
+            },
+            "type": {
+              "nameIndex": 69,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "RootComponent",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1607,
+                "end": 1636
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                "start": 1632,
+                "end": 1636
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": 0,
+                "kind": "null"
+              }
+            }
+          }
+        ],
+        "diagnostics": [],
+        "unavailableRanges": []
+      },
+      {
+        "exportIndex": 2,
+        "rawPackageIndex": 3,
+        "objectName": {
+          "nameIndex": 47,
+          "number": 0,
+          "value": "DefaultSceneRoot_GEN_VARIABLE"
+        },
+        "objectFlags": 41,
+        "references": {
+          "class": {
+            "rawPackageIndex": -13,
+            "kind": "import",
+            "index": 12,
+            "objectName": "SceneComponent",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -36,
+            "kind": "import",
+            "index": 35,
+            "objectName": "Default__SceneComponent",
+            "className": "SceneComponent"
+          },
+          "outer": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_ScatterCrossbowInstance_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7863,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 7863,
+            "end": 7875
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1644,
+            "end": 1656
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1644,
+            "end": 1656,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 3,
+        "rawPackageIndex": 4,
+        "objectName": {
+          "nameIndex": 87,
+          "number": 1,
+          "value": "SCS_Node_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -14,
+            "kind": "import",
+            "index": 13,
+            "objectName": "SCS_Node",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -37,
+            "kind": "import",
+            "index": 36,
+            "objectName": "Default__SCS_Node",
+            "className": "SCS_Node"
+          },
+          "outer": {
+            "rawPackageIndex": 5,
+            "kind": "export",
+            "index": 4,
+            "objectName": "SimpleConstructionScript_0",
+            "className": "SimpleConstructionScript"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 7875,
+          "serialSize": 168,
+          "combinedPackageByteRange": {
+            "start": 7875,
+            "end": 8043
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1656,
+            "end": 1824
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1656,
+            "end": 1824,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 4,
+        "rawPackageIndex": 5,
+        "objectName": {
+          "nameIndex": 98,
+          "number": 1,
+          "value": "SimpleConstructionScript_0"
+        },
+        "objectFlags": 8,
+        "references": {
+          "class": {
+            "rawPackageIndex": -15,
+            "kind": "import",
+            "index": 14,
+            "objectName": "SimpleConstructionScript",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -38,
+            "kind": "import",
+            "index": 37,
+            "objectName": "Default__SimpleConstructionScript",
+            "className": "SimpleConstructionScript"
+          },
+          "outer": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_ScatterCrossbowInstance_C",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 8043,
+          "serialSize": 41,
+          "combinedPackageByteRange": {
+            "start": 8043,
+            "end": 8084
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1824,
+            "end": 1865
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+            "start": 1824,
+            "end": 1865,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "unavailableRanges": [
+      {
+        "start": 6063,
+        "end": 6219,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uasset",
+        "state": "not-extracted",
+        "reason": "unparsed-uasset-region"
+      },
+      {
+        "start": 1865,
+        "end": 1869,
+        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+        "state": "not-extracted",
+        "reason": "unassigned-uexp-region"
+      }
+    ]
+  }
+}
