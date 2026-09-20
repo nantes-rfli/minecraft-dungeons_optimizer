@@ -1,16 +1,20 @@
-import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createPhase65CExtractionRecord, isCanonicalGameDataPath, validateGameDataProvenanceRecord, type GameDataProvenanceRecord, type JsonValue } from '../src/research/gameDataProvenance.ts'
 import { PackageObjectResolver } from '../src/research/ue4/objectResolver.ts'
 import { parseUePackage } from '../src/research/ue4/packageReader.ts'
 import { SUPPORTED_LEGACY_FILE_VERSION, UE_PACKAGE_MAGIC, type ParsedProperty, type ParsedUePackage, type UeDiagnostic } from '../src/research/ue4/packageTypes.ts'
+import {
+  PARSER_ID, PARSER_SCHEMA_VERSION,
+  assertSafeAssetPath, hashLogicalAsset, localDatasetRoot, resolveWithinDatasetRoot,
+} from './game-data-package-source.ts'
+
+export {
+  LOCAL_DATASET_RELATIVE_ROOT, PARSER_ID, PARSER_SCHEMA_VERSION,
+  assertSafeAssetPath, hashLogicalAsset, localDatasetRoot,
+} from './game-data-package-source.ts'
 
 export const EXTRACTOR_SCHEMA_VERSION = 1 as const
-export const PARSER_ID = 'ue4-package-property-parser' as const
-export const PARSER_SCHEMA_VERSION = 1 as const
-export const LOCAL_DATASET_RELATIVE_ROOT = 'local-game-data/QuickBMS 1.17.0.0'
-
 export const SELECTED_ASSET_PATHS = [
   'Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon',
   'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow',
@@ -100,10 +104,6 @@ export interface GameDataExtractorArtifact {
   readonly diagnostics: readonly UeDiagnostic[]
 }
 
-export function localDatasetRoot(repositoryRoot: string): string {
-  return path.join(repositoryRoot, LOCAL_DATASET_RELATIVE_ROOT)
-}
-
 export function hasSelectedLocalSource(repositoryRoot: string): boolean {
   const root = localDatasetRoot(repositoryRoot)
   return SELECTED_ASSET_PATHS.every((assetPath) => ['.uasset', '.uexp'].every((extension) => fs.existsSync(path.join(root, `${assetPath}${extension}`))))
@@ -117,7 +117,7 @@ export function buildGameDataExtractorArtifact(repositoryRoot: string, datasetId
   const assets = SELECTED_ASSET_PATHS.map((assetPath) => {
     assertSafeAssetPath(assetPath)
     const sourceFiles = ['.uasset', '.uexp'].map((extension) => `${assetPath}${extension}`).sort()
-    const filePaths = sourceFiles.map((sourceFile) => resolveWithinRoot(rootRealPath, sourceFile))
+    const filePaths = sourceFiles.map((sourceFile) => resolveWithinDatasetRoot(rootRealPath, sourceFile))
     const packageData = parseUePackage(fs.readFileSync(filePaths[0]!), fs.readFileSync(filePaths[1]!), { assetPath })
     diagnostics.push(...packageData.diagnostics)
     const contentHash = { algorithm: 'sha256' as const, value: hashLogicalAsset(rootRealPath, sourceFiles) }
@@ -211,29 +211,6 @@ function isParsedProperty(value: unknown): value is ParsedProperty {
 function findClassExport(packageData: ParsedUePackage) {
   const classNames = new Set(packageData.objects.map((object) => object.className).filter(Boolean))
   return packageData.exports.find((entry) => classNames.has(entry.objectName.value))
-}
-
-export function hashLogicalAsset(datasetRoot: string, sourceFiles: readonly string[]): string {
-  const hash = crypto.createHash('sha256')
-  for (const sourceFile of [...sourceFiles].sort()) {
-    assertSafeAssetPath(sourceFile)
-    hash.update(sourceFile, 'utf8')
-    hash.update(Uint8Array.of(0))
-    hash.update(fs.readFileSync(resolveWithinRoot(datasetRoot, sourceFile)))
-  }
-  return hash.digest('hex')
-}
-
-export function assertSafeAssetPath(assetPath: string): void {
-  if (!isCanonicalGameDataPath(assetPath) || path.isAbsolute(assetPath)) throw new Error(`Unsafe dataset-relative asset path: ${assetPath}`)
-}
-
-function resolveWithinRoot(rootRealPath: string, relativePath: string): string {
-  assertSafeAssetPath(relativePath)
-  const candidate = path.join(rootRealPath, relativePath)
-  const candidateRealPath = fs.realpathSync(candidate)
-  if (candidateRealPath !== rootRealPath && !candidateRealPath.startsWith(`${rootRealPath}${path.sep}`)) throw new Error(`Asset path escapes the dataset root: ${relativePath}`)
-  return candidateRealPath
 }
 
 function slug(value: string): string {
