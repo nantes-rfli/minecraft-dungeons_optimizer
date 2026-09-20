@@ -3,7 +3,10 @@ import type { deathCapMushroomMappings, projectDeathCapMushroom } from '../../do
 import type { RawTrace as MechanicalRawTrace, Trace } from '../../domain/temporary/projectionPrimitives'
 
 export type DomainTrace = Trace
-export type RawTrace = Omit<MechanicalRawTrace, 'nodePointer'> & { nodePointer?: string }
+export type RawTrace = Omit<MechanicalRawTrace, 'nodePointer'> & {
+  nodePointer?: string
+  sourceFingerprint?: { algorithm: string; value: string }
+}
 
 type DeathCapMushroomDomainArtifact = {
   scope: 'temporary-domain-only'
