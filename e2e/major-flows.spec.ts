@@ -285,6 +285,25 @@ test('Fighter’s Bindings temporary Domain is traceable in the Data Browser', a
   expect(results.violations).toEqual([])
 })
 
+test('Scatter Crossbow temporary Domain and projectile reference are traceable in the Data Browser', async ({ page }) => {
+  await page.goto('/#/data/ranged?item=scatter-crossbow')
+  const entry = page.locator('[data-equipment-id="scatter-crossbow"]')
+  await expect(entry).toHaveAttribute('open', '')
+  await expect(entry.getByRole('heading', { name: 'Scatter Crossbow', exact: true })).toBeVisible()
+  await expect(entry.getByText('accepted', { exact: true }).first()).toBeVisible()
+  await expect(entry.getByText('ScatterCrossbow', { exact: true })).toBeVisible()
+  await expect(entry.locator('[data-domain-field="configuredProjectileDefinitions[0].configuredProjectileCount"]')).toContainText('3')
+  await expect(entry.getByText('BP_ScatterCrossBow_Arrow_C', { exact: true })).toBeVisible()
+  await entry.getByText('cross-package provenanceを確認', { exact: true }).click()
+  await expect(entry.getByText('ObjectProperty', { exact: true })).toBeVisible()
+  await expect(entry.getByText('class import', { exact: true })).toBeVisible()
+  await expect(entry.getByText('outer package import', { exact: true })).toBeVisible()
+  await expect(entry.getByText('target Raw snapshot', { exact: true })).toBeVisible()
+  await expect(entry.locator('.domain-unresolved-list li').filter({ hasText: 'final damage' })).toBeVisible()
+  const results = await new AxeBuilder({ page }).include('.scatter-domain').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
+  expect(results.violations).toEqual([])
+})
+
 test('inventory grid tooltip, exact data link and full editor handoff', async ({ page }) => {
   await page.goto('/#/inventory')
   const slot = page.getByRole('option', { name: '両刃斧、Double Axe', exact: true })
