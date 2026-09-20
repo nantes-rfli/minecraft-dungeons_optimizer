@@ -35,6 +35,7 @@ interface RawPackageExpectedFile {
 
 export interface RawPackageSpec {
   readonly id: 'fighters-bindings-instance' | 'scatter-crossbow-instance' | 'scatter-crossbow-projectile' | 'battle-robe-instance'
+    | 'death-cap-mushroom-instance' | 'death-cap-mushroom-gameplay-effect'
   readonly packagePath: string
   readonly artifactPath: string
   readonly expectedFiles: readonly [RawPackageExpectedFile, RawPackageExpectedFile]
@@ -134,6 +135,31 @@ export const RAW_PACKAGE_SPECS = [
       { path: 'ItemId.SerializedId', value: 'BattleRobe' },
     ],
     auditBattleRobeInstanceSnapshot,
+  ),
+  packageSpec(
+    'death-cap-mushroom-instance',
+    'Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance',
+    'Default__BP_DeathCapMushroomInstance_C', 5,
+    [
+      { size: 3718, sha256: '2c90db9eda3e89ad3fda8a1c28e8d90b255184c89c9bb5775d9b22c4eeae3f6a' },
+      { size: 614, sha256: 'b9fe7543bbc846be7159dafa9ac9a7718d2f4ecb6363f1bf054765f45b491829' },
+    ],
+    [
+      { path: 'ItemIdName', value: 'DeathCapMushroom' },
+      { path: 'ItemId.SerializedId', value: 'DeathCapMushroom' },
+    ],
+    auditDeathCapMushroomInstanceSnapshot,
+  ),
+  packageSpec(
+    'death-cap-mushroom-gameplay-effect',
+    'Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect',
+    'Default__BP_DeathCapMushroomGameplayEffect_C', 3,
+    [
+      { size: 1551, sha256: 'f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad' },
+      { size: 129, sha256: '5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6' },
+    ],
+    [],
+    auditDeathCapMushroomGameplayEffectSnapshot,
   ),
 ] as const satisfies readonly RawPackageSpec[]
 
@@ -653,6 +679,50 @@ function auditBattleRobeInstanceSnapshot({ snapshot, properties, serialized, err
   }
 }
 
+function auditDeathCapMushroomInstanceSnapshot({ snapshot, properties, serialized, errors }: RawPackageAuditAssertionContext): void {
+  const itemIdName = properties.find((property) => property.path === 'ItemIdName')
+  const serializedId = properties.find((property) => property.path === 'ItemId.SerializedId')
+  if (itemIdName?.type.value !== 'NameProperty' || serializedId?.type.value !== 'NameProperty') {
+    errors.push('Death Cap Mushroom serialized identity fields were not retained as NameProperty values')
+  }
+
+  const effect = properties.find((property) => property.path === 'Effect')
+  const expectedEffect = { rawPackageIndex: -3, kind: 'import', index: 2, objectName: 'BP_DeathCapMushroomGameplayEffect_C', className: 'BlueprintGeneratedClass' }
+  if (effect?.type.value !== 'ObjectProperty' || JSON.stringify(effect.decoding.value) !== JSON.stringify(expectedEffect)) {
+    errors.push('Death Cap Mushroom Effect package-local ObjectProperty reference was not retained')
+  }
+  const effectClass = snapshot.package.imports[2]
+  const effectPackage = snapshot.package.imports[18]
+  if (effectClass?.rawPackageIndex !== -3 || effectClass.objectName.value !== 'BP_DeathCapMushroomGameplayEffect_C' || effectClass.outerIndex !== -19
+    || effectClass.outerReference.rawPackageIndex !== -19
+    || effectClass.outerReference.objectName !== '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect'
+    || effectPackage?.rawPackageIndex !== -19
+    || effectPackage.objectName.value !== '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect'
+    || effectPackage.outerReference.rawPackageIndex !== 0) {
+    errors.push('Death Cap Mushroom Effect import outer chain was not retained')
+  }
+
+  if (/duration|attack speed|movement speed|power scaling|stacking|effective uptime/i.test(serialized)) {
+    errors.push('Unobserved Death Cap Mushroom gameplay semantics leaked into Raw')
+  }
+}
+
+function auditDeathCapMushroomGameplayEffectSnapshot({ snapshot, properties, serialized, errors }: RawPackageAuditAssertionContext): void {
+  const generatedClass = snapshot.package.exports[0]
+  if (generatedClass?.objectName.value !== 'BP_DeathCapMushroomGameplayEffect_C'
+    || generatedClass.superReference.objectName !== 'DeathCapMushroomGameplayEffect') {
+    errors.push('Death Cap Mushroom GameplayEffect generated class identity was not retained')
+  }
+  const uiData = properties.find((property) => property.path === 'UIData')
+  const expectedUiData = { rawPackageIndex: 3, kind: 'export', index: 2, objectName: 'BP_MushroomizedUIData_C_0', className: 'BP_MushroomizedUIData_C' }
+  if (uiData?.type.value !== 'ObjectProperty' || JSON.stringify(uiData.decoding.value) !== JSON.stringify(expectedUiData)) {
+    errors.push('Death Cap Mushroom GameplayEffect UIData package-local reference was not retained')
+  }
+  if (/duration|attack speed|movement speed|power scaling|stacking|effective uptime/i.test(serialized)) {
+    errors.push('Unobserved Death Cap Mushroom gameplay semantics leaked into Raw')
+  }
+}
+
 function flattenRawProperties(properties: readonly RawPropertyNode[]): RawPropertyNode[] {
   const result: RawPropertyNode[] = []
   const visit = (property: RawPropertyNode): void => {
@@ -723,11 +793,11 @@ ${sourceRows}
   }).join('\n')
   return `# Raw Game Source package snapshots — Step 3A
 
-This generated artifact covers the deliberately small four-package Raw flow:
+This generated artifact covers the deliberately small six-package Raw flow:
 
 \`Game files → extraction → Raw package snapshot\`
 
-The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, and Battle Robe Instance. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, resolves cross-package references, or includes manual annotations.
+The current scope is Fighter’s Bindings Instance, Scatter Crossbow Instance, Scatter Crossbow projectile, Battle Robe Instance, Death Cap Mushroom Instance, and Death Cap Mushroom GameplayEffect. Each is an independent snapshot generated before semantic property selection. No snapshot creates a Domain identity, feeds Data Browser or Optimizer, or includes manual annotations.
 
 ## Reproducibility identity
 
@@ -756,7 +826,7 @@ Decoded zero and false values are retained only with \`state: decoded\`; unavail
 - Manual annotations: \`${first.boundaries.manualAnnotations}\`
 - Raw binary bytes: \`${first.boundaries.rawBinaryBytes}\`
 
-Canonical generated snapshots are stored beneath \`research/raw/packages/\` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains; no cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, cross-package reference completion, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
+Canonical generated snapshots are stored beneath \`research/raw/packages/\` at their logical package paths. Scatter Crossbow’s projectile and Battle Robe’s GearActor remain package-local ObjectProperty indexes plus the unmodified Import Tables and outer chains. Death Cap Mushroom’s serialized Effect import outer chain names \`/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect\`; that exact package is present in the selected local dataset and has its own independent Raw snapshot in this slice. This confirms package identity and traceability without interpreting duration, attack speed, movement speed, Power scaling, stacking, or effective uptime. No generic cross-package resolver or Domain identity is added. Battle Robe contains no asserted Armor Property ownership. Full-game expansion, non-CDO decoding, Domain Model, Data Browser, and Optimizer integration remain outside Step 3A.
 `
 }
 

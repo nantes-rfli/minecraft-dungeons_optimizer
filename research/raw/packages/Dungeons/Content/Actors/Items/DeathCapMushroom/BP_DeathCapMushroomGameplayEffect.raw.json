@@ -1,0 +1,1007 @@
+{
+  "schemaVersion": 2,
+  "snapshotKind": "generated-raw-package",
+  "dataset": {
+    "id": "mcd-quickbms-local-1.17.0.0-823acded",
+    "claimedGameVersion": "1.17.0.0",
+    "claimedGameVersionStatus": "claimed",
+    "sourceFingerprint": {
+      "algorithm": "sha256-path-size-v1",
+      "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+    }
+  },
+  "logicalPackage": {
+    "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uasset",
+        "size": 1551,
+        "sha256": "f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+        "size": 129,
+        "sha256": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6"
+      }
+    ],
+    "contentHash": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "70d8ee04479f796280089d43088019420547c1c31bd050591674dfa0d33794fc"
+    }
+  },
+  "extraction": {
+    "runId": "sha256:b5897b8ebc25497b6242bffc3487778cf5a3331c5564e8098bef5b2082b741ca",
+    "parser": {
+      "id": "ue4-package-property-parser",
+      "schemaVersion": 1
+    },
+    "configuration": {
+      "logicalPackageUnit": "one-logical-package-one-extraction-result",
+      "packageExtensions": [
+        ".uasset",
+        ".uexp"
+      ],
+      "strictPropertyTermination": false,
+      "propertySelection": "none",
+      "crossPackageReferenceResolution": "not-performed",
+      "nonCdoExportDecoding": "not-extracted"
+    },
+    "codeIdentity": {
+      "algorithm": "sha256-path-content-v1",
+      "value": "883d79e4fb1ed938b0cc7f1e666182c53a0957902e978d5b9890e91cd344a322",
+      "files": [
+        {
+          "path": "scripts/game-data-package-source.ts",
+          "sha256": "14c2cf119186ae9187211cfdd1e637979d589a0c4c23c58de0bc62224a6d99db"
+        },
+        {
+          "path": "scripts/game-data-raw-package.ts#snapshot-core",
+          "sha256": "7348ca88aa389131ac483e33be6377f3f761b9afa9bbe08fc30a180095af04fd"
+        },
+        {
+          "path": "src/research/ue4/binaryReader.ts",
+          "sha256": "d277ae5ff62523dc628fab56f15d475d89df7d01a71cb5d70259f6046456f565"
+        },
+        {
+          "path": "src/research/ue4/objectResolver.ts",
+          "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+        },
+        {
+          "path": "src/research/ue4/packageReader.ts",
+          "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+        },
+        {
+          "path": "src/research/ue4/packageTypes.ts",
+          "sha256": "640f89ba4a7fa9db8e3825304adb3aaab21f3490dac2532e3a1a45e6ff0859eb"
+        },
+        {
+          "path": "src/research/ue4/propertyReader.ts",
+          "sha256": "c8ef041ee90673d27443d98a844d2090041a0ec674e38601fa37c1c1dc22094e"
+        }
+      ]
+    }
+  },
+  "boundaries": {
+    "semanticFiltering": "not-applied",
+    "domainIdentityMapping": "not-applied",
+    "manualAnnotations": "separate-not-included",
+    "rawBinaryBytes": "not-committed"
+  },
+  "package": {
+    "summary": {
+      "magic": 2653586369,
+      "legacyFileVersion": -7,
+      "fileVersionUE4": 0,
+      "fileVersionLicenseeUE4": 0,
+      "totalHeaderSize": 1551,
+      "nameCount": 20,
+      "nameOffset": 193,
+      "exportCount": 3,
+      "exportOffset": 1171,
+      "importCount": 11,
+      "importOffset": 863
+    },
+    "nameMap": [
+      {
+        "index": 0,
+        "value": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+        "hashBytes": "03eb3c5a",
+        "byteRange": {
+          "start": 193,
+          "end": 271
+        }
+      },
+      {
+        "index": 1,
+        "value": "/Game/UI/StatusEffects/GameplayEffect/UIData/BP_MushroomizedUIData",
+        "hashBytes": "f79c8d36",
+        "byteRange": {
+          "start": 271,
+          "end": 346
+        }
+      },
+      {
+        "index": 2,
+        "value": "/Script/CoreUObject",
+        "hashBytes": "f8492d3e",
+        "byteRange": {
+          "start": 346,
+          "end": 374
+        }
+      },
+      {
+        "index": 3,
+        "value": "/Script/Dungeons",
+        "hashBytes": "0bb1ca79",
+        "byteRange": {
+          "start": 374,
+          "end": 399
+        }
+      },
+      {
+        "index": 4,
+        "value": "/Script/Engine",
+        "hashBytes": "86408549",
+        "byteRange": {
+          "start": 399,
+          "end": 422
+        }
+      },
+      {
+        "index": 5,
+        "value": "BlueprintGeneratedClass",
+        "hashBytes": "299b702d",
+        "byteRange": {
+          "start": 422,
+          "end": 454
+        }
+      },
+      {
+        "index": 6,
+        "value": "BP_DeathCapMushroomGameplayEffect_C",
+        "hashBytes": "66e88d06",
+        "byteRange": {
+          "start": 454,
+          "end": 498
+        }
+      },
+      {
+        "index": 7,
+        "value": "BP_MushroomizedUIData_C",
+        "hashBytes": "5e932568",
+        "byteRange": {
+          "start": 498,
+          "end": 530
+        }
+      },
+      {
+        "index": 8,
+        "value": "Class",
+        "hashBytes": "74777891",
+        "byteRange": {
+          "start": 530,
+          "end": 544
+        }
+      },
+      {
+        "index": 9,
+        "value": "DeathCapMushroomGameplayEffect",
+        "hashBytes": "fb505019",
+        "byteRange": {
+          "start": 544,
+          "end": 583
+        }
+      },
+      {
+        "index": 10,
+        "value": "Default__BlueprintGeneratedClass",
+        "hashBytes": "01cf3033",
+        "byteRange": {
+          "start": 583,
+          "end": 624
+        }
+      },
+      {
+        "index": 11,
+        "value": "Default__BP_DeathCapMushroomGameplayEffect_C",
+        "hashBytes": "0cad95b3",
+        "byteRange": {
+          "start": 624,
+          "end": 677
+        }
+      },
+      {
+        "index": 12,
+        "value": "Default__BP_MushroomizedUIData_C",
+        "hashBytes": "76c76576",
+        "byteRange": {
+          "start": 677,
+          "end": 718
+        }
+      },
+      {
+        "index": 13,
+        "value": "Default__DeathCapMushroomGameplayEffect",
+        "hashBytes": "7c1ee03f",
+        "byteRange": {
+          "start": 718,
+          "end": 766
+        }
+      },
+      {
+        "index": 14,
+        "value": "Engine",
+        "hashBytes": "b70144e6",
+        "byteRange": {
+          "start": 766,
+          "end": 781
+        }
+      },
+      {
+        "index": 15,
+        "value": "None",
+        "hashBytes": "f403c50d",
+        "byteRange": {
+          "start": 781,
+          "end": 794
+        }
+      },
+      {
+        "index": 16,
+        "value": "Object",
+        "hashBytes": "654bed01",
+        "byteRange": {
+          "start": 794,
+          "end": 809
+        }
+      },
+      {
+        "index": 17,
+        "value": "ObjectProperty",
+        "hashBytes": "41dbb3ea",
+        "byteRange": {
+          "start": 809,
+          "end": 832
+        }
+      },
+      {
+        "index": 18,
+        "value": "Package",
+        "hashBytes": "73478815",
+        "byteRange": {
+          "start": 832,
+          "end": 848
+        }
+      },
+      {
+        "index": 19,
+        "value": "UIData",
+        "hashBytes": "bf29246c",
+        "byteRange": {
+          "start": 848,
+          "end": 863
+        }
+      }
+    ],
+    "imports": [
+      {
+        "index": 0,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -8,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "BP_MushroomizedUIData_C"
+        },
+        "byteRange": {
+          "start": 863,
+          "end": 891
+        },
+        "rawPackageIndex": -1,
+        "outerReference": {
+          "rawPackageIndex": -8,
+          "kind": "import",
+          "index": 7,
+          "objectName": "/Game/UI/StatusEffects/GameplayEffect/UIData/BP_MushroomizedUIData",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 1,
+        "classPackage": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "className": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "outerIndex": -11,
+        "objectName": {
+          "nameIndex": 10,
+          "number": 0,
+          "value": "Default__BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 891,
+          "end": 919
+        },
+        "rawPackageIndex": -2,
+        "outerReference": {
+          "rawPackageIndex": -11,
+          "kind": "import",
+          "index": 10,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 2,
+        "classPackage": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/UI/StatusEffects/GameplayEffect/UIData/BP_MushroomizedUIData"
+        },
+        "className": {
+          "nameIndex": 7,
+          "number": 0,
+          "value": "BP_MushroomizedUIData_C"
+        },
+        "outerIndex": -8,
+        "objectName": {
+          "nameIndex": 12,
+          "number": 0,
+          "value": "Default__BP_MushroomizedUIData_C"
+        },
+        "byteRange": {
+          "start": 919,
+          "end": 947
+        },
+        "rawPackageIndex": -3,
+        "outerReference": {
+          "rawPackageIndex": -8,
+          "kind": "import",
+          "index": 7,
+          "objectName": "/Game/UI/StatusEffects/GameplayEffect/UIData/BP_MushroomizedUIData",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 3,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -9,
+        "objectName": {
+          "nameIndex": 16,
+          "number": 0,
+          "value": "Object"
+        },
+        "byteRange": {
+          "start": 947,
+          "end": 975
+        },
+        "rawPackageIndex": -4,
+        "outerReference": {
+          "rawPackageIndex": -9,
+          "kind": "import",
+          "index": 8,
+          "objectName": "/Script/CoreUObject",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 4,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -10,
+        "objectName": {
+          "nameIndex": 9,
+          "number": 0,
+          "value": "DeathCapMushroomGameplayEffect"
+        },
+        "byteRange": {
+          "start": 975,
+          "end": 1003
+        },
+        "rawPackageIndex": -5,
+        "outerReference": {
+          "rawPackageIndex": -10,
+          "kind": "import",
+          "index": 9,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 5,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 8,
+          "number": 0,
+          "value": "Class"
+        },
+        "outerIndex": -11,
+        "objectName": {
+          "nameIndex": 5,
+          "number": 0,
+          "value": "BlueprintGeneratedClass"
+        },
+        "byteRange": {
+          "start": 1003,
+          "end": 1031
+        },
+        "rawPackageIndex": -6,
+        "outerReference": {
+          "rawPackageIndex": -11,
+          "kind": "import",
+          "index": 10,
+          "objectName": "/Script/Engine",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 6,
+        "classPackage": {
+          "nameIndex": 3,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "className": {
+          "nameIndex": 9,
+          "number": 0,
+          "value": "DeathCapMushroomGameplayEffect"
+        },
+        "outerIndex": -10,
+        "objectName": {
+          "nameIndex": 13,
+          "number": 0,
+          "value": "Default__DeathCapMushroomGameplayEffect"
+        },
+        "byteRange": {
+          "start": 1031,
+          "end": 1059
+        },
+        "rawPackageIndex": -7,
+        "outerReference": {
+          "rawPackageIndex": -10,
+          "kind": "import",
+          "index": 9,
+          "objectName": "/Script/Dungeons",
+          "className": "Package"
+        }
+      },
+      {
+        "index": 7,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 1,
+          "number": 0,
+          "value": "/Game/UI/StatusEffects/GameplayEffect/UIData/BP_MushroomizedUIData"
+        },
+        "byteRange": {
+          "start": 1059,
+          "end": 1087
+        },
+        "rawPackageIndex": -8,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 8,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "byteRange": {
+          "start": 1087,
+          "end": 1115
+        },
+        "rawPackageIndex": -9,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 9,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 3,
+          "number": 0,
+          "value": "/Script/Dungeons"
+        },
+        "byteRange": {
+          "start": 1115,
+          "end": 1143
+        },
+        "rawPackageIndex": -10,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 10,
+        "classPackage": {
+          "nameIndex": 2,
+          "number": 0,
+          "value": "/Script/CoreUObject"
+        },
+        "className": {
+          "nameIndex": 18,
+          "number": 0,
+          "value": "Package"
+        },
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 4,
+          "number": 0,
+          "value": "/Script/Engine"
+        },
+        "byteRange": {
+          "start": 1143,
+          "end": 1171
+        },
+        "rawPackageIndex": -11,
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      }
+    ],
+    "exports": [
+      {
+        "index": 0,
+        "classIndex": -6,
+        "superIndex": -5,
+        "templateIndex": -2,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "BP_DeathCapMushroomGameplayEffect_C"
+        },
+        "objectFlags": 9,
+        "serialSize": 76,
+        "serialOffset": 1551,
+        "byteRange": {
+          "start": 1171,
+          "end": 1275
+        },
+        "rawPackageIndex": 1,
+        "classReference": {
+          "rawPackageIndex": -6,
+          "kind": "import",
+          "index": 5,
+          "objectName": "BlueprintGeneratedClass",
+          "className": "Class"
+        },
+        "superReference": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "DeathCapMushroomGameplayEffect",
+          "className": "Class"
+        },
+        "templateReference": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "Default__BlueprintGeneratedClass",
+          "className": "BlueprintGeneratedClass"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 1,
+        "classIndex": 1,
+        "superIndex": 0,
+        "templateIndex": -7,
+        "outerIndex": 0,
+        "objectName": {
+          "nameIndex": 11,
+          "number": 0,
+          "value": "Default__BP_DeathCapMushroomGameplayEffect_C"
+        },
+        "objectFlags": 49,
+        "serialSize": 37,
+        "serialOffset": 1627,
+        "byteRange": {
+          "start": 1275,
+          "end": 1379
+        },
+        "rawPackageIndex": 2,
+        "classReference": {
+          "rawPackageIndex": 1,
+          "kind": "export",
+          "index": 0,
+          "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -7,
+          "kind": "import",
+          "index": 6,
+          "objectName": "Default__DeathCapMushroomGameplayEffect",
+          "className": "DeathCapMushroomGameplayEffect"
+        },
+        "outerReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        }
+      },
+      {
+        "index": 2,
+        "classIndex": -1,
+        "superIndex": 0,
+        "templateIndex": -3,
+        "outerIndex": 2,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 1,
+          "value": "BP_MushroomizedUIData_C_0"
+        },
+        "objectFlags": 41,
+        "serialSize": 12,
+        "serialOffset": 1664,
+        "byteRange": {
+          "start": 1379,
+          "end": 1483
+        },
+        "rawPackageIndex": 3,
+        "classReference": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "BP_MushroomizedUIData_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "superReference": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "templateReference": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "Default__BP_MushroomizedUIData_C",
+          "className": "BP_MushroomizedUIData_C"
+        },
+        "outerReference": {
+          "rawPackageIndex": 2,
+          "kind": "export",
+          "index": 1,
+          "objectName": "Default__BP_DeathCapMushroomGameplayEffect_C",
+          "className": "BP_DeathCapMushroomGameplayEffect_C"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "exportIndex": 0,
+        "rawPackageIndex": 1,
+        "objectName": {
+          "nameIndex": 6,
+          "number": 0,
+          "value": "BP_DeathCapMushroomGameplayEffect_C"
+        },
+        "objectFlags": 9,
+        "references": {
+          "class": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "BlueprintGeneratedClass",
+            "className": "Class"
+          },
+          "super": {
+            "rawPackageIndex": -5,
+            "kind": "import",
+            "index": 4,
+            "objectName": "DeathCapMushroomGameplayEffect",
+            "className": "Class"
+          },
+          "template": {
+            "rawPackageIndex": -2,
+            "kind": "import",
+            "index": 1,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 1551,
+          "serialSize": 76,
+          "combinedPackageByteRange": {
+            "start": 1551,
+            "end": 1627
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 0,
+            "end": 76
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 0,
+            "end": 76,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      },
+      {
+        "exportIndex": 1,
+        "rawPackageIndex": 2,
+        "objectName": {
+          "nameIndex": 11,
+          "number": 0,
+          "value": "Default__BP_DeathCapMushroomGameplayEffect_C"
+        },
+        "objectFlags": 49,
+        "references": {
+          "class": {
+            "rawPackageIndex": 1,
+            "kind": "export",
+            "index": 0,
+            "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -7,
+            "kind": "import",
+            "index": 6,
+            "objectName": "Default__DeathCapMushroomGameplayEffect",
+            "className": "DeathCapMushroomGameplayEffect"
+          },
+          "outer": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "isClassDefaultObject": true,
+        "serialization": {
+          "serialOffset": 1627,
+          "serialSize": 37,
+          "combinedPackageByteRange": {
+            "start": 1627,
+            "end": 1664
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 76,
+            "end": 113
+          }
+        },
+        "extraction": {
+          "state": "decoded"
+        },
+        "propertyStream": {
+          "termination": "terminated",
+          "byteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 76,
+            "end": 113
+          },
+          "terminatorByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 105,
+            "end": 113
+          }
+        },
+        "properties": [
+          {
+            "order": 0,
+            "name": {
+              "nameIndex": 19,
+              "number": 0,
+              "value": "UIData"
+            },
+            "type": {
+              "nameIndex": 17,
+              "number": 0,
+              "value": "ObjectProperty"
+            },
+            "arrayIndex": 0,
+            "path": "UIData",
+            "serializedSize": 4,
+            "byteRanges": {
+              "tag": {
+                "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+                "start": 76,
+                "end": 105
+              },
+              "value": {
+                "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+                "start": 101,
+                "end": 105
+              }
+            },
+            "decoding": {
+              "state": "decoded",
+              "value": {
+                "rawPackageIndex": 3,
+                "kind": "export",
+                "index": 2,
+                "objectName": "BP_MushroomizedUIData_C_0",
+                "className": "BP_MushroomizedUIData_C"
+              }
+            }
+          }
+        ],
+        "diagnostics": [],
+        "unavailableRanges": []
+      },
+      {
+        "exportIndex": 2,
+        "rawPackageIndex": 3,
+        "objectName": {
+          "nameIndex": 7,
+          "number": 1,
+          "value": "BP_MushroomizedUIData_C_0"
+        },
+        "objectFlags": 41,
+        "references": {
+          "class": {
+            "rawPackageIndex": -1,
+            "kind": "import",
+            "index": 0,
+            "objectName": "BP_MushroomizedUIData_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -3,
+            "kind": "import",
+            "index": 2,
+            "objectName": "Default__BP_MushroomizedUIData_C",
+            "className": "BP_MushroomizedUIData_C"
+          },
+          "outer": {
+            "rawPackageIndex": 2,
+            "kind": "export",
+            "index": 1,
+            "objectName": "Default__BP_DeathCapMushroomGameplayEffect_C",
+            "className": "BP_DeathCapMushroomGameplayEffect_C"
+          }
+        },
+        "isClassDefaultObject": false,
+        "serialization": {
+          "serialOffset": 1664,
+          "serialSize": 12,
+          "combinedPackageByteRange": {
+            "start": 1664,
+            "end": 1676
+          },
+          "sourceByteRange": {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 113,
+            "end": 125
+          }
+        },
+        "extraction": {
+          "state": "not-extracted",
+          "reason": "parser-scope-non-cdo-export"
+        },
+        "diagnostics": [],
+        "unavailableRanges": [
+          {
+            "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+            "start": 113,
+            "end": 125,
+            "state": "not-extracted",
+            "reason": "non-cdo-export-payload-not-decoded"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "unavailableRanges": [
+      {
+        "start": 1483,
+        "end": 1551,
+        "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uasset",
+        "state": "not-extracted",
+        "reason": "unparsed-uasset-region"
+      },
+      {
+        "start": 125,
+        "end": 129,
+        "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+        "state": "not-extracted",
+        "reason": "unassigned-uexp-region"
+      }
+    ]
+  }
+}
