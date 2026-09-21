@@ -37,10 +37,10 @@ export type ValueEvidenceRecord = {
   id: string
   fingerprint: string
   kind: 'raw-value-observation'
-  mappingId: string
-  occurrence: ValueOccurrence
-  sourceState: 'known' | UnavailableState
-  reason?: string
+  observation: {
+    sourceState: 'known' | UnavailableState
+    reason?: string
+  }
   provenance: RawTrace
 }
 
@@ -89,6 +89,12 @@ type ProjectionAccumulator = {
   evidence: ValueEvidenceRecord[]
 }
 
+type EvidenceInput = {
+  provenance: RawTrace
+  sourceState: 'known' | UnavailableState
+  reason?: string
+}
+
 function canonicalJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
   if (value !== null && typeof value === 'object') {
@@ -109,25 +115,43 @@ export function valueProjectionRef(mappingId: string, occurrence: ValueOccurrenc
   return `projection:value:${mappingId}:${occurrenceKey(occurrence)}`
 }
 
+/** Value evidence identifies a Raw source observation, independently of projection occurrence. */
+export function valueEvidenceRef(provenance: RawTrace): string {
+  return `evidence:value:raw:${evidenceFingerprint(provenance)}`
+}
+
+function addEvidence(accumulator: ProjectionAccumulator, input: EvidenceInput): string {
+  const id = valueEvidenceRef(input.provenance)
+  const content = {
+    id,
+    kind: 'raw-value-observation' as const,
+    observation: {
+      sourceState: input.sourceState,
+      ...(input.reason ? { reason: input.reason } : {}),
+    },
+    provenance: input.provenance,
+  }
+  const record = { ...content, fingerprint: evidenceFingerprint(content) }
+  const existing = accumulator.evidence.find((candidate) => candidate.id === id)
+  if (existing && canonicalJson(existing) !== canonicalJson(record)) throw new Error(`Conflicting observations for ${id}`)
+  if (!existing) accumulator.evidence.push(record)
+  return id
+}
+
 function addProjection<T>(
   accumulator: ProjectionAccumulator,
   mappingId: string,
   occurrence: ValueOccurrence,
   field: Field<T>,
+  evidenceInputs?: NonEmptyArray<EvidenceInput>,
 ): SourceBackedValue<T> | undefined {
   const projectionId = valueProjectionRef(mappingId, occurrence)
-  const evidenceId = `evidence:value:${projectionId}`
-  const evidenceContent = {
-    id: evidenceId,
-    kind: 'raw-value-observation' as const,
-    mappingId,
-    occurrence,
+  const inputs = evidenceInputs ?? [{
+    provenance: field.trace.raw,
     sourceState: field.state,
     ...(field.state === 'known' ? {} : { reason: field.reason }),
-    provenance: field.trace.raw,
-  }
-  accumulator.evidence.push({ ...evidenceContent, fingerprint: evidenceFingerprint(evidenceContent) })
-  const evidenceRefs: NonEmptyArray<string> = [evidenceId]
+  }]
+  const evidenceRefs = inputs.map((input) => addEvidence(accumulator, input)) as NonEmptyArray<string>
   if (field.state === 'known') {
     accumulator.records.push({ projectionId, mappingId, occurrence, result: 'projected', evidenceRefs })
     return { value: field.value, projectionRef: projectionId, evidenceRefs }
@@ -139,13 +163,19 @@ function dependencyUnavailable(
   accumulator: ProjectionAccumulator,
   mappingId: string,
   occurrence: ScatterValueOccurrence,
-  dependency: { state: UnavailableState; reason: string; trace: Trace },
+  dependency: {
+    state: UnavailableState
+    reason: string
+    trace: Trace
+    failureEvidence: NonEmptyArray<RawTrace>
+  },
 ): void {
+  const reason = `Dependency/reference failure: ${dependency.reason}`
   addProjection(accumulator, mappingId, occurrence, {
     state: dependency.state,
-    reason: `Dependency/reference failure: ${dependency.reason}`,
+    reason,
     trace: { ...dependency.trace, mappingId },
-  })
+  }, dependency.failureEvidence.map((provenance) => ({ provenance, sourceState: dependency.state, reason })) as NonEmptyArray<EvidenceInput>)
 }
 
 function validSourceIndices(entries: readonly { sourceIndex: number }[]):
@@ -299,8 +329,9 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
       const found = evidence.get(ref)
       check(Boolean(found), `${record.projectionId}: dangling EvidenceRef ${ref}`)
       if (found) {
-        check(found.mappingId === record.mappingId && canonicalJson(found.occurrence) === canonicalJson(record.occurrence), `${record.projectionId}: evidence addresses another semantic location`)
-        check(found.sourceState === (record.result === 'projected' ? 'known' : record.sourceState), `${record.projectionId}: evidence source state mismatch`)
+        const expectedState = record.result === 'projected' ? 'known' : record.sourceState
+        check(found.observation.sourceState === expectedState, `${record.projectionId}: evidence source state contradicts projection result`)
+        check(found.observation.reason === (record.result === 'unavailable' ? record.reason : undefined), `${record.projectionId}: evidence reason contradicts projection result`)
       }
     }
   }

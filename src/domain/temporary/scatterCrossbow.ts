@@ -28,12 +28,18 @@ type ReferenceTrace = {
 }
 type ProjectileReference =
   | { state: 'known'; value: { rawPackageIndex: number; objectName: string; className: string; targetRawPackagePath: string }; trace: ReferenceTrace }
-  | { state: UnavailableState; reason: string; trace: Trace }
+  | {
+      state: UnavailableState
+      reason: string
+      trace: Trace
+      failureStage: 'object-property' | 'class-import' | 'outer-package' | 'target-snapshot'
+      failureEvidence: [RawTrace, ...RawTrace[]]
+    }
 
 /** Pure two-snapshot projection. The Raw extractor remains unaware of cross-package resolution. */
 export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projectileRaw: RawPackageSnapshot) {
   if (instanceRaw.schemaVersion !== 2 || instanceRaw.logicalPackage.path !== assertion.instancePackagePath) throw new Error('Unsupported instance Raw package for Scatter Crossbow projection')
-  if (projectileRaw.schemaVersion !== 2 || projectileRaw.logicalPackage.path !== assertion.projectilePackagePath) throw new Error('Unsupported projectile Raw package for Scatter Crossbow projection')
+  if (projectileRaw.schemaVersion !== 2) throw new Error('Unsupported projectile Raw schema for Scatter Crossbow projection')
 
   function cdo(raw: RawPackageSnapshot): RawCdoCandidate | undefined {
     const matches = rawCdoCandidates(raw)
@@ -71,27 +77,36 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
 
   function resolveProjectileReference(located: Located): ProjectileReference {
     const fallbackTrace = trace(instanceRaw, located, scatterCrossbowMappings.projectileReference.id)
-    if (!located.node) return { state: located.unavailable ?? 'unknown', reason: 'Projectile ObjectProperty missing, ambiguous, or parent unavailable', trace: fallbackTrace }
-    if (located.node.decoding.state !== 'decoded') return { state: located.node.decoding.state, reason: 'Projectile ObjectProperty unavailable', trace: fallbackTrace }
+    const fail = (
+      state: UnavailableState,
+      reason: string,
+      failureStage: Exclude<ProjectileReference, { state: 'known' }>['failureStage'],
+      ...failureEvidence: [RawTrace, ...RawTrace[]]
+    ): ProjectileReference => ({ state, reason, trace: fallbackTrace, failureStage, failureEvidence })
+    const objectEvidence = rawTrace(instanceRaw, located.pointer)
+    if (!located.node) return fail(located.unavailable ?? 'unknown', 'Projectile ObjectProperty missing, ambiguous, or parent unavailable', 'object-property', objectEvidence)
+    if (located.node.decoding.state !== 'decoded') return fail(located.node.decoding.state, 'Projectile ObjectProperty unavailable', 'object-property', objectEvidence)
     const value = located.node.decoding.value
-    if (located.node.type.value !== 'ObjectProperty' || !value || typeof value !== 'object' || Array.isArray(value)) return { state: 'unknown', reason: 'Projectile is not a decoded ObjectProperty reference', trace: fallbackTrace }
+    if (located.node.type.value !== 'ObjectProperty' || !value || typeof value !== 'object' || Array.isArray(value)) return fail('unknown', 'Projectile is not a decoded ObjectProperty reference', 'object-property', objectEvidence)
     const reference = value as Record<string, unknown>
-    if (reference.kind !== 'import' || typeof reference.rawPackageIndex !== 'number' || typeof reference.index !== 'number' || typeof reference.objectName !== 'string' || typeof reference.className !== 'string') return { state: 'unknown', reason: 'Projectile ObjectProperty is not an import reference', trace: fallbackTrace }
+    if (reference.kind !== 'import' || typeof reference.rawPackageIndex !== 'number' || typeof reference.index !== 'number' || typeof reference.objectName !== 'string' || typeof reference.className !== 'string') return fail('unknown', 'Projectile ObjectProperty is not an import reference', 'object-property', objectEvidence)
+    if (reference.objectName !== assertion.projectileObjectName || reference.className !== assertion.projectileClassName) return fail('unknown', 'Projectile ObjectProperty import identity mismatch', 'object-property', objectEvidence)
     const classImportMatches = instanceRaw.package.imports.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.rawPackageIndex === reference.rawPackageIndex && entry.index === reference.index)
-    if (classImportMatches.length !== 1) return { state: 'unknown', reason: 'Projectile class import is missing or ambiguous', trace: fallbackTrace }
+    if (classImportMatches.length !== 1) return fail('unknown', 'Projectile class import is missing or ambiguous', 'class-import', rawTrace(instanceRaw, '/package/imports'))
     const classImport = classImportMatches[0]!
+    const classImportEvidence = rawTrace(instanceRaw, `/package/imports/${classImport.index}`)
+    if (classImport.entry.objectName.value !== assertion.projectileObjectName || classImport.entry.className.value !== assertion.projectileClassName) return fail('unknown', 'Projectile class import identity mismatch', 'class-import', classImportEvidence)
     const outerMatches = instanceRaw.package.imports.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.rawPackageIndex === classImport.entry.outerIndex)
-    if (outerMatches.length !== 1) return { state: 'unknown', reason: 'Projectile outer package import is missing or ambiguous', trace: fallbackTrace }
+    if (outerMatches.length !== 1) return fail('unknown', 'Projectile outer package import is missing or ambiguous', 'outer-package', rawTrace(instanceRaw, '/package/imports'))
     const outer = outerMatches[0]!
-    const sameDataset = instanceRaw.dataset.id === projectileRaw.dataset.id && instanceRaw.dataset.sourceFingerprint.value === projectileRaw.dataset.sourceFingerprint.value
-    const validKnownChain = reference.objectName === assertion.projectileObjectName && reference.className === assertion.projectileClassName
-      && classImport.entry.objectName.value === assertion.projectileObjectName && classImport.entry.className.value === assertion.projectileClassName
-      && classImport.entry.outerIndex === outer.entry.rawPackageIndex
+    const outerEvidence = rawTrace(instanceRaw, `/package/imports/${outer.index}`)
+    const validOuter = classImport.entry.outerIndex === outer.entry.rawPackageIndex
       && outer.entry.className.value === 'Package' && outer.entry.objectName.value === assertion.projectileGamePackagePath
       && outer.entry.outerIndex === 0 && outer.entry.outerReference.rawPackageIndex === 0
-      && projectileRaw.logicalPackage.path === assertion.projectilePackagePath && sameDataset
-    if (!validKnownChain) return { state: 'unknown', reason: 'Projectile import chain does not match the supplied known Raw snapshot', trace: fallbackTrace }
+    if (!validOuter) return fail('unknown', 'Projectile outer package import identity mismatch', 'outer-package', outerEvidence)
+    const sameDataset = instanceRaw.dataset.id === projectileRaw.dataset.id && instanceRaw.dataset.sourceFingerprint.value === projectileRaw.dataset.sourceFingerprint.value
     const target = rawTrace(projectileRaw, '')
+    if (projectileRaw.logicalPackage.path !== assertion.projectilePackagePath || !sameDataset) return fail('unknown', 'Supplied target Raw package, dataset, or fingerprint mismatch', 'target-snapshot', target)
     const targetRawSnapshot = {
       artifactPath: target.artifactPath,
       datasetId: target.datasetId,
@@ -111,8 +126,8 @@ export function projectScatterCrossbow(instanceRaw: RawPackageSnapshot, projecti
         mappingId: scatterCrossbowMappings.projectileReference.id,
         identityAssertionId: assertion.id,
         objectProperty: rawTrace(instanceRaw, located.pointer),
-        classImport: rawTrace(instanceRaw, `/package/imports/${classImport.index}`),
-        outerPackageImport: rawTrace(instanceRaw, `/package/imports/${outer.index}`),
+        classImport: classImportEvidence,
+        outerPackageImport: outerEvidence,
         targetRawSnapshot,
       },
     }
