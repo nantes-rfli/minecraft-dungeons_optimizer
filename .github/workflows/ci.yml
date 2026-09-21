@@ -61,6 +61,7 @@ jobs:
       - run: npm run audit:formal-identity-evidence
       - run: npm run audit:formal-value-availability
       - run: npm run audit:formal-serialized-relation
+      - run: npm run audit:formal-integration
       - run: npm run audit:game-data-semantic-mapping
       - run: npm run audit:game-data-bulk-harvest
       - run: npm run audit:game-data-gap-reconciliation
