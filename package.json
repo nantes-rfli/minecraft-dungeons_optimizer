@@ -99,7 +99,9 @@
     "generate:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts --write",
     "audit:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts",
     "generate:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts --write",
-    "audit:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts"
+    "audit:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts",
+    "generate:formal-value-availability": "node scripts/audit-formal-value-availability.ts --write",
+    "audit:formal-value-availability": "node scripts/audit-formal-value-availability.ts"
   },
   "dependencies": {
     "react": "19.2.6",
