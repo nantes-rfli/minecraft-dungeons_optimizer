@@ -1,8 +1,12 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { projectFightersBindings, fightersBindingsMappings } from '../temporary/fightersBindings.ts'
-import { projectScatterCrossbow, scatterCrossbowMappings } from '../temporary/scatterCrossbow.ts'
-import type { Field, RawTrace, Trace, UnavailableState } from '../temporary/projectionPrimitives.ts'
-import { evidenceFingerprint } from './identityEvidence.ts'
+import { scatterCrossbowMappings } from '../temporary/scatterCrossbow.ts'
+import type { Field, RawTrace, UnavailableState } from '../temporary/projectionPrimitives.ts'
+import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
+import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
+import { matchedIdentityDomainId, sameRawSource, snapshotSource } from './boundarySource.ts'
+import { readScatterSource, readScatterTarget } from './scatterValueReaders.ts'
+import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
 
 export type ProjectionRef = string
 export type NonEmptyArray<T> = [T, ...T[]]
@@ -11,6 +15,7 @@ export type SourceBackedValue<T> = {
   value: T
   projectionRef: ProjectionRef
   evidenceRefs: NonEmptyArray<string>
+  relationProjectionRef?: string
 }
 
 export type FighterValueOccurrence =
@@ -27,10 +32,12 @@ export type ValueProjectionRecord = {
   projectionId: ProjectionRef
   mappingId: string
   occurrence: ValueOccurrence
-  evidenceRefs: NonEmptyArray<string>
+  evidenceRefs?: NonEmptyArray<string>
+  relationProjectionRef?: string
 } & (
   | { result: 'projected' }
-  | { result: 'unavailable'; sourceState: UnavailableState; reason: string }
+  | { result: 'unavailable'; failureKind: 'raw'; sourceState: UnavailableState; reason: string; evidenceRefs: NonEmptyArray<string> }
+  | { result: 'unavailable'; failureKind: 'dependency'; reason: string; relationProjectionRef?: string }
 )
 
 export type ValueEvidenceRecord = {
@@ -81,7 +88,12 @@ export type FormalValueAvailabilityArtifact = {
 export type FormalValueInputs = {
   fightersBindingsRaw: RawPackageSnapshot
   scatterCrossbowInstanceRaw: RawPackageSnapshot
-  scatterCrossbowProjectileRaw: RawPackageSnapshot
+  scatterCrossbowProjectileRaw?: RawPackageSnapshot
+  fightersBindingsIdentity: FormalSemanticIdentity
+  fightersBindingsIdentityEvidence: RawObservationEvidenceRecord[]
+  scatterCrossbowIdentity: FormalSemanticIdentity
+  scatterCrossbowIdentityEvidence: RawObservationEvidenceRecord[]
+  relations: FormalSerializedRelationArtifact
 }
 
 type ProjectionAccumulator = {
@@ -144,6 +156,7 @@ function addProjection<T>(
   occurrence: ValueOccurrence,
   field: Field<T>,
   evidenceInputs?: NonEmptyArray<EvidenceInput>,
+  relationProjectionRef?: string,
 ): SourceBackedValue<T> | undefined {
   const projectionId = valueProjectionRef(mappingId, occurrence)
   const inputs = evidenceInputs ?? [{
@@ -153,36 +166,28 @@ function addProjection<T>(
   }]
   const evidenceRefs = inputs.map((input) => addEvidence(accumulator, input)) as NonEmptyArray<string>
   if (field.state === 'known') {
-    accumulator.records.push({ projectionId, mappingId, occurrence, result: 'projected', evidenceRefs })
-    return { value: field.value, projectionRef: projectionId, evidenceRefs }
+    accumulator.records.push({ projectionId, mappingId, occurrence, result: 'projected', evidenceRefs, ...(relationProjectionRef ? { relationProjectionRef } : {}) })
+    return { value: field.value, projectionRef: projectionId, evidenceRefs, ...(relationProjectionRef ? { relationProjectionRef } : {}) }
   }
-  accumulator.records.push({ projectionId, mappingId, occurrence, result: 'unavailable', sourceState: field.state, reason: field.reason, evidenceRefs })
+  accumulator.records.push({ projectionId, mappingId, occurrence, result: 'unavailable', failureKind: 'raw', sourceState: field.state, reason: field.reason, evidenceRefs, ...(relationProjectionRef ? { relationProjectionRef } : {}) })
 }
 
 function dependencyUnavailable(
   accumulator: ProjectionAccumulator,
   mappingId: string,
   occurrence: ScatterValueOccurrence,
-  dependency: {
-    state: UnavailableState
-    reason: string
-    trace: Trace
-    failureEvidence: NonEmptyArray<RawTrace>
-  },
+  reason: string,
+  relationProjectionRef?: string,
 ): void {
-  const reason = `Dependency/reference failure: ${dependency.reason}`
-  addProjection(accumulator, mappingId, occurrence, {
-    state: dependency.state,
-    reason,
-    trace: { ...dependency.trace, mappingId },
-  }, dependency.failureEvidence.map((provenance) => ({ provenance, sourceState: dependency.state, reason })) as NonEmptyArray<EvidenceInput>)
+  accumulator.records.push({ projectionId: valueProjectionRef(mappingId, occurrence), mappingId, occurrence,
+    result: 'unavailable', failureKind: 'dependency', reason, ...(relationProjectionRef ? { relationProjectionRef } : {}) })
 }
 
 function validSourceIndices(entries: readonly { sourceIndex: number }[]):
   | { state: 'known'; value: number[] }
   | { state: 'unavailable'; reason: string } {
   const indices = entries.map(({ sourceIndex }) => sourceIndex)
-  if (indices.some((index) => !Number.isInteger(index))) return { state: 'unavailable', reason: 'Collection entry sourceIndex is missing or invalid' }
+  if (indices.some((index) => !Number.isInteger(index) || index < 0)) return { state: 'unavailable', reason: 'Collection entry sourceIndex is missing or invalid' }
   if (new Set(indices).size !== indices.length) return { state: 'unavailable', reason: 'Collection entry sourceIndex is duplicate and occurrence identity is ambiguous' }
   return { state: 'known', value: indices }
 }
@@ -198,77 +203,82 @@ function collectionField(
 
 export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs): FormalValueAvailabilityArtifact {
   const accumulator: ProjectionAccumulator = { records: [], evidence: [] }
-  const fighters = projectFightersBindings(inputs.fightersBindingsRaw)
-  const scatter = projectScatterCrossbow(inputs.scatterCrossbowInstanceRaw, inputs.scatterCrossbowProjectileRaw)
   const fightersSemantic: FormalFightersBindingsValues = {}
-  const fighterOccurrence: FighterValueOccurrence = { slice: 'fighters-bindings', scope: 'configured-attacks' }
-  const attacks = collectionField(fighters.configuredAttacks)
-  const configuredAttacks = addProjection(accumulator, fightersBindingsMappings.entries.id, fighterOccurrence, attacks)
-  if (configuredAttacks) fightersSemantic.configuredAttacks = configuredAttacks
-  if (attacks.state === 'known' && fighters.configuredAttacks.state === 'known') {
-    fightersSemantic.attacks = fighters.configuredAttacks.value.map((entry) => {
-      const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: entry.sourceIndex }
-      const semantic: NonNullable<FormalFightersBindingsValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
-      const damage = addProjection(accumulator, fightersBindingsMappings.damage.id, occurrence, entry.configuredDamage)
-      const duration = addProjection(accumulator, fightersBindingsMappings.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
-      if (damage) semantic.configuredDamage = damage
-      if (duration) semantic.configuredAnimationDurationSeconds = duration
-      return semantic
-    })
+  if (matchedIdentityDomainId(inputs.fightersBindingsRaw, fightersBindingsFormalIdentity, inputs.fightersBindingsIdentity, inputs.fightersBindingsIdentityEvidence)) {
+    const fighters = projectFightersBindings(inputs.fightersBindingsRaw)
+    const fighterOccurrence: FighterValueOccurrence = { slice: 'fighters-bindings', scope: 'configured-attacks' }
+    const attacks = collectionField(fighters.configuredAttacks)
+    const configuredAttacks = addProjection(accumulator, fightersBindingsMappings.entries.id, fighterOccurrence, attacks)
+    if (configuredAttacks) fightersSemantic.configuredAttacks = configuredAttacks
+    if (attacks.state === 'known' && fighters.configuredAttacks.state === 'known') {
+      fightersSemantic.attacks = fighters.configuredAttacks.value.map((entry) => {
+        const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: entry.sourceIndex }
+        const semantic: NonNullable<FormalFightersBindingsValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
+        const damage = addProjection(accumulator, fightersBindingsMappings.damage.id, occurrence, entry.configuredDamage)
+        const duration = addProjection(accumulator, fightersBindingsMappings.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
+        if (damage) semantic.configuredDamage = damage
+        if (duration) semantic.configuredAnimationDurationSeconds = duration
+        return semantic
+      })
+    }
   }
 
   const scatterSemantic: FormalScatterCrossbowValues = {}
-  const weaponOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'weapon' }
-  const velocity = addProjection(
-    accumulator,
-    scatterCrossbowMappings.velocityFactor.id,
-    weaponOccurrence,
-    scatter.configuredProjectileVelocityFactor,
-  )
-  if (velocity) scatterSemantic.configuredProjectileVelocityFactor = velocity
-  const definitionsOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'projectile-definitions' }
-  const definitions = collectionField(scatter.configuredProjectileDefinitions)
-  const configuredDefinitions = addProjection(
-    accumulator,
-    scatterCrossbowMappings.definitions.id,
-    definitionsOccurrence,
-    definitions,
-  )
-  if (configuredDefinitions) scatterSemantic.configuredProjectileDefinitions = configuredDefinitions
-  if (definitions.state === 'known' && scatter.configuredProjectileDefinitions.state === 'known') {
-    scatterSemantic.projectileDefinitions = scatter.configuredProjectileDefinitions.value.map((entry) => {
-      const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: entry.sourceIndex }
-      const semantic: NonNullable<FormalScatterCrossbowValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
-      const count = addProjection(accumulator, scatterCrossbowMappings.projectileCount.id, occurrence, entry.configuredProjectileCount)
-      const angle = addProjection(accumulator, scatterCrossbowMappings.angleSpan.id, occurrence, entry.configuredAngleSpan)
-      const delay = addProjection(accumulator, scatterCrossbowMappings.delayPerProjectile.id, occurrence, entry.configuredDelaySecondsPerProjectile)
-      if (count) semantic.configuredProjectileCount = count
-      if (angle) semantic.configuredAngleSpan = angle
-      if (delay) semantic.configuredDelaySecondsPerProjectile = delay
-      if (entry.projectile.reference.state !== 'known') {
-        for (const mappingId of [
-          scatterCrossbowMappings.pushbackEnabled.id,
-          scatterCrossbowMappings.pushbackStrength.id,
-          scatterCrossbowMappings.ignoreFriendlyFire.id,
-        ]) dependencyUnavailable(accumulator, mappingId, occurrence, entry.projectile.reference)
-      } else if (entry.projectile.configuration) {
-        const pushbackEnabled = addProjection(accumulator, scatterCrossbowMappings.pushbackEnabled.id, occurrence, entry.projectile.configuration.configuredPushbackEnabled)
-        const pushbackStrength = addProjection(accumulator, scatterCrossbowMappings.pushbackStrength.id, occurrence, entry.projectile.configuration.configuredPushbackStrength)
-        const ignoreFriendlyFire = addProjection(accumulator, scatterCrossbowMappings.ignoreFriendlyFire.id, occurrence, entry.projectile.configuration.configuredIgnoreFriendlyFire)
-        if (pushbackEnabled) semantic.configuredPushbackEnabled = pushbackEnabled
-        if (pushbackStrength) semantic.configuredPushbackStrength = pushbackStrength
-        if (ignoreFriendlyFire) semantic.configuredIgnoreFriendlyFire = ignoreFriendlyFire
-      }
-      return semantic
-    })
+  if (matchedIdentityDomainId(inputs.scatterCrossbowInstanceRaw, scatterCrossbowFormalIdentity, inputs.scatterCrossbowIdentity, inputs.scatterCrossbowIdentityEvidence)) {
+    const scatter = readScatterSource(inputs.scatterCrossbowInstanceRaw)
+    const weaponOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'weapon' }
+    const velocity = addProjection(accumulator, scatterCrossbowMappings.velocityFactor.id, weaponOccurrence, scatter.velocity)
+    if (velocity) scatterSemantic.configuredProjectileVelocityFactor = velocity
+    const definitionsOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'projectile-definitions' }
+    const definitions = collectionField(scatter.definitions)
+    const configuredDefinitions = addProjection(accumulator, scatterCrossbowMappings.definitions.id, definitionsOccurrence, definitions)
+    if (configuredDefinitions) scatterSemantic.configuredProjectileDefinitions = configuredDefinitions
+    if (definitions.state === 'known' && scatter.definitions.state === 'known') {
+      scatterSemantic.projectileDefinitions = scatter.definitions.value.map((entry) => {
+        const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: entry.sourceIndex }
+        const semantic: NonNullable<FormalScatterCrossbowValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
+        const count = addProjection(accumulator, scatterCrossbowMappings.projectileCount.id, occurrence, entry.count)
+        const angle = addProjection(accumulator, scatterCrossbowMappings.angleSpan.id, occurrence, entry.angle)
+        const delay = addProjection(accumulator, scatterCrossbowMappings.delayPerProjectile.id, occurrence, entry.delay)
+        if (count) semantic.configuredProjectileCount = count
+        if (angle) semantic.configuredAngleSpan = angle
+        if (delay) semantic.configuredDelaySecondsPerProjectile = delay
+        const candidates = inputs.relations.relationProjections.filter((record) => record.occurrence.slice === 'scatter-crossbow' && record.occurrence.sourceIndex === entry.sourceIndex)
+        const relation = candidates.length === 1 ? candidates[0] : undefined
+        const relationSource = relation?.evidenceRefs.every((ref) => {
+          const evidence = inputs.relations.provenance.evidence.find((item) => item.id === ref)
+          return evidence && sameRawSource(evidence.provenance, snapshotSource(inputs.scatterCrossbowInstanceRaw))
+        })
+        const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
+        const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
+          && semanticRelation[0]?.sourceDomainId === scatterCrossbowFormalIdentity.assertion.domainId
+        const target = relationReady && relation.targetResolution.result === 'resolved'
+          ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === relation.targetResolution.targetEvidenceRef) : undefined
+        const targetReady = Boolean(relationReady && relation.targetResolution.result === 'resolved'
+          && target && inputs.scatterCrossbowProjectileRaw && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)))
+        const targetFields = targetReady ? readScatterTarget(inputs.scatterCrossbowProjectileRaw!) : undefined
+        const fields = [
+          [scatterCrossbowMappings.pushbackEnabled.id, 'configuredPushbackEnabled', targetFields?.pushbackEnabled],
+          [scatterCrossbowMappings.pushbackStrength.id, 'configuredPushbackStrength', targetFields?.pushbackStrength],
+          [scatterCrossbowMappings.ignoreFriendlyFire.id, 'configuredIgnoreFriendlyFire', targetFields?.ignoreFriendlyFire],
+        ] as const
+        for (const [mappingId, key, field] of fields) {
+          if (!field) { dependencyUnavailable(accumulator, mappingId, occurrence,
+            !relation ? 'relation-occurrence-missing-or-ambiguous' : relation.result === 'unavailable' ? 'relation-unavailable'
+              : !relationReady ? 'relation-source-mismatch'
+              : relation.targetResolution.result !== 'resolved' ? relation.targetResolution.reason ?? 'target-not-resolved'
+                : !inputs.scatterCrossbowProjectileRaw ? 'target-snapshot-not-supplied' : 'target-snapshot-mismatch',
+            relation?.projectionRef); continue }
+          const value = addProjection(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
+          if (value) Object.assign(semantic, { [key]: value })
+        }
+        return semantic
+      })
+    }
   }
-  return {
-    schemaVersion: 1,
-    artifactKind: 'formal-domain-value-availability',
+  return { schemaVersion: 1, artifactKind: 'formal-domain-value-availability',
     semantic: { fightersBindings: fightersSemantic, scatterCrossbow: scatterSemantic },
-    valueProjections: accumulator.records,
-    provenance: { evidence: accumulator.evidence },
-  }
+    valueProjections: accumulator.records, provenance: { evidence: accumulator.evidence } }
 }
 
 type SemanticOccurrence = {
@@ -324,8 +334,12 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(!byProjectionId.has(record.projectionId), `duplicate projectionId: ${record.projectionId}`)
     if (!byProjectionId.has(record.projectionId)) byProjectionId.set(record.projectionId, record)
     check(record.projectionId === valueProjectionRef(record.mappingId, record.occurrence), `projectionId is not stable mapping + occurrence identity: ${record.projectionId}`)
-    check(record.evidenceRefs.length > 0, `${record.projectionId}: empty evidenceRefs`)
-    for (const ref of record.evidenceRefs) {
+    if (record.result === 'unavailable' && record.failureKind === 'dependency') {
+      check(record.evidenceRefs === undefined, `${record.projectionId}: dependency failure has fabricated Raw evidence`)
+      continue
+    }
+    check((record.evidenceRefs?.length ?? 0) > 0, `${record.projectionId}: empty evidenceRefs`)
+    for (const ref of record.evidenceRefs ?? []) {
       const found = evidence.get(ref)
       check(Boolean(found), `${record.projectionId}: dangling EvidenceRef ${ref}`)
       if (found) {
@@ -345,6 +359,7 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(record.result === 'projected', `${key}: semantic value points to unavailable record`)
     check(record.mappingId === semantic.mappingId && canonicalJson(record.occurrence) === canonicalJson(semantic.occurrence), `${key}: semantic location differs from projection record`)
     check(canonicalJson(record.evidenceRefs) === canonicalJson(semantic.value.evidenceRefs), `${key}: semantic/projection EvidenceRef mismatch`)
+    check(record.relationProjectionRef === semantic.value.relationProjectionRef, `${key}: relation projection link mismatch`)
   }
   const requireChildCoverage = (mappingIds: readonly string[], occurrence: ValueOccurrence, label: string) => {
     for (const mappingId of mappingIds) {
@@ -370,7 +385,7 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
   if (scatterIndices) {
     const entryIndices = value.semantic.scatterCrossbow.projectileDefinitions?.map(({ sourceIndex }) => sourceIndex)
     check(canonicalJson(entryIndices) === canonicalJson(scatterIndices), 'scatter-crossbow: child occurrence order/membership differs from projected collection')
-    check(scatterIndices.every(Number.isInteger) && new Set(scatterIndices).size === scatterIndices.length, 'scatter-crossbow: projected collection has ambiguous sourceIndex values')
+    check(scatterIndices.every((index) => Number.isInteger(index) && index >= 0) && new Set(scatterIndices).size === scatterIndices.length, 'scatter-crossbow: projected collection has ambiguous sourceIndex values')
     for (const sourceIndex of scatterIndices) requireChildCoverage(
       [
         scatterCrossbowMappings.projectileCount.id,

@@ -55,6 +55,8 @@ describe('Formal Serialized Relation v1', () => {
     reference.className = 'AlternateSerializedClass'
     cls.className.value = 'AlternateSerializedClass'
     expect(result(input, 'battle-robe')[0]?.result).toBe('projected')
+    input.battleRobe.identity!.presentation!.displayName = 'Renamed display only'
+    expect(result(input, 'battle-robe')[0]?.result).toBe('projected')
   })
   it.each(['object mismatch', 'class mismatch', 'missing import', 'ambiguous import', 'class import index', 'classPackage shape', 'outer mismatch', 'non-package outer', 'invalid root'])(`rejects %s`, (mode) => {
     const input = inputs(); const raw = mutable(input.battleRobe.source)

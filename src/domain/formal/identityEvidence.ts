@@ -126,7 +126,7 @@ function rawProvenance(raw: unknown, nodePointer: string): RawEvidenceProvenance
     ...(typeof dataset?.id === 'string' ? { datasetId: dataset.id } : {}),
     ...(typeof extraction?.runId === 'string' ? { extractionRunId: extraction.runId } : {}),
     ...(typeof logicalPackage?.path === 'string' ? { packagePath: logicalPackage.path } : {}),
-    ...(isRecord(logicalPackage?.contentHash) ? { packageHash: logicalPackage.contentHash as RawPackageSnapshot['logicalPackage']['contentHash'] } : {}),
+    ...(isRecord(logicalPackage?.contentHash) ? { packageHash: { ...(logicalPackage.contentHash as RawPackageSnapshot['logicalPackage']['contentHash']) } } : {}),
     nodePointer,
   }
 }

@@ -1,7 +1,8 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { locateRawNode, nestedRawNode, rawCdoCandidates, topLevelRawNode, type Located } from '../temporary/projectionPrimitives.ts'
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
-import { evidenceFingerprint, projectFormalIdentity, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
+import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
+import { matchedIdentityDomainId } from './boundarySource.ts'
 
 export type RelationRef = 'relation:scatter-crossbow:projectile@1' | 'relation:battle-robe:gear-actor@1' | 'relation:death-cap-mushroom:effect@1'
 export type RelationProjectionRef = string
@@ -29,18 +30,6 @@ const at = (root: unknown, pointer: string) => pointer.split('/').slice(1).reduc
 const pathFor = (raw: RawPackageSnapshot) => `research/raw/packages/${raw.logicalPackage.path}.raw.json`
 const provenance = (raw: RawPackageSnapshot, pointer?: string) => ({ artifactPath: pathFor(raw), datasetId: raw.dataset.id, extractionRunId: raw.extraction.runId, packagePath: raw.logicalPackage.path, packageHash: raw.logicalPackage.contentHash, ...(pointer === undefined ? {} : { nodePointer: pointer }) })
 export function relationProjectionRef(relationRef: RelationRef, occurrence: RelationOccurrence): RelationProjectionRef { return `projection:${relationRef}:${'sourceIndex' in occurrence ? occurrence.sourceIndex : 'source'}` }
-function identityMatches(input: RelationSliceInput, expected: typeof definitions[number]['identity']): string | undefined {
-  if (!input.identity || !input.identityEvidence) return undefined
-  const calculated = projectFormalIdentity(input.source, expected)
-  const identity = input.identity
-  if (identity.resolution.state !== 'matched' || !same(identity, calculated.semantic)) return undefined
-  const expectedRaw = calculated.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation')
-  if (!same(input.identityEvidence, expectedRaw)) return undefined
-  for (const evidence of input.identityEvidence) {
-    if (evidence.provenance.artifactPath !== pathFor(input.source) || evidence.provenance.datasetId !== input.source.dataset.id || evidence.provenance.extractionRunId !== input.source.extraction.runId || !same(evidence.provenance.packageHash, input.source.logicalPackage.contentHash)) return undefined
-  }
-  return identity.resolution.domainId
-}
 function validRawName(value: unknown): boolean {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
   const name = value as Record<string, unknown>
@@ -61,7 +50,7 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
   for (const definition of definitions) {
     const input = inputs[definition.key]
     const raw = input.source
-    const sourceDomainId = identityMatches(input, definition.identity)
+    const sourceDomainId = matchedIdentityDomainId(raw, definition.identity, input.identity, input.identityEvidence)
     if (!sourceDomainId) continue
     const cdo = rawCdoCandidates(raw)
     const selected = cdo.length === 1 ? cdo[0] : undefined
