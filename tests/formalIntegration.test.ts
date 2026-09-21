@@ -36,7 +36,7 @@ describe('Formal v1 integration', () => {
   it('rejects one normally generated artifact from another Raw snapshot', () => {
     const original = artifacts()
     const changed = structuredClone(original.raws[1]!)
-    changed.logicalPackage.contentHash.value = 'different-snapshot'
+    Object.assign(changed.logicalPackage.contentHash, { value: 'different-snapshot' })
     const changedIdentity = source(changed, scatterCrossbowFormalIdentity)
     const value = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: original.raws[0]!, scatterCrossbowInstanceRaw: changed,
       scatterCrossbowProjectileRaw: original.projectile, fightersBindingsIdentity: source(original.raws[0]!, fightersBindingsFormalIdentity).identity,
@@ -47,7 +47,7 @@ describe('Formal v1 integration', () => {
   it('rejects a Value artifact supplied with another target snapshot', () => {
     const original = artifacts()
     const changedTarget = structuredClone(original.projectile)
-    changedTarget.logicalPackage.contentHash.value = 'different-target-snapshot'
+    Object.assign(changedTarget.logicalPackage.contentHash, { value: 'different-target-snapshot' })
     const fighters = source(original.raws[0]!, fightersBindingsFormalIdentity)
     const scatter = source(original.raws[1]!, scatterCrossbowFormalIdentity)
     const value = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters.source, scatterCrossbowInstanceRaw: scatter.source,

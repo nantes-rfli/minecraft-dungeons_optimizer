@@ -217,7 +217,7 @@ describe('Formal Value / Availability v1 projection', () => {
   it('gates each slice on matched same-source Identity without presentation', () => {
     const noPresentation = build(fixtures(), (inputs) => { delete inputs.scatterCrossbowIdentity.presentation })
     expect(noPresentation.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([0])
-    const wrongSource = build(fixtures(), (inputs) => { inputs.scatterCrossbowIdentityEvidence[0]!.provenance.packageHash!.value = 'other' })
+    const wrongSource = build(fixtures(), (inputs) => { Object.assign(inputs.scatterCrossbowIdentityEvidence[0]!.provenance.packageHash!, { value: 'other' }) })
     expect(wrongSource.semantic.scatterCrossbow).toEqual({})
     expect(wrongSource.valueProjections.filter(({ occurrence }) => occurrence.slice === 'scatter-crossbow')).toEqual([])
     const unresolved = build(fixtures(), (inputs) => { inputs.fightersBindingsIdentity.resolution = {
@@ -293,7 +293,7 @@ describe('Formal Value / Availability v1 integrity audit', () => {
     expect(collectFormalValueAvailabilityErrors(dangling)).toContainEqual(expect.stringContaining('dangling EvidenceRef'))
 
     const mismatch = clone(build())
-    mismatch.semantic.fightersBindings.configuredAttacks!.evidenceRefs = [mismatch.valueProjections[1]!.evidenceRefs[0]]
+    mismatch.semantic.fightersBindings.configuredAttacks!.evidenceRefs = [mismatch.valueProjections[1]!.evidenceRefs![0]]
     expect(collectFormalValueAvailabilityErrors(mismatch)).toContainEqual(expect.stringContaining('semantic/projection EvidenceRef mismatch'))
   })
 })

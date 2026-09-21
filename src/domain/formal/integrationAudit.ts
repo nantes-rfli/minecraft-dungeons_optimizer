@@ -72,7 +72,8 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
       } else if (record.result === 'unavailable' && record.failureKind === 'dependency') {
         check(record.reason === 'target-snapshot-not-supplied', `${record.projectionId}: resolved Relation dependency failure mismatch`)
       } else {
-        const target = relation.provenance.evidence.find((item) => item.id === dependency.targetResolution.targetEvidenceRef)
+        const targetRef = 'targetEvidenceRef' in dependency.targetResolution ? dependency.targetResolution.targetEvidenceRef : undefined
+        const target = targetRef ? relation.provenance.evidence.find((item) => item.id === targetRef) : undefined
         for (const ref of record.evidenceRefs ?? []) {
           const evidence = value.provenance.evidence.find((item) => item.id === ref)
           check(Boolean(target && evidence && sameRawSource(evidence.provenance, target.provenance)), `${record.projectionId}: resolved target snapshot mismatch`)

@@ -252,8 +252,9 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
         const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
         const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
           && semanticRelation[0]?.sourceDomainId === scatterCrossbowFormalIdentity.assertion.domainId
-        const target = relationReady && relation.targetResolution.result === 'resolved'
-          ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === relation.targetResolution.targetEvidenceRef) : undefined
+        const targetRef = relationReady && relation.targetResolution.result === 'resolved' && 'targetEvidenceRef' in relation.targetResolution
+          ? relation.targetResolution.targetEvidenceRef : undefined
+        const target = targetRef ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === targetRef) : undefined
         const targetReady = Boolean(relationReady && relation.targetResolution.result === 'resolved'
           && target && inputs.scatterCrossbowProjectileRaw && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)))
         const targetFields = targetReady ? readScatterTarget(inputs.scatterCrossbowProjectileRaw!) : undefined
@@ -269,7 +270,7 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
               : relation.targetResolution.result !== 'resolved' ? relation.targetResolution.reason ?? 'target-not-resolved'
                 : !inputs.scatterCrossbowProjectileRaw ? 'target-snapshot-not-supplied' : 'target-snapshot-mismatch',
             relation?.projectionRef); continue }
-          const value = addProjection(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
+          const value = addProjection<number | boolean>(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
           if (value) Object.assign(semantic, { [key]: value })
         }
         return semantic
