@@ -1,0 +1,493 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "formal-domain-identity-evidence",
+  "semantic": {
+    "identities": [
+      {
+        "assertionId": "identity:fighters-bindings@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Gauntlets_Unique3",
+            "evidenceRef": "evidence:raw:identity:fighters-bindings@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Gauntlets_Unique3",
+            "evidenceRef": "evidence:raw:identity:fighters-bindings@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:fighters-bindings@1",
+          "domainId": "fighters-bindings",
+          "evidenceRefs": [
+            "evidence:raw:identity:fighters-bindings@1:ItemIdName",
+            "evidence:raw:identity:fighters-bindings@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "fighters-bindings",
+          "displayName": "Fighter's Bindings",
+          "evidenceRefs": [
+            "evidence:presentation:fighters-bindings:catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:scatter-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ScatterCrossbow",
+            "evidenceRef": "evidence:raw:identity:scatter-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ScatterCrossbow",
+            "evidenceRef": "evidence:raw:identity:scatter-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:scatter-crossbow@1",
+          "domainId": "scatter-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:scatter-crossbow@1:ItemIdName",
+            "evidence:raw:identity:scatter-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "scatter-crossbow",
+          "displayName": "Scatter Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:scatter-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:battle-robe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BattleRobe",
+            "evidenceRef": "evidence:raw:identity:battle-robe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BattleRobe",
+            "evidenceRef": "evidence:raw:identity:battle-robe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:battle-robe@1",
+          "domainId": "battle-robe",
+          "evidenceRefs": [
+            "evidence:raw:identity:battle-robe@1:ItemIdName",
+            "evidence:raw:identity:battle-robe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "battle-robe",
+          "displayName": "Battle Robe",
+          "evidenceRefs": [
+            "evidence:presentation:battle-robe:catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:death-cap-mushroom@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "DeathCapMushroom",
+            "evidenceRef": "evidence:raw:identity:death-cap-mushroom@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "DeathCapMushroom",
+            "evidenceRef": "evidence:raw:identity:death-cap-mushroom@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:death-cap-mushroom@1",
+          "domainId": "death-cap-mushroom",
+          "evidenceRefs": [
+            "evidence:raw:identity:death-cap-mushroom@1:ItemIdName",
+            "evidence:raw:identity:death-cap-mushroom@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "death-cap-mushroom",
+          "displayName": "Death Cap Mushroom",
+          "evidenceRefs": [
+            "evidence:presentation:death-cap-mushroom:catalog"
+          ]
+        }
+      }
+    ]
+  },
+  "identityAssertions": [
+    {
+      "id": "identity:fighters-bindings@1",
+      "rawIdentity": "Gauntlets_Unique3",
+      "domainId": "fighters-bindings",
+      "reviewState": "provisional",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:fighters-bindings:historical-mapping",
+        "evidence:reviewed:fighters-bindings:alias-limitation",
+        "evidence:reviewed:fighters-bindings:icon-conflict"
+      ]
+    },
+    {
+      "id": "identity:scatter-crossbow@1",
+      "rawIdentity": "ScatterCrossbow",
+      "domainId": "scatter-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:scatter-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:battle-robe@1",
+      "rawIdentity": "BattleRobe",
+      "domainId": "battle-robe",
+      "reviewState": "provisional",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:battle-robe:catalog-limitation"
+      ]
+    },
+    {
+      "id": "identity:death-cap-mushroom@1",
+      "rawIdentity": "DeathCapMushroom",
+      "domainId": "death-cap-mushroom",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:death-cap-mushroom:accepted-alias"
+      ]
+    }
+  ],
+  "provenance": {
+    "evidence": [
+      {
+        "id": "evidence:reviewed:fighters-bindings:historical-mapping",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Historical hard-coded association claimed exact-via-serialized-id without a reviewed name bridge.",
+        "source": {
+          "artifactPath": "scripts/audit-attack-event-comparison.ts",
+          "locator": "mappings",
+          "revision": "cb22dede14bfba88d15e1539c2b68d1bf4f8f649"
+        },
+        "fingerprint": "fnv1a32:77f1bb0b"
+      },
+      {
+        "id": "evidence:reviewed:fighters-bindings:alias-limitation",
+        "kind": "reviewed",
+        "role": "limitation",
+        "detail": "The repository alias remains unresolved; the unique variant does not establish a reviewed name equivalence.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Gauntlets_Unique3]"
+        },
+        "fingerprint": "fnv1a32:32d235bd"
+      },
+      {
+        "id": "evidence:reviewed:fighters-bindings:icon-conflict",
+        "kind": "reviewed",
+        "role": "conflict",
+        "detail": "An ordinal icon heuristic historically associated the same package family with another catalog identity and is not authoritative identity evidence.",
+        "source": {
+          "artifactPath": "generated/equipment-icons/manifest.json",
+          "locator": "entries[sourcePackage=.../Gauntlets_Unique3]"
+        },
+        "fingerprint": "fnv1a32:08a007ca"
+      },
+      {
+        "id": "evidence:presentation:fighters-bindings:catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Repository presentation catalog supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "src/data/weapons.ts",
+          "locator": "WEAPONS['fighters-bindings'].name.en"
+        },
+        "fingerprint": "fnv1a32:e93b9351"
+      },
+      {
+        "id": "evidence:raw:identity:fighters-bindings@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Gauntlets_Unique3"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/3"
+        },
+        "fingerprint": "fnv1a32:9ae96a28"
+      },
+      {
+        "id": "evidence:raw:identity:fighters-bindings@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Gauntlets_Unique3"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:65c181dc"
+      },
+      {
+        "id": "evidence:reviewed:scatter-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:ScatterCrossbow]"
+        },
+        "fingerprint": "fnv1a32:19565e6c"
+      },
+      {
+        "id": "evidence:presentation:scatter-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=scatter-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:8fc86674"
+      },
+      {
+        "id": "evidence:raw:identity:scatter-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ScatterCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/5"
+        },
+        "fingerprint": "fnv1a32:dfb1ae88"
+      },
+      {
+        "id": "evidence:raw:identity:scatter-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ScatterCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:53a0b950"
+      },
+      {
+        "id": "evidence:reviewed:battle-robe:catalog-limitation",
+        "kind": "reviewed",
+        "role": "limitation",
+        "detail": "The repository catalog association is useful but is not an authoritative game-source identity bridge.",
+        "source": {
+          "artifactPath": "src/data/armors.ts",
+          "locator": "ARMORS['battle-robe']"
+        },
+        "fingerprint": "fnv1a32:27198c9d"
+      },
+      {
+        "id": "evidence:presentation:battle-robe:catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Repository presentation catalog supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "src/data/armors.ts",
+          "locator": "ARMORS['battle-robe'].name.en"
+        },
+        "fingerprint": "fnv1a32:1a54ba4d"
+      },
+      {
+        "id": "evidence:raw:identity:battle-robe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BattleRobe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/objects/1/properties/2"
+        },
+        "fingerprint": "fnv1a32:2204e58d"
+      },
+      {
+        "id": "evidence:raw:identity:battle-robe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BattleRobe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/objects/1/properties/3/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:d96a64d7"
+      },
+      {
+        "id": "evidence:reviewed:death-cap-mushroom:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:DeathCapMushroom]"
+        },
+        "fingerprint": "fnv1a32:7b208e79"
+      },
+      {
+        "id": "evidence:presentation:death-cap-mushroom:catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Repository presentation catalog supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "src/data/artifacts.ts",
+          "locator": "ARTIFACTS['death-cap-mushroom'].name.en"
+        },
+        "fingerprint": "fnv1a32:1a40dd49"
+      },
+      {
+        "id": "evidence:raw:identity:death-cap-mushroom@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "DeathCapMushroom"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/objects/1/properties/2"
+        },
+        "fingerprint": "fnv1a32:dfb1a671"
+      },
+      {
+        "id": "evidence:raw:identity:death-cap-mushroom@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "DeathCapMushroom"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/objects/1/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a6c451a7"
+      }
+    ]
+  }
+}

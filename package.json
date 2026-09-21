@@ -97,7 +97,9 @@
     "generate:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts --write",
     "audit:battle-robe-domain": "node scripts/audit-battle-robe-domain.ts",
     "generate:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts --write",
-    "audit:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts"
+    "audit:death-cap-mushroom-domain": "node scripts/audit-death-cap-mushroom-domain.ts",
+    "generate:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts --write",
+    "audit:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts"
   },
   "dependencies": {
     "react": "19.2.6",
