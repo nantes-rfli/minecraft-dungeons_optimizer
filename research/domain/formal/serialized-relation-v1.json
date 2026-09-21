@@ -1,0 +1,1055 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "formal-domain-serialized-relation",
+  "semantic": {
+    "relations": [
+      {
+        "projectionRef": "projection:relation:scatter-crossbow:projectile@1:0",
+        "relationRef": "relation:scatter-crossbow:projectile@1",
+        "occurrence": {
+          "slice": "scatter-crossbow",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "scatter-crossbow",
+        "target": {
+          "objectName": "BP_ScatterCrossBow_Arrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:ceb9e8a6",
+          "evidence:relation:fnv1a32:92b67804",
+          "evidence:relation:fnv1a32:3f464436"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:battle-robe:gear-actor@1:source",
+        "relationRef": "relation:battle-robe:gear-actor@1",
+        "occurrence": {
+          "slice": "battle-robe",
+          "scope": "source"
+        },
+        "sourceDomainId": "battle-robe",
+        "target": {
+          "objectName": "BP_BattleRobe_C",
+          "gamePackagePath": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:b0d081f0",
+          "evidence:relation:fnv1a32:15e0a101",
+          "evidence:relation:fnv1a32:6b16a9b2"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:death-cap-mushroom:effect@1:source",
+        "relationRef": "relation:death-cap-mushroom:effect@1",
+        "occurrence": {
+          "slice": "death-cap-mushroom",
+          "scope": "source"
+        },
+        "sourceDomainId": "death-cap-mushroom",
+        "target": {
+          "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:3fdad001",
+          "evidence:relation:fnv1a32:03ca17cb",
+          "evidence:relation:fnv1a32:865c31f6"
+        ]
+      }
+    ]
+  },
+  "scatterParent": {
+    "result": "projected",
+    "evidenceRef": "evidence:relation:fnv1a32:2d64c02c",
+    "sourceIndices": [
+      0
+    ]
+  },
+  "relationProjections": [
+    {
+      "projectionRef": "projection:relation:scatter-crossbow:projectile@1:0",
+      "relationRef": "relation:scatter-crossbow:projectile@1",
+      "occurrence": {
+        "slice": "scatter-crossbow",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:ceb9e8a6",
+        "evidence:relation:fnv1a32:92b67804",
+        "evidence:relation:fnv1a32:3f464436"
+      ],
+      "result": "projected",
+      "targetResolution": {
+        "input": "supplied",
+        "targetEvidenceRef": "evidence:relation:fnv1a32:a615b8e4",
+        "result": "resolved"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:battle-robe:gear-actor@1:source",
+      "relationRef": "relation:battle-robe:gear-actor@1",
+      "occurrence": {
+        "slice": "battle-robe",
+        "scope": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:b0d081f0",
+        "evidence:relation:fnv1a32:15e0a101",
+        "evidence:relation:fnv1a32:6b16a9b2"
+      ],
+      "result": "projected",
+      "targetResolution": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:death-cap-mushroom:effect@1:source",
+      "relationRef": "relation:death-cap-mushroom:effect@1",
+      "occurrence": {
+        "slice": "death-cap-mushroom",
+        "scope": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:3fdad001",
+        "evidence:relation:fnv1a32:03ca17cb",
+        "evidence:relation:fnv1a32:865c31f6"
+      ],
+      "result": "projected",
+      "targetResolution": {
+        "input": "supplied",
+        "targetEvidenceRef": "evidence:relation:fnv1a32:401fd453",
+        "result": "resolved"
+      }
+    }
+  ],
+  "provenance": {
+    "evidence": [
+      {
+        "id": "evidence:relation:fnv1a32:2d64c02c",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1"
+        },
+        "observed": {
+          "order": 1,
+          "name": {
+            "nameIndex": 78,
+            "number": 0,
+            "value": "ProjectileDefinition"
+          },
+          "type": {
+            "nameIndex": 23,
+            "number": 0,
+            "value": "ArrayProperty"
+          },
+          "arrayIndex": 0,
+          "path": "AttackDefintion.ProjectileDefinition",
+          "serializedSize": 351,
+          "byteRanges": {
+            "tag": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+              "start": 183,
+              "end": 567
+            },
+            "value": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+              "start": 216,
+              "end": 567
+            }
+          },
+          "metadata": {
+            "innerType": "StructProperty",
+            "innerTypeReference": {
+              "nameIndex": 109,
+              "number": 0,
+              "value": "StructProperty"
+            },
+            "arrayStruct": {
+              "wrapperName": {
+                "nameIndex": 78,
+                "number": 0,
+                "value": "ProjectileDefinition"
+              },
+              "wrapperType": {
+                "nameIndex": 109,
+                "number": 0,
+                "value": "StructProperty"
+              },
+              "wrapperSerializedSize": 298,
+              "wrapperArrayIndex": 0,
+              "structType": {
+                "nameIndex": 83,
+                "number": 0,
+                "value": "RangedAttackProjectileSpawnDescription"
+              },
+              "structGuid": "00000000000000000000000000000000"
+            }
+          },
+          "decoding": {
+            "state": "decoded",
+            "elements": [
+              {
+                "index": 0,
+                "decoding": {
+                  "state": "decoded"
+                },
+                "properties": [
+                  {
+                    "order": 0,
+                    "name": {
+                      "nameIndex": 76,
+                      "number": 0,
+                      "value": "Projectile"
+                    },
+                    "type": {
+                      "nameIndex": 69,
+                      "number": 0,
+                      "value": "ObjectProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 269,
+                        "end": 298
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 294,
+                        "end": 298
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": {
+                        "rawPackageIndex": -5,
+                        "kind": "import",
+                        "index": 4,
+                        "objectName": "BP_ScatterCrossBow_Arrow_C",
+                        "className": "BlueprintGeneratedClass"
+                      }
+                    }
+                  },
+                  {
+                    "order": 1,
+                    "name": {
+                      "nameIndex": 67,
+                      "number": 0,
+                      "value": "NumberOfProjectiles"
+                    },
+                    "type": {
+                      "nameIndex": 58,
+                      "number": 0,
+                      "value": "IntProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 298,
+                        "end": 327
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 323,
+                        "end": 327
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 3
+                    }
+                  },
+                  {
+                    "order": 2,
+                    "name": {
+                      "nameIndex": 49,
+                      "number": 0,
+                      "value": "DelaySeconds"
+                    },
+                    "type": {
+                      "nameIndex": 53,
+                      "number": 0,
+                      "value": "FloatProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 327,
+                        "end": 356
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 352,
+                        "end": 356
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "order": 3,
+                    "name": {
+                      "nameIndex": 50,
+                      "number": 0,
+                      "value": "DelaySecondsPerProjectile"
+                    },
+                    "type": {
+                      "nameIndex": 53,
+                      "number": 0,
+                      "value": "FloatProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 356,
+                        "end": 385
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 381,
+                        "end": 385
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 0.029999999329447746
+                    }
+                  },
+                  {
+                    "order": 4,
+                    "name": {
+                      "nameIndex": 19,
+                      "number": 0,
+                      "value": "AngleSpan"
+                    },
+                    "type": {
+                      "nameIndex": 53,
+                      "number": 0,
+                      "value": "FloatProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 385,
+                        "end": 414
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 410,
+                        "end": 414
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 20
+                    }
+                  },
+                  {
+                    "order": 5,
+                    "name": {
+                      "nameIndex": 18,
+                      "number": 0,
+                      "value": "AngleOffset"
+                    },
+                    "type": {
+                      "nameIndex": 53,
+                      "number": 0,
+                      "value": "FloatProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 414,
+                        "end": 443
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 439,
+                        "end": 443
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "order": 6,
+                    "name": {
+                      "nameIndex": 62,
+                      "number": 0,
+                      "value": "MaxRandomizedAngleFactor"
+                    },
+                    "type": {
+                      "nameIndex": 53,
+                      "number": 0,
+                      "value": "FloatProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+                    "serializedSize": 4,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 443,
+                        "end": 472
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 468,
+                        "end": 472
+                      }
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": 0.75
+                    }
+                  },
+                  {
+                    "order": 7,
+                    "name": {
+                      "nameIndex": 65,
+                      "number": 0,
+                      "value": "NonRandomFirstArrow"
+                    },
+                    "type": {
+                      "nameIndex": 30,
+                      "number": 0,
+                      "value": "BoolProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+                    "serializedSize": 0,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 472,
+                        "end": 498
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 498,
+                        "end": 498
+                      }
+                    },
+                    "metadata": {
+                      "enumType": "true",
+                      "boolValue": true
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": true
+                    }
+                  },
+                  {
+                    "order": 8,
+                    "name": {
+                      "nameIndex": 79,
+                      "number": 0,
+                      "value": "ProjectileOffset"
+                    },
+                    "type": {
+                      "nameIndex": 109,
+                      "number": 0,
+                      "value": "StructProperty"
+                    },
+                    "arrayIndex": 0,
+                    "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+                    "serializedSize": 12,
+                    "byteRanges": {
+                      "tag": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 498,
+                        "end": 559
+                      },
+                      "value": {
+                        "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+                        "start": 547,
+                        "end": 559
+                      }
+                    },
+                    "metadata": {
+                      "structType": "Vector",
+                      "structTypeReference": {
+                        "nameIndex": 112,
+                        "number": 0,
+                        "value": "Vector"
+                      },
+                      "structGuid": "00000000000000000000000000000000"
+                    },
+                    "decoding": {
+                      "state": "decoded",
+                      "value": {
+                        "X": 45,
+                        "Y": 0,
+                        "Z": 25
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "fingerprint": "fnv1a32:ec339a9b"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:ceb9e8a6",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1/decoding/elements/0/properties/0"
+        },
+        "observed": {
+          "order": 0,
+          "name": {
+            "nameIndex": 76,
+            "number": 0,
+            "value": "Projectile"
+          },
+          "type": {
+            "nameIndex": 69,
+            "number": 0,
+            "value": "ObjectProperty"
+          },
+          "arrayIndex": 0,
+          "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+          "serializedSize": 4,
+          "byteRanges": {
+            "tag": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+              "start": 269,
+              "end": 298
+            },
+            "value": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.uexp",
+              "start": 294,
+              "end": 298
+            }
+          },
+          "decoding": {
+            "state": "decoded",
+            "value": {
+              "rawPackageIndex": -5,
+              "kind": "import",
+              "index": 4,
+              "objectName": "BP_ScatterCrossBow_Arrow_C",
+              "className": "BlueprintGeneratedClass"
+            }
+          }
+        },
+        "fingerprint": "fnv1a32:82e5aa4c"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:92b67804",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/imports/4"
+        },
+        "observed": {
+          "index": 4,
+          "classPackage": {
+            "nameIndex": 16,
+            "number": 0,
+            "value": "/Script/Engine"
+          },
+          "className": {
+            "nameIndex": 29,
+            "number": 0,
+            "value": "BlueprintGeneratedClass"
+          },
+          "outerIndex": -21,
+          "objectName": {
+            "nameIndex": 32,
+            "number": 0,
+            "value": "BP_ScatterCrossBow_Arrow_C"
+          },
+          "byteRange": {
+            "start": 4227,
+            "end": 4255
+          },
+          "rawPackageIndex": -5,
+          "outerReference": {
+            "rawPackageIndex": -21,
+            "kind": "import",
+            "index": 20,
+            "objectName": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+            "className": "Package"
+          }
+        },
+        "fingerprint": "fnv1a32:37a97578"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:3f464436",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/imports/20"
+        },
+        "observed": {
+          "index": 20,
+          "classPackage": {
+            "nameIndex": 14,
+            "number": 0,
+            "value": "/Script/CoreUObject"
+          },
+          "className": {
+            "nameIndex": 71,
+            "number": 0,
+            "value": "Package"
+          },
+          "outerIndex": 0,
+          "objectName": {
+            "nameIndex": 3,
+            "number": 0,
+            "value": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+          },
+          "byteRange": {
+            "start": 4675,
+            "end": 4703
+          },
+          "rawPackageIndex": -21,
+          "outerReference": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "fingerprint": "fnv1a32:56d2e4a5"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:a615b8e4",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+          }
+        },
+        "observed": {
+          "schemaVersion": 2,
+          "dataset": {
+            "id": "mcd-quickbms-local-1.17.0.0-823acded",
+            "claimedGameVersion": "1.17.0.0",
+            "claimedGameVersionStatus": "claimed",
+            "sourceFingerprint": {
+              "algorithm": "sha256-path-size-v1",
+              "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+            }
+          },
+          "logicalPackage": {
+            "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+            "sourceFiles": [
+              {
+                "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uasset",
+                "size": 6788,
+                "sha256": "c6b852f0a4f2390c3bcca3d8e9e441df227df138a0365705f30880c5d396a73c"
+              },
+              {
+                "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.uexp",
+                "size": 3383,
+                "sha256": "3bb75a740544bd29736712c9f778df4d1ec8eace2f032fc79ebb65f136c51587"
+              }
+            ],
+            "contentHash": {
+              "algorithm": "sha256-path-content-v1",
+              "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+            }
+          }
+        },
+        "fingerprint": "fnv1a32:b5ff128a"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:b0d081f0",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/objects/1/properties/0"
+        },
+        "observed": {
+          "order": 0,
+          "name": {
+            "nameIndex": 27,
+            "number": 0,
+            "value": "GearActor"
+          },
+          "type": {
+            "nameIndex": 36,
+            "number": 0,
+            "value": "ObjectProperty"
+          },
+          "arrayIndex": 0,
+          "path": "GearActor",
+          "serializedSize": 4,
+          "byteRanges": {
+            "tag": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "value": {
+              "sourceFile": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "decoding": {
+            "state": "decoded",
+            "value": {
+              "rawPackageIndex": -2,
+              "kind": "import",
+              "index": 1,
+              "objectName": "BP_BattleRobe_C",
+              "className": "BlueprintGeneratedClass"
+            }
+          }
+        },
+        "fingerprint": "fnv1a32:a7ca940c"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:15e0a101",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/imports/1"
+        },
+        "observed": {
+          "index": 1,
+          "classPackage": {
+            "nameIndex": 6,
+            "number": 0,
+            "value": "/Script/Engine"
+          },
+          "className": {
+            "nameIndex": 10,
+            "number": 0,
+            "value": "BlueprintGeneratedClass"
+          },
+          "outerIndex": -12,
+          "objectName": {
+            "nameIndex": 11,
+            "number": 0,
+            "value": "BP_BattleRobe_C"
+          },
+          "byteRange": {
+            "start": 1854,
+            "end": 1882
+          },
+          "rawPackageIndex": -2,
+          "outerReference": {
+            "rawPackageIndex": -12,
+            "kind": "import",
+            "index": 11,
+            "objectName": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe",
+            "className": "Package"
+          }
+        },
+        "fingerprint": "fnv1a32:f32cec84"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:6b16a9b2",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0e7ec65da6f7ff54d0deeaef2a6b6dd9ab14bb97d7201ebc02b9a451b5f5ad46",
+          "packagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684"
+          },
+          "nodePointer": "/package/imports/11"
+        },
+        "observed": {
+          "index": 11,
+          "classPackage": {
+            "nameIndex": 4,
+            "number": 0,
+            "value": "/Script/CoreUObject"
+          },
+          "className": {
+            "nameIndex": 37,
+            "number": 0,
+            "value": "Package"
+          },
+          "outerIndex": 0,
+          "objectName": {
+            "nameIndex": 0,
+            "number": 0,
+            "value": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+          },
+          "byteRange": {
+            "start": 2134,
+            "end": 2162
+          },
+          "rawPackageIndex": -12,
+          "outerReference": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "fingerprint": "fnv1a32:6b4b2604"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:3fdad001",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/objects/1/properties/0"
+        },
+        "observed": {
+          "order": 0,
+          "name": {
+            "nameIndex": 34,
+            "number": 0,
+            "value": "Effect"
+          },
+          "type": {
+            "nameIndex": 45,
+            "number": 0,
+            "value": "ObjectProperty"
+          },
+          "arrayIndex": 0,
+          "path": "Effect",
+          "serializedSize": 4,
+          "byteRanges": {
+            "tag": {
+              "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "value": {
+              "sourceFile": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "decoding": {
+            "state": "decoded",
+            "value": {
+              "rawPackageIndex": -3,
+              "kind": "import",
+              "index": 2,
+              "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+              "className": "BlueprintGeneratedClass"
+            }
+          }
+        },
+        "fingerprint": "fnv1a32:9c2d4600"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:03ca17cb",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/imports/2"
+        },
+        "observed": {
+          "index": 2,
+          "classPackage": {
+            "nameIndex": 9,
+            "number": 0,
+            "value": "/Script/Engine"
+          },
+          "className": {
+            "nameIndex": 13,
+            "number": 0,
+            "value": "BlueprintGeneratedClass"
+          },
+          "outerIndex": -19,
+          "objectName": {
+            "nameIndex": 15,
+            "number": 0,
+            "value": "BP_DeathCapMushroomGameplayEffect_C"
+          },
+          "byteRange": {
+            "start": 2318,
+            "end": 2346
+          },
+          "rawPackageIndex": -3,
+          "outerReference": {
+            "rawPackageIndex": -19,
+            "kind": "import",
+            "index": 18,
+            "objectName": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+            "className": "Package"
+          }
+        },
+        "fingerprint": "fnv1a32:78b97741"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:865c31f6",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ba80b2a95c9a6883e2c86fe860c3811b6bffb46d968dd1bf6a83512f3dee5682",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/package/imports/18"
+        },
+        "observed": {
+          "index": 18,
+          "classPackage": {
+            "nameIndex": 7,
+            "number": 0,
+            "value": "/Script/CoreUObject"
+          },
+          "className": {
+            "nameIndex": 46,
+            "number": 0,
+            "value": "Package"
+          },
+          "outerIndex": 0,
+          "objectName": {
+            "nameIndex": 2,
+            "number": 0,
+            "value": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect"
+          },
+          "byteRange": {
+            "start": 2766,
+            "end": 2794
+          },
+          "rawPackageIndex": -19,
+          "outerReference": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          }
+        },
+        "fingerprint": "fnv1a32:9da7713d"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:401fd453",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b5897b8ebc25497b6242bffc3487778cf5a3331c5564e8098bef5b2082b741ca",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "70d8ee04479f796280089d43088019420547c1c31bd050591674dfa0d33794fc"
+          }
+        },
+        "observed": {
+          "schemaVersion": 2,
+          "dataset": {
+            "id": "mcd-quickbms-local-1.17.0.0-823acded",
+            "claimedGameVersion": "1.17.0.0",
+            "claimedGameVersionStatus": "claimed",
+            "sourceFingerprint": {
+              "algorithm": "sha256-path-size-v1",
+              "value": "823acdedfa8a1533f5fe5e4106d7fd6a1613a977b4319e866b16d3236e00fda6"
+            }
+          },
+          "logicalPackage": {
+            "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect",
+            "sourceFiles": [
+              {
+                "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uasset",
+                "size": 1551,
+                "sha256": "f473d0a6e015d656df24eb797f143d368d268f77ded11fca0ebe6fd6ec9e23ad"
+              },
+              {
+                "path": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.uexp",
+                "size": 129,
+                "sha256": "5b589c7bf256ee468679eb002701ad074793a7f5fee9fdd1f74d76db39e980c6"
+              }
+            ],
+            "contentHash": {
+              "algorithm": "sha256-path-content-v1",
+              "value": "70d8ee04479f796280089d43088019420547c1c31bd050591674dfa0d33794fc"
+            }
+          }
+        },
+        "fingerprint": "fnv1a32:6024b21e"
+      }
+    ]
+  }
+}

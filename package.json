@@ -101,7 +101,9 @@
     "generate:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts --write",
     "audit:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts",
     "generate:formal-value-availability": "node scripts/audit-formal-value-availability.ts --write",
-    "audit:formal-value-availability": "node scripts/audit-formal-value-availability.ts"
+    "audit:formal-value-availability": "node scripts/audit-formal-value-availability.ts",
+    "generate:formal-serialized-relation": "node scripts/audit-formal-serialized-relation.ts --write",
+    "audit:formal-serialized-relation": "node scripts/audit-formal-serialized-relation.ts"
   },
   "dependencies": {
     "react": "19.2.6",
