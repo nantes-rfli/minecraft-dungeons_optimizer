@@ -34,6 +34,8 @@ For a match, `resolution.domainId` is materialized from the referenced assertion
 
 Every assertion, resolution, observation, and presentation `EvidenceRef` resolves within the same artifact. The audit rejects duplicate IDs, dangling refs, mismatched semantic/Raw observations, assertion/resolution evidence mixing, and evidence content changed without updating its stored fingerprint. Fingerprints are drift tripwires, not cryptographic authenticity claims.
 
+The audit also grounds the four current reviewed assertions and presentations in their known source records. It directly checks the two accepted alias records, the Fighter's Bindings unresolved alias plus historical mapping and icon conflict, the Battle Robe catalog and absence of an accepted bridge in the known alias source, and all four current English presentation names. These are explicit slice checks, not a generic locator resolver.
+
 Generate and verify with:
 
 ```bash

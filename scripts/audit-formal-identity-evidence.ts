@@ -7,8 +7,10 @@ import {
 } from '../src/domain/formal/identityEvidence.ts'
 import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
+import { collectFormalReviewedSourceGroundingErrors, readFormalReviewedSources } from './formal-identity-source-grounding.ts'
 
 const root = new URL('..', import.meta.url)
+const repositoryRoot = fs.realpathSync(root)
 const readRaw = (packagePath: string) => JSON.parse(fs.readFileSync(new URL(`research/raw/packages/${packagePath}.raw.json`, root), 'utf8')) as RawPackageSnapshot
 const artifact = buildFormalIdentityEvidenceArtifact(formalIdentityDefinitions.map((definition) => ({
   definition,
@@ -34,6 +36,7 @@ assert.deepEqual([...roles].sort(), ['conflict', 'limitation', 'support'])
 for (const record of artifact.provenance.evidence) {
   if (record.kind === 'reviewed') assert.ok(fs.existsSync(new URL(record.source.artifactPath, root)), `${record.id}: source artifact missing`)
 }
+assert.deepEqual(collectFormalReviewedSourceGroundingErrors(readFormalReviewedSources(repositoryRoot)), [])
 
 const target = new URL('research/domain/formal/identity-evidence-v1.json', root)
 const serialized = `${JSON.stringify(artifact, null, 2)}\n`
@@ -42,4 +45,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Identity/Evidence artifact drift; run generate:formal-identity-evidence')
-console.log('Formal Identity/Evidence v1 audit passed: 4 matched identities, review/resolution separation, same-artifact provenance, and EvidenceRef integrity.')
+console.log('Formal Identity/Evidence v1 audit passed: 4 matched identities, reviewed-source grounding, same-artifact provenance, and EvidenceRef integrity.')
