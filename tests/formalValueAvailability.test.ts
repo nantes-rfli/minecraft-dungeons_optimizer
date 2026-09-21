@@ -1,0 +1,214 @@
+import fs from 'node:fs'
+import { describe, expect, it } from 'vitest'
+import {
+  buildFormalValueAvailabilityArtifact,
+  collectFormalValueAvailabilityErrors,
+  valueProjectionRef,
+  type FormalValueAvailabilityArtifact,
+} from '../src/domain/formal/valueAvailability.ts'
+import { fightersBindingsMappings } from '../src/domain/temporary/fightersBindings.ts'
+import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
+import { scatterCrossbowMappings } from '../src/domain/temporary/scatterCrossbow.ts'
+import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
+
+const read = (path: string) => fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')
+const fightersText = read(fightersBindingsIdentity.packagePath)
+const scatterInstanceText = read(scatterCrossbowIdentity.instancePackagePath)
+const scatterProjectileText = read(scatterCrossbowIdentity.projectilePackagePath)
+const fixtures = () => ({
+  fightersBindingsRaw: JSON.parse(fightersText),
+  scatterCrossbowInstanceRaw: JSON.parse(scatterInstanceText),
+  scatterCrossbowProjectileRaw: JSON.parse(scatterProjectileText),
+})
+const build = (input = fixtures()) => buildFormalValueAvailabilityArtifact(input)
+const clone = (artifact: FormalValueAvailabilityArtifact): FormalValueAvailabilityArtifact => structuredClone(artifact)
+const fighterElements = (input: ReturnType<typeof fixtures>) => input.fightersBindingsRaw.package.objects[1].properties[0].decoding.elements
+const fighterDamage = (input: ReturnType<typeof fixtures>, position = 0) => fighterElements(input)[position].properties.find((node: { name: { value: string } }) => node.name.value === 'Damage')
+const scatterDefinitionNode = (input: ReturnType<typeof fixtures>) => input.scatterCrossbowInstanceRaw.package.objects[1].properties[0].decoding.properties[1]
+const scatterDefinitionProperties = (input: ReturnType<typeof fixtures>) => scatterDefinitionNode(input).decoding.elements[0].properties
+
+describe('Formal Value / Availability v1 projection', () => {
+  it('projects only the specified source-backed semantic values with resolvable evidence', () => {
+    const artifact = build()
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+    expect(artifact.semantic.fightersBindings.configuredAttacks?.value).toEqual([0, 1, 2, 3])
+    expect(artifact.semantic.fightersBindings.attacks?.map(({ configuredDamage }) => configuredDamage?.value)).toEqual([25, 25, 25, 25])
+    expect(artifact.semantic.scatterCrossbow.configuredProjectileVelocityFactor?.value).toBe(1.100000023841858)
+    expect(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([0])
+    expect(artifact.semantic.scatterCrossbow.projectileDefinitions?.[0]).toMatchObject({
+      configuredProjectileCount: { value: 3 },
+      configuredAngleSpan: { value: 20 },
+      configuredDelaySecondsPerProjectile: { value: 0.029999999329447746 },
+      configuredPushbackEnabled: { value: true },
+      configuredPushbackStrength: { value: 0.6000000238418579 },
+      configuredIgnoreFriendlyFire: { value: true },
+    })
+    const serialized = JSON.stringify(artifact)
+    expect(serialized).not.toContain('battle-robe')
+    expect(serialized).not.toContain('death-cap-mushroom')
+    expect(serialized).not.toContain('effectiveUptime')
+  })
+
+  it('keeps partial child failure at its sourceIndex without compacting successful entries', () => {
+    const input = fixtures()
+    fighterDamage(input, 1).decoding = { state: 'parse-failed' }
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings.configuredAttacks?.value).toEqual([0, 1, 2, 3])
+    expect(artifact.semantic.fightersBindings.attacks?.map(({ sourceIndex }) => sourceIndex)).toEqual([0, 1, 2, 3])
+    expect(artifact.semantic.fightersBindings.attacks?.[1]).not.toHaveProperty('configuredDamage')
+    expect(artifact.valueProjections).toContainEqual(expect.objectContaining({
+      mappingId: fightersBindingsMappings.damage.id,
+      occurrence: { slice: 'fighters-bindings', sourceIndex: 1 },
+      result: 'unavailable',
+      sourceState: 'parse-failed',
+    }))
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+  })
+
+  it('does not enumerate children when a parent collection fails', () => {
+    const input = fixtures()
+    input.fightersBindingsRaw.package.objects[1].properties[0].decoding = { state: 'not-extracted' }
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings).toEqual({})
+    expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'fighters-bindings')).toHaveLength(1)
+    expect(artifact.valueProjections[0]).toMatchObject({ result: 'unavailable', sourceState: 'not-extracted' })
+  })
+
+  it('treats a decoded empty collection as a projected empty semantic value with no children', () => {
+    const input = fixtures()
+    input.fightersBindingsRaw.package.objects[1].properties[0].decoding.elements = []
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings.configuredAttacks?.value).toEqual([])
+    expect(artifact.semantic.fightersBindings.attacks).toEqual([])
+    expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'fighters-bindings')).toHaveLength(1)
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+  })
+
+  it('preserves known zero and false by source state rather than truthiness', () => {
+    const input = fixtures()
+    fighterDamage(input).decoding.value = 0
+    scatterDefinitionProperties(input).find((node: { name: { value: string } }) => node.name.value === 'NumberOfProjectiles').decoding.value = 0
+    input.scatterCrossbowProjectileRaw.package.objects[2].properties[3].decoding.properties[0].decoding.value = false
+    input.scatterCrossbowProjectileRaw.package.objects[2].properties[5].decoding.value = false
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings.attacks?.[0]?.configuredDamage?.value).toBe(0)
+    expect(artifact.semantic.scatterCrossbow.projectileDefinitions?.[0]).toMatchObject({
+      configuredProjectileCount: { value: 0 },
+      configuredPushbackEnabled: { value: false },
+      configuredIgnoreFriendlyFire: { value: false },
+    })
+  })
+
+  it.each(['missing', 'duplicate'])('makes %s sourceIndex ambiguous and never substitutes array position', (kind) => {
+    const input = fixtures()
+    const elements = fighterElements(input)
+    if (kind === 'missing') delete elements[1].index
+    else elements[1].index = elements[0].index
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings).toEqual({})
+    expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'fighters-bindings')).toHaveLength(1)
+    expect(artifact.valueProjections[0]).toMatchObject({ result: 'unavailable', sourceState: 'unknown' })
+  })
+
+  it('uses preserved sourceIndex identity when output order changes', () => {
+    const input = fixtures()
+    fighterElements(input).reverse()
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings.configuredAttacks?.value).toEqual([3, 2, 1, 0])
+    expect(artifact.semantic.fightersBindings.attacks?.map(({ sourceIndex }) => sourceIndex)).toEqual([3, 2, 1, 0])
+    expect(artifact.semantic.fightersBindings.attacks?.[0]?.configuredDamage?.projectionRef).toBe(
+      valueProjectionRef(fightersBindingsMappings.damage.id, { slice: 'fighters-bindings', sourceIndex: 3 }),
+    )
+  })
+
+  it('records nested Scatter dependency failures after definition occurrence enumeration', () => {
+    const input = fixtures()
+    scatterDefinitionProperties(input)[0].decoding.value.rawPackageIndex = -4
+    const artifact = build(input)
+    expect(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([0])
+    const definition = artifact.semantic.scatterCrossbow.projectileDefinitions?.[0]
+    expect(definition).not.toHaveProperty('configuredPushbackEnabled')
+    expect(definition).not.toHaveProperty('configuredPushbackStrength')
+    expect(definition).not.toHaveProperty('configuredIgnoreFriendlyFire')
+    for (const mappingId of [scatterCrossbowMappings.pushbackEnabled.id, scatterCrossbowMappings.pushbackStrength.id, scatterCrossbowMappings.ignoreFriendlyFire.id]) {
+      expect(artifact.valueProjections).toContainEqual(expect.objectContaining({
+        mappingId,
+        occurrence: { slice: 'scatter-crossbow', sourceIndex: 0 },
+        result: 'unavailable',
+        reason: expect.stringContaining('Dependency/reference failure'),
+      }))
+    }
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+  })
+
+  it('does not infer Scatter children when definition enumeration fails', () => {
+    const input = fixtures()
+    scatterDefinitionNode(input).decoding = { state: 'parse-failed' }
+    const artifact = build(input)
+    expect(artifact.semantic.scatterCrossbow).not.toHaveProperty('configuredProjectileDefinitions')
+    expect(artifact.semantic.scatterCrossbow).not.toHaveProperty('projectileDefinitions')
+    expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'scatter-crossbow' && 'sourceIndex' in occurrence)).toEqual([])
+  })
+
+  it('keeps projection identity stable across value/result changes', () => {
+    const known = build()
+    const input = fixtures()
+    fighterDamage(input).decoding = { state: 'parse-failed' }
+    const unavailable = build(input)
+    const findDamage = (artifact: FormalValueAvailabilityArtifact) => artifact.valueProjections.find(({ mappingId, occurrence }) => mappingId === fightersBindingsMappings.damage.id && 'sourceIndex' in occurrence && occurrence.sourceIndex === 0)
+    expect(findDamage(known)?.result).toBe('projected')
+    expect(findDamage(unavailable)?.result).toBe('unavailable')
+    expect(findDamage(known)?.projectionId).toBe(findDamage(unavailable)?.projectionId)
+  })
+})
+
+describe('Formal Value / Availability v1 integrity audit', () => {
+  it('rejects duplicate occurrence records and the same occurrence with another projectionId', () => {
+    const duplicate = clone(build())
+    duplicate.valueProjections.push(structuredClone(duplicate.valueProjections[0]!))
+    expect(collectFormalValueAvailabilityErrors(duplicate)).toContainEqual(expect.stringContaining('duplicate (mappingId, occurrence)'))
+    const differentId = clone(build())
+    const copy = structuredClone(differentId.valueProjections[0]!)
+    copy.projectionId += ':other'
+    differentId.valueProjections.push(copy)
+    expect(collectFormalValueAvailabilityErrors(differentId)).toContainEqual(expect.stringContaining('duplicate (mappingId, occurrence)'))
+  })
+
+  it('rejects missing, wrong, unavailable, orphaned, or shared projection links', () => {
+    const missing = clone(build())
+    const ref = missing.semantic.fightersBindings.attacks![0]!.configuredDamage!.projectionRef
+    missing.valueProjections = missing.valueProjections.filter(({ projectionId }) => projectionId !== ref)
+    expect(collectFormalValueAvailabilityErrors(missing)).toContainEqual(expect.stringContaining('missing required projection record'))
+
+    const wrong = clone(build())
+    wrong.semantic.fightersBindings.attacks![0]!.configuredDamage!.projectionRef = wrong.semantic.fightersBindings.attacks![1]!.configuredDamage!.projectionRef
+    expect(collectFormalValueAvailabilityErrors(wrong)).toContainEqual(expect.stringContaining('semantic location differs'))
+
+    const unavailable = clone(build())
+    const record = unavailable.valueProjections.find(({ projectionId }) => projectionId === unavailable.semantic.fightersBindings.attacks![0]!.configuredDamage!.projectionRef)!
+    Object.assign(record, { result: 'unavailable', sourceState: 'unknown', reason: 'test' })
+    expect(collectFormalValueAvailabilityErrors(unavailable)).toContainEqual(expect.stringContaining('semantic value points to unavailable'))
+
+    const orphan = clone(build())
+    delete orphan.semantic.fightersBindings.attacks![0]!.configuredDamage
+    expect(collectFormalValueAvailabilityErrors(orphan)).toContainEqual(expect.stringContaining('projected record must have exactly one semantic value'))
+
+    const shared = clone(build())
+    shared.semantic.fightersBindings.attacks![1]!.configuredDamage = structuredClone(shared.semantic.fightersBindings.attacks![0]!.configuredDamage)
+    expect(collectFormalValueAvailabilityErrors(shared)).toContainEqual(expect.stringContaining('found 2'))
+  })
+
+  it('rejects empty, dangling, and mismatched evidence references', () => {
+    const empty = clone(build())
+    empty.valueProjections[0]!.evidenceRefs = [] as never
+    expect(collectFormalValueAvailabilityErrors(empty)).toContainEqual(expect.stringContaining('empty evidenceRefs'))
+
+    const dangling = clone(build())
+    dangling.valueProjections[0]!.evidenceRefs = ['evidence:missing']
+    expect(collectFormalValueAvailabilityErrors(dangling)).toContainEqual(expect.stringContaining('dangling EvidenceRef'))
+
+    const mismatch = clone(build())
+    mismatch.semantic.fightersBindings.configuredAttacks!.evidenceRefs = [mismatch.valueProjections[1]!.evidenceRefs[0]]
+    expect(collectFormalValueAvailabilityErrors(mismatch)).toContainEqual(expect.stringContaining('semantic/projection EvidenceRef mismatch'))
+  })
+})
