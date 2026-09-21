@@ -1,3 +1,6 @@
+import { buildFormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
+import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
@@ -20,7 +23,22 @@ const fixtures = () => ({
   scatterCrossbowInstanceRaw: JSON.parse(scatterInstanceText),
   scatterCrossbowProjectileRaw: JSON.parse(scatterProjectileText),
 })
-const build = (input = fixtures()) => buildFormalValueAvailabilityArtifact(input)
+const build = (input = fixtures(), mutate?: (inputs: Parameters<typeof buildFormalValueAvailabilityArtifact>[0]) => void) => {
+  const identity = (raw: typeof input.fightersBindingsRaw, definition: typeof fightersBindingsFormalIdentity) => {
+    const projected = projectFormalIdentity(raw, definition)
+    return { source: raw, identity: projected.semantic, identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation') }
+  }
+  const fighters = identity(input.fightersBindingsRaw, fightersBindingsFormalIdentity)
+  const scatter = identity(input.scatterCrossbowInstanceRaw, scatterCrossbowFormalIdentity)
+  const readRaw = (path: string) => JSON.parse(read(path))
+  const relations = buildFormalSerializedRelationArtifact({ scatter: { ...scatter, target: input.scatterCrossbowProjectileRaw },
+    battleRobe: identity(readRaw(battleRobeFormalIdentity.assertion.applicationScope.packagePath), battleRobeFormalIdentity),
+    deathCapMushroom: identity(readRaw(deathCapMushroomFormalIdentity.assertion.applicationScope.packagePath), deathCapMushroomFormalIdentity) })
+  const valueInputs = { ...input, fightersBindingsIdentity: fighters.identity, fightersBindingsIdentityEvidence: fighters.identityEvidence,
+    scatterCrossbowIdentity: scatter.identity, scatterCrossbowIdentityEvidence: scatter.identityEvidence, relations }
+  mutate?.(valueInputs)
+  return buildFormalValueAvailabilityArtifact(valueInputs)
+}
 const clone = (artifact: FormalValueAvailabilityArtifact): FormalValueAvailabilityArtifact => structuredClone(artifact)
 const fighterElements = (input: ReturnType<typeof fixtures>) => input.fightersBindingsRaw.package.objects[1].properties[0].decoding.elements
 const fighterDamage = (input: ReturnType<typeof fixtures>, position = 0) => fighterElements(input)[position].properties.find((node: { name: { value: string } }) => node.name.value === 'Damage')
@@ -34,7 +52,6 @@ const dependencyRecord = (artifact: FormalValueAvailabilityArtifact) => {
   if (!record || record.result !== 'unavailable') throw new Error('missing dependency failure record')
   return record
 }
-const referencedEvidence = (artifact: FormalValueAvailabilityArtifact, refs: readonly string[]) => refs.map((ref) => artifact.provenance.evidence.find(({ id }) => id === ref)!)
 
 describe('Formal Value / Availability v1 projection', () => {
   it('projects only the specified source-backed semantic values with resolvable evidence', () => {
@@ -130,70 +147,23 @@ describe('Formal Value / Availability v1 projection', () => {
     )
   })
 
-  it('grounds ObjectProperty dependency failure in the actual ObjectProperty node', () => {
+  it('records relation dependency failure without Value Raw evidence', () => {
     const input = fixtures()
     scatterReference(input).decoding.value.kind = 'export'
     const artifact = build(input)
-    expect(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([0])
-    const definition = artifact.semantic.scatterCrossbow.projectileDefinitions?.[0]
-    expect(definition).not.toHaveProperty('configuredPushbackEnabled')
-    expect(definition).not.toHaveProperty('configuredPushbackStrength')
-    expect(definition).not.toHaveProperty('configuredIgnoreFriendlyFire')
-    for (const mappingId of [scatterCrossbowMappings.pushbackEnabled.id, scatterCrossbowMappings.pushbackStrength.id, scatterCrossbowMappings.ignoreFriendlyFire.id]) {
-      expect(artifact.valueProjections).toContainEqual(expect.objectContaining({
-        mappingId,
-        occurrence: { slice: 'scatter-crossbow', sourceIndex: 0 },
-        result: 'unavailable',
-        reason: expect.stringContaining('Dependency/reference failure'),
-      }))
-    }
     const record = dependencyRecord(artifact)
-    expect(record.reason).toContain('ObjectProperty')
-    expect(referencedEvidence(artifact, record.evidenceRefs)).toEqual([
-      expect.objectContaining({ provenance: expect.objectContaining({ nodePointer: expect.stringContaining('/properties/') }) }),
-    ])
-    expect(referencedEvidence(artifact, record.evidenceRefs).every(({ observation }) => observation.reason === record.reason)).toBe(true)
+    expect(record).toMatchObject({ failureKind: 'dependency', reason: 'relation-unavailable' })
+    expect(record.evidenceRefs).toBeUndefined()
+    expect(record.relationProjectionRef).toContain('relation:scatter-crossbow')
     expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
   })
 
-  it('grounds class import mismatch in the concrete class import', () => {
-    const input = fixtures()
-    input.scatterCrossbowInstanceRaw.package.imports[4].objectName.value = 'Other_C'
-    const artifact = build(input)
-    const record = dependencyRecord(artifact)
-    expect(record.reason).toContain('class import identity mismatch')
-    expect(referencedEvidence(artifact, record.evidenceRefs).map(({ provenance }) => provenance.nodePointer)).toEqual(['/package/imports/4'])
-    expect(referencedEvidence(artifact, record.evidenceRefs).every(({ observation }) => observation.reason === record.reason)).toBe(true)
-    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
-  })
-
-  it('grounds outer package mismatch in the concrete outer import', () => {
-    const input = fixtures()
-    input.scatterCrossbowInstanceRaw.package.imports[20].objectName.value = '/Game/Other'
-    const artifact = build(input)
-    const record = dependencyRecord(artifact)
-    expect(record.reason).toContain('outer package import identity mismatch')
-    expect(referencedEvidence(artifact, record.evidenceRefs).map(({ provenance }) => provenance.nodePointer)).toEqual(['/package/imports/20'])
-    expect(referencedEvidence(artifact, record.evidenceRefs).every(({ observation }) => observation.reason === record.reason)).toBe(true)
-    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
-  })
-
-  it('grounds target package mismatch in the supplied target Raw snapshot', () => {
+  it('keeps source-side values when target resolution fails', () => {
     const input = fixtures()
     input.scatterCrossbowProjectileRaw.dataset.id = 'different-dataset'
     const artifact = build(input)
-    const record = dependencyRecord(artifact)
-    expect(record.reason).toContain('target Raw package, dataset, or fingerprint mismatch')
-    expect(referencedEvidence(artifact, record.evidenceRefs)).toEqual([
-      expect.objectContaining({
-        provenance: expect.objectContaining({
-          artifactPath: expect.stringContaining(scatterCrossbowIdentity.projectilePackagePath),
-          datasetId: 'different-dataset',
-          nodePointer: '',
-        }),
-      }),
-    ])
-    expect(referencedEvidence(artifact, record.evidenceRefs).every(({ observation }) => observation.reason === record.reason)).toBe(true)
+    expect(artifact.semantic.scatterCrossbow.projectileDefinitions?.[0]?.configuredProjectileCount?.value).toBe(3)
+    expect(dependencyRecord(artifact)).toMatchObject({ failureKind: 'dependency', reason: 'target-snapshot-mismatch' })
     expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
   })
 
@@ -221,6 +191,48 @@ describe('Formal Value / Availability v1 projection', () => {
     expect(artifact.semantic.scatterCrossbow).not.toHaveProperty('configuredProjectileDefinitions')
     expect(artifact.semantic.scatterCrossbow).not.toHaveProperty('projectileDefinitions')
     expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'scatter-crossbow' && 'sourceIndex' in occurrence)).toEqual([])
+  })
+
+  it.each(['missing', 'negative', 'duplicate'])('rejects %s Scatter sourceIndex for the whole parent', (kind) => {
+    const input = fixtures()
+    const elements = scatterDefinitionNode(input).decoding.elements
+    const second = structuredClone(elements[0])
+    elements.push(second)
+    if (kind === 'missing') delete second.index
+    else if (kind === 'negative') second.index = -1
+    const artifact = build(input)
+    expect(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions).toBeUndefined()
+    expect(artifact.semantic.scatterCrossbow.projectileDefinitions).toBeUndefined()
+    expect(artifact.valueProjections.filter(({ occurrence }) => occurrence.slice === 'scatter-crossbow' && 'sourceIndex' in occurrence)).toEqual([])
+  })
+
+  it('keeps a decoded empty Scatter collection known with no children', () => {
+    const input = fixtures()
+    scatterDefinitionNode(input).decoding.elements = []
+    const artifact = build(input)
+    expect(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([])
+    expect(artifact.semantic.scatterCrossbow.projectileDefinitions).toEqual([])
+  })
+
+  it('gates each slice on matched same-source Identity without presentation', () => {
+    const noPresentation = build(fixtures(), (inputs) => { delete inputs.scatterCrossbowIdentity.presentation })
+    expect(noPresentation.semantic.scatterCrossbow.configuredProjectileDefinitions?.value).toEqual([0])
+    const wrongSource = build(fixtures(), (inputs) => { Object.assign(inputs.scatterCrossbowIdentityEvidence[0]!.provenance.packageHash!, { value: 'other' }) })
+    expect(wrongSource.semantic.scatterCrossbow).toEqual({})
+    expect(wrongSource.valueProjections.filter(({ occurrence }) => occurrence.slice === 'scatter-crossbow')).toEqual([])
+    const unresolved = build(fixtures(), (inputs) => { inputs.fightersBindingsIdentity.resolution = {
+      state: 'unresolved', assertionId: inputs.fightersBindingsIdentity.assertionId, evidenceRefs: inputs.fightersBindingsIdentity.resolution.evidenceRefs } })
+    expect(unresolved.semantic.fightersBindings).toEqual({})
+  })
+
+  it('does not read target fields when Relation has no supplied target', () => {
+    const artifact = build(fixtures(), (inputs) => { inputs.relations = buildFormalSerializedRelationArtifact({
+      scatter: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
+      battleRobe: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
+      deathCapMushroom: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
+    }) })
+    expect(dependencyRecord(artifact)).toMatchObject({ failureKind: 'dependency', reason: 'target-snapshot-not-supplied' })
+    expect(artifact.provenance.evidence.some(({ provenance }) => provenance.packagePath === scatterCrossbowIdentity.projectilePackagePath)).toBe(false)
   })
 
   it('keeps projection identity stable across value/result changes', () => {
@@ -281,7 +293,7 @@ describe('Formal Value / Availability v1 integrity audit', () => {
     expect(collectFormalValueAvailabilityErrors(dangling)).toContainEqual(expect.stringContaining('dangling EvidenceRef'))
 
     const mismatch = clone(build())
-    mismatch.semantic.fightersBindings.configuredAttacks!.evidenceRefs = [mismatch.valueProjections[1]!.evidenceRefs[0]]
+    mismatch.semantic.fightersBindings.configuredAttacks!.evidenceRefs = [mismatch.valueProjections[1]!.evidenceRefs![0]]
     expect(collectFormalValueAvailabilityErrors(mismatch)).toContainEqual(expect.stringContaining('semantic/projection EvidenceRef mismatch'))
   })
 })

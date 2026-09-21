@@ -132,21 +132,24 @@
             "projectionRef": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
             "evidenceRefs": [
               "evidence:value:raw:fnv1a32:b1c6d847"
-            ]
+            ],
+            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
           },
           "configuredPushbackStrength": {
             "value": 0.6000000238418579,
             "projectionRef": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
             "evidenceRefs": [
               "evidence:value:raw:fnv1a32:43a7ff36"
-            ]
+            ],
+            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
           },
           "configuredIgnoreFriendlyFire": {
             "value": true,
             "projectionRef": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
             "evidenceRefs": [
               "evidence:value:raw:fnv1a32:d71f45b8"
-            ]
+            ],
+            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
           }
         }
       ]
@@ -331,7 +334,8 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:b1c6d847"
-      ]
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
     },
     {
       "projectionId": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
@@ -343,7 +347,8 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:43a7ff36"
-      ]
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
     },
     {
       "projectionId": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
@@ -355,7 +360,8 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:d71f45b8"
-      ]
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
     }
   ],
   "provenance": {

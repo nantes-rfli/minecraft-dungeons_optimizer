@@ -4,20 +4,31 @@ import {
   buildFormalValueAvailabilityArtifact,
   collectFormalValueAvailabilityErrors,
 } from '../src/domain/formal/valueAvailability.ts'
-import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
 import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
+import { buildFormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
+import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 
 const root = new URL('..', import.meta.url)
 const readRaw = (packagePath: string) => JSON.parse(
   fs.readFileSync(new URL(`research/raw/packages/${packagePath}.raw.json`, root), 'utf8'),
 ) as RawPackageSnapshot
 
-const artifact = buildFormalValueAvailabilityArtifact({
-  fightersBindingsRaw: readRaw(fightersBindingsIdentity.packagePath),
-  scatterCrossbowInstanceRaw: readRaw(scatterCrossbowIdentity.instancePackagePath),
-  scatterCrossbowProjectileRaw: readRaw(scatterCrossbowIdentity.projectilePackagePath),
-})
+const source = (definition: typeof fightersBindingsFormalIdentity) => {
+  const raw = readRaw(definition.assertion.applicationScope.packagePath)
+  const projected = projectFormalIdentity(raw, definition)
+  return { source: raw, identity: projected.semantic, identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation') }
+}
+const fighters = source(fightersBindingsFormalIdentity)
+const scatter = source(scatterCrossbowFormalIdentity)
+const projectile = readRaw(scatterCrossbowIdentity.projectilePackagePath)
+const relations = buildFormalSerializedRelationArtifact({ scatter: { ...scatter, target: projectile },
+  battleRobe: source(battleRobeFormalIdentity), deathCapMushroom: source(deathCapMushroomFormalIdentity) })
+const artifact = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters.source,
+  scatterCrossbowInstanceRaw: scatter.source, scatterCrossbowProjectileRaw: projectile,
+  fightersBindingsIdentity: fighters.identity, fightersBindingsIdentityEvidence: fighters.identityEvidence,
+  scatterCrossbowIdentity: scatter.identity, scatterCrossbowIdentityEvidence: scatter.identityEvidence, relations })
 
 assert.deepEqual(collectFormalValueAvailabilityErrors(artifact), [])
 assert.deepEqual(artifact.semantic.fightersBindings.configuredAttacks?.value, [0, 1, 2, 3])
