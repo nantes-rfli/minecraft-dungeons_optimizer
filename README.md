@@ -78,6 +78,7 @@ Catalogに存在すること、ユーザーが所持していること、runtime
 - [Evidence Model ADR](./docs/adr/0001-external-evidence-model-redesign.md)
 - [Runtime Promotion Pipeline](./docs/runtime-promotion-pipeline.md)
 - [Raw package snapshot — Step 3A](./docs/game-data-raw-package-snapshot.md)
+- [Formal Identity / Evidence v1](./docs/formal-identity-evidence-v1.md)
 - [Game Data Model Alignment](./docs/game-data-model-alignment.md)
 - [Canonical Game Data Properties](./docs/game-data-canonical-properties.md)
 
