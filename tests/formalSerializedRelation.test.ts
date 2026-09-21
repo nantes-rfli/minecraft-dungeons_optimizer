@@ -48,7 +48,15 @@ describe('Formal Serialized Relation v1', () => {
     const record = result(input, 'battle-robe')[0]!
     expect(record.result).toBe('projected')
   })
-  it.each(['object mismatch', 'class mismatch', 'missing import', 'ambiguous import', 'outer mismatch', 'non-package outer', 'invalid root'])(`rejects %s`, (mode) => {
+  it('projects a consistent alternate className without fixing BlueprintGeneratedClass', () => {
+    const input = inputs(); const raw = mutable(input.battleRobe.source)
+    const reference = field(input, 'battleRobe').decoding.value as Record<string, unknown>
+    const cls = raw.package.imports.find((entry) => entry.rawPackageIndex === reference.rawPackageIndex)!
+    reference.className = 'AlternateSerializedClass'
+    cls.className.value = 'AlternateSerializedClass'
+    expect(result(input, 'battle-robe')[0]?.result).toBe('projected')
+  })
+  it.each(['object mismatch', 'class mismatch', 'missing import', 'ambiguous import', 'class import index', 'classPackage shape', 'outer mismatch', 'non-package outer', 'invalid root'])(`rejects %s`, (mode) => {
     const input = inputs(); const raw = mutable(input.battleRobe.source)
     const node = field(input, 'battleRobe'); const reference = node.decoding.value as Record<string, unknown>
     const cls = raw.package.imports.find((entry) => entry.rawPackageIndex === reference.rawPackageIndex)!
@@ -57,6 +65,8 @@ describe('Formal Serialized Relation v1', () => {
     if (mode === 'class mismatch') cls.className.value = 'Bad'
     if (mode === 'missing import') reference.rawPackageIndex = -999
     if (mode === 'ambiguous import') raw.package.imports.push(clone(cls))
+    if (mode === 'class import index') cls.index += 1
+    if (mode === 'classPackage shape') cls.classPackage.value = 17
     if (mode === 'outer mismatch') cls.outerReference.objectName = 'Bad'
     if (mode === 'non-package outer') outer.className.value = 'BlueprintGeneratedClass'
     if (mode === 'invalid root') outer.outerReference.rawPackageIndex = -1
@@ -94,12 +104,29 @@ describe('Formal Serialized Relation v1', () => {
   it('requires same-source matched Identity and allows provisional matched', () => {
     const input = inputs()
     expect(result(input, 'battle-robe')[0]?.result).toBe('projected')
+    const omitted = inputs(); delete omitted.battleRobe.identity
+    expect(result(omitted, 'battle-robe')).toEqual([])
+    const missingEvidence = inputs(); delete missingEvidence.battleRobe.identityEvidence
+    expect(result(missingEvidence, 'battle-robe')).toEqual([])
     input.battleRobe.identity!.resolution = { state: 'unresolved', assertionId: input.battleRobe.identity!.assertionId, evidenceRefs: [] }
     expect(result(input, 'battle-robe')).toEqual([])
     const other = inputs(); mutable(other.battleRobe.identityEvidence![0]!).provenance.packageHash.value = 'other'
     expect(result(other, 'battle-robe')).toEqual([])
     const fallback = inputs(); fallback.battleRobe.identity!.resolution = { state: 'unresolved', assertionId: fallback.battleRobe.identity!.assertionId, evidenceRefs: [] }
     expect(result(fallback, 'battle-robe')).toEqual([])
+  })
+  it('resolves only the fixed slice path correspondence while retaining drifted relations', () => {
+    const input = inputs()
+    expect(result(input, 'scatter-crossbow')[0]).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'resolved' } })
+    expect(result(input, 'death-cap-mushroom')[0]).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'resolved' } })
+    const raw = mutable(input.deathCapMushroom.source)
+    const reference = field(input, 'deathCapMushroom').decoding.value as Record<string, unknown>
+    const cls = raw.package.imports.find((entry) => entry.rawPackageIndex === reference.rawPackageIndex)!
+    const outer = raw.package.imports.find((entry) => entry.rawPackageIndex === cls.outerIndex)!
+    outer.objectName.value = '/Game/Actors/Items/DeathCapMushroom/AlternateEffect'
+    cls.outerReference.objectName = outer.objectName.value
+    const record = result(input, 'death-cap-mushroom')[0]!
+    expect(record).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'not-resolved' } })
   })
   it.each(['schema', 'path', 'dataset', 'algorithm', 'fingerprint'])(`keeps relation projected when target %s mismatches`, (mode) => {
     const input = inputs(); const target = mutable(input.deathCapMushroom.target!)

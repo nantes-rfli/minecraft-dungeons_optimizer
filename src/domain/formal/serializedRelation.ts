@@ -16,13 +16,13 @@ export type RelationProjectionRecord = { projectionRef: RelationProjectionRef; r
 )
 export type RelationEvidenceRecord = { id: RelationEvidenceRef; kind: 'raw-relation-observation'; fingerprint: string; provenance: { artifactPath: string; datasetId: string; extractionRunId: string; packagePath: string; packageHash: RawPackageSnapshot['logicalPackage']['contentHash']; nodePointer?: string }; observed: unknown }
 export type FormalSerializedRelationArtifact = { schemaVersion: 1; artifactKind: 'formal-domain-serialized-relation'; semantic: { relations: SemanticRelation[] }; scatterParent?: { result: 'projected' | 'unavailable'; evidenceRef: RelationEvidenceRef; sourceIndices?: number[]; reason?: string }; relationProjections: RelationProjectionRecord[]; provenance: { evidence: RelationEvidenceRecord[] } }
-export type RelationSliceInput = { source: RawPackageSnapshot; identity?: FormalSemanticIdentity; identityEvidence?: RawObservationEvidenceRecord[]; target?: RawPackageSnapshot }
+export type RelationSliceInput = { source: RawPackageSnapshot; identity: FormalSemanticIdentity; identityEvidence: RawObservationEvidenceRecord[]; target?: RawPackageSnapshot }
 export type FormalRelationInputs = { scatter: RelationSliceInput; battleRobe: RelationSliceInput; deathCapMushroom: RelationSliceInput }
 
 const definitions = [
-  { key: 'scatter', slice: 'scatter-crossbow', relationRef: 'relation:scatter-crossbow:projectile@1', field: 'Projectile', identity: scatterCrossbowFormalIdentity },
-  { key: 'battleRobe', slice: 'battle-robe', relationRef: 'relation:battle-robe:gear-actor@1', field: 'GearActor', identity: battleRobeFormalIdentity },
-  { key: 'deathCapMushroom', slice: 'death-cap-mushroom', relationRef: 'relation:death-cap-mushroom:effect@1', field: 'Effect', identity: deathCapMushroomFormalIdentity },
+  { key: 'scatter', slice: 'scatter-crossbow', relationRef: 'relation:scatter-crossbow:projectile@1', field: 'Projectile', identity: scatterCrossbowFormalIdentity, targetGamePath: '/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow', targetRawPath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow' },
+  { key: 'battleRobe', slice: 'battle-robe', relationRef: 'relation:battle-robe:gear-actor@1', field: 'GearActor', identity: battleRobeFormalIdentity, targetGamePath: '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe', targetRawPath: 'Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe' },
+  { key: 'deathCapMushroom', slice: 'death-cap-mushroom', relationRef: 'relation:death-cap-mushroom:effect@1', field: 'Effect', identity: deathCapMushroomFormalIdentity, targetGamePath: '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect', targetRawPath: 'Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect' },
 ] as const
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const at = (root: unknown, pointer: string) => pointer.split('/').slice(1).reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], root)
@@ -30,22 +30,21 @@ const pathFor = (raw: RawPackageSnapshot) => `research/raw/packages/${raw.logica
 const provenance = (raw: RawPackageSnapshot, pointer?: string) => ({ artifactPath: pathFor(raw), datasetId: raw.dataset.id, extractionRunId: raw.extraction.runId, packagePath: raw.logicalPackage.path, packageHash: raw.logicalPackage.contentHash, ...(pointer === undefined ? {} : { nodePointer: pointer }) })
 export function relationProjectionRef(relationRef: RelationRef, occurrence: RelationOccurrence): RelationProjectionRef { return `projection:${relationRef}:${'sourceIndex' in occurrence ? occurrence.sourceIndex : 'source'}` }
 function identityMatches(input: RelationSliceInput, expected: typeof definitions[number]['identity']): string | undefined {
+  if (!input.identity || !input.identityEvidence) return undefined
   const calculated = projectFormalIdentity(input.source, expected)
-  const identity = input.identity ?? calculated.semantic
+  const identity = input.identity
   if (identity.resolution.state !== 'matched' || !same(identity, calculated.semantic)) return undefined
-  if (input.identity && !input.identityEvidence) return undefined
-  if (input.identityEvidence) {
-    const expectedRaw = calculated.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation')
-    if (!same(input.identityEvidence, expectedRaw)) return undefined
-    for (const evidence of input.identityEvidence) {
-      if (evidence.provenance.artifactPath !== pathFor(input.source) || evidence.provenance.datasetId !== input.source.dataset.id || evidence.provenance.extractionRunId !== input.source.extraction.runId || !same(evidence.provenance.packageHash, input.source.logicalPackage.contentHash)) return undefined
-    }
+  const expectedRaw = calculated.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation')
+  if (!same(input.identityEvidence, expectedRaw)) return undefined
+  for (const evidence of input.identityEvidence) {
+    if (evidence.provenance.artifactPath !== pathFor(input.source) || evidence.provenance.datasetId !== input.source.dataset.id || evidence.provenance.extractionRunId !== input.source.extraction.runId || !same(evidence.provenance.packageHash, input.source.logicalPackage.contentHash)) return undefined
   }
   return identity.resolution.domainId
 }
-function targetPath(slice: string, gamePath: string): string | undefined {
-  const allowed = slice === 'scatter-crossbow' ? '/Game/Actors/Equipment/RangedWeapons/' : slice === 'battle-robe' ? '/Game/Actors/Equipment/Armor/' : '/Game/Actors/Items/'
-  return gamePath.startsWith(allowed) && !gamePath.includes('..') ? `Dungeons/Content/${gamePath.slice('/Game/'.length)}` : undefined
+function validRawName(value: unknown): boolean {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
+  const name = value as Record<string, unknown>
+  return Number.isInteger(name.nameIndex) && (name.nameIndex as number) >= 0 && Number.isInteger(name.number) && (name.number as number) >= 0 && typeof name.value === 'string' && name.value.length > 0
 }
 export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInputs): FormalSerializedRelationArtifact {
   const relations: SemanticRelation[] = []
@@ -91,19 +90,19 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
       if (classes.length !== 1) { refs.push(observe(raw, '/package/imports')); unavailable('missing-or-ambiguous-class-import', 'class-import'); continue }
       const cls = classes[0]!
       refs.push(observe(raw, `/package/imports/${cls.index}`))
-      if (cls.entry.rawPackageIndex !== -(cls.index + 1) || cls.entry.rawPackageIndex !== ref.rawPackageIndex || cls.entry.index !== ref.index || cls.entry.objectName.value !== ref.objectName || cls.entry.className.value !== ref.className || cls.entry.className.value !== 'BlueprintGeneratedClass' || cls.entry.outerReference.rawPackageIndex !== cls.entry.outerIndex) { unavailable('class-import-inconsistent', 'class-import'); continue }
+      if (cls.entry.rawPackageIndex !== -(cls.index + 1) || cls.entry.rawPackageIndex !== ref.rawPackageIndex || cls.entry.index !== ref.index || !validRawName(cls.entry.classPackage) || !validRawName(cls.entry.className) || !validRawName(cls.entry.objectName) || cls.entry.objectName.value !== ref.objectName || cls.entry.className.value !== ref.className || cls.entry.outerReference.rawPackageIndex !== cls.entry.outerIndex) { unavailable('class-import-inconsistent', 'class-import'); continue }
       const outers = raw.package.imports.map((entry, index) => ({ entry, index })).filter(({ entry }) => entry.rawPackageIndex === cls.entry.outerIndex)
       if (outers.length !== 1) { refs.push(observe(raw, '/package/imports')); unavailable('missing-or-ambiguous-outer-package', 'outer-package'); continue }
       const outer = outers[0]!
       refs.push(observe(raw, `/package/imports/${outer.index}`))
-      if (cls.entry.outerReference.kind !== 'import' || cls.entry.outerReference.index !== outer.entry.index || cls.entry.outerReference.objectName !== outer.entry.objectName.value || cls.entry.outerReference.className !== outer.entry.className.value || outer.entry.rawPackageIndex !== -(outer.index + 1) || outer.entry.index !== outer.index || outer.entry.className.value !== 'Package' || outer.entry.outerIndex !== 0 || outer.entry.outerReference.kind !== 'null' || outer.entry.outerReference.rawPackageIndex !== 0 || typeof outer.entry.objectName.value !== 'string' || !outer.entry.objectName.value.startsWith('/Game/')) { unavailable('outer-package-inconsistent', 'outer-package'); continue }
+      if (cls.entry.outerReference.kind !== 'import' || cls.entry.outerReference.index !== outer.entry.index || cls.entry.outerReference.objectName !== outer.entry.objectName.value || cls.entry.outerReference.className !== outer.entry.className.value || outer.entry.rawPackageIndex !== -(outer.index + 1) || outer.entry.index !== outer.index || !validRawName(outer.entry.classPackage) || !validRawName(outer.entry.className) || !validRawName(outer.entry.objectName) || outer.entry.className.value !== 'Package' || outer.entry.outerIndex !== 0 || outer.entry.outerReference.kind !== 'null' || outer.entry.outerReference.rawPackageIndex !== 0 || !outer.entry.objectName.value.startsWith('/Game/')) { unavailable('outer-package-inconsistent', 'outer-package'); continue }
       const target = { objectName: ref.objectName, gamePackagePath: outer.entry.objectName.value }
       let targetResolution: TargetResolution
       if (!input.target) targetResolution = { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' }
       else {
         const targetEvidenceRef = observe(input.target)
         const targetRaw = input.target
-        const matched = targetRaw.schemaVersion === 2 && targetRaw.logicalPackage.path === targetPath(definition.slice, target.gamePackagePath) && targetRaw.dataset.id === raw.dataset.id && targetRaw.dataset.sourceFingerprint.algorithm === raw.dataset.sourceFingerprint.algorithm && targetRaw.dataset.sourceFingerprint.value === raw.dataset.sourceFingerprint.value
+        const matched = targetRaw.schemaVersion === 2 && target.gamePackagePath === definition.targetGamePath && targetRaw.logicalPackage.path === definition.targetRawPath && targetRaw.dataset.id === raw.dataset.id && targetRaw.dataset.sourceFingerprint.algorithm === raw.dataset.sourceFingerprint.algorithm && targetRaw.dataset.sourceFingerprint.value === raw.dataset.sourceFingerprint.value
         targetResolution = matched ? { input: 'supplied', targetEvidenceRef, result: 'resolved' } : { input: 'supplied', targetEvidenceRef, result: 'not-resolved', reason: 'target-snapshot-mismatch' }
       }
       relations.push({ projectionRef, relationRef: definition.relationRef, occurrence, sourceDomainId, target, evidenceRefs: refs })
