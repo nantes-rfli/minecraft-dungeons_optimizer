@@ -4,7 +4,7 @@ import { fightersBindingsValueMappings as mapping } from './fightersBindingsValu
 import {
   locateRawNode, projectionTrace, rawCdoCandidates, readRawValue, topLevelRawNode,
   type Field, type Located,
-} from '../temporary/projectionPrimitives.ts'
+} from './rawProjection.ts'
 
 const assertionId = fightersBindingsFormalIdentity.assertion.id
 const cdo = (raw: RawPackageSnapshot) => {
