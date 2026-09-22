@@ -9,7 +9,7 @@ import {
   valueProjectionRef,
   type FormalValueAvailabilityArtifact,
 } from '../src/domain/formal/valueAvailability.ts'
-import { fightersBindingsMappings } from '../src/domain/temporary/fightersBindings.ts'
+import { fightersBindingsValueMappings } from '../src/domain/formal/fightersBindingsValueMappings.ts'
 import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
 import { scatterValueMappings } from '../src/domain/formal/scatterValueMappings.ts'
 import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
@@ -83,7 +83,7 @@ describe('Formal Value / Availability v1 projection', () => {
     expect(artifact.semantic.fightersBindings.attacks?.map(({ sourceIndex }) => sourceIndex)).toEqual([0, 1, 2, 3])
     expect(artifact.semantic.fightersBindings.attacks?.[1]).not.toHaveProperty('configuredDamage')
     expect(artifact.valueProjections).toContainEqual(expect.objectContaining({
-      mappingId: fightersBindingsMappings.damage.id,
+      mappingId: fightersBindingsValueMappings.damage.id,
       occurrence: { slice: 'fighters-bindings', sourceIndex: 1 },
       result: 'unavailable',
       sourceState: 'parse-failed',
@@ -125,6 +125,24 @@ describe('Formal Value / Availability v1 projection', () => {
     })
   })
 
+  it.each(['missing', 'duplicate', 'type'])('keeps %s Fighter configured damage unavailable instead of substituting a value', (kind) => {
+    const input = fixtures()
+    const properties = fighterElements(input)[0].properties
+    const index = properties.findIndex((node: { name: { value: string } }) => node.name.value === 'Damage')
+    if (kind === 'missing') properties.splice(index, 1)
+    if (kind === 'duplicate') properties.push(properties[index])
+    if (kind === 'type') properties[index].type.value = 'IntProperty'
+    const artifact = build(input)
+    expect(artifact.semantic.fightersBindings.attacks?.[0]).not.toHaveProperty('configuredDamage')
+    expect(artifact.valueProjections).toContainEqual(expect.objectContaining({
+      mappingId: fightersBindingsValueMappings.damage.id,
+      occurrence: { slice: 'fighters-bindings', sourceIndex: 0 },
+      result: 'unavailable',
+      sourceState: 'unknown',
+    }))
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+  })
+
   it.each(['missing', 'duplicate'])('makes %s sourceIndex ambiguous and never substitutes array position', (kind) => {
     const input = fixtures()
     const elements = fighterElements(input)
@@ -143,7 +161,7 @@ describe('Formal Value / Availability v1 projection', () => {
     expect(artifact.semantic.fightersBindings.configuredAttacks?.value).toEqual([3, 2, 1, 0])
     expect(artifact.semantic.fightersBindings.attacks?.map(({ sourceIndex }) => sourceIndex)).toEqual([3, 2, 1, 0])
     expect(artifact.semantic.fightersBindings.attacks?.[0]?.configuredDamage?.projectionRef).toBe(
-      valueProjectionRef(fightersBindingsMappings.damage.id, { slice: 'fighters-bindings', sourceIndex: 3 }),
+      valueProjectionRef(fightersBindingsValueMappings.damage.id, { slice: 'fighters-bindings', sourceIndex: 3 }),
     )
   })
 
@@ -240,7 +258,7 @@ describe('Formal Value / Availability v1 projection', () => {
     const input = fixtures()
     fighterDamage(input).decoding = { state: 'parse-failed' }
     const unavailable = build(input)
-    const findDamage = (artifact: FormalValueAvailabilityArtifact) => artifact.valueProjections.find(({ mappingId, occurrence }) => mappingId === fightersBindingsMappings.damage.id && 'sourceIndex' in occurrence && occurrence.sourceIndex === 0)
+    const findDamage = (artifact: FormalValueAvailabilityArtifact) => artifact.valueProjections.find(({ mappingId, occurrence }) => mappingId === fightersBindingsValueMappings.damage.id && 'sourceIndex' in occurrence && occurrence.sourceIndex === 0)
     expect(findDamage(known)?.result).toBe('projected')
     expect(findDamage(unavailable)?.result).toBe('unavailable')
     expect(findDamage(known)?.projectionId).toBe(findDamage(unavailable)?.projectionId)
