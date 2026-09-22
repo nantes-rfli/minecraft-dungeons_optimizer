@@ -11,7 +11,7 @@ import {
 } from '../src/domain/formal/valueAvailability.ts'
 import { fightersBindingsMappings } from '../src/domain/temporary/fightersBindings.ts'
 import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
-import { scatterCrossbowMappings } from '../src/domain/temporary/scatterCrossbow.ts'
+import { scatterValueMappings } from '../src/domain/formal/scatterValueMappings.ts'
 import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
 
 const read = (path: string) => fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')
@@ -47,7 +47,7 @@ const scatterDefinitionProperties = (input: ReturnType<typeof fixtures>) => scat
 const scatterReference = (input: ReturnType<typeof fixtures>) => scatterDefinitionProperties(input).find((node: { name: { value: string } }) => node.name.value === 'Projectile')
 const dependencyRecord = (artifact: FormalValueAvailabilityArtifact) => {
   const record = artifact.valueProjections.find(({ mappingId, occurrence }) => (
-    mappingId === scatterCrossbowMappings.pushbackEnabled.id && 'sourceIndex' in occurrence && occurrence.sourceIndex === 0
+    mappingId === scatterValueMappings.pushbackEnabled.id && 'sourceIndex' in occurrence && occurrence.sourceIndex === 0
   ))
   if (!record || record.result !== 'unavailable') throw new Error('missing dependency failure record')
   return record
