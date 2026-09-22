@@ -137,7 +137,7 @@ function moduleSpecifiers(source: string): string[] {
 }
 
 function isForbiddenDependency(repositoryPath: string, specifier: string): boolean {
-  const normalizedSpecifier = specifier.replaceAll('\\\\', '/').replace(/^\/+/, '')
+  const normalizedSpecifier = specifier.replace(/^\/+/, '')
   const resolved = normalizedSpecifier.startsWith('.')
     ? path.posix.normalize(path.posix.join(path.posix.dirname(repositoryPath), normalizedSpecifier))
     : normalizedSpecifier
