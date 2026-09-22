@@ -268,11 +268,12 @@ test('information architecture routes, data filters and model drill-down', async
   await audit(page)
 })
 
-test('Fighter’s Bindings temporary Domain is traceable in the Data Browser', async ({ page }) => {
+test('Fighter’s Bindings Formal Domain is traceable in the Data Browser', async ({ page }) => {
   await page.goto('/#/data/melee?item=fighters-bindings')
   const entry = page.locator('[data-equipment-id="fighters-bindings"]')
   await expect(entry).toHaveAttribute('open', '')
-  await expect(entry.getByRole('heading', { name: 'Fighter’s Bindings', exact: true })).toBeVisible()
+  await expect(entry.locator('.fighters-domain')).toHaveAttribute('data-domain-scope', 'formal-domain')
+  await expect(entry.getByRole('heading', { name: "Fighter's Bindings", exact: true })).toBeVisible()
   await expect(entry.getByText('provisional', { exact: true }).first()).toBeVisible()
   await expect(entry.getByText('Gauntlets_Unique3', { exact: true })).toBeVisible()
   await expect(entry.locator('[data-domain-field$="configuredDamage"]')).toHaveCount(4)
