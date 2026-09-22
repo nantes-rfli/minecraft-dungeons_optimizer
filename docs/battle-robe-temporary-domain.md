@@ -1,6 +1,9 @@
 # Battle Robe temporary Game Domain
 
-This slice projects the committed Battle Robe Instance Raw package into a temporary Domain artifact. It does not feed the application, Data Browser, Inventory, Build, Optimizer, runtime armor catalog, or a generic equipment/relation model.
+> **Historical status — retired.** This Battle Robe temporary slice is retained only as a historical record.
+> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+
+Historically, this slice projected the committed Battle Robe Instance Raw package into a committed temporary Domain artifact. The temporary source projector remains, but the committed artifact is retired and no longer feeds the application, Data Browser, Inventory, Build, Optimizer, runtime armor catalog, or a generic equipment/relation model.
 
 ## Identity
 
@@ -22,10 +25,10 @@ The successful reference records distinct Raw pointers for the property, class i
 
 No `armorProperties`, `configuredArmorProperties`, or `armorPropertyOwnership` value field is emitted. `MeleeDamageBoost`, `ItemCooldownDecrease`, percentage effects, component-package observations, external research, and runtime catalog effects are not inputs and are not connected to Battle Robe by this projection.
 
-## Reproduction
+## Historical reproduction
 
-- `npm run generate:battle-robe-domain` regenerates `research/domain/temporary/battle-robe.json` from the unchanged canonical Raw artifact.
-- `npm run audit:battle-robe-domain` compares a fresh projection with the committed artifact and checks the fixed assertions.
+- **Retired:** `npm run generate:battle-robe-domain` previously regenerated the committed temporary JSON from the unchanged canonical Raw artifact.
+- **Retired:** `npm run audit:battle-robe-domain` previously compared a fresh projection with the committed temporary artifact and checked the fixed assertions.
 - `npx vitest run tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts tests/scatterCrossbowDomain.test.ts` covers identity traceability, reference-chain failure, unavailable state preservation, the ownership boundary, and regression safety for the earlier slices.
 
-This change has no site-visible behavior or delivered web asset, so it does not trigger a Site deployment.
+The original temporary-slice change had no site-visible behavior or delivered web asset.
