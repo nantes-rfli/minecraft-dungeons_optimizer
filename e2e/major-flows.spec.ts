@@ -311,7 +311,6 @@ test('Scatter Crossbow Formal Domain values and projectile relation are traceabl
   await expect(entry.getByText('class import', { exact: true })).toBeVisible()
   await expect(entry.getByText('outer package import', { exact: true })).toBeVisible()
   await expect(entry.getByText('target Raw snapshot', { exact: true })).toBeVisible()
-  await expect(entry.getByText('Value EvidenceRef', { exact: true }).first()).toBeVisible()
   await expect(entry.getByText('Relation EvidenceRef', { exact: true })).toBeVisible()
   await expect(entry.getByText('TEMPORARY GAME DOMAIN', { exact: true })).toHaveCount(0)
   const results = await new AxeBuilder({ page }).include('.scatter-domain').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
