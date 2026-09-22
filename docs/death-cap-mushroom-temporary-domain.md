@@ -1,6 +1,9 @@
 # Death Cap Mushroom temporary Game Domain
 
-This slice projects the two committed Death Cap Mushroom Raw snapshots into a temporary Domain artifact. It proves only the serialized relation from the Instance package to the GameplayEffect package. The Data Browser reads the committed Domain artifact and displays that boundary; the projection still does not feed Inventory, Build, Optimizer, or the runtime artifact model.
+> **Historical status — retired.** This Death Cap Mushroom temporary slice is retained only as a historical record.
+> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+
+Historically, this slice projected the two committed Death Cap Mushroom Raw snapshots into a committed temporary Domain artifact and proved only the serialized relation from the Instance package to the GameplayEffect package. The Data Browser formerly read that temporary artifact; it now reads the committed Formal artifacts. The temporary source projector remains, but its committed JSON is retired and it does not feed Inventory, Build, Optimizer, or the runtime artifact model.
 
 ## Projected shape and identity
 
@@ -22,11 +25,11 @@ The target snapshot's `UIData` is not read or projected. No generic GameplayEffe
 
 `unresolved: ['gameplay-effect-semantics']` is a temporary slice boundary marker, not a semantic value field. No duration, attack-speed, movement-speed, magnitude, Power scaling, stacking, effective uptime, buff, modifier, or other gameplay-effect semantic field is emitted, including as an unknown placeholder. Existing runtime and external-research values are not inputs.
 
-## Reproduction
+## Historical reproduction
 
-- `npm run generate:death-cap-mushroom-domain` regenerates `research/domain/temporary/death-cap-mushroom.json` from the unchanged canonical Raw artifacts.
-- `npm run audit:death-cap-mushroom-domain` compares a fresh pure projection with the committed artifact and checks identity evidence and target provenance.
-- `npx vitest run tests/deathCapMushroomDataBrowser.test.tsx tests/deathCapMushroomDomain.test.ts` checks the Application boundary, displayed provenance, unresolved semantics, and forbidden-value absence.
+- **Retired:** `npm run generate:death-cap-mushroom-domain` previously regenerated the committed temporary JSON from the unchanged canonical Raw artifacts.
+- **Retired:** `npm run audit:death-cap-mushroom-domain` previously compared a fresh pure projection with the committed temporary artifact and checked identity evidence and target provenance.
+- `npx vitest run tests/deathCapMushroomDataBrowser.test.tsx tests/deathCapMushroomDomain.test.ts` checks the current Application boundary, displayed provenance, unresolved semantics, and forbidden-value absence.
 - `npx vitest run tests/deathCapMushroomDomain.test.ts tests/scatterCrossbowDomain.test.ts tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts` covers the fourth slice and regression safety for the earlier temporary projections.
 
-The Data Browser integration is site-visible, so changes to this slice require the existing owner-only Site deployment workflow.
+During the temporary-consumer phase, the Data Browser integration was site-visible. The current Data Browser no longer consumes this temporary slice; it reads committed Formal artifacts instead.

@@ -1,6 +1,9 @@
 # Scatter Crossbow temporary Game Domain
 
-This slice projects the two committed Scatter Crossbow Raw package snapshots into a temporary Domain artifact. It does not feed the Data Browser, Inventory, Build, Optimizer, runtime ranged schema, or any generic entity/relation system.
+> **Historical status — retired.** This Scatter Crossbow temporary slice is retained only as a historical record.
+> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+
+Historically, this slice projected the two committed Scatter Crossbow Raw package snapshots into a committed temporary Domain artifact. The temporary source projector remains, but the committed artifact is retired and no longer feeds the Data Browser, Inventory, Build, Optimizer, runtime ranged schema, or any generic entity/relation system.
 
 ## Identity
 
@@ -22,10 +25,10 @@ Only after that reference succeeds, the projectile's `pushback.enablePushback`, 
 
 `AttackRateSeconds`, `ProjectileStackCount`, `damage`, `HomingThreshold`, chargeability, ammo, effective cadence, final damage, and Power scaling are deliberately absent. Existing tentative/unresolved semantic judgments remain unchanged.
 
-## Reproduction
+## Historical reproduction
 
-- `npm run generate:scatter-crossbow-domain` regenerates `research/domain/temporary/scatter-crossbow.json` from the two unchanged Raw artifacts.
-- `npm run audit:scatter-crossbow-domain` verifies identity evidence, exact regeneration, reference linkage, and the generated artifact.
+- **Retired:** `npm run generate:scatter-crossbow-domain` previously regenerated the committed temporary JSON from the two unchanged Raw artifacts.
+- **Retired:** `npm run audit:scatter-crossbow-domain` previously verified identity evidence, exact regeneration, reference linkage, and the committed temporary artifact.
 - `npx vitest run tests/scatterCrossbowDomain.test.ts tests/gameDataRawPackage.test.ts` covers identity mismatch, order, exact values, trace stages, reference failure, missing/duplicate/wrong types, zero/false, unavailable states, Raw immutability, and prohibited fields.
 
-This change has no site-visible behavior or delivered web asset, so it does not trigger a Site deployment.
+The original temporary-slice change had no site-visible behavior or delivered web asset.
