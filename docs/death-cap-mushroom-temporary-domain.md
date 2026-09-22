@@ -1,7 +1,7 @@
 # Death Cap Mushroom temporary Game Domain
 
 > **Historical status — projector retired.** This Death Cap Mushroom temporary slice is retained only as a historical record.
-> The committed temporary JSON, the legacy generate/audit commands, the temporary source projector `src/domain/temporary/deathCapMushroom.ts`, and its projector-specific test `tests/deathCapMushroomDomain.test.ts` have been retired. `src/domain/temporary/deathCapMushroomIdentity.ts` remains temporarily as Raw fixture metadata for Formal Serialized Relation generator/audit/tests. The current authoritative implementation is the Formal Domain under `src/domain/formal/` and the committed Formal artifacts under `research/domain/formal/`.
+> The committed temporary JSON, legacy generate/audit commands, temporary source projector, projector-specific test, and temporary identity fixture have all been retired. Current source identity and relation fixture metadata come from the Formal Domain under `src/domain/formal/`; committed Formal artifacts under `research/domain/formal/` remain authoritative.
 
 Historically, this slice projected the two committed Death Cap Mushroom Raw snapshots into a committed temporary Domain artifact and proved only the serialized relation from the Instance package to the GameplayEffect package. The Data Browser formerly read that temporary artifact; it now reads the committed Formal artifacts. The temporary source projector and its behavior test are now retired and no longer feed the Application, Inventory, Build, Optimizer, or the runtime artifact model.
 
