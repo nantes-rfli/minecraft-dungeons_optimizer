@@ -1,5 +1,8 @@
 # Fighter’s Bindings temporary Game Domain — Step 3B
 
+> **Historical status — retired.** This Step 3B temporary slice is retained only as a historical record.
+> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+
 `Raw package snapshot → identity assertion → temporary Game Domain projection`
 
 This one-package experiment lives in `src/domain/temporary`. It consumes the unchanged Step 3A snapshot via a type-only dependency on its existing contract. It does not use historical research entity, attack profile, effect, or mechanic models. Nothing imports this projection into the application, Inventory, Data Browser, Optimizer, or runtime catalog.
@@ -22,7 +25,7 @@ The reviewed game-source naming bridge and the icon heuristic conflict remain un
 
 ## Minimal meanings
 
-[projectFightersBindings](../src/domain/temporary/fightersBindings.ts) reads values directly from the supplied snapshot. The generated [temporary projection](../research/domain/temporary/fighters-bindings.json) is a reproducible inspection artifact, not manually copied source data.
+[projectFightersBindings](../src/domain/temporary/fightersBindings.ts) still reads values directly from the supplied snapshot. During this temporary phase, its output was committed as a reproducible inspection artifact rather than manually copied source data; that committed JSON artifact is now retired.
 
 | Domain field | Mapping | Safe meaning |
 |---|---|---|
@@ -35,14 +38,14 @@ The actual source has four entries, Damage 25 each, and durations `0.15000000596
 
 Each field has a state. `known` means the configured parameter was decoded with the expected type, not that its gameplay outcome is established. `unsupported`, `parse-failed`, and `not-extracted` remain unavailable with no value. Missing/ambiguous/unexpected types yield `unknown`; decoded zero remains zero. An unavailable parent blocks reading stale child values.
 
-## Traceability and validation
+## Historical traceability and validation
 
 Each field carries its mapping ID, identity assertion ID, Raw artifact path, dataset ID, extraction run ID, logical package path/hash, and JSON Pointer. Identity traces point to both Raw identifier nodes; configured field traces point to their property nodes. Following a pointer exposes original property order/index, FName/type, metadata, value, and source byte ranges. Missing nodes point to their containing collection; unavailable parents point to the unavailable parent. These traces identify absence without inventing a property node.
 
-For example, the first configured damage points to the actual Damage property under `/package/objects/1/properties/0/decoding/elements/0/properties`. Its precise pointer is generated from the discovered node index, not a copied field value. The Step 3A Raw audit verifies the source/code/run identity; this audit verifies regeneration and links to Raw values. A new snapshot must regenerate the Domain artifact, with provenance preserved.
+For example, the first configured damage points to the actual Damage property under `/package/objects/1/properties/0/decoding/elements/0/properties`. Its precise pointer is generated from the discovered node index, not a copied field value. The Step 3A Raw audit verifies the source/code/run identity; the retired temporary audit verified regeneration and links to Raw values.
 
-- `npm run generate:fighters-bindings-domain`: deterministically regenerate the temporary artifact.
-- `npm run audit:fighters-bindings-domain`: compare the entire regenerated assertion/mappings/projection, including every trace, with the committed artifact. Runs in CI after the unchanged Raw audit.
+- **Retired:** `npm run generate:fighters-bindings-domain` previously regenerated the committed temporary artifact.
+- **Retired:** `npm run audit:fighters-bindings-domain` previously compared the regenerated assertion/mappings/projection with the committed temporary artifact and ran in CI.
 - `npx vitest run tests/fightersBindingsDomain.test.ts tests/gameDataRawPackage.test.ts tests/attackEventComparison.test.ts`: real snapshot values, no mutation, trace resolution, source-change propagation, decoded zero, unavailable states, missing/duplicate/type mismatches, identity conflict, and rejection of other packages/ambiguous CDOs.
 
-Only research artifacts, tooling, tests, and documentation change. No website behavior or delivered assets change, so no Site deployment is needed. Step 3C and all other equipment categories remain outside scope.
+During Step 3B, only research artifacts, tooling, tests, and documentation changed; no website behavior or delivered assets changed. Step 3C and all other equipment categories were outside that phase's scope.
