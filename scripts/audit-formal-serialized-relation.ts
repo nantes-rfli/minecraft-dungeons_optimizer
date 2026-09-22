@@ -1,10 +1,8 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
-import { buildFormalSerializedRelationArtifact, collectFormalSerializedRelationErrors, type FormalRelationInputs } from '../src/domain/formal/serializedRelation.ts'
+import { buildFormalSerializedRelationArtifact, collectFormalSerializedRelationErrors, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition, type FormalRelationInputs } from '../src/domain/formal/serializedRelation.ts'
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
-import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
-import { deathCapMushroomIdentity } from '../src/domain/temporary/deathCapMushroomIdentity.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 
 const root = new URL('..', import.meta.url)
@@ -15,9 +13,9 @@ const source = (definition: typeof scatterCrossbowFormalIdentity) => {
   return { source: raw, identity: projected.semantic, identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation') }
 }
 const inputs: FormalRelationInputs = {
-  scatter: { ...source(scatterCrossbowFormalIdentity), target: readRaw(scatterCrossbowIdentity.projectilePackagePath) },
+  scatter: { ...source(scatterCrossbowFormalIdentity), target: readRaw(scatterCrossbowRelationDefinition.targetRawPath) },
   battleRobe: source(battleRobeFormalIdentity),
-  deathCapMushroom: { ...source(deathCapMushroomFormalIdentity), target: readRaw(deathCapMushroomIdentity.effectPackagePath) },
+  deathCapMushroom: { ...source(deathCapMushroomFormalIdentity), target: readRaw(deathCapMushroomRelationDefinition.targetRawPath) },
 }
 const artifact = buildFormalSerializedRelationArtifact(inputs)
 assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
