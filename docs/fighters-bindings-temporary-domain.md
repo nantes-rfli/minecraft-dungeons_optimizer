@@ -27,8 +27,6 @@ The reviewed game-source naming bridge and the icon heuristic conflict remain un
 
 The retired temporary projector originally read these values directly from the supplied snapshot. Formal Value / Availability now owns the source-backed configured-value read through [fightersBindingsValueReaders.ts](../src/domain/formal/fightersBindingsValueReaders.ts) and [fightersBindingsValueMappings.ts](../src/domain/formal/fightersBindingsValueMappings.ts), while Formal Identity remains independent.
 
-| Domain field | Mapping | Safe meaning |
-|---|---|---|
 | Historical/Current field | Mapping | Safe meaning |
 |---|---|---|
 | Identity Raw observations | `fighters-bindings:identity@1` | Internal ID observations supporting the provisional Formal Identity assertion |
