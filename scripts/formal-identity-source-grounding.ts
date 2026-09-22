@@ -117,10 +117,10 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
 
   const mappingSource = sources.historicalMappingSource ?? ''
   for (const marker of [
-    'id: fightersBindingsIdentity.domainId',
-    'assetSuffix: fightersBindingsIdentity.packagePath.slice(',
-    'mapping: fightersBindingsIdentity.status',
-    'identityAssertionId: fightersBindingsIdentity.id',
+    'id: fightersBindingsFormalIdentity.assertion.domainId',
+    'assetSuffix: fightersBindingsFormalIdentity.assertion.applicationScope.packagePath.slice(',
+    'mapping: fightersBindingsFormalIdentity.assertion.reviewState',
+    'identityAssertionId: fightersBindingsFormalIdentity.assertion.id',
   ]) check(mappingSource.includes(marker), `${fighters.id}: historical mapping no longer preserves the provisional identity wiring`)
 
   const fighterPackageDirectory = fighters.applicationScope.packagePath.slice(0, fighters.applicationScope.packagePath.lastIndexOf('/'))

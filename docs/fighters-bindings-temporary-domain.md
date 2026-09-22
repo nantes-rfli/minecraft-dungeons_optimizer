@@ -1,15 +1,15 @@
 # Fighter’s Bindings temporary Game Domain — Step 3B
 
 > **Historical status — retired.** This Step 3B temporary slice is retained only as a historical record.
-> The committed temporary JSON, legacy generate/audit commands, Fighter's Bindings temporary projector, and its projector-specific Domain test are retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. `fightersBindingsIdentity.ts` remains as a research/audit/test fixture, and `projectionPrimitives.ts` remains shared by current Formal readers.
+> The committed temporary JSON, legacy generate/audit commands, Fighter's Bindings temporary projector, projector-specific Domain test, identity fixture, and shared temporary Raw primitives are retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`; current source definitions and Raw traversal live under `src/domain/formal/`.
 
 `Raw package snapshot → identity assertion → temporary Game Domain projection`
 
-This one-package experiment lives in `src/domain/temporary`. It consumes the unchanged Step 3A snapshot via a type-only dependency on its existing contract. It does not use historical research entity, attack profile, effect, or mechanic models. Nothing imports this projection into the application, Inventory, Data Browser, Optimizer, or runtime catalog.
+This one-package experiment historically lived in `src/domain/temporary`. That source directory has since been retired. It consumed the unchanged Step 3A snapshot via a type-only dependency on its existing contract. It does not use historical research entity, attack profile, effect, or mechanic models. Nothing imports this projection into the application, Inventory, Data Browser, Optimizer, or runtime catalog.
 
 ## Identity decision and existing evidence
 
-The single maintained decision is [fightersBindingsIdentity.ts](../src/domain/temporary/fightersBindingsIdentity.ts), `identity:fighters-bindings@1`.
+The identity decision is now maintained by [identityDefinitions.ts](../src/domain/formal/identityDefinitions.ts) as `identity:fighters-bindings@1`.
 
 | Repository evidence | Finding | Consequence |
 |---|---|---|

@@ -4,9 +4,8 @@ import {
   buildFormalValueAvailabilityArtifact,
   collectFormalValueAvailabilityErrors,
 } from '../src/domain/formal/valueAvailability.ts'
-import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
-import { buildFormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 
@@ -22,7 +21,7 @@ const source = (definition: typeof fightersBindingsFormalIdentity) => {
 }
 const fighters = source(fightersBindingsFormalIdentity)
 const scatter = source(scatterCrossbowFormalIdentity)
-const projectile = readRaw(scatterCrossbowIdentity.projectilePackagePath)
+const projectile = readRaw(scatterCrossbowRelationDefinition.targetRawPath)
 const relations = buildFormalSerializedRelationArtifact({ scatter: { ...scatter, target: projectile },
   battleRobe: source(battleRobeFormalIdentity), deathCapMushroom: source(deathCapMushroomFormalIdentity) })
 const artifact = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters.source,

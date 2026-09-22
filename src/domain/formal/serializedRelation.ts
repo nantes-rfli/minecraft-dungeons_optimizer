@@ -1,5 +1,5 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
-import { locateRawNode, nestedRawNode, rawCdoCandidates, topLevelRawNode, type Located } from '../temporary/projectionPrimitives.ts'
+import { locateRawNode, nestedRawNode, rawCdoCandidates, topLevelRawNode, type Located } from './rawProjection.ts'
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { matchedIdentityDomainId } from './boundarySource.ts'
@@ -20,11 +20,11 @@ export type FormalSerializedRelationArtifact = { schemaVersion: 1; artifactKind:
 export type RelationSliceInput = { source: RawPackageSnapshot; identity: FormalSemanticIdentity; identityEvidence: RawObservationEvidenceRecord[]; target?: RawPackageSnapshot }
 export type FormalRelationInputs = { scatter: RelationSliceInput; battleRobe: RelationSliceInput; deathCapMushroom: RelationSliceInput }
 
-const definitions = [
-  { key: 'scatter', slice: 'scatter-crossbow', relationRef: 'relation:scatter-crossbow:projectile@1', field: 'Projectile', identity: scatterCrossbowFormalIdentity, targetGamePath: '/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow', targetRawPath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow' },
-  { key: 'battleRobe', slice: 'battle-robe', relationRef: 'relation:battle-robe:gear-actor@1', field: 'GearActor', identity: battleRobeFormalIdentity, targetGamePath: '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe', targetRawPath: 'Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe' },
-  { key: 'deathCapMushroom', slice: 'death-cap-mushroom', relationRef: 'relation:death-cap-mushroom:effect@1', field: 'Effect', identity: deathCapMushroomFormalIdentity, targetGamePath: '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect', targetRawPath: 'Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect' },
-] as const
+export const scatterCrossbowRelationDefinition = { key: 'scatter', slice: 'scatter-crossbow', relationRef: 'relation:scatter-crossbow:projectile@1', field: 'Projectile', identity: scatterCrossbowFormalIdentity, targetGamePath: '/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow', targetRawPath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow' } as const
+export const battleRobeRelationDefinition = { key: 'battleRobe', slice: 'battle-robe', relationRef: 'relation:battle-robe:gear-actor@1', field: 'GearActor', identity: battleRobeFormalIdentity, targetGamePath: '/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe', targetRawPath: 'Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe' } as const
+export const deathCapMushroomRelationDefinition = { key: 'deathCapMushroom', slice: 'death-cap-mushroom', relationRef: 'relation:death-cap-mushroom:effect@1', field: 'Effect', identity: deathCapMushroomFormalIdentity, targetGamePath: '/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect', targetRawPath: 'Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect' } as const
+
+const definitions = [scatterCrossbowRelationDefinition, battleRobeRelationDefinition, deathCapMushroomRelationDefinition] as const
 const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const at = (root: unknown, pointer: string) => pointer.split('/').slice(1).reduce<unknown>((value, key) => (value as Record<string, unknown> | undefined)?.[key], root)
 const pathFor = (raw: RawPackageSnapshot) => `research/raw/packages/${raw.logicalPackage.path}.raw.json`

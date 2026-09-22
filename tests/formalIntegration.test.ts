@@ -4,9 +4,8 @@ import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { collectFormalIntegrationErrors } from '../src/domain/formal/integrationAudit.ts'
 import { buildFormalIdentityEvidenceArtifact, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
-import { buildFormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { buildFormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
-import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
 
 const definitions = [fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity]
 const read = (path: string): RawPackageSnapshot => JSON.parse(fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')) as RawPackageSnapshot
@@ -18,7 +17,7 @@ const source = (raw: RawPackageSnapshot, definition: typeof fightersBindingsForm
 function artifacts() {
   const raws = definitions.map((definition) => read(definition.assertion.applicationScope.packagePath))
   const [fighters, scatter, battle, mushroom] = definitions.map((definition, index) => source(raws[index]!, definition))
-  const projectile = read(scatterCrossbowIdentity.projectilePackagePath)
+  const projectile = read(scatterCrossbowRelationDefinition.targetRawPath)
   const identity = buildFormalIdentityEvidenceArtifact(definitions.map((definition, index) => ({ raw: raws[index]!, definition })))
   const relation = buildFormalSerializedRelationArtifact({ scatter: { ...scatter!, target: projectile }, battleRobe: battle!, deathCapMushroom: mushroom! })
   const value = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters!.source, scatterCrossbowInstanceRaw: scatter!.source,

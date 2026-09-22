@@ -1,4 +1,4 @@
-import { buildFormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import fs from 'node:fs'
@@ -10,14 +10,12 @@ import {
   type FormalValueAvailabilityArtifact,
 } from '../src/domain/formal/valueAvailability.ts'
 import { fightersBindingsValueMappings } from '../src/domain/formal/fightersBindingsValueMappings.ts'
-import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
 import { scatterValueMappings } from '../src/domain/formal/scatterValueMappings.ts'
-import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
 
 const read = (path: string) => fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')
-const fightersText = read(fightersBindingsIdentity.packagePath)
-const scatterInstanceText = read(scatterCrossbowIdentity.instancePackagePath)
-const scatterProjectileText = read(scatterCrossbowIdentity.projectilePackagePath)
+const fightersText = read(fightersBindingsFormalIdentity.assertion.applicationScope.packagePath)
+const scatterInstanceText = read(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath)
+const scatterProjectileText = read(scatterCrossbowRelationDefinition.targetRawPath)
 const fixtures = () => ({
   fightersBindingsRaw: JSON.parse(fightersText),
   scatterCrossbowInstanceRaw: JSON.parse(scatterInstanceText),
@@ -250,7 +248,7 @@ describe('Formal Value / Availability v1 projection', () => {
       deathCapMushroom: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
     }) })
     expect(dependencyRecord(artifact)).toMatchObject({ failureKind: 'dependency', reason: 'target-snapshot-not-supplied' })
-    expect(artifact.provenance.evidence.some(({ provenance }) => provenance.packagePath === scatterCrossbowIdentity.projectilePackagePath)).toBe(false)
+    expect(artifact.provenance.evidence.some(({ provenance }) => provenance.packagePath === scatterCrossbowRelationDefinition.targetRawPath)).toBe(false)
   })
 
   it('keeps projection identity stable across value/result changes', () => {
