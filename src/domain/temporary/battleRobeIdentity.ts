@@ -1,4 +1,4 @@
-/** Repository-local identity decision used only by the temporary Battle Robe projection. */
+/** Repository-local Raw fixture metadata retained temporarily for Formal Battle Robe relation tests. */
 export const battleRobeIdentity = {
   id: 'identity:battle-robe@1',
   status: 'provisional',
