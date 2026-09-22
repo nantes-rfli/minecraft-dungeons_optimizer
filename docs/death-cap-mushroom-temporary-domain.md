@@ -30,6 +30,6 @@ The target snapshot's `UIData` is not read or projected. No generic GameplayEffe
 - **Retired:** `npm run generate:death-cap-mushroom-domain` previously regenerated the committed temporary JSON from the unchanged canonical Raw artifacts.
 - **Retired:** `npm run audit:death-cap-mushroom-domain` previously compared a fresh pure projection with the committed temporary artifact and checked identity evidence and target provenance.
 - `npx vitest run tests/deathCapMushroomDataBrowser.test.tsx tests/deathCapMushroomDomain.test.ts` checks the current Application boundary, displayed provenance, unresolved semantics, and forbidden-value absence.
-- `npx vitest run tests/deathCapMushroomDomain.test.ts tests/scatterCrossbowDomain.test.ts tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts` covers the fourth slice and regression safety for the earlier temporary projections.
+- **Historical:** Before the Battle Robe projector/test retirement, `npx vitest run tests/deathCapMushroomDomain.test.ts tests/scatterCrossbowDomain.test.ts tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts` covered the fourth slice and regression safety for the earlier temporary projections. This command is no longer runnable as written.
 
 During the temporary-consumer phase, the Data Browser integration was site-visible. The current Data Browser no longer consumes this temporary slice; it reads committed Formal artifacts instead.
