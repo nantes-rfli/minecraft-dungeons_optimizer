@@ -1,5 +1,6 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
-import { projectFightersBindings, fightersBindingsMappings } from '../temporary/fightersBindings.ts'
+import { fightersBindingsValueMappings } from './fightersBindingsValueMappings.ts'
+import { readFightersBindingsValues } from './fightersBindingsValueReaders.ts'
 import { scatterValueMappings } from './scatterValueMappings.ts'
 import type { Field, RawTrace, UnavailableState } from '../temporary/projectionPrimitives.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
@@ -205,17 +206,17 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
   const accumulator: ProjectionAccumulator = { records: [], evidence: [] }
   const fightersSemantic: FormalFightersBindingsValues = {}
   if (matchedIdentityDomainId(inputs.fightersBindingsRaw, fightersBindingsFormalIdentity, inputs.fightersBindingsIdentity, inputs.fightersBindingsIdentityEvidence)) {
-    const fighters = projectFightersBindings(inputs.fightersBindingsRaw)
+    const fighters = readFightersBindingsValues(inputs.fightersBindingsRaw)
     const fighterOccurrence: FighterValueOccurrence = { slice: 'fighters-bindings', scope: 'configured-attacks' }
     const attacks = collectionField(fighters.configuredAttacks)
-    const configuredAttacks = addProjection(accumulator, fightersBindingsMappings.entries.id, fighterOccurrence, attacks)
+    const configuredAttacks = addProjection(accumulator, fightersBindingsValueMappings.entries.id, fighterOccurrence, attacks)
     if (configuredAttacks) fightersSemantic.configuredAttacks = configuredAttacks
     if (attacks.state === 'known' && fighters.configuredAttacks.state === 'known') {
       fightersSemantic.attacks = fighters.configuredAttacks.value.map((entry) => {
         const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: entry.sourceIndex }
         const semantic: NonNullable<FormalFightersBindingsValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
-        const damage = addProjection(accumulator, fightersBindingsMappings.damage.id, occurrence, entry.configuredDamage)
-        const duration = addProjection(accumulator, fightersBindingsMappings.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
+        const damage = addProjection(accumulator, fightersBindingsValueMappings.damage.id, occurrence, entry.configuredDamage)
+        const duration = addProjection(accumulator, fightersBindingsValueMappings.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
         if (damage) semantic.configuredDamage = damage
         if (duration) semantic.configuredAnimationDurationSeconds = duration
         return semantic
@@ -293,11 +294,11 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
   const add = (mappingId: string, occurrence: ValueOccurrence, value: SourceBackedValue<unknown> | undefined) => {
     if (value) values.push({ mappingId, occurrence, value })
   }
-  add(fightersBindingsMappings.entries.id, { slice: 'fighters-bindings', scope: 'configured-attacks' }, semantic.fightersBindings.configuredAttacks)
+  add(fightersBindingsValueMappings.entries.id, { slice: 'fighters-bindings', scope: 'configured-attacks' }, semantic.fightersBindings.configuredAttacks)
   for (const attack of semantic.fightersBindings.attacks ?? []) {
     const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: attack.sourceIndex }
-    add(fightersBindingsMappings.damage.id, occurrence, attack.configuredDamage)
-    add(fightersBindingsMappings.duration.id, occurrence, attack.configuredAnimationDurationSeconds)
+    add(fightersBindingsValueMappings.damage.id, occurrence, attack.configuredDamage)
+    add(fightersBindingsValueMappings.duration.id, occurrence, attack.configuredAnimationDurationSeconds)
   }
   add(scatterValueMappings.velocityFactor.id, { slice: 'scatter-crossbow', scope: 'weapon' }, semantic.scatterCrossbow.configuredProjectileVelocityFactor)
   add(scatterValueMappings.definitions.id, { slice: 'scatter-crossbow', scope: 'projectile-definitions' }, semantic.scatterCrossbow.configuredProjectileDefinitions)
@@ -374,7 +375,7 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(canonicalJson(entryIndices) === canonicalJson(fighterIndices), 'fighters-bindings: child occurrence order/membership differs from projected collection')
     check(fighterIndices.every(Number.isInteger) && new Set(fighterIndices).size === fighterIndices.length, 'fighters-bindings: projected collection has ambiguous sourceIndex values')
     for (const sourceIndex of fighterIndices) requireChildCoverage(
-      [fightersBindingsMappings.damage.id, fightersBindingsMappings.duration.id],
+      [fightersBindingsValueMappings.damage.id, fightersBindingsValueMappings.duration.id],
       { slice: 'fighters-bindings', sourceIndex },
       'fighters-bindings',
     )
