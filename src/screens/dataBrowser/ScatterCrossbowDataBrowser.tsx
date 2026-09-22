@@ -14,7 +14,7 @@ function TraceDetails({ domainField, field }: { domainField: string; field: Scat
     <dt>Raw property</dt><dd><code>{field.rawProperty}</code></dd>
     {field.projectionRef && <><dt>Value projection ref</dt><dd><code>{field.projectionRef}</code></dd></>}
     {field.relationProjectionRef && <><dt>Relation projection ref</dt><dd><code>{field.relationProjectionRef}</code></dd></>}
-    <dt>Value EvidenceRef</dt><dd><code>{field.evidenceRefs.join(', ')}</code></dd>
+    <dt>{field.projectionRef ? 'Value EvidenceRef' : 'Identity EvidenceRef'}</dt><dd><code>{field.evidenceRefs.join(', ')}</code></dd>
     <dt>Artifact path</dt><dd><code>{field.provenance.artifactPath}</code></dd>
     <dt>Raw package</dt><dd><code>{field.provenance.packagePath}</code></dd>
     <dt>Dataset</dt><dd><code>{field.provenance.datasetId}</code></dd>
