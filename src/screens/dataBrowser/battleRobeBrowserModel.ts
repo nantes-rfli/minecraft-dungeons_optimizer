@@ -54,9 +54,16 @@ if (relationEvidence.length !== 3) {
   throw new Error('Battle Robe Formal GearActor relation provenance is incomplete')
 }
 
-const [objectPropertyEvidence, classImportEvidence, outerPackageEvidence] = relationEvidence
+const objectPropertyEvidence = relationEvidence[0]
+const classImportEvidence = relationEvidence[1]
+const outerPackageEvidence = relationEvidence[2]
+
+if (!objectPropertyEvidence || !classImportEvidence || !outerPackageEvidence) {
+  throw new Error('Battle Robe Formal GearActor relation provenance is incomplete')
+}
+
 const className = classImportEvidence.observed && 'className' in classImportEvidence.observed
-  ? classImportEvidence.observed.className.value
+  ? classImportEvidence.observed.className?.value
   : undefined
 
 if (!className) throw new Error('Battle Robe Formal class import display value is unavailable')
