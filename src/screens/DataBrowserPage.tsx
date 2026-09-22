@@ -120,7 +120,7 @@ function itemsFor(route: AppRoute): CatalogItem[] {
   })
   if (route === '/data/artifacts') return [
     ...ARTIFACT_AUDIT.entries.filter((item) => item.id !== deathCapMushroomBrowserProjection.identity.domainId).map((item) => ({ id: item.id, name: japaneseEquipmentName('artifact', item.id), secondary: item.name, family: 'アーティファクト', support: (item.id in ARTIFACTS ? item.runtimeReadiness === 'ready-with-limits' ? 'limited' : 'full' : 'research-only') as Support, known: `再使用できるまで${item.cooldown.seconds}秒です。`, blockers: item.blockers, harvest: getHarvest('artifact', item.id) })),
-    ...(deathCapMushroomBrowserProjection.identity.domainId && deathCapMushroomBrowserProjection.identity.displayName ? [{ id: deathCapMushroomBrowserProjection.identity.domainId, name: deathCapMushroomBrowserProjection.identity.displayName, family: 'Temporary Domain', support: 'research-only' as const, known: 'GameplayEffect packageへのserialized relationを確認。gameplay semanticsは未解決です。', blockers: [...deathCapMushroomBrowserProjection.unresolved] }] : []),
+    { id: deathCapMushroomBrowserProjection.identity.domainId, name: deathCapMushroomBrowserProjection.identity.displayName, family: 'Formal Domain', support: 'research-only' as const, known: 'Formal serialized Effect relationとresolved target Raw snapshotを確認。GameplayEffect semanticsはassertしていません。', blockers: [] },
     ...ARTIFACT_AUDIT.populationDifferences.map((item) => ({ id: item.id, name: japaneseEquipmentName('artifact', item.id), secondary: item.name, family: 'アーティファクト', support: 'research-only' as const, known: `再使用できるまで${item.cooldownSeconds}秒です。`, blockers: item.blockers, harvest: getHarvest('artifact', item.id) })),
   ]
   return [
