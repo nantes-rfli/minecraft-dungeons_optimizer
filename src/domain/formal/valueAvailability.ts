@@ -2,7 +2,7 @@ import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.
 import { fightersBindingsValueMappings } from './fightersBindingsValueMappings.ts'
 import { readFightersBindingsValues } from './fightersBindingsValueReaders.ts'
 import { scatterValueMappings } from './scatterValueMappings.ts'
-import type { Field, RawTrace, UnavailableState } from '../temporary/projectionPrimitives.ts'
+import type { Field, RawTrace, UnavailableState } from './rawProjection.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 import { matchedIdentityDomainId, sameRawSource, snapshotSource } from './boundarySource.ts'
