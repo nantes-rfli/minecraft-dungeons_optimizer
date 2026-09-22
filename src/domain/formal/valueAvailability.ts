@@ -1,6 +1,6 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { projectFightersBindings, fightersBindingsMappings } from '../temporary/fightersBindings.ts'
-import { scatterCrossbowMappings } from '../temporary/scatterCrossbow.ts'
+import { scatterValueMappings } from './scatterValueMappings.ts'
 import type { Field, RawTrace, UnavailableState } from '../temporary/projectionPrimitives.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
@@ -227,19 +227,19 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
   if (matchedIdentityDomainId(inputs.scatterCrossbowInstanceRaw, scatterCrossbowFormalIdentity, inputs.scatterCrossbowIdentity, inputs.scatterCrossbowIdentityEvidence)) {
     const scatter = readScatterSource(inputs.scatterCrossbowInstanceRaw)
     const weaponOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'weapon' }
-    const velocity = addProjection(accumulator, scatterCrossbowMappings.velocityFactor.id, weaponOccurrence, scatter.velocity)
+    const velocity = addProjection(accumulator, scatterValueMappings.velocityFactor.id, weaponOccurrence, scatter.velocity)
     if (velocity) scatterSemantic.configuredProjectileVelocityFactor = velocity
     const definitionsOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'projectile-definitions' }
     const definitions = collectionField(scatter.definitions)
-    const configuredDefinitions = addProjection(accumulator, scatterCrossbowMappings.definitions.id, definitionsOccurrence, definitions)
+    const configuredDefinitions = addProjection(accumulator, scatterValueMappings.definitions.id, definitionsOccurrence, definitions)
     if (configuredDefinitions) scatterSemantic.configuredProjectileDefinitions = configuredDefinitions
     if (definitions.state === 'known' && scatter.definitions.state === 'known') {
       scatterSemantic.projectileDefinitions = scatter.definitions.value.map((entry) => {
         const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: entry.sourceIndex }
         const semantic: NonNullable<FormalScatterCrossbowValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
-        const count = addProjection(accumulator, scatterCrossbowMappings.projectileCount.id, occurrence, entry.count)
-        const angle = addProjection(accumulator, scatterCrossbowMappings.angleSpan.id, occurrence, entry.angle)
-        const delay = addProjection(accumulator, scatterCrossbowMappings.delayPerProjectile.id, occurrence, entry.delay)
+        const count = addProjection(accumulator, scatterValueMappings.projectileCount.id, occurrence, entry.count)
+        const angle = addProjection(accumulator, scatterValueMappings.angleSpan.id, occurrence, entry.angle)
+        const delay = addProjection(accumulator, scatterValueMappings.delayPerProjectile.id, occurrence, entry.delay)
         if (count) semantic.configuredProjectileCount = count
         if (angle) semantic.configuredAngleSpan = angle
         if (delay) semantic.configuredDelaySecondsPerProjectile = delay
@@ -259,9 +259,9 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
           && target && inputs.scatterCrossbowProjectileRaw && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)))
         const targetFields = targetReady ? readScatterTarget(inputs.scatterCrossbowProjectileRaw!) : undefined
         const fields = [
-          [scatterCrossbowMappings.pushbackEnabled.id, 'configuredPushbackEnabled', targetFields?.pushbackEnabled],
-          [scatterCrossbowMappings.pushbackStrength.id, 'configuredPushbackStrength', targetFields?.pushbackStrength],
-          [scatterCrossbowMappings.ignoreFriendlyFire.id, 'configuredIgnoreFriendlyFire', targetFields?.ignoreFriendlyFire],
+          [scatterValueMappings.pushbackEnabled.id, 'configuredPushbackEnabled', targetFields?.pushbackEnabled],
+          [scatterValueMappings.pushbackStrength.id, 'configuredPushbackStrength', targetFields?.pushbackStrength],
+          [scatterValueMappings.ignoreFriendlyFire.id, 'configuredIgnoreFriendlyFire', targetFields?.ignoreFriendlyFire],
         ] as const
         for (const [mappingId, key, field] of fields) {
           if (!field) { dependencyUnavailable(accumulator, mappingId, occurrence,
@@ -299,16 +299,16 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
     add(fightersBindingsMappings.damage.id, occurrence, attack.configuredDamage)
     add(fightersBindingsMappings.duration.id, occurrence, attack.configuredAnimationDurationSeconds)
   }
-  add(scatterCrossbowMappings.velocityFactor.id, { slice: 'scatter-crossbow', scope: 'weapon' }, semantic.scatterCrossbow.configuredProjectileVelocityFactor)
-  add(scatterCrossbowMappings.definitions.id, { slice: 'scatter-crossbow', scope: 'projectile-definitions' }, semantic.scatterCrossbow.configuredProjectileDefinitions)
+  add(scatterValueMappings.velocityFactor.id, { slice: 'scatter-crossbow', scope: 'weapon' }, semantic.scatterCrossbow.configuredProjectileVelocityFactor)
+  add(scatterValueMappings.definitions.id, { slice: 'scatter-crossbow', scope: 'projectile-definitions' }, semantic.scatterCrossbow.configuredProjectileDefinitions)
   for (const definition of semantic.scatterCrossbow.projectileDefinitions ?? []) {
     const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: definition.sourceIndex }
-    add(scatterCrossbowMappings.projectileCount.id, occurrence, definition.configuredProjectileCount)
-    add(scatterCrossbowMappings.angleSpan.id, occurrence, definition.configuredAngleSpan)
-    add(scatterCrossbowMappings.delayPerProjectile.id, occurrence, definition.configuredDelaySecondsPerProjectile)
-    add(scatterCrossbowMappings.pushbackEnabled.id, occurrence, definition.configuredPushbackEnabled)
-    add(scatterCrossbowMappings.pushbackStrength.id, occurrence, definition.configuredPushbackStrength)
-    add(scatterCrossbowMappings.ignoreFriendlyFire.id, occurrence, definition.configuredIgnoreFriendlyFire)
+    add(scatterValueMappings.projectileCount.id, occurrence, definition.configuredProjectileCount)
+    add(scatterValueMappings.angleSpan.id, occurrence, definition.configuredAngleSpan)
+    add(scatterValueMappings.delayPerProjectile.id, occurrence, definition.configuredDelaySecondsPerProjectile)
+    add(scatterValueMappings.pushbackEnabled.id, occurrence, definition.configuredPushbackEnabled)
+    add(scatterValueMappings.pushbackStrength.id, occurrence, definition.configuredPushbackStrength)
+    add(scatterValueMappings.ignoreFriendlyFire.id, occurrence, definition.configuredIgnoreFriendlyFire)
   }
   return values
 }
@@ -389,12 +389,12 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(scatterIndices.every((index) => Number.isInteger(index) && index >= 0) && new Set(scatterIndices).size === scatterIndices.length, 'scatter-crossbow: projected collection has ambiguous sourceIndex values')
     for (const sourceIndex of scatterIndices) requireChildCoverage(
       [
-        scatterCrossbowMappings.projectileCount.id,
-        scatterCrossbowMappings.angleSpan.id,
-        scatterCrossbowMappings.delayPerProjectile.id,
-        scatterCrossbowMappings.pushbackEnabled.id,
-        scatterCrossbowMappings.pushbackStrength.id,
-        scatterCrossbowMappings.ignoreFriendlyFire.id,
+        scatterValueMappings.projectileCount.id,
+        scatterValueMappings.angleSpan.id,
+        scatterValueMappings.delayPerProjectile.id,
+        scatterValueMappings.pushbackEnabled.id,
+        scatterValueMappings.pushbackStrength.id,
+        scatterValueMappings.ignoreFriendlyFire.id,
       ],
       { slice: 'scatter-crossbow', sourceIndex },
       'scatter-crossbow',

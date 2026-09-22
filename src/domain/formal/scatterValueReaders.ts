@@ -1,5 +1,5 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
-import { scatterCrossbowMappings as mapping } from '../temporary/scatterCrossbow.ts'
+import { scatterValueMappings as mapping } from './scatterValueMappings.ts'
 import { locateRawNode, nestedRawNode, projectionTrace, rawCdoCandidates, readRawValue, topLevelRawNode, type Field, type Located } from '../temporary/projectionPrimitives.ts'
 import { scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 

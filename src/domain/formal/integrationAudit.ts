@@ -3,7 +3,7 @@ import type { FormalValueAvailabilityArtifact } from './valueAvailability.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from './identityDefinitions.ts'
 import { sameRawSource } from './boundarySource.ts'
-import { scatterCrossbowMappings } from '../temporary/scatterCrossbow.ts'
+import { scatterValueMappings } from './scatterValueMappings.ts'
 
 export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceArtifact,
   value: FormalValueAvailabilityArtifact, relation: FormalSerializedRelationArtifact): string[] {
@@ -26,8 +26,8 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   for (const record of value.valueProjections) {
     const source = sources.get(record.occurrence.slice === 'fighters-bindings' ? 'fighters-bindings' : 'scatter-crossbow')
     check(Boolean(source), `${record.projectionId}: missing matched Identity`)
-    const targetSide = record.occurrence.slice === 'scatter-crossbow' && [scatterCrossbowMappings.pushbackEnabled.id,
-      scatterCrossbowMappings.pushbackStrength.id, scatterCrossbowMappings.ignoreFriendlyFire.id].includes(record.mappingId as typeof scatterCrossbowMappings.pushbackEnabled.id)
+    const targetSide = record.occurrence.slice === 'scatter-crossbow' && [scatterValueMappings.pushbackEnabled.id,
+      scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id].includes(record.mappingId as typeof scatterValueMappings.pushbackEnabled.id)
     if (!targetSide) check(record.relationProjectionRef === undefined, `${record.projectionId}: source-side Value has Relation dependency`)
     if (record.result === 'unavailable' && record.failureKind === 'dependency') continue
     for (const ref of record.evidenceRefs ?? []) {
@@ -46,11 +46,11 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
       check(Boolean(evidence && source && sameRawSource(evidence.provenance, source)), `${projected.projectionRef}: Relation/Identity source mismatch`)
     }
   }
-  const parent = value.valueProjections.find((item) => item.mappingId === scatterCrossbowMappings.definitions.id)
+  const parent = value.valueProjections.find((item) => item.mappingId === scatterValueMappings.definitions.id)
   const indices = value.semantic.scatterCrossbow.configuredProjectileDefinitions?.value
   check((parent?.result === 'projected') === (relation.scatterParent?.result === 'projected'), 'Scatter parent state mismatch')
   if (parent?.result === 'projected') check(JSON.stringify(indices) === JSON.stringify(relation.scatterParent?.sourceIndices), 'Scatter sourceIndex mismatch')
-  const targetMappings = [scatterCrossbowMappings.pushbackEnabled.id, scatterCrossbowMappings.pushbackStrength.id, scatterCrossbowMappings.ignoreFriendlyFire.id]
+  const targetMappings = [scatterValueMappings.pushbackEnabled.id, scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id]
   for (const index of indices ?? []) {
     const matches = relation.relationProjections.filter((item) => item.occurrence.slice === 'scatter-crossbow' && item.occurrence.sourceIndex === index)
     check(matches.length === 1, `Scatter ${index}: Relation occurrence must be exactly one`)

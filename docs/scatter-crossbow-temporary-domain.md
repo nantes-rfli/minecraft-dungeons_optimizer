@@ -1,9 +1,9 @@
 # Scatter Crossbow temporary Game Domain
 
-> **Historical status — retired.** This Scatter Crossbow temporary slice is retained only as a historical record.
-> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+> **Historical status — projector retired.** This Scatter Crossbow temporary slice is retained only as a historical record.
+> The committed temporary JSON, the legacy generate/audit commands, the temporary source projector `src/domain/temporary/scatterCrossbow.ts`, and its projector-specific test `tests/scatterCrossbowDomain.test.ts` have been retired. `src/domain/temporary/scatterCrossbowIdentity.ts` remains temporarily as Raw fixture metadata for Formal generator/audit/tests. The current authoritative implementation is the Formal Domain under `src/domain/formal/` and the committed Formal artifacts under `research/domain/formal/`.
 
-Historically, this slice projected the two committed Scatter Crossbow Raw package snapshots into a committed temporary Domain artifact. The temporary source projector remains, but the committed artifact is retired and no longer feeds the Data Browser, Inventory, Build, Optimizer, runtime ranged schema, or any generic entity/relation system.
+Historically, this slice projected the two committed Scatter Crossbow Raw package snapshots into a committed temporary Domain artifact. The temporary source projector and its behavior test are now retired. The Application and authoritative Domain consume Formal artifacts/contracts instead; the retired temporary slice no longer feeds the Data Browser, Inventory, Build, Optimizer, runtime ranged schema, or any generic entity/relation system.
 
 ## Identity
 
@@ -29,6 +29,7 @@ Only after that reference succeeds, the projectile's `pushback.enablePushback`, 
 
 - **Retired:** `npm run generate:scatter-crossbow-domain` previously regenerated the committed temporary JSON from the two unchanged Raw artifacts.
 - **Retired:** `npm run audit:scatter-crossbow-domain` previously verified identity evidence, exact regeneration, reference linkage, and the committed temporary artifact.
-- `npx vitest run tests/scatterCrossbowDomain.test.ts tests/gameDataRawPackage.test.ts` covers identity mismatch, order, exact values, trace stages, reference failure, missing/duplicate/wrong types, zero/false, unavailable states, Raw immutability, and prohibited fields.
+- **Retired:** `tests/scatterCrossbowDomain.test.ts` previously covered identity mismatch, order, exact values, trace stages, reference failure, missing/duplicate/wrong types, zero/false, unavailable states, Raw immutability, and prohibited fields.
+- Current authoritative Scatter coverage lives in the Formal Value / Availability, Serialized Relation, and Cross-boundary Integration tests. `src/domain/formal/scatterValueMappings.ts` owns only the mapping metadata required by Formal Value / Integration; temporary identity and relation behavior were not migrated.
 
 The original temporary-slice change had no site-visible behavior or delivered web asset.

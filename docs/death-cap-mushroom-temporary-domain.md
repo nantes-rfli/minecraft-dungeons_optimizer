@@ -1,9 +1,9 @@
 # Death Cap Mushroom temporary Game Domain
 
-> **Historical status — retired.** This Death Cap Mushroom temporary slice is retained only as a historical record.
-> The committed temporary JSON and the legacy generate/audit commands have been retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`. The `src/domain/temporary/**` source modules and their Domain tests remain for now.
+> **Historical status — projector retired.** This Death Cap Mushroom temporary slice is retained only as a historical record.
+> The committed temporary JSON, the legacy generate/audit commands, the temporary source projector `src/domain/temporary/deathCapMushroom.ts`, and its projector-specific test `tests/deathCapMushroomDomain.test.ts` have been retired. `src/domain/temporary/deathCapMushroomIdentity.ts` remains temporarily as Raw fixture metadata for Formal Serialized Relation generator/audit/tests. The current authoritative implementation is the Formal Domain under `src/domain/formal/` and the committed Formal artifacts under `research/domain/formal/`.
 
-Historically, this slice projected the two committed Death Cap Mushroom Raw snapshots into a committed temporary Domain artifact and proved only the serialized relation from the Instance package to the GameplayEffect package. The Data Browser formerly read that temporary artifact; it now reads the committed Formal artifacts. The temporary source projector remains, but its committed JSON is retired and it does not feed Inventory, Build, Optimizer, or the runtime artifact model.
+Historically, this slice projected the two committed Death Cap Mushroom Raw snapshots into a committed temporary Domain artifact and proved only the serialized relation from the Instance package to the GameplayEffect package. The Data Browser formerly read that temporary artifact; it now reads the committed Formal artifacts. The temporary source projector and its behavior test are now retired and no longer feed the Application, Inventory, Build, Optimizer, or the runtime artifact model.
 
 ## Projected shape and identity
 
@@ -29,7 +29,8 @@ The target snapshot's `UIData` is not read or projected. No generic GameplayEffe
 
 - **Retired:** `npm run generate:death-cap-mushroom-domain` previously regenerated the committed temporary JSON from the unchanged canonical Raw artifacts.
 - **Retired:** `npm run audit:death-cap-mushroom-domain` previously compared a fresh pure projection with the committed temporary artifact and checked identity evidence and target provenance.
-- `npx vitest run tests/deathCapMushroomDataBrowser.test.tsx tests/deathCapMushroomDomain.test.ts` checks the current Application boundary, displayed provenance, unresolved semantics, and forbidden-value absence.
-- **Historical:** Before the Battle Robe projector/test retirement, `npx vitest run tests/deathCapMushroomDomain.test.ts tests/scatterCrossbowDomain.test.ts tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts` covered the fourth slice and regression safety for the earlier temporary projections. This command is no longer runnable as written.
+- **Retired:** `tests/deathCapMushroomDomain.test.ts` previously covered the temporary projector's identity, Effect-chain validation, unavailable states, Raw immutability, and unresolved-semantics boundary.
+- Current Application coverage lives in `tests/deathCapMushroomDataBrowser.test.tsx`; current authoritative relation coverage lives in the Formal Serialized Relation and Integration tests.
+- **Historical:** During the temporary-projector phase, `npx vitest run tests/deathCapMushroomDomain.test.ts tests/scatterCrossbowDomain.test.ts tests/battleRobeDomain.test.ts tests/fightersBindingsDomain.test.ts` covered these legacy projections together. This command is no longer runnable as written because the Death Cap Mushroom, Scatter Crossbow, and Battle Robe projector tests have been retired.
 
 During the temporary-consumer phase, the Data Browser integration was site-visible. The current Data Browser no longer consumes this temporary slice; it reads committed Formal artifacts instead.
