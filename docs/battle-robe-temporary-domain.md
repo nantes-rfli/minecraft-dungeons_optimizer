@@ -1,7 +1,7 @@
 # Battle Robe temporary Game Domain
 
 > **Historical status — projector retired.** This Battle Robe temporary slice is retained only as a historical record.
-> The committed temporary JSON, the legacy generate/audit commands, the temporary source projector `src/domain/temporary/battleRobe.ts`, and its projector-specific test `tests/battleRobeDomain.test.ts` have been retired. `src/domain/temporary/battleRobeIdentity.ts` remains temporarily as Raw fixture metadata for Formal Serialized Relation tests. The current authoritative implementation is the Formal Domain under `src/domain/formal/` and the committed Formal artifacts under `research/domain/formal/`.
+> The committed temporary JSON, legacy generate/audit commands, temporary source projector, projector-specific test, and temporary identity fixture have all been retired. Current source identity and relation fixture metadata come from the Formal Domain under `src/domain/formal/`; committed Formal artifacts under `research/domain/formal/` remain authoritative.
 
 Historically, this slice projected the committed Battle Robe Instance Raw package into a committed temporary Domain artifact. The temporary source projector and its behavior test are now retired and no longer feed the application, Data Browser, Inventory, Build, Optimizer, runtime armor catalog, or a generic equipment/relation model.
 
@@ -36,6 +36,6 @@ That legacy `unresolved` array is not part of the Formal schema. The Application
 - **Retired:** `npm run generate:battle-robe-domain` previously regenerated the committed temporary JSON from the unchanged canonical Raw artifact.
 - **Retired:** `npm run audit:battle-robe-domain` previously compared a fresh projection with the committed temporary artifact and checked the fixed assertions.
 - **Retired:** `tests/battleRobeDomain.test.ts` previously covered identity traceability, reference-chain failure, unavailable state preservation, and the Armor Property ownership boundary.
-- Current Formal coverage for the transferred responsibilities lives in `tests/formalIdentityEvidence.test.ts`, `tests/formalSerializedRelation.test.ts`, and the Battle Robe Formal Data Browser adapter. `src/domain/temporary/battleRobeIdentity.ts` remains only as a temporary fixture dependency for the Formal relation test path and is not authoritative implementation.
+- Current Formal coverage for the transferred responsibilities lives in `tests/formalIdentityEvidence.test.ts`, `tests/formalSerializedRelation.test.ts`, and the Battle Robe Formal Data Browser adapter. The relation test now reads source identity scope directly from the Formal identity definition.
 
 The original temporary-slice change had no site-visible behavior or delivered web asset.
