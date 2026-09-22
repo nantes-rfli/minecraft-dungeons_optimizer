@@ -1,7 +1,7 @@
 # Scatter Crossbow temporary Game Domain
 
 > **Historical status — projector retired.** This Scatter Crossbow temporary slice is retained only as a historical record.
-> The committed temporary JSON, the legacy generate/audit commands, the temporary source projector `src/domain/temporary/scatterCrossbow.ts`, and its projector-specific test `tests/scatterCrossbowDomain.test.ts` have been retired. `src/domain/temporary/scatterCrossbowIdentity.ts` remains temporarily as Raw fixture metadata for Formal generator/audit/tests. The current authoritative implementation is the Formal Domain under `src/domain/formal/` and the committed Formal artifacts under `research/domain/formal/`.
+> The committed temporary JSON, legacy generate/audit commands, temporary source projector, projector-specific test, and temporary identity fixture have all been retired. Current source identity and relation fixture metadata come from the Formal Domain under `src/domain/formal/`; committed Formal artifacts under `research/domain/formal/` remain authoritative.
 
 Historically, this slice projected the two committed Scatter Crossbow Raw package snapshots into a committed temporary Domain artifact. The temporary source projector and its behavior test are now retired. The Application and authoritative Domain consume Formal artifacts/contracts instead; the retired temporary slice no longer feeds the Data Browser, Inventory, Build, Optimizer, runtime ranged schema, or any generic entity/relation system.
 
