@@ -1,64 +1,68 @@
-import { deathCapMushroomDomainArtifact as domainArtifact, type DomainTrace, type RawTrace } from './deathCapMushroomBrowserModel'
+import {
+  deathCapMushroomBrowserProjection as projection,
+  type DeathCapMushroomBrowserField,
+  type DeathCapMushroomRelationTraceStep,
+} from './deathCapMushroomBrowserModel'
 
-const unresolvedLabels: Readonly<Record<string, string>> = {
-  'gameplay-effect-semantics': 'GameplayEffectのgameplay semanticsは、このtemporary Domainでは未解決です。Applicationでは解釈・補完していません。',
-}
-
-function TraceDetails({ domainField, rawProperty, trace }: { domainField: string; rawProperty: string; trace: DomainTrace }) {
+function TraceDetails({ domainField, field }: { domainField: string; field: DeathCapMushroomBrowserField<string> }) {
   return <details className="domain-trace"><summary>provenanceを確認</summary><dl>
-    <dt>Domain field</dt><dd><code>{domainField}</code></dd><dt>Raw property</dt><dd><code>{rawProperty}</code></dd>
-    <dt>Raw package</dt><dd><code>{trace.raw.packagePath}</code></dd><dt>Dataset</dt><dd><code>{trace.raw.datasetId}</code></dd>
-    <dt>Extraction run</dt><dd><code>{trace.raw.extractionRunId}</code></dd><dt>Raw node</dt><dd><code>{trace.raw.nodePointer}</code></dd>
+    <dt>Domain field</dt><dd><code>{domainField}</code></dd><dt>Raw property</dt><dd><code>{field.rawProperty}</code></dd>
+    <dt>Raw package</dt><dd><code>{field.provenance.packagePath}</code></dd><dt>Dataset</dt><dd><code>{field.provenance.datasetId}</code></dd>
+    <dt>Extraction run</dt><dd><code>{field.provenance.extractionRunId}</code></dd><dt>Raw node</dt><dd><code>{field.provenance.nodePointer}</code></dd>
   </dl></details>
 }
 
-function TraceStep({ label, trace }: { label: string; trace: RawTrace }) {
-  return <li><strong>{label}</strong><dl>
-    <dt>Artifact path</dt><dd><code>{trace.artifactPath}</code></dd>
-    <dt>Raw package</dt><dd><code>{trace.packagePath}</code></dd>
-    <dt>Dataset</dt><dd><code>{trace.datasetId}</code></dd>
-    <dt>Extraction run</dt><dd><code>{trace.extractionRunId}</code></dd>
-    <dt>Package hash</dt><dd><code>{trace.packageHash.algorithm}: {trace.packageHash.value}</code></dd>
-    {trace.nodePointer && <><dt>Raw node</dt><dd><code>{trace.nodePointer}</code></dd></>}
-    {trace.sourceFingerprint && <><dt>Source fingerprint</dt><dd><code>{trace.sourceFingerprint.algorithm}: {trace.sourceFingerprint.value}</code></dd></>}
+function TraceStep({ step }: { step: DeathCapMushroomRelationTraceStep }) {
+  return <li><strong>{step.label}</strong><dl>
+    <dt>Artifact path</dt><dd><code>{step.provenance.artifactPath}</code></dd>
+    <dt>Raw package</dt><dd><code>{step.provenance.packagePath}</code></dd>
+    <dt>Dataset</dt><dd><code>{step.provenance.datasetId}</code></dd>
+    <dt>Extraction run</dt><dd><code>{step.provenance.extractionRunId}</code></dd>
+    <dt>Package hash</dt><dd><code>{step.provenance.packageHash.algorithm}: {step.provenance.packageHash.value}</code></dd>
+    {step.provenance.nodePointer && <><dt>Raw node</dt><dd><code>{step.provenance.nodePointer}</code></dd></>}
+    {step.provenance.sourceFingerprint && <><dt>Source fingerprint</dt><dd><code>{step.provenance.sourceFingerprint.algorithm}: {step.provenance.sourceFingerprint.value}</code></dd></>}
   </dl></li>
 }
 
 export function DeathCapMushroomDataBrowser() {
-  const { mappings, projection } = domainArtifact
-  const { identity, effectReference } = projection
-  const itemName = identity.evidence.itemName
-  const serializedId = identity.evidence.serializedId
+  const { identity, effectRelation, gameplayEffectBoundary } = projection
+  const itemName = identity.rawItemName
+  const serializedId = identity.rawSerializedId
 
-  return <section className="fighters-domain death-cap-domain" aria-labelledby="death-cap-domain-title" data-domain-scope={domainArtifact.scope}>
-    <header><div><p className="eyebrow">TEMPORARY GAME DOMAIN</p><h3 id="death-cap-domain-title">{identity.displayName ?? 'Identity unresolved'}</h3></div><span className={`domain-status ${identity.status}`}>{identity.status}</span></header>
-    <p className="domain-boundary-note">Death Cap MushroomからGameplayEffect packageへのserialized relationは確認済みですが、GameplayEffectのgameplay semanticsを確定した表示ではありません。</p>
+  return <section className="fighters-domain death-cap-domain" aria-labelledby="death-cap-domain-title" data-domain-scope={projection.scope}>
+    <header><div><p className="eyebrow">FORMAL GAME DOMAIN</p><h3 id="death-cap-domain-title">{identity.displayName}</h3></div><span className={`domain-status ${identity.status}`}>{identity.status}</span></header>
+    <p className="domain-boundary-note">Committed Formal Domainのmatched identityとserialized Effect relationを表示しています。ApplicationではRawの再解析・relationの再判定・targetの再解決を行いません。</p>
 
     <section className="domain-identity" aria-label="Death Cap Mushroom Domain identity"><h4>Domain identity</h4><dl>
-      <dt>Domain ID</dt><dd><code>{identity.domainId ?? 'unresolved'}</code></dd>
+      <dt>Domain ID</dt><dd><code>{identity.domainId}</code></dd>
       <dt>Identity status</dt><dd><span className={`domain-status ${identity.status}`}>{identity.status}</span></dd>
-      <dt>ItemIdName</dt><dd><code>{itemName.state === 'known' ? itemName.value : itemName.state}</code></dd>
-      <dt>ItemId.SerializedId</dt><dd><code>{serializedId.state === 'known' ? serializedId.value : serializedId.state}</code></dd>
+      <dt>ItemIdName</dt><dd><code>{itemName.value}</code></dd>
+      <dt>ItemId.SerializedId</dt><dd><code>{serializedId.value}</code></dd>
     </dl>
-      <TraceDetails domainField="identity.evidence.itemName" rawProperty={mappings.identity.rawFields[0]} trace={itemName.trace} />
-      <TraceDetails domainField="identity.evidence.serializedId" rawProperty={mappings.identity.rawFields[1]} trace={serializedId.trace} />
+      <TraceDetails domainField="identity.rawEvidence.itemIdName" field={itemName} />
+      <TraceDetails domainField="identity.rawEvidence.serializedId" field={serializedId} />
     </section>
 
-    {effectReference.state === 'known' ? <section className="domain-identity" aria-label="Effect reference"><h4>Effect reference</h4><dl>
-      <dt>Object name</dt><dd><code>{effectReference.value.objectName}</code></dd>
-      <dt>Class name</dt><dd><code>{effectReference.value.className}</code></dd>
-      <dt>Target Raw package</dt><dd><code>{effectReference.value.targetRawPackagePath}</code></dd>
-    </dl><p className="domain-boundary-note">Serialized relationと参照先Raw snapshotの存在だけを示します。参照先の内容や意味は解釈していません。</p>
-      <details className="domain-trace effect-reference-trace"><summary>cross-package provenanceを確認</summary><dl><dt>Domain field</dt><dd><code>effectReference</code></dd><dt>Raw property</dt><dd><code>{mappings.effectReference.rawField}</code></dd></dl><ol>
-        <TraceStep label="ObjectProperty" trace={effectReference.trace.objectProperty} />
-        <TraceStep label="class import" trace={effectReference.trace.classImport} />
-        <TraceStep label="outer package import" trace={effectReference.trace.outerPackageImport} />
-        <TraceStep label="target Raw snapshot" trace={effectReference.trace.targetRawSnapshot} />
-      </ol></details>
-    </section> : <section className="domain-identity domain-unresolved" aria-label="Effect reference"><h4>Effect reference</h4><p>{effectReference.state}: {effectReference.reason}</p></section>}
+    <section className="domain-identity" aria-label="Effect relation"><h4>Effect serialized relation</h4><dl>
+      <dt>Relation result</dt><dd><code>{effectRelation.result}</code></dd>
+      <dt>Object name</dt><dd><code>{effectRelation.target.objectName}</code></dd>
+      <dt>Class name</dt><dd><code>{effectRelation.target.className}</code></dd>
+      <dt>Target package</dt><dd><code>{effectRelation.target.gamePackagePath}</code></dd>
+      <dt>Target Raw input</dt><dd><code>{effectRelation.targetResolution.input}</code></dd>
+      <dt>Target resolution</dt><dd><code>{effectRelation.targetResolution.result}</code></dd>
+    </dl>
+      <p className="domain-boundary-note">Effect serialized relationはFormal v1でprojectedされ、target Raw snapshotもresolvedです。これはGameplayEffect semanticsが既知であることを意味しません。</p>
+      <details className="domain-trace effect-reference-trace"><summary>reference provenanceを確認</summary><dl>
+        <dt>Domain field</dt><dd><code>effectRelation</code></dd>
+        <dt>Raw property</dt><dd><code>{effectRelation.rawProperty}</code></dd>
+        <dt>Relation ref</dt><dd><code>{effectRelation.relationRef}</code></dd>
+        <dt>Projection ref</dt><dd><code>{effectRelation.projectionRef}</code></dd>
+      </dl><ol>{effectRelation.provenance.map((step) => <TraceStep key={step.label} step={step} />)}</ol></details>
+    </section>
 
-    <section className="domain-unresolved-list" aria-labelledby="death-cap-unresolved-title"><h4 id="death-cap-unresolved-title">Unresolved</h4><p>Domainから渡された未解決境界です。Applicationでは解決・解釈していません。</p><ul>
-      {projection.unresolved.map((item) => <li key={item}><strong>未解決</strong> <code>{item}</code><br />{unresolvedLabels[item] ?? item}</li>)}
-    </ul></section>
+    <section className="domain-unresolved-list" aria-labelledby="death-cap-boundary-title"><h4 id="death-cap-boundary-title">Formal boundary</h4>
+      <p>これはDeath Cap Mushroom Data Browser固有のpresentationです。Formal semanticへ追加のGameplayEffect意味論を作っていません。</p>
+      <ul><li><strong>未assert</strong> GameplayEffect semantics<br />{gameplayEffectBoundary.explanation}</li></ul>
+    </section>
   </section>
 }
