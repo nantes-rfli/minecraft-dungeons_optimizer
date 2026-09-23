@@ -870,6 +870,657 @@
             "evidence:presentation:whip:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Bow",
+            "evidenceRef": "evidence:raw:identity:bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Bow",
+            "evidenceRef": "evidence:raw:identity:bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:bow@1",
+          "domainId": "bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:bow@1:ItemIdName",
+            "evidence:raw:identity:bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "bow",
+          "displayName": "Bow",
+          "evidenceRefs": [
+            "evidence:presentation:bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:bubble-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BubbleBow",
+            "evidenceRef": "evidence:raw:identity:bubble-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BubbleBow",
+            "evidenceRef": "evidence:raw:identity:bubble-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:bubble-bow@1",
+          "domainId": "bubble-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:bubble-bow@1:ItemIdName",
+            "evidence:raw:identity:bubble-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "bubble-bow",
+          "displayName": "Bubble Bow",
+          "evidenceRefs": [
+            "evidence:presentation:bubble-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:burst-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BurstCrossbow",
+            "evidenceRef": "evidence:raw:identity:burst-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BurstCrossbow",
+            "evidenceRef": "evidence:raw:identity:burst-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:burst-crossbow@1",
+          "domainId": "burst-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:burst-crossbow@1:ItemIdName",
+            "evidence:raw:identity:burst-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "burst-crossbow",
+          "displayName": "Burst Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:burst-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:cog-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "CogCrossbow",
+            "evidenceRef": "evidence:raw:identity:cog-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "CogCrossbow",
+            "evidenceRef": "evidence:raw:identity:cog-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:cog-crossbow@1",
+          "domainId": "cog-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:cog-crossbow@1:ItemIdName",
+            "evidence:raw:identity:cog-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "cog-crossbow",
+          "displayName": "Cog Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:cog-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Crossbow",
+            "evidenceRef": "evidence:raw:identity:crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Crossbow",
+            "evidenceRef": "evidence:raw:identity:crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:crossbow@1",
+          "domainId": "crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:crossbow@1:ItemIdName",
+            "evidence:raw:identity:crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "crossbow",
+          "displayName": "Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:dual-crossbows@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "DualCrossbows",
+            "evidenceRef": "evidence:raw:identity:dual-crossbows@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "DualCrossbows",
+            "evidenceRef": "evidence:raw:identity:dual-crossbows@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:dual-crossbows@1",
+          "domainId": "dual-crossbows",
+          "evidenceRefs": [
+            "evidence:raw:identity:dual-crossbows@1:ItemIdName",
+            "evidence:raw:identity:dual-crossbows@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "dual-crossbows",
+          "displayName": "Dual Crossbows",
+          "evidenceRefs": [
+            "evidence:presentation:dual-crossbows:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:exploding-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ExplodingCrossbow",
+            "evidenceRef": "evidence:raw:identity:exploding-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ExplodingCrossbow",
+            "evidenceRef": "evidence:raw:identity:exploding-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:exploding-crossbow@1",
+          "domainId": "exploding-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:exploding-crossbow@1:ItemIdName",
+            "evidence:raw:identity:exploding-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "exploding-crossbow",
+          "displayName": "Exploding Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:exploding-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:harpoon-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "HarpoonCrossbow",
+            "evidenceRef": "evidence:raw:identity:harpoon-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "HarpoonCrossbow",
+            "evidenceRef": "evidence:raw:identity:harpoon-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:harpoon-crossbow@1",
+          "domainId": "harpoon-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:harpoon-crossbow@1:ItemIdName",
+            "evidence:raw:identity:harpoon-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "harpoon-crossbow",
+          "displayName": "Harpoon Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:harpoon-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:heavy-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "HeavyCrossbow",
+            "evidenceRef": "evidence:raw:identity:heavy-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "HeavyCrossbow",
+            "evidenceRef": "evidence:raw:identity:heavy-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:heavy-crossbow@1",
+          "domainId": "heavy-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:heavy-crossbow@1:ItemIdName",
+            "evidence:raw:identity:heavy-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "heavy-crossbow",
+          "displayName": "Heavy Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:heavy-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:hunting-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "HuntingBow",
+            "evidenceRef": "evidence:raw:identity:hunting-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "HuntingBow",
+            "evidenceRef": "evidence:raw:identity:hunting-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:hunting-bow@1",
+          "domainId": "hunting-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:hunting-bow@1:ItemIdName",
+            "evidence:raw:identity:hunting-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "hunting-bow",
+          "displayName": "Hunting Bow",
+          "evidenceRefs": [
+            "evidence:presentation:hunting-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:longbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Longbow",
+            "evidenceRef": "evidence:raw:identity:longbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Longbow",
+            "evidenceRef": "evidence:raw:identity:longbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:longbow@1",
+          "domainId": "longbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:longbow@1:ItemIdName",
+            "evidence:raw:identity:longbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "longbow",
+          "displayName": "Longbow",
+          "evidenceRefs": [
+            "evidence:presentation:longbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:power-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Powerbow",
+            "evidenceRef": "evidence:raw:identity:power-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Powerbow",
+            "evidenceRef": "evidence:raw:identity:power-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:power-bow@1",
+          "domainId": "power-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:power-bow@1:ItemIdName",
+            "evidence:raw:identity:power-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "power-bow",
+          "displayName": "Power Bow",
+          "evidenceRefs": [
+            "evidence:presentation:power-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:rapid-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "RapidCrossbow",
+            "evidenceRef": "evidence:raw:identity:rapid-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "RapidCrossbow",
+            "evidenceRef": "evidence:raw:identity:rapid-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:rapid-crossbow@1",
+          "domainId": "rapid-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:rapid-crossbow@1:ItemIdName",
+            "evidence:raw:identity:rapid-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "rapid-crossbow",
+          "displayName": "Rapid Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:rapid-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:shadow-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ShadowCrossbow",
+            "evidenceRef": "evidence:raw:identity:shadow-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ShadowCrossbow",
+            "evidenceRef": "evidence:raw:identity:shadow-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:shadow-crossbow@1",
+          "domainId": "shadow-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:shadow-crossbow@1:ItemIdName",
+            "evidence:raw:identity:shadow-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "shadow-crossbow",
+          "displayName": "Shadow Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:shadow-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:shortbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Shortbow",
+            "evidenceRef": "evidence:raw:identity:shortbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Shortbow",
+            "evidenceRef": "evidence:raw:identity:shortbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:shortbow@1",
+          "domainId": "shortbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:shortbow@1:ItemIdName",
+            "evidence:raw:identity:shortbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "shortbow",
+          "displayName": "Shortbow",
+          "evidenceRefs": [
+            "evidence:presentation:shortbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:soul-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulBow",
+            "evidenceRef": "evidence:raw:identity:soul-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulBow",
+            "evidenceRef": "evidence:raw:identity:soul-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:soul-bow@1",
+          "domainId": "soul-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:soul-bow@1:ItemIdName",
+            "evidence:raw:identity:soul-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "soul-bow",
+          "displayName": "Soul Bow",
+          "evidenceRefs": [
+            "evidence:presentation:soul-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:soul-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulCrossbow",
+            "evidenceRef": "evidence:raw:identity:soul-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulCrossbow",
+            "evidenceRef": "evidence:raw:identity:soul-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:soul-crossbow@1",
+          "domainId": "soul-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:soul-crossbow@1:ItemIdName",
+            "evidence:raw:identity:soul-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "soul-crossbow",
+          "displayName": "Soul Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:soul-crossbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:trickbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Trickbow",
+            "evidenceRef": "evidence:raw:identity:trickbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Trickbow",
+            "evidenceRef": "evidence:raw:identity:trickbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:trickbow@1",
+          "domainId": "trickbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:trickbow@1:ItemIdName",
+            "evidence:raw:identity:trickbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "trickbow",
+          "displayName": "Trickbow",
+          "evidenceRefs": [
+            "evidence:presentation:trickbow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:twisting-vine-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "TwistingVineBow",
+            "evidenceRef": "evidence:raw:identity:twisting-vine-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "TwistingVineBow",
+            "evidenceRef": "evidence:raw:identity:twisting-vine-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:twisting-vine-bow@1",
+          "domainId": "twisting-vine-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:twisting-vine-bow@1:ItemIdName",
+            "evidence:raw:identity:twisting-vine-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "twisting-vine-bow",
+          "displayName": "Twisting Vine Bow",
+          "evidenceRefs": [
+            "evidence:presentation:twisting-vine-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:void-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "VoidBow",
+            "evidenceRef": "evidence:raw:identity:void-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "VoidBow",
+            "evidenceRef": "evidence:raw:identity:void-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:void-bow@1",
+          "domainId": "void-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:void-bow@1:ItemIdName",
+            "evidence:raw:identity:void-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "void-bow",
+          "displayName": "Void Bow",
+          "evidenceRefs": [
+            "evidence:presentation:void-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:wind-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "WindBow",
+            "evidenceRef": "evidence:raw:identity:wind-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "WindBow",
+            "evidenceRef": "evidence:raw:identity:wind-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:wind-bow@1",
+          "domainId": "wind-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:wind-bow@1:ItemIdName",
+            "evidence:raw:identity:wind-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "wind-bow",
+          "displayName": "Wind Bow",
+          "evidenceRefs": [
+            "evidence:presentation:wind-bow:ranged-audit"
+          ]
+        }
       }
     ]
   },
@@ -1404,6 +2055,405 @@
       },
       "evidenceRefs": [
         "evidence:reviewed:whip:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:bow@1",
+      "rawIdentity": "Bow",
+      "domainId": "bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:bubble-bow@1",
+      "rawIdentity": "BubbleBow",
+      "domainId": "bubble-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_BubbleBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:bubble-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:burst-crossbow@1",
+      "rawIdentity": "BurstCrossbow",
+      "domainId": "burst-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:burst-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:cog-crossbow@1",
+      "rawIdentity": "CogCrossbow",
+      "domainId": "cog-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:cog-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:crossbow@1",
+      "rawIdentity": "Crossbow",
+      "domainId": "crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_CrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:dual-crossbows@1",
+      "rawIdentity": "DualCrossbows",
+      "domainId": "dual-crossbows",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossbowsInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:dual-crossbows:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:exploding-crossbow@1",
+      "rawIdentity": "ExplodingCrossbow",
+      "domainId": "exploding-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:exploding-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:harpoon-crossbow@1",
+      "rawIdentity": "HarpoonCrossbow",
+      "domainId": "harpoon-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:harpoon-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:heavy-crossbow@1",
+      "rawIdentity": "HeavyCrossbow",
+      "domainId": "heavy-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:heavy-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:hunting-bow@1",
+      "rawIdentity": "HuntingBow",
+      "domainId": "hunting-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:hunting-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:longbow@1",
+      "rawIdentity": "Longbow",
+      "domainId": "longbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:longbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:power-bow@1",
+      "rawIdentity": "Powerbow",
+      "domainId": "power-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:power-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:rapid-crossbow@1",
+      "rawIdentity": "RapidCrossbow",
+      "domainId": "rapid-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:rapid-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:shadow-crossbow@1",
+      "rawIdentity": "ShadowCrossbow",
+      "domainId": "shadow-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:shadow-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:shortbow@1",
+      "rawIdentity": "Shortbow",
+      "domainId": "shortbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:shortbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:soul-bow@1",
+      "rawIdentity": "SoulBow",
+      "domainId": "soul-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:soul-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:soul-crossbow@1",
+      "rawIdentity": "SoulCrossbow",
+      "domainId": "soul-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:soul-crossbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:trickbow@1",
+      "rawIdentity": "Trickbow",
+      "domainId": "trickbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:trickbow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:twisting-vine-bow@1",
+      "rawIdentity": "TwistingVineBow",
+      "domainId": "twisting-vine-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:twisting-vine-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:void-bow@1",
+      "rawIdentity": "VoidBow",
+      "domainId": "void-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:void-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:wind-bow@1",
+      "rawIdentity": "WindBow",
+      "domainId": "wind-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:wind-bow:accepted-alias"
       ]
     }
   ],
@@ -3223,6 +4273,1350 @@
           "nodePointer": "/packages/52/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:4e167da5"
+      },
+      {
+        "id": "evidence:reviewed:bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Bow]"
+        },
+        "fingerprint": "fnv1a32:f0d637cd"
+      },
+      {
+        "id": "evidence:presentation:bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=bow].name.en"
+        },
+        "fingerprint": "fnv1a32:b67c54f4"
+      },
+      {
+        "id": "evidence:raw:identity:bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Bow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4a8e67aac8696ca688d39550f003b11c83d0605207cdbffdfdb16a72fa9d20a7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "75a15d940666c6e8bb15112b1ef110572bdc19a979a1cc412876297f12b0f382"
+          },
+          "nodePointer": "/packages/36/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:506ebf27"
+      },
+      {
+        "id": "evidence:raw:identity:bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Bow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4a8e67aac8696ca688d39550f003b11c83d0605207cdbffdfdb16a72fa9d20a7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "75a15d940666c6e8bb15112b1ef110572bdc19a979a1cc412876297f12b0f382"
+          },
+          "nodePointer": "/packages/36/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:72c3193d"
+      },
+      {
+        "id": "evidence:reviewed:bubble-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:BubbleBow]"
+        },
+        "fingerprint": "fnv1a32:2d9d188e"
+      },
+      {
+        "id": "evidence:presentation:bubble-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=bubble-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:046ae580"
+      },
+      {
+        "id": "evidence:raw:identity:bubble-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BubbleBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:2c9aab97c2bec4e3d18a73c18b34ff6a466d0d7029c42acea0f4df59661002fc",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_BubbleBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1d5cf1a54156e576326c96570c4b04bacda87c9eca77182ecf7e6302de641798"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:5abc97ef"
+      },
+      {
+        "id": "evidence:raw:identity:bubble-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BubbleBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:2c9aab97c2bec4e3d18a73c18b34ff6a466d0d7029c42acea0f4df59661002fc",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_BubbleBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1d5cf1a54156e576326c96570c4b04bacda87c9eca77182ecf7e6302de641798"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:57b8c715"
+      },
+      {
+        "id": "evidence:reviewed:burst-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:BurstCrossbow]"
+        },
+        "fingerprint": "fnv1a32:c3daa444"
+      },
+      {
+        "id": "evidence:presentation:burst-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=burst-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:1bdcf514"
+      },
+      {
+        "id": "evidence:raw:identity:burst-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BurstCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:23eafd38655bcddb22bdbb8f04ede5445eb04c3d13adab1ac852a13809bcc68c",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e2a4e213d0f139da1d76899b749acd8c25ab023a4e8a247c284dc08cd1a7c69c"
+          },
+          "nodePointer": "/packages/39/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:e0bd0b4b"
+      },
+      {
+        "id": "evidence:raw:identity:burst-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BurstCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:23eafd38655bcddb22bdbb8f04ede5445eb04c3d13adab1ac852a13809bcc68c",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e2a4e213d0f139da1d76899b749acd8c25ab023a4e8a247c284dc08cd1a7c69c"
+          },
+          "nodePointer": "/packages/39/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:17f7d30f"
+      },
+      {
+        "id": "evidence:reviewed:cog-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:CogCrossbow]"
+        },
+        "fingerprint": "fnv1a32:fdda3b7a"
+      },
+      {
+        "id": "evidence:presentation:cog-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=cog-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:62afc8c6"
+      },
+      {
+        "id": "evidence:raw:identity:cog-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "CogCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:af34f0f2653df2d456c988dcf50d0d06227bf7d8abc9ec74ef2e57ff477cb4f7",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d937f764648b789cc6451da0068140d075bcb73c992c194551ae551200bd5809"
+          },
+          "nodePointer": "/packages/31/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:aabc8ff9"
+      },
+      {
+        "id": "evidence:raw:identity:cog-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "CogCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:af34f0f2653df2d456c988dcf50d0d06227bf7d8abc9ec74ef2e57ff477cb4f7",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d937f764648b789cc6451da0068140d075bcb73c992c194551ae551200bd5809"
+          },
+          "nodePointer": "/packages/31/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:70064d39"
+      },
+      {
+        "id": "evidence:reviewed:crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Crossbow]"
+        },
+        "fingerprint": "fnv1a32:f376608b"
+      },
+      {
+        "id": "evidence:presentation:crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:96e4d206"
+      },
+      {
+        "id": "evidence:raw:identity:crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Crossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7078c2289260e4133da66d86d24a198b4c7298f19fc17d9f93367fa4746f93ab",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_CrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aaaa81669c844395ca28588800529cde53bbfcfebf5cead07e47365e0a8ea6c8"
+          },
+          "nodePointer": "/packages/9/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:8919f6ae"
+      },
+      {
+        "id": "evidence:raw:identity:crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Crossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7078c2289260e4133da66d86d24a198b4c7298f19fc17d9f93367fa4746f93ab",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_CrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aaaa81669c844395ca28588800529cde53bbfcfebf5cead07e47365e0a8ea6c8"
+          },
+          "nodePointer": "/packages/9/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e7fc3554"
+      },
+      {
+        "id": "evidence:reviewed:dual-crossbows:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:DualCrossbows]"
+        },
+        "fingerprint": "fnv1a32:98edc4d2"
+      },
+      {
+        "id": "evidence:presentation:dual-crossbows:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=dual-crossbows].name.en"
+        },
+        "fingerprint": "fnv1a32:4e41dfd6"
+      },
+      {
+        "id": "evidence:raw:identity:dual-crossbows@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "DualCrossbows"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-076.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bdfee1dc03d726782f875cc5bfc218f29e6ab38d6fd43bedf81955ebcb484a78",
+          "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossbowsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "84c65f2413352701660ce82f149bb0f4251fb5a4b0c5195d203aac3affdea7ba"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:7cd7cfc6"
+      },
+      {
+        "id": "evidence:raw:identity:dual-crossbows@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "DualCrossbows"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-076.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bdfee1dc03d726782f875cc5bfc218f29e6ab38d6fd43bedf81955ebcb484a78",
+          "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossbowsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "84c65f2413352701660ce82f149bb0f4251fb5a4b0c5195d203aac3affdea7ba"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:503f6074"
+      },
+      {
+        "id": "evidence:reviewed:exploding-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:ExplodingCrossbow]"
+        },
+        "fingerprint": "fnv1a32:7e29ab74"
+      },
+      {
+        "id": "evidence:presentation:exploding-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=exploding-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:e91e8964"
+      },
+      {
+        "id": "evidence:raw:identity:exploding-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ExplodingCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b0c7bfc7d778e0adf2c954d1839d2c0328fa8250c05ccddb2ee44e366a505958",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "518e457244a538e3c01e768c7aa9e6df598f6f52d6f8785e7955072eadfd31f1"
+          },
+          "nodePointer": "/packages/39/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:004a9be9"
+      },
+      {
+        "id": "evidence:raw:identity:exploding-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ExplodingCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b0c7bfc7d778e0adf2c954d1839d2c0328fa8250c05ccddb2ee44e366a505958",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "518e457244a538e3c01e768c7aa9e6df598f6f52d6f8785e7955072eadfd31f1"
+          },
+          "nodePointer": "/packages/39/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:1d901e9b"
+      },
+      {
+        "id": "evidence:reviewed:harpoon-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:HarpoonCrossbow]"
+        },
+        "fingerprint": "fnv1a32:3776ce9a"
+      },
+      {
+        "id": "evidence:presentation:harpoon-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=harpoon-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:a6a7c772"
+      },
+      {
+        "id": "evidence:raw:identity:harpoon-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "HarpoonCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:116afd9daf7436a6064cd306bc8c7d8589f295fcc522c1726af6b78da7e4c886",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1345ec7f73b7388fbbe15ee5c899d37de80ffb584afc39171036cf88ba4ec7bd"
+          },
+          "nodePointer": "/packages/37/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:5f1826bc"
+      },
+      {
+        "id": "evidence:raw:identity:harpoon-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "HarpoonCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:116afd9daf7436a6064cd306bc8c7d8589f295fcc522c1726af6b78da7e4c886",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1345ec7f73b7388fbbe15ee5c899d37de80ffb584afc39171036cf88ba4ec7bd"
+          },
+          "nodePointer": "/packages/37/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:002fe9e8"
+      },
+      {
+        "id": "evidence:reviewed:heavy-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:HeavyCrossbow]"
+        },
+        "fingerprint": "fnv1a32:85bad69a"
+      },
+      {
+        "id": "evidence:presentation:heavy-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=heavy-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:8d68db0e"
+      },
+      {
+        "id": "evidence:raw:identity:heavy-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "HeavyCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4b4b121637ce2d46ad0dbd817d907a8555c97d559909527c85be337685885538",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "31a3f7809b76b78eedf75b125d2fe7cc20f1eaf753f8ae21fa1bf792c4aed7b1"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:a4a8ce84"
+      },
+      {
+        "id": "evidence:raw:identity:heavy-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "HeavyCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4b4b121637ce2d46ad0dbd817d907a8555c97d559909527c85be337685885538",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "31a3f7809b76b78eedf75b125d2fe7cc20f1eaf753f8ae21fa1bf792c4aed7b1"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0e292d5e"
+      },
+      {
+        "id": "evidence:reviewed:hunting-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:HuntingBow]"
+        },
+        "fingerprint": "fnv1a32:a17e2142"
+      },
+      {
+        "id": "evidence:presentation:hunting-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=hunting-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:4a571974"
+      },
+      {
+        "id": "evidence:raw:identity:hunting-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "HuntingBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b901c828f0991b598bdf66f271a3039b63b24abb7729e21a5147f9b7ccd38c43",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5e7a6678473044330204abf9207f5395cb2dc554c46ea56da8f66f5617027b46"
+          },
+          "nodePointer": "/packages/35/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:1b10be10"
+      },
+      {
+        "id": "evidence:raw:identity:hunting-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "HuntingBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b901c828f0991b598bdf66f271a3039b63b24abb7729e21a5147f9b7ccd38c43",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5e7a6678473044330204abf9207f5395cb2dc554c46ea56da8f66f5617027b46"
+          },
+          "nodePointer": "/packages/35/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:d889d2a0"
+      },
+      {
+        "id": "evidence:reviewed:longbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Longbow]"
+        },
+        "fingerprint": "fnv1a32:8991accd"
+      },
+      {
+        "id": "evidence:presentation:longbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=longbow].name.en"
+        },
+        "fingerprint": "fnv1a32:15be8070"
+      },
+      {
+        "id": "evidence:raw:identity:longbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Longbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:58358fd3618fa9c39e1d3c36d0558773d43779d0cc5bc40b799495bcc0bd4ae8",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5b5780da9947bad5afda4cabe3d9117c9490c7e2a7cd6f3093cdc540944ea8d7"
+          },
+          "nodePointer": "/packages/0/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:4bc9603f"
+      },
+      {
+        "id": "evidence:raw:identity:longbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Longbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:58358fd3618fa9c39e1d3c36d0558773d43779d0cc5bc40b799495bcc0bd4ae8",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5b5780da9947bad5afda4cabe3d9117c9490c7e2a7cd6f3093cdc540944ea8d7"
+          },
+          "nodePointer": "/packages/0/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e29df4d5"
+      },
+      {
+        "id": "evidence:reviewed:power-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Powerbow]"
+        },
+        "fingerprint": "fnv1a32:cfc9d0ca"
+      },
+      {
+        "id": "evidence:presentation:power-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=power-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:65bec1a0"
+      },
+      {
+        "id": "evidence:raw:identity:power-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Powerbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:03bc67858206f7b98524c96772239a52300f77bc1708e95f14cfbbb0ba172d0f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "66bf16b72316155ef72ac8fb84d572ff19f6d7e9df9028fccc707e7265d02625"
+          },
+          "nodePointer": "/packages/47/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:9d70f112"
+      },
+      {
+        "id": "evidence:raw:identity:power-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Powerbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:03bc67858206f7b98524c96772239a52300f77bc1708e95f14cfbbb0ba172d0f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "66bf16b72316155ef72ac8fb84d572ff19f6d7e9df9028fccc707e7265d02625"
+          },
+          "nodePointer": "/packages/47/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:1d598afa"
+      },
+      {
+        "id": "evidence:reviewed:rapid-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:RapidCrossbow]"
+        },
+        "fingerprint": "fnv1a32:9763bc9c"
+      },
+      {
+        "id": "evidence:presentation:rapid-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=rapid-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:629b3eec"
+      },
+      {
+        "id": "evidence:raw:identity:rapid-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "RapidCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-026.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f3ef9da8709d732fe51fe96ba93eb64a5a7f7e0efd540b0867d845131b04fe44",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "892cdc48bd65b3ab97202880ddbb1d908857d412bf59d8802ae9ce74cb596bcb"
+          },
+          "nodePointer": "/packages/14/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:290d16f3"
+      },
+      {
+        "id": "evidence:raw:identity:rapid-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "RapidCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-026.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f3ef9da8709d732fe51fe96ba93eb64a5a7f7e0efd540b0867d845131b04fe44",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "892cdc48bd65b3ab97202880ddbb1d908857d412bf59d8802ae9ce74cb596bcb"
+          },
+          "nodePointer": "/packages/14/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:77682113"
+      },
+      {
+        "id": "evidence:reviewed:shadow-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:ShadowCrossbow]"
+        },
+        "fingerprint": "fnv1a32:7529ff70"
+      },
+      {
+        "id": "evidence:presentation:shadow-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=shadow-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:c12aabe0"
+      },
+      {
+        "id": "evidence:raw:identity:shadow-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ShadowCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bcbce6c694317044428bcb81b992f952b0b06d8db724374fc9b2c08793b23786",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "411b368b1d437cc35b3c306f9d6bfde4f2fb27b7d37c43f3936c16757d435303"
+          },
+          "nodePointer": "/packages/41/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:9542afdd"
+      },
+      {
+        "id": "evidence:raw:identity:shadow-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ShadowCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bcbce6c694317044428bcb81b992f952b0b06d8db724374fc9b2c08793b23786",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "411b368b1d437cc35b3c306f9d6bfde4f2fb27b7d37c43f3936c16757d435303"
+          },
+          "nodePointer": "/packages/41/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:20b4c209"
+      },
+      {
+        "id": "evidence:reviewed:shortbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Shortbow]"
+        },
+        "fingerprint": "fnv1a32:a2a51973"
+      },
+      {
+        "id": "evidence:presentation:shortbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=shortbow].name.en"
+        },
+        "fingerprint": "fnv1a32:44cdeb22"
+      },
+      {
+        "id": "evidence:raw:identity:shortbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Shortbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ee54939188650d111d48376e355087b961a956f6e73a265bc8a9c99f28df9241",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "900c83cf47fe8f855aee291132e345defe25558f60598e57d38f3a434216a28e"
+          },
+          "nodePointer": "/packages/19/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:986e5c0c"
+      },
+      {
+        "id": "evidence:raw:identity:shortbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Shortbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ee54939188650d111d48376e355087b961a956f6e73a265bc8a9c99f28df9241",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "900c83cf47fe8f855aee291132e345defe25558f60598e57d38f3a434216a28e"
+          },
+          "nodePointer": "/packages/19/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0a557ac0"
+      },
+      {
+        "id": "evidence:reviewed:soul-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:SoulBow]"
+        },
+        "fingerprint": "fnv1a32:22d58d58"
+      },
+      {
+        "id": "evidence:presentation:soul-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=soul-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:c7c9b3fe"
+      },
+      {
+        "id": "evidence:raw:identity:soul-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-028.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4e548c6ca8ef3a57748bf3aefe691a603dc05ce32fb8d92ebd0b95a35e5f76d0",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "781c5de74f01176de331e9daa325abe009b42d2137e7d25920747f21480b9f2a"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:2344a5b4"
+      },
+      {
+        "id": "evidence:raw:identity:soul-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-028.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4e548c6ca8ef3a57748bf3aefe691a603dc05ce32fb8d92ebd0b95a35e5f76d0",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "781c5de74f01176de331e9daa325abe009b42d2137e7d25920747f21480b9f2a"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:f172bf00"
+      },
+      {
+        "id": "evidence:reviewed:soul-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:SoulCrossbow]"
+        },
+        "fingerprint": "fnv1a32:e5a54570"
+      },
+      {
+        "id": "evidence:presentation:soul-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=soul-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:12c181c0"
+      },
+      {
+        "id": "evidence:raw:identity:soul-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-028.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7f8e4913d637b78898a4d7d70b0b259f60565864784cf3006fab6e4c4d66d975",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "b3b0045e58e52838451176a163aea1d2b891893021bbbf0851437131830befe8"
+          },
+          "nodePointer": "/packages/43/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:817bf547"
+      },
+      {
+        "id": "evidence:raw:identity:soul-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-028.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7f8e4913d637b78898a4d7d70b0b259f60565864784cf3006fab6e4c4d66d975",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "b3b0045e58e52838451176a163aea1d2b891893021bbbf0851437131830befe8"
+          },
+          "nodePointer": "/packages/43/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:29d20125"
+      },
+      {
+        "id": "evidence:reviewed:trickbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Trickbow]"
+        },
+        "fingerprint": "fnv1a32:e6610eb5"
+      },
+      {
+        "id": "evidence:presentation:trickbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=trickbow].name.en"
+        },
+        "fingerprint": "fnv1a32:f84d63dc"
+      },
+      {
+        "id": "evidence:raw:identity:trickbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Trickbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:be3bc0914c4ad5dd52269b27e5a749ebfee2ab81b7d0580ce0f6b7826fc913a7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "6ba0ad9c1c332710f281c24ade2d9d37a96b6ee6e312c015a34346fda7dc9331"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:28ea8ea4"
+      },
+      {
+        "id": "evidence:raw:identity:trickbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Trickbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:be3bc0914c4ad5dd52269b27e5a749ebfee2ab81b7d0580ce0f6b7826fc913a7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "6ba0ad9c1c332710f281c24ade2d9d37a96b6ee6e312c015a34346fda7dc9331"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:caf9eef0"
+      },
+      {
+        "id": "evidence:reviewed:twisting-vine-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:TwistingVineBow]"
+        },
+        "fingerprint": "fnv1a32:fb5a4ffb"
+      },
+      {
+        "id": "evidence:presentation:twisting-vine-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=twisting-vine-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:cf2c8aa4"
+      },
+      {
+        "id": "evidence:raw:identity:twisting-vine-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "TwistingVineBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7c5925084c014a629c21e44cc591fde39088e3f29adabb05fe6739a2db362092",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "18b131c614bada34efb4880ff730a4f7a7acfff22c7b2f1177f5aa1e92671c98"
+          },
+          "nodePointer": "/packages/50/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:60d8e671"
+      },
+      {
+        "id": "evidence:raw:identity:twisting-vine-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "TwistingVineBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7c5925084c014a629c21e44cc591fde39088e3f29adabb05fe6739a2db362092",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "18b131c614bada34efb4880ff730a4f7a7acfff22c7b2f1177f5aa1e92671c98"
+          },
+          "nodePointer": "/packages/50/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:85f9b42d"
+      },
+      {
+        "id": "evidence:reviewed:void-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:VoidBow]"
+        },
+        "fingerprint": "fnv1a32:5c1cffe6"
+      },
+      {
+        "id": "evidence:presentation:void-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=void-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:26fc491c"
+      },
+      {
+        "id": "evidence:raw:identity:void-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "VoidBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b497d91c03cde06371d36b9fb23ed18216d146782519e2b7caa685959d678412",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "22709edd1e5b846d92c39fe740c52220dc69309aec518fd11612b75df246d728"
+          },
+          "nodePointer": "/packages/60/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:eb7b00fa"
+      },
+      {
+        "id": "evidence:raw:identity:void-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "VoidBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b497d91c03cde06371d36b9fb23ed18216d146782519e2b7caa685959d678412",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "22709edd1e5b846d92c39fe740c52220dc69309aec518fd11612b75df246d728"
+          },
+          "nodePointer": "/packages/60/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:57ef4dae"
+      },
+      {
+        "id": "evidence:reviewed:wind-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:WindBow]"
+        },
+        "fingerprint": "fnv1a32:c7cfe686"
+      },
+      {
+        "id": "evidence:presentation:wind-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=wind-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:3081d3fc"
+      },
+      {
+        "id": "evidence:raw:identity:wind-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "WindBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:03a0f1ae101ff63c66eb274a4db2de4086703ab84638365110e3f0ed115fd396",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "c7e8c837b4b6340676a22072064f7f0ae7ff1311a446489a1c5543e00465f428"
+          },
+          "nodePointer": "/packages/19/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:d431269d"
+      },
+      {
+        "id": "evidence:raw:identity:wind-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "WindBow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:03a0f1ae101ff63c66eb274a4db2de4086703ab84638365110e3f0ed115fd396",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "c7e8c837b4b6340676a22072064f7f0ae7ff1311a446489a1c5543e00465f428"
+          },
+          "nodePointer": "/packages/19/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:c330ad19"
       }
     ]
   }
