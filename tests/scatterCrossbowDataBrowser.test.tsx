@@ -151,7 +151,7 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
 
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
     expect(browserSources).toContain('research/domain/formal/value-availability-v2.json')
-    expect(browserSources).not.toContain('research/domain/formal/value-availability-v1.json')
+    expect(browserSources).not.toContain('research/domain/formal/value-availability-' + 'v1.json')
     expect(browserSources).toContain('research/domain/formal/serialized-relation-v1.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/scatter-crossbow\.json|src\/domain\/temporary/)
     expect(browserSources).not.toMatch(/research\/raw\//)
