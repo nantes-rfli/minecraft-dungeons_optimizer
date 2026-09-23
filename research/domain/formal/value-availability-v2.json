@@ -1,0 +1,712 @@
+{
+  "schemaVersion": 2,
+  "artifactKind": "formal-domain-value-availability",
+  "semantic": {
+    "melee": {
+      "fighters-bindings": {
+        "configuredAttacks": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "projectionRef": "projection:value:fighters-bindings:configured-attacks@1:fighters-bindings:scope:configured-attacks",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:002c0fc6"
+          ]
+        },
+        "attacks": [
+          {
+            "sourceIndex": 0,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:24abb300"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:710c9045"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 1,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:1",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b171e447"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:1",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:dbccfdac"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 2,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:2",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:23c9269a"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:2",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:a3d5d18f"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 3,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:3",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:a720de99"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.125,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:3",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b9f827b6"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ranged": {
+      "scatter-crossbow": {
+        "configuredProjectileVelocityFactor": {
+          "value": 1.100000023841858,
+          "projectionRef": "projection:value:scatter-crossbow:configured-projectile-velocity-factor@1:scatter-crossbow:scope:weapon",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:4e7d08cd"
+          ]
+        },
+        "configuredProjectileDefinitions": {
+          "value": [
+            0
+          ],
+          "projectionRef": "projection:value:scatter-crossbow:configured-projectile-definitions@1:scatter-crossbow:scope:projectile-definitions",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:2d64c02c"
+          ]
+        },
+        "projectileDefinitions": [
+          {
+            "sourceIndex": 0,
+            "configuredProjectileCount": {
+              "value": 3,
+              "projectionRef": "projection:value:scatter-crossbow:configured-projectile-count@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:252781a3"
+              ]
+            },
+            "configuredAngleSpan": {
+              "value": 20,
+              "projectionRef": "projection:value:scatter-crossbow:configured-angle-span@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:1358e32a"
+              ]
+            },
+            "configuredDelaySecondsPerProjectile": {
+              "value": 0.029999999329447746,
+              "projectionRef": "projection:value:scatter-crossbow:configured-delay-per-projectile@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:49d92361"
+              ]
+            },
+            "configuredPushbackEnabled": {
+              "value": true,
+              "projectionRef": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b1c6d847"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            },
+            "configuredPushbackStrength": {
+              "value": 0.6000000238418579,
+              "projectionRef": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:43a7ff36"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            },
+            "configuredIgnoreFriendlyFire": {
+              "value": true,
+              "projectionRef": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:d71f45b8"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "valueProjections": [
+    {
+      "projectionId": "projection:value:fighters-bindings:configured-attacks@1:fighters-bindings:scope:configured-attacks",
+      "mappingId": "fighters-bindings:configured-attacks@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "scopeRef": "configured-attacks"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:002c0fc6"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:0",
+      "mappingId": "fighters-bindings:configured-damage@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:24abb300"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:0",
+      "mappingId": "fighters-bindings:animation-duration@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:710c9045"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:1",
+      "mappingId": "fighters-bindings:configured-damage@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:b171e447"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:1",
+      "mappingId": "fighters-bindings:animation-duration@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:dbccfdac"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:2",
+      "mappingId": "fighters-bindings:configured-damage@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 2
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:23c9269a"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:2",
+      "mappingId": "fighters-bindings:animation-duration@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 2
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:a3d5d18f"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:3",
+      "mappingId": "fighters-bindings:configured-damage@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 3
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:a720de99"
+      ]
+    },
+    {
+      "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:3",
+      "mappingId": "fighters-bindings:animation-duration@1",
+      "occurrence": {
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 3
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:b9f827b6"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-projectile-velocity-factor@1:scatter-crossbow:scope:weapon",
+      "mappingId": "scatter-crossbow:configured-projectile-velocity-factor@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "scopeRef": "weapon"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:4e7d08cd"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-projectile-definitions@1:scatter-crossbow:scope:projectile-definitions",
+      "mappingId": "scatter-crossbow:configured-projectile-definitions@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "scopeRef": "projectile-definitions"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:2d64c02c"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-projectile-count@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-projectile-count@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:252781a3"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-angle-span@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-angle-span@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:1358e32a"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-delay-per-projectile@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-delay-per-projectile@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:49d92361"
+      ]
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-pushback-enabled@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:b1c6d847"
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-pushback-strength@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:43a7ff36"
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+    },
+    {
+      "projectionId": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
+      "mappingId": "scatter-crossbow:configured-ignore-friendly-fire@1",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:d71f45b8"
+      ],
+      "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+    }
+  ],
+  "provenance": {
+    "evidence": [
+      {
+        "id": "evidence:value:raw:fnv1a32:002c0fc6",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0"
+        },
+        "fingerprint": "fnv1a32:d349e983"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:24abb300",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/0/properties/13"
+        },
+        "fingerprint": "fnv1a32:dd50de57"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:710c9045",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:190bdfed"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:b171e447",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/1/properties/13"
+        },
+        "fingerprint": "fnv1a32:118fba4b"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:dbccfdac",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/1/properties/5"
+        },
+        "fingerprint": "fnv1a32:133a2f3b"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:23c9269a",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/2/properties/13"
+        },
+        "fingerprint": "fnv1a32:3dff9540"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:a3d5d18f",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/2/properties/5"
+        },
+        "fingerprint": "fnv1a32:f94e6eaa"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:a720de99",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/3/properties/13"
+        },
+        "fingerprint": "fnv1a32:9b6eab77"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:b9f827b6",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:893590bd7d43e4c333c30a1c4fe2f505bdccd320524818c4e531dbed222a2911",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4f7327fdb483e045578de7802886f360f276c63f399294ff4768159695a388f3"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/elements/3/properties/5"
+        },
+        "fingerprint": "fnv1a32:49b502e7"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:4e7d08cd",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/4"
+        },
+        "fingerprint": "fnv1a32:cd0dd593"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:2d64c02c",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1"
+        },
+        "fingerprint": "fnv1a32:5780359d"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:252781a3",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1/decoding/elements/0/properties/1"
+        },
+        "fingerprint": "fnv1a32:75f736e5"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:1358e32a",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1/decoding/elements/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:e388c82b"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:49d92361",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:adba4b1ede060b364c869e9990224d1fc0a55b76aeff58409809c7c88da77ed4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "15dd1fd125a0894f715761615f5c053c0b17c2919b6512e0136a11b9dccb9154"
+          },
+          "nodePointer": "/package/objects/1/properties/0/decoding/properties/1/decoding/elements/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:4a3695cc"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:b1c6d847",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+          },
+          "nodePointer": "/package/objects/2/properties/3/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e07757eb"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:43a7ff36",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+          },
+          "nodePointer": "/package/objects/2/properties/3/decoding/properties/1"
+        },
+        "fingerprint": "fnv1a32:3d701c0f"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:d71f45b8",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6523b097365ca38f8556446293195d67f052250a7770b953f9d47d6553fc5deb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0e820a32f6c409ecfbd280d94264a0138b16e4503703a0529c0bf9201198da5f"
+          },
+          "nodePointer": "/package/objects/2/properties/5"
+        },
+        "fingerprint": "fnv1a32:d21e1d78"
+      }
+    ]
+  }
+}
