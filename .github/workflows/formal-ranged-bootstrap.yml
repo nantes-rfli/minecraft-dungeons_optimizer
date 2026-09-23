@@ -1,0 +1,24 @@
+name: Formal Ranged Bootstrap
+
+on:
+  push:
+    branches:
+      - feat/formal-identity-ranged-breadth
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run generate:formal-identity-evidence
+      - run: npm run audit:formal-identity-evidence
+      - run: npx vitest run tests/formalIdentityEvidence.test.ts tests/formalIdentitySourceGrounding.test.ts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: formal-ranged-generated
+          path: research/domain/formal/identity-evidence-v1.json
