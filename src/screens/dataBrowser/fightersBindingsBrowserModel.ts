@@ -1,5 +1,5 @@
 import identityArtifact from '../../../research/domain/formal/identity-evidence-v1.json'
-import valueArtifact from '../../../research/domain/formal/value-availability-v1.json'
+import valueArtifact from '../../../research/domain/formal/value-availability-v2.json'
 
 type Provenance = {
   packagePath: string
@@ -37,7 +37,7 @@ function valueField(field: { value: number; projectionRef: string; evidenceRefs:
   return { value: field.value, rawProperty, projectionRef: field.projectionRef, provenance: evidence.provenance }
 }
 
-const configuredAttacks = valueArtifact.semantic.fightersBindings.configuredAttacks
+const configuredAttacks = valueArtifact.semantic.melee['fighters-bindings'].configuredAttacks
 const attacksProjection = valueArtifact.valueProjections.find((entry) => entry.projectionId === configuredAttacks.projectionRef)
 const attacksEvidenceRef = configuredAttacks.evidenceRefs[0]
 const attacksEvidence = valueArtifact.provenance.evidence.find((entry) => entry.id === attacksEvidenceRef)
@@ -59,7 +59,7 @@ export const fightersBindingsBrowserProjection = {
     projectionRef: configuredAttacks.projectionRef,
     rawProperty: 'AttackCombo',
     provenance: attacksEvidence.provenance,
-    attacks: valueArtifact.semantic.fightersBindings.attacks.map((entry) => ({
+    attacks: valueArtifact.semantic.melee['fighters-bindings'].attacks.map((entry) => ({
       sourceIndex: entry.sourceIndex,
       configuredDamage: valueField(entry.configuredDamage, 'Damage'),
       configuredAnimationDurationSeconds: valueField(entry.configuredAnimationDurationSeconds, 'AttackAnimationTimeDurationSeconds'),
