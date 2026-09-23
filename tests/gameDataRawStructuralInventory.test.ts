@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   RAW_STRUCTURAL_CODE_PATHS, RAW_STRUCTURAL_INPUT_PATHS,
-  breadthFirstPackageWalk, classifySeedCandidateStatus, resolveRawSeedCandidates,
+  breadthFirstPackageWalk, classifySeedCandidateStatus, makeRawStructuralPackageRunId, resolveRawSeedCandidates,
   type RawSeedCandidateInput,
 } from '../scripts/game-data-raw-structural-inventory.ts'
 
@@ -39,6 +39,27 @@ describe('Raw structural inventory traversal', () => {
       'generated/equipment-icons/manifest.json',
     ])
     expect(RAW_STRUCTURAL_CODE_PATHS.filter((path) => RAW_STRUCTURAL_INPUT_PATHS.includes(path as never))).toEqual([])
+  })
+
+  it('recomputes package run identity from the parser code identity', () => {
+    const base = {
+      datasetId: 'dataset',
+      packagePath: 'Dungeons/Content/Test/BP_Test',
+      sourceFiles: [{ path: 'Dungeons/Content/Test/BP_Test.uasset', size: 4, sha256: 'source' }],
+      state: 'parsed' as const,
+    }
+    const first = makeRawStructuralPackageRunId({
+      ...base,
+      codeIdentity: { algorithm: 'sha256-path-content-v1', value: 'code-a', files: [] },
+    })
+    expect(makeRawStructuralPackageRunId({
+      ...base,
+      codeIdentity: { algorithm: 'sha256-path-content-v1', value: 'code-a', files: [] },
+    })).toBe(first)
+    expect(makeRawStructuralPackageRunId({
+      ...base,
+      codeIdentity: { algorithm: 'sha256-path-content-v1', value: 'code-b', files: [] },
+    })).not.toBe(first)
   })
 
   it('requires a serialized catalog identifier for exact status; icon heuristics alone stay provisional', () => {
