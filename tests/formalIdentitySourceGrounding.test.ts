@@ -11,7 +11,7 @@ const errors = (sources: FormalReviewedSources) => collectFormalReviewedSourceGr
 const alias = (sources: FormalReviewedSources, id: string) => sources.aliases!.aliases!.find((entry) => entry.id === id)!
 
 describe('Formal Identity reviewed-source grounding', () => {
-  it('grounds the current four Formal definitions in their known reviewed sources', () => {
+  it('grounds the current Formal definitions in their known reviewed sources', () => {
     expect(errors(fixture())).toEqual([])
   })
 
@@ -61,6 +61,32 @@ describe('Formal Identity reviewed-source grounding', () => {
     const sources = fixture()
     sources.presentations.melee.anchor = 'Derived From Package Name'
     expect(errors(sources).some((error) => error.includes('identity:anchor@1: presentation displayName drift'))).toBe(true)
+  })
+
+  it('does not promote a Raw-exact Ranged row when its reviewed alias is absent', () => {
+    const sources = fixture()
+    sources.aliases!.aliases = sources.aliases!.aliases!.filter((entry) => entry.id !== 'ranged-weapon:Bow')
+    expect(errors(sources).some((error) => error.includes('identity:bow@1: accepted Ranged alias source missing'))).toBe(true)
+  })
+
+  it.each([
+    ['status', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').status = 'unresolved' }, 'accepted Ranged alias status drift'],
+    ['confidence', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').confidence = 'medium' }, 'accepted Ranged alias confidence drift'],
+    ['canonicalEntity', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').canonicalEntity = 'ranged-weapon:wrong' }, 'accepted Ranged alias canonicalEntity drift'],
+    ['category', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').category = 'melee-weapon' }, 'accepted Ranged alias category drift'],
+    ['rawIdentity', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').rawIdentity = 'Other' }, 'accepted Ranged alias rawIdentity drift'],
+    ['package', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').assetPaths = ['Dungeons/Content/Other'] }, 'accepted Ranged alias package/source drift'],
+    ['heuristic basis', (sources: FormalReviewedSources) => { alias(sources, 'ranged-weapon:Bow').basis = 'family-unique-ordinal' }, 'accepted Ranged alias basis is not reviewed for this wave'],
+  ])('rejects ready Ranged reviewed-source %s drift', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+  })
+
+  it('grounds every new Ranged presentation in the ranged audit rather than package or slug fallback', () => {
+    const sources = fixture()
+    sources.presentations.ranged.bow = 'Derived From Package Name'
+    expect(errors(sources).some((error) => error.includes('identity:bow@1: presentation displayName drift'))).toBe(true)
   })
 
   it('requires review when the provisional Fighter’s Bindings alias becomes accepted', () => {
