@@ -1,0 +1,79 @@
+name: PR112 Final Validate
+
+on:
+  push:
+    branches: [chore/pr112-final-validate]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: 2f650ea52216bc1adafdf17fe54c903baf3828a4
+          fetch-depth: 2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund --timing
+        timeout-minutes: 10
+      - run: npm run audit:damage-events
+      - run: npm run audit:dot-damage
+      - run: npm run audit:temporal-enchants
+      - run: npm run audit:soul
+      - run: npm run audit:cc
+      - run: npm run audit:charge-enchants
+      - run: npm run audit:enchants
+      - run: npm run audit:artifacts
+      - run: npm run audit:artifact-control
+      - run: npm run audit:artifact-soul
+      - run: npm run audit:artifact-event
+      - run: npm run audit:artifact-evidence
+      - run: npm run audit:armor
+      - run: npm run audit:armor-enchants
+      - run: npm run audit:armor-runtime
+      - run: npm run audit:armor-expansion
+      - run: npm run audit:runtime-support
+      - run: npm run audit:dps
+      - run: npm run audit:melee
+      - run: npm run audit:ranged
+      - run: npm run audit:ranged-enchants
+      - run: npm run audit:ranged-runtime
+      - run: npm run audit:evidence-coverage
+      - run: npm run audit:source-harvest
+      - run: npm run audit:evidence-gap-map
+      - run: npm run audit:coverage-priority
+      - run: npm run audit:game-data-inventory
+      - run: npm run audit:game-data-provenance
+      - run: npm run audit:game-data-extractor
+      - run: npm run audit:game-data-raw-package
+      - run: npm run audit:game-data-raw-structural-inventory
+      - run: npm run audit:game-data-native-analysis
+      - run: npm run audit:formal-identity-evidence
+      - run: npm run audit:formal-value-availability
+      - run: npm run audit:formal-serialized-relation
+      - run: npm run audit:formal-integration
+      - run: npm run audit:game-data-semantic-mapping
+      - run: npm run audit:game-data-bulk-harvest
+      - run: npm run audit:game-data-gap-reconciliation
+      - run: npm run audit:game-data-final-coverage
+      - run: npm run audit:game-data-model-alignment
+      - run: npm run audit:external-community
+      - run: npm run audit:evidence-adapter
+      - run: npm run audit:attack-event-comparison
+      - run: npm run audit:dr-modifier-comparison
+      - run: npm run audit:scenario-optimizer-comparison
+      - run: npm run audit:runtime-promotion
+      - run: npm run audit:roadmap
+      - run: npm test
+      - run: git diff --exit-code -- README.md ROADMAP.md docs research
+      - run: npx tsc -b
+      - run: npm run lint
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
