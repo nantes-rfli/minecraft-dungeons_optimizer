@@ -1,0 +1,186 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-23",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "binary": {
+    "file": "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "imageBase": "0x140000000"
+  },
+  "stage1": {
+    "sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+    "bytes": 15360000,
+    "rva": "0x4bb8000"
+  },
+  "method": {
+    "type": "conditional CPU emulation with synthetic Windows exports and explicit counterfactual API results",
+    "guestCpu": "Unicorn 2.1.4",
+    "disassembler": "Capstone 5.0.6",
+    "gameProcessLaunched": false,
+    "realWindowsDllLoaded": false,
+    "hostWindowsApiPassthrough": false,
+    "apiBehavior": "Only listed calls are modeled. Every other API stops the trace. No registry value, firmware table, or later unknown API is filled with a guessed success result.",
+    "script": "scripts/trace_smbios_boundary.py",
+    "localOutputRoot": "local-game-data/phase6.8/native-stage2/firmware-experiments/",
+    "localOutputsCommitted": false
+  },
+  "previousCheckpoint": {
+    "source": "research/game-data-native-stage2/observations.json",
+    "api": "GetSystemFirmwareTable",
+    "provider": "RSMB",
+    "providerValue": "0x52534d42",
+    "tableId": "0x0",
+    "buffer": "0x0",
+    "bufferBytes": "0x0",
+    "returnRva": "0x50d0fe9",
+    "originalImageRegionStopRange": ["0x140000000", "0x144bb7fff"],
+    "originalImageRegionEntryObserved": false
+  },
+  "sizeCounterfactuals": [
+    {
+      "profile": "firmware-zero-size",
+      "syntheticFirstCallReturn": 0,
+      "observedNextApi": "RegOpenKeyA",
+      "nextApiReturnRva": "0x50f434d",
+      "nextApiArgs": ["0x80000002", "0x144ee755b", "0x144eda9d0", "0x0"],
+      "stopReason": "unmodeled API: RegOpenKeyA",
+      "dungeonSha256AtStop": "318f48312bec2e33a1268635d3e8e4e5f4f488ff44f50ff1551e2dff11527002"
+    },
+    {
+      "profile": "firmware-alt-size",
+      "syntheticFirstCallReturn": 1024,
+      "observedAllocation": {"address": "0x80007000", "bytes": 1024},
+      "observedSecondCall": {
+        "api": "GetSystemFirmwareTable",
+        "provider": "RSMB",
+        "tableId": "0x0",
+        "buffer": "0x80007000",
+        "bufferBytes": "0x400",
+        "returnRva": "0x50d1349"
+      },
+      "stopReason": "SMBIOS buffer-fill boundary before a result or table bytes are modeled",
+      "dungeonSha256AtStop": "f5494f4e7af6dde644ba36da59bde1d6705fede4a44a12766b262e130a67347d"
+    },
+    {
+      "profile": "firmware-success-size",
+      "syntheticFirstCallReturn": 4096,
+      "observedAllocation": {"address": "0x80007000", "bytes": 4096},
+      "observedSecondCall": {
+        "api": "GetSystemFirmwareTable",
+        "provider": "RSMB",
+        "tableId": "0x0",
+        "buffer": "0x80007000",
+        "bufferBytes": "0x1000",
+        "returnRva": "0x50d1349"
+      },
+      "stopReason": "SMBIOS buffer-fill boundary before a result or table bytes are modeled",
+      "dungeonSha256AtStop": "f4363b302e483df2df8dbc99e2aa7d76bcdb59a7e8208aa36f29a460a187570d"
+    }
+  ],
+  "syntheticTableProbe": {
+    "profile": "firmware-data-generic",
+    "syntheticPayload": {
+      "shape": "RawSMBIOSData-like eight-byte header, one hand-authored Type 1 record, short synthetic strings, and an end-of-table record, padded in a 4096-byte API buffer",
+      "bufferSha256": "22c4189052548b07c529deebd5853676dd9c6adb6b8b9ff95dd7ccb0f2bf5b9e",
+      "secondCallModeledReturn": 80,
+      "isRealMachineData": false
+    },
+    "readObservation": {
+      "hookEvents": 480,
+      "uniqueByteOffsets": 240,
+      "inclusiveOffsetRange": ["0x0", "0xef"],
+      "instructionVa": "0x144df7d5b",
+      "interpretation": "The synthetic run accessed every byte offset in the first 240 bytes. The hook produced duplicate callbacks and does not identify a semantic SMBIOS field, string, or branch condition."
+    },
+    "afterBuffer": [
+      {
+        "api": "RtlFreeHeap",
+        "pointer": "0x80007000",
+        "requestedBytes": "0x1000",
+        "returnRva": "0x4f4a4e2"
+      },
+      {
+        "api": "RegOpenKeyA",
+        "root": "HKEY_LOCAL_MACHINE (0x80000002)",
+        "subkey": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+        "outputPointer": "0x144eda9d0",
+        "accessMask": "0x1000",
+        "returnRva": "0x50f434d"
+      }
+    ],
+    "stopReason": "unmodeled API: RegOpenKeyA",
+    "dungeonSha256AtStop": "223a55f062faad813b9a0e2a9ac86239a53751679762beb871813169b1c0c1a2"
+  },
+  "registryCounterfactuals": [
+    {
+      "profile": "firmware-registry-first-failure",
+      "firstCallModel": "RegOpenKeyA returns ERROR_FILE_NOT_FOUND (2) once; the following registry call is left unmodeled",
+      "firstSubkey": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+      "nextApi": "RegOpenKeyA",
+      "nextSubkey": "Hardware\\description\\System",
+      "nextReturnRva": "0x50dd7a3",
+      "stopReason": "unmodeled API: RegOpenKeyA",
+      "dungeonSha256AtStop": "15fc1b7d5b219b03cc87112b70df83fb359c978a63043a278afd0b92e8c1070a"
+    },
+    {
+      "profile": "firmware-registry-success",
+      "firstCallModel": "RegOpenKeyA returns ERROR_SUCCESS and writes synthetic handle 0x940000; no registry contents are modeled",
+      "firstSubkey": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+      "nextApi": "RegQueryValueExA",
+      "nextReturnRva": "0x50fd601",
+      "nextApiArgs": ["0x940000", "0x144eeaf15", "0x0", "0x0"],
+      "stopReason": "unmodeled API: RegQueryValueExA",
+      "dungeonSha256AtStop": "8bc1e6c14abdd3ac090adb8d1456327786be6af1f829a4cd46c631ddffcb5263"
+    },
+    {
+      "profile": "firmware-registry-failure",
+      "firstCallModel": "ERROR_FILE_NOT_FOUND for every RegOpenKeyA in this explicitly empty-registry counterfactual",
+      "observedSubkeys": [
+        "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+        "Hardware\\description\\System",
+        "HARDWARE\\ACPI\\DSDT\\VBOX__"
+      ],
+      "nextApi": "CreateFileW",
+      "nextReturnRva": "0x50dea6c",
+      "stopReason": "unmodeled API: CreateFileW",
+      "dungeonSha256AtStop": "6078c6f0ed40074ddf7a96f7bde2b0683c398fd10f4789cc33f7fa0b5b4b2981"
+    }
+  ],
+  "branchConclusion": {
+    "supported": "The first GetSystemFirmwareTable return value changes the observed API path: zero reaches a registry request; positive modeled sizes request a second RSMB call using that size.",
+    "notEstablished": [
+      "The exact conditional instruction or complete caller function was not isolated.",
+      "The generic fake payload does not establish which semantic SMBIOS fields are used.",
+      "Registry values and CreateFileW behavior are unknown; no result is propagated past these boundaries as game truth."
+    ]
+  },
+  "reproducibility": {
+    "script": "scripts/trace_smbios_boundary.py",
+    "scriptSha256": "133872daa19a8136e0c2ddf993b4ed3c1978d3e1f4cd6e7711416e2cc5b50104",
+    "requiredLocalInputs": [
+      "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+      "local-game-data/phase6.8/mechanics/stage1.bin",
+      "local-game-data/phase6.8/native-stage2/imports.json",
+      "local-game-data/phase6.8/native-stage2/{kernel32,user32,ntdll,advapi32,shell32,shlwapi}.spec",
+      "local-game-data/phase6.8/native-stage2/tools/{Capstone,Unicorn}"
+    ],
+    "expectedInputHashesEnforcedByScript": true,
+    "profilesRun": [
+      "firmware-success-size",
+      "firmware-zero-size",
+      "firmware-alt-size",
+      "firmware-data-generic",
+      "firmware-registry-first-failure",
+      "firmware-registry-success",
+      "firmware-registry-failure"
+    ],
+    "deterministicHashReplays": ["firmware-zero-size", "firmware-data-generic"],
+    "rawApiTracesAndMemoryImages": "local-only ignored outputs; do not commit"
+  },
+  "limitations": [
+    "All behavior beyond Stage 1 is conditional on the emulator state, synthetic API export model, and selected counterfactual results.",
+    "The listed return RVAs are API return addresses from the synthetic stub trace, not proven function-entry addresses.",
+    "No original mapped game-code entry, stable native code region, Dungeons class implementation, or gameplay function was reached."
+  ]
+}
