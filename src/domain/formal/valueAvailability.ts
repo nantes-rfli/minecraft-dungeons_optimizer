@@ -12,7 +12,7 @@ import type { Field, RawTrace, UnavailableState } from './rawProjection.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 import { matchedIdentityDomainId, sameRawSource, snapshotSource } from './boundarySource.ts'
-import { readScatterTarget } from './scatterValueReaders.ts'
+import { readScatterTarget, readScatterVelocity } from './scatterValueReaders.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
 
 export type ProjectionRef = string
@@ -265,10 +265,6 @@ function projectRangedConfiguredValues(
   mapping: RangedConfiguredValueMappings,
 ): { semantic: FormalRangedConfiguredValues; entries?: RangedConfiguredEntry[] } {
   const semantic: FormalRangedConfiguredValues = {}
-  const weaponOccurrence = valueScopeOccurrence(domainId, 'weapon')
-  const velocity = addProjection(accumulator, mapping.velocityFactor.id, weaponOccurrence, values.velocity)
-  if (velocity) semantic.configuredProjectileVelocityFactor = velocity
-
   const definitionsOccurrence = valueScopeOccurrence(domainId, 'projectile-definitions')
   const definitions = collectionField(values.definitions)
   const configuredDefinitions = addProjection(accumulator, mapping.definitions.id, definitionsOccurrence, definitions)
@@ -321,8 +317,17 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
       scatterValueMappings,
       'AttackDefintion',
     )
+    const rangedSemantic: FormalRangedConfiguredValues = {}
+    const velocity = addProjection(
+      accumulator,
+      scatterValueMappings.velocityFactor.id,
+      valueScopeOccurrence(scatterDomainId, 'weapon'),
+      readScatterVelocity(inputs.scatterCrossbowInstanceRaw),
+    )
+    if (velocity) rangedSemantic.configuredProjectileVelocityFactor = velocity
     const projected = projectRangedConfiguredValues(accumulator, scatterDomainId, values, scatterValueMappings)
-    semantic.ranged[scatterDomainId] = projected.semantic
+    Object.assign(rangedSemantic, projected.semantic)
+    semantic.ranged[scatterDomainId] = rangedSemantic
 
     for (const entry of projected.entries ?? []) {
       const occurrence = valueCollectionOccurrence(scatterDomainId, 'projectile-definitions', entry.sourceIndex)
