@@ -1,12 +1,18 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { fightersBindingsValueMappings } from './fightersBindingsValueMappings.ts'
-import { readFightersBindingsValues } from './fightersBindingsValueReaders.ts'
+import {
+  readMeleeConfiguredValues,
+  readRangedConfiguredValues,
+  type MeleeConfiguredValueMappings,
+  type RangedConfiguredEntry,
+  type RangedConfiguredValueMappings,
+} from './configuredValueReaders.ts'
 import { scatterValueMappings } from './scatterValueMappings.ts'
 import type { Field, RawTrace, UnavailableState } from './rawProjection.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 import { matchedIdentityDomainId, sameRawSource, snapshotSource } from './boundarySource.ts'
-import { readScatterSource, readScatterTarget } from './scatterValueReaders.ts'
+import { readScatterTarget, readScatterVelocity } from './scatterValueReaders.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
 
 export type ProjectionRef = string
@@ -19,15 +25,18 @@ export type SourceBackedValue<T> = {
   relationProjectionRef?: string
 }
 
-export type FighterValueOccurrence =
-  | { slice: 'fighters-bindings'; scope: 'configured-attacks' }
-  | { slice: 'fighters-bindings'; sourceIndex: number }
+export type ScopeValueOccurrence = {
+  domainId: string
+  scopeRef: string
+}
 
-export type ScatterValueOccurrence =
-  | { slice: 'scatter-crossbow'; scope: 'weapon' | 'projectile-definitions' }
-  | { slice: 'scatter-crossbow'; sourceIndex: number }
+export type CollectionValueOccurrence = {
+  domainId: string
+  collectionRef: string
+  sourceIndex: number
+}
 
-export type ValueOccurrence = FighterValueOccurrence | ScatterValueOccurrence
+export type ValueOccurrence = ScopeValueOccurrence | CollectionValueOccurrence
 
 export type ValueProjectionRecord = {
   projectionId: ProjectionRef
@@ -52,7 +61,7 @@ export type ValueEvidenceRecord = {
   provenance: RawTrace
 }
 
-export type FormalFightersBindingsValues = {
+export type FormalMeleeConfiguredValues = {
   configuredAttacks?: SourceBackedValue<number[]>
   attacks?: {
     sourceIndex: number
@@ -61,7 +70,7 @@ export type FormalFightersBindingsValues = {
   }[]
 }
 
-export type FormalScatterCrossbowValues = {
+export type FormalRangedConfiguredValues = {
   configuredProjectileVelocityFactor?: SourceBackedValue<number>
   configuredProjectileDefinitions?: SourceBackedValue<number[]>
   projectileDefinitions?: {
@@ -76,11 +85,11 @@ export type FormalScatterCrossbowValues = {
 }
 
 export type FormalValueAvailabilityArtifact = {
-  schemaVersion: 1
+  schemaVersion: 2
   artifactKind: 'formal-domain-value-availability'
   semantic: {
-    fightersBindings: FormalFightersBindingsValues
-    scatterCrossbow: FormalScatterCrossbowValues
+    melee: Record<string, FormalMeleeConfiguredValues>
+    ranged: Record<string, FormalRangedConfiguredValues>
   }
   valueProjections: ValueProjectionRecord[]
   provenance: { evidence: ValueEvidenceRecord[] }
@@ -117,15 +126,32 @@ function canonicalJson(value: unknown): string {
   return JSON.stringify(value)
 }
 
-function occurrenceKey(occurrence: ValueOccurrence): string {
-  return 'scope' in occurrence
-    ? `${occurrence.slice}:scope:${occurrence.scope}`
-    : `${occurrence.slice}:source-index:${occurrence.sourceIndex}`
+export function valueScopeOccurrence(domainId: string, scopeRef: string): ScopeValueOccurrence {
+  return { domainId, scopeRef }
 }
 
-/** Stable by mapping + occurrence only: value/result changes do not mint a new identity. */
+export function valueCollectionOccurrence(domainId: string, collectionRef: string, sourceIndex: number): CollectionValueOccurrence {
+  return { domainId, collectionRef, sourceIndex }
+}
+
+/**
+ * ProjectionRef remains the v1-compatible mapping + semantic occurrence identity.
+ * collectionRef is serialized in v2 for semantic location, while sourceIndex remains
+ * the occurrence identity for a child mapping.
+ */
+function projectionOccurrenceKey(occurrence: ValueOccurrence): string {
+  return 'scopeRef' in occurrence
+    ? `${occurrence.domainId}:scope:${occurrence.scopeRef}`
+    : `${occurrence.domainId}:source-index:${occurrence.sourceIndex}`
+}
+
+function recordOccurrenceKey(mappingId: string, occurrence: ValueOccurrence): string {
+  return `${mappingId}|${canonicalJson(occurrence)}`
+}
+
+/** Stable by mapping + occurrence identity only: value/result changes do not mint a new identity. */
 export function valueProjectionRef(mappingId: string, occurrence: ValueOccurrence): ProjectionRef {
-  return `projection:value:${mappingId}:${occurrenceKey(occurrence)}`
+  return `projection:value:${mappingId}:${projectionOccurrenceKey(occurrence)}`
 }
 
 /** Value evidence identifies a Raw source observation, independently of projection occurrence. */
@@ -176,12 +202,19 @@ function addProjection<T>(
 function dependencyUnavailable(
   accumulator: ProjectionAccumulator,
   mappingId: string,
-  occurrence: ScatterValueOccurrence,
+  occurrence: CollectionValueOccurrence,
   reason: string,
   relationProjectionRef?: string,
 ): void {
-  accumulator.records.push({ projectionId: valueProjectionRef(mappingId, occurrence), mappingId, occurrence,
-    result: 'unavailable', failureKind: 'dependency', reason, ...(relationProjectionRef ? { relationProjectionRef } : {}) })
+  accumulator.records.push({
+    projectionId: valueProjectionRef(mappingId, occurrence),
+    mappingId,
+    occurrence,
+    result: 'unavailable',
+    failureKind: 'dependency',
+    reason,
+    ...(relationProjectionRef ? { relationProjectionRef } : {}),
+  })
 }
 
 function validSourceIndices(entries: readonly { sourceIndex: number }[]):
@@ -193,94 +226,171 @@ function validSourceIndices(entries: readonly { sourceIndex: number }[]):
   return { state: 'known', value: indices }
 }
 
-function collectionField(
-  field: Field<readonly { sourceIndex: number }[]>,
-): Field<number[]> {
+function collectionField(field: Field<readonly { sourceIndex: number }[]>): Field<number[]> {
   if (field.state !== 'known') return field
   const indices = validSourceIndices(field.value)
   if (indices.state === 'known') return { state: 'known', value: indices.value, trace: field.trace }
   return { state: 'unknown', reason: indices.reason, trace: field.trace }
 }
 
+function projectMeleeConfiguredValues(
+  accumulator: ProjectionAccumulator,
+  domainId: string,
+  values: ReturnType<typeof readMeleeConfiguredValues>,
+  mapping: MeleeConfiguredValueMappings,
+): FormalMeleeConfiguredValues {
+  const semantic: FormalMeleeConfiguredValues = {}
+  const parentOccurrence = valueScopeOccurrence(domainId, 'configured-attacks')
+  const attacks = collectionField(values.configuredAttacks)
+  const configuredAttacks = addProjection(accumulator, mapping.entries.id, parentOccurrence, attacks)
+  if (configuredAttacks) semantic.configuredAttacks = configuredAttacks
+  if (attacks.state !== 'known' || values.configuredAttacks.state !== 'known') return semantic
+
+  semantic.attacks = values.configuredAttacks.value.map((entry) => {
+    const occurrence = valueCollectionOccurrence(domainId, 'configured-attacks', entry.sourceIndex)
+    const child: NonNullable<FormalMeleeConfiguredValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
+    const damage = addProjection(accumulator, mapping.damage.id, occurrence, entry.configuredDamage)
+    const duration = addProjection(accumulator, mapping.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
+    if (damage) child.configuredDamage = damage
+    if (duration) child.configuredAnimationDurationSeconds = duration
+    return child
+  })
+  return semantic
+}
+
+function projectRangedConfiguredValues(
+  accumulator: ProjectionAccumulator,
+  domainId: string,
+  values: ReturnType<typeof readRangedConfiguredValues>,
+  mapping: RangedConfiguredValueMappings,
+): { semantic: FormalRangedConfiguredValues; entries?: RangedConfiguredEntry[] } {
+  const semantic: FormalRangedConfiguredValues = {}
+  const definitionsOccurrence = valueScopeOccurrence(domainId, 'projectile-definitions')
+  const definitions = collectionField(values.definitions)
+  const configuredDefinitions = addProjection(accumulator, mapping.definitions.id, definitionsOccurrence, definitions)
+  if (configuredDefinitions) semantic.configuredProjectileDefinitions = configuredDefinitions
+  if (definitions.state !== 'known' || values.definitions.state !== 'known') return { semantic }
+
+  semantic.projectileDefinitions = values.definitions.value.map((entry) => {
+    const occurrence = valueCollectionOccurrence(domainId, 'projectile-definitions', entry.sourceIndex)
+    const child: NonNullable<FormalRangedConfiguredValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
+    const count = addProjection(accumulator, mapping.projectileCount.id, occurrence, entry.count)
+    const angle = addProjection(accumulator, mapping.angleSpan.id, occurrence, entry.angle)
+    const delay = addProjection(accumulator, mapping.delayPerProjectile.id, occurrence, entry.delay)
+    if (count) child.configuredProjectileCount = count
+    if (angle) child.configuredAngleSpan = angle
+    if (delay) child.configuredDelaySecondsPerProjectile = delay
+    return child
+  })
+  return { semantic, entries: values.definitions.value }
+}
+
 export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs): FormalValueAvailabilityArtifact {
   const accumulator: ProjectionAccumulator = { records: [], evidence: [] }
-  const fightersSemantic: FormalFightersBindingsValues = {}
-  if (matchedIdentityDomainId(inputs.fightersBindingsRaw, fightersBindingsFormalIdentity, inputs.fightersBindingsIdentity, inputs.fightersBindingsIdentityEvidence)) {
-    const fighters = readFightersBindingsValues(inputs.fightersBindingsRaw)
-    const fighterOccurrence: FighterValueOccurrence = { slice: 'fighters-bindings', scope: 'configured-attacks' }
-    const attacks = collectionField(fighters.configuredAttacks)
-    const configuredAttacks = addProjection(accumulator, fightersBindingsValueMappings.entries.id, fighterOccurrence, attacks)
-    if (configuredAttacks) fightersSemantic.configuredAttacks = configuredAttacks
-    if (attacks.state === 'known' && fighters.configuredAttacks.state === 'known') {
-      fightersSemantic.attacks = fighters.configuredAttacks.value.map((entry) => {
-        const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: entry.sourceIndex }
-        const semantic: NonNullable<FormalFightersBindingsValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
-        const damage = addProjection(accumulator, fightersBindingsValueMappings.damage.id, occurrence, entry.configuredDamage)
-        const duration = addProjection(accumulator, fightersBindingsValueMappings.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
-        if (damage) semantic.configuredDamage = damage
-        if (duration) semantic.configuredAnimationDurationSeconds = duration
-        return semantic
+  const semantic: FormalValueAvailabilityArtifact['semantic'] = { melee: {}, ranged: {} }
+
+  const fightersDomainId = matchedIdentityDomainId(
+    inputs.fightersBindingsRaw,
+    fightersBindingsFormalIdentity,
+    inputs.fightersBindingsIdentity,
+    inputs.fightersBindingsIdentityEvidence,
+  )
+  if (fightersDomainId) {
+    const values = readMeleeConfiguredValues(
+      inputs.fightersBindingsRaw,
+      fightersBindingsFormalIdentity.assertion.id,
+      fightersBindingsValueMappings,
+    )
+    semantic.melee[fightersDomainId] = projectMeleeConfiguredValues(accumulator, fightersDomainId, values, fightersBindingsValueMappings)
+  }
+
+  const scatterDomainId = matchedIdentityDomainId(
+    inputs.scatterCrossbowInstanceRaw,
+    scatterCrossbowFormalIdentity,
+    inputs.scatterCrossbowIdentity,
+    inputs.scatterCrossbowIdentityEvidence,
+  )
+  if (scatterDomainId) {
+    const values = readRangedConfiguredValues(
+      inputs.scatterCrossbowInstanceRaw,
+      scatterCrossbowFormalIdentity.assertion.id,
+      scatterValueMappings,
+      'AttackDefintion',
+    )
+    const rangedSemantic: FormalRangedConfiguredValues = {}
+    const velocity = addProjection(
+      accumulator,
+      scatterValueMappings.velocityFactor.id,
+      valueScopeOccurrence(scatterDomainId, 'weapon'),
+      readScatterVelocity(inputs.scatterCrossbowInstanceRaw),
+    )
+    if (velocity) rangedSemantic.configuredProjectileVelocityFactor = velocity
+    const projected = projectRangedConfiguredValues(accumulator, scatterDomainId, values, scatterValueMappings)
+    Object.assign(rangedSemantic, projected.semantic)
+    semantic.ranged[scatterDomainId] = rangedSemantic
+
+    for (const entry of projected.entries ?? []) {
+      const occurrence = valueCollectionOccurrence(scatterDomainId, 'projectile-definitions', entry.sourceIndex)
+      const child = projected.semantic.projectileDefinitions?.find((candidate) => candidate.sourceIndex === entry.sourceIndex)
+      if (!child) continue
+
+      const candidates = inputs.relations.relationProjections.filter((record) =>
+        record.occurrence.slice === 'scatter-crossbow'
+        && 'sourceIndex' in record.occurrence
+        && record.occurrence.sourceIndex === entry.sourceIndex
+      )
+      const relation = candidates.length === 1 ? candidates[0] : undefined
+      const relationSource = relation?.evidenceRefs.every((ref) => {
+        const evidence = inputs.relations.provenance.evidence.find((item) => item.id === ref)
+        return evidence && sameRawSource(evidence.provenance, snapshotSource(inputs.scatterCrossbowInstanceRaw))
       })
+      const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
+      const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
+        && semanticRelation[0]?.sourceDomainId === scatterDomainId
+      const targetRef = relationReady && relation.targetResolution.result === 'resolved' && 'targetEvidenceRef' in relation.targetResolution
+        ? relation.targetResolution.targetEvidenceRef : undefined
+      const target = targetRef ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === targetRef) : undefined
+      const targetReady = Boolean(
+        relationReady
+        && relation.targetResolution.result === 'resolved'
+        && target
+        && inputs.scatterCrossbowProjectileRaw
+        && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)),
+      )
+      const targetFields = targetReady ? readScatterTarget(inputs.scatterCrossbowProjectileRaw!) : undefined
+      const fields = [
+        [scatterValueMappings.pushbackEnabled.id, 'configuredPushbackEnabled', targetFields?.pushbackEnabled],
+        [scatterValueMappings.pushbackStrength.id, 'configuredPushbackStrength', targetFields?.pushbackStrength],
+        [scatterValueMappings.ignoreFriendlyFire.id, 'configuredIgnoreFriendlyFire', targetFields?.ignoreFriendlyFire],
+      ] as const
+      for (const [mappingId, key, field] of fields) {
+        if (!field) {
+          dependencyUnavailable(
+            accumulator,
+            mappingId,
+            occurrence,
+            !relation ? 'relation-occurrence-missing-or-ambiguous'
+              : relation.result === 'unavailable' ? 'relation-unavailable'
+                : !relationReady ? 'relation-source-mismatch'
+                  : relation.targetResolution.result !== 'resolved' ? relation.targetResolution.reason ?? 'target-not-resolved'
+                    : !inputs.scatterCrossbowProjectileRaw ? 'target-snapshot-not-supplied' : 'target-snapshot-mismatch',
+            relation?.projectionRef,
+          )
+          continue
+        }
+        const value = addProjection<number | boolean>(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
+        if (value) Object.assign(child, { [key]: value })
+      }
     }
   }
 
-  const scatterSemantic: FormalScatterCrossbowValues = {}
-  if (matchedIdentityDomainId(inputs.scatterCrossbowInstanceRaw, scatterCrossbowFormalIdentity, inputs.scatterCrossbowIdentity, inputs.scatterCrossbowIdentityEvidence)) {
-    const scatter = readScatterSource(inputs.scatterCrossbowInstanceRaw)
-    const weaponOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'weapon' }
-    const velocity = addProjection(accumulator, scatterValueMappings.velocityFactor.id, weaponOccurrence, scatter.velocity)
-    if (velocity) scatterSemantic.configuredProjectileVelocityFactor = velocity
-    const definitionsOccurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', scope: 'projectile-definitions' }
-    const definitions = collectionField(scatter.definitions)
-    const configuredDefinitions = addProjection(accumulator, scatterValueMappings.definitions.id, definitionsOccurrence, definitions)
-    if (configuredDefinitions) scatterSemantic.configuredProjectileDefinitions = configuredDefinitions
-    if (definitions.state === 'known' && scatter.definitions.state === 'known') {
-      scatterSemantic.projectileDefinitions = scatter.definitions.value.map((entry) => {
-        const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: entry.sourceIndex }
-        const semantic: NonNullable<FormalScatterCrossbowValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
-        const count = addProjection(accumulator, scatterValueMappings.projectileCount.id, occurrence, entry.count)
-        const angle = addProjection(accumulator, scatterValueMappings.angleSpan.id, occurrence, entry.angle)
-        const delay = addProjection(accumulator, scatterValueMappings.delayPerProjectile.id, occurrence, entry.delay)
-        if (count) semantic.configuredProjectileCount = count
-        if (angle) semantic.configuredAngleSpan = angle
-        if (delay) semantic.configuredDelaySecondsPerProjectile = delay
-        const candidates = inputs.relations.relationProjections.filter((record) => record.occurrence.slice === 'scatter-crossbow' && record.occurrence.sourceIndex === entry.sourceIndex)
-        const relation = candidates.length === 1 ? candidates[0] : undefined
-        const relationSource = relation?.evidenceRefs.every((ref) => {
-          const evidence = inputs.relations.provenance.evidence.find((item) => item.id === ref)
-          return evidence && sameRawSource(evidence.provenance, snapshotSource(inputs.scatterCrossbowInstanceRaw))
-        })
-        const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
-        const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
-          && semanticRelation[0]?.sourceDomainId === scatterCrossbowFormalIdentity.assertion.domainId
-        const targetRef = relationReady && relation.targetResolution.result === 'resolved' && 'targetEvidenceRef' in relation.targetResolution
-          ? relation.targetResolution.targetEvidenceRef : undefined
-        const target = targetRef ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === targetRef) : undefined
-        const targetReady = Boolean(relationReady && relation.targetResolution.result === 'resolved'
-          && target && inputs.scatterCrossbowProjectileRaw && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)))
-        const targetFields = targetReady ? readScatterTarget(inputs.scatterCrossbowProjectileRaw!) : undefined
-        const fields = [
-          [scatterValueMappings.pushbackEnabled.id, 'configuredPushbackEnabled', targetFields?.pushbackEnabled],
-          [scatterValueMappings.pushbackStrength.id, 'configuredPushbackStrength', targetFields?.pushbackStrength],
-          [scatterValueMappings.ignoreFriendlyFire.id, 'configuredIgnoreFriendlyFire', targetFields?.ignoreFriendlyFire],
-        ] as const
-        for (const [mappingId, key, field] of fields) {
-          if (!field) { dependencyUnavailable(accumulator, mappingId, occurrence,
-            !relation ? 'relation-occurrence-missing-or-ambiguous' : relation.result === 'unavailable' ? 'relation-unavailable'
-              : !relationReady ? 'relation-source-mismatch'
-              : relation.targetResolution.result !== 'resolved' ? relation.targetResolution.reason ?? 'target-not-resolved'
-                : !inputs.scatterCrossbowProjectileRaw ? 'target-snapshot-not-supplied' : 'target-snapshot-mismatch',
-            relation?.projectionRef); continue }
-          const value = addProjection<number | boolean>(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
-          if (value) Object.assign(semantic, { [key]: value })
-        }
-        return semantic
-      })
-    }
+  return {
+    schemaVersion: 2,
+    artifactKind: 'formal-domain-value-availability',
+    semantic,
+    valueProjections: accumulator.records,
+    provenance: { evidence: accumulator.evidence },
   }
-  return { schemaVersion: 1, artifactKind: 'formal-domain-value-availability',
-    semantic: { fightersBindings: fightersSemantic, scatterCrossbow: scatterSemantic },
-    valueProjections: accumulator.records, provenance: { evidence: accumulator.evidence } }
 }
 
 type SemanticOccurrence = {
@@ -289,27 +399,56 @@ type SemanticOccurrence = {
   value: SourceBackedValue<unknown>
 }
 
+function meleeMappingIds(domainId: string) {
+  return {
+    entries: `${domainId}:configured-attacks@1`,
+    damage: `${domainId}:configured-damage@1`,
+    duration: `${domainId}:animation-duration@1`,
+  }
+}
+
+function rangedMappingIds(domainId: string) {
+  return {
+    velocityFactor: `${domainId}:configured-projectile-velocity-factor@1`,
+    definitions: `${domainId}:configured-projectile-definitions@1`,
+    projectileCount: `${domainId}:configured-projectile-count@1`,
+    angleSpan: `${domainId}:configured-angle-span@1`,
+    delayPerProjectile: `${domainId}:configured-delay-per-projectile@1`,
+    pushbackEnabled: `${domainId}:configured-pushback-enabled@1`,
+    pushbackStrength: `${domainId}:configured-pushback-strength@1`,
+    ignoreFriendlyFire: `${domainId}:configured-ignore-friendly-fire@1`,
+  }
+}
+
 function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['semantic']): SemanticOccurrence[] {
   const values: SemanticOccurrence[] = []
   const add = (mappingId: string, occurrence: ValueOccurrence, value: SourceBackedValue<unknown> | undefined) => {
     if (value) values.push({ mappingId, occurrence, value })
   }
-  add(fightersBindingsValueMappings.entries.id, { slice: 'fighters-bindings', scope: 'configured-attacks' }, semantic.fightersBindings.configuredAttacks)
-  for (const attack of semantic.fightersBindings.attacks ?? []) {
-    const occurrence: FighterValueOccurrence = { slice: 'fighters-bindings', sourceIndex: attack.sourceIndex }
-    add(fightersBindingsValueMappings.damage.id, occurrence, attack.configuredDamage)
-    add(fightersBindingsValueMappings.duration.id, occurrence, attack.configuredAnimationDurationSeconds)
+
+  for (const [domainId, domain] of Object.entries(semantic.melee)) {
+    const mapping = meleeMappingIds(domainId)
+    add(mapping.entries, valueScopeOccurrence(domainId, 'configured-attacks'), domain.configuredAttacks)
+    for (const attack of domain.attacks ?? []) {
+      const occurrence = valueCollectionOccurrence(domainId, 'configured-attacks', attack.sourceIndex)
+      add(mapping.damage, occurrence, attack.configuredDamage)
+      add(mapping.duration, occurrence, attack.configuredAnimationDurationSeconds)
+    }
   }
-  add(scatterValueMappings.velocityFactor.id, { slice: 'scatter-crossbow', scope: 'weapon' }, semantic.scatterCrossbow.configuredProjectileVelocityFactor)
-  add(scatterValueMappings.definitions.id, { slice: 'scatter-crossbow', scope: 'projectile-definitions' }, semantic.scatterCrossbow.configuredProjectileDefinitions)
-  for (const definition of semantic.scatterCrossbow.projectileDefinitions ?? []) {
-    const occurrence: ScatterValueOccurrence = { slice: 'scatter-crossbow', sourceIndex: definition.sourceIndex }
-    add(scatterValueMappings.projectileCount.id, occurrence, definition.configuredProjectileCount)
-    add(scatterValueMappings.angleSpan.id, occurrence, definition.configuredAngleSpan)
-    add(scatterValueMappings.delayPerProjectile.id, occurrence, definition.configuredDelaySecondsPerProjectile)
-    add(scatterValueMappings.pushbackEnabled.id, occurrence, definition.configuredPushbackEnabled)
-    add(scatterValueMappings.pushbackStrength.id, occurrence, definition.configuredPushbackStrength)
-    add(scatterValueMappings.ignoreFriendlyFire.id, occurrence, definition.configuredIgnoreFriendlyFire)
+
+  for (const [domainId, domain] of Object.entries(semantic.ranged)) {
+    const mapping = rangedMappingIds(domainId)
+    add(mapping.velocityFactor, valueScopeOccurrence(domainId, 'weapon'), domain.configuredProjectileVelocityFactor)
+    add(mapping.definitions, valueScopeOccurrence(domainId, 'projectile-definitions'), domain.configuredProjectileDefinitions)
+    for (const definition of domain.projectileDefinitions ?? []) {
+      const occurrence = valueCollectionOccurrence(domainId, 'projectile-definitions', definition.sourceIndex)
+      add(mapping.projectileCount, occurrence, definition.configuredProjectileCount)
+      add(mapping.angleSpan, occurrence, definition.configuredAngleSpan)
+      add(mapping.delayPerProjectile, occurrence, definition.configuredDelaySecondsPerProjectile)
+      add(mapping.pushbackEnabled, occurrence, definition.configuredPushbackEnabled)
+      add(mapping.pushbackStrength, occurrence, definition.configuredPushbackStrength)
+      add(mapping.ignoreFriendlyFire, occurrence, definition.configuredIgnoreFriendlyFire)
+    }
   }
   return values
 }
@@ -317,7 +456,8 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
 export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabilityArtifact): string[] {
   const errors: string[] = []
   const check = (condition: boolean, message: string) => { if (!condition) errors.push(message) }
-  check(value.schemaVersion === 1 && value.artifactKind === 'formal-domain-value-availability', 'invalid Formal Value artifact header')
+  check(value.schemaVersion === 2 && value.artifactKind === 'formal-domain-value-availability', 'invalid Formal Value artifact header')
+
   const evidence = new Map<string, ValueEvidenceRecord>()
   for (const record of value.provenance.evidence) {
     check(!evidence.has(record.id), `duplicate EvidenceRef: ${record.id}`)
@@ -327,14 +467,22 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(record.fingerprint === evidenceFingerprint(content), `evidence fingerprint mismatch: ${record.id}`)
     check(record.provenance.artifactPath.length > 0 && record.provenance.nodePointer !== undefined, `invalid evidence provenance: ${record.id}`)
   }
+
   const byOccurrence = new Map<string, ValueProjectionRecord>()
   const byProjectionId = new Map<string, ValueProjectionRecord>()
   for (const record of value.valueProjections) {
-    const key = `${record.mappingId}|${occurrenceKey(record.occurrence)}`
+    const key = recordOccurrenceKey(record.mappingId, record.occurrence)
     check(!byOccurrence.has(key), `duplicate (mappingId, occurrence): ${key}`)
     if (!byOccurrence.has(key)) byOccurrence.set(key, record)
     check(!byProjectionId.has(record.projectionId), `duplicate projectionId: ${record.projectionId}`)
     if (!byProjectionId.has(record.projectionId)) byProjectionId.set(record.projectionId, record)
+    check(record.occurrence.domainId.length > 0, `${record.projectionId}: empty occurrence domainId`)
+    if ('scopeRef' in record.occurrence) {
+      check(record.occurrence.scopeRef.length > 0, `${record.projectionId}: empty occurrence scopeRef`)
+    } else {
+      check(record.occurrence.collectionRef.length > 0, `${record.projectionId}: empty occurrence collectionRef`)
+      check(Number.isInteger(record.occurrence.sourceIndex) && record.occurrence.sourceIndex >= 0, `${record.projectionId}: invalid occurrence sourceIndex`)
+    }
     check(record.projectionId === valueProjectionRef(record.mappingId, record.occurrence), `projectionId is not stable mapping + occurrence identity: ${record.projectionId}`)
     if (record.result === 'unavailable' && record.failureKind === 'dependency') {
       check(record.evidenceRefs === undefined, `${record.projectionId}: dependency failure has fabricated Raw evidence`)
@@ -351,9 +499,10 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
       }
     }
   }
+
   const semanticCounts = new Map<string, number>()
   for (const semantic of collectSemanticOccurrences(value.semantic)) {
-    const key = `${semantic.mappingId}|${occurrenceKey(semantic.occurrence)}`
+    const key = recordOccurrenceKey(semantic.mappingId, semantic.occurrence)
     semanticCounts.set(semantic.value.projectionRef, (semanticCounts.get(semantic.value.projectionRef) ?? 0) + 1)
     const record = byProjectionId.get(semantic.value.projectionRef)
     check(Boolean(record), `${key}: missing required projection record`)
@@ -363,47 +512,58 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     check(canonicalJson(record.evidenceRefs) === canonicalJson(semantic.value.evidenceRefs), `${key}: semantic/projection EvidenceRef mismatch`)
     check(record.relationProjectionRef === semantic.value.relationProjectionRef, `${key}: relation projection link mismatch`)
   }
-  const requireChildCoverage = (mappingIds: readonly string[], occurrence: ValueOccurrence, label: string) => {
+
+  const requireChildCoverage = (mappingIds: readonly string[], occurrence: CollectionValueOccurrence, label: string) => {
     for (const mappingId of mappingIds) {
-      const key = `${mappingId}|${occurrenceKey(occurrence)}`
+      const key = recordOccurrenceKey(mappingId, occurrence)
       check(byOccurrence.has(key), `${label}: missing required child projection record ${key}`)
     }
   }
-  const fighterIndices = value.semantic.fightersBindings.configuredAttacks?.value
-  if (fighterIndices) {
-    const entryIndices = value.semantic.fightersBindings.attacks?.map(({ sourceIndex }) => sourceIndex)
-    check(canonicalJson(entryIndices) === canonicalJson(fighterIndices), 'fighters-bindings: child occurrence order/membership differs from projected collection')
-    check(fighterIndices.every(Number.isInteger) && new Set(fighterIndices).size === fighterIndices.length, 'fighters-bindings: projected collection has ambiguous sourceIndex values')
-    for (const sourceIndex of fighterIndices) requireChildCoverage(
-      [fightersBindingsValueMappings.damage.id, fightersBindingsValueMappings.duration.id],
-      { slice: 'fighters-bindings', sourceIndex },
-      'fighters-bindings',
-    )
-  } else {
-    check(value.semantic.fightersBindings.attacks === undefined, 'fighters-bindings: children exist without a projected parent collection')
-    check(!value.valueProjections.some(({ occurrence }) => occurrence.slice === 'fighters-bindings' && 'sourceIndex' in occurrence), 'fighters-bindings: child records exist before parent enumeration')
+
+  for (const [domainId, domain] of Object.entries(value.semantic.melee)) {
+    const mapping = meleeMappingIds(domainId)
+    const indices = domain.configuredAttacks?.value
+    if (indices) {
+      const entryIndices = domain.attacks?.map(({ sourceIndex }) => sourceIndex)
+      check(canonicalJson(entryIndices) === canonicalJson(indices), `${domainId}: child occurrence order/membership differs from projected melee collection`)
+      check(indices.every((index) => Number.isInteger(index) && index >= 0) && new Set(indices).size === indices.length, `${domainId}: projected melee collection has ambiguous sourceIndex values`)
+      for (const sourceIndex of indices) requireChildCoverage(
+        [mapping.damage, mapping.duration],
+        valueCollectionOccurrence(domainId, 'configured-attacks', sourceIndex),
+        domainId,
+      )
+    } else {
+      check(domain.attacks === undefined, `${domainId}: melee children exist without a projected parent collection`)
+      check(!value.valueProjections.some(({ occurrence }) => occurrence.domainId === domainId && 'collectionRef' in occurrence && occurrence.collectionRef === 'configured-attacks'), `${domainId}: melee child records exist before parent enumeration`)
+    }
   }
-  const scatterIndices = value.semantic.scatterCrossbow.configuredProjectileDefinitions?.value
-  if (scatterIndices) {
-    const entryIndices = value.semantic.scatterCrossbow.projectileDefinitions?.map(({ sourceIndex }) => sourceIndex)
-    check(canonicalJson(entryIndices) === canonicalJson(scatterIndices), 'scatter-crossbow: child occurrence order/membership differs from projected collection')
-    check(scatterIndices.every((index) => Number.isInteger(index) && index >= 0) && new Set(scatterIndices).size === scatterIndices.length, 'scatter-crossbow: projected collection has ambiguous sourceIndex values')
-    for (const sourceIndex of scatterIndices) requireChildCoverage(
-      [
-        scatterValueMappings.projectileCount.id,
-        scatterValueMappings.angleSpan.id,
-        scatterValueMappings.delayPerProjectile.id,
-        scatterValueMappings.pushbackEnabled.id,
-        scatterValueMappings.pushbackStrength.id,
-        scatterValueMappings.ignoreFriendlyFire.id,
-      ],
-      { slice: 'scatter-crossbow', sourceIndex },
-      'scatter-crossbow',
-    )
-  } else {
-    check(value.semantic.scatterCrossbow.projectileDefinitions === undefined, 'scatter-crossbow: children exist without a projected parent collection')
-    check(!value.valueProjections.some(({ occurrence }) => occurrence.slice === 'scatter-crossbow' && 'sourceIndex' in occurrence), 'scatter-crossbow: child records exist before parent enumeration')
+
+  for (const [domainId, domain] of Object.entries(value.semantic.ranged)) {
+    const mapping = rangedMappingIds(domainId)
+    const indices = domain.configuredProjectileDefinitions?.value
+    if (indices) {
+      const entryIndices = domain.projectileDefinitions?.map(({ sourceIndex }) => sourceIndex)
+      check(canonicalJson(entryIndices) === canonicalJson(indices), `${domainId}: child occurrence order/membership differs from projected ranged collection`)
+      check(indices.every((index) => Number.isInteger(index) && index >= 0) && new Set(indices).size === indices.length, `${domainId}: projected ranged collection has ambiguous sourceIndex values`)
+      const requiredMappings = [
+        mapping.projectileCount,
+        mapping.angleSpan,
+        mapping.delayPerProjectile,
+        ...(domainId === scatterCrossbowFormalIdentity.assertion.domainId
+          ? [mapping.pushbackEnabled, mapping.pushbackStrength, mapping.ignoreFriendlyFire]
+          : []),
+      ]
+      for (const sourceIndex of indices) requireChildCoverage(
+        requiredMappings,
+        valueCollectionOccurrence(domainId, 'projectile-definitions', sourceIndex),
+        domainId,
+      )
+    } else {
+      check(domain.projectileDefinitions === undefined, `${domainId}: ranged children exist without a projected parent collection`)
+      check(!value.valueProjections.some(({ occurrence }) => occurrence.domainId === domainId && 'collectionRef' in occurrence && occurrence.collectionRef === 'projectile-definitions'), `${domainId}: ranged child records exist before parent enumeration`)
+    }
   }
+
   for (const record of value.valueProjections) {
     const count = semanticCounts.get(record.projectionId) ?? 0
     if (record.result === 'projected') check(count === 1, `${record.projectionId}: projected record must have exactly one semantic value occurrence; found ${count}`)

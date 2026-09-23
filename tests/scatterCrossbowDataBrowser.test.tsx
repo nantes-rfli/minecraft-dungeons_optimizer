@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import identityArtifact from '../research/domain/formal/identity-evidence-v1.json'
-import valueArtifact from '../research/domain/formal/value-availability-v1.json'
+import valueArtifact from '../research/domain/formal/value-availability-v2.json'
 import relationArtifact from '../research/domain/formal/serialized-relation-v1.json'
 import { scatterCrossbowBrowserProjection } from '../src/screens/dataBrowser/scatterCrossbowBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
@@ -39,7 +39,7 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
   })
 
   it('renders source-side configured Formal Values without deriving effective behavior', () => {
-    const formal = valueArtifact.semantic.scatterCrossbow
+    const formal = valueArtifact.semantic.ranged['scatter-crossbow']
     const definition = scatterCrossbowBrowserProjection.configuredProjectileDefinitions.definitions[0]!
     const row = renderedRow()
 
@@ -80,7 +80,7 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
   })
 
   it('renders target-side Formal Values and keeps relationProjectionRef as a presentation reference', () => {
-    const formalDefinition = valueArtifact.semantic.scatterCrossbow.projectileDefinitions[0]!
+    const formalDefinition = valueArtifact.semantic.ranged['scatter-crossbow'].projectileDefinitions[0]!
     const definition = scatterCrossbowBrowserProjection.configuredProjectileDefinitions.definitions[0]!
     const row = renderedRow()
 
@@ -150,7 +150,8 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
     ].map((sourcePath) => fs.readFileSync(sourcePath, 'utf8')).join('\n')
 
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
-    expect(browserSources).toContain('research/domain/formal/value-availability-v1.json')
+    expect(browserSources).toContain('research/domain/formal/value-availability-v2.json')
+    expect(browserSources).not.toContain('research/domain/formal/value-availability-' + 'v1.json')
     expect(browserSources).toContain('research/domain/formal/serialized-relation-v1.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/scatter-crossbow\.json|src\/domain\/temporary/)
     expect(browserSources).not.toMatch(/research\/raw\//)

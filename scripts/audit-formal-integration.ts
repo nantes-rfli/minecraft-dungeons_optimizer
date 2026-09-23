@@ -8,7 +8,7 @@ import type { FormalSerializedRelationArtifact } from '../src/domain/formal/seri
 const root = new URL('..', import.meta.url)
 const read = <T>(path: string): T => JSON.parse(fs.readFileSync(new URL(path, root), 'utf8')) as T
 const identity = read<FormalIdentityEvidenceArtifact>('research/domain/formal/identity-evidence-v1.json')
-const value = read<FormalValueAvailabilityArtifact>('research/domain/formal/value-availability-v1.json')
+const value = read<FormalValueAvailabilityArtifact>('research/domain/formal/value-availability-v2.json')
 const relation = read<FormalSerializedRelationArtifact>('research/domain/formal/serialized-relation-v1.json')
 assert.deepEqual(collectFormalIntegrationErrors(identity, value, relation), [])
-console.log('Formal v1 cross-boundary integration audit passed.')
+console.log('Formal Value v2 cross-boundary integration audit passed.')

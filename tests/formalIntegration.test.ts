@@ -27,7 +27,7 @@ function artifacts() {
   return { identity, value, relation, raws, projectile }
 }
 
-describe('Formal v1 integration', () => {
+describe('Formal Value v2 integration', () => {
   it('accepts connected current outcomes', () => {
     const { identity, value, relation } = artifacts()
     expect(collectFormalIntegrationErrors(identity, value, relation)).toEqual([])

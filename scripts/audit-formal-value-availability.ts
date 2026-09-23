@@ -30,10 +30,11 @@ const artifact = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fig
   scatterCrossbowIdentity: scatter.identity, scatterCrossbowIdentityEvidence: scatter.identityEvidence, relations })
 
 assert.deepEqual(collectFormalValueAvailabilityErrors(artifact), [])
-assert.deepEqual(artifact.semantic.fightersBindings.configuredAttacks?.value, [0, 1, 2, 3])
-assert.equal(artifact.semantic.fightersBindings.attacks?.length, 4)
-assert.deepEqual(artifact.semantic.scatterCrossbow.configuredProjectileDefinitions?.value, [0])
-assert.equal(artifact.semantic.scatterCrossbow.projectileDefinitions?.length, 1)
+assert.equal(artifact.schemaVersion, 2)
+assert.deepEqual(artifact.semantic.melee[fightersBindingsFormalIdentity.assertion.domainId]?.configuredAttacks?.value, [0, 1, 2, 3])
+assert.equal(artifact.semantic.melee[fightersBindingsFormalIdentity.assertion.domainId]?.attacks?.length, 4)
+assert.deepEqual(artifact.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.configuredProjectileDefinitions?.value, [0])
+assert.equal(artifact.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.projectileDefinitions?.length, 1)
 for (const { id, provenance } of artifact.provenance.evidence) {
   const source = new URL(provenance.artifactPath, root)
   assert.ok(fs.existsSync(source), `${id}: provenance artifact does not exist`)
@@ -45,11 +46,11 @@ for (const { id, provenance } of artifact.provenance.evidence) {
   assert.notEqual(node, undefined, `${id}: provenance nodePointer does not resolve in committed Raw artifact`)
 }
 
-const target = new URL('research/domain/formal/value-availability-v1.json', root)
+const target = new URL('research/domain/formal/value-availability-v2.json', root)
 const serialized = `${JSON.stringify(artifact, null, 2)}\n`
 if (process.argv.includes('--write')) {
   fs.mkdirSync(new URL('.', target), { recursive: true })
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Value/Availability artifact drift; run generate:formal-value-availability')
-console.log('Formal Value/Availability v1 audit passed: known-only semantics, occurrence coverage, availability records, and EvidenceRef integrity.')
+console.log('Formal Value/Availability v2 audit passed: known-only semantics, occurrence coverage, availability records, and EvidenceRef integrity.')

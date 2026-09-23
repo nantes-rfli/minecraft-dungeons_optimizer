@@ -1,158 +1,162 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "artifactKind": "formal-domain-value-availability",
   "semantic": {
-    "fightersBindings": {
-      "configuredAttacks": {
-        "value": [
-          0,
-          1,
-          2,
-          3
-        ],
-        "projectionRef": "projection:value:fighters-bindings:configured-attacks@1:fighters-bindings:scope:configured-attacks",
-        "evidenceRefs": [
-          "evidence:value:raw:fnv1a32:002c0fc6"
+    "melee": {
+      "fighters-bindings": {
+        "configuredAttacks": {
+          "value": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "projectionRef": "projection:value:fighters-bindings:configured-attacks@1:fighters-bindings:scope:configured-attacks",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:002c0fc6"
+          ]
+        },
+        "attacks": [
+          {
+            "sourceIndex": 0,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:24abb300"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:710c9045"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 1,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:1",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b171e447"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:1",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:dbccfdac"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 2,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:2",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:23c9269a"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.15000000596046448,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:2",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:a3d5d18f"
+              ]
+            }
+          },
+          {
+            "sourceIndex": 3,
+            "configuredDamage": {
+              "value": 25,
+              "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:3",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:a720de99"
+              ]
+            },
+            "configuredAnimationDurationSeconds": {
+              "value": 0.125,
+              "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:3",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b9f827b6"
+              ]
+            }
+          }
         ]
-      },
-      "attacks": [
-        {
-          "sourceIndex": 0,
-          "configuredDamage": {
-            "value": 25,
-            "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:24abb300"
-            ]
-          },
-          "configuredAnimationDurationSeconds": {
-            "value": 0.15000000596046448,
-            "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:710c9045"
-            ]
-          }
-        },
-        {
-          "sourceIndex": 1,
-          "configuredDamage": {
-            "value": 25,
-            "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:1",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:b171e447"
-            ]
-          },
-          "configuredAnimationDurationSeconds": {
-            "value": 0.15000000596046448,
-            "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:1",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:dbccfdac"
-            ]
-          }
-        },
-        {
-          "sourceIndex": 2,
-          "configuredDamage": {
-            "value": 25,
-            "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:2",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:23c9269a"
-            ]
-          },
-          "configuredAnimationDurationSeconds": {
-            "value": 0.15000000596046448,
-            "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:2",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:a3d5d18f"
-            ]
-          }
-        },
-        {
-          "sourceIndex": 3,
-          "configuredDamage": {
-            "value": 25,
-            "projectionRef": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:3",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:a720de99"
-            ]
-          },
-          "configuredAnimationDurationSeconds": {
-            "value": 0.125,
-            "projectionRef": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:3",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:b9f827b6"
-            ]
-          }
-        }
-      ]
+      }
     },
-    "scatterCrossbow": {
-      "configuredProjectileVelocityFactor": {
-        "value": 1.100000023841858,
-        "projectionRef": "projection:value:scatter-crossbow:configured-projectile-velocity-factor@1:scatter-crossbow:scope:weapon",
-        "evidenceRefs": [
-          "evidence:value:raw:fnv1a32:4e7d08cd"
-        ]
-      },
-      "configuredProjectileDefinitions": {
-        "value": [
-          0
-        ],
-        "projectionRef": "projection:value:scatter-crossbow:configured-projectile-definitions@1:scatter-crossbow:scope:projectile-definitions",
-        "evidenceRefs": [
-          "evidence:value:raw:fnv1a32:2d64c02c"
-        ]
-      },
-      "projectileDefinitions": [
-        {
-          "sourceIndex": 0,
-          "configuredProjectileCount": {
-            "value": 3,
-            "projectionRef": "projection:value:scatter-crossbow:configured-projectile-count@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:252781a3"
-            ]
-          },
-          "configuredAngleSpan": {
-            "value": 20,
-            "projectionRef": "projection:value:scatter-crossbow:configured-angle-span@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:1358e32a"
-            ]
-          },
-          "configuredDelaySecondsPerProjectile": {
-            "value": 0.029999999329447746,
-            "projectionRef": "projection:value:scatter-crossbow:configured-delay-per-projectile@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:49d92361"
-            ]
-          },
-          "configuredPushbackEnabled": {
-            "value": true,
-            "projectionRef": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:b1c6d847"
-            ],
-            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
-          },
-          "configuredPushbackStrength": {
-            "value": 0.6000000238418579,
-            "projectionRef": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:43a7ff36"
-            ],
-            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
-          },
-          "configuredIgnoreFriendlyFire": {
-            "value": true,
-            "projectionRef": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
-            "evidenceRefs": [
-              "evidence:value:raw:fnv1a32:d71f45b8"
-            ],
-            "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+    "ranged": {
+      "scatter-crossbow": {
+        "configuredProjectileVelocityFactor": {
+          "value": 1.100000023841858,
+          "projectionRef": "projection:value:scatter-crossbow:configured-projectile-velocity-factor@1:scatter-crossbow:scope:weapon",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:4e7d08cd"
+          ]
+        },
+        "configuredProjectileDefinitions": {
+          "value": [
+            0
+          ],
+          "projectionRef": "projection:value:scatter-crossbow:configured-projectile-definitions@1:scatter-crossbow:scope:projectile-definitions",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:2d64c02c"
+          ]
+        },
+        "projectileDefinitions": [
+          {
+            "sourceIndex": 0,
+            "configuredProjectileCount": {
+              "value": 3,
+              "projectionRef": "projection:value:scatter-crossbow:configured-projectile-count@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:252781a3"
+              ]
+            },
+            "configuredAngleSpan": {
+              "value": 20,
+              "projectionRef": "projection:value:scatter-crossbow:configured-angle-span@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:1358e32a"
+              ]
+            },
+            "configuredDelaySecondsPerProjectile": {
+              "value": 0.029999999329447746,
+              "projectionRef": "projection:value:scatter-crossbow:configured-delay-per-projectile@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:49d92361"
+              ]
+            },
+            "configuredPushbackEnabled": {
+              "value": true,
+              "projectionRef": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:b1c6d847"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            },
+            "configuredPushbackStrength": {
+              "value": 0.6000000238418579,
+              "projectionRef": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:43a7ff36"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            },
+            "configuredIgnoreFriendlyFire": {
+              "value": true,
+              "projectionRef": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
+              "evidenceRefs": [
+                "evidence:value:raw:fnv1a32:d71f45b8"
+              ],
+              "relationProjectionRef": "projection:relation:scatter-crossbow:projectile@1:0"
+            }
           }
-        }
-      ]
+        ]
+      }
     }
   },
   "valueProjections": [
@@ -160,8 +164,8 @@
       "projectionId": "projection:value:fighters-bindings:configured-attacks@1:fighters-bindings:scope:configured-attacks",
       "mappingId": "fighters-bindings:configured-attacks@1",
       "occurrence": {
-        "slice": "fighters-bindings",
-        "scope": "configured-attacks"
+        "domainId": "fighters-bindings",
+        "scopeRef": "configured-attacks"
       },
       "result": "projected",
       "evidenceRefs": [
@@ -172,7 +176,8 @@
       "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:0",
       "mappingId": "fighters-bindings:configured-damage@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -184,7 +189,8 @@
       "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:0",
       "mappingId": "fighters-bindings:animation-duration@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -196,7 +202,8 @@
       "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:1",
       "mappingId": "fighters-bindings:configured-damage@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 1
       },
       "result": "projected",
@@ -208,7 +215,8 @@
       "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:1",
       "mappingId": "fighters-bindings:animation-duration@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 1
       },
       "result": "projected",
@@ -220,7 +228,8 @@
       "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:2",
       "mappingId": "fighters-bindings:configured-damage@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 2
       },
       "result": "projected",
@@ -232,7 +241,8 @@
       "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:2",
       "mappingId": "fighters-bindings:animation-duration@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 2
       },
       "result": "projected",
@@ -244,7 +254,8 @@
       "projectionId": "projection:value:fighters-bindings:configured-damage@1:fighters-bindings:source-index:3",
       "mappingId": "fighters-bindings:configured-damage@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 3
       },
       "result": "projected",
@@ -256,7 +267,8 @@
       "projectionId": "projection:value:fighters-bindings:animation-duration@1:fighters-bindings:source-index:3",
       "mappingId": "fighters-bindings:animation-duration@1",
       "occurrence": {
-        "slice": "fighters-bindings",
+        "domainId": "fighters-bindings",
+        "collectionRef": "configured-attacks",
         "sourceIndex": 3
       },
       "result": "projected",
@@ -268,8 +280,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-projectile-velocity-factor@1:scatter-crossbow:scope:weapon",
       "mappingId": "scatter-crossbow:configured-projectile-velocity-factor@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
-        "scope": "weapon"
+        "domainId": "scatter-crossbow",
+        "scopeRef": "weapon"
       },
       "result": "projected",
       "evidenceRefs": [
@@ -280,8 +292,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-projectile-definitions@1:scatter-crossbow:scope:projectile-definitions",
       "mappingId": "scatter-crossbow:configured-projectile-definitions@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
-        "scope": "projectile-definitions"
+        "domainId": "scatter-crossbow",
+        "scopeRef": "projectile-definitions"
       },
       "result": "projected",
       "evidenceRefs": [
@@ -292,7 +304,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-projectile-count@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-projectile-count@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -304,7 +317,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-angle-span@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-angle-span@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -316,7 +330,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-delay-per-projectile@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-delay-per-projectile@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -328,7 +343,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-pushback-enabled@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-pushback-enabled@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -341,7 +357,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-pushback-strength@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-pushback-strength@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
@@ -354,7 +371,8 @@
       "projectionId": "projection:value:scatter-crossbow:configured-ignore-friendly-fire@1:scatter-crossbow:source-index:0",
       "mappingId": "scatter-crossbow:configured-ignore-friendly-fire@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "result": "projected",
