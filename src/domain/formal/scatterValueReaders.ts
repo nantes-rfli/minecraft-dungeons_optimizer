@@ -9,6 +9,18 @@ const cdo = (raw: RawPackageSnapshot) => {
   return candidates.length === 1 ? candidates[0] : undefined
 }
 
+export function readScatterVelocity(raw: RawPackageSnapshot) {
+  const attack = topLevelRawNode(cdo(raw), 'AttackDefintion')
+  return readRawValue<number>(
+    raw,
+    nestedRawNode(attack, mapping.velocityFactor.rawField),
+    mapping.velocityFactor.id,
+    assertionId,
+    'FloatProperty',
+    'number',
+  )
+}
+
 export function readScatterTarget(raw: RawPackageSnapshot) {
   const selected = cdo(raw)
   const pushback = topLevelRawNode(selected, 'pushback')
