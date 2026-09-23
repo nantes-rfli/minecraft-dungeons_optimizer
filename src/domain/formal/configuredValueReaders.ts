@@ -17,7 +17,6 @@ export type RangedConfiguredValueMappings = {
   readonly projectileCount: ValueMapping
   readonly angleSpan: ValueMapping
   readonly delayPerProjectile: ValueMapping
-  readonly velocityFactor: ValueMapping
 }
 
 export type MeleeConfiguredEntry = {
@@ -79,11 +78,8 @@ export function readRangedConfiguredValues(
   identityAssertionId: string,
   mapping: RangedConfiguredValueMappings,
   attackDefinitionRawField: string,
-): { velocity: Field<number>; definitions: Field<RangedConfiguredEntry[]> } {
+): { definitions: Field<RangedConfiguredEntry[]> } {
   const attack = topLevelRawNode(cdo(raw), attackDefinitionRawField)
-  const velocity = readRawValue<number>(
-    raw, nestedRawNode(attack, mapping.velocityFactor.rawField), mapping.velocityFactor.id, identityAssertionId, 'FloatProperty', 'number',
-  )
   const parent = nestedRawNode(attack, mapping.definitions.rawField)
   const trace = projectionTrace(raw, parent, mapping.definitions.id, identityAssertionId)
 
@@ -113,5 +109,5 @@ export function readRangedConfiguredValues(
       }
     }),
   }
-  return { velocity, definitions }
+  return { definitions }
 }
