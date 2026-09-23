@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import identityArtifact from '../research/domain/formal/identity-evidence-v1.json'
-import valueArtifact from '../research/domain/formal/value-availability-v1.json'
+import valueArtifact from '../research/domain/formal/value-availability-v2.json'
 import { fightersBindingsBrowserProjection } from '../src/screens/dataBrowser/fightersBindingsBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
@@ -20,7 +20,7 @@ describe('Fighter’s Bindings Formal Data Browser consumer', () => {
     const row = fightersBindingsRow()
     expect(identity.resolution.state).toBe('matched')
     expect(fightersBindingsBrowserProjection.identity.domainId).toBe(identity.resolution.domainId)
-    expect(fightersBindingsBrowserProjection.configuredAttacks.value).toEqual(valueArtifact.semantic.fightersBindings.configuredAttacks.value)
+    expect(fightersBindingsBrowserProjection.configuredAttacks.value).toEqual(valueArtifact.semantic.melee['fighters-bindings'].configuredAttacks.value)
     expect(row).toContain('data-domain-scope="formal-domain"')
     expect(row).toContain('FORMAL GAME DOMAIN')
     expect(row).toContain('Fighter&#x27;s Bindings')
@@ -60,7 +60,8 @@ describe('Fighter’s Bindings Formal Data Browser consumer', () => {
     expect(row).toContain('Extraction run')
     expect(row).toContain('Raw node')
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
-    expect(browserSources).toContain('research/domain/formal/value-availability-v1.json')
+    expect(browserSources).toContain('research/domain/formal/value-availability-v2.json')
+    expect(browserSources).not.toContain('research/domain/formal/value-availability-v1.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/fighters-bindings\.json|research\/raw\/|src\/domain\/temporary|projectFightersBindings|extract:game-data-raw-package/)
   })
 })
