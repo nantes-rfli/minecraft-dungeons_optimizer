@@ -1,12 +1,15 @@
 # Fighter’s Bindings temporary Game Domain — Step 3B
 
+> **Historical status — retired.** This Step 3B temporary slice is retained only as a historical record.
+> The committed temporary JSON, legacy generate/audit commands, Fighter's Bindings temporary projector, projector-specific Domain test, identity fixture, and shared temporary Raw primitives are retired. The current Application authoritative source is the committed Formal artifacts under `research/domain/formal/`; current source definitions and Raw traversal live under `src/domain/formal/`.
+
 `Raw package snapshot → identity assertion → temporary Game Domain projection`
 
-This one-package experiment lives in `src/domain/temporary`. It consumes the unchanged Step 3A snapshot via a type-only dependency on its existing contract. It does not use historical research entity, attack profile, effect, or mechanic models. Nothing imports this projection into the application, Inventory, Data Browser, Optimizer, or runtime catalog.
+This one-package experiment historically lived in `src/domain/temporary`. That source directory has since been retired. It consumed the unchanged Step 3A snapshot via a type-only dependency on its existing contract. It does not use historical research entity, attack profile, effect, or mechanic models. Nothing imports this projection into the application, Inventory, Data Browser, Optimizer, or runtime catalog.
 
 ## Identity decision and existing evidence
 
-The single maintained decision is [fightersBindingsIdentity.ts](../src/domain/temporary/fightersBindingsIdentity.ts), `identity:fighters-bindings@1`.
+The identity decision is now maintained by [identityDefinitions.ts](../src/domain/formal/identityDefinitions.ts) as `identity:fighters-bindings@1`.
 
 | Repository evidence | Finding | Consequence |
 |---|---|---|
@@ -22,27 +25,27 @@ The reviewed game-source naming bridge and the icon heuristic conflict remain un
 
 ## Minimal meanings
 
-[projectFightersBindings](../src/domain/temporary/fightersBindings.ts) reads values directly from the supplied snapshot. The generated [temporary projection](../research/domain/temporary/fighters-bindings.json) is a reproducible inspection artifact, not manually copied source data.
+The retired temporary projector originally read these values directly from the supplied snapshot. Formal Value / Availability now owns the source-backed configured-value read through [fightersBindingsValueReaders.ts](../src/domain/formal/fightersBindingsValueReaders.ts) and [fightersBindingsValueMappings.ts](../src/domain/formal/fightersBindingsValueMappings.ts), while Formal Identity remains independent.
 
-| Domain field | Mapping | Safe meaning |
+| Historical/Current field | Mapping | Safe meaning |
 |---|---|---|
-| `identity.evidence` | `fighters-bindings:identity@1` | Internal ID observations supporting the provisional assertion |
-| `configuredAttacks` | `fighters-bindings:configured-attacks@1` | Serialized configured attack entries in source order |
-| `configuredDamage` | `fighters-bindings:configured-damage@1` | Configured damage parameter; units/scaling beyond this are not asserted |
-| `configuredAnimationDurationSeconds` | `fighters-bindings:animation-duration@1` | Configured animation duration in seconds |
+| Identity Raw observations | `fighters-bindings:identity@1` | Internal ID observations supporting the provisional Formal Identity assertion |
+| Formal `configuredAttacks` | `fighters-bindings:configured-attacks@1` | Serialized configured attack entries in source order |
+| Formal `configuredDamage` | `fighters-bindings:configured-damage@1` | Configured damage parameter; units/scaling beyond this are not asserted |
+| Formal `configuredAnimationDurationSeconds` | `fighters-bindings:animation-duration@1` | Configured animation duration in seconds |
 
 The actual source has four entries, Damage 25 each, and durations `0.15000000596046448`, `0.15000000596046448`, `0.15000000596046448`, `0.125`. Projection does not hard-code the count, round the floats, derive DPS/rate, apply Power, or declare complete combo mechanics. Final damage, Power scaling, effective attack cadence, and complete combo mechanics are explicitly unresolved. No speculative entities or placeholder numeric values are created.
 
 Each field has a state. `known` means the configured parameter was decoded with the expected type, not that its gameplay outcome is established. `unsupported`, `parse-failed`, and `not-extracted` remain unavailable with no value. Missing/ambiguous/unexpected types yield `unknown`; decoded zero remains zero. An unavailable parent blocks reading stale child values.
 
-## Traceability and validation
+## Historical traceability and validation
 
 Each field carries its mapping ID, identity assertion ID, Raw artifact path, dataset ID, extraction run ID, logical package path/hash, and JSON Pointer. Identity traces point to both Raw identifier nodes; configured field traces point to their property nodes. Following a pointer exposes original property order/index, FName/type, metadata, value, and source byte ranges. Missing nodes point to their containing collection; unavailable parents point to the unavailable parent. These traces identify absence without inventing a property node.
 
-For example, the first configured damage points to the actual Damage property under `/package/objects/1/properties/0/decoding/elements/0/properties`. Its precise pointer is generated from the discovered node index, not a copied field value. The Step 3A Raw audit verifies the source/code/run identity; this audit verifies regeneration and links to Raw values. A new snapshot must regenerate the Domain artifact, with provenance preserved.
+For example, the first configured damage points to the actual Damage property under `/package/objects/1/properties/0/decoding/elements/0/properties`. Its precise pointer is generated from the discovered node index, not a copied field value. The Step 3A Raw audit verifies the source/code/run identity; the retired temporary audit verified regeneration and links to Raw values.
 
-- `npm run generate:fighters-bindings-domain`: deterministically regenerate the temporary artifact.
-- `npm run audit:fighters-bindings-domain`: compare the entire regenerated assertion/mappings/projection, including every trace, with the committed artifact. Runs in CI after the unchanged Raw audit.
-- `npx vitest run tests/fightersBindingsDomain.test.ts tests/gameDataRawPackage.test.ts tests/attackEventComparison.test.ts`: real snapshot values, no mutation, trace resolution, source-change propagation, decoded zero, unavailable states, missing/duplicate/type mismatches, identity conflict, and rejection of other packages/ambiguous CDOs.
+- **Retired:** `npm run generate:fighters-bindings-domain` previously regenerated the committed temporary artifact.
+- **Retired:** `npm run audit:fighters-bindings-domain` previously compared the regenerated assertion/mappings/projection with the committed temporary artifact and ran in CI.
+- **Retired:** the projector-specific Fighter's Bindings Domain test covered the temporary projector behavior. Current Formal Value tests and audits cover the retained configured-value semantics, Raw provenance, source-index identity/order, decoded zero, unavailable/unknown handling, and matched Formal Identity gate.
 
-Only research artifacts, tooling, tests, and documentation change. No website behavior or delivered assets change, so no Site deployment is needed. Step 3C and all other equipment categories remain outside scope.
+During Step 3B, only research artifacts, tooling, tests, and documentation changed; no website behavior or delivered assets changed. Step 3C and all other equipment categories were outside that phase's scope.

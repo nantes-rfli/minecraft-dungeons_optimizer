@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { fightersBindingsIdentity } from '../src/domain/temporary/fightersBindingsIdentity.ts'
+import { fightersBindingsFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import fs from 'node:fs'
 import { eventRate, validateAttackObservation } from '../src/research/attackEventComparison.ts'
 import type { AggregateRateObservation, AttackDefinitionObservation, EventSequenceObservation } from '../src/research/attackEventComparison.ts'
@@ -9,7 +9,7 @@ import timing from '../research/game-data-timing/weapon-timing.json' with { type
 const mappings = [
   { id: 'anchor', hpsLabel: 'Anchor', assetSuffix: '/Anchor/BP_AnchorInstance', mapping: 'exact' },
   { id: 'double-axe', hpsLabel: 'Double Axe/Cursed Axe', assetSuffix: '/DoubleAxe/BP_DoubleAxeInstance', mapping: 'family-row' },
-  { id: fightersBindingsIdentity.domainId, hpsLabel: 'Fighters Bindings', assetSuffix: fightersBindingsIdentity.packagePath.slice(fightersBindingsIdentity.packagePath.lastIndexOf('/' + fightersBindingsIdentity.rawIdentity + '/')), mapping: fightersBindingsIdentity.status, identityAssertionId: fightersBindingsIdentity.id },
+  { id: fightersBindingsFormalIdentity.assertion.domainId, hpsLabel: 'Fighters Bindings', assetSuffix: fightersBindingsFormalIdentity.assertion.applicationScope.packagePath.slice(fightersBindingsFormalIdentity.assertion.applicationScope.packagePath.lastIndexOf('/' + fightersBindingsFormalIdentity.assertion.rawIdentity + '/')), mapping: fightersBindingsFormalIdentity.assertion.reviewState, identityAssertionId: fightersBindingsFormalIdentity.assertion.id },
   { id: 'soul-scythe', hpsLabel: "Soul Scythe/Frost Scythe/Jailor's Scythe", assetSuffix: '/SoulScythe/BP_SoulScytheInstance', mapping: 'family-row' },
   { id: 'claymore', hpsLabel: 'Claymore/Great Axeblade/Heartstealer', assetSuffix: '/Claymore/BP_ClaymoreInstance', mapping: 'family-row' },
   { id: 'sawblade', hpsLabel: 'Broken Sawblade/Mechanized Sawblade Enchant Hps', assetSuffix: '/Chainsword/BP_ChainswordInstance', mapping: 'family-row-and-metric-split' },
@@ -62,7 +62,7 @@ const profiles = mappings.map((mapping) => {
     validateAttackObservation(sequence)
     const runtimeRate = durations.length / sequence.cycleSeconds
     assert.ok(Math.abs(eventRate(sequence, 'damage-hit') - runtimeRate) < 1e-12)
-    return { ...mapping, sourceRow: row.sourceRow, aggregate, configuredAsset: configured.asset, configured: configured.observation, runtime: { observation: sequence, ratePerSecond: runtimeRate, relativeDifferencePercent: (aggregate.ratePerSecond / runtimeRate - 1) * 100 }, comparison: mapping.id === fightersBindingsIdentity.domainId ? 'provisional-identity-only; identity and external conditions/version remain unresolved' : 'eligible-same-metric-only; external conditions/version remain unresolved' }
+    return { ...mapping, sourceRow: row.sourceRow, aggregate, configuredAsset: configured.asset, configured: configured.observation, runtime: { observation: sequence, ratePerSecond: runtimeRate, relativeDifferencePercent: (aggregate.ratePerSecond / runtimeRate - 1) * 100 }, comparison: mapping.id === fightersBindingsFormalIdentity.assertion.domainId ? 'provisional-identity-only; identity and external conditions/version remain unresolved' : 'eligible-same-metric-only; external conditions/version remain unresolved' }
   }
   return { ...mapping, sourceRow: row.sourceRow, aggregate, configuredAsset: configured.asset, configured: configured.observation, runtime: null, comparison: 'ineligible-without-playback-rule' }
 })

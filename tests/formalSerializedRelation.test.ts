@@ -3,10 +3,7 @@
 import { describe, expect, it } from 'vitest'
 import fs from 'node:fs'
 import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
-import { buildFormalSerializedRelationArtifact as build, collectFormalSerializedRelationErrors as audit, type FormalRelationInputs, type FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
-import { scatterCrossbowIdentity } from '../src/domain/temporary/scatterCrossbowIdentity.ts'
-import { battleRobeIdentity } from '../src/domain/temporary/battleRobeIdentity.ts'
-import { deathCapMushroomIdentity } from '../src/domain/temporary/deathCapMushroomIdentity.ts'
+import { buildFormalSerializedRelationArtifact as build, collectFormalSerializedRelationErrors as audit, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition, type FormalRelationInputs, type FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { evidenceFingerprint, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 
@@ -20,9 +17,9 @@ const withIdentity = (source: RawPackageSnapshot, definition: typeof scatterCros
   return { source, identity: projected.semantic, identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation') }
 }
 const inputs = (): FormalRelationInputs => ({
-  scatter: { ...withIdentity(read(scatterCrossbowIdentity.instancePackagePath), scatterCrossbowFormalIdentity), target: read(scatterCrossbowIdentity.projectilePackagePath) },
-  battleRobe: withIdentity(read(battleRobeIdentity.packagePath), battleRobeFormalIdentity),
-  deathCapMushroom: { ...withIdentity(read(deathCapMushroomIdentity.instancePackagePath), deathCapMushroomFormalIdentity), target: read(deathCapMushroomIdentity.effectPackagePath) },
+  scatter: { ...withIdentity(read(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath), scatterCrossbowFormalIdentity), target: read(scatterCrossbowRelationDefinition.targetRawPath) },
+  battleRobe: withIdentity(read(battleRobeFormalIdentity.assertion.applicationScope.packagePath), battleRobeFormalIdentity),
+  deathCapMushroom: { ...withIdentity(read(deathCapMushroomFormalIdentity.assertion.applicationScope.packagePath), deathCapMushroomFormalIdentity), target: read(deathCapMushroomRelationDefinition.targetRawPath) },
 })
 const scatterElements = (raw: RawPackageSnapshot) => {
   const cdo = raw.package.objects.find((object) => object.isClassDefaultObject)!

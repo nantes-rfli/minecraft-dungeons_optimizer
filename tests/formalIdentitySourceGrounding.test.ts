@@ -47,7 +47,7 @@ describe('Formal Identity reviewed-source grounding', () => {
 
   it('fails when the known historical mapping or icon conflict no longer supports provisional review', () => {
     const mapping = fixture()
-    mapping.historicalMappingSource = mapping.historicalMappingSource!.replace('mapping: fightersBindingsIdentity.status', "mapping: 'accepted'")
+    mapping.historicalMappingSource = mapping.historicalMappingSource!.replace('mapping: fightersBindingsFormalIdentity.assertion.reviewState', "mapping: 'accepted'")
     expect(errors(mapping).some((error) => error.includes('historical mapping'))).toBe(true)
 
     const icon = fixture()
