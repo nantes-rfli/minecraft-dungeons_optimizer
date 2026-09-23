@@ -776,6 +776,34 @@ function seedRole(base: string): SeedCandidate['role'] | undefined {
   return undefined
 }
 
+export function makeRawStructuralPackageRunId(input: {
+  readonly datasetId: string
+  readonly packagePath: string
+  readonly sourceFiles: readonly SourceFileIdentity[]
+  readonly codeIdentity: CodeIdentity
+  readonly state: PackageParseState
+  readonly failureMessage?: string
+}): string {
+  if (input.state === 'parse-failed') {
+    return contentAddress({
+      datasetId: input.datasetId,
+      packagePath: input.packagePath,
+      sourceFiles: input.sourceFiles,
+      parser: 'ue4-package-property-parser@1',
+      codeIdentity: input.codeIdentity,
+      failure: input.failureMessage ?? '',
+    })
+  }
+  return contentAddress({
+    datasetId: input.datasetId,
+    packagePath: input.packagePath,
+    sourceFiles: input.sourceFiles,
+    parser: { id: 'ue4-package-property-parser', schemaVersion: 1 },
+    codeIdentity: input.codeIdentity,
+    propertyScope: 'all-class-default-objects-only',
+  })
+}
+
 function readStructuralPackage(
   repositoryRoot: string,
   provenance: GameDataSourceProvenance,
@@ -801,7 +829,14 @@ function readStructuralPackage(
   const fail = (error: unknown): ParsedNode => {
     const message = error instanceof Error ? error.message : String(error)
     const diagnostic = (error as { diagnostic?: UeDiagnostic }).diagnostic
-    const runId = contentAddress({ datasetId: provenance.dataset.id, packagePath, sourceFiles: sourceFileIdentities, parser: 'ue4-package-property-parser@1', codeIdentity, failure: message })
+    const runId = makeRawStructuralPackageRunId({
+      datasetId: provenance.dataset.id,
+      packagePath,
+      sourceFiles: sourceFileIdentities,
+      codeIdentity,
+      state: 'parse-failed',
+      failureMessage: message,
+    })
     const pkg: StructuralPackage = {
       ...base,
       parse: { state: 'parse-failed', parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, runId, failure: { ...(diagnostic?.code ? { code: diagnostic.code } : {}), message } },
@@ -854,7 +889,13 @@ function readStructuralPackage(
     }))
     const unavailableRanges = collectUnavailableRanges(parsed, parsedObjects, packageFiles, packagePath, uassetPath, uexpPath, datasetRoot)
     const nonCdoCount = parsed.exports.filter((entry) => !parsedObjects.has(entry.index)).length
-    const runId = contentAddress({ datasetId: provenance.dataset.id, packagePath, sourceFiles: sourceFileIdentities, parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, propertyScope: 'all-class-default-objects-only' })
+    const runId = makeRawStructuralPackageRunId({
+      datasetId: provenance.dataset.id,
+      packagePath,
+      sourceFiles: sourceFileIdentities,
+      codeIdentity,
+      state: 'parsed',
+    })
     const pkg: StructuralPackage = {
       ...base,
       parse: { state: 'parsed', parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, runId, summary: parsed.summary },
