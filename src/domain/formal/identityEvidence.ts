@@ -91,6 +91,23 @@ export type FormalIdentityDefinition = {
   reviewedEvidence: ReviewedEvidenceInput[]
 }
 
+export type FormalIdentityObservationFieldInput = {
+  observation: RawIdentityObservationValue
+  unavailableReason?: RawObservationEvidenceRecord['unavailableReason']
+  provenance: RawEvidenceProvenance
+}
+
+export type FormalIdentityObservationInput = {
+  rawSchemaVersion: number
+  packagePath: string
+  itemIdName: FormalIdentityObservationFieldInput
+  serializedId: FormalIdentityObservationFieldInput
+}
+
+export type FormalIdentityProjectionInput =
+  | { raw: RawPackageSnapshot; definition: FormalIdentityDefinition; observation?: never }
+  | { observation: FormalIdentityObservationInput; definition: FormalIdentityDefinition; raw?: never }
+
 type JsonRecord = Record<string, unknown>
 type RawNode = NonNullable<RawPackageSnapshot['package']['objects'][number]['properties']>[number]
 const isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -232,10 +249,65 @@ export function projectFormalIdentity(rawInput: RawPackageSnapshot, definition: 
   }
 }
 
+
+function projectObservationField(
+  assertion: IdentityAssertion,
+  field: 'ItemIdName' | 'ItemId.SerializedId',
+  input: FormalIdentityObservationFieldInput,
+  forcedReason?: RawObservationEvidenceRecord['unavailableReason'],
+): { observation: RawIdentityObservation; evidence: RawObservationEvidenceRecord } {
+  const id = `evidence:raw:${assertion.id}:${field}`
+  const observation: RawIdentityObservationValue = forcedReason ? { state: 'unavailable' } : input.observation
+  const unavailableReason = forcedReason ?? input.unavailableReason
+  const evidence = sealEvidence({
+    id,
+    kind: 'raw-observation' as const,
+    field,
+    observation,
+    ...(unavailableReason ? { unavailableReason } : {}),
+    provenance: input.provenance,
+  })
+  return { observation: { ...observation, evidenceRef: id } as RawIdentityObservation, evidence }
+}
+
+/** Projects the same v1 identity contract from source-backed observations such as Raw Structural Inventory shards. */
+export function projectFormalIdentityObservation(input: FormalIdentityObservationInput, definition: FormalIdentityDefinition): {
+  semantic: FormalSemanticIdentity
+  evidence: EvidenceRecord[]
+} {
+  const { assertion } = definition
+  const forcedReason = input.rawSchemaVersion !== assertion.applicationScope.rawSchemaVersion
+    ? 'unsupported-schema' as const
+    : input.packagePath !== assertion.applicationScope.packagePath
+      ? 'unexpected-package' as const
+      : undefined
+  const itemIdName = projectObservationField(assertion, 'ItemIdName', input.itemIdName, forcedReason)
+  const serializedId = projectObservationField(assertion, 'ItemId.SerializedId', input.serializedId, forcedReason)
+  const evidenceRefs = [itemIdName.observation.evidenceRef, serializedId.observation.evidenceRef]
+  const matched = itemIdName.observation.state === 'known'
+    && serializedId.observation.state === 'known'
+    && itemIdName.observation.value === assertion.rawIdentity
+    && serializedId.observation.value === assertion.rawIdentity
+  const resolution: IdentityResolution = matched
+    ? { state: 'matched', assertionId: assertion.id, domainId: assertion.domainId, evidenceRefs }
+    : { state: 'unresolved', assertionId: assertion.id, evidenceRefs }
+  return {
+    semantic: {
+      assertionId: assertion.id,
+      rawEvidence: { itemIdName: itemIdName.observation, serializedId: serializedId.observation },
+      resolution,
+      ...(matched ? { presentation: definition.presentation } : {}),
+    },
+    evidence: [...definition.reviewedEvidence.map(sealEvidence), itemIdName.evidence, serializedId.evidence],
+  }
+}
+
 export function buildFormalIdentityEvidenceArtifact(
-  inputs: readonly { raw: RawPackageSnapshot; definition: FormalIdentityDefinition }[],
+  inputs: readonly FormalIdentityProjectionInput[],
 ): FormalIdentityEvidenceArtifact {
-  const projected = inputs.map(({ raw, definition }) => projectFormalIdentity(raw, definition))
+  const projected = inputs.map((input) => 'raw' in input && input.raw
+    ? projectFormalIdentity(input.raw, input.definition)
+    : projectFormalIdentityObservation(input.observation, input.definition))
   return {
     schemaVersion: 1,
     artifactKind: 'formal-domain-identity-evidence',
