@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  RAW_STRUCTURAL_CODE_PATHS, RAW_STRUCTURAL_INPUT_PATHS,
   breadthFirstPackageWalk, classifySeedCandidateStatus, resolveRawSeedCandidates,
   type RawSeedCandidateInput,
 } from '../scripts/game-data-raw-structural-inventory.ts'
@@ -17,6 +18,27 @@ describe('Raw structural inventory traversal', () => {
     expect(result.visitedPaths).toEqual(['A', 'B', 'C', 'D'])
     expect(result.depths).toEqual({ A: 0, B: 1, C: 1, D: 2 })
     expect([...result.discoveryEdgeIds].sort()).toEqual(['a-b', 'a-c', 'b-d'])
+  })
+
+  it('separates implementation code identity from repository generation inputs', () => {
+    expect(RAW_STRUCTURAL_CODE_PATHS).toEqual([
+      'scripts/game-data-raw-structural-inventory.ts',
+      'scripts/game-data-package-source.ts',
+      'src/research/ue4/binaryReader.ts',
+      'src/research/ue4/objectResolver.ts',
+      'src/research/ue4/packageReader.ts',
+      'src/research/ue4/packageTypes.ts',
+      'src/research/ue4/propertyReader.ts',
+    ])
+    expect(RAW_STRUCTURAL_INPUT_PATHS).toEqual([
+      'research/melee-attack-profile-audit.json',
+      'research/armor-audit.json',
+      'research/ranged-weapon-audit.json',
+      'research/artifact-audit.json',
+      'research/raw/game-data-asset-index.json',
+      'generated/equipment-icons/manifest.json',
+    ])
+    expect(RAW_STRUCTURAL_CODE_PATHS.filter((path) => RAW_STRUCTURAL_INPUT_PATHS.includes(path as never))).toEqual([])
   })
 
   it('requires a serialized catalog identifier for exact status; icon heuristics alone stay provisional', () => {
