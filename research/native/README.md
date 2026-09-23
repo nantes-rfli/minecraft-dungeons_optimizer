@@ -5,7 +5,7 @@ Independent executable-analysis lane. These records do not become serialized Raw
 ## Current state
 
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
-- **D-2 in progress:** conditional startup emulation now distinguishes zero from positive synthetic SMBIOS size results and reaches the next API boundaries. No original/stable game-code region was reached.
+- **D-2 in progress:** bounded static recovery isolates the SMBIOS size-test block and maps observed API-return continuations through a shared dispatcher candidate. Paired synthetic traces reach different successors, but the register/dataflow link remains unresolved. No original/stable game-code region was reached.
 - **D-3 not started:** no gameplay native function has an executable address or evidence chain. One serialized `/Script/Dungeons` parent-class link is retained as a candidate only.
 
 ## Artifacts
@@ -13,10 +13,12 @@ Independent executable-analysis lane. These records do not become serialized Raw
 - [Native input inventory](native-source-inventory.json) — PE sections/directories, imports/exports, TLS, unwind, resources, CodeView, symbol-file search, and bounded identifier scan.
 - [Native architecture map](native-architecture.json) — bootstrap, `.dungeon`, original-image boundary, observed control-flow transitions, and explicit unknowns.
 - [Firmware boundary observations](firmware-boundary-observations.json) — conditional SMBIOS and registry paths, API return RVAs, local output hashes, and semantic limits.
+- [Startup block map](startup-block-map.json) — hash-pinned basic blocks, bounded API-return/control-flow edges, the exact `and ebx, 1; je` branch, synthetic register captures, and scoped negative scans for stable UE4/Dungeons code.
 - [External prior-art census](external-prior-art.json) — technique prior art, identifier hints, external-only claims, licenses, and bounded negative search result.
 - [Function candidates](function-candidates.json) — confidence-gated Raw class to native implementation candidates. Null locations remain unknown.
 - [PE inventory script](scripts/native_input_inventory.py) — hash-pinned read-only parser.
 - [SMBIOS boundary tracer](scripts/trace_smbios_boundary.py) — conditional emulation profiles that read the local executable and Stage 1 payload but write traces and memory images only under ignored `local-game-data/`.
+- [Static startup analyzer](scripts/static_startup_analysis.py) — reads pinned local executable, Stage 1 bytes, and existing conditional traces; writes only the compact `startup-block-map.json` metadata artifact.
 - [Artifact validator](scripts/validate_native_artifacts.py) — schema, hash, cross-reference, URL, and repository-hygiene checks.
 
 ## Reproduction
@@ -35,6 +37,7 @@ MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-registry-first-failure
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-registry-success
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-registry-failure
+MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/static_startup_analysis.py
 python3 research/native/scripts/validate_native_artifacts.py
 ```
 

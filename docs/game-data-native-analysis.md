@@ -1,13 +1,13 @@
 # Native game-data analysis restart
 
-調査日: 2026-09-23。`main` の `9a8b99c` から独立した Native research lane を開始した。アプリ、Formal Domain、Optimizer、Gap、runtime support は変更していない。ゲーム executable、DLL、生メモリイメージ、raw asset はGitに含めない。
+調査日: 2026-09-24。`main` の `37d7d29ac2ffa799f476703eb5cf1d41285b1756` を基準に D-2 Static Native Deepening を続行した。アプリ、Formal Domain、Optimizer、Gap、runtime support は変更していない。ゲーム executable、DLL、生メモリイメージ、raw asset はGitに含めない。
 
 ## Status
 
 | Milestone | Status | Evidence |
 | --- | --- | --- |
 | D-1: first packed layer | Complete and rechecked | Local Shipping executable SHA-256 matches Stage 1 record; 8,937,075 packed bytes recover 15,360,000 bytes at `.dungeon`, SHA-256 `d68e1bdf…e99d925b`. The independent decoder agreement is reused from the earlier Stage 1 evidence. |
-| D-2: startup/protection to original stable code | In progress | Conditional Unicorn traces branch after synthetic `GetSystemFirmwareTable(RSMB)` size responses and reach registry/file API boundaries. The monitored original-image range was not entered. |
+| D-2: startup/protection to original stable code | In progress | Bounded Capstone recovery maps the SMBIOS return blocks, dispatcher candidate, indirect dispatch slot, and an exact `and ebx, 1; je` block. Paired synthetic traces take different branch successors, but the API-return-to-EBX dataflow and original-image handoff remain unresolved. |
 | D-3: gameplay function identification | Not started | No native implementation address, class registration, vtable, `UFunction::Func`, gameplay caller/callee chain, or formula was identified. |
 
 The exact baseline and all machine-readable fields live in [the Native Analysis lane](../research/native/README.md). Existing Stage 1 and Stage 2 artifacts remain at their original paths; nothing was bulk moved.
@@ -34,11 +34,19 @@ The previous Stage 2 checkpoint was `GetSystemFirmwareTable(0x52534d42, 0, NULL,
 | 1024 bytes | Second `GetSystemFirmwareTable` at return RVA `0x50d1349`, buffer size `0x400` | A positive size drives a buffer allocation/request using that size. |
 | 4096 bytes | Second call at the same return RVA with buffer size `0x1000` | Same positive-size path at another size. Trace stops before returning firmware bytes. |
 
-A separate fake 4096-byte buffer had an eight-byte RawSMBIOSData-like header and hand-authored records. The emulator accessed the first 240 byte offsets at a single code VA, then freed the buffer and reached the first registry request. This does **not** identify a real SMBIOS field or prove which machine data affects a branch. The exact conditional instruction was not isolated.
+A separate fake 4096-byte buffer had an eight-byte RawSMBIOSData-like header and hand-authored records. The emulator accessed the first 240 byte offsets at a single code VA, then freed the buffer and reached the first registry request. This does **not** identify a real SMBIOS field or prove which machine data affects a branch.
+
+The new [startup block map](../research/native/startup-block-map.json) records the static and focused trace evidence. The two RSMB API return continuations end in direct tail jumps to the bounded dispatcher candidate at RVA `0x4ebd3c1`; no adjacent call instruction ends at either API return RVA. The dispatcher contains a `lock cmpxchg` backedge and a computed `jmp qword ptr [rax]` at RVA `0x4ebdde7`. In one saved synthetic trace, the dispatch slot at RVA `0x4ed272d` changes from qword `0x4be79a4` to absolute VA `0x144be79a4`; sampled instruction bytes remain unchanged. This supports runtime-written dispatch **data**, without establishing rewritten instructions, a protector product, or a conventional function boundary.
+
+The downstream block at RVA `0x4e9934f` is now isolated as `and ebx, 1; je 0x4e9938c`. The paired zero and positive-size counterfactual traces capture different EBX low bits and take fallthrough `0x4e9935b` versus the JE target `0x4e9938c`. At this point RAX is zero in both captures. The static register/state transfer from the API return through the dispatcher into EBX is unresolved, so the pair establishes correlated synthetic paths, not that the modeled size directly controls this branch.
+
+For the saved `firmware-data-generic` profile, 74 API-return observations have 58 distinct RVAs; none falls in the 236,168 listed exception ranges. All exception rows have nonzero fields and `begin < end`, but only one referenced unwind-info RVA is backed by initialized input bytes. An API return RVA is not treated as a function entry, and neither the range misses nor unreadable unwind-info locations imply that no function exists. The call/wrapper identity remains unresolved.
+
+The bounded search checked common UE4/Dungeons registration/reflection and RTTI strings, common x64 prologue signatures at listed exception-range starts, and aligned runs of executable pointers. It found no registration marker or stable UE4/Dungeons candidate in initialized PE raw sections and Stage 1. This negative result is limited to those inputs and signatures; it does not show that such code is absent.
 
 One registry failure model returns `ERROR_FILE_NOT_FOUND` once and stops at the next request for `Hardware\description\System`. A separate success model writes a synthetic handle and stops at `RegQueryValueExA` before modeling any registry value. A clearly labeled all-keys-missing profile checks three paths and reaches `CreateFileW`. These are branch probes in a synthetic process, not measurements from Windows and not evidence of DRM behavior.
 
-The remaining D-2 blocker is concrete: this host has no real Windows game process or real Windows DLL/API execution, and the only firmware buffer examined was fabricated. Without valid OS results, no trustworthy SMBIOS field semantics or path into a stable original image region can be stated. A discriminating next run needs the same verified executable under a legitimate Windows environment, actual API results kept local, and a stop at each unknown registry/file response until its caller and resulting code region can be checked. Do not bypass protection or infer a successful path from a guessed response.
+The remaining D-2 blocker is concrete: this host has no real Windows game process or real Windows DLL/API execution, and the only firmware buffer examined was fabricated. Without valid OS results, no trustworthy SMBIOS field semantics or path into a stable original image region can be stated. A discriminating next run needs the same hash-pinned executable under a legitimate Windows environment, actual API results kept local, and a stop at each unknown registry/file response until its caller and resulting code region can be checked. Do not infer a successful path from a guessed response.
 
 ## Raw-to-native bridge and D-3 target
 

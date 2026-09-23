@@ -46,6 +46,7 @@ u.mem_protect(stub,0x100000,un.UC_PROT_READ|un.UC_PROT_EXEC)
 initialSections={s['index']:hashlib.sha256(bytes(u.mem_read(base+s['rva'],s['virtualSize']))).hexdigest() for s in sections if s['virtualSize']}
 smbiosReads=[];registryOpenCalls=0
 postContextBlocks=[];contextReads=[];contextProbeStarted=False
+registerCheckpoints=[]
 cs=Cs(CS_ARCH_X86,CS_MODE_64);blocks=collections.Counter();tail=collections.deque(maxlen=25);events=[];writes=collections.Counter();reason=None;count=0;start=time.monotonic();timers=0;lastblock=None;hooked=set()
 def stop(s):
  global reason
@@ -243,6 +244,34 @@ def block(u,addr,size,_):
   print('switching to bounded fast trace',events[:2],flush=True)
  blocks[addr]+=1;tail.append(hex(addr))
  if count>=15000000 or time.monotonic()-start>40:stop('bounded trace budget')
+checkpointAddresses={
+ base+rva:hex(rva) for rva in [
+  0x50d0fe9,0x50d115d,0x50d1349,0x50d1496,
+  0x4ebd3c1,0x4ebd71a,0x4ebdde7,0x4eb176a,0x4eff202,
+  0x4e9934f,0x4e99355,0x4e9935b,0x4e9938c,
+ ]
+}
+checkpointRegisters={
+ 'rax':UC_X86_REG_RAX,'rbx':UC_X86_REG_RBX,'rcx':UC_X86_REG_RCX,
+ 'rdx':UC_X86_REG_RDX,'rsp':UC_X86_REG_RSP,'rbp':UC_X86_REG_RBP,
+ 'rsi':UC_X86_REG_RSI,'rdi':UC_X86_REG_RDI,'r8':UC_X86_REG_R8,
+ 'r9':UC_X86_REG_R9,'r10':UC_X86_REG_R10,'r11':UC_X86_REG_R11,
+ 'r12':UC_X86_REG_R12,'r13':UC_X86_REG_R13,'r14':UC_X86_REG_R14,
+ 'r15':UC_X86_REG_R15,'eflags':UC_X86_REG_EFLAGS,
+}
+def checkpoint(u,addr,size,_):
+ if addr not in checkpointAddresses or len(registerCheckpoints)>=256:return
+ snapshot={
+  'rva':checkpointAddresses[addr],
+  'eventCount':len(events),
+  'registers':{name:hex(u.reg_read(reg)) for name,reg in checkpointRegisters.items()},
+ }
+ if addr in {base+0x4ebdde7,base+0x4eb176a,base+0x4eff202}:
+  pointer=u.reg_read(UC_X86_REG_RAX)
+  snapshot['indirectPointer']=hex(pointer)
+  try:snapshot['indirectTarget']=hex(struct.unpack('<Q',u.mem_read(pointer,8))[0])
+  except un.UcError:snapshot['indirectTarget']='unreadable'
+ registerCheckpoints.append(snapshot)
 def invalid(u,access,addr,size,value,_):stop({'invalidMemory':hex(addr),'access':access,'rip':hex(u.reg_read(UC_X86_REG_RIP))});return False
 def wr(u,access,addr,size,value,_):
  if not stack<=addr<stack+stacksize:writes[addr&~4095]+=1
@@ -258,6 +287,8 @@ u.hook_add(un.UC_HOOK_CODE,handler_result,begin=handlerReturn,end=handlerReturn)
 
 u.hook_add(un.UC_HOOK_CODE,lambda u,addr,size,_:stop({'originalRegionEntry':hex(addr)}),begin=base,end=base+0x4bb8000-1)
 u.hook_add(un.UC_HOOK_CODE,environment,begin=0x144d0434b,end=0x144d0434b)
+for address in checkpointAddresses:
+ u.hook_add(un.UC_HOOK_CODE,checkpoint,begin=address,end=address)
 u.hook_add(un.UC_HOOK_INSN,lambda u,_: (stop('cpuid boundary'),True)[1],None,1,0,UC_X86_INS_CPUID)
 u.hook_add(un.UC_HOOK_INSN,lambda u,_: stop('syscall boundary'),None,1,0,UC_X86_INS_SYSCALL)
 block_handle=u.hook_add(un.UC_HOOK_BLOCK,block);u.hook_add(un.UC_HOOK_CODE,api,begin=stub,end=stub+0xfffff);u.hook_add(un.UC_HOOK_MEM_WRITE,wr,begin=stub,end=stub+0xfffff);u.hook_add(un.UC_HOOK_MEM_INVALID,invalid);u.hook_add(un.UC_HOOK_MEM_WRITE,wr,begin=base,end=base+imageSize-1);u.hook_add(un.UC_HOOK_INTR,lambda u,n,_:stop('interrupt '+str(n)))
@@ -266,5 +297,5 @@ except un.UcError as e:
  if reason is None:reason=str(e)
 if reason is None:reason='bounded run ended at '+hex(u.reg_read(UC_X86_REG_RIP))
 memory=bytes(u.mem_read(base+0x4bb8000,len(stage)));(outdir/'api-dungeon.bin').write_bytes(memory)
-report={'profile':mode,'postContextBlocks':postContextBlocks,'contextReads':contextReads,'sectionHashes':[dict(s,initial=initialSections[s['index']],final=hashlib.sha256(bytes(u.mem_read(base+s['rva'],s['virtualSize']))).hexdigest()) for s in sections if s['virtualSize']],'registers':{name:hex(u.reg_read(reg)) for name,reg in [('rax',UC_X86_REG_RAX),('rbx',UC_X86_REG_RBX),('rcx',UC_X86_REG_RCX),('rdx',UC_X86_REG_RDX),('rsi',UC_X86_REG_RSI),('rdi',UC_X86_REG_RDI),('rbp',UC_X86_REG_RBP)]},'hotBlocks':[(hex(k),v) for k,v in blocks.most_common(10)],'vehProbe':vehProbe,'exceptionHandlers':exceptionHandlers,'status':'conditional-emulation','blockVisits':count,'uniqueBlocks':len(blocks),'stopReason':reason,'events':events,'smbiosReads':smbiosReads,'rip':hex(u.reg_read(UC_X86_REG_RIP)),'tailBlocks':list(tail),'writtenPages':{hex(k):v for k,v in writes.items()},'dungeonSha256':hashlib.sha256(memory).hexdigest(),'elapsedSeconds':time.monotonic()-start,'syntheticExports':{lib:sum(k[0]==mb for k in symbols) for lib,mb in modules.items()}}
+report={'profile':mode,'postContextBlocks':postContextBlocks,'registerCheckpoints':registerCheckpoints,'contextReads':contextReads,'sectionHashes':[dict(s,initial=initialSections[s['index']],final=hashlib.sha256(bytes(u.mem_read(base+s['rva'],s['virtualSize']))).hexdigest()) for s in sections if s['virtualSize']],'registers':{name:hex(u.reg_read(reg)) for name,reg in [('rax',UC_X86_REG_RAX),('rbx',UC_X86_REG_RBX),('rcx',UC_X86_REG_RCX),('rdx',UC_X86_REG_RDX),('rsi',UC_X86_REG_RSI),('rdi',UC_X86_REG_RDI),('rbp',UC_X86_REG_RBP)]},'hotBlocks':[(hex(k),v) for k,v in blocks.most_common(10)],'vehProbe':vehProbe,'exceptionHandlers':exceptionHandlers,'status':'conditional-emulation','blockVisits':count,'uniqueBlocks':len(blocks),'stopReason':reason,'events':events,'smbiosReads':smbiosReads,'rip':hex(u.reg_read(UC_X86_REG_RIP)),'tailBlocks':list(tail),'writtenPages':{hex(k):v for k,v in writes.items()},'dungeonSha256':hashlib.sha256(memory).hexdigest(),'elapsedSeconds':time.monotonic()-start,'syntheticExports':{lib:sum(k[0]==mb for k in symbols) for lib,mb in modules.items()}}
 (outdir/'api-trace.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items() if k!='writtenPages'},indent=2))

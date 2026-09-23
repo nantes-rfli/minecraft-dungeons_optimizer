@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "status": "research-only",
   "runtimePromotion": false,
   "applicationImpact": false,
@@ -17,7 +17,8 @@
     "stage2Report": "../game-data-native-stage2/observations.json",
     "stage2Narrative": "../../docs/game-data-native-stage2.md",
     "currentInputInventory": "native-source-inventory.json",
-    "boundaryExperiments": "firmware-boundary-observations.json"
+    "boundaryExperiments": "firmware-boundary-observations.json",
+    "staticControlFlowMap": "startup-block-map.json"
   },
   "milestones": {
     "D1": {
@@ -36,9 +37,17 @@
         "A positive synthetic size response reaches a second GetSystemFirmwareTable call with a modeled allocation and requested buffer size; execution stops before modeling the firmware bytes.",
         "A zero response follows a different path to RegOpenKeyA at return RVA 0x50f434d.",
         "A synthetic 240-byte read-only SMBIOS-like payload is read across offsets 0x00-0xef at code VA 0x144df7d5b, freed, and then reaches a registry call. No true SMBIOS field interpretation is claimed.",
-        "With the fake payload, one RegOpenKeyA failure reaches a second registry key request; a one-shot success with a synthetic handle reaches RegQueryValueExA. An all-keys-missing counterfactual reaches CreateFileW."
+        "With the fake payload, one RegOpenKeyA failure reaches a second registry key request; a one-shot success with a synthetic handle reaches RegQueryValueExA. An all-keys-missing counterfactual reaches CreateFileW.",
+        "The two RSMB API return continuations decode as basic blocks ending in direct tail JMPs to the shared bounded dispatcher candidate at RVA 0x4ebd3c1; no adjacent call instruction ends at either saved return RVA.",
+        "A bounded recursive-descent map recovers the dispatcher lock/cmpxchg backedge and computed JMP at RVA 0x4ebdde7. In the focused synthetic trace, its .dungeon qword slot changes from RVA-like 0x4be79a4 to absolute VA 0x144be79a4; sampled code bytes remain unchanged.",
+        "The exact branch block at RVA 0x4e9934f is `and ebx, 1; je 0x4e9938c`. Paired synthetic traces take different successors, but static dataflow from the modeled RSMB return through the dispatcher to EBX remains unresolved.",
+        "A 74-observation saved API-return sample has 58 unique RVAs and zero matches against 236,168 listed exception ranges. Return RVAs are not function entries; range misses and unreadable unwind RVAs do not establish function absence.",
+        "Bounded scans found no UE4/Dungeons registration marker, accepted native candidate, or run of at least three executable pointers in initialized PE sections and Stage 1. This is a negative search result within the stated scope only."
       ],
-      "originalImageRegionStopRange": ["0x140000000", "0x144bb7fff"],
+      "originalImageRegionStopRange": [
+        "0x140000000",
+        "0x144bb7fff"
+      ],
       "originalImageRegionEntryObserved": false,
       "stableGameCodeReached": false,
       "evidenceReference": "firmware-boundary-observations.json"
@@ -75,7 +84,16 @@
       },
       {
         "region": "original mapped executable image candidate",
-        "sectionIndexes": [0, 1, 2, 3, 4, 5, 6, 7],
+        "sectionIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
         "sectionNames": "eight-space names in the local PE headers",
         "firstRva": "0x1000",
         "note": "Raw bytes are present and executable sections are structurally mapped, but startup emulation never reached the monitored original-image range. High raw entropy and an unsuccessful bounded instruction sample do not identify a stable code region."
@@ -104,7 +122,11 @@
         "source": "Stage 1 .dungeon bytes",
         "nonzeroEntries": 236168,
         "entriesWithBeginLessThanEnd": 236168,
-        "observedFirmwareReturnRvasMatched": []
+        "observedFirmwareReturnRvasMatched": [],
+        "conditionalTraceApiReturnObservations": 74,
+        "conditionalTraceUniqueReturnRvas": 58,
+        "conditionalTraceListedRangeMatches": 0,
+        "interpretation": "Saved API return positions are not function entries; range misses and unreadable unwind-info RVAs do not prove function absence."
       },
       "codeView": {
         "pdbPath": "Dungeons-Win64-Shipping.pdb",
@@ -123,7 +145,10 @@
     },
     {
       "from": "Stage 1 entry VA 0x144e7c95f",
-      "to": ["0x144e548a3", "0x144f050d1"],
+      "to": [
+        "0x144e548a3",
+        "0x144f050d1"
+      ],
       "status": "small direct-flow observations in native-stage1.json; not identified as a gameplay function"
     },
     {
@@ -133,8 +158,11 @@
     },
     {
       "from": "SMBIOS size response",
-      "to": ["second RSMB buffer call at return RVA 0x50d1349", "registry calls beginning at return RVA 0x50f434d"],
-      "status": "counterfactual paths; exact conditional instruction not isolated"
+      "to": [
+        "second RSMB buffer call at return RVA 0x50d1349",
+        "registry calls beginning at return RVA 0x50f434d"
+      ],
+      "status": "Paired synthetic traces reach the identified `and ebx, 1; je` block with different successors; the state-transfer chain from the modeled API return through the computed dispatcher into EBX remains unresolved."
     }
   ],
   "memoryTransitionObservations": {
@@ -145,15 +173,30 @@
     "interpretation": "This does not prove that no other memory transition exists. It records that no validated transition from the emulated startup region to stable original game code has been demonstrated."
   },
   "staticAnalysis": {
-    "methods": ["read-only PE32+ parser", "SHA-256", "bounded ASCII/UTF-16 marker scan", "Capstone sample at a Stage 1 exception-range start"],
+    "methods": [
+      "read-only PE32+ parser",
+      "SHA-256",
+      "bounded ASCII/UTF-16 marker scan",
+      "Capstone sample at a Stage 1 exception-range start"
+    ],
     "sampleFunctionRva": "0x14cd",
     "sampleResult": "Capstone decoded one instruction from the recorded range start before decoding stopped; this is not evidence that all code is undecodable.",
     "firstRawExecutableSectionEntropyBitsPerByte": 7.988388,
-    "reflectionMarkerScan": "No literal FNamePool, GUObjectArray, UObject, UClass, UFunction, /Script/Dungeons, GameplayEffect, or common MSVC RTTI marker found in the raw executable or Stage 1 output. Encoded or runtime-generated identifiers remain possible.",
+    "reflectionMarkerScan": "No listed UE reflection, Dungeons, GameplayEffect, or common RTTI marker was found in initialized PE raw sections or Stage 1. Encoded or runtime-generated identifiers remain possible.",
     "analysisTools": {
-      "used": ["Apple LLVM objdump (toolchain reported as Apple LLVM 17.0.0 in local inventory)", "Capstone 5.0.6", "Unicorn 2.1.4"],
-      "notFoundOnCurrentPath": ["Ghidra", "IDA", "Binary Ninja", "radare2/rizin"]
-    }
+      "used": [
+        "Apple LLVM objdump (toolchain reported as Apple LLVM 17.0.0 in local inventory)",
+        "Capstone 5.0.6",
+        "Unicorn 2.1.4"
+      ],
+      "notFoundOnCurrentPath": [
+        "Ghidra",
+        "IDA",
+        "Binary Ninja",
+        "radare2/rizin"
+      ]
+    },
+    "focusedControlFlowMap": "startup-block-map.json; bounded Capstone block decoding, observed API-return edges, indirect-dispatch sample, branch counterfactual register captures, and bounded UE4 registration-marker scan."
   },
   "limitations": [
     "The local archive's distribution authenticity is unverified; matching an earlier local hash verifies identity with that record only.",
@@ -161,6 +204,8 @@
     "Positive synthetic SMBIOS size values establish a second query and buffer size, not the values or fields of a real machine's firmware table.",
     "The generic SMBIOS-like test data is synthetic. A byte-read range is not a semantic field interpretation.",
     "No stable original game-code region, native class implementation, vtable, constructor, UFunction pointer, caller/callee chain, gameplay arithmetic, or output was identified.",
-    "No damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified."
-  ]
+    "No damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified.",
+    "The branch instruction is identified, but the complete state/dataflow from the API return through the computed dispatcher to the tested EBX bit is unresolved."
+  ],
+  "analysisBaselineCommit": "37d7d29ac2ffa799f476703eb5cf1d41285b1756"
 }
