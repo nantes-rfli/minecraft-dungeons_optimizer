@@ -9,6 +9,7 @@ import {
   RAW_STRUCTURAL_INVENTORY_PATH, RAW_STRUCTURAL_REPORT_PATH, buildRawStructuralInventory,
   buildRawStructuralInventoryShards, renderRawStructuralInventoryReport,
   loadRawCatalog,
+  makeRawStructuralCodeIdentity, makeRawStructuralInputIdentity,
   serializeRawStructuralInventoryManifest,
   rawStructuralParserBoundaryReasons,
   type RawStructuralInventory, type RawStructuralInventoryManifest, type RawStructuralInventoryShard,
@@ -57,6 +58,10 @@ export function validateStructuralInventoryManifest(
   if (manifest.scope.dataset.id !== sourceProvenance.dataset.id) errors.push('Dataset provenance ID drift')
   if (manifest.scope.claimedGameVersion !== sourceProvenance.dataset.claimedVersion) errors.push('Dataset game version drift')
   if (manifest.scope.parser.id !== 'ue4-package-property-parser' || manifest.scope.parser.schemaVersion !== 1) errors.push('Parser provenance drift')
+  const expectedCodeIdentity = makeRawStructuralCodeIdentity(repositoryRoot)
+  const expectedInputIdentity = makeRawStructuralInputIdentity(repositoryRoot)
+  if (JSON.stringify(manifest.scope.codeIdentity) !== JSON.stringify(expectedCodeIdentity)) errors.push('Parser/generator code identity drift')
+  if (JSON.stringify(manifest.scope.inputIdentity) !== JSON.stringify(expectedInputIdentity)) errors.push('Repository generation input identity drift')
   if (manifest.scope.semanticInterpretation !== 'not-applied' || manifest.scope.rawBinaryBytes !== 'not-committed') errors.push('Raw semantic or binary boundary drift')
   if (manifest.scope.traversalPolicy !== 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit') errors.push('Traversal policy drift')
   if (manifest.scope.seedResolutionPolicy !== 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only') errors.push('Catalog-to-Raw seed authority drift')
@@ -151,7 +156,7 @@ export function validateStructuralInventoryManifest(
     for (const pkg of shard.packages) {
       if (packagePaths.has(pkg.path)) errors.push(`Package path is duplicated: ${pkg.path}`)
       packagePaths.add(pkg.path)
-      if (pkg.parse.codeIdentity.value !== manifest.scope.codeIdentity.value) errors.push(`Parser code identity drift for ${pkg.path}`)
+      if (JSON.stringify(pkg.parse.codeIdentity) !== JSON.stringify(manifest.scope.codeIdentity)) errors.push(`Parser code identity drift for ${pkg.path}`)
       if (pkg.parse.state === 'parsed') parsedCount += 1
       if (pkg.payloadCoverage.tableLikePackage) dataTableOrCurveCount += 1
       inheritanceChainCount += pkg.inheritanceChains.length
