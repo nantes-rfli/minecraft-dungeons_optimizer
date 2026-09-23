@@ -33,4 +33,4 @@ The machine-readable artifact uses `research/raw/game-data-raw-structural-invent
 
 ## Reproduction
 
-Run `npm run generate:game-data-raw-structural-inventory` with the local 1.17.0.0 dataset, then `npm run audit:game-data-raw-structural-inventory`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, provenance, parser, and generator code identity.
+Run `npm run generate:game-data-raw-structural-inventory` with the local 1.17.0.0 dataset, then `npm run audit:game-data-raw-structural-inventory`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, dataset provenance, the separately recorded repository input identity, and parser/generator code identity.
