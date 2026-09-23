@@ -9,7 +9,7 @@ import {
   RAW_STRUCTURAL_INVENTORY_PATH, RAW_STRUCTURAL_REPORT_PATH, buildRawStructuralInventory,
   buildRawStructuralInventoryShards, renderRawStructuralInventoryReport,
   loadRawCatalog,
-  makeRawStructuralCodeIdentity, makeRawStructuralInputIdentity,
+  makeRawStructuralCodeIdentity, makeRawStructuralInputIdentity, makeRawStructuralPackageRunId,
   serializeRawStructuralInventoryManifest,
   rawStructuralParserBoundaryReasons,
   type RawStructuralInventory, type RawStructuralInventoryManifest, type RawStructuralInventoryShard,
@@ -157,6 +157,15 @@ export function validateStructuralInventoryManifest(
       if (packagePaths.has(pkg.path)) errors.push(`Package path is duplicated: ${pkg.path}`)
       packagePaths.add(pkg.path)
       if (JSON.stringify(pkg.parse.codeIdentity) !== JSON.stringify(manifest.scope.codeIdentity)) errors.push(`Parser code identity drift for ${pkg.path}`)
+      const expectedRunId = makeRawStructuralPackageRunId({
+        datasetId: manifest.scope.dataset.id,
+        packagePath: pkg.path,
+        sourceFiles: pkg.sourceFiles,
+        codeIdentity: manifest.scope.codeIdentity,
+        state: pkg.parse.state,
+        ...(pkg.parse.failure ? { failureMessage: pkg.parse.failure.message } : {}),
+      })
+      if (pkg.parse.runId !== expectedRunId) errors.push(`Parser run identity drift for ${pkg.path}`)
       if (pkg.parse.state === 'parsed') parsedCount += 1
       if (pkg.payloadCoverage.tableLikePackage) dataTableOrCurveCount += 1
       inheritanceChainCount += pkg.inheritanceChains.length
