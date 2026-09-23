@@ -279,6 +279,8 @@ export function projectFormalIdentityObservation(input: FormalIdentityObservatio
   const forcedReason = input.rawSchemaVersion !== assertion.applicationScope.rawSchemaVersion
     ? 'unsupported-schema' as const
     : input.packagePath !== assertion.applicationScope.packagePath
+      || input.itemIdName.provenance.packagePath !== assertion.applicationScope.packagePath
+      || input.serializedId.provenance.packagePath !== assertion.applicationScope.packagePath
       ? 'unexpected-package' as const
       : undefined
   const itemIdName = projectObservationField(assertion, 'ItemIdName', input.itemIdName, forcedReason)
@@ -347,6 +349,7 @@ export function collectFormalIdentityEvidenceErrors(value: FormalIdentityEvidenc
           ? { state: 'known', value: observation.value }
           : { state: 'unavailable' }
         check(canonicalJson(record.observation) === canonicalJson(semanticObservation), `${semantic.assertionId}: semantic Raw observation differs from provenance`)
+        check(record.provenance.packagePath === assertion?.applicationScope.packagePath, `${semantic.assertionId}: raw observation provenance packagePath differs from assertion scope`)
       }
     }
     for (const ref of semantic.resolution.evidenceRefs) check(evidence.get(ref)?.kind === 'raw-observation', `${semantic.assertionId}: resolution EvidenceRef is not Raw observation evidence: ${ref}`)
