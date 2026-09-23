@@ -16,7 +16,7 @@ export const RAW_STRUCTURAL_INVENTORY_PATH = 'research/raw/game-data-raw-structu
 export const RAW_STRUCTURAL_REPORT_PATH = 'docs/game-data-raw-structural-inventory.md' as const
 export const RAW_STRUCTURAL_SHARD_PACKAGE_LIMIT = 64 as const
 
-const CODE_PATHS = [
+export const RAW_STRUCTURAL_CODE_PATHS = [
   'scripts/game-data-raw-structural-inventory.ts',
   'scripts/game-data-package-source.ts',
   'src/research/ue4/binaryReader.ts',
@@ -24,6 +24,9 @@ const CODE_PATHS = [
   'src/research/ue4/packageReader.ts',
   'src/research/ue4/packageTypes.ts',
   'src/research/ue4/propertyReader.ts',
+] as const
+
+export const RAW_STRUCTURAL_INPUT_PATHS = [
   'research/melee-attack-profile-audit.json',
   'research/armor-audit.json',
   'research/ranged-weapon-audit.json',
@@ -99,11 +102,14 @@ interface SourceFileIdentity {
   readonly sha256: string
 }
 
-interface CodeIdentity {
+interface RepositoryIdentity<Path extends string> {
   readonly algorithm: 'sha256-path-content-v1'
   readonly value: string
-  readonly files: readonly { readonly path: typeof CODE_PATHS[number]; readonly sha256: string }[]
+  readonly files: readonly { readonly path: Path; readonly sha256: string }[]
 }
+
+type CodeIdentity = RepositoryIdentity<typeof RAW_STRUCTURAL_CODE_PATHS[number]>
+type InputIdentity = RepositoryIdentity<typeof RAW_STRUCTURAL_INPUT_PATHS[number]>
 
 interface SeedCandidate {
   readonly packagePath: string
@@ -259,6 +265,7 @@ export interface RawStructuralInventory {
     readonly dataset: { readonly id: string; readonly sourceFingerprint: GameDataSourceProvenance['dataset']['sourceFingerprint'] }
     readonly parser: { readonly id: 'ue4-package-property-parser'; readonly schemaVersion: 1 }
     readonly codeIdentity: CodeIdentity
+    readonly inputIdentity: InputIdentity
     readonly traversalPolicy: 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit'
     readonly seedResolutionPolicy: 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only'
     readonly semanticInterpretation: 'not-applied'
@@ -352,7 +359,8 @@ export function buildRawStructuralInventory(repositoryRoot: string, provenance: 
   const datasetRoot = localDatasetRoot(repositoryRoot)
   const iconManifest = rawJson(path.join(repositoryRoot, 'generated/equipment-icons/manifest.json')) as IconManifest
   const assetIndex = rawJson(path.join(repositoryRoot, 'research/raw/game-data-asset-index.json')) as GameDataAssetIndex
-  const codeIdentity = makeCodeIdentity(repositoryRoot)
+  const codeIdentity = makeRawStructuralCodeIdentity(repositoryRoot)
+  const inputIdentity = makeRawStructuralInputIdentity(repositoryRoot)
   const catalogItems = loadRawCatalog(repositoryRoot)
   const rawPackageCandidates = discoverRawPackageCandidates(datasetRoot, assetIndex)
   const seeds = discoverCatalogSeeds(catalogItems, iconManifest, rawPackageCandidates)
@@ -425,16 +433,15 @@ export function buildRawStructuralInventory(repositoryRoot: string, provenance: 
       game: 'Minecraft Dungeons', claimedGameVersion: provenance.dataset.claimedVersion,
       claimedGameVersionStatus: provenance.verification.claimedVersion.status,
       dataset: { id: provenance.dataset.id, sourceFingerprint: provenance.dataset.sourceFingerprint },
-      parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity,
+      parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, inputIdentity,
       traversalPolicy: 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit',
       seedResolutionPolicy: 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only',
       semanticInterpretation: 'not-applied', rawBinaryBytes: 'not-committed',
       generatedFrom: [
-        'research/melee-attack-profile-audit.json', 'research/armor-audit.json',
-        'research/ranged-weapon-audit.json', 'research/artifact-audit.json',
-        'research/raw/game-data-asset-index.json', 'local-game-data/QuickBMS 1.17.0.0 package paths and serialized identifiers',
-        'generated/equipment-icons/manifest.json (search hints only)',
-        'research/sources/game-data-source-provenance.json', ...CODE_PATHS,
+        'local-game-data/QuickBMS 1.17.0.0 package paths and serialized identifiers',
+        'research/sources/game-data-source-provenance.json',
+        ...RAW_STRUCTURAL_INPUT_PATHS,
+        ...RAW_STRUCTURAL_CODE_PATHS,
       ],
     },
     catalogSeeds: seeds,
@@ -1088,14 +1095,25 @@ function collectUnavailableRanges(
   return unavailable.sort((a, b) => compare(a.file, b.file) || (a.start ?? -1) - (b.start ?? -1) || (a.end ?? -1) - (b.end ?? -1) || compare(a.reason, b.reason))
 }
 
-function makeCodeIdentity(repositoryRoot: string): CodeIdentity {
+export function makeRawStructuralCodeIdentity(repositoryRoot: string): CodeIdentity {
+  return makeRepositoryIdentity(repositoryRoot, RAW_STRUCTURAL_CODE_PATHS)
+}
+
+export function makeRawStructuralInputIdentity(repositoryRoot: string): InputIdentity {
+  return makeRepositoryIdentity(repositoryRoot, RAW_STRUCTURAL_INPUT_PATHS)
+}
+
+function makeRepositoryIdentity<const Paths extends readonly string[]>(
+  repositoryRoot: string,
+  paths: Paths,
+): RepositoryIdentity<Paths[number]> {
   const aggregate = crypto.createHash('sha256')
-  const files = [...CODE_PATHS].sort().map((relativePath) => {
+  const files = [...paths].sort(compare).map((relativePath) => {
     const bytes = fs.readFileSync(path.join(repositoryRoot, relativePath))
     aggregate.update(relativePath, 'utf8')
     aggregate.update(Uint8Array.of(0))
     aggregate.update(bytes)
-    return { path: relativePath, sha256: sha256(bytes) }
+    return { path: relativePath as Paths[number], sha256: sha256(bytes) }
   })
   return { algorithm: 'sha256-path-content-v1', value: aggregate.digest('hex'), files }
 }
@@ -1286,5 +1304,5 @@ export function renderRawStructuralInventoryReport(value: RawStructuralInventory
     `DataTable/Curve packages are retained as graph nodes. The current parser does not decode their row payloads; those ranges remain explicit as unavailable instead of being inferred. Unsupported and partial CDO property streams count as parser boundaries and retain their diagnostics, states, paths, and byte ranges. Non-CDO export payloads are marked \`not-extracted\`. The artifact stores no game binaries, semantic effects, damage/Power scaling, cadence, stacking, proc, or native-behavior conclusions.\n\n` +
     `## Artifact files\n\n` +
     `The machine-readable artifact uses \`research/raw/game-data-raw-structural-inventory/manifest.json\` plus ${Math.ceil(summary.visitedPackageCount / RAW_STRUCTURAL_SHARD_PACKAGE_LIMIT)} deterministic gzip JSON shards. Each shard holds at most ${RAW_STRUCTURAL_SHARD_PACKAGE_LIMIT} packages and their source-owned edges; the manifest records each shard's compressed and uncompressed SHA-256.\n\n` +
-    `## Reproduction\n\nRun \`npm run generate:game-data-raw-structural-inventory\` with the local 1.17.0.0 dataset, then \`npm run audit:game-data-raw-structural-inventory\`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, provenance, parser, and generator code identity.\n`
+    `## Reproduction\n\nRun \`npm run generate:game-data-raw-structural-inventory\` with the local 1.17.0.0 dataset, then \`npm run audit:game-data-raw-structural-inventory\`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, dataset provenance, the separately recorded repository input identity, and parser/generator code identity.\n`
 }
