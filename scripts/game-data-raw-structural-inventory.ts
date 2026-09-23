@@ -506,7 +506,7 @@ function readStructuralPackage(
     const pkg: StructuralPackage = {
       ...base,
       parse: { state: 'parse-failed', parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, runId, failure: { ...(diagnostic?.code ? { code: diagnostic.code } : {}), message } },
-      imports: [], exports: [], cdoPropertyInventory: [], diagnostics: diagnostic ? [diagnostic] : [],
+      imports: [], exports: [], inheritanceChains: [], cdoPropertyInventory: [], diagnostics: diagnostic ? [diagnostic] : [],
       unavailableRanges: sourceFileIdentities.filter((source) => source.path === uassetPath || source.path === uexpPath).map((source) => ({ file: source.path, start: 0, end: source.size, state: 'parse-failed' as const, reason: message })),
       payloadCoverage: { classDefaultObjectsDecoded: 0, nonCdoExportsNotDecoded: 0, tableLikePackage, tableRows: tableLikePackage ? 'not-decoded-by-current-parser' : 'not-applicable' },
       traversal: { depth, stopReason: 'parser-boundary' },
@@ -559,7 +559,7 @@ function readStructuralPackage(
     const pkg: StructuralPackage = {
       ...base,
       parse: { state: 'parsed', parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity, runId, summary: parsed.summary },
-      imports, exports, cdoPropertyInventory,
+      imports, exports, inheritanceChains: [], cdoPropertyInventory,
       diagnostics: parsed.diagnostics,
       unavailableRanges,
       payloadCoverage: {
@@ -793,7 +793,7 @@ function collectUnavailableRanges(
       if (entry.serialSize) unavailable.push({ file: uexpPath, start, end: start + entry.serialSize, state: 'not-extracted', reason: 'table-row-property-reference-decoder-not-implemented' })
     }
   }
-  return unavailable.sort((a, b) => compare(a.file, b.file) || a.start - b.start || a.end - b.end || compare(a.reason, b.reason))
+  return unavailable.sort((a, b) => compare(a.file, b.file) || (a.start ?? -1) - (b.start ?? -1) || (a.end ?? -1) - (b.end ?? -1) || compare(a.reason, b.reason))
 }
 
 function makeCodeIdentity(repositoryRoot: string): CodeIdentity {
@@ -946,7 +946,8 @@ export function buildRawStructuralInventoryShards(value: RawStructuralInventory)
     const edges = packages.flatMap((pkg) => edgeGroups.get(pkg.path) ?? [])
     const text = `${JSON.stringify({ schemaVersion: 1, packages, edges } satisfies RawStructuralInventoryShard, null, 2)}\n`
     const uncompressed = Buffer.from(text, 'utf8')
-    const bytes = gzipSync(uncompressed, { level: 9, mtime: 0 })
+    const bytes = gzipSync(uncompressed, { level: 9 })
+    bytes.fill(0, 4, 8)
     bytes[9] = 255
     const shardPath = `shards/part-${String(shardIndex).padStart(3, '0')}.json.gz`
     files.push({ path: shardPath, bytes })
