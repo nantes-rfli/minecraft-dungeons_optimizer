@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applicationIdentity,
   collectFormalIdentityEvidenceErrors,
+  evidenceFingerprint,
   projectFormalIdentity,
   projectFormalIdentityObservation,
   type FormalIdentityEvidenceArtifact,
@@ -138,6 +139,10 @@ describe('Formal Identity / Evidence v1', () => {
     wrongPackage.packagePath = 'Dungeons/Content/Other'
     expect(projectFormalIdentityObservation(wrongPackage, definition).semantic.resolution.state).toBe('unresolved')
 
+    const wrongProvenancePackage = structuredClone(input.observation)
+    wrongProvenancePackage.itemIdName.provenance.packagePath = 'Dungeons/Content/Other'
+    expect(projectFormalIdentityObservation(wrongProvenancePackage, definition).semantic.resolution.state).toBe('unresolved')
+
     const wrongItemIdName = structuredClone(input.observation)
     wrongItemIdName.itemIdName.observation = { state: 'known', value: 'Other' }
     expect(projectFormalIdentityObservation(wrongItemIdName, definition).semantic.resolution.state).toBe('unresolved')
@@ -173,6 +178,18 @@ describe('Formal Identity / Evidence v1', () => {
     if (reviewed.kind !== 'reviewed') throw new Error('missing reviewed evidence')
     reviewed.detail = 'silently replaced meaning'
     expect(collectFormalIdentityEvidenceErrors(replaced).some((error) => error.includes('content replaced without fingerprint update'))).toBe(true)
+  })
+
+  it('rejects Raw observation provenance from a package outside the assertion scope', () => {
+    const artifact = artifactFixture()
+    const assertion = artifact.identityAssertions.find(({ domainId }) => domainId === 'anchor')!
+    const semantic = artifact.semantic.identities.find(({ assertionId }) => assertionId === assertion.id)!
+    const record = artifact.provenance.evidence.find(({ id }) => id === semantic.rawEvidence.itemIdName.evidenceRef)!
+    if (record.kind !== 'raw-observation') throw new Error('expected Raw observation evidence')
+    record.provenance.packagePath = 'Dungeons/Content/Other'
+    const { fingerprint: _fingerprint, ...content } = record
+    record.fingerprint = evidenceFingerprint(content)
+    expect(collectFormalIdentityEvidenceErrors(artifact)).toContain(`${assertion.id}: raw observation provenance packagePath differs from assertion scope`)
   })
 
   it('rejects a materialized matched domainId that differs from its assertion', () => {
