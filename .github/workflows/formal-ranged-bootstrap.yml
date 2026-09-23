@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feat/formal-identity-ranged-breadth
+  pull_request:
+    branches:
+      - main
 
 jobs:
   generate:
