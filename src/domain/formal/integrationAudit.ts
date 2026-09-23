@@ -24,9 +24,9 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
       && sameRawSource(records[0]!.provenance, records[1]!.provenance)) sources.set(definition.assertion.domainId, records[0]!.provenance)
   }
   for (const record of value.valueProjections) {
-    const source = sources.get(record.occurrence.slice === 'fighters-bindings' ? 'fighters-bindings' : 'scatter-crossbow')
+    const source = sources.get(record.occurrence.domainId)
     check(Boolean(source), `${record.projectionId}: missing matched Identity`)
-    const targetSide = record.occurrence.slice === 'scatter-crossbow' && [scatterValueMappings.pushbackEnabled.id,
+    const targetSide = record.occurrence.domainId === scatterCrossbowFormalIdentity.assertion.domainId && [scatterValueMappings.pushbackEnabled.id,
       scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id].includes(record.mappingId as typeof scatterValueMappings.pushbackEnabled.id)
     if (!targetSide) check(record.relationProjectionRef === undefined, `${record.projectionId}: source-side Value has Relation dependency`)
     if (record.result === 'unavailable' && record.failureKind === 'dependency') continue
@@ -47,7 +47,7 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     }
   }
   const parent = value.valueProjections.find((item) => item.mappingId === scatterValueMappings.definitions.id)
-  const indices = value.semantic.scatterCrossbow.configuredProjectileDefinitions?.value
+  const indices = value.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.configuredProjectileDefinitions?.value
   check((parent?.result === 'projected') === (relation.scatterParent?.result === 'projected'), 'Scatter parent state mismatch')
   if (parent?.result === 'projected') check(JSON.stringify(indices) === JSON.stringify(relation.scatterParent?.sourceIndices), 'Scatter sourceIndex mismatch')
   const targetMappings = [scatterValueMappings.pushbackEnabled.id, scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id]
