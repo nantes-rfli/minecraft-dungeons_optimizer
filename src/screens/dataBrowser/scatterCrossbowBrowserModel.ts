@@ -1,5 +1,5 @@
 import identityArtifact from '../../../research/domain/formal/identity-evidence-v1.json'
-import valueArtifact from '../../../research/domain/formal/value-availability-v1.json'
+import valueArtifact from '../../../research/domain/formal/value-availability-v2.json'
 import relationArtifact from '../../../research/domain/formal/serialized-relation-v1.json'
 
 type Hash = {
@@ -150,7 +150,7 @@ function projectileRelationPresentation(projectionRef: string, sourceIndex: numb
   }
 }
 
-const scatterValues = valueArtifact.semantic.scatterCrossbow
+const scatterValues = valueArtifact.semantic.ranged['scatter-crossbow']
 const configuredProjectileDefinitions = valueField(scatterValues.configuredProjectileDefinitions, 'ProjectileDefinition')
 
 const projectileDefinitions = scatterValues.projectileDefinitions.map((entry) => {
