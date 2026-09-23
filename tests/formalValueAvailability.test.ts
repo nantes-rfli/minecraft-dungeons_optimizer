@@ -281,6 +281,25 @@ describe('Formal Value / Availability v2 projection', () => {
 })
 
 describe('Formal Value / Availability v2 integrity audit', () => {
+  it('has no current Value v1 artifact dependency', () => {
+    const retiredArtifact = 'value-availability-' + 'v1.json'
+    const currentFiles = [
+      'scripts/audit-formal-value-availability.ts',
+      'scripts/audit-formal-integration.ts',
+      'src/domain/formal/valueAvailability.ts',
+      'src/domain/formal/integrationAudit.ts',
+      'src/screens/dataBrowser/fightersBindingsBrowserModel.ts',
+      'src/screens/dataBrowser/scatterCrossbowBrowserModel.ts',
+      'tests/fightersBindingsDataBrowser.test.tsx',
+      'tests/scatterCrossbowDataBrowser.test.tsx',
+    ]
+    expect(currentFiles.map((path) => fs.readFileSync(path, 'utf8')).join('\n')).not.toContain(retiredArtifact)
+    expect(fs.existsSync('research/domain/formal/' + retiredArtifact)).toBe(false)
+    expect(fs.existsSync('research/domain/formal/value-availability-v2.json')).toBe(true)
+    expect(fs.existsSync('docs/formal-value-availability-' + 'v1.md')).toBe(false)
+    expect(fs.existsSync('docs/formal-value-availability-v2.md')).toBe(true)
+  })
+
   it('rejects duplicate occurrence records and the same occurrence with another projectionId', () => {
     const duplicate = clone(build())
     duplicate.valueProjections.push(structuredClone(duplicate.valueProjections[0]!))
