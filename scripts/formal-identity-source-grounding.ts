@@ -7,6 +7,8 @@ import {
   formalIdentityDefinitions,
   readyMeleeFormalIdentities,
   readyMeleeFormalIdentityInputs,
+  readyRangedFormalIdentities,
+  readyRangedFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 
@@ -44,6 +46,7 @@ export type FormalReviewedSources = {
     battleRobe?: string
     deathCapMushroom?: string
     melee: Record<string, string | undefined>
+    ranged: Record<string, string | undefined>
   }
   battleRobeCatalogId?: string
 }
@@ -89,6 +92,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       melee: Object.fromEntries(readyMeleeFormalIdentityInputs.map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
+      ])),
+      ranged: Object.fromEntries(readyRangedFormalIdentityInputs.map(({ domainId }) => [
+        domainId,
+        rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
       ])),
     },
     battleRobeCatalogId: battleRobeBlock?.[1],
@@ -158,6 +165,42 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(readyMeleeFormalIdentities.length === 24, 'ready Melee Formal identity population drift')
   check(new Set(readyMeleeFormalIdentities.map(({ assertion }) => assertion.domainId)).size === 24, 'ready Melee Formal domainId uniqueness drift')
 
+  const allowedRangedAliasBases = new Set([
+    'serialized-item-id + exact-catalog-slug + catalog-category-evidence',
+    'asset-index-entity + exact-catalog-slug + catalog-category-evidence',
+    'serialized-item-id + reviewed-alias + catalog-category-evidence',
+    'asset-index-entity + reviewed-alias + catalog-category-evidence',
+  ])
+  for (const definition of readyRangedFormalIdentities) {
+    const assertion = definition.assertion
+    const aliasId = `ranged-weapon:${assertion.rawIdentity}`
+    const alias = aliases.find((entry) => entry.id === aliasId)
+    check(Boolean(alias), `${assertion.id}: accepted Ranged alias source missing`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: Ranged breadth assertion must be accepted/high`)
+    check(alias?.category === 'ranged-weapon', `${assertion.id}: accepted Ranged alias category drift`)
+    check(alias?.status === 'accepted', `${assertion.id}: accepted Ranged alias status drift`)
+    check(alias?.confidence === 'high', `${assertion.id}: accepted Ranged alias confidence drift`)
+    check(alias?.rawIdentity === assertion.rawIdentity, `${assertion.id}: accepted Ranged alias rawIdentity drift`)
+    check(alias?.canonicalEntity === `ranged-weapon:${assertion.domainId}`, `${assertion.id}: accepted Ranged alias canonicalEntity drift`)
+    check(alias?.assetPaths?.includes(assertion.applicationScope.packagePath) === true, `${assertion.id}: accepted Ranged alias package/source drift`)
+    check(allowedRangedAliasBases.has(alias?.basis ?? ''), `${assertion.id}: accepted Ranged alias basis is not reviewed for this wave`)
+    check(
+      assertion.evidenceRefs.length === 1 && definition.reviewedEvidence.some((record) =>
+        record.id === assertion.evidenceRefs[0]
+        && record.kind === 'reviewed'
+        && record.role === 'support'
+        && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json'
+        && record.source.locator === `aliases[id=${aliasId}]`),
+      `${assertion.id}: Ranged breadth assertion is not grounded in its reviewed alias record`,
+    )
+    check(
+      definition.presentation.displayName === sources.presentations.ranged[assertion.domainId],
+      `${assertion.id}: presentation displayName drift`,
+    )
+  }
+  check(readyRangedFormalIdentities.length === 21, 'ready Ranged Formal identity population drift')
+  check(new Set(readyRangedFormalIdentities.map(({ assertion }) => assertion.domainId)).size === 21, 'ready Ranged Formal domainId uniqueness drift')
+
   const fighters = fightersBindingsFormalIdentity.assertion
   const fightersAlias = aliases.find((entry) => entry.id === 'melee-weapon:Gauntlets_Unique3')
   check(fighters.rawIdentity === 'Gauntlets_Unique3' && fighters.domainId === 'fighters-bindings' && fighters.reviewState === 'provisional', `${fighters.id}: Formal provisional assertion drift`)
@@ -193,10 +236,14 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 28, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 49, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 25,
     'Formal matched Melee definition population drift',
+  )
+  check(
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 22,
+    'Formal matched Ranged definition population drift',
   )
   return errors
 }
