@@ -25,6 +25,7 @@ Use **semantic layer** as the primary classification. Treat generation and lifec
 | Analysis / Decision | Derived gap, coverage, priority, alignment, comparison, and validation results | `analysis/evidence-coverage*.json`, `analysis/coverage-priority.json`, `analysis/game-data-gap-reconciliation.json`, `analysis/game-data-final-coverage.json`, `analysis/game-data-model-differences.json`, `analysis/game-data-gap-property-alignment.json`, `analysis/game-data-aligned-gap-*.json`, `analysis/game-data-model-alignment-review.json`, `evidence-gap-map.json` |
 | Runtime / Promotion | What the application may use and the gates for changing that boundary | `runtime/melee-runtime-support.json`, `runtime/armor-runtime-support.json`, `runtime/artifact-runtime-support.json`, `runtime/runtime-backlog.json`, `runtime/phase8c-limited-dr-validation.json`, `runtime/runtime-promotion-*.json` |
 | Workflow / Protocol | Acquisition and validation workflow state, not game truth itself | `workflow/measurement-protocols.json`, `workflow/phase7-research-quest.json`, `workflow/phase7-research-handoff.json`, `workflow/evidence-intake.json`, `workflow/phase8-gap-reassessment.json` |
+| Native / Executable Evidence | Executable structure and conditional native-behavior observations, kept separate from serialized assets and runtime semantics | `native/` (current independent Native Analysis lane; its README links the preserved Stage 1/2 artifacts) |
 
 ### Secondary attributes
 
@@ -64,6 +65,8 @@ The 25 root-level JSON artifacts are classified. **Do not move these files only 
 | Analysis / Decision | `artifact-curve-audit.json`, `artifact-expansion-plan.json`, `dps-regression-audit.json`, `evidence-gap-map.json` | Keep at root until their analysis contracts are redesigned. In particular, moving Gap Map alone forces regeneration of the multi-megabyte Coverage Priority artifact solely to update its embedded provenance path. |
 
 Existing focused directories such as `artifact-evidence/`, `external-community/`, `source-harvest/`, `game-data-validation/`, `game-data-timing/`, `game-data-capabilities/`, `game-data-mechanics/`, and `game-data-native-stage2/` are also intentionally retained. They already group a producer/consumer slice and should be reconsidered by semantic responsibility during redesign rather than flattened now.
+
+`native/` is a separate executable-analysis lane. It does not replace or absorb `game-data-mechanics/` Stage 1 or `game-data-native-stage2/`; it links to those artifacts and keeps executable observations out of `raw/`, Domain, runtime support, and Gap decisions.
 
 ### Redesign entry condition
 

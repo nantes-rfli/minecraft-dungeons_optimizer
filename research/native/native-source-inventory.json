@@ -1,0 +1,1271 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-23",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "method": "read-only PE32+ parsing and SHA-256; no game process launched and no PE code executed",
+  "binary": {
+    "file": "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "sizeBytes": 37613072,
+    "distributionAuthenticity": "unverified",
+    "pe": {
+      "machine": "AMD64",
+      "timestampUtc": "2022-11-23T23:56:57Z",
+      "imageBase": "0x140000000",
+      "entryPointRva": "0x5a5e058",
+      "sizeOfImage": "0x62e6000",
+      "sizeOfHeaders": "0x600",
+      "sectionAlignment": "0x1000",
+      "fileAlignment": "0x200",
+      "characteristics": "0x22",
+      "optionalHeaderMagic": "0x20b"
+    }
+  },
+  "localAdjacentDlls": [
+    {
+      "file": "winmm.dll",
+      "sizeBytes": 16003072,
+      "sha256": "0a9f495a054cca00148da0cd5cc375ab577a6f8c5d5849ffa2327656e928de74",
+      "classification": "adjacent DLL; provenance/authenticity not independently verified"
+    }
+  ],
+  "sections": [
+    {
+      "index": 0,
+      "name": "        ",
+      "rva": 4096,
+      "virtualSize": 50932648,
+      "rawOffset": 1536,
+      "rawBytes": 20691968,
+      "characteristics": "0x60000020",
+      "readable": true,
+      "writable": false,
+      "executable": true,
+      "rawEntropyBitsPerByte": 7.988388,
+      "sha256RawBytes": "9e54e3fd397093d4d2f7601e9fd094cf5bca94abc367fc77e08620e3593de7e5"
+    },
+    {
+      "index": 1,
+      "name": "        ",
+      "rva": 50937856,
+      "virtualSize": 17778500,
+      "rawOffset": 20693504,
+      "rawBytes": 5724672,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.950101,
+      "sha256RawBytes": "aa2996867621d0c1597176462ea9aa8029291a674eca9e00ca4586254dfb8053"
+    },
+    {
+      "index": 2,
+      "name": "        ",
+      "rva": 68718592,
+      "virtualSize": 6337216,
+      "rawOffset": 26418176,
+      "rawBytes": 506368,
+      "characteristics": "0xc0000040",
+      "readable": true,
+      "writable": true,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.874523,
+      "sha256RawBytes": "a4b820a4a4a3e34a2bb3dd676e66251d37c189a145384d12acdba1e94507e3e8"
+    },
+    {
+      "index": 3,
+      "name": "        ",
+      "rva": 75059200,
+      "virtualSize": 2820132,
+      "rawOffset": 26924544,
+      "rawBytes": 1558528,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.605333,
+      "sha256RawBytes": "4127d95dd3a5f9ea2ceaae7a5678d3106ac10bc1485b470148c3a6497d39f5cc"
+    },
+    {
+      "index": 4,
+      "name": "        ",
+      "rva": 77881344,
+      "virtualSize": 4400,
+      "rawOffset": 28483072,
+      "rawBytes": 1024,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.556058,
+      "sha256RawBytes": "e604bc6bf4ce381f2476ebf0f390bbc59170992caf80cc84794beed68494066d"
+    },
+    {
+      "index": 5,
+      "name": "        ",
+      "rva": 77889536,
+      "virtualSize": 42288,
+      "rawOffset": 28484096,
+      "rawBytes": 30720,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.925181,
+      "sha256RawBytes": "46a29772c18ee81f01caab237a03443f5ae6018f056f6f984a0ec1663ad04861"
+    },
+    {
+      "index": 6,
+      "name": "        ",
+      "rva": 77934592,
+      "virtualSize": 4776,
+      "rawOffset": 28514816,
+      "rawBytes": 2560,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.731414,
+      "sha256RawBytes": "9f8ac8dcbd699bbf5c59df1be63187e2ec3218b0e860a40537de85130dc2f9e4"
+    },
+    {
+      "index": 7,
+      "name": "        ",
+      "rva": 77942784,
+      "virtualSize": 1433228,
+      "rawOffset": 28517376,
+      "rawBytes": 144896,
+      "characteristics": "0x42000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 7.949373,
+      "sha256RawBytes": "f9052c19511c2aa7ecd61268bcba0c6285989f94a169a9ce2287189961978a84"
+    },
+    {
+      "index": 8,
+      "name": ".debug",
+      "rva": 79376384,
+      "virtualSize": 4096,
+      "rawOffset": 28662272,
+      "rawBytes": 1536,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 4.368773,
+      "sha256RawBytes": "1d6306bbd86f28d5e468d62cfd62bc0574e1937ea103e9892583c89a0c8e3ac0"
+    },
+    {
+      "index": 9,
+      "name": ".edata",
+      "rva": 79380480,
+      "virtualSize": 4096,
+      "rawOffset": 28663808,
+      "rawBytes": 3584,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 5.421539,
+      "sha256RawBytes": "a9a2355411347200671f33a5aedec6838b7917f81ac7c6f7be72dacf56f028d6"
+    },
+    {
+      "index": 10,
+      "name": ".idata",
+      "rva": 79384576,
+      "virtualSize": 4096,
+      "rawOffset": 28667392,
+      "rawBytes": 3072,
+      "characteristics": "0xc0000040",
+      "readable": true,
+      "writable": true,
+      "executable": false,
+      "rawEntropyBitsPerByte": 4.224559,
+      "sha256RawBytes": "15155b1e0f6130ba8f49e09a68003a622f7af57a74bbe0efbb6adcae9529835a"
+    },
+    {
+      "index": 11,
+      "name": ".tls",
+      "rva": 79388672,
+      "virtualSize": 4096,
+      "rawOffset": 28670464,
+      "rawBytes": 512,
+      "characteristics": "0xc0000000",
+      "readable": true,
+      "writable": true,
+      "executable": false,
+      "rawEntropyBitsPerByte": 0.288475,
+      "sha256RawBytes": "cb71c037108cc5c4cebe61bba9693c0b27bf90be1ce45c9ace2c10810abef89c"
+    },
+    {
+      "index": 12,
+      "name": ".rsrc",
+      "rva": 79392768,
+      "virtualSize": 4096,
+      "rawOffset": 28670976,
+      "rawBytes": 4096,
+      "characteristics": "0x40000040",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 5.071734,
+      "sha256RawBytes": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e"
+    },
+    {
+      "index": 13,
+      "name": ".dungeon",
+      "rva": 79396864,
+      "virtualSize": 15360000,
+      "rawOffset": 28675072,
+      "rawBytes": 0,
+      "characteristics": "0xe0000060",
+      "readable": true,
+      "writable": true,
+      "executable": true,
+      "rawEntropyBitsPerByte": 0.0,
+      "sha256RawBytes": null
+    },
+    {
+      "index": 14,
+      "name": ".boot",
+      "rva": 94756864,
+      "virtualSize": 8937984,
+      "rawOffset": 28675072,
+      "rawBytes": 8937984,
+      "characteristics": "0x60000060",
+      "readable": true,
+      "writable": false,
+      "executable": true,
+      "rawEntropyBitsPerByte": 7.803346,
+      "sha256RawBytes": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742"
+    },
+    {
+      "index": 15,
+      "name": ".reloc",
+      "rva": 103698432,
+      "virtualSize": 4096,
+      "rawOffset": 37613056,
+      "rawBytes": 16,
+      "characteristics": "0x40000000",
+      "readable": true,
+      "writable": false,
+      "executable": false,
+      "rawEntropyBitsPerByte": 2.733459,
+      "sha256RawBytes": "8a5ad3e52f9d6f70989f073819ab052e5551d3c8a1fb73194f00d6fcf97ef028"
+    }
+  ],
+  "dataDirectories": [
+    {
+      "index": 0,
+      "name": "export",
+      "rva": "0x4bb4000",
+      "size": 3344
+    },
+    {
+      "index": 1,
+      "name": "import",
+      "rva": "0x4bb5593",
+      "size": 1504
+    },
+    {
+      "index": 2,
+      "name": "resource",
+      "rva": "0x4bb7000",
+      "size": 3700
+    },
+    {
+      "index": 3,
+      "name": "exception",
+      "rva": "0x5795214",
+      "size": 2834016
+    },
+    {
+      "index": 5,
+      "name": "baseRelocation",
+      "rva": "0x62e5000",
+      "size": 16
+    },
+    {
+      "index": 6,
+      "name": "debug",
+      "rva": "0x4bb3000",
+      "size": 84
+    },
+    {
+      "index": 9,
+      "name": "tls",
+      "rva": "0x4bb6038",
+      "size": 40
+    },
+    {
+      "index": 13,
+      "name": "delayImport",
+      "rva": "0x417a8a8",
+      "size": 544
+    }
+  ],
+  "imports": {
+    "rva": "0x4bb5593",
+    "size": 1504,
+    "dlls": [
+      {
+        "name": "kernel32.dll",
+        "functions": [
+          {
+            "name": "GetModuleHandleA",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "WS2_32.dll",
+        "functions": [
+          {
+            "ordinal": 23
+          }
+        ]
+      },
+      {
+        "name": "WINMM.dll",
+        "functions": [
+          {
+            "name": "timeBeginPeriod",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "USER32.dll",
+        "functions": [
+          {
+            "name": "RegisterClassW",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "GDI32.dll",
+        "functions": [
+          {
+            "name": "ExtEscape",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "ADVAPI32.dll",
+        "functions": [
+          {
+            "name": "CryptDestroyKey",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "SHELL32.dll",
+        "functions": [
+          {
+            "name": "ShellExecuteW",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "ole32.dll",
+        "functions": [
+          {
+            "name": "CoCreateGuid",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "OLEAUT32.dll",
+        "functions": [
+          {
+            "ordinal": 2
+          }
+        ]
+      },
+      {
+        "name": "IPHLPAPI.DLL",
+        "functions": [
+          {
+            "name": "GetAdaptersInfo",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "SETUPAPI.dll",
+        "functions": [
+          {
+            "name": "SetupDiOpenDevRegKey",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "dwmapi.dll",
+        "functions": [
+          {
+            "name": "DwmSetWindowAttribute",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "IMM32.dll",
+        "functions": [
+          {
+            "name": "ImmGetIMEFileNameW",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "CRYPT32.dll",
+        "functions": [
+          {
+            "name": "CertDuplicateCertificateContext",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "WINHTTP.dll",
+        "functions": [
+          {
+            "name": "WinHttpQueryOption",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "VERSION.dll",
+        "functions": [
+          {
+            "name": "GetFileVersionInfoExW",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "DSOUND.dll",
+        "functions": [
+          {
+            "ordinal": 12
+          }
+        ]
+      },
+      {
+        "name": "XINPUT1_3.dll",
+        "functions": [
+          {
+            "ordinal": 3
+          }
+        ]
+      },
+      {
+        "name": "dxgi.dll",
+        "functions": [
+          {
+            "name": "CreateDXGIFactory1",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "d3d9.dll",
+        "functions": [
+          {
+            "name": "D3DPERF_BeginEvent",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "d3d11.dll",
+        "functions": [
+          {
+            "name": "D3D11CreateDevice",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "X3DAudio1_7.dll",
+        "functions": [
+          {
+            "name": "X3DAudioCalculate",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "XAPOFX1_5.dll",
+        "functions": [
+          {
+            "name": "CreateFX",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "WLDAP32.dll",
+        "functions": [
+          {
+            "ordinal": 301
+          }
+        ]
+      },
+      {
+        "name": "Normaliz.dll",
+        "functions": [
+          {
+            "name": "IdnToAscii",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "OPENGL32.dll",
+        "functions": [
+          {
+            "name": "wglGetCurrentDC",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "MSVCP140.dll",
+        "functions": [
+          {
+            "name": "?xsputn@?$basic_streambuf@_WU?$char_traits@_W@std@@@std@@MEAA_JPEB_W_J@Z",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "POWRPROF.dll",
+        "functions": [
+          {
+            "name": "CallNtPowerInformation",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "bcrypt.dll",
+        "functions": [
+          {
+            "name": "BCryptGenerateKeyPair",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "VCRUNTIME140.dll",
+        "functions": [
+          {
+            "name": "__C_specific_handler",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-runtime-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "strerror",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-utility-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "rand",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-stdio-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_get_stream_buffer_pointers",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-string-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "strspn",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-math-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "asin",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-heap-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_set_new_mode",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-time-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_ftime64",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-convert-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_wcstod_l",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_stat64i32",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-environment-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "getenv",
+            "hint": 0
+          }
+        ]
+      },
+      {
+        "name": "api-ms-win-crt-locale-l1-1-0.dll",
+        "functions": [
+          {
+            "name": "_configthreadlocale",
+            "hint": 0
+          }
+        ]
+      }
+    ],
+    "nameImportCount": 36,
+    "ordinalImportCount": 5
+  },
+  "delayImports": {
+    "rva": "0x417a8a8",
+    "size": 544,
+    "dlls": [],
+    "nameImportCount": 0,
+    "ordinalImportCount": 0,
+    "parseStatus": "directory RVA lies in virtual section bytes without a raw-file mapping"
+  },
+  "exports": {
+    "rva": "0x4bb4000",
+    "size": 3344,
+    "ordinalBase": 1,
+    "functionCount": 90,
+    "nameCount": 90,
+    "names": [
+      {
+        "name": "AmdPowerXpressRequestHighPerformance",
+        "ordinal": 1
+      },
+      {
+        "name": "NvOptimusEnablement",
+        "ordinal": 2
+      },
+      {
+        "name": "PrintScriptCallstack",
+        "ordinal": 3
+      },
+      {
+        "name": "agsDeInit",
+        "ordinal": 4
+      },
+      {
+        "name": "agsDriverExtensionsDX11_BeginUAVOverlap",
+        "ordinal": 5
+      },
+      {
+        "name": "agsDriverExtensionsDX11_CreateDevice",
+        "ordinal": 6
+      },
+      {
+        "name": "agsDriverExtensionsDX11_DestroyDevice",
+        "ordinal": 7
+      },
+      {
+        "name": "agsDriverExtensionsDX11_EndUAVOverlap",
+        "ordinal": 8
+      },
+      {
+        "name": "agsDriverExtensionsDX11_GetMaxClipRects",
+        "ordinal": 9
+      },
+      {
+        "name": "agsDriverExtensionsDX11_IASetPrimitiveTopology",
+        "ordinal": 10
+      },
+      {
+        "name": "agsDriverExtensionsDX11_MultiDrawIndexedInstancedIndirect",
+        "ordinal": 11
+      },
+      {
+        "name": "agsDriverExtensionsDX11_MultiDrawIndexedInstancedIndirectCountIndirect",
+        "ordinal": 12
+      },
+      {
+        "name": "agsDriverExtensionsDX11_MultiDrawInstancedIndirect",
+        "ordinal": 13
+      },
+      {
+        "name": "agsDriverExtensionsDX11_MultiDrawInstancedIndirectCountIndirect",
+        "ordinal": 14
+      },
+      {
+        "name": "agsDriverExtensionsDX11_NumPendingAsyncCompileJobs",
+        "ordinal": 15
+      },
+      {
+        "name": "agsDriverExtensionsDX11_SetClipRects",
+        "ordinal": 16
+      },
+      {
+        "name": "agsDriverExtensionsDX11_SetDepthBounds",
+        "ordinal": 17
+      },
+      {
+        "name": "agsDriverExtensionsDX11_SetDiskShaderCacheEnabled",
+        "ordinal": 18
+      },
+      {
+        "name": "agsDriverExtensionsDX11_SetMaxAsyncCompileThreadCount",
+        "ordinal": 19
+      },
+      {
+        "name": "agsDriverExtensionsDX11_SetViewBroadcastMasks",
+        "ordinal": 20
+      },
+      {
+        "name": "agsDriverExtensionsDX12_DeInit",
+        "ordinal": 21
+      },
+      {
+        "name": "agsDriverExtensionsDX12_Init",
+        "ordinal": 22
+      },
+      {
+        "name": "agsDriverExtensionsDX12_PopMarker",
+        "ordinal": 23
+      },
+      {
+        "name": "agsDriverExtensionsDX12_PushMarker",
+        "ordinal": 24
+      },
+      {
+        "name": "agsDriverExtensionsDX12_SetMarker",
+        "ordinal": 25
+      },
+      {
+        "name": "agsGetCrossfireGPUCount",
+        "ordinal": 26
+      },
+      {
+        "name": "agsInit",
+        "ordinal": 27
+      },
+      {
+        "name": "agsSetDisplayMode",
+        "ordinal": 28
+      },
+      {
+        "name": "opus_decode",
+        "ordinal": 29
+      },
+      {
+        "name": "opus_decode_float",
+        "ordinal": 30
+      },
+      {
+        "name": "opus_decoder_create",
+        "ordinal": 31
+      },
+      {
+        "name": "opus_decoder_ctl",
+        "ordinal": 32
+      },
+      {
+        "name": "opus_decoder_destroy",
+        "ordinal": 33
+      },
+      {
+        "name": "opus_decoder_get_nb_samples",
+        "ordinal": 34
+      },
+      {
+        "name": "opus_decoder_get_size",
+        "ordinal": 35
+      },
+      {
+        "name": "opus_decoder_init",
+        "ordinal": 36
+      },
+      {
+        "name": "opus_encode",
+        "ordinal": 37
+      },
+      {
+        "name": "opus_encode_float",
+        "ordinal": 38
+      },
+      {
+        "name": "opus_encoder_create",
+        "ordinal": 39
+      },
+      {
+        "name": "opus_encoder_ctl",
+        "ordinal": 40
+      },
+      {
+        "name": "opus_encoder_destroy",
+        "ordinal": 41
+      },
+      {
+        "name": "opus_encoder_get_size",
+        "ordinal": 42
+      },
+      {
+        "name": "opus_encoder_init",
+        "ordinal": 43
+      },
+      {
+        "name": "opus_get_version_string",
+        "ordinal": 44
+      },
+      {
+        "name": "opus_multistream_decode",
+        "ordinal": 45
+      },
+      {
+        "name": "opus_multistream_decode_float",
+        "ordinal": 46
+      },
+      {
+        "name": "opus_multistream_decoder_create",
+        "ordinal": 47
+      },
+      {
+        "name": "opus_multistream_decoder_ctl",
+        "ordinal": 48
+      },
+      {
+        "name": "opus_multistream_decoder_destroy",
+        "ordinal": 49
+      },
+      {
+        "name": "opus_multistream_decoder_get_size",
+        "ordinal": 50
+      },
+      {
+        "name": "opus_multistream_decoder_init",
+        "ordinal": 51
+      },
+      {
+        "name": "opus_multistream_packet_pad",
+        "ordinal": 52
+      },
+      {
+        "name": "opus_multistream_packet_unpad",
+        "ordinal": 53
+      },
+      {
+        "name": "opus_packet_get_bandwidth",
+        "ordinal": 54
+      },
+      {
+        "name": "opus_packet_get_nb_channels",
+        "ordinal": 55
+      },
+      {
+        "name": "opus_packet_get_nb_frames",
+        "ordinal": 56
+      },
+      {
+        "name": "opus_packet_get_nb_samples",
+        "ordinal": 57
+      },
+      {
+        "name": "opus_packet_get_samples_per_frame",
+        "ordinal": 58
+      },
+      {
+        "name": "opus_packet_pad",
+        "ordinal": 59
+      },
+      {
+        "name": "opus_packet_parse",
+        "ordinal": 60
+      },
+      {
+        "name": "opus_packet_unpad",
+        "ordinal": 61
+      },
+      {
+        "name": "opus_pcm_soft_clip",
+        "ordinal": 62
+      },
+      {
+        "name": "opus_repacketizer_cat",
+        "ordinal": 63
+      },
+      {
+        "name": "opus_repacketizer_create",
+        "ordinal": 64
+      },
+      {
+        "name": "opus_repacketizer_destroy",
+        "ordinal": 65
+      },
+      {
+        "name": "opus_repacketizer_get_nb_frames",
+        "ordinal": 66
+      },
+      {
+        "name": "opus_repacketizer_get_size",
+        "ordinal": 67
+      },
+      {
+        "name": "opus_repacketizer_init",
+        "ordinal": 68
+      },
+      {
+        "name": "opus_repacketizer_out",
+        "ordinal": 69
+      },
+      {
+        "name": "opus_repacketizer_out_range",
+        "ordinal": 70
+      },
+      {
+        "name": "opus_strerror",
+        "ordinal": 71
+      },
+      {
+        "name": "src_callback_new",
+        "ordinal": 72
+      },
+      {
+        "name": "src_callback_read",
+        "ordinal": 73
+      },
+      {
+        "name": "src_delete",
+        "ordinal": 74
+      },
+      {
+        "name": "src_error",
+        "ordinal": 75
+      },
+      {
+        "name": "src_float_to_int_array",
+        "ordinal": 76
+      },
+      {
+        "name": "src_float_to_short_array",
+        "ordinal": 77
+      },
+      {
+        "name": "src_get_channels",
+        "ordinal": 78
+      },
+      {
+        "name": "src_get_description",
+        "ordinal": 79
+      },
+      {
+        "name": "src_get_name",
+        "ordinal": 80
+      },
+      {
+        "name": "src_get_version",
+        "ordinal": 81
+      },
+      {
+        "name": "src_int_to_float_array",
+        "ordinal": 82
+      },
+      {
+        "name": "src_is_valid_ratio",
+        "ordinal": 83
+      },
+      {
+        "name": "src_new",
+        "ordinal": 84
+      },
+      {
+        "name": "src_process",
+        "ordinal": 85
+      },
+      {
+        "name": "src_reset",
+        "ordinal": 86
+      },
+      {
+        "name": "src_set_ratio",
+        "ordinal": 87
+      },
+      {
+        "name": "src_short_to_float_array",
+        "ordinal": 88
+      },
+      {
+        "name": "src_simple",
+        "ordinal": 89
+      },
+      {
+        "name": "src_strerror",
+        "ordinal": 90
+      }
+    ]
+  },
+  "tls": {
+    "rva": "0x4bb6038",
+    "size": 40,
+    "startRawDataVa": "0x144bb6000",
+    "endRawDataVa": "0x144bb6024",
+    "indexVa": "0x144bb6028",
+    "callbackVa": "0x0",
+    "callbacks": [],
+    "zeroFill": 0,
+    "characteristics": "0x400000"
+  },
+  "exceptionUnwind": {
+    "rva": "0x5795214",
+    "size": 2834016,
+    "source": "stage1 .dungeon bytes",
+    "entryCount": 236168,
+    "validRangeCount": 236168,
+    "matchedObservedApiReturnRvas": [
+      {
+        "rva": "0x50d0fe9",
+        "entries": []
+      },
+      {
+        "rva": "0x50d1349",
+        "entries": []
+      }
+    ],
+    "stage1Offset": "0xbdd214"
+  },
+  "debug": {
+    "records": [
+      {
+        "type": 2,
+        "timestamp": "0x637eb349",
+        "size": 52,
+        "rva": "0x4bb3054",
+        "rawOffset": "0x1b55a54",
+        "codeView": {
+          "format": "RSDS",
+          "guid": "1860eb8f-2c41-49f0-af0f-2bfebd15447b",
+          "age": 2,
+          "pdbPath": "Dungeons-Win64-Shipping.pdb"
+        }
+      },
+      {
+        "type": 12,
+        "timestamp": "0x637eb349",
+        "size": 20,
+        "rva": "0x4bb3088",
+        "rawOffset": "0x1b55a88"
+      },
+      {
+        "type": 13,
+        "timestamp": "0x637eb349",
+        "size": 1116,
+        "rva": "0x4bb309c",
+        "rawOffset": "0x1b55a9c"
+      }
+    ],
+    "pdbReferences": [
+      {
+        "format": "RSDS",
+        "guid": "1860eb8f-2c41-49f0-af0f-2bfebd15447b",
+        "age": 2,
+        "pdbPath": "Dungeons-Win64-Shipping.pdb"
+      }
+    ],
+    "localPdbMapOrSymFiles": []
+  },
+  "resources": {
+    "rva": "0x4bb7000",
+    "size": 3700,
+    "typeIds": [
+      3,
+      14,
+      16,
+      24
+    ],
+    "versionResources": [
+      {
+        "path": [
+          16,
+          1,
+          1033
+        ],
+        "rva": "0x4bb7430",
+        "size": 800,
+        "codepage": 0,
+        "fileVersion": "4.22.3.0",
+        "productVersion": "4.22.3.0"
+      }
+    ]
+  },
+  "embeddedIdentifierScan": {
+    "rawExe": {
+      "Dungeons-Win64-Shipping.pdb": {
+        "found": true,
+        "hits": [
+          {
+            "encoding": "ascii",
+            "offset": "0x1b55a6c"
+          }
+        ]
+      },
+      "FNamePool": {
+        "found": false,
+        "hits": []
+      },
+      "GUObjectArray": {
+        "found": false,
+        "hits": []
+      },
+      "UObject": {
+        "found": false,
+        "hits": []
+      },
+      "UClass": {
+        "found": false,
+        "hits": []
+      },
+      "UFunction": {
+        "found": false,
+        "hits": []
+      },
+      "/Script/Dungeons": {
+        "found": false,
+        "hits": []
+      },
+      "GameplayEffect": {
+        "found": false,
+        "hits": []
+      },
+      "GetSystemFirmwareTable": {
+        "found": false,
+        "hits": []
+      },
+      "??_R0": {
+        "found": false,
+        "hits": []
+      },
+      ".?AV": {
+        "found": false,
+        "hits": []
+      }
+    },
+    "stage1Output": {
+      "Dungeons-Win64-Shipping.pdb": {
+        "found": false,
+        "hits": []
+      },
+      "FNamePool": {
+        "found": false,
+        "hits": []
+      },
+      "GUObjectArray": {
+        "found": false,
+        "hits": []
+      },
+      "UObject": {
+        "found": false,
+        "hits": []
+      },
+      "UClass": {
+        "found": false,
+        "hits": []
+      },
+      "UFunction": {
+        "found": false,
+        "hits": []
+      },
+      "/Script/Dungeons": {
+        "found": false,
+        "hits": []
+      },
+      "GameplayEffect": {
+        "found": false,
+        "hits": []
+      },
+      "GetSystemFirmwareTable": {
+        "found": false,
+        "hits": []
+      },
+      "??_R0": {
+        "found": false,
+        "hits": []
+      },
+      ".?AV": {
+        "found": false,
+        "hits": []
+      }
+    },
+    "limits": "bounded literal ASCII/UTF-16 marker search; absence is not proof that encoded, hashed, or runtime-generated names are absent"
+  },
+  "recoveryOutputs": {
+    "stage1": {
+      "file": "local-game-data/phase6.8/mechanics/stage1.bin",
+      "sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+      "sizeBytes": 15360000,
+      "rva": "0x4bb8000",
+      "independentDecoderAgreement": true
+    }
+  },
+  "toolVersions": {
+    "objdump": "Apple LLVM 17.0.0",
+    "capstone": "5.0.6",
+    "unicorn": "2.1.4"
+  },
+  "limitations": [
+    "The binary came from a local archive; its distribution authenticity is not established by hash equality to the prior local record.",
+    "The first eight PE section names are empty; entropy and PE flags are structural observations, not packer identification.",
+    "The marker scan cannot rule out obfuscated or runtime-created reflection metadata.",
+    "A PDB path and GUID in CodeView metadata do not provide symbols when the matching PDB file is absent."
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-23",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "searchScope": "Repository landing pages, project documentation, release notes, and the Minecraft Dungeons-specific UE4SS issue listed below were inspected on 2026-09-23. This is a bounded census, not proof that no other private or unindexed work exists.",
+  "projects": [
+    {
+      "id": "dungeons-tools",
+      "project": "dungeons.tools",
+      "versionOrDate": "Database identifies game files version 1.17.0.0; page accessed 2026-09-23",
+      "sources": [
+        "https://www.dungeons.tools/damage-calculator",
+        "https://www.dungeons.tools/"
+      ],
+      "whatItExtracts": "Public site presents item Power, Speed, and Area ratings and says its database is read from Minecraft Dungeons 1.17.0.0 game files.",
+      "nativeRelevance": "The damage comparison page says absolute damage needs a gear-power curve compiled into the executable and absent from paks. It uses relative item ratings and a shared-curve ratio instead of an absolute damage result.",
+      "priorArtClass": ["D: external-only claim"],
+      "reusableTechniqueOrInformation": "Prioritize a clean boundary between pak-derived item ratings and executable-side power scaling. The public page does not expose an implementation or address, and no code-level source link was found in the bounded inspection.",
+      "independentLocalVerification": "The local executable and Stage 1 payload were inspected, but no power curve or damage implementation was identified. The claim remains external-only.",
+      "license": "Not stated on the inspected page; no code used."
+    },
+    {
+      "id": "mcd-save-edit",
+      "project": "MCDSaveEdit",
+      "versionOrDate": "master branch as viewed 2026-09-23",
+      "sources": [
+        "https://github.com/CutFlame/MCDSaveEdit",
+        "https://github.com/CutFlame/MCDSaveEdit/blob/master/README.md"
+      ],
+      "whatItExtracts": "Edits Minecraft Dungeons save files and reads installed pak files for game images. Its README lists DungeonTools and PakReader submodules.",
+      "nativeRelevance": "Useful save and pak workflow prior art; no executable function, class address, SDK, or native mechanic implementation was identified in the inspected repository material.",
+      "priorArtClass": ["A: technique prior art"],
+      "reusableTechniqueOrInformation": "Separate save/pak acquisition from executable analysis. No code was reused.",
+      "independentLocalVerification": "Not applicable to native code; no native claim to verify.",
+      "license": "Repository MIT. README separately attributes DungeonTools AGPL-3.0, FModel GPL-3.0, and PakReader MIT; no code copied."
+    },
+    {
+      "id": "dungeon-tools-library",
+      "project": "DungeonTools (ZingBallyhoo)",
+      "versionOrDate": "master branch as viewed 2026-09-23",
+      "sources": [
+        "https://github.com/ZingBallyhoo/DungeonTools",
+        "https://github.com/ZingBallyhoo/DungeonTools/blob/master/README.md"
+      ],
+      "whatItExtracts": "Libraries and tools for Minecraft Dungeons save files and game data workflows.",
+      "nativeRelevance": "Save-file and packaged-data tooling, not executable implementation evidence.",
+      "priorArtClass": ["A: technique prior art"],
+      "reusableTechniqueOrInformation": "Use as a lead for save and pak boundaries only. No code was reused.",
+      "independentLocalVerification": "No native claim to verify.",
+      "license": "AGPL-3.0 repository; no code copied."
+    },
+    {
+      "id": "dungeons-editor",
+      "project": "DungeonsEditor",
+      "versionOrDate": "main branch and listed releases as viewed 2026-09-23; README describes a research-purpose save editor",
+      "sources": [
+        "https://github.com/hoonkun/DungeonsEditor",
+        "https://github.com/hoonkun/DungeonsEditor/releases"
+      ],
+      "whatItExtracts": "Edits save data and reads installed game data for displayed images and text. The inspected README does not describe native executable analysis.",
+      "nativeRelevance": "No native class/function dump or executable mechanics evidence found.",
+      "priorArtClass": ["A: technique prior art"],
+      "reusableTechniqueOrInformation": "The README confirms a game-install dependency for selected UI assets, not a binary-analysis technique. No code was reused.",
+      "independentLocalVerification": "No native claim to verify.",
+      "license": "No license statement was found in the inspected repository landing page; no code used."
+    },
+    {
+      "id": "dungeons-mod-kit",
+      "project": "Dungeons-Mod-Kit",
+      "versionOrDate": "master branch as viewed 2026-09-23",
+      "sources": [
+        "https://github.com/Dokucraft/Dungeons-Mod-Kit",
+        "https://github.com/Dokucraft/Dungeons-Mod-Kit/blob/master/README.md",
+        "https://github.com/Dokucraft/Dungeons-Mod-Kit/blob/master/LICENSE"
+      ],
+      "whatItExtracts": "Provides a Minecraft Dungeons mod authoring and packaging workflow using Unreal Engine 4.22 and cooked assets/resource packs.",
+      "nativeRelevance": "Useful for asset-side UE4 version and packaging context; it does not publish native game function addresses or mechanics implementation in the inspected material.",
+      "priorArtClass": ["A: technique prior art", "B: engine-version hint"],
+      "reusableTechniqueOrInformation": "The project explicitly targets UE4 4.22.x. The local PE version resource independently reports 4.22.3.0; this confirms the engine family only, not native class layouts.",
+      "independentLocalVerification": "UE4 4.22.3.0 independently observed in the local executable resource. No mod-kit code was reused.",
+      "license": "MIT; no code copied."
+    },
+    {
+      "id": "ue4ss",
+      "project": "UE4SS / RE-UE4SS",
+      "versionOrDate": "experimental-latest release, short commit f12f0be, viewed 2026-09-23",
+      "sources": [
+        "https://github.com/UE4SS-RE/RE-UE4SS",
+        "https://github.com/UE4SS-RE/RE-UE4SS/releases",
+        "https://github.com/UE4SS-RE/RE-UE4SS/blob/main/docs/feature-overview/dumpers.md",
+        "https://docs.ue4ss.com/dev/feature-overview/sdk-generator.html"
+      ],
+      "whatItExtracts": "At runtime, UE4SS can dump loaded UObject reflection data, classes, structs, enums, functions, properties, CDO values, and approximate vtable layouts; it also generates SDK headers.",
+      "nativeRelevance": "Directly relevant as generic UE reflection and live-dump technique prior art. It does not establish that the current Minecraft Dungeons build is supported or that a dump exists.",
+      "priorArtClass": ["A: technique prior art"],
+      "reusableTechniqueOrInformation": "A future live reflection dump could join UClass.SuperStruct and UFunction native pointers to the serialized /Script/Dungeons class. No UE4SS code or address was reused.",
+      "independentLocalVerification": "Not independently verified in Minecraft Dungeons. Current local work did not launch the game or produce a reflection dump.",
+      "license": "Repository MIT as listed by GitHub; some separately maintained UEPseudo material has distinct terms. No code copied."
+    },
+    {
+      "id": "ue4ss-mcd-issue-1211",
+      "project": "RE-UE4SS issue #1211: Minecraft Dungeons crash at launch",
+      "versionOrDate": "Opened 2026-03-12; issue reports Minecraft Dungeons UE4.22.3",
+      "sources": [
+        "https://github.com/UE4SS-RE/RE-UE4SS/issues/1211"
+      ],
+      "whatItExtracts": "No dump. The reporter describes a fatal error shortly after launch while locating KismetSystemLibrary:Conv_NameToString.",
+      "nativeRelevance": "A version-specific compatibility failure report, not successful executable analysis or a confirmed function address.",
+      "priorArtClass": ["B: identifier/version hint", "D: external-only report"],
+      "reusableTechniqueOrInformation": "Record the named reflection lookup as a future test target only. Do not treat the report as proof of a local function or address.",
+      "independentLocalVerification": "Not reproduced; current work did not launch the game or UE4SS.",
+      "license": "Issue text under the hosting project's terms; no code used."
+    }
+  ],
+  "negativeSearch": {
+    "finding": "No independently verifiable Minecraft Dungeons SDK/reflection dump, native class/function address list, or executable-side gameplay formula source was located in the bounded public-source pass above.",
+    "scopeLimit": "This is a search result, not proof of nonexistence. Leaked-source claims were excluded.",
+    "localFollowUp": "No local FNamePool, GUObjectArray, UObject, UClass, UFunction, /Script/Dungeons, GameplayEffect, or common RTTI marker was found by the bounded ASCII/UTF-16 scan of the raw executable and Stage 1 output. Encoded or runtime-generated names remain possible."
+  },
+  "codeReuse": []
+}

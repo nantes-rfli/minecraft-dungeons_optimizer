@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-23",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "binary": {
+    "file": "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "sizeBytes": 37613072,
+    "distributionAuthenticity": "unverified",
+    "imageBase": "0x140000000",
+    "engineVersionResource": "4.22.3.0"
+  },
+  "baselineReferences": {
+    "stage1": "../game-data-mechanics/native-stage1.json",
+    "stage2Report": "../game-data-native-stage2/observations.json",
+    "stage2Narrative": "../../docs/game-data-native-stage2.md",
+    "currentInputInventory": "native-source-inventory.json",
+    "boundaryExperiments": "firmware-boundary-observations.json"
+  },
+  "milestones": {
+    "D1": {
+      "status": "complete-reused-and-rechecked",
+      "packedBytesConsumed": 8937075,
+      "stage1Bytes": 15360000,
+      "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+      "section": ".dungeon",
+      "sectionRva": "0x4bb8000",
+      "source": "Bounded aPLib-compatible decompression; recorded independent decoder output agrees. This is not full executable reconstruction."
+    },
+    "D2": {
+      "status": "in-progress",
+      "previousCheckpoint": "Conditional Unicorn startup emulation stopped at GetSystemFirmwareTable(RSMB, tableId=0, buffer=null, size=0), return RVA 0x50d0fe9.",
+      "newCheckpoints": [
+        "A positive synthetic size response reaches a second GetSystemFirmwareTable call with a modeled allocation and requested buffer size; execution stops before modeling the firmware bytes.",
+        "A zero response follows a different path to RegOpenKeyA at return RVA 0x50f434d.",
+        "A synthetic 240-byte read-only SMBIOS-like payload is read across offsets 0x00-0xef at code VA 0x144df7d5b, freed, and then reaches a registry call. No true SMBIOS field interpretation is claimed.",
+        "With the fake payload, one RegOpenKeyA failure reaches a second registry key request; a one-shot success with a synthetic handle reaches RegQueryValueExA. An all-keys-missing counterfactual reaches CreateFileW."
+      ],
+      "originalImageRegionStopRange": ["0x140000000", "0x144bb7fff"],
+      "originalImageRegionEntryObserved": false,
+      "stableGameCodeReached": false,
+      "evidenceReference": "firmware-boundary-observations.json"
+    },
+    "D3": {
+      "status": "not-started",
+      "gameplayFunctionIdentified": false,
+      "acceptedCandidates": 0
+    }
+  },
+  "peLayout": {
+    "format": "AMD64 PE32+",
+    "timestampUtc": "2022-11-23T23:56:57Z",
+    "entryPointRva": "0x5a5e058",
+    "imageSize": "0x62e6000",
+    "sections": [
+      {
+        "region": "packed bootstrap / .boot",
+        "sectionIndex": 14,
+        "rva": "0x5a5e000",
+        "virtualSize": "0x886200",
+        "rawBytes": 8937984,
+        "permissions": "read-execute",
+        "observedRole": "PE entry point is inside this section. Stage 1 packed input begins at RVA 0x5a5e22c."
+      },
+      {
+        "region": "first decompressed payload / .dungeon",
+        "sectionIndex": 13,
+        "rva": "0x4bb8000",
+        "virtualSize": "0xea6000",
+        "rawBytes": 0,
+        "permissions": "read-write-execute",
+        "observedRole": "Stage 1 writes the 15,360,000-byte decompressed payload here. The conditional startup emulation executes from this region. It is not yet identified as stable gameplay code."
+      },
+      {
+        "region": "original mapped executable image candidate",
+        "sectionIndexes": [0, 1, 2, 3, 4, 5, 6, 7],
+        "sectionNames": "eight-space names in the local PE headers",
+        "firstRva": "0x1000",
+        "note": "Raw bytes are present and executable sections are structurally mapped, but startup emulation never reached the monitored original-image range. High raw entropy and an unsuccessful bounded instruction sample do not identify a stable code region."
+      }
+    ],
+    "rawAdjacentDlls": [
+      {
+        "file": "winmm.dll",
+        "sha256": "0a9f495a054cca00148da0cd5cc375ab577a6f8c5d5849ffa2327656e928de74",
+        "sizeBytes": 16003072,
+        "provenance": "unverified local adjacent DLL; not loaded or treated as authoritative"
+      }
+    ],
+    "directoriesAndMetadata": {
+      "staticImportDescriptors": 41,
+      "staticExportNames": 90,
+      "delayImport": {
+        "rva": "0x417a8a8",
+        "size": 544,
+        "status": "directory lies in virtual section bytes without a raw-file mapping; not parsed"
+      },
+      "tlsCallbacks": 0,
+      "exceptionDirectory": {
+        "rva": "0x5795214",
+        "size": 2834016,
+        "source": "Stage 1 .dungeon bytes",
+        "nonzeroEntries": 236168,
+        "entriesWithBeginLessThanEnd": 236168,
+        "observedFirmwareReturnRvasMatched": []
+      },
+      "codeView": {
+        "pdbPath": "Dungeons-Win64-Shipping.pdb",
+        "guid": "1860eb8f-2c41-49f0-af0f-2bfebd15447b",
+        "age": 2,
+        "matchingLocalPdbMapOrSymFiles": []
+      },
+      "resourceEngineVersion": "4.22.3.0"
+    }
+  },
+  "controlFlow": [
+    {
+      "from": "PE entry point 0x140000000+0x5a5e058",
+      "to": "packed Stage 1 bytes in .boot",
+      "status": "static bootstrap/decompression route recorded in Stage 1 research"
+    },
+    {
+      "from": "Stage 1 entry VA 0x144e7c95f",
+      "to": ["0x144e548a3", "0x144f050d1"],
+      "status": "small direct-flow observations in native-stage1.json; not identified as a gameplay function"
+    },
+    {
+      "from": "conditional startup path in decompressed .dungeon",
+      "to": "GetSystemFirmwareTable RSMB boundary at return RVA 0x50d0fe9",
+      "status": "conditional emulation with synthetic export/API models; see firmware-boundary-observations.json"
+    },
+    {
+      "from": "SMBIOS size response",
+      "to": ["second RSMB buffer call at return RVA 0x50d1349", "registry calls beginning at return RVA 0x50f434d"],
+      "status": "counterfactual paths; exact conditional instruction not isolated"
+    }
+  ],
+  "memoryTransitionObservations": {
+    "observedVirtualProtectApiCalls": true,
+    "originalImageEntryStopReached": false,
+    "stableWriteToExecuteHandoffIntoOriginalCodeProven": false,
+    "sectionHashBoundary": "Stage 2 reports identify section index 13 (.dungeon) as the only changed PE image section at the saved firmware boundary; .boot and original raw sections are unchanged in that conditional model.",
+    "interpretation": "This does not prove that no other memory transition exists. It records that no validated transition from the emulated startup region to stable original game code has been demonstrated."
+  },
+  "staticAnalysis": {
+    "methods": ["read-only PE32+ parser", "SHA-256", "bounded ASCII/UTF-16 marker scan", "Capstone sample at a Stage 1 exception-range start"],
+    "sampleFunctionRva": "0x14cd",
+    "sampleResult": "Capstone decoded one instruction from the recorded range start before decoding stopped; this is not evidence that all code is undecodable.",
+    "firstRawExecutableSectionEntropyBitsPerByte": 7.988388,
+    "reflectionMarkerScan": "No literal FNamePool, GUObjectArray, UObject, UClass, UFunction, /Script/Dungeons, GameplayEffect, or common MSVC RTTI marker found in the raw executable or Stage 1 output. Encoded or runtime-generated identifiers remain possible.",
+    "analysisTools": {
+      "used": ["Apple LLVM objdump (toolchain reported as Apple LLVM 17.0.0 in local inventory)", "Capstone 5.0.6", "Unicorn 2.1.4"],
+      "notFoundOnCurrentPath": ["Ghidra", "IDA", "Binary Ninja", "radare2/rizin"]
+    }
+  },
+  "limitations": [
+    "The local archive's distribution authenticity is unverified; matching an earlier local hash verifies identity with that record only.",
+    "Conditional emulation uses a minimal synthetic Windows environment, synthetic export stubs, synthetic initial state, and counterfactual API results; no Windows game process or real Windows DLL was launched.",
+    "Positive synthetic SMBIOS size values establish a second query and buffer size, not the values or fields of a real machine's firmware table.",
+    "The generic SMBIOS-like test data is synthetic. A byte-read range is not a semantic field interpretation.",
+    "No stable original game-code region, native class implementation, vtable, constructor, UFunction pointer, caller/callee chain, gameplay arithmetic, or output was identified.",
+    "No damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified."
+  ]
+}

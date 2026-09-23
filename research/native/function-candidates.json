@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-23",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "candidatePolicy": {
+    "statuses": ["candidate", "supported", "accepted", "rejected"],
+    "acceptanceRequires": ["local executable address", "independent class or registration evidence", "control-flow evidence", "data-flow evidence", "correlated Raw identity"],
+    "singleStringOrSerializedNameIsInsufficient": true
+  },
+  "candidates": [
+    {
+      "candidateId": "armor-gear-item-instance-native-implementation",
+      "binary": {
+        "file": "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+        "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+        "imageBase": "0x140000000"
+      },
+      "location": {
+        "rva": null,
+        "va": null,
+        "section": null,
+        "state": "unknown"
+      },
+      "identity": {
+        "module": "/Script/Dungeons",
+        "class": "ArmorGearItemInstance",
+        "function": null,
+        "confidence": "candidate"
+      },
+      "status": "candidate",
+      "evidence": [
+        {
+          "type": "serialized-superclass-reference",
+          "source": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+          "observation": "Export BP_BattleRobeInstance_C has superReference to import index 5, whose objectName is ArmorGearItemInstance and whose outer package is /Script/Dungeons. The package content hash is 9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684."
+        },
+        {
+          "type": "local-executable-structure",
+          "source": "research/native/native-source-inventory.json",
+          "observation": "No bounded literal /Script/Dungeons, UObject, UClass, UFunction, FNamePool, or GUObjectArray marker was found in the raw executable or Stage 1 output; this scan cannot rule out encoded or runtime-generated metadata."
+        },
+        {
+          "type": "native-registration-and-address-search",
+          "source": "current local binary and Stage 1 output",
+          "observation": "No UClass registration, vtable, constructor, native function pointer, call site, or implementation address was identified."
+        }
+      ],
+      "controlFlow": {
+        "callers": [],
+        "callees": [],
+        "status": "unknown"
+      },
+      "dataFlow": {
+        "inputs": [],
+        "outputs": [],
+        "constants": [],
+        "branches": [],
+        "status": "unknown"
+      },
+      "relation": {
+        "rawClass": "/Script/Dungeons.ArmorGearItemInstance",
+        "rawAsset": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance",
+        "nativeImplementation": "unresolved"
+      },
+      "nextDiscriminatingExperiment": "Obtain a legitimate live reflection snapshot for the same game build, or recover the runtime UClass/FName registration structures without assuming generic UE offsets. Confirm ArmorGearItemInstance.SuperStruct, then resolve one native UFunction::Func or constructor/vtable pointer to an RVA in this exact executable and trace a serialized property through that routine.",
+      "limitations": [
+        "This is a serialized Raw-to-native class-name bridge only; it does not show an executable implementation.",
+        "Do not assign an address based on a nearby string, an external game's offsets, or a UE4 version assumption.",
+        "No function or mechanic is supported or accepted by this evidence."
+      ]
+    }
+  ],
+  "mechanicClaims": {
+    "nativeDamage": "unknown",
+    "powerScaling": "unknown",
+    "effectStacking": "unknown",
+    "cooldown": "unknown",
+    "attackTimingApplication": "unknown",
+    "effectiveHitSequence": "unknown"
+  }
+}
