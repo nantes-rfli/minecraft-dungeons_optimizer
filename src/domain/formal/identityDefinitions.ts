@@ -54,6 +54,77 @@ export const fightersBindingsFormalIdentity = definition(
   ],
 )
 
+
+type AcceptedMeleeIdentityInput = {
+  domainId: string
+  rawIdentity: string
+  packagePath: string
+  displayName: string
+}
+
+export const readyMeleeFormalIdentityInputs = [
+  { domainId: 'anchor', rawIdentity: 'Anchor', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance', displayName: 'Anchor' },
+  { domainId: 'axe', rawIdentity: 'Axe', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/BP_AxeInstance', displayName: 'Axe' },
+  { domainId: 'backstabber', rawIdentity: 'Backstabber', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/BP_BackstabberInstance', displayName: 'Backstabber' },
+  { domainId: 'battlestaff', rawIdentity: 'Battlestaff', packagePath: 'Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance', displayName: 'Battlestaff' },
+  { domainId: 'boneclub', rawIdentity: 'Boneclub', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/BP_BoneclubInstance', displayName: 'Boneclub' },
+  { domainId: 'claymore', rawIdentity: 'Claymore', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance', displayName: 'Claymore' },
+  { domainId: 'coral-blade', rawIdentity: 'CoralBlade', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance', displayName: 'Coral Blade' },
+  { domainId: 'cutlass', rawIdentity: 'Cutlass', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/BP_CutlassInstance', displayName: 'Cutlass' },
+  { domainId: 'daggers', rawIdentity: 'Daggers', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/BP_DaggersInstance', displayName: 'Daggers' },
+  { domainId: 'double-axe', rawIdentity: 'DoubleAxe', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance', displayName: 'Double Axe' },
+  { domainId: 'gauntlets', rawIdentity: 'Gauntlets', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance', displayName: 'Gauntlets' },
+  { domainId: 'glaive', rawIdentity: 'Glaive', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance', displayName: 'Glaive' },
+  { domainId: 'katana', rawIdentity: 'Katana', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance', displayName: 'Katana' },
+  { domainId: 'mace', rawIdentity: 'Mace', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance', displayName: 'Mace' },
+  { domainId: 'obsidian-claymore', rawIdentity: 'ObsidianClaymore', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance', displayName: 'Obsidian Claymore' },
+  { domainId: 'pickaxe', rawIdentity: 'Pickaxe', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/BP_Pickaxe_SteelInstance', displayName: 'Pickaxe' },
+  { domainId: 'rapier', rawIdentity: 'Rapier', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance', displayName: 'Rapier' },
+  { domainId: 'sickles', rawIdentity: 'Sickles', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance', displayName: 'Sickles' },
+  { domainId: 'soul-knife', rawIdentity: 'SoulKnife', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/BP_SoulKnifeInstance', displayName: 'Soul Knife' },
+  { domainId: 'soul-scythe', rawIdentity: 'SoulScythe', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance', displayName: 'Soul Scythe' },
+  { domainId: 'spear', rawIdentity: 'Spear', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance', displayName: 'Spear' },
+  { domainId: 'tempest-knife', rawIdentity: 'TempestKnife', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/BP_TempestKnifeInstance', displayName: 'Tempest Knife' },
+  { domainId: 'void-touched-blades', rawIdentity: 'VoidTouchedBlades', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/BP_VoidTouchedBladesInstance', displayName: 'Void Touched Blades' },
+  { domainId: 'whip', rawIdentity: 'Whip', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/BP_WhipInstance', displayName: 'Whip' },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+
+function acceptedMeleeDefinition(input: AcceptedMeleeIdentityInput): FormalIdentityDefinition {
+  const reviewedEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
+  const presentationEvidenceRef = `evidence:presentation:${input.domainId}:melee-audit`
+  return definition(
+    {
+      id: `identity:${input.domainId}@1`,
+      rawIdentity: input.rawIdentity,
+      domainId: input.domainId,
+      reviewState: 'accepted',
+      confidence: 'high',
+      applicationScope: scope(input.packagePath),
+      evidenceRefs: [reviewedEvidenceRef],
+    },
+    input.displayName,
+    presentationEvidenceRef,
+    [
+      {
+        id: reviewedEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.',
+        source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: `aliases[id=melee-weapon:${input.rawIdentity}]` },
+      },
+      {
+        id: presentationEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The Melee audit supplies the English display name independently of identity matching.',
+        source: { artifactPath: 'research/melee-attack-profile-audit.json', locator: `weapons[weaponId=${input.domainId}].name.en` },
+      },
+    ],
+  )
+}
+
+export const readyMeleeFormalIdentities = readyMeleeFormalIdentityInputs.map(acceptedMeleeDefinition)
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -120,9 +191,10 @@ export const deathCapMushroomFormalIdentity = definition(
   ],
 )
 
-export const formalIdentityDefinitions = [
+export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
   battleRobeFormalIdentity,
   deathCapMushroomFormalIdentity,
-] as const
+  ...readyMeleeFormalIdentities,
+]

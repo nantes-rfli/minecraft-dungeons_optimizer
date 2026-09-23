@@ -36,6 +36,33 @@ describe('Formal Identity reviewed-source grounding', () => {
     expect(errors(sources).some((error) => error.includes('accepted alias canonicalEntity drift'))).toBe(true)
   })
 
+
+  it('does not promote a Raw-exact Melee row when its reviewed alias is absent', () => {
+    const sources = fixture()
+    sources.aliases!.aliases = sources.aliases!.aliases!.filter((entry) => entry.id !== 'melee-weapon:Anchor')
+    expect(errors(sources).some((error) => error.includes('identity:anchor@1: accepted Melee alias source missing'))).toBe(true)
+  })
+
+  it.each([
+    ['status', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').status = 'unresolved' }, 'accepted Melee alias status drift'],
+    ['confidence', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').confidence = 'medium' }, 'accepted Melee alias confidence drift'],
+    ['canonicalEntity', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').canonicalEntity = 'melee-weapon:wrong' }, 'accepted Melee alias canonicalEntity drift'],
+    ['category', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').category = 'ranged-weapon' }, 'accepted Melee alias category drift'],
+    ['rawIdentity', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').rawIdentity = 'Other' }, 'accepted Melee alias rawIdentity drift'],
+    ['package', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').assetPaths = ['Dungeons/Content/Other'] }, 'accepted Melee alias package/source drift'],
+    ['heuristic basis', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:Anchor').basis = 'family-unique-ordinal' }, 'accepted Melee alias basis is not reviewed for this wave'],
+  ])('rejects ready Melee reviewed-source %s drift', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+  })
+
+  it('grounds every new Melee presentation in the 82-item Melee audit rather than package or slug fallback', () => {
+    const sources = fixture()
+    sources.presentations.melee.anchor = 'Derived From Package Name'
+    expect(errors(sources).some((error) => error.includes('identity:anchor@1: presentation displayName drift'))).toBe(true)
+  })
+
   it('requires review when the provisional Fighter’s Bindings alias becomes accepted', () => {
     const sources = fixture()
     const entry = alias(sources, 'melee-weapon:Gauntlets_Unique3')

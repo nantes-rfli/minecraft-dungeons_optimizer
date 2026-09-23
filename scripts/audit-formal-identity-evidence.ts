@@ -5,20 +5,42 @@ import {
   collectFormalIdentityEvidenceErrors,
   type EvidenceRecord,
 } from '../src/domain/formal/identityEvidence.ts'
-import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
+import {
+  battleRobeFormalIdentity,
+  deathCapMushroomFormalIdentity,
+  fightersBindingsFormalIdentity,
+  formalIdentityDefinitions,
+  readyMeleeFormalIdentities,
+  scatterCrossbowFormalIdentity,
+} from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { collectFormalReviewedSourceGroundingErrors, readFormalReviewedSources } from './formal-identity-source-grounding.ts'
+import { readFormalIdentityInventoryInputs } from './formal-identity-inventory-source.ts'
 
 const root = new URL('..', import.meta.url)
 const repositoryRoot = fs.realpathSync(root)
 const readRaw = (packagePath: string) => JSON.parse(fs.readFileSync(new URL(`research/raw/packages/${packagePath}.raw.json`, root), 'utf8')) as RawPackageSnapshot
-const artifact = buildFormalIdentityEvidenceArtifact(formalIdentityDefinitions.map((definition) => ({
+const representativeDefinitions = [
+  fightersBindingsFormalIdentity,
+  scatterCrossbowFormalIdentity,
+  battleRobeFormalIdentity,
+  deathCapMushroomFormalIdentity,
+] as const
+const representativeInputs = representativeDefinitions.map((definition) => ({
   definition,
   raw: readRaw(definition.assertion.applicationScope.packagePath),
-})))
+}))
+const inventoryInputs = readFormalIdentityInventoryInputs(repositoryRoot, readyMeleeFormalIdentities)
+const artifact = buildFormalIdentityEvidenceArtifact([...representativeInputs, ...inventoryInputs])
 
 assert.deepEqual(collectFormalIdentityEvidenceErrors(artifact), [])
-assert.deepEqual(artifact.semantic.identities.map(({ assertionId, resolution }) => ({
+assert.equal(artifact.identityAssertions.length, 28)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 28)
+const matchedMelee = artifact.semantic.identities.filter(({ resolution }) =>
+  resolution.state === 'matched'
+  && (resolution.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId)))
+assert.equal(matchedMelee.length, 25)
+assert.deepEqual(artifact.semantic.identities.slice(0, 4).map(({ assertionId, resolution }) => ({
   assertionId,
   reviewState: formalIdentityDefinitions.find((definition) => definition.assertion.id === assertionId)?.assertion.reviewState,
   confidence: formalIdentityDefinitions.find((definition) => definition.assertion.id === assertionId)?.assertion.confidence,
@@ -30,6 +52,10 @@ assert.deepEqual(artifact.semantic.identities.map(({ assertionId, resolution }) 
   { assertionId: 'identity:battle-robe@1', reviewState: 'provisional', confidence: undefined, resolution: 'matched', domainId: 'battle-robe' },
   { assertionId: 'identity:death-cap-mushroom@1', reviewState: 'accepted', confidence: 'high', resolution: 'matched', domainId: 'death-cap-mushroom' },
 ])
+assert.deepEqual(
+  artifact.semantic.identities.slice(4).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'),
+  readyMeleeFormalIdentities.map(({ assertion }) => assertion.domainId),
+)
 
 const roles = new Set(artifact.provenance.evidence.flatMap((record: EvidenceRecord) => record.kind === 'reviewed' ? [record.role] : []))
 assert.deepEqual([...roles].sort(), ['conflict', 'limitation', 'support'])
@@ -45,4 +71,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Identity/Evidence artifact drift; run generate:formal-identity-evidence')
-console.log('Formal Identity/Evidence v1 audit passed: 4 matched identities, reviewed-source grounding, same-artifact provenance, and EvidenceRef integrity.')
+console.log('Formal Identity/Evidence v1 audit passed: 28 matched identities including 25 Melee (24 new), reviewed-source grounding, inventory-backed breadth provenance, and EvidenceRef integrity.')

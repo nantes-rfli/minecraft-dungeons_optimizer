@@ -3,14 +3,18 @@ import { describe, expect, it } from 'vitest'
 import {
   applicationIdentity,
   collectFormalIdentityEvidenceErrors,
+  evidenceFingerprint,
   projectFormalIdentity,
+  projectFormalIdentityObservation,
   type FormalIdentityEvidenceArtifact,
 } from '../src/domain/formal/identityEvidence.ts'
 import {
   fightersBindingsFormalIdentity,
   formalIdentityDefinitions,
+  readyMeleeFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
+import { readFormalIdentityInventoryInputs } from '../scripts/formal-identity-inventory-source.ts'
 
 const rawText = fs.readFileSync(`research/raw/packages/${fightersBindingsFormalIdentity.assertion.applicationScope.packagePath}.raw.json`, 'utf8')
 const fixture = () => JSON.parse(rawText) as RawPackageSnapshot
@@ -20,17 +24,21 @@ const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => ob
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
 
 describe('Formal Identity / Evidence v1', () => {
-  it('commits all four slice results with review and resolution represented separately', () => {
+  it('preserves the four representative identities and commits 24 additional matched Melee identities', () => {
     const artifact = artifactFixture()
     expect(collectFormalIdentityEvidenceErrors(artifact)).toEqual([])
-    expect(artifact.identityAssertions.map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual([
+    expect(artifact.identityAssertions.slice(0, 4).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual([
       { domainId: 'fighters-bindings', reviewState: 'provisional', confidence: undefined },
       { domainId: 'scatter-crossbow', reviewState: 'accepted', confidence: 'high' },
       { domainId: 'battle-robe', reviewState: 'provisional', confidence: undefined },
       { domainId: 'death-cap-mushroom', reviewState: 'accepted', confidence: 'high' },
     ])
-    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(['matched', 'matched', 'matched', 'matched'])
+    expect(artifact.identityAssertions).toHaveLength(28)
+    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(28).fill('matched'))
     expect(artifact.semantic.identities.map(({ resolution }) => resolution.state === 'matched' && resolution.domainId)).toEqual(formalIdentityDefinitions.map(({ assertion }) => assertion.domainId))
+    expect(artifact.identityAssertions.slice(4).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
+      readyMeleeFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
+    )
     expect(new Set(artifact.provenance.evidence.flatMap((record) => record.kind === 'reviewed' ? [record.role] : []))).toEqual(new Set(['support', 'limitation', 'conflict']))
   })
 
@@ -100,6 +108,50 @@ describe('Formal Identity / Evidence v1', () => {
     expect(result.resolution).not.toHaveProperty('domainId')
   })
 
+
+  it('reads ready Melee identity observations from hashed Raw Structural Inventory shards with node provenance', () => {
+    const definition = readyMeleeFormalIdentities.find(({ assertion }) => assertion.domainId === 'anchor')!
+    const input = readFormalIdentityInventoryInputs(process.cwd(), [definition])[0]!
+    if (!('observation' in input) || !input.observation) throw new Error('expected inventory observation input')
+    const projected = projectFormalIdentityObservation(input.observation, definition)
+    expect(projected.semantic.resolution).toMatchObject({ state: 'matched', domainId: 'anchor' })
+    expect(projected.semantic.rawEvidence.itemIdName).toMatchObject({ state: 'known', value: 'Anchor' })
+    expect(projected.semantic.rawEvidence.serializedId).toMatchObject({ state: 'known', value: 'Anchor' })
+    const rawEvidence = projected.evidence.filter((record) => record.kind === 'raw-observation')
+    expect(rawEvidence).toHaveLength(2)
+    for (const record of rawEvidence) {
+      if (record.kind !== 'raw-observation') continue
+      expect(record.provenance.artifactPath).toMatch(/^research\/raw\/game-data-raw-structural-inventory\/shards\/part-\d{3}\.json\.gz$/)
+      expect(record.provenance.datasetId).toBeTruthy()
+      expect(record.provenance.extractionRunId).toBeTruthy()
+      expect(record.provenance.packagePath).toBe(definition.assertion.applicationScope.packagePath)
+      expect(record.provenance.packageHash).toMatchObject({ algorithm: 'sha256-path-content-v1', value: expect.any(String) })
+      expect(record.provenance.nodePointer).toMatch(/^\/packages\/\d+\/cdoPropertyInventory\/\d+\/properties\//)
+    }
+  })
+
+  it('does not match an inventory observation when package or either Raw identity value drifts', () => {
+    const definition = readyMeleeFormalIdentities.find(({ assertion }) => assertion.domainId === 'anchor')!
+    const input = readFormalIdentityInventoryInputs(process.cwd(), [definition])[0]!
+    if (!('observation' in input) || !input.observation) throw new Error('expected inventory observation input')
+
+    const wrongPackage = structuredClone(input.observation)
+    wrongPackage.packagePath = 'Dungeons/Content/Other'
+    expect(projectFormalIdentityObservation(wrongPackage, definition).semantic.resolution.state).toBe('unresolved')
+
+    const wrongProvenancePackage = structuredClone(input.observation)
+    wrongProvenancePackage.itemIdName.provenance.packagePath = 'Dungeons/Content/Other'
+    expect(projectFormalIdentityObservation(wrongProvenancePackage, definition).semantic.resolution.state).toBe('unresolved')
+
+    const wrongItemIdName = structuredClone(input.observation)
+    wrongItemIdName.itemIdName.observation = { state: 'known', value: 'Other' }
+    expect(projectFormalIdentityObservation(wrongItemIdName, definition).semantic.resolution.state).toBe('unresolved')
+
+    const wrongSerializedId = structuredClone(input.observation)
+    wrongSerializedId.serializedId.observation = { state: 'known', value: 'Other' }
+    expect(projectFormalIdentityObservation(wrongSerializedId, definition).semantic.resolution.state).toBe('unresolved')
+  })
+
   it('separates assertion evidence from Raw resolution evidence and makes every ref local', () => {
     const artifact = artifactFixture()
     const records = new Map(artifact.provenance.evidence.map((record) => [record.id, record]))
@@ -126,6 +178,19 @@ describe('Formal Identity / Evidence v1', () => {
     if (reviewed.kind !== 'reviewed') throw new Error('missing reviewed evidence')
     reviewed.detail = 'silently replaced meaning'
     expect(collectFormalIdentityEvidenceErrors(replaced).some((error) => error.includes('content replaced without fingerprint update'))).toBe(true)
+  })
+
+  it('rejects Raw observation provenance from a package outside the assertion scope', () => {
+    const artifact = artifactFixture()
+    const assertion = artifact.identityAssertions.find(({ domainId }) => domainId === 'anchor')!
+    const semantic = artifact.semantic.identities.find(({ assertionId }) => assertionId === assertion.id)!
+    const record = artifact.provenance.evidence.find(({ id }) => id === semantic.rawEvidence.itemIdName.evidenceRef)!
+    if (record.kind !== 'raw-observation') throw new Error('expected Raw observation evidence')
+    record.provenance.packagePath = 'Dungeons/Content/Other'
+    const { fingerprint: _fingerprint, ...content } = record
+    void _fingerprint
+    record.fingerprint = evidenceFingerprint(content)
+    expect(collectFormalIdentityEvidenceErrors(artifact)).toContain(`${assertion.id}: raw observation provenance packagePath differs from assertion scope`)
   })
 
   it('rejects a materialized matched domainId that differs from its assertion', () => {

@@ -126,6 +126,750 @@
             "evidence:presentation:death-cap-mushroom:catalog"
           ]
         }
+      },
+      {
+        "assertionId": "identity:anchor@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Anchor",
+            "evidenceRef": "evidence:raw:identity:anchor@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Anchor",
+            "evidenceRef": "evidence:raw:identity:anchor@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:anchor@1",
+          "domainId": "anchor",
+          "evidenceRefs": [
+            "evidence:raw:identity:anchor@1:ItemIdName",
+            "evidence:raw:identity:anchor@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "anchor",
+          "displayName": "Anchor",
+          "evidenceRefs": [
+            "evidence:presentation:anchor:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:axe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Axe",
+            "evidenceRef": "evidence:raw:identity:axe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Axe",
+            "evidenceRef": "evidence:raw:identity:axe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:axe@1",
+          "domainId": "axe",
+          "evidenceRefs": [
+            "evidence:raw:identity:axe@1:ItemIdName",
+            "evidence:raw:identity:axe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "axe",
+          "displayName": "Axe",
+          "evidenceRefs": [
+            "evidence:presentation:axe:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:backstabber@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Backstabber",
+            "evidenceRef": "evidence:raw:identity:backstabber@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Backstabber",
+            "evidenceRef": "evidence:raw:identity:backstabber@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:backstabber@1",
+          "domainId": "backstabber",
+          "evidenceRefs": [
+            "evidence:raw:identity:backstabber@1:ItemIdName",
+            "evidence:raw:identity:backstabber@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "backstabber",
+          "displayName": "Backstabber",
+          "evidenceRefs": [
+            "evidence:presentation:backstabber:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:battlestaff@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Battlestaff",
+            "evidenceRef": "evidence:raw:identity:battlestaff@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Battlestaff",
+            "evidenceRef": "evidence:raw:identity:battlestaff@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:battlestaff@1",
+          "domainId": "battlestaff",
+          "evidenceRefs": [
+            "evidence:raw:identity:battlestaff@1:ItemIdName",
+            "evidence:raw:identity:battlestaff@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "battlestaff",
+          "displayName": "Battlestaff",
+          "evidenceRefs": [
+            "evidence:presentation:battlestaff:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:boneclub@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Boneclub",
+            "evidenceRef": "evidence:raw:identity:boneclub@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Boneclub",
+            "evidenceRef": "evidence:raw:identity:boneclub@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:boneclub@1",
+          "domainId": "boneclub",
+          "evidenceRefs": [
+            "evidence:raw:identity:boneclub@1:ItemIdName",
+            "evidence:raw:identity:boneclub@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "boneclub",
+          "displayName": "Boneclub",
+          "evidenceRefs": [
+            "evidence:presentation:boneclub:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:claymore@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Claymore",
+            "evidenceRef": "evidence:raw:identity:claymore@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Claymore",
+            "evidenceRef": "evidence:raw:identity:claymore@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:claymore@1",
+          "domainId": "claymore",
+          "evidenceRefs": [
+            "evidence:raw:identity:claymore@1:ItemIdName",
+            "evidence:raw:identity:claymore@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "claymore",
+          "displayName": "Claymore",
+          "evidenceRefs": [
+            "evidence:presentation:claymore:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:coral-blade@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "CoralBlade",
+            "evidenceRef": "evidence:raw:identity:coral-blade@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "CoralBlade",
+            "evidenceRef": "evidence:raw:identity:coral-blade@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:coral-blade@1",
+          "domainId": "coral-blade",
+          "evidenceRefs": [
+            "evidence:raw:identity:coral-blade@1:ItemIdName",
+            "evidence:raw:identity:coral-blade@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "coral-blade",
+          "displayName": "Coral Blade",
+          "evidenceRefs": [
+            "evidence:presentation:coral-blade:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:cutlass@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Cutlass",
+            "evidenceRef": "evidence:raw:identity:cutlass@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Cutlass",
+            "evidenceRef": "evidence:raw:identity:cutlass@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:cutlass@1",
+          "domainId": "cutlass",
+          "evidenceRefs": [
+            "evidence:raw:identity:cutlass@1:ItemIdName",
+            "evidence:raw:identity:cutlass@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "cutlass",
+          "displayName": "Cutlass",
+          "evidenceRefs": [
+            "evidence:presentation:cutlass:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:daggers@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Daggers",
+            "evidenceRef": "evidence:raw:identity:daggers@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Daggers",
+            "evidenceRef": "evidence:raw:identity:daggers@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:daggers@1",
+          "domainId": "daggers",
+          "evidenceRefs": [
+            "evidence:raw:identity:daggers@1:ItemIdName",
+            "evidence:raw:identity:daggers@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "daggers",
+          "displayName": "Daggers",
+          "evidenceRefs": [
+            "evidence:presentation:daggers:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:double-axe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "DoubleAxe",
+            "evidenceRef": "evidence:raw:identity:double-axe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "DoubleAxe",
+            "evidenceRef": "evidence:raw:identity:double-axe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:double-axe@1",
+          "domainId": "double-axe",
+          "evidenceRefs": [
+            "evidence:raw:identity:double-axe@1:ItemIdName",
+            "evidence:raw:identity:double-axe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "double-axe",
+          "displayName": "Double Axe",
+          "evidenceRefs": [
+            "evidence:presentation:double-axe:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:gauntlets@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Gauntlets",
+            "evidenceRef": "evidence:raw:identity:gauntlets@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Gauntlets",
+            "evidenceRef": "evidence:raw:identity:gauntlets@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:gauntlets@1",
+          "domainId": "gauntlets",
+          "evidenceRefs": [
+            "evidence:raw:identity:gauntlets@1:ItemIdName",
+            "evidence:raw:identity:gauntlets@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "gauntlets",
+          "displayName": "Gauntlets",
+          "evidenceRefs": [
+            "evidence:presentation:gauntlets:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:glaive@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Glaive",
+            "evidenceRef": "evidence:raw:identity:glaive@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Glaive",
+            "evidenceRef": "evidence:raw:identity:glaive@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:glaive@1",
+          "domainId": "glaive",
+          "evidenceRefs": [
+            "evidence:raw:identity:glaive@1:ItemIdName",
+            "evidence:raw:identity:glaive@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "glaive",
+          "displayName": "Glaive",
+          "evidenceRefs": [
+            "evidence:presentation:glaive:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:katana@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Katana",
+            "evidenceRef": "evidence:raw:identity:katana@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Katana",
+            "evidenceRef": "evidence:raw:identity:katana@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:katana@1",
+          "domainId": "katana",
+          "evidenceRefs": [
+            "evidence:raw:identity:katana@1:ItemIdName",
+            "evidence:raw:identity:katana@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "katana",
+          "displayName": "Katana",
+          "evidenceRefs": [
+            "evidence:presentation:katana:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:mace@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Mace",
+            "evidenceRef": "evidence:raw:identity:mace@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Mace",
+            "evidenceRef": "evidence:raw:identity:mace@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:mace@1",
+          "domainId": "mace",
+          "evidenceRefs": [
+            "evidence:raw:identity:mace@1:ItemIdName",
+            "evidence:raw:identity:mace@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "mace",
+          "displayName": "Mace",
+          "evidenceRefs": [
+            "evidence:presentation:mace:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:obsidian-claymore@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ObsidianClaymore",
+            "evidenceRef": "evidence:raw:identity:obsidian-claymore@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ObsidianClaymore",
+            "evidenceRef": "evidence:raw:identity:obsidian-claymore@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:obsidian-claymore@1",
+          "domainId": "obsidian-claymore",
+          "evidenceRefs": [
+            "evidence:raw:identity:obsidian-claymore@1:ItemIdName",
+            "evidence:raw:identity:obsidian-claymore@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "obsidian-claymore",
+          "displayName": "Obsidian Claymore",
+          "evidenceRefs": [
+            "evidence:presentation:obsidian-claymore:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:pickaxe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Pickaxe",
+            "evidenceRef": "evidence:raw:identity:pickaxe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Pickaxe",
+            "evidenceRef": "evidence:raw:identity:pickaxe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:pickaxe@1",
+          "domainId": "pickaxe",
+          "evidenceRefs": [
+            "evidence:raw:identity:pickaxe@1:ItemIdName",
+            "evidence:raw:identity:pickaxe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "pickaxe",
+          "displayName": "Pickaxe",
+          "evidenceRefs": [
+            "evidence:presentation:pickaxe:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:rapier@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Rapier",
+            "evidenceRef": "evidence:raw:identity:rapier@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Rapier",
+            "evidenceRef": "evidence:raw:identity:rapier@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:rapier@1",
+          "domainId": "rapier",
+          "evidenceRefs": [
+            "evidence:raw:identity:rapier@1:ItemIdName",
+            "evidence:raw:identity:rapier@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "rapier",
+          "displayName": "Rapier",
+          "evidenceRefs": [
+            "evidence:presentation:rapier:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:sickles@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Sickles",
+            "evidenceRef": "evidence:raw:identity:sickles@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Sickles",
+            "evidenceRef": "evidence:raw:identity:sickles@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:sickles@1",
+          "domainId": "sickles",
+          "evidenceRefs": [
+            "evidence:raw:identity:sickles@1:ItemIdName",
+            "evidence:raw:identity:sickles@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "sickles",
+          "displayName": "Sickles",
+          "evidenceRefs": [
+            "evidence:presentation:sickles:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:soul-knife@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulKnife",
+            "evidenceRef": "evidence:raw:identity:soul-knife@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulKnife",
+            "evidenceRef": "evidence:raw:identity:soul-knife@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:soul-knife@1",
+          "domainId": "soul-knife",
+          "evidenceRefs": [
+            "evidence:raw:identity:soul-knife@1:ItemIdName",
+            "evidence:raw:identity:soul-knife@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "soul-knife",
+          "displayName": "Soul Knife",
+          "evidenceRefs": [
+            "evidence:presentation:soul-knife:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:soul-scythe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulScythe",
+            "evidenceRef": "evidence:raw:identity:soul-scythe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulScythe",
+            "evidenceRef": "evidence:raw:identity:soul-scythe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:soul-scythe@1",
+          "domainId": "soul-scythe",
+          "evidenceRefs": [
+            "evidence:raw:identity:soul-scythe@1:ItemIdName",
+            "evidence:raw:identity:soul-scythe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "soul-scythe",
+          "displayName": "Soul Scythe",
+          "evidenceRefs": [
+            "evidence:presentation:soul-scythe:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:spear@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Spear",
+            "evidenceRef": "evidence:raw:identity:spear@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Spear",
+            "evidenceRef": "evidence:raw:identity:spear@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:spear@1",
+          "domainId": "spear",
+          "evidenceRefs": [
+            "evidence:raw:identity:spear@1:ItemIdName",
+            "evidence:raw:identity:spear@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "spear",
+          "displayName": "Spear",
+          "evidenceRefs": [
+            "evidence:presentation:spear:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:tempest-knife@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "TempestKnife",
+            "evidenceRef": "evidence:raw:identity:tempest-knife@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "TempestKnife",
+            "evidenceRef": "evidence:raw:identity:tempest-knife@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:tempest-knife@1",
+          "domainId": "tempest-knife",
+          "evidenceRefs": [
+            "evidence:raw:identity:tempest-knife@1:ItemIdName",
+            "evidence:raw:identity:tempest-knife@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "tempest-knife",
+          "displayName": "Tempest Knife",
+          "evidenceRefs": [
+            "evidence:presentation:tempest-knife:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:void-touched-blades@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "VoidTouchedBlades",
+            "evidenceRef": "evidence:raw:identity:void-touched-blades@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "VoidTouchedBlades",
+            "evidenceRef": "evidence:raw:identity:void-touched-blades@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:void-touched-blades@1",
+          "domainId": "void-touched-blades",
+          "evidenceRefs": [
+            "evidence:raw:identity:void-touched-blades@1:ItemIdName",
+            "evidence:raw:identity:void-touched-blades@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "void-touched-blades",
+          "displayName": "Void Touched Blades",
+          "evidenceRefs": [
+            "evidence:presentation:void-touched-blades:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:whip@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Whip",
+            "evidenceRef": "evidence:raw:identity:whip@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Whip",
+            "evidenceRef": "evidence:raw:identity:whip@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:whip@1",
+          "domainId": "whip",
+          "evidenceRefs": [
+            "evidence:raw:identity:whip@1:ItemIdName",
+            "evidence:raw:identity:whip@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "whip",
+          "displayName": "Whip",
+          "evidenceRefs": [
+            "evidence:presentation:whip:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -204,6 +948,462 @@
       },
       "evidenceRefs": [
         "evidence:reviewed:death-cap-mushroom:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:anchor@1",
+      "rawIdentity": "Anchor",
+      "domainId": "anchor",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:anchor:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:axe@1",
+      "rawIdentity": "Axe",
+      "domainId": "axe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/BP_AxeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:axe:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:backstabber@1",
+      "rawIdentity": "Backstabber",
+      "domainId": "backstabber",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/BP_BackstabberInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:backstabber:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:battlestaff@1",
+      "rawIdentity": "Battlestaff",
+      "domainId": "battlestaff",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:battlestaff:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:boneclub@1",
+      "rawIdentity": "Boneclub",
+      "domainId": "boneclub",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/BP_BoneclubInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:boneclub:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:claymore@1",
+      "rawIdentity": "Claymore",
+      "domainId": "claymore",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:claymore:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:coral-blade@1",
+      "rawIdentity": "CoralBlade",
+      "domainId": "coral-blade",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:coral-blade:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:cutlass@1",
+      "rawIdentity": "Cutlass",
+      "domainId": "cutlass",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/BP_CutlassInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:cutlass:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:daggers@1",
+      "rawIdentity": "Daggers",
+      "domainId": "daggers",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/BP_DaggersInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:daggers:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:double-axe@1",
+      "rawIdentity": "DoubleAxe",
+      "domainId": "double-axe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:double-axe:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:gauntlets@1",
+      "rawIdentity": "Gauntlets",
+      "domainId": "gauntlets",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:gauntlets:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:glaive@1",
+      "rawIdentity": "Glaive",
+      "domainId": "glaive",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:glaive:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:katana@1",
+      "rawIdentity": "Katana",
+      "domainId": "katana",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:katana:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:mace@1",
+      "rawIdentity": "Mace",
+      "domainId": "mace",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:mace:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:obsidian-claymore@1",
+      "rawIdentity": "ObsidianClaymore",
+      "domainId": "obsidian-claymore",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:obsidian-claymore:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:pickaxe@1",
+      "rawIdentity": "Pickaxe",
+      "domainId": "pickaxe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/BP_Pickaxe_SteelInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:pickaxe:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:rapier@1",
+      "rawIdentity": "Rapier",
+      "domainId": "rapier",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:rapier:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:sickles@1",
+      "rawIdentity": "Sickles",
+      "domainId": "sickles",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:sickles:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:soul-knife@1",
+      "rawIdentity": "SoulKnife",
+      "domainId": "soul-knife",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/BP_SoulKnifeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:soul-knife:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:soul-scythe@1",
+      "rawIdentity": "SoulScythe",
+      "domainId": "soul-scythe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:soul-scythe:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:spear@1",
+      "rawIdentity": "Spear",
+      "domainId": "spear",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:spear:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:tempest-knife@1",
+      "rawIdentity": "TempestKnife",
+      "domainId": "tempest-knife",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/BP_TempestKnifeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:tempest-knife:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:void-touched-blades@1",
+      "rawIdentity": "VoidTouchedBlades",
+      "domainId": "void-touched-blades",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/BP_VoidTouchedBladesInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:void-touched-blades:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:whip@1",
+      "rawIdentity": "Whip",
+      "domainId": "whip",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/BP_WhipInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:whip:accepted-alias"
       ]
     }
   ],
@@ -487,6 +1687,1542 @@
           "nodePointer": "/package/objects/1/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:a6c451a7"
+      },
+      {
+        "id": "evidence:reviewed:anchor:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Anchor]"
+        },
+        "fingerprint": "fnv1a32:52620dab"
+      },
+      {
+        "id": "evidence:presentation:anchor:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=anchor].name.en"
+        },
+        "fingerprint": "fnv1a32:1c3fff26"
+      },
+      {
+        "id": "evidence:raw:identity:anchor@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Anchor"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-062.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3091bf371ee1fc4d3bdba11425fe8b2e9f0b26273755f728ce6b0bace09d23b6",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8c67988ecd2fb4d66b4a756b7929913b198040dba639384a9b66f61cb542d928"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:ae61ee88"
+      },
+      {
+        "id": "evidence:raw:identity:anchor@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Anchor"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-062.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3091bf371ee1fc4d3bdba11425fe8b2e9f0b26273755f728ce6b0bace09d23b6",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/Anchor/BP_AnchorInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8c67988ecd2fb4d66b4a756b7929913b198040dba639384a9b66f61cb542d928"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:67f3a37c"
+      },
+      {
+        "id": "evidence:reviewed:axe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Axe]"
+        },
+        "fingerprint": "fnv1a32:a69bdda3"
+      },
+      {
+        "id": "evidence:presentation:axe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=axe].name.en"
+        },
+        "fingerprint": "fnv1a32:670aecfc"
+      },
+      {
+        "id": "evidence:raw:identity:axe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Axe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-013.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5c28e3ffb97cf56eea18cf8081a3fb5a877e1fb6a2caa178026e455b754c73e1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/BP_AxeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "10ca37eea280a0486d31eabde4fc27b50e9c6874d59cfb68063080a25044097b"
+          },
+          "nodePointer": "/packages/42/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:73b4c4cd"
+      },
+      {
+        "id": "evidence:raw:identity:axe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Axe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-013.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5c28e3ffb97cf56eea18cf8081a3fb5a877e1fb6a2caa178026e455b754c73e1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Axe/BP_AxeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "10ca37eea280a0486d31eabde4fc27b50e9c6874d59cfb68063080a25044097b"
+          },
+          "nodePointer": "/packages/42/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:297c272f"
+      },
+      {
+        "id": "evidence:reviewed:backstabber:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Backstabber]"
+        },
+        "fingerprint": "fnv1a32:af27846f"
+      },
+      {
+        "id": "evidence:presentation:backstabber:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=backstabber].name.en"
+        },
+        "fingerprint": "fnv1a32:20e3f34c"
+      },
+      {
+        "id": "evidence:raw:identity:backstabber@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Backstabber"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-065.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:64d84ea8c8e59a8539037ac14f729af768eb6b0e6d302bf64934d27aa1aa0ed2",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/BP_BackstabberInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db31eeae56a947ace4d625cfead72e52b661ff37e11f4d8653f7281f2a0f4c7c"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:3ab350f3"
+      },
+      {
+        "id": "evidence:raw:identity:backstabber@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Backstabber"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-065.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:64d84ea8c8e59a8539037ac14f729af768eb6b0e6d302bf64934d27aa1aa0ed2",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/Backstabber/BP_BackstabberInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db31eeae56a947ace4d625cfead72e52b661ff37e11f4d8653f7281f2a0f4c7c"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e0fb75e3"
+      },
+      {
+        "id": "evidence:reviewed:battlestaff:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Battlestaff]"
+        },
+        "fingerprint": "fnv1a32:d3baa3bb"
+      },
+      {
+        "id": "evidence:presentation:battlestaff:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=battlestaff].name.en"
+        },
+        "fingerprint": "fnv1a32:1afd0a6c"
+      },
+      {
+        "id": "evidence:raw:identity:battlestaff@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Battlestaff"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-076.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:79f5d35d8eaebae076e0184ddc5bc9efb2c40c8c176a0027bec05c73118e5845",
+          "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d924835fa22c440e0a3a6b58aa0c415ad267020e1b460629ce48264d8fb0e4df"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:755fb2d4"
+      },
+      {
+        "id": "evidence:raw:identity:battlestaff@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Battlestaff"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-076.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:79f5d35d8eaebae076e0184ddc5bc9efb2c40c8c176a0027bec05c73118e5845",
+          "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d924835fa22c440e0a3a6b58aa0c415ad267020e1b460629ce48264d8fb0e4df"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:4d94e960"
+      },
+      {
+        "id": "evidence:reviewed:boneclub:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Boneclub]"
+        },
+        "fingerprint": "fnv1a32:e5778d5f"
+      },
+      {
+        "id": "evidence:presentation:boneclub:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=boneclub].name.en"
+        },
+        "fingerprint": "fnv1a32:0cfdf1fc"
+      },
+      {
+        "id": "evidence:raw:identity:boneclub@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Boneclub"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:74f5e3ed6ffdb13e8413cb3be1f664b8baa7e3ffd056f284bb5a6178037afb24",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/BP_BoneclubInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "7a8a30e898f411abebac683aa8fc5dcfbdf1de29be5d4b6989e4b945536872e2"
+          },
+          "nodePointer": "/packages/57/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:2f081166"
+      },
+      {
+        "id": "evidence:raw:identity:boneclub@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Boneclub"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:74f5e3ed6ffdb13e8413cb3be1f664b8baa7e3ffd056f284bb5a6178037afb24",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Boneclub/BP_BoneclubInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "7a8a30e898f411abebac683aa8fc5dcfbdf1de29be5d4b6989e4b945536872e2"
+          },
+          "nodePointer": "/packages/57/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e761fee2"
+      },
+      {
+        "id": "evidence:reviewed:claymore:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Claymore]"
+        },
+        "fingerprint": "fnv1a32:3261ce43"
+      },
+      {
+        "id": "evidence:presentation:claymore:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=claymore].name.en"
+        },
+        "fingerprint": "fnv1a32:82e172b4"
+      },
+      {
+        "id": "evidence:raw:identity:claymore@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Claymore"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0fb7a48671c7a3ea60658a0d5dcc7d06423dc7273158b7a37c910064327ac99f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "2ef2645fddab0b1c6b6b79aa0506e94986376c13c61e14318459a737a17cac4d"
+          },
+          "nodePointer": "/packages/16/cdoPropertyInventory/0/properties/8"
+        },
+        "fingerprint": "fnv1a32:dc14de9f"
+      },
+      {
+        "id": "evidence:raw:identity:claymore@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Claymore"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0fb7a48671c7a3ea60658a0d5dcc7d06423dc7273158b7a37c910064327ac99f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Claymore/BP_ClaymoreInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "2ef2645fddab0b1c6b6b79aa0506e94986376c13c61e14318459a737a17cac4d"
+          },
+          "nodePointer": "/packages/16/cdoPropertyInventory/0/properties/9/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:09f71303"
+      },
+      {
+        "id": "evidence:reviewed:coral-blade:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:CoralBlade]"
+        },
+        "fingerprint": "fnv1a32:5a7a7238"
+      },
+      {
+        "id": "evidence:presentation:coral-blade:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=coral-blade].name.en"
+        },
+        "fingerprint": "fnv1a32:882bf8c4"
+      },
+      {
+        "id": "evidence:raw:identity:coral-blade@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "CoralBlade"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0fcbb29d5b830b0b21ea1775a2b356fa044dcd8f876fa20c1c66451984ee1374",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5fd8334a58e8e18d5ea487bc9f2327bf14a10dd516baff9683a1889725151102"
+          },
+          "nodePointer": "/packages/4/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:9327da79"
+      },
+      {
+        "id": "evidence:raw:identity:coral-blade@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "CoralBlade"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:0fcbb29d5b830b0b21ea1775a2b356fa044dcd8f876fa20c1c66451984ee1374",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5fd8334a58e8e18d5ea487bc9f2327bf14a10dd516baff9683a1889725151102"
+          },
+          "nodePointer": "/packages/4/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:59d6bbeb"
+      },
+      {
+        "id": "evidence:reviewed:cutlass:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Cutlass]"
+        },
+        "fingerprint": "fnv1a32:af3616f9"
+      },
+      {
+        "id": "evidence:presentation:cutlass:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=cutlass].name.en"
+        },
+        "fingerprint": "fnv1a32:62e56414"
+      },
+      {
+        "id": "evidence:raw:identity:cutlass@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Cutlass"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:96ac6da8ba82a8d81b83decca67cbd4bc48ffec6ff40bef7d79f100aa7c09a91",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/BP_CutlassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3d7f4ef165de589045fbd56e0efe5148ae6c113be157a2f4c5b5cd4917884760"
+          },
+          "nodePointer": "/packages/50/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:61034781"
+      },
+      {
+        "id": "evidence:raw:identity:cutlass@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Cutlass"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:96ac6da8ba82a8d81b83decca67cbd4bc48ffec6ff40bef7d79f100aa7c09a91",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass/BP_CutlassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3d7f4ef165de589045fbd56e0efe5148ae6c113be157a2f4c5b5cd4917884760"
+          },
+          "nodePointer": "/packages/50/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:5f597b4f"
+      },
+      {
+        "id": "evidence:reviewed:daggers:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Daggers]"
+        },
+        "fingerprint": "fnv1a32:977f8f45"
+      },
+      {
+        "id": "evidence:presentation:daggers:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=daggers].name.en"
+        },
+        "fingerprint": "fnv1a32:4e85c664"
+      },
+      {
+        "id": "evidence:raw:identity:daggers@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Daggers"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5d3c962acd0cf1179ba7a3c3d01172ff95b8025fa5db1a1c8436211f118029c6",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/BP_DaggersInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "675cf0f1ba6af47a00b600aeb2b59d1388bf9262cc65d0454a5b2a7b23496b77"
+          },
+          "nodePointer": "/packages/36/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:d604be6a"
+      },
+      {
+        "id": "evidence:raw:identity:daggers@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Daggers"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5d3c962acd0cf1179ba7a3c3d01172ff95b8025fa5db1a1c8436211f118029c6",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Daggers/BP_DaggersInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "675cf0f1ba6af47a00b600aeb2b59d1388bf9262cc65d0454a5b2a7b23496b77"
+          },
+          "nodePointer": "/packages/36/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:005636f2"
+      },
+      {
+        "id": "evidence:reviewed:double-axe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:DoubleAxe]"
+        },
+        "fingerprint": "fnv1a32:43af993c"
+      },
+      {
+        "id": "evidence:presentation:double-axe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=double-axe].name.en"
+        },
+        "fingerprint": "fnv1a32:52f05528"
+      },
+      {
+        "id": "evidence:raw:identity:double-axe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "DoubleAxe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e0d9a5cd609f10470ac414f18142f03a4d315e23e7a9b2256d86dbb149f399ef",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "f2c5c3781ef045089a782d021e14f142d5705cc87b22a9a5a2f9fea1f585d01b"
+          },
+          "nodePointer": "/packages/60/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:0b6ba961"
+      },
+      {
+        "id": "evidence:raw:identity:double-axe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "DoubleAxe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e0d9a5cd609f10470ac414f18142f03a4d315e23e7a9b2256d86dbb149f399ef",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe/BP_DoubleAxeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "f2c5c3781ef045089a782d021e14f142d5705cc87b22a9a5a2f9fea1f585d01b"
+          },
+          "nodePointer": "/packages/60/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:439438bf"
+      },
+      {
+        "id": "evidence:reviewed:gauntlets:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Gauntlets]"
+        },
+        "fingerprint": "fnv1a32:4c80bd05"
+      },
+      {
+        "id": "evidence:presentation:gauntlets:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=gauntlets].name.en"
+        },
+        "fingerprint": "fnv1a32:51681184"
+      },
+      {
+        "id": "evidence:raw:identity:gauntlets@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Gauntlets"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b47939cd49819423dd5be51246025a5ceafcde606038a1b155d679d3e03a2ec1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8fdd98a62cdf72fd362577c216cfa25b20eb22c1426f5226d16f136f349b22a9"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:7c9b686b"
+      },
+      {
+        "id": "evidence:raw:identity:gauntlets@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Gauntlets"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b47939cd49819423dd5be51246025a5ceafcde606038a1b155d679d3e03a2ec1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8fdd98a62cdf72fd362577c216cfa25b20eb22c1426f5226d16f136f349b22a9"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:031f4a87"
+      },
+      {
+        "id": "evidence:reviewed:glaive:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Glaive]"
+        },
+        "fingerprint": "fnv1a32:cc5a0a6f"
+      },
+      {
+        "id": "evidence:presentation:glaive:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=glaive].name.en"
+        },
+        "fingerprint": "fnv1a32:c29df3c8"
+      },
+      {
+        "id": "evidence:raw:identity:glaive@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Glaive"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1fb1af7ff1367aeda03bd767c0ad0af637c1d19018173a56c3b963b276ba42f7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d4914b5cdfc793d39106bb8f59c9608ce4c394281c524c07685c7881fbccfa6f"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:2e7c96f7"
+      },
+      {
+        "id": "evidence:raw:identity:glaive@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Glaive"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1fb1af7ff1367aeda03bd767c0ad0af637c1d19018173a56c3b963b276ba42f7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d4914b5cdfc793d39106bb8f59c9608ce4c394281c524c07685c7881fbccfa6f"
+          },
+          "nodePointer": "/packages/18/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:555531b3"
+      },
+      {
+        "id": "evidence:reviewed:katana:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Katana]"
+        },
+        "fingerprint": "fnv1a32:9daa7f07"
+      },
+      {
+        "id": "evidence:presentation:katana:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=katana].name.en"
+        },
+        "fingerprint": "fnv1a32:23dc0c94"
+      },
+      {
+        "id": "evidence:raw:identity:katana@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Katana"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4e84eeb3b13a9f827944fe5110fcc79be1075de155dec5b5889ad8e0c2aaff93",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3f4bf4c3c0189121ca37e65754cf24ce2cdf2ecd995b724fad195f8b70aaa45a"
+          },
+          "nodePointer": "/packages/15/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:48c46306"
+      },
+      {
+        "id": "evidence:raw:identity:katana@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Katana"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4e84eeb3b13a9f827944fe5110fcc79be1075de155dec5b5889ad8e0c2aaff93",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3f4bf4c3c0189121ca37e65754cf24ce2cdf2ecd995b724fad195f8b70aaa45a"
+          },
+          "nodePointer": "/packages/15/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:7dd07182"
+      },
+      {
+        "id": "evidence:reviewed:mace:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Mace]"
+        },
+        "fingerprint": "fnv1a32:1fd52cff"
+      },
+      {
+        "id": "evidence:presentation:mace:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=mace].name.en"
+        },
+        "fingerprint": "fnv1a32:a468c144"
+      },
+      {
+        "id": "evidence:raw:identity:mace@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Mace"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:61d3aebc78fbcdb64c2ee5629e5b6c0a7ffcd862543ef32a686148c18c8c8cb5",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "54fac896e8104a9f34dbfec4915dfd46471ac6c77baea5db649b7da2427c8cb4"
+          },
+          "nodePointer": "/packages/43/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:91d5e443"
+      },
+      {
+        "id": "evidence:raw:identity:mace@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Mace"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:61d3aebc78fbcdb64c2ee5629e5b6c0a7ffcd862543ef32a686148c18c8c8cb5",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "54fac896e8104a9f34dbfec4915dfd46471ac6c77baea5db649b7da2427c8cb4"
+          },
+          "nodePointer": "/packages/43/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:02d90641"
+      },
+      {
+        "id": "evidence:reviewed:obsidian-claymore:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:ObsidianClaymore]"
+        },
+        "fingerprint": "fnv1a32:1ebb51de"
+      },
+      {
+        "id": "evidence:presentation:obsidian-claymore:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=obsidian-claymore].name.en"
+        },
+        "fingerprint": "fnv1a32:97a9e11c"
+      },
+      {
+        "id": "evidence:raw:identity:obsidian-claymore@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ObsidianClaymore"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:061e9db396bcdb1834f6056dd38e7c0825b38f2275332590a7627800ff752f80",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e17d53064066ecba5861c5fbe1aa0e44a5d0150b5f3a0a1d906b320d157c608b"
+          },
+          "nodePointer": "/packages/3/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:775f7d51"
+      },
+      {
+        "id": "evidence:raw:identity:obsidian-claymore@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ObsidianClaymore"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:061e9db396bcdb1834f6056dd38e7c0825b38f2275332590a7627800ff752f80",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e17d53064066ecba5861c5fbe1aa0e44a5d0150b5f3a0a1d906b320d157c608b"
+          },
+          "nodePointer": "/packages/3/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:9e12f378"
+      },
+      {
+        "id": "evidence:reviewed:pickaxe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Pickaxe]"
+        },
+        "fingerprint": "fnv1a32:bc11c4a1"
+      },
+      {
+        "id": "evidence:presentation:pickaxe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=pickaxe].name.en"
+        },
+        "fingerprint": "fnv1a32:80d40b58"
+      },
+      {
+        "id": "evidence:raw:identity:pickaxe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Pickaxe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6e9e49c53d70bbc7b484ea05f7498557b7448398d9852ab07699b39fd776163e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/BP_Pickaxe_SteelInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "2904e9e2de1843a51812bb10d77d1d42ae85d68d028fab0542c82abf91bd9115"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:3141a2e3"
+      },
+      {
+        "id": "evidence:raw:identity:pickaxe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Pickaxe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6e9e49c53d70bbc7b484ea05f7498557b7448398d9852ab07699b39fd776163e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Pickaxe_Steel/BP_Pickaxe_SteelInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "2904e9e2de1843a51812bb10d77d1d42ae85d68d028fab0542c82abf91bd9115"
+          },
+          "nodePointer": "/packages/51/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:471e1203"
+      },
+      {
+        "id": "evidence:reviewed:rapier:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Rapier]"
+        },
+        "fingerprint": "fnv1a32:d2573a97"
+      },
+      {
+        "id": "evidence:presentation:rapier:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=rapier].name.en"
+        },
+        "fingerprint": "fnv1a32:302a3ae2"
+      },
+      {
+        "id": "evidence:raw:identity:rapier@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Rapier"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c425b922ef788ffd8fb7d302cf0e05fb164019ba448a54616a22ffc00a256e45",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5419c42dd05912061b047f6d6ce1869b13cd6ac85e72bf09774177a2b1155907"
+          },
+          "nodePointer": "/packages/11/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:0e075b78"
+      },
+      {
+        "id": "evidence:raw:identity:rapier@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Rapier"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c425b922ef788ffd8fb7d302cf0e05fb164019ba448a54616a22ffc00a256e45",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5419c42dd05912061b047f6d6ce1869b13cd6ac85e72bf09774177a2b1155907"
+          },
+          "nodePointer": "/packages/11/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:726332b6"
+      },
+      {
+        "id": "evidence:reviewed:sickles:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Sickles]"
+        },
+        "fingerprint": "fnv1a32:b861869f"
+      },
+      {
+        "id": "evidence:presentation:sickles:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=sickles].name.en"
+        },
+        "fingerprint": "fnv1a32:803a083c"
+      },
+      {
+        "id": "evidence:raw:identity:sickles@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Sickles"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ffbe6b520ebda284f48365553853cfddaf2b9da5e0145c6c0fc45974798ba4e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d92847a0573ad0499e334b03d7ad974f420ae76a3f4d82468165c5e1eb4eb5b1"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:ba07d0be"
+      },
+      {
+        "id": "evidence:raw:identity:sickles@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Sickles"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ffbe6b520ebda284f48365553853cfddaf2b9da5e0145c6c0fc45974798ba4e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d92847a0573ad0499e334b03d7ad974f420ae76a3f4d82468165c5e1eb4eb5b1"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:dd8f669c"
+      },
+      {
+        "id": "evidence:reviewed:soul-knife:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulKnife]"
+        },
+        "fingerprint": "fnv1a32:d4c7ff4a"
+      },
+      {
+        "id": "evidence:presentation:soul-knife:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=soul-knife].name.en"
+        },
+        "fingerprint": "fnv1a32:4c458bbe"
+      },
+      {
+        "id": "evidence:raw:identity:soul-knife@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f3486699acb9934ba7bc75ce61607dad4f2ad9c79dfdb062ffb1d5fe357cbc9d",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/BP_SoulKnifeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cdfde8bc8974cca8e6a6f8c27eb6d3a3a61c7f47ae0e3dd67442fd4df50b2ec4"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:275bf010"
+      },
+      {
+        "id": "evidence:raw:identity:soul-knife@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f3486699acb9934ba7bc75ce61607dad4f2ad9c79dfdb062ffb1d5fe357cbc9d",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife/BP_SoulKnifeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cdfde8bc8974cca8e6a6f8c27eb6d3a3a61c7f47ae0e3dd67442fd4df50b2ec4"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0f788a92"
+      },
+      {
+        "id": "evidence:reviewed:soul-scythe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulScythe]"
+        },
+        "fingerprint": "fnv1a32:ef98ebca"
+      },
+      {
+        "id": "evidence:presentation:soul-scythe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=soul-scythe].name.en"
+        },
+        "fingerprint": "fnv1a32:d2240644"
+      },
+      {
+        "id": "evidence:raw:identity:soul-scythe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5cee44137dce74a432aa52a8d7a6557a8a9c935bc0fc43bfafbd5e6af2e4b6a0",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "78aa900f9ac82fb7662f8ff3d7e1d792c3b527380557f24bce4318f3bc7ad19e"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:5480ab83"
+      },
+      {
+        "id": "evidence:raw:identity:soul-scythe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:5cee44137dce74a432aa52a8d7a6557a8a9c935bc0fc43bfafbd5e6af2e4b6a0",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "78aa900f9ac82fb7662f8ff3d7e1d792c3b527380557f24bce4318f3bc7ad19e"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:5c3cbcaf"
+      },
+      {
+        "id": "evidence:reviewed:spear:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Spear]"
+        },
+        "fingerprint": "fnv1a32:5a486e2d"
+      },
+      {
+        "id": "evidence:presentation:spear:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=spear].name.en"
+        },
+        "fingerprint": "fnv1a32:708798a8"
+      },
+      {
+        "id": "evidence:raw:identity:spear@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Spear"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e046269ae56cdbf8446d9fae10a4f728df10a179611bcd9fd370f21efb9568fd",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cebcc3b8c253666e849788381ffebec67ad2d6a8ebc177434ea0e892552ed3de"
+          },
+          "nodePointer": "/packages/0/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:c222f191"
+      },
+      {
+        "id": "evidence:raw:identity:spear@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Spear"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e046269ae56cdbf8446d9fae10a4f728df10a179611bcd9fd370f21efb9568fd",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cebcc3b8c253666e849788381ffebec67ad2d6a8ebc177434ea0e892552ed3de"
+          },
+          "nodePointer": "/packages/0/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e00d7427"
+      },
+      {
+        "id": "evidence:reviewed:tempest-knife:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:TempestKnife]"
+        },
+        "fingerprint": "fnv1a32:2b521d8e"
+      },
+      {
+        "id": "evidence:presentation:tempest-knife:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=tempest-knife].name.en"
+        },
+        "fingerprint": "fnv1a32:8265e56c"
+      },
+      {
+        "id": "evidence:raw:identity:tempest-knife@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:67f872d3b05ea37dcb45cdd83a0a94ccf896d428372732caa6394e212a0ee796",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/BP_TempestKnifeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "83ec1bbb638b06bb9e30f104d1b9f8f75e87374e2f8db9a30b5f95c6ecd0731b"
+          },
+          "nodePointer": "/packages/40/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:9c5f3836"
+      },
+      {
+        "id": "evidence:raw:identity:tempest-knife@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:67f872d3b05ea37dcb45cdd83a0a94ccf896d428372732caa6394e212a0ee796",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife/BP_TempestKnifeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "83ec1bbb638b06bb9e30f104d1b9f8f75e87374e2f8db9a30b5f95c6ecd0731b"
+          },
+          "nodePointer": "/packages/40/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:4b14ea9c"
+      },
+      {
+        "id": "evidence:reviewed:void-touched-blades:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:VoidTouchedBlades]"
+        },
+        "fingerprint": "fnv1a32:657ac855"
+      },
+      {
+        "id": "evidence:presentation:void-touched-blades:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=void-touched-blades].name.en"
+        },
+        "fingerprint": "fnv1a32:9cce41e4"
+      },
+      {
+        "id": "evidence:raw:identity:void-touched-blades@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "VoidTouchedBlades"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1e8e29359afe671cc86446e4dc8e57b98c9f96470a40140fb045ec13a87c322d",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/BP_VoidTouchedBladesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "95333473714cd19e1853de95ea86eef646c906ce8084521708da054794f9d969"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:21b07285"
+      },
+      {
+        "id": "evidence:raw:identity:void-touched-blades@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "VoidTouchedBlades"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-066.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1e8e29359afe671cc86446e4dc8e57b98c9f96470a40140fb045ec13a87c322d",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/VoidTouchedBlades/BP_VoidTouchedBladesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "95333473714cd19e1853de95ea86eef646c906ce8084521708da054794f9d969"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:ffb0a0b1"
+      },
+      {
+        "id": "evidence:reviewed:whip:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Whip]"
+        },
+        "fingerprint": "fnv1a32:65d4d3df"
+      },
+      {
+        "id": "evidence:presentation:whip:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=whip].name.en"
+        },
+        "fingerprint": "fnv1a32:bc32ad4c"
+      },
+      {
+        "id": "evidence:raw:identity:whip@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Whip"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:40fb745e3ddb47e102b2fb6acb0798317c2ecd8a1aa0803d076ffe6a377c0f43",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/BP_WhipInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "21d72e70a7ed2772c2cb700ef90afe11bb71065896da395d552c0a8eb6fd42cf"
+          },
+          "nodePointer": "/packages/52/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:8c80c2a5"
+      },
+      {
+        "id": "evidence:raw:identity:whip@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Whip"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:40fb745e3ddb47e102b2fb6acb0798317c2ecd8a1aa0803d076ffe6a377c0f43",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Whip/BP_WhipInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "21d72e70a7ed2772c2cb700ef90afe11bb71065896da395d552c0a8eb6fd42cf"
+          },
+          "nodePointer": "/packages/52/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:4e167da5"
       }
     ]
   }
