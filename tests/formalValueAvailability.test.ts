@@ -62,6 +62,8 @@ describe('Formal Value / Availability v2 projection', () => {
     expect(artifact.valueProjections.map(({ projectionId }) => projectionId)).toEqual(migrationBaseline.projectionIds)
     expect([...new Set(artifact.valueProjections.map(({ mappingId }) => mappingId))]).toEqual(migrationBaseline.mappingIds)
     expect(artifact.provenance.evidence.map(({ id, fingerprint, provenance }) => ({ id, fingerprint, provenance }))).toEqual(migrationBaseline.evidence)
+    expect(artifact.semantic.melee['fighters-bindings']).toEqual(migrationBaseline.representativeSemantic.melee)
+    expect(artifact.semantic.ranged['scatter-crossbow']).toEqual(migrationBaseline.representativeSemantic.ranged)
   })
 
   it('projects only the specified source-backed semantic values with resolvable evidence', () => {
@@ -243,15 +245,17 @@ describe('Formal Value / Availability v2 projection', () => {
     expect(artifact.semantic.ranged['scatter-crossbow'].projectileDefinitions).toEqual([])
   })
 
-  it('gates each slice on matched same-source Identity without presentation', () => {
+  it('allows provisional matched identity and gates each domain on matched same-source Identity without presentation', () => {
+    expect(fightersBindingsFormalIdentity.assertion.reviewState).toBe('provisional')
+    expect(build().semantic.melee['fighters-bindings'].configuredAttacks?.value).toEqual([0, 1, 2, 3])
     const noPresentation = build(fixtures(), (inputs) => { delete inputs.scatterCrossbowIdentity.presentation })
     expect(noPresentation.semantic.ranged['scatter-crossbow'].configuredProjectileDefinitions?.value).toEqual([0])
     const wrongSource = build(fixtures(), (inputs) => { Object.assign(inputs.scatterCrossbowIdentityEvidence[0]!.provenance.packageHash!, { value: 'other' }) })
-    expect(wrongSource.semantic.ranged['scatter-crossbow']).toEqual({})
+    expect(wrongSource.semantic.ranged['scatter-crossbow']).toBeUndefined()
     expect(wrongSource.valueProjections.filter(({ occurrence }) => occurrence.domainId === 'scatter-crossbow')).toEqual([])
     const unresolved = build(fixtures(), (inputs) => { inputs.fightersBindingsIdentity.resolution = {
       state: 'unresolved', assertionId: inputs.fightersBindingsIdentity.assertionId, evidenceRefs: inputs.fightersBindingsIdentity.resolution.evidenceRefs } })
-    expect(unresolved.semantic.melee['fighters-bindings']).toEqual({})
+    expect(unresolved.semantic.melee['fighters-bindings']).toBeUndefined()
   })
 
   it('does not read target fields when Relation has no supplied target', () => {
