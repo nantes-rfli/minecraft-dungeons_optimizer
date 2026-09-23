@@ -38,11 +38,6 @@ const cdo = (raw: RawPackageSnapshot) => {
   return candidates.length === 1 ? candidates[0] : undefined
 }
 
-const child = (element: { decoding: { state: string; properties?: never } }, pointer: string, name: string): Located =>
-  element.decoding.state === 'decoded'
-    ? locateRawNode((element as never as { decoding: { properties: Parameters<typeof locateRawNode>[0] } }).decoding.properties, `${pointer}/properties`, name)
-    : { pointer, unavailable: element.decoding.state as Exclude<Field<never>['state'], 'known'> }
-
 export function readMeleeConfiguredValues(
   raw: RawPackageSnapshot,
   identityAssertionId: string,
