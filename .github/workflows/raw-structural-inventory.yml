@@ -1,0 +1,35 @@
+name: Raw Structural Inventory
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/raw-structural-inventory.yml'
+      - 'docs/game-data-raw-structural-inventory.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'research/raw/game-data-raw-structural-inventory/**'
+      - 'scripts/audit-game-data-raw-structural-inventory.ts'
+      - 'scripts/extract-game-data-raw-structural-inventory.ts'
+      - 'scripts/game-data-raw-structural-inventory.ts'
+      - 'src/research/ue4/**'
+      - 'tests/gameDataRawStructuralInventory.test.ts'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund --timing
+        timeout-minutes: 10
+      - run: npm run audit:game-data-raw-structural-inventory
+      - run: npm test -- --run tests/gameDataRawStructuralInventory.test.ts
+      - run: npx tsc --noEmit --pretty false
+      - run: npx eslint scripts/game-data-raw-structural-inventory.ts scripts/extract-game-data-raw-structural-inventory.ts scripts/audit-game-data-raw-structural-inventory.ts tests/gameDataRawStructuralInventory.test.ts
