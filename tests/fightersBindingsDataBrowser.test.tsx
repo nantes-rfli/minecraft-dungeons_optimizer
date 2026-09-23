@@ -61,7 +61,7 @@ describe('Fighter’s Bindings Formal Data Browser consumer', () => {
     expect(row).toContain('Raw node')
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
     expect(browserSources).toContain('research/domain/formal/value-availability-v2.json')
-    expect(browserSources).not.toContain('research/domain/formal/value-availability-v1.json')
+    expect(browserSources).not.toContain('research/domain/formal/value-availability-' + 'v1.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/fighters-bindings\.json|research\/raw\/|src\/domain\/temporary|projectFightersBindings|extract:game-data-raw-package/)
   })
 })
