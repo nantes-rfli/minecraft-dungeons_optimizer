@@ -188,6 +188,7 @@ describe('Formal Identity / Evidence v1', () => {
     if (record.kind !== 'raw-observation') throw new Error('expected Raw observation evidence')
     record.provenance.packagePath = 'Dungeons/Content/Other'
     const { fingerprint: _fingerprint, ...content } = record
+    void _fingerprint
     record.fingerprint = evidenceFingerprint(content)
     expect(collectFormalIdentityEvidenceErrors(artifact)).toContain(`${assertion.id}: raw observation provenance packagePath differs from assertion scope`)
   })
