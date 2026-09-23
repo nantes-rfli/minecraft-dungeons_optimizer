@@ -4,22 +4,22 @@ Minecraft Dungeons 1.17.0.0 の271 catalog entriesをRaw candidate seedとして
 
 ## Coverage
 
-- Catalog seed rows: 271; candidate package seeds: 268
-- Visited packages: 6046; parsed: 6046
-- Serialized reference edges: 989189; resolved targets: 773699; unresolved targets: 0
+- Catalog seed rows: 271; candidate package seeds: 359
+- Visited packages: 6086; parsed: 6086
+- Serialized reference edges: 992099; resolved targets: 776045; unresolved targets: 0
 - Native package boundaries: 22; outside-game target packages: 52; parser boundaries: 186; missing target packages: 0
-- Reached DataTable / Curve-like packages: 5; cycle/reuse edges: 74797
+- Reached DataTable / Curve-like packages: 5; cycle/reuse edges: 74966
 
-- Structural inheritance chains: 1416; detected cycles: 0
+- Structural inheritance chains: 1428; detected cycles: 0
 
 ## Catalog seed mapping
 
-- exact: 155
-- provisional: 111
-- ambiguous: 1
-- not-found: 4
+- exact: 146
+- provisional: 49
+- ambiguous: 74
+- not-found: 2
 
-Seed status describes the catalog-to-Raw package-candidate association only: exact means one local Instance candidate selected by asset-semantic-name or catalog-internal-id mapping; provisional means a family heuristic, documented alias, or class fallback supplied the candidate; ambiguous preserves every equally ranked candidate; not-found has none. This axis is separate from Formal Identity. Rows retain all equally ranked candidates; `not-found` rows remain without package seeds.
+Seed status describes only the catalog-to-Raw candidate association and remains separate from Formal Identity. Exact requires a unique candidate whose serialized ItemIdName or ItemId.SerializedId matches the repository catalog ID or internal ID. Provisional records one candidate supported by package-path or presentation search hints. Ambiguous retains all equally ranked candidates; not-found has none. The equipment icon manifest is recorded as a search hint and never establishes identity on its own.
 
 ## Representation and boundaries
 
@@ -29,8 +29,8 @@ DataTable/Curve packages are retained as graph nodes. The current parser does no
 
 ## Artifact files
 
-The machine-readable artifact uses `research/raw/game-data-raw-structural-inventory/manifest.json` plus 95 deterministic gzip JSON shards. Each shard holds at most 64 packages and their source-owned edges; the manifest records each shard's compressed and uncompressed SHA-256.
+The machine-readable artifact uses `research/raw/game-data-raw-structural-inventory/manifest.json` plus 96 deterministic gzip JSON shards. Each shard holds at most 64 packages and their source-owned edges; the manifest records each shard's compressed and uncompressed SHA-256.
 
 ## Reproduction
 
-Run `npm run generate:game-data-raw-structural-inventory` with the local 1.17.0.0 dataset, then `npm run audit:game-data-raw-structural-inventory`. Generation is deterministic from the catalog manifest, local package bytes, provenance record, parser, and generator code identity.
+Run `npm run generate:game-data-raw-structural-inventory` with the local 1.17.0.0 dataset, then `npm run audit:game-data-raw-structural-inventory`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, provenance, parser, and generator code identity.

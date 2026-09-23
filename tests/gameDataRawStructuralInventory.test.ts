@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
-  breadthFirstPackageWalk, classifySeedCandidateStatus,
+  breadthFirstPackageWalk, classifySeedCandidateStatus, resolveRawSeedCandidates,
+  type RawSeedCandidateInput,
 } from '../scripts/game-data-raw-structural-inventory.ts'
 
 describe('Raw structural inventory traversal', () => {
@@ -18,12 +19,89 @@ describe('Raw structural inventory traversal', () => {
     expect([...result.discoveryEdgeIds].sort()).toEqual(['a-b', 'a-c', 'b-d'])
   })
 
-  it('keeps equally ranked seed candidates ambiguous instead of selecting one', () => {
-    const candidates = [{ role: 'instance' as const }, { role: 'instance' as const }]
-    expect(classifySeedCandidateStatus(candidates, 'asset-semantic-name')).toBe('ambiguous')
-    expect(classifySeedCandidateStatus([], 'asset-semantic-name')).toBe('not-found')
-    expect(classifySeedCandidateStatus([{ role: 'storable' }], 'asset-semantic-name')).toBe('provisional')
-    expect(classifySeedCandidateStatus([{ role: 'instance' }], 'asset-semantic-name')).toBe('exact')
-    expect(classifySeedCandidateStatus([{ role: 'instance' }], 'family-unique-ordinal')).toBe('provisional')
+  it('requires a serialized catalog identifier for exact status; icon heuristics alone stay provisional', () => {
+    expect(classifySeedCandidateStatus([])).toBe('not-found')
+    expect(classifySeedCandidateStatus([{ role: 'instance', evidence: ['seed-search:icon-manifest-path-used-as-candidate-search-hint-only'] }])).toBe('provisional')
+    expect(classifySeedCandidateStatus([{ role: 'instance', evidence: ['serialized-identity-match:ItemIdName->catalog:death-cap-mushroom'] }])).toBe('exact')
+    expect(classifySeedCandidateStatus([
+      { role: 'instance', evidence: ['serialized-identity-match:ItemIdName->catalog:fireworks-arrow'] },
+      { role: 'instance', evidence: ['serialized-identifier:ItemIdName=FireworksArrowItem'] },
+    ])).toBe('ambiguous')
+  })
+
+  it('keeps all Gauntlets unique ordinals as raw candidates for each family catalog entry', () => {
+    const candidates = ['1', '2', '3'].map((ordinal) => rawCandidate(
+      `Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique${ordinal}/BP_Gauntlets_Unique${ordinal}Instance`,
+      'melee', `Gauntlets_Unique${ordinal}`,
+    ))
+    for (const [catalogId, displayName, iconOrdinal] of [
+      ['fighters-bindings', "Fighter's Bindings", '1'], ['maulers', 'Maulers', '2'], ['soul-fists', 'Soul Fists', '3'],
+    ]) {
+      const resolution = resolveRawSeedCandidates(
+        { category: 'melee', catalogId: catalogId!, displayName: displayName! },
+        iconHint('melee', catalogId!, `Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique${iconOrdinal}`),
+        candidates,
+      )
+      expect(resolution.candidates.map((candidate) => candidate.packagePath)).toEqual(candidates.map((candidate) => candidate.packagePath))
+      expect(classifySeedCandidateStatus(resolution.candidates)).toBe('ambiguous')
+    }
+  })
+
+  it('finds Satchel of Elements and Scatter Mines in gameplay folders separated from their icon folders', () => {
+    const cases = [
+      {
+        id: 'satchel-of-elements', name: 'Satchel of Elements', folder: 'SatchelOfTheElements',
+        gameplayPackage: 'Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance',
+      },
+      {
+        id: 'scatter-mines', name: 'Scatter Mines', folder: 'ChargedRedstoneMines',
+        gameplayPackage: 'Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance',
+      },
+    ]
+    for (const item of cases) {
+      const gameplayCandidate = rawCandidate(item.gameplayPackage, 'artifact', item.folder)
+      const resolution = resolveRawSeedCandidates(
+        { category: 'artifact', catalogId: item.id, displayName: item.name },
+        iconHint('artifact', item.id, `Dungeons/Content/Actors/Items/${item.folder}`),
+        [gameplayCandidate],
+      )
+      expect(resolution.candidates.map((candidate) => candidate.packagePath)).toEqual([item.gameplayPackage])
+      expect(classifySeedCandidateStatus(resolution.candidates)).toBe('provisional')
+      expect(resolution.matchBasis).toContain('icon-manifest-path-used-as-candidate-search-hint-only')
+    }
+  })
+
+  it('does not collapse Fireworks Arrow sibling Instance packages when one serialized ID matches', () => {
+    const candidates = [
+      rawCandidate('Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowInstance', 'artifact', 'FireworksArrow', 'FireworksArrow'),
+      rawCandidate('Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowItemInstance', 'artifact', 'FireworksArrowItem', 'FireworksArrowItem'),
+    ]
+    const resolution = resolveRawSeedCandidates(
+      { category: 'artifact', catalogId: 'fireworks-arrow', displayName: 'Fireworks Arrow' },
+      iconHint('artifact', 'fireworks-arrow', 'Dungeons/Content/Actors/Items/FireworksArrowItem'),
+      candidates,
+    )
+    expect(resolution.candidates.map((candidate) => candidate.packagePath)).toEqual(candidates.map((candidate) => candidate.packagePath))
+    expect(classifySeedCandidateStatus(resolution.candidates.map((candidate) => ({ role: candidate.role, evidence: candidate.evidence })))).toBe('ambiguous')
   })
 })
+
+function rawCandidate(packagePath: string, category: string, rawIdentity: string, serializedId = rawIdentity): RawSeedCandidateInput {
+  const base = packagePath.split('/').at(-1)!
+  return {
+    packagePath,
+    objectName: `${base}_C`,
+    category,
+    role: 'instance',
+    serializedIdentifiers: [
+      { field: 'ItemIdName', value: rawIdentity },
+      { field: 'ItemId.SerializedId', value: serializedId },
+    ],
+    serializedIdentityReadState: 'decoded',
+    evidence: [`local-uasset:${packagePath}.uasset`],
+  }
+}
+
+function iconHint(category: string, catalogId: string, sourcePackage: string) {
+  return { category, catalogId, status: 'matched', matchMethod: 'family-unique-ordinal', sourcePackage }
+}

@@ -8,6 +8,7 @@ import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import {
   RAW_STRUCTURAL_INVENTORY_PATH, RAW_STRUCTURAL_REPORT_PATH, buildRawStructuralInventory,
   buildRawStructuralInventoryShards, renderRawStructuralInventoryReport,
+  loadRawCatalog,
   serializeRawStructuralInventoryManifest,
   rawStructuralParserBoundaryReasons,
   type RawStructuralInventory, type RawStructuralInventoryManifest, type RawStructuralInventoryShard,
@@ -58,15 +59,47 @@ export function validateStructuralInventoryManifest(
   if (manifest.scope.parser.id !== 'ue4-package-property-parser' || manifest.scope.parser.schemaVersion !== 1) errors.push('Parser provenance drift')
   if (manifest.scope.semanticInterpretation !== 'not-applied' || manifest.scope.rawBinaryBytes !== 'not-committed') errors.push('Raw semantic or binary boundary drift')
   if (manifest.scope.traversalPolicy !== 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit') errors.push('Traversal policy drift')
+  if (manifest.scope.seedResolutionPolicy !== 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only') errors.push('Catalog-to-Raw seed authority drift')
   if (manifest.catalogSeeds.length !== 271 || manifest.summary.seedCount !== 271) errors.push(`Expected 271 catalog seed rows; received ${manifest.catalogSeeds.length}`)
   const seedIds = manifest.catalogSeeds.map((seed) => `${seed.category}:${seed.catalogId}`)
   if (new Set(seedIds).size !== seedIds.length) errors.push('Catalog seed item is duplicated')
+  const sourceCatalog = loadRawCatalog(repositoryRoot)
+  const sourceCatalogById = new Map(sourceCatalog.map((item) => [`${item.category}:${item.catalogId}`, item]))
+  if (sourceCatalog.length !== manifest.catalogSeeds.length) errors.push('Raw seed row count does not match the repository equipment catalogs')
+  const computedSeedStatusCounts = { exact: 0, provisional: 0, ambiguous: 0, 'not-found': 0 }
+  let computedCandidateSeedCount = 0
   for (const seed of manifest.catalogSeeds) {
+    const sourceItem = sourceCatalogById.get(`${seed.category}:${seed.catalogId}`)
+    if (!sourceItem) errors.push(`${seed.catalogId}: seed row is absent from the repository equipment catalogs`)
+    else if (sourceItem.displayName !== seed.catalogName || sourceItem.internalId !== seed.catalogInternalId) errors.push(`${seed.catalogId}: catalog metadata differs from its repository equipment catalog entry`)
+    computedSeedStatusCounts[seed.status] += 1
+    computedCandidateSeedCount += seed.candidates.length
+    const derivedStatus = seed.candidates.length === 0 ? 'not-found'
+      : seed.candidates.length > 1 ? 'ambiguous'
+        : seed.candidates[0]!.evidence.some((evidence) => evidence.startsWith('serialized-identity-match:')) ? 'exact' : 'provisional'
+    if (seed.status !== derivedStatus) errors.push(`${seed.catalogId}: seed status cannot be reproduced from its candidate evidence`)
+    if (!seed.catalogName) errors.push(`${seed.catalogId}: catalog display name is missing from the seed row`)
     if (!['exact', 'provisional', 'ambiguous', 'not-found'].includes(seed.status)) errors.push(`${seed.catalogId}: invalid seed mapping status`)
     if (seed.status === 'ambiguous' && seed.candidates.length < 2) errors.push(`${seed.catalogId}: ambiguous candidates were collapsed`)
     if (seed.status === 'not-found' && seed.candidates.length > 0) errors.push(`${seed.catalogId}: not-found row unexpectedly has candidates`)
     if (seed.status === 'exact' && seed.candidates.length !== 1) errors.push(`${seed.catalogId}: exact seed must have one Raw package candidate`)
+    if (seed.status === 'exact' && !seed.candidates[0]?.evidence.some((evidence) => evidence.startsWith('serialized-identity-match:'))) errors.push(`${seed.catalogId}: exact seed has no serialized catalog-identity evidence`)
+    if (seed.status === 'provisional' && seed.candidates.length !== 1) errors.push(`${seed.catalogId}: provisional seed must have exactly one candidate`)
+    if (seed.status === 'provisional' && seed.candidates[0]?.evidence.some((evidence) => evidence.startsWith('serialized-identity-match:'))) errors.push(`${seed.catalogId}: serialized identity evidence was downgraded to provisional`)
+    if (seed.presentationHint && !seed.matchBasis.includes('icon-manifest-recorded-as-presentation-search-hint-only')) errors.push(`${seed.catalogId}: presentation hint is not marked as search-only evidence`)
+    if (seed.matchBasis.some((basis) => basis.startsWith('icon-match-method:'))) errors.push(`${seed.catalogId}: icon match method leaked into Raw identity authority`)
+    for (const candidate of seed.candidates) {
+      const readStates = candidate.evidence.filter((evidence) => evidence.startsWith('serialized-identity-read-state:'))
+      if (readStates.length !== 1) errors.push(`${seed.catalogId}:${candidate.packagePath}: serialized identity availability state is missing or duplicated`)
+      if (seed.status === 'exact' && readStates[0] !== 'serialized-identity-read-state:decoded') errors.push(`${seed.catalogId}:${candidate.packagePath}: exact mapping has no decoded serialized identity state`)
+      if (!candidate.evidence.includes(`local-uasset:${candidate.packagePath}.uasset`)) errors.push(`${seed.catalogId}:${candidate.packagePath}: candidate lacks local dataset package evidence`)
+    }
   }
+  for (const catalogId of sourceCatalogById.keys()) if (!seedIds.includes(catalogId)) errors.push(`${catalogId}: repository catalog entry has no Raw seed row`)
+  for (const status of ['exact', 'provisional', 'ambiguous', 'not-found'] as const) {
+    if (computedSeedStatusCounts[status] !== manifest.summary.seedStatusCounts[status]) errors.push(`Seed status count drift for ${status}`)
+  }
+  if (computedCandidateSeedCount !== manifest.summary.candidateSeedCount) errors.push('Candidate seed count does not match the catalog mapping rows')
 
   const packagePaths = new Set<string>()
   const edgeIds = new Set<string>()
@@ -218,8 +251,38 @@ export function validateStructuralInventoryManifest(
     }
   }
   errors.push(...validateFourReferenceSlices(representativePackages, representativeEdges, repositoryRoot))
+  errors.push(...validateKnownCatalogSeedMappings(manifest.catalogSeeds))
   if (/"(?:normalizedProperty|normalizedValue|interpretation|manualAnnotation|damageScaling|effectiveCadence|stackingSemantics)"/.test(JSON.stringify(manifest))) errors.push('Semantic interpretation leaked into the Raw structural manifest')
   if (/\/Users\/|\\Users\\|file:\/\/|~\/Downloads|\/home\/|\/root\//.test(JSON.stringify(manifest))) errors.push('Manifest contains an absolute local path')
+  return errors
+}
+
+function validateKnownCatalogSeedMappings(seeds: RawStructuralInventory['catalogSeeds']): string[] {
+  const errors: string[] = []
+  const expectedGauntletCandidates = [
+    'Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique1/BP_Gauntlets_Unique1Instance',
+    'Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique2/BP_Gauntlets_Unique2Instance',
+    'Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance',
+  ].sort()
+  const expectedMappings: readonly { readonly catalogId: string; readonly status: 'provisional' | 'ambiguous'; readonly candidatePaths: readonly string[] }[] = [
+    { catalogId: 'fighters-bindings', status: 'ambiguous', candidatePaths: expectedGauntletCandidates },
+    { catalogId: 'maulers', status: 'ambiguous', candidatePaths: expectedGauntletCandidates },
+    { catalogId: 'soul-fists', status: 'ambiguous', candidatePaths: expectedGauntletCandidates },
+    { catalogId: 'satchel-of-elements', status: 'provisional', candidatePaths: ['Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance'] },
+    { catalogId: 'scatter-mines', status: 'provisional', candidatePaths: ['Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance'] },
+    { catalogId: 'fireworks-arrow', status: 'ambiguous', candidatePaths: [
+      'Dungeons/Content/Actors/Items/FireworksArrow/BP_FireworksArrowInstance',
+      'Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowInstance',
+      'Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowItemInstance',
+    ] },
+  ]
+  for (const expected of expectedMappings) {
+    const seed = seeds.find((entry) => entry.catalogId === expected.catalogId)
+    if (!seed) { errors.push(`Known catalog-to-Raw seed mapping is missing: ${expected.catalogId}`); continue }
+    if (seed.status !== expected.status) errors.push(`${expected.catalogId}: expected Raw candidate status ${expected.status}; received ${seed.status}`)
+    const actualPaths = seed.candidates.map((candidate) => candidate.packagePath).sort()
+    if (JSON.stringify(actualPaths) !== JSON.stringify([...expected.candidatePaths].sort())) errors.push(`${expected.catalogId}: catalog entry maps to unexpected Raw candidate set (${actualPaths.join(', ')})`)
+  }
   return errors
 }
 

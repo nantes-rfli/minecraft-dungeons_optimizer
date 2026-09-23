@@ -24,6 +24,11 @@ const CODE_PATHS = [
   'src/research/ue4/packageReader.ts',
   'src/research/ue4/packageTypes.ts',
   'src/research/ue4/propertyReader.ts',
+  'research/melee-attack-profile-audit.json',
+  'research/armor-audit.json',
+  'research/ranged-weapon-audit.json',
+  'research/artifact-audit.json',
+  'research/raw/game-data-asset-index.json',
   'generated/equipment-icons/manifest.json',
 ] as const
 
@@ -33,7 +38,7 @@ type PackageParseState = 'parsed' | 'parse-failed'
 type EdgeKind = 'import' | 'class' | 'super' | 'template' | 'outer' | 'object-property' | 'soft-object-property'
 type StopReason = 'followed' | 'already-visited' | 'package-local-reference' | 'null-reference' | 'unresolved-package-index' | 'invalid-package-index' | 'native-boundary' | 'outside-game-boundary' | 'missing-target' | 'parser-boundary'
 
-interface IconEntry {
+export interface IconEntry {
   readonly category: string
   readonly catalogId: string
   readonly sourceAsset?: string
@@ -48,6 +53,44 @@ interface IconManifest {
   readonly schemaVersion: number
   readonly gameVersion: string
   readonly entries: readonly IconEntry[]
+}
+
+export interface RawCatalogItem {
+  readonly category: string
+  readonly catalogId: string
+  readonly displayName: string
+  readonly internalId?: string
+}
+
+interface GameDataAssetIndex {
+  readonly assets: readonly {
+    readonly id: string
+    readonly path: string
+    readonly files: readonly string[]
+    readonly assetKind: string
+  }[]
+}
+
+export interface SerializedIdentityIdentifier {
+  readonly field: 'ItemIdName' | 'ItemId.SerializedId'
+  readonly value: string
+}
+
+export interface RawSeedCandidateInput {
+  readonly packagePath: string
+  readonly objectName: string
+  readonly category: string
+  readonly role: SeedCandidate['role']
+  readonly serializedIdentifiers: readonly SerializedIdentityIdentifier[]
+  readonly serializedIdentityReadState: 'decoded' | 'missing-cdo' | 'parse-failed'
+  readonly evidence: readonly string[]
+}
+
+type RawPackageCandidateInput = RawSeedCandidateInput
+
+export interface ResolvedRawSeedCandidates {
+  readonly candidates: readonly RawPackageCandidateInput[]
+  readonly matchBasis: readonly string[]
 }
 
 interface SourceFileIdentity {
@@ -72,12 +115,19 @@ interface SeedCandidate {
 interface CatalogSeed {
   readonly catalogId: string
   readonly category: string
+  readonly catalogName: string
+  readonly catalogInternalId?: string
   readonly status: SeedStatus
   readonly matchBasis: readonly string[]
-  readonly sourceAsset?: string
-  readonly sourcePackage?: string
+  readonly presentationHint?: {
+    readonly source: 'generated/equipment-icons/manifest.json'
+    readonly status: string
+    readonly matchMethod?: string
+    readonly sourceAsset?: string
+    readonly sourcePackage?: string
+    readonly candidates?: readonly string[]
+  }
   readonly candidates: readonly SeedCandidate[]
-  readonly notes?: string
 }
 
 interface SourceOccurrence {
@@ -210,6 +260,7 @@ export interface RawStructuralInventory {
     readonly parser: { readonly id: 'ue4-package-property-parser'; readonly schemaVersion: 1 }
     readonly codeIdentity: CodeIdentity
     readonly traversalPolicy: 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit'
+    readonly seedResolutionPolicy: 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only'
     readonly semanticInterpretation: 'not-applied'
     readonly rawBinaryBytes: 'not-committed'
     readonly generatedFrom: readonly string[]
@@ -299,9 +350,12 @@ const compare = (left: string, right: string) => left.localeCompare(right)
 
 export function buildRawStructuralInventory(repositoryRoot: string, provenance: GameDataSourceProvenance): RawStructuralInventory {
   const datasetRoot = localDatasetRoot(repositoryRoot)
-  const manifest = rawJson(path.join(repositoryRoot, 'generated/equipment-icons/manifest.json')) as IconManifest
+  const iconManifest = rawJson(path.join(repositoryRoot, 'generated/equipment-icons/manifest.json')) as IconManifest
+  const assetIndex = rawJson(path.join(repositoryRoot, 'research/raw/game-data-asset-index.json')) as GameDataAssetIndex
   const codeIdentity = makeCodeIdentity(repositoryRoot)
-  const seeds = discoverCatalogSeeds(datasetRoot, manifest)
+  const catalogItems = loadRawCatalog(repositoryRoot)
+  const rawPackageCandidates = discoverRawPackageCandidates(datasetRoot, assetIndex)
+  const seeds = discoverCatalogSeeds(catalogItems, iconManifest, rawPackageCandidates)
   const seedPaths = [...new Set(seeds.flatMap((seed) => seed.candidates.map((candidate) => candidate.packagePath)))].sort(compare)
   const discovered = new Map<string, ParsedNode>()
   const traversal = breadthFirstPackageWalk(seedPaths, (packagePath, depth) => {
@@ -373,8 +427,15 @@ export function buildRawStructuralInventory(repositoryRoot: string, provenance: 
       dataset: { id: provenance.dataset.id, sourceFingerprint: provenance.dataset.sourceFingerprint },
       parser: { id: 'ue4-package-property-parser', schemaVersion: 1 }, codeIdentity,
       traversalPolicy: 'breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit',
+      seedResolutionPolicy: 'repository-catalog-to-local-blueprint-candidates;-serialized-identity-required-for-exact; icon-manifest-is-search-hint-only',
       semanticInterpretation: 'not-applied', rawBinaryBytes: 'not-committed',
-      generatedFrom: ['generated/equipment-icons/manifest.json', 'research/sources/game-data-source-provenance.json', ...CODE_PATHS],
+      generatedFrom: [
+        'research/melee-attack-profile-audit.json', 'research/armor-audit.json',
+        'research/ranged-weapon-audit.json', 'research/artifact-audit.json',
+        'research/raw/game-data-asset-index.json', 'local-game-data/QuickBMS 1.17.0.0 package paths and serialized identifiers',
+        'generated/equipment-icons/manifest.json (search hints only)',
+        'research/sources/game-data-source-provenance.json', ...CODE_PATHS,
+      ],
     },
     catalogSeeds: seeds,
     packages,
@@ -390,51 +451,282 @@ export function buildRawStructuralInventory(repositoryRoot: string, provenance: 
   }
 }
 
-function discoverCatalogSeeds(datasetRoot: string, manifest: IconManifest): CatalogSeed[] {
-  return manifest.entries.map((entry) => {
-    const candidates: SeedCandidate[] = []
-    const matchBasis = [`icon-manifest:${entry.status}`, ...(entry.matchMethod ? [`icon-match-method:${entry.matchMethod}`] : [])]
-    if (entry.sourceAsset) matchBasis.push(`source-asset:${entry.sourceAsset}`)
-    if (entry.sourcePackage) {
-      const packageFolder = safeDatasetPath(entry.sourcePackage)
-      if (packageFolder && fs.existsSync(path.join(datasetRoot, packageFolder)) && fs.statSync(path.join(datasetRoot, packageFolder)).isDirectory()) {
-        for (const fileName of fs.readdirSync(path.join(datasetRoot, packageFolder)).sort(compare)) {
-          if (!fileName.startsWith('BP_') || !fileName.endsWith('.uasset')) continue
-          const base = fileName.slice(0, -'.uasset'.length)
-          const role = seedRole(base)
-          if (!role) continue
-          candidates.push({ packagePath: `${entry.sourcePackage}/${base}`, objectName: `${base}_C`, role, evidence: [`sibling-of-source-package:${entry.sourcePackage}`, `local-file:${packageFolder}/${fileName}`] })
-        }
+export function loadRawCatalog(repositoryRoot: string): RawCatalogItem[] {
+  const read = <T>(relativePath: string) => rawJson(path.join(repositoryRoot, relativePath)) as T
+  const melee = read<{ weapons: { weaponId: string; name: { en: string } }[] }>('research/melee-attack-profile-audit.json')
+  const armor = read<{ entries: { id: string; name: string; levelId: string }[] }>('research/armor-audit.json')
+  const ranged = read<{ entries: { id: string; name: { en: string } }[] }>('research/ranged-weapon-audit.json')
+  const artifacts = read<{ entries: { id: string; name: string }[]; populationDifferences: { id: string; name: string }[] }>('research/artifact-audit.json')
+  return [
+    ...melee.weapons.map((item) => ({ category: 'melee', catalogId: item.weaponId, displayName: item.name.en })),
+    ...armor.entries.map((item) => ({ category: 'armor', catalogId: item.id, displayName: item.name, internalId: item.levelId })),
+    ...ranged.entries.map((item) => ({ category: 'ranged', catalogId: item.id, displayName: item.name.en })),
+    ...artifacts.entries.map((item) => ({ category: 'artifact', catalogId: item.id, displayName: item.name })),
+    ...artifacts.populationDifferences.map((item) => ({ category: 'artifact', catalogId: item.id, displayName: item.name })),
+  ].sort((a, b) => compare(a.category, b.category) || compare(a.catalogId, b.catalogId))
+}
+
+function discoverRawPackageCandidates(datasetRoot: string, assetIndex: GameDataAssetIndex): RawPackageCandidateInput[] {
+  const indexedPaths = new Set<string>()
+  for (const asset of assetIndex.assets) {
+    if (!asset.files.some((file) => file.endsWith('.uasset')) || !categoryForPackagePath(asset.path)) continue
+    if (!seedRole(path.posix.basename(asset.path))) continue
+    if (isPackageAvailable(datasetRoot, asset.path)) indexedPaths.add(asset.path)
+  }
+  const localPaths = scanEquipmentBlueprintPackagePaths(datasetRoot)
+  const packagePaths = [...new Set([...indexedPaths, ...localPaths])].sort(compare)
+  const unranked = packagePaths.flatMap((packagePath): Omit<RawPackageCandidateInput, 'serializedIdentifiers' | 'serializedIdentityReadState' | 'evidence'>[] => {
+    const category = categoryForPackagePath(packagePath)
+    const role = seedRole(path.posix.basename(packagePath))
+    if (!category || !role) return []
+    return [{ packagePath, category, role, objectName: `${path.posix.basename(packagePath)}_C` }]
+  })
+  const byDirectory = new Map<string, typeof unranked>()
+  for (const candidate of unranked) {
+    const directory = path.posix.dirname(candidate.packagePath)
+    const values = byDirectory.get(directory) ?? []
+    values.push(candidate)
+    byDirectory.set(directory, values)
+  }
+  const selected = [...byDirectory.values()].flatMap((items) => selectHighestRawCandidateRoles(items))
+  return selected.map((candidate) => {
+    const identityRead = readSerializedIdentityIdentifiers(datasetRoot, candidate.packagePath)
+    const identifiers = identityRead.identifiers
+    const evidence = [
+      ...(indexedPaths.has(candidate.packagePath) ? [`local-asset-index:${candidate.packagePath}`] : []),
+      `local-uasset:${candidate.packagePath}.uasset`,
+      `serialized-identity-read-state:${identityRead.state}`,
+      ...identifiers.map((identifier) => `serialized-identifier:${identifier.field}=${identifier.value}`),
+      ...(identityRead.state === 'decoded' && !identifiers.length ? ['serialized-identity-fields-absent-from-decoded-cdo'] : []),
+      ...(identityRead.state === 'missing-cdo' ? ['serialized-identifiers-unavailable:no-cdo-decoded'] : []),
+      ...(identityRead.state === 'parse-failed' ? ['serialized-identifiers-unavailable:package-parse-failed'] : []),
+    ]
+    return { ...candidate, serializedIdentifiers: identifiers, serializedIdentityReadState: identityRead.state, evidence: evidence.sort(compare) }
+  }).sort((a, b) => compare(a.category, b.category) || compare(a.packagePath, b.packagePath))
+}
+
+function scanEquipmentBlueprintPackagePaths(datasetRoot: string): string[] {
+  const dungeonsRoot = path.join(datasetRoot, 'Dungeons')
+  if (!fs.existsSync(dungeonsRoot)) return []
+  const contentRoots = fs.readdirSync(dungeonsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && /^Content(?:_[^/]+)?$/i.test(entry.name))
+    .map((entry) => path.join(dungeonsRoot, entry.name))
+  const relativeRoots = ['Actors/Equipment/MeleeWeapons', 'Actors/Equipment/RangedWeapons', 'Actors/Equipment/Armor', 'Actors/Items']
+  const result: string[] = []
+  const walk = (directory: string) => {
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const absolute = path.join(directory, entry.name)
+      if (entry.isDirectory()) walk(absolute)
+      else if (entry.isFile() && entry.name.startsWith('BP_') && entry.name.endsWith('.uasset') && seedRole(entry.name.slice(0, -'.uasset'.length))) {
+        result.push(path.relative(datasetRoot, absolute).split(path.sep).join('/').slice(0, -'.uasset'.length))
       }
     }
-    const instances = candidates.filter((candidate) => candidate.role === 'instance')
-    const storables = candidates.filter((candidate) => candidate.role === 'storable')
-    const selected = instances.length ? instances : storables.length ? storables : candidates.filter((candidate) => candidate.role === 'actor')
-    const status = classifySeedCandidateStatus(selected, entry.matchMethod)
-    if (selected.length && selected[0]?.role !== 'instance') matchBasis.push(`seed-class-fallback:${selected[0]?.role}`)
-    if (selected.length > 1) matchBasis.push('multiple-equally-ranked-raw-candidates-retained')
-    if (!entry.sourcePackage) matchBasis.push('catalog-entry-has-no-local-source-package')
-    else if (!selected.length) matchBasis.push('no-eligible-local-blueprint-seed-in-source-package')
+  }
+  for (const contentRoot of contentRoots) for (const relativeRoot of relativeRoots) {
+    const root = path.join(contentRoot, ...relativeRoot.split('/'))
+    if (fs.existsSync(root)) walk(root)
+  }
+  return result.sort(compare)
+}
+
+function categoryForPackagePath(packagePath: string): string | undefined {
+  if (/\/Actors\/Equipment\/MeleeWeapons\//.test(packagePath)) return 'melee'
+  if (/\/Actors\/Equipment\/RangedWeapons\//.test(packagePath)) return 'ranged'
+  if (/\/Actors\/Equipment\/Armor\//.test(packagePath)) return 'armor'
+  if (/\/Actors\/Items\//.test(packagePath)) return 'artifact'
+  return undefined
+}
+
+function selectHighestRawCandidateRoles<T extends { readonly role: SeedCandidate['role'] }>(candidates: readonly T[]): T[] {
+  const bestRank = Math.min(...candidates.map((candidate) => rawCandidateRoleRank(candidate.role)))
+  return candidates.filter((candidate) => rawCandidateRoleRank(candidate.role) === bestRank)
+}
+
+function rawCandidateRoleRank(role: SeedCandidate['role']): number {
+  return role === 'instance' ? 0 : role === 'storable' ? 1 : role === 'actor' ? 2 : 3
+}
+
+function readSerializedIdentityIdentifiers(datasetRoot: string, packagePath: string): { readonly identifiers: readonly SerializedIdentityIdentifier[]; readonly state: RawSeedCandidateInput['serializedIdentityReadState'] } {
+  const files = sourceFilesForPackage(datasetRoot, packagePath)
+  const uassetPath = `${packagePath}.uasset`
+  const uexpPath = `${packagePath}.uexp`
+  if (!files.includes(uassetPath)) return { identifiers: [], state: 'parse-failed' }
+  try {
+    const parsed = parseUePackage(
+      fs.readFileSync(path.join(datasetRoot, uassetPath)),
+      files.includes(uexpPath) ? fs.readFileSync(path.join(datasetRoot, uexpPath)) : Buffer.alloc(0),
+      { assetPath: packagePath },
+    )
+    const cdoObjects = parsed.objects.filter((entry) => entry.isClassDefaultObject)
+    if (!cdoObjects.length) return { identifiers: [], state: 'missing-cdo' }
+    const identifiers: SerializedIdentityIdentifier[] = []
+    for (const object of cdoObjects) {
+      for (const property of object.properties) collectSerializedIdentityIdentifiers(property, identifiers)
+    }
     return {
-      catalogId: entry.catalogId, category: entry.category, status,
-      matchBasis: matchBasis.sort(compare),
-      ...(entry.sourceAsset ? { sourceAsset: entry.sourceAsset } : {}),
-      ...(entry.sourcePackage ? { sourcePackage: entry.sourcePackage } : {}),
-      candidates: selected.sort((a, b) => compare(a.packagePath, b.packagePath)),
-      ...(entry.notes ? { notes: entry.notes } : {}),
+      identifiers: [...new Map(identifiers.map((identifier) => [`${identifier.field}\0${identifier.value}`, identifier])).values()]
+        .sort((a, b) => compare(a.field, b.field) || compare(a.value, b.value)),
+      state: 'decoded',
+    }
+  } catch {
+    return { identifiers: [], state: 'parse-failed' }
+  }
+}
+
+function collectSerializedIdentityIdentifiers(property: ParsedProperty, output: SerializedIdentityIdentifier[]): void {
+  if (property.name === 'ItemIdName' && typeof property.value === 'string') output.push({ field: 'ItemIdName', value: property.value })
+  if (property.name === 'SerializedId' && typeof property.value === 'string') output.push({ field: 'ItemId.SerializedId', value: property.value })
+  if (Array.isArray(property.value)) {
+    for (const nested of property.value) if (nested && typeof nested === 'object' && 'name' in nested && 'value' in nested) {
+      collectSerializedIdentityIdentifiers(nested as unknown as ParsedProperty, output)
+    }
+  }
+}
+
+function discoverCatalogSeeds(
+  catalogItems: readonly RawCatalogItem[],
+  iconManifest: IconManifest,
+  rawCandidates: readonly RawPackageCandidateInput[],
+): CatalogSeed[] {
+  const iconHints = new Map(iconManifest.entries.map((entry) => [`${entry.category}:${entry.catalogId}`, entry]))
+  return catalogItems.map((item) => {
+    const hint = iconHints.get(`${item.category}:${item.catalogId}`)
+    const resolution = resolveRawSeedCandidates(item, hint, rawCandidates)
+    const candidates: SeedCandidate[] = resolution.candidates.map((candidate) => {
+      const catalogTokens = new Set([item.catalogId, ...(item.internalId ? [item.internalId] : [])].map(normalizeIdentifier))
+      const serializedMatches = candidate.serializedIdentifiers.filter((identifier) => catalogTokens.has(normalizeIdentifier(identifier.value)))
+      return {
+        packagePath: candidate.packagePath,
+        objectName: candidate.objectName,
+        role: candidate.role,
+        evidence: [...candidate.evidence, ...serializedMatches.map((identifier) => `serialized-identity-match:${identifier.field}->catalog:${item.catalogId}`), ...resolution.matchBasis.map((basis) => `seed-search:${basis}`)].sort(compare),
+      }
+    })
+    const status = classifySeedCandidateStatus(candidates)
+    const matchBasis = [...resolution.matchBasis]
+    if (hint) matchBasis.push('icon-manifest-recorded-as-presentation-search-hint-only')
+    if (candidates.length > 1) matchBasis.push('multiple-equal-rank-raw-candidates-retained')
+    if (!candidates.length) matchBasis.push('no-local-raw-package-candidate-found')
+    const presentationHint = hint ? {
+      source: 'generated/equipment-icons/manifest.json' as const,
+      status: hint.status,
+      ...(hint.matchMethod ? { matchMethod: hint.matchMethod } : {}),
+      ...(hint.sourceAsset ? { sourceAsset: hint.sourceAsset } : {}),
+      ...(hint.sourcePackage ? { sourcePackage: hint.sourcePackage } : {}),
+      ...(hint.candidates?.length ? { candidates: [...hint.candidates].sort(compare) } : {}),
+    } : undefined
+    return {
+      catalogId: item.catalogId,
+      category: item.category,
+      catalogName: item.displayName,
+      ...(item.internalId ? { catalogInternalId: item.internalId } : {}),
+      status,
+      matchBasis: [...new Set(matchBasis)].sort(compare),
+      ...(presentationHint ? { presentationHint } : {}),
+      candidates: candidates.sort((a, b) => compare(a.packagePath, b.packagePath)),
     }
   }).sort((a, b) => compare(a.category, b.category) || compare(a.catalogId, b.catalogId))
 }
 
-export function classifySeedCandidateStatus(
-  candidates: readonly Pick<SeedCandidate, 'role'>[],
-  matchMethod: string | undefined,
-): SeedStatus {
+export function resolveRawSeedCandidates(
+  catalogItem: Pick<RawCatalogItem, 'category' | 'catalogId' | 'displayName' | 'internalId'>,
+  iconHint: IconEntry | undefined,
+  allCandidates: readonly RawSeedCandidateInput[],
+): ResolvedRawSeedCandidates {
+  const candidates = allCandidates.filter((candidate) => candidate.category === catalogItem.category)
+  const catalogTokens = [catalogItem.catalogId, ...(catalogItem.internalId ? [catalogItem.internalId] : [])].map(normalizeIdentifier).filter(Boolean)
+  const serializedMatches = candidates.filter((candidate) => candidate.serializedIdentifiers.some((identifier) => catalogTokens.includes(normalizeIdentifier(identifier.value))))
+  if (serializedMatches.length) return {
+    candidates: equalRankPackagePeers(serializedMatches, candidates).sort((a, b) => compare(a.packagePath, b.packagePath)),
+    matchBasis: ['serialized-catalog-identifier-match'],
+  }
+
+  const rawPathMatches = candidates.filter((candidate) => candidateMatchesTokens(candidate, catalogTokens))
+  if (rawPathMatches.length) return {
+    candidates: equalRankPackagePeers(rawPathMatches, candidates).sort((a, b) => compare(a.packagePath, b.packagePath)),
+    matchBasis: ['raw-catalog-id-or-internal-id-package-path-search'],
+  }
+
+  const hintDirectories = iconHintPackageDirectories(iconHint)
+  const hintMatches = candidates.filter((candidate) => hintDirectories.some((directory) => normalizeIdentifier(path.posix.basename(directory)) === normalizeIdentifier(path.posix.basename(path.posix.dirname(candidate.packagePath)))))
+  if (hintMatches.length) {
+    const peers = equalRankPackagePeers(hintMatches, candidates)
+    const variantPeers = equalRankVariantFamilyPeers([...hintMatches], candidates)
+    return {
+      candidates: selectHighestRawCandidateRoles([...new Map([...peers, ...variantPeers].map((candidate) => [candidate.packagePath, candidate])).values()]).sort((a, b) => compare(a.packagePath, b.packagePath)),
+      matchBasis: [
+        'icon-manifest-path-used-as-candidate-search-hint-only',
+        ...(variantPeers.length ? ['variant-family-search-retained-all-ordinals-and-event-variants'] : []),
+      ],
+    }
+  }
+
+  const displayToken = normalizeIdentifier(catalogItem.displayName)
+  const displayMatches = candidates.filter((candidate) => candidateMatchesTokens(candidate, [displayToken]))
+  if (displayMatches.length) return {
+    candidates: equalRankPackagePeers(displayMatches, candidates).sort((a, b) => compare(a.packagePath, b.packagePath)),
+    matchBasis: ['catalog-display-name-used-as-package-path-search-hint'],
+  }
+
+  return { candidates: [], matchBasis: ['local-asset-index-and-equipment-package-path-search'] }
+}
+
+function candidateMatchesTokens(candidate: RawSeedCandidateInput, tokens: readonly string[]): boolean {
+  const packageName = path.posix.basename(candidate.packagePath)
+  const className = packageName.replace(/^BP_/i, '').replace(/(?:Instance|Storable|Actor)$/i, '')
+  const folderName = path.posix.basename(path.posix.dirname(candidate.packagePath))
+  return [className, folderName].some((name) => tokens.includes(normalizeIdentifier(name)))
+}
+
+function equalRankPackagePeers<T extends RawSeedCandidateInput>(matches: readonly T[], candidates: readonly T[]): T[] {
+  const directories = new Set(matches.map((candidate) => path.posix.dirname(candidate.packagePath)))
+  const roles = new Set(matches.map((candidate) => candidate.role))
+  return selectHighestRawCandidateRoles(candidates.filter((candidate) => directories.has(path.posix.dirname(candidate.packagePath)) && roles.has(candidate.role)))
+}
+
+function equalRankVariantFamilyPeers<T extends RawSeedCandidateInput>(matches: readonly T[], candidates: readonly T[]): T[] {
+  const variantDirectories = matches.map((candidate) => {
+    const directory = path.posix.dirname(candidate.packagePath)
+    const folderName = path.posix.basename(directory)
+    const variant = folderName.match(/^(.+?)_(Unique|Spooky|Winter|Year)\d+$/i)
+    return variant ? { parent: path.posix.dirname(directory), family: normalizeIdentifier(variant[1]!), variantKind: variant[2]!.toLowerCase() } : undefined
+  }).filter((value): value is { parent: string; family: string; variantKind: string } => Boolean(value))
+  if (!variantDirectories.length) return []
+  const matchesFamily = candidates.filter((candidate) => {
+    const directory = path.posix.dirname(candidate.packagePath)
+    const folderName = path.posix.basename(directory)
+    return variantDirectories.some((variant) => {
+      if (path.posix.dirname(directory) !== variant.parent) return false
+      const candidateVariant = folderName.match(/^(.+?)_(Unique|Spooky|Winter|Year)\d+$/i)
+      return Boolean(candidateVariant && normalizeIdentifier(candidateVariant[1]!) === variant.family && candidateVariant[2]!.toLowerCase() === variant.variantKind)
+    })
+  })
+  return selectHighestRawCandidateRoles(matchesFamily)
+}
+
+function iconHintPackageDirectories(iconHint: IconEntry | undefined): string[] {
+  if (!iconHint) return []
+  const assetPaths = [
+    ...(iconHint.sourcePackage ? [iconHint.sourcePackage] : []),
+    ...(iconHint.sourceAsset ? [iconHint.sourceAsset] : []),
+    ...(iconHint.candidates ?? []),
+  ]
+  const directories = assetPaths.map((assetPath) => {
+    const safe = safeDatasetPath(assetPath)
+    if (!safe) return undefined
+    return assetPath === iconHint.sourcePackage ? safe : path.posix.dirname(safe)
+  }).filter((value): value is string => Boolean(value))
+  return [...new Set(directories)].sort(compare)
+}
+
+export function classifySeedCandidateStatus(candidates: readonly Pick<SeedCandidate, 'role' | 'evidence'>[]): SeedStatus {
   if (candidates.length === 0) return 'not-found'
   if (candidates.length > 1) return 'ambiguous'
-  const uniqueDirectMatch = candidates[0]?.role === 'instance'
-    && ['asset-semantic-name', 'catalog-internal-id'].includes(matchMethod ?? '')
-  return uniqueDirectMatch ? 'exact' : 'provisional'
+  return candidates[0]!.evidence.some((evidence) => evidence.startsWith('serialized-identity-match:')) ? 'exact' : 'provisional'
+}
+
+function normalizeIdentifier(value: string): string {
+  return value.normalize('NFKD').replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
 }
 
 export function breadthFirstPackageWalk<T extends BreadthFirstReference>(
@@ -988,11 +1280,11 @@ export function renderRawStructuralInventoryReport(value: RawStructuralInventory
     `- Reached DataTable / Curve-like packages: ${summary.dataTableOrCurveReachedCount}; cycle/reuse edges: ${summary.cycleOrReuseEdgeCount}\n\n` +
     `- Structural inheritance chains: ${summary.inheritanceChainCount}; detected cycles: ${summary.inheritanceCycleCount}\n\n` +
     `## Catalog seed mapping\n\n${statuses}\n\n` +
-    `Seed status describes the catalog-to-Raw package-candidate association only: exact means one local Instance candidate selected by asset-semantic-name or catalog-internal-id mapping; provisional means a family heuristic, documented alias, or class fallback supplied the candidate; ambiguous preserves every equally ranked candidate; not-found has none. This axis is separate from Formal Identity. Rows retain all equally ranked candidates; \`not-found\` rows remain without package seeds.\n\n` +
+    `Seed status describes only the catalog-to-Raw candidate association and remains separate from Formal Identity. Exact requires a unique candidate whose serialized ItemIdName or ItemId.SerializedId matches the repository catalog ID or internal ID. Provisional records one candidate supported by package-path or presentation search hints. Ambiguous retains all equally ranked candidates; not-found has none. The equipment icon manifest is recorded as a search hint and never establishes identity on its own.\n\n` +
     `## Representation and boundaries\n\n` +
     `Each package retains dataset-relative path, package-file and logical-package hashes, parser and code provenance, import/export relation tables, export class/super/template/outer references, traversed inheritance chains, CDO property paths/types/decode states/values/children, source byte ranges, diagnostics, and unavailable ranges. Edges preserve the serialized occurrence and the target object/package. Imports under \`/Script\` are native boundaries. Missing local \`/Game\` targets, parser failures, and out-of-scope targets have separate stop reasons. BFS is cycle-safe and has no fixed-depth cutoff.\n\n` +
     `DataTable/Curve packages are retained as graph nodes. The current parser does not decode their row payloads; those ranges remain explicit as unavailable instead of being inferred. Unsupported and partial CDO property streams count as parser boundaries and retain their diagnostics, states, paths, and byte ranges. Non-CDO export payloads are marked \`not-extracted\`. The artifact stores no game binaries, semantic effects, damage/Power scaling, cadence, stacking, proc, or native-behavior conclusions.\n\n` +
     `## Artifact files\n\n` +
     `The machine-readable artifact uses \`research/raw/game-data-raw-structural-inventory/manifest.json\` plus ${Math.ceil(summary.visitedPackageCount / RAW_STRUCTURAL_SHARD_PACKAGE_LIMIT)} deterministic gzip JSON shards. Each shard holds at most ${RAW_STRUCTURAL_SHARD_PACKAGE_LIMIT} packages and their source-owned edges; the manifest records each shard's compressed and uncompressed SHA-256.\n\n` +
-    `## Reproduction\n\nRun \`npm run generate:game-data-raw-structural-inventory\` with the local 1.17.0.0 dataset, then \`npm run audit:game-data-raw-structural-inventory\`. Generation is deterministic from the catalog manifest, local package bytes, provenance record, parser, and generator code identity.\n`
+    `## Reproduction\n\nRun \`npm run generate:game-data-raw-structural-inventory\` with the local 1.17.0.0 dataset, then \`npm run audit:game-data-raw-structural-inventory\`. Catalog rows come from the repository equipment catalogs; candidate packages and serialized identifiers come from the local asset index and dataset. The equipment icon manifest is used only for candidate search hints. Generation is deterministic from those inputs, package bytes, provenance, parser, and generator code identity.\n`
 }
