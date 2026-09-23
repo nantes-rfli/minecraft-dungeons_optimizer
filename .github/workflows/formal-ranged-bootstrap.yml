@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -21,6 +24,17 @@ jobs:
       - run: npm run generate:formal-identity-evidence
       - run: npm run audit:formal-identity-evidence
       - run: npx vitest run tests/formalIdentityEvidence.test.ts tests/formalIdentitySourceGrounding.test.ts
+      - name: Commit generated Formal Identity artifact
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- research/domain/formal/identity-evidence-v1.json; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/domain/formal/identity-evidence-v1.json
+          git commit -m "Generate Ranged Formal Identity evidence artifact"
+          git push
       - uses: actions/upload-artifact@v4
         with:
           name: formal-ranged-generated
