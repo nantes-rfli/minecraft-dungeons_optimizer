@@ -45,6 +45,8 @@
     "audit:game-data-provenance": "node scripts/audit-game-data-provenance.ts",
     "extract:game-data-assets": "node scripts/extract-game-data-assets.ts",
     "extract:game-data-raw-package": "node scripts/extract-game-data-raw-package.ts",
+    "generate:game-data-raw-structural-inventory": "node scripts/extract-game-data-raw-structural-inventory.ts",
+    "audit:game-data-raw-structural-inventory": "node scripts/audit-game-data-raw-structural-inventory.ts",
     "icons:discover": "node scripts/equipment-icons.ts discover",
     "icons:extract": "node scripts/equipment-icons.ts extract",
     "icons:convert": "node scripts/equipment-icons.ts convert",

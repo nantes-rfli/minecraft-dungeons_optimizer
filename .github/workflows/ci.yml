@@ -54,6 +54,7 @@ jobs:
       - run: npm run audit:game-data-provenance
       - run: npm run audit:game-data-extractor
       - run: npm run audit:game-data-raw-package
+      - run: npm run audit:game-data-raw-structural-inventory
       - run: npm run audit:formal-identity-evidence
       - run: npm run audit:formal-value-availability
       - run: npm run audit:formal-serialized-relation
