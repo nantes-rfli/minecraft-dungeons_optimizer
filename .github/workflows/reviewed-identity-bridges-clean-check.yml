@@ -1,0 +1,49 @@
+name: Final reviewed bridge clean check
+
+on:
+  push:
+    branches: [codex/reviewed-identity-bridges]
+
+permissions:
+  contents: write
+
+jobs:
+  clean-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 20
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      - name: Retire temporary workflow without changing implementation tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm .github/workflows/reviewed-identity-bridges-clean-check.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/reviewed-identity-bridges-clean-check.yml
+          git commit -m "Retire final reviewed bridge clean check"
+          git push origin HEAD:codex/reviewed-identity-bridges
+          git diff --exit-code da63cd2b08b593c2c66a77c3f21cdc83fe3fe4f6 HEAD
+      - name: Verify deterministic artifacts and preserved Native lane
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run generate:game-data-model-alignment
+          npm run generate:formal-identity-evidence
+          git diff --exit-code
+          git diff --check
+          npm run audit:game-data-model-alignment
+          npm run audit:formal-identity-evidence
+          npm run audit:game-data-native-analysis
+          if git diff --name-only 647fcaefed2a8b90372fcc1e5f1297371ae0ee9d...HEAD | grep -Eq '^(research/native/|docs/native-analysis-restart.md)'; then
+            echo "Native Analysis changed unexpectedly"
+            exit 1
+          fi
+          echo "Final clean check passed."
