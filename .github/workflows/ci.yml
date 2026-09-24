@@ -24,6 +24,7 @@ jobs:
         # The advisory API can stall for minutes; dependency-audit.yml reports it separately.
         run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
+      - run: git diff --check a683b3f73d71295babc764f87eb64978bcef9199 HEAD
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
