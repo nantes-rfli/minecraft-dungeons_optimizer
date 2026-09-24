@@ -1,0 +1,3299 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-24",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "analysisBaselineCommit": "647fcaefed2a8b90372fcc1e5f1297371ae0ee9d",
+  "binary": {
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "sizeBytes": 37613072,
+    "distributionAuthenticity": "unverified local archive identity"
+  },
+  "stage1": {
+    "sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+    "sizeBytes": 15360000,
+    "rva": "0x4bb8000"
+  },
+  "analysisProvenance": {
+    "script": "scripts/static_boundary_survey.py",
+    "scriptSha256": "bac9a70e32019edb06b62d5595c128875df482a73c338d433cbfec69c9d39eb3",
+    "method": "read-only PE parsing, Capstone range-seeded linear sweeps, preferred-base pointer scans, saved profile byte comparisons, and focused objdump cross-decoding; no PE code execution",
+    "privateInputsCommitted": false,
+    "inputs": [
+      "Dungeons-Win64-Shipping.exe",
+      "Stage1 output",
+      "seven bounded Stage1 snapshots",
+      "existing trace/map JSON artifacts"
+    ],
+    "tools": {
+      "pythonCapstone": "5.0.6",
+      "pythonUnicorn": "2.1.4; existing bounded profiles only",
+      "customPeParser": "static_startup_analysis.PEImage",
+      "objdump": {
+        "available": true,
+        "version": "Apple LLVM version 17.0.0"
+      },
+      "otherDisassemblers": {
+        "analyzeHeadless": false,
+        "ghidra": false,
+        "r2": false,
+        "radare2": false,
+        "rizin": false,
+        "llvm-objdump": false,
+        "objdump": true
+      }
+    },
+    "focusedObjdumpCrossChecks": [
+      {
+        "targetRva": "0x40b0c0",
+        "exitCode": 0,
+        "firstDisassemblyLines": [
+          "14040b0c0: 6f                          \toutsl\t(%rsi), %dx",
+          "14040b0c1: 56                          \tpushq\t%rsi",
+          "14040b0c2: 17                          \t<unknown>",
+          "14040b0c3: e6 7f                       \toutb\t%al, $0x7f",
+          "14040b0c5: 95                          \txchgl\t%ebp, %eax",
+          "14040b0c6: 75 5d                       \tjne\t0x14040b125 <opus_repacketizer_out_range+0x385ba5>",
+          "14040b0c8: 20 ce                       \tandb\t%cl, %dh",
+          "14040b0ca: 32 47 d7                    \txorb\t-0x29(%rdi), %al"
+        ],
+        "stderrExcerpt": ""
+      },
+      {
+        "targetRva": "0x4d11a0",
+        "exitCode": 0,
+        "firstDisassemblyLines": [
+          "1404d11a0: 5a                          \tpopq\t%rdx",
+          "1404d11a1: b0 e4                       \tmovb\t$-0x1c, %al",
+          "1404d11a3: 43 3d 4a b0 b3 9d           \tcmpl\t$0x9db3b04a, %eax       # imm = 0x9DB3B04A",
+          "1404d11a9: 30 52 43                    \txorb\t%dl, 0x43(%rdx)",
+          "1404d11ac: 74 b0                       \tje\t0x1404d115e <opus_repacketizer_out_range+0x44bbde>",
+          "1404d11ae: 69 d4 fc 02 35 54           \timull\t$0x543502fc, %esp, %edx # imm = 0x543502FC",
+          "1404d11b4: 2a d0                       \tsubb\t%al, %dl",
+          "1404d11b6: 2a 03                       \tsubb\t(%rbx), %al"
+        ],
+        "stderrExcerpt": ""
+      },
+      {
+        "targetRva": "0x276f6f0",
+        "exitCode": 0,
+        "firstDisassemblyLines": [],
+        "stderrExcerpt": ""
+      },
+      {
+        "targetRva": "0x5b8b385",
+        "exitCode": 0,
+        "firstDisassemblyLines": [
+          "145b8b385: 37                          \t<unknown>",
+          "145b8b386: 7d 44                       \tjge\t0x145b8b3cc <.boot+0x12d3cc>",
+          "145b8b388: cc                          \tint3",
+          "145b8b389: 54                          \tpushq\t%rsp",
+          "145b8b38a: e9 61 09 5f db              \tjmp\t0x12117bcf0",
+          "145b8b38f: dd 7f 78                    \tfnstsw\t0x78(%rdi)",
+          "145b8b392: 30 13                       \txorb\t%dl, (%rbx)",
+          "145b8b394: 21 fd                       \tandl\t%edi, %ebp"
+        ],
+        "stderrExcerpt": ""
+      },
+      {
+        "targetRva": "0x5e297ca",
+        "exitCode": 0,
+        "firstDisassemblyLines": [
+          "145e297ca: f8                          \tclc",
+          "145e297cb: c2 79 a6                    \tretq\t$-0x5987                # imm = 0xA679",
+          "145e297ce: ef                          \toutl\t%eax, %dx",
+          "145e297cf: 9d                          \tpopfq",
+          "145e297d0: 26 b1 08                    \tmovb\t$0x8, %cl",
+          "145e297d3: 4c 7e 2a                    \tjle\t0x145e29800 <.boot+0x3cb800>",
+          "145e297d6: ed                          \tinl\t%dx, %eax",
+          "145e297d7: 4c 98                       \tcltq"
+        ],
+        "stderrExcerpt": ""
+      }
+    ]
+  },
+  "codeDataPartition": {
+    "imageSections": [
+      {
+        "index": 0,
+        "name": "section-0 (8-space name)",
+        "rva": "0x1000",
+        "virtualSize": 50932648,
+        "rawSize": 20691968,
+        "executable": true,
+        "initializedRawEntropyBitsPerByte": 7.9884
+      },
+      {
+        "index": 1,
+        "name": "section-1 (8-space name)",
+        "rva": "0x3094000",
+        "virtualSize": 17778500,
+        "rawSize": 5724672,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.9501
+      },
+      {
+        "index": 2,
+        "name": "section-2 (8-space name)",
+        "rva": "0x4189000",
+        "virtualSize": 6337216,
+        "rawSize": 506368,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.8745
+      },
+      {
+        "index": 3,
+        "name": "section-3 (8-space name)",
+        "rva": "0x4795000",
+        "virtualSize": 2820132,
+        "rawSize": 1558528,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.6053
+      },
+      {
+        "index": 4,
+        "name": "section-4 (8-space name)",
+        "rva": "0x4a46000",
+        "virtualSize": 4400,
+        "rawSize": 1024,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.5561
+      },
+      {
+        "index": 5,
+        "name": "section-5 (8-space name)",
+        "rva": "0x4a48000",
+        "virtualSize": 42288,
+        "rawSize": 30720,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.9252
+      },
+      {
+        "index": 6,
+        "name": "section-6 (8-space name)",
+        "rva": "0x4a53000",
+        "virtualSize": 4776,
+        "rawSize": 2560,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.7314
+      },
+      {
+        "index": 7,
+        "name": "section-7 (8-space name)",
+        "rva": "0x4a55000",
+        "virtualSize": 1433228,
+        "rawSize": 144896,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 7.9494
+      },
+      {
+        "index": 8,
+        "name": ".debug",
+        "rva": "0x4bb3000",
+        "virtualSize": 4096,
+        "rawSize": 1536,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 4.3688
+      },
+      {
+        "index": 9,
+        "name": ".edata",
+        "rva": "0x4bb4000",
+        "virtualSize": 4096,
+        "rawSize": 3584,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 5.4215
+      },
+      {
+        "index": 10,
+        "name": ".idata",
+        "rva": "0x4bb5000",
+        "virtualSize": 4096,
+        "rawSize": 3072,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 4.2246
+      },
+      {
+        "index": 11,
+        "name": ".tls",
+        "rva": "0x4bb6000",
+        "virtualSize": 4096,
+        "rawSize": 512,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 0.2885
+      },
+      {
+        "index": 12,
+        "name": ".rsrc",
+        "rva": "0x4bb7000",
+        "virtualSize": 4096,
+        "rawSize": 4096,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 5.0717
+      },
+      {
+        "index": 13,
+        "name": ".dungeon",
+        "rva": "0x4bb8000",
+        "virtualSize": 15360000,
+        "rawSize": 0,
+        "executable": true,
+        "initializedRawEntropyBitsPerByte": null
+      },
+      {
+        "index": 14,
+        "name": ".boot",
+        "rva": "0x5a5e000",
+        "virtualSize": 8937984,
+        "rawSize": 8937984,
+        "executable": true,
+        "initializedRawEntropyBitsPerByte": 7.8033
+      },
+      {
+        "index": 15,
+        "name": ".reloc",
+        "rva": "0x62e5000",
+        "virtualSize": 4096,
+        "rawSize": 16,
+        "executable": false,
+        "initializedRawEntropyBitsPerByte": 2.7335
+      }
+    ],
+    "recoveredStage1Partition": {
+      "observedDispatcherBlocks": "code-like; exact instruction blocks are pinned in startup-block-map.json and remain within .dungeon",
+      "exceptionRangeSeededCodeLikeWindows": 1038,
+      "exceptionRangeSeededInstructionCount": 9484,
+      "exceptionRangeSeededCallRetBranchCounts": {
+        "calls": 80,
+        "returns": 105,
+        "branches": 837,
+        "ioOrPrivileged": 523
+      },
+      "dataLikeRegion": {
+        "startRva": "0x4bb80f8",
+        "endRva": "0x4c1a668",
+        "reason": "typed dword-pair plus aligned absolute-address qword fields; sparse/irregular placement; high-entropy neighboring qwords; not a contiguous function-pointer run"
+      },
+      "relocationTableLikeRegion": {
+        "directoryRva": "0x62e5000",
+        "nonzeroRelocationCount": 3,
+        "targets": [
+          "0x4bb6038",
+          "0x4bb6040",
+          "0x4bb6048"
+        ]
+      },
+      "dispatchTableLikeRegion": {
+        "slotRva": "0x4ed272d",
+        "writerRva": "0x4eaf54d",
+        "slotTargetAtStop": "0x144be79a4",
+        "interpretation": "one focused runtime-written dispatch-data slot, not a stable/game function table"
+      },
+      "pointerCluster": {
+        "alignedReferenceCount": 87,
+        "uniqueTargetCount": 4,
+        "sourceRegionCounts": {
+          ".dungeon-stage1": 87
+        },
+        "sourceRange": [
+          "0x4bb80f8",
+          "0x4c1a668"
+        ],
+        "sourceClustersSplitWhenGapExceedsBytes": 4096,
+        "sourceClusters": [
+          {
+            "startRva": "0x4bb80f8",
+            "endRva": "0x4bb9af8",
+            "referenceCount": 9,
+            "targetCounts": {
+              "0x40b0c0": 6,
+              "0x2f46e1f": 2,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4bc69b8",
+            "endRva": "0x4bcc2d8",
+            "referenceCount": 13,
+            "targetCounts": {
+              "0x2f46e1f": 5,
+              "0x276f6f0": 4,
+              "0x40b0c0": 4
+            }
+          },
+          {
+            "startRva": "0x4bcdcb8",
+            "endRva": "0x4bce758",
+            "referenceCount": 3,
+            "targetCounts": {
+              "0x40b0c0": 2,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4bcf898",
+            "endRva": "0x4bcf898",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x40b0c0": 1
+            }
+          },
+          {
+            "startRva": "0x4bd5048",
+            "endRva": "0x4bd5048",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x2f46e1f": 1
+            }
+          },
+          {
+            "startRva": "0x4be3de8",
+            "endRva": "0x4be4b98",
+            "referenceCount": 6,
+            "targetCounts": {
+              "0x40b0c0": 5,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4be61c8",
+            "endRva": "0x4be61c8",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4be7ec8",
+            "endRva": "0x4be7ec8",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x40b0c0": 1
+            }
+          },
+          {
+            "startRva": "0x4beaba8",
+            "endRva": "0x4beb088",
+            "referenceCount": 5,
+            "targetCounts": {
+              "0x2f46e1f": 2,
+              "0x40b0c0": 2,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4bee4e8",
+            "endRva": "0x4bf0ff8",
+            "referenceCount": 12,
+            "targetCounts": {
+              "0x2f46e1f": 4,
+              "0x276f6f0": 4,
+              "0x40b0c0": 3,
+              "0x4d11a0": 1
+            }
+          },
+          {
+            "startRva": "0x4bf26d8",
+            "endRva": "0x4bf27a8",
+            "referenceCount": 3,
+            "targetCounts": {
+              "0x40b0c0": 2,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4bf4428",
+            "endRva": "0x4bf44f8",
+            "referenceCount": 2,
+            "targetCounts": {
+              "0x40b0c0": 2
+            }
+          },
+          {
+            "startRva": "0x4bf5dd8",
+            "endRva": "0x4bf5e48",
+            "referenceCount": 2,
+            "targetCounts": {
+              "0x276f6f0": 1,
+              "0x2f46e1f": 1
+            }
+          },
+          {
+            "startRva": "0x4bf7468",
+            "endRva": "0x4bf7a28",
+            "referenceCount": 2,
+            "targetCounts": {
+              "0x276f6f0": 1,
+              "0x2f46e1f": 1
+            }
+          },
+          {
+            "startRva": "0x4bfa518",
+            "endRva": "0x4bfa518",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x40b0c0": 1
+            }
+          },
+          {
+            "startRva": "0x4bfd5c8",
+            "endRva": "0x4bfe8e8",
+            "referenceCount": 4,
+            "targetCounts": {
+              "0x276f6f0": 2,
+              "0x40b0c0": 1,
+              "0x2f46e1f": 1
+            }
+          },
+          {
+            "startRva": "0x4bff998",
+            "endRva": "0x4bff998",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x40b0c0": 1
+            }
+          },
+          {
+            "startRva": "0x4c01648",
+            "endRva": "0x4c03328",
+            "referenceCount": 5,
+            "targetCounts": {
+              "0x2f46e1f": 3,
+              "0x40b0c0": 1,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4c0fdc8",
+            "endRva": "0x4c123a8",
+            "referenceCount": 9,
+            "targetCounts": {
+              "0x2f46e1f": 5,
+              "0x40b0c0": 3,
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4c17288",
+            "endRva": "0x4c17288",
+            "referenceCount": 1,
+            "targetCounts": {
+              "0x276f6f0": 1
+            }
+          },
+          {
+            "startRva": "0x4c197b8",
+            "endRva": "0x4c1a668",
+            "referenceCount": 5,
+            "targetCounts": {
+              "0x276f6f0": 3,
+              "0x40b0c0": 2
+            }
+          }
+        ],
+        "interReferenceGapBytes": {
+          "minimum": 48,
+          "median": 1384.0,
+          "maximum": 60832,
+          "mostFrequent": [
+            {
+              "gap": "0x70",
+              "count": 4
+            },
+            {
+              "gap": "0x40",
+              "count": 3
+            },
+            {
+              "gap": "0x30",
+              "count": 3
+            },
+            {
+              "gap": "0x240",
+              "count": 2
+            },
+            {
+              "gap": "0x680",
+              "count": 2
+            }
+          ]
+        },
+        "targets": [
+          {
+            "targetRva": "0x40b0c0",
+            "targetVaAtPreferredImageBase": "0x14040b0c0",
+            "targetSectionIndex": 0,
+            "targetSectionName": "section-0 (8-space name)",
+            "targetBytesBackedByInitializedInput": true,
+            "referenceCount": 37,
+            "sourceRvas": [
+              "0x4bb80f8",
+              "0x4bb8138",
+              "0x4bb8628",
+              "0x4bb8b98",
+              "0x4bb8fc8",
+              "0x4bb9168",
+              "0x4bc82a8",
+              "0x4bc9f78",
+              "0x4bca188",
+              "0x4bcc2d8",
+              "0x4bcdcb8",
+              "0x4bcdd78",
+              "0x4bcf898",
+              "0x4be3de8",
+              "0x4be43b8",
+              "0x4be43f8",
+              "0x4be45e8",
+              "0x4be4b98",
+              "0x4be7ec8",
+              "0x4beafe8",
+              "0x4beb088",
+              "0x4beedc8",
+              "0x4bf04a8",
+              "0x4bf0af8",
+              "0x4bf26d8",
+              "0x4bf2748",
+              "0x4bf4428",
+              "0x4bf44f8",
+              "0x4bfa518",
+              "0x4bfd5c8",
+              "0x4bff998",
+              "0x4c01648",
+              "0x4c0fdc8",
+              "0x4c10048",
+              "0x4c110b8",
+              "0x4c197b8",
+              "0x4c1a1a8"
+            ],
+            "sourceSpan": [
+              "0x4bb80f8",
+              "0x4c1a1a8"
+            ],
+            "precedingDwordPairCounts": [
+              {
+                "lowDword": "0x11",
+                "highDword": "0x1",
+                "count": 37
+              }
+            ],
+            "nextQwordUniqueCount": 37,
+            "nextQwordExamples": [
+              "0xf8c7c4ceccc7fea9",
+              "0xb8a3a4aaaca3bac9",
+              "0x70a0b31330a0150"
+            ],
+            "sourceClusterCountAtGapOver1KiB": 20,
+            "exceptionRangeMatch": {
+              "beginRva": "0x40b0c0",
+              "endRva": "0x40b1fe",
+              "unwindInfoRva": "0x3d174c8",
+              "unwindInfoBackedByInitializedInput": false,
+              "exactBeginMatch": true
+            },
+            "decode": {
+              "sectionIndex": 0,
+              "sectionName": "section-0 (8-space name)",
+              "initializedInputBytesAvailable": true,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": 5.9062,
+              "decodedInstructionCount": 2,
+              "decodedBytes": 2,
+              "callCount": 0,
+              "returnCount": 0,
+              "branchCount": 0,
+              "ioOrPrivilegedInstructionCount": 1,
+              "firstInstructions": [
+                {
+                  "rva": "0x40b0c0",
+                  "mnemonic": "outsd",
+                  "operands": "dx, dword ptr [rsi]"
+                },
+                {
+                  "rva": "0x40b0c1",
+                  "mnemonic": "push",
+                  "operands": "rsi"
+                }
+              ],
+              "decodeQuality": "poor linear decode; stops before most sample bytes"
+            }
+          },
+          {
+            "targetRva": "0x2f46e1f",
+            "targetVaAtPreferredImageBase": "0x142f46e1f",
+            "targetSectionIndex": 0,
+            "targetSectionName": "section-0 (8-space name)",
+            "targetBytesBackedByInitializedInput": false,
+            "referenceCount": 25,
+            "sourceRvas": [
+              "0x4bb83b8",
+              "0x4bb8f98",
+              "0x4bc7d18",
+              "0x4bc8068",
+              "0x4bc9178",
+              "0x4bcade8",
+              "0x4bcb888",
+              "0x4bd5048",
+              "0x4beaba8",
+              "0x4beaf28",
+              "0x4bee4e8",
+              "0x4bef518",
+              "0x4bf0898",
+              "0x4bf0ff8",
+              "0x4bf5e48",
+              "0x4bf7a28",
+              "0x4bfdd38",
+              "0x4c018a8",
+              "0x4c02b48",
+              "0x4c03328",
+              "0x4c10008",
+              "0x4c10368",
+              "0x4c10748",
+              "0x4c117a8",
+              "0x4c118e8"
+            ],
+            "sourceSpan": [
+              "0x4bb83b8",
+              "0x4c118e8"
+            ],
+            "precedingDwordPairCounts": [
+              {
+                "lowDword": "0x8",
+                "highDword": "0x1",
+                "count": 24
+              },
+              {
+                "lowDword": "0x5",
+                "highDword": "0x1",
+                "count": 1
+              }
+            ],
+            "nextQwordUniqueCount": 25,
+            "nextQwordExamples": [
+              "0x8a198a6f8a198a6f",
+              "0x891c89d2891c89d2",
+              "0x4b704f904b704f9"
+            ],
+            "sourceClusterCountAtGapOver1KiB": 16,
+            "exceptionRangeMatch": null,
+            "decode": {
+              "sectionIndex": 0,
+              "sectionName": "section-0 (8-space name)",
+              "initializedInputBytesAvailable": false,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": null,
+              "decodedInstructionCount": 0,
+              "decodedBytes": 0,
+              "callCount": 0,
+              "returnCount": 0,
+              "branchCount": 0,
+              "ioOrPrivilegedInstructionCount": 0,
+              "firstInstructions": [],
+              "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+            }
+          },
+          {
+            "targetRva": "0x276f6f0",
+            "targetVaAtPreferredImageBase": "0x14276f6f0",
+            "targetSectionIndex": 0,
+            "targetSectionName": "section-0 (8-space name)",
+            "targetBytesBackedByInitializedInput": false,
+            "referenceCount": 24,
+            "sourceRvas": [
+              "0x4bb9af8",
+              "0x4bc69b8",
+              "0x4bc76e8",
+              "0x4bc95f8",
+              "0x4bca768",
+              "0x4bce758",
+              "0x4be4348",
+              "0x4be61c8",
+              "0x4beaeb8",
+              "0x4beeeb8",
+              "0x4beeee8",
+              "0x4bef958",
+              "0x4bf0078",
+              "0x4bf27a8",
+              "0x4bf5dd8",
+              "0x4bf7468",
+              "0x4bfdc48",
+              "0x4bfe8e8",
+              "0x4c02718",
+              "0x4c123a8",
+              "0x4c17288",
+              "0x4c1a178",
+              "0x4c1a248",
+              "0x4c1a668"
+            ],
+            "sourceSpan": [
+              "0x4bb9af8",
+              "0x4c1a668"
+            ],
+            "precedingDwordPairCounts": [
+              {
+                "lowDword": "0xa",
+                "highDword": "0x1",
+                "count": 24
+              }
+            ],
+            "nextQwordUniqueCount": 24,
+            "nextQwordExamples": [
+              "0xb973b94cb94cb948",
+              "0xf53bf540f540f544",
+              "0x96d8962396239627"
+            ],
+            "sourceClusterCountAtGapOver1KiB": 17,
+            "exceptionRangeMatch": {
+              "beginRva": "0x276f6f0",
+              "endRva": "0x276f9ca",
+              "unwindInfoRva": "0x409aaf8",
+              "unwindInfoBackedByInitializedInput": false,
+              "exactBeginMatch": true
+            },
+            "decode": {
+              "sectionIndex": 0,
+              "sectionName": "section-0 (8-space name)",
+              "initializedInputBytesAvailable": false,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": null,
+              "decodedInstructionCount": 0,
+              "decodedBytes": 0,
+              "callCount": 0,
+              "returnCount": 0,
+              "branchCount": 0,
+              "ioOrPrivilegedInstructionCount": 0,
+              "firstInstructions": [],
+              "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+            }
+          },
+          {
+            "targetRva": "0x4d11a0",
+            "targetVaAtPreferredImageBase": "0x1404d11a0",
+            "targetSectionIndex": 0,
+            "targetSectionName": "section-0 (8-space name)",
+            "targetBytesBackedByInitializedInput": true,
+            "referenceCount": 1,
+            "sourceRvas": [
+              "0x4bef018"
+            ],
+            "sourceSpan": [
+              "0x4bef018",
+              "0x4bef018"
+            ],
+            "precedingDwordPairCounts": [
+              {
+                "lowDword": "0x30",
+                "highDword": "0x1",
+                "count": 1
+              }
+            ],
+            "nextQwordUniqueCount": 1,
+            "nextQwordExamples": [
+              "0x47e047e947f24783"
+            ],
+            "sourceClusterCountAtGapOver1KiB": 1,
+            "exceptionRangeMatch": {
+              "beginRva": "0x4d11a0",
+              "endRva": "0x4d11eb",
+              "unwindInfoRva": "0x3d0ac18",
+              "unwindInfoBackedByInitializedInput": false,
+              "exactBeginMatch": true
+            },
+            "decode": {
+              "sectionIndex": 0,
+              "sectionName": "section-0 (8-space name)",
+              "initializedInputBytesAvailable": true,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": 5.6445,
+              "decodedInstructionCount": 19,
+              "decodedBytes": 55,
+              "callCount": 0,
+              "returnCount": 0,
+              "branchCount": 1,
+              "ioOrPrivilegedInstructionCount": 0,
+              "firstInstructions": [
+                {
+                  "rva": "0x4d11a0",
+                  "mnemonic": "pop",
+                  "operands": "rdx"
+                },
+                {
+                  "rva": "0x4d11a1",
+                  "mnemonic": "mov",
+                  "operands": "al, 0xe4"
+                },
+                {
+                  "rva": "0x4d11a3",
+                  "mnemonic": "cmp",
+                  "operands": "eax, 0x9db3b04a"
+                },
+                {
+                  "rva": "0x4d11a9",
+                  "mnemonic": "xor",
+                  "operands": "byte ptr [rdx + 0x43], dl"
+                },
+                {
+                  "rva": "0x4d11ac",
+                  "mnemonic": "je",
+                  "operands": "0x1404d115e"
+                },
+                {
+                  "rva": "0x4d11ae",
+                  "mnemonic": "imul",
+                  "operands": "edx, esp, 0x543502fc"
+                }
+              ],
+              "decodeQuality": "linear decode lacks call/return shape; CFG and reachability remain unconfirmed"
+            }
+          }
+        ],
+        "assessment": "The references are deliberate preferred-base absolute values. Their irregular sparse locations and preceding dword pairs form opaque typed records, not a contiguous vtable/registrar array. Three repeated targets equal exception-range starts; one repeated target is not in the saved range map and two targets lie in virtual-only bytes. A code-pointer-field role remains plausible, but no class or registration identity is linked."
+      },
+      "unalignedAbsoluteReferenceScan": {
+        "byteGranularityReferenceCount": 89,
+        "alignedCount": 87,
+        "unalignedReferences": [
+          {
+            "region": ".dungeon-stage1",
+            "sourceRva": "0x4bbe153",
+            "targetRva": "0x2a1114e",
+            "alignmentOffset": 3,
+            "targetSectionIndex": 0
+          },
+          {
+            "region": ".dungeon-stage1",
+            "sourceRva": "0x4beac22",
+            "targetRva": "0xbe8300",
+            "alignmentOffset": 2,
+            "targetSectionIndex": 0
+          }
+        ]
+      },
+      "unknownHighEntropy": {
+        "section0RawEntropyBitsPerByte": 7.9884,
+        "section0RawBytes": 20691968,
+        "stage1EntropyBy16KiBWindows": {
+          "windowSizeBytes": 16384,
+          "windowCount": 938,
+          "minimumBitsPerByte": 2.8519,
+          "medianBitsPerByte": 6.1861999999999995,
+          "maximumBitsPerByte": 7.9845,
+          "windowsBelow6BitsPerByte": 421,
+          "windowsBelow7BitsPerByte": 914,
+          "windowsAtLeast7_8BitsPerByte": 15
+        },
+        "pointerSourceSpanEntropyBitsPerByte": 5.7673,
+        "interpretation": "Stage1 has mixed entropy rather than a single code/data distribution; linear decode from selected PE function-range starts often terminates early, and target/unwind bytes are often outside initialized input"
+      }
+    },
+    "exceptionMetadata": {
+      "entryCount": 236168,
+      "beginRangesSorted": true,
+      "entryBeginCountBySectionIndex": {
+        "0": 235011,
+        "13": 1157
+      },
+      "endMinusOneCountBySectionIndex": {
+        "0": 235011,
+        "13": 1157
+      },
+      "unwindInfoCountBySectionIndex": {
+        "1": 236167,
+        "13": 1
+      },
+      "beginBytesBacked": 91069,
+      "endBytesBacked": 91068,
+      "unwindInfoBytesBacked": 1,
+      "rangeSizeBytes": {
+        "minimum": 1,
+        "median": 78.0,
+        "p90": 432,
+        "maximum": 3481296
+      },
+      "stage1RangeStartCount": 1157,
+      "stage1SeededLinearSweep": {
+        "method": "Capstone linear sweep from each Stage1 exception-range start through its range, capped at 4 KiB per range; this is not a recursively validated CFG.",
+        "rangesWithAnyDecodedInstruction": 1038,
+        "decodedInstructionCount": 9484,
+        "decodedByteCount": 25263,
+        "callCount": 80,
+        "returnCount": 105,
+        "branchCount": 837,
+        "ioOrPrivilegedInstructionCount": 523,
+        "outboundDirectTransferCandidates": [
+          {
+            "sourceRva": "0x5338753",
+            "sourceFunctionRange": [
+              "0x5338732",
+              "0x5338763"
+            ],
+            "sourceFunctionRangeUnwindRva": "0x3d1cae8",
+            "instruction": {
+              "bytes": "e97210af00",
+              "mnemonic": "jmp",
+              "operands": "0x145e297ca"
+            },
+            "targetRva": "0x5e297ca",
+            "targetSectionIndex": 14,
+            "targetSectionName": ".boot",
+            "targetInitialized": true,
+            "targetDecode": {
+              "sectionIndex": 14,
+              "sectionName": ".boot",
+              "initializedInputBytesAvailable": true,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": 5.7188,
+              "decodedInstructionCount": 22,
+              "decodedBytes": 63,
+              "callCount": 0,
+              "returnCount": 1,
+              "branchCount": 1,
+              "ioOrPrivilegedInstructionCount": 3,
+              "firstInstructions": [
+                {
+                  "rva": "0x5e297ca",
+                  "mnemonic": "clc",
+                  "operands": ""
+                },
+                {
+                  "rva": "0x5e297cb",
+                  "mnemonic": "ret",
+                  "operands": "0xa679"
+                },
+                {
+                  "rva": "0x5e297ce",
+                  "mnemonic": "out",
+                  "operands": "dx, eax"
+                },
+                {
+                  "rva": "0x5e297cf",
+                  "mnemonic": "popfq",
+                  "operands": ""
+                },
+                {
+                  "rva": "0x5e297d0",
+                  "mnemonic": "mov",
+                  "operands": "cl, 8"
+                },
+                {
+                  "rva": "0x5e297d3",
+                  "mnemonic": "jle",
+                  "operands": "0x145e29800"
+                }
+              ],
+              "decodeQuality": "linear bytes decode includes I/O or privileged instructions; coherent code is unconfirmed"
+            },
+            "xrefCountFromThisSweep": 1,
+            "executionObserved": false,
+            "confidence": "low; single seeded linear-sweep edge with no captured execution or target CFG"
+          },
+          {
+            "sourceRva": "0x541b32d",
+            "sourceFunctionRange": [
+              "0x541b32d",
+              "0x541b35e"
+            ],
+            "sourceFunctionRangeUnwindRva": "0x3d27c28",
+            "instruction": {
+              "bytes": "e953007700",
+              "mnemonic": "jmp",
+              "operands": "0x145b8b385"
+            },
+            "targetRva": "0x5b8b385",
+            "targetSectionIndex": 14,
+            "targetSectionName": ".boot",
+            "targetInitialized": true,
+            "targetDecode": {
+              "sectionIndex": 14,
+              "sectionName": ".boot",
+              "initializedInputBytesAvailable": true,
+              "sampleBytes": 64,
+              "entropyBitsPerByte": 5.5896,
+              "decodedInstructionCount": 0,
+              "decodedBytes": 0,
+              "callCount": 0,
+              "returnCount": 0,
+              "branchCount": 0,
+              "ioOrPrivilegedInstructionCount": 0,
+              "firstInstructions": [],
+              "decodeQuality": "poor linear decode; stops before most sample bytes"
+            },
+            "xrefCountFromThisSweep": 1,
+            "executionObserved": false,
+            "confidence": "low; single seeded linear-sweep edge with no captured execution or target CFG"
+          }
+        ],
+        "indirectBranchInstructionSites": 149,
+        "indirectBranchSamples": [
+          {
+            "sourceRva": "0x532c91c",
+            "mnemonic": "call",
+            "operands": "qword ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x5334238",
+            "mnemonic": "call",
+            "operands": "qword ptr [rcx + 0x1200]"
+          },
+          {
+            "sourceRva": "0x53389e1",
+            "mnemonic": "jmp",
+            "operands": "ptr [rsi]"
+          },
+          {
+            "sourceRva": "0x534c8a8",
+            "mnemonic": "jmp",
+            "operands": "qword ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x534d538",
+            "mnemonic": "jmp",
+            "operands": "ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x534d542",
+            "mnemonic": "jmp",
+            "operands": "ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x534dc8c",
+            "mnemonic": "jmp",
+            "operands": "ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x534dc96",
+            "mnemonic": "jmp",
+            "operands": "ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x5361c6d",
+            "mnemonic": "jmp",
+            "operands": "ptr [rbx]"
+          },
+          {
+            "sourceRva": "0x536400b",
+            "mnemonic": "call",
+            "operands": "qword ptr [rcx - 0x6c196600]"
+          },
+          {
+            "sourceRva": "0x53640c3",
+            "mnemonic": "jmp",
+            "operands": "qword ptr [rbp - 0xc8953a4]"
+          },
+          {
+            "sourceRva": "0x536613f",
+            "mnemonic": "jmp",
+            "operands": "ptr [rsi]"
+          }
+        ],
+        "interpretation": "The range metadata is an entry heuristic. Poor target decodes and unbacked unwind records prevent treating the sweep as complete code recovery."
+      }
+    },
+    "unwindRelation": "236,168 sorted ranges include 235,011 begins in PE section 0 and 1,157 in .dungeon; 236,167 unwind-info RVAs are not backed by initialized input bytes. Range rows provide candidate boundaries, not decoded function bodies or stable code proof."
+  },
+  "crossRegionControlFlow": {
+    "executionObservedChain": [
+      "0x4ebdde7 -> 0x4be79a4 (indirect slot target)",
+      "0x4be79a4 -> 0x4cce835 -> jmp rbx -> 0x4bb927b",
+      "0x4bb927b -> 0x4e5f7d5 -> jmp r11 -> 0x4c1968b -> 0x4dd6892"
+    ],
+    "executionObservedChainRegion": ".dungeon Stage1 only; synthetic profile coverage only",
+    "originalImageEntryObserved": false,
+    "decodedRangeSeededCandidates": [
+      {
+        "sourceRva": "0x5338753",
+        "sourceFunctionRange": [
+          "0x5338732",
+          "0x5338763"
+        ],
+        "sourceFunctionRangeUnwindRva": "0x3d1cae8",
+        "instruction": {
+          "bytes": "e97210af00",
+          "mnemonic": "jmp",
+          "operands": "0x145e297ca"
+        },
+        "targetRva": "0x5e297ca",
+        "targetSectionIndex": 14,
+        "targetSectionName": ".boot",
+        "targetInitialized": true,
+        "targetDecode": {
+          "sectionIndex": 14,
+          "sectionName": ".boot",
+          "initializedInputBytesAvailable": true,
+          "sampleBytes": 64,
+          "entropyBitsPerByte": 5.7188,
+          "decodedInstructionCount": 22,
+          "decodedBytes": 63,
+          "callCount": 0,
+          "returnCount": 1,
+          "branchCount": 1,
+          "ioOrPrivilegedInstructionCount": 3,
+          "firstInstructions": [
+            {
+              "rva": "0x5e297ca",
+              "mnemonic": "clc",
+              "operands": ""
+            },
+            {
+              "rva": "0x5e297cb",
+              "mnemonic": "ret",
+              "operands": "0xa679"
+            },
+            {
+              "rva": "0x5e297ce",
+              "mnemonic": "out",
+              "operands": "dx, eax"
+            },
+            {
+              "rva": "0x5e297cf",
+              "mnemonic": "popfq",
+              "operands": ""
+            },
+            {
+              "rva": "0x5e297d0",
+              "mnemonic": "mov",
+              "operands": "cl, 8"
+            },
+            {
+              "rva": "0x5e297d3",
+              "mnemonic": "jle",
+              "operands": "0x145e29800"
+            }
+          ],
+          "decodeQuality": "linear bytes decode includes I/O or privileged instructions; coherent code is unconfirmed"
+        },
+        "xrefCountFromThisSweep": 1,
+        "executionObserved": false,
+        "confidence": "low; single seeded linear-sweep edge with no captured execution or target CFG"
+      },
+      {
+        "sourceRva": "0x541b32d",
+        "sourceFunctionRange": [
+          "0x541b32d",
+          "0x541b35e"
+        ],
+        "sourceFunctionRangeUnwindRva": "0x3d27c28",
+        "instruction": {
+          "bytes": "e953007700",
+          "mnemonic": "jmp",
+          "operands": "0x145b8b385"
+        },
+        "targetRva": "0x5b8b385",
+        "targetSectionIndex": 14,
+        "targetSectionName": ".boot",
+        "targetInitialized": true,
+        "targetDecode": {
+          "sectionIndex": 14,
+          "sectionName": ".boot",
+          "initializedInputBytesAvailable": true,
+          "sampleBytes": 64,
+          "entropyBitsPerByte": 5.5896,
+          "decodedInstructionCount": 0,
+          "decodedBytes": 0,
+          "callCount": 0,
+          "returnCount": 0,
+          "branchCount": 0,
+          "ioOrPrivilegedInstructionCount": 0,
+          "firstInstructions": [],
+          "decodeQuality": "poor linear decode; stops before most sample bytes"
+        },
+        "xrefCountFromThisSweep": 1,
+        "executionObserved": false,
+        "confidence": "low; single seeded linear-sweep edge with no captured execution or target CFG"
+      }
+    ],
+    "section0StableCodeEdges": [],
+    "rawOpcodePatternSweep": {
+      "matchedOpcodePatternCount": 3199,
+      "countsByOpcodePattern": {
+        "call-rel32": 1689,
+        "jmp-rel32": 1451,
+        "jcc-rel32": 56,
+        "jcc-rel8": 3
+      },
+      "countsByTargetSectionIndex": {
+        "14": 2365,
+        "0": 834
+      },
+      "samplePatternsNotAcceptedAsControlFlow": [
+        {
+          "sourceRva": "0x4bb88b9",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x5b60a06",
+          "targetSectionIndex": 14,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bb9715",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x40f160",
+          "targetSectionIndex": 0,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bb9747",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x6139c94",
+          "targetSectionIndex": 14,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bba71f",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x62bac6c",
+          "targetSectionIndex": 14,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbac07",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x5c8b154",
+          "targetSectionIndex": 14,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbae92",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x759330",
+          "targetSectionIndex": 0,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbae9c",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x77f840",
+          "targetSectionIndex": 0,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbcb87",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x62bd0d4",
+          "targetSectionIndex": 14,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbd4b2",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x46a690",
+          "targetSectionIndex": 0,
+          "targetInitialized": true
+        },
+        {
+          "sourceRva": "0x4bbd4bc",
+          "opcodePattern": "call-rel32",
+          "targetRva": "0x41c050",
+          "targetSectionIndex": 0,
+          "targetInitialized": true
+        }
+      ],
+      "assessment": "Unseeded byte signatures in a high-entropy decompressed region are not instruction-boundary or reachability evidence; only range-seeded decoded candidates are listed as cross-region edges."
+    },
+    "absolutePointerReferences": {
+      "alignedReferenceCount": 87,
+      "uniqueTargetCount": 4,
+      "sourceRegionCounts": {
+        ".dungeon-stage1": 87
+      },
+      "sourceRange": [
+        "0x4bb80f8",
+        "0x4c1a668"
+      ],
+      "sourceClustersSplitWhenGapExceedsBytes": 4096,
+      "sourceClusters": [
+        {
+          "startRva": "0x4bb80f8",
+          "endRva": "0x4bb9af8",
+          "referenceCount": 9,
+          "targetCounts": {
+            "0x40b0c0": 6,
+            "0x2f46e1f": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bc69b8",
+          "endRva": "0x4bcc2d8",
+          "referenceCount": 13,
+          "targetCounts": {
+            "0x2f46e1f": 5,
+            "0x276f6f0": 4,
+            "0x40b0c0": 4
+          }
+        },
+        {
+          "startRva": "0x4bcdcb8",
+          "endRva": "0x4bce758",
+          "referenceCount": 3,
+          "targetCounts": {
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bcf898",
+          "endRva": "0x4bcf898",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4bd5048",
+          "endRva": "0x4bd5048",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4be3de8",
+          "endRva": "0x4be4b98",
+          "referenceCount": 6,
+          "targetCounts": {
+            "0x40b0c0": 5,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4be61c8",
+          "endRva": "0x4be61c8",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4be7ec8",
+          "endRva": "0x4be7ec8",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4beaba8",
+          "endRva": "0x4beb088",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x2f46e1f": 2,
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bee4e8",
+          "endRva": "0x4bf0ff8",
+          "referenceCount": 12,
+          "targetCounts": {
+            "0x2f46e1f": 4,
+            "0x276f6f0": 4,
+            "0x40b0c0": 3,
+            "0x4d11a0": 1
+          }
+        },
+        {
+          "startRva": "0x4bf26d8",
+          "endRva": "0x4bf27a8",
+          "referenceCount": 3,
+          "targetCounts": {
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bf4428",
+          "endRva": "0x4bf44f8",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x40b0c0": 2
+          }
+        },
+        {
+          "startRva": "0x4bf5dd8",
+          "endRva": "0x4bf5e48",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x276f6f0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bf7468",
+          "endRva": "0x4bf7a28",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x276f6f0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bfa518",
+          "endRva": "0x4bfa518",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4bfd5c8",
+          "endRva": "0x4bfe8e8",
+          "referenceCount": 4,
+          "targetCounts": {
+            "0x276f6f0": 2,
+            "0x40b0c0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bff998",
+          "endRva": "0x4bff998",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4c01648",
+          "endRva": "0x4c03328",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x2f46e1f": 3,
+            "0x40b0c0": 1,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c0fdc8",
+          "endRva": "0x4c123a8",
+          "referenceCount": 9,
+          "targetCounts": {
+            "0x2f46e1f": 5,
+            "0x40b0c0": 3,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c17288",
+          "endRva": "0x4c17288",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c197b8",
+          "endRva": "0x4c1a668",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x276f6f0": 3,
+            "0x40b0c0": 2
+          }
+        }
+      ],
+      "interReferenceGapBytes": {
+        "minimum": 48,
+        "median": 1384.0,
+        "maximum": 60832,
+        "mostFrequent": [
+          {
+            "gap": "0x70",
+            "count": 4
+          },
+          {
+            "gap": "0x40",
+            "count": 3
+          },
+          {
+            "gap": "0x30",
+            "count": 3
+          },
+          {
+            "gap": "0x240",
+            "count": 2
+          },
+          {
+            "gap": "0x680",
+            "count": 2
+          }
+        ]
+      },
+      "targets": [
+        {
+          "targetRva": "0x40b0c0",
+          "targetVaAtPreferredImageBase": "0x14040b0c0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": true,
+          "referenceCount": 37,
+          "sourceRvas": [
+            "0x4bb80f8",
+            "0x4bb8138",
+            "0x4bb8628",
+            "0x4bb8b98",
+            "0x4bb8fc8",
+            "0x4bb9168",
+            "0x4bc82a8",
+            "0x4bc9f78",
+            "0x4bca188",
+            "0x4bcc2d8",
+            "0x4bcdcb8",
+            "0x4bcdd78",
+            "0x4bcf898",
+            "0x4be3de8",
+            "0x4be43b8",
+            "0x4be43f8",
+            "0x4be45e8",
+            "0x4be4b98",
+            "0x4be7ec8",
+            "0x4beafe8",
+            "0x4beb088",
+            "0x4beedc8",
+            "0x4bf04a8",
+            "0x4bf0af8",
+            "0x4bf26d8",
+            "0x4bf2748",
+            "0x4bf4428",
+            "0x4bf44f8",
+            "0x4bfa518",
+            "0x4bfd5c8",
+            "0x4bff998",
+            "0x4c01648",
+            "0x4c0fdc8",
+            "0x4c10048",
+            "0x4c110b8",
+            "0x4c197b8",
+            "0x4c1a1a8"
+          ],
+          "sourceSpan": [
+            "0x4bb80f8",
+            "0x4c1a1a8"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x11",
+              "highDword": "0x1",
+              "count": 37
+            }
+          ],
+          "nextQwordUniqueCount": 37,
+          "nextQwordExamples": [
+            "0xf8c7c4ceccc7fea9",
+            "0xb8a3a4aaaca3bac9",
+            "0x70a0b31330a0150"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 20,
+          "exceptionRangeMatch": {
+            "beginRva": "0x40b0c0",
+            "endRva": "0x40b1fe",
+            "unwindInfoRva": "0x3d174c8",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": true,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": 5.9062,
+            "decodedInstructionCount": 2,
+            "decodedBytes": 2,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 1,
+            "firstInstructions": [
+              {
+                "rva": "0x40b0c0",
+                "mnemonic": "outsd",
+                "operands": "dx, dword ptr [rsi]"
+              },
+              {
+                "rva": "0x40b0c1",
+                "mnemonic": "push",
+                "operands": "rsi"
+              }
+            ],
+            "decodeQuality": "poor linear decode; stops before most sample bytes"
+          }
+        },
+        {
+          "targetRva": "0x2f46e1f",
+          "targetVaAtPreferredImageBase": "0x142f46e1f",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": false,
+          "referenceCount": 25,
+          "sourceRvas": [
+            "0x4bb83b8",
+            "0x4bb8f98",
+            "0x4bc7d18",
+            "0x4bc8068",
+            "0x4bc9178",
+            "0x4bcade8",
+            "0x4bcb888",
+            "0x4bd5048",
+            "0x4beaba8",
+            "0x4beaf28",
+            "0x4bee4e8",
+            "0x4bef518",
+            "0x4bf0898",
+            "0x4bf0ff8",
+            "0x4bf5e48",
+            "0x4bf7a28",
+            "0x4bfdd38",
+            "0x4c018a8",
+            "0x4c02b48",
+            "0x4c03328",
+            "0x4c10008",
+            "0x4c10368",
+            "0x4c10748",
+            "0x4c117a8",
+            "0x4c118e8"
+          ],
+          "sourceSpan": [
+            "0x4bb83b8",
+            "0x4c118e8"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x8",
+              "highDword": "0x1",
+              "count": 24
+            },
+            {
+              "lowDword": "0x5",
+              "highDword": "0x1",
+              "count": 1
+            }
+          ],
+          "nextQwordUniqueCount": 25,
+          "nextQwordExamples": [
+            "0x8a198a6f8a198a6f",
+            "0x891c89d2891c89d2",
+            "0x4b704f904b704f9"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 16,
+          "exceptionRangeMatch": null,
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": false,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": null,
+            "decodedInstructionCount": 0,
+            "decodedBytes": 0,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [],
+            "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+          }
+        },
+        {
+          "targetRva": "0x276f6f0",
+          "targetVaAtPreferredImageBase": "0x14276f6f0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": false,
+          "referenceCount": 24,
+          "sourceRvas": [
+            "0x4bb9af8",
+            "0x4bc69b8",
+            "0x4bc76e8",
+            "0x4bc95f8",
+            "0x4bca768",
+            "0x4bce758",
+            "0x4be4348",
+            "0x4be61c8",
+            "0x4beaeb8",
+            "0x4beeeb8",
+            "0x4beeee8",
+            "0x4bef958",
+            "0x4bf0078",
+            "0x4bf27a8",
+            "0x4bf5dd8",
+            "0x4bf7468",
+            "0x4bfdc48",
+            "0x4bfe8e8",
+            "0x4c02718",
+            "0x4c123a8",
+            "0x4c17288",
+            "0x4c1a178",
+            "0x4c1a248",
+            "0x4c1a668"
+          ],
+          "sourceSpan": [
+            "0x4bb9af8",
+            "0x4c1a668"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0xa",
+              "highDword": "0x1",
+              "count": 24
+            }
+          ],
+          "nextQwordUniqueCount": 24,
+          "nextQwordExamples": [
+            "0xb973b94cb94cb948",
+            "0xf53bf540f540f544",
+            "0x96d8962396239627"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 17,
+          "exceptionRangeMatch": {
+            "beginRva": "0x276f6f0",
+            "endRva": "0x276f9ca",
+            "unwindInfoRva": "0x409aaf8",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": false,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": null,
+            "decodedInstructionCount": 0,
+            "decodedBytes": 0,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [],
+            "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+          }
+        },
+        {
+          "targetRva": "0x4d11a0",
+          "targetVaAtPreferredImageBase": "0x1404d11a0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": true,
+          "referenceCount": 1,
+          "sourceRvas": [
+            "0x4bef018"
+          ],
+          "sourceSpan": [
+            "0x4bef018",
+            "0x4bef018"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x30",
+              "highDword": "0x1",
+              "count": 1
+            }
+          ],
+          "nextQwordUniqueCount": 1,
+          "nextQwordExamples": [
+            "0x47e047e947f24783"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 1,
+          "exceptionRangeMatch": {
+            "beginRva": "0x4d11a0",
+            "endRva": "0x4d11eb",
+            "unwindInfoRva": "0x3d0ac18",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": true,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": 5.6445,
+            "decodedInstructionCount": 19,
+            "decodedBytes": 55,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 1,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [
+              {
+                "rva": "0x4d11a0",
+                "mnemonic": "pop",
+                "operands": "rdx"
+              },
+              {
+                "rva": "0x4d11a1",
+                "mnemonic": "mov",
+                "operands": "al, 0xe4"
+              },
+              {
+                "rva": "0x4d11a3",
+                "mnemonic": "cmp",
+                "operands": "eax, 0x9db3b04a"
+              },
+              {
+                "rva": "0x4d11a9",
+                "mnemonic": "xor",
+                "operands": "byte ptr [rdx + 0x43], dl"
+              },
+              {
+                "rva": "0x4d11ac",
+                "mnemonic": "je",
+                "operands": "0x1404d115e"
+              },
+              {
+                "rva": "0x4d11ae",
+                "mnemonic": "imul",
+                "operands": "edx, esp, 0x543502fc"
+              }
+            ],
+            "decodeQuality": "linear decode lacks call/return shape; CFG and reachability remain unconfirmed"
+          }
+        }
+      ],
+      "assessment": "The references are deliberate preferred-base absolute values. Their irregular sparse locations and preceding dword pairs form opaque typed records, not a contiguous vtable/registrar array. Three repeated targets equal exception-range starts; one repeated target is not in the saved range map and two targets lie in virtual-only bytes. A code-pointer-field role remains plausible, but no class or registration identity is linked."
+    },
+    "relocationAdjustedPointerSources": {
+      "directoryRva": "0x62e5000",
+      "directorySizeBytes": 16,
+      "blocks": [
+        {
+          "pageRva": "0x4bb6000",
+          "blockSizeBytes": 16,
+          "entries": [
+            {
+              "type": 10,
+              "targetRva": "0x4bb6038"
+            },
+            {
+              "type": 10,
+              "targetRva": "0x4bb6040"
+            },
+            {
+              "type": 10,
+              "targetRva": "0x4bb6048"
+            }
+          ]
+        }
+      ],
+      "nonzeroRelocationCount": 3
+    },
+    "savedTraceReturnAddressOrRestoredPointerEdge": "No saved observed address chain leaves .dungeon; paired state transfer remains value/flags/EBX evidence inside the synthetic trace.",
+    "interpretation": "Two weak decoded .dungeon-to-.boot JMP candidates exist. Neither targets the original section-0 code region, neither target is reached by saved profiles, and both targets fail normal decode-quality checks. No validated transition into stable UE4/Dungeons code was found."
+  },
+  "pointerClusterDeepening": {
+    "alignedPointerReferences": {
+      "alignedReferenceCount": 87,
+      "uniqueTargetCount": 4,
+      "sourceRegionCounts": {
+        ".dungeon-stage1": 87
+      },
+      "sourceRange": [
+        "0x4bb80f8",
+        "0x4c1a668"
+      ],
+      "sourceClustersSplitWhenGapExceedsBytes": 4096,
+      "sourceClusters": [
+        {
+          "startRva": "0x4bb80f8",
+          "endRva": "0x4bb9af8",
+          "referenceCount": 9,
+          "targetCounts": {
+            "0x40b0c0": 6,
+            "0x2f46e1f": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bc69b8",
+          "endRva": "0x4bcc2d8",
+          "referenceCount": 13,
+          "targetCounts": {
+            "0x2f46e1f": 5,
+            "0x276f6f0": 4,
+            "0x40b0c0": 4
+          }
+        },
+        {
+          "startRva": "0x4bcdcb8",
+          "endRva": "0x4bce758",
+          "referenceCount": 3,
+          "targetCounts": {
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bcf898",
+          "endRva": "0x4bcf898",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4bd5048",
+          "endRva": "0x4bd5048",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4be3de8",
+          "endRva": "0x4be4b98",
+          "referenceCount": 6,
+          "targetCounts": {
+            "0x40b0c0": 5,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4be61c8",
+          "endRva": "0x4be61c8",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4be7ec8",
+          "endRva": "0x4be7ec8",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4beaba8",
+          "endRva": "0x4beb088",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x2f46e1f": 2,
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bee4e8",
+          "endRva": "0x4bf0ff8",
+          "referenceCount": 12,
+          "targetCounts": {
+            "0x2f46e1f": 4,
+            "0x276f6f0": 4,
+            "0x40b0c0": 3,
+            "0x4d11a0": 1
+          }
+        },
+        {
+          "startRva": "0x4bf26d8",
+          "endRva": "0x4bf27a8",
+          "referenceCount": 3,
+          "targetCounts": {
+            "0x40b0c0": 2,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4bf4428",
+          "endRva": "0x4bf44f8",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x40b0c0": 2
+          }
+        },
+        {
+          "startRva": "0x4bf5dd8",
+          "endRva": "0x4bf5e48",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x276f6f0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bf7468",
+          "endRva": "0x4bf7a28",
+          "referenceCount": 2,
+          "targetCounts": {
+            "0x276f6f0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bfa518",
+          "endRva": "0x4bfa518",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4bfd5c8",
+          "endRva": "0x4bfe8e8",
+          "referenceCount": 4,
+          "targetCounts": {
+            "0x276f6f0": 2,
+            "0x40b0c0": 1,
+            "0x2f46e1f": 1
+          }
+        },
+        {
+          "startRva": "0x4bff998",
+          "endRva": "0x4bff998",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x40b0c0": 1
+          }
+        },
+        {
+          "startRva": "0x4c01648",
+          "endRva": "0x4c03328",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x2f46e1f": 3,
+            "0x40b0c0": 1,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c0fdc8",
+          "endRva": "0x4c123a8",
+          "referenceCount": 9,
+          "targetCounts": {
+            "0x2f46e1f": 5,
+            "0x40b0c0": 3,
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c17288",
+          "endRva": "0x4c17288",
+          "referenceCount": 1,
+          "targetCounts": {
+            "0x276f6f0": 1
+          }
+        },
+        {
+          "startRva": "0x4c197b8",
+          "endRva": "0x4c1a668",
+          "referenceCount": 5,
+          "targetCounts": {
+            "0x276f6f0": 3,
+            "0x40b0c0": 2
+          }
+        }
+      ],
+      "interReferenceGapBytes": {
+        "minimum": 48,
+        "median": 1384.0,
+        "maximum": 60832,
+        "mostFrequent": [
+          {
+            "gap": "0x70",
+            "count": 4
+          },
+          {
+            "gap": "0x40",
+            "count": 3
+          },
+          {
+            "gap": "0x30",
+            "count": 3
+          },
+          {
+            "gap": "0x240",
+            "count": 2
+          },
+          {
+            "gap": "0x680",
+            "count": 2
+          }
+        ]
+      },
+      "targets": [
+        {
+          "targetRva": "0x40b0c0",
+          "targetVaAtPreferredImageBase": "0x14040b0c0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": true,
+          "referenceCount": 37,
+          "sourceRvas": [
+            "0x4bb80f8",
+            "0x4bb8138",
+            "0x4bb8628",
+            "0x4bb8b98",
+            "0x4bb8fc8",
+            "0x4bb9168",
+            "0x4bc82a8",
+            "0x4bc9f78",
+            "0x4bca188",
+            "0x4bcc2d8",
+            "0x4bcdcb8",
+            "0x4bcdd78",
+            "0x4bcf898",
+            "0x4be3de8",
+            "0x4be43b8",
+            "0x4be43f8",
+            "0x4be45e8",
+            "0x4be4b98",
+            "0x4be7ec8",
+            "0x4beafe8",
+            "0x4beb088",
+            "0x4beedc8",
+            "0x4bf04a8",
+            "0x4bf0af8",
+            "0x4bf26d8",
+            "0x4bf2748",
+            "0x4bf4428",
+            "0x4bf44f8",
+            "0x4bfa518",
+            "0x4bfd5c8",
+            "0x4bff998",
+            "0x4c01648",
+            "0x4c0fdc8",
+            "0x4c10048",
+            "0x4c110b8",
+            "0x4c197b8",
+            "0x4c1a1a8"
+          ],
+          "sourceSpan": [
+            "0x4bb80f8",
+            "0x4c1a1a8"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x11",
+              "highDword": "0x1",
+              "count": 37
+            }
+          ],
+          "nextQwordUniqueCount": 37,
+          "nextQwordExamples": [
+            "0xf8c7c4ceccc7fea9",
+            "0xb8a3a4aaaca3bac9",
+            "0x70a0b31330a0150"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 20,
+          "exceptionRangeMatch": {
+            "beginRva": "0x40b0c0",
+            "endRva": "0x40b1fe",
+            "unwindInfoRva": "0x3d174c8",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": true,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": 5.9062,
+            "decodedInstructionCount": 2,
+            "decodedBytes": 2,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 1,
+            "firstInstructions": [
+              {
+                "rva": "0x40b0c0",
+                "mnemonic": "outsd",
+                "operands": "dx, dword ptr [rsi]"
+              },
+              {
+                "rva": "0x40b0c1",
+                "mnemonic": "push",
+                "operands": "rsi"
+              }
+            ],
+            "decodeQuality": "poor linear decode; stops before most sample bytes"
+          }
+        },
+        {
+          "targetRva": "0x2f46e1f",
+          "targetVaAtPreferredImageBase": "0x142f46e1f",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": false,
+          "referenceCount": 25,
+          "sourceRvas": [
+            "0x4bb83b8",
+            "0x4bb8f98",
+            "0x4bc7d18",
+            "0x4bc8068",
+            "0x4bc9178",
+            "0x4bcade8",
+            "0x4bcb888",
+            "0x4bd5048",
+            "0x4beaba8",
+            "0x4beaf28",
+            "0x4bee4e8",
+            "0x4bef518",
+            "0x4bf0898",
+            "0x4bf0ff8",
+            "0x4bf5e48",
+            "0x4bf7a28",
+            "0x4bfdd38",
+            "0x4c018a8",
+            "0x4c02b48",
+            "0x4c03328",
+            "0x4c10008",
+            "0x4c10368",
+            "0x4c10748",
+            "0x4c117a8",
+            "0x4c118e8"
+          ],
+          "sourceSpan": [
+            "0x4bb83b8",
+            "0x4c118e8"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x8",
+              "highDword": "0x1",
+              "count": 24
+            },
+            {
+              "lowDword": "0x5",
+              "highDword": "0x1",
+              "count": 1
+            }
+          ],
+          "nextQwordUniqueCount": 25,
+          "nextQwordExamples": [
+            "0x8a198a6f8a198a6f",
+            "0x891c89d2891c89d2",
+            "0x4b704f904b704f9"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 16,
+          "exceptionRangeMatch": null,
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": false,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": null,
+            "decodedInstructionCount": 0,
+            "decodedBytes": 0,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [],
+            "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+          }
+        },
+        {
+          "targetRva": "0x276f6f0",
+          "targetVaAtPreferredImageBase": "0x14276f6f0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": false,
+          "referenceCount": 24,
+          "sourceRvas": [
+            "0x4bb9af8",
+            "0x4bc69b8",
+            "0x4bc76e8",
+            "0x4bc95f8",
+            "0x4bca768",
+            "0x4bce758",
+            "0x4be4348",
+            "0x4be61c8",
+            "0x4beaeb8",
+            "0x4beeeb8",
+            "0x4beeee8",
+            "0x4bef958",
+            "0x4bf0078",
+            "0x4bf27a8",
+            "0x4bf5dd8",
+            "0x4bf7468",
+            "0x4bfdc48",
+            "0x4bfe8e8",
+            "0x4c02718",
+            "0x4c123a8",
+            "0x4c17288",
+            "0x4c1a178",
+            "0x4c1a248",
+            "0x4c1a668"
+          ],
+          "sourceSpan": [
+            "0x4bb9af8",
+            "0x4c1a668"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0xa",
+              "highDword": "0x1",
+              "count": 24
+            }
+          ],
+          "nextQwordUniqueCount": 24,
+          "nextQwordExamples": [
+            "0xb973b94cb94cb948",
+            "0xf53bf540f540f544",
+            "0x96d8962396239627"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 17,
+          "exceptionRangeMatch": {
+            "beginRva": "0x276f6f0",
+            "endRva": "0x276f9ca",
+            "unwindInfoRva": "0x409aaf8",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": false,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": null,
+            "decodedInstructionCount": 0,
+            "decodedBytes": 0,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 0,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [],
+            "decodeQuality": "unavailable; target is not backed by initialized input bytes"
+          }
+        },
+        {
+          "targetRva": "0x4d11a0",
+          "targetVaAtPreferredImageBase": "0x1404d11a0",
+          "targetSectionIndex": 0,
+          "targetSectionName": "section-0 (8-space name)",
+          "targetBytesBackedByInitializedInput": true,
+          "referenceCount": 1,
+          "sourceRvas": [
+            "0x4bef018"
+          ],
+          "sourceSpan": [
+            "0x4bef018",
+            "0x4bef018"
+          ],
+          "precedingDwordPairCounts": [
+            {
+              "lowDword": "0x30",
+              "highDword": "0x1",
+              "count": 1
+            }
+          ],
+          "nextQwordUniqueCount": 1,
+          "nextQwordExamples": [
+            "0x47e047e947f24783"
+          ],
+          "sourceClusterCountAtGapOver1KiB": 1,
+          "exceptionRangeMatch": {
+            "beginRva": "0x4d11a0",
+            "endRva": "0x4d11eb",
+            "unwindInfoRva": "0x3d0ac18",
+            "unwindInfoBackedByInitializedInput": false,
+            "exactBeginMatch": true
+          },
+          "decode": {
+            "sectionIndex": 0,
+            "sectionName": "section-0 (8-space name)",
+            "initializedInputBytesAvailable": true,
+            "sampleBytes": 64,
+            "entropyBitsPerByte": 5.6445,
+            "decodedInstructionCount": 19,
+            "decodedBytes": 55,
+            "callCount": 0,
+            "returnCount": 0,
+            "branchCount": 1,
+            "ioOrPrivilegedInstructionCount": 0,
+            "firstInstructions": [
+              {
+                "rva": "0x4d11a0",
+                "mnemonic": "pop",
+                "operands": "rdx"
+              },
+              {
+                "rva": "0x4d11a1",
+                "mnemonic": "mov",
+                "operands": "al, 0xe4"
+              },
+              {
+                "rva": "0x4d11a3",
+                "mnemonic": "cmp",
+                "operands": "eax, 0x9db3b04a"
+              },
+              {
+                "rva": "0x4d11a9",
+                "mnemonic": "xor",
+                "operands": "byte ptr [rdx + 0x43], dl"
+              },
+              {
+                "rva": "0x4d11ac",
+                "mnemonic": "je",
+                "operands": "0x1404d115e"
+              },
+              {
+                "rva": "0x4d11ae",
+                "mnemonic": "imul",
+                "operands": "edx, esp, 0x543502fc"
+              }
+            ],
+            "decodeQuality": "linear decode lacks call/return shape; CFG and reachability remain unconfirmed"
+          }
+        }
+      ],
+      "assessment": "The references are deliberate preferred-base absolute values. Their irregular sparse locations and preceding dword pairs form opaque typed records, not a contiguous vtable/registrar array. Three repeated targets equal exception-range starts; one repeated target is not in the saved range map and two targets lie in virtual-only bytes. A code-pointer-field role remains plausible, but no class or registration identity is linked."
+    },
+    "savedSyntheticProfileComparison": [
+      {
+        "profile": "firmware-alt-size",
+        "dumpSha256": "f5494f4e7af6dde644ba36da59bde1d6705fede4a44a12766b262e130a67347d",
+        "changedByteCountVsStage1": 6309,
+        "exactChangedRunCount": 2718,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 289,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-data-generic",
+        "dumpSha256": "223a55f062faad813b9a0e2a9ac86239a53751679762beb871813169b1c0c1a2",
+        "changedByteCountVsStage1": 6455,
+        "exactChangedRunCount": 2736,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 294,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-registry-failure",
+        "dumpSha256": "6078c6f0ed40074ddf7a96f7bde2b0683c398fd10f4789cc33f7fa0b5b4b2981",
+        "changedByteCountVsStage1": 6379,
+        "exactChangedRunCount": 2737,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 292,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-registry-first-failure",
+        "dumpSha256": "15fc1b7d5b219b03cc87112b70df83fb359c978a63043a278afd0b92e8c1070a",
+        "changedByteCountVsStage1": 6406,
+        "exactChangedRunCount": 2736,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 294,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-registry-success",
+        "dumpSha256": "8bc1e6c14abdd3ac090adb8d1456327786be6af1f829a4cd46c631ddffcb5263",
+        "changedByteCountVsStage1": 6466,
+        "exactChangedRunCount": 2736,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 295,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-success-size",
+        "dumpSha256": "f4363b302e483df2df8dbc99e2aa7d76bcdb59a7e8208aa36f29a460a187570d",
+        "changedByteCountVsStage1": 6309,
+        "exactChangedRunCount": 2718,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 289,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      },
+      {
+        "profile": "firmware-zero-size",
+        "dumpSha256": "318f48312bec2e33a1268635d3e8e4e5f4f488ff44f50ff1551e2dff11527002",
+        "changedByteCountVsStage1": 6453,
+        "exactChangedRunCount": 2734,
+        "changedRunCountWhenGapsUpTo16BytesAreMerged": 295,
+        "pointerSourceQwordsUnchanged": 89,
+        "pointerSourceQwordCount": 89,
+        "dispatchSlotBefore": "0x4be79a4",
+        "dispatchSlotAtStop": "0x144be79a4",
+        "captureScope": "Stage1 .dungeon bytes only; not a full mapped-process image"
+      }
+    ],
+    "allPointerSourceQwordsUnchangedAcrossSavedProfiles": true,
+    "assessment": "The repeated addresses and exception-range matches make code-pointer fields plausible. The preceding low/high dword pairs are target-specific; source spacing has no single stride; function/code bytes or unwind data are unavailable for several targets. This is opaque typed metadata evidence, not class registration evidence."
+  },
+  "ue4RegistrationSearch": {
+    "genericStructuralHeuristics": [
+      "UClass/static-constructor entry",
+      "compiled-in class/package registrars",
+      "name/function pointer pairs",
+      "constructor and native registrar arrays",
+      "vtable-like executable pointer runs",
+      "module startup clusters",
+      "UObject/UFunction object-initialization call patterns"
+    ],
+    "literalMarkerHitCounts": {
+      "UClass": 0,
+      "UFunction": 0,
+      "UObject": 0,
+      "FNamePool": 0,
+      "GUObjectArray": 0,
+      "/Script/Dungeons": 0,
+      "ArmorGearItemInstance": 0,
+      "StaticClass": 0,
+      "Z_Construct_UClass": 0,
+      "CompiledInDefer": 0,
+      "NativeFunctionRegistrar": 0,
+      "RegisterNatives": 0,
+      "ProcessEvent": 0,
+      "FModuleManager": 0,
+      "InitializeModule": 0,
+      "StartupModule": 0,
+      "FClassRegisterCompiledInInfo": 0,
+      "RegisterCompiledInInfo": 0,
+      "GameplayEffect": 0,
+      "??_R0": 0,
+      ".?AV": 0,
+      "vftable": 0,
+      "vtable": 0
+    },
+    "startupMarkerHitCounts": {
+      ".CRT": 16,
+      "__xc_a": 0,
+      "__xc_z": 0,
+      "__xi_a": 0,
+      "__xi_z": 0,
+      "_initterm": 0,
+      "DllMain": 0,
+      "TlsCallback": 0,
+      "LdrRegisterDllNotification": 0
+    },
+    "executablePointerRunsLengthAtLeast3": [],
+    "pointerPairsOrNamedRegistrationArrays": "none identified",
+    "localCandidateStructure": "opaque Stage1 typed pointer records summarized above; no paired class/package/function name and no executable registration call chain",
+    "mechanismCandidateFound": false,
+    "limitations": [
+      "generic UE4 structure is heuristic only",
+      "encoded/hashed/runtime-generated names remain possible",
+      "function bodies and 236,167 unwind records are not statically available as initialized bytes"
+    ]
+  },
+  "dungeonsBridgeSearch": {
+    "rawClassModuleCandidate": {
+      "module": "/Script/Dungeons",
+      "class": "ArmorGearItemInstance",
+      "function": null,
+      "confidence": "candidate"
+    },
+    "rawEvidence": [
+      {
+        "type": "serialized-superclass-reference",
+        "source": "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json",
+        "observation": "Export BP_BattleRobeInstance_C has superReference to import index 5, whose objectName is ArmorGearItemInstance and whose outer package is /Script/Dungeons. The package content hash is 9d5c498f0f966929253712dfeae283aa1207f7a9ff1c27983eb4991f2abe7684."
+      },
+      {
+        "type": "local-executable-structure",
+        "source": "research/native/native-source-inventory.json",
+        "observation": "No bounded literal /Script/Dungeons, UObject, UClass, UFunction, FNamePool, or GUObjectArray marker was found in the raw executable or Stage 1 output; this scan cannot rule out encoded or runtime-generated metadata."
+      },
+      {
+        "type": "native-registration-and-address-search",
+        "source": "current local binary and Stage 1 output",
+        "observation": "No UClass registration, vtable, constructor, native function pointer, call site, or implementation address was identified."
+      }
+    ],
+    "nativeAddress": null,
+    "binaryMarkerHitCounts": {
+      "/Script/Dungeons": 0,
+      "ArmorGearItemInstance": 0
+    },
+    "nativeClassOrFunctionRegistrationCandidateFound": false,
+    "assessment": "The Raw superclass reference remains a serialized asset relation only; none of the pointer targets, exception ranges, or resolver sites is tied to that class or any /Script/Dungeons unit."
+  },
+  "tlsInitializationAudit": {
+    "entryPointRva": "0x5a5e058",
+    "tlsDirectory": {
+      "directoryRva": "0x4bb6038",
+      "directorySizeBytes": 40,
+      "present": true,
+      "startRawDataVa": "0x144bb6000",
+      "endRawDataVa": "0x144bb6024",
+      "indexVa": "0x144bb6028",
+      "callbacksVa": "0x0",
+      "callbacks": [],
+      "zeroFill": 0,
+      "characteristics": "0x400000"
+    },
+    "baseRelocations": {
+      "directoryRva": "0x62e5000",
+      "directorySizeBytes": 16,
+      "blocks": [
+        {
+          "pageRva": "0x4bb6000",
+          "blockSizeBytes": 16,
+          "entries": [
+            {
+              "type": 10,
+              "targetRva": "0x4bb6038"
+            },
+            {
+              "type": 10,
+              "targetRva": "0x4bb6040"
+            },
+            {
+              "type": 10,
+              "targetRva": "0x4bb6048"
+            }
+          ]
+        }
+      ],
+      "nonzeroRelocationCount": 3
+    },
+    "staticImportSummary": {
+      "namedImportCount": 36,
+      "ordinalImportCount": 5,
+      "importLibraries": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "DSOUND.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "IPHLPAPI.DLL",
+        "MSVCP140.dll",
+        "Normaliz.dll",
+        "OLEAUT32.dll",
+        "OPENGL32.dll",
+        "POWRPROF.dll",
+        "SETUPAPI.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VERSION.dll",
+        "WINHTTP.dll",
+        "WINMM.dll",
+        "WLDAP32.dll",
+        "WS2_32.dll",
+        "X3DAudio1_7.dll",
+        "XAPOFX1_5.dll",
+        "XINPUT1_3.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcrypt.dll",
+        "d3d11.dll",
+        "d3d9.dll",
+        "dwmapi.dll",
+        "dxgi.dll",
+        "kernel32.dll",
+        "ole32.dll"
+      ],
+      "resolverAndRuntimeMetadataApis": {
+        "GetProcAddress": false,
+        "LdrGetProcedureAddress": false,
+        "LoadLibraryA": false,
+        "LoadLibraryW": false,
+        "GetModuleHandleA": true,
+        "GetModuleHandleW": false,
+        "RtlAddFunctionTable": false,
+        "RtlAddGrowableFunctionTable": false,
+        "RtlInstallFunctionTableCallback": false
+      },
+      "delayImportDirectory": {
+        "rva": "0x417a8a8",
+        "sizeBytes": 544,
+        "parseStatus": "directory RVA lies in virtual section bytes without a raw-file mapping",
+        "importLibraries": []
+      }
+    },
+    "startupMarkers": {
+      ".CRT": [
+        {
+          "region": "section-8",
+          "rva": "0x4bb313c",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3150",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3164",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3178",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb318c",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb31a0",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb31b4",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb31c8",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb31dc",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb31f0",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3204",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3218",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb322c",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3240",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3254",
+          "encoding": "ASCII"
+        },
+        {
+          "region": "section-8",
+          "rva": "0x4bb3268",
+          "encoding": "ASCII"
+        }
+      ],
+      "__xc_a": [],
+      "__xc_z": [],
+      "__xi_a": [],
+      "__xi_z": [],
+      "_initterm": [],
+      "DllMain": [],
+      "TlsCallback": [],
+      "LdrRegisterDllNotification": []
+    },
+    "constructorOrTlsCallbackPathFound": false,
+    "previouslyChecked": [
+      "TLS callback VA and callback array",
+      "static/delay import directories",
+      "PE entry-point route",
+      "known .dungeon dispatcher path"
+    ],
+    "newEvidence": "The only three DIR64 base-relocation entries target the TLS directory's raw-data start/end and index fields. TLS callback VA is zero; no separate callback edge was recovered.",
+    "assessment": "No static TLS/global-init path to a Dungeons registration unit was identified. The PE entry point remains in packed .boot, and the saved synthetic paths do not reach an original-image entry."
+  },
+  "dynamicResolutionCluster": {
+    "staticImportSummary": {
+      "namedImportCount": 36,
+      "ordinalImportCount": 5,
+      "importLibraries": [
+        "ADVAPI32.dll",
+        "CRYPT32.dll",
+        "DSOUND.dll",
+        "GDI32.dll",
+        "IMM32.dll",
+        "IPHLPAPI.DLL",
+        "MSVCP140.dll",
+        "Normaliz.dll",
+        "OLEAUT32.dll",
+        "OPENGL32.dll",
+        "POWRPROF.dll",
+        "SETUPAPI.dll",
+        "SHELL32.dll",
+        "USER32.dll",
+        "VCRUNTIME140.dll",
+        "VERSION.dll",
+        "WINHTTP.dll",
+        "WINMM.dll",
+        "WLDAP32.dll",
+        "WS2_32.dll",
+        "X3DAudio1_7.dll",
+        "XAPOFX1_5.dll",
+        "XINPUT1_3.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-utility-l1-1-0.dll",
+        "bcrypt.dll",
+        "d3d11.dll",
+        "d3d9.dll",
+        "dwmapi.dll",
+        "dxgi.dll",
+        "kernel32.dll",
+        "ole32.dll"
+      ],
+      "resolverAndRuntimeMetadataApis": {
+        "GetProcAddress": false,
+        "LdrGetProcedureAddress": false,
+        "LoadLibraryA": false,
+        "LoadLibraryW": false,
+        "GetModuleHandleA": true,
+        "GetModuleHandleW": false,
+        "RtlAddFunctionTable": false,
+        "RtlAddGrowableFunctionTable": false,
+        "RtlInstallFunctionTableCallback": false
+      },
+      "delayImportDirectory": {
+        "rva": "0x417a8a8",
+        "sizeBytes": 544,
+        "parseStatus": "directory RVA lies in virtual section bytes without a raw-file mapping",
+        "importLibraries": []
+      }
+    },
+    "staticExportSummary": {
+      "directoryRva": "0x4bb4000",
+      "directorySizeBytes": 3344,
+      "namedExportCount": 90,
+      "functionCount": 90,
+      "nameFamilies": {
+        "ags": 25,
+        "libsamplerate": 19,
+        "opus": 43,
+        "other": 3
+      },
+      "registrationOrDungeonsLikeNames": [],
+      "assessment": "The named exports group under AGS, Opus, libsamplerate, graphics preference flags, or PrintScriptCallstack; no Dungeons/UE registration export was identified."
+    },
+    "resolverSites": [
+      {
+        "returnRva": "0x503a8b3",
+        "resolvedSymbols": [
+          "GetLastError"
+        ]
+      },
+      {
+        "returnRva": "0x504cdd5",
+        "resolvedSymbols": [
+          "SetLastError"
+        ]
+      },
+      {
+        "returnRva": "0x50cbe03",
+        "resolvedSymbols": [
+          "IsUserAnAdmin"
+        ]
+      }
+    ],
+    "savedProfileCount": 7,
+    "observedGetProcAddressEventCount": 21,
+    "resolvedSymbols": [
+      "GetLastError",
+      "IsUserAnAdmin",
+      "SetLastError"
+    ],
+    "runtimeFunctionRegistrationCalls": [],
+    "resultFeedsDispatcherTable": "not established by saved traces; no result-pointer dataflow or registration-array xref was captured",
+    "laterPathToNativeInitialization": "not observed in saved profiles; profiles stop at explicit synthetic API boundaries or modeled buffer-fill boundaries",
+    "coverageLimit": "This describes seven bounded synthetic profiles only and does not assert that other resolver paths do not exist."
+  },
+  "stableCodeCandidates": [
+    {
+      "address": "0x14040b0c0",
+      "rva": "0x40b0c0",
+      "section": {
+        "index": 0,
+        "name": "section-0 (8-space name)",
+        "initialized": true
+      },
+      "entryEvidence": "exception-range entry 0x40b0c0..0x40b1fe",
+      "controlFlowEvidence": "no saved synthetic transfer into this address; no decoded outbound/inbound CFG chain",
+      "callRetShape": {
+        "decodeQuality": "poor linear decode; stops before most sample bytes",
+        "calls": 0,
+        "returns": 0,
+        "firstInstructions": [
+          {
+            "rva": "0x40b0c0",
+            "mnemonic": "outsd",
+            "operands": "dx, dword ptr [rsi]"
+          },
+          {
+            "rva": "0x40b0c1",
+            "mnemonic": "push",
+            "operands": "rsi"
+          }
+        ]
+      },
+      "stackDiscipline": "not established; available linear decode is incomplete or lacks normal prologue/epilogue evidence",
+      "xrefEvidence": {
+        "alignedStage1PointerCount": 37,
+        "sourceRvas": [
+          "0x4bb80f8",
+          "0x4bb8138",
+          "0x4bb8628",
+          "0x4bb8b98",
+          "0x4bb8fc8",
+          "0x4bb9168",
+          "0x4bc82a8",
+          "0x4bc9f78",
+          "0x4bca188",
+          "0x4bcc2d8",
+          "0x4bcdcb8",
+          "0x4bcdd78",
+          "0x4bcf898",
+          "0x4be3de8",
+          "0x4be43b8",
+          "0x4be43f8",
+          "0x4be45e8",
+          "0x4be4b98",
+          "0x4be7ec8",
+          "0x4beafe8",
+          "0x4beb088",
+          "0x4beedc8",
+          "0x4bf04a8",
+          "0x4bf0af8",
+          "0x4bf26d8",
+          "0x4bf2748",
+          "0x4bf4428",
+          "0x4bf44f8",
+          "0x4bfa518",
+          "0x4bfd5c8",
+          "0x4bff998",
+          "0x4c01648",
+          "0x4c0fdc8",
+          "0x4c10048",
+          "0x4c110b8",
+          "0x4c197b8",
+          "0x4c1a1a8"
+        ]
+      },
+      "pointerEvidence": {
+        "precedingDwordPairCounts": [
+          {
+            "lowDword": "0x11",
+            "highDword": "0x1",
+            "count": 37
+          }
+        ],
+        "nextQwordUniqueCount": 37
+      },
+      "unwindEvidence": {
+        "beginRva": "0x40b0c0",
+        "endRva": "0x40b1fe",
+        "unwindInfoRva": "0x3d174c8",
+        "unwindInfoBackedByInitializedInput": false,
+        "exactBeginMatch": true
+      },
+      "importInteraction": "none established",
+      "executionObserved": false,
+      "ue4StructuralEvidence": "none linked to this address",
+      "dungeonsStructuralEvidence": "none linked to this address",
+      "confidence": "low; original executable address candidate only, not stable implementation evidence",
+      "limitations": [
+        "raw bytes are high-entropy or unavailable",
+        "no native class/function identity",
+        "no runtime observation",
+        "unwind information is not available in initialized input bytes"
+      ]
+    },
+    {
+      "address": "0x14276f6f0",
+      "rva": "0x276f6f0",
+      "section": {
+        "index": 0,
+        "name": "section-0 (8-space name)",
+        "initialized": false
+      },
+      "entryEvidence": "exception-range entry 0x276f6f0..0x276f9ca",
+      "controlFlowEvidence": "no saved synthetic transfer into this address; no decoded outbound/inbound CFG chain",
+      "callRetShape": {
+        "decodeQuality": "unavailable; target is not backed by initialized input bytes",
+        "calls": 0,
+        "returns": 0,
+        "firstInstructions": []
+      },
+      "stackDiscipline": "not established; available linear decode is incomplete or lacks normal prologue/epilogue evidence",
+      "xrefEvidence": {
+        "alignedStage1PointerCount": 24,
+        "sourceRvas": [
+          "0x4bb9af8",
+          "0x4bc69b8",
+          "0x4bc76e8",
+          "0x4bc95f8",
+          "0x4bca768",
+          "0x4bce758",
+          "0x4be4348",
+          "0x4be61c8",
+          "0x4beaeb8",
+          "0x4beeeb8",
+          "0x4beeee8",
+          "0x4bef958",
+          "0x4bf0078",
+          "0x4bf27a8",
+          "0x4bf5dd8",
+          "0x4bf7468",
+          "0x4bfdc48",
+          "0x4bfe8e8",
+          "0x4c02718",
+          "0x4c123a8",
+          "0x4c17288",
+          "0x4c1a178",
+          "0x4c1a248",
+          "0x4c1a668"
+        ]
+      },
+      "pointerEvidence": {
+        "precedingDwordPairCounts": [
+          {
+            "lowDword": "0xa",
+            "highDword": "0x1",
+            "count": 24
+          }
+        ],
+        "nextQwordUniqueCount": 24
+      },
+      "unwindEvidence": {
+        "beginRva": "0x276f6f0",
+        "endRva": "0x276f9ca",
+        "unwindInfoRva": "0x409aaf8",
+        "unwindInfoBackedByInitializedInput": false,
+        "exactBeginMatch": true
+      },
+      "importInteraction": "none established",
+      "executionObserved": false,
+      "ue4StructuralEvidence": "none linked to this address",
+      "dungeonsStructuralEvidence": "none linked to this address",
+      "confidence": "low; original executable address candidate only, not stable implementation evidence",
+      "limitations": [
+        "raw bytes are high-entropy or unavailable",
+        "no native class/function identity",
+        "no runtime observation",
+        "unwind information is not available in initialized input bytes"
+      ]
+    },
+    {
+      "address": "0x1404d11a0",
+      "rva": "0x4d11a0",
+      "section": {
+        "index": 0,
+        "name": "section-0 (8-space name)",
+        "initialized": true
+      },
+      "entryEvidence": "exception-range entry 0x4d11a0..0x4d11eb",
+      "controlFlowEvidence": "no saved synthetic transfer into this address; no decoded outbound/inbound CFG chain",
+      "callRetShape": {
+        "decodeQuality": "linear decode lacks call/return shape; CFG and reachability remain unconfirmed",
+        "calls": 0,
+        "returns": 0,
+        "firstInstructions": [
+          {
+            "rva": "0x4d11a0",
+            "mnemonic": "pop",
+            "operands": "rdx"
+          },
+          {
+            "rva": "0x4d11a1",
+            "mnemonic": "mov",
+            "operands": "al, 0xe4"
+          },
+          {
+            "rva": "0x4d11a3",
+            "mnemonic": "cmp",
+            "operands": "eax, 0x9db3b04a"
+          },
+          {
+            "rva": "0x4d11a9",
+            "mnemonic": "xor",
+            "operands": "byte ptr [rdx + 0x43], dl"
+          },
+          {
+            "rva": "0x4d11ac",
+            "mnemonic": "je",
+            "operands": "0x1404d115e"
+          },
+          {
+            "rva": "0x4d11ae",
+            "mnemonic": "imul",
+            "operands": "edx, esp, 0x543502fc"
+          }
+        ]
+      },
+      "stackDiscipline": "not established; available linear decode is incomplete or lacks normal prologue/epilogue evidence",
+      "xrefEvidence": {
+        "alignedStage1PointerCount": 1,
+        "sourceRvas": [
+          "0x4bef018"
+        ]
+      },
+      "pointerEvidence": {
+        "precedingDwordPairCounts": [
+          {
+            "lowDword": "0x30",
+            "highDword": "0x1",
+            "count": 1
+          }
+        ],
+        "nextQwordUniqueCount": 1
+      },
+      "unwindEvidence": {
+        "beginRva": "0x4d11a0",
+        "endRva": "0x4d11eb",
+        "unwindInfoRva": "0x3d0ac18",
+        "unwindInfoBackedByInitializedInput": false,
+        "exactBeginMatch": true
+      },
+      "importInteraction": "none established",
+      "executionObserved": false,
+      "ue4StructuralEvidence": "none linked to this address",
+      "dungeonsStructuralEvidence": "none linked to this address",
+      "confidence": "low; original executable address candidate only, not stable implementation evidence",
+      "limitations": [
+        "raw bytes are high-entropy or unavailable",
+        "no native class/function identity",
+        "no runtime observation",
+        "unwind information is not available in initialized input bytes"
+      ]
+    }
+  ],
+  "d3EntryGate": {
+    "stableOrOriginalNativeCodeCandidate": false,
+    "nativeClassFunctionIdentificationMechanism": false,
+    "localExecutableAddressPlusRegistrationAndRawCorrelation": false,
+    "decision": "NOT FOUND"
+  },
+  "exhaustionAssessment": {
+    "finalDecision": "CURRENT-ENVIRONMENT STATIC NATIVE EXHAUSTED",
+    "requirementsCompleted": [
+      "cross-region transfer and pointer scan",
+      "87-reference deepening",
+      "UE4 registration structure search",
+      "Dungeons bridge search",
+      "TLS/init audit",
+      "dynamic resolver cluster review",
+      "existing dispatcher chain and paired synthetic state flow"
+    ],
+    "currentStaticSourcesReviewed": [
+      "hash-pinned executable and initialized PE sections",
+      "15,360,000-byte Stage1 output",
+      "236,168-entry exception directory",
+      "TLS/import/export/base-relocation metadata",
+      "seven partial synthetic Stage1 stop snapshots",
+      "local Raw Dungeons class relation",
+      "unverified adjacent winmm.dll metadata"
+    ],
+    "untestedEvidenceSourceRemainingInCurrentLocalSet": [],
+    "remainingBlockers": [
+      "no stable native code body is decodable and tied to Dungeons",
+      "no class/function registrar or native pointer array is identified",
+      "no matching game PDB/MAP is local",
+      "no full post-unpack image exists in the local evidence set"
+    ],
+    "newEvidenceSourceRequired": [
+      "real Windows runtime observation or richer instruction trace",
+      "reconstructed post-unpack image",
+      "matching PDB/MAP/symbols",
+      "different disassembler/decompiler or protector-aware tooling",
+      "another authenticated game binary/build",
+      "same-build live UE reflection/registration snapshot"
+    ],
+    "scope": "The exhaustion decision applies to static native evidence sources present in this environment; it does not mean Native analysis is impossible."
+  },
+  "unverifiedAdjacentDll": {
+    "file": "archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/winmm.dll",
+    "sha256": "0a9f495a054cca00148da0cd5cc375ab577a6f8c5d5849ffa2327656e928de74",
+    "sizeBytes": 16003072,
+    "distributionAuthenticity": "unverified local adjacent DLL",
+    "staticallyImportedByMainImage": true,
+    "imageBase": "0x180000000",
+    "timestamp": "0x6698f5d0",
+    "entryPointRva": "0x153a7c2",
+    "sectionNames": [
+      ".text",
+      ".rdata",
+      ".data",
+      ".pdata",
+      "_RDATA",
+      ".rune0",
+      ".rune1",
+      ".rune2",
+      ".reloc"
+    ],
+    "importLibraries": [
+      "ADVAPI32.dll",
+      "CRYPT32.dll",
+      "KERNEL32.dll",
+      "MSWSOCK.dll",
+      "RPCRT4.dll",
+      "USER32.dll",
+      "WS2_32.dll",
+      "bcrypt.dll"
+    ],
+    "registrationMarkerHitCounts": {
+      "UClass": 0,
+      "UFunction": 0,
+      "UObject": 0,
+      "FNamePool": 0,
+      "GUObjectArray": 0,
+      "/Script/Dungeons": 0,
+      "ArmorGearItemInstance": 0,
+      "StaticClass": 0,
+      "Z_Construct_UClass": 0,
+      "CompiledInDefer": 0,
+      "NativeFunctionRegistrar": 0,
+      "RegisterNatives": 0,
+      "ProcessEvent": 0,
+      "FModuleManager": 0,
+      "InitializeModule": 0,
+      "StartupModule": 0,
+      "FClassRegisterCompiledInInfo": 0,
+      "RegisterCompiledInInfo": 0,
+      "GameplayEffect": 0,
+      "??_R0": 0,
+      ".?AV": 0,
+      "vftable": 0,
+      "vtable": 0
+    },
+    "assessment": "Scanned as an unverified neighbor only; not promoted as Dungeons game code or used to assign an executable identity."
+  },
+  "validationExpectations": {
+    "status": "research-only",
+    "runtimePromotion": false,
+    "applicationImpact": false,
+    "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+    "analysisBaselineCommit": "647fcaefed2a8b90372fcc1e5f1297371ae0ee9d"
+  }
+}

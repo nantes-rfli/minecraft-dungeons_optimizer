@@ -4,12 +4,12 @@
   "status": "research-only",
   "runtimePromotion": false,
   "applicationImpact": false,
-  "analysisBaselineCommit": "cd229bfd3698606c40e9bea7988ed7fc030c9376",
+  "analysisBaselineCommit": "647fcaefed2a8b90372fcc1e5f1297371ae0ee9d",
   "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
   "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
   "analysisScript": {
     "path": "scripts/static_startup_analysis.py",
-    "sha256": "0d9e0779ac1b028ee56c315468f4ef06a46dbf09c0b47516cba46d61d2d8cfed"
+    "sha256": "e1651175a60e5ffbb3caf61fb85fbfcdd7401f3ae687edc6386b32f7f845214c"
   },
   "scope": {
     "runtimeFunctionTableRegistrationApis": [
