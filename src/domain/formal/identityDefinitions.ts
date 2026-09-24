@@ -193,6 +193,40 @@ function acceptedRangedDefinition(input: AcceptedRangedIdentityInput): FormalIde
 
 export const readyRangedFormalIdentities = readyRangedFormalIdentityInputs.map(acceptedRangedDefinition)
 
+export const reviewedBridgeMeleeFormalIdentityInputs = [
+  { domainId: 'bonehead-hammer', rawIdentity: 'SkeletonHammer', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance', displayName: 'Bonehead Hammer' },
+  { domainId: 'sinister-sword', rawIdentity: 'Sword_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance', displayName: 'Sinister Sword' },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+
+export const reviewedBridgeRangedFormalIdentityInputs = [
+  { domainId: 'shrieking-crossbow', rawIdentity: 'BatCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance', displayName: 'Shrieking Crossbow' },
+] as const satisfies readonly AcceptedRangedIdentityInput[]
+
+function documentedAliasBridgeDefinition(input: AcceptedMeleeIdentityInput, category: 'melee' | 'ranged'): FormalIdentityDefinition {
+  const base = category === 'melee' ? acceptedMeleeDefinition(input) : acceptedRangedDefinition(input)
+  const overrideEvidenceRef = `evidence:reviewed:${input.domainId}:documented-entity-alias`
+  return {
+    ...base,
+    assertion: {
+      ...base.assertion,
+      evidenceRefs: [...base.assertion.evidenceRefs, overrideEvidenceRef],
+    },
+    reviewedEvidence: [
+      ...base.reviewedEvidence,
+      {
+        id: overrideEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.',
+        source: { artifactPath: 'scripts/equipment-icons.ts', locator: `ENTITY_OVERRIDES['${category}:${input.domainId}']` },
+      },
+    ],
+  }
+}
+
+export const reviewedBridgeMeleeFormalIdentities = reviewedBridgeMeleeFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'melee'))
+export const reviewedBridgeRangedFormalIdentities = reviewedBridgeRangedFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'ranged'))
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -266,4 +300,6 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   deathCapMushroomFormalIdentity,
   ...readyMeleeFormalIdentities,
   ...readyRangedFormalIdentities,
+  ...reviewedBridgeMeleeFormalIdentities,
+  ...reviewedBridgeRangedFormalIdentities,
 ]

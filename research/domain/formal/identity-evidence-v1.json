@@ -1521,6 +1521,99 @@
             "evidence:presentation:wind-bow:ranged-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:bonehead-hammer@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SkeletonHammer",
+            "evidenceRef": "evidence:raw:identity:bonehead-hammer@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SkeletonHammer",
+            "evidenceRef": "evidence:raw:identity:bonehead-hammer@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:bonehead-hammer@1",
+          "domainId": "bonehead-hammer",
+          "evidenceRefs": [
+            "evidence:raw:identity:bonehead-hammer@1:ItemIdName",
+            "evidence:raw:identity:bonehead-hammer@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "bonehead-hammer",
+          "displayName": "Bonehead Hammer",
+          "evidenceRefs": [
+            "evidence:presentation:bonehead-hammer:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:sinister-sword@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Sword_Spooky1",
+            "evidenceRef": "evidence:raw:identity:sinister-sword@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Sword_Spooky1",
+            "evidenceRef": "evidence:raw:identity:sinister-sword@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:sinister-sword@1",
+          "domainId": "sinister-sword",
+          "evidenceRefs": [
+            "evidence:raw:identity:sinister-sword@1:ItemIdName",
+            "evidence:raw:identity:sinister-sword@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "sinister-sword",
+          "displayName": "Sinister Sword",
+          "evidenceRefs": [
+            "evidence:presentation:sinister-sword:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:shrieking-crossbow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BatCrossbow",
+            "evidenceRef": "evidence:raw:identity:shrieking-crossbow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BatCrossbow",
+            "evidenceRef": "evidence:raw:identity:shrieking-crossbow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:shrieking-crossbow@1",
+          "domainId": "shrieking-crossbow",
+          "evidenceRefs": [
+            "evidence:raw:identity:shrieking-crossbow@1:ItemIdName",
+            "evidence:raw:identity:shrieking-crossbow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "shrieking-crossbow",
+          "displayName": "Shrieking Crossbow",
+          "evidenceRefs": [
+            "evidence:presentation:shrieking-crossbow:ranged-audit"
+          ]
+        }
       }
     ]
   },
@@ -2454,6 +2547,66 @@
       },
       "evidenceRefs": [
         "evidence:reviewed:wind-bow:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:bonehead-hammer@1",
+      "rawIdentity": "SkeletonHammer",
+      "domainId": "bonehead-hammer",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:bonehead-hammer:accepted-alias",
+        "evidence:reviewed:bonehead-hammer:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:sinister-sword@1",
+      "rawIdentity": "Sword_Spooky1",
+      "domainId": "sinister-sword",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:sinister-sword:accepted-alias",
+        "evidence:reviewed:sinister-sword:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:shrieking-crossbow@1",
+      "rawIdentity": "BatCrossbow",
+      "domainId": "shrieking-crossbow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:shrieking-crossbow:accepted-alias",
+        "evidence:reviewed:shrieking-crossbow:documented-entity-alias"
       ]
     }
   ],
@@ -5617,6 +5770,231 @@
           "nodePointer": "/packages/19/cdoPropertyInventory/0/properties/6/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:c330ad19"
+      },
+      {
+        "id": "evidence:reviewed:bonehead-hammer:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SkeletonHammer]"
+        },
+        "fingerprint": "fnv1a32:0089b957"
+      },
+      {
+        "id": "evidence:presentation:bonehead-hammer:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=bonehead-hammer].name.en"
+        },
+        "fingerprint": "fnv1a32:93c8ec74"
+      },
+      {
+        "id": "evidence:reviewed:bonehead-hammer:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['melee:bonehead-hammer']"
+        },
+        "fingerprint": "fnv1a32:19e9a929"
+      },
+      {
+        "id": "evidence:raw:identity:bonehead-hammer@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SkeletonHammer"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:84679572262e528cb109cedb328d9f1b24c5f4395c23fda1bf61c683a5133ed2",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "824e67bc5a516b05519f885dde008cca45889686ede9dc5896bdbec979c16438"
+          },
+          "nodePointer": "/packages/38/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:cb1f1c10"
+      },
+      {
+        "id": "evidence:raw:identity:bonehead-hammer@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SkeletonHammer"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:84679572262e528cb109cedb328d9f1b24c5f4395c23fda1bf61c683a5133ed2",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "824e67bc5a516b05519f885dde008cca45889686ede9dc5896bdbec979c16438"
+          },
+          "nodePointer": "/packages/38/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:9de46b4a"
+      },
+      {
+        "id": "evidence:reviewed:sinister-sword:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Sword_Spooky1]"
+        },
+        "fingerprint": "fnv1a32:5f19ce4a"
+      },
+      {
+        "id": "evidence:presentation:sinister-sword:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=sinister-sword].name.en"
+        },
+        "fingerprint": "fnv1a32:c72d17c2"
+      },
+      {
+        "id": "evidence:reviewed:sinister-sword:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['melee:sinister-sword']"
+        },
+        "fingerprint": "fnv1a32:fdd5989f"
+      },
+      {
+        "id": "evidence:raw:identity:sinister-sword@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Spooky1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1b9f1c0bf91c9572aef95a6d8f321389cccafa523f719eefb55322add225880b",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "703e284d3ae31da38948b33b154a2ad626f66ff54ec3055886b7b5a1fccf3e6f"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:795ef430"
+      },
+      {
+        "id": "evidence:raw:identity:sinister-sword@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Spooky1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1b9f1c0bf91c9572aef95a6d8f321389cccafa523f719eefb55322add225880b",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "703e284d3ae31da38948b33b154a2ad626f66ff54ec3055886b7b5a1fccf3e6f"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:6ae1b2ec"
+      },
+      {
+        "id": "evidence:reviewed:shrieking-crossbow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:BatCrossbow]"
+        },
+        "fingerprint": "fnv1a32:3ec8fde5"
+      },
+      {
+        "id": "evidence:presentation:shrieking-crossbow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=shrieking-crossbow].name.en"
+        },
+        "fingerprint": "fnv1a32:da130e6c"
+      },
+      {
+        "id": "evidence:reviewed:shrieking-crossbow:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['ranged:shrieking-crossbow']"
+        },
+        "fingerprint": "fnv1a32:200770e4"
+      },
+      {
+        "id": "evidence:raw:identity:shrieking-crossbow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BatCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e32cab70aef83a7e26bdca90cf3aba97c20e1fb556b352fae473c8dc49a379bc",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "16c2dfbafadcfce8bffda6236b721f0d2cf1cbf5d83b307dd3de7b954e828128"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:cbb15ae3"
+      },
+      {
+        "id": "evidence:raw:identity:shrieking-crossbow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BatCrossbow"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e32cab70aef83a7e26bdca90cf3aba97c20e1fb556b352fae473c8dc49a379bc",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "16c2dfbafadcfce8bffda6236b721f0d2cf1cbf5d83b307dd3de7b954e828128"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:d8bf827d"
       }
     ]
   }

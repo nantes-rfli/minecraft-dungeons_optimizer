@@ -3538,19 +3538,24 @@
       "id": "melee-weapon:SkeletonHammer",
       "rawIdentity": "SkeletonHammer",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:bonehead-hammer"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3abonehead-hammer"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance"
       ],
       "sourceRecordIds": [
         "bulk-bp-skeleton-hammer-instance-5fa544c4d23f6426",
         "bulk-bp-skeleton-hammer-instance-86805c1ffaf5fe85"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:bonehead-hammer"
     },
     {
       "id": "melee-weapon:SoulKnife",
@@ -3793,12 +3798,16 @@
       "id": "melee-weapon:Sword_Spooky1",
       "rawIdentity": "Sword_Spooky1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:sinister-sword"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3asinister-sword"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance"
       ],
@@ -3809,7 +3818,8 @@
         "bulk-bp-sword-spooky1-instance-71af0033fd2d575b",
         "bulk-bp-sword-spooky1-instance-c7bcf7be854af9f4",
         "bulk-bp-sword-spooky1-instance-c86cf24db3740075"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:sinister-sword"
     },
     {
       "id": "melee-weapon:Sword_Steel",
@@ -4046,12 +4056,17 @@
       "id": "ranged-weapon:BatCrossbow",
       "rawIdentity": "BatCrossbow",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:shrieking-crossbow"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "ranged-weapon:primary-weapons",
+        "ranged-weapon:secondary-weapons"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance",
         "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02"
@@ -4061,7 +4076,8 @@
         "bulk-bp-bat-crossbow-instance-15604a1a37817323",
         "bulk-bp-bat-crossbow-instance-38f45e503c0fee19",
         "bulk-bp-bat-crossbow-instance-c113c7ed0139ea84"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:shrieking-crossbow"
     },
     {
       "id": "ranged-weapon:Bow",
