@@ -1,7 +1,7 @@
 # Mechanics Formula Inference Pre-Breadth Audit
 
-Audited: 2026-09-24  
-Game scope: Minecraft Dungeons 1.17.0.0  
+Audited: 2026-09-24
+Game scope: Minecraft Dungeons 1.17.0.0
 Baseline: `e90d35822c452341b76c24029356e39387e2a8df` (latest `main` at audit start)
 
 The requested baseline `05211ca1f44326911592652f4adc53fa04692220` was one commit behind latest `main`. The intervening merge adds three reviewed identity bridges; it does not change the mechanics conclusions below.
@@ -121,7 +121,7 @@ Global modifier-family taxonomy, stacking order and eligibility are not per-item
 
 ## 3. Attack timing / effective HPS
 
-**Classification: `model-ready-needs-population`**  
+**Classification: `model-ready-needs-population`**
 **Key decision: C — weapon-family-specific transform is required.**
 
 For ordinary fixed-combo melee families, configured durations are already strong enough to derive an unmodified configured cadence:
