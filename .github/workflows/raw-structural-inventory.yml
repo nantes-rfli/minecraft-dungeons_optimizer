@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/raw-structural-inventory.yml'
       - 'docs/game-data-raw-structural-inventory.md'
+      - 'docs/game-data-horizontal-fact-inventory.md'
       - 'package.json'
       - 'package-lock.json'
       - 'generated/equipment-icons/manifest.json'
@@ -15,13 +16,18 @@ on:
       - 'research/artifact-audit.json'
       - 'research/raw/game-data-asset-index.json'
       - 'research/raw/game-data-raw-structural-inventory/**'
+      - 'research/raw/game-data-horizontal-fact-inventory-v1.json.gz'
+      - 'research/mechanics/pre-breadth-source-closure.json'
       - 'research/sources/game-data-source-provenance.json'
+      - 'scripts/audit-game-data-horizontal-fact-inventory.ts'
       - 'scripts/audit-game-data-raw-structural-inventory.ts'
       - 'scripts/extract-game-data-raw-structural-inventory.ts'
+      - 'scripts/game-data-horizontal-fact-inventory.ts'
       - 'scripts/game-data-package-source.ts'
       - 'scripts/game-data-raw-structural-inventory.ts'
       - 'src/research/ue4/**'
       - 'tests/gameDataRawStructuralInventory.test.ts'
+      - 'tests/horizontalRawFactInventory.test.ts'
 
 permissions:
   contents: read
@@ -38,6 +44,8 @@ jobs:
       - run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
       - run: npm run audit:game-data-raw-structural-inventory
+      - run: npm run audit:game-data-horizontal-fact-inventory
       - run: npm test -- --run tests/gameDataRawStructuralInventory.test.ts
+      - run: npm test -- --run tests/horizontalRawFactInventory.test.ts
       - run: npx tsc --noEmit --pretty false
-      - run: npx eslint scripts/game-data-raw-structural-inventory.ts scripts/extract-game-data-raw-structural-inventory.ts scripts/audit-game-data-raw-structural-inventory.ts tests/gameDataRawStructuralInventory.test.ts
+      - run: npx eslint scripts/game-data-raw-structural-inventory.ts scripts/extract-game-data-raw-structural-inventory.ts scripts/audit-game-data-raw-structural-inventory.ts tests/gameDataRawStructuralInventory.test.ts scripts/game-data-horizontal-fact-inventory.ts scripts/audit-game-data-horizontal-fact-inventory.ts tests/horizontalRawFactInventory.test.ts
