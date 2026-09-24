@@ -1,25 +1,30 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from './identityEvidence.ts'
 
-type Provenance = { artifactPath: string; packagePath?: string; datasetId?: string; extractionRunId?: string; packageHash?: { algorithm: string; value: string } }
+export type RawSourceProvenance = {
+  artifactPath: string
+  packagePath?: string
+  datasetId?: string
+  extractionRunId?: string
+  packageHash?: { algorithm: string; value: string }
+}
 
-export function sameRawSource(a: Provenance, b: Provenance): boolean {
+export function sameRawSource(a: RawSourceProvenance, b: RawSourceProvenance): boolean {
   return Boolean(a.artifactPath && a.packagePath && a.datasetId && a.extractionRunId && a.packageHash?.algorithm && a.packageHash.value)
     && a.artifactPath === b.artifactPath && a.packagePath === b.packagePath
     && a.datasetId === b.datasetId && a.extractionRunId === b.extractionRunId
     && a.packageHash?.algorithm === b.packageHash?.algorithm && a.packageHash?.value === b.packageHash?.value
 }
 
-export function snapshotSource(raw: RawPackageSnapshot): Provenance {
+export function snapshotSource(raw: RawPackageSnapshot): RawSourceProvenance {
   return { artifactPath: `research/raw/packages/${raw.logicalPackage.path}.raw.json`, packagePath: raw.logicalPackage.path,
     datasetId: raw.dataset.id, extractionRunId: raw.extraction.runId, packageHash: raw.logicalPackage.contentHash }
 }
 
-/** Only the reviewed assertion, matched resolution, and its two same-source Raw observations gate a slice. */
-export function matchedIdentityDomainId(raw: RawPackageSnapshot, definition: FormalIdentityDefinition,
+/** Applies the matched Formal Identity gate to an exact source provenance without assuming a RawPackageSnapshot representation. */
+export function matchedIdentityDomainIdFromSource(source: RawSourceProvenance, definition: FormalIdentityDefinition,
   identity: FormalSemanticIdentity | undefined, evidence: RawObservationEvidenceRecord[] | undefined): string | undefined {
-  if (!identity || !evidence || raw.schemaVersion !== definition.assertion.applicationScope.rawSchemaVersion
-    || raw.logicalPackage.path !== definition.assertion.applicationScope.packagePath
+  if (!identity || !evidence || source.packagePath !== definition.assertion.applicationScope.packagePath
     || identity.assertionId !== definition.assertion.id || identity.resolution.state !== 'matched'
     || identity.resolution.assertionId !== definition.assertion.id || identity.resolution.domainId !== definition.assertion.domainId) return undefined
   const observations = [identity.rawEvidence.itemIdName, identity.rawEvidence.serializedId]
@@ -31,7 +36,15 @@ export function matchedIdentityDomainId(raw: RawPackageSnapshot, definition: For
     const matches = evidence.filter((record) => record.id === observation.evidenceRef && record.field === fields[index])
     if (matches.length !== 1 || !identity.resolution.evidenceRefs.includes(observation.evidenceRef)
       || matches[0]!.observation.state !== 'known' || matches[0]!.observation.value !== definition.assertion.rawIdentity
-      || !sameRawSource(matches[0]!.provenance, snapshotSource(raw))) return undefined
+      || !sameRawSource(matches[0]!.provenance, source)) return undefined
   }
   return identity.resolution.domainId
+}
+
+/** Only the reviewed assertion, matched resolution, and its two same-source Raw observations gate a slice. */
+export function matchedIdentityDomainId(raw: RawPackageSnapshot, definition: FormalIdentityDefinition,
+  identity: FormalSemanticIdentity | undefined, evidence: RawObservationEvidenceRecord[] | undefined): string | undefined {
+  if (raw.schemaVersion !== definition.assertion.applicationScope.rawSchemaVersion
+    || raw.logicalPackage.path !== definition.assertion.applicationScope.packagePath) return undefined
+  return matchedIdentityDomainIdFromSource(snapshotSource(raw), definition, identity, evidence)
 }
