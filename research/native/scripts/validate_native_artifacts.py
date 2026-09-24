@@ -59,6 +59,7 @@ def main() -> None:
     architecture = read_json("native-architecture.json")
     candidates = read_json("function-candidates.json")
     firmware = read_json("firmware-boundary-observations.json")
+    startup = read_json("startup-block-map.json")
 
     exe_hash = sha(inventory["binary"]["sha256"], "inventory.binary.sha256")
     stage_hash = sha(inventory["recoveryOutputs"]["stage1"]["sha256"], "inventory.recoveryOutputs.stage1.sha256")
@@ -88,6 +89,37 @@ def main() -> None:
     sha(firmware["syntheticTableProbe"]["dungeonSha256AtStop"], "firmware.syntheticTableProbe.dungeonSha256AtStop")
     require(firmware["syntheticTableProbe"]["syntheticPayload"]["isRealMachineData"] is False, "synthetic firmware data must not be labeled as real")
     require(firmware["syntheticTableProbe"]["readObservation"]["uniqueByteOffsets"] == 240, "synthetic read span changed")
+
+    require(startup["binarySha256"] == exe_hash, "static control-flow executable hash differs from inventory")
+    require(startup["stage1Sha256"] == stage_hash, "static control-flow Stage 1 hash differs from inventory")
+    require(startup["analysisBaselineCommit"] == architecture["analysisBaselineCommit"]
+            == "37d7d29ac2ffa799f476703eb5cf1d41285b1756",
+            "static analysis baseline differs from the requested main commit")
+    require(startup["status"] == "research-only" and startup["runtimePromotion"] is False and startup["applicationImpact"] is False,
+            "static control-flow analysis must stay research-only")
+    analysis_script = resolve_native_ref(startup["analysisScript"]["path"], "startup.analysisScript.path")
+    analysis_script_hash = sha(startup["analysisScript"]["sha256"], "startup.analysisScript.sha256")
+    require(hashlib.sha256(analysis_script.read_bytes()).hexdigest() == analysis_script_hash,
+            "static control-flow source hash differs from recorded hash")
+    return_positions = startup["negativeEvidence"]["conditionalTraceApiReturnPositions"]
+    require(return_positions["observationCount"] == 74 and return_positions["uniqueRvaCount"] == 58
+            and return_positions["listedRangeMatches"] == 0 and return_positions["returnRvaIsFunctionEntry"] is False,
+            "conditional API return range-miss evidence changed or lost its function-entry warning")
+    exception_rows = startup["negativeEvidence"]["exceptionDirectory"]
+    require(exception_rows["entryCount"] == 236168 and exception_rows["nonzeroEntries"] == 236168
+            and exception_rows["entriesWithBeginLessThanEnd"] == 236168,
+            "exception-directory evidence differs from the pinned D-2 input")
+    correlated_ebx_bit_branch = startup["smbios"]["correlatedEbxBitBranch"]
+    branch_instructions = [(item["mnemonic"], item["operands"]) for item in correlated_ebx_bit_branch["instructionEvidence"]]
+    require(branch_instructions == [("and", "ebx, 1"), ("je", "0x144e9938c")],
+            "identified correlated EBX bit-test branch instruction sequence changed")
+    require(correlated_ebx_bit_branch["counterfactualCaptures"]["zeroSize"]["observedSuccessor"] == "0x4e9935b"
+            and correlated_ebx_bit_branch["counterfactualCaptures"]["positiveSize"]["observedSuccessor"] == "0x4e9938c",
+            "paired branch captures no longer show their recorded synthetic successors")
+    require(startup["stableGameCodeSearch"]["candidateFound"] is False
+            and startup["stableGameCodeSearch"]["registrationMechanismFound"] is False
+            and startup["stableGameCodeSearch"]["functionCandidateAccepted"] == 0,
+            "bounded scan must not promote a stable native candidate")
 
     candidate_ids = set()
     allowed_statuses = set(candidates["candidatePolicy"]["statuses"])
@@ -124,6 +156,7 @@ def main() -> None:
         "executableSha256": exe_hash,
         "stage1Sha256": stage_hash,
         "traceScriptSha256": actual_script_hash,
+        "staticAnalysisScriptSha256": analysis_script_hash,
         "priorArtProjects": len(project_ids),
         "functionCandidates": len(candidate_ids),
         "forbiddenFiles": 0,

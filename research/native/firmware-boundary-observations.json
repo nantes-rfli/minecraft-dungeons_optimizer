@@ -34,7 +34,10 @@
     "buffer": "0x0",
     "bufferBytes": "0x0",
     "returnRva": "0x50d0fe9",
-    "originalImageRegionStopRange": ["0x140000000", "0x144bb7fff"],
+    "originalImageRegionStopRange": [
+      "0x140000000",
+      "0x144bb7fff"
+    ],
     "originalImageRegionEntryObserved": false
   },
   "sizeCounterfactuals": [
@@ -43,14 +46,22 @@
       "syntheticFirstCallReturn": 0,
       "observedNextApi": "RegOpenKeyA",
       "nextApiReturnRva": "0x50f434d",
-      "nextApiArgs": ["0x80000002", "0x144ee755b", "0x144eda9d0", "0x0"],
+      "nextApiArgs": [
+        "0x80000002",
+        "0x144ee755b",
+        "0x144eda9d0",
+        "0x0"
+      ],
       "stopReason": "unmodeled API: RegOpenKeyA",
       "dungeonSha256AtStop": "318f48312bec2e33a1268635d3e8e4e5f4f488ff44f50ff1551e2dff11527002"
     },
     {
       "profile": "firmware-alt-size",
       "syntheticFirstCallReturn": 1024,
-      "observedAllocation": {"address": "0x80007000", "bytes": 1024},
+      "observedAllocation": {
+        "address": "0x80007000",
+        "bytes": 1024
+      },
       "observedSecondCall": {
         "api": "GetSystemFirmwareTable",
         "provider": "RSMB",
@@ -65,7 +76,10 @@
     {
       "profile": "firmware-success-size",
       "syntheticFirstCallReturn": 4096,
-      "observedAllocation": {"address": "0x80007000", "bytes": 4096},
+      "observedAllocation": {
+        "address": "0x80007000",
+        "bytes": 4096
+      },
       "observedSecondCall": {
         "api": "GetSystemFirmwareTable",
         "provider": "RSMB",
@@ -89,7 +103,10 @@
     "readObservation": {
       "hookEvents": 480,
       "uniqueByteOffsets": 240,
-      "inclusiveOffsetRange": ["0x0", "0xef"],
+      "inclusiveOffsetRange": [
+        "0x0",
+        "0xef"
+      ],
       "instructionVa": "0x144df7d5b",
       "interpretation": "The synthetic run accessed every byte offset in the first 240 bytes. The hook produced duplicate callbacks and does not identify a semantic SMBIOS field, string, or branch condition."
     },
@@ -129,7 +146,12 @@
       "firstSubkey": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
       "nextApi": "RegQueryValueExA",
       "nextReturnRva": "0x50fd601",
-      "nextApiArgs": ["0x940000", "0x144eeaf15", "0x0", "0x0"],
+      "nextApiArgs": [
+        "0x940000",
+        "0x144eeaf15",
+        "0x0",
+        "0x0"
+      ],
       "stopReason": "unmodeled API: RegQueryValueExA",
       "dungeonSha256AtStop": "8bc1e6c14abdd3ac090adb8d1456327786be6af1f829a4cd46c631ddffcb5263"
     },
@@ -148,16 +170,17 @@
     }
   ],
   "branchConclusion": {
-    "supported": "The first GetSystemFirmwareTable return value changes the observed API path: zero reaches a registry request; positive modeled sizes request a second RSMB call using that size.",
+    "supported": "The first GetSystemFirmwareTable return profile correlates with different observed paths in the synthetic traces. The exact downstream instruction is now isolated as `and ebx, 1; je 0x4e9938c`, and the paired checkpoints take different successors.",
     "notEstablished": [
-      "The exact conditional instruction or complete caller function was not isolated.",
+      "The static state/dataflow from RAX at the API return through the dispatcher into EBX bit 0 is unresolved; the paired synthetic profiles do not prove that the return value directly controls this branch.",
       "The generic fake payload does not establish which semantic SMBIOS fields are used.",
-      "Registry values and CreateFileW behavior are unknown; no result is propagated past these boundaries as game truth."
+      "Registry values and CreateFileW behavior are unknown; no result is propagated past these boundaries as game truth.",
+      "The API return RVAs do not identify caller functions or function entries."
     ]
   },
   "reproducibility": {
     "script": "scripts/trace_smbios_boundary.py",
-    "scriptSha256": "133872daa19a8136e0c2ddf993b4ed3c1978d3e1f4cd6e7711416e2cc5b50104",
+    "scriptSha256": "a036553a0ff9c66cbea9f51adfcf891df6ca1536546fe3ed875bf0504c22f5ef",
     "requiredLocalInputs": [
       "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
       "local-game-data/phase6.8/mechanics/stage1.bin",
@@ -175,12 +198,19 @@
       "firmware-registry-success",
       "firmware-registry-failure"
     ],
-    "deterministicHashReplays": ["firmware-zero-size", "firmware-data-generic"],
-    "rawApiTracesAndMemoryImages": "local-only ignored outputs; do not commit"
+    "deterministicHashReplays": [
+      "firmware-zero-size",
+      "firmware-data-generic"
+    ],
+    "rawApiTracesAndMemoryImages": "local-only ignored outputs; do not commit",
+    "staticControlFlowScript": "scripts/static_startup_analysis.py",
+    "staticControlFlowArtifact": "startup-block-map.json",
+    "staticControlFlowScope": "Uses the pinned local executable, Stage 1 output, saved conditional traces and local Capstone; writes compact analysis metadata only."
   },
   "limitations": [
     "All behavior beyond Stage 1 is conditional on the emulator state, synthetic API export model, and selected counterfactual results.",
     "The listed return RVAs are API return addresses from the synthetic stub trace, not proven function-entry addresses.",
-    "No original mapped game-code entry, stable native code region, Dungeons class implementation, or gameplay function was reached."
+    "No original mapped game-code entry, stable native code region, Dungeons class implementation, or gameplay function was reached.",
+    "Static decoding identifies the tested EBX bit and JE successor, but the dispatch/dataflow from the RSMB API return into EBX remains unresolved."
   ]
 }
