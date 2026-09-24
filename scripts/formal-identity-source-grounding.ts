@@ -9,6 +9,10 @@ import {
   readyMeleeFormalIdentityInputs,
   readyRangedFormalIdentities,
   readyRangedFormalIdentityInputs,
+  reviewedBridgeMeleeFormalIdentities,
+  reviewedBridgeMeleeFormalIdentityInputs,
+  reviewedBridgeRangedFormalIdentities,
+  reviewedBridgeRangedFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 
@@ -20,6 +24,7 @@ type Alias = {
   confidence?: string
   canonicalEntity?: string
   basis?: string
+  candidates?: string[]
   assetPaths?: string[]
 }
 
@@ -40,6 +45,7 @@ export type FormalReviewedSources = {
   rangedAudit?: { entries?: RangedEntry[] }
   meleeAudit?: { weapons?: MeleeEntry[] }
   historicalMappingSource?: string
+  equipmentIconSource?: string
   presentations: {
     fightersBindings?: string
     scatterCrossbow?: string
@@ -54,6 +60,7 @@ export type FormalReviewedSources = {
 const knownPaths = [
   'research/domain/game-data-entity-aliases.json',
   'generated/equipment-icons/manifest.json',
+  'scripts/equipment-icons.ts',
   'scripts/audit-attack-event-comparison.ts',
   'src/data/weapons.ts',
   'research/ranged-weapon-audit.json',
@@ -84,16 +91,17 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     rangedAudit,
     meleeAudit,
     historicalMappingSource: readText(historicalPath),
+    equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
       fightersBindings: fightersBlock?.[1],
       scatterCrossbow: rangedAudit?.entries?.find((entry) => entry.id === 'scatter-crossbow')?.name?.en,
       battleRobe: battleRobeBlock?.[2],
       deathCapMushroom: mushroomBlock?.[1],
-      melee: Object.fromEntries(readyMeleeFormalIdentityInputs.map(({ domainId }) => [
+      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs].map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
       ])),
-      ranged: Object.fromEntries(readyRangedFormalIdentityInputs.map(({ domainId }) => [
+      ranged: Object.fromEntries([...readyRangedFormalIdentityInputs, ...reviewedBridgeRangedFormalIdentityInputs].map(({ domainId }) => [
         domainId,
         rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
       ])),
@@ -201,6 +209,63 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(readyRangedFormalIdentities.length === 21, 'ready Ranged Formal identity population drift')
   check(new Set(readyRangedFormalIdentities.map(({ assertion }) => assertion.domainId)).size === 21, 'ready Ranged Formal domainId uniqueness drift')
 
+  const entityOverrideValue = (source: string, key: string): string | undefined => {
+    const block = source.match(/const ENTITY_OVERRIDES:[\s\S]*?=\s*\{([\s\S]*?)\n\}/)?.[1]
+    if (!block) return undefined
+    return block.match(new RegExp(`'${key}'\\s*:\\s*'([^']+)'`))?.[1]
+  }
+  const reviewedBridgeBasis = 'serialized-item-id + documented-entity-alias + catalog-category-evidence'
+  const bridgeCases = [
+    ...reviewedBridgeMeleeFormalIdentities.map((definition, index) => ({
+      definition,
+      input: reviewedBridgeMeleeFormalIdentityInputs[index]!,
+      aliasCategory: 'melee-weapon' as const,
+      overrideCategory: 'melee' as const,
+      sourceDisplayName: sources.presentations.melee[definition.assertion.domainId],
+    })),
+    ...reviewedBridgeRangedFormalIdentities.map((definition, index) => ({
+      definition,
+      input: reviewedBridgeRangedFormalIdentityInputs[index]!,
+      aliasCategory: 'ranged-weapon' as const,
+      overrideCategory: 'ranged' as const,
+      sourceDisplayName: sources.presentations.ranged[definition.assertion.domainId],
+    })),
+  ]
+  for (const { definition, input, aliasCategory, overrideCategory, sourceDisplayName } of bridgeCases) {
+    const assertion = definition.assertion
+    const aliasId = `${aliasCategory}:${input.rawIdentity}`
+    const canonicalEntity = `${aliasCategory}:${input.domainId}`
+    const overrideKey = `${overrideCategory}:${input.domainId}`
+    const alias = aliases.find((entry) => entry.id === aliasId)
+    const aliasEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
+    const overrideEvidenceRef = `evidence:reviewed:${input.domainId}:documented-entity-alias`
+    check(Boolean(alias), `${assertion.id}: reviewed bridge alias source missing`)
+    check(assertion.domainId === input.domainId && assertion.rawIdentity === input.rawIdentity, `${assertion.id}: reviewed bridge Formal identity drift`)
+    check(assertion.applicationScope.packagePath === input.packagePath, `${assertion.id}: reviewed bridge Formal package drift`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: reviewed bridge assertion must be accepted/high`)
+    check(alias?.category === aliasCategory, `${assertion.id}: reviewed bridge alias category drift`)
+    check(alias?.status === 'accepted', `${assertion.id}: reviewed bridge alias status drift`)
+    check(alias?.confidence === 'high', `${assertion.id}: reviewed bridge alias confidence drift`)
+    check(alias?.rawIdentity === input.rawIdentity, `${assertion.id}: reviewed bridge alias rawIdentity drift`)
+    check(alias?.canonicalEntity === canonicalEntity, `${assertion.id}: reviewed bridge alias canonicalEntity drift`)
+    check(alias?.candidates?.length === 1 && alias.candidates[0] === canonicalEntity, `${assertion.id}: reviewed bridge alias candidates drift`)
+    check(alias?.assetPaths?.includes(input.packagePath) === true, `${assertion.id}: reviewed bridge alias package/source drift`)
+    check(alias?.basis === reviewedBridgeBasis, `${assertion.id}: reviewed bridge basis drift`)
+    check(entityOverrideValue(sources.equipmentIconSource ?? '', overrideKey) === input.rawIdentity, `${assertion.id}: documented ENTITY_OVERRIDES mapping drift`)
+    check(
+      assertion.evidenceRefs.length === 2
+      && assertion.evidenceRefs[0] === aliasEvidenceRef
+      && assertion.evidenceRefs[1] === overrideEvidenceRef
+      && definition.reviewedEvidence.some((record) => record.id === aliasEvidenceRef && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json' && record.source.locator === `aliases[id=${aliasId}]`)
+      && definition.reviewedEvidence.some((record) => record.id === overrideEvidenceRef && record.source.artifactPath === 'scripts/equipment-icons.ts' && record.source.locator === `ENTITY_OVERRIDES['${overrideKey}']`),
+      `${assertion.id}: reviewed bridge evidence chain drift`,
+    )
+    check(definition.presentation.displayName === sourceDisplayName, `${assertion.id}: reviewed bridge presentation displayName drift`)
+  }
+  check(reviewedBridgeMeleeFormalIdentities.length === 2, 'reviewed bridge Melee population drift')
+  check(reviewedBridgeRangedFormalIdentities.length === 1, 'reviewed bridge Ranged population drift')
+  check(bridgeCases.length === 3, 'reviewed bridge total population drift')
+
   const fighters = fightersBindingsFormalIdentity.assertion
   const fightersAlias = aliases.find((entry) => entry.id === 'melee-weapon:Gauntlets_Unique3')
   check(fighters.rawIdentity === 'Gauntlets_Unique3' && fighters.domainId === 'fighters-bindings' && fighters.reviewState === 'provisional', `${fighters.id}: Formal provisional assertion drift`)
@@ -236,13 +301,13 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 49, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 52, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 25,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 22,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 23,
     'Formal matched Ranged definition population drift',
   )
   return errors
