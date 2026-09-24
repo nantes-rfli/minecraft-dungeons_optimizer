@@ -66,7 +66,7 @@ Ranged:
     - actual notify enter/exit times and montage sections are parser-boundary
     - a notify name string is not promoted to a package relation
     - missing AttackRate/charge/notify/projectile facts remain not-observed, not zero
-    - Shivering Bow remains not-found in catalog-to-Raw mapping
+    - Shivering Bow has a provisional storable-role Raw candidate, but no instance-role candidate; preserve that distinction
 
 Armor:
   source paths:

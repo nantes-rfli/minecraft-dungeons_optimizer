@@ -99,7 +99,7 @@
       },
       "Ranged": {
         "catalogSeeds": 71,
-        "instanceCandidateCoverage": "70 seeds have an instance candidate; Shivering Bow is not-found in the current Raw candidate inventory. Preserve the seed state.",
+        "instanceCandidateCoverage": "70 seeds have an instance candidate; Shivering Bow has a provisional storable-role Raw candidate but no instance-role candidate. Preserve the seed status and candidate role separately.",
         "sourcePaths": [
           "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=ranged]",
           "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#packages[].cdoPropertyInventory[].properties[]",
@@ -131,7 +131,7 @@
           "Actual notify enter/exit timestamps and montage segment timing are not decoded from non-CDO animation exports.",
           "NotifyStateName is a serialized name string; preserve it as a string and keep the separate montage/package edge. Do not fabricate a package target from the string.",
           "Missing AttackRateSeconds, charge, notify, or projectile fields remain not-observed/unsupported per item, never implicit zero.",
-          "Shivering Bow retains its not-found catalog-to-Raw state."
+          "Shivering Bow has a provisional storable-role Raw candidate, but no instance-role candidate; preserve that distinction."
         ]
       },
       "Armor": {
