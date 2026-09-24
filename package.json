@@ -47,6 +47,8 @@
     "extract:game-data-raw-package": "node scripts/extract-game-data-raw-package.ts",
     "generate:game-data-raw-structural-inventory": "node scripts/extract-game-data-raw-structural-inventory.ts",
     "audit:game-data-raw-structural-inventory": "node scripts/audit-game-data-raw-structural-inventory.ts",
+    "generate:game-data-horizontal-fact-inventory": "node scripts/game-data-horizontal-fact-inventory.ts",
+    "audit:game-data-horizontal-fact-inventory": "node scripts/audit-game-data-horizontal-fact-inventory.ts",
     "audit:game-data-native-analysis": "python3 research/native/scripts/validate_native_artifacts.py",
     "icons:discover": "node scripts/equipment-icons.ts discover",
     "icons:extract": "node scripts/equipment-icons.ts extract",
