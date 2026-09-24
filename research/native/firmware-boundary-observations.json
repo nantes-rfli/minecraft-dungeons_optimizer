@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-23",
+  "date": "2026-09-24",
   "status": "research-only",
   "runtimePromotion": false,
   "binary": {
@@ -170,9 +170,9 @@
     }
   ],
   "branchConclusion": {
-    "supported": "The first GetSystemFirmwareTable return profile correlates with different observed paths in the synthetic traces. The exact downstream instruction is now isolated as `and ebx, 1; je 0x4e9938c`, and the paired checkpoints take different successors.",
+    "supported": "In the paired conditional emulator profiles, the modeled RSMB size reaches the memory compare at 0x4c77f97. The resulting compare flags are saved, popped into R10, written to a .dungeon state cell, reloaded into EBX, and remain unchanged on the executed path through `and ebx, 1`. The zero-size profile tests bit 0 as 1 and falls through to 0x4e9935b; the 0x1000 profile tests bit 0 as 0 and takes 0x4e9938c. This establishes conditional-emulation dataflow only.",
     "notEstablished": [
-      "The static state/dataflow from RAX at the API return through the dispatcher into EBX bit 0 is unresolved; the paired synthetic profiles do not prove that the return value directly controls this branch.",
+      "The paired profiles do not establish what real Windows firmware returns, what this branch means on a real machine, or whether either successor reaches stable game code.",
       "The generic fake payload does not establish which semantic SMBIOS fields are used.",
       "Registry values and CreateFileW behavior are unknown; no result is propagated past these boundaries as game truth.",
       "The API return RVAs do not identify caller functions or function entries."
@@ -180,7 +180,7 @@
   },
   "reproducibility": {
     "script": "scripts/trace_smbios_boundary.py",
-    "scriptSha256": "a036553a0ff9c66cbea9f51adfcf891df6ca1536546fe3ed875bf0504c22f5ef",
+    "scriptSha256": "ec0ccf5e9a8af7457eda3d279b5da01eb704f51862e82e25a357e1207e8d7915",
     "requiredLocalInputs": [
       "local-game-data/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
       "local-game-data/phase6.8/mechanics/stage1.bin",
@@ -205,12 +205,106 @@
     "rawApiTracesAndMemoryImages": "local-only ignored outputs; do not commit",
     "staticControlFlowScript": "scripts/static_startup_analysis.py",
     "staticControlFlowArtifact": "startup-block-map.json",
-    "staticControlFlowScope": "Uses the pinned local executable, Stage 1 output, saved conditional traces and local Capstone; writes compact analysis metadata only."
+    "staticControlFlowScope": "Uses the pinned local executable, Stage 1 output, saved conditional traces and local Capstone; writes compact analysis metadata only.",
+    "focusedDataflowCapture": {
+      "stackReadRva": "0x4c780e4",
+      "stateCellWriteRva": "0x4c780e6",
+      "stateCellReloadRva": "0x4e99160",
+      "ebxBitTestRva": "0x4e9934f",
+      "monitorRange": [
+        "0x4e99150",
+        "0x4e99400"
+      ],
+      "rawTracePolicy": "bounded paired conditional traces; raw instruction traces remain local-only"
+    }
   },
   "limitations": [
     "All behavior beyond Stage 1 is conditional on the emulator state, synthetic API export model, and selected counterfactual results.",
     "The listed return RVAs are API return addresses from the synthetic stub trace, not proven function-entry addresses.",
     "No original mapped game-code entry, stable native code region, Dungeons class implementation, or gameplay function was reached.",
-    "Static decoding identifies the tested EBX bit and JE successor, but the dispatch/dataflow from the RSMB API return into EBX remains unresolved."
-  ]
+    "Static and paired synthetic evidence establish an API-return-to-memory-compare-flags-to-EBX-bit path; Windows firmware behavior and the downstream game meaning remain unknown."
+  ],
+  "stateTransferToEbxBranch": {
+    "profilePair": [
+      {
+        "profile": "firmware-zero-size",
+        "modeledApiReturn": 0,
+        "savedStackValueAtRSPPlus0x78": "0x0",
+        "r11AtStateWrite": "0x0",
+        "stateDwordAfterWrite": "0x0",
+        "stateDwordAtCompare": "0x0",
+        "compareEflags": "0x293",
+        "savedCompareFlags": "0x293",
+        "flagsStateCell": "0x144be8443",
+        "ebxAfterReload": "0x293",
+        "ebxBeforeAnd": "0x293",
+        "carryFlagBit": 1,
+        "observedBranchSuccessor": "0x4e9935b"
+      },
+      {
+        "profile": "firmware-success-size",
+        "modeledApiReturn": 4096,
+        "savedStackValueAtRSPPlus0x78": "0x1000",
+        "r11AtStateWrite": "0x1000",
+        "stateDwordAfterWrite": "0x1000",
+        "stateDwordAtCompare": "0x1000",
+        "compareEflags": "0x212",
+        "savedCompareFlags": "0x212",
+        "flagsStateCell": "0x144be8443",
+        "ebxAfterReload": "0x212",
+        "ebxBeforeAnd": "0x212",
+        "carryFlagBit": 0,
+        "observedBranchSuccessor": "0x4e9938c"
+      }
+    ],
+    "transferEvidence": [
+      {
+        "rva": "0x50d0fe9",
+        "operation": "GetSystemFirmwareTable returns the modeled size in RAX."
+      },
+      {
+        "rva": "0x4ebd3c1",
+        "operation": "The paired RAX value is present at the shared dispatcher entry."
+      },
+      {
+        "rva": "0x4ebd5f5",
+        "operation": "pop qword ptr [rsp+0x78] stores the saved stack value into dispatcher state."
+      },
+      {
+        "rva": "0x4dd6b04",
+        "operation": "pop r11 reads the paired 0/0x1000 value from dispatcher stack state."
+      },
+      {
+        "rva": "0x4dd6b06",
+        "operation": "mov qword ptr [rsi], r11 writes the value to .dungeon address 0x144be849b."
+      },
+      {
+        "rva": "0x4c77f97",
+        "operation": "cmp dword ptr [rsi], r10d reads 0/0x1000 from that address with R10D=0xff."
+      },
+      {
+        "rva": "0x4c77f9a",
+        "operation": "pushfq saves the compare flags."
+      },
+      {
+        "rva": "0x4c780e4",
+        "operation": "pop r10 reloads the saved compare flags from the captured stack slot."
+      },
+      {
+        "rva": "0x4c780e6",
+        "operation": "mov qword ptr [r12], r10 stores 0x293/0x212 at the shared state cell 0x144be8443."
+      },
+      {
+        "rva": "0x4e99160",
+        "operation": "mov ebx, dword ptr [rbx] reloads the state cell into EBX; focused code hooks show EBX unchanged through 0x4e9934f on both captured paths."
+      },
+      {
+        "rva": "0x4e9934f",
+        "operation": "and ebx, 1 tests the compare carry flag copied in bit 0; paired successors are 0x4e9935b and 0x4e9938c."
+      }
+    ],
+    "firstUnresolvedSegment": "The paired synthetic dataflow reaches the EBX bit-test. The meaning of the branch for real Windows firmware and any subsequent stable-code handoff remain unknown.",
+    "syntheticOnly": true,
+    "gameSemanticsEstablished": false
+  }
 }

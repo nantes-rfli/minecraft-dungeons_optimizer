@@ -5,7 +5,7 @@ Independent executable-analysis lane. These records do not become serialized Raw
 ## Current state
 
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
-- **D-2 in progress:** bounded static recovery maps the downstream EBX bit-test block correlated with the synthetic size profiles and observed API-return continuations through a shared dispatcher candidate. The profiles reach different successors, but the RSMB return-to-EBX dataflow remains unresolved. No original/stable game-code region was reached.
+- **D-2 in progress:** a focused write hook identifies the exact dispatcher-slot relocation loop and its source register. Paired synthetic traces now follow the modeled RSMB return through a `.dungeon` state cell, compare flags, a second state cell, and EBX bit 0 to different successors. A focused instruction monitor confirms EBX stays unchanged on each executed path to the bit-test. These are conditional-emulation results; no Windows firmware meaning, stable game-code handoff, or UE4 registration candidate was established.
 - **D-3 not started:** no gameplay native function has an executable address or evidence chain. One serialized `/Script/Dungeons` parent-class link is retained as a candidate only.
 
 ## Artifacts
@@ -14,6 +14,7 @@ Independent executable-analysis lane. These records do not become serialized Raw
 - [Native architecture map](native-architecture.json) — bootstrap, `.dungeon`, original-image boundary, observed control-flow transitions, and explicit unknowns.
 - [Firmware boundary observations](firmware-boundary-observations.json) — conditional SMBIOS and registry paths, API return RVAs, local output hashes, and semantic limits.
 - [Startup block map](startup-block-map.json) — hash-pinned basic blocks, bounded API-return/control-flow edges, the exact `and ebx, 1; je` branch, synthetic register captures, and scoped negative scans for stable UE4/Dungeons code.
+- [Runtime function-table assessment](runtime-function-table-analysis.json) — bounded PE import, ASCII/UTF-16 literal, and saved synthetic-resolution checks for x64 runtime function-table and unwind APIs.
 - [External prior-art census](external-prior-art.json) — technique prior art, identifier hints, external-only claims, licenses, and bounded negative search result.
 - [Function candidates](function-candidates.json) — confidence-gated Raw class to native implementation candidates. Null locations remain unknown.
 - [PE inventory script](scripts/native_input_inventory.py) — hash-pinned read-only parser.
@@ -30,7 +31,7 @@ LOCAL_GAME_DATA_ROOT=/path/to/local-game-data
 python3 research/native/scripts/native_input_inventory.py \
   --exe "$LOCAL_GAME_DATA_ROOT/archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe" \
   --stage1 "$LOCAL_GAME_DATA_ROOT/phase6.8/mechanics/stage1.bin"
-MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-success-size
+MCD_CAPTURE_DISPATCH_SLOT_WRITES=1 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-success-size
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-zero-size
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-alt-size
 MCD_LOCAL_GAME_DATA_ROOT="$LOCAL_GAME_DATA_ROOT" python3 research/native/scripts/trace_smbios_boundary.py firmware-data-generic

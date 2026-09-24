@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-24",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "analysisBaselineCommit": "cd229bfd3698606c40e9bea7988ed7fc030c9376",
+  "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+  "analysisScript": {
+    "path": "scripts/static_startup_analysis.py",
+    "sha256": "0d9e0779ac1b028ee56c315468f4ef06a46dbf09c0b47516cba46d61d2d8cfed"
+  },
+  "scope": {
+    "runtimeFunctionTableRegistrationApis": [
+      "RtlAddFunctionTable",
+      "RtlDeleteFunctionTable",
+      "RtlInstallFunctionTableCallback",
+      "RtlAddGrowableFunctionTable",
+      "RtlGrowFunctionTable",
+      "RtlDeleteGrowableFunctionTable"
+    ],
+    "relatedResolutionAndUnwindApis": [
+      "GetProcAddress",
+      "LdrGetProcedureAddress",
+      "RtlLookupFunctionEntry",
+      "RtlVirtualUnwind"
+    ],
+    "staticImportDirectory": {
+      "rva": "0x4bb5593",
+      "sizeBytes": 1504,
+      "namedImportCount": 36,
+      "ordinalImportCount": 5,
+      "targetApiImports": []
+    },
+    "literalSearch": {
+      "regions": [
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        "        ",
+        ".debug",
+        ".edata",
+        ".idata",
+        ".tls",
+        ".rsrc",
+        ".boot",
+        ".reloc",
+        ".dungeon-stage1"
+      ],
+      "encodings": [
+        "ASCII",
+        "UTF-16LE"
+      ],
+      "apiOccurrences": {
+        "RtlAddFunctionTable": [],
+        "RtlDeleteFunctionTable": [],
+        "RtlInstallFunctionTableCallback": [],
+        "RtlAddGrowableFunctionTable": [],
+        "RtlGrowFunctionTable": [],
+        "RtlDeleteGrowableFunctionTable": [],
+        "RtlLookupFunctionEntry": [],
+        "RtlVirtualUnwind": [],
+        "LdrGetProcedureAddress": [],
+        "GetProcAddress": []
+      }
+    }
+  },
+  "apiAssessment": [
+    {
+      "api": "RtlAddFunctionTable",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlDeleteFunctionTable",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlInstallFunctionTableCallback",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlAddGrowableFunctionTable",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlGrowFunctionTable",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlDeleteGrowableFunctionTable",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlLookupFunctionEntry",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "RtlVirtualUnwind",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "LdrGetProcedureAddress",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": false
+    },
+    {
+      "api": "GetProcAddress",
+      "imported": false,
+      "literalOccurrences": [],
+      "observedInSavedSyntheticProfiles": true
+    }
+  ],
+  "syntheticResolutionObservations": {
+    "profiles": [
+      {
+        "profile": "firmware-data-generic",
+        "stopReason": "unmodeled API: RegOpenKeyA"
+      },
+      {
+        "profile": "firmware-zero-size",
+        "stopReason": "unmodeled API: RegOpenKeyA"
+      },
+      {
+        "profile": "firmware-success-size",
+        "stopReason": "SMBIOS buffer-fill boundary"
+      },
+      {
+        "profile": "firmware-alt-size",
+        "stopReason": "SMBIOS buffer-fill boundary"
+      },
+      {
+        "profile": "firmware-registry-failure",
+        "stopReason": "unmodeled API: CreateFileW"
+      },
+      {
+        "profile": "firmware-registry-success",
+        "stopReason": "unmodeled API: RegQueryValueExA"
+      },
+      {
+        "profile": "firmware-registry-first-failure",
+        "stopReason": "unmodeled API: RegOpenKeyA"
+      }
+    ],
+    "lookupApiEvents": [
+      {
+        "profile": "firmware-data-generic",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-data-generic",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-data-generic",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-zero-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-zero-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-zero-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-success-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-success-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-success-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-alt-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-alt-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-alt-size",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-registry-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-registry-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-registry-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-registry-success",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-registry-success",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-registry-success",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      },
+      {
+        "profile": "firmware-registry-first-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x504cdd5",
+        "symbol": "SetLastError"
+      },
+      {
+        "profile": "firmware-registry-first-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x503a8b3",
+        "symbol": "GetLastError"
+      },
+      {
+        "profile": "firmware-registry-first-failure",
+        "api": "GetProcAddress",
+        "returnRva": "0x50cbe03",
+        "symbol": "IsUserAnAdmin"
+      }
+    ],
+    "resolvedSymbolNames": [
+      "GetLastError",
+      "IsUserAnAdmin",
+      "SetLastError"
+    ],
+    "runtimeFunctionRegistrationCalls": [],
+    "interpretation": "The seven saved bounded Unicorn profiles reached synthetic GetProcAddress stubs and resolved only the listed symbol names. They did not observe any requested Rtl registration or unwind API. These traces are conditional emulator paths, not API coverage for Windows execution."
+  },
+  "exceptionDirectoryCrossCheck": {
+    "rva": "0x5795214",
+    "entryCount": 236168,
+    "apiReturnObservations": 74,
+    "uniqueReturnRvas": 58,
+    "returnRvaRangeMatches": 0,
+    "unwindInfoRvasBackedByInitializedInput": 1,
+    "unwindInfoRvasUnbackedByInitializedInput": 236167,
+    "warning": "The range mismatches and unreadable unwind RVAs do not determine whether a caller, runtime-added table, generated metadata, or unmapped code explains the recovered states."
+  },
+  "assessment": {
+    "registrationObserved": false,
+    "runtimeMetadataGenerationResolved": false,
+    "runtimeTableBase": null,
+    "runtimeTableEntryCount": null,
+    "targetCodeRegion": null,
+    "conclusion": "The requested registration and lookup names have no static import or ASCII/UTF-16 literal hit in the scanned initialized image, and none was called in the saved synthetic profiles. This rules out only those bounded observations; runtime-added metadata, generated metadata, transformed/unregistered code, and other mechanisms remain unresolved."
+  },
+  "provenance": {
+    "method": "read-only PE import/literal scan plus the existing hash-pinned local Stage 1 output and seven bounded synthetic trace records",
+    "rawExecutableOrTracesCommitted": false,
+    "tools": [
+      "custom read-only PE32+ parser",
+      "Capstone 5.0.6",
+      "Unicorn 2.1.4"
+    ],
+    "notFoundOnPath": [
+      "Ghidra",
+      "radare2",
+      "rizin",
+      "llvm-objdump"
+    ]
+  }
+}

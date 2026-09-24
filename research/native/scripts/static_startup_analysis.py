@@ -18,7 +18,7 @@ from pathlib import Path
 
 EXPECTED_EXE = "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8"
 EXPECTED_STAGE1 = "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b"
-BASELINE_COMMIT = "37d7d29ac2ffa799f476703eb5cf1d41285b1756"
+BASELINE_COMMIT = "cd229bfd3698606c40e9bea7988ed7fc030c9376"
 IMAGE_BASE = 0x140000000
 DUNGEON_RVA = 0x4BB8000
 TRACE_PROFILES = (
@@ -64,6 +64,20 @@ COMMON_PROLOGUES = (
     ("sub-rsp-imm32", bytes.fromhex("4881ec")),
     ("save-rbx-to-stack", bytes.fromhex("48895c24")),
     ("endbr64", bytes.fromhex("f30f1efa")),
+)
+RUNTIME_FUNCTION_APIS = (
+    "RtlAddFunctionTable",
+    "RtlDeleteFunctionTable",
+    "RtlInstallFunctionTableCallback",
+    "RtlAddGrowableFunctionTable",
+    "RtlGrowFunctionTable",
+    "RtlDeleteGrowableFunctionTable",
+)
+RUNTIME_METADATA_APIS = RUNTIME_FUNCTION_APIS + (
+    "RtlLookupFunctionEntry",
+    "RtlVirtualUnwind",
+    "LdrGetProcedureAddress",
+    "GetProcAddress",
 )
 
 
@@ -209,6 +223,25 @@ def first_direct_api_tail(pe: PEImage, stage1: bytes, engine: object, rva: int) 
     }
 
 
+def basic_block_summary(block: dict) -> dict:
+    instructions = block["instructions"]
+    selected = instructions if len(instructions) <= 12 else instructions[:5] + instructions[-5:]
+    return {
+        "address": block["address"],
+        "range": block["range"],
+        "terminator": block["terminator"],
+        "successors": block["successors"],
+        "instructionCount": len(instructions),
+        "directCallCount": sum(item["mnemonic"].startswith("call") for item in instructions),
+        "returnCount": sum(item["mnemonic"] in {"ret", "retf", "iret", "iretd", "iretq"} for item in instructions),
+        "ripRelativeInstructionCount": sum("rip" in item["operands"] for item in instructions),
+        "stackRelatedInstructionCount": sum(item["mnemonic"] in {"push", "pop", "pushfq", "popfq", "enter", "leave"}
+                                              or "rsp" in item["operands"] for item in instructions),
+        "instructionEvidence": selected,
+        "truncatedInstructionEvidence": len(instructions) > len(selected),
+    }
+
+
 def adjacent_call_sites(stage1: bytes, engine: object, rva: int) -> list[dict]:
     found = []
     for length in range(1, 16):
@@ -331,6 +364,109 @@ def pointer_array_runs(pe: PEImage, stage1: bytes) -> list[dict]:
     return runs
 
 
+def read_c_string(pe: PEImage, stage1: bytes, rva: int, limit: int = 512) -> str | None:
+    output = bytearray()
+    for offset in range(limit):
+        value = pe.initialized_bytes(rva + offset, 1, stage1)
+        if value is None:
+            return None
+        if value == b"\0":
+            return output.decode("ascii", "replace")
+        output.extend(value)
+    return None
+
+
+def imported_functions(pe: PEImage, stage1: bytes) -> list[dict]:
+    import_rva, import_size = pe.directory(1)
+    if not import_rva or not import_size:
+        return []
+    result = []
+    for offset in range(0, import_size - 19, 20):
+        descriptor = pe.initialized_bytes(import_rva + offset, 20, stage1)
+        if descriptor is None:
+            break
+        original_thunk, _time, _chain, name_rva, first_thunk = struct.unpack("<IIIII", descriptor)
+        if not any((original_thunk, name_rva, first_thunk)):
+            break
+        library = read_c_string(pe, stage1, name_rva)
+        if library is None:
+            continue
+        thunk_rva = original_thunk or first_thunk
+        for index in range(65536):
+            thunk_bytes = pe.initialized_bytes(thunk_rva + index * 8, 8, stage1)
+            if thunk_bytes is None:
+                break
+            thunk = struct.unpack("<Q", thunk_bytes)[0]
+            if not thunk:
+                break
+            if thunk & (1 << 63):
+                result.append({"dll": library, "ordinal": thunk & 0xFFFF})
+                continue
+            hint_name = pe.initialized_bytes(thunk, 2, stage1)
+            name = read_c_string(pe, stage1, thunk + 2) if hint_name is not None else None
+            if name is not None:
+                result.append({"dll": library, "name": name})
+    return result
+
+
+def literal_occurrences(regions: list[tuple[str, int, bytes]], names: tuple[str, ...]) -> dict:
+    output = {}
+    for name in names:
+        hits = []
+        needles = (("ascii", name.encode("ascii")), ("utf16le", name.encode("utf-16le")))
+        for region, base_rva, blob in regions:
+            for encoding, needle in needles:
+                offset = 0
+                while True:
+                    offset = blob.find(needle, offset)
+                    if offset < 0:
+                        break
+                    hits.append({"region": region, "encoding": encoding, "rva": hex(base_rva + offset)})
+                    offset += 1
+        output[name] = hits
+    return output
+
+
+def aligned_original_code_pointer_refs(pe: PEImage, stage1: bytes) -> dict:
+    code_sections = [section for section in pe.sections if section["executable"] and section["name"] != ".dungeon"]
+    regions = [(section["name"] or f"section-{section['index']}", section["rva"],
+                pe.raw[section["rawOffset"]:section["rawOffset"] + section["rawSize"]])
+               for section in pe.sections if section["rawSize"]]
+    regions.append((".dungeon-stage1", DUNGEON_RVA, stage1))
+    targets: dict[int, dict] = {}
+    total = 0
+    for region, base_rva, blob in regions:
+        for offset in range(0, len(blob) - 7, 8):
+            value = struct.unpack_from("<Q", blob, offset)[0]
+            if value < pe.image_base:
+                continue
+            target_rva = value - pe.image_base
+            section = next((item for item in code_sections
+                            if item["rva"] <= target_rva < item["rva"] + max(item["virtualSize"], item["rawSize"])), None)
+            if section is None:
+                continue
+            total += 1
+            entry = targets.setdefault(target_rva, {
+                "targetRva": hex(target_rva),
+                "targetSectionIndex": section["index"],
+                "targetSectionName": section["name"],
+                "targetBytesBackedByInitializedInput": pe.initialized_bytes(target_rva, 1, stage1) is not None,
+                "pointerCount": 0,
+                "sourceLocations": [],
+            })
+            entry["pointerCount"] += 1
+            if len(entry["sourceLocations"]) < 4:
+                entry["sourceLocations"].append({"region": region, "rva": hex(base_rva + offset)})
+    return {
+        "pointerWidthBytes": 8,
+        "alignmentBytes": 8,
+        "targetExecutableSectionsExcludeDungeon": True,
+        "pointerCount": total,
+        "uniqueTargets": sorted(targets.values(), key=lambda item: (-item["pointerCount"], int(item["targetRva"], 16))),
+        "interpretation": "Aligned absolute-address constants are xrefs only; they do not establish calls, code execution, function boundaries, or a registration table.",
+    }
+
+
 def main() -> None:
     repo_root = Path(__file__).resolve().parents[3]
     parser = argparse.ArgumentParser(description=__doc__)
@@ -339,6 +475,7 @@ def main() -> None:
     parser.add_argument("--stage1", type=Path)
     parser.add_argument("--trace-root", type=Path)
     parser.add_argument("--output", type=Path, default=repo_root / "research/native/startup-block-map.json")
+    parser.add_argument("--runtime-output", type=Path, default=repo_root / "research/native/runtime-function-table-analysis.json")
     args = parser.parse_args()
     local_root = args.local_data.expanduser().resolve()
     exe_path = args.exe or local_root / "archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe"
@@ -487,6 +624,125 @@ def main() -> None:
     static_slot_value = struct.unpack("<Q", static_slot)[0]
     indirect_target_rva = dispatch_target_va - IMAGE_BASE
     target_entry = decode_basic_block(pe, stage1, engine, indirect_target_rva)
+    target_chain_rvas = (0x4CCE835, 0x4CCE8C1, 0x4CCE8CB, 0x4CCEAB9, 0x4BB927B,
+                         0x4E5F7D5, 0x4E5FC75, 0x4C1968B, 0x4DD6892)
+    target_chain_blocks = [basic_block_summary(decode_basic_block(pe, stage1, engine, rva)) for rva in target_chain_rvas]
+    target_indirect_capture = checkpoint_for(positive_trace, "0x4cceab9", positive_count)
+    secondary_target_indirect_capture = checkpoint_for(positive_trace, "0x4e5fc75", positive_count)
+
+    slot_write_captures = positive_trace.get("dispatchSlotWrites", [])
+    need(len(slot_write_captures) == 1, "expected exactly one focused dispatch-slot writer capture")
+    slot_write = slot_write_captures[0]
+    slot_writer_rva = int(slot_write["rip"], 16) - IMAGE_BASE
+    slot_writer_block_rva = int(slot_write["currentBasicBlock"], 16)
+    slot_writer_block = decode_basic_block(pe, stage1, engine, slot_writer_block_rva)
+    slot_writer_guard = decode_basic_block(pe, stage1, engine, 0x4EAF530)
+    slot_base_va = int(checkpoint_for(positive_trace, "0x4eaf539", int(slot_write["eventCount"]))["registers"]["rax"], 16)
+    slot_index = (int(slot_write["address"], 16) - slot_base_va) // 8
+
+    def compact_checkpoint(trace: dict, rva: str, event_count: int) -> dict | None:
+        checkpoint = checkpoint_for(trace, rva, event_count)
+        if checkpoint is None:
+            return None
+        registers = checkpoint.get("registers", {})
+        summary = {
+            "rva": rva,
+            "currentBasicBlock": checkpoint.get("currentBasicBlock"),
+            "registers": {name: registers.get(name) for name in ("rax", "rbx", "rcx", "rsi", "r10", "r11", "rsp", "eflags")},
+        }
+        for key in ("stackValueBeforePop", "destinationBeforeWriteAddress", "destinationBeforeWrite",
+                    "destinationAfterWriteAddress", "destinationAfterWrite", "comparedMemoryAddress",
+                    "comparedMemoryDword", "savedCompareFlags", "indirectPointer", "indirectTarget"):
+            if key in checkpoint:
+                summary[key] = checkpoint[key]
+        if rva == "0x4ebd5f9" and checkpoint.get("stackBytesFromRspMinus40"):
+            stack_bytes = bytes.fromhex(checkpoint["stackBytesFromRspMinus40"])
+            summary["savedApiReturnAtRspPlus0x78"] = hex(struct.unpack_from("<Q", stack_bytes, 0xB8)[0])
+        return summary
+
+    def profile_state_transfer(trace: dict, event_count: int, profile: str, modeled_return: int) -> dict:
+        addresses = (
+            "0x50d0fe9", "0x4ebd3c1", "0x4ebd5f9", "0x4ebd713", "0x4ebd727",
+            "0x4ebdd89", "0x4ebddb0", "0x4ebddcc", "0x4ebdde1", "0x4ebdde7",
+            "0x4dd6b04", "0x4dd6b06", "0x4dd6b09", "0x4c77f97", "0x4c77f9a", "0x4c77f9b", "0x4e9934f",
+        )
+        return {
+            "profile": profile,
+            "modeledApiReturn": modeled_return,
+            "checkpoints": {rva: compact_checkpoint(trace, rva, event_count) for rva in addresses},
+        }
+
+    paired_state_transfers = [
+        profile_state_transfer(zero_trace, zero_count, "firmware-zero-size", zero_first.get("modeledReturn")),
+        profile_state_transfer(positive_trace, positive_count, "firmware-success-size", positive_first.get("modeledReturn")),
+    ]
+
+    def flags_to_ebx_transfer(trace: dict, profile: str, flow: dict) -> dict:
+        stack_read = next((item for item in trace.get("comparisonFlagsStack", {}).get("accesses", [])
+                           if item.get("operation") == "read" and item.get("rip") == "0x4c780e4"), None)
+        state_write = next((item for item in trace.get("comparisonFlagsState", {}).get("accesses", [])
+                            if item.get("operation") == "write" and item.get("rip") == "0x4c780e6"), None)
+        state_read = next((item for item in trace.get("comparisonFlagsState", {}).get("accesses", [])
+                           if item.get("operation") == "read" and item.get("rip") == "0x4e99160"), None)
+        path = trace.get("ebxTransferTrace", [])
+        need(stack_read is not None and state_write is not None and state_read is not None,
+             f"missing compare-flags state transfer evidence in {profile}")
+        need(len(path) >= 3 and path[0].get("rva") == "0x4e99160"
+             and path[1].get("rva") == "0x4e99162" and path[-1].get("rva") == "0x4e9934f",
+             f"incomplete dynamic EBX transfer trace in {profile}")
+        flags = struct.unpack("<Q", bytes.fromhex(stack_read["memoryBytesAtHook"]))[0]
+        loaded_ebx = int(path[1]["ebxBefore"], 16)
+        branch_ebx = int(path[-1]["ebxBefore"], 16)
+        state_value = struct.unpack("<I", bytes.fromhex(state_read["memoryBytesAtHook"]))[0]
+        stable = all(int(item["ebxBefore"], 16) == loaded_ebx for item in path[1:])
+        need(flags == int(state_write["eventValue"], 16) == state_value == loaded_ebx == branch_ebx,
+             f"compare flags no longer flow unchanged into EBX in {profile}")
+        need(state_write["address"] == state_read["address"]
+             and int(state_write["registers"]["r12"], 16) == int(state_write["address"], 16)
+             and int(state_write["registers"]["r10"], 16) == flags,
+             f"compare flags state-cell write/read does not line up in {profile}")
+        need(stable, f"EBX changes between state-cell reload and bit-test in {profile}")
+        saved_flags = int(flow["checkpoints"]["0x4c77f9b"]["savedCompareFlags"], 16)
+        need(flags == saved_flags, f"saved compare flags do not match the later state value in {profile}")
+        return {
+            "profile": profile,
+            "savedCompareFlags": hex(flags),
+            "carryFlagBit": flags & 1,
+            "stackLoad": {
+                "rva": stack_read["rip"],
+                "instruction": "pop r10",
+                "stackAddress": stack_read["address"],
+                "qwordBytes": stack_read["memoryBytesAtHook"],
+            },
+            "stateCellWrite": {
+                "rva": state_write["rip"],
+                "instruction": "mov qword ptr [r12], r10",
+                "address": state_write["address"],
+                "value": state_write["eventValue"],
+            },
+            "stateCellReload": {
+                "rva": state_read["rip"],
+                "instruction": "mov ebx, dword ptr [rbx]",
+                "address": state_read["address"],
+                "dwordBytes": state_read["memoryBytesAtHook"],
+                "ebxAfterLoad": hex(loaded_ebx),
+            },
+            "dynamicPath": [{"rva": item["rva"], "instruction": item["instruction"], "ebxBefore": item["ebxBefore"]}
+                            for item in path],
+            "ebxBeforeAnd": hex(branch_ebx),
+            "ebxUnchangedFromReloadToBitTest": stable,
+            "bitTest": "and ebx, 1",
+            "observedBranchSuccessor": flow["observedBranchSuccessor"],
+        }
+
+    flags_to_ebx = [
+        flags_to_ebx_transfer(zero_trace, "firmware-zero-size", {
+            **paired_state_transfers[0], "observedBranchSuccessor": zero_fallthrough["rva"]}),
+        flags_to_ebx_transfer(positive_trace, "firmware-success-size", {
+            **paired_state_transfers[1], "observedBranchSuccessor": positive_taken["rva"]}),
+    ]
+    sink_block = decode_basic_block(pe, stage1, engine, 0x4DD6B04)
+    compare_block = decode_basic_block(pe, stage1, engine, 0x4C77F97)
 
     def mapped_unwind_rows() -> int:
         return sum(pe.initialized_bytes(unwind, 4, stage1) is not None for _begin, _end, unwind in rows)
@@ -501,7 +757,30 @@ def main() -> None:
     sections_with_bytes.append((".dungeon-stage1", DUNGEON_RVA, stage1))
     marker_hits = registration_marker_hits(sections_with_bytes)
     pointer_runs = pointer_array_runs(pe, stage1)
+    original_code_pointer_refs = aligned_original_code_pointer_refs(pe, stage1)
     marker_hit_count = sum(bool(value) for value in marker_hits.values())
+    imports = imported_functions(pe, stage1)
+    imported_names = {item["name"] for item in imports if "name" in item}
+    runtime_api_literals = literal_occurrences(sections_with_bytes, RUNTIME_METADATA_APIS)
+    lookup_api_events = []
+    runtime_registration_events = []
+    for profile, trace in traces.items():
+        for event in trace.get("events", []):
+            if event.get("name") in {"GetProcAddress", "LdrGetProcedureAddress"}:
+                lookup_api_events.append({
+                    "profile": profile,
+                    "api": event.get("name"),
+                    "returnRva": event.get("returnRva"),
+                    "symbol": event.get("symbol"),
+                })
+            if event.get("name") in RUNTIME_FUNCTION_APIS:
+                runtime_registration_events.append({
+                    "profile": profile,
+                    "api": event.get("name"),
+                    "returnRva": event.get("returnRva"),
+                    "arguments": event.get("args"),
+                })
+    resolved_lookup_names = sorted({item["symbol"] for item in lookup_api_events if item.get("symbol")})
 
     registry_failure_calls = [
         {"api": event.get("name"), "requestedPath": event.get("requestedPath"),
@@ -607,13 +886,13 @@ def main() -> None:
                 "range": correlated_ebx_bit_branch["range"],
                 "kind": "basic-block",
                 "boundaryEvidence": "and ebx, 1 sets flags; the following je ends this block.",
-                "predecessors": ["dispatcher route from 0x4ebd3c1 observed in paired conditional traces; exact state-transfer chain remains unresolved"],
+                "predecessors": ["dispatcher route from 0x4ebd3c1 observed in paired conditional traces; the compare flags are saved, reloaded into EBX, and tested on the captured dynamic path"],
                 "successors": correlated_ebx_bit_branch["successors"],
                 "calls": [],
                 "importantRegisters": ["EBX bit 0 is the tested input", "ZF controls the JE at 0x4e99355"],
                 "importantMemory": [],
-                "confidence": "high for the compare/branch and its successors; medium for trace correlation to modeled size",
-                "limitations": ["Static dataflow from RAX at 0x50d0fe9 through dispatcher state to EBX bit 0 is unresolved."],
+                "confidence": "high for paired synthetic dataflow from modeled return through compare flags to EBX bit 0; semantic interpretation remains unverified",
+                "limitations": ["The causal path is established only in the selected conditional emulator profiles; no machine-specific firmware or game-semantic conclusion follows."],
                 "counterfactualCaptures": {
                     "zeroSize": {"modeledApiReturn": zero_first.get("modeledReturn"), "beforeAnd": zero_branch, "atJe": zero_je, "observedSuccessor": zero_fallthrough["rva"]},
                     "positiveSize": {"modeledApiReturn": positive_first.get("modeledReturn"), "beforeAnd": positive_branch, "atJe": positive_je, "observedSuccessor": positive_taken["rva"]},
@@ -633,6 +912,81 @@ def main() -> None:
                 "writtenPageCountAtSlotPage": written_pages.get(hex(slot_page_va)),
                 "interpretation": "Conditional emulation materialized an absolute dispatch pointer in a .dungeon data slot. This is evidence for runtime-written dispatch data, not by itself evidence that executable instructions were rewritten.",
             },
+            "dispatcherStateRecovery": {
+                "binarySha256": exe_hash,
+                "dispatchStatePointerRva": hex(dispatch_slot_rva),
+                "dispatchPointerRegisterAtIndirectJump": "RAX",
+                "dispatchPointerCheckpoint": compact_checkpoint(positive_trace, "0x4ebdde7", positive_count),
+                "dispatchPointerSetupCheckpoints": {
+                    rva: compact_checkpoint(positive_trace, rva, positive_count)
+                    for rva in ("0x4ebdd89", "0x4ebddb0", "0x4ebddcc", "0x4ebdde1")
+                },
+                "slotRelocationLoop": {
+                    "kind": "bounded basic-block loop; no function extent claimed",
+                    "loopGuardBlock": slot_writer_guard,
+                    "writerBlock": slot_writer_block,
+                    "entryCheckpoint": compact_checkpoint(positive_trace, "0x4eaf539", int(slot_write["eventCount"])),
+                    "backedgeRva": "0x4eaf586",
+                    "entryTableBaseVa": hex(slot_base_va),
+                    "entryTableBaseRva": hex(slot_base_va - IMAGE_BASE),
+                    "entryCountAtLoopEntry": int(checkpoint_for(positive_trace, "0x4eaf539", int(slot_write["eventCount"]))["registers"]["rbx"], 16),
+                    "entryStrideBytes": 8,
+                    "counterDeltaPerIteration": "-1 (the immediate arithmetic sequence computes EBX increment -1)",
+                    "capturedSlotWrite": {
+                        "eventCount": slot_write["eventCount"],
+                        "writerRva": hex(slot_writer_rva),
+                        "instruction": "add qword ptr [r14], rcx",
+                        "currentBasicBlockRva": hex(slot_writer_block_rva),
+                        "slotVa": slot_write["address"],
+                        "slotRva": hex(int(slot_write["address"], 16) - IMAGE_BASE),
+                        "slotIndexFromLoopBase": hex(slot_index),
+                        "sourceRegister": "RCX",
+                        "sourceValue": slot_write["registers"]["rcx"],
+                        "addressRegister": "R14",
+                        "addressValue": slot_write["registers"]["r14"],
+                        "raxAtWrite": slot_write["registers"]["rax"],
+                        "beforeQword": hex(struct.unpack("<Q", bytes.fromhex(slot_write["beforeBytes"]))[0]),
+                        "afterQword": slot_write["value"],
+                        "predecessor": "loop guard at 0x4eaf530 falls through to writer block 0x4eaf539 when EBX is nonzero; writer tail at 0x4eaf586 returns to the guard",
+                    },
+                    "interpretation": "The loop adds the image base from RCX to relative qwords. The slot at index 0x4aa changes RVA 0x4be79a4 into VA 0x144be79a4; this identifies dispatch-data relocation, not rewritten executable code.",
+                },
+                "indirectTargetChain": {
+                    "observedBefore": ["0x4ebdde7", "0x4ed272d", "0x4be79a4", "0x4cce835"],
+                    "staticBasicBlocks": target_chain_blocks,
+                    "indirectJumpCheckpointAt0x4cceab9": compact_checkpoint(positive_trace, "0x4cceab9", positive_count),
+                    "directBridgeAfterFirstIndirectTarget": "0x4bb927b directly jumps to 0x4e5f7d5",
+                    "secondIndirectJumpCheckpointAt0x4e5fc75": compact_checkpoint(positive_trace, "0x4e5fc75", positive_count),
+                    "successorEntryCheckpoints": {
+                        "0x4c1968b": compact_checkpoint(positive_trace, "0x4c1968b", positive_count),
+                        "0x4dd6892": compact_checkpoint(positive_trace, "0x4dd6892", positive_count),
+                    },
+                    "assessment": "The 0x4cce835 route branches into overlapping arithmetic-heavy spans at 0x4cce8c1/0x4cce8cb, then uses jmp rbx at 0x4cceab9. The focused run follows it to 0x4bb927b, then 0x4e5f7d5, whose jmp r11 at 0x4e5fc75 targets 0x4c1968b; that block directly jumps to 0x4dd6892. The observed chain remains inside Stage 1 .dungeon, uses state-based branches/indirect jumps, and exposes no normal call/ret boundary or stable-code transition.",
+                },
+                "apiReturnStateTransfer": {
+                    "pairedSyntheticProfiles": paired_state_transfers,
+                    "firstProvenConsumer": {
+                        "address": "0x4c77f97",
+                        "instruction": compare_block["instructions"][0],
+                        "block": compare_block,
+                        "interpretation": "The dword previously written from R11 is read from the same .dungeon address and compared with R10D in the paired profiles.",
+                    },
+                    "writeBlock": sink_block,
+                    "lastProvenSource": "Modeled GetSystemFirmwareTable return reaches the 0x4c77f97 compare; its saved flags are popped into R10, stored at state cell 0x144be8443, then loaded into EBX at 0x4e99160 and preserved to the bit-test on both captured paths.",
+                    "flagsToEbxTransfer": flags_to_ebx,
+                    "firstUnresolvedTransform": "No transfer gap remains between the saved compare flags and the tested EBX bit in the paired synthetic profiles. Whether this branch selects a meaningful game or machine state remains unresolved.",
+                    "ebxBranchRva": "0x4e9934f",
+                    "causalConnectionToEbx": True,
+                    "causalConnectionScope": "paired conditional Unicorn traces only; not a real-Windows or gameplay-semantics claim",
+                },
+                "confidence": "high for captured slot write and paired synthetic API-return-to-EBX dataflow; partial for machine and game semantics",
+                "limitations": [
+                    "All dynamic values are from conditional Unicorn profiles with synthetic API responses.",
+                    "The dispatcher loop is a bounded code region, not a proven function extent.",
+                    "The paired traces establish the modeled return-to-compare-flags-to-EBX-bit path only for these synthetic profiles.",
+                    "No original-image entry, stable native code handoff, firmware semantics, or gameplay meaning was established.",
+                ],
+            },
         },
         "registryAndFileProbes": {
             "apiReturnEdges": [edge for edge in api_edges if edge["api"] in {"RegOpenKeyA", "RegQueryValueExA", "CreateFileW"}],
@@ -649,7 +1003,8 @@ def main() -> None:
             "stackConsistency": "Repeated RSP arithmetic, stack swaps, and [RSP] moves appear in the continuations; no stable prologue/epilogue or function frame was established.",
             "prologueEpilogueHeuristics": "Common x64 prologue signatures had zero hits at listed exception-range starts in sections 0 and 13; this is a bounded heuristic, not a function-absence result.",
             "returnSiteClustering": "74 observations (58 distinct RVAs) from one saved trace profile; all miss listed exception ranges, while multiple API groups tail-jump to shared targets.",
-            "indirectDispatch": "jmp qword ptr [RAX] at 0x4ebdde7 reads a .dungeon data slot whose value is materialized as an absolute address in the focused trace.",
+            "indirectDispatch": "jmp qword ptr [RAX] at 0x4ebdde7 reads a .dungeon data slot; a focused write hook traced its relative qword relocation to 0x4eaf54d in a loop beginning at 0x4eaf539.",
+            "runtimeFunctionTableInvestigation": "No runtime function-table registration or unwind lookup API is imported, present as an ASCII/UTF-16 literal, or observed in the saved synthetic profiles; see runtime-function-table-analysis.json for scope and limitations.",
             "runtimeWrittenCode": "No instruction-byte change was found at the sampled continuation, branch, dispatcher, or indirect-target instructions; one dispatch-data qword changed during the conditional emulation.",
             "confidencePolicy": "No single heuristic assigns function identity; dispatcher/helper labels are candidates only.",
         },
@@ -661,6 +1016,7 @@ def main() -> None:
                 "listedExceptionRangeStarts": prologue_scan,
                 "registrationMarkerHits": marker_hits,
                 "vtableLikeExecutablePointerRunsLengthAtLeast3": pointer_runs,
+                "alignedStage1AbsoluteCodePointerReferences": original_code_pointer_refs,
                 "searchedInputs": ["original initialized PE raw sections", "Stage 1 .dungeon bytes"],
             },
             "conclusion": "No stable UE4/Dungeons function or native registration candidate met the evidence threshold. This bounded negative result does not prove the executable contains no such code.",
@@ -677,9 +1033,86 @@ def main() -> None:
     output = args.output.expanduser().resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, indent=2) + "\n")
+    runtime_result = {
+        "schemaVersion": 1,
+        "date": "2026-09-24",
+        "status": "research-only",
+        "runtimePromotion": False,
+        "applicationImpact": False,
+        "analysisBaselineCommit": BASELINE_COMMIT,
+        "binarySha256": exe_hash,
+        "stage1Sha256": stage_hash,
+        "analysisScript": {
+            "path": "scripts/static_startup_analysis.py",
+            "sha256": sha256(Path(__file__).read_bytes()),
+        },
+        "scope": {
+            "runtimeFunctionTableRegistrationApis": list(RUNTIME_FUNCTION_APIS),
+            "relatedResolutionAndUnwindApis": ["GetProcAddress", "LdrGetProcedureAddress", "RtlLookupFunctionEntry", "RtlVirtualUnwind"],
+            "staticImportDirectory": {
+                "rva": hex(pe.directory(1)[0]),
+                "sizeBytes": pe.directory(1)[1],
+                "namedImportCount": sum("name" in item for item in imports),
+                "ordinalImportCount": sum("ordinal" in item for item in imports),
+                "targetApiImports": sorted(name for name in imported_names if name in RUNTIME_METADATA_APIS),
+            },
+            "literalSearch": {
+                "regions": [name for name, _rva, _blob in sections_with_bytes],
+                "encodings": ["ASCII", "UTF-16LE"],
+                "apiOccurrences": runtime_api_literals,
+            },
+        },
+        "apiAssessment": [
+            {
+                "api": name,
+                "imported": name in imported_names,
+                "literalOccurrences": runtime_api_literals[name],
+                "observedInSavedSyntheticProfiles": any(event.get("name") == name for trace in traces.values() for event in trace.get("events", [])),
+            }
+            for name in RUNTIME_METADATA_APIS
+        ],
+        "syntheticResolutionObservations": {
+            "profiles": [
+                {"profile": profile, "stopReason": trace.get("stopReason")}
+                for profile, trace in traces.items()
+            ],
+            "lookupApiEvents": lookup_api_events,
+            "resolvedSymbolNames": resolved_lookup_names,
+            "runtimeFunctionRegistrationCalls": runtime_registration_events,
+            "interpretation": "The seven saved bounded Unicorn profiles reached synthetic GetProcAddress stubs and resolved only the listed symbol names. They did not observe any requested Rtl registration or unwind API. These traces are conditional emulator paths, not API coverage for Windows execution.",
+        },
+        "exceptionDirectoryCrossCheck": {
+            "rva": hex(exception_rva),
+            "entryCount": len(rows),
+            "apiReturnObservations": len(positions),
+            "uniqueReturnRvas": len(unique_positions),
+            "returnRvaRangeMatches": len(matching_positions),
+            "unwindInfoRvasBackedByInitializedInput": unwind_backed,
+            "unwindInfoRvasUnbackedByInitializedInput": unwind_unbacked,
+            "warning": "The range mismatches and unreadable unwind RVAs do not determine whether a caller, runtime-added table, generated metadata, or unmapped code explains the recovered states.",
+        },
+        "assessment": {
+            "registrationObserved": False,
+            "runtimeMetadataGenerationResolved": False,
+            "runtimeTableBase": None,
+            "runtimeTableEntryCount": None,
+            "targetCodeRegion": None,
+            "conclusion": "The requested registration and lookup names have no static import or ASCII/UTF-16 literal hit in the scanned initialized image, and none was called in the saved synthetic profiles. This rules out only those bounded observations; runtime-added metadata, generated metadata, transformed/unregistered code, and other mechanisms remain unresolved.",
+        },
+        "provenance": {
+            "method": "read-only PE import/literal scan plus the existing hash-pinned local Stage 1 output and seven bounded synthetic trace records",
+            "rawExecutableOrTracesCommitted": False,
+            "tools": ["custom read-only PE32+ parser", "Capstone 5.0.6", "Unicorn 2.1.4"],
+            "notFoundOnPath": ["Ghidra", "radare2", "rizin", "llvm-objdump"],
+        },
+    }
+    runtime_output = args.runtime_output.expanduser().resolve()
+    runtime_output.parent.mkdir(parents=True, exist_ok=True)
+    runtime_output.write_text(json.dumps(runtime_result, indent=2) + "\n")
     print(json.dumps({
         "status": "written",
         "output": str(output),
+        "runtimeFunctionTableOutput": str(runtime_output),
         "binarySha256": exe_hash,
         "apiReturnObservations": len(positions),
         "uniqueApiReturnRvas": len(unique_positions),
@@ -687,6 +1120,9 @@ def main() -> None:
         "rangeMatches": len(matching_positions),
         "unwindInfoBacked": unwind_backed,
         "stableGameCodeCandidateFound": result["stableGameCodeSearch"]["candidateFound"],
+        "dispatchSlotWriterRva": hex(slot_writer_rva),
+        "dispatchTargetChainIndirectBranch": target_indirect_capture.get("indirectTarget") if target_indirect_capture else None,
+        "runtimeTableRegistrationObserved": bool(runtime_registration_events),
     }, indent=2))
 
 
