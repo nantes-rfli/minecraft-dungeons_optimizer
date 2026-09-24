@@ -1,0 +1,1889 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "pre-breadth-source-closure-audit",
+  "auditedAt": "2026-09-24",
+  "baseline": {
+    "mainSha": "3b102f6e798836d2e8762b44ec262730b87a587d",
+    "branchBase": "origin/main"
+  },
+  "purpose": "Close the linked-timing and Artifact base-cooldown collection-contract gates before 271-equipment horizontal breadth. This artifact records source traversal and absence boundaries; it does not derive formulas or populate generated Formal data.",
+  "authorities": [
+    {
+      "path": "research/mechanics/formula-inference-pre-breadth.json",
+      "role": "PR #118 mechanics decisions and remaining gate definitions"
+    },
+    {
+      "path": "docs/mechanics-formula-inference-pre-breadth.md",
+      "role": "PR #118 research summary"
+    },
+    {
+      "path": "research/raw/game-data-raw-structural-inventory/manifest.json",
+      "role": "current catalog seeds, traversal policy, boundaries, shard provenance"
+    },
+    {
+      "path": "research/raw/game-data-raw-structural-inventory/shards/",
+      "role": "committed Raw structural package inventory and serialized-reference graph"
+    },
+    {
+      "path": "research/domain/formal/serialized-relation-v1.json",
+      "role": "representative current relation observations; relation contract context only"
+    },
+    {
+      "path": "research/raw/packages/",
+      "role": "six committed representative Raw package snapshots used to ground example relation/property paths"
+    }
+  ],
+  "inventorySnapshot": {
+    "claimedGameVersion": "1.17.0.0",
+    "catalogSeedCount": 271,
+    "categorySeedCounts": {
+      "melee": 82,
+      "ranged": 71,
+      "armor": 73,
+      "artifact": 45
+    },
+    "visitedPackageCount": 6086,
+    "parsedPackageCount": 6086,
+    "serializedReferenceEdgeCount": 992099,
+    "parserBoundaryCount": 186,
+    "missingTargetCount": 0,
+    "unresolvedTargetCount": 0,
+    "catalogSeedStatusCounts": {
+      "exact": 146,
+      "provisional": 49,
+      "ambiguous": 74,
+      "not-found": 2
+    },
+    "traversalPolicy": "breadth-first-over-serialized-reference-edges-to-locally-present-Game-packages; no-fixed-depth-limit",
+    "note": "Counts are packages/edge occurrences, not equipment items. The manifest and shards retain identity, relation, parser, missing-target, and decode states separately."
+  },
+  "linkedTimingClosure": {
+    "contractReady": true,
+    "categories": {
+      "Melee": {
+        "catalogSeeds": 82,
+        "sourcePaths": [
+          "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=melee]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#packages[].cdoPropertyInventory[].properties[]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#edges[sourceOccurrence.propertyPath starts ConfiguredAttackVariants]",
+          "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json"
+        ],
+        "linkedSourceTypes": [
+          "serialized AttackSequence target (AnimComposite/AnimMontage)",
+          "VariantActiveEffect and VariantChangeEffect GameplayEffect targets when non-null",
+          "GearActor BlueprintGeneratedClass",
+          "local imported/super/template package ancestors"
+        ],
+        "retainFields": [
+          "ConfiguredAttackVariants[*] occurrence order and array index",
+          "ConfiguredAttackVariants[*].AttackAnimationTimeDurationSeconds",
+          "ConfiguredAttackVariants[*].DamageDelaySeconds",
+          "ConfiguredAttackVariants[*].CooldownSeconds",
+          "ConfiguredAttackVariants[*].AttackVariantResetMultiplier",
+          "ConfiguredAttackVariants[*].VariantLoopAmount",
+          "ConfiguredAttackVariants[*].ContinuousDamageInterval",
+          "ConfiguredAttackVariants[*].AttackSequence relation and target object/package",
+          "ConfiguredAttackVariants[*].VariantActiveEffect and VariantChangeEffect relation state, including null",
+          "ConfiguredAttackVariants[*].EnchantmentTriggerSettings.bTriggerEnchantmentsOnRelease and bTriggerEnchantmentsOnVariantChange when present",
+          "all nested decoded timing-like fields on reachable effect/actor CDOs"
+        ],
+        "staticEvidence": [
+          "The full committed inventory contains 293 occurrences each of AttackAnimationTimeDurationSeconds, DamageDelaySeconds, CooldownSeconds, AttackVariantResetMultiplier, VariantLoopAmount, ContinuousDamageInterval, and AttackSequence. These are occurrences, not a claim that 293 catalog weapons exist.",
+          "Representative Fighter’s Bindings Raw has four ordered attack variants and four AttackSequence references."
+        ],
+        "unavailableStates": [
+          "Animation target exports are structurally named/classed but non-CDO animation payload is marked not-extracted; notify positions, notify-state durations, montage sections, and per-frame timing are parser-boundary.",
+          "VariantActiveEffect/VariantChangeEffect null targets are explicit null relations, not absent values.",
+          "Input cancel windows, hitstop, player-controlled release timing, and effective recovery require empirical measurement."
+        ]
+      },
+      "Ranged": {
+        "catalogSeeds": 71,
+        "instanceCandidateCoverage": "70 seeds have an instance candidate; Shivering Bow is not-found in the current Raw candidate inventory. Preserve the seed state.",
+        "sourcePaths": [
+          "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=ranged]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#packages[].cdoPropertyInventory[].properties[]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#edges[sourceOccurrence.propertyPath]",
+          "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+          "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json"
+        ],
+        "linkedSourceTypes": [
+          "AttackDefintion struct and AttackDefintion.Animation target (AnimMontage)",
+          "AnimNotifyStateData strings and notify-related montage exports/classes",
+          "ProjectileDefinition[*].Projectile target and charged projectile targets",
+          "GearActor ranged weapon BlueprintGeneratedClass",
+          "projectile/actor/effect CDOs and imported/super/template packages"
+        ],
+        "retainFields": [
+          "AttackDefintion.AttackRateSeconds",
+          "AttackDefintion.ChargeTimeSecond and ChargeDamageMultiplier",
+          "AttackDefintion.Animation relation",
+          "AttackDefintion.ProjectileDefinition[*].NumberOfProjectiles, DelaySeconds, DelaySecondsPerProjectile, AngleSpan, AngleOffset and Projectile relation",
+          "AttackDefintion.ChargedProjectileDefinition and any sibling attack/charge fields when present",
+          "AnimNotifyStateData[*].NotifyStateName as exact decoded string, array index/order, TriggerSound relation, and any sibling properties",
+          "every timing-like decoded property on linked projectile/actor/effect packages including damage duration, tick, loop, release, and rate fields"
+        ],
+        "staticEvidence": [
+          "Inventory occurrences include AttackRateSeconds (29), ChargeTimeSecond (18), ChargeDamageMultiplier (21), projectile NumberOfProjectiles/DelaySeconds/DelaySecondsPerProjectile (78 each), and NotifyStateName (427). These are field occurrences in the full inventory, not per-item coverage claims.",
+          "Scatter Crossbow instance has a decoded AttackDefintion.Animation reference to Player_Crossbow_Repeating_Montage, seven notify exports/classes in that montage package, and a ProjectileDefinition.Projectile reference to BP_ScatterCrossBow_Arrow."
+        ],
+        "unavailableStates": [
+          "Actual notify enter/exit timestamps and montage segment timing are not decoded from non-CDO animation exports.",
+          "NotifyStateName is a serialized name string; preserve it as a string and keep the separate montage/package edge. Do not fabricate a package target from the string.",
+          "Missing AttackRateSeconds, charge, notify, or projectile fields remain not-observed/unsupported per item, never implicit zero.",
+          "Shivering Bow retains its not-found catalog-to-Raw state."
+        ]
+      },
+      "Armor": {
+        "catalogSeeds": 73,
+        "instanceCandidateCoverage": "71 seeds have an instance candidate; Ender Armor and Vanguard Armor are not-found in the current Raw candidate inventory. Preserve those states.",
+        "sourcePaths": [
+          "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=armor]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#candidate instance CDOs and GearActor/object-property edges",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#exports[].references.super/template and packages[].inheritanceChains",
+          "research/raw/packages/Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobeInstance.raw.json"
+        ],
+        "linkedSourceTypes": [
+          "armor instance CDO",
+          "GearActor BlueprintGeneratedClass",
+          "built-in enchantment, attribute, passive-effect, and other explicitly referenced packages",
+          "super/template/inheritance package chain"
+        ],
+        "retainFields": [
+          "all serialized armor intrinsic attack-speed, cooldown, and recovery modifiers if present, with owning property path and target/scope references",
+          "all object/soft-object relations from armor instance and linked GearActor CDOs",
+          "all timing-like nested decoded properties on explicit built-in enchantment/effect targets",
+          "super/template chain and parser/decode boundary states"
+        ],
+        "staticEvidence": [
+          "Battle Robe representative Raw preserves the instance-to-GearActor serialized relation.",
+          "No consistently named AttackSpeed field was observed in the committed structural CDO property inventory; this is an explicit field gap, not a value of zero."
+        ],
+        "unavailableStates": [
+          "The current inventory has 71 candidate instance packages for 73 Armor seeds; retain both not-found states.",
+          "Do not infer a global attack-speed transform or a missing intrinsic stat from relation absence.",
+          "Linked Blueprint behavior and non-CDO export payloads are not executable semantics."
+        ]
+      },
+      "Artifact": {
+        "catalogSeeds": 45,
+        "sourcePaths": [
+          "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=artifact]",
+          "research/raw/game-data-raw-structural-inventory/shards/*.json.gz#candidate instance CDOs, all serialized-reference edges, and inheritance chains",
+          "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.raw.json",
+          "research/raw/packages/Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect.raw.json"
+        ],
+        "linkedSourceTypes": [
+          "instance Effect GameplayEffect",
+          "ItemActorClass/TomeActorClass/Artifact actor package",
+          "projectile or spawned actor relation such as ProjectileItemSpec.ClassesToSpawn",
+          "ActivationAnimation relation",
+          "super/template and all explicit local package references"
+        ],
+        "retainFields": [
+          "all CDO timing fields on instance/effect/actor/projectile linked packages: Duration, TickInterval, *Interval*, *Delay*, *Rate*, *Loop*, *Recovery*, *Charge*, *Release*, and cooldown-related fields",
+          "Effect, ItemActorClass/TomeActorClass, ProjectileItemSpec.ClassesToSpawn, ActivationAnimation, super/template, and all other object/soft-object edges with full serialized occurrence provenance",
+          "SharedPassiveCooldown, cooldown refund/reduction flags, and actor/effect cadence fields as separate facts, never aliasing them to base cooldown"
+        ],
+        "staticEvidence": [
+          "All 45 Artifact catalog seeds have at least one candidate instance path in the inventory; 47 candidate instance paths are retained because Fireworks Arrow is ambiguous.",
+          "The Artifact cooldown base-value result per item is recorded in artifactCooldownClosure.itemResults."
+        ],
+        "unavailableStates": [
+          "No base-cooldown property/value was observed in the decoded Artifact instance/linked CDO paths.",
+          "Five item-linked Actor/GameplayEffect packages have property-stream-partial CDO boundaries and are classified parser-boundary.",
+          "Cooldown start trigger semantics are not recovered from decoded CDO values; non-CDO Blueprint execution payloads remain not-extracted.",
+          "Provisional and ambiguous candidate mappings remain intact; all candidate paths are examined without selecting an unsupported identity."
+        ]
+      }
+    },
+    "retainedFields": [
+      {
+        "fact": "AttackAnimationTimeDurationSeconds",
+        "class": "static-known",
+        "sourcePattern": "ConfiguredAttackVariants[*].AttackAnimationTimeDurationSeconds"
+      },
+      {
+        "fact": "DamageDelaySeconds",
+        "class": "static-known",
+        "sourcePattern": "ConfiguredAttackVariants[*].DamageDelaySeconds"
+      },
+      {
+        "fact": "CooldownSeconds",
+        "class": "static-known",
+        "sourcePattern": "ConfiguredAttackVariants[*].CooldownSeconds; melee attack-variant cooldown only"
+      },
+      {
+        "fact": "AttackVariantResetMultiplier / AttackVariantResetSeconds",
+        "class": "static-known",
+        "sourcePattern": "serialized attack variant or weapon instance fields when present"
+      },
+      {
+        "fact": "VariantLoopAmount / ContinuousDamageInterval",
+        "class": "static-known",
+        "sourcePattern": "serialized attack variant fields when present; preserve configured zero distinctly"
+      },
+      {
+        "fact": "AttackSequence / AttackDefintion.Animation",
+        "class": "static-relation-traversal",
+        "sourcePattern": "object-property relation to animation package"
+      },
+      {
+        "fact": "AttackRateSeconds / ChargeTimeSecond / ChargeDamageMultiplier",
+        "class": "static-known",
+        "sourcePattern": "ranged AttackDefintion fields when present"
+      },
+      {
+        "fact": "AnimNotifyStateData[*].NotifyStateName and event/trigger children",
+        "class": "static-known",
+        "sourcePattern": "decoded ranged instance struct; retain strings, order, and child relation refs"
+      },
+      {
+        "fact": "notify, animation-section, active-effect, projectile/actor, tick/period fields on target packages",
+        "class": "static-relation-traversal",
+        "sourcePattern": "all linked local package CDO fields and export relation metadata"
+      },
+      {
+        "fact": "actual animation notify timing and non-CDO event/function behavior",
+        "class": "parser-boundary",
+        "sourcePattern": "animation/Blueprint non-CDO payload marked not-extracted or parser boundary"
+      },
+      {
+        "fact": "effective HPS, actual cancel/recovery/overheat cycle, runtime charge/release trigger",
+        "class": "empirical-required",
+        "sourcePattern": "requires in-game timing measurement; not equated to configured durations"
+      },
+      {
+        "fact": "a field absent after traversal or a null relation",
+        "class": "not-observed",
+        "sourcePattern": "store unavailable/null/decode state; never coerce to numeric zero"
+      }
+    ],
+    "traversalRules": [
+      "Seed every current catalog row and retain every Raw candidate for exact, provisional, ambiguous, and not-found mappings. Never use presentation/icon hints as identity proof.",
+      "Starting from every candidate instance, recursively follow serialized local /Game package relations with no fixed-depth cap: import/package, object-property, soft-object-property, export class/super/template/outer, and recorded inheritance-chain edges.",
+      "Use each edge sourceOccurrence.propertyPath (or export-table serializedField), occurrence order/index, source/target object and package, class, raw package index, and traversal stopReason. Keep duplicate occurrences and null references.",
+      "At every reached package, retain decoded CDO property trees including nested arrays/structs, value/type/decode state, source ranges, plus package exports/references, imports, super/template, payloadCoverage, diagnostics, and unavailable ranges.",
+      "Search for timing-like names and relations as discovery hints, not as a closed whitelist. Preserve unknown decoded fields and explicit not-observed/parser-boundary/native/out-of-scope/missing/null states.",
+      "Do not convert an unavailable value, empty child list, null relation, missing field, or parser boundary into 0; do not promote a linked display name into a resolved package relation."
+    ],
+    "parserBoundaries": [
+      {
+        "boundary": "animation and montage non-CDO payload",
+        "evidence": "Representative Gauntlets AnimComposite and Scatter Crossbow AnimMontage packages expose export names/classes, while payloadCoverage.nonCdoExportsNotDecoded is positive and no timeline CDO properties exist.",
+        "class": "parser-boundary"
+      },
+      {
+        "boundary": "partial/unsupported CDO streams and table-like packages",
+        "evidence": "Use manifest.boundaries.parser and each package diagnostics/unavailableRanges/payloadCoverage; relevant item-linked Artifact cases are itemized in artifactCooldownClosure.",
+        "class": "parser-boundary"
+      },
+      {
+        "boundary": "Blueprint function/event execution",
+        "evidence": "Structural Inventory retains export references and marks non-CDO exports not-extracted; it does not decode runtime timer start or state transitions.",
+        "class": "parser-boundary"
+      }
+    ],
+    "empiricalBoundaries": [
+      "Effective HPS and attack-speed transformation after game input, animation interruption/cancel windows, actual recovery/hitstop, sawblade continuous/release/overheat cycle, and any trigger cadence not represented in decoded static fields. These are measurement requirements, not formula implementations in this audit."
+    ]
+  },
+  "artifactCooldownClosure": {
+    "population": {
+      "catalogCategory": "artifact",
+      "count": 45,
+      "candidateStatusCounts": {
+        "exact": 29,
+        "provisional": 15,
+        "ambiguous": 1
+      },
+      "candidateInstancePathCount": 47,
+      "source": "research/raw/game-data-raw-structural-inventory/manifest.json#catalogSeeds[category=artifact]",
+      "allCandidatePathsVisited": true,
+      "candidatePackagesParsed": true
+    },
+    "classificationBasis": "Per-item classification is for the base-cooldown value source after traversing the candidate instance and reachable local /Game package/CDO relation closure. Cooldown-start semantics are recorded as a separate result because the inventory does not decode Blueprint execution payloads.",
+    "staticKnown": [],
+    "staticRelationTraversal": [],
+    "parserBoundary": [
+      {
+        "catalogId": "corrupted-pumpkin",
+        "catalogName": "Corrupted Pumpkin",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+            "objectName": "BP_CorruptedBeacon_Spooky1Instance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "fishing-rod",
+        "catalogName": "Fishing Rod",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+            "objectName": "BP_FishingRodInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/FishingRodGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "light-feather",
+        "catalogName": "Light Feather",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+            "objectName": "BP_LightFeatherInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/LightFeather/LightFeatherGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "shock-powder",
+        "catalogName": "Shock Powder",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+            "objectName": "BP_ShockPowderInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/ShockpowderGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "totem-of-casting",
+        "catalogName": "Totem of Casting",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance",
+            "objectName": "BP_SoulTotemOfCastingInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCasting",
+        "relationPath": "import-table package reference from the candidate closure; no CDO propertyPath was recorded",
+          "reason": "property-stream-partial"
+        }
+      }
+    ],
+    "notObserved": [
+      {
+        "catalogId": "blast-fungus",
+        "catalogName": "Blast Fungus",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+            "objectName": "BP_NetherWartSporeGrenadeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "boots-of-swiftness",
+        "catalogName": "Boots of Swiftness",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+            "objectName": "BP_BootsOfSwiftnessInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "buzzy-nest",
+        "catalogName": "Buzzy Nest",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance",
+            "objectName": "BP_BeenestInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "corrupted-beacon",
+        "catalogName": "Corrupted Beacon",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/CorruptedBeacon/BP_CorruptedBeaconInstance",
+            "objectName": "BP_CorruptedBeaconInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "corrupted-seeds",
+        "catalogName": "Corrupted Seeds",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+            "objectName": "BP_CorruptedSeedsInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "death-cap-mushroom",
+        "catalogName": "Death Cap Mushroom",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+            "objectName": "BP_DeathCapMushroomInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "enchanted-grass",
+        "catalogName": "Enchanted Grass",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+            "objectName": "BP_RainbowGrassInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "enchanters-tome",
+        "catalogName": "Enchanter's Tome",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/EnchantersTome/BP_EnchantersTomeInstance",
+            "objectName": "BP_EnchantersTomeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "eye-of-the-guardian",
+        "catalogName": "Eye of the Guardian",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance",
+            "objectName": "BP_GuardianEyeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "fireworks-arrow",
+        "catalogName": "Fireworks Arrow",
+        "candidateStatus": "ambiguous",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrow/BP_FireworksArrowInstance",
+            "objectName": "BP_FireworksArrowInstance_C"
+          },
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowInstance",
+            "objectName": "BP_FireworksArrowInstance_C"
+          },
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowItemInstance",
+            "objectName": "BP_FireworksArrowItemInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "flaming-quiver",
+        "catalogName": "Flaming Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FlamingQuiver/BP_FlamingQuiverInstance",
+            "objectName": "BP_FlamingQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "ghost-cloak",
+        "catalogName": "Ghost Cloak",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+            "objectName": "BP_GhostCloakInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "golem-kit",
+        "catalogName": "Golem Kit",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GolemKit/BP_GolemKitInstance",
+            "objectName": "BP_GolemKitInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "gong-of-weakening",
+        "catalogName": "Gong of Weakening",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GongOfWeakening/BP_GongOfWeakeningInstance",
+            "objectName": "BP_GongOfWeakeningInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "harpoon-quiver",
+        "catalogName": "Harpoon Quiver",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance",
+            "objectName": "BP_HeavyHarpoonQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "harvester",
+        "catalogName": "Harvester",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/Harvester/BP_HarvesterInstance",
+            "objectName": "BP_HarvesterInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "ice-wand",
+        "catalogName": "Ice Wand",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/IceWand/BP_IceWandInstance",
+            "objectName": "BP_IceWandInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "iron-hide-amulet",
+        "catalogName": "Iron Hide Amulet",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+            "objectName": "BP_IronHideAmuletInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "lightning-rod",
+        "catalogName": "Lightning Rod",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LightningRod/BP_LightningRodInstance",
+            "objectName": "BP_LightningRodInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "love-medallion",
+        "catalogName": "Love Medallion",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LoveMedallion/BP_LoveMedallionInstance",
+            "objectName": "BP_LoveMedallionInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "powershaker",
+        "catalogName": "Powershaker",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+            "objectName": "BP_MobMasherInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-elements",
+        "catalogName": "Satchel of Elements",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+            "objectName": "BP_SatchelOfTheElementsInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-elixirs",
+        "catalogName": "Satchel of Elixirs",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+            "objectName": "BP_SatchelOfNeedInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-snacks",
+        "catalogName": "Satchel of Snacks",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+            "objectName": "BP_SatchelofNourishmentInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "scatter-mines",
+        "catalogName": "Scatter Mines",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+            "objectName": "BP_ChargedRedstoneMinesInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "shadow-shifter",
+        "catalogName": "Shadow Shifter",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+            "objectName": "BP_ShadowSplinterInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "soul-healer",
+        "catalogName": "Soul Healer",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/SoulHealer/Bp_SoulHealerInstance",
+            "objectName": "Bp_SoulHealerInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "soul-lantern",
+        "catalogName": "Soul Lantern",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/SoulLantern/BP_SoulLanternInstance",
+            "objectName": "BP_SoulLanternInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "spinblade",
+        "catalogName": "Spinblade",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+            "objectName": "BP_SpinWheelInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "tasty-bone",
+        "catalogName": "Tasty Bone",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TastyBone/BP_TastyBoneInstance",
+            "objectName": "BP_TastyBoneInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "thundering-quiver",
+        "catalogName": "Thundering Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/ThunderingQuiver/BP_ThunderingQuiverInstance",
+            "objectName": "BP_ThunderingQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "tome-of-duplication",
+        "catalogName": "Tome of Duplication",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TomeOfDuplication/BP_TomeOfDuplicationInstance",
+            "objectName": "BP_TomeOfDuplicationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "torment-quiver",
+        "catalogName": "Torment Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TormentQuiver/BP_TormentQuiverInstance",
+            "objectName": "BP_TormentQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "totem-of-regeneration",
+        "catalogName": "Totem of Regeneration",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TotemOfRegeneration/BP_TotemOfRegenerationInstance",
+            "objectName": "BP_TotemOfRegenerationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "totem-of-shielding",
+        "catalogName": "Totem of Shielding",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TotemOfShielding/BP_TotemOfShieldingInstance",
+            "objectName": "BP_TotemOfShieldingInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "updraft-tome",
+        "catalogName": "Updraft Tome",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/UpdraftTome/BP_UpdraftTomeInstance",
+            "objectName": "BP_UpdraftTomeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "vexing-chant",
+        "catalogName": "Vexing Chant",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+            "objectName": "BP_LostEvocationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "void-quiver",
+        "catalogName": "Void Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/VoidQuiver/BP_VoidQuiverInstance",
+            "objectName": "BP_VoidQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "wind-horn",
+        "catalogName": "Wind Horn",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/WindHorn/BP_WindHornInstance",
+            "objectName": "BP_WindHornInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "wonderful-wheat",
+        "catalogName": "Wonderful Wheat",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/WonderfulWheat/BP_WonderfulWheatInstance",
+            "objectName": "BP_WonderfulWheatInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      }
+    ],
+    "itemResults": [
+      {
+        "catalogId": "blast-fungus",
+        "catalogName": "Blast Fungus",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+            "objectName": "BP_NetherWartSporeGrenadeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "boots-of-swiftness",
+        "catalogName": "Boots of Swiftness",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+            "objectName": "BP_BootsOfSwiftnessInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "buzzy-nest",
+        "catalogName": "Buzzy Nest",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance",
+            "objectName": "BP_BeenestInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "corrupted-beacon",
+        "catalogName": "Corrupted Beacon",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/CorruptedBeacon/BP_CorruptedBeaconInstance",
+            "objectName": "BP_CorruptedBeaconInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "corrupted-pumpkin",
+        "catalogName": "Corrupted Pumpkin",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+            "objectName": "BP_CorruptedBeacon_Spooky1Instance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "corrupted-seeds",
+        "catalogName": "Corrupted Seeds",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+            "objectName": "BP_CorruptedSeedsInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "death-cap-mushroom",
+        "catalogName": "Death Cap Mushroom",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+            "objectName": "BP_DeathCapMushroomInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "enchanted-grass",
+        "catalogName": "Enchanted Grass",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+            "objectName": "BP_RainbowGrassInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "enchanters-tome",
+        "catalogName": "Enchanter's Tome",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/EnchantersTome/BP_EnchantersTomeInstance",
+            "objectName": "BP_EnchantersTomeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "eye-of-the-guardian",
+        "catalogName": "Eye of the Guardian",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance",
+            "objectName": "BP_GuardianEyeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "fireworks-arrow",
+        "catalogName": "Fireworks Arrow",
+        "candidateStatus": "ambiguous",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrow/BP_FireworksArrowInstance",
+            "objectName": "BP_FireworksArrowInstance_C"
+          },
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowInstance",
+            "objectName": "BP_FireworksArrowInstance_C"
+          },
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FireworksArrowItem/BP_FireworksArrowItemInstance",
+            "objectName": "BP_FireworksArrowItemInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "fishing-rod",
+        "catalogName": "Fishing Rod",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+            "objectName": "BP_FishingRodInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/FishingRodGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "flaming-quiver",
+        "catalogName": "Flaming Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/FlamingQuiver/BP_FlamingQuiverInstance",
+            "objectName": "BP_FlamingQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "ghost-cloak",
+        "catalogName": "Ghost Cloak",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+            "objectName": "BP_GhostCloakInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "golem-kit",
+        "catalogName": "Golem Kit",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GolemKit/BP_GolemKitInstance",
+            "objectName": "BP_GolemKitInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "gong-of-weakening",
+        "catalogName": "Gong of Weakening",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/GongOfWeakening/BP_GongOfWeakeningInstance",
+            "objectName": "BP_GongOfWeakeningInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "harpoon-quiver",
+        "catalogName": "Harpoon Quiver",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance",
+            "objectName": "BP_HeavyHarpoonQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "harvester",
+        "catalogName": "Harvester",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/Harvester/BP_HarvesterInstance",
+            "objectName": "BP_HarvesterInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "ice-wand",
+        "catalogName": "Ice Wand",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/IceWand/BP_IceWandInstance",
+            "objectName": "BP_IceWandInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "iron-hide-amulet",
+        "catalogName": "Iron Hide Amulet",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+            "objectName": "BP_IronHideAmuletInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "light-feather",
+        "catalogName": "Light Feather",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+            "objectName": "BP_LightFeatherInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/LightFeather/LightFeatherGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "lightning-rod",
+        "catalogName": "Lightning Rod",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LightningRod/BP_LightningRodInstance",
+            "objectName": "BP_LightningRodInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "love-medallion",
+        "catalogName": "Love Medallion",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/LoveMedallion/BP_LoveMedallionInstance",
+            "objectName": "BP_LoveMedallionInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "powershaker",
+        "catalogName": "Powershaker",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+            "objectName": "BP_MobMasherInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-elements",
+        "catalogName": "Satchel of Elements",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+            "objectName": "BP_SatchelOfTheElementsInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-elixirs",
+        "catalogName": "Satchel of Elixirs",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+            "objectName": "BP_SatchelOfNeedInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "satchel-of-snacks",
+        "catalogName": "Satchel of Snacks",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+            "objectName": "BP_SatchelofNourishmentInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "scatter-mines",
+        "catalogName": "Scatter Mines",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+            "objectName": "BP_ChargedRedstoneMinesInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "shadow-shifter",
+        "catalogName": "Shadow Shifter",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+            "objectName": "BP_ShadowSplinterInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "shock-powder",
+        "catalogName": "Shock Powder",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+            "objectName": "BP_ShockPowderInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/ShockpowderGameplayEffect",
+          "relationPath": "Effect",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "soul-healer",
+        "catalogName": "Soul Healer",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/SoulHealer/Bp_SoulHealerInstance",
+            "objectName": "Bp_SoulHealerInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "soul-lantern",
+        "catalogName": "Soul Lantern",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Patch2/Actors/Items/SoulLantern/BP_SoulLanternInstance",
+            "objectName": "BP_SoulLanternInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "spinblade",
+        "catalogName": "Spinblade",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+            "objectName": "BP_SpinWheelInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "tasty-bone",
+        "catalogName": "Tasty Bone",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TastyBone/BP_TastyBoneInstance",
+            "objectName": "BP_TastyBoneInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "thundering-quiver",
+        "catalogName": "Thundering Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/ThunderingQuiver/BP_ThunderingQuiverInstance",
+            "objectName": "BP_ThunderingQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "tome-of-duplication",
+        "catalogName": "Tome of Duplication",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TomeOfDuplication/BP_TomeOfDuplicationInstance",
+            "objectName": "BP_TomeOfDuplicationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "torment-quiver",
+        "catalogName": "Torment Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TormentQuiver/BP_TormentQuiverInstance",
+            "objectName": "BP_TormentQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "totem-of-casting",
+        "catalogName": "Totem of Casting",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance",
+            "objectName": "BP_SoulTotemOfCastingInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "parser-boundary",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone.",
+        "linkedParserBoundary": {
+          "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCasting",
+        "relationPath": "import-table package reference from the candidate closure; no CDO propertyPath was recorded",
+          "reason": "property-stream-partial"
+        }
+      },
+      {
+        "catalogId": "totem-of-regeneration",
+        "catalogName": "Totem of Regeneration",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TotemOfRegeneration/BP_TotemOfRegenerationInstance",
+            "objectName": "BP_TotemOfRegenerationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "totem-of-shielding",
+        "catalogName": "Totem of Shielding",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/TotemOfShielding/BP_TotemOfShieldingInstance",
+            "objectName": "BP_TotemOfShieldingInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "updraft-tome",
+        "catalogName": "Updraft Tome",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/UpdraftTome/BP_UpdraftTomeInstance",
+            "objectName": "BP_UpdraftTomeInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "vexing-chant",
+        "catalogName": "Vexing Chant",
+        "candidateStatus": "provisional",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+            "objectName": "BP_LostEvocationInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "void-quiver",
+        "catalogName": "Void Quiver",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/VoidQuiver/BP_VoidQuiverInstance",
+            "objectName": "BP_VoidQuiverInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "wind-horn",
+        "catalogName": "Wind Horn",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/WindHorn/BP_WindHornInstance",
+            "objectName": "BP_WindHornInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      },
+      {
+        "catalogId": "wonderful-wheat",
+        "catalogName": "Wonderful Wheat",
+        "candidateStatus": "exact",
+        "candidatePaths": [
+          {
+            "role": "instance",
+            "packagePath": "Dungeons/Content/Actors/Items/WonderfulWheat/BP_WonderfulWheatInstance",
+            "objectName": "BP_WonderfulWheatInstance_C"
+          }
+        ],
+        "baseCooldownClassification": "not-observed",
+        "baseCooldownObservation": "No source-backed base-cooldown field/value was found in the decoded CDO paths reached from these candidate packages.",
+        "cooldownStartSemanticsClassification": "parser-boundary",
+        "cooldownStartSemanticsObservation": "The structural inventory does not decode Blueprint non-CDO behavior/function payloads; no timer-start trigger may be inferred from an activation/effect relation alone."
+      }
+    ],
+    "adjacentCooldownFields": [
+      {
+        "catalogId": "shadow-shifter",
+        "field": "SharedPassiveCooldown",
+        "value": 0.5,
+        "sourcePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+        "interpretation": "separate passive cooldown; not base Artifact cooldown"
+      },
+      {
+        "catalogId": "shadow-shifter",
+        "field": "PercentageOfTotalCooldownRefunded",
+        "value": 0.4000000059604645,
+        "sourcePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+        "interpretation": "cooldown refund fraction; not base cooldown"
+      },
+      {
+        "catalogId": "soul-lantern",
+        "field": "SharedPassiveCooldown",
+        "value": 0.20000000298023224,
+        "sourcePath": "Dungeons/Content/Patch2/Actors/Items/SoulLantern/BP_SoulLanternInstance",
+        "interpretation": "separate passive cooldown; not base Artifact cooldown"
+      },
+      {
+        "catalogId": "spinblade",
+        "field": "SharedPassiveCooldown",
+        "value": 0,
+        "sourcePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+        "interpretation": "separate passive cooldown; configured zero remains a known value"
+      },
+      {
+        "catalogId": "vexing-chant",
+        "field": "CoolDownForEachPetDeath",
+        "value": false,
+        "sourcePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+        "interpretation": "cooldown-related boolean; not a base duration"
+      },
+      {
+        "catalogId": "totem-of-casting",
+        "field": "CooldownReductionPercentage",
+        "value": 100,
+        "sourcePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCasting",
+        "interpretation": "linked Actor cooldown adjustment; source package has partial CDO stream; not base Artifact cooldown"
+      }
+    ],
+    "cooldownStartSemantics": {
+      "classification": "parser-boundary",
+      "scope": "all 45 Artifact rows; recorded separately from baseCooldownClassification",
+      "observation": "The committed structural inventory exposes activation animation/effect/actor relations and decoded CDO properties, but does not decode Blueprint non-CDO execution/function payloads needed to prove when a cooldown timer starts relative to input, effect application, animation notify, or actor spawn.",
+      "retentionRule": "Store the start-semantics state as parser-boundary/not-established with its candidate and relation provenance. Do not infer a start point from ActivationAnimation, Effect, ActorClass, or external published cooldown values."
+    },
+    "traversalRules": [
+      "For every Artifact catalog seed, visit every candidate instance path retained by Raw inventory, including all Fireworks Arrow ambiguous candidates.",
+      "From each instance, traverse actual object-property/import/soft-object/export/super/template links into Actor, GameplayEffect, projectile/spawned actor, animation, and inherited packages; retain field paths and serialized relation occurrence rather than imposing a fixed relation taxonomy.",
+      "Search decoded CDO trees across the full linked closure for base cooldown and cooldown-start facts. Keep adjacent SharedPassiveCooldown, refund, reduction, or per-pet flags under their original names and owners; never relabel them as base cooldown.",
+      "When a linked Actor/GameplayEffect CDO is partial/unsupported, classify that Artifact as parser-boundary and retain the exact package path/relation. If all relevant reached CDOs are decoded and no base field exists, classify it not-observed.",
+      "External Wiki/dungeons.tools/database numbers may not fill Raw values or alter these classifications."
+    ],
+    "contractReady": true
+  },
+  "newRawExtractionRequired": false,
+  "finalDecision": "SAFE TO START HORIZONTAL BREADTH",
+  "decisionRationale": [
+    "Linked-timing traversal and field-retention rules are fixed with per-category source relations, parser limits, empirical-only behavior, and explicit absence/null/decode states.",
+    "Every Artifact catalog row has a retained candidate-path source outcome: base cooldown is parser-boundary for 5 items and not-observed for 40; no published database values are substituted. Cooldown-start semantics are separately explicit as parser-boundary across the static inventory layer."
+  ]
+}

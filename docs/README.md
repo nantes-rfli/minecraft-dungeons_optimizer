@@ -19,6 +19,7 @@ For normal development and current project decisions:
 - [Research artifact layout](../research/README.md) — classification and future migration rules for machine-readable research artifacts
 - [Raw package snapshots — Step 3A](game-data-raw-package-snapshot.md) — generated pre-semantic snapshots for six focused logical packages
 - [Raw Structural Inventory + Dependency Graph](game-data-raw-structural-inventory.md) — 271 catalog candidate seeds, reachable package structures, serialized reference edges, and explicit parser/native/missing-target boundaries
+- [Pre-Breadth Source Closure](pre-breadth-source-closure.md) — linked timing traversal and Artifact base-cooldown source outcomes before horizontal breadth
 - [Native game-data analysis](game-data-native-analysis.md) — current Stage 1/2 baseline, PE map, SMBIOS boundary continuation, external prior art, and the unresolved Raw-to-native bridge
 
 ## Architecture / policy
