@@ -198,7 +198,7 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
     const attacks = attackSources()
     const parent = resolve(attacks.parent.sourceFactId)
     const elements = attacks.elements.map(({ sourceFactId }) => resolve(sourceFactId))
-    expect(elements.length).toBeGreaterThan(1)
+    expect(elements.length).toBeGreaterThan(0)
 
     const invalid = structuredClone(elements)
     invalid[0]!.sourceIndex = -1
@@ -206,10 +206,19 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
       parent, invalid, mapping.entries.id, anchorDefinition.assertion.id, mapping.entries.rawField,
     )).toMatchObject({ state: 'unknown', reason: expect.stringContaining('sourceIndex') })
 
+    const duplicateParent = structuredClone(parent)
+    const duplicateParentRecord = record(duplicateParent.node)
+    const duplicateDecoding = record(duplicateParentRecord.decoding)
+    const duplicateRawElements = [...(duplicateDecoding.elements as unknown[])]
+    duplicateRawElements.push(structuredClone(duplicateRawElements[0]))
+    duplicateParentRecord.decoding = { ...duplicateDecoding, elements: duplicateRawElements }
     const duplicate = structuredClone(elements)
-    duplicate[1]!.sourceIndex = duplicate[0]!.sourceIndex
+    const second = structuredClone(duplicate[0]!)
+    second.propertyPointer = `${parent.propertyPointer}/decoding/elements/1`
+    second.raw.nodePointer = second.raw.nodePointer.replace(/\/decoding\/elements\/0$/, '/decoding/elements/1')
+    duplicate.push(second)
     expect(horizontalCollectionFieldFromResolved(
-      parent, duplicate, mapping.entries.id, anchorDefinition.assertion.id, mapping.entries.rawField,
+      duplicateParent, duplicate, mapping.entries.id, anchorDefinition.assertion.id, mapping.entries.rawField,
     )).toMatchObject({ state: 'unknown', reason: expect.stringContaining('duplicate') })
 
     const emptyParent = structuredClone(parent)
