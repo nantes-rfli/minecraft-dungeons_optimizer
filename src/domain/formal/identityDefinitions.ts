@@ -125,6 +125,74 @@ function acceptedMeleeDefinition(input: AcceptedMeleeIdentityInput): FormalIdent
 
 export const readyMeleeFormalIdentities = readyMeleeFormalIdentityInputs.map(acceptedMeleeDefinition)
 
+
+type AcceptedRangedIdentityInput = {
+  domainId: string
+  rawIdentity: string
+  packagePath: string
+  displayName: string
+}
+
+export const readyRangedFormalIdentityInputs = [
+  { domainId: 'bow', rawIdentity: 'Bow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance', displayName: 'Bow' },
+  { domainId: 'bubble-bow', rawIdentity: 'BubbleBow', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/BubbleBow/BP_BubbleBowInstance', displayName: 'Bubble Bow' },
+  { domainId: 'burst-crossbow', rawIdentity: 'BurstCrossbow', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/RangedWeapons/BurstCrossbow/BP_BurstCrossbowInstance', displayName: 'Burst Crossbow' },
+  { domainId: 'cog-crossbow', rawIdentity: 'CogCrossbow', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/CogCrossbow/BP_CogCrossbowInstance', displayName: 'Cog Crossbow' },
+  { domainId: 'crossbow', rawIdentity: 'Crossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_CrossbowInstance', displayName: 'Crossbow' },
+  { domainId: 'dual-crossbows', rawIdentity: 'DualCrossbows', packagePath: 'Dungeons/Content/Patch1/Actors/Equipment/RangedWeapons/DualCrossbows/BP_DualCrossbowsInstance', displayName: 'Dual Crossbows' },
+  { domainId: 'exploding-crossbow', rawIdentity: 'ExplodingCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/ExplodingCrossbow/BP_ExplodingCrossbowInstance', displayName: 'Exploding Crossbow' },
+  { domainId: 'harpoon-crossbow', rawIdentity: 'HarpoonCrossbow', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/RangedWeapons/HarpoonCrossbow/BP_HarpoonCrossbowInstance', displayName: 'Harpoon Crossbow' },
+  { domainId: 'heavy-crossbow', rawIdentity: 'HeavyCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance', displayName: 'Heavy Crossbow' },
+  { domainId: 'hunting-bow', rawIdentity: 'HuntingBow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/HuntingBow/BP_HuntingBowInstance', displayName: 'Hunting Bow' },
+  { domainId: 'longbow', rawIdentity: 'Longbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance', displayName: 'Longbow' },
+  { domainId: 'power-bow', rawIdentity: 'Powerbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance', displayName: 'Power Bow' },
+  { domainId: 'rapid-crossbow', rawIdentity: 'RapidCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance', displayName: 'Rapid Crossbow' },
+  { domainId: 'shadow-crossbow', rawIdentity: 'ShadowCrossbow', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/ShadowCrossbow/BP_ShadowCrossbowInstance', displayName: 'Shadow Crossbow' },
+  { domainId: 'shortbow', rawIdentity: 'Shortbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance', displayName: 'Shortbow' },
+  { domainId: 'soul-bow', rawIdentity: 'SoulBow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/SoulBow/BP_SoulBowInstance', displayName: 'Soul Bow' },
+  { domainId: 'soul-crossbow', rawIdentity: 'SoulCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/SoulCrossbow/BP_SoulCrossbowInstance', displayName: 'Soul Crossbow' },
+  { domainId: 'trickbow', rawIdentity: 'Trickbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/TrickBow/BP_TrickBowInstance', displayName: 'Trickbow' },
+  { domainId: 'twisting-vine-bow', rawIdentity: 'TwistingVineBow', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/RangedWeapons/TwistingVineBow/BP_TwistingVineBowInstance', displayName: 'Twisting Vine Bow' },
+  { domainId: 'void-bow', rawIdentity: 'VoidBow', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/RangedWeapons/VoidBow/BP_VoidBowInstance', displayName: 'Void Bow' },
+  { domainId: 'wind-bow', rawIdentity: 'WindBow', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow/BP_WindBowInstance', displayName: 'Wind Bow' },
+] as const satisfies readonly AcceptedRangedIdentityInput[]
+
+function acceptedRangedDefinition(input: AcceptedRangedIdentityInput): FormalIdentityDefinition {
+  const reviewedEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
+  const presentationEvidenceRef = `evidence:presentation:${input.domainId}:ranged-audit`
+  return definition(
+    {
+      id: `identity:${input.domainId}@1`,
+      rawIdentity: input.rawIdentity,
+      domainId: input.domainId,
+      reviewState: 'accepted',
+      confidence: 'high',
+      applicationScope: scope(input.packagePath),
+      evidenceRefs: [reviewedEvidenceRef],
+    },
+    input.displayName,
+    presentationEvidenceRef,
+    [
+      {
+        id: reviewedEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.',
+        source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: `aliases[id=ranged-weapon:${input.rawIdentity}]` },
+      },
+      {
+        id: presentationEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The ranged audit supplies the English display name independently of identity matching.',
+        source: { artifactPath: 'research/ranged-weapon-audit.json', locator: `entries[id=${input.domainId}].name.en` },
+      },
+    ],
+  )
+}
+
+export const readyRangedFormalIdentities = readyRangedFormalIdentityInputs.map(acceptedRangedDefinition)
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -197,4 +265,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   battleRobeFormalIdentity,
   deathCapMushroomFormalIdentity,
   ...readyMeleeFormalIdentities,
+  ...readyRangedFormalIdentities,
 ]
