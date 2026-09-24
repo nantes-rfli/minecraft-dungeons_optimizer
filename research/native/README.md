@@ -5,7 +5,7 @@ Independent executable-analysis lane. These records do not become serialized Raw
 ## Current state
 
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
-- **D-2 in progress:** bounded static recovery isolates the SMBIOS size-test block and maps observed API-return continuations through a shared dispatcher candidate. Paired synthetic traces reach different successors, but the register/dataflow link remains unresolved. No original/stable game-code region was reached.
+- **D-2 in progress:** bounded static recovery maps the downstream EBX bit-test block correlated with the synthetic size profiles and observed API-return continuations through a shared dispatcher candidate. The profiles reach different successors, but the RSMB return-to-EBX dataflow remains unresolved. No original/stable game-code region was reached.
 - **D-3 not started:** no gameplay native function has an executable address or evidence chain. One serialized `/Script/Dungeons` parent-class link is retained as a candidate only.
 
 ## Artifacts

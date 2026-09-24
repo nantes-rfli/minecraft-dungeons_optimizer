@@ -40,7 +40,7 @@
         "With the fake payload, one RegOpenKeyA failure reaches a second registry key request; a one-shot success with a synthetic handle reaches RegQueryValueExA. An all-keys-missing counterfactual reaches CreateFileW.",
         "The two RSMB API return continuations decode as basic blocks ending in direct tail JMPs to the shared bounded dispatcher candidate at RVA 0x4ebd3c1; no adjacent call instruction ends at either saved return RVA.",
         "A bounded recursive-descent map recovers the dispatcher lock/cmpxchg backedge and computed JMP at RVA 0x4ebdde7. In the focused synthetic trace, its .dungeon qword slot changes from RVA-like 0x4be79a4 to absolute VA 0x144be79a4; sampled code bytes remain unchanged.",
-        "The exact branch block at RVA 0x4e9934f is `and ebx, 1; je 0x4e9938c`. Paired synthetic traces take different successors, but static dataflow from the modeled RSMB return through the dispatcher to EBX remains unresolved.",
+        "The exact downstream EBX bit-test block at RVA 0x4e9934f is `and ebx, 1; je 0x4e9938c`. Paired synthetic size-profile traces correlate with different EBX bits and successors, but dataflow from the modeled RSMB return through the dispatcher to EBX remains unresolved.",
         "A 74-observation saved API-return sample has 58 unique RVAs and zero matches against 236,168 listed exception ranges. Return RVAs are not function entries; range misses and unreadable unwind RVAs do not establish function absence.",
         "Bounded scans found no UE4/Dungeons registration marker, accepted native candidate, or run of at least three executable pointers in initialized PE sections and Stage 1. This is a negative search result within the stated scope only."
       ],

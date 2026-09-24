@@ -109,12 +109,12 @@ def main() -> None:
     require(exception_rows["entryCount"] == 236168 and exception_rows["nonzeroEntries"] == 236168
             and exception_rows["entriesWithBeginLessThanEnd"] == 236168,
             "exception-directory evidence differs from the pinned D-2 input")
-    size_branch = startup["smbios"]["sizeBranch"]
-    branch_instructions = [(item["mnemonic"], item["operands"]) for item in size_branch["instructionEvidence"]]
+    correlated_ebx_bit_branch = startup["smbios"]["correlatedEbxBitBranch"]
+    branch_instructions = [(item["mnemonic"], item["operands"]) for item in correlated_ebx_bit_branch["instructionEvidence"]]
     require(branch_instructions == [("and", "ebx, 1"), ("je", "0x144e9938c")],
-            "identified SMBIOS size branch instruction sequence changed")
-    require(size_branch["counterfactualCaptures"]["zeroSize"]["observedSuccessor"] == "0x4e9935b"
-            and size_branch["counterfactualCaptures"]["positiveSize"]["observedSuccessor"] == "0x4e9938c",
+            "identified correlated EBX bit-test branch instruction sequence changed")
+    require(correlated_ebx_bit_branch["counterfactualCaptures"]["zeroSize"]["observedSuccessor"] == "0x4e9935b"
+            and correlated_ebx_bit_branch["counterfactualCaptures"]["positiveSize"]["observedSuccessor"] == "0x4e9938c",
             "paired branch captures no longer show their recorded synthetic successors")
     require(startup["stableGameCodeSearch"]["candidateFound"] is False
             and startup["stableGameCodeSearch"]["registrationMechanismFound"] is False

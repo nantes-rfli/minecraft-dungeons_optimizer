@@ -420,7 +420,7 @@ def main() -> None:
     transfer_counts = collections.Counter(edge["directSuccessorRva"] for edge in api_edges if edge["directSuccessorRva"])
     rsm_first = decode_basic_block(pe, stage1, engine, 0x50D0FE9)
     rsm_second = decode_basic_block(pe, stage1, engine, 0x50D1349)
-    size_branch = decode_basic_block(pe, stage1, engine, 0x4E9934F)
+    correlated_ebx_bit_branch = decode_basic_block(pe, stage1, engine, 0x4E9934F)
     dispatcher_entry = decode_basic_block(pe, stage1, engine, 0x4EBD3C1)
 
     zero_trace = traces["firmware-zero-size"]
@@ -601,14 +601,14 @@ def main() -> None:
                 "confidence": "high for direct edges and decoded instructions; medium for dispatcher interpretation",
                 "limitations": ["No conventional function boundary was established.", "The saved model does not establish Windows behavior or a protector product.", "The dispatcher's subsequent state/dataflow is not fully recovered."],
             },
-            "sizeBranch": {
+            "correlatedEbxBitBranch": {
                 "binarySha256": exe_hash,
                 "address": "0x4e9934f",
-                "range": size_branch["range"],
+                "range": correlated_ebx_bit_branch["range"],
                 "kind": "basic-block",
                 "boundaryEvidence": "and ebx, 1 sets flags; the following je ends this block.",
                 "predecessors": ["dispatcher route from 0x4ebd3c1 observed in paired conditional traces; exact state-transfer chain remains unresolved"],
-                "successors": size_branch["successors"],
+                "successors": correlated_ebx_bit_branch["successors"],
                 "calls": [],
                 "importantRegisters": ["EBX bit 0 is the tested input", "ZF controls the JE at 0x4e99355"],
                 "importantMemory": [],
@@ -618,7 +618,7 @@ def main() -> None:
                     "zeroSize": {"modeledApiReturn": zero_first.get("modeledReturn"), "beforeAnd": zero_branch, "atJe": zero_je, "observedSuccessor": zero_fallthrough["rva"]},
                     "positiveSize": {"modeledApiReturn": positive_first.get("modeledReturn"), "beforeAnd": positive_branch, "atJe": positive_je, "observedSuccessor": positive_taken["rva"]},
                 },
-                "instructionEvidence": size_branch["instructions"],
+                "instructionEvidence": correlated_ebx_bit_branch["instructions"],
             },
             "positiveSizeAllocationFlows": allocation_flows,
             "computedDispatchObservation": {

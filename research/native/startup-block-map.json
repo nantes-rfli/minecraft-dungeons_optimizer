@@ -7,7 +7,7 @@
   "analysisBaselineCommit": "37d7d29ac2ffa799f476703eb5cf1d41285b1756",
   "analysisScript": {
     "path": "scripts/static_startup_analysis.py",
-    "sha256": "7fcec5b65899db30c3247d78464f398015e11d1ee46c4ce645864044289be505"
+    "sha256": "b94ff465bc6a9e572d59a39111f8aa1cc20c1b695b9e6e3f770f21ab413f8f08"
   },
   "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
   "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
@@ -1355,7 +1355,7 @@
         "The dispatcher's subsequent state/dataflow is not fully recovered."
       ]
     },
-    "sizeBranch": {
+    "correlatedEbxBitBranch": {
       "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
       "address": "0x4e9934f",
       "range": [
