@@ -8,8 +8,10 @@ import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
+import { verifyValueRawTraceProvenance } from './formal-value-source-provenance.ts'
 
 const root = new URL('..', import.meta.url)
+const repositoryRoot = fs.realpathSync(root)
 const readRaw = (packagePath: string) => JSON.parse(
   fs.readFileSync(new URL(`research/raw/packages/${packagePath}.raw.json`, root), 'utf8'),
 ) as RawPackageSnapshot
@@ -36,14 +38,10 @@ assert.equal(artifact.semantic.melee[fightersBindingsFormalIdentity.assertion.do
 assert.deepEqual(artifact.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.configuredProjectileDefinitions?.value, [0])
 assert.equal(artifact.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.projectileDefinitions?.length, 1)
 for (const { id, provenance } of artifact.provenance.evidence) {
-  const source = new URL(provenance.artifactPath, root)
-  assert.ok(fs.existsSync(source), `${id}: provenance artifact does not exist`)
-  const raw = JSON.parse(fs.readFileSync(source, 'utf8')) as RawPackageSnapshot
-  assert.equal(raw.dataset.id, provenance.datasetId, `${id}: provenance dataset differs from committed Raw artifact`)
-  assert.equal(raw.extraction.runId, provenance.extractionRunId, `${id}: provenance extraction differs from committed Raw artifact`)
-  assert.deepEqual(raw.logicalPackage.contentHash, provenance.packageHash, `${id}: provenance hash differs from committed Raw artifact`)
-  const node = provenance.nodePointer.split('/').slice(1).reduce<unknown>((value, key) => (value as Record<string, unknown>)?.[key], raw)
-  assert.notEqual(node, undefined, `${id}: provenance nodePointer does not resolve in committed Raw artifact`)
+  assert.doesNotThrow(
+    () => verifyValueRawTraceProvenance(repositoryRoot, provenance),
+    `${id}: Value provenance does not verify against its committed Raw source`,
+  )
 }
 
 const target = new URL('research/domain/formal/value-availability-v2.json', root)
