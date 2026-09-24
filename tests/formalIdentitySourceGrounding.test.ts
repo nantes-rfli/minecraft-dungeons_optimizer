@@ -89,6 +89,44 @@ describe('Formal Identity reviewed-source grounding', () => {
     expect(errors(sources).some((error) => error.includes('identity:bow@1: presentation displayName drift'))).toBe(true)
   })
 
+  it.each([
+    ['melee-weapon:SkeletonHammer', 'melee:bonehead-hammer', 'SkeletonHammer', 'melee-weapon:bonehead-hammer', 'Dungeons/Content/Actors/Equipment/MeleeWeapons/SkeletonHammer/BP_SkeletonHammerInstance'],
+    ['melee-weapon:Sword_Spooky1', 'melee:sinister-sword', 'Sword_Spooky1', 'melee-weapon:sinister-sword', 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance'],
+    ['ranged-weapon:BatCrossbow', 'ranged:shrieking-crossbow', 'BatCrossbow', 'ranged-weapon:shrieking-crossbow', 'Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance'],
+  ])('pins reviewed bridge %s to the exact accepted alias, package, and documented override', (aliasId, overrideKey, rawIdentity, canonicalEntity, packagePath) => {
+    const sources = fixture()
+    const entry = alias(sources, aliasId)
+    expect(entry).toMatchObject({ status: 'accepted', confidence: 'high', rawIdentity, canonicalEntity, basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence' })
+    expect(entry.candidates).toEqual([canonicalEntity])
+    expect(entry.assetPaths).toContain(packagePath)
+    expect(sources.equipmentIconSource).toContain(`'${overrideKey}': '${rawIdentity}'`)
+    expect(errors(sources)).toEqual([])
+  })
+
+  it.each([
+    ['status', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').status = 'unresolved' }, 'reviewed bridge alias status drift'],
+    ['confidence', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').confidence = 'medium' }, 'reviewed bridge alias confidence drift'],
+    ['canonicalEntity', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').canonicalEntity = 'melee-weapon:wrong' }, 'reviewed bridge alias canonicalEntity drift'],
+    ['rawIdentity', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').rawIdentity = 'Other' }, 'reviewed bridge alias rawIdentity drift'],
+    ['candidates', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').candidates = ['melee-weapon:wrong'] }, 'reviewed bridge alias candidates drift'],
+    ['package', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').assetPaths = ['Dungeons/Content/Other'] }, 'reviewed bridge alias package/source drift'],
+    ['basis', (sources: FormalReviewedSources) => { alias(sources, 'melee-weapon:SkeletonHammer').basis = 'serialized-item-id + reviewed-alias + catalog-category-evidence' }, 'reviewed bridge basis drift'],
+  ])('rejects reviewed bridge alias %s drift', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+  })
+
+  it.each([
+    ['melee:bonehead-hammer', 'SkeletonHammer'],
+    ['melee:sinister-sword', 'Sword_Spooky1'],
+    ['ranged:shrieking-crossbow', 'BatCrossbow'],
+  ])('rejects documented ENTITY_OVERRIDES drift for %s', (overrideKey, rawIdentity) => {
+    const sources = fixture()
+    sources.equipmentIconSource = sources.equipmentIconSource!.replace(`'${overrideKey}': '${rawIdentity}'`, `'${overrideKey}': 'Other'`)
+    expect(errors(sources).some((error) => error.includes('documented ENTITY_OVERRIDES mapping drift'))).toBe(true)
+  })
+
   it('requires review when the provisional Fighter’s Bindings alias becomes accepted', () => {
     const sources = fixture()
     const entry = alias(sources, 'melee-weapon:Gauntlets_Unique3')
