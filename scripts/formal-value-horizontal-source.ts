@@ -27,7 +27,7 @@ const requiredString = (value: unknown, label: string): string => {
   if (typeof value !== 'string' || value.length === 0) throw new Error(`${label} is missing`)
   return value
 }
-const canonicalJson = (value: unknown): string => JSON.stringify(value)
+const canonicalJson = (value: unknown): string => JSON.stringify(value) ?? 'undefined'
 
 export type DirectHorizontalSourceRequest = {
   category: 'melee' | 'ranged'
