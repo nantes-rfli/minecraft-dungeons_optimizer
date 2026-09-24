@@ -258,7 +258,7 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
     )).toBe('anchor')
 
     const wrongSource = structuredClone(source)
-    wrongSource.packageHash.value = 'different-source'
+    Object.assign(wrongSource.packageHash, { value: 'different-source' })
     expect(matchedIdentityDomainIdFromSource(
       wrongSource, anchorDefinition, anchorIdentity, anchorIdentityEvidence,
     )).toBeUndefined()
