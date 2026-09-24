@@ -163,8 +163,34 @@ def main() -> None:
             and writer["slotIndexFromLoopBase"] == "0x4aa",
             "focused dispatch-slot writer evidence changed")
     paired_flows = {item["profile"]: item for item in dispatcher_state["apiReturnStateTransfer"]["pairedSyntheticProfiles"]}
+    require(set(paired_flows) == {"firmware-zero-size", "firmware-success-size"},
+            "paired modeled RSMB return profiles are incomplete")
     zero_flow = paired_flows["firmware-zero-size"]["checkpoints"]
     positive_flow = paired_flows["firmware-success-size"]["checkpoints"]
+    for profile, expected_value in (("firmware-zero-size", 0), ("firmware-success-size", 0x1000)):
+        profile_flow = paired_flows[profile]
+        checkpoints = profile_flow["checkpoints"]
+        modeled_return = profile_flow["modeledApiReturn"]
+        dispatcher_rax = int(checkpoints["0x4ebd3c1"]["registers"]["rax"], 16)
+        saved_stack_value = int(checkpoints["0x4ebd5f9"]["savedApiReturnAtRspPlus0x78"], 16)
+        stack_pop_value = int(checkpoints["0x4dd6b04"]["stackValueBeforePop"], 16)
+        r11_state_write_value = int(checkpoints["0x4dd6b06"]["registers"]["r11"], 16)
+        state_qword_after_write = int.from_bytes(
+            bytes.fromhex(checkpoints["0x4dd6b09"]["destinationAfterWrite"]), "little")
+        compared_dword = int(checkpoints["0x4c77f97"]["comparedMemoryDword"], 16)
+        chain_values = (modeled_return, dispatcher_rax, saved_stack_value, stack_pop_value,
+                        r11_state_write_value, state_qword_after_write, compared_dword)
+        require(all(value == expected_value for value in chain_values),
+                f"modeled RSMB return-to-compare value chain changed in {profile}: {chain_values}")
+
+        state_addresses = (
+            checkpoints["0x4dd6b06"]["destinationBeforeWriteAddress"],
+            checkpoints["0x4dd6b09"]["destinationAfterWriteAddress"],
+            checkpoints["0x4c77f97"]["comparedMemoryAddress"],
+        )
+        require(all(int(address, 16) == 0x144BE849B for address in state_addresses)
+                and len(set(state_addresses)) == 1,
+                f"state-cell write/read address continuity changed in {profile}: {state_addresses}")
     require(zero_flow["0x4dd6b09"]["destinationAfterWrite"] == "0000000000000000"
             and positive_flow["0x4dd6b09"]["destinationAfterWrite"] == "0010000000000000"
             and zero_flow["0x4c77f97"]["comparedMemoryDword"] == "0x0"
