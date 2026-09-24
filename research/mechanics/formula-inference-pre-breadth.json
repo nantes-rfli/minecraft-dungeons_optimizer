@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "mechanics-formula-inference-pre-breadth-audit",
+  "gameVersion": "1.17.0.0",
+  "auditedAt": "2026-09-24",
+  "baseline": {
+    "requestedMainSha": "05211ca1f44326911592652f4adc53fa04692220",
+    "actualMainSha": "e90d35822c452341b76c24029356e39387e2a8df",
+    "note": "Latest main was used. The intervening main change is the reviewed identity-bridge merge and does not change the mechanics conclusions in this audit."
+  },
+  "scope": {
+    "mechanics": [
+      "gear-power-curve",
+      "damage-scaling",
+      "attack-timing",
+      "cooldown"
+    ],
+    "excluded": [
+      "UE4 native gameplay function recovery",
+      "Windows runtime capture",
+      "post-unpack Native analysis",
+      "Native D-3"
+    ],
+    "purpose": "Fix the Raw fact-retention contract before 271-equipment horizontal breadth; do not implement formulas or runtime support."
+  },
+  "evidencePolicy": {
+    "classes": {
+      "A": "current Raw / repository evidence",
+      "B": "current Formal contracts",
+      "C": "public game-derived database",
+      "D": "Wiki quantitative data",
+      "E": "Shin / ShinkuNY measurements",
+      "F": "Pancakecat measurements",
+      "G": "other community quantitative measurements",
+      "H": "derived formula hypothesis"
+    },
+    "constraints": [
+      "community measurement != game-file fact",
+      "community formula != confirmed game formula",
+      "good fit != proven implementation",
+      "configured fact, derived mechanic, empirical measurement, and global formula remain separate"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "A-raw-fighters-bindings",
+      "class": "A",
+      "source": "research/raw/packages/Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets_Unique3/BP_Gauntlets_Unique3Instance.raw.json",
+      "observations": [
+        "ConfiguredAttackVariants has four occurrences.",
+        "Observed fields include AttackSequence, AttackAnimationTimeDurationSeconds, DamageDelaySeconds, Damage, DamageType, DamageSplashMultiplier, CooldownSeconds, AttackVariantResetMultiplier, VariantLoopAmount, and VariantActiveEffect.",
+        "Configured animation durations are approximately 0.15, 0.15, 0.15, 0.125 seconds and configured damage is 25 for each occurrence."
+      ]
+    },
+    {
+      "id": "A-raw-scatter-crossbow",
+      "class": "A",
+      "source": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance.raw.json",
+      "observations": [
+        "AttackDefintion includes AttackRateSeconds ~= 0.6 and ProjectileDefinition.",
+        "AnimNotifyStateData contains bow/crossbow fire, charge, load and shoot notify-state names.",
+        "Projectile definition includes projectile count and per-projectile delay."
+      ]
+    },
+    {
+      "id": "A-raw-scatter-projectile",
+      "class": "A",
+      "source": "research/raw/packages/Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow.raw.json",
+      "observations": [
+        "Linked projectile package contains a decoded damage FloatProperty of 50; source damage can live outside the item-instance package."
+      ]
+    },
+    {
+      "id": "A-final-coverage",
+      "class": "A",
+      "source": "research/analysis/game-data-final-coverage.json",
+      "observations": [
+        "melee-instance-animation-duration-v1: 293 matched facts across 24 resolved entities.",
+        "ranged-instance-attack-rate-v1: 29 matched facts across 19 resolved entities, with 38 mapped gaps.",
+        "Current coverage is evidence that timing fields are structurally harvestable but not yet horizontally closed."
+      ]
+    },
+    {
+      "id": "B-formal-value-v2",
+      "class": "B",
+      "source": "research/domain/formal/value-availability-v2.json",
+      "observations": [
+        "Melee Formal Value currently represents configured attack occurrences, configured damage, and configured animation duration.",
+        "Ranged Formal Value currently represents projectile velocity, projectile definitions/count, angle, per-projectile delay, pushback and friendly-fire facts.",
+        "It does not yet represent DamageDelay, attack/reset/recovery/loop controls, AttackRateSeconds, notify timing, damage channel/family eligibility, or cooldown composition."
+      ]
+    },
+    {
+      "id": "B-formal-relations",
+      "class": "B",
+      "source": "src/domain/formal/serializedRelation.ts",
+      "observations": [
+        "Formal relations already distinguish Scatter Crossbow -> projectile, Battle Robe -> gear actor, and Death Cap Mushroom -> gameplay effect.",
+        "Relation representation can be reused conceptually, but linked target value population remains narrow."
+      ]
+    },
+    {
+      "id": "A-melee-audit",
+      "class": "A",
+      "source": "research/melee-attack-profile-audit.json",
+      "observations": [
+        "Fighter's Bindings fixed combo: 4 hits / 0.575 s = 6.95652173913 HPS at the audited unmodified cadence.",
+        "Sword: 3 hits / 1.042 s = 2.87907869482 HPS.",
+        "Sickles: 6 hits / 1.7 s = 3.52941176471 HPS.",
+        "Master's Katana: 3 hits / 1.56 s = 1.92307692308 HPS.",
+        "Anchor / Encrusted Anchor: 1 hit / 2.5 s = 0.4 HPS.",
+        "Mechanized/Broken Sawblade are explicitly not derivable by a fixed-combo model because release/continuous/overheat behavior needs a cycle model."
+      ]
+    },
+    {
+      "id": "A-artifact-audit",
+      "class": "A",
+      "source": "research/artifact-audit.json",
+      "observations": [
+        "Death Cap Mushroom has a current-audit base cooldown of 30 s, source-backed by the game-derived database, while its duration formula remains a model assumption.",
+        "Multiple artifacts retain multi-power published sample counts, but the audit explicitly does not promote a transferable Power curve."
+      ]
+    },
+    {
+      "id": "A-armor-audit",
+      "class": "A",
+      "source": "research/armor-audit.json",
+      "observations": [
+        "Battle Robe intrinsic properties include -40% artifact cooldown and +30% melee damage.",
+        "The audit already records cooldown ownership/composition and melee-damage modifier stage as unresolved model boundaries."
+      ]
+    },
+    {
+      "id": "A-armor-enchantment-audit",
+      "class": "A",
+      "source": "research/armor-enchantment-audit.json",
+      "observations": [
+        "Cool Down tiers in the game-file-derived repository audit are -18%, -29%, -37%, stackable with up to four copies.",
+        "Multiple-copy composition, Battle Robe composition and current Wiki 38% display conflict remain unsupported by runtime."
+      ]
+    },
+    {
+      "id": "E-F-community-summary",
+      "class": "E/F/G",
+      "source": "Library:mcd_external_community_research_summary.md",
+      "observations": [
+        "Shin separates flat physical, full physical multiplier, indirect, elemental-focus and all-damage full-multiplier families, with special eligibility cases such as Jungle Poison.",
+        "Shin/Pancakecat provide HPS/DPS measurements suitable for calibration, not game-file promotion.",
+        "Pancakecat has an averaged HPS sheet; the existing summary had not fully recovered its cell definitions/metadata."
+      ]
+    },
+    {
+      "id": "C-dungeons-tools-curve",
+      "class": "C",
+      "url": "https://www.dungeons.tools/damage-calculator",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "dungeons.tools states weapons share an identical gear-power curve and compares item-relative Power ratings.",
+        "It states the absolute gear-power curve is compiled into the executable rather than shipped in paks.",
+        "This is a public game-derived database claim, not direct proof of the executable implementation."
+      ]
+    },
+    {
+      "id": "D-wiki-sword-table",
+      "class": "D",
+      "url": "https://minecraft.wiki/w/Dungeons:Sword",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "The public Sword page exposes a same-item multi-power damage table from power 1 through 108 plus base damage and per-hit attack durations.",
+        "The page notes displayed damage can vary at the same power level, so reconstruction must account for rounding/roll ranges."
+      ]
+    },
+    {
+      "id": "D-wiki-cool-down",
+      "class": "D",
+      "url": "https://minecraft.wiki/w/Dungeons:Cool_Down",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "Current page lists -18%, -29%, -38% and says stacking has diminishing effect.",
+        "History says stacking behavior changed in 1.8.0.0 and four copies became possible in 1.17.0.0.",
+        "Its maximum-stack trivia is counter-evidence against blindly using a simple product of displayed reductions as the confirmed current formula."
+      ]
+    },
+    {
+      "id": "D-wiki-cooldown-shot",
+      "class": "D",
+      "url": "https://minecraft.wiki/w/Dungeons:Cooldown_Shot",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "Cooldown Shot is a charged-shot trigger with fixed reductions 0.5 / 1.0 / 1.5 seconds.",
+        "It is therefore a state transition on remaining cooldown, not the same family as percentage cooldown reduction."
+      ]
+    },
+    {
+      "id": "G-damage-formula-2026",
+      "class": "G",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/1u92q4y/",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "A 2026 community formula uses Full * [(100% + Additive) * (Base * Multiplicative + Dynamo) + Indirect].",
+        "This is a useful hypothesis consistent with Shin-style family separation, not a confirmed game formula."
+      ]
+    },
+    {
+      "id": "G-cooldown-formula-history",
+      "class": "G",
+      "url": "https://www.reddit.com/r/MinecraftDungeons/comments/lsky8r/",
+      "retrievedAt": "2026-09-24",
+      "observations": [
+        "A 2021 community test proposed a post-1.8 formula separating armor reduction from an enchantment diminishing-return accumulator.",
+        "Version age and current 1.17 four-copy behavior prevent promotion without current cross-checks."
+      ]
+    }
+  ],
+  "mechanics": {
+    "gearPowerCurve": {
+      "status": "partial",
+      "classification": "inference-ready-needs-more-observations",
+      "inferenceFeasibility": "partial",
+      "commonCurveSupport": "plausible",
+      "functionalFormIdentifiable": false,
+      "candidateFormula": {
+        "form": "displayedAbsolute(item, occurrence, power) ~= roll_or_round(itemRelativeCoefficient(occurrence) * G(power))",
+        "preferredRepresentation": "reconstructed discrete lookup/interpolated curve G(power), not a forced polynomial/exponential closed form",
+        "note": "The item-relative coefficient may be represented by different serialized/configured facts per mechanic; do not equate a UI Power rating with every Raw per-hit Damage field without cross-validation."
+      },
+      "confidence": "medium",
+      "requiredInputs": [
+        "same item / same occurrence observed at multiple gear powers",
+        "item-relative configured coefficient or stable relative rating",
+        "roll/rounding range where the same power yields multiple displayed values",
+        "power cap behavior for validation only"
+      ],
+      "currentlyAvailableInputs": [
+        "Wiki Sword multi-power damage table",
+        "artifact audit contains multiple-power sample coverage for several artifacts",
+        "dungeons.tools public common-curve claim",
+        "repository per-hit configured damage coefficients for representative melee/projectile cases"
+      ],
+      "missingInputs": [
+        "normalized current-version multi-power observations for more than one mechanically independent item/source channel",
+        "explicit rounding/random-roll rule",
+        "cross-category proof that weapon damage, armor health and each artifact scaling family share the exact same G(power)"
+      ],
+      "requiredRawFacts": [
+        "per-occurrence configured source coefficient/value",
+        "damage/heal/duration channel identity",
+        "relation to linked projectile/effect source when the coefficient is not on the item instance"
+      ],
+      "globalFacts": [
+        "G(power) lookup/table and any cap/rounding rules"
+      ],
+      "empiricalFacts": [
+        "same-item displayed observations used to fit/validate G(power)"
+      ],
+      "counterEvidence": [
+        "dungeons.tools says the absolute curve is executable-side, so it is not directly present in current paks",
+        "same-power displayed values can vary",
+        "artifact repository research currently rejects a transferable artifact Power curve"
+      ],
+      "formalGap": "Current Formal Value can preserve configured coefficients for narrow slices but has no global gear-power model or observation-vs-derived separation.",
+      "horizontalImpact": {
+        "requiredPerItem": [
+          "configured source coefficient/value and its occurrence/channel provenance"
+        ],
+        "notRequiredPerItem": [
+          "full gear-power curve table"
+        ],
+        "globalOnly": [
+          "gear-power lookup/rounding/cap model"
+        ],
+        "breadthBlocking": false
+      },
+      "horizontalCollectionRequirement": "Collect source coefficients and channel provenance; do not harvest a separate full power curve per item.",
+      "formalRepresentationRequirement": "Future layer should keep source-backed configured coefficient, global curve version and derived displayed value as separate concepts.",
+      "postBreadthValidationPlan": [
+        "fit a discrete G(power) from same-item observations",
+        "ratio-test independent weapons at overlapping powers",
+        "test whether artifacts/armor require distinct curve families",
+        "only then consider interpolation or a closed-form approximation"
+      ]
+    },
+    "damageScaling": {
+      "status": "model-structure-established",
+      "classification": "model-ready-needs-population",
+      "inferenceFeasibility": "yes-for-model-structure; partial-for-exact-application-order",
+      "candidateFormula": {
+        "conceptualModel": {
+          "sourceDamage": "source-backed configured coefficient/value per hit/tick/projectile/effect",
+          "additiveFamily": "flat family composed according to its own stacking rules",
+          "multiplicativeFamily": "eligible direct/source multipliers",
+          "indirectChannel": "separate damage events with independent eligibility",
+          "elementalChannel": "channel-specific focus/elemental eligibility",
+          "fullMultiplierFamily": "eligible full/global multipliers after channel/event composition",
+          "specialEligibility": "explicit allow/deny rules for cases such as Jungle Poison"
+        },
+        "communityHypothesis": "Full * [(1 + Additive) * (Base * Multiplicative + Dynamo) + Indirect]",
+        "promotionState": "hypothesis only; do not serialize as canonical game formula"
+      },
+      "confidence": "medium-high for family model; medium-low for exact global ordering",
+      "requiredInputs": [
+        "source event ownership",
+        "configured base coefficient/value",
+        "damage type/channel",
+        "combo/tick/projectile occurrence",
+        "modifier family",
+        "stacking rule",
+        "eligibility by source/channel",
+        "special-case overrides"
+      ],
+      "currentlyAvailableInputs": [
+        "Raw melee Damage, DamageType and splash fields",
+        "linked Scatter projectile damage",
+        "repository armor intrinsic +30% melee damage evidence",
+        "Shin family classification in existing community summary",
+        "2026 community candidate formula"
+      ],
+      "missingInputs": [
+        "horizontal population of source damage/channel/relations",
+        "source-backed modifier family and eligibility mapping for all relevant enchants/effects",
+        "current-version counterexample matrix for special interactions"
+      ],
+      "requiredRawFacts": [
+        "Melee: every configured attack occurrence; Damage; DamageType; splash/secondary coefficients; active-effect relation; continuous/tick interval and loop fields when present",
+        "Ranged: attack definition, projectile definition occurrence, projectile relation target, target projectile damage/channel, projectile count/delay and charge/variant multipliers when present",
+        "Armor: intrinsic modifier values with ownership/target domain and built-in enchant/effect relations",
+        "Artifact: linked effect/actor source, configured direct/indirect/elemental/heal values and repeated-tick cadence where present"
+      ],
+      "globalFacts": [
+        "modifier-family taxonomy",
+        "family stacking/composition",
+        "channel eligibility",
+        "full/global application order",
+        "special-case rules"
+      ],
+      "empiricalFacts": [
+        "interaction tests used to adjudicate exact application order and edge-case eligibility"
+      ],
+      "counterEvidence": [
+        "one scalar pipeline cannot explain indirect/elemental/special eligibility described by existing research",
+        "community formula is not game-file proof"
+      ],
+      "formalGap": "Current Formal Value has source-backed configuredDamage but lacks damage channel, event ownership, modifier family, stacking/eligibility and special-case semantics.",
+      "horizontalImpact": {
+        "requiredPerItem": [
+          "all source damage occurrences and linked-package channel/cadence facts"
+        ],
+        "notRequiredPerItem": [
+          "global modifier-family formula"
+        ],
+        "globalOnly": [
+          "modifier family/order/eligibility rules"
+        ],
+        "breadthBlocking": false
+      },
+      "horizontalCollectionRequirement": "Breadth must retain each source event and linked source package rather than collapsing to one weapon/artifact scalar.",
+      "formalRepresentationRequirement": "Future schema needs source-backed facts separate from derived damage events and global mechanic rules.",
+      "postBreadthValidationPlan": [
+        "build source-event inventory from populated Raw",
+        "attach community interaction evidence to global families",
+        "test representative direct/indirect/elemental/special cases",
+        "promote only rules with source/version-scoped support"
+      ]
+    },
+    "attackTiming": {
+      "status": "family-transform-required",
+      "classification": "model-ready-needs-population",
+      "keyDecision": "C",
+      "derivableFromRaw": "Raw plus weapon-family-specific transforms can derive the configured cadence for ordinary families; exceptional continuous/release/cancel behavior still requires empirical calibration.",
+      "candidateFormula": {
+        "fixedCombo": "configuredHPS = effectiveHitCount / sum(effectiveVariantDurations) when no extra loop/reset/recovery/cancel state applies",
+        "familyTransform": "familyHPS = F_family(animationDuration, attackRate, damageDelay, loopCount, reset/recovery, notify/release state, attackSpeedModifier)",
+        "empiricalBoundary": "input cancel windows, actual recovery and continuous sawblade overheat/release behavior are not assumed from duration alone"
+      },
+      "confidence": "high that one global timing formula is insufficient; medium that committed Raw plus family transforms covers ordinary families",
+      "supportedExamples": [
+        "Fighter's Bindings: 4 / 0.575 = 6.95652173913 unmodified configured HPS; Raw and repository audit durations agree.",
+        "Sword: 3 / 1.042 = 2.87907869482 audited base HPS.",
+        "Sickles: 6 / 1.7 = 3.52941176471 audited base HPS.",
+        "Master's Katana: 3 / 1.56 = 1.92307692308 audited base HPS.",
+        "Anchor / Encrusted Anchor: 1 / 2.5 = 0.4 audited base HPS.",
+        "Mechanized/Broken Sawblade: fixed-combo HPS intentionally unavailable; release/continuous/overheat cycle is required."
+      ],
+      "requiredInputs": [
+        "attack occurrence/combo order",
+        "animation or configured attack duration",
+        "DamageDelay/per-hit timing",
+        "AttackRateSeconds for ranged families",
+        "AttackVariantResetMultiplier/recovery state",
+        "CooldownSeconds if an attack variant uses it",
+        "VariantLoopAmount/continuous tick interval",
+        "AttackSequence/animation relation",
+        "notify/load/fire/charge/release state where present",
+        "attack-speed modifier input and scope",
+        "cancel/release/overheat behavior for exceptional families"
+      ],
+      "currentlyAvailableInputs": [
+        "Fighter's Bindings Raw contains duration, delay, reset, cooldown, loop and animation-sequence references",
+        "Scatter Crossbow Raw contains AttackRateSeconds and multiple notify-state names",
+        "Melee audit contains public duration/HPS profiles for ordinary families",
+        "Shin/Pancakecat measurements provide empirical HPS calibration"
+      ],
+      "missingInputs": [
+        "horizontal linked-package closure for animation/notify/effect timing fields",
+        "current-version attack-speed transform validation",
+        "empirical cancel/recovery/overheat calibration for exceptional families"
+      ],
+      "requiredRawFacts": [
+        "Melee configured attack occurrence and order",
+        "AttackAnimationTimeDurationSeconds",
+        "DamageDelaySeconds",
+        "AttackVariantResetMultiplier",
+        "CooldownSeconds",
+        "VariantLoopAmount",
+        "AttackSequence relation",
+        "continuous damage interval/tick fields when present",
+        "Ranged AttackRateSeconds, charge/load/fire/release fields and notify-state relations",
+        "linked animation/effect package timing facts when item-instance fields reference them"
+      ],
+      "globalFacts": [
+        "attack-speed transform by mechanic/family once validated"
+      ],
+      "empiricalFacts": [
+        "effective HPS, cancel/window/recovery and continuous-release cycle measurements for calibration"
+      ],
+      "counterEvidence": [
+        "Wiki/public attack duration is not guaranteed to be the effective hit interval.",
+        "Sawblade family cannot be represented by sum-of-fixed-hit-durations.",
+        "Ranged timing exposes a different AttackRate/notify structure than melee ConfiguredAttackVariants."
+      ],
+      "formalGap": "Current Formal Value represents melee configured animation duration but not the other required timing facts or empirical/family transform layer.",
+      "horizontalImpact": {
+        "requiredPerItem": [
+          "timing fields and linked timing relations listed above"
+        ],
+        "optional": [
+          "public/empirical HPS as calibration metadata"
+        ],
+        "empiricalOnly": [
+          "cancel/window/recovery/overheat behavior when not serialized"
+        ],
+        "breadthBlocking": true,
+        "blocker": "Current breadth contract does not yet guarantee linked-package timing closure."
+      },
+      "horizontalCollectionRequirement": "Before population, define a field-preservation/traversal contract that keeps item-instance timing plus reachable attack-sequence/notify/effect timing facts.",
+      "formalRepresentationRequirement": "Future Formal must distinguish configured timing facts from derived family cadence and empirical effective HPS.",
+      "postBreadthValidationPlan": [
+        "derive fixed-combo HPS for ordinary melee and compare to repository/Wiki profiles",
+        "fit attack-speed transforms against Shin/Pancakecat HPS",
+        "create dedicated continuous/release cycle models for sawblade-like families",
+        "cross-check ranged AttackRate/notify-derived cadence against external measurements"
+      ]
+    },
+    "cooldown": {
+      "status": "family-model-established-formula-open",
+      "classification": "inference-ready-needs-more-observations",
+      "candidateFormula": {
+        "percentageStage": "C_percent = PercentCompose(C_base, armorIntrinsicSources, coolDownEnchantSources); exact current 1.17 composition remains unpromoted",
+        "fixedSecondsStage": "on Cooldown Shot trigger: remaining = max(0, remaining - tierSeconds)",
+        "triggerResetStage": "reset/reduction effects mutate remaining cooldown at their trigger time and are not percentage modifiers",
+        "rejectedShortcut": "do not add displayed percentage reductions linearly and do not merge fixed-second reductions into the percentage family"
+      },
+      "confidence": "high for family separation; medium-low for exact percentage composition",
+      "versionConfidence": "current values are partly 1.17-scoped in repository; exact multi-source composition remains unresolved",
+      "supportedExamples": [
+        "Battle Robe: -40% artifact cooldown intrinsic.",
+        "Repository Cool Down audit: -18/-29/-37 game-file-derived tiers; stackable up to four in 1.17.",
+        "Current Wiki page displays -18/-29/-38 and documents diminishing stacking and 1.17 four-copy availability.",
+        "Cooldown Shot: charged-shot trigger subtracts fixed 0.5/1.0/1.5 seconds."
+      ],
+      "counterEvidence": [
+        "Current Wiki 38% display conflicts with repository game-file-derived 37% T3 value.",
+        "Current Wiki maximum-stack trivia does not justify promoting a simple product of displayed reductions.",
+        "Older 2021 community formulas predate current 1.17 four-copy state and are historical hypotheses."
+      ],
+      "requiredInputs": [
+        "per-artifact base cooldown and cooldown start point",
+        "per-armor intrinsic percentage reduction and ownership",
+        "Cool Down rank/value/copy count",
+        "fixed-second reduction amount and trigger",
+        "other reduction/reset trigger semantics",
+        "versioned composition rule"
+      ],
+      "currentlyAvailableInputs": [
+        "artifact audit base cooldown values from public game-derived database",
+        "Battle Robe intrinsic cooldown percentage",
+        "Cool Down repository tier values and stackability",
+        "Wiki current stacking description and Cooldown Shot fixed-second values"
+      ],
+      "missingInputs": [
+        "source-backed Raw location/absence record for artifact base cooldown across the horizontal population",
+        "current 1.17 percentage composition truth table for armor intrinsic + one-to-four Cool Down copies",
+        "source-backed inventory of all trigger/reset cooldown-affecting effects"
+      ],
+      "requiredRawFacts": [
+        "Artifact: base cooldown and start semantics if serialized/configured; otherwise explicit unavailable/provenance state",
+        "Armor: intrinsic artifact-cooldown percentage and ownership",
+        "Ranged/enchant/effect: fixed-second or reset/reduction value plus trigger relation",
+        "linked effect/actor packages containing cooldown configuration"
+      ],
+      "globalFacts": [
+        "percentage composition rule by source family/version",
+        "trigger-state transition semantics"
+      ],
+      "empiricalFacts": [
+        "current 1.17 timing measurements to distinguish competing percentage stacking formulas"
+      ],
+      "formalGap": "Current Formal has no cooldown family/ownership/state-transition representation.",
+      "horizontalImpact": {
+        "requiredPerItem": [
+          "artifact base cooldown provenance; armor intrinsic cooldown source; item-owned trigger/reset effects"
+        ],
+        "notRequiredPerItem": [
+          "global percentage composition equation"
+        ],
+        "globalOnly": [
+          "composition formula and version rule"
+        ],
+        "breadthBlocking": true,
+        "blocker": "The representative committed Raw path does not yet establish a horizontally reliable source location/absence contract for artifact base cooldown and linked cooldown configuration."
+      },
+      "horizontalCollectionRequirement": "Before population, locate base-cooldown/trigger facts in committed structural inventory/linked packages or record a parser/source boundary explicitly; do not substitute Wiki/database values into Raw.",
+      "formalRepresentationRequirement": "Future model must keep base cooldown, percentage sources, fixed-second transitions, resets/triggers, and scenario-derived effective cooldown separate.",
+      "postBreadthValidationPlan": [
+        "construct 1.17 current-version percentage-composition test matrix",
+        "validate one through four Cool Down copies with/without 40% armor intrinsic",
+        "validate fixed-second Cooldown Shot against remaining cooldown rather than base duration",
+        "audit other reset/reduction effects into separate trigger families"
+      ]
+    }
+  },
+  "horizontalCollectionRequirements": {
+    "Melee": {
+      "required-before-breadth": [
+        "identity/package occurrence",
+        "all configured attack occurrences in order",
+        "configured Damage and DamageType/channel",
+        "AttackAnimationTimeDurationSeconds",
+        "DamageDelaySeconds",
+        "AttackVariantResetMultiplier",
+        "CooldownSeconds",
+        "VariantLoopAmount",
+        "AttackSequence/active-effect relations",
+        "continuous/tick interval and loop fields when present"
+      ],
+      "optional": [
+        "public Wiki timing table",
+        "Shin/Pancakecat HPS calibration rows"
+      ],
+      "not-required-per-item": [
+        "full gear-power curve table",
+        "global damage stacking equation",
+        "global attack-speed transform"
+      ],
+      "global-mechanic-only": [
+        "gear-power curve",
+        "modifier family/order",
+        "family attack-speed transform"
+      ],
+      "empirical-only": [
+        "input cancel/recovery windows where not serialized",
+        "continuous/release cycle calibration"
+      ]
+    },
+    "Ranged": {
+      "required-before-breadth": [
+        "identity/package occurrence",
+        "AttackDefintion and AttackRateSeconds",
+        "projectile definition occurrences/count/delay",
+        "projectile target relation and target damage/channel",
+        "charge/load/fire/release/notify relations",
+        "item-owned cooldown trigger/reduction effects"
+      ],
+      "optional": [
+        "Pancakecat crossbow/HPS calibration"
+      ],
+      "not-required-per-item": [
+        "full gear-power curve table",
+        "global cooldown composition equation"
+      ],
+      "global-mechanic-only": [
+        "gear-power curve",
+        "ranged timing-family transforms",
+        "damage/cooldown family semantics"
+      ],
+      "empirical-only": [
+        "true charge/cancel/reload cadence when not fully serialized"
+      ]
+    },
+    "Armor": {
+      "required-before-breadth": [
+        "identity/package occurrence",
+        "intrinsic modifier values and ownership",
+        "artifact-cooldown intrinsic percentage when present",
+        "damage modifiers and target domain",
+        "built-in enchant/effect relations"
+      ],
+      "optional": [
+        "observed scenario outputs"
+      ],
+      "not-required-per-item": [
+        "gear-power damage curve",
+        "global cooldown stacking formula",
+        "global damage modifier ordering"
+      ],
+      "global-mechanic-only": [
+        "cooldown percentage composition",
+        "damage modifier family semantics"
+      ],
+      "empirical-only": [
+        "composition tests used to validate global formula"
+      ]
+    },
+    "Artifact": {
+      "required-before-breadth": [
+        "identity/package occurrence",
+        "linked GearActor/GameplayEffect/effect relation closure",
+        "base cooldown and cooldown-start provenance or explicit unavailable state",
+        "configured damage/heal/duration/range values",
+        "continuous/repeated tick interval/loop facts",
+        "trigger/reset/reduction effects owned by the artifact"
+      ],
+      "optional": [
+        "public multi-power samples"
+      ],
+      "not-required-per-item": [
+        "full gear-power curve table",
+        "global cooldown composition equation"
+      ],
+      "global-mechanic-only": [
+        "gear-power curve family after validation",
+        "cooldown composition/transition semantics"
+      ],
+      "empirical-only": [
+        "runtime observations where configured source is absent or behavior depends on hidden/cancel state"
+      ]
+    }
+  },
+  "preBreadthGaps": [
+    {
+      "id": "linked-timing-source-closure",
+      "fact": "A source-backed traversal/retention contract for linked animation/notify/effect timing facts.",
+      "whyNeededBeforeBreadth": "Current representative Raw proves timing is distributed across configured variants, attack-rate fields and relations; exceptional families cannot be safely reduced to one duration field. If breadth stores only currently-Formal fields, a later HPS model would require re-harvesting.",
+      "howToAcquire": "Use the already committed Raw Structural Inventory and relation graph to census timing-like fields reachable from each category seed; record exact field paths or explicit unavailable/parser-boundary states. No Raw re-extraction, Native work or runtime capture is required for this gate."
+    },
+    {
+      "id": "artifact-base-cooldown-source-closure",
+      "fact": "For each Artifact, locate source-backed base cooldown/start semantics in committed Raw/linked packages or record that the fact is not statically observed.",
+      "whyNeededBeforeBreadth": "Base cooldown is per-item input. Current public audit has values, but the representative full Raw item/effect path does not establish a generic Raw source location. Losing this distinction would mix database facts with Raw facts.",
+      "howToAcquire": "Search committed structural inventory across Artifact instance, actor/effect and inherited related packages for cooldown fields; preserve the relation/provenance chain or an explicit not-observed/parser-boundary classification."
+    }
+  ],
+  "formalImpact": {
+    "currentFormalCanRepresent": [
+      "narrow source-backed configured melee damage",
+      "narrow configured melee animation duration",
+      "narrow ranged projectile configuration",
+      "serialized relation targets for representative slices"
+    ],
+    "semanticGaps": [
+      "global gear-power curve / derived displayed value layer",
+      "damage channel/event ownership/modifier family/eligibility",
+      "timing delay/reset/recovery/loop/notify and family-derived/empirical HPS",
+      "cooldown source ownership, percentage/fixed/reset families and state transitions"
+    ],
+    "noSchemaChangeInThisAudit": true
+  },
+  "finalDecision": {
+    "decision": "PRE-BREADTH FACT GAP REMAINS",
+    "rationale": "Formula fitting itself can wait, but the horizontal collector must first guarantee preservation of linked timing facts and per-Artifact base-cooldown provenance. These are per-item inputs; omitting them would force a second breadth harvest.",
+    "unblockCondition": "Close the two source-closure gates using the already committed structural inventory and freeze the category-specific required-before-breadth fact contract.",
+    "nativeRequired": false,
+    "runtimeCaptureRequired": false
+  },
+  "postBreadthTasks": [
+    "reconstruct/falsify the global gear-power lookup from multi-power observations",
+    "populate and adjudicate damage modifier family/eligibility mappings",
+    "fit family-specific attack-speed/timing transforms against Shin/Pancakecat measurements",
+    "resolve current 1.17 cooldown percentage composition and validate trigger-state transitions",
+    "only after evidence promotion, design Formal schema changes and Optimizer consumption"
+  ]
+}
