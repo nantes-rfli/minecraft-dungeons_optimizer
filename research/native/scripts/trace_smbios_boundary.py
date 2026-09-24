@@ -47,6 +47,31 @@ initialSections={s['index']:hashlib.sha256(bytes(u.mem_read(base+s['rva'],s['vir
 smbiosReads=[];registryOpenCalls=0
 postContextBlocks=[];contextReads=[];contextProbeStarted=False
 registerCheckpoints=[]
+captureDispatchSlot=os.environ.get('MCD_CAPTURE_DISPATCH_SLOT_WRITES')=='1'
+dispatchSlotAddress=base+0x4ed272d
+dispatchSlotWrites=[]
+dispatchSlotRegisters={
+ 'rax':UC_X86_REG_RAX,'rbx':UC_X86_REG_RBX,'rcx':UC_X86_REG_RCX,
+ 'rdx':UC_X86_REG_RDX,'rsi':UC_X86_REG_RSI,'rdi':UC_X86_REG_RDI,
+ 'rbp':UC_X86_REG_RBP,'rsp':UC_X86_REG_RSP,'r8':UC_X86_REG_R8,
+ 'r9':UC_X86_REG_R9,'r10':UC_X86_REG_R10,'r11':UC_X86_REG_R11,
+ 'r12':UC_X86_REG_R12,'r13':UC_X86_REG_R13,'r14':UC_X86_REG_R14,
+ 'r15':UC_X86_REG_R15,
+}
+focusedBlockRanges=[
+ ('dispatch',base+0x4ebd3c1,base+0x4ebe000),
+ ('slot-writer',base+0x4eaf530,base+0x4eaf590),
+ ('indirect-target',base+0x4cce835,base+0x4cd0000),
+ ('indirect-target-2',base+0x4e5f7d5,base+0x4e60000),
+ ('indirect-target-3',base+0x4c1968b,base+0x4c19700),
+ ('indirect-target-4',base+0x4dd6892,base+0x4dd7000),
+ ('ebx-branch',base+0x4e99340,base+0x4e993a0),
+]
+focusedBasicBlocks=[];focusedSeenBlocks=set();focusedLastBlock={}
+checkpointSeen=set()
+compareFlagsStackAddress=None;compareFlagsStackAccesses=[]
+compareFlagsMemoryAddress=None;compareFlagsStateAccesses=[]
+ebxTransferActive=False;ebxTransferCaptured=False;ebxTransferTrace=[]
 cs=Cs(CS_ARCH_X86,CS_MODE_64);blocks=collections.Counter();tail=collections.deque(maxlen=25);events=[];writes=collections.Counter();reason=None;count=0;start=time.monotonic();timers=0;lastblock=None;hooked=set()
 def stop(s):
  global reason
@@ -244,10 +269,20 @@ def block(u,addr,size,_):
   print('switching to bounded fast trace',events[:2],flush=True)
  blocks[addr]+=1;tail.append(hex(addr))
  if count>=15000000 or time.monotonic()-start>40:stop('bounded trace budget')
+def focused_block(u,addr,size,_):
+ for name,begin,end in focusedBlockRanges:
+  if begin<=addr<=end:
+   focusedLastBlock[name]=addr
+   if (name,addr) not in focusedSeenBlocks and len(focusedBasicBlocks)<10000:
+    focusedSeenBlocks.add((name,addr))
+    focusedBasicBlocks.append({'region':name,'rva':hex(addr-base),'size':size})
+   break
 checkpointAddresses={
  base+rva:hex(rva) for rva in [
-  0x50d0fe9,0x50d115d,0x50d1349,0x50d1496,
-  0x4ebd3c1,0x4ebd71a,0x4ebdde7,0x4eb176a,0x4eff202,
+  0x50d0fe9,0x50d115d,0x50d1349,0x50d1496,0x4eaf539,
+  0x4ebd3c1,0x4ebd532,0x4ebd53b,0x4ebd5f5,0x4ebd5f9,
+  0x4ebd713,0x4ebd71a,0x4ebd727,0x4ebdd89,0x4ebddb0,0x4ebddcc,0x4ebdde1,0x4ebdde7,0x4cce835,0x4cceab9,0x4e5f7d5,0x4e5fc75,0x4c1968b,0x4dd6892,
+  0x4dd6b04,0x4dd6b06,0x4dd6b09,0x4c77f97,0x4c77f9a,0x4c77f9b,0x4eb176a,0x4eff202,
   0x4e9934f,0x4e99355,0x4e9935b,0x4e9938c,
  ]
 }
@@ -259,23 +294,118 @@ checkpointRegisters={
  'r12':UC_X86_REG_R12,'r13':UC_X86_REG_R13,'r14':UC_X86_REG_R14,
  'r15':UC_X86_REG_R15,'eflags':UC_X86_REG_EFLAGS,
 }
+def compare_flags_state_access(u,access,addr,size,value,_):
+ global ebxTransferActive
+ if len(compareFlagsStateAccesses)>=200:return
+ operation='write' if access==un.UC_MEM_WRITE else 'read'
+ try:memoryBytes=bytes(u.mem_read(addr,size)).hex()
+ except un.UcError:memoryBytes=None
+ compareFlagsStateAccesses.append({
+  'operation':operation,'rip':hex(u.reg_read(UC_X86_REG_RIP)-base),'address':hex(addr),
+  'size':size,'eventValue':hex(value),'memoryBytesAtHook':memoryBytes,
+  'registers':{name:hex(u.reg_read(reg)) for name,reg in checkpointRegisters.items()},
+ })
+ if len(events)==66 and operation=='read' and u.reg_read(UC_X86_REG_RIP)==base+0x4e99160 and not ebxTransferActive and not ebxTransferCaptured:
+  raw=bytes(u.mem_read(base+0x4e99160,15));ins=next(cs.disasm(raw,base+0x4e99160),None)
+  ebxTransferTrace.append({'rva':'0x4e99160','ebxBefore':hex(u.reg_read(UC_X86_REG_RBX)),
+   'r8':hex(u.reg_read(UC_X86_REG_R8)),'eflags':hex(u.reg_read(UC_X86_REG_EFLAGS)),
+   'instruction':(ins.mnemonic+' '+ins.op_str).strip() if ins else None})
+  ebxTransferActive=True
+def ebx_transfer_monitor(u,addr,size,_):
+ global ebxTransferActive,ebxTransferCaptured
+ if len(events)!=66 or not ebxTransferActive:return
+ rbx=u.reg_read(UC_X86_REG_RBX)
+ raw=bytes(u.mem_read(addr,min(size,15)))
+ ins=next(cs.disasm(raw,addr),None)
+ ebxTransferTrace.append({
+  'rva':hex(addr-base),'ebxBefore':hex(rbx),
+  'r8':hex(u.reg_read(UC_X86_REG_R8)),
+  'eflags':hex(u.reg_read(UC_X86_REG_EFLAGS)),
+  'instruction':(ins.mnemonic+' '+ins.op_str).strip() if ins else None,
+ })
+ if addr==base+0x4e9934f:
+  ebxTransferActive=False;ebxTransferCaptured=True
+def compare_flags_stack_access(u,access,addr,size,value,_):
+ global compareFlagsMemoryAddress
+ if len(compareFlagsStackAccesses)>=200:return
+ operation='write' if access==un.UC_MEM_WRITE else 'read'
+ try:memoryBytes=bytes(u.mem_read(addr,size)).hex()
+ except un.UcError:memoryBytes=None
+ compareFlagsStackAccesses.append({
+  'operation':operation,'rip':hex(u.reg_read(UC_X86_REG_RIP)-base),'address':hex(addr),
+  'size':size,'eventValue':hex(value),'memoryBytesAtHook':memoryBytes,
+  'registers':{name:hex(u.reg_read(reg)) for name,reg in checkpointRegisters.items()},
+ })
+ if operation=='read' and u.reg_read(UC_X86_REG_RIP)==base+0x4c780e4 and compareFlagsMemoryAddress is None:
+  compareFlagsMemoryAddress=u.reg_read(UC_X86_REG_R12)
+  u.hook_add(un.UC_HOOK_MEM_READ,compare_flags_state_access,begin=compareFlagsMemoryAddress,end=compareFlagsMemoryAddress+7)
+  u.hook_add(un.UC_HOOK_MEM_WRITE,compare_flags_state_access,begin=compareFlagsMemoryAddress,end=compareFlagsMemoryAddress+7)
 def checkpoint(u,addr,size,_):
- if addr not in checkpointAddresses or len(registerCheckpoints)>=256:return
+ if addr not in checkpointAddresses:return
+ eventCount=len(events)
+ checkpointKey=(addr,eventCount)
+ if checkpointKey in checkpointSeen:return
+ if eventCount==66 and addr in {base+0x4dd6b04,base+0x4dd6b06,base+0x4dd6b09,base+0x4c77f97}:
+  if u.reg_read(UC_X86_REG_RSI)!=base+0x4be849b:return
+ checkpointSeen.add(checkpointKey)
+ focusedCheckpoint=len(events)==66 and checkpointAddresses[addr] in {
+  '0x4ebd3c1','0x4ebd532','0x4ebd53b','0x4ebd5f5','0x4ebd5f9',
+  '0x4ebd713','0x4ebd727','0x4ebdd89','0x4ebddb0','0x4ebddcc','0x4ebdde1','0x4ebdde7','0x4cce835','0x4cceab9','0x4e5f7d5','0x4e5fc75','0x4c1968b','0x4dd6892','0x4dd6b04','0x4dd6b06','0x4dd6b09','0x4c77f97','0x4c77f9a','0x4c77f9b','0x4e9934f','0x4e99355','0x4e9935b','0x4e9938c',
+ }
+ if len(registerCheckpoints)>=256 and not focusedCheckpoint:return
+ rsp=u.reg_read(UC_X86_REG_RSP)
  snapshot={
   'rva':checkpointAddresses[addr],
-  'eventCount':len(events),
+  'eventCount':eventCount,
+  'currentBasicBlock':next((hex(focusedLastBlock[name]-base) for name,begin,end in focusedBlockRanges if begin<=addr<=end and name in focusedLastBlock),hex(lastblock) if lastblock is not None else None),
   'registers':{name:hex(u.reg_read(reg)) for name,reg in checkpointRegisters.items()},
  }
- if addr in {base+0x4ebdde7,base+0x4eb176a,base+0x4eff202}:
-  pointer=u.reg_read(UC_X86_REG_RAX)
+ if len(events)==66 and addr in {base+0x4ebd3c1,base+0x4ebd532,base+0x4ebd53b,base+0x4ebd5f5,base+0x4ebd5f9,base+0x4ebd713,base+0x4ebd727,base+0x4ebdd89,base+0x4ebddb0,base+0x4ebddcc,base+0x4ebdde1,base+0x4ebdde7,base+0x4cce835,base+0x4e9934f}:
+  stackStart=rsp-0x40
+  try:snapshot['stackBytesFromRspMinus40']=bytes(u.mem_read(stackStart,0xc0)).hex()
+  except un.UcError:snapshot['stackBytesFromRspMinus40']=None
+ if len(events)==66 and addr==base+0x4dd6b06:
+  statePointer=u.reg_read(UC_X86_REG_RSI)
+  snapshot['destinationBeforeWriteAddress']=hex(statePointer)
+  try:snapshot['destinationBeforeWrite']=bytes(u.mem_read(statePointer,8)).hex()
+  except un.UcError:snapshot['destinationBeforeWrite']=None
+ if len(events)==66 and addr==base+0x4dd6b09:
+  statePointer=u.reg_read(UC_X86_REG_RSI)
+  snapshot['destinationAfterWriteAddress']=hex(statePointer)
+  try:snapshot['destinationAfterWrite']=bytes(u.mem_read(statePointer,8)).hex()
+  except un.UcError:snapshot['destinationAfterWrite']=None
+ if len(events)==66 and addr==base+0x4dd6b04:
+  snapshot['stackValueBeforePop']=hex(struct.unpack('<Q',u.mem_read(rsp,8))[0])
+ if len(events)==66 and addr==base+0x4c77f97:
+  statePointer=u.reg_read(UC_X86_REG_RSI)
+  snapshot['comparedMemoryAddress']=hex(statePointer)
+  try:snapshot['comparedMemoryDword']=hex(struct.unpack('<I',u.mem_read(statePointer,4))[0])
+  except un.UcError:snapshot['comparedMemoryDword']='unreadable'
+ if len(events)==66 and addr==base+0x4c77f9b:
+  global compareFlagsStackAddress
+  compareFlagsStackAddress=rsp
+  snapshot['savedCompareFlags']=hex(struct.unpack('<Q',u.mem_read(rsp,8))[0])
+  snapshot['compareFlagsStackAddress']=hex(compareFlagsStackAddress)
+  u.hook_add(un.UC_HOOK_MEM_READ,compare_flags_stack_access,begin=compareFlagsStackAddress,end=compareFlagsStackAddress+7)
+  u.hook_add(un.UC_HOOK_MEM_WRITE,compare_flags_stack_access,begin=compareFlagsStackAddress,end=compareFlagsStackAddress+7)
+ if addr in {base+0x4ebdde7,base+0x4eb176a,base+0x4eff202,base+0x4cceab9,base+0x4e5fc75}:
+  pointer=u.reg_read(UC_X86_REG_RBX if addr==base+0x4cceab9 else UC_X86_REG_R11 if addr==base+0x4e5fc75 else UC_X86_REG_RAX)
   snapshot['indirectPointer']=hex(pointer)
-  try:snapshot['indirectTarget']=hex(struct.unpack('<Q',u.mem_read(pointer,8))[0])
-  except un.UcError:snapshot['indirectTarget']='unreadable'
+  if addr in {base+0x4cceab9,base+0x4e5fc75}:snapshot['indirectTarget']=hex(pointer)
+  else:
+   try:snapshot['indirectTarget']=hex(struct.unpack('<Q',u.mem_read(pointer,8))[0])
+   except un.UcError:snapshot['indirectTarget']='unreadable'
  registerCheckpoints.append(snapshot)
 def invalid(u,access,addr,size,value,_):stop({'invalidMemory':hex(addr),'access':access,'rip':hex(u.reg_read(UC_X86_REG_RIP))});return False
 def wr(u,access,addr,size,value,_):
  if not stack<=addr<stack+stacksize:writes[addr&~4095]+=1
-
+ if captureDispatchSlot and addr<dispatchSlotAddress+8 and addr+size>dispatchSlotAddress:
+  try:before=bytes(u.mem_read(addr,size)).hex()
+  except un.UcError:before=None
+  dispatchSlotWrites.append({'eventCount':len(events),'rip':hex(u.reg_read(UC_X86_REG_RIP)),'address':hex(addr),
+   'size':size,'value':hex(value),'beforeBytes':before,
+  'registers':{name:hex(u.reg_read(reg)) for name,reg in dispatchSlotRegisters.items()},
+   'currentBasicBlock':hex(focusedLastBlock['slot-writer']-base) if 'slot-writer' in focusedLastBlock else (hex(lastblock) if lastblock is not None else None)})
 contextRegs={offset:reg for offset,reg in zip(range(0x78,0x100,8),[UC_X86_REG_RAX,UC_X86_REG_RCX,UC_X86_REG_RDX,UC_X86_REG_RBX,UC_X86_REG_RSP,UC_X86_REG_RBP,UC_X86_REG_RSI,UC_X86_REG_RDI,UC_X86_REG_R8,UC_X86_REG_R9,UC_X86_REG_R10,UC_X86_REG_R11,UC_X86_REG_R12,UC_X86_REG_R13,UC_X86_REG_R14,UC_X86_REG_R15,UC_X86_REG_RIP])}
 handlerReturn=0x79000000;u.mem_map(handlerReturn,0x1000);u.mem_write(handlerReturn,b'\xc3')
 def handler_result(u,addr,size,_):
@@ -292,10 +422,17 @@ for address in checkpointAddresses:
 u.hook_add(un.UC_HOOK_INSN,lambda u,_: (stop('cpuid boundary'),True)[1],None,1,0,UC_X86_INS_CPUID)
 u.hook_add(un.UC_HOOK_INSN,lambda u,_: stop('syscall boundary'),None,1,0,UC_X86_INS_SYSCALL)
 block_handle=u.hook_add(un.UC_HOOK_BLOCK,block);u.hook_add(un.UC_HOOK_CODE,api,begin=stub,end=stub+0xfffff);u.hook_add(un.UC_HOOK_MEM_WRITE,wr,begin=stub,end=stub+0xfffff);u.hook_add(un.UC_HOOK_MEM_INVALID,invalid);u.hook_add(un.UC_HOOK_MEM_WRITE,wr,begin=base,end=base+imageSize-1);u.hook_add(un.UC_HOOK_INTR,lambda u,n,_:stop('interrupt '+str(n)))
+u.hook_add(un.UC_HOOK_CODE,ebx_transfer_monitor,begin=base+0x4e99150,end=base+0x4e99400)
+for _name,_begin,_end in focusedBlockRanges:u.hook_add(un.UC_HOOK_BLOCK,focused_block,begin=_begin,end=_end)
 try:u.emu_start(base+0x4bb8000+0x2c495f,0,timeout=40000000,count=500000000)
 except un.UcError as e:
  if reason is None:reason=str(e)
 if reason is None:reason='bounded run ended at '+hex(u.reg_read(UC_X86_REG_RIP))
 memory=bytes(u.mem_read(base+0x4bb8000,len(stage)));(outdir/'api-dungeon.bin').write_bytes(memory)
 report={'profile':mode,'postContextBlocks':postContextBlocks,'registerCheckpoints':registerCheckpoints,'contextReads':contextReads,'sectionHashes':[dict(s,initial=initialSections[s['index']],final=hashlib.sha256(bytes(u.mem_read(base+s['rva'],s['virtualSize']))).hexdigest()) for s in sections if s['virtualSize']],'registers':{name:hex(u.reg_read(reg)) for name,reg in [('rax',UC_X86_REG_RAX),('rbx',UC_X86_REG_RBX),('rcx',UC_X86_REG_RCX),('rdx',UC_X86_REG_RDX),('rsi',UC_X86_REG_RSI),('rdi',UC_X86_REG_RDI),('rbp',UC_X86_REG_RBP)]},'hotBlocks':[(hex(k),v) for k,v in blocks.most_common(10)],'vehProbe':vehProbe,'exceptionHandlers':exceptionHandlers,'status':'conditional-emulation','blockVisits':count,'uniqueBlocks':len(blocks),'stopReason':reason,'events':events,'smbiosReads':smbiosReads,'rip':hex(u.reg_read(UC_X86_REG_RIP)),'tailBlocks':list(tail),'writtenPages':{hex(k):v for k,v in writes.items()},'dungeonSha256':hashlib.sha256(memory).hexdigest(),'elapsedSeconds':time.monotonic()-start,'syntheticExports':{lib:sum(k[0]==mb for k in symbols) for lib,mb in modules.items()}}
+if captureDispatchSlot:report['dispatchSlotWrites']=dispatchSlotWrites
+report['focusedBasicBlocks']=focusedBasicBlocks
+report['comparisonFlagsStack']={'address':hex(compareFlagsStackAddress) if compareFlagsStackAddress is not None else None,'accesses':compareFlagsStackAccesses}
+report['comparisonFlagsState']={'address':hex(compareFlagsMemoryAddress) if compareFlagsMemoryAddress is not None else None,'accesses':compareFlagsStateAccesses}
+report['ebxTransferTrace']=ebxTransferTrace
 (outdir/'api-trace.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({k:v for k,v in report.items() if k!='writtenPages'},indent=2))

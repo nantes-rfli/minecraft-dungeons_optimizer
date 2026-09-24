@@ -18,7 +18,8 @@
     "stage2Narrative": "../../docs/game-data-native-stage2.md",
     "currentInputInventory": "native-source-inventory.json",
     "boundaryExperiments": "firmware-boundary-observations.json",
-    "staticControlFlowMap": "startup-block-map.json"
+    "staticControlFlowMap": "startup-block-map.json",
+    "runtimeFunctionTables": "runtime-function-table-analysis.json"
   },
   "milestones": {
     "D1": {
@@ -40,9 +41,13 @@
         "With the fake payload, one RegOpenKeyA failure reaches a second registry key request; a one-shot success with a synthetic handle reaches RegQueryValueExA. An all-keys-missing counterfactual reaches CreateFileW.",
         "The two RSMB API return continuations decode as basic blocks ending in direct tail JMPs to the shared bounded dispatcher candidate at RVA 0x4ebd3c1; no adjacent call instruction ends at either saved return RVA.",
         "A bounded recursive-descent map recovers the dispatcher lock/cmpxchg backedge and computed JMP at RVA 0x4ebdde7. In the focused synthetic trace, its .dungeon qword slot changes from RVA-like 0x4be79a4 to absolute VA 0x144be79a4; sampled code bytes remain unchanged.",
-        "The exact downstream EBX bit-test block at RVA 0x4e9934f is `and ebx, 1; je 0x4e9938c`. Paired synthetic size-profile traces correlate with different EBX bits and successors, but dataflow from the modeled RSMB return through the dispatcher to EBX remains unresolved.",
+        "A focused write hook identifies the dispatch-slot relocation loop at 0x4eaf539 and its exact writer at 0x4eaf54d. It adds the image base to relative qwords; slot RVA 0x4ed272d is entry 0x4aa, changing 0x4be79a4 into VA 0x144be79a4.",
+        "Paired synthetic captures trace the RSMB size result from RAX into dispatcher stack state, through R11, to .dungeon address 0x144be849b and a comparison at 0x4c77f97. The compare flags are saved, restored into R10, written to state cell 0x144be8443, reloaded into EBX at 0x4e99160, and remain unchanged on the captured path through the bit-test at 0x4e9934f. The zero-size and 0x1000 profiles take different successors; this is conditional-emulation evidence only.",
+        "The focused chain continues from jmp rbx at 0x4cceab9 to 0x4bb927b, then 0x4e5f7d5, whose jmp r11 targets 0x4c1968b and directly reaches 0x4dd6892. The observed path stays inside Stage 1 .dungeon and has no normal call/ret boundary or stable-code transition.",
+        "Runtime function-table registration and unwind API names were checked against imports, initialized ASCII/UTF-16 strings, and seven bounded synthetic profiles; no registration call was observed.",
         "A 74-observation saved API-return sample has 58 unique RVAs and zero matches against 236,168 listed exception ranges. Return RVAs are not function entries; range misses and unreadable unwind RVAs do not establish function absence.",
-        "Bounded scans found no UE4/Dungeons registration marker, accepted native candidate, or run of at least three executable pointers in initialized PE sections and Stage 1. This is a negative search result within the stated scope only."
+        "Bounded scans found no UE4/Dungeons registration marker, accepted native candidate, or run of at least three executable pointers in initialized PE sections and Stage 1. Isolated absolute pointer-like constants do not establish code execution or registration. This is a negative search result within the stated scope only.",
+        "Focused code-hook traces on the two paired profiles record the executed instructions from the EBX state-cell load to the branch. The copied compare carry-flag bit is 1 for the zero-size profile and 0 for the 0x1000 profile; real-Windows meaning remains unknown."
       ],
       "originalImageRegionStopRange": [
         "0x140000000",
@@ -162,7 +167,7 @@
         "second RSMB buffer call at return RVA 0x50d1349",
         "registry calls beginning at return RVA 0x50f434d"
       ],
-      "status": "Paired synthetic traces reach the identified `and ebx, 1; je` block with different successors; the state-transfer chain from the modeled API return through the computed dispatcher into EBX remains unresolved."
+      "status": "Paired conditional traces recover the modeled return through the memory comparison flags and state cell into EBX bit 0, then observe different successors at the `and ebx, 1; je` block. This remains synthetic-emulator evidence and does not establish Windows firmware semantics or a stable-code handoff."
     }
   ],
   "memoryTransitionObservations": {
@@ -205,7 +210,7 @@
     "The generic SMBIOS-like test data is synthetic. A byte-read range is not a semantic field interpretation.",
     "No stable original game-code region, native class implementation, vtable, constructor, UFunction pointer, caller/callee chain, gameplay arithmetic, or output was identified.",
     "No damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified.",
-    "The branch instruction is identified, but the complete state/dataflow from the API return through the computed dispatcher to the tested EBX bit is unresolved."
+    "The modeled API return reaches the compared .dungeon value and its carry flag is traced to EBX bit 0 in the paired conditional profiles; real Windows behavior and downstream game meaning remain unresolved."
   ],
-  "analysisBaselineCommit": "37d7d29ac2ffa799f476703eb5cf1d41285b1756"
+  "analysisBaselineCommit": "cd229bfd3698606c40e9bea7988ed7fc030c9376"
 }
