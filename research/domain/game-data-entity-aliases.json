@@ -3538,10 +3538,13 @@
       "id": "melee-weapon:SkeletonHammer",
       "rawIdentity": "SkeletonHammer",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "canonicalEntity": "melee-weapon:bonehead-hammer",
+      "candidates": [
+        "melee-weapon:bonehead-hammer"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
       "evidenceIds": [],
       "assetPaths": [
@@ -3793,10 +3796,13 @@
       "id": "melee-weapon:Sword_Spooky1",
       "rawIdentity": "Sword_Spooky1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "canonicalEntity": "melee-weapon:sinister-sword",
+      "candidates": [
+        "melee-weapon:sinister-sword"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
       "evidenceIds": [],
       "assetPaths": [
@@ -4046,10 +4052,13 @@
       "id": "ranged-weapon:BatCrossbow",
       "rawIdentity": "BatCrossbow",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "canonicalEntity": "ranged-weapon:shrieking-crossbow",
+      "candidates": [
+        "ranged-weapon:shrieking-crossbow"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
       "evidenceIds": [],
       "assetPaths": [
