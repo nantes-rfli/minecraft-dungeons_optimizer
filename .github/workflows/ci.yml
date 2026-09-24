@@ -2,7 +2,7 @@ name: Validate
 
 on:
   push:
-    branches: [main]
+    branches: [main, codex/horizontal-value-source-adapter-foundation]
   workflow_dispatch:
 
 permissions:
