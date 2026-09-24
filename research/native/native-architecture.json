@@ -32,7 +32,7 @@
       "source": "Bounded aPLib-compatible decompression; recorded independent decoder output agrees. This is not full executable reconstruction."
     },
     "D2": {
-      "status": "in-progress",
+      "status": "static-boundary-survey-complete",
       "previousCheckpoint": "Conditional Unicorn startup emulation stopped at GetSystemFirmwareTable(RSMB, tableId=0, buffer=null, size=0), return RVA 0x50d0fe9.",
       "newCheckpoints": [
         "A positive synthetic size response reaches a second GetSystemFirmwareTable call with a modeled allocation and requested buffer size; execution stops before modeling the firmware bytes.",
@@ -46,8 +46,16 @@
         "The focused chain continues from jmp rbx at 0x4cceab9 to 0x4bb927b, then 0x4e5f7d5, whose jmp r11 targets 0x4c1968b and directly reaches 0x4dd6892. The observed path stays inside Stage 1 .dungeon and has no normal call/ret boundary or stable-code transition.",
         "Runtime function-table registration and unwind API names were checked against imports, initialized ASCII/UTF-16 strings, and seven bounded synthetic profiles; no registration call was observed.",
         "A 74-observation saved API-return sample has 58 unique RVAs and zero matches against 236,168 listed exception ranges. Return RVAs are not function entries; range misses and unreadable unwind RVAs do not establish function absence.",
-        "Bounded scans found no UE4/Dungeons registration marker, accepted native candidate, or run of at least three executable pointers in initialized PE sections and Stage 1. Isolated absolute pointer-like constants do not establish code execution or registration. This is a negative search result within the stated scope only.",
-        "Focused code-hook traces on the two paired profiles record the executed instructions from the EBX state-cell load to the branch. The copied compare carry-flag bit is 1 for the zero-size profile and 0 for the 0x1000 profile; real-Windows meaning remains unknown."
+        "A deeper alignment scan found 87 Stage1 absolute pointer fields at four repeated targets. Three targets match exception-range starts, but sparse typed records, unavailable/high-entropy target bodies, and absent class/function xrefs do not establish a vtable or registration unit.",
+        "Focused code-hook traces on the two paired profiles record the executed instructions from the EBX state-cell load to the branch. The copied compare carry-flag bit is 1 for the zero-size profile and 0 for the 0x1000 profile; real-Windows meaning remains unknown.",
+        "The Stage1 exception-range-start sweep found two decoded direct JMP candidates to initialized .boot bytes: 0x5338753 -> 0x5e297ca and 0x541b32d -> 0x5b8b385. Neither is execution-observed; neither targets section 0, and the destination decode is inconsistent with a validated stable code entry.",
+        "An unseeded Stage1 relative-branch opcode sweep found 3,199 byte-pattern hits into executable PE sections. These are excluded as edges because instruction boundaries and reachability are not established in the high-entropy/encoded region.",
+        "The 87 aligned Stage1 absolute references lie in the first 0x62570-byte source span, use irregular gaps, and form four target groups. Three targets (62 references) equal exception-range starts; their initialized target samples do not establish a normal function body, while two targets are virtual-only.",
+        "The 236,168-row exception directory is ordered by begin address and contains 1,157 .dungeon ranges. Only one referenced unwind-info address is backed by initialized input bytes; range entries do not by themselves establish function code or stack discipline.",
+        "TLS callback VA is zero. The only three DIR64 base relocations point to TLS start/end/index fields. No separate TLS or constructor edge to a Dungeons registration unit was identified.",
+        "The PE has 36 named and 5 ordinal static imports across 41 libraries, including WINMM.dll; GetModuleHandleA is imported, while GetProcAddress, LoadLibrary, and runtime function-table APIs are not. The delay-import directory is in virtual bytes without a raw-file mapping. Its 90 named exports group as AGS, Opus, libsamplerate, and three other names, with no Dungeons/UE registration name.",
+        "Seven saved synthetic profiles resolve SetLastError, GetLastError, and IsUserAnAdmin at three .dungeon return sites. The saved records do not trace resolver results into a class registrar or native function table.",
+        "The D-3 gate remains closed: no stable native implementation and no Dungeons class/function identification mechanism were linked. Current-environment static native evidence is exhausted; Windows runtime capture, a complete post-unpack image, matching symbols, alternative protector-aware tooling, another authenticated build, or live reflection data is required."
       ],
       "originalImageRegionStopRange": [
         "0x140000000",
@@ -55,7 +63,8 @@
       ],
       "originalImageRegionEntryObserved": false,
       "stableGameCodeReached": false,
-      "evidenceReference": "firmware-boundary-observations.json"
+      "evidenceReference": "firmware-boundary-observations.json",
+      "staticBoundaryDecision": "CURRENT-ENVIRONMENT STATIC NATIVE EXHAUSTED"
     },
     "D3": {
       "status": "not-started",
@@ -201,7 +210,7 @@
         "radare2/rizin"
       ]
     },
-    "focusedControlFlowMap": "startup-block-map.json; bounded Capstone block decoding, observed API-return edges, indirect-dispatch sample, branch counterfactual register captures, and bounded UE4 registration-marker scan."
+    "focusedControlFlowMap": "startup-block-map.json plus stable-code-boundary-survey.json; bounded observed-dispatcher blocks, exception-range-seeded sweep, cross-region candidate edges, pointer-cluster structure, PE startup directories, and seven saved synthetic snapshots."
   },
   "limitations": [
     "The local archive's distribution authenticity is unverified; matching an earlier local hash verifies identity with that record only.",
@@ -210,7 +219,8 @@
     "The generic SMBIOS-like test data is synthetic. A byte-read range is not a semantic field interpretation.",
     "No stable original game-code region, native class implementation, vtable, constructor, UFunction pointer, caller/callee chain, gameplay arithmetic, or output was identified.",
     "No damage, Power scaling, effect stacking, cooldown, attack timing application, or effective hit sequence has been verified.",
-    "The modeled API return reaches the compared .dungeon value and its carry flag is traced to EBX bit 0 in the paired conditional profiles; real Windows behavior and downstream game meaning remain unresolved."
+    "The modeled API return reaches the compared .dungeon value and its carry flag is traced to EBX bit 0 in the paired conditional profiles; real Windows behavior and downstream game meaning remain unresolved.",
+    "The final static survey found two low-confidence .dungeon-to-.boot JMP candidates, neither execution-observed or decoded as a stable game-code transition; no UE4/Dungeons registration mechanism or D-3 entry was found."
   ],
-  "analysisBaselineCommit": "cd229bfd3698606c40e9bea7988ed7fc030c9376"
+  "analysisBaselineCommit": "647fcaefed2a8b90372fcc1e5f1297371ae0ee9d"
 }

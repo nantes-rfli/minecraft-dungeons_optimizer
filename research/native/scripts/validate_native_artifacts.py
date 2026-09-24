@@ -61,6 +61,7 @@ def main() -> None:
     firmware = read_json("firmware-boundary-observations.json")
     startup = read_json("startup-block-map.json")
     runtime_tables = read_json("runtime-function-table-analysis.json")
+    boundary = read_json("stable-code-boundary-survey.json")
 
     exe_hash = sha(inventory["binary"]["sha256"], "inventory.binary.sha256")
     stage_hash = sha(inventory["recoveryOutputs"]["stage1"]["sha256"], "inventory.recoveryOutputs.stage1.sha256")
@@ -100,14 +101,95 @@ def main() -> None:
     require(startup["binarySha256"] == exe_hash, "static control-flow executable hash differs from inventory")
     require(startup["stage1Sha256"] == stage_hash, "static control-flow Stage 1 hash differs from inventory")
     require(startup["analysisBaselineCommit"] == architecture["analysisBaselineCommit"]
-            == "cd229bfd3698606c40e9bea7988ed7fc030c9376",
+            == "647fcaefed2a8b90372fcc1e5f1297371ae0ee9d",
             "static analysis baseline differs from the requested main commit")
+    require(architecture["milestones"]["D2"]["status"] == "static-boundary-survey-complete"
+            and architecture["milestones"]["D2"]["staticBoundaryDecision"]
+            == "CURRENT-ENVIRONMENT STATIC NATIVE EXHAUSTED",
+            "Native architecture does not record the final D-2 static boundary decision")
     require(startup["status"] == "research-only" and startup["runtimePromotion"] is False and startup["applicationImpact"] is False,
             "static control-flow analysis must stay research-only")
     analysis_script = resolve_native_ref(startup["analysisScript"]["path"], "startup.analysisScript.path")
     analysis_script_hash = sha(startup["analysisScript"]["sha256"], "startup.analysisScript.sha256")
     require(hashlib.sha256(analysis_script.read_bytes()).hexdigest() == analysis_script_hash,
             "static control-flow source hash differs from recorded hash")
+    require(boundary["analysisBaselineCommit"] == startup["analysisBaselineCommit"]
+            and boundary["binary"]["sha256"] == exe_hash
+            and boundary["stage1"]["sha256"] == stage_hash,
+            "stable-code boundary survey hashes or baseline differ from the Native inventory")
+    require(boundary["status"] == "research-only" and boundary["runtimePromotion"] is False
+            and boundary["applicationImpact"] is False
+            and boundary["analysisProvenance"]["privateInputsCommitted"] is False,
+            "stable-code boundary survey must remain research-only")
+    boundary_script = resolve_native_ref(boundary["analysisProvenance"]["script"], "boundary.analysisProvenance.script")
+    boundary_script_hash = sha(boundary["analysisProvenance"]["scriptSha256"],
+                               "boundary.analysisProvenance.scriptSha256")
+    require(hashlib.sha256(boundary_script.read_bytes()).hexdigest() == boundary_script_hash,
+            "stable-code boundary survey source hash differs from recorded hash")
+    pointer_summary = boundary["codeDataPartition"]["recoveredStage1Partition"]["pointerCluster"]
+    pointer_targets = {item["targetRva"]: item for item in pointer_summary["targets"]}
+    require(pointer_summary["alignedReferenceCount"] == 87 and pointer_summary["uniqueTargetCount"] == 4
+            and {key: item["referenceCount"] for key, item in pointer_targets.items()} == {
+                "0x40b0c0": 37, "0x2f46e1f": 25, "0x276f6f0": 24, "0x4d11a0": 1,
+            }, "deepened Stage1 absolute-pointer evidence changed")
+    require(boundary["codeDataPartition"]["recoveredStage1Partition"]["unalignedAbsoluteReferenceScan"]["byteGranularityReferenceCount"] == 89
+            and len(boundary["codeDataPartition"]["recoveredStage1Partition"]["unalignedAbsoluteReferenceScan"]["unalignedReferences"]) == 2,
+            "byte-granularity Stage1 pointer scan changed")
+    exception = boundary["codeDataPartition"]["exceptionMetadata"]
+    require(exception["entryCount"] == 236168 and exception["beginRangesSorted"] is True
+            and exception["unwindInfoBytesBacked"] == 1 and exception["stage1RangeStartCount"] == 1157,
+            "exception-range relation evidence changed")
+    cross_edges = boundary["crossRegionControlFlow"]["decodedRangeSeededCandidates"]
+    require(len(cross_edges) == 2
+            and {edge["targetRva"] for edge in cross_edges} == {"0x5e297ca", "0x5b8b385"}
+            and all(edge["targetSectionIndex"] == 14 and edge["executionObserved"] is False for edge in cross_edges)
+            and boundary["crossRegionControlFlow"]["section0StableCodeEdges"] == [],
+            "cross-region candidate edge scope changed or was promoted")
+    snapshots = boundary["pointerClusterDeepening"]["savedSyntheticProfileComparison"]
+    require({item["profile"] for item in snapshots} == {
+                "firmware-data-generic", "firmware-zero-size", "firmware-success-size",
+                "firmware-alt-size", "firmware-registry-failure", "firmware-registry-success",
+                "firmware-registry-first-failure",
+            } and all(item["pointerSourceQwordsUnchanged"] == item["pointerSourceQwordCount"] for item in snapshots),
+            "saved profile pointer-cluster comparison is incomplete or inconsistent")
+    require(boundary["tlsInitializationAudit"]["tlsDirectory"]["callbacksVa"] == "0x0"
+            and boundary["tlsInitializationAudit"]["baseRelocations"]["nonzeroRelocationCount"] == 3
+            and boundary["ue4RegistrationSearch"]["mechanismCandidateFound"] is False
+            and boundary["dungeonsBridgeSearch"]["nativeAddress"] is None
+            and boundary["dungeonsBridgeSearch"]["nativeClassOrFunctionRegistrationCandidateFound"] is False,
+            "TLS or native registration candidate state changed")
+    resolution = boundary["dynamicResolutionCluster"]
+    import_summary = resolution["staticImportSummary"]
+    export_summary = resolution["staticExportSummary"]
+    require(import_summary["namedImportCount"] == 36 and import_summary["ordinalImportCount"] == 5
+            and "WINMM.dll" in import_summary["importLibraries"]
+            and import_summary["resolverAndRuntimeMetadataApis"]["GetProcAddress"] is False
+            and import_summary["resolverAndRuntimeMetadataApis"]["GetModuleHandleA"] is True
+            and import_summary["delayImportDirectory"]["parseStatus"]
+            == "directory RVA lies in virtual section bytes without a raw-file mapping",
+            "static/delay import resolver summary changed")
+    require(export_summary["namedExportCount"] == 90 and export_summary["functionCount"] == 90
+            and export_summary["nameFamilies"] == {"ags": 25, "libsamplerate": 19, "opus": 43, "other": 3}
+            and export_summary["registrationOrDungeonsLikeNames"] == []
+            and resolution["observedGetProcAddressEventCount"] == 21
+            and resolution["resolvedSymbols"] == ["GetLastError", "IsUserAnAdmin", "SetLastError"]
+            and {item["returnRva"] for item in resolution["resolverSites"]}
+            == {"0x503a8b3", "0x504cdd5", "0x50cbe03"}
+            and resolution["resultFeedsDispatcherTable"]
+            == "not established by saved traces; no result-pointer dataflow or registration-array xref was captured",
+            "static export or saved resolver-cluster evidence changed")
+    adjacent_dll = boundary["unverifiedAdjacentDll"]
+    require(adjacent_dll["staticallyImportedByMainImage"] is True
+            and adjacent_dll["distributionAuthenticity"] == "unverified local adjacent DLL"
+            and "not promoted as Dungeons game code" in adjacent_dll["assessment"],
+            "adjacent WINMM relationship was promoted beyond its evidence")
+    require(boundary["d3EntryGate"]["decision"] == "NOT FOUND"
+            and boundary["d3EntryGate"]["stableOrOriginalNativeCodeCandidate"] is False
+            and boundary["d3EntryGate"]["nativeClassFunctionIdentificationMechanism"] is False
+            and boundary["exhaustionAssessment"]["finalDecision"]
+            == "CURRENT-ENVIRONMENT STATIC NATIVE EXHAUSTED"
+            and boundary["exhaustionAssessment"]["untestedEvidenceSourceRemainingInCurrentLocalSet"] == [],
+            "D-3 gate or static exhaustion assessment is inconsistent")
     require(runtime_tables["analysisBaselineCommit"] == startup["analysisBaselineCommit"],
             "runtime-function-table assessment baseline differs from the startup map")
     require(runtime_tables["binarySha256"] == exe_hash and runtime_tables["stage1Sha256"] == stage_hash,
@@ -275,6 +357,8 @@ def main() -> None:
         "stage1Sha256": stage_hash,
         "traceScriptSha256": actual_script_hash,
         "staticAnalysisScriptSha256": analysis_script_hash,
+        "staticBoundarySurveyScriptSha256": boundary_script_hash,
+        "d2StaticDecision": boundary["exhaustionAssessment"]["finalDecision"],
         "runtimeFunctionTableAssessment": "bounded-no-registration-observed",
         "priorArtProjects": len(project_ids),
         "functionCandidates": len(candidate_ids),
