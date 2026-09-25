@@ -28,6 +28,7 @@ jobs:
       - run: npm run generate:formal-serialized-relation
       - run: npm test -- --run tests/formalSerializedRelation.test.ts tests/horizontalFormalRelationSource.test.ts
       - run: npm test -- --run tests/scatterCrossbowDataBrowser.test.tsx tests/battleRobeDataBrowser.test.tsx tests/deathCapMushroomDataBrowser.test.tsx
+      - run: npx tsc -b
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
