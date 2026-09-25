@@ -493,8 +493,9 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
       if (!child) continue
 
       const candidates = inputs.relations.relationProjections.filter((record) =>
-        record.occurrence.slice === 'scatter-crossbow'
+        record.occurrence.domainId === 'scatter-crossbow'
         && 'sourceIndex' in record.occurrence
+        && record.occurrence.collectionRef === 'projectile-definitions'
         && record.occurrence.sourceIndex === entry.sourceIndex
       )
       const relation = candidates.length === 1 ? candidates[0] : undefined
@@ -505,12 +506,12 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
       const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
       const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
         && semanticRelation[0]?.sourceDomainId === scatterDomainId
-      const targetRef = relationReady && relation.targetResolution.result === 'resolved' && 'targetEvidenceRef' in relation.targetResolution
-        ? relation.targetResolution.targetEvidenceRef : undefined
+      const targetRef = relationReady && relation.targetRawVerification.result === 'resolved' && 'targetEvidenceRef' in relation.targetRawVerification
+        ? relation.targetRawVerification.targetEvidenceRef : undefined
       const target = targetRef ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === targetRef) : undefined
       const targetReady = Boolean(
         relationReady
-        && relation.targetResolution.result === 'resolved'
+        && relation.targetRawVerification.result === 'resolved'
         && target
         && inputs.scatterCrossbowProjectileRaw
         && sameRawSource(target.provenance, snapshotSource(inputs.scatterCrossbowProjectileRaw)),
@@ -530,7 +531,7 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
             !relation ? 'relation-occurrence-missing-or-ambiguous'
               : relation.result === 'unavailable' ? 'relation-unavailable'
                 : !relationReady ? 'relation-source-mismatch'
-                  : relation.targetResolution.result !== 'resolved' ? relation.targetResolution.reason ?? 'target-not-resolved'
+                  : relation.targetRawVerification.result !== 'resolved' ? relation.targetRawVerification.reason ?? 'target-not-resolved'
                     : !inputs.scatterCrossbowProjectileRaw ? 'target-snapshot-not-supplied' : 'target-snapshot-mismatch',
             relation?.projectionRef,
           )
