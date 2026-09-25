@@ -7,4 +7,5 @@ export const scatterValueMappings = {
   pushbackEnabled: { id: 'scatter-crossbow:configured-pushback-enabled@1', rawField: 'pushback.enablePushback', meaning: 'Serialized configured pushback enable flag.' },
   pushbackStrength: { id: 'scatter-crossbow:configured-pushback-strength@1', rawField: 'pushback.pushbackStrength', meaning: 'Serialized configured pushback strength parameter; no effective displacement is inferred.' },
   ignoreFriendlyFire: { id: 'scatter-crossbow:configured-ignore-friendly-fire@1', rawField: 'IgnoreFriendlyFire', meaning: 'Serialized configured friendly-fire ignore flag.' },
+  delaySeconds: { id: 'scatter-crossbow:configured-delay-seconds@1', rawField: 'DelaySeconds', meaning: 'Serialized configured delay parameter in seconds.' },
 } as const

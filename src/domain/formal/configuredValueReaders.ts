@@ -10,6 +10,13 @@ export type MeleeConfiguredValueMappings = {
   readonly entries: ValueMapping
   readonly damage: ValueMapping
   readonly duration: ValueMapping
+  readonly attackRange: ValueMapping
+  readonly coneAngle: ValueMapping
+  readonly coneOffset: ValueMapping
+  readonly splashMultiplier: ValueMapping
+  readonly damageDelay: ValueMapping
+  readonly variantType: ValueMapping
+  readonly variantLoopAmount: ValueMapping
 }
 
 export type RangedConfiguredValueMappings = {
@@ -17,12 +24,20 @@ export type RangedConfiguredValueMappings = {
   readonly projectileCount: ValueMapping
   readonly angleSpan: ValueMapping
   readonly delayPerProjectile: ValueMapping
+  readonly delaySeconds: ValueMapping
 }
 
 export type MeleeConfiguredEntry = {
   sourceIndex: number
   configuredDamage: Field<number>
   configuredAnimationDurationSeconds: Field<number>
+  configuredAttackRange: Field<number>
+  configuredConeAngleDegrees: Field<number>
+  configuredConeOffsetUnits: Field<number>
+  configuredDamageSplashMultiplier: Field<number>
+  configuredDamageDelaySeconds: Field<number>
+  configuredAttackVariantType: Field<string>
+  configuredVariantLoopAmount: Field<number>
 }
 
 export type RangedConfiguredEntry = {
@@ -30,6 +45,7 @@ export type RangedConfiguredEntry = {
   count: Field<number>
   angle: Field<number>
   delay: Field<number>
+  delaySeconds: Field<number>
 }
 
 export type MeleeConfiguredValues = {
@@ -75,6 +91,13 @@ export function readMeleeConfiguredValues(
           sourceIndex: element.index,
           configuredDamage: readRawValue<number>(raw, locate(mapping.damage.rawField), mapping.damage.id, identityAssertionId, 'FloatProperty', 'number'),
           configuredAnimationDurationSeconds: readRawValue<number>(raw, locate(mapping.duration.rawField), mapping.duration.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredAttackRange: readRawValue<number>(raw, locate(mapping.attackRange.rawField), mapping.attackRange.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredConeAngleDegrees: readRawValue<number>(raw, locate(mapping.coneAngle.rawField), mapping.coneAngle.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredConeOffsetUnits: readRawValue<number>(raw, locate(mapping.coneOffset.rawField), mapping.coneOffset.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredDamageSplashMultiplier: readRawValue<number>(raw, locate(mapping.splashMultiplier.rawField), mapping.splashMultiplier.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredDamageDelaySeconds: readRawValue<number>(raw, locate(mapping.damageDelay.rawField), mapping.damageDelay.id, identityAssertionId, 'FloatProperty', 'number'),
+          configuredAttackVariantType: readRawValue<string>(raw, locate(mapping.variantType.rawField), mapping.variantType.id, identityAssertionId, 'EnumProperty', 'string'),
+          configuredVariantLoopAmount: readRawValue<number>(raw, locate(mapping.variantLoopAmount.rawField), mapping.variantLoopAmount.id, identityAssertionId, 'IntProperty', 'number'),
         }
       }),
     },
@@ -114,6 +137,7 @@ export function readRangedConfiguredValues(
         count: readRawValue<number>(raw, locate(mapping.projectileCount.rawField), mapping.projectileCount.id, identityAssertionId, 'IntProperty', 'number'),
         angle: readRawValue<number>(raw, locate(mapping.angleSpan.rawField), mapping.angleSpan.id, identityAssertionId, 'FloatProperty', 'number'),
         delay: readRawValue<number>(raw, locate(mapping.delayPerProjectile.rawField), mapping.delayPerProjectile.id, identityAssertionId, 'FloatProperty', 'number'),
+        delaySeconds: readRawValue<number>(raw, locate(mapping.delaySeconds.rawField), mapping.delaySeconds.id, identityAssertionId, 'FloatProperty', 'number'),
       }
     }),
   }

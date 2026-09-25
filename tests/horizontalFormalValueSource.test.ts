@@ -82,6 +82,35 @@ function sourceFactById(value: typeof inventory, sourceFactId: string): JsonReco
   return found
 }
 
+function withClonedSourceFact(sourceFactId: string): typeof inventory {
+  const facts = sourceFacts()
+  const index = facts.findIndex((fact) => fact.factId === sourceFactId)
+  if (index < 0) throw new Error(`source fact missing: ${sourceFactId}`)
+  const fact = { ...facts[index]!, source: { ...record(facts[index]!.source) } }
+  const changed = { ...inventory, sourceFacts: [...facts] } as unknown as typeof inventory & { sourceFacts: JsonRecord[] }
+  changed.sourceFacts[index] = fact
+  return changed
+}
+
+function withChangedCandidateReference(sourceFactId: string, mutate: (source: JsonRecord) => void): typeof inventory {
+  const items = ((inventory as unknown as JsonRecord).items as unknown[]).map(record)
+  const itemIndex = items.findIndex((item) => item.category === 'melee' && item.catalogId === 'anchor')
+  const item = items[itemIndex]!
+  const rawCandidate = record(item.rawCandidate)
+  const candidates = (rawCandidate.candidates as unknown[]).map(record)
+  const candidateIndex = candidates.findIndex((candidate) => candidate.packagePath === anchorPackage)
+  const candidate = candidates[candidateIndex]!
+  const facts = (candidate.facts as unknown[]).map(record)
+  const factIndex = facts.findIndex((fact) => fact.sourceFactId === sourceFactId)
+  if (factIndex < 0) throw new Error(`candidate source fact missing: ${sourceFactId}`)
+  const ref = facts[factIndex]!
+  facts[factIndex] = { ...ref, source: { ...record(ref.source) } }
+  mutate(record(record(facts[factIndex]!).source))
+  candidates[candidateIndex] = { ...candidate, facts }
+  items[itemIndex] = { ...item, rawCandidate: { ...rawCandidate, candidates } }
+  return { ...inventory, items } as unknown as typeof inventory
+}
+
 function directFact(
   predicate: (fact: JsonRecord) => boolean,
   value = inventory,
@@ -168,11 +197,17 @@ function horizontalMeleeSource(): Extract<FormalHorizontalConfiguredValueSource,
   const entries = attacks.elements.map(({ fact, sourceFactId }) => {
     const elementPointer = String(record(fact.source).propertyPointer)
     const sourceIndex = Number(record(fact.occurrence).elementIndex)
-    const child = (propertyName: string, mappingId: string) => {
+    const child = <T extends number | string>(
+      propertyName: string,
+      mappingId: string,
+      expectedPropertyType = 'FloatProperty',
+      valueType: 'number' | 'string' = 'number',
+    ) => {
       const childFact = directFact((candidate) =>
         candidate.propertyName === propertyName
+        && candidate.propertyPath === `${String(fact.propertyPath)}.${propertyName}`
         && String(record(candidate.source).propertyPointer).startsWith(`${elementPointer}/properties/`))
-      const result = readHorizontalScalarField<number>(repositoryRoot, inventory, {
+      const result = readHorizontalScalarField<T>(repositoryRoot, inventory, {
         category: 'melee',
         catalogId: 'anchor',
         candidatePackage: anchorPackage,
@@ -181,16 +216,23 @@ function horizontalMeleeSource(): Extract<FormalHorizontalConfiguredValueSource,
         mappingId,
         identityAssertionId: anchorDefinition.assertion.id,
         expectedPropertyName: propertyName,
-        expectedPropertyType: 'FloatProperty',
-        valueType: 'number',
+        expectedPropertyType,
+        valueType,
       })
       if (result.sourceIndex !== sourceIndex) throw new Error('horizontal child sourceIndex fixture mismatch')
       return result.field
     }
     return {
       sourceIndex,
-      configuredDamage: child(mapping.damage.rawField, mapping.damage.id),
-      configuredAnimationDurationSeconds: child(mapping.duration.rawField, mapping.duration.id),
+      configuredDamage: child<number>(mapping.damage.rawField, mapping.damage.id),
+      configuredAnimationDurationSeconds: child<number>(mapping.duration.rawField, mapping.duration.id),
+      configuredAttackRange: child<number>(mapping.attackRange.rawField, mapping.attackRange.id),
+      configuredConeAngleDegrees: child<number>(mapping.coneAngle.rawField, mapping.coneAngle.id),
+      configuredConeOffsetUnits: child<number>(mapping.coneOffset.rawField, mapping.coneOffset.id),
+      configuredDamageSplashMultiplier: child<number>(mapping.splashMultiplier.rawField, mapping.splashMultiplier.id),
+      configuredDamageDelaySeconds: child<number>(mapping.damageDelay.rawField, mapping.damageDelay.id),
+      configuredAttackVariantType: child<string>(mapping.variantType.rawField, mapping.variantType.id, 'EnumProperty', 'string'),
+      configuredVariantLoopAmount: child<number>(mapping.variantLoopAmount.rawField, mapping.variantLoopAmount.id, 'IntProperty'),
     }
   })
 
@@ -233,9 +275,10 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
     expect(() => resolve('sf-does-not-exist')).toThrow(/sourceFactId does not resolve exactly once/)
 
     const damage = directFact((fact) => fact.propertyName === 'Damage' && fact.availabilityState === 'known')
-    const duplicate = structuredClone(inventory)
-    const facts = (duplicate as unknown as JsonRecord).sourceFacts as unknown[]
-    facts.push(structuredClone(sourceFactById(duplicate, damage.sourceFactId)))
+    const duplicate = {
+      ...inventory,
+      sourceFacts: [...sourceFacts(), structuredClone(sourceFactById(inventory, damage.sourceFactId))],
+    } as unknown as typeof inventory
     expect(() => resolve(damage.sourceFactId, duplicate)).toThrow(/sourceFactId does not resolve exactly once/)
   })
 
@@ -251,7 +294,7 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
     }, /source package hash mismatch/],
   ])('rejects %s provenance mismatch', (_label, mutate, expected) => {
     const damage = directFact((fact) => fact.propertyName === 'Damage' && fact.availabilityState === 'known')
-    const changed = structuredClone(inventory)
+    const changed = withClonedSourceFact(damage.sourceFactId)
     mutate(changed, damage.sourceFactId)
     expect(() => resolve(damage.sourceFactId, changed)).toThrow(expected)
   })
@@ -259,14 +302,10 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
   it('rejects non-root direct-wave facts and candidate/source package mismatch', () => {
     const damage = directFact((fact) => fact.propertyName === 'Damage' && fact.availabilityState === 'known')
 
-    const traversed = structuredClone(inventory)
-    const traversedRef = directFactRefs(traversed).find((ref) => ref.sourceFactId === damage.sourceFactId)!
-    record(traversedRef.source).relationPathId = 'rp-not-root'
-    expect(() => resolve(damage.sourceFactId, traversed)).toThrow(/relationPathId=rp-root/)
+    const traversedChanged = withChangedCandidateReference(damage.sourceFactId, source => { source.relationPathId = 'rp-not-root' })
+    expect(() => resolve(damage.sourceFactId, traversedChanged)).toThrow(/relationPathId=rp-root/)
 
-    const mismatched = structuredClone(inventory)
-    const mismatchRef = directFactRefs(mismatched).find((ref) => ref.sourceFactId === damage.sourceFactId)!
-    record(mismatchRef.source).sourcePackage = 'Dungeons/Content/Other'
+    const mismatched = withChangedCandidateReference(damage.sourceFactId, source => { source.sourcePackage = 'Dungeons/Content/Other' })
     expect(() => resolve(damage.sourceFactId, mismatched)).toThrow(/candidatePackage == sourcePackage/)
   })
 
