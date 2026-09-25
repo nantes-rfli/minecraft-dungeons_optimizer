@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import identityArtifact from '../research/domain/formal/identity-evidence-v1.json'
-import relationArtifact from '../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../research/domain/formal/serialized-relation-v2.json'
 import { deathCapMushroomBrowserProjection } from '../src/screens/dataBrowser/deathCapMushroomBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
@@ -42,7 +42,7 @@ describe('Death Cap Mushroom Formal Data Browser consumer', () => {
     expect(deathCapMushroomBrowserProjection.effectRelation.relationRef).toBe(relation.relationRef)
     expect(deathCapMushroomBrowserProjection.effectRelation.target).toMatchObject(relation.target)
     expect(relationProjection.result).toBe('projected')
-    expect(relationProjection.targetResolution).toMatchObject({
+    expect(relationProjection.targetRawVerification).toMatchObject({
       input: 'supplied',
       result: 'resolved',
     })
@@ -69,11 +69,11 @@ describe('Death Cap Mushroom Formal Data Browser consumer', () => {
     expect(row).toContain('sha256-path-size-v1')
   })
 
-  it('keeps GameplayEffect semantics outside Formal v1 and does not infer unsupported gameplay values', () => {
+  it('keeps GameplayEffect semantics outside Formal v2 and does not infer unsupported gameplay values', () => {
     const row = deathCapRow(renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/artifacts' })))
 
     expect(JSON.stringify(relationArtifact.semantic)).not.toContain('gameplay-effect-semantics')
-    expect(row).toContain('GameplayEffect semanticsはFormal v1ではassertしていません')
+    expect(row).toContain('GameplayEffect semanticsはFormal v2ではassertしていません')
     expect(row).toContain('Applicationでは効果内容を解釈・推測しません')
     expect(row).toContain('これはGameplayEffect semanticsが既知であることを意味しません')
     for (const prohibited of ['duration', 'attack speed', 'movement speed', 'Power scaling', 'stacking', 'effective uptime', 'buff / modifier magnitude', '8 + 0.052', '30秒', 'UIData']) {
@@ -89,7 +89,7 @@ describe('Death Cap Mushroom Formal Data Browser consumer', () => {
     ].map((sourcePath) => fs.readFileSync(sourcePath, 'utf8')).join('\n')
 
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
-    expect(browserSources).toContain('research/domain/formal/serialized-relation-v1.json')
+    expect(browserSources).toContain('research/domain/formal/serialized-relation-v2.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/death-cap-mushroom\.json|src\/domain\/temporary/)
     expect(browserSources).not.toMatch(/research\/raw\//)
     expect(browserSources).not.toMatch(/src\/domain\/formal|projectDeathCapMushroom\(|buildFormalSerializedRelationArtifact\(|collectFormalSerializedRelationErrors\(|extract:game-data-raw-package/)
