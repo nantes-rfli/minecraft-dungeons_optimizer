@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import identityArtifact from '../research/domain/formal/identity-evidence-v1.json'
-import relationArtifact from '../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../research/domain/formal/serialized-relation-v2.json'
 import { battleRobeBrowserProjection } from '../src/screens/dataBrowser/battleRobeBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
@@ -38,7 +38,7 @@ describe('Battle Robe Formal Data Browser consumer', () => {
     expect(battleRobeBrowserProjection.gearActorRelation.relationRef).toBe(relation.relationRef)
     expect(battleRobeBrowserProjection.gearActorRelation.target).toMatchObject(relation.target)
     expect(relationProjection.result).toBe('projected')
-    expect(relationProjection.targetResolution).toEqual({
+    expect(relationProjection.targetRawVerification).toEqual({
       input: 'not-supplied',
       result: 'not-resolved',
       reason: 'target-snapshot-not-supplied',
@@ -59,7 +59,7 @@ describe('Battle Robe Formal Data Browser consumer', () => {
 
     expect(JSON.stringify(battleRelation)).not.toContain('armor-property-ownership')
     expect(row).toContain('armor-property-ownership')
-    expect(row).toContain('Armor Property ownership semanticsはFormal v1ではassertしていません')
+    expect(row).toContain('Armor Property ownership semanticsはFormal v2ではassertしていません')
     expect(row).toContain('propertyの有無・件数・gameplay effectを推測しません')
     for (const prohibited of ['MeleeDamageBoost', 'ItemCooldownDecrease', '+30%', '-40%', '効果なし', 'propertyは0件', 'propertyがない']) {
       expect(row).not.toContain(prohibited)
@@ -90,7 +90,7 @@ describe('Battle Robe Formal Data Browser consumer', () => {
     ].map((sourcePath) => fs.readFileSync(sourcePath, 'utf8')).join('\n')
 
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
-    expect(browserSources).toContain('research/domain/formal/serialized-relation-v1.json')
+    expect(browserSources).toContain('research/domain/formal/serialized-relation-v2.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/battle-robe\.json|src\/domain\/temporary|research\/raw\//)
     expect(browserSources).not.toMatch(/projectBattleRobe\(|projectSerializedRelation\(|projectIdentity\(|src\/domain\/formal/)
   })
