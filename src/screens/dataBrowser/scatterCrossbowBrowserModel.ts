@@ -1,6 +1,6 @@
 import identityArtifact from '../../../research/domain/formal/identity-evidence-v1.json'
 import valueArtifact from '../../../research/domain/formal/value-availability-v2.json'
-import relationArtifact from '../../../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../../../research/domain/formal/serialized-relation-v2.json'
 
 type Hash = {
   algorithm: string
@@ -86,8 +86,9 @@ function valueField<T>(field: FormalValueField<T>, rawProperty: string): Scatter
 function projectileRelationPresentation(projectionRef: string, sourceIndex: number) {
   const relation = relationArtifact.semantic.relations.find((entry) =>
     entry.projectionRef === projectionRef
-    && entry.occurrence.slice === 'scatter-crossbow'
+    && entry.occurrence.domainId === 'scatter-crossbow'
     && 'sourceIndex' in entry.occurrence
+    && entry.occurrence.collectionRef === 'projectile-definitions'
     && entry.occurrence.sourceIndex === sourceIndex
   )
   const projection = relationArtifact.relationProjections.find((entry) => entry.projectionRef === projectionRef)
@@ -112,13 +113,13 @@ function projectileRelationPresentation(projectionRef: string, sourceIndex: numb
   const className = (classImportEvidence.observed as ClassImportObserved).className?.value
   if (!className) throw new Error('Scatter Crossbow Formal class import display value is unavailable')
 
-  const targetResolution = projection.targetResolution
-  if (!('targetEvidenceRef' in targetResolution)) {
+  const targetRawVerification = projection.targetRawVerification
+  if (!('targetEvidenceRef' in targetRawVerification)) {
     throw new Error('Scatter Crossbow Formal target EvidenceRef is unavailable')
   }
 
-  const targetEvidence = relationArtifact.provenance.evidence.find((entry) => entry.id === targetResolution.targetEvidenceRef)
-  if (!targetEvidence) throw new Error(`Formal target evidence missing: ${targetResolution.targetEvidenceRef}`)
+  const targetEvidence = relationArtifact.provenance.evidence.find((entry) => entry.id === targetRawVerification.targetEvidenceRef)
+  if (!targetEvidence) throw new Error(`Formal target evidence missing: ${targetRawVerification.targetEvidenceRef}`)
 
   const sourceFingerprint = (targetEvidence.observed as TargetSnapshotObserved).dataset?.sourceFingerprint
 
@@ -132,7 +133,7 @@ function projectileRelationPresentation(projectionRef: string, sourceIndex: numb
       className,
       gamePackagePath: relation.target.gamePackagePath,
     },
-    targetResolution,
+    targetRawVerification,
     rawProperty: 'Projectile',
     evidenceRefs: relation.evidenceRefs,
     provenance: [
