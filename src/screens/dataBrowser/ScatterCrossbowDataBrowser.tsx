@@ -78,8 +78,8 @@ export function ScatterCrossbowDataBrowser() {
       <dt>Object name</dt><dd><code>{definition.projectileRelation.target.objectName}</code></dd>
       <dt>Class name</dt><dd><code>{definition.projectileRelation.target.className}</code></dd>
       <dt>Target package</dt><dd><code>{definition.projectileRelation.target.gamePackagePath}</code></dd>
-      <dt>Target Raw input</dt><dd><code>{definition.projectileRelation.targetResolution.input}</code></dd>
-      <dt>Target resolution</dt><dd><code>{definition.projectileRelation.targetResolution.result}</code></dd>
+      <dt>Target Raw input</dt><dd><code>{definition.projectileRelation.targetRawVerification.input}</code></dd>
+      <dt>Target resolution</dt><dd><code>{definition.projectileRelation.targetRawVerification.result}</code></dd>
     </dl>
       <p className="domain-boundary-note">Projectile relationとtarget resolutionはFormal Relation artifactの結果をそのまま表示しています。ApplicationではObjectProperty validity・import chain・target correspondenceを再検証しません。</p>
       <details className="domain-trace projectile-reference-trace"><summary>reference provenanceを確認</summary><dl>
