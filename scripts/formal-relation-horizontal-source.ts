@@ -51,7 +51,7 @@ type HorizontalItem = JsonRecord & {
   rawCandidate: { candidates: HorizontalCandidate[] }
 }
 
-type InventoryView = HorizontalRawFactInventory & {
+type InventoryView = Omit<HorizontalRawFactInventory, 'items'> & {
   inventoryIdentity: { datasetId: string }
   sourceRelations: HorizontalRelationSource[]
   items: HorizontalItem[]
