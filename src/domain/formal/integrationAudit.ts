@@ -134,7 +134,9 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
           `${record.projectionId}: unresolved Relation must produce dependency failure without Raw evidence`)
         if (record.result === 'unavailable' && record.failureKind === 'dependency') {
           const expectedReason = dependency?.result === 'unavailable' ? 'relation-unavailable'
-            : dependency?.result === 'projected' ? dependency.targetRawVerification.reason ?? 'target-not-resolved' : undefined
+            : dependency?.result === 'projected'
+              ? ('reason' in dependency.targetRawVerification ? dependency.targetRawVerification.reason : 'target-not-resolved')
+              : undefined
           check(record.reason === expectedReason, `${record.projectionId}: Relation dependency reason mismatch`)
         }
       } else if (record.result === 'unavailable' && record.failureKind === 'dependency') {
