@@ -11,14 +11,28 @@ import {
 } from '../scripts/formal-value-horizontal-source.ts'
 import { verifyValueRawTraceProvenance } from '../scripts/formal-value-source-provenance.ts'
 import { matchedIdentityDomainIdFromSource } from '../src/domain/formal/boundarySource.ts'
-import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
-import type {
-  FormalIdentityEvidenceArtifact,
-  FormalSemanticIdentity,
-  RawObservationEvidenceRecord,
+import { readMeleeConfiguredValues } from '../src/domain/formal/configuredValueReaders.ts'
+import {
+  battleRobeFormalIdentity,
+  deathCapMushroomFormalIdentity,
+  fightersBindingsFormalIdentity,
+  formalIdentityDefinitions,
+  scatterCrossbowFormalIdentity,
+} from '../src/domain/formal/identityDefinitions.ts'
+import {
+  projectFormalIdentity,
+  type FormalIdentityEvidenceArtifact,
+  type FormalSemanticIdentity,
+  type RawObservationEvidenceRecord,
 } from '../src/domain/formal/identityEvidence.ts'
-import type { FormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
+import {
+  buildFormalValueAvailabilityArtifact,
+  collectFormalValueAvailabilityErrors,
+  type FormalHorizontalConfiguredValueSource,
+  type FormalValueAvailabilityArtifact,
+} from '../src/domain/formal/valueAvailability.ts'
 import { horizontalMeleeValueMappings } from '../src/domain/formal/horizontalValueMappings.ts'
+import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 
 type JsonRecord = Record<string, unknown>
 
@@ -99,6 +113,108 @@ function resolve(sourceFactId: string, value = inventory): ResolvedHorizontalSou
     catalogId: 'anchor',
     candidatePackage: anchorPackage,
     sourceFactId,
+  })
+}
+
+function readRaw(packagePath: string) {
+  return JSON.parse(fs.readFileSync(`research/raw/packages/${packagePath}.raw.json`, 'utf8'))
+}
+
+function currentValueInputs() {
+  const source = (definition: typeof fightersBindingsFormalIdentity) => {
+    const raw = readRaw(definition.assertion.applicationScope.packagePath)
+    const projected = projectFormalIdentity(raw, definition)
+    return {
+      source: raw,
+      identity: projected.semantic,
+      identityEvidence: projected.evidence.filter(
+        (evidence): evidence is RawObservationEvidenceRecord => evidence.kind === 'raw-observation',
+      ),
+    }
+  }
+  const fighters = source(fightersBindingsFormalIdentity)
+  const scatter = source(scatterCrossbowFormalIdentity)
+  const projectile = readRaw(scatterCrossbowRelationDefinition.targetRawPath)
+  return {
+    fightersBindingsRaw: fighters.source,
+    scatterCrossbowInstanceRaw: scatter.source,
+    scatterCrossbowProjectileRaw: projectile,
+    fightersBindingsIdentity: fighters.identity,
+    fightersBindingsIdentityEvidence: fighters.identityEvidence,
+    scatterCrossbowIdentity: scatter.identity,
+    scatterCrossbowIdentityEvidence: scatter.identityEvidence,
+    relations: buildFormalSerializedRelationArtifact({
+      scatter: { ...scatter, target: projectile },
+      battleRobe: source(battleRobeFormalIdentity),
+      deathCapMushroom: source(deathCapMushroomFormalIdentity),
+    }),
+  }
+}
+
+function horizontalMeleeSource(): Extract<FormalHorizontalConfiguredValueSource, { category: 'melee' }> {
+  const attacks = attackSources()
+  const parent = readHorizontalCollectionField(repositoryRoot, inventory, {
+    category: 'melee',
+    catalogId: 'anchor',
+    candidatePackage: anchorPackage,
+    parentSourceFactId: attacks.parent.sourceFactId,
+    elementSourceFactIds: attacks.elements.map(({ sourceFactId }) => sourceFactId),
+    mappingId: mapping.entries.id,
+    identityAssertionId: anchorDefinition.assertion.id,
+    expectedPropertyName: mapping.entries.rawField,
+  })
+  if (parent.state !== 'known') throw new Error('anchor configured attacks unavailable in test fixture')
+
+  const entries = attacks.elements.map(({ fact, sourceFactId }) => {
+    const elementPointer = String(record(fact.source).propertyPointer)
+    const sourceIndex = Number(record(fact.occurrence).elementIndex)
+    const child = (propertyName: string, mappingId: string) => {
+      const childFact = directFact((candidate) =>
+        candidate.propertyName === propertyName
+        && String(record(candidate.source).propertyPointer).startsWith(`${elementPointer}/properties/`))
+      const result = readHorizontalScalarField<number>(repositoryRoot, inventory, {
+        category: 'melee',
+        catalogId: 'anchor',
+        candidatePackage: anchorPackage,
+        sourceFactId: childFact.sourceFactId,
+        sourceIndexFactId: sourceFactId,
+        mappingId,
+        identityAssertionId: anchorDefinition.assertion.id,
+        expectedPropertyName: propertyName,
+        expectedPropertyType: 'FloatProperty',
+        valueType: 'number',
+      })
+      if (result.sourceIndex !== sourceIndex) throw new Error('horizontal child sourceIndex fixture mismatch')
+      return result.field
+    }
+    return {
+      sourceIndex,
+      configuredDamage: child(mapping.damage.rawField, mapping.damage.id),
+      configuredAnimationDurationSeconds: child(mapping.duration.rawField, mapping.duration.id),
+    }
+  })
+
+  return {
+    category: 'melee',
+    sourceProvenance: parent.trace.raw,
+    definition: anchorDefinition,
+    identity: anchorIdentity,
+    identityEvidence: anchorIdentityEvidence,
+    mapping,
+    values: {
+      configuredAttacks: {
+        state: 'known',
+        value: entries,
+        trace: parent.trace,
+      },
+    },
+  }
+}
+
+function buildWithHorizontal(source: FormalHorizontalConfiguredValueSource) {
+  return buildFormalValueAvailabilityArtifact({
+    ...currentValueInputs(),
+    horizontalConfiguredSources: [source],
   })
 }
 
@@ -272,6 +388,48 @@ describe('Horizontal Raw -> Formal Value source adapter foundation', () => {
     expect(matchedIdentityDomainIdFromSource(
       source, anchorDefinition, unresolved, anchorIdentityEvidence,
     )).toBeUndefined()
+  })
+
+  it('rejects cross-source Value injection before projecting the matched domain', () => {
+    const source = horizontalMeleeSource()
+    source.values = readMeleeConfiguredValues(
+      readRaw(fightersBindingsFormalIdentity.assertion.applicationScope.packagePath),
+      anchorDefinition.assertion.id,
+      mapping,
+    )
+    expect(() => buildWithHorizontal(source)).toThrow(/sourceProvenance does not match parent collection source/)
+  })
+
+  it('rejects child Value fields whose Raw source differs from the parent collection', () => {
+    const source = horizontalMeleeSource()
+    if (source.values.configuredAttacks.state !== 'known') throw new Error('anchor configured attacks unavailable in test fixture')
+    source.values.configuredAttacks.value[0]!.configuredDamage.trace.raw.packagePath = 'Dungeons/Content/Other'
+    expect(() => buildWithHorizontal(source)).toThrow(/Horizontal Value source mismatch: configuredDamage/)
+  })
+
+  it('rejects a Horizontal field with the wrong identityAssertionId', () => {
+    const source = horizontalMeleeSource()
+    if (source.values.configuredAttacks.state !== 'known') throw new Error('anchor configured attacks unavailable in test fixture')
+    source.values.configuredAttacks.value[0]!.configuredDamage.trace.identityAssertionId = 'identity:wrong'
+    expect(() => buildWithHorizontal(source)).toThrow(/identityAssertionId mismatch: configuredDamage/)
+  })
+
+  it('rejects a Horizontal field with the wrong mappingId', () => {
+    const source = horizontalMeleeSource()
+    if (source.values.configuredAttacks.state !== 'known') throw new Error('anchor configured attacks unavailable in test fixture')
+    source.values.configuredAttacks.value[0]!.configuredDamage.trace.mappingId = mapping.duration.id
+    expect(() => buildWithHorizontal(source)).toThrow(/mappingId mismatch: configuredDamage/)
+  })
+
+  it('accepts a correctly bound Horizontal source without changing committed population', () => {
+    const source = horizontalMeleeSource()
+    const artifact = buildWithHorizontal(source)
+    expect(artifact.semantic.melee.anchor?.configuredAttacks?.value).toEqual(
+      source.values.configuredAttacks.state === 'known'
+        ? source.values.configuredAttacks.value.map(({ sourceIndex }) => sourceIndex)
+        : undefined,
+    )
+    expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
   })
 
   it('verifies both existing full Raw snapshot and Structural shard Value provenance', () => {
