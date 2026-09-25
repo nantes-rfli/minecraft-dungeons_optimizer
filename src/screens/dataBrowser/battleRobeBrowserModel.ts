@@ -1,5 +1,5 @@
 import identityArtifact from '../../../research/domain/formal/identity-evidence-v1.json'
-import relationArtifact from '../../../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../../../research/domain/formal/serialized-relation-v2.json'
 
 type Provenance = {
   packagePath: string
@@ -86,7 +86,7 @@ export const battleRobeBrowserProjection = {
       className,
       gamePackagePath: relation.target.gamePackagePath,
     },
-    targetResolution: relationProjection.targetResolution,
+    targetRawVerification: relationProjection.targetRawVerification,
     rawProperty: 'GearActor',
     provenance: [
       { label: 'ObjectProperty', provenance: objectPropertyEvidence.provenance },
@@ -96,6 +96,6 @@ export const battleRobeBrowserProjection = {
   },
   armorPropertyBoundary: {
     key: 'armor-property-ownership',
-    explanation: 'GearActor serialized relationは確認済みですが、target RawはFormal v1ではresolvedではありません。Armor Property ownership semanticsはFormal v1ではassertしていません。propertyの有無・件数・gameplay effectを推測しません。',
+    explanation: 'GearActor serialized relationは確認済みですが、target RawはFormal v2ではresolvedではありません。Armor Property ownership semanticsはFormal v2ではassertしていません。propertyの有無・件数・gameplay effectを推測しません。',
   },
 } as const
