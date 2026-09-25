@@ -64,8 +64,8 @@
     {
       "domainId": "scatter-crossbow",
       "collectionRef": "projectile-definitions",
-      "evidenceRef": "evidence:relation:fnv1a32:2d64c02c",
       "result": "projected",
+      "evidenceRef": "evidence:relation:fnv1a32:2d64c02c",
       "sourceIndices": [
         0
       ]
