@@ -8,11 +8,9 @@ import {
   type HorizontalRelationSourceRequest,
 } from '../scripts/formal-relation-horizontal-source.ts'
 import type { HorizontalRawFactInventory, JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
-import {
-  formalIdentityDefinitions,
-  type FormalIdentityDefinition,
-} from '../src/domain/formal/identityDefinitions.ts'
+import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
 import type {
+  FormalIdentityDefinition,
   FormalIdentityEvidenceArtifact,
   FormalSemanticIdentity,
   RawObservationEvidenceRecord,
