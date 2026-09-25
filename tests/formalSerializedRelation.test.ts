@@ -26,14 +26,14 @@ const scatterElements = (raw: RawPackageSnapshot) => {
   return mutable(cdo.properties!.find((node) => node.name.value === 'AttackDefintion')!.decoding.properties!.find((node) => node.name.value === 'ProjectileDefinition')!.decoding.elements!)
 }
 const field = (input: FormalRelationInputs, slice: 'battleRobe' | 'deathCapMushroom') => mutable(input[slice].source.package.objects.find((object) => object.isClassDefaultObject)!.properties!.find((node) => node.name.value === (slice === 'battleRobe' ? 'GearActor' : 'Effect'))!)
-const result = (input: FormalRelationInputs, slice: string) => build(input).relationProjections.filter((record) => record.occurrence.slice === slice)
+const result = (input: FormalRelationInputs, slice: string) => build(input).relationProjections.filter((record) => record.occurrence.domainId === slice)
 const alter = (artifact: FormalSerializedRelationArtifact, change: (artifact: FormalSerializedRelationArtifact) => void) => { const changed = clone(artifact); change(changed); return changed }
 
-describe('Formal Serialized Relation v1', () => {
+describe('Formal Serialized Relation v2', () => {
   it('projects exactly the three committed outcomes and grounds the artifact', () => {
     const input = inputs(); const artifact = build(input)
     expect(artifact.semantic.relations.map((r) => r.target.gamePackagePath)).toHaveLength(3)
-    expect(artifact.relationProjections.map((r) => r.result === 'projected' && r.targetResolution.result)).toEqual(['resolved', 'not-resolved', 'resolved'])
+    expect(artifact.relationProjections.map((r) => r.result === 'projected' && r.targetRawVerification.result)).toEqual(['resolved', 'not-resolved', 'resolved'])
     expect(audit(artifact, input)).toEqual([])
   })
   it('keeps internally consistent drift projected independently of target resolution', () => {
@@ -74,9 +74,9 @@ describe('Formal Serialized Relation v1', () => {
   it('enumerates sourceIndex, retains siblings, and handles absent or invalid parents', () => {
     const input = inputs(); const elements = scatterElements(input.scatter.source)
     const second = clone(elements[0]!); second.index = 3; elements.push(second)
-    expect(result(input, 'scatter-crossbow').map((r) => r.occurrence)).toEqual([{ slice: 'scatter-crossbow', sourceIndex: 0 }, { slice: 'scatter-crossbow', sourceIndex: 3 }])
+    expect(result(input, 'scatter-crossbow').map((r) => r.occurrence)).toEqual([{ domainId: 'scatter-crossbow', collectionRef: 'projectile-definitions', sourceIndex: 0 }, { domainId: 'scatter-crossbow', collectionRef: 'projectile-definitions', sourceIndex: 3 }])
     elements.reverse()
-    expect(result(input, 'scatter-crossbow').map((r) => r.occurrence)).toEqual([{ slice: 'scatter-crossbow', sourceIndex: 3 }, { slice: 'scatter-crossbow', sourceIndex: 0 }])
+    expect(result(input, 'scatter-crossbow').map((r) => r.occurrence)).toEqual([{ domainId: 'scatter-crossbow', collectionRef: 'projectile-definitions', sourceIndex: 3 }, { domainId: 'scatter-crossbow', collectionRef: 'projectile-definitions', sourceIndex: 0 }])
     second.properties!.find((p) => p.name.value === 'Projectile')!.decoding.value = null
     expect(result(input, 'scatter-crossbow').map((r) => r.result)).toEqual(['unavailable', 'projected'])
     elements[0]!.index = elements[1]!.index
@@ -93,7 +93,7 @@ describe('Formal Serialized Relation v1', () => {
     const input = inputs(); const elements = scatterElements(input.scatter.source)
     const second = clone(elements[0]!); second.index = 4; elements.push(second)
     const artifact = build(input)
-    const [first, next] = artifact.relationProjections.filter((record) => record.occurrence.slice === 'scatter-crossbow')
+    const [first, next] = artifact.relationProjections.filter((record) => record.occurrence.domainId === 'scatter-crossbow')
     expect(first!.result).toBe('projected')
     expect(next!.result).toBe('projected')
     expect(first!.evidenceRefs[0]).not.toBe(next!.evidenceRefs[0])
@@ -116,8 +116,8 @@ describe('Formal Serialized Relation v1', () => {
   })
   it('resolves only the fixed slice path correspondence while retaining drifted relations', () => {
     const input = inputs()
-    expect(result(input, 'scatter-crossbow')[0]).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'resolved' } })
-    expect(result(input, 'death-cap-mushroom')[0]).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'resolved' } })
+    expect(result(input, 'scatter-crossbow')[0]).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'resolved' } })
+    expect(result(input, 'death-cap-mushroom')[0]).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'resolved' } })
     const raw = mutable(input.deathCapMushroom.source)
     const reference = field(input, 'deathCapMushroom').decoding.value as Record<string, unknown>
     const cls = raw.package.imports.find((entry) => entry.rawPackageIndex === reference.rawPackageIndex)!
@@ -125,7 +125,7 @@ describe('Formal Serialized Relation v1', () => {
     outer.objectName.value = '/Game/Actors/Items/DeathCapMushroom/AlternateEffect'
     cls.outerReference.objectName = outer.objectName.value
     const record = result(input, 'death-cap-mushroom')[0]!
-    expect(record).toMatchObject({ result: 'projected', targetResolution: { input: 'supplied', result: 'not-resolved' } })
+    expect(record).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'not-resolved' } })
   })
   it.each(['schema', 'path', 'dataset', 'algorithm', 'fingerprint'])(`keeps relation projected when target %s mismatches`, (mode) => {
     const input = inputs(); const target = mutable(input.deathCapMushroom.target!)
@@ -136,14 +136,14 @@ describe('Formal Serialized Relation v1', () => {
     if (mode === 'fingerprint') target.dataset.sourceFingerprint.value = 'other'
     const record = result(input, 'death-cap-mushroom')[0]!
     expect(record.result).toBe('projected')
-    if (record.result === 'projected') expect(record.targetResolution).toMatchObject({ input: 'supplied', result: 'not-resolved' })
+    if (record.result === 'projected') expect(record.targetRawVerification).toMatchObject({ input: 'supplied', result: 'not-resolved' })
   })
   it('keeps projection identity across target resolution changes', () => {
     const input = inputs(); const withTarget = result(input, 'death-cap-mushroom')[0]!
     delete input.deathCapMushroom.target
     const without = result(input, 'death-cap-mushroom')[0]!
     expect(without.projectionRef).toBe(withTarget.projectionRef)
-    if (without.result === 'projected') expect(without.targetResolution).toEqual({ input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' })
+    if (without.result === 'projected') expect(without.targetRawVerification).toEqual({ input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' })
   })
   it('rejects coverage and semantic/projection tampering', () => {
     const input = inputs(); const original = build(input)
@@ -152,10 +152,10 @@ describe('Formal Serialized Relation v1', () => {
       (a: FormalSerializedRelationArtifact) => { a.relationProjections.pop(); a.semantic.relations.pop() },
       (a: FormalSerializedRelationArtifact) => { a.relationProjections.push({ ...a.relationProjections[0]!, projectionRef: 'extra' }) },
       (a: FormalSerializedRelationArtifact) => { a.relationProjections.push(clone(a.relationProjections[0]!)) },
-      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') a.relationProjections[0]!.targetResolution = { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } },
-      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') delete (a.relationProjections[0] as { targetResolution?: unknown }).targetResolution },
-      (a: FormalSerializedRelationArtifact) => { a.relationProjections[0] = { ...a.relationProjections[0]!, result: 'unavailable', reason: 'fabricated', failureStage: 'object-property', targetResolution: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } } as unknown as typeof a.relationProjections[number] },
-      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') a.relationProjections[0]!.targetResolution = { input: 'supplied', result: 'not-resolved', reason: 'target-snapshot-mismatch', targetEvidenceRef: 'missing' } },
+      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') a.relationProjections[0]!.targetRawVerification = { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } },
+      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') delete (a.relationProjections[0] as { targetRawVerification?: unknown }).targetRawVerification },
+      (a: FormalSerializedRelationArtifact) => { a.relationProjections[0] = { ...a.relationProjections[0]!, result: 'unavailable', reason: 'fabricated', failureStage: 'object-property', targetRawVerification: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } } as unknown as typeof a.relationProjections[number] },
+      (a: FormalSerializedRelationArtifact) => { if (a.relationProjections[0]!.result === 'projected') a.relationProjections[0]!.targetRawVerification = { input: 'supplied', result: 'not-resolved', reason: 'target-snapshot-mismatch', targetEvidenceRef: 'missing' } },
       (a: FormalSerializedRelationArtifact) => { a.relationProjections[0]!.evidenceRefs = ['missing'] },
       (a: FormalSerializedRelationArtifact) => { a.provenance.evidence.push(clone(a.provenance.evidence[0]!)) },
       (a: FormalSerializedRelationArtifact) => { a.provenance.evidence[0]!.observed = 'tampered' },
