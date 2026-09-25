@@ -31,7 +31,7 @@ describe('Formal Value v2 integration', () => {
   it('accepts all 50 connected current Melee/Ranged domains', () => {
     const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8'))
     const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8'))
-    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v1.json', 'utf8'))
+    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8'))
     expect(Object.keys(value.semantic.melee)).toHaveLength(27)
     expect(Object.keys(value.semantic.ranged)).toHaveLength(23)
     expect(collectFormalIntegrationErrors(identity, value, relation)).toEqual([])
@@ -66,7 +66,10 @@ describe('Formal Value v2 integration', () => {
     target!.relationProjectionRef = 'projection:wrong'
     expect(collectFormalIntegrationErrors(original.identity, value, original.relation)).toContainEqual(expect.stringContaining('relationProjectionRef mismatch'))
     const relation = structuredClone(original.relation)
-    relation.scatterParent!.sourceIndices = [9]
+    const scatterCollection = relation.relationCollections.find((item) =>
+      item.domainId === 'scatter-crossbow' && item.collectionRef === 'projectile-definitions')
+    if (!scatterCollection || scatterCollection.result !== 'projected') throw new Error('Scatter relation collection missing')
+    scatterCollection.sourceIndices = [9]
     expect(collectFormalIntegrationErrors(original.identity, original.value, relation)).toContainEqual(expect.stringContaining('sourceIndex mismatch'))
   })
 })
