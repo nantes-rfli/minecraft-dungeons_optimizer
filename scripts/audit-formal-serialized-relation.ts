@@ -6,7 +6,6 @@ import {
   deathCapMushroomRelationDefinition,
   scatterCrossbowRelationDefinition,
   type FormalRelationInputs,
-  type FormalSerializedRelationArtifact,
 } from '../src/domain/formal/serializedRelation.ts'
 import {
   battleRobeFormalIdentity,
