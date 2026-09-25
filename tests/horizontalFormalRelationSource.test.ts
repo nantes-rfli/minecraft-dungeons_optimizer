@@ -218,7 +218,7 @@ describe('Horizontal Raw -> Formal Relation source adapter foundation', () => {
 
   it('rejects foreign or incorrectly bound Formal Identity evidence', () => {
     const foreignEvidence = structuredClone(melee.identityEvidence)
-    foreignEvidence[0]!.provenance.packageHash.value = 'foreign-source'
+    record(foreignEvidence[0]!.provenance.packageHash).value = 'foreign-source'
     expect(() => resolveHorizontalRelationSource(
       repositoryRoot,
       minimalInventory(melee),
