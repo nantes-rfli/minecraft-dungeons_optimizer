@@ -4,14 +4,21 @@ import {
   readMeleeConfiguredValues,
   readRangedConfiguredValues,
   type MeleeConfiguredValueMappings,
+  type MeleeConfiguredValues,
   type RangedConfiguredEntry,
   type RangedConfiguredValueMappings,
+  type RangedConfiguredValues,
 } from './configuredValueReaders.ts'
 import { scatterValueMappings } from './scatterValueMappings.ts'
 import type { Field, RawTrace, UnavailableState } from './rawProjection.ts'
-import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
+import {
+  evidenceFingerprint,
+  type FormalIdentityDefinition,
+  type FormalSemanticIdentity,
+  type RawObservationEvidenceRecord,
+} from './identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
-import { matchedIdentityDomainId, sameRawSource, snapshotSource } from './boundarySource.ts'
+import { matchedIdentityDomainId, matchedIdentityDomainIdFromSource, sameRawSource, snapshotSource } from './boundarySource.ts'
 import { readScatterTarget, readScatterVelocity } from './scatterValueReaders.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
 
@@ -95,6 +102,16 @@ export type FormalValueAvailabilityArtifact = {
   provenance: { evidence: ValueEvidenceRecord[] }
 }
 
+export type FormalHorizontalConfiguredValueSource = {
+  sourceProvenance: RawTrace
+  definition: FormalIdentityDefinition
+  identity: FormalSemanticIdentity
+  identityEvidence: RawObservationEvidenceRecord[]
+} & (
+  | { category: 'melee'; mapping: MeleeConfiguredValueMappings; values: MeleeConfiguredValues }
+  | { category: 'ranged'; mapping: RangedConfiguredValueMappings; values: RangedConfiguredValues }
+)
+
 export type FormalValueInputs = {
   fightersBindingsRaw: RawPackageSnapshot
   scatterCrossbowInstanceRaw: RawPackageSnapshot
@@ -104,6 +121,7 @@ export type FormalValueInputs = {
   scatterCrossbowIdentity: FormalSemanticIdentity
   scatterCrossbowIdentityEvidence: RawObservationEvidenceRecord[]
   relations: FormalSerializedRelationArtifact
+  horizontalConfiguredSources?: readonly FormalHorizontalConfiguredValueSource[]
 }
 
 type ProjectionAccumulator = {
@@ -233,10 +251,87 @@ function collectionField(field: Field<readonly { sourceIndex: number }[]>): Fiel
   return { state: 'unknown', reason: indices.reason, trace: field.trace }
 }
 
+function assertHorizontalFieldBinding(
+  field: Field<unknown>,
+  parentSource: RawTrace,
+  definition: FormalIdentityDefinition,
+  expectedMappingId: string,
+  label: string,
+): void {
+  if (!sameRawSource(parentSource, field.trace.raw)) throw new Error(`Horizontal Value source mismatch: ${label}`)
+  if (field.trace.identityAssertionId !== definition.assertion.id) {
+    throw new Error(`Horizontal Value identityAssertionId mismatch: ${label}`)
+  }
+  if (field.trace.mappingId !== expectedMappingId) {
+    throw new Error(`Horizontal Value mappingId mismatch: ${label}`)
+  }
+}
+
+function horizontalValueSource(source: FormalHorizontalConfiguredValueSource): RawTrace {
+  if (source.category === 'melee') {
+    const parent = source.values.configuredAttacks
+    if (!sameRawSource(source.sourceProvenance, parent.trace.raw)) {
+      throw new Error('Horizontal Value sourceProvenance does not match parent collection source')
+    }
+    assertHorizontalFieldBinding(parent, parent.trace.raw, source.definition, source.mapping.entries.id, 'configuredAttacks')
+    if (parent.state === 'known') {
+      for (const entry of parent.value) {
+        assertHorizontalFieldBinding(
+          entry.configuredDamage,
+          parent.trace.raw,
+          source.definition,
+          source.mapping.damage.id,
+          `configuredDamage[sourceIndex=${entry.sourceIndex}]`,
+        )
+        assertHorizontalFieldBinding(
+          entry.configuredAnimationDurationSeconds,
+          parent.trace.raw,
+          source.definition,
+          source.mapping.duration.id,
+          `configuredAnimationDurationSeconds[sourceIndex=${entry.sourceIndex}]`,
+        )
+      }
+    }
+    return parent.trace.raw
+  }
+
+  const parent = source.values.definitions
+  if (!sameRawSource(source.sourceProvenance, parent.trace.raw)) {
+    throw new Error('Horizontal Value sourceProvenance does not match parent collection source')
+  }
+  assertHorizontalFieldBinding(parent, parent.trace.raw, source.definition, source.mapping.definitions.id, 'definitions')
+  if (parent.state === 'known') {
+    for (const entry of parent.value) {
+      assertHorizontalFieldBinding(
+        entry.count,
+        parent.trace.raw,
+        source.definition,
+        source.mapping.projectileCount.id,
+        `count[sourceIndex=${entry.sourceIndex}]`,
+      )
+      assertHorizontalFieldBinding(
+        entry.angle,
+        parent.trace.raw,
+        source.definition,
+        source.mapping.angleSpan.id,
+        `angle[sourceIndex=${entry.sourceIndex}]`,
+      )
+      assertHorizontalFieldBinding(
+        entry.delay,
+        parent.trace.raw,
+        source.definition,
+        source.mapping.delayPerProjectile.id,
+        `delay[sourceIndex=${entry.sourceIndex}]`,
+      )
+    }
+  }
+  return parent.trace.raw
+}
+
 function projectMeleeConfiguredValues(
   accumulator: ProjectionAccumulator,
   domainId: string,
-  values: ReturnType<typeof readMeleeConfiguredValues>,
+  values: MeleeConfiguredValues,
   mapping: MeleeConfiguredValueMappings,
 ): FormalMeleeConfiguredValues {
   const semantic: FormalMeleeConfiguredValues = {}
@@ -261,7 +356,7 @@ function projectMeleeConfiguredValues(
 function projectRangedConfiguredValues(
   accumulator: ProjectionAccumulator,
   domainId: string,
-  values: ReturnType<typeof readRangedConfiguredValues>,
+  values: RangedConfiguredValues,
   mapping: RangedConfiguredValueMappings,
 ): { semantic: FormalRangedConfiguredValues; entries?: RangedConfiguredEntry[] } {
   const semantic: FormalRangedConfiguredValues = {}
@@ -381,6 +476,24 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
         const value = addProjection<number | boolean>(accumulator, mappingId, occurrence, field, undefined, relation!.projectionRef)
         if (value) Object.assign(child, { [key]: value })
       }
+    }
+  }
+
+  for (const source of inputs.horizontalConfiguredSources ?? []) {
+    const valueSource = horizontalValueSource(source)
+    const domainId = matchedIdentityDomainIdFromSource(
+      valueSource,
+      source.definition,
+      source.identity,
+      source.identityEvidence,
+    )
+    if (!domainId) continue
+    if (source.category === 'melee') {
+      if (semantic.melee[domainId]) throw new Error(`Duplicate Formal melee Value source: ${domainId}`)
+      semantic.melee[domainId] = projectMeleeConfiguredValues(accumulator, domainId, source.values, source.mapping)
+    } else {
+      if (semantic.ranged[domainId]) throw new Error(`Duplicate Formal ranged Value source: ${domainId}`)
+      semantic.ranged[domainId] = projectRangedConfiguredValues(accumulator, domainId, source.values, source.mapping).semantic
     }
   }
 

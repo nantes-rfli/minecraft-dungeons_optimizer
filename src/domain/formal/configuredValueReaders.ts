@@ -32,6 +32,14 @@ export type RangedConfiguredEntry = {
   delay: Field<number>
 }
 
+export type MeleeConfiguredValues = {
+  configuredAttacks: Field<MeleeConfiguredEntry[]>
+}
+
+export type RangedConfiguredValues = {
+  definitions: Field<RangedConfiguredEntry[]>
+}
+
 const cdo = (raw: RawPackageSnapshot) => {
   const candidates = rawCdoCandidates(raw)
   return candidates.length === 1 ? candidates[0] : undefined
@@ -41,7 +49,7 @@ export function readMeleeConfiguredValues(
   raw: RawPackageSnapshot,
   identityAssertionId: string,
   mapping: MeleeConfiguredValueMappings,
-): { configuredAttacks: Field<MeleeConfiguredEntry[]> } {
+): MeleeConfiguredValues {
   const parent = topLevelRawNode(cdo(raw), mapping.entries.rawField)
   const trace = projectionTrace(raw, parent, mapping.entries.id, identityAssertionId)
   if (!parent.node) return { configuredAttacks: {
@@ -78,7 +86,7 @@ export function readRangedConfiguredValues(
   identityAssertionId: string,
   mapping: RangedConfiguredValueMappings,
   attackDefinitionRawField: string,
-): { definitions: Field<RangedConfiguredEntry[]> } {
+): RangedConfiguredValues {
   const attack = topLevelRawNode(cdo(raw), attackDefinitionRawField)
   const parent = nestedRawNode(attack, mapping.definitions.rawField)
   const trace = projectionTrace(raw, parent, mapping.definitions.id, identityAssertionId)
