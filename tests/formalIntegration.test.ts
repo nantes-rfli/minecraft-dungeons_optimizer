@@ -28,8 +28,12 @@ function artifacts() {
 }
 
 describe('Formal Value v2 integration', () => {
-  it('accepts connected current outcomes', () => {
-    const { identity, value, relation } = artifacts()
+  it('accepts all 50 connected current Melee/Ranged domains', () => {
+    const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8'))
+    const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8'))
+    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v1.json', 'utf8'))
+    expect(Object.keys(value.semantic.melee)).toHaveLength(27)
+    expect(Object.keys(value.semantic.ranged)).toHaveLength(23)
     expect(collectFormalIntegrationErrors(identity, value, relation)).toEqual([])
   })
   it('rejects one normally generated artifact from another Raw snapshot', () => {

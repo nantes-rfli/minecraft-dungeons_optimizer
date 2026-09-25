@@ -59,11 +59,12 @@ describe('Formal Value / Availability v2 projection', () => {
     expect(Object.keys(artifact.semantic.melee)).toEqual(['fighters-bindings'])
     expect(Object.keys(artifact.semantic.ranged)).toEqual(['scatter-crossbow'])
     expect(artifact).not.toHaveProperty('semantic.fightersBindings')
-    expect(artifact.valueProjections.map(({ projectionId }) => projectionId)).toEqual(migrationBaseline.projectionIds)
-    expect([...new Set(artifact.valueProjections.map(({ mappingId }) => mappingId))]).toEqual(migrationBaseline.mappingIds)
-    expect(artifact.provenance.evidence.map(({ id, fingerprint, provenance }) => ({ id, fingerprint, provenance }))).toEqual(migrationBaseline.evidence)
-    expect(artifact.semantic.melee['fighters-bindings']!).toEqual(migrationBaseline.representativeSemantic.melee)
-    expect(artifact.semantic.ranged['scatter-crossbow']!).toEqual(migrationBaseline.representativeSemantic.ranged)
+    expect(artifact.valueProjections.map(({ projectionId }) => projectionId)).toEqual(expect.arrayContaining(migrationBaseline.projectionIds))
+    expect([...new Set(artifact.valueProjections.map(({ mappingId }) => mappingId))]).toEqual(expect.arrayContaining(migrationBaseline.mappingIds))
+    expect(artifact.provenance.evidence.map(({ id, fingerprint, provenance }) => ({ id, fingerprint, provenance })))
+      .toEqual(expect.arrayContaining(migrationBaseline.evidence))
+    expect(artifact.semantic.melee['fighters-bindings']!).toMatchObject(migrationBaseline.representativeSemantic.melee)
+    expect(artifact.semantic.ranged['scatter-crossbow']!).toMatchObject(migrationBaseline.representativeSemantic.ranged)
   })
 
   it('projects only the specified source-backed semantic values with resolvable evidence', () => {

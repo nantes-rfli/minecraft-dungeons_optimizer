@@ -16,6 +16,13 @@ type JsonRecord = Record<string, unknown>
 
 const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).digest('hex')
 const isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value)
+const verifiedShardCache = new Map<string, RawStructuralInventoryShard>()
+
+function deepFreeze<T>(value: T): T {
+  if (typeof value !== 'object' || value === null || Object.isFrozen(value)) return value
+  for (const child of Object.values(value as Record<string, unknown>)) deepFreeze(child)
+  return Object.freeze(value)
+}
 
 function sameHash(
   left: { algorithm: string; value: string } | undefined,
@@ -78,14 +85,20 @@ export function readVerifiedStructuralShard(
   if (compressed.byteLength !== meta.compressedBytes || sha256(compressed) !== meta.compressedSha256) {
     throw new Error(`Structural Inventory shard compressed hash mismatch: ${artifactPath}`)
   }
+  const cacheKey = [path.resolve(repositoryRoot), artifactPath, manifest.scope.dataset.id, meta.compressedSha256,
+    meta.uncompressedSha256, meta.uncompressedBytes, meta.packageCount, meta.edgeCount].join('\0')
+  const cached = verifiedShardCache.get(cacheKey)
+  if (cached) return { manifest, meta, shard: cached }
+
   const uncompressed = gunzipSync(compressed)
   if (uncompressed.byteLength !== meta.uncompressedBytes || sha256(uncompressed) !== meta.uncompressedSha256) {
     throw new Error(`Structural Inventory shard content hash mismatch: ${artifactPath}`)
   }
-  const shard = JSON.parse(uncompressed.toString('utf8')) as RawStructuralInventoryShard
+  const shard = deepFreeze(JSON.parse(uncompressed.toString('utf8')) as RawStructuralInventoryShard)
   if (shard.schemaVersion !== 1 || shard.packages.length !== meta.packageCount || shard.edges.length !== meta.edgeCount) {
     throw new Error(`Structural Inventory shard metadata mismatch: ${artifactPath}`)
   }
+  verifiedShardCache.set(cacheKey, shard)
   return { manifest, meta, shard }
 }
 

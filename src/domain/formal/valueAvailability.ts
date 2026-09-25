@@ -1,5 +1,6 @@
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { fightersBindingsValueMappings } from './fightersBindingsValueMappings.ts'
+import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
 import {
   readMeleeConfiguredValues,
   readRangedConfiguredValues,
@@ -74,6 +75,13 @@ export type FormalMeleeConfiguredValues = {
     sourceIndex: number
     configuredDamage?: SourceBackedValue<number>
     configuredAnimationDurationSeconds?: SourceBackedValue<number>
+    configuredAttackRange?: SourceBackedValue<number>
+    configuredConeAngleDegrees?: SourceBackedValue<number>
+    configuredConeOffsetUnits?: SourceBackedValue<number>
+    configuredDamageSplashMultiplier?: SourceBackedValue<number>
+    configuredDamageDelaySeconds?: SourceBackedValue<number>
+    configuredAttackVariantType?: SourceBackedValue<string>
+    configuredVariantLoopAmount?: SourceBackedValue<number>
   }[]
 }
 
@@ -85,6 +93,7 @@ export type FormalRangedConfiguredValues = {
     configuredProjectileCount?: SourceBackedValue<number>
     configuredAngleSpan?: SourceBackedValue<number>
     configuredDelaySecondsPerProjectile?: SourceBackedValue<number>
+    configuredDelaySeconds?: SourceBackedValue<number>
     configuredPushbackEnabled?: SourceBackedValue<boolean>
     configuredPushbackStrength?: SourceBackedValue<number>
     configuredIgnoreFriendlyFire?: SourceBackedValue<boolean>
@@ -203,6 +212,9 @@ function addProjection<T>(
   evidenceInputs?: NonEmptyArray<EvidenceInput>,
   relationProjectionRef?: string,
 ): SourceBackedValue<T> | undefined {
+  if (field.trace.mappingId !== mappingId || !field.trace.identityAssertionId) {
+    throw new Error(`Value field mapping/Identity assertion binding mismatch for ${mappingId}`)
+  }
   const projectionId = valueProjectionRef(mappingId, occurrence)
   const inputs = evidenceInputs ?? [{
     provenance: field.trace.raw,
@@ -290,6 +302,18 @@ function horizontalValueSource(source: FormalHorizontalConfiguredValueSource): R
           source.mapping.duration.id,
           `configuredAnimationDurationSeconds[sourceIndex=${entry.sourceIndex}]`,
         )
+        const fields = [
+          [entry.configuredAttackRange, source.mapping.attackRange.id, 'configuredAttackRange'],
+          [entry.configuredConeAngleDegrees, source.mapping.coneAngle.id, 'configuredConeAngleDegrees'],
+          [entry.configuredConeOffsetUnits, source.mapping.coneOffset.id, 'configuredConeOffsetUnits'],
+          [entry.configuredDamageSplashMultiplier, source.mapping.splashMultiplier.id, 'configuredDamageSplashMultiplier'],
+          [entry.configuredDamageDelaySeconds, source.mapping.damageDelay.id, 'configuredDamageDelaySeconds'],
+          [entry.configuredAttackVariantType, source.mapping.variantType.id, 'configuredAttackVariantType'],
+          [entry.configuredVariantLoopAmount, source.mapping.variantLoopAmount.id, 'configuredVariantLoopAmount'],
+        ] as const
+        for (const [field, mappingId, label] of fields) {
+          assertHorizontalFieldBinding(field, parent.trace.raw, source.definition, mappingId, `${label}[sourceIndex=${entry.sourceIndex}]`)
+        }
       }
     }
     return parent.trace.raw
@@ -323,9 +347,22 @@ function horizontalValueSource(source: FormalHorizontalConfiguredValueSource): R
         source.mapping.delayPerProjectile.id,
         `delay[sourceIndex=${entry.sourceIndex}]`,
       )
+      assertHorizontalFieldBinding(
+        entry.delaySeconds,
+        parent.trace.raw,
+        source.definition,
+        source.mapping.delaySeconds.id,
+        `delaySeconds[sourceIndex=${entry.sourceIndex}]`,
+      )
     }
   }
   return parent.trace.raw
+}
+
+function requireIdentityBinding(field: Field<unknown>, identityAssertionId: string): void {
+  if (field.trace.identityAssertionId !== identityAssertionId) {
+    throw new Error(`Value field Identity assertion binding mismatch: expected ${identityAssertionId}, got ${field.trace.identityAssertionId}`)
+  }
 }
 
 function projectMeleeConfiguredValues(
@@ -335,6 +372,8 @@ function projectMeleeConfiguredValues(
   mapping: MeleeConfiguredValueMappings,
 ): FormalMeleeConfiguredValues {
   const semantic: FormalMeleeConfiguredValues = {}
+  const identityAssertionId = values.configuredAttacks.trace.identityAssertionId
+  requireIdentityBinding(values.configuredAttacks, identityAssertionId)
   const parentOccurrence = valueScopeOccurrence(domainId, 'configured-attacks')
   const attacks = collectionField(values.configuredAttacks)
   const configuredAttacks = addProjection(accumulator, mapping.entries.id, parentOccurrence, attacks)
@@ -344,10 +383,29 @@ function projectMeleeConfiguredValues(
   semantic.attacks = values.configuredAttacks.value.map((entry) => {
     const occurrence = valueCollectionOccurrence(domainId, 'configured-attacks', entry.sourceIndex)
     const child: NonNullable<FormalMeleeConfiguredValues['attacks']>[number] = { sourceIndex: entry.sourceIndex }
+    for (const field of [entry.configuredDamage, entry.configuredAnimationDurationSeconds, entry.configuredAttackRange,
+      entry.configuredConeAngleDegrees, entry.configuredConeOffsetUnits, entry.configuredDamageSplashMultiplier,
+      entry.configuredDamageDelaySeconds, entry.configuredAttackVariantType, entry.configuredVariantLoopAmount]) {
+      requireIdentityBinding(field, identityAssertionId)
+    }
     const damage = addProjection(accumulator, mapping.damage.id, occurrence, entry.configuredDamage)
     const duration = addProjection(accumulator, mapping.duration.id, occurrence, entry.configuredAnimationDurationSeconds)
+    const attackRange = addProjection(accumulator, mapping.attackRange.id, occurrence, entry.configuredAttackRange)
+    const coneAngle = addProjection(accumulator, mapping.coneAngle.id, occurrence, entry.configuredConeAngleDegrees)
+    const coneOffset = addProjection(accumulator, mapping.coneOffset.id, occurrence, entry.configuredConeOffsetUnits)
+    const splashMultiplier = addProjection(accumulator, mapping.splashMultiplier.id, occurrence, entry.configuredDamageSplashMultiplier)
+    const damageDelay = addProjection(accumulator, mapping.damageDelay.id, occurrence, entry.configuredDamageDelaySeconds)
+    const variantType = addProjection(accumulator, mapping.variantType.id, occurrence, entry.configuredAttackVariantType)
+    const variantLoopAmount = addProjection(accumulator, mapping.variantLoopAmount.id, occurrence, entry.configuredVariantLoopAmount)
     if (damage) child.configuredDamage = damage
     if (duration) child.configuredAnimationDurationSeconds = duration
+    if (attackRange) child.configuredAttackRange = attackRange
+    if (coneAngle) child.configuredConeAngleDegrees = coneAngle
+    if (coneOffset) child.configuredConeOffsetUnits = coneOffset
+    if (splashMultiplier) child.configuredDamageSplashMultiplier = splashMultiplier
+    if (damageDelay) child.configuredDamageDelaySeconds = damageDelay
+    if (variantType) child.configuredAttackVariantType = variantType
+    if (variantLoopAmount) child.configuredVariantLoopAmount = variantLoopAmount
     return child
   })
   return semantic
@@ -360,6 +418,8 @@ function projectRangedConfiguredValues(
   mapping: RangedConfiguredValueMappings,
 ): { semantic: FormalRangedConfiguredValues; entries?: RangedConfiguredEntry[] } {
   const semantic: FormalRangedConfiguredValues = {}
+  const identityAssertionId = values.definitions.trace.identityAssertionId
+  requireIdentityBinding(values.definitions, identityAssertionId)
   const definitionsOccurrence = valueScopeOccurrence(domainId, 'projectile-definitions')
   const definitions = collectionField(values.definitions)
   const configuredDefinitions = addProjection(accumulator, mapping.definitions.id, definitionsOccurrence, definitions)
@@ -369,12 +429,15 @@ function projectRangedConfiguredValues(
   semantic.projectileDefinitions = values.definitions.value.map((entry) => {
     const occurrence = valueCollectionOccurrence(domainId, 'projectile-definitions', entry.sourceIndex)
     const child: NonNullable<FormalRangedConfiguredValues['projectileDefinitions']>[number] = { sourceIndex: entry.sourceIndex }
+    for (const field of [entry.count, entry.angle, entry.delay, entry.delaySeconds]) requireIdentityBinding(field, identityAssertionId)
     const count = addProjection(accumulator, mapping.projectileCount.id, occurrence, entry.count)
     const angle = addProjection(accumulator, mapping.angleSpan.id, occurrence, entry.angle)
     const delay = addProjection(accumulator, mapping.delayPerProjectile.id, occurrence, entry.delay)
+    const delaySeconds = addProjection(accumulator, mapping.delaySeconds.id, occurrence, entry.delaySeconds)
     if (count) child.configuredProjectileCount = count
     if (angle) child.configuredAngleSpan = angle
     if (delay) child.configuredDelaySecondsPerProjectile = delay
+    if (delaySeconds) child.configuredDelaySeconds = delaySeconds
     return child
   })
   return { semantic, entries: values.definitions.value }
@@ -513,20 +576,30 @@ type SemanticOccurrence = {
 }
 
 function meleeMappingIds(domainId: string) {
+  const mappings = horizontalMeleeValueMappings(domainId)
   return {
-    entries: `${domainId}:configured-attacks@1`,
-    damage: `${domainId}:configured-damage@1`,
-    duration: `${domainId}:animation-duration@1`,
+    entries: mappings.entries.id,
+    damage: mappings.damage.id,
+    duration: mappings.duration.id,
+    attackRange: mappings.attackRange.id,
+    coneAngle: mappings.coneAngle.id,
+    coneOffset: mappings.coneOffset.id,
+    splashMultiplier: mappings.splashMultiplier.id,
+    damageDelay: mappings.damageDelay.id,
+    variantType: mappings.variantType.id,
+    variantLoopAmount: mappings.variantLoopAmount.id,
   }
 }
 
 function rangedMappingIds(domainId: string) {
+  const mappings = horizontalRangedValueMappings(domainId)
   return {
     velocityFactor: `${domainId}:configured-projectile-velocity-factor@1`,
-    definitions: `${domainId}:configured-projectile-definitions@1`,
-    projectileCount: `${domainId}:configured-projectile-count@1`,
-    angleSpan: `${domainId}:configured-angle-span@1`,
-    delayPerProjectile: `${domainId}:configured-delay-per-projectile@1`,
+    definitions: mappings.definitions.id,
+    projectileCount: mappings.projectileCount.id,
+    angleSpan: mappings.angleSpan.id,
+    delayPerProjectile: mappings.delayPerProjectile.id,
+    delaySeconds: mappings.delaySeconds.id,
     pushbackEnabled: `${domainId}:configured-pushback-enabled@1`,
     pushbackStrength: `${domainId}:configured-pushback-strength@1`,
     ignoreFriendlyFire: `${domainId}:configured-ignore-friendly-fire@1`,
@@ -546,6 +619,13 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
       const occurrence = valueCollectionOccurrence(domainId, 'configured-attacks', attack.sourceIndex)
       add(mapping.damage, occurrence, attack.configuredDamage)
       add(mapping.duration, occurrence, attack.configuredAnimationDurationSeconds)
+      add(mapping.attackRange, occurrence, attack.configuredAttackRange)
+      add(mapping.coneAngle, occurrence, attack.configuredConeAngleDegrees)
+      add(mapping.coneOffset, occurrence, attack.configuredConeOffsetUnits)
+      add(mapping.splashMultiplier, occurrence, attack.configuredDamageSplashMultiplier)
+      add(mapping.damageDelay, occurrence, attack.configuredDamageDelaySeconds)
+      add(mapping.variantType, occurrence, attack.configuredAttackVariantType)
+      add(mapping.variantLoopAmount, occurrence, attack.configuredVariantLoopAmount)
     }
   }
 
@@ -558,6 +638,7 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
       add(mapping.projectileCount, occurrence, definition.configuredProjectileCount)
       add(mapping.angleSpan, occurrence, definition.configuredAngleSpan)
       add(mapping.delayPerProjectile, occurrence, definition.configuredDelaySecondsPerProjectile)
+      add(mapping.delaySeconds, occurrence, definition.configuredDelaySeconds)
       add(mapping.pushbackEnabled, occurrence, definition.configuredPushbackEnabled)
       add(mapping.pushbackStrength, occurrence, definition.configuredPushbackStrength)
       add(mapping.ignoreFriendlyFire, occurrence, definition.configuredIgnoreFriendlyFire)
@@ -641,7 +722,8 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
       check(canonicalJson(entryIndices) === canonicalJson(indices), `${domainId}: child occurrence order/membership differs from projected melee collection`)
       check(indices.every((index) => Number.isInteger(index) && index >= 0) && new Set(indices).size === indices.length, `${domainId}: projected melee collection has ambiguous sourceIndex values`)
       for (const sourceIndex of indices) requireChildCoverage(
-        [mapping.damage, mapping.duration],
+        [mapping.damage, mapping.duration, mapping.attackRange, mapping.coneAngle, mapping.coneOffset,
+          mapping.splashMultiplier, mapping.damageDelay, mapping.variantType, mapping.variantLoopAmount],
         valueCollectionOccurrence(domainId, 'configured-attacks', sourceIndex),
         domainId,
       )
@@ -660,6 +742,7 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
       check(indices.every((index) => Number.isInteger(index) && index >= 0) && new Set(indices).size === indices.length, `${domainId}: projected ranged collection has ambiguous sourceIndex values`)
       const requiredMappings = [
         mapping.projectileCount,
+        mapping.delaySeconds,
         mapping.angleSpan,
         mapping.delayPerProjectile,
         ...(domainId === scatterCrossbowFormalIdentity.assertion.domainId
