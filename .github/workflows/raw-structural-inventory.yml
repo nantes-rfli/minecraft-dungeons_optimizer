@@ -24,6 +24,10 @@ jobs:
         # The advisory API can stall for minutes; dependency-audit.yml reports it separately.
         run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
+      - run: git diff --check HEAD^1 HEAD
+      - run: npm run generate:formal-serialized-relation
+      - run: npm test -- --run tests/formalSerializedRelation.test.ts tests/horizontalFormalRelationSource.test.ts
+      - run: npm test -- --run tests/scatterCrossbowDataBrowser.test.tsx tests/battleRobeDataBrowser.test.tsx tests/deathCapMushroomDataBrowser.test.tsx
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
