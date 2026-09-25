@@ -584,4 +584,10 @@ Formal Relation:
 
 artifact / generated source changes:
   none
+
+final diff:
+  docs/melee_ranged_relation_horizontalization_readiness_audit.md only
+  trailing whitespace / conflict marker check: pass
+  note: GitHub connector execution environmentのため shell の literal `git diff --check` は実行していない。
+        final added-file contentに対して同等のwhitespace/conflict-marker検査を実施。
 ```
