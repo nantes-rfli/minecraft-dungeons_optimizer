@@ -415,12 +415,23 @@ export function collectFormalSerializedRelationErrors(
       errors.push(`sourceDomainId mismatch ${record.projectionRef}`)
     }
     if (record.result === 'projected') {
-      if (record.serializedTargetResolution.state === 'resolved-local-package'
-        && !record.serializedTargetResolution.structuralPackagePath) {
+      const serializedResolution = (record as { serializedTargetResolution?: unknown }).serializedTargetResolution
+      if (!serializedResolution || typeof serializedResolution !== 'object' || Array.isArray(serializedResolution)) {
         errors.push(`invalid serialized target resolution ${record.projectionRef}`)
+      } else {
+        const resolution = serializedResolution as SerializedTargetResolution
+        if (resolution.state === 'resolved-local-package' && !resolution.structuralPackagePath) {
+          errors.push(`invalid serialized target resolution ${record.projectionRef}`)
+        }
       }
-      if ('targetEvidenceRef' in record.targetRawVerification && !evidence.has(record.targetRawVerification.targetEvidenceRef)) {
-        errors.push(`dangling target EvidenceRef ${record.projectionRef}`)
+      const rawVerification = (record as { targetRawVerification?: unknown }).targetRawVerification
+      if (!rawVerification || typeof rawVerification !== 'object' || Array.isArray(rawVerification)) {
+        errors.push(`invalid target Raw verification ${record.projectionRef}`)
+      } else {
+        const verification = rawVerification as TargetRawVerification
+        if ('targetEvidenceRef' in verification && !evidence.has(verification.targetEvidenceRef)) {
+          errors.push(`dangling target EvidenceRef ${record.projectionRef}`)
+        }
       }
     }
     if (!same(record, expected.relationProjections.find((item) => item.projectionRef === record.projectionRef))) {
