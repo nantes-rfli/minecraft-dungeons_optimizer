@@ -213,7 +213,7 @@ export function resolveHorizontalRelationSource(
   if (!Number.isInteger(request.sourceIndex) || request.sourceIndex < 0) {
     throw new Error('Horizontal relation sourceIndex is missing or invalid')
   }
-  const inventory = inventoryInput as InventoryView
+  const inventory = inventoryInput as unknown as InventoryView
   const item = exactItem(inventory, request)
   const candidate = exactCandidate(item, request)
   const reference = exactCandidateReference(candidate, request.edgeId)
