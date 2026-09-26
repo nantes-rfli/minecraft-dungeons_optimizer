@@ -4,7 +4,7 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
-import { readyArtifactFormalIdentities, readyArmorFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
 
 const repositoryRoot = process.cwd()
 const baseSources = readFormalReviewedSources(repositoryRoot)
@@ -33,6 +33,61 @@ describe('Formal Identity reviewed-source grounding', () => {
       })
       expect(matching[0]!.assetPaths).toContain(assertion.applicationScope.packagePath)
     }
+  })
+
+  it('grounds exactly the 12 reviewed Artifact bridges against override, canonical alias, and Structural evidence', () => {
+    const sources = fixture()
+    expect(reviewedBridgeArtifactFormalIdentities).toHaveLength(12)
+    const expected = [
+      'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
+      'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
+    ]
+    expect(reviewedBridgeArtifactFormalIdentities.map(({ assertion }) => assertion.domainId)).toEqual(expected)
+    for (const definition of reviewedBridgeArtifactFormalIdentities) {
+      const assertion = definition.assertion
+      const packagePath = assertion.applicationScope.packagePath
+      const matches = sources.aliases!.aliases!.filter((entry) => entry.id === `artifact:${assertion.rawIdentity}`)
+      expect(matches).toHaveLength(1)
+      expect(matches[0]).toMatchObject({
+        category: 'artifact', status: 'accepted', confidence: 'high', rawIdentity: assertion.rawIdentity,
+        canonicalEntity: `artifact:${assertion.domainId}`, candidates: [`artifact:${assertion.domainId}`],
+        basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+      })
+      expect(matches[0]!.assetPaths).toContain(packagePath)
+
+      const seeds = sources.rawStructuralSeeds!.catalogSeeds!.filter((seed) => seed.category === 'artifact' && seed.catalogId === assertion.domainId)
+      expect(seeds).toHaveLength(1)
+      expect(seeds[0]!.candidates).toHaveLength(1)
+      expect(seeds[0]!.candidates![0]).toMatchObject({ packagePath, role: 'instance' })
+      expect(seeds[0]!.candidates![0]!.evidence).toEqual(expect.arrayContaining([
+        `serialized-identifier:ItemIdName=${assertion.rawIdentity}`,
+        `serialized-identifier:ItemId.SerializedId=${assertion.rawIdentity}`,
+      ]))
+
+      const bindings = sources.reviewedArtifactInventoryBindings.filter((binding) => binding.definition.assertion.id === assertion.id)
+      expect(bindings).toHaveLength(1)
+      const binding = bindings[0]!
+      expect(binding.structuralPackage.path).toBe(packagePath)
+      expect(binding.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject)).toHaveLength(1)
+      expect(binding.structuralPackage.cdoPropertyInventory).toHaveLength(1)
+      expect(binding.observation).toMatchObject({
+        rawSchemaVersion: 2,
+        packagePath,
+        itemIdName: { observation: { state: 'known', value: assertion.rawIdentity }, provenance: { packagePath } },
+        serializedId: { observation: { state: 'known', value: assertion.rawIdentity }, provenance: { packagePath } },
+      })
+      const overrideLine = `'artifact:${assertion.domainId}': '${assertion.rawIdentity}',`
+      expect(sources.equipmentIconSource!.split(/\r?\n/).map((line) => line.trim()).filter((line) => line === overrideLine)).toHaveLength(1)
+    }
+    const excluded = [
+      'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
+      'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
+      'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
+      'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',
+      'updraft-tome', 'void-quiver', 'wind-horn', 'wonderful-wheat',
+    ]
+    expect(formalIdentityDefinitions.some(({ assertion }) => excluded.includes(assertion.domainId))).toBe(false)
+    expect(errors(sources)).toEqual([])
   })
 
   it('grounds all 70 Armor identities through exact armor-audit levelId and Structural candidate bindings', () => {
@@ -201,10 +256,39 @@ describe('Formal Identity reviewed-source grounding', () => {
     ['melee:bonehead-hammer', 'SkeletonHammer'],
     ['melee:sinister-sword', 'Sword_Spooky1'],
     ['ranged:shrieking-crossbow', 'BatCrossbow'],
+    ['artifact:blast-fungus', 'NetherWartSporeGrenade'],
   ])('rejects documented ENTITY_OVERRIDES drift for %s', (overrideKey, rawIdentity) => {
     const sources = fixture()
     sources.equipmentIconSource = sources.equipmentIconSource!.replace(`'${overrideKey}': '${rawIdentity}'`, `'${overrideKey}': 'Other'`)
-    expect(errors(sources).some((error) => error.includes('documented ENTITY_OVERRIDES mapping drift'))).toBe(true)
+    expect(errors(sources).some((error) => error.includes('documented ENTITY_OVERRIDES key must exist exactly once'))).toBe(true)
+  })
+
+  it.each([
+    ['alias status', (sources: FormalReviewedSources) => { alias(sources, 'artifact:NetherWartSporeGrenade').status = 'unresolved' }, 'reviewed bridge alias status drift'],
+    ['alias raw identity', (sources: FormalReviewedSources) => { alias(sources, 'artifact:NetherWartSporeGrenade').rawIdentity = 'Other' }, 'reviewed bridge alias rawIdentity drift'],
+    ['candidate package', (sources: FormalReviewedSources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'blast-fungus')!.candidates![0]!.packagePath = 'Dungeons/Content/Other' }, 'Raw Structural candidate package drift'],
+    ['candidate role', (sources: FormalReviewedSources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'blast-fungus')!.candidates![0]!.role = 'actor' }, 'Raw Structural candidate role must be instance'],
+    ['multiple candidates', (sources: FormalReviewedSources) => { const candidates = sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'blast-fungus')!.candidates!; candidates.push(structuredClone(candidates[0]!)) }, 'Raw Structural candidate must exist exactly once'],
+    ['multiple CDOs', (sources: FormalReviewedSources) => { const binding = sources.reviewedArtifactInventoryBindings.find((entry) => entry.definition.assertion.domainId === 'blast-fungus')!; (binding.structuralPackage.exports as unknown as Array<{ isClassDefaultObject: boolean }>).push(structuredClone(binding.structuralPackage.exports.find((entry) => entry.isClassDefaultObject)!)) }, 'Structural package must contain exactly one CDO'],
+    ['SerializedId', (sources: FormalReviewedSources) => { sources.reviewedArtifactInventoryBindings.find((binding) => binding.definition.assertion.domainId === 'blast-fungus')!.observation.serializedId.observation = { state: 'known', value: 'Other' } }, 'Structural SerializedId differs from bridge Raw identity'],
+    ['ItemIdName', (sources: FormalReviewedSources) => { sources.reviewedArtifactInventoryBindings.find((binding) => binding.definition.assertion.domainId === 'blast-fungus')!.observation.itemIdName.observation = { state: 'known', value: 'Other' } }, 'Structural ItemIdName differs from bridge Raw identity'],
+  ])('fails closed when a reviewed Artifact %s drifts', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+  })
+
+  it('rejects duplicate reviewed Artifact alias and ENTITY_OVERRIDES keys', () => {
+    const duplicateAlias = fixture()
+    duplicateAlias.aliases!.aliases!.push(structuredClone(alias(duplicateAlias, 'artifact:NetherWartSporeGrenade')))
+    expect(errors(duplicateAlias).some((error) => error.includes('reviewed bridge alias must exist exactly once'))).toBe(true)
+
+    const duplicateOverride = fixture()
+    duplicateOverride.equipmentIconSource = duplicateOverride.equipmentIconSource!.replace(
+      "'artifact:blast-fungus': 'NetherWartSporeGrenade',",
+      "'artifact:blast-fungus': 'NetherWartSporeGrenade',\n  'artifact:blast-fungus': 'NetherWartSporeGrenade',",
+    )
+    expect(errors(duplicateOverride).some((error) => error.includes('documented ENTITY_OVERRIDES key must exist exactly once'))).toBe(true)
   })
 
   it('requires review when the provisional Fighter’s Bindings alias becomes accepted', () => {

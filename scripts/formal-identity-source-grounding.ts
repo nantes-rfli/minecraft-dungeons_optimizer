@@ -17,6 +17,8 @@ import {
   reviewedBridgeMeleeFormalIdentityInputs,
   reviewedBridgeRangedFormalIdentities,
   reviewedBridgeRangedFormalIdentityInputs,
+  reviewedBridgeArtifactFormalIdentities,
+  reviewedBridgeArtifactFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
@@ -64,6 +66,7 @@ export type FormalReviewedSources = {
   rawStructuralSeeds?: { catalogSeeds?: RawStructuralSeed[] }
   armorReadinessAuditSource?: string
   armorInventoryBindings: FormalIdentityInventoryBindingInput[]
+  reviewedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
   historicalMappingSource?: string
   equipmentIconSource?: string
   presentations: {
@@ -125,6 +128,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     rawStructuralSeeds,
     armorReadinessAuditSource,
     armorInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, readyArmorFormalIdentities),
+    reviewedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedBridgeArtifactFormalIdentities),
     historicalMappingSource: readText(historicalPath),
     equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
@@ -140,7 +144,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
         domainId,
         rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
       ])),
-      artifact: Object.fromEntries(readyArtifactFormalIdentityInputs.map(({ domainId }) => [
+      artifact: Object.fromEntries([...readyArtifactFormalIdentityInputs, ...reviewedBridgeArtifactFormalIdentityInputs].map(({ domainId }) => [
         domainId,
         artifactAudit?.entries?.find((entry) => entry.id === domainId)?.name,
       ])),
@@ -356,10 +360,11 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     )
   }
 
-  const entityOverrideValue = (source: string, key: string): string | undefined => {
+  const entityOverrideValues = (source: string, key: string): string[] => {
     const block = source.match(/const ENTITY_OVERRIDES:[\s\S]*?=\s*\{([\s\S]*?)\n\}/)?.[1]
-    if (!block) return undefined
-    return block.match(new RegExp(`'${key}'\\s*:\\s*'([^']+)'`))?.[1]
+    if (!block) return []
+    const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    return [...block.matchAll(new RegExp(`^\\s*'${escapedKey}'\\s*:\\s*'([^']+)'\\s*,?\\s*$`, 'gm'))].map((match) => match[1]!)
   }
   const reviewedBridgeBasis = 'serialized-item-id + documented-entity-alias + catalog-category-evidence'
   const bridgeCases = [
@@ -377,15 +382,24 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
       overrideCategory: 'ranged' as const,
       sourceDisplayName: sources.presentations.ranged[definition.assertion.domainId],
     })),
+    ...reviewedBridgeArtifactFormalIdentities.map((definition, index) => ({
+      definition,
+      input: reviewedBridgeArtifactFormalIdentityInputs[index]!,
+      aliasCategory: 'artifact' as const,
+      overrideCategory: 'artifact' as const,
+      sourceDisplayName: sources.presentations.artifact[definition.assertion.domainId],
+    })),
   ]
   for (const { definition, input, aliasCategory, overrideCategory, sourceDisplayName } of bridgeCases) {
     const assertion = definition.assertion
     const aliasId = `${aliasCategory}:${input.rawIdentity}`
     const canonicalEntity = `${aliasCategory}:${input.domainId}`
     const overrideKey = `${overrideCategory}:${input.domainId}`
-    const alias = aliases.find((entry) => entry.id === aliasId)
+    const matchingAliases = aliases.filter((entry) => entry.id === aliasId)
+    const alias = matchingAliases[0]
     const aliasEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
     const overrideEvidenceRef = `evidence:reviewed:${input.domainId}:documented-entity-alias`
+    check(matchingAliases.length === 1, `${assertion.id}: reviewed bridge alias must exist exactly once`)
     check(Boolean(alias), `${assertion.id}: reviewed bridge alias source missing`)
     check(assertion.domainId === input.domainId && assertion.rawIdentity === input.rawIdentity, `${assertion.id}: reviewed bridge Formal identity drift`)
     check(assertion.applicationScope.packagePath === input.packagePath, `${assertion.id}: reviewed bridge Formal package drift`)
@@ -398,7 +412,8 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(alias?.candidates?.length === 1 && alias.candidates[0] === canonicalEntity, `${assertion.id}: reviewed bridge alias candidates drift`)
     check(alias?.assetPaths?.includes(input.packagePath) === true, `${assertion.id}: reviewed bridge alias package/source drift`)
     check(alias?.basis === reviewedBridgeBasis, `${assertion.id}: reviewed bridge basis drift`)
-    check(entityOverrideValue(sources.equipmentIconSource ?? '', overrideKey) === input.rawIdentity, `${assertion.id}: documented ENTITY_OVERRIDES mapping drift`)
+    const overrideValues = entityOverrideValues(sources.equipmentIconSource ?? '', overrideKey)
+    check(overrideValues.length === 1 && overrideValues[0] === input.rawIdentity, `${assertion.id}: documented ENTITY_OVERRIDES key must exist exactly once with the exact Raw identity`)
     check(
       assertion.evidenceRefs.length === 2
       && assertion.evidenceRefs[0] === aliasEvidenceRef
@@ -411,7 +426,56 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   }
   check(reviewedBridgeMeleeFormalIdentities.length === 2, 'reviewed bridge Melee population drift')
   check(reviewedBridgeRangedFormalIdentities.length === 1, 'reviewed bridge Ranged population drift')
-  check(bridgeCases.length === 3, 'reviewed bridge total population drift')
+  check(reviewedBridgeArtifactFormalIdentities.length === 12, 'reviewed bridge Artifact population drift')
+  check(bridgeCases.length === 15, 'reviewed bridge total population drift')
+
+  const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
+  for (const definition of reviewedBridgeArtifactFormalIdentities) {
+    const assertion = definition.assertion
+    const input = reviewedBridgeArtifactFormalIdentityInputs.find((candidate) => candidate.domainId === assertion.domainId)
+    const canonicalEntries = (sources.artifactAudit?.entries ?? []).filter((entry) => entry.id === assertion.domainId)
+    const matchingSeeds = reviewedArtifactSeeds.filter((seed) => seed.catalogId === assertion.domainId)
+    const seed = matchingSeeds[0]
+    const candidates = seed?.candidates ?? []
+    const candidate = candidates[0]
+    const matchingBindings = sources.reviewedArtifactInventoryBindings.filter((binding) => binding.definition.assertion.id === assertion.id)
+    const binding = matchingBindings[0]
+    const cdoExports = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const cdo = cdoExports[0]
+    const cdoClass = cdo?.references.class
+    const cdoClassObjectName = cdoClass && typeof cdoClass === 'object' && 'objectName' in cdoClass ? cdoClass.objectName : undefined
+    const cdoInventories = cdo
+      ? binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo.exportIndex) ?? []
+      : []
+    const observation = binding?.observation
+    const rawIdentity = input?.rawIdentity
+    const packagePath = input?.packagePath
+
+    check(Boolean(input), `${assertion.id}: Artifact identity is outside the reviewed-bridge input set`)
+    check(canonicalEntries.length === 1, `${assertion.id}: artifact-audit canonical entry must exist exactly once`)
+    check(assertion.domainId === input?.domainId && assertion.rawIdentity === rawIdentity, `${assertion.id}: Formal canonical or Raw identity drift`)
+    check(assertion.applicationScope.packagePath === packagePath, `${assertion.id}: Formal applicationScope package drift`)
+    check(assertion.applicationScope.rawSchemaVersion === 2, `${assertion.id}: Formal Raw schema version drift`)
+    check(assertion.applicationScope.identityFields.itemIdName === 'ItemIdName' && assertion.applicationScope.identityFields.serializedId === 'ItemId.SerializedId', `${assertion.id}: Formal Raw identity field scope drift`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: reviewed bridge assertion must be accepted/high`)
+    check(matchingSeeds.length === 1, `${assertion.id}: Raw Structural Artifact catalog seed must exist exactly once`)
+    check(candidates.length === 1, `${assertion.id}: Raw Structural candidate must exist exactly once`)
+    check(candidate?.role === 'instance', `${assertion.id}: Raw Structural candidate role must be instance`)
+    check(candidate?.packagePath === packagePath && candidate?.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: Raw Structural candidate package drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemIdName=${rawIdentity}`) === true, `${assertion.id}: Raw Structural candidate ItemIdName evidence drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${rawIdentity}`) === true, `${assertion.id}: Raw Structural candidate SerializedId evidence drift`)
+    check(matchingBindings.length === 1, `${assertion.id}: exact Structural package binding must exist exactly once`)
+    check(binding?.structuralPackage.path === packagePath, `${assertion.id}: Structural package path differs from the exact candidate`)
+    check(cdoExports.length === 1, `${assertion.id}: Structural package must contain exactly one CDO`)
+    check(cdoClassObjectName === candidate?.objectName, `${assertion.id}: candidate object does not bind to the Structural CDO class`)
+    check(cdoInventories.length === 1, `${assertion.id}: Structural package must contain exactly one CDO property inventory`)
+    check(observation?.packagePath === packagePath && observation.rawSchemaVersion === 2, `${assertion.id}: Structural observation package/schema drift`)
+    check(observation?.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === rawIdentity, `${assertion.id}: Structural ItemIdName differs from bridge Raw identity`)
+    check(observation?.serializedId.observation.state === 'known' && observation.serializedId.observation.value === rawIdentity, `${assertion.id}: Structural SerializedId differs from bridge Raw identity`)
+    check(observation?.itemIdName.provenance.packagePath === packagePath && observation.itemIdName.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: ItemIdName is not from the exact Structural shard/package`)
+    check(observation?.serializedId.provenance.packagePath === packagePath && observation.serializedId.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: SerializedId is not from the exact Structural shard/package`)
+    check(definition.presentation.displayName === canonicalEntries[0]?.name, `${assertion.id}: presentation displayName differs from artifact-audit`)
+  }
 
   const fighters = fightersBindingsFormalIdentity.assertion
   const fightersAlias = aliases.find((entry) => entry.id === 'melee-weapon:Gauntlets_Unique3')
@@ -448,7 +512,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 128, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 140, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
@@ -458,9 +522,18 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     'Formal matched Ranged definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 7,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 19,
     'Formal matched Artifact definition population drift',
   )
   check(formalIdentityDefinitions.filter(({ assertion }) => readyArmorFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 70, 'Formal matched Armor definition population drift')
+  const excludedArtifactIds = [
+    'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
+    'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
+    'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
+    'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',
+    'updraft-tome', 'void-quiver', 'wind-horn', 'wonderful-wheat',
+  ]
+  check(!formalIdentityDefinitions.some(({ assertion }) => excludedArtifactIds.includes(assertion.domainId)), 'excluded Artifact identity entered the Formal population')
+  check(!aliases.some((entry) => entry.status === 'accepted' && entry.confidence === 'high' && excludedArtifactIds.includes(entry.canonicalEntity?.replace(/^artifact:/, '') ?? '')), 'excluded Artifact identity received an accepted/high canonical alias')
   return errors
 }

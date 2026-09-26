@@ -3970,6 +3970,378 @@
             "evidence:presentation:wolf-armor:armor-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:blast-fungus@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "NetherWartSporeGrenade",
+            "evidenceRef": "evidence:raw:identity:blast-fungus@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "NetherWartSporeGrenade",
+            "evidenceRef": "evidence:raw:identity:blast-fungus@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:blast-fungus@1",
+          "domainId": "blast-fungus",
+          "evidenceRefs": [
+            "evidence:raw:identity:blast-fungus@1:ItemIdName",
+            "evidence:raw:identity:blast-fungus@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "blast-fungus",
+          "displayName": "Blast Fungus",
+          "evidenceRefs": [
+            "evidence:presentation:blast-fungus:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:corrupted-pumpkin@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "CorruptedBeacon_Spooky1",
+            "evidenceRef": "evidence:raw:identity:corrupted-pumpkin@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "CorruptedBeacon_Spooky1",
+            "evidenceRef": "evidence:raw:identity:corrupted-pumpkin@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:corrupted-pumpkin@1",
+          "domainId": "corrupted-pumpkin",
+          "evidenceRefs": [
+            "evidence:raw:identity:corrupted-pumpkin@1:ItemIdName",
+            "evidence:raw:identity:corrupted-pumpkin@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "corrupted-pumpkin",
+          "displayName": "Corrupted Pumpkin",
+          "evidenceRefs": [
+            "evidence:presentation:corrupted-pumpkin:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:enchanted-grass@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "RainbowGrass",
+            "evidenceRef": "evidence:raw:identity:enchanted-grass@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "RainbowGrass",
+            "evidenceRef": "evidence:raw:identity:enchanted-grass@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:enchanted-grass@1",
+          "domainId": "enchanted-grass",
+          "evidenceRefs": [
+            "evidence:raw:identity:enchanted-grass@1:ItemIdName",
+            "evidence:raw:identity:enchanted-grass@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "enchanted-grass",
+          "displayName": "Enchanted Grass",
+          "evidenceRefs": [
+            "evidence:presentation:enchanted-grass:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:eye-of-the-guardian@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "GuardianEye",
+            "evidenceRef": "evidence:raw:identity:eye-of-the-guardian@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "GuardianEye",
+            "evidenceRef": "evidence:raw:identity:eye-of-the-guardian@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:eye-of-the-guardian@1",
+          "domainId": "eye-of-the-guardian",
+          "evidenceRefs": [
+            "evidence:raw:identity:eye-of-the-guardian@1:ItemIdName",
+            "evidence:raw:identity:eye-of-the-guardian@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "eye-of-the-guardian",
+          "displayName": "Eye of the Guardian",
+          "evidenceRefs": [
+            "evidence:presentation:eye-of-the-guardian:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:harpoon-quiver@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "HeavyHarpoonQuiver",
+            "evidenceRef": "evidence:raw:identity:harpoon-quiver@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "HeavyHarpoonQuiver",
+            "evidenceRef": "evidence:raw:identity:harpoon-quiver@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:harpoon-quiver@1",
+          "domainId": "harpoon-quiver",
+          "evidenceRefs": [
+            "evidence:raw:identity:harpoon-quiver@1:ItemIdName",
+            "evidence:raw:identity:harpoon-quiver@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "harpoon-quiver",
+          "displayName": "Harpoon Quiver",
+          "evidenceRefs": [
+            "evidence:presentation:harpoon-quiver:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:powershaker@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "MobMasher",
+            "evidenceRef": "evidence:raw:identity:powershaker@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "MobMasher",
+            "evidenceRef": "evidence:raw:identity:powershaker@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:powershaker@1",
+          "domainId": "powershaker",
+          "evidenceRefs": [
+            "evidence:raw:identity:powershaker@1:ItemIdName",
+            "evidence:raw:identity:powershaker@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "powershaker",
+          "displayName": "Powershaker",
+          "evidenceRefs": [
+            "evidence:presentation:powershaker:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:satchel-of-elements@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SatchelOfTheElements",
+            "evidenceRef": "evidence:raw:identity:satchel-of-elements@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SatchelOfTheElements",
+            "evidenceRef": "evidence:raw:identity:satchel-of-elements@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:satchel-of-elements@1",
+          "domainId": "satchel-of-elements",
+          "evidenceRefs": [
+            "evidence:raw:identity:satchel-of-elements@1:ItemIdName",
+            "evidence:raw:identity:satchel-of-elements@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "satchel-of-elements",
+          "displayName": "Satchel of Elements",
+          "evidenceRefs": [
+            "evidence:presentation:satchel-of-elements:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:scatter-mines@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ChargedRedstoneMines",
+            "evidenceRef": "evidence:raw:identity:scatter-mines@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ChargedRedstoneMines",
+            "evidenceRef": "evidence:raw:identity:scatter-mines@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:scatter-mines@1",
+          "domainId": "scatter-mines",
+          "evidenceRefs": [
+            "evidence:raw:identity:scatter-mines@1:ItemIdName",
+            "evidence:raw:identity:scatter-mines@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "scatter-mines",
+          "displayName": "Scatter Mines",
+          "evidenceRefs": [
+            "evidence:presentation:scatter-mines:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:shadow-shifter@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ShadowSplinter",
+            "evidenceRef": "evidence:raw:identity:shadow-shifter@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ShadowSplinter",
+            "evidenceRef": "evidence:raw:identity:shadow-shifter@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:shadow-shifter@1",
+          "domainId": "shadow-shifter",
+          "evidenceRefs": [
+            "evidence:raw:identity:shadow-shifter@1:ItemIdName",
+            "evidence:raw:identity:shadow-shifter@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "shadow-shifter",
+          "displayName": "Shadow Shifter",
+          "evidenceRefs": [
+            "evidence:presentation:shadow-shifter:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:spinblade@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SpinWheel",
+            "evidenceRef": "evidence:raw:identity:spinblade@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SpinWheel",
+            "evidenceRef": "evidence:raw:identity:spinblade@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:spinblade@1",
+          "domainId": "spinblade",
+          "evidenceRefs": [
+            "evidence:raw:identity:spinblade@1:ItemIdName",
+            "evidence:raw:identity:spinblade@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "spinblade",
+          "displayName": "Spinblade",
+          "evidenceRefs": [
+            "evidence:presentation:spinblade:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:totem-of-casting@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulTotemOfCasting",
+            "evidenceRef": "evidence:raw:identity:totem-of-casting@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulTotemOfCasting",
+            "evidenceRef": "evidence:raw:identity:totem-of-casting@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:totem-of-casting@1",
+          "domainId": "totem-of-casting",
+          "evidenceRefs": [
+            "evidence:raw:identity:totem-of-casting@1:ItemIdName",
+            "evidence:raw:identity:totem-of-casting@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "totem-of-casting",
+          "displayName": "Totem of Casting",
+          "evidenceRefs": [
+            "evidence:presentation:totem-of-casting:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:vexing-chant@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "LostEvocation",
+            "evidenceRef": "evidence:raw:identity:vexing-chant@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "LostEvocation",
+            "evidenceRef": "evidence:raw:identity:vexing-chant@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:vexing-chant@1",
+          "domainId": "vexing-chant",
+          "evidenceRefs": [
+            "evidence:raw:identity:vexing-chant@1:ItemIdName",
+            "evidence:raw:identity:vexing-chant@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "vexing-chant",
+          "displayName": "Vexing Chant",
+          "evidenceRefs": [
+            "evidence:presentation:vexing-chant:artifact-catalog"
+          ]
+        }
       }
     ]
   },
@@ -6407,6 +6779,246 @@
       },
       "evidenceRefs": [
         "evidence:reviewed:wolf-armor:armor-level-id"
+      ]
+    },
+    {
+      "id": "identity:blast-fungus@1",
+      "rawIdentity": "NetherWartSporeGrenade",
+      "domainId": "blast-fungus",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:blast-fungus:accepted-alias",
+        "evidence:reviewed:blast-fungus:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:corrupted-pumpkin@1",
+      "rawIdentity": "CorruptedBeacon_Spooky1",
+      "domainId": "corrupted-pumpkin",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:corrupted-pumpkin:accepted-alias",
+        "evidence:reviewed:corrupted-pumpkin:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:enchanted-grass@1",
+      "rawIdentity": "RainbowGrass",
+      "domainId": "enchanted-grass",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:enchanted-grass:accepted-alias",
+        "evidence:reviewed:enchanted-grass:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:eye-of-the-guardian@1",
+      "rawIdentity": "GuardianEye",
+      "domainId": "eye-of-the-guardian",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:eye-of-the-guardian:accepted-alias",
+        "evidence:reviewed:eye-of-the-guardian:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:harpoon-quiver@1",
+      "rawIdentity": "HeavyHarpoonQuiver",
+      "domainId": "harpoon-quiver",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:harpoon-quiver:accepted-alias",
+        "evidence:reviewed:harpoon-quiver:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:powershaker@1",
+      "rawIdentity": "MobMasher",
+      "domainId": "powershaker",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:powershaker:accepted-alias",
+        "evidence:reviewed:powershaker:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:satchel-of-elements@1",
+      "rawIdentity": "SatchelOfTheElements",
+      "domainId": "satchel-of-elements",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:satchel-of-elements:accepted-alias",
+        "evidence:reviewed:satchel-of-elements:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:scatter-mines@1",
+      "rawIdentity": "ChargedRedstoneMines",
+      "domainId": "scatter-mines",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:scatter-mines:accepted-alias",
+        "evidence:reviewed:scatter-mines:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:shadow-shifter@1",
+      "rawIdentity": "ShadowSplinter",
+      "domainId": "shadow-shifter",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:shadow-shifter:accepted-alias",
+        "evidence:reviewed:shadow-shifter:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:spinblade@1",
+      "rawIdentity": "SpinWheel",
+      "domainId": "spinblade",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:spinblade:accepted-alias",
+        "evidence:reviewed:spinblade:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:totem-of-casting@1",
+      "rawIdentity": "SoulTotemOfCasting",
+      "domainId": "totem-of-casting",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:totem-of-casting:accepted-alias",
+        "evidence:reviewed:totem-of-casting:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:vexing-chant@1",
+      "rawIdentity": "LostEvocation",
+      "domainId": "vexing-chant",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:vexing-chant:accepted-alias",
+        "evidence:reviewed:vexing-chant:documented-entity-alias"
       ]
     }
   ],
@@ -14659,6 +15271,906 @@
           "nodePointer": "/packages/5/cdoPropertyInventory/0/properties/3/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:b5ee78b0"
+      },
+      {
+        "id": "evidence:reviewed:blast-fungus:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:NetherWartSporeGrenade]"
+        },
+        "fingerprint": "fnv1a32:910dbf2f"
+      },
+      {
+        "id": "evidence:presentation:blast-fungus:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=blast-fungus].name"
+        },
+        "fingerprint": "fnv1a32:aa39d5ed"
+      },
+      {
+        "id": "evidence:reviewed:blast-fungus:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:blast-fungus']"
+        },
+        "fingerprint": "fnv1a32:d5a9a5d5"
+      },
+      {
+        "id": "evidence:raw:identity:blast-fungus@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "NetherWartSporeGrenade"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:dd781a22ca85ba29f58a141883938a9d8967acb6220095e6bba515af2eac46a2",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5af1680b056b3557714d23d420475da83abd8b4c7b4ff98b6268df30a1195a15"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:9f77b4d4"
+      },
+      {
+        "id": "evidence:raw:identity:blast-fungus@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "NetherWartSporeGrenade"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:dd781a22ca85ba29f58a141883938a9d8967acb6220095e6bba515af2eac46a2",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5af1680b056b3557714d23d420475da83abd8b4c7b4ff98b6268df30a1195a15"
+          },
+          "nodePointer": "/packages/12/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:ee4d3fa9"
+      },
+      {
+        "id": "evidence:reviewed:corrupted-pumpkin:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:CorruptedBeacon_Spooky1]"
+        },
+        "fingerprint": "fnv1a32:08d0eccb"
+      },
+      {
+        "id": "evidence:presentation:corrupted-pumpkin:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=corrupted-pumpkin].name"
+        },
+        "fingerprint": "fnv1a32:bcb6b41f"
+      },
+      {
+        "id": "evidence:reviewed:corrupted-pumpkin:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:corrupted-pumpkin']"
+        },
+        "fingerprint": "fnv1a32:9bacfbd3"
+      },
+      {
+        "id": "evidence:raw:identity:corrupted-pumpkin@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "CorruptedBeacon_Spooky1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bfb69669c1737a7c60b5e8fe8465163d0232ddbacf01367bf1f72dc7d730cbc0",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "51088d9e6f5a4730773b8aca25fde825574db99da33b56d5f66a6a0bff2a2f0a"
+          },
+          "nodePointer": "/packages/40/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:54445ad6"
+      },
+      {
+        "id": "evidence:raw:identity:corrupted-pumpkin@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "CorruptedBeacon_Spooky1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bfb69669c1737a7c60b5e8fe8465163d0232ddbacf01367bf1f72dc7d730cbc0",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "51088d9e6f5a4730773b8aca25fde825574db99da33b56d5f66a6a0bff2a2f0a"
+          },
+          "nodePointer": "/packages/40/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:48402672"
+      },
+      {
+        "id": "evidence:reviewed:enchanted-grass:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:RainbowGrass]"
+        },
+        "fingerprint": "fnv1a32:e59601a0"
+      },
+      {
+        "id": "evidence:presentation:enchanted-grass:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=enchanted-grass].name"
+        },
+        "fingerprint": "fnv1a32:b7bf7d2b"
+      },
+      {
+        "id": "evidence:reviewed:enchanted-grass:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:enchanted-grass']"
+        },
+        "fingerprint": "fnv1a32:0d76bcd7"
+      },
+      {
+        "id": "evidence:raw:identity:enchanted-grass@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "RainbowGrass"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7e4d57f353b61142d33fab2882cab40639145b60de4f7071418199c9ce267462",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aac709b372de9d02c8080dbd50b4307a9b544dda1b33d293d84cd4e62997a9d1"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:9c113223"
+      },
+      {
+        "id": "evidence:raw:identity:enchanted-grass@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "RainbowGrass"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7e4d57f353b61142d33fab2882cab40639145b60de4f7071418199c9ce267462",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aac709b372de9d02c8080dbd50b4307a9b544dda1b33d293d84cd4e62997a9d1"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:b900d2ad"
+      },
+      {
+        "id": "evidence:reviewed:eye-of-the-guardian:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:GuardianEye]"
+        },
+        "fingerprint": "fnv1a32:5784aa40"
+      },
+      {
+        "id": "evidence:presentation:eye-of-the-guardian:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=eye-of-the-guardian].name"
+        },
+        "fingerprint": "fnv1a32:5bb12a7f"
+      },
+      {
+        "id": "evidence:reviewed:eye-of-the-guardian:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:eye-of-the-guardian']"
+        },
+        "fingerprint": "fnv1a32:b5e5f7cb"
+      },
+      {
+        "id": "evidence:raw:identity:eye-of-the-guardian@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "GuardianEye"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bbf54d0a95047c53244c28c8cd4f8e2b845784e1e3eaf94b26a749fc5ec0e58c",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "276471385a1450f79f65add161daaf1640b09abac6fb8265ffc38c37d10fa695"
+          },
+          "nodePointer": "/packages/45/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:a77d04ce"
+      },
+      {
+        "id": "evidence:raw:identity:eye-of-the-guardian@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "GuardianEye"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bbf54d0a95047c53244c28c8cd4f8e2b845784e1e3eaf94b26a749fc5ec0e58c",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "276471385a1450f79f65add161daaf1640b09abac6fb8265ffc38c37d10fa695"
+          },
+          "nodePointer": "/packages/45/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:cafea70b"
+      },
+      {
+        "id": "evidence:reviewed:harpoon-quiver:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:HeavyHarpoonQuiver]"
+        },
+        "fingerprint": "fnv1a32:6d688f69"
+      },
+      {
+        "id": "evidence:presentation:harpoon-quiver:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=harpoon-quiver].name"
+        },
+        "fingerprint": "fnv1a32:7c9be891"
+      },
+      {
+        "id": "evidence:reviewed:harpoon-quiver:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:harpoon-quiver']"
+        },
+        "fingerprint": "fnv1a32:ffd329d3"
+      },
+      {
+        "id": "evidence:raw:identity:harpoon-quiver@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "HeavyHarpoonQuiver"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:06c4ee64c3aab34c6d7bf7bcdf62aefff50a5d20c73c758f50da94e8894798f1",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8effc016ff73c624b2bf70a36a727540fbdcfb76000c750c3c2815e83757d6b1"
+          },
+          "nodePointer": "/packages/52/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:1897f70e"
+      },
+      {
+        "id": "evidence:raw:identity:harpoon-quiver@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "HeavyHarpoonQuiver"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:06c4ee64c3aab34c6d7bf7bcdf62aefff50a5d20c73c758f50da94e8894798f1",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8effc016ff73c624b2bf70a36a727540fbdcfb76000c750c3c2815e83757d6b1"
+          },
+          "nodePointer": "/packages/52/cdoPropertyInventory/0/properties/3/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0acd3c5e"
+      },
+      {
+        "id": "evidence:reviewed:powershaker:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:MobMasher]"
+        },
+        "fingerprint": "fnv1a32:04a0fc34"
+      },
+      {
+        "id": "evidence:presentation:powershaker:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=powershaker].name"
+        },
+        "fingerprint": "fnv1a32:39004227"
+      },
+      {
+        "id": "evidence:reviewed:powershaker:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:powershaker']"
+        },
+        "fingerprint": "fnv1a32:4dc6411b"
+      },
+      {
+        "id": "evidence:raw:identity:powershaker@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "MobMasher"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1523e17c3d20d5aefef2f8aedf598526a4d073f3b73c8308f1b95ea9093a2127",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9b0030f205074650cd0f67ae3a297352a79d0b4f076c7d85ba94106befebdd7a"
+          },
+          "nodePointer": "/packages/3/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:d83fa805"
+      },
+      {
+        "id": "evidence:raw:identity:powershaker@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "MobMasher"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1523e17c3d20d5aefef2f8aedf598526a4d073f3b73c8308f1b95ea9093a2127",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9b0030f205074650cd0f67ae3a297352a79d0b4f076c7d85ba94106befebdd7a"
+          },
+          "nodePointer": "/packages/3/cdoPropertyInventory/0/properties/9/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:54185b5d"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-elements:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:SatchelOfTheElements]"
+        },
+        "fingerprint": "fnv1a32:a18da23e"
+      },
+      {
+        "id": "evidence:presentation:satchel-of-elements:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=satchel-of-elements].name"
+        },
+        "fingerprint": "fnv1a32:df7e4b31"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-elements:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:satchel-of-elements']"
+        },
+        "fingerprint": "fnv1a32:9732faef"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-elements@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfTheElements"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:14ffd0113bee2c0305cae6c2bdf6d58acbd50dab2fb3856e62864fd851461e97",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0477ddffb765c6045ea1c65ba79e676937e94031cc2e487810eb4f8cf7d58703"
+          },
+          "nodePointer": "/packages/56/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:b08957e6"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-elements@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfTheElements"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:14ffd0113bee2c0305cae6c2bdf6d58acbd50dab2fb3856e62864fd851461e97",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0477ddffb765c6045ea1c65ba79e676937e94031cc2e487810eb4f8cf7d58703"
+          },
+          "nodePointer": "/packages/56/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:3778a9f4"
+      },
+      {
+        "id": "evidence:reviewed:scatter-mines:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:ChargedRedstoneMines]"
+        },
+        "fingerprint": "fnv1a32:1883b284"
+      },
+      {
+        "id": "evidence:presentation:scatter-mines:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=scatter-mines].name"
+        },
+        "fingerprint": "fnv1a32:18d1a37f"
+      },
+      {
+        "id": "evidence:reviewed:scatter-mines:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:scatter-mines']"
+        },
+        "fingerprint": "fnv1a32:6b4cd9fb"
+      },
+      {
+        "id": "evidence:raw:identity:scatter-mines@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ChargedRedstoneMines"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c880b9a1554346d33e23bb45ded5339bd1f955186907f1e56c97e018b5d52a0f",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "89ce0fc0e18672ab4f8b0deaff19ee5f7182cb7d83b973988cf730961ebfeef2"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/7"
+        },
+        "fingerprint": "fnv1a32:21249553"
+      },
+      {
+        "id": "evidence:raw:identity:scatter-mines@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ChargedRedstoneMines"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c880b9a1554346d33e23bb45ded5339bd1f955186907f1e56c97e018b5d52a0f",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "89ce0fc0e18672ab4f8b0deaff19ee5f7182cb7d83b973988cf730961ebfeef2"
+          },
+          "nodePointer": "/packages/32/cdoPropertyInventory/0/properties/10/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a489fb1c"
+      },
+      {
+        "id": "evidence:reviewed:shadow-shifter:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:ShadowSplinter]"
+        },
+        "fingerprint": "fnv1a32:f19b4b16"
+      },
+      {
+        "id": "evidence:presentation:shadow-shifter:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=shadow-shifter].name"
+        },
+        "fingerprint": "fnv1a32:b9133141"
+      },
+      {
+        "id": "evidence:reviewed:shadow-shifter:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:shadow-shifter']"
+        },
+        "fingerprint": "fnv1a32:67aa35ab"
+      },
+      {
+        "id": "evidence:raw:identity:shadow-shifter@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ShadowSplinter"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:32c7456ccc8d1851f3b37e89401c4d2f5ef24d34f92e5b3d736302e208ff1740",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1cd4ad17549afe9774867817cc88535bae418e53a0f8548f50afdba10d5f4621"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:ded01788"
+      },
+      {
+        "id": "evidence:raw:identity:shadow-shifter@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ShadowSplinter"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:32c7456ccc8d1851f3b37e89401c4d2f5ef24d34f92e5b3d736302e208ff1740",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1cd4ad17549afe9774867817cc88535bae418e53a0f8548f50afdba10d5f4621"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:044811bd"
+      },
+      {
+        "id": "evidence:reviewed:spinblade:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:SpinWheel]"
+        },
+        "fingerprint": "fnv1a32:ed25974a"
+      },
+      {
+        "id": "evidence:presentation:spinblade:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=spinblade].name"
+        },
+        "fingerprint": "fnv1a32:c4108791"
+      },
+      {
+        "id": "evidence:reviewed:spinblade:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:spinblade']"
+        },
+        "fingerprint": "fnv1a32:3423310b"
+      },
+      {
+        "id": "evidence:raw:identity:spinblade@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SpinWheel"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a84fab9a69637669c189326da1e751098c683845617e384a6dbc7530511e0f25",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3429c5237a59a0a945c2bf279aea30d1df89597117ff899d3a9102c785ab8446"
+          },
+          "nodePointer": "/packages/23/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:5b9ab6e1"
+      },
+      {
+        "id": "evidence:raw:identity:spinblade@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SpinWheel"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a84fab9a69637669c189326da1e751098c683845617e384a6dbc7530511e0f25",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3429c5237a59a0a945c2bf279aea30d1df89597117ff899d3a9102c785ab8446"
+          },
+          "nodePointer": "/packages/23/cdoPropertyInventory/0/properties/8/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:f0f90361"
+      },
+      {
+        "id": "evidence:reviewed:totem-of-casting:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:SoulTotemOfCasting]"
+        },
+        "fingerprint": "fnv1a32:4603a126"
+      },
+      {
+        "id": "evidence:presentation:totem-of-casting:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=totem-of-casting].name"
+        },
+        "fingerprint": "fnv1a32:639240dd"
+      },
+      {
+        "id": "evidence:reviewed:totem-of-casting:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:totem-of-casting']"
+        },
+        "fingerprint": "fnv1a32:49da3ffd"
+      },
+      {
+        "id": "evidence:raw:identity:totem-of-casting@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulTotemOfCasting"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b23fee4751421364721a5d9361dd398d025bfe40892df8b4bf487546220a9274",
+          "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8bc0a6c4738642686665dcf45b19c0b07e742528ed77313b590ba9972cdc972d"
+          },
+          "nodePointer": "/packages/49/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:8f764a35"
+      },
+      {
+        "id": "evidence:raw:identity:totem-of-casting@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulTotemOfCasting"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b23fee4751421364721a5d9361dd398d025bfe40892df8b4bf487546220a9274",
+          "packagePath": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8bc0a6c4738642686665dcf45b19c0b07e742528ed77313b590ba9972cdc972d"
+          },
+          "nodePointer": "/packages/49/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:478990de"
+      },
+      {
+        "id": "evidence:reviewed:vexing-chant:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:LostEvocation]"
+        },
+        "fingerprint": "fnv1a32:5cad6ee9"
+      },
+      {
+        "id": "evidence:presentation:vexing-chant:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=vexing-chant].name"
+        },
+        "fingerprint": "fnv1a32:0012a361"
+      },
+      {
+        "id": "evidence:reviewed:vexing-chant:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:vexing-chant']"
+        },
+        "fingerprint": "fnv1a32:7c641f2f"
+      },
+      {
+        "id": "evidence:raw:identity:vexing-chant@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "LostEvocation"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b45c5ebb007cc057b465ac3b7f91f3ac4bdf5ed1ef085dc51482359a54565467",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cb9ca1eb5e3b50ada2ae3c56e8ed453f4b2441f0eab958546ed512468f997041"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:78b06f17"
+      },
+      {
+        "id": "evidence:raw:identity:vexing-chant@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "LostEvocation"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b45c5ebb007cc057b465ac3b7f91f3ac4bdf5ed1ef085dc51482359a54565467",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cb9ca1eb5e3b50ada2ae3c56e8ed453f4b2441f0eab958546ed512468f997041"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:3363de7c"
       }
     ]
   }

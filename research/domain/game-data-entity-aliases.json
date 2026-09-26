@@ -541,21 +541,48 @@
       ]
     },
     {
+      "id": "artifact:ChargedRedstoneMines",
+      "rawIdentity": "ChargedRedstoneMines",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:scatter-mines"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:scatter-mines"
+    },
+    {
       "id": "artifact:CorruptedBeacon_Spooky1",
       "rawIdentity": "CorruptedBeacon_Spooky1",
       "category": "artifact",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "artifact:corrupted-pumpkin"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-corrupted-pumpkin",
+        "artifact:wiki-event"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-corrupted-beacon-spooky1-instance-db7b028581201b38"
-      ]
+      ],
+      "canonicalEntity": "artifact:corrupted-pumpkin"
     },
     {
       "id": "artifact:DeathCapMushroom",
@@ -661,6 +688,48 @@
       ]
     },
     {
+      "id": "artifact:GuardianEye",
+      "rawIdentity": "GuardianEye",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:eye-of-the-guardian"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-eye-of-the-guardian"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:eye-of-the-guardian"
+    },
+    {
+      "id": "artifact:HeavyHarpoonQuiver",
+      "rawIdentity": "HeavyHarpoonQuiver",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:harpoon-quiver"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-harpoon-quiver"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:harpoon-quiver"
+    },
+    {
       "id": "artifact:IcePotion",
       "rawIdentity": "IcePotion",
       "category": "artifact",
@@ -724,38 +793,132 @@
       ]
     },
     {
+      "id": "artifact:LostEvocation",
+      "rawIdentity": "LostEvocation",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:vexing-chant"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:vexing-chant"
+    },
+    {
       "id": "artifact:MobMasher",
       "rawIdentity": "MobMasher",
       "category": "artifact",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "artifact:powershaker"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-powershaker",
+        "artifact:wiki-powershaker"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance"
       ],
       "sourceRecordIds": [
         "bulk-bp-mob-masher-instance-dc4f979a93e389b0"
-      ]
+      ],
+      "canonicalEntity": "artifact:powershaker"
+    },
+    {
+      "id": "artifact:NetherWartSporeGrenade",
+      "rawIdentity": "NetherWartSporeGrenade",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:blast-fungus"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:wiki-blast-fungus"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:blast-fungus"
+    },
+    {
+      "id": "artifact:RainbowGrass",
+      "rawIdentity": "RainbowGrass",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:enchanted-grass"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:enchanted-grass"
+    },
+    {
+      "id": "artifact:SatchelOfTheElements",
+      "rawIdentity": "SatchelOfTheElements",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:satchel-of-elements"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:wiki-satchel-of-elements"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:satchel-of-elements"
     },
     {
       "id": "artifact:ShadowSplinter",
       "rawIdentity": "ShadowSplinter",
       "category": "artifact",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "artifact:shadow-shifter"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance"
       ],
       "sourceRecordIds": [
         "bulk-bp-shadow-splinter-instance-5d13271a31780c95"
-      ]
+      ],
+      "canonicalEntity": "artifact:shadow-shifter"
     },
     {
       "id": "artifact:ShockPowder",
@@ -779,6 +942,48 @@
       "sourceRecordIds": [
         "bulk-bp-shock-powder-instance-17f0902d0f704318"
       ]
+    },
+    {
+      "id": "artifact:SoulTotemOfCasting",
+      "rawIdentity": "SoulTotemOfCasting",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:totem-of-casting"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-totem-of-casting"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:totem-of-casting"
+    },
+    {
+      "id": "artifact:SpinWheel",
+      "rawIdentity": "SpinWheel",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:spinblade"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117",
+        "artifact:dt-spinblade"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:spinblade"
     },
     {
       "id": "artifact:StrengthPotion",

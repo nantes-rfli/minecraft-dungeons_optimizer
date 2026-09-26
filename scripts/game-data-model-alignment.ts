@@ -3,6 +3,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { CANONICAL_GAME_DATA_PROPERTIES, ALIGNED_RULE_DECISIONS, auditCanonicalProperties, type CanonicalResearchProperty } from '../src/research/gameDataCanonicalProperties.ts'
 import { resolveAlignedGameDataEntity, type AlignedEntityResolution, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver.ts'
+import { reviewedBridgeArtifactFormalIdentityInputs } from '../src/domain/formal/identityDefinitions.ts'
 import { GAME_DATA_SEMANTIC_RULES } from '../src/research/gameDataSemanticRules.ts'
 import type { EvidenceGap } from '../src/research/evidenceGapMap.ts'
 import { loadInputs, classifyGap, serialize, type buildFinalCoverage } from './game-data-final-coverage.ts'
@@ -214,6 +215,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     ['melee-weapon:SkeletonHammer', 'melee-weapon:bonehead-hammer'],
     ['melee-weapon:Sword_Spooky1', 'melee-weapon:sinister-sword'],
     ['ranged-weapon:BatCrossbow', 'ranged-weapon:shrieking-crossbow'],
+    ...reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId, rawIdentity }) => [`artifact:${rawIdentity}`, `artifact:${domainId}`] as const),
   ])
   const reviewedAliases = result.aliases.map((alias) => {
     const canonicalEntity = reviewedDocumentedIdentityBridges.get(alias.id)
@@ -230,6 +232,28 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
       evidenceIds: [...new Set(catalogEvidence)].sort(),
     }
   })
+  for (const input of reviewedBridgeArtifactFormalIdentityInputs) {
+    const aliasId = `artifact:${input.rawIdentity}`
+    if (reviewedAliases.some((alias) => alias.id === aliasId)) continue
+    const canonicalEntity = `artifact:${input.domainId}`
+    const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: reviewed Artifact bridge lacks catalog identity/category evidence`)
+    reviewedAliases.push({
+      id: aliasId,
+      rawIdentity: input.rawIdentity,
+      category: 'artifact',
+      status: 'accepted',
+      candidates: [canonicalEntity],
+      basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+      confidence: 'high',
+      variant: 'separate-gameplay-entity',
+      evidenceIds: [...new Set(catalogEvidence)].sort(),
+      assetPaths: [input.packagePath],
+      sourceRecordIds: [],
+      canonicalEntity,
+    })
+  }
+  reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
     'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },
     'domain/game-data-entity-aliases': { ...common, aliases: reviewedAliases, rejectedAliases: result.rejectedAliases, researchEntities: result.researchEntities, summary: summary.entity },
