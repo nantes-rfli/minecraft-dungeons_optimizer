@@ -202,8 +202,12 @@ export const reviewedBridgeRangedFormalIdentityInputs = [
   { domainId: 'shrieking-crossbow', rawIdentity: 'BatCrossbow', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbowInstance', displayName: 'Shrieking Crossbow' },
 ] as const satisfies readonly AcceptedRangedIdentityInput[]
 
-function documentedAliasBridgeDefinition(input: AcceptedMeleeIdentityInput, category: 'melee' | 'ranged'): FormalIdentityDefinition {
-  const base = category === 'melee' ? acceptedMeleeDefinition(input) : acceptedRangedDefinition(input)
+function documentedAliasBridgeDefinition(input: AcceptedMeleeIdentityInput, category: 'melee' | 'ranged' | 'artifact'): FormalIdentityDefinition {
+  const base = category === 'melee'
+    ? acceptedMeleeDefinition(input)
+    : category === 'ranged'
+      ? acceptedRangedDefinition(input)
+      : acceptedArtifactDefinition(input)
   const overrideEvidenceRef = `evidence:reviewed:${input.domainId}:documented-entity-alias`
   return {
     ...base,
@@ -345,6 +349,23 @@ function acceptedArtifactDefinition(input: AcceptedArtifactIdentityInput): Forma
 
 export const readyArtifactFormalIdentities = readyArtifactFormalIdentityInputs.map(acceptedArtifactDefinition)
 
+export const reviewedBridgeArtifactFormalIdentityInputs = [
+  { domainId: 'blast-fungus', rawIdentity: 'NetherWartSporeGrenade', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance', displayName: 'Blast Fungus' },
+  { domainId: 'corrupted-pumpkin', rawIdentity: 'CorruptedBeacon_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance', displayName: 'Corrupted Pumpkin' },
+  { domainId: 'enchanted-grass', rawIdentity: 'RainbowGrass', packagePath: 'Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance', displayName: 'Enchanted Grass' },
+  { domainId: 'eye-of-the-guardian', rawIdentity: 'GuardianEye', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance', displayName: 'Eye of the Guardian' },
+  { domainId: 'harpoon-quiver', rawIdentity: 'HeavyHarpoonQuiver', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance', displayName: 'Harpoon Quiver' },
+  { domainId: 'powershaker', rawIdentity: 'MobMasher', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance', displayName: 'Powershaker' },
+  { domainId: 'satchel-of-elements', rawIdentity: 'SatchelOfTheElements', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance', displayName: 'Satchel of Elements' },
+  { domainId: 'scatter-mines', rawIdentity: 'ChargedRedstoneMines', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance', displayName: 'Scatter Mines' },
+  { domainId: 'shadow-shifter', rawIdentity: 'ShadowSplinter', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance', displayName: 'Shadow Shifter' },
+  { domainId: 'spinblade', rawIdentity: 'SpinWheel', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance', displayName: 'Spinblade' },
+  { domainId: 'totem-of-casting', rawIdentity: 'SoulTotemOfCasting', packagePath: 'Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance', displayName: 'Totem of Casting' },
+  { domainId: 'vexing-chant', rawIdentity: 'LostEvocation', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance', displayName: 'Vexing Chant' },
+] as const satisfies readonly AcceptedArtifactIdentityInput[]
+
+export const reviewedBridgeArtifactFormalIdentities = reviewedBridgeArtifactFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'artifact'))
+
 type ArmorIdentityInput = {
   domainId: string
   rawIdentity: string
@@ -472,4 +493,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedBridgeRangedFormalIdentities,
   ...readyArtifactFormalIdentities,
   ...readyArmorFormalIdentities,
+  ...reviewedBridgeArtifactFormalIdentities,
 ]

@@ -12,6 +12,22 @@ const unique = (xs: readonly string[]) => [...new Set(xs)].sort()
 const counts = (xs: readonly string[]) => Object.fromEntries(unique(xs).map(key => [key, xs.filter(x => x === key).length]))
 type BaselineDifferences = ReturnType<typeof buildFinalCoverage>['modelDifferences']
 interface CatalogRecord { category: CanonicalResearchProperty['category']; id: string; known: { property: string; sourceIds: string[] }[] }
+
+export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
+  { domainId: 'blast-fungus', rawIdentity: 'NetherWartSporeGrenade', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance' },
+  { domainId: 'corrupted-pumpkin', rawIdentity: 'CorruptedBeacon_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance' },
+  { domainId: 'enchanted-grass', rawIdentity: 'RainbowGrass', packagePath: 'Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance' },
+  { domainId: 'eye-of-the-guardian', rawIdentity: 'GuardianEye', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance' },
+  { domainId: 'harpoon-quiver', rawIdentity: 'HeavyHarpoonQuiver', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance' },
+  { domainId: 'powershaker', rawIdentity: 'MobMasher', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance' },
+  { domainId: 'satchel-of-elements', rawIdentity: 'SatchelOfTheElements', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance' },
+  { domainId: 'scatter-mines', rawIdentity: 'ChargedRedstoneMines', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance' },
+  { domainId: 'shadow-shifter', rawIdentity: 'ShadowSplinter', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance' },
+  { domainId: 'spinblade', rawIdentity: 'SpinWheel', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance' },
+  { domainId: 'totem-of-casting', rawIdentity: 'SoulTotemOfCasting', packagePath: 'Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance' },
+  { domainId: 'vexing-chant', rawIdentity: 'LostEvocation', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance' },
+] as const
+
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
@@ -214,6 +230,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     ['melee-weapon:SkeletonHammer', 'melee-weapon:bonehead-hammer'],
     ['melee-weapon:Sword_Spooky1', 'melee-weapon:sinister-sword'],
     ['ranged-weapon:BatCrossbow', 'ranged-weapon:shrieking-crossbow'],
+    ...REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity }) => [`artifact:${rawIdentity}`, `artifact:${domainId}`] as const),
   ])
   const reviewedAliases = result.aliases.map((alias) => {
     const canonicalEntity = reviewedDocumentedIdentityBridges.get(alias.id)
@@ -230,6 +247,28 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
       evidenceIds: [...new Set(catalogEvidence)].sort(),
     }
   })
+  for (const input of REVIEWED_ARTIFACT_ALIAS_BRIDGES) {
+    const aliasId = `artifact:${input.rawIdentity}`
+    if (reviewedAliases.some((alias) => alias.id === aliasId)) continue
+    const canonicalEntity = `artifact:${input.domainId}`
+    const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: reviewed Artifact bridge lacks catalog identity/category evidence`)
+    reviewedAliases.push({
+      id: aliasId,
+      rawIdentity: input.rawIdentity,
+      category: 'artifact',
+      status: 'accepted',
+      candidates: [canonicalEntity],
+      basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+      confidence: 'high',
+      variant: 'separate-gameplay-entity',
+      evidenceIds: [...new Set(catalogEvidence)].sort(),
+      assetPaths: [input.packagePath],
+      sourceRecordIds: [],
+      canonicalEntity,
+    })
+  }
+  reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
     'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },
     'domain/game-data-entity-aliases': { ...common, aliases: reviewedAliases, rejectedAliases: result.rejectedAliases, researchEntities: result.researchEntities, summary: summary.entity },

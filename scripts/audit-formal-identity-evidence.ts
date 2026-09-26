@@ -17,6 +17,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedBridgeArtifactFormalIdentities,
+  reviewedBridgeArtifactFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
@@ -36,15 +38,15 @@ const representativeInputs = representativeDefinitions.map((definition) => ({
   definition,
   raw: readRaw(definition.assertion.applicationScope.packagePath),
 }))
-const inventoryDefinitions = [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities, ...readyArtifactFormalIdentities, ...readyArmorFormalIdentities]
+const inventoryDefinitions = [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities, ...readyArtifactFormalIdentities, ...readyArmorFormalIdentities, ...reviewedBridgeArtifactFormalIdentities]
 const inventoryInputs = readFormalIdentityInventoryInputs(repositoryRoot, inventoryDefinitions)
 const artifact = buildFormalIdentityEvidenceArtifact([...representativeInputs, ...inventoryInputs])
 
 assert.deepEqual(collectFormalIdentityEvidenceErrors(artifact), [])
-assert.equal(artifact.identityAssertions.length, 128)
-assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 128)
-assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id)).size, 128, 'duplicate Formal Identity assertion')
-assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId)).size, 128, 'duplicate Formal Identity domain')
+assert.equal(artifact.identityAssertions.length, 140)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 140)
+assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id)).size, 140, 'duplicate Formal Identity assertion')
+assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId)).size, 140, 'duplicate Formal Identity domain')
 const matchedMelee = artifact.semantic.identities.filter(({ resolution }) =>
   resolution.state === 'matched'
   && (resolution.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedBridgeMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId)))
@@ -72,13 +74,23 @@ assert.deepEqual(
 )
 
 const artifactDomainIds = readyArtifactFormalIdentities.map(({ assertion }) => assertion.domainId)
+const reviewedArtifactDomainIds = reviewedBridgeArtifactFormalIdentities.map(({ assertion }) => assertion.domainId)
+assert.deepEqual(reviewedArtifactDomainIds, [
+  'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
+  'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
+])
+assert.equal(reviewedArtifactDomainIds.length, 12, 'new reviewed Artifact identity population drift')
+assert.deepEqual(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId), reviewedArtifactDomainIds)
 assert.deepEqual(artifact.identityAssertions.slice(52, 58).map(({ domainId }) => domainId), artifactDomainIds)
 assert.deepEqual(artifact.semantic.identities.slice(52, 58).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), artifactDomainIds)
 assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'death-cap-mushroom' || artifactDomainIds.includes(resolution.domainId))).length, 7)
 const armorDomainIds = readyArmorFormalIdentities.map(({ assertion }) => assertion.domainId)
-assert.deepEqual(artifact.identityAssertions.slice(58).map(({ domainId }) => domainId), armorDomainIds)
-assert.deepEqual(artifact.semantic.identities.slice(58).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), armorDomainIds)
+assert.deepEqual(artifact.identityAssertions.slice(58, 128).map(({ domainId }) => domainId), armorDomainIds)
+assert.deepEqual(artifact.semantic.identities.slice(58, 128).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), armorDomainIds)
 assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'battle-robe' || armorDomainIds.includes(resolution.domainId))).length, 71)
+assert.deepEqual(artifact.identityAssertions.slice(128).map(({ domainId }) => domainId), reviewedArtifactDomainIds)
+assert.deepEqual(artifact.semantic.identities.slice(128).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), reviewedArtifactDomainIds)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'death-cap-mushroom' || artifactDomainIds.includes(resolution.domainId) || reviewedArtifactDomainIds.includes(resolution.domainId))).length, 19)
 
 for (const definition of readyArtifactFormalIdentities) {
   const input = inventoryInputs.find(({ definition: candidate }) => candidate.assertion.id === definition.assertion.id)
@@ -105,6 +117,19 @@ for (const definition of readyArmorFormalIdentities) {
   assert.deepEqual(observation.itemIdName.observation, { state: 'known', value: expected }, `${definition.assertion.domainId}: ItemIdName must equal armor-audit levelId`)
   assert.equal(observation.itemIdName.provenance.packagePath, packagePath, `${definition.assertion.domainId}: ItemIdName package provenance drift`)
   assert.deepEqual(observation.serializedId.observation, { state: 'known', value: expected }, `${definition.assertion.domainId}: SerializedId must equal armor-audit levelId`)
+  assert.equal(observation.serializedId.provenance.packagePath, packagePath, `${definition.assertion.domainId}: SerializedId package provenance drift`)
+}
+
+for (const definition of reviewedBridgeArtifactFormalIdentities) {
+  const input = inventoryInputs.find(({ definition: candidate }) => candidate.assertion.id === definition.assertion.id)
+  assert.ok(input && 'observation' in input && input.observation, `${definition.assertion.domainId}: exact reviewed Artifact Structural observation missing`)
+  const observation = input.observation
+  const expected = definition.assertion.rawIdentity
+  const packagePath = definition.assertion.applicationScope.packagePath
+  assert.equal(observation.packagePath, packagePath, `${definition.assertion.domainId}: reviewed Artifact package binding drift`)
+  assert.deepEqual(observation.itemIdName.observation, { state: 'known', value: expected }, `${definition.assertion.domainId}: ItemIdName differs from its reviewed bridge`)
+  assert.equal(observation.itemIdName.provenance.packagePath, packagePath, `${definition.assertion.domainId}: ItemIdName package provenance drift`)
+  assert.deepEqual(observation.serializedId.observation, { state: 'known', value: expected }, `${definition.assertion.domainId}: SerializedId differs from its reviewed bridge`)
   assert.equal(observation.serializedId.provenance.packagePath, packagePath, `${definition.assertion.domainId}: SerializedId package provenance drift`)
 }
 
@@ -141,6 +166,22 @@ assert.equal(
   'Original 52 identities, Phase A six Artifacts, or Battle Robe identity/evidence/provenance changed',
 )
 
+const existing128Assertions = artifact.identityAssertions.slice(0, 128)
+const existing128AssertionIds = new Set(existing128Assertions.map(({ id }) => id))
+const existing128Semantics = artifact.semantic.identities.filter(({ assertionId }) => existing128AssertionIds.has(assertionId))
+const existing128EvidenceRefs = new Set(existing128Assertions.flatMap(({ evidenceRefs }) => evidenceRefs))
+for (const identity of existing128Semantics) {
+  existing128EvidenceRefs.add(identity.rawEvidence.itemIdName.evidenceRef)
+  existing128EvidenceRefs.add(identity.rawEvidence.serializedId.evidenceRef)
+  identity.resolution.evidenceRefs.forEach((reference) => existing128EvidenceRefs.add(reference))
+}
+const existing128Evidence = artifact.provenance.evidence.filter(({ id }) => existing128EvidenceRefs.has(id))
+assert.equal(
+  crypto.createHash('sha256').update(JSON.stringify({ identityAssertions: existing128Assertions, semanticIdentities: existing128Semantics, provenanceEvidence: existing128Evidence })).digest('hex'),
+  '3fe9b419f761db57e847814cf26a2f188fa4ea0a9cd2ca32c2ddf67386aad6fb',
+  'Existing 128 Formal Identity assertions, semantic identities, or evidence/provenance changed',
+)
+
 const roles = new Set(artifact.provenance.evidence.flatMap((record: EvidenceRecord) => record.kind === 'reviewed' ? [record.role] : []))
 assert.deepEqual([...roles].sort(), ['conflict', 'limitation', 'support'])
 for (const record of artifact.provenance.evidence) {
@@ -158,4 +199,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Identity/Evidence artifact drift; run generate:formal-identity-evidence')
-console.log('Formal Identity/Evidence v1 audit passed: 128 matched identities (27 Melee, 23 Ranged, 71 Armor, 7 Artifact); 70/70 Armor bridges and Structural observations match; duplicate assertions/domains 0; unsupported promotions 0; the original 52, Phase A six Artifacts, and Battle Robe remain unchanged.')
+console.log('Formal Identity/Evidence v1 audit passed: 140 matched identities (27 Melee, 23 Ranged, 71 Armor, 19 Artifact); 12 reviewed Artifact bridges and exact Structural observations match; duplicate assertions/domains 0; unsupported promotions 0; the existing 128 and Phase A identities remain unchanged.')
