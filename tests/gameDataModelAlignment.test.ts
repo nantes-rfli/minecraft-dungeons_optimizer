@@ -1,13 +1,42 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
 const catalog: ResearchEntityIdentity[] = ['ranged-weapon:scatter-crossbow','melee-weapon:double-axe','artifact:death-cap-mushroom','ranged-enchantment:rapid-fire','armor-enchantment:cool-down'].map(entity=>({entity,sourceIds:['catalog-identity-fixture']}))
 
 describe('Phase 6.6 identity boundaries', () => {
+  it('generates exactly the reviewed Artifact alias bridges from research-owned mappings', () => {
+    expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity }) => [domainId, rawIdentity])).toEqual([
+      ['blast-fungus', 'NetherWartSporeGrenade'],
+      ['corrupted-pumpkin', 'CorruptedBeacon_Spooky1'],
+      ['enchanted-grass', 'RainbowGrass'],
+      ['eye-of-the-guardian', 'GuardianEye'],
+      ['harpoon-quiver', 'HeavyHarpoonQuiver'],
+      ['powershaker', 'MobMasher'],
+      ['satchel-of-elements', 'SatchelOfTheElements'],
+      ['scatter-mines', 'ChargedRedstoneMines'],
+      ['shadow-shifter', 'ShadowSplinter'],
+      ['spinblade', 'SpinWheel'],
+      ['totem-of-casting', 'SoulTotemOfCasting'],
+      ['vexing-chant', 'LostEvocation'],
+    ])
+    const aliases = JSON.parse(alignmentOutputs(result)['research/domain/game-data-entity-aliases.json']!).aliases as Array<{
+      id: string
+      canonicalEntity: string | null
+      status: string
+      confidence: string
+    }>
+    const generatedBridges = aliases.filter(({ id }) => REVIEWED_ARTIFACT_ALIAS_BRIDGES.some(({ rawIdentity }) => id === `artifact:${rawIdentity}`))
+    expect(generatedBridges).toHaveLength(12)
+    expect(generatedBridges.every(({ status, confidence }) => status === 'accepted' && confidence === 'high')).toBe(true)
+    expect(generatedBridges.map(({ canonicalEntity }) => canonicalEntity).sort()).toEqual(
+      REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId }) => `artifact:${domainId}`).sort(),
+    )
+  })
+
   it.each([
     ['ranged-weapon','ScatterCrossbow','ranged-weapon:scatter-crossbow'],
     ['melee-weapon','DoubleAxe','melee-weapon:double-axe'],

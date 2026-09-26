@@ -3,7 +3,6 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { CANONICAL_GAME_DATA_PROPERTIES, ALIGNED_RULE_DECISIONS, auditCanonicalProperties, type CanonicalResearchProperty } from '../src/research/gameDataCanonicalProperties.ts'
 import { resolveAlignedGameDataEntity, type AlignedEntityResolution, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver.ts'
-import { reviewedBridgeArtifactFormalIdentityInputs } from '../src/domain/formal/identityDefinitions.ts'
 import { GAME_DATA_SEMANTIC_RULES } from '../src/research/gameDataSemanticRules.ts'
 import type { EvidenceGap } from '../src/research/evidenceGapMap.ts'
 import { loadInputs, classifyGap, serialize, type buildFinalCoverage } from './game-data-final-coverage.ts'
@@ -13,6 +12,22 @@ const unique = (xs: readonly string[]) => [...new Set(xs)].sort()
 const counts = (xs: readonly string[]) => Object.fromEntries(unique(xs).map(key => [key, xs.filter(x => x === key).length]))
 type BaselineDifferences = ReturnType<typeof buildFinalCoverage>['modelDifferences']
 interface CatalogRecord { category: CanonicalResearchProperty['category']; id: string; known: { property: string; sourceIds: string[] }[] }
+
+export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
+  { domainId: 'blast-fungus', rawIdentity: 'NetherWartSporeGrenade', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance' },
+  { domainId: 'corrupted-pumpkin', rawIdentity: 'CorruptedBeacon_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance' },
+  { domainId: 'enchanted-grass', rawIdentity: 'RainbowGrass', packagePath: 'Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance' },
+  { domainId: 'eye-of-the-guardian', rawIdentity: 'GuardianEye', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance' },
+  { domainId: 'harpoon-quiver', rawIdentity: 'HeavyHarpoonQuiver', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance' },
+  { domainId: 'powershaker', rawIdentity: 'MobMasher', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance' },
+  { domainId: 'satchel-of-elements', rawIdentity: 'SatchelOfTheElements', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance' },
+  { domainId: 'scatter-mines', rawIdentity: 'ChargedRedstoneMines', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance' },
+  { domainId: 'shadow-shifter', rawIdentity: 'ShadowSplinter', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance' },
+  { domainId: 'spinblade', rawIdentity: 'SpinWheel', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance' },
+  { domainId: 'totem-of-casting', rawIdentity: 'SoulTotemOfCasting', packagePath: 'Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance' },
+  { domainId: 'vexing-chant', rawIdentity: 'LostEvocation', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance' },
+] as const
+
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
@@ -215,7 +230,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     ['melee-weapon:SkeletonHammer', 'melee-weapon:bonehead-hammer'],
     ['melee-weapon:Sword_Spooky1', 'melee-weapon:sinister-sword'],
     ['ranged-weapon:BatCrossbow', 'ranged-weapon:shrieking-crossbow'],
-    ...reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId, rawIdentity }) => [`artifact:${rawIdentity}`, `artifact:${domainId}`] as const),
+    ...REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity }) => [`artifact:${rawIdentity}`, `artifact:${domainId}`] as const),
   ])
   const reviewedAliases = result.aliases.map((alias) => {
     const canonicalEntity = reviewedDocumentedIdentityBridges.get(alias.id)
@@ -232,7 +247,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
       evidenceIds: [...new Set(catalogEvidence)].sort(),
     }
   })
-  for (const input of reviewedBridgeArtifactFormalIdentityInputs) {
+  for (const input of REVIEWED_ARTIFACT_ALIAS_BRIDGES) {
     const aliasId = `artifact:${input.rawIdentity}`
     if (reviewedAliases.some((alias) => alias.id === aliasId)) continue
     const canonicalEntity = `artifact:${input.domainId}`
