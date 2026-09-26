@@ -96,6 +96,7 @@ export type FormalRelationInputs = {
   scatter: RelationSliceInput
   battleRobe: RelationSliceInput
   deathCapMushroom: RelationSliceInput
+  structuralPackagePaths: ReadonlySet<string>
 }
 
 export function relationRefForDomain(domainId: string, kind: RelationKind): RelationRef {
@@ -182,12 +183,55 @@ function validRawName(value: unknown): boolean {
     && typeof name.value === 'string' && name.value.length > 0
 }
 
-function serializedTargetResolutionFor(
-  definition: (typeof definitions)[number],
-  target: SerializedTarget,
+function structuralPackagePathForGamePackage(gamePackagePath: string): string | undefined {
+  return gamePackagePath.startsWith('/Game/')
+    ? `Dungeons/Content/${gamePackagePath.slice('/Game/'.length)}`
+    : undefined
+}
+
+export function serializedTargetResolutionFromStructuralEdge(
+  edge: {
+    targetPackage?: unknown
+    targetKind?: unknown
+    traversal?: unknown
+  },
+  structuralPackagePaths: ReadonlySet<string>,
 ): SerializedTargetResolution {
-  return target.gamePackagePath === definition.targetGamePath
-    ? { state: 'resolved-local-package', structuralPackagePath: definition.targetRawPath }
+  const traversal = typeof edge.traversal === 'object' && edge.traversal !== null && !Array.isArray(edge.traversal)
+    ? edge.traversal as Record<string, unknown>
+    : {}
+  const stopReason = traversal.stopReason
+
+  if (stopReason === 'null-reference' || edge.targetKind === 'null') return { state: 'known-null' }
+  if (stopReason === 'native-boundary') return { state: 'native-boundary' }
+  if (stopReason === 'outside-game-boundary') return { state: 'outside-game-boundary' }
+  if (stopReason === 'missing-target') return { state: 'missing-target' }
+  if (stopReason === 'parser-boundary'
+    || stopReason === 'unresolved-package-index'
+    || stopReason === 'invalid-package-index') {
+    return { state: 'parser-boundary' }
+  }
+  if (stopReason !== 'followed'
+    && stopReason !== 'already-visited'
+    && stopReason !== 'package-local-reference') {
+    throw new Error(`Unsupported Structural traversal stopReason for serialized target resolution: ${String(stopReason)}`)
+  }
+
+  const targetPackage = typeof edge.targetPackage === 'string' && edge.targetPackage.length > 0
+    ? edge.targetPackage
+    : undefined
+  return targetPackage && structuralPackagePaths.has(targetPackage)
+    ? { state: 'resolved-local-package', structuralPackagePath: targetPackage }
+    : { state: 'missing-target' }
+}
+
+function serializedTargetResolutionFor(
+  target: SerializedTarget,
+  structuralPackagePaths: ReadonlySet<string>,
+): SerializedTargetResolution {
+  const structuralPackagePath = structuralPackagePathForGamePackage(target.gamePackagePath)
+  return structuralPackagePath && structuralPackagePaths.has(structuralPackagePath)
+    ? { state: 'resolved-local-package', structuralPackagePath }
     : { state: 'missing-target' }
 }
 
@@ -354,7 +398,7 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
         occurrence,
         evidenceRefs: refs,
         result: 'projected',
-        serializedTargetResolution: serializedTargetResolutionFor(definition, target),
+        serializedTargetResolution: serializedTargetResolutionFor(target, inputs.structuralPackagePaths),
         targetRawVerification,
       })
     }
