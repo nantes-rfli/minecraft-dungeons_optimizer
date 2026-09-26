@@ -18,6 +18,14 @@ type StructuralPackage = RawStructuralInventoryShard['packages'][number]
 type StructuralProperty = StructuralPackage['cdoPropertyInventory'][number]['properties'][number]
 type UnavailableReason = RawObservationEvidenceRecord['unavailableReason']
 
+export type FormalIdentityInventoryBindingInput = {
+  definition: FormalIdentityDefinition
+  observation: FormalIdentityObservationInput
+  structuralPackage: StructuralPackage
+  shardPath: string
+  packageIndex: number
+}
+
 const inventoryDirectory = 'research/raw/game-data-raw-structural-inventory'
 const manifestRelativePath = `${inventoryDirectory}/manifest.json`
 
@@ -151,10 +159,10 @@ function inventoryObservation(
   }
 }
 
-export function readFormalIdentityInventoryInputs(
+export function readFormalIdentityInventoryBindings(
   repositoryRoot: string,
   definitions: readonly FormalIdentityDefinition[],
-): FormalIdentityProjectionInput[] {
+): FormalIdentityInventoryBindingInput[] {
   const manifestPath = path.join(repositoryRoot, manifestRelativePath)
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as RawStructuralInventoryManifest
   if (manifest.schemaVersion !== 1 || manifest.artifactKind !== 'raw-structural-inventory-with-dependency-graph') {
@@ -218,6 +226,16 @@ export function readFormalIdentityInventoryInputs(
     return {
       definition,
       observation: inventoryObservation(manifest, source.shardPath, source.packageIndex, source.pkg, definition),
+      structuralPackage: source.pkg,
+      shardPath: source.shardPath,
+      packageIndex: source.packageIndex,
     }
   })
+}
+
+export function readFormalIdentityInventoryInputs(
+  repositoryRoot: string,
+  definitions: readonly FormalIdentityDefinition[],
+): FormalIdentityProjectionInput[] {
+  return readFormalIdentityInventoryBindings(repositoryRoot, definitions).map(({ definition, observation }) => ({ definition, observation }))
 }

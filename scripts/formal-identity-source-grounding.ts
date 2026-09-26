@@ -11,12 +11,15 @@ import {
   readyRangedFormalIdentityInputs,
   readyArtifactFormalIdentities,
   readyArtifactFormalIdentityInputs,
+  readyArmorFormalIdentities,
+  readyArmorFormalIdentityInputs,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeMeleeFormalIdentityInputs,
   reviewedBridgeRangedFormalIdentities,
   reviewedBridgeRangedFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
+import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
 
 type Alias = {
   id?: string
@@ -40,6 +43,15 @@ type IconEntry = {
 type RangedEntry = { id?: string; name?: { en?: string } }
 type MeleeEntry = { weaponId?: string; name?: { en?: string } }
 type ArtifactEntry = { id?: string; name?: string }
+type ArmorAuditEntry = { id?: string; name?: string; levelId?: string }
+type RawStructuralSeed = {
+  catalogId?: string
+  category?: string
+  catalogInternalId?: string
+  status?: string
+  matchBasis?: string[]
+  candidates?: { packagePath?: string; objectName?: string; role?: string; evidence?: string[] }[]
+}
 
 export type FormalReviewedSources = {
   existingPaths: Set<string>
@@ -48,6 +60,10 @@ export type FormalReviewedSources = {
   rangedAudit?: { entries?: RangedEntry[] }
   meleeAudit?: { weapons?: MeleeEntry[] }
   artifactAudit?: { entries?: ArtifactEntry[] }
+  armorAudit?: { entries?: ArmorAuditEntry[] }
+  rawStructuralSeeds?: { catalogSeeds?: RawStructuralSeed[] }
+  armorReadinessAuditSource?: string
+  armorInventoryBindings: FormalIdentityInventoryBindingInput[]
   historicalMappingSource?: string
   equipmentIconSource?: string
   presentations: {
@@ -58,6 +74,7 @@ export type FormalReviewedSources = {
     melee: Record<string, string | undefined>
     ranged: Record<string, string | undefined>
     artifact: Record<string, string | undefined>
+    armor: Record<string, string | undefined>
   }
   battleRobeCatalogId?: string
 }
@@ -71,8 +88,11 @@ const knownPaths = [
   'research/ranged-weapon-audit.json',
   'research/melee-attack-profile-audit.json',
   'research/artifact-audit.json',
+  'research/armor-audit.json',
   'src/data/armors.ts',
   'src/data/artifacts.ts',
+  'research/raw/game-data-raw-structural-inventory/manifest.json',
+  'docs/remaining_formal_identity_breadth_readiness_audit.md',
 ] as const
 
 export function readFormalReviewedSources(repositoryRoot: string): FormalReviewedSources {
@@ -85,6 +105,9 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const rangedAudit = readJson<{ entries?: RangedEntry[] }>('research/ranged-weapon-audit.json')
   const meleeAudit = readJson<{ weapons?: MeleeEntry[] }>('research/melee-attack-profile-audit.json')
   const artifactAudit = readJson<{ entries?: ArtifactEntry[] }>('research/artifact-audit.json')
+  const armorAudit = readJson<{ entries?: ArmorAuditEntry[] }>('research/armor-audit.json')
+  const rawStructuralSeeds = readJson<{ catalogSeeds?: RawStructuralSeed[] }>('research/raw/game-data-raw-structural-inventory/manifest.json')
+  const armorReadinessAuditSource = readText('docs/remaining_formal_identity_breadth_readiness_audit.md')
   const weaponsSource = readText('src/data/weapons.ts') ?? ''
   const armorsSource = readText('src/data/armors.ts') ?? ''
   const artifactsSource = readText('src/data/artifacts.ts') ?? ''
@@ -98,6 +121,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     rangedAudit,
     meleeAudit,
     artifactAudit,
+    armorAudit,
+    rawStructuralSeeds,
+    armorReadinessAuditSource,
+    armorInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, readyArmorFormalIdentities),
     historicalMappingSource: readText(historicalPath),
     equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
@@ -116,6 +143,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       artifact: Object.fromEntries(readyArtifactFormalIdentityInputs.map(({ domainId }) => [
         domainId,
         artifactAudit?.entries?.find((entry) => entry.id === domainId)?.name,
+      ])),
+      armor: Object.fromEntries(readyArmorFormalIdentityInputs.map(({ domainId }) => [
+        domainId,
+        armorAudit?.entries?.find((entry) => entry.id === domainId)?.name,
       ])),
     },
     battleRobeCatalogId: battleRobeBlock?.[1],
@@ -251,6 +282,80 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(readyRangedFormalIdentities.length === 21, 'ready Ranged Formal identity population drift')
   check(new Set(readyRangedFormalIdentities.map(({ assertion }) => assertion.domainId)).size === 21, 'ready Ranged Formal domainId uniqueness drift')
 
+  const armorReadinessBlock = sources.armorReadinessAuditSource
+    ?.split('### ready-with-existing-source-adapter (70)\n')[1]
+    ?.split('\n### ready-with-small-reviewed-bridge')[0]
+  const expectedArmorIds = [...(armorReadinessBlock ?? '').matchAll(/`([^`]+)`/g)].map(([, id]) => id!)
+  const actualArmorIds = readyArmorFormalIdentityInputs.map(({ domainId }) => domainId)
+  check(expectedArmorIds.length === 70, 'Armor readiness authority must enumerate exactly 70 adapter-ready identities')
+  check(JSON.stringify(actualArmorIds) === JSON.stringify(expectedArmorIds), 'Armor Formal IDs differ from the audited ready-with-existing-source-adapter set')
+  check(readyArmorFormalIdentities.length === 70, 'ready Armor Formal identity population drift')
+  check(new Set(actualArmorIds).size === 70, 'ready Armor Formal domainId uniqueness drift')
+  check(!actualArmorIds.some((id) => ['battle-robe', 'ender-armor', 'vanguard-armor'].includes(id)), 'excluded Armor identity entered the Phase B population')
+
+  const armorEntries = sources.armorAudit?.entries ?? []
+  const rawSeeds = sources.rawStructuralSeeds?.catalogSeeds ?? []
+  for (const definition of readyArmorFormalIdentities) {
+    const assertion = definition.assertion
+    const armorInput = readyArmorFormalIdentityInputs.find((input) => input.domainId === assertion.domainId)
+    const matchingArmorEntries = armorEntries.filter((entry) => entry.id === assertion.domainId)
+    const armorEntry = matchingArmorEntries[0]
+    const matchingSeeds = rawSeeds.filter((seed) => seed.category === 'armor' && seed.catalogId === assertion.domainId)
+    const seed = matchingSeeds[0]
+    const candidates = seed?.candidates ?? []
+    const candidate = candidates[0]
+    const matchingBindings = sources.armorInventoryBindings.filter((binding) => binding.definition.assertion.id === assertion.id)
+    const binding = matchingBindings[0]
+    const cdoExports = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const cdo = cdoExports[0]
+    const cdoClass = cdo?.references.class
+    const cdoClassObjectName = cdoClass && typeof cdoClass === 'object' && 'objectName' in cdoClass ? cdoClass.objectName : undefined
+    const cdoInventories = cdo
+      ? binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo.exportIndex) ?? []
+      : []
+    const observation = binding?.observation
+    const expectedRawIdentity = armorEntry?.levelId
+
+    check(matchingArmorEntries.length === 1, `${assertion.id}: armor-audit entry must exist exactly once`)
+    check(typeof expectedRawIdentity === 'string' && expectedRawIdentity.length > 0, `${assertion.id}: armor-audit levelId is missing`)
+    check(Boolean(armorInput), `${assertion.id}: Armor identity is outside the audited ready set`)
+    check(assertion.domainId === armorInput?.domainId, `${assertion.id}: Armor Formal domainId drift`)
+    check(assertion.rawIdentity === expectedRawIdentity, `${assertion.id}: Formal rawIdentity differs from armor-audit levelId`)
+    check(assertion.rawIdentity === armorInput?.rawIdentity, `${assertion.id}: Armor identity rawIdentity differs from its reviewed input`)
+    check(assertion.applicationScope.packagePath === armorInput?.packagePath, `${assertion.id}: Formal applicationScope package drift`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: Armor assertion must be accepted/high from the explicit catalog bridge`)
+    check(matchingSeeds.length === 1, `${assertion.id}: Raw Structural armor catalog seed must exist exactly once`)
+    check(seed?.catalogInternalId === expectedRawIdentity, `${assertion.id}: Raw Structural catalog internal ID differs from armor-audit levelId`)
+    check(seed?.status === 'exact' && seed.matchBasis?.includes('serialized-catalog-identifier-match') === true, `${assertion.id}: Raw Structural seed lacks serialized catalog identity evidence`)
+    check(candidates.length === 1, `${assertion.id}: Raw Structural candidate must exist exactly once`)
+    check(candidate?.role === 'instance', `${assertion.id}: Raw Structural candidate is not an instance package`)
+    check(candidate?.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: candidate/package binding drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemIdName=${expectedRawIdentity}`) === true, `${assertion.id}: candidate ItemIdName bridge evidence drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${expectedRawIdentity}`) === true, `${assertion.id}: candidate SerializedId bridge evidence drift`)
+    check(candidate?.evidence?.includes(`serialized-identity-match:ItemIdName->catalog:${assertion.domainId}`) === true, `${assertion.id}: candidate ItemIdName catalog binding drift`)
+    check(candidate?.evidence?.includes(`serialized-identity-match:ItemId.SerializedId->catalog:${assertion.domainId}`) === true, `${assertion.id}: candidate SerializedId catalog binding drift`)
+    check(matchingBindings.length === 1, `${assertion.id}: exact Structural package binding must exist exactly once`)
+    check(binding?.structuralPackage.path === candidate?.packagePath, `${assertion.id}: Structural package path differs from the exact candidate`)
+    check(cdoExports.length === 1, `${assertion.id}: Structural package must contain exactly one CDO`)
+    check(cdoClassObjectName === candidate?.objectName, `${assertion.id}: candidate object does not bind to the Structural CDO class`)
+    check(cdoInventories.length === 1, `${assertion.id}: Structural package must contain exactly one CDO property inventory`)
+    check(observation?.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: observation package differs from application scope`)
+    check(observation?.rawSchemaVersion === assertion.applicationScope.rawSchemaVersion, `${assertion.id}: observation schema version differs from application scope`)
+    check(observation?.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === expectedRawIdentity, `${assertion.id}: Structural ItemIdName differs from armor-audit levelId`)
+    check(observation?.itemIdName.provenance.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: Structural ItemIdName package provenance drift`)
+    check(observation?.serializedId.observation.state === 'known' && observation.serializedId.observation.value === expectedRawIdentity, `${assertion.id}: Structural SerializedId differs from armor-audit levelId`)
+    check(observation?.serializedId.provenance.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: Structural SerializedId package provenance drift`)
+    check(observation?.itemIdName.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: ItemIdName does not come from the exact Structural shard`)
+    check(observation?.serializedId.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: SerializedId does not come from the exact Structural shard`)
+    check(!!armorEntry && definition.presentation.displayName === armorEntry.name && definition.presentation.displayName === sources.presentations.armor[assertion.domainId], `${assertion.id}: presentation displayName drift`)
+    check(
+      assertion.evidenceRefs.length === 1
+      && definition.reviewedEvidence.some((record) => record.id === assertion.evidenceRefs[0] && record.kind === 'reviewed' && record.role === 'support' && record.source.artifactPath === 'research/armor-audit.json' && record.source.locator === `entries[id=${assertion.domainId}].levelId`)
+      && definition.reviewedEvidence.some((record) => record.kind === 'reviewed' && record.role === 'support' && record.source.artifactPath === 'research/armor-audit.json' && record.source.locator === `entries[id=${assertion.domainId}].name`),
+      `${assertion.id}: Armor identity evidence must use the armor-audit canonical bridge and presentation source`,
+    )
+  }
+
   const entityOverrideValue = (source: string, key: string): string | undefined => {
     const block = source.match(/const ENTITY_OVERRIDES:[\s\S]*?=\s*\{([\s\S]*?)\n\}/)?.[1]
     if (!block) return undefined
@@ -343,7 +448,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 58, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 128, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
@@ -356,5 +461,6 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 7,
     'Formal matched Artifact definition population drift',
   )
+  check(formalIdentityDefinitions.filter(({ assertion }) => readyArmorFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 70, 'Formal matched Armor definition population drift')
   return errors
 }

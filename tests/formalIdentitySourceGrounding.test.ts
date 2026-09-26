@@ -4,10 +4,11 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
-import { readyArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { readyArtifactFormalIdentities, readyArmorFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
 
 const repositoryRoot = process.cwd()
-const fixture = (): FormalReviewedSources => structuredClone(readFormalReviewedSources(repositoryRoot))
+const baseSources = readFormalReviewedSources(repositoryRoot)
+const fixture = (): FormalReviewedSources => structuredClone(baseSources)
 const errors = (sources: FormalReviewedSources) => collectFormalReviewedSourceGroundingErrors(sources)
 const alias = (sources: FormalReviewedSources, id: string) => sources.aliases!.aliases!.find((entry) => entry.id === id)!
 
@@ -32,6 +33,47 @@ describe('Formal Identity reviewed-source grounding', () => {
       })
       expect(matching[0]!.assetPaths).toContain(assertion.applicationScope.packagePath)
     }
+  })
+
+  it('grounds all 70 Armor identities through exact armor-audit levelId and Structural candidate bindings', () => {
+    const sources = fixture()
+    expect(readyArmorFormalIdentities).toHaveLength(70)
+    for (const definition of readyArmorFormalIdentities) {
+      const assertion = definition.assertion
+      const armorRows = sources.armorAudit!.entries!.filter((entry) => entry.id === assertion.domainId)
+      expect(armorRows).toHaveLength(1)
+      expect(assertion.rawIdentity).toBe(armorRows[0]!.levelId)
+      const seeds = sources.rawStructuralSeeds!.catalogSeeds!.filter((seed) => seed.category === 'armor' && seed.catalogId === assertion.domainId)
+      expect(seeds).toHaveLength(1)
+      expect(seeds[0]).toMatchObject({
+        catalogInternalId: armorRows[0]!.levelId,
+        status: 'exact',
+        matchBasis: expect.arrayContaining(['serialized-catalog-identifier-match']),
+      })
+      expect(seeds[0]!.candidates).toHaveLength(1)
+      expect(seeds[0]!.candidates![0]).toMatchObject({ packagePath: assertion.applicationScope.packagePath, role: 'instance' })
+      expect(definition.assertion.evidenceRefs).toHaveLength(1)
+      expect(definition.reviewedEvidence[0]).toMatchObject({
+        kind: 'reviewed',
+        role: 'support',
+        source: { artifactPath: 'research/armor-audit.json', locator: `entries[id=${assertion.domainId}].levelId` },
+      })
+    }
+  })
+
+  it.each([
+    ['armor-audit levelId', (sources: FormalReviewedSources) => { sources.armorAudit!.entries!.find((entry) => entry.id === 'archer-s-armor')!.levelId = 'Other' }, 'Formal rawIdentity differs from armor-audit levelId'],
+    ['duplicate armor-audit entry', (sources: FormalReviewedSources) => { sources.armorAudit!.entries!.push(structuredClone(sources.armorAudit!.entries!.find((entry) => entry.id === 'archer-s-armor')!)) }, 'armor-audit entry must exist exactly once'],
+    ['candidate package', (sources: FormalReviewedSources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'archer-s-armor')!.candidates![0]!.packagePath = 'Dungeons/Content/Other' }, 'candidate/package binding drift'],
+    ['candidate CDO class', (sources: FormalReviewedSources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'archer-s-armor')!.candidates![0]!.objectName = 'Other_C' }, 'candidate object does not bind to the Structural CDO class'],
+    ['serialized candidate evidence', (sources: FormalReviewedSources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((seed) => seed.catalogId === 'archer-s-armor')!.candidates![0]!.evidence = [] }, 'candidate ItemIdName bridge evidence drift'],
+    ['ItemIdName observation', (sources: FormalReviewedSources) => { sources.armorInventoryBindings.find((binding) => binding.definition.assertion.domainId === 'archer-s-armor')!.observation.itemIdName.observation = { state: 'known', value: 'Other' } }, 'Structural ItemIdName differs from armor-audit levelId'],
+    ['SerializedId observation', (sources: FormalReviewedSources) => { sources.armorInventoryBindings.find((binding) => binding.definition.assertion.domainId === 'archer-s-armor')!.observation.serializedId.observation = { state: 'known', value: 'Other' } }, 'Structural SerializedId differs from armor-audit levelId'],
+    ['ambiguous CDO', (sources: FormalReviewedSources) => { const binding = sources.armorInventoryBindings.find((entry) => entry.definition.assertion.domainId === 'archer-s-armor')!; (binding.structuralPackage.exports as unknown as Array<{ isClassDefaultObject: boolean }>).push(structuredClone(binding.structuralPackage.exports.find((entry) => entry.isClassDefaultObject)!)) }, 'Structural package must contain exactly one CDO'],
+  ])('fails closed when an Armor %s bridge drifts', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
   })
 
   it.each([

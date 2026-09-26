@@ -345,6 +345,122 @@ function acceptedArtifactDefinition(input: AcceptedArtifactIdentityInput): Forma
 
 export const readyArtifactFormalIdentities = readyArtifactFormalIdentityInputs.map(acceptedArtifactDefinition)
 
+type ArmorIdentityInput = {
+  domainId: string
+  rawIdentity: string
+  packagePath: string
+  displayName: string
+}
+
+export const readyArmorFormalIdentityInputs = [
+  { domainId: 'archer-s-armor', rawIdentity: 'ArchersStrappings_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ArchersStrappings_Unique1/BP_ArchersStrappings_Unique1Instance', displayName: "Archer's Armor" },
+  { domainId: 'arctic-fox-armor', rawIdentity: 'WolfArmor_Winter1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/WolfArmor_Winter1/BP_WolfArmor_Winter1Instance', displayName: 'Arctic Fox Armor' },
+  { domainId: 'beehive-armor', rawIdentity: 'BeenestArmor_Unique1', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/Armor/BeenestArmor_Unique1/BP_BeenestArmor_Unique1Instance', displayName: 'Beehive Armor' },
+  { domainId: 'beenest-armor', rawIdentity: 'BeenestArmor', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/Armor/BeenestArmor/BP_BeenestArmorInstance', displayName: 'Beenest Armor' },
+  { domainId: 'black-spot-armor', rawIdentity: 'NatureArmor_Unique1', packagePath: 'Dungeons/Content/Content_Season2/Actors/Equipment/Armor/NatureArmor_Unique1/BP_NatureArmor_Unique1Instance', displayName: 'Black Spot Armor' },
+  { domainId: 'black-wolf-armor', rawIdentity: 'WolfArmor_Unique2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/WolfArmor_Unique2/BP_WolfArmor_Unique2Instance', displayName: 'Black Wolf Armor' },
+  { domainId: 'cauldron-armor', rawIdentity: 'FullPlateArmor_Spooky2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/FullPlateArmor_Spooky2/BP_FullPlateArmor_Spooky2Instance', displayName: 'Cauldron Armor' },
+  { domainId: 'cave-crawler', rawIdentity: 'SpelunkersArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SpelunkersArmor_Unique1/BP_SpelunkersArmor_Unique1Instance', displayName: 'Cave Crawler' },
+  { domainId: 'champion-s-armor', rawIdentity: 'ChampionsArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ChampionsArmor/BP_ChampionsArmorInstance', displayName: "Champion's Armor" },
+  { domainId: 'climbing-gear', rawIdentity: 'ClimbingGear', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/ClimbingGear/BP_ClimbingGearInstance', displayName: 'Climbing Gear' },
+  { domainId: 'cloaked-skull', rawIdentity: 'GhostArmor_Spooky2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/GhostArmor_Spooky2/BP_GhostArmor_Spooky2Instance', displayName: 'Cloaked Skull' },
+  { domainId: 'dark-armor', rawIdentity: 'DarkArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/DarkArmor/BP_DarkArmorInstance', displayName: 'Dark Armor' },
+  { domainId: 'ember-robe', rawIdentity: 'EvocationRobe_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/EvocationRobe_Unique1/BP_EvocationRobe_Unique1Instance', displayName: 'Ember Robe' },
+  { domainId: 'emerald-gear', rawIdentity: 'EmeraldArmor', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/EmeraldArmor/BP_EmeraldArmorInstance', displayName: 'Emerald Gear' },
+  { domainId: 'entertainer-s-garb', rawIdentity: 'BardsGarb', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/BardsGarb/BP_BardsGarbInstance', displayName: "Entertainer's Garb" },
+  { domainId: 'evocation-robe', rawIdentity: 'EvocationRobe', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/EvocationRobe/BP_EvocationRobeInstance', displayName: 'Evocation Robe' },
+  { domainId: 'fox-armor', rawIdentity: 'WolfArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/WolfArmor_Unique1/BP_WolfArmor_Unique1Instance', displayName: 'Fox Armor' },
+  { domainId: 'frost-armor', rawIdentity: 'SnowArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SnowArmor_Unique1/BP_SnowArmor_Unique1Instance', displayName: 'Frost Armor' },
+  { domainId: 'frost-bite', rawIdentity: 'PhantomArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/PhantomArmor_Unique1/BP_PhantomArmor_Unique1Instance', displayName: 'Frost Bite' },
+  { domainId: 'full-metal-armor', rawIdentity: 'FullPlateArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/FullPlateArmor_Unique1/BP_FullPlateArmor_Unique1Instance', displayName: 'Full Metal Armor' },
+  { domainId: 'ghost-kindler', rawIdentity: 'GhostArmor_Unique1', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/Armor/GhostArmor_Unique1/BP_GhostArmor_Unique1Instance', displayName: 'Ghost Kindler' },
+  { domainId: 'ghostly-armor', rawIdentity: 'GhostArmor', packagePath: 'Dungeons/Content/Patch2/Actors/Equipment/Armor/GhostArmor/BP_GhostArmorInstance', displayName: 'Ghostly Armor' },
+  { domainId: 'gilded-glory', rawIdentity: 'EmeraldArmor_Unique2', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/EmeraldArmor_Unique2/BP_EmeraldArmor_Unique2Instance', displayName: 'Gilded Glory' },
+  { domainId: 'glow-squid-armor', rawIdentity: 'SquidArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/Armor/SquidArmor_Unique1/BP_SquidArmor_Unique1Instance', displayName: 'Glow Squid Armor' },
+  { domainId: 'goat-gear', rawIdentity: 'ClimbingGear_Unique2', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/ClimbingGear_Unique2/BP_ClimbingGear_Unique2Instance', displayName: 'Goat Gear' },
+  { domainId: 'golden-piglin-armor', rawIdentity: 'PiglinArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/Armor/PiglinArmor_Unique1/BP_PiglinArmor_Unique1Instance', displayName: 'Golden Piglin Armor' },
+  { domainId: 'grim-armor', rawIdentity: 'GrimArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/GrimArmor/BP_GrimArmorInstance', displayName: 'Grim Armor' },
+  { domainId: 'guard-s-armor', rawIdentity: 'CowardsArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/CowardsArmor/BP_CowardsArmorInstance', displayName: "Guard's Armor" },
+  { domainId: 'hero-s-armor', rawIdentity: 'ChampionsArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ChampionsArmor_Unique1/BP_ChampionsArmor_Unique1Instance', displayName: "Hero's Armor" },
+  { domainId: 'highland-armor', rawIdentity: 'ScaleMail_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ScaleMail_Unique1/BP_ScaleMail_Unique1Instance', displayName: 'Highland Armor' },
+  { domainId: 'hungriest-horror', rawIdentity: 'MercenaryArmor_Spooky2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor_Spooky2/BP_MercenaryArmor_Spooky2Instance', displayName: 'Hungriest Horror' },
+  { domainId: 'hungry-horror', rawIdentity: 'MercenaryArmor_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/MercenaryArmor_Spooky1/BP_MercenaryArmor_Spooky1Instance', displayName: 'Hungry Horror' },
+  { domainId: 'hunter-s-armor', rawIdentity: 'ArchersStrappings', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ArchersStrappings/BP_ArchersStrappingsInstance', displayName: "Hunter's Armor" },
+  { domainId: 'living-vines-armor', rawIdentity: 'SproutArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/Armor/SproutArmor_Unique1/BP_SproutArmor_Unique1Instance', displayName: 'Living Vines Armor' },
+  { domainId: 'mercenary-armor', rawIdentity: 'MercenaryArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor/BP_MercenaryArmorInstance', displayName: 'Mercenary Armor' },
+  { domainId: 'mystery-armor', rawIdentity: 'MysteryArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/MysteryArmor/BP_MysteryArmorInstance', displayName: 'Mystery Armor' },
+  { domainId: 'nimble-turtle-armor', rawIdentity: 'TurtleArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/Armor/TurtleArmor_Unique1/BP_TurtleArmor_Unique1Instance', displayName: 'Nimble Turtle Armor' },
+  { domainId: 'ocelot-armor', rawIdentity: 'OcelotArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/OcelotArmor/BP_OcelotArmorInstance', displayName: 'Ocelot Armor' },
+  { domainId: 'opulent-armor', rawIdentity: 'EmeraldArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/EmeraldArmor_Unique1/BP_EmeraldArmor_Unique1Instance', displayName: 'Opulent Armor' },
+  { domainId: 'phantom-armor', rawIdentity: 'PhantomArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/PhantomArmor/BP_PhantomArmorInstance', displayName: 'Phantom Armor' },
+  { domainId: 'piglin-armor', rawIdentity: 'PiglinArmor', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/Armor/PiglinArmor/BP_PiglinArmorInstance', displayName: 'Piglin Armor' },
+  { domainId: 'plate-armor', rawIdentity: 'FullPlateArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/FullPlateArmor/BP_FullPlateArmorInstance', displayName: 'Plate Armor' },
+  { domainId: 'reinforced-mail', rawIdentity: 'ReinforcedMail', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ReinforcedMail/BP_ReinforcedMailInstance', displayName: 'Reinforced Mail' },
+  { domainId: 'renegade-armor', rawIdentity: 'MercenaryArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor_Unique1/BP_MercenaryArmor_Unique1Instance', displayName: 'Renegade Armor' },
+  { domainId: 'root-rot-armor', rawIdentity: 'NatureArmor', packagePath: 'Dungeons/Content/Content_Season2/Actors/Equipment/Armor/NatureArmor/BP_NatureArmorInstance', displayName: 'Root Rot Armor' },
+  { domainId: 'rugged-climbing-gear', rawIdentity: 'ClimbingGear_Unique1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/Armor/ClimbingGear_Unique1/BP_ClimbingGear_Unique1Instance', displayName: 'Rugged Climbing Gear' },
+  { domainId: 'scale-mail', rawIdentity: 'ScaleMail', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ScaleMail/BP_ScaleMailInstance', displayName: 'Scale Mail' },
+  { domainId: 'shadow-walker', rawIdentity: 'OcelotArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/OcelotArmor_Unique1/BP_OcelotArmor_Unique1Instance', displayName: 'Shadow Walker' },
+  { domainId: 'shulker-armor', rawIdentity: 'ShulkerArmor', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/ShulkerArmor/BP_ShulkerArmorInstance', displayName: 'Shulker Armor' },
+  { domainId: 'snow-armor', rawIdentity: 'SnowArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SnowArmor/BP_SnowArmorInstance', displayName: 'Snow Armor' },
+  { domainId: 'soul-robe', rawIdentity: 'SoulRobe', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SoulRobe/BP_SoulRobeInstance', displayName: 'Soul Robe' },
+  { domainId: 'souldancer-robe', rawIdentity: 'SoulRobe_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SoulRobe_Unique1/BP_SoulRobe_Unique1Instance', displayName: 'Souldancer Robe' },
+  { domainId: 'spelunker-armor', rawIdentity: 'SpelunkersArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SpelunkersArmor/BP_SpelunkersArmorInstance', displayName: 'Spelunker Armor' },
+  { domainId: 'spider-armor', rawIdentity: 'AssassinArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/AssassinArmor_Unique1/BP_AssassinArmor_Unique1Instance', displayName: 'Spider Armor' },
+  { domainId: 'splendid-robe', rawIdentity: 'BattleRobe_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/BattleRobe_Unique1/BP_BattleRobe_Unique1Instance', displayName: 'Splendid Robe' },
+  { domainId: 'sprout-armor', rawIdentity: 'SproutArmor', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/Armor/SproutArmor/BP_SproutArmorInstance', displayName: 'Sprout Armor' },
+  { domainId: 'squid-armor', rawIdentity: 'SquidArmor', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/Armor/SquidArmor/BP_SquidArmorInstance', displayName: 'Squid Armor' },
+  { domainId: 'stalwart-armor', rawIdentity: 'ReinforcedMail_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/ReinforcedMail_Unique1/BP_ReinforcedMail_Unique1Instance', displayName: 'Stalwart Armor' },
+  { domainId: 'sturdy-shulker-armor', rawIdentity: 'ShulkerArmor_Unique1', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/ShulkerArmor_Unique1/BP_ShulkerArmor_Unique1Instance', displayName: 'Sturdy Shulker Armor' },
+  { domainId: 'sweet-tooth', rawIdentity: 'SpelunkersArmor_Year1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/SpelunkersArmor_Year1/BP_SpelunkersArmor_Year1Instance', displayName: 'Sweet Tooth' },
+  { domainId: 'teleportation-robes', rawIdentity: 'EndRobes', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/EndRobes/BP_EndRobesInstance', displayName: 'Teleportation Robes' },
+  { domainId: 'the-spooky-gourdian', rawIdentity: 'GrimArmor_Spooky2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/GrimArmor_Spooky2/BP_GrimArmor_Spooky2Instance', displayName: 'The Spooky Gourdian' },
+  { domainId: 'the-troubadour', rawIdentity: 'BardsGarb_Unique1', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/BardsGarb_Unique1/BP_BardsGarb_Unique1Instance', displayName: 'The Troubadour' },
+  { domainId: 'thief-armor', rawIdentity: 'AssassinArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/AssassinArmor/BP_AssassinArmorInstance', displayName: 'Thief Armor' },
+  { domainId: 'titan-s-shroud', rawIdentity: 'DarkArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/DarkArmor_Unique1/BP_DarkArmor_Unique1Instance', displayName: "Titan's Shroud" },
+  { domainId: 'turtle-armor', rawIdentity: 'TurtleArmor', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Equipment/Armor/TurtleArmor/BP_TurtleArmorInstance', displayName: 'Turtle Armor' },
+  { domainId: 'unstable-robes', rawIdentity: 'EndRobes_Unique1', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Equipment/Armor/EndRobes_Unique1/BP_EndRobes_Unique1Instance', displayName: 'Unstable Robes' },
+  { domainId: 'verdant-robe', rawIdentity: 'EvocationRobe_Unique2', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/EvocationRobe_Unique2/BP_EvocationRobe_Unique2Instance', displayName: 'Verdant Robe' },
+  { domainId: 'wither-armor', rawIdentity: 'GrimArmor_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/GrimArmor_Unique1/BP_GrimArmor_Unique1Instance', displayName: 'Wither Armor' },
+  { domainId: 'wolf-armor', rawIdentity: 'WolfArmor', packagePath: 'Dungeons/Content/Actors/Equipment/Armor/WolfArmor/BP_WolfArmorInstance', displayName: 'Wolf Armor' },
+] as const satisfies readonly ArmorIdentityInput[]
+
+function armorDefinition(input: ArmorIdentityInput): FormalIdentityDefinition {
+  const bridgeEvidenceRef = `evidence:reviewed:${input.domainId}:armor-level-id`
+  const presentationEvidenceRef = `evidence:presentation:${input.domainId}:armor-audit`
+  return definition(
+    {
+      id: `identity:${input.domainId}@1`,
+      rawIdentity: input.rawIdentity,
+      domainId: input.domainId,
+      reviewState: 'accepted',
+      confidence: 'high',
+      applicationScope: scope(input.packagePath),
+      evidenceRefs: [bridgeEvidenceRef],
+    },
+    input.displayName,
+    presentationEvidenceRef,
+    [
+      {
+        id: bridgeEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The Armor audit maps the canonical Armor domain ID to this explicit levelId; the exact Raw Structural candidate corroborates both serialized identity fields.',
+        source: { artifactPath: 'research/armor-audit.json', locator: `entries[id=${input.domainId}].levelId` },
+      },
+      {
+        id: presentationEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The Armor audit supplies the display name independently of the serialized identity match.',
+        source: { artifactPath: 'research/armor-audit.json', locator: `entries[id=${input.domainId}].name` },
+      },
+    ],
+  )
+}
+
+export const readyArmorFormalIdentities = readyArmorFormalIdentityInputs.map(armorDefinition)
+
 export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
@@ -355,4 +471,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedBridgeMeleeFormalIdentities,
   ...reviewedBridgeRangedFormalIdentities,
   ...readyArtifactFormalIdentities,
+  ...readyArmorFormalIdentities,
 ]
