@@ -7,6 +7,7 @@ import {
   resolveHorizontalRelationSource,
   type HorizontalRelationSourceRequest,
 } from '../scripts/formal-relation-horizontal-source.ts'
+import { hasVerifiedStructuralPackage } from '../scripts/formal-value-source-provenance.ts'
 import type { HorizontalRawFactInventory, JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
 import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
 import type {
@@ -173,6 +174,14 @@ describe('Structural-backed serialized target resolution', () => {
     ['parser-boundary', edge('parser-boundary'), 'parser-boundary'],
   ])('keeps %s ahead of a targetPackage string', (_label, structuralEdge, state) => {
     expect(serializedTargetResolutionFromStructuralEdge(structuralEdge, structuralPackagePaths)).toEqual({ state })
+  })
+
+  it('checks exact package membership through verified Structural shards', () => {
+    const datasetId = String(record((inventory as unknown as JsonRecord).inventoryIdentity).datasetId)
+    expect(hasVerifiedStructuralPackage(repositoryRoot, melee.definition.assertion.applicationScope.packagePath, datasetId)).toBe(true)
+    expect(hasVerifiedStructuralPackage(repositoryRoot, 'Dungeons/Content/__MISSING_STRUCTURAL_PACKAGE__', datasetId)).toBe(false)
+    expect(() => hasVerifiedStructuralPackage(repositoryRoot, melee.definition.assertion.applicationScope.packagePath, 'wrong-dataset'))
+      .toThrow(/dataset identity mismatch/)
   })
 })
 

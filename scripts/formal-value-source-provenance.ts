@@ -17,6 +17,8 @@ type JsonRecord = Record<string, unknown>
 const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).digest('hex')
 const isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value)
 const verifiedShardCache = new Map<string, RawStructuralInventoryShard>()
+const verifiedPackageExistenceCache = new Map<string, boolean>()
+const comparePackagePath = (left: string, right: string): number => left.localeCompare(right)
 
 function deepFreeze<T>(value: T): T {
   if (typeof value !== 'object' || value === null || Object.isFrozen(value)) return value
@@ -100,6 +102,67 @@ export function readVerifiedStructuralShard(
   }
   verifiedShardCache.set(cacheKey, shard)
   return { manifest, meta, shard }
+}
+
+/**
+ * Checks exact package membership without materializing the Structural dependency graph.
+ * Shards contain consecutive sorted package ranges, so a binary search reads only a
+ * logarithmic number of verified shards before checking the exact package path.
+ */
+export function hasVerifiedStructuralPackage(
+  repositoryRoot: string,
+  packagePath: string,
+  expectedDatasetId: string,
+): boolean {
+  const cacheKey = `${path.resolve(repositoryRoot)}\0${expectedDatasetId}\0${packagePath}`
+  const cached = verifiedPackageExistenceCache.get(cacheKey)
+  if (cached !== undefined) return cached
+
+  const manifestPath = path.join(repositoryRoot, RAW_STRUCTURAL_INVENTORY_MANIFEST)
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as RawStructuralInventoryManifest
+  if (manifest.schemaVersion !== 1
+    || manifest.artifactKind !== 'raw-structural-inventory-with-dependency-graph'
+    || manifest.representation !== 'canonical-json-in-deterministic-gzip-shards') {
+    throw new Error('Unsupported Raw Structural Inventory manifest')
+  }
+  if (manifest.scope.dataset.id !== expectedDatasetId) {
+    throw new Error('Structural Inventory dataset identity mismatch')
+  }
+
+  let low = 0
+  let high = manifest.shards.length - 1
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2)
+    const meta = manifest.shards[middle]
+    if (!meta) throw new Error(`Structural Inventory shard index out of range: ${middle}`)
+    const artifactPath = `${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/${meta.path}`
+    const { shard } = readVerifiedStructuralShard(repositoryRoot, artifactPath, expectedDatasetId)
+    if (shard.packages.length === 0) throw new Error(`Structural Inventory shard is empty: ${artifactPath}`)
+
+    const packagePaths = shard.packages.map((pkg) => pkg.path)
+    for (let index = 1; index < packagePaths.length; index += 1) {
+      if (comparePackagePath(packagePaths[index - 1]!, packagePaths[index]!) >= 0) {
+        throw new Error(`Structural Inventory shard package paths are not strictly sorted: ${artifactPath}`)
+      }
+    }
+
+    const firstPath = packagePaths[0]!
+    const lastPath = packagePaths[packagePaths.length - 1]!
+    if (comparePackagePath(packagePath, firstPath) < 0) {
+      high = middle - 1
+    } else if (comparePackagePath(packagePath, lastPath) > 0) {
+      low = middle + 1
+    } else {
+      const matches = shard.packages.filter((pkg) => pkg.path === packagePath)
+      if (matches.length > 1) throw new Error(`Structural Inventory package does not resolve exactly once: ${packagePath}`)
+      const exists = matches.length === 1
+      verifiedPackageExistenceCache.set(cacheKey, exists)
+      return exists
+    }
+  }
+
+  verifiedPackageExistenceCache.set(cacheKey, false)
+  return false
 }
 
 export function verifyValueRawTraceProvenance(
