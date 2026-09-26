@@ -15,7 +15,10 @@ import type {
   FormalSemanticIdentity,
   RawObservationEvidenceRecord,
 } from '../src/domain/formal/identityEvidence.ts'
-import { horizontalRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
+import {
+  horizontalRelationDefinition,
+  serializedTargetResolutionFromStructuralEdge,
+} from '../src/domain/formal/serializedRelation.ts'
 
 const repositoryRoot = fs.realpathSync('.')
 const inventory = readHorizontalRawFactInventory(repositoryRoot)
@@ -139,6 +142,37 @@ function sourceRelation(value: HorizontalRawFactInventory, edgeId: string): Json
   if (!match) throw new Error(`${edgeId}: source relation missing`)
   return match
 }
+
+describe('Structural-backed serialized target resolution', () => {
+  const localTarget = 'Dungeons/Content/Test/Target'
+  const structuralPackagePaths = new Set([localTarget])
+  const edge = (stopReason: string, overrides: JsonRecord = {}): JsonRecord => ({
+    targetPackage: localTarget,
+    targetKind: 'import',
+    traversal: { stopReason },
+    ...overrides,
+  })
+
+  it('resolves a local target only when the verified Structural package exists', () => {
+    expect(serializedTargetResolutionFromStructuralEdge(edge('followed'), structuralPackagePaths)).toEqual({
+      state: 'resolved-local-package',
+      structuralPackagePath: localTarget,
+    })
+    expect(serializedTargetResolutionFromStructuralEdge(edge('followed'), new Set())).toEqual({
+      state: 'missing-target',
+    })
+  })
+
+  it.each([
+    ['missing-target', edge('missing-target'), 'missing-target'],
+    ['native-boundary', edge('native-boundary'), 'native-boundary'],
+    ['outside-game-boundary', edge('outside-game-boundary'), 'outside-game-boundary'],
+    ['known-null', edge('null-reference', { targetKind: 'null' }), 'known-null'],
+    ['parser-boundary', edge('parser-boundary'), 'parser-boundary'],
+  ])('keeps %s ahead of a targetPackage string', (_label, structuralEdge, state) => {
+    expect(serializedTargetResolutionFromStructuralEdge(structuralEdge, structuralPackagePaths)).toEqual({ state })
+  })
+})
 
 describe('Horizontal Raw -> Formal Relation source adapter foundation', () => {
   it.each([
