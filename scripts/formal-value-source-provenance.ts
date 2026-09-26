@@ -17,6 +17,7 @@ type JsonRecord = Record<string, unknown>
 const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).digest('hex')
 const isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value)
 const verifiedShardCache = new Map<string, RawStructuralInventoryShard>()
+const verifiedPackagePathsCache = new Map<string, ReadonlySet<string>>()
 
 function deepFreeze<T>(value: T): T {
   if (typeof value !== 'object' || value === null || Object.isFrozen(value)) return value
@@ -100,6 +101,49 @@ export function readVerifiedStructuralShard(
   }
   verifiedShardCache.set(cacheKey, shard)
   return { manifest, meta, shard }
+}
+
+export function readVerifiedStructuralPackagePaths(
+  repositoryRoot: string,
+  expectedDatasetId?: string,
+): ReadonlySet<string> {
+  const manifestPath = path.join(repositoryRoot, RAW_STRUCTURAL_INVENTORY_MANIFEST)
+  const manifestBytes = fs.readFileSync(manifestPath)
+  const manifest = JSON.parse(manifestBytes.toString('utf8')) as RawStructuralInventoryManifest
+  if (manifest.schemaVersion !== 1
+    || manifest.artifactKind !== 'raw-structural-inventory-with-dependency-graph'
+    || manifest.representation !== 'canonical-json-in-deterministic-gzip-shards') {
+    throw new Error('Unsupported Raw Structural Inventory manifest')
+  }
+  if (expectedDatasetId && manifest.scope.dataset.id !== expectedDatasetId) {
+    throw new Error('Structural Inventory dataset identity mismatch')
+  }
+
+  const cacheKey = [path.resolve(repositoryRoot), sha256(manifestBytes), manifest.scope.dataset.id].join('\0')
+  const cached = verifiedPackagePathsCache.get(cacheKey)
+  if (cached) return cached
+
+  const packagePaths = new Set<string>()
+  for (const meta of manifest.shards) {
+    const artifactPath = `${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/${meta.path}`
+    const { shard } = readVerifiedStructuralShard(
+      repositoryRoot,
+      artifactPath,
+      manifest.scope.dataset.id,
+      meta.uncompressedSha256,
+    )
+    for (const pkg of shard.packages) {
+      if (packagePaths.has(pkg.path)) {
+        throw new Error(`Structural Inventory package path is duplicated: ${pkg.path}`)
+      }
+      packagePaths.add(pkg.path)
+    }
+  }
+  if (packagePaths.size !== manifest.summary.visitedPackageCount) {
+    throw new Error('Structural Inventory package count differs from its manifest summary')
+  }
+  verifiedPackagePathsCache.set(cacheKey, packagePaths)
+  return packagePaths
 }
 
 export function verifyValueRawTraceProvenance(
