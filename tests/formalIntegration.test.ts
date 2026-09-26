@@ -4,10 +4,15 @@ import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { collectFormalIntegrationErrors } from '../src/domain/formal/integrationAudit.ts'
 import { buildFormalIdentityEvidenceArtifact, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
-import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
+import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { buildFormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
 
 const definitions = [fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity]
+const structuralPackagePaths = new Set([
+  scatterCrossbowRelationDefinition.targetRawPath,
+  battleRobeRelationDefinition.targetRawPath,
+  deathCapMushroomRelationDefinition.targetRawPath,
+])
 const read = (path: string): RawPackageSnapshot => JSON.parse(fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')) as RawPackageSnapshot
 const source = (raw: RawPackageSnapshot, definition: typeof fightersBindingsFormalIdentity) => {
   const projected = projectFormalIdentity(raw, definition)
@@ -19,7 +24,7 @@ function artifacts() {
   const [fighters, scatter, battle, mushroom] = definitions.map((definition, index) => source(raws[index]!, definition))
   const projectile = read(scatterCrossbowRelationDefinition.targetRawPath)
   const identity = buildFormalIdentityEvidenceArtifact(definitions.map((definition, index) => ({ raw: raws[index]!, definition })))
-  const relation = buildFormalSerializedRelationArtifact({ scatter: { ...scatter!, target: projectile }, battleRobe: battle!, deathCapMushroom: mushroom! })
+  const relation = buildFormalSerializedRelationArtifact({ structuralPackagePaths, scatter: { ...scatter!, target: projectile }, battleRobe: battle!, deathCapMushroom: mushroom! })
   const value = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters!.source, scatterCrossbowInstanceRaw: scatter!.source,
     scatterCrossbowProjectileRaw: projectile, fightersBindingsIdentity: fighters!.identity,
     fightersBindingsIdentityEvidence: fighters!.identityEvidence, scatterCrossbowIdentity: scatter!.identity,
