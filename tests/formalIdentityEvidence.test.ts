@@ -12,6 +12,7 @@ import {
   fightersBindingsFormalIdentity,
   formalIdentityDefinitions,
   readyArtifactFormalIdentities,
+  readyArmorFormalIdentities,
   readyMeleeFormalIdentities,
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
@@ -23,12 +24,13 @@ import { readFormalIdentityInventoryInputs } from '../scripts/formal-identity-in
 const rawText = fs.readFileSync(`research/raw/packages/${fightersBindingsFormalIdentity.assertion.applicationScope.packagePath}.raw.json`, 'utf8')
 const fixture = () => JSON.parse(rawText) as RawPackageSnapshot
 const artifactFixture = () => JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
+const armorInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), readyArmorFormalIdentities)
 const project = (raw: RawPackageSnapshot) => projectFormalIdentity(raw, fightersBindingsFormalIdentity)
 const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => object.isClassDefaultObject)!
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
 
 describe('Formal Identity / Evidence v1', () => {
-  it('preserves the original 52 identities and appends the Artifact ready-direct wave', () => {
+  it('preserves the original 52 identities and appends the Artifact and Armor waves', () => {
     const artifact = artifactFixture()
     expect(collectFormalIdentityEvidenceErrors(artifact)).toEqual([])
     expect(artifact.identityAssertions.slice(0, 4).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual([
@@ -37,14 +39,17 @@ describe('Formal Identity / Evidence v1', () => {
       { domainId: 'battle-robe', reviewState: 'provisional', confidence: undefined },
       { domainId: 'death-cap-mushroom', reviewState: 'accepted', confidence: 'high' },
     ])
-    expect(artifact.identityAssertions).toHaveLength(58)
-    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(58).fill('matched'))
+    expect(artifact.identityAssertions).toHaveLength(128)
+    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(128).fill('matched'))
     expect(artifact.semantic.identities.map(({ resolution }) => resolution.state === 'matched' && resolution.domainId)).toEqual(formalIdentityDefinitions.map(({ assertion }) => assertion.domainId))
     expect(artifact.identityAssertions.slice(4, 52).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities].map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
     )
-    expect(artifact.identityAssertions.slice(52).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
+    expect(artifact.identityAssertions.slice(52, 58).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       readyArtifactFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
+    )
+    expect(artifact.identityAssertions.slice(58).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
+      readyArmorFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
     )
     expect(new Set(artifact.provenance.evidence.flatMap((record) => record.kind === 'reviewed' ? [record.role] : []))).toEqual(new Set(['support', 'limitation', 'conflict']))
   })
@@ -60,6 +65,25 @@ describe('Formal Identity / Evidence v1', () => {
       expect(observation.packagePath).toBe(definition.assertion.applicationScope.packagePath)
       expect(observation.itemIdName).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath: definition.assertion.applicationScope.packagePath } })
       expect(observation.serializedId).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath: definition.assertion.applicationScope.packagePath } })
+    }
+  })
+
+  it('grounds all 70 Armor identities in their exact Structural candidate and armor-audit levelId', () => {
+    expect(armorInventoryInputs).toHaveLength(70)
+    for (const input of armorInventoryInputs) {
+      if (!('observation' in input) || !input.observation) {
+        throw new Error('expected Armor inventory observation input')
+      }
+      const { definition, observation } = input
+      const expected = definition.assertion.rawIdentity
+      const packagePath = definition.assertion.applicationScope.packagePath
+      expect(observation.rawSchemaVersion).toBe(2)
+      expect(observation.packagePath).toBe(packagePath)
+      expect(observation.itemIdName).toMatchObject({ observation: { state: 'known', value: expected }, provenance: { packagePath } })
+      expect(observation.serializedId).toMatchObject({ observation: { state: 'known', value: expected }, provenance: { packagePath } })
+      expect(observation.itemIdName.provenance.artifactPath).toMatch(/^research\/raw\/game-data-raw-structural-inventory\/shards\/part-\d{3}\.json\.gz$/)
+      expect(observation.serializedId.provenance.artifactPath).toBe(observation.itemIdName.provenance.artifactPath)
+      expect(projectFormalIdentityObservation(observation, definition).semantic.resolution).toMatchObject({ state: 'matched', domainId: definition.assertion.domainId })
     }
   })
 
@@ -194,6 +218,7 @@ describe('Formal Identity / Evidence v1', () => {
   it.each([
     ['Melee', () => readyMeleeFormalIdentities.find(({ assertion }) => assertion.domainId === 'anchor')!],
     ['Ranged', () => readyRangedFormalIdentities.find(({ assertion }) => assertion.domainId === 'bow')!],
+    ['Armor', () => readyArmorFormalIdentities.find(({ assertion }) => assertion.domainId === 'archer-s-armor')!],
     ['Reviewed Melee bridge', () => reviewedBridgeMeleeFormalIdentities.find(({ assertion }) => assertion.domainId === 'bonehead-hammer')!],
     ['Reviewed Ranged bridge', () => reviewedBridgeRangedFormalIdentities.find(({ assertion }) => assertion.domainId === 'shrieking-crossbow')!],
   ])('does not match a %s inventory observation when package or either Raw identity value drifts', (_category, selectDefinition) => {
