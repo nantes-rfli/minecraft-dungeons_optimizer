@@ -322,4 +322,4 @@ This selection is evidence-shape-first, not category-first. All six already have
 - ambiguous / unsupported identities promoted by inference: **0**
 - Full Validate: not run; audit-only change.
 - Repository change scope: this audit document only.
-- `git diff --check`: to be run against the committed audit document after write.
+- `git diff --check`: literal command unavailable in the connector-only execution environment; equivalent added-line whitespace scan (trailing whitespace / space-before-tab) **PASS**.
