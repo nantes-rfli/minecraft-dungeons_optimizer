@@ -807,8 +807,8 @@ export function validateHorizontalRawFactInventory(
     }
     if (item.artifactCooldown?.cooldownStartSemantics?.state !== 'parser-boundary') errors.push(`Artifact cooldown start semantics boundary changed: ${item.catalogId}`)
   }
-  const formal = readJson(path.join(repositoryRoot, 'research/domain/formal/identity-evidence-v1.json'))
-  if (formal.semantic?.identities?.filter((identity: JsonRecord) => identity.resolution?.state === 'matched').length !== 52) errors.push('Existing Formal Identity matched population is not 52')
+  // formalMatchedPopulationReadOnly records the population at this Raw inventory snapshot's capture.
+  // This audit intentionally does not consult or constrain later Formal Identity waves.
   return [...new Set(errors)].sort(compare)
 }
 

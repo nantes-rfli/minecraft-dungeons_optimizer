@@ -1614,6 +1614,192 @@
             "evidence:presentation:shrieking-crossbow:ranged-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:boots-of-swiftness@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BootsOfSwiftness",
+            "evidenceRef": "evidence:raw:identity:boots-of-swiftness@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BootsOfSwiftness",
+            "evidenceRef": "evidence:raw:identity:boots-of-swiftness@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:boots-of-swiftness@1",
+          "domainId": "boots-of-swiftness",
+          "evidenceRefs": [
+            "evidence:raw:identity:boots-of-swiftness@1:ItemIdName",
+            "evidence:raw:identity:boots-of-swiftness@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "boots-of-swiftness",
+          "displayName": "Boots of Swiftness",
+          "evidenceRefs": [
+            "evidence:presentation:boots-of-swiftness:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:fishing-rod@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "FishingRod",
+            "evidenceRef": "evidence:raw:identity:fishing-rod@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "FishingRod",
+            "evidenceRef": "evidence:raw:identity:fishing-rod@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:fishing-rod@1",
+          "domainId": "fishing-rod",
+          "evidenceRefs": [
+            "evidence:raw:identity:fishing-rod@1:ItemIdName",
+            "evidence:raw:identity:fishing-rod@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "fishing-rod",
+          "displayName": "Fishing Rod",
+          "evidenceRefs": [
+            "evidence:presentation:fishing-rod:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:ghost-cloak@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "GhostCloak",
+            "evidenceRef": "evidence:raw:identity:ghost-cloak@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "GhostCloak",
+            "evidenceRef": "evidence:raw:identity:ghost-cloak@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:ghost-cloak@1",
+          "domainId": "ghost-cloak",
+          "evidenceRefs": [
+            "evidence:raw:identity:ghost-cloak@1:ItemIdName",
+            "evidence:raw:identity:ghost-cloak@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "ghost-cloak",
+          "displayName": "Ghost Cloak",
+          "evidenceRefs": [
+            "evidence:presentation:ghost-cloak:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:iron-hide-amulet@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "IronHideAmulet",
+            "evidenceRef": "evidence:raw:identity:iron-hide-amulet@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "IronHideAmulet",
+            "evidenceRef": "evidence:raw:identity:iron-hide-amulet@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:iron-hide-amulet@1",
+          "domainId": "iron-hide-amulet",
+          "evidenceRefs": [
+            "evidence:raw:identity:iron-hide-amulet@1:ItemIdName",
+            "evidence:raw:identity:iron-hide-amulet@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "iron-hide-amulet",
+          "displayName": "Iron Hide Amulet",
+          "evidenceRefs": [
+            "evidence:presentation:iron-hide-amulet:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:light-feather@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "LightFeather",
+            "evidenceRef": "evidence:raw:identity:light-feather@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "LightFeather",
+            "evidenceRef": "evidence:raw:identity:light-feather@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:light-feather@1",
+          "domainId": "light-feather",
+          "evidenceRefs": [
+            "evidence:raw:identity:light-feather@1:ItemIdName",
+            "evidence:raw:identity:light-feather@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "light-feather",
+          "displayName": "Light Feather",
+          "evidenceRefs": [
+            "evidence:presentation:light-feather:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:shock-powder@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "ShockPowder",
+            "evidenceRef": "evidence:raw:identity:shock-powder@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "ShockPowder",
+            "evidenceRef": "evidence:raw:identity:shock-powder@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:shock-powder@1",
+          "domainId": "shock-powder",
+          "evidenceRefs": [
+            "evidence:raw:identity:shock-powder@1:ItemIdName",
+            "evidence:raw:identity:shock-powder@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "shock-powder",
+          "displayName": "Shock Powder",
+          "evidenceRefs": [
+            "evidence:presentation:shock-powder:artifact-catalog"
+          ]
+        }
       }
     ]
   },
@@ -2607,6 +2793,120 @@
       "evidenceRefs": [
         "evidence:reviewed:shrieking-crossbow:accepted-alias",
         "evidence:reviewed:shrieking-crossbow:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:boots-of-swiftness@1",
+      "rawIdentity": "BootsOfSwiftness",
+      "domainId": "boots-of-swiftness",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:boots-of-swiftness:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:fishing-rod@1",
+      "rawIdentity": "FishingRod",
+      "domainId": "fishing-rod",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:fishing-rod:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:ghost-cloak@1",
+      "rawIdentity": "GhostCloak",
+      "domainId": "ghost-cloak",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:ghost-cloak:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:iron-hide-amulet@1",
+      "rawIdentity": "IronHideAmulet",
+      "domainId": "iron-hide-amulet",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:iron-hide-amulet:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:light-feather@1",
+      "rawIdentity": "LightFeather",
+      "domainId": "light-feather",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:light-feather:accepted-alias"
+      ]
+    },
+    {
+      "id": "identity:shock-powder@1",
+      "rawIdentity": "ShockPowder",
+      "domainId": "shock-powder",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:shock-powder:accepted-alias"
       ]
     }
   ],
@@ -5995,6 +6295,390 @@
           "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:d8bf827d"
+      },
+      {
+        "id": "evidence:reviewed:boots-of-swiftness:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:BootsOfSwiftness]"
+        },
+        "fingerprint": "fnv1a32:9ec850a5"
+      },
+      {
+        "id": "evidence:presentation:boots-of-swiftness:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=boots-of-swiftness].name"
+        },
+        "fingerprint": "fnv1a32:f4b53811"
+      },
+      {
+        "id": "evidence:raw:identity:boots-of-swiftness@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BootsOfSwiftness"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a7b09f498accb5155d5cbf65d97a976f3e1cd8ae2b201be89de69c9af2085d91",
+          "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "846cf26905065b662a6c81eee83783f8ed7c82ab24f9334ad8cafdb457744a89"
+          },
+          "nodePointer": "/packages/49/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:21f47a25"
+      },
+      {
+        "id": "evidence:raw:identity:boots-of-swiftness@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BootsOfSwiftness"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a7b09f498accb5155d5cbf65d97a976f3e1cd8ae2b201be89de69c9af2085d91",
+          "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "846cf26905065b662a6c81eee83783f8ed7c82ab24f9334ad8cafdb457744a89"
+          },
+          "nodePointer": "/packages/49/cdoPropertyInventory/0/properties/3/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e4bf3589"
+      },
+      {
+        "id": "evidence:reviewed:fishing-rod:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:FishingRod]"
+        },
+        "fingerprint": "fnv1a32:301582ea"
+      },
+      {
+        "id": "evidence:presentation:fishing-rod:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=fishing-rod].name"
+        },
+        "fingerprint": "fnv1a32:9dad8a11"
+      },
+      {
+        "id": "evidence:raw:identity:fishing-rod@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "FishingRod"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e4370973f2ca948bf0db4b0fe1457451f271fe79300104d58b19eb7bef1c1e30",
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "23a2e3a9853b53286a399e95c1baace9b6d9c72c1aa5d244c97d98fb5f3af2c1"
+          },
+          "nodePointer": "/packages/42/cdoPropertyInventory/0/properties/8"
+        },
+        "fingerprint": "fnv1a32:7da0e1bb"
+      },
+      {
+        "id": "evidence:raw:identity:fishing-rod@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "FishingRod"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e4370973f2ca948bf0db4b0fe1457451f271fe79300104d58b19eb7bef1c1e30",
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "23a2e3a9853b53286a399e95c1baace9b6d9c72c1aa5d244c97d98fb5f3af2c1"
+          },
+          "nodePointer": "/packages/42/cdoPropertyInventory/0/properties/9/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:6b950397"
+      },
+      {
+        "id": "evidence:reviewed:ghost-cloak:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:GhostCloak]"
+        },
+        "fingerprint": "fnv1a32:61a8601c"
+      },
+      {
+        "id": "evidence:presentation:ghost-cloak:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=ghost-cloak].name"
+        },
+        "fingerprint": "fnv1a32:b0ac6151"
+      },
+      {
+        "id": "evidence:raw:identity:ghost-cloak@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "GhostCloak"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6337bf63f8ddbb59b6d5389881ab15673d73fb548145604d6eb259200ff2d271",
+          "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4bdbab39ec7908ae2ed3976bf69e26cd9c5ac796cbbf64590881e2c33eaa980b"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:0cf0bddb"
+      },
+      {
+        "id": "evidence:raw:identity:ghost-cloak@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "GhostCloak"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6337bf63f8ddbb59b6d5389881ab15673d73fb548145604d6eb259200ff2d271",
+          "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4bdbab39ec7908ae2ed3976bf69e26cd9c5ac796cbbf64590881e2c33eaa980b"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/3/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:696f25bf"
+      },
+      {
+        "id": "evidence:reviewed:iron-hide-amulet:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:IronHideAmulet]"
+        },
+        "fingerprint": "fnv1a32:473df9eb"
+      },
+      {
+        "id": "evidence:presentation:iron-hide-amulet:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=iron-hide-amulet].name"
+        },
+        "fingerprint": "fnv1a32:d3911ee5"
+      },
+      {
+        "id": "evidence:raw:identity:iron-hide-amulet@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "IronHideAmulet"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ca766d9187ca28c8c1a59cf07fce4cf3290323e0f13510e63e6532143db52ff",
+          "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4336cd79bfee0cb78e9fd5ddd6d6e8ced890f23f19885a9468fdcb24759d063b"
+          },
+          "nodePointer": "/packages/28/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:707cc495"
+      },
+      {
+        "id": "evidence:raw:identity:iron-hide-amulet@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "IronHideAmulet"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ca766d9187ca28c8c1a59cf07fce4cf3290323e0f13510e63e6532143db52ff",
+          "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4336cd79bfee0cb78e9fd5ddd6d6e8ced890f23f19885a9468fdcb24759d063b"
+          },
+          "nodePointer": "/packages/28/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:420d9303"
+      },
+      {
+        "id": "evidence:reviewed:light-feather:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:LightFeather]"
+        },
+        "fingerprint": "fnv1a32:a32312c2"
+      },
+      {
+        "id": "evidence:presentation:light-feather:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=light-feather].name"
+        },
+        "fingerprint": "fnv1a32:ac88ff41"
+      },
+      {
+        "id": "evidence:raw:identity:light-feather@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "LightFeather"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3d7a984ff7e00a7a5238d2f5c123af166f445b48594f0a8ebddb57225a4d1a31",
+          "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ca1c7f6122de5115ed0c6d956fb3916e75ec604c3200985269e89fb4315959af"
+          },
+          "nodePointer": "/packages/14/cdoPropertyInventory/0/properties/6"
+        },
+        "fingerprint": "fnv1a32:b6b609be"
+      },
+      {
+        "id": "evidence:raw:identity:light-feather@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "LightFeather"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3d7a984ff7e00a7a5238d2f5c123af166f445b48594f0a8ebddb57225a4d1a31",
+          "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ca1c7f6122de5115ed0c6d956fb3916e75ec604c3200985269e89fb4315959af"
+          },
+          "nodePointer": "/packages/14/cdoPropertyInventory/0/properties/8/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:744b242b"
+      },
+      {
+        "id": "evidence:reviewed:shock-powder:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:ShockPowder]"
+        },
+        "fingerprint": "fnv1a32:63dd9e4a"
+      },
+      {
+        "id": "evidence:presentation:shock-powder:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=shock-powder].name"
+        },
+        "fingerprint": "fnv1a32:e126c111"
+      },
+      {
+        "id": "evidence:raw:identity:shock-powder@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "ShockPowder"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e72cb1b18cd414c27c0b38f6b39cf31216df06124d2996c75b171eba0809a3af",
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ed246dd9cb05e745080bbfd48e1c95393206586df519e5b6791af0add2814de6"
+          },
+          "nodePointer": "/packages/33/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:0e58dcee"
+      },
+      {
+        "id": "evidence:raw:identity:shock-powder@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "ShockPowder"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e72cb1b18cd414c27c0b38f6b39cf31216df06124d2996c75b171eba0809a3af",
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ed246dd9cb05e745080bbfd48e1c95393206586df519e5b6791af0add2814de6"
+          },
+          "nodePointer": "/packages/33/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a3dea41c"
       }
     ]
   }

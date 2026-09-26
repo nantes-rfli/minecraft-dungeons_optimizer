@@ -9,6 +9,8 @@ import {
   readyMeleeFormalIdentityInputs,
   readyRangedFormalIdentities,
   readyRangedFormalIdentityInputs,
+  readyArtifactFormalIdentities,
+  readyArtifactFormalIdentityInputs,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeMeleeFormalIdentityInputs,
   reviewedBridgeRangedFormalIdentities,
@@ -37,6 +39,7 @@ type IconEntry = {
 
 type RangedEntry = { id?: string; name?: { en?: string } }
 type MeleeEntry = { weaponId?: string; name?: { en?: string } }
+type ArtifactEntry = { id?: string; name?: string }
 
 export type FormalReviewedSources = {
   existingPaths: Set<string>
@@ -44,6 +47,7 @@ export type FormalReviewedSources = {
   icons?: { entries?: IconEntry[] }
   rangedAudit?: { entries?: RangedEntry[] }
   meleeAudit?: { weapons?: MeleeEntry[] }
+  artifactAudit?: { entries?: ArtifactEntry[] }
   historicalMappingSource?: string
   equipmentIconSource?: string
   presentations: {
@@ -53,6 +57,7 @@ export type FormalReviewedSources = {
     deathCapMushroom?: string
     melee: Record<string, string | undefined>
     ranged: Record<string, string | undefined>
+    artifact: Record<string, string | undefined>
   }
   battleRobeCatalogId?: string
 }
@@ -65,6 +70,7 @@ const knownPaths = [
   'src/data/weapons.ts',
   'research/ranged-weapon-audit.json',
   'research/melee-attack-profile-audit.json',
+  'research/artifact-audit.json',
   'src/data/armors.ts',
   'src/data/artifacts.ts',
 ] as const
@@ -78,6 +84,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const historicalPath = 'scripts/audit-attack-event-comparison.ts'
   const rangedAudit = readJson<{ entries?: RangedEntry[] }>('research/ranged-weapon-audit.json')
   const meleeAudit = readJson<{ weapons?: MeleeEntry[] }>('research/melee-attack-profile-audit.json')
+  const artifactAudit = readJson<{ entries?: ArtifactEntry[] }>('research/artifact-audit.json')
   const weaponsSource = readText('src/data/weapons.ts') ?? ''
   const armorsSource = readText('src/data/armors.ts') ?? ''
   const artifactsSource = readText('src/data/artifacts.ts') ?? ''
@@ -90,6 +97,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     icons: readJson('generated/equipment-icons/manifest.json'),
     rangedAudit,
     meleeAudit,
+    artifactAudit,
     historicalMappingSource: readText(historicalPath),
     equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
@@ -104,6 +112,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       ranged: Object.fromEntries([...readyRangedFormalIdentityInputs, ...reviewedBridgeRangedFormalIdentityInputs].map(({ domainId }) => [
         domainId,
         rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
+      ])),
+      artifact: Object.fromEntries(readyArtifactFormalIdentityInputs.map(({ domainId }) => [
+        domainId,
+        artifactAudit?.entries?.find((entry) => entry.id === domainId)?.name,
       ])),
     },
     battleRobeCatalogId: battleRobeBlock?.[1],
@@ -137,6 +149,36 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(alias?.confidence === assertion.confidence && assertion.confidence === 'high', `${assertion.id}: accepted alias confidence drift`)
     check(alias?.canonicalEntity === canonicalEntity && canonicalEntity.endsWith(assertion.domainId), `${assertion.id}: accepted alias canonicalEntity drift`)
   }
+
+  for (const definition of readyArtifactFormalIdentities) {
+    const assertion = definition.assertion
+    const aliasId = `artifact:${assertion.rawIdentity}`
+    const matchingAliases = aliases.filter((entry) => entry.id === aliasId)
+    const alias = matchingAliases[0]
+    check(matchingAliases.length === 1, `${assertion.id}: accepted Artifact alias must exist exactly once`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: Artifact breadth assertion must be accepted/high`)
+    check(alias?.category === 'artifact', `${assertion.id}: accepted Artifact alias category drift`)
+    check(alias?.status === 'accepted', `${assertion.id}: accepted Artifact alias status drift`)
+    check(alias?.confidence === 'high', `${assertion.id}: accepted Artifact alias confidence drift`)
+    check(alias?.rawIdentity === assertion.rawIdentity, `${assertion.id}: accepted Artifact alias rawIdentity drift`)
+    check(alias?.canonicalEntity === `artifact:${assertion.domainId}`, `${assertion.id}: accepted Artifact alias canonicalEntity drift`)
+    check(alias?.assetPaths?.includes(assertion.applicationScope.packagePath) === true, `${assertion.id}: accepted Artifact alias package/source drift`)
+    check(
+      assertion.evidenceRefs.length === 1 && definition.reviewedEvidence.some((record) =>
+        record.id === assertion.evidenceRefs[0]
+        && record.kind === 'reviewed'
+        && record.role === 'support'
+        && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json'
+        && record.source.locator === `aliases[id=${aliasId}]`),
+      `${assertion.id}: Artifact assertion is not grounded in its reviewed alias record`,
+    )
+    check(
+      definition.presentation.displayName === sources.presentations.artifact[assertion.domainId],
+      `${assertion.id}: presentation displayName drift`,
+    )
+  }
+  check(readyArtifactFormalIdentities.length === 6, 'ready Artifact Formal identity population drift')
+  check(new Set(readyArtifactFormalIdentities.map(({ assertion }) => assertion.domainId)).size === 6, 'ready Artifact Formal domainId uniqueness drift')
 
 
   const allowedMeleeAliasBases = new Set([
@@ -301,7 +343,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 52, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 58, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
@@ -309,6 +351,10 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 23,
     'Formal matched Ranged definition population drift',
+  )
+  check(
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 7,
+    'Formal matched Artifact definition population drift',
   )
   return errors
 }

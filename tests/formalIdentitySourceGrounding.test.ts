@@ -4,6 +4,7 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
+import { readyArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
 
 const repositoryRoot = process.cwd()
 const fixture = (): FormalReviewedSources => structuredClone(readFormalReviewedSources(repositoryRoot))
@@ -13,6 +14,43 @@ const alias = (sources: FormalReviewedSources, id: string) => sources.aliases!.a
 describe('Formal Identity reviewed-source grounding', () => {
   it('grounds the current Formal definitions in their known reviewed sources', () => {
     expect(errors(fixture())).toEqual([])
+  })
+
+  it('grounds exactly the six ready-direct Artifact aliases without using presentation or icon metadata as identity evidence', () => {
+    const sources = fixture()
+    expect(readyArtifactFormalIdentities).toHaveLength(6)
+    for (const definition of readyArtifactFormalIdentities) {
+      const assertion = definition.assertion
+      const matching = sources.aliases!.aliases!.filter((entry) => entry.id === `artifact:${assertion.rawIdentity}`)
+      expect(matching).toHaveLength(1)
+      expect(matching[0]).toMatchObject({
+        category: 'artifact',
+        status: 'accepted',
+        confidence: 'high',
+        rawIdentity: assertion.rawIdentity,
+        canonicalEntity: `artifact:${assertion.domainId}`,
+      })
+      expect(matching[0]!.assetPaths).toContain(assertion.applicationScope.packagePath)
+    }
+  })
+
+  it.each([
+    ['category', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').category = 'armor' }, 'accepted Artifact alias category drift'],
+    ['status', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').status = 'unresolved' }, 'accepted Artifact alias status drift'],
+    ['confidence', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').confidence = 'medium' }, 'accepted Artifact alias confidence drift'],
+    ['rawIdentity', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').rawIdentity = 'Other' }, 'accepted Artifact alias rawIdentity drift'],
+    ['canonicalEntity', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').canonicalEntity = 'artifact:wrong' }, 'accepted Artifact alias canonicalEntity drift'],
+    ['package', (sources: FormalReviewedSources) => { alias(sources, 'artifact:BootsOfSwiftness').assetPaths = ['Dungeons/Content/Other'] }, 'accepted Artifact alias package/source drift'],
+  ])('rejects ready-direct Artifact alias %s drift', (_label, mutate, message) => {
+    const sources = fixture()
+    mutate(sources)
+    expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+  })
+
+  it('rejects duplicate ready-direct Artifact alias records', () => {
+    const sources = fixture()
+    sources.aliases!.aliases!.push(structuredClone(alias(sources, 'artifact:BootsOfSwiftness')))
+    expect(errors(sources).some((error) => error.includes('accepted Artifact alias must exist exactly once'))).toBe(true)
   })
 
   it.each([
