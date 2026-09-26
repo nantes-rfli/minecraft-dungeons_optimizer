@@ -1,5 +1,5 @@
 import identityArtifact from '../../../research/domain/formal/identity-evidence-v1.json'
-import relationArtifact from '../../../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../../../research/domain/formal/serialized-relation-v2.json'
 
 type Hash = {
   algorithm: string
@@ -81,13 +81,13 @@ if (!objectPropertyEvidence || !classImportEvidence || !outerPackageEvidence) {
 const className = (classImportEvidence.observed as ClassImportObserved).className?.value
 if (!className) throw new Error('Death Cap Mushroom Formal class import display value is unavailable')
 
-const targetResolution = relationProjection.targetResolution
-if (targetResolution.input !== 'supplied' || targetResolution.result !== 'resolved' || !('targetEvidenceRef' in targetResolution)) {
+const targetRawVerification = relationProjection.targetRawVerification
+if (targetRawVerification.input !== 'supplied' || targetRawVerification.result !== 'resolved' || !('targetEvidenceRef' in targetRawVerification)) {
   throw new Error('Death Cap Mushroom Formal target Raw resolution is unavailable')
 }
 
-const targetEvidence = relationArtifact.provenance.evidence.find((entry) => entry.id === targetResolution.targetEvidenceRef)
-if (!targetEvidence) throw new Error(`Formal target evidence missing: ${targetResolution.targetEvidenceRef}`)
+const targetEvidence = relationArtifact.provenance.evidence.find((entry) => entry.id === targetRawVerification.targetEvidenceRef)
+if (!targetEvidence) throw new Error(`Formal target evidence missing: ${targetRawVerification.targetEvidenceRef}`)
 
 const sourceFingerprint = (targetEvidence.observed as TargetSnapshotObserved).dataset?.sourceFingerprint
 if (!sourceFingerprint) throw new Error('Death Cap Mushroom Formal target source fingerprint is unavailable')
@@ -110,7 +110,7 @@ export const deathCapMushroomBrowserProjection = {
       className,
       gamePackagePath: relation.target.gamePackagePath,
     },
-    targetResolution,
+    targetRawVerification,
     rawProperty: 'Effect',
     provenance: [
       { label: 'ObjectProperty', provenance: objectPropertyEvidence.provenance },
@@ -126,6 +126,6 @@ export const deathCapMushroomBrowserProjection = {
     ] satisfies DeathCapMushroomRelationTraceStep[],
   },
   gameplayEffectBoundary: {
-    explanation: 'Effect serialized relationはFormal v1でprojectedされ、target Raw snapshotもresolvedです。ただしGameplayEffect semanticsはFormal v1ではassertしていません。Applicationでは効果内容を解釈・推測しません。',
+    explanation: 'Effect serialized relationはFormal v2でprojectedされ、target Raw snapshotもresolvedです。ただしGameplayEffect semanticsはFormal v2ではassertしていません。Applicationでは効果内容を解釈・推測しません。',
   },
 } as const

@@ -48,10 +48,10 @@ export function DeathCapMushroomDataBrowser() {
       <dt>Object name</dt><dd><code>{effectRelation.target.objectName}</code></dd>
       <dt>Class name</dt><dd><code>{effectRelation.target.className}</code></dd>
       <dt>Target package</dt><dd><code>{effectRelation.target.gamePackagePath}</code></dd>
-      <dt>Target Raw input</dt><dd><code>{effectRelation.targetResolution.input}</code></dd>
-      <dt>Target resolution</dt><dd><code>{effectRelation.targetResolution.result}</code></dd>
+      <dt>Target Raw input</dt><dd><code>{effectRelation.targetRawVerification.input}</code></dd>
+      <dt>Target resolution</dt><dd><code>{effectRelation.targetRawVerification.result}</code></dd>
     </dl>
-      <p className="domain-boundary-note">Effect serialized relationはFormal v1でprojectedされ、target Raw snapshotもresolvedです。これはGameplayEffect semanticsが既知であることを意味しません。</p>
+      <p className="domain-boundary-note">Effect serialized relationはFormal v2でprojectedされ、target Raw snapshotもresolvedです。これはGameplayEffect semanticsが既知であることを意味しません。</p>
       <details className="domain-trace effect-reference-trace"><summary>reference provenanceを確認</summary><dl>
         <dt>Domain field</dt><dd><code>effectRelation</code></dd>
         <dt>Raw property</dt><dd><code>{effectRelation.rawProperty}</code></dd>

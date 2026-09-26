@@ -349,7 +349,7 @@ test('Death Cap Mushroom Formal Domain keeps Effect semantics unasserted and tra
   await expect(entry.getByText('BP_DeathCapMushroomGameplayEffect_C', { exact: true })).toBeVisible()
   await expect(entry.getByText('/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect', { exact: true })).toBeVisible()
   await expect(entry.getByText('resolved', { exact: true })).toBeVisible()
-  await expect(entry.locator('.domain-unresolved-list')).toContainText('GameplayEffect semanticsはFormal v1ではassertしていません')
+  await expect(entry.locator('.domain-unresolved-list')).toContainText('GameplayEffect semanticsはFormal v2ではassertしていません')
   await expect(entry.locator('.domain-unresolved-list')).toContainText('Applicationでは効果内容を解釈・推測しません')
   await expect(entry).not.toContainText('gameplay-effect-semantics')
   await entry.getByText('reference provenanceを確認', { exact: true }).click()

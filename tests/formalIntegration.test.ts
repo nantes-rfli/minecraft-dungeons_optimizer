@@ -4,10 +4,15 @@ import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { collectFormalIntegrationErrors } from '../src/domain/formal/integrationAudit.ts'
 import { buildFormalIdentityEvidenceArtifact, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
-import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
+import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { buildFormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
 
 const definitions = [fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity]
+const structuralPackagePaths = new Set([
+  scatterCrossbowRelationDefinition.targetRawPath,
+  battleRobeRelationDefinition.targetRawPath,
+  deathCapMushroomRelationDefinition.targetRawPath,
+])
 const read = (path: string): RawPackageSnapshot => JSON.parse(fs.readFileSync(`research/raw/packages/${path}.raw.json`, 'utf8')) as RawPackageSnapshot
 const source = (raw: RawPackageSnapshot, definition: typeof fightersBindingsFormalIdentity) => {
   const projected = projectFormalIdentity(raw, definition)
@@ -19,7 +24,7 @@ function artifacts() {
   const [fighters, scatter, battle, mushroom] = definitions.map((definition, index) => source(raws[index]!, definition))
   const projectile = read(scatterCrossbowRelationDefinition.targetRawPath)
   const identity = buildFormalIdentityEvidenceArtifact(definitions.map((definition, index) => ({ raw: raws[index]!, definition })))
-  const relation = buildFormalSerializedRelationArtifact({ scatter: { ...scatter!, target: projectile }, battleRobe: battle!, deathCapMushroom: mushroom! })
+  const relation = buildFormalSerializedRelationArtifact({ structuralPackagePaths, scatter: { ...scatter!, target: projectile }, battleRobe: battle!, deathCapMushroom: mushroom! })
   const value = buildFormalValueAvailabilityArtifact({ fightersBindingsRaw: fighters!.source, scatterCrossbowInstanceRaw: scatter!.source,
     scatterCrossbowProjectileRaw: projectile, fightersBindingsIdentity: fighters!.identity,
     fightersBindingsIdentityEvidence: fighters!.identityEvidence, scatterCrossbowIdentity: scatter!.identity,
@@ -31,7 +36,7 @@ describe('Formal Value v2 integration', () => {
   it('accepts all 50 connected current Melee/Ranged domains', () => {
     const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8'))
     const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8'))
-    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v1.json', 'utf8'))
+    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8'))
     expect(Object.keys(value.semantic.melee)).toHaveLength(27)
     expect(Object.keys(value.semantic.ranged)).toHaveLength(23)
     expect(collectFormalIntegrationErrors(identity, value, relation)).toEqual([])
@@ -66,7 +71,10 @@ describe('Formal Value v2 integration', () => {
     target!.relationProjectionRef = 'projection:wrong'
     expect(collectFormalIntegrationErrors(original.identity, value, original.relation)).toContainEqual(expect.stringContaining('relationProjectionRef mismatch'))
     const relation = structuredClone(original.relation)
-    relation.scatterParent!.sourceIndices = [9]
+    const scatterCollection = relation.relationCollections.find((item) =>
+      item.domainId === 'scatter-crossbow' && item.collectionRef === 'projectile-definitions')
+    if (!scatterCollection || scatterCollection.result !== 'projected') throw new Error('Scatter relation collection missing')
+    scatterCollection.sourceIndices = [9]
     expect(collectFormalIntegrationErrors(original.identity, original.value, relation)).toContainEqual(expect.stringContaining('sourceIndex mismatch'))
   })
 })

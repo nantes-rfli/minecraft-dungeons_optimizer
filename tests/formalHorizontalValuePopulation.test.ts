@@ -14,7 +14,7 @@ import { scatterCrossbowRelationDefinition, type FormalSerializedRelationArtifac
 
 const read = <T>(path: string): T => JSON.parse(fs.readFileSync(path, 'utf8')) as T
 const identity = read<FormalIdentityEvidenceArtifact>('research/domain/formal/identity-evidence-v1.json')
-const relations = read<FormalSerializedRelationArtifact>('research/domain/formal/serialized-relation-v1.json')
+const relations = read<FormalSerializedRelationArtifact>('research/domain/formal/serialized-relation-v2.json')
 const valueArtifact = read<FormalValueAvailabilityArtifact>('research/domain/formal/value-availability-v2.json')
 const readRaw = (packagePath: string): RawPackageSnapshot => read(`research/raw/packages/${packagePath}.raw.json`)
 

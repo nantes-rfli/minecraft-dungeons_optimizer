@@ -96,7 +96,7 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     }
   }
   for (const projected of relation.relationProjections) {
-    const domainId = projected.occurrence.slice
+    const domainId = projected.occurrence.domainId
     const source = sources.get(domainId)
     const semantic = relation.semantic.relations.find((item) => item.projectionRef === projected.projectionRef)
     if (semantic) check(semantic.sourceDomainId === domainId, `${projected.projectionRef}: relation domain mismatch`)
@@ -108,11 +108,19 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   }
   const parent = value.valueProjections.find((item) => item.mappingId === scatterValueMappings.definitions.id)
   const indices = value.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.configuredProjectileDefinitions?.value
-  check((parent?.result === 'projected') === (relation.scatterParent?.result === 'projected'), 'Scatter parent state mismatch')
-  if (parent?.result === 'projected') check(JSON.stringify(indices) === JSON.stringify(relation.scatterParent?.sourceIndices), 'Scatter sourceIndex mismatch')
+  const scatterCollection = relation.relationCollections.find((item) =>
+    item.domainId === scatterCrossbowFormalIdentity.assertion.domainId && item.collectionRef === 'projectile-definitions')
+  check((parent?.result === 'projected') === (scatterCollection?.result === 'projected'), 'Scatter parent state mismatch')
+  if (parent?.result === 'projected' && scatterCollection?.result === 'projected') {
+    check(JSON.stringify(indices) === JSON.stringify(scatterCollection.sourceIndices), 'Scatter sourceIndex mismatch')
+  }
   const targetMappings = [scatterValueMappings.pushbackEnabled.id, scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id]
   for (const index of indices ?? []) {
-    const matches = relation.relationProjections.filter((item) => item.occurrence.slice === 'scatter-crossbow' && item.occurrence.sourceIndex === index)
+    const matches = relation.relationProjections.filter((item) =>
+      item.occurrence.domainId === 'scatter-crossbow'
+      && 'sourceIndex' in item.occurrence
+      && item.occurrence.collectionRef === 'projectile-definitions'
+      && item.occurrence.sourceIndex === index)
     check(matches.length === 1, `Scatter ${index}: Relation occurrence must be exactly one`)
     const dependency = matches[0]
     for (const mappingId of targetMappings) {
@@ -120,19 +128,21 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
       check(Boolean(record), `Scatter ${index}: target Value record missing`)
       if (!record) continue
       check(record.relationProjectionRef === dependency?.projectionRef, `${record.projectionId}: relationProjectionRef mismatch`)
-      const resolved = dependency?.result === 'projected' && dependency.targetResolution.result === 'resolved'
+      const resolved = dependency?.result === 'projected' && dependency.targetRawVerification.result === 'resolved'
       if (!resolved) {
         check(record.result === 'unavailable' && record.failureKind === 'dependency' && record.evidenceRefs === undefined,
           `${record.projectionId}: unresolved Relation must produce dependency failure without Raw evidence`)
         if (record.result === 'unavailable' && record.failureKind === 'dependency') {
           const expectedReason = dependency?.result === 'unavailable' ? 'relation-unavailable'
-            : dependency?.result === 'projected' ? dependency.targetResolution.reason ?? 'target-not-resolved' : undefined
+            : dependency?.result === 'projected'
+              ? ('reason' in dependency.targetRawVerification ? dependency.targetRawVerification.reason : 'target-not-resolved')
+              : undefined
           check(record.reason === expectedReason, `${record.projectionId}: Relation dependency reason mismatch`)
         }
       } else if (record.result === 'unavailable' && record.failureKind === 'dependency') {
         check(record.reason === 'target-snapshot-not-supplied', `${record.projectionId}: resolved Relation dependency failure mismatch`)
       } else {
-        const targetRef = 'targetEvidenceRef' in dependency.targetResolution ? dependency.targetResolution.targetEvidenceRef : undefined
+        const targetRef = 'targetEvidenceRef' in dependency.targetRawVerification ? dependency.targetRawVerification.targetEvidenceRef : undefined
         const target = targetRef ? relation.provenance.evidence.find((item) => item.id === targetRef) : undefined
         for (const ref of record.evidenceRefs ?? []) {
           const evidence = value.provenance.evidence.find((item) => item.id === ref)

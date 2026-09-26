@@ -45,10 +45,10 @@ export function BattleRobeDataBrowser() {
       <dt>Object name</dt><dd><code>{gearActorRelation.target.objectName}</code></dd>
       <dt>Class name</dt><dd><code>{gearActorRelation.target.className}</code></dd>
       <dt>Target package</dt><dd><code>{gearActorRelation.target.gamePackagePath}</code></dd>
-      <dt>Target Raw input</dt><dd><code>{gearActorRelation.targetResolution.input}</code></dd>
-      <dt>Target resolution</dt><dd><code>{gearActorRelation.targetResolution.result}</code> — <code>{gearActorRelation.targetResolution.reason}</code></dd>
+      <dt>Target Raw input</dt><dd><code>{gearActorRelation.targetRawVerification.input}</code></dd>
+      <dt>Target resolution</dt><dd><code>{gearActorRelation.targetRawVerification.result}</code> — <code>{gearActorRelation.targetRawVerification.reason}</code></dd>
     </dl>
-      <p className="domain-boundary-note">Serialized GearActor relationはFormal v1でprojectedです。一方、target Raw snapshotは供給されておらず、targetはresolvedではありません。</p>
+      <p className="domain-boundary-note">Serialized GearActor relationはFormal v2でprojectedです。一方、target Raw snapshotは供給されておらず、targetはresolvedではありません。</p>
       <details className="domain-trace gear-actor-reference-trace"><summary>reference provenanceを確認</summary><dl>
         <dt>Domain field</dt><dd><code>gearActorRelation</code></dd>
         <dt>Raw property</dt><dd><code>{gearActorRelation.rawProperty}</code></dd>

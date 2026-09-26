@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import identityArtifact from '../research/domain/formal/identity-evidence-v1.json'
 import valueArtifact from '../research/domain/formal/value-availability-v2.json'
-import relationArtifact from '../research/domain/formal/serialized-relation-v1.json'
+import relationArtifact from '../research/domain/formal/serialized-relation-v2.json'
 import { scatterCrossbowBrowserProjection } from '../src/screens/dataBrowser/scatterCrossbowBrowserModel'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
@@ -68,7 +68,7 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
     expect(definition.projectileRelation.relationRef).toBe(relation.relationRef)
     expect(definition.projectileRelation.target).toMatchObject(relation.target)
     expect(relationProjection.result).toBe('projected')
-    expect(relationProjection.targetResolution).toMatchObject({ input: 'supplied', result: 'resolved' })
+    expect(relationProjection.targetRawVerification).toMatchObject({ input: 'supplied', result: 'resolved' })
 
     expect(row).toContain('Projectile serialized relation')
     expect(row).toContain('<code>projected</code>')
@@ -152,11 +152,11 @@ describe('Scatter Crossbow Formal Data Browser consumer', () => {
     expect(browserSources).toContain('research/domain/formal/identity-evidence-v1.json')
     expect(browserSources).toContain('research/domain/formal/value-availability-v2.json')
     expect(browserSources).not.toContain('research/domain/formal/value-availability-' + 'v1.json')
-    expect(browserSources).toContain('research/domain/formal/serialized-relation-v1.json')
+    expect(browserSources).toContain('research/domain/formal/serialized-relation-v2.json')
     expect(browserSources).not.toMatch(/research\/domain\/temporary\/scatter-crossbow\.json|src\/domain\/temporary/)
     expect(browserSources).not.toMatch(/research\/raw\//)
     expect(browserSources).not.toMatch(/src\/domain\/formal|projectScatterCrossbow\(|projectSerializedRelation\(|buildFormalSerializedRelationArtifact\(|buildFormalValueAvailabilityArtifact\(|extract:game-data-raw-package/)
     expect(browserSources).not.toMatch(/ObjectProperty import identity mismatch|classImportMatches|outerMatches|sameDataset|target Raw package, dataset, or fingerprint mismatch/)
-    expect(browserSources).not.toMatch(/targetResolution\.result\s*[!=]=|relationProjection\.result\s*[!=]=|valueProjections\.[^\n]*result/)
+    expect(browserSources).not.toMatch(/targetRawVerification\.result\s*[!=]=|relationProjection\.result\s*[!=]=|valueProjections\.[^\n]*result/)
   })
 })

@@ -32,7 +32,7 @@ const repositoryRoot = fs.realpathSync(root)
 const read = <T>(relativePath: string): T => JSON.parse(fs.readFileSync(new URL(relativePath, root), 'utf8')) as T
 const readRaw = (packagePath: string) => read<RawPackageSnapshot>(`research/raw/packages/${packagePath}.raw.json`)
 const identity = read<FormalIdentityEvidenceArtifact>('research/domain/formal/identity-evidence-v1.json')
-const relation = read<FormalSerializedRelationArtifact>('research/domain/formal/serialized-relation-v1.json')
+const relation = read<FormalSerializedRelationArtifact>('research/domain/formal/serialized-relation-v2.json')
 const fightersRaw = readRaw(fightersBindingsFormalIdentity.assertion.applicationScope.packagePath)
 const scatterRaw = readRaw(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath)
 const scatterProjectileRaw = readRaw(scatterCrossbowRelationDefinition.targetRawPath)

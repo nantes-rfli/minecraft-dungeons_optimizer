@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "artifactKind": "formal-domain-serialized-relation",
   "semantic": {
     "relations": [
@@ -7,7 +7,8 @@
         "projectionRef": "projection:relation:scatter-crossbow:projectile@1:0",
         "relationRef": "relation:scatter-crossbow:projectile@1",
         "occurrence": {
-          "slice": "scatter-crossbow",
+          "domainId": "scatter-crossbow",
+          "collectionRef": "projectile-definitions",
           "sourceIndex": 0
         },
         "sourceDomainId": "scatter-crossbow",
@@ -25,8 +26,8 @@
         "projectionRef": "projection:relation:battle-robe:gear-actor@1:source",
         "relationRef": "relation:battle-robe:gear-actor@1",
         "occurrence": {
-          "slice": "battle-robe",
-          "scope": "source"
+          "domainId": "battle-robe",
+          "scopeRef": "source"
         },
         "sourceDomainId": "battle-robe",
         "target": {
@@ -43,8 +44,8 @@
         "projectionRef": "projection:relation:death-cap-mushroom:effect@1:source",
         "relationRef": "relation:death-cap-mushroom:effect@1",
         "occurrence": {
-          "slice": "death-cap-mushroom",
-          "scope": "source"
+          "domainId": "death-cap-mushroom",
+          "scopeRef": "source"
         },
         "sourceDomainId": "death-cap-mushroom",
         "target": {
@@ -59,19 +60,24 @@
       }
     ]
   },
-  "scatterParent": {
-    "result": "projected",
-    "evidenceRef": "evidence:relation:fnv1a32:2d64c02c",
-    "sourceIndices": [
-      0
-    ]
-  },
+  "relationCollections": [
+    {
+      "domainId": "scatter-crossbow",
+      "collectionRef": "projectile-definitions",
+      "result": "projected",
+      "evidenceRef": "evidence:relation:fnv1a32:2d64c02c",
+      "sourceIndices": [
+        0
+      ]
+    }
+  ],
   "relationProjections": [
     {
       "projectionRef": "projection:relation:scatter-crossbow:projectile@1:0",
       "relationRef": "relation:scatter-crossbow:projectile@1",
       "occurrence": {
-        "slice": "scatter-crossbow",
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
         "sourceIndex": 0
       },
       "evidenceRefs": [
@@ -80,7 +86,11 @@
         "evidence:relation:fnv1a32:3f464436"
       ],
       "result": "projected",
-      "targetResolution": {
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+      },
+      "targetRawVerification": {
         "input": "supplied",
         "targetEvidenceRef": "evidence:relation:fnv1a32:a615b8e4",
         "result": "resolved"
@@ -90,8 +100,8 @@
       "projectionRef": "projection:relation:battle-robe:gear-actor@1:source",
       "relationRef": "relation:battle-robe:gear-actor@1",
       "occurrence": {
-        "slice": "battle-robe",
-        "scope": "source"
+        "domainId": "battle-robe",
+        "scopeRef": "source"
       },
       "evidenceRefs": [
         "evidence:relation:fnv1a32:b0d081f0",
@@ -99,7 +109,11 @@
         "evidence:relation:fnv1a32:6b16a9b2"
       ],
       "result": "projected",
-      "targetResolution": {
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+      },
+      "targetRawVerification": {
         "input": "not-supplied",
         "result": "not-resolved",
         "reason": "target-snapshot-not-supplied"
@@ -109,8 +123,8 @@
       "projectionRef": "projection:relation:death-cap-mushroom:effect@1:source",
       "relationRef": "relation:death-cap-mushroom:effect@1",
       "occurrence": {
-        "slice": "death-cap-mushroom",
-        "scope": "source"
+        "domainId": "death-cap-mushroom",
+        "scopeRef": "source"
       },
       "evidenceRefs": [
         "evidence:relation:fnv1a32:3fdad001",
@@ -118,7 +132,11 @@
         "evidence:relation:fnv1a32:865c31f6"
       ],
       "result": "projected",
-      "targetResolution": {
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect"
+      },
+      "targetRawVerification": {
         "input": "supplied",
         "targetEvidenceRef": "evidence:relation:fnv1a32:401fd453",
         "result": "resolved"

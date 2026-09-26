@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "artifactPath": "research/domain/formal/serialized-relation-v1.json",
+  "stableRelations": [
+    {
+      "relationRef": "relation:scatter-crossbow:projectile@1",
+      "projectionRef": "projection:relation:scatter-crossbow:projectile@1:0",
+      "occurrence": {
+        "domainId": "scatter-crossbow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:ceb9e8a6",
+        "evidence:relation:fnv1a32:92b67804",
+        "evidence:relation:fnv1a32:3f464436"
+      ],
+      "target": {
+        "objectName": "BP_ScatterCrossBow_Arrow_C",
+        "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossBow_Arrow"
+      },
+      "sourceDomainId": "scatter-crossbow",
+      "targetRawVerification": {
+        "input": "supplied",
+        "targetEvidenceRef": "evidence:relation:fnv1a32:a615b8e4",
+        "result": "resolved"
+      }
+    },
+    {
+      "relationRef": "relation:battle-robe:gear-actor@1",
+      "projectionRef": "projection:relation:battle-robe:gear-actor@1:source",
+      "occurrence": {
+        "domainId": "battle-robe",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:b0d081f0",
+        "evidence:relation:fnv1a32:15e0a101",
+        "evidence:relation:fnv1a32:6b16a9b2"
+      ],
+      "target": {
+        "objectName": "BP_BattleRobe_C",
+        "gamePackagePath": "/Game/Actors/Equipment/Armor/BattleRobe/BP_BattleRobe"
+      },
+      "sourceDomainId": "battle-robe",
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "relationRef": "relation:death-cap-mushroom:effect@1",
+      "projectionRef": "projection:relation:death-cap-mushroom:effect@1:source",
+      "occurrence": {
+        "domainId": "death-cap-mushroom",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:3fdad001",
+        "evidence:relation:fnv1a32:03ca17cb",
+        "evidence:relation:fnv1a32:865c31f6"
+      ],
+      "target": {
+        "objectName": "BP_DeathCapMushroomGameplayEffect_C",
+        "gamePackagePath": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomGameplayEffect"
+      },
+      "sourceDomainId": "death-cap-mushroom",
+      "targetRawVerification": {
+        "input": "supplied",
+        "targetEvidenceRef": "evidence:relation:fnv1a32:401fd453",
+        "result": "resolved"
+      }
+    }
+  ]
+}
