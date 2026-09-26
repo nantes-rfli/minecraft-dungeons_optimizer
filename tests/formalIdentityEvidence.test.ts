@@ -24,6 +24,7 @@ import { readFormalIdentityInventoryInputs } from '../scripts/formal-identity-in
 const rawText = fs.readFileSync(`research/raw/packages/${fightersBindingsFormalIdentity.assertion.applicationScope.packagePath}.raw.json`, 'utf8')
 const fixture = () => JSON.parse(rawText) as RawPackageSnapshot
 const artifactFixture = () => JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
+const armorInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), readyArmorFormalIdentities)
 const project = (raw: RawPackageSnapshot) => projectFormalIdentity(raw, fightersBindingsFormalIdentity)
 const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => object.isClassDefaultObject)!
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
@@ -68,9 +69,8 @@ describe('Formal Identity / Evidence v1', () => {
   })
 
   it('grounds all 70 Armor identities in their exact Structural candidate and armor-audit levelId', () => {
-    const inputs = readFormalIdentityInventoryInputs(process.cwd(), readyArmorFormalIdentities)
-    expect(inputs).toHaveLength(70)
-    for (const input of inputs) {
+    expect(armorInventoryInputs).toHaveLength(70)
+    for (const input of armorInventoryInputs) {
       if (!('observation' in input) || !input.observation) {
         throw new Error('expected Armor inventory observation input')
       }
