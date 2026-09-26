@@ -2,10 +2,10 @@ import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { collectFormalIntegrationErrors } from '../src/domain/formal/integrationAudit.ts'
-import { buildFormalIdentityEvidenceArtifact, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
+import { buildFormalIdentityEvidenceArtifact, projectFormalIdentity, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
-import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
-import { buildFormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
+import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition, type FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
+import { buildFormalValueAvailabilityArtifact, type FormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability.ts'
 
 const definitions = [fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity]
 const structuralPackagePaths = new Set([
@@ -34,11 +34,29 @@ function artifacts() {
 
 describe('Formal Value v2 integration', () => {
   it('accepts all 50 connected current Melee/Ranged domains', () => {
-    const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8'))
-    const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8'))
-    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8'))
+    const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
+    const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8')) as FormalValueAvailabilityArtifact
+    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8')) as FormalSerializedRelationArtifact
     expect(Object.keys(value.semantic.melee)).toHaveLength(27)
     expect(Object.keys(value.semantic.ranged)).toHaveLength(23)
+    const melee = relation.relationProjections.filter((item) => item.relationRef.endsWith(':attack-sequence@1'))
+    const ranged = relation.relationProjections.filter((item) => item.relationRef.endsWith(':projectile@1'))
+    expect(new Set(melee.map((item) => item.occurrence.domainId)).size).toBe(27)
+    expect(melee).toHaveLength(96)
+    expect(new Set(ranged.map((item) => item.occurrence.domainId)).size).toBe(23)
+    expect(ranged).toHaveLength(23)
+    expect(relation.relationCollections).toHaveLength(50)
+    expect(relation.semantic.relations).toHaveLength(121)
+    expect(relation.relationProjections).toHaveLength(121)
+    expect(new Set(relation.relationProjections.map((item) => item.projectionRef)).size).toBe(121)
+    expect(new Set(relation.semantic.relations.map((item) => `${item.relationRef}:${JSON.stringify(item.occurrence)}`)).size).toBe(121)
+    expect(relation.relationProjections.slice(3).every((item) => item.result === 'projected'
+      && item.serializedTargetResolution.state === 'resolved-local-package'
+      && item.targetRawVerification.input === 'not-supplied'
+      && item.targetRawVerification.reason === 'target-snapshot-not-supplied')).toBe(true)
+    for (const record of value.valueProjections.filter((item) => item.relationProjectionRef)) {
+      expect(relation.relationProjections.filter((item) => item.projectionRef === record.relationProjectionRef)).toHaveLength(1)
+    }
     expect(collectFormalIntegrationErrors(identity, value, relation)).toEqual([])
   })
   it('rejects one normally generated artifact from another Raw snapshot', () => {
@@ -76,5 +94,14 @@ describe('Formal Value v2 integration', () => {
     if (!scatterCollection || scatterCollection.result !== 'projected') throw new Error('Scatter relation collection missing')
     scatterCollection.sourceIndices = [9]
     expect(collectFormalIntegrationErrors(original.identity, original.value, relation)).toContainEqual(expect.stringContaining('sourceIndex mismatch'))
+  })
+  it('rejects horizontal Relation collection drift outside Scatter', () => {
+    const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
+    const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8')) as FormalValueAvailabilityArtifact
+    const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8')) as FormalSerializedRelationArtifact
+    const anchor = relation.relationCollections.find((item) => item.domainId === 'anchor')
+    if (!anchor || anchor.result !== 'projected') throw new Error('Anchor Relation collection missing')
+    anchor.sourceIndices = [9]
+    expect(collectFormalIntegrationErrors(identity, value, relation)).toContainEqual(expect.stringContaining('anchor: Relation/Value sourceIndex mismatch'))
   })
 })

@@ -3,6 +3,7 @@ import { locateRawNode, nestedRawNode, rawCdoCandidates, topLevelRawNode, type L
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from './identityDefinitions.ts'
 import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEvidenceRecord } from './identityEvidence.ts'
 import { matchedIdentityDomainId } from './boundarySource.ts'
+import type { RawTrace } from './rawProjection.ts'
 
 export type RelationKind = 'attack-sequence' | 'projectile' | 'gear-actor' | 'effect'
 export type RelationRef = `relation:${string}:${RelationKind}@1`
@@ -97,6 +98,17 @@ export type FormalRelationInputs = {
   battleRobe: RelationSliceInput
   deathCapMushroom: RelationSliceInput
   structuralPackagePaths: ReadonlySet<string>
+  horizontalRelations?: readonly HorizontalRelationInput[]
+}
+
+export type HorizontalRelationInput = {
+  sourceDomainId: string
+  relationRef: RelationRef
+  occurrence: CollectionRelationOccurrence
+  source: RawTrace
+  target: SerializedTarget
+  serializedTargetResolution: SerializedTargetResolution
+  structuralEdge: unknown
 }
 
 export function relationRefForDomain(domainId: string, kind: RelationKind): RelationRef {
@@ -254,6 +266,18 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
     evidence.set(id, { ...base, fingerprint: evidenceFingerprint(base) })
     return id
   }
+  const observeHorizontal = (input: HorizontalRelationInput): string => {
+    const p = input.source
+    const id = `evidence:relation:${evidenceFingerprint(p)}`
+    const base = {
+      id,
+      kind: 'raw-relation-observation' as const,
+      provenance: p,
+      observed: input.structuralEdge,
+    }
+    evidence.set(id, { ...base, fingerprint: evidenceFingerprint(base) })
+    return id
+  }
 
   for (const definition of definitions) {
     const input = inputs[definition.key]
@@ -404,6 +428,31 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
     }
   }
 
+  const horizontalCollections = new Map<string, { domainId: string; collectionRef: string; evidenceRef: string; sourceIndices: number[] }>()
+  for (const input of inputs.horizontalRelations ?? []) {
+    const { occurrence } = input
+    if (input.sourceDomainId !== occurrence.domainId || !Number.isInteger(occurrence.sourceIndex) || occurrence.sourceIndex < 0) {
+      throw new Error(`Invalid horizontal Relation occurrence: ${input.relationRef}`)
+    }
+    const projectionRef = relationProjectionRef(input.relationRef, occurrence)
+    if (records.some((record) => record.projectionRef === projectionRef)) {
+      throw new Error(`Duplicate Relation projectionRef: ${projectionRef}`)
+    }
+    const evidenceRef = observeHorizontal(input)
+    const evidenceRefs = [evidenceRef]
+    relations.push({ projectionRef, relationRef: input.relationRef, occurrence, sourceDomainId: input.sourceDomainId,
+      target: input.target, evidenceRefs })
+    records.push({ projectionRef, relationRef: input.relationRef, occurrence, evidenceRefs, result: 'projected',
+      serializedTargetResolution: input.serializedTargetResolution,
+      targetRawVerification: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } })
+    const key = `${occurrence.domainId}\0${occurrence.collectionRef}`
+    const collection = horizontalCollections.get(key)
+    if (collection) collection.sourceIndices.push(occurrence.sourceIndex)
+    else horizontalCollections.set(key, { domainId: occurrence.domainId, collectionRef: occurrence.collectionRef,
+      evidenceRef, sourceIndices: [occurrence.sourceIndex] })
+  }
+  relationCollections.push(...[...horizontalCollections.values()].map((collection) => ({ ...collection, result: 'projected' as const })))
+
   return {
     schemaVersion: 2,
     artifactKind: 'formal-domain-serialized-relation',
@@ -426,6 +475,9 @@ export function collectFormalSerializedRelationErrors(
   if (!same(required, actual)) errors.push('required relation occurrence coverage mismatch')
   if (!same(artifact.relationCollections, expected.relationCollections)) errors.push('Relation collection mismatch')
   if (new Set(actual).size !== actual.length) errors.push('duplicate occurrence')
+  const occurrenceKeys = artifact.semantic.relations.map((relation) =>
+    `${relation.relationRef}\0${JSON.stringify(relation.occurrence)}`)
+  if (new Set(occurrenceKeys).size !== occurrenceKeys.length) errors.push('duplicate RelationRef + occurrence')
 
   const evidence = new Map<string, RelationEvidenceRecord>()
   for (const record of artifact.provenance.evidence) {

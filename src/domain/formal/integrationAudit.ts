@@ -10,7 +10,7 @@ import {
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
 } from './identityDefinitions.ts'
-import { sameRawSource } from './boundarySource.ts'
+import { sameLogicalRawPackage, sameRawSource } from './boundarySource.ts'
 import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
 import { scatterValueMappings } from './scatterValueMappings.ts'
 
@@ -103,7 +103,34 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     check(Boolean(source), `${projected.projectionRef}: missing matched Identity`)
     for (const ref of projected.evidenceRefs) {
       const evidence = relation.provenance.evidence.find((item) => item.id === ref)
-      check(Boolean(evidence && source && sameRawSource(evidence.provenance, source)), `${projected.projectionRef}: Relation/Identity source mismatch`)
+      check(Boolean(evidence && source && (sameRawSource(evidence.provenance, source)
+        || (evidence.provenance.artifactPath.startsWith('research/raw/game-data-raw-structural-inventory/shards/')
+          && source.artifactPath.startsWith('research/raw/packages/')
+          && sameLogicalRawPackage(evidence.provenance, source)))), `${projected.projectionRef}: Relation/Identity source mismatch`)
+    }
+  }
+  for (const [category, domains, collectionRef] of [
+    ['melee', valueMelee, 'configured-attacks'],
+    ['ranged', valueRanged, 'projectile-definitions'],
+  ] as const) {
+    for (const domainId of domains) {
+      const indices = category === 'melee' ? value.semantic.melee[domainId]?.configuredAttacks?.value
+        : value.semantic.ranged[domainId]?.configuredProjectileDefinitions?.value
+      const collections = relation.relationCollections.filter((item) =>
+        item.domainId === domainId && item.collectionRef === collectionRef)
+      check(collections.length === 1, `${domainId}: Relation collection must resolve exactly once`)
+      const collection = collections[0]
+      check(collection?.result === 'projected', `${domainId}: Relation collection is not projected`)
+      if (collection?.result !== 'projected') continue
+      check(JSON.stringify(collection.sourceIndices) === JSON.stringify(indices), `${domainId}: Relation/Value sourceIndex mismatch`)
+      const projections = relation.relationProjections.filter((item) =>
+        item.occurrence.domainId === domainId && 'sourceIndex' in item.occurrence
+        && item.occurrence.collectionRef === collectionRef)
+      check(projections.length === collection.sourceIndices.length, `${domainId}: Relation occurrence count mismatch`)
+      for (const index of collection.sourceIndices) {
+        check(projections.filter((item) => 'sourceIndex' in item.occurrence && item.occurrence.sourceIndex === index).length === 1,
+          `${domainId}:${index}: Relation occurrence must resolve exactly once`)
+      }
     }
   }
   const parent = value.valueProjections.find((item) => item.mappingId === scatterValueMappings.definitions.id)

@@ -15,6 +15,9 @@ import {
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { loadStructuralGraph } from './game-data-horizontal-fact-inventory.ts'
+import { readHorizontalRelationWaveSources } from './formal-relation-horizontal-wave-sources.ts'
+import { readVerifiedStructuralShard, resolveJsonPointer } from './formal-value-source-provenance.ts'
+import type { FormalIdentityEvidenceArtifact } from '../src/domain/formal/identityEvidence.ts'
 
 const root = new URL('..', import.meta.url)
 const repositoryRoot = fs.realpathSync(root)
@@ -30,6 +33,15 @@ const source = (definition: typeof scatterCrossbowFormalIdentity) => {
     identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation'),
   }
 }
+const identity = read<FormalIdentityEvidenceArtifact>('research/domain/formal/identity-evidence-v1.json')
+const wave = readHorizontalRelationWaveSources({ repositoryRoot, identity })
+assert.equal(new Set(wave.melee.map(({ occurrence }) => occurrence.domainId)).size, 27)
+assert.equal(wave.melee.length, 96)
+assert.equal(new Set(wave.ranged.map(({ occurrence }) => occurrence.domainId)).size, 23)
+assert.equal(wave.ranged.length, 23)
+const firstWave = [...wave.melee, ...wave.ranged]
+assert.equal(firstWave.length, 119)
+assert.ok(firstWave.every(({ serializedTargetResolution }) => serializedTargetResolution.state === 'resolved-local-package'))
 const inputs: FormalRelationInputs = {
   structuralPackagePaths,
   scatter: { ...source(scatterCrossbowFormalIdentity), target: readRaw(scatterCrossbowRelationDefinition.targetRawPath) },
@@ -38,14 +50,16 @@ const inputs: FormalRelationInputs = {
     ...source(deathCapMushroomFormalIdentity),
     target: readRaw(deathCapMushroomRelationDefinition.targetRawPath),
   },
+  horizontalRelations: firstWave.filter(({ occurrence }) => occurrence.domainId !== 'scatter-crossbow'),
 }
 const artifact = buildFormalSerializedRelationArtifact(inputs)
 assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.equal(artifact.semantic.relations.length, 3)
-assert.equal(artifact.relationProjections.length, 3)
+assert.equal(artifact.semantic.relations.length, 121)
+assert.equal(artifact.relationProjections.length, 121)
+assert.equal(artifact.relationCollections.length, 50)
 assert.deepEqual(
-  artifact.relationProjections.map((record) => [
+  artifact.relationProjections.slice(0, 3).map((record) => [
     record.occurrence.domainId,
     record.result,
     record.result === 'projected' && record.targetRawVerification.result,
@@ -56,8 +70,35 @@ assert.deepEqual(
     ['death-cap-mushroom', 'projected', 'resolved'],
   ],
 )
+const scatterSource = wave.ranged.find(({ occurrence }) => occurrence.domainId === 'scatter-crossbow')!
+const scatterRelation = artifact.semantic.relations.find(({ relationRef }) => relationRef === scatterSource.relationRef)!
+const scatterProjection = artifact.relationProjections.find(({ projectionRef }) => projectionRef === scatterRelation.projectionRef)!
+assert.deepEqual(scatterRelation.occurrence, scatterSource.occurrence)
+assert.deepEqual(scatterRelation.target, scatterSource.target)
+assert.deepEqual(scatterProjection.result === 'projected' && scatterProjection.serializedTargetResolution,
+  scatterSource.serializedTargetResolution)
+const horizontal = artifact.relationProjections.filter(({ occurrence }) =>
+  'sourceIndex' in occurrence && ['configured-attacks', 'projectile-definitions'].includes(occurrence.collectionRef))
+assert.equal(horizontal.length, 119)
+assert.ok(horizontal.every((record) => record.result === 'projected'
+  && record.serializedTargetResolution.state === 'resolved-local-package'))
+assert.ok(horizontal.filter(({ occurrence }) => occurrence.domainId !== 'scatter-crossbow').every((record) =>
+  record.result === 'projected' && record.targetRawVerification.input === 'not-supplied'
+  && record.targetRawVerification.result === 'not-resolved'
+  && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
+assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 121)
+assert.equal(new Set(artifact.semantic.relations.map(({ relationRef, occurrence }) =>
+  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 121)
 
 for (const evidence of artifact.provenance.evidence) {
+  if (evidence.provenance.artifactPath.endsWith('.json.gz')) {
+    const { shard } = readVerifiedStructuralShard(repositoryRoot, evidence.provenance.artifactPath,
+      evidence.provenance.datasetId)
+    const observed = resolveJsonPointer(shard, evidence.provenance.nodePointer!)
+    assert.notEqual(observed, undefined, `${evidence.id}: Structural edge pointer missing`)
+    assert.deepEqual(evidence.observed, observed, `${evidence.id}: Structural edge drift`)
+    continue
+  }
   const raw = read<RawPackageSnapshot>(evidence.provenance.artifactPath)
   assert.equal(raw.dataset.id, evidence.provenance.datasetId)
   assert.equal(raw.extraction.runId, evidence.provenance.extractionRunId)
@@ -81,7 +122,8 @@ const baseline = read<{
     targetRawVerification: unknown
   }[]
 }>('tests/fixtures/formal-relation-v1-stable-baseline.json')
-const stableRelations = artifact.semantic.relations.map((relation) => {
+const stableRefs = new Set(baseline.stableRelations.map(({ relationRef }) => relationRef))
+const stableRelations = artifact.semantic.relations.filter(({ relationRef }) => stableRefs.has(relationRef)).map((relation) => {
   const projection = artifact.relationProjections.find((record) => record.projectionRef === relation.projectionRef)
   assert.ok(projection && projection.result === 'projected', `${relation.projectionRef}: projected Relation missing`)
   return {

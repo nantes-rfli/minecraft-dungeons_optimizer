@@ -16,6 +16,13 @@ export function sameRawSource(a: RawSourceProvenance, b: RawSourceProvenance): b
     && a.packageHash?.algorithm === b.packageHash?.algorithm && a.packageHash?.value === b.packageHash?.value
 }
 
+/** Full snapshot and Structural shard can have separate extraction runs for identical package content. */
+export function sameLogicalRawPackage(a: RawSourceProvenance, b: RawSourceProvenance): boolean {
+  return Boolean(a.packagePath && a.datasetId && a.packageHash?.algorithm && a.packageHash.value)
+    && a.packagePath === b.packagePath && a.datasetId === b.datasetId
+    && a.packageHash?.algorithm === b.packageHash?.algorithm && a.packageHash?.value === b.packageHash?.value
+}
+
 export function snapshotSource(raw: RawPackageSnapshot): RawSourceProvenance {
   return { artifactPath: `research/raw/packages/${raw.logicalPackage.path}.raw.json`, packagePath: raw.logicalPackage.path,
     datasetId: raw.dataset.id, extractionRunId: raw.extraction.runId, packageHash: raw.logicalPackage.contentHash }
