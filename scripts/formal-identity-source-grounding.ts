@@ -469,11 +469,11 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(cdoExports.length === 1, `${assertion.id}: Structural package must contain exactly one CDO`)
     check(cdoClassObjectName === candidate?.objectName, `${assertion.id}: candidate object does not bind to the Structural CDO class`)
     check(cdoInventories.length === 1, `${assertion.id}: Structural package must contain exactly one CDO property inventory`)
-    check(observation?.packagePath === packagePath && observation.rawSchemaVersion === 2, `${assertion.id}: Structural observation package/schema drift`)
-    check(observation?.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === rawIdentity, `${assertion.id}: Structural ItemIdName differs from bridge Raw identity`)
-    check(observation?.serializedId.observation.state === 'known' && observation.serializedId.observation.value === rawIdentity, `${assertion.id}: Structural SerializedId differs from bridge Raw identity`)
-    check(observation?.itemIdName.provenance.packagePath === packagePath && observation.itemIdName.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: ItemIdName is not from the exact Structural shard/package`)
-    check(observation?.serializedId.provenance.packagePath === packagePath && observation.serializedId.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: SerializedId is not from the exact Structural shard/package`)
+    check(observation?.packagePath === packagePath && observation?.rawSchemaVersion === 2, `${assertion.id}: Structural observation package/schema drift`)
+    check(observation?.itemIdName.observation.state === 'known' && observation?.itemIdName.observation.value === rawIdentity, `${assertion.id}: Structural ItemIdName differs from bridge Raw identity`)
+    check(observation?.serializedId.observation.state === 'known' && observation?.serializedId.observation.value === rawIdentity, `${assertion.id}: Structural SerializedId differs from bridge Raw identity`)
+    check(observation?.itemIdName.provenance.packagePath === packagePath && observation?.itemIdName.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: ItemIdName is not from the exact Structural shard/package`)
+    check(observation?.serializedId.provenance.packagePath === packagePath && observation?.serializedId.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}`, `${assertion.id}: SerializedId is not from the exact Structural shard/package`)
     check(definition.presentation.displayName === canonicalEntries[0]?.name, `${assertion.id}: presentation displayName differs from artifact-audit`)
   }
 
