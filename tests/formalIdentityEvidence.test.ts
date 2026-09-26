@@ -52,7 +52,11 @@ describe('Formal Identity / Evidence v1', () => {
   it('grounds all six ready-direct Artifacts in the exact structural package and both serialized identity fields', () => {
     const inputs = readFormalIdentityInventoryInputs(process.cwd(), readyArtifactFormalIdentities)
     expect(inputs).toHaveLength(6)
-    for (const { definition, observation } of inputs) {
+    for (const input of inputs) {
+      if (!('observation' in input) || !input.observation) {
+        throw new Error('expected inventory observation input')
+      }
+      const { definition, observation } = input
       expect(observation.packagePath).toBe(definition.assertion.applicationScope.packagePath)
       expect(observation.itemIdName).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath: definition.assertion.applicationScope.packagePath } })
       expect(observation.serializedId).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath: definition.assertion.applicationScope.packagePath } })
