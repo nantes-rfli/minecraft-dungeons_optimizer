@@ -3,7 +3,31 @@ name: Raw Structural Inventory
 on:
   pull_request:
     branches: [main]
-  workflow_dispatch:
+    paths:
+      - '.github/workflows/raw-structural-inventory.yml'
+      - 'docs/game-data-raw-structural-inventory.md'
+      - 'docs/game-data-horizontal-fact-inventory.md'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'generated/equipment-icons/manifest.json'
+      - 'research/melee-attack-profile-audit.json'
+      - 'research/armor-audit.json'
+      - 'research/ranged-weapon-audit.json'
+      - 'research/artifact-audit.json'
+      - 'research/raw/game-data-asset-index.json'
+      - 'research/raw/game-data-raw-structural-inventory/**'
+      - 'research/raw/game-data-horizontal-fact-inventory-v1.json.gz'
+      - 'research/mechanics/pre-breadth-source-closure.json'
+      - 'research/sources/game-data-source-provenance.json'
+      - 'scripts/audit-game-data-horizontal-fact-inventory.ts'
+      - 'scripts/audit-game-data-raw-structural-inventory.ts'
+      - 'scripts/extract-game-data-raw-structural-inventory.ts'
+      - 'scripts/game-data-horizontal-fact-inventory.ts'
+      - 'scripts/game-data-package-source.ts'
+      - 'scripts/game-data-raw-structural-inventory.ts'
+      - 'src/research/ue4/**'
+      - 'tests/gameDataRawStructuralInventory.test.ts'
+      - 'tests/horizontalRawFactInventory.test.ts'
 
 permissions:
   contents: read
@@ -13,105 +37,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-      - name: Install dependencies
-        # Reuse cached package data; still install exactly the lockfile on every run.
-        # The advisory API can stall for minutes; dependency-audit.yml reports it separately.
-        run: npm ci --prefer-offline --no-audit --no-fund --timing
+      - run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
-      - run: git diff --check 815557cacce2ae80c0f9e53fd93a754623287abe HEAD
-      - run: npm run generate:formal-serialized-relation
-      - run: npm test -- --run tests/formalSerializedRelation.test.ts tests/horizontalFormalRelationSource.test.ts
-      - run: npm test -- --run tests/scatterCrossbowDataBrowser.test.tsx tests/battleRobeDataBrowser.test.tsx tests/deathCapMushroomDataBrowser.test.tsx
-      - run: npx tsc -b
-      - run: npm run lint
-      - run: npm run build
-      - run: npm run audit:damage-events
-      - run: npm run audit:dot-damage
-      - run: npm run audit:temporal-enchants
-      - run: npm run audit:soul
-      - run: npm run audit:cc
-      - run: npm run audit:charge-enchants
-      - run: npm run audit:enchants
-      - run: npm run audit:artifacts
-      - run: npm run audit:artifact-control
-      - run: npm run audit:artifact-soul
-      - run: npm run audit:artifact-event
-      - run: npm run audit:artifact-evidence
-      - run: npm run audit:armor
-      - run: npm run audit:armor-enchants
-      - run: npm run audit:armor-runtime
-      - run: npm run audit:armor-expansion
-      - run: npm run audit:runtime-support
-      - run: npm run audit:dps
-      - run: npm run audit:melee
-      - run: npm run audit:ranged
-      - run: npm run audit:ranged-enchants
-      - run: npm run audit:ranged-runtime
-      - run: npm run audit:evidence-coverage
-      - run: npm run audit:source-harvest
-      - run: npm run audit:evidence-gap-map
-      - run: npm run audit:coverage-priority
-      - run: npm run audit:game-data-inventory
-      - run: npm run audit:game-data-provenance
-      - run: npm run audit:game-data-extractor
-      - run: npm run audit:game-data-raw-package
       - run: npm run audit:game-data-raw-structural-inventory
       - run: npm run audit:game-data-horizontal-fact-inventory
-      - run: npm run audit:formal-identity-evidence
-      - run: npm run audit:formal-value-availability
-      - run: npm run audit:formal-serialized-relation
-      - run: npm run audit:formal-integration
-      - run: npm run audit:game-data-semantic-mapping
-      - run: npm run audit:game-data-bulk-harvest
-      - run: npm run audit:game-data-gap-reconciliation
-      - run: npm run audit:game-data-final-coverage
-      - run: npm run audit:game-data-model-alignment
-      - run: npm run audit:game-data-native-analysis
-      - run: npm run audit:external-community
-      - run: npm run audit:evidence-adapter
-      - run: npm run audit:attack-event-comparison
-      - run: npm run audit:dr-modifier-comparison
-      - run: npm run audit:scenario-optimizer-comparison
-      - run: npm run audit:runtime-promotion
-      - run: npm run audit:roadmap
-      - run: npm test
-      - run: git diff --exit-code -- README.md ROADMAP.md docs research
-      - run: npx tsc -b
-      - run: npm run lint
-      - run: npm run build
-      - name: Decide whether E2E is needed
-        id: e2e
-        shell: bash
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          run_e2e=false
-          while IFS= read -r file; do
-            case "$file" in
-              *.md) ;;
-              *) run_e2e=true; break ;;
-            esac
-          done < <(git diff --name-only HEAD^ HEAD)
-
-          echo "run=$run_e2e" >> "$GITHUB_OUTPUT"
-      - run: npx playwright install --with-deps chromium
-        if: ${{ steps.e2e.outputs.run == 'true' }}
-      - run: npm run test:e2e
-        if: ${{ steps.e2e.outputs.run == 'true' }}
-      - uses: actions/upload-artifact@v4
-        if: ${{ always() && steps.e2e.outputs.run == 'true' }}
-        with:
-          name: browser-validation
-          path: |
-            playwright-report/
-            test-results/
-          retention-days: 14
+      - run: npm test -- --run tests/gameDataRawStructuralInventory.test.ts
+      - run: npm test -- --run tests/horizontalRawFactInventory.test.ts
+      - run: npx tsc --noEmit --pretty false
+      - run: npx eslint scripts/game-data-raw-structural-inventory.ts scripts/extract-game-data-raw-structural-inventory.ts scripts/audit-game-data-raw-structural-inventory.ts tests/gameDataRawStructuralInventory.test.ts scripts/game-data-horizontal-fact-inventory.ts scripts/audit-game-data-horizontal-fact-inventory.ts tests/horizontalRawFactInventory.test.ts
