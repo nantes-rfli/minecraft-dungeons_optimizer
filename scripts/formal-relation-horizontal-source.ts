@@ -1,10 +1,11 @@
-import type { HorizontalRawFactInventory, JsonRecord } from './game-data-horizontal-fact-inventory.ts'
+import { loadStructuralGraph, type HorizontalRawFactInventory, type JsonRecord } from './game-data-horizontal-fact-inventory.ts'
 import { readVerifiedStructuralShard } from './formal-value-source-provenance.ts'
 import { matchedIdentityDomainIdFromSource } from '../src/domain/formal/boundarySource.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
 import {
   horizontalRelationDefinition,
+  serializedTargetResolutionFromStructuralEdge,
   type CollectionRelationOccurrence,
   type RelationRef,
   type SerializedTarget,
@@ -82,6 +83,16 @@ export type ResolvedHorizontalRelationSource = {
 const isRecord = (value: unknown): value is JsonRecord =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
+const verifiedStructuralPackagePathsByRepository = new Map<string, ReadonlySet<string>>()
+
+function verifiedStructuralPackagePaths(repositoryRoot: string): ReadonlySet<string> {
+  const cached = verifiedStructuralPackagePathsByRepository.get(repositoryRoot)
+  if (cached) return cached
+  const packagePaths = new Set(loadStructuralGraph(repositoryRoot).packagesByPath.keys())
+  verifiedStructuralPackagePathsByRepository.set(repositoryRoot, packagePaths)
+  return packagePaths
+}
+
 const requiredString = (value: unknown, label: string): string => {
   if (typeof value !== 'string' || value.length === 0) throw new Error(`${label} is missing`)
   return value
@@ -140,21 +151,10 @@ function ownsCollectionChild(
     && (propertyPath === childRawField || propertyPath.endsWith(`.${childRawField}`))
 }
 
-function targetState(edge: JsonRecord): string {
-  const traversal = isRecord(edge.traversal) ? edge.traversal : {}
-  const stopReason = traversal.stopReason
-  const isNull = stopReason === 'null-reference' || edge.targetKind === 'null'
-  return typeof edge.targetPackage === 'string' && edge.targetPackage.length > 0 ? 'resolved-local-package'
-    : isNull ? 'known-null'
-      : stopReason === 'native-boundary' ? 'native-boundary'
-        : stopReason === 'outside-game-boundary' ? 'outside-game-boundary'
-          : stopReason === 'missing-target' ? 'missing-target'
-            : stopReason === 'parser-boundary' || stopReason === 'unresolved-package-index' || stopReason === 'invalid-package-index'
-              ? 'parser-boundary'
-              : String(stopReason)
-}
-
-function structuralRelationSummary(edge: JsonRecord): HorizontalRelationSource {
+function structuralRelationSummary(
+  edge: JsonRecord,
+  structuralPackagePaths: ReadonlySet<string>,
+): HorizontalRelationSource {
   const sourceOccurrence = isRecord(edge.sourceOccurrence) ? edge.sourceOccurrence : {}
   const traversal = isRecord(edge.traversal) ? edge.traversal : {}
   return {
@@ -173,16 +173,19 @@ function structuralRelationSummary(edge: JsonRecord): HorizontalRelationSource {
     targetRawPackageIndex: Number(edge.targetRawPackageIndex),
     targetKind: requiredString(edge.targetKind, 'Structural target kind'),
     traversalStopReason: requiredString(traversal.stopReason, 'Structural traversal stop reason'),
-    targetState: targetState(edge),
+    targetState: serializedTargetResolutionFromStructuralEdge(edge, structuralPackagePaths).state,
   }
 }
 
-function requireFirstWaveTarget(sourceRelation: HorizontalRelationSource): {
+function requireFirstWaveTarget(
+  sourceRelation: HorizontalRelationSource,
+  serializedTargetResolution: SerializedTargetResolution,
+): {
   target: SerializedTarget
   serializedTargetResolution: SerializedTargetResolution
 } {
   if (sourceRelation.targetKind !== 'import'
-    || sourceRelation.targetState !== 'resolved-local-package'
+    || serializedTargetResolution.state !== 'resolved-local-package'
     || !sourceRelation.targetObject
     || !sourceRelation.targetPackageName
     || !sourceRelation.targetPackage) {
@@ -193,10 +196,7 @@ function requireFirstWaveTarget(sourceRelation: HorizontalRelationSource): {
       objectName: sourceRelation.targetObject,
       gamePackagePath: sourceRelation.targetPackageName,
     },
-    serializedTargetResolution: {
-      state: 'resolved-local-package',
-      structuralPackagePath: sourceRelation.targetPackage,
-    },
+    serializedTargetResolution,
   }
 }
 
@@ -293,7 +293,8 @@ export function resolveHorizontalRelationSource(
     throw new Error(`Structural relation edgeId does not resolve exactly once: ${request.edgeId}`)
   }
   const edgeMatch = edgeMatches[0]!
-  const structuralSummary = structuralRelationSummary(edgeMatch.edge)
+  const structuralPackagePaths = verifiedStructuralPackagePaths(repositoryRoot)
+  const structuralSummary = structuralRelationSummary(edgeMatch.edge, structuralPackagePaths)
   if (canonicalJson(structuralSummary) !== canonicalJson(sourceRelation)) {
     throw new Error(`Horizontal source relation does not match its exact Structural edge: ${request.edgeId}`)
   }
@@ -316,7 +317,8 @@ export function resolveHorizontalRelationSource(
     throw new Error(`${request.definition.assertion.id}: Horizontal Relation source failed the same-source Identity gate`)
   }
 
-  const target = requireFirstWaveTarget(sourceRelation)
+  const serializedTargetResolution = serializedTargetResolutionFromStructuralEdge(edgeMatch.edge, structuralPackagePaths)
+  const target = requireFirstWaveTarget(sourceRelation, serializedTargetResolution)
   return {
     sourceDomainId,
     relationRef: expected.relationRef,
