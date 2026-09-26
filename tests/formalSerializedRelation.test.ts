@@ -6,7 +6,10 @@ import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { buildFormalSerializedRelationArtifact as build, collectFormalSerializedRelationErrors as audit, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition, type FormalRelationInputs, type FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
 import { battleRobeFormalIdentity, deathCapMushroomFormalIdentity, scatterCrossbowFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { evidenceFingerprint, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
+import { loadStructuralGraph } from '../scripts/game-data-horizontal-fact-inventory.ts'
 
+const repositoryRoot = fs.realpathSync('.')
+const structuralPackagePaths = new Set(loadStructuralGraph(repositoryRoot).packagesByPath.keys())
 const read = (path: string): RawPackageSnapshot => JSON.parse(fs.readFileSync(new URL(`../research/raw/packages/${path}.raw.json`, import.meta.url), 'utf8'))
 const clone = <T>(value: T): T => structuredClone(value)
 // Mutation fixtures intentionally operate on readonly parsed Raw shapes.
@@ -17,6 +20,7 @@ const withIdentity = (source: RawPackageSnapshot, definition: typeof scatterCros
   return { source, identity: projected.semantic, identityEvidence: projected.evidence.filter((record): record is RawObservationEvidenceRecord => record.kind === 'raw-observation') }
 }
 const inputs = (): FormalRelationInputs => ({
+  structuralPackagePaths: new Set(structuralPackagePaths),
   scatter: { ...withIdentity(read(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath), scatterCrossbowFormalIdentity), target: read(scatterCrossbowRelationDefinition.targetRawPath) },
   battleRobe: withIdentity(read(battleRobeFormalIdentity.assertion.applicationScope.packagePath), battleRobeFormalIdentity),
   deathCapMushroom: { ...withIdentity(read(deathCapMushroomFormalIdentity.assertion.applicationScope.packagePath), deathCapMushroomFormalIdentity), target: read(deathCapMushroomRelationDefinition.targetRawPath) },
@@ -34,8 +38,23 @@ describe('Formal Serialized Relation v2', () => {
     const input = inputs(); const artifact = build(input)
     expect(artifact.semantic.relations.map((r) => r.target.gamePackagePath)).toHaveLength(3)
     expect(artifact.relationProjections.map((r) => r.result === 'projected' && r.targetRawVerification.result)).toEqual(['resolved', 'not-resolved', 'resolved'])
+    expect(artifact.relationProjections.map((r) => r.result === 'projected' && r.serializedTargetResolution.state))
+      .toEqual(['resolved-local-package', 'resolved-local-package', 'resolved-local-package'])
     expect(audit(artifact, input)).toEqual([])
   })
+  it('requires verified Structural package availability for local target resolution', () => {
+    const input = inputs()
+    input.structuralPackagePaths = new Set(
+      [...input.structuralPackagePaths].filter((packagePath) => packagePath !== deathCapMushroomRelationDefinition.targetRawPath),
+    )
+    const record = result(input, 'death-cap-mushroom')[0]!
+    expect(record).toMatchObject({
+      result: 'projected',
+      serializedTargetResolution: { state: 'missing-target' },
+      targetRawVerification: { input: 'supplied', result: 'resolved' },
+    })
+  })
+
   it('keeps internally consistent drift projected independently of target resolution', () => {
     const input = inputs(); const raw = mutable(input.battleRobe.source)
     const node = field(input, 'battleRobe'); const reference = node.decoding.value as Record<string, unknown>
@@ -114,7 +133,7 @@ describe('Formal Serialized Relation v2', () => {
     const fallback = inputs(); fallback.battleRobe.identity!.resolution = { state: 'unresolved', assertionId: fallback.battleRobe.identity!.assertionId, evidenceRefs: [] }
     expect(result(fallback, 'battle-robe')).toEqual([])
   })
-  it('resolves only the fixed slice path correspondence while retaining drifted relations', () => {
+  it('keeps serialized target resolution source-backed while retaining drifted relations', () => {
     const input = inputs()
     expect(result(input, 'scatter-crossbow')[0]).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'resolved' } })
     expect(result(input, 'death-cap-mushroom')[0]).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'resolved' } })
@@ -125,7 +144,11 @@ describe('Formal Serialized Relation v2', () => {
     outer.objectName.value = '/Game/Actors/Items/DeathCapMushroom/AlternateEffect'
     cls.outerReference.objectName = outer.objectName.value
     const record = result(input, 'death-cap-mushroom')[0]!
-    expect(record).toMatchObject({ result: 'projected', targetRawVerification: { input: 'supplied', result: 'not-resolved' } })
+    expect(record).toMatchObject({
+      result: 'projected',
+      serializedTargetResolution: { state: 'missing-target' },
+      targetRawVerification: { input: 'supplied', result: 'not-resolved' },
+    })
   })
   it.each(['schema', 'path', 'dataset', 'algorithm', 'fingerprint'])(`keeps relation projected when target %s mismatches`, (mode) => {
     const input = inputs(); const target = mutable(input.deathCapMushroom.target!)
