@@ -101,6 +101,8 @@ function fixture(category: 'melee' | 'ranged', domainId: string): Fixture {
 
 const melee = fixture('melee', 'anchor')
 const ranged = fixture('ranged', 'bow')
+const trickbow = fixture('ranged', 'trickbow')
+const fighters = fixture('melee', 'fighters-bindings')
 
 function minimalInventory(f: Fixture): HorizontalRawFactInventory {
   const sourceRelations = array((inventory as unknown as JsonRecord).sourceRelations)
@@ -288,5 +290,23 @@ describe('Horizontal Raw -> Formal Relation source adapter foundation', () => {
     })
     expect(() => resolveHorizontalRelationSource(repositoryRoot, value, request(melee)))
       .toThrow(/occurrence does not resolve exactly once/)
+  })
+
+  it('keeps ChargedProjectileDefinition separate from the primary ProjectileDefinition child', () => {
+    const resolved = resolveHorizontalRelationSource(repositoryRoot, minimalInventory(trickbow), request(trickbow))
+    expect(resolved.occurrence.sourceIndex).toBe(0)
+    expect(resolved.target.objectName).toBe('BP_TrickBowArrow_C')
+  })
+
+  it('binds a direct full Raw Identity to identical Structural package content', () => {
+    const raw = JSON.parse(fs.readFileSync(
+      `research/raw/packages/${fighters.definition.assertion.applicationScope.packagePath}.raw.json`, 'utf8'))
+    expect(() => resolveHorizontalRelationSource(repositoryRoot, minimalInventory(fighters), request(fighters)))
+      .toThrow(/Identity gate/)
+    expect(resolveHorizontalRelationSource(repositoryRoot, minimalInventory(fighters),
+      request(fighters, { identitySource: raw })).sourceDomainId).toBe('fighters-bindings')
+    raw.logicalPackage.contentHash.value = 'other'
+    expect(() => resolveHorizontalRelationSource(repositoryRoot, minimalInventory(fighters),
+      request(fighters, { identitySource: raw }))).toThrow(/Identity gate/)
   })
 })

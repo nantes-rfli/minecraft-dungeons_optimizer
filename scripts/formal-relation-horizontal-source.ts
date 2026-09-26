@@ -1,6 +1,7 @@
 import { loadStructuralGraph, type HorizontalRawFactInventory, type JsonRecord } from './game-data-horizontal-fact-inventory.ts'
 import { readVerifiedStructuralShard } from './formal-value-source-provenance.ts'
-import { matchedIdentityDomainIdFromSource } from '../src/domain/formal/boundarySource.ts'
+import { matchedIdentityDomainId, matchedIdentityDomainIdFromSource, sameLogicalRawPackage, snapshotSource } from '../src/domain/formal/boundarySource.ts'
+import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
 import {
@@ -67,6 +68,7 @@ export type HorizontalRelationSourceRequest = {
   definition: FormalIdentityDefinition
   identity: FormalSemanticIdentity
   identityEvidence: RawObservationEvidenceRecord[]
+  identitySource?: RawPackageSnapshot
 }
 
 export type ResolvedHorizontalRelationSource = {
@@ -138,17 +140,17 @@ function exactSourceRelation(inventory: InventoryView, edgeId: string): Horizont
   return matches[0]!
 }
 
-function ownsCollectionChild(
-  relation: HorizontalRelationSource,
+export function ownsHorizontalRelationCollectionChild(
+  relation: { propertyPath: string | null; arrayIndex: number | null },
   parentRawField: string,
   childRawField: string,
   sourceIndex: number,
 ): boolean {
   const propertyPath = relation.propertyPath
+  const exactPath = `${parentRawField}[${sourceIndex}].${childRawField}`
   return relation.arrayIndex === sourceIndex
     && typeof propertyPath === 'string'
-    && propertyPath.includes(parentRawField)
-    && (propertyPath === childRawField || propertyPath.endsWith(`.${childRawField}`))
+    && (propertyPath === exactPath || propertyPath.endsWith(`.${exactPath}`))
 }
 
 function structuralRelationSummary(
@@ -191,9 +193,14 @@ function requireFirstWaveTarget(
     || !sourceRelation.targetPackage) {
     throw new Error(`Horizontal first-wave relation target is not a resolved local import: ${sourceRelation.edgeId}`)
   }
+  const objectPrefix = `${sourceRelation.targetPackageName}.`
+  if (!sourceRelation.targetObject.startsWith(objectPrefix)
+    || sourceRelation.targetObject.length === objectPrefix.length) {
+    throw new Error(`Horizontal first-wave target object is not owned by its package: ${sourceRelation.edgeId}`)
+  }
   return {
     target: {
-      objectName: sourceRelation.targetObject,
+      objectName: sourceRelation.targetObject.slice(objectPrefix.length),
       gamePackagePath: sourceRelation.targetPackageName,
     },
     serializedTargetResolution,
@@ -247,7 +254,7 @@ export function resolveHorizontalRelationSource(
       && entry.reference.sourcePackage === request.candidatePackage
       && entry.reference.sourceRelationPathId === 'rp-root'
       && entry.source.sourcePackage === request.candidatePackage
-      && ownsCollectionChild(entry.source, expected.parentRawField, expected.childRawField, request.sourceIndex)))
+      && ownsHorizontalRelationCollectionChild(entry.source, expected.parentRawField, expected.childRawField, request.sourceIndex)))
 
   if (childMatches.length !== 1) {
     throw new Error(`Horizontal relation occurrence does not resolve exactly once for sourceIndex ${request.sourceIndex}`)
@@ -255,7 +262,7 @@ export function resolveHorizontalRelationSource(
   if (childMatches[0]!.reference.edgeId !== request.edgeId) {
     throw new Error('Horizontal relation edgeId does not own the requested collection child')
   }
-  if (!ownsCollectionChild(sourceRelation, expected.parentRawField, expected.childRawField, request.sourceIndex)) {
+  if (!ownsHorizontalRelationCollectionChild(sourceRelation, expected.parentRawField, expected.childRawField, request.sourceIndex)) {
     throw new Error('Horizontal relation source occurrence binding mismatch')
   }
 
@@ -307,12 +314,17 @@ export function resolveHorizontalRelationSource(
     packageHash: packageMatch.pkg.packageHash,
     nodePointer: `/edges/${edgeMatch.index}`,
   }
-  const sourceDomainId = matchedIdentityDomainIdFromSource(
+  const matchedStructuralIdentity = matchedIdentityDomainIdFromSource(
     source,
     request.definition,
     request.identity,
     request.identityEvidence,
   )
+  const direct = request.identitySource
+  const sourceDomainId = matchedStructuralIdentity ?? (direct
+    && matchedIdentityDomainId(direct, request.definition, request.identity, request.identityEvidence)
+    && sameLogicalRawPackage(snapshotSource(direct), source)
+    ? request.definition.assertion.domainId : undefined)
   if (sourceDomainId !== request.definition.assertion.domainId) {
     throw new Error(`${request.definition.assertion.id}: Horizontal Relation source failed the same-source Identity gate`)
   }

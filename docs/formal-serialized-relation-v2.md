@@ -75,21 +75,27 @@ candidate relation reference
 
 adapter は fail closed です。candidate relation の edgeId と sourceRelations edge は一意でなければならず、first-wave source は `candidatePackage == sourcePackage` かつ `sourceRelationPathId == rp-root` を要求します。Structural manifest / shard の dataset identity、compressed/uncompressed hash、source package hash、edgeId、propertyPath、arrayIndex、target kind/object/package を exact に照合します。
 
+Fighter's Bindings と Scatter Crossbow の Identity は既存の full Raw snapshot を参照します。これら2件は full Raw 上で matched Identity を再検証し、Structural shard と dataset ID・package path・package content hash が一致する場合に限って adapter を通します。両形式の extraction run ID は別であり、各 artifact の provenance はそれぞれ検証します。
+
 Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。property 名や target path の類似だけで sibling occurrence を借りません。
 
 ## Same-source Formal Identity gate
 
 Horizontal Relation source は reviewed Formal Identity assertion、committed `resolution.state = matched`、assertion/domain binding、および relation source provenance と Identity evidence provenance の same-source 一致を必要とします。Raw candidate status は Formal Relation gate に使用しません。
 
-## Current population and next wave
+## Current population
 
-このPRで committed Formal Relation population は次のままです。
+committed Formal Relation population は次のとおりです。
 
 ```text
 schemaVersion: 2
-semantic relations: 3
-relation projections: 3
-new Melee/Ranged horizontal population: 0
+Melee: 27 domains / 96 AttackSequence occurrences
+Ranged: 23 domains / 23 Projectile occurrences
+horizontal collections: 50
+horizontal relation projections: 119
+existing non-horizontal relations: 2
+semantic relations: 121
+relation projections: 121
 ```
 
-Melee 27 domain の AttackSequence 96 occurrences と Ranged 23 domain の Projectile 23 occurrences、合計119 occurrences は source adapter foundation の次PRで population します。このv2 foundation自体は119件をcommitted artifactへ追加しません。
+119件には既存の Scatter Crossbow 1件を含みます。追加した118件の `targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` です。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。既存3件の RelationRef、projectionRef、occurrence、EvidenceRef、serialized target、target Raw verification と Scatter Value の join は維持します。
