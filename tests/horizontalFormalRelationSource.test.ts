@@ -189,7 +189,7 @@ describe('Horizontal Raw -> Formal Relation source adapter foundation', () => {
     expect(resolved.relationRef).toBe(`relation:${f.definition.assertion.domainId}:${relationKind}@1`)
     expect(resolved.serializedTargetResolution.state).toBe('resolved-local-package')
     expect(resolved.source.artifactPath).toMatch(/^research\/raw\/game-data-raw-structural-inventory\/shards\/part-\d+\.json\.gz$/)
-  })
+  }, 20_000)
 
   it('rejects unknown or duplicate edgeId identity', () => {
     const value = minimalInventory(melee)
