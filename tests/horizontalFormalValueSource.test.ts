@@ -32,12 +32,17 @@ import {
   type FormalValueAvailabilityArtifact,
 } from '../src/domain/formal/valueAvailability.ts'
 import { horizontalMeleeValueMappings } from '../src/domain/formal/horizontalValueMappings.ts'
-import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
+import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 
 type JsonRecord = Record<string, unknown>
 
 const repositoryRoot = fs.realpathSync('.')
 const inventory = readHorizontalRawFactInventory(repositoryRoot)
+const structuralPackagePaths = new Set([
+  scatterCrossbowRelationDefinition.targetRawPath,
+  battleRobeRelationDefinition.targetRawPath,
+  deathCapMushroomRelationDefinition.targetRawPath,
+])
 const anchorDefinition = formalIdentityDefinitions.find(({ assertion }) => assertion.domainId === 'anchor')!
 const anchorPackage = anchorDefinition.assertion.applicationScope.packagePath
 const mapping = horizontalMeleeValueMappings('anchor')
@@ -173,6 +178,7 @@ function currentValueInputs() {
     scatterCrossbowIdentity: scatter.identity,
     scatterCrossbowIdentityEvidence: scatter.identityEvidence,
     relations: buildFormalSerializedRelationArtifact({
+      structuralPackagePaths,
       scatter: { ...scatter, target: projectile },
       battleRobe: source(battleRobeFormalIdentity),
       deathCapMushroom: source(deathCapMushroomFormalIdentity),
