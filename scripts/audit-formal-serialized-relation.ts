@@ -14,8 +14,11 @@ import {
 } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
+import { loadStructuralGraph } from './game-data-horizontal-fact-inventory.ts'
 
 const root = new URL('..', import.meta.url)
+const repositoryRoot = fs.realpathSync(root)
+const structuralPackagePaths = new Set(loadStructuralGraph(repositoryRoot).packagesByPath.keys())
 const read = <T>(relativePath: string): T => JSON.parse(fs.readFileSync(new URL(relativePath, root), 'utf8')) as T
 const readRaw = (packagePath: string) => read<RawPackageSnapshot>(`research/raw/packages/${packagePath}.raw.json`)
 const source = (definition: typeof scatterCrossbowFormalIdentity) => {
@@ -28,6 +31,7 @@ const source = (definition: typeof scatterCrossbowFormalIdentity) => {
   }
 }
 const inputs: FormalRelationInputs = {
+  structuralPackagePaths,
   scatter: { ...source(scatterCrossbowFormalIdentity), target: readRaw(scatterCrossbowRelationDefinition.targetRawPath) },
   battleRobe: source(battleRobeFormalIdentity),
   deathCapMushroom: {
