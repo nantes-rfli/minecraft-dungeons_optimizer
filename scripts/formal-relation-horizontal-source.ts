@@ -1,5 +1,8 @@
-import { loadStructuralGraph, type HorizontalRawFactInventory, type JsonRecord } from './game-data-horizontal-fact-inventory.ts'
-import { readVerifiedStructuralShard } from './formal-value-source-provenance.ts'
+import type { HorizontalRawFactInventory, JsonRecord } from './game-data-horizontal-fact-inventory.ts'
+import {
+  readVerifiedStructuralPackagePaths,
+  readVerifiedStructuralShard,
+} from './formal-value-source-provenance.ts'
 import { matchedIdentityDomainIdFromSource } from '../src/domain/formal/boundarySource.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
@@ -82,16 +85,6 @@ export type ResolvedHorizontalRelationSource = {
 
 const isRecord = (value: unknown): value is JsonRecord =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
-
-const verifiedStructuralPackagePathsByRepository = new Map<string, ReadonlySet<string>>()
-
-function verifiedStructuralPackagePaths(repositoryRoot: string): ReadonlySet<string> {
-  const cached = verifiedStructuralPackagePathsByRepository.get(repositoryRoot)
-  if (cached) return cached
-  const packagePaths = new Set(loadStructuralGraph(repositoryRoot).packagesByPath.keys())
-  verifiedStructuralPackagePathsByRepository.set(repositoryRoot, packagePaths)
-  return packagePaths
-}
 
 const requiredString = (value: unknown, label: string): string => {
   if (typeof value !== 'string' || value.length === 0) throw new Error(`${label} is missing`)
@@ -293,7 +286,7 @@ export function resolveHorizontalRelationSource(
     throw new Error(`Structural relation edgeId does not resolve exactly once: ${request.edgeId}`)
   }
   const edgeMatch = edgeMatches[0]!
-  const structuralPackagePaths = verifiedStructuralPackagePaths(repositoryRoot)
+  const structuralPackagePaths = readVerifiedStructuralPackagePaths(repositoryRoot, datasetId)
   const structuralSummary = structuralRelationSummary(edgeMatch.edge, structuralPackagePaths)
   if (canonicalJson(structuralSummary) !== canonicalJson(sourceRelation)) {
     throw new Error(`Horizontal source relation does not match its exact Structural edge: ${request.edgeId}`)
