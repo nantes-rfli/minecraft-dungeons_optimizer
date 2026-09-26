@@ -293,6 +293,58 @@ export const deathCapMushroomFormalIdentity = definition(
   ],
 )
 
+type AcceptedArtifactIdentityInput = {
+  domainId: string
+  rawIdentity: string
+  packagePath: string
+  displayName: string
+}
+
+export const readyArtifactFormalIdentityInputs = [
+  { domainId: 'boots-of-swiftness', rawIdentity: 'BootsOfSwiftness', packagePath: 'Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance', displayName: 'Boots of Swiftness' },
+  { domainId: 'fishing-rod', rawIdentity: 'FishingRod', packagePath: 'Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance', displayName: 'Fishing Rod' },
+  { domainId: 'ghost-cloak', rawIdentity: 'GhostCloak', packagePath: 'Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance', displayName: 'Ghost Cloak' },
+  { domainId: 'iron-hide-amulet', rawIdentity: 'IronHideAmulet', packagePath: 'Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance', displayName: 'Iron Hide Amulet' },
+  { domainId: 'light-feather', rawIdentity: 'LightFeather', packagePath: 'Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance', displayName: 'Light Feather' },
+  { domainId: 'shock-powder', rawIdentity: 'ShockPowder', packagePath: 'Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance', displayName: 'Shock Powder' },
+] as const satisfies readonly AcceptedArtifactIdentityInput[]
+
+function acceptedArtifactDefinition(input: AcceptedArtifactIdentityInput): FormalIdentityDefinition {
+  const reviewedEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
+  const presentationEvidenceRef = `evidence:presentation:${input.domainId}:artifact-catalog`
+  return definition(
+    {
+      id: `identity:${input.domainId}@1`,
+      rawIdentity: input.rawIdentity,
+      domainId: input.domainId,
+      reviewState: 'accepted',
+      confidence: 'high',
+      applicationScope: scope(input.packagePath),
+      evidenceRefs: [reviewedEvidenceRef],
+    },
+    input.displayName,
+    presentationEvidenceRef,
+    [
+      {
+        id: reviewedEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.',
+        source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: `aliases[id=artifact:${input.rawIdentity}]` },
+      },
+      {
+        id: presentationEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The artifact audit supplies the English display name independently of identity matching.',
+        source: { artifactPath: 'research/artifact-audit.json', locator: `entries[id=${input.domainId}].name` },
+      },
+    ],
+  )
+}
+
+export const readyArtifactFormalIdentities = readyArtifactFormalIdentityInputs.map(acceptedArtifactDefinition)
+
 export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
@@ -302,4 +354,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...readyRangedFormalIdentities,
   ...reviewedBridgeMeleeFormalIdentities,
   ...reviewedBridgeRangedFormalIdentities,
+  ...readyArtifactFormalIdentities,
 ]
