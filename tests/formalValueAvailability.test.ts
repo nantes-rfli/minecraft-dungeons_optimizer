@@ -1,4 +1,4 @@
-import { buildFormalSerializedRelationArtifact, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
+import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import fs from 'node:fs'
@@ -17,6 +17,11 @@ const read = (path: string) => fs.readFileSync(`research/raw/packages/${path}.ra
 const fightersText = read(fightersBindingsFormalIdentity.assertion.applicationScope.packagePath)
 const scatterInstanceText = read(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath)
 const scatterProjectileText = read(scatterCrossbowRelationDefinition.targetRawPath)
+const structuralPackagePaths = new Set([
+  scatterCrossbowRelationDefinition.targetRawPath,
+  battleRobeRelationDefinition.targetRawPath,
+  deathCapMushroomRelationDefinition.targetRawPath,
+])
 const fixtures = () => ({
   fightersBindingsRaw: JSON.parse(fightersText),
   scatterCrossbowInstanceRaw: JSON.parse(scatterInstanceText),
@@ -30,7 +35,7 @@ const build = (input = fixtures(), mutate?: (inputs: Parameters<typeof buildForm
   const fighters = identity(input.fightersBindingsRaw, fightersBindingsFormalIdentity)
   const scatter = identity(input.scatterCrossbowInstanceRaw, scatterCrossbowFormalIdentity)
   const readRaw = (path: string) => JSON.parse(read(path))
-  const relations = buildFormalSerializedRelationArtifact({ scatter: { ...scatter, target: input.scatterCrossbowProjectileRaw },
+  const relations = buildFormalSerializedRelationArtifact({ structuralPackagePaths, scatter: { ...scatter, target: input.scatterCrossbowProjectileRaw },
     battleRobe: identity(readRaw(battleRobeFormalIdentity.assertion.applicationScope.packagePath), battleRobeFormalIdentity),
     deathCapMushroom: identity(readRaw(deathCapMushroomFormalIdentity.assertion.applicationScope.packagePath), deathCapMushroomFormalIdentity) })
   const valueInputs = { ...input, fightersBindingsIdentity: fighters.identity, fightersBindingsIdentityEvidence: fighters.identityEvidence,
@@ -261,6 +266,7 @@ describe('Formal Value / Availability v2 projection', () => {
 
   it('does not read target fields when Relation has no supplied target', () => {
     const artifact = build(fixtures(), (inputs) => { inputs.relations = buildFormalSerializedRelationArtifact({
+      structuralPackagePaths,
       scatter: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
       battleRobe: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
       deathCapMushroom: { source: inputs.scatterCrossbowInstanceRaw, identity: inputs.scatterCrossbowIdentity, identityEvidence: inputs.scatterCrossbowIdentityEvidence },
