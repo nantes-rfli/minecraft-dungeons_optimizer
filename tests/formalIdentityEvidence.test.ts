@@ -88,6 +88,7 @@ describe('Formal Identity / Evidence v1', () => {
     expect(typedRelationMeleeInventoryInputs).toHaveLength(2)
     for (const input of typedRelationMeleeInventoryInputs) {
       const { definition, observation } = input
+      if (!observation) throw new Error('expected Sawblade Structural observation')
       expect(observation).toMatchObject({
         rawSchemaVersion: 2,
         packagePath: definition.assertion.applicationScope.packagePath,
