@@ -369,6 +369,47 @@ export const reviewedBridgeArtifactFormalIdentityInputs = [
 
 export const reviewedBridgeArtifactFormalIdentities = reviewedBridgeArtifactFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'artifact'))
 
+const corruptedSeedsPackage = 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'
+const corruptedSeedsAliasEvidenceRef = 'evidence:reviewed:corrupted-seeds:accepted-alias'
+const corruptedSeedsSourceEvidenceRef = 'evidence:reviewed:corrupted-seeds:independent-source-id'
+const corruptedSeedsPresentationEvidenceRef = 'evidence:presentation:corrupted-seeds:artifact-audit'
+export const corruptedSeedsFormalIdentity = definition(
+  {
+    id: 'identity:corrupted-seeds@1',
+    rawIdentity: 'CorruptedSeeds',
+    domainId: 'corrupted-seeds',
+    reviewState: 'accepted',
+    confidence: 'high',
+    applicationScope: scope(corruptedSeedsPackage),
+    evidenceRefs: [corruptedSeedsAliasEvidenceRef, corruptedSeedsSourceEvidenceRef],
+  },
+  'Corrupted Seeds',
+  corruptedSeedsPresentationEvidenceRef,
+  [
+    {
+      id: corruptedSeedsAliasEvidenceRef,
+      kind: 'reviewed',
+      role: 'support',
+      detail: 'Research-owned reviewed Artifact mapping materializes the exact Raw identity as an accepted high-confidence alias.',
+      source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: 'aliases[id=artifact:CorruptedSeeds]' },
+    },
+    {
+      id: corruptedSeedsSourceEvidenceRef,
+      kind: 'reviewed',
+      role: 'support',
+      detail: 'The independently sourced Artifact audit records CorruptedSeeds in the Corrupted Seeds internal game IDs.',
+      source: { artifactPath: 'research/artifact-audit.json', locator: 'populationDifferences[id=corrupted-seeds].internalGameIds' },
+    },
+    {
+      id: corruptedSeedsPresentationEvidenceRef,
+      kind: 'reviewed',
+      role: 'support',
+      detail: 'The Artifact audit supplies the canonical Corrupted Seeds display name.',
+      source: { artifactPath: 'research/artifact-audit.json', locator: 'populationDifferences[id=corrupted-seeds].name' },
+    },
+  ],
+)
+
 type ArmorIdentityInput = {
   domainId: string
   rawIdentity: string
@@ -497,4 +538,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...readyArtifactFormalIdentities,
   ...readyArmorFormalIdentities,
   ...reviewedBridgeArtifactFormalIdentities,
+  corruptedSeedsFormalIdentity,
 ]

@@ -31,6 +31,12 @@ export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
   { domainId: 'satchel-of-snacks', rawIdentity: 'SatchelOfNourishment', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance' },
 ] as const
 
+export const REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES = [
+  { domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance' },
+] as const
+
+export const INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS = 'serialized-item-id + independent-source-internal-id + catalog-category-evidence' as const
+
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
@@ -270,6 +276,29 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
       sourceRecordIds: [],
       canonicalEntity,
     })
+  }
+  for (const input of REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES) {
+    const aliasId = `artifact:${input.rawIdentity}`
+    const canonicalEntity = `artifact:${input.domainId}`
+    const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: independent-source Artifact bridge lacks catalog identity/category evidence`)
+    const existingIndex = reviewedAliases.findIndex((alias) => alias.id === aliasId)
+    const independentSourceAlias = {
+      id: aliasId,
+      rawIdentity: input.rawIdentity,
+      category: 'artifact',
+      status: 'accepted' as const,
+      candidates: [canonicalEntity],
+      basis: INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
+      confidence: 'high' as const,
+      variant: 'separate-gameplay-entity' as const,
+      evidenceIds: [...new Set(catalogEvidence)].sort(),
+      assetPaths: [input.packagePath],
+      sourceRecordIds: [],
+      canonicalEntity,
+    }
+    if (existingIndex >= 0) reviewedAliases[existingIndex] = independentSourceAlias
+    else reviewedAliases.push(independentSourceAlias)
   }
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {

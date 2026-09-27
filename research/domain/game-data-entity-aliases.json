@@ -605,6 +605,26 @@
       "canonicalEntity": "artifact:corrupted-pumpkin"
     },
     {
+      "id": "artifact:CorruptedSeeds",
+      "rawIdentity": "CorruptedSeeds",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:corrupted-seeds"
+      ],
+      "basis": "serialized-item-id + independent-source-internal-id + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:wiki-corrupted-seeds"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:corrupted-seeds"
+    },
+    {
       "id": "artifact:DeathCapMushroom",
       "rawIdentity": "DeathCapMushroom",
       "category": "artifact",

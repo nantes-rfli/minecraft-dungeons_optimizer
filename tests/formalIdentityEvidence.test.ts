@@ -9,6 +9,7 @@ import {
   type FormalIdentityEvidenceArtifact,
 } from '../src/domain/formal/identityEvidence.ts'
 import {
+  corruptedSeedsFormalIdentity,
   fightersBindingsFormalIdentity,
   formalIdentityDefinitions,
   readyArtifactFormalIdentities,
@@ -28,12 +29,13 @@ const fixture = () => JSON.parse(rawText) as RawPackageSnapshot
 const artifactFixture = () => JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
 const armorInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), readyArmorFormalIdentities)
 const reviewedArtifactInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), reviewedBridgeArtifactFormalIdentities)
+const corruptedSeedsInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), [corruptedSeedsFormalIdentity])
 const project = (raw: RawPackageSnapshot) => projectFormalIdentity(raw, fightersBindingsFormalIdentity)
 const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => object.isClassDefaultObject)!
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
 
 describe('Formal Identity / Evidence v1', () => {
-  it('preserves the original 128 identities and appends the reviewed Artifact bridge wave', () => {
+  it('preserves the original 143 identities and appends the source-backed Corrupted Seeds identity', () => {
     const artifact = artifactFixture()
     expect(collectFormalIdentityEvidenceErrors(artifact)).toEqual([])
     expect(artifact.identityAssertions.slice(0, 4).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual([
@@ -42,8 +44,8 @@ describe('Formal Identity / Evidence v1', () => {
       { domainId: 'battle-robe', reviewState: 'provisional', confidence: undefined },
       { domainId: 'death-cap-mushroom', reviewState: 'accepted', confidence: 'high' },
     ])
-    expect(artifact.identityAssertions).toHaveLength(143)
-    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(143).fill('matched'))
+    expect(artifact.identityAssertions).toHaveLength(144)
+    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(144).fill('matched'))
     expect(artifact.semantic.identities.map(({ resolution }) => resolution.state === 'matched' && resolution.domainId)).toEqual(formalIdentityDefinitions.map(({ assertion }) => assertion.domainId))
     expect(artifact.identityAssertions.slice(4, 52).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities].map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
@@ -54,9 +56,11 @@ describe('Formal Identity / Evidence v1', () => {
     expect(artifact.identityAssertions.slice(58, 128).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       readyArmorFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
     )
-    expect(artifact.identityAssertions.slice(128).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
+    expect(artifact.identityAssertions.slice(128, 143).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       reviewedBridgeArtifactFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
     )
+    expect(artifact.identityAssertions.at(-1)).toMatchObject({ id: 'identity:corrupted-seeds@1', domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', reviewState: 'accepted', confidence: 'high' })
+    expect(artifact.semantic.identities.at(-1)?.resolution).toMatchObject({ state: 'matched', domainId: 'corrupted-seeds' })
     expect(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId)).toEqual([
       'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
       'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
@@ -241,7 +245,26 @@ describe('Formal Identity / Evidence v1', () => {
       expect(observation.serializedId.provenance.artifactPath).toBe(observation.itemIdName.provenance.artifactPath)
       expect(projectFormalIdentityObservation(observation, definition).semantic.resolution).toMatchObject({ state: 'matched', domainId: definition.assertion.domainId })
     }
-    expect(artifactFixture().identityAssertions.slice(128).map(({ domainId }) => domainId)).toEqual(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId))
+    expect(artifactFixture().identityAssertions.slice(128, 143).map(({ domainId }) => domainId)).toEqual(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId))
+  })
+
+  it('grounds Corrupted Seeds in its exact Raw Structural identity and independent Artifact audit record', () => {
+    expect(corruptedSeedsInventoryInputs).toHaveLength(1)
+    const input = corruptedSeedsInventoryInputs[0]!
+    if (!('observation' in input) || !input.observation) throw new Error('expected Corrupted Seeds Structural observation')
+    const packagePath = 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'
+    expect(input.observation.rawSchemaVersion).toBe(2)
+    expect(input.observation.packagePath).toBe(packagePath)
+    expect(input.observation.itemIdName).toMatchObject({ observation: { state: 'known', value: 'CorruptedSeeds' }, provenance: { packagePath } })
+    expect(input.observation.serializedId).toMatchObject({ observation: { state: 'known', value: 'CorruptedSeeds' }, provenance: { packagePath } })
+    expect(corruptedSeedsFormalIdentity.assertion.evidenceRefs).toEqual([
+      'evidence:reviewed:corrupted-seeds:accepted-alias',
+      'evidence:reviewed:corrupted-seeds:independent-source-id',
+    ])
+    expect(corruptedSeedsFormalIdentity.reviewedEvidence).toEqual(expect.arrayContaining([
+      expect.objectContaining({ id: 'evidence:reviewed:corrupted-seeds:independent-source-id', source: { artifactPath: 'research/artifact-audit.json', locator: 'populationDifferences[id=corrupted-seeds].internalGameIds' } }),
+      expect.objectContaining({ id: 'evidence:reviewed:corrupted-seeds:accepted-alias', source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: 'aliases[id=artifact:CorruptedSeeds]' } }),
+    ]))
   })
 
   it.each([

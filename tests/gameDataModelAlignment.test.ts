@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
@@ -26,6 +26,12 @@ describe('Phase 6.6 identity boundaries', () => {
       ['satchel-of-elixirs', 'SatchelOfNeed'],
       ['satchel-of-snacks', 'SatchelOfNourishment'],
     ])
+    expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES).toHaveLength(15)
+    expect(REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES).toEqual([{
+      domainId: 'corrupted-seeds',
+      rawIdentity: 'CorruptedSeeds',
+      packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance',
+    }])
     const aliases = JSON.parse(alignmentOutputs(result)['research/domain/game-data-entity-aliases.json']!).aliases as Array<{
       id: string
       rawIdentity: string
@@ -60,6 +66,19 @@ describe('Phase 6.6 identity boundaries', () => {
         evidenceIds: expect.arrayContaining(['artifact:dt-artifacts-117']),
       })
     }
+    const corruptedSeedsAlias = aliases.filter(({ id }) => id === 'artifact:CorruptedSeeds')
+    expect(corruptedSeedsAlias).toHaveLength(1)
+    expect(corruptedSeedsAlias[0]).toMatchObject({
+      rawIdentity: 'CorruptedSeeds',
+      category: 'artifact',
+      status: 'accepted',
+      confidence: 'high',
+      canonicalEntity: 'artifact:corrupted-seeds',
+      candidates: ['artifact:corrupted-seeds'],
+      basis: INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
+      assetPaths: ['Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'],
+    })
+    expect(corruptedSeedsAlias[0]!.basis).not.toContain('documented-entity-alias')
   })
 
   it.each([
