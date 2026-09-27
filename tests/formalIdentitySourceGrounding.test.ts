@@ -4,8 +4,8 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
-import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
-import { INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES } from '../scripts/game-data-model-alignment.ts'
+import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities, reviewedTypedRelationMeleeFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, REVIEWED_TYPED_RELATION_MELEE_ALIAS_BASIS } from '../scripts/game-data-model-alignment.ts'
 
 const repositoryRoot = process.cwd()
 const baseSources = readFormalReviewedSources(repositoryRoot)
@@ -16,6 +16,60 @@ const alias = (sources: FormalReviewedSources, id: string) => sources.aliases!.a
 describe('Formal Identity reviewed-source grounding', () => {
   it('grounds the current Formal definitions in their known reviewed sources', () => {
     expect(errors(fixture())).toEqual([])
+  })
+
+  it('grounds the two Sawblade bridges through canonical source, exact typed Raw relation, alias, and Formal scope', () => {
+    const sources = fixture()
+    expect(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES).toHaveLength(2)
+    expect(reviewedTypedRelationMeleeFormalIdentities).toHaveLength(2)
+    for (const mapping of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
+      const definition = reviewedTypedRelationMeleeFormalIdentities.find(({ assertion }) => assertion.domainId === mapping.domainId)!
+      const record = sources.sourceHarvest!.records!.filter((entry) => entry.category === 'melee-weapon' && entry.id === mapping.domainId)
+      const bridge = sources.reviewedTypedRelationMeleeBridges.filter((entry) => entry.domainId === mapping.domainId)
+      const aliases = sources.aliases!.aliases!.filter((entry) => entry.id === `melee-weapon:${mapping.rawIdentity}`)
+      const seed = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === 'melee-weapon' && entry.catalogId === mapping.domainId)
+      const binding = sources.typedRelationMeleeInventoryBindings.filter((entry) => entry.definition.assertion.id === definition.assertion.id)
+      expect(record).toHaveLength(1)
+      expect(record[0]).toMatchObject({ label: definition.presentation.displayName })
+      expect(bridge).toHaveLength(1)
+      expect(aliases).toHaveLength(1)
+      expect(aliases[0]).toMatchObject({
+        category: 'melee-weapon',
+        status: 'accepted',
+        confidence: 'high',
+        rawIdentity: mapping.rawIdentity,
+        canonicalEntity: `melee-weapon:${mapping.domainId}`,
+        basis: REVIEWED_TYPED_RELATION_MELEE_ALIAS_BASIS,
+        assetPaths: [mapping.packagePath],
+      })
+      expect(seed).toHaveLength(1)
+      expect(seed[0]!.candidates).toHaveLength(1)
+      expect(seed[0]!.candidates![0]).toMatchObject({ role: 'instance', packagePath: mapping.packagePath })
+      expect(binding).toHaveLength(1)
+      expect(binding[0]!.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject)).toHaveLength(1)
+      expect(binding[0]!.structuralEdges.filter((edge) =>
+        edge.kind === 'soft-object-property'
+        && edge.sourceOccurrence.propertyPath === 'InventoryDropSound'
+        && edge.targetPackage === mapping.targetPackage)).toHaveLength(1)
+    }
+    expect(errors(sources)).toEqual([])
+  })
+
+  it('fails closed when a Sawblade typed-relation bridge drifts', () => {
+    const cases: Array<[string, (sources: FormalReviewedSources) => void]> = [
+      ['canonical source displayName drift', (sources) => { sources.sourceHarvest!.records!.find((entry) => entry.id === 'broken-sawblade')!.label = 'Other' }],
+      ['reviewed typed-relation bridge property drift', (sources) => { sources.reviewedTypedRelationMeleeBridges.find((entry) => entry.domainId === 'broken-sawblade')!.relationProperty = 'Other' }],
+      ['reviewed typed-relation bridge edge kind drift', (sources) => { sources.reviewedTypedRelationMeleeBridges.find((entry) => entry.domainId === 'broken-sawblade')!.edgeKind = 'object-property' }],
+      ['InventoryDropSound cue target drift', (sources) => { sources.reviewedTypedRelationMeleeBridges.find((entry) => entry.domainId === 'broken-sawblade')!.targetPackage = 'Dungeons/Content/Other' }],
+      ['typed-relation reviewed alias basis drift', (sources) => { alias(sources, 'melee-weapon:Chainsword').basis = 'serialized-item-id + documented-entity-alias + catalog-category-evidence' }],
+      ['Raw Structural candidate role must be instance', (sources) => { sources.rawStructuralSeeds!.catalogSeeds!.find((entry) => entry.catalogId === 'broken-sawblade')!.candidates![0]!.role = 'other-blueprint' }],
+      ['Structural ItemIdName drift', (sources) => { sources.typedRelationMeleeInventoryBindings.find((entry) => entry.definition.assertion.domainId === 'broken-sawblade')!.observation.itemIdName.observation = { state: 'known', value: 'Other' } }],
+    ]
+    for (const [message, mutate] of cases) {
+      const sources = fixture()
+      mutate(sources)
+      expect(errors(sources).some((error) => error.includes(message))).toBe(true)
+    }
   })
 
   it('grounds Corrupted Seeds through the independent Artifact source, reviewed mapping, alias, and exact Raw package', () => {
