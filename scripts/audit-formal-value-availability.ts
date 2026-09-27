@@ -8,7 +8,6 @@ import {
 } from '../src/domain/formal/valueAvailability.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import {
-  formalIdentityDefinitions,
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
   readyMeleeFormalIdentities,
@@ -55,7 +54,12 @@ const scatterIdentity = committedIdentity(scatterCrossbowFormalIdentity)
 const horizontal = readHorizontalConfiguredValueSources({
   repositoryRoot,
   identity,
-  definitions: formalIdentityDefinitions,
+  definitions: [
+    ...readyMeleeFormalIdentities,
+    ...reviewedBridgeMeleeFormalIdentities,
+    ...readyRangedFormalIdentities,
+    ...reviewedBridgeRangedFormalIdentities,
+  ],
   excludedDomainIds: new Set([fightersBindingsFormalIdentity.assertion.domainId, scatterCrossbowFormalIdentity.assertion.domainId]),
 })
 const artifact = buildFormalValueAvailabilityArtifact({
