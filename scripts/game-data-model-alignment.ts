@@ -16,6 +16,7 @@ interface CatalogRecord { category: CanonicalResearchProperty['category']; id: s
 export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
   { domainId: 'blast-fungus', rawIdentity: 'NetherWartSporeGrenade', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance' },
   { domainId: 'corrupted-pumpkin', rawIdentity: 'CorruptedBeacon_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance' },
+  { domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance' },
   { domainId: 'enchanted-grass', rawIdentity: 'RainbowGrass', packagePath: 'Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance' },
   { domainId: 'eye-of-the-guardian', rawIdentity: 'GuardianEye', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance' },
   { domainId: 'harpoon-quiver', rawIdentity: 'HeavyHarpoonQuiver', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance' },

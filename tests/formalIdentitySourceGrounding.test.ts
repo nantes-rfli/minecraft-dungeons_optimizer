@@ -4,7 +4,8 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
-import { formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES } from '../scripts/game-data-model-alignment.ts'
 
 const repositoryRoot = process.cwd()
 const baseSources = readFormalReviewedSources(repositoryRoot)
@@ -15,6 +16,71 @@ const alias = (sources: FormalReviewedSources, id: string) => sources.aliases!.a
 describe('Formal Identity reviewed-source grounding', () => {
   it('grounds the current Formal definitions in their known reviewed sources', () => {
     expect(errors(fixture())).toEqual([])
+  })
+
+  it('grounds Corrupted Seeds through the independent Artifact source, reviewed mapping, alias, and exact Raw package', () => {
+    const sources = fixture()
+    const assertion = corruptedSeedsFormalIdentity.assertion
+    const packagePath = 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'
+    const research = sources.artifactAudit!.populationDifferences!.filter((entry) => entry.id === 'corrupted-seeds')
+    const source = sources.artifactAudit!.sources!.filter((entry) => entry.id === 'wiki-corrupted-seeds')
+    const mappings = REVIEWED_ARTIFACT_ALIAS_BRIDGES.filter((entry) => entry.domainId === 'corrupted-seeds')
+    const alias = sources.aliases!.aliases!.filter((entry) => entry.id === 'artifact:CorruptedSeeds')
+    const seeds = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === 'artifact' && entry.catalogId === 'corrupted-seeds')
+    const binding = sources.sourceBackedArtifactInventoryBindings.filter((entry) => entry.definition.assertion.id === assertion.id)
+
+    expect(research).toHaveLength(1)
+    expect(research[0]).toMatchObject({ id: 'corrupted-seeds', internalGameIds: expect.arrayContaining(['CorruptedSeeds']), sourceIds: expect.arrayContaining(['wiki-corrupted-seeds']) })
+    expect(source).toHaveLength(1)
+    expect(source[0]!.kind).toBe('wiki')
+    expect(mappings).toEqual([{ domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath }])
+    expect(alias).toHaveLength(1)
+    expect(alias[0]).toMatchObject({ category: 'artifact', rawIdentity: 'CorruptedSeeds', canonicalEntity: 'artifact:corrupted-seeds', status: 'accepted', confidence: 'high', assetPaths: [packagePath] })
+    expect(seeds).toHaveLength(1)
+    expect(seeds[0]!.candidates).toHaveLength(1)
+    expect(seeds[0]!.candidates![0]).toMatchObject({ role: 'instance', packagePath })
+    expect(binding).toHaveLength(1)
+    expect(binding[0]!.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject)).toHaveLength(1)
+    expect(binding[0]!.structuralPackage.cdoPropertyInventory).toHaveLength(1)
+    expect(binding[0]!.observation).toMatchObject({
+      packagePath,
+      itemIdName: { observation: { state: 'known', value: 'CorruptedSeeds' }, provenance: { packagePath } },
+      serializedId: { observation: { state: 'known', value: 'CorruptedSeeds' }, provenance: { packagePath } },
+    })
+    expect(assertion).toMatchObject({ domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', reviewState: 'accepted', confidence: 'high', applicationScope: { packagePath } })
+    expect(errors(sources)).toEqual([])
+  })
+
+  it('fails closed when Corrupted Seeds independent-source or exact Raw grounding drifts', () => {
+    const missingResearchId = fixture()
+    missingResearchId.artifactAudit!.populationDifferences!.find((entry) => entry.id === 'corrupted-seeds')!.internalGameIds = ['Corrupted-Seeds']
+    expect(errors(missingResearchId).some((message) => message.includes('exact CorruptedSeeds internalGameId'))).toBe(true)
+
+    const missingSource = fixture()
+    missingSource.artifactAudit!.sources = missingSource.artifactAudit!.sources!.filter((entry) => entry.id !== 'wiki-corrupted-seeds')
+    expect(errors(missingSource).some((message) => message.includes('source evidence must resolve exactly once'))).toBe(true)
+
+    const mappingDrift = fixture()
+    mappingDrift.reviewedArtifactAliasBridges.find((entry) => entry.domainId === 'corrupted-seeds')!.packagePath = 'Dungeons/Content/Other'
+    expect(errors(mappingDrift).some((message) => message.includes('bridge mapping domain/raw/package drift'))).toBe(true)
+
+    const duplicateAlias = fixture()
+    duplicateAlias.aliases!.aliases!.push(structuredClone(alias(duplicateAlias, 'artifact:CorruptedSeeds')))
+    expect(errors(duplicateAlias).some((message) => message.includes('generated reviewed alias must exist exactly once'))).toBe(true)
+
+    const wrongPackage = fixture()
+    alias(wrongPackage, 'artifact:CorruptedSeeds').assetPaths = ['Dungeons/Content/Other']
+    expect(errors(wrongPackage).some((message) => message.includes('generated reviewed alias package must match exactly'))).toBe(true)
+
+    const wrongRawField = fixture()
+    wrongRawField.sourceBackedArtifactInventoryBindings[0]!.observation.itemIdName.observation = { state: 'known', value: 'Corrupted-Seeds' }
+    expect(errors(wrongRawField).some((message) => message.includes('Raw Structural ItemIdName must equal CorruptedSeeds'))).toBe(true)
+
+    const duplicateCdo = fixture()
+    const structuralPackage = duplicateCdo.sourceBackedArtifactInventoryBindings[0]!.structuralPackage
+    const cdo = structuralPackage.exports.find((entry) => entry.isClassDefaultObject)!
+    Object.assign(structuralPackage, { exports: [...structuralPackage.exports, structuredClone(cdo)] })
+    expect(errors(duplicateCdo).some((message) => message.includes('Structural package must contain exactly one CDO'))).toBe(true)
   })
 
   it('grounds exactly the six ready-direct Artifact aliases without using presentation or icon metadata as identity evidence', () => {
@@ -81,7 +147,7 @@ describe('Formal Identity reviewed-source grounding', () => {
       expect(sources.equipmentIconSource!.split(/\r?\n/).map((line) => line.trim()).filter((line) => line === overrideLine)).toHaveLength(1)
     }
     const excluded = [
-      'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
+      'corrupted-beacon', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
       'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
       'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',
       'updraft-tome', 'void-quiver', 'wind-horn', 'wonderful-wheat',

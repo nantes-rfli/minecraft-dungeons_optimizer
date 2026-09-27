@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {
   battleRobeFormalIdentity,
+  corruptedSeedsFormalIdentity,
   deathCapMushroomFormalIdentity,
   fightersBindingsFormalIdentity,
   formalIdentityDefinitions,
@@ -46,7 +47,8 @@ type IconEntry = {
 
 type RangedEntry = { id?: string; name?: { en?: string } }
 type MeleeEntry = { weaponId?: string; name?: { en?: string } }
-type ArtifactEntry = { id?: string; name?: string }
+type ArtifactEntry = { id?: string; name?: string; internalGameIds?: string[]; sourceIds?: string[] }
+type ArtifactSource = { id?: string; kind?: string }
 type ArmorAuditEntry = { id?: string; name?: string; levelId?: string }
 type RawStructuralSeed = {
   catalogId?: string
@@ -63,12 +65,14 @@ export type FormalReviewedSources = {
   icons?: { entries?: IconEntry[] }
   rangedAudit?: { entries?: RangedEntry[] }
   meleeAudit?: { weapons?: MeleeEntry[] }
-  artifactAudit?: { entries?: ArtifactEntry[] }
+  artifactAudit?: { entries?: ArtifactEntry[]; populationDifferences?: ArtifactEntry[]; sources?: ArtifactSource[] }
   armorAudit?: { entries?: ArmorAuditEntry[] }
   rawStructuralSeeds?: { catalogSeeds?: RawStructuralSeed[] }
   armorReadinessAuditSource?: string
   armorInventoryBindings: FormalIdentityInventoryBindingInput[]
   reviewedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
+  sourceBackedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
+  reviewedArtifactAliasBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   historicalMappingSource?: string
   equipmentIconSource?: string
   presentations: {
@@ -110,7 +114,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const historicalPath = 'scripts/audit-attack-event-comparison.ts'
   const rangedAudit = readJson<{ entries?: RangedEntry[] }>('research/ranged-weapon-audit.json')
   const meleeAudit = readJson<{ weapons?: MeleeEntry[] }>('research/melee-attack-profile-audit.json')
-  const artifactAudit = readJson<{ entries?: ArtifactEntry[] }>('research/artifact-audit.json')
+  const artifactAudit = readJson<{ entries?: ArtifactEntry[]; populationDifferences?: ArtifactEntry[]; sources?: ArtifactSource[] }>('research/artifact-audit.json')
   const armorAudit = readJson<{ entries?: ArmorAuditEntry[] }>('research/armor-audit.json')
   const rawStructuralSeeds = readJson<{ catalogSeeds?: RawStructuralSeed[] }>('research/raw/game-data-raw-structural-inventory/manifest.json')
   const armorReadinessAuditSource = readText('docs/remaining_formal_identity_breadth_readiness_audit.md')
@@ -132,6 +136,8 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     armorReadinessAuditSource,
     armorInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, readyArmorFormalIdentities),
     reviewedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedBridgeArtifactFormalIdentities),
+    sourceBackedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, [corruptedSeedsFormalIdentity]),
+    reviewedArtifactAliasBridges: REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     historicalMappingSource: readText(historicalPath),
     equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
@@ -147,9 +153,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
         domainId,
         rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
       ])),
-      artifact: Object.fromEntries([...readyArtifactFormalIdentityInputs, ...reviewedBridgeArtifactFormalIdentityInputs].map(({ domainId }) => [
+      artifact: Object.fromEntries([...readyArtifactFormalIdentityInputs, ...reviewedBridgeArtifactFormalIdentityInputs, { domainId: corruptedSeedsFormalIdentity.assertion.domainId }].map(({ domainId }) => [
         domainId,
-        artifactAudit?.entries?.find((entry) => entry.id === domainId)?.name,
+        artifactAudit?.entries?.find((entry) => entry.id === domainId)?.name
+          ?? artifactAudit?.populationDifferences?.find((entry) => entry.id === domainId)?.name,
       ])),
       armor: Object.fromEntries(readyArmorFormalIdentityInputs.map(({ domainId }) => [
         domainId,
@@ -489,6 +496,79 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === canonicalEntries[0]?.name, `${assertion.id}: presentation displayName differs from artifact-audit`)
   }
 
+  const corruptedSeedsDefinition = corruptedSeedsFormalIdentity
+  const corruptedAssertion = corruptedSeedsDefinition.assertion
+  const corruptedDomainId = 'corrupted-seeds'
+  const corruptedRawIdentity = 'CorruptedSeeds'
+  const corruptedPackage = 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'
+  const corruptedCanonicalEntity = 'artifact:corrupted-seeds'
+  const corruptedSourceId = 'wiki-corrupted-seeds'
+  const corruptedAuditRecords = [
+    ...(sources.artifactAudit?.entries ?? []),
+    ...(sources.artifactAudit?.populationDifferences ?? []),
+  ].filter((entry) => entry.id === corruptedDomainId)
+  const corruptedResearchRecords = (sources.artifactAudit?.populationDifferences ?? []).filter((entry) => entry.id === corruptedDomainId)
+  const corruptedResearchRecord = corruptedResearchRecords[0]
+  const corruptedSourceIds = corruptedResearchRecord?.sourceIds ?? []
+  const corruptedSourceRecords = (sources.artifactAudit?.sources ?? []).filter((source) => source.id === corruptedSourceId)
+  const corruptedMappingsByDomain = sources.reviewedArtifactAliasBridges.filter((mapping) => mapping.domainId === corruptedDomainId)
+  const corruptedMappingsByRaw = sources.reviewedArtifactAliasBridges.filter((mapping) => mapping.rawIdentity === corruptedRawIdentity)
+  const corruptedMapping = corruptedMappingsByDomain[0]
+  const corruptedAliases = aliases.filter((entry) => entry.id === `artifact:${corruptedRawIdentity}`)
+  const corruptedAlias = corruptedAliases[0]
+  const corruptedSeedMatches = rawSeeds.filter((seed) => seed.category === 'artifact' && seed.catalogId === corruptedDomainId)
+  const corruptedSeed = corruptedSeedMatches[0]
+  const corruptedCandidates = corruptedSeed?.candidates ?? []
+  const corruptedCandidate = corruptedCandidates[0]
+  const corruptedBindings = sources.sourceBackedArtifactInventoryBindings.filter((binding) => binding.definition.assertion.id === corruptedAssertion.id)
+  const corruptedBinding = corruptedBindings[0]
+  const corruptedCdos = corruptedBinding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+  const corruptedCdo = corruptedCdos[0]
+  const corruptedCdoClass = corruptedCdo?.references.class
+  const corruptedCdoClassName = corruptedCdoClass && typeof corruptedCdoClass === 'object' && 'objectName' in corruptedCdoClass ? corruptedCdoClass.objectName : undefined
+  const corruptedCdoInventories = corruptedCdo
+    ? corruptedBinding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === corruptedCdo.exportIndex) ?? []
+    : []
+  const corruptedObservation = corruptedBinding?.observation
+  const corruptedAliasEvidenceRef = 'evidence:reviewed:corrupted-seeds:accepted-alias'
+  const corruptedSourceEvidenceRef = 'evidence:reviewed:corrupted-seeds:independent-source-id'
+  const corruptedPresentationEvidenceRef = 'evidence:presentation:corrupted-seeds:artifact-audit'
+
+  check(corruptedAuditRecords.length === 1 && corruptedResearchRecords.length === 1, `${corruptedAssertion.id}: independent Artifact research domain record must exist exactly once in populationDifferences`)
+  check(corruptedResearchRecord?.internalGameIds?.includes(corruptedRawIdentity) === true, `${corruptedAssertion.id}: independent Artifact research must contain exact CorruptedSeeds internalGameId`)
+  check(corruptedSourceIds.includes(corruptedSourceId), `${corruptedAssertion.id}: independent Artifact research source ID is missing`)
+  check(corruptedSourceRecords.length === 1 && corruptedSourceRecords[0]?.kind === 'wiki', `${corruptedAssertion.id}: independent Artifact source evidence must resolve exactly once to the Wiki source record`)
+  check(corruptedMappingsByDomain.length === 1 && corruptedMappingsByRaw.length === 1, `${corruptedAssertion.id}: research-owned bridge mapping must be unique by domain and Raw identity`)
+  check(corruptedMapping?.rawIdentity === corruptedRawIdentity && corruptedMapping?.packagePath === corruptedPackage, `${corruptedAssertion.id}: research-owned bridge mapping domain/raw/package drift`)
+  check(corruptedAliases.length === 1, `${corruptedAssertion.id}: generated reviewed alias must exist exactly once`)
+  check(corruptedAlias?.category === 'artifact' && corruptedAlias?.status === 'accepted' && corruptedAlias?.confidence === 'high', `${corruptedAssertion.id}: generated reviewed alias must be Artifact accepted/high`)
+  check(corruptedAlias?.rawIdentity === corruptedRawIdentity && corruptedAlias?.canonicalEntity === corruptedCanonicalEntity, `${corruptedAssertion.id}: generated reviewed alias raw/canonical identity drift`)
+  check(corruptedAlias?.candidates?.length === 1 && corruptedAlias.candidates[0] === corruptedCanonicalEntity, `${corruptedAssertion.id}: generated reviewed alias canonical candidate drift`)
+  check(corruptedAlias?.assetPaths?.length === 1 && corruptedAlias.assetPaths[0] === corruptedPackage, `${corruptedAssertion.id}: generated reviewed alias package must match exactly`)
+  check(corruptedSeedMatches.length === 1 && corruptedSeed?.category === 'artifact', `${corruptedAssertion.id}: Raw Structural catalog seed must match the exact Artifact domain exactly once`)
+  check(corruptedCandidates.length === 1, `${corruptedAssertion.id}: Raw Structural candidate must exist exactly once`)
+  check(corruptedCandidate?.role === 'instance' && corruptedCandidate?.packagePath === corruptedPackage, `${corruptedAssertion.id}: Raw Structural candidate role/package drift`)
+  check(corruptedCandidate?.evidence?.includes(`serialized-identifier:ItemIdName=${corruptedRawIdentity}`) === true, `${corruptedAssertion.id}: Raw Structural ItemIdName candidate evidence drift`)
+  check(corruptedCandidate?.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${corruptedRawIdentity}`) === true, `${corruptedAssertion.id}: Raw Structural SerializedId candidate evidence drift`)
+  check(corruptedBindings.length === 1, `${corruptedAssertion.id}: exact Structural package binding must exist exactly once`)
+  check(corruptedBinding?.structuralPackage.path === corruptedPackage, `${corruptedAssertion.id}: Structural package path drift`)
+  check(corruptedCdos.length === 1, `${corruptedAssertion.id}: Structural package must contain exactly one CDO`)
+  check(corruptedCdoClassName === corruptedCandidate?.objectName, `${corruptedAssertion.id}: Raw Structural candidate must bind to the CDO class`)
+  check(corruptedCdoInventories.length === 1, `${corruptedAssertion.id}: Structural package must contain exactly one CDO property inventory`)
+  check(corruptedObservation?.packagePath === corruptedPackage && corruptedObservation?.rawSchemaVersion === 2, `${corruptedAssertion.id}: Structural observation package/schema drift`)
+  check(corruptedObservation?.itemIdName.observation.state === 'known' && corruptedObservation?.itemIdName.observation.value === corruptedRawIdentity, `${corruptedAssertion.id}: Raw Structural ItemIdName must equal CorruptedSeeds`)
+  check(corruptedObservation?.serializedId.observation.state === 'known' && corruptedObservation?.serializedId.observation.value === corruptedRawIdentity, `${corruptedAssertion.id}: Raw Structural ItemId.SerializedId must equal CorruptedSeeds`)
+  check(corruptedObservation?.itemIdName.provenance.packagePath === corruptedPackage && corruptedObservation?.itemIdName.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${corruptedBinding?.shardPath}`, `${corruptedAssertion.id}: ItemIdName must come from the exact Structural shard/package`)
+  check(corruptedObservation?.serializedId.provenance.packagePath === corruptedPackage && corruptedObservation?.serializedId.provenance.artifactPath === `research/raw/game-data-raw-structural-inventory/${corruptedBinding?.shardPath}`, `${corruptedAssertion.id}: SerializedId must come from the exact Structural shard/package`)
+  check(corruptedAssertion.domainId === corruptedDomainId && corruptedAssertion.rawIdentity === corruptedRawIdentity, `${corruptedAssertion.id}: Formal domain/raw identity drift`)
+  check(corruptedAssertion.applicationScope.packagePath === corruptedPackage && corruptedAssertion.applicationScope.rawSchemaVersion === 2, `${corruptedAssertion.id}: Formal package/schema scope drift`)
+  check(corruptedAssertion.reviewState === 'accepted' && corruptedAssertion.confidence === 'high', `${corruptedAssertion.id}: Formal identity must be accepted/high`)
+  check(corruptedAssertion.evidenceRefs.length === 2 && corruptedAssertion.evidenceRefs[0] === corruptedAliasEvidenceRef && corruptedAssertion.evidenceRefs[1] === corruptedSourceEvidenceRef, `${corruptedAssertion.id}: Formal evidence must retain the reviewed alias and independent source`)
+  check(corruptedSeedsDefinition.reviewedEvidence.some((record) => record.id === corruptedAliasEvidenceRef && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json' && record.source.locator === 'aliases[id=artifact:CorruptedSeeds]'), `${corruptedAssertion.id}: Formal alias evidence locator drift`)
+  check(corruptedSeedsDefinition.reviewedEvidence.some((record) => record.id === corruptedSourceEvidenceRef && record.source.artifactPath === 'research/artifact-audit.json' && record.source.locator === 'populationDifferences[id=corrupted-seeds].internalGameIds'), `${corruptedAssertion.id}: Formal independent source evidence locator drift`)
+  check(corruptedSeedsDefinition.reviewedEvidence.some((record) => record.id === corruptedPresentationEvidenceRef && record.source.artifactPath === 'research/artifact-audit.json' && record.source.locator === 'populationDifferences[id=corrupted-seeds].name'), `${corruptedAssertion.id}: Formal presentation evidence locator drift`)
+  check(corruptedSeedsDefinition.presentation.displayName === corruptedResearchRecord?.name && corruptedSeedsDefinition.presentation.displayName === sources.presentations.artifact[corruptedDomainId], `${corruptedAssertion.id}: Formal presentation must match its independent Artifact research record`)
+
   const fighters = fightersBindingsFormalIdentity.assertion
   const fightersAlias = aliases.find((entry) => entry.id === 'melee-weapon:Gauntlets_Unique3')
   check(fighters.rawIdentity === 'Gauntlets_Unique3' && fighters.domainId === 'fighters-bindings' && fighters.reviewState === 'provisional', `${fighters.id}: Formal provisional assertion drift`)
@@ -524,7 +604,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 143, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 144, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
@@ -534,16 +614,18 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     'Formal matched Ranged definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 22,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || assertion.id === corruptedAssertion.id || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 23,
     'Formal matched Artifact definition population drift',
   )
   check(formalIdentityDefinitions.filter(({ assertion }) => readyArmorFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 70, 'Formal matched Armor definition population drift')
+  check(formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'battle-robe' || readyArmorFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 71, 'Formal total Armor identity population drift')
   const excludedArtifactIds = [
-    'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
+    'corrupted-beacon', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
     'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
     'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',
     'updraft-tome', 'void-quiver', 'wind-horn', 'wonderful-wheat',
   ]
+  check(excludedArtifactIds.length === 21, 'remaining slug-only Artifact exclusion population drift')
   check(!formalIdentityDefinitions.some(({ assertion }) => excludedArtifactIds.includes(assertion.domainId)), 'excluded Artifact identity entered the Formal population')
   check(!aliases.some((entry) => entry.status === 'accepted' && entry.confidence === 'high' && excludedArtifactIds.includes(entry.canonicalEntity?.replace(/^artifact:/, '') ?? '')), 'excluded Artifact identity received an accepted/high canonical alias')
   return errors

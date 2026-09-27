@@ -12,6 +12,7 @@ describe('Phase 6.6 identity boundaries', () => {
     expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity }) => [domainId, rawIdentity])).toEqual([
       ['blast-fungus', 'NetherWartSporeGrenade'],
       ['corrupted-pumpkin', 'CorruptedBeacon_Spooky1'],
+      ['corrupted-seeds', 'CorruptedSeeds'],
       ['enchanted-grass', 'RainbowGrass'],
       ['eye-of-the-guardian', 'GuardianEye'],
       ['harpoon-quiver', 'HeavyHarpoonQuiver'],
@@ -39,7 +40,7 @@ describe('Phase 6.6 identity boundaries', () => {
       evidenceIds: string[]
     }>
     const generatedBridges = aliases.filter(({ id }) => REVIEWED_ARTIFACT_ALIAS_BRIDGES.some(({ rawIdentity }) => id === `artifact:${rawIdentity}`))
-    expect(generatedBridges).toHaveLength(15)
+    expect(generatedBridges).toHaveLength(16)
     expect(generatedBridges.every(({ status, confidence }) => status === 'accepted' && confidence === 'high')).toBe(true)
     expect(generatedBridges.map(({ canonicalEntity }) => canonicalEntity).sort()).toEqual(
       REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId }) => `artifact:${domainId}`).sort(),
@@ -60,6 +61,18 @@ describe('Phase 6.6 identity boundaries', () => {
         evidenceIds: expect.arrayContaining(['artifact:dt-artifacts-117']),
       })
     }
+    const corruptedSeedsAlias = aliases.filter(({ id }) => id === 'artifact:CorruptedSeeds')
+    expect(corruptedSeedsAlias).toHaveLength(1)
+    expect(corruptedSeedsAlias[0]).toMatchObject({
+      rawIdentity: 'CorruptedSeeds',
+      category: 'artifact',
+      status: 'accepted',
+      confidence: 'high',
+      canonicalEntity: 'artifact:corrupted-seeds',
+      candidates: ['artifact:corrupted-seeds'],
+      basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+      assetPaths: ['Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'],
+    })
   })
 
   it.each([

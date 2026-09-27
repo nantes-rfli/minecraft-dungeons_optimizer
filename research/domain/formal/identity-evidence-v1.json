@@ -4435,6 +4435,37 @@
             "evidence:presentation:satchel-of-snacks:artifact-catalog"
           ]
         }
+      },
+      {
+        "assertionId": "identity:corrupted-seeds@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "CorruptedSeeds",
+            "evidenceRef": "evidence:raw:identity:corrupted-seeds@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "CorruptedSeeds",
+            "evidenceRef": "evidence:raw:identity:corrupted-seeds@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:corrupted-seeds@1",
+          "domainId": "corrupted-seeds",
+          "evidenceRefs": [
+            "evidence:raw:identity:corrupted-seeds@1:ItemIdName",
+            "evidence:raw:identity:corrupted-seeds@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "corrupted-seeds",
+          "displayName": "Corrupted Seeds",
+          "evidenceRefs": [
+            "evidence:presentation:corrupted-seeds:artifact-audit"
+          ]
+        }
       }
     ]
   },
@@ -7172,6 +7203,26 @@
       "evidenceRefs": [
         "evidence:reviewed:satchel-of-snacks:accepted-alias",
         "evidence:reviewed:satchel-of-snacks:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:corrupted-seeds@1",
+      "rawIdentity": "CorruptedSeeds",
+      "domainId": "corrupted-seeds",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:corrupted-seeds:accepted-alias",
+        "evidence:reviewed:corrupted-seeds:independent-source-id"
       ]
     }
   ],
@@ -16549,6 +16600,81 @@
           "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:32390425"
+      },
+      {
+        "id": "evidence:reviewed:corrupted-seeds:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Research-owned reviewed Artifact mapping materializes the exact Raw identity as an accepted high-confidence alias.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:CorruptedSeeds]"
+        },
+        "fingerprint": "fnv1a32:bc83eba2"
+      },
+      {
+        "id": "evidence:reviewed:corrupted-seeds:independent-source-id",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The independently sourced Artifact audit records CorruptedSeeds in the Corrupted Seeds internal game IDs.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "populationDifferences[id=corrupted-seeds].internalGameIds"
+        },
+        "fingerprint": "fnv1a32:933c59be"
+      },
+      {
+        "id": "evidence:presentation:corrupted-seeds:artifact-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Artifact audit supplies the canonical Corrupted Seeds display name.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "populationDifferences[id=corrupted-seeds].name"
+        },
+        "fingerprint": "fnv1a32:9dfd14a5"
+      },
+      {
+        "id": "evidence:raw:identity:corrupted-seeds@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "CorruptedSeeds"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bf73f054d341e115cb4329318f7d14da53fb126c343d1ce8877efcadeff778b1",
+          "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db9bf6c88e0cb96eee5475e818a87cbefa32e106e728fc89a6686fdc2f826c90"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:8a2d9d8e"
+      },
+      {
+        "id": "evidence:raw:identity:corrupted-seeds@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "CorruptedSeeds"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bf73f054d341e115cb4329318f7d14da53fb126c343d1ce8877efcadeff778b1",
+          "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db9bf6c88e0cb96eee5475e818a87cbefa32e106e728fc89a6686fdc2f826c90"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/7/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a84a113e"
       }
     ]
   }
