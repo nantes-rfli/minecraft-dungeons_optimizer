@@ -563,7 +563,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     const canonicalEntity = `melee-weapon:${assertion.domainId}`
     const aliasMatches = aliases.filter((entry) => entry.id === aliasId)
     const alias = aliasMatches[0]
-    const seedMatches = rawSeeds.filter((seed) => seed.category === 'melee-weapon' && seed.catalogId === assertion.domainId)
+    const seedMatches = rawSeeds.filter((seed) => seed.category === 'melee' && seed.catalogId === assertion.domainId)
     const seed = seedMatches[0]
     const candidates = seed?.candidates ?? []
     const candidate = candidates[0]
@@ -777,9 +777,9 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 144, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 146, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 29,
     'Formal matched Melee definition population drift',
   )
   check(
