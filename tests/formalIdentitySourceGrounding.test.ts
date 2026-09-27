@@ -27,7 +27,7 @@ describe('Formal Identity reviewed-source grounding', () => {
       const record = sources.sourceHarvest!.records!.filter((entry) => entry.category === 'melee-weapon' && entry.id === mapping.domainId)
       const bridge = sources.reviewedTypedRelationMeleeBridges.filter((entry) => entry.domainId === mapping.domainId)
       const aliases = sources.aliases!.aliases!.filter((entry) => entry.id === `melee-weapon:${mapping.rawIdentity}`)
-      const seed = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === 'melee-weapon' && entry.catalogId === mapping.domainId)
+      const seed = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === 'melee' && entry.catalogId === mapping.domainId)
       const binding = sources.typedRelationMeleeInventoryBindings.filter((entry) => entry.definition.assertion.id === definition.assertion.id)
       expect(record).toHaveLength(1)
       expect(record[0]).toMatchObject({ label: definition.presentation.displayName })
