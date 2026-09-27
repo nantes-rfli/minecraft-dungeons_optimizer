@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, REVIEWED_TYPED_RELATION_MELEE_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
@@ -79,6 +79,41 @@ describe('Phase 6.6 identity boundaries', () => {
       assetPaths: ['Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'],
     })
     expect(corruptedSeedsAlias[0]!.basis).not.toContain('documented-entity-alias')
+    expect(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES).toEqual([
+      {
+        domainId: 'broken-sawblade',
+        rawIdentity: 'Chainsword',
+        packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance',
+        relationProperty: 'InventoryDropSound',
+        edgeKind: 'soft-object-property',
+        targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_brokensawbladePlace',
+      },
+      {
+        domainId: 'mechanized-sawblade',
+        rawIdentity: 'Chainsword_Unique1',
+        packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance',
+        relationProperty: 'InventoryDropSound',
+        edgeKind: 'soft-object-property',
+        targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_mechanisedsawbladePlace',
+      },
+    ])
+    for (const mapping of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
+      const matches = aliases.filter(({ id }) => id === `melee-weapon:${mapping.rawIdentity}`)
+      expect(matches).toHaveLength(1)
+      expect(matches[0]).toMatchObject({
+        category: 'melee-weapon',
+        rawIdentity: mapping.rawIdentity,
+        canonicalEntity: `melee-weapon:${mapping.domainId}`,
+        candidates: [`melee-weapon:${mapping.domainId}`],
+        status: 'accepted',
+        confidence: 'high',
+        basis: REVIEWED_TYPED_RELATION_MELEE_ALIAS_BASIS,
+        assetPaths: [mapping.packagePath],
+      })
+      expect(matches[0]!.basis).not.toContain('documented-entity-alias')
+      expect(matches[0]!.basis).not.toContain('independent-source-internal-id')
+      expect(matches[0]!.basis).not.toContain('exact-catalog-slug')
+    }
   })
 
   it.each([
