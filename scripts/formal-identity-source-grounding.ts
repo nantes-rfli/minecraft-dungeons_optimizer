@@ -23,7 +23,11 @@ import {
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES } from './game-data-model-alignment.ts'
+import {
+  INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
+  REVIEWED_ARTIFACT_ALIAS_BRIDGES,
+  REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES,
+} from './game-data-model-alignment.ts'
 
 type Alias = {
   id?: string
@@ -73,6 +77,7 @@ export type FormalReviewedSources = {
   reviewedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
   sourceBackedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
   reviewedArtifactAliasBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
+  independentSourceArtifactBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   historicalMappingSource?: string
   equipmentIconSource?: string
   presentations: {
@@ -138,6 +143,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     reviewedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedBridgeArtifactFormalIdentities),
     sourceBackedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, [corruptedSeedsFormalIdentity]),
     reviewedArtifactAliasBridges: REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
+    independentSourceArtifactBridges: REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     historicalMappingSource: readText(historicalPath),
     equipmentIconSource: readText('scripts/equipment-icons.ts'),
     presentations: {
@@ -435,7 +441,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     )
     check(definition.presentation.displayName === sourceDisplayName, `${assertion.id}: reviewed bridge presentation displayName drift`)
     if (aliasCategory === 'artifact') {
-      const researchMappings = REVIEWED_ARTIFACT_ALIAS_BRIDGES.filter((mapping) => mapping.domainId === input.domainId)
+      const researchMappings = sources.reviewedArtifactAliasBridges.filter((mapping) => mapping.domainId === input.domainId)
       check(researchMappings.length === 1, `${assertion.id}: research-owned Artifact bridge mapping must exist exactly once`)
       check(
         researchMappings[0]?.rawIdentity === input.rawIdentity && researchMappings[0]?.packagePath === input.packagePath,
@@ -446,6 +452,9 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(reviewedBridgeMeleeFormalIdentities.length === 2, 'reviewed bridge Melee population drift')
   check(reviewedBridgeRangedFormalIdentities.length === 1, 'reviewed bridge Ranged population drift')
   check(reviewedBridgeArtifactFormalIdentities.length === 15, 'reviewed bridge Artifact population drift')
+  check(REVIEWED_ARTIFACT_ALIAS_BRIDGES.length === 15, 'documented Artifact bridge population drift')
+  check(sources.reviewedArtifactAliasBridges.length === 15, 'documented Artifact bridge source set population drift')
+  check(REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES.length === 1, 'independent-source Artifact bridge population drift')
   check(bridgeCases.length === 18, 'reviewed bridge total population drift')
 
   const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
@@ -511,8 +520,8 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   const corruptedResearchRecord = corruptedResearchRecords[0]
   const corruptedSourceIds = corruptedResearchRecord?.sourceIds ?? []
   const corruptedSourceRecords = (sources.artifactAudit?.sources ?? []).filter((source) => source.id === corruptedSourceId)
-  const corruptedMappingsByDomain = sources.reviewedArtifactAliasBridges.filter((mapping) => mapping.domainId === corruptedDomainId)
-  const corruptedMappingsByRaw = sources.reviewedArtifactAliasBridges.filter((mapping) => mapping.rawIdentity === corruptedRawIdentity)
+  const corruptedMappingsByDomain = sources.independentSourceArtifactBridges.filter((mapping) => mapping.domainId === corruptedDomainId)
+  const corruptedMappingsByRaw = sources.independentSourceArtifactBridges.filter((mapping) => mapping.rawIdentity === corruptedRawIdentity)
   const corruptedMapping = corruptedMappingsByDomain[0]
   const corruptedAliases = aliases.filter((entry) => entry.id === `artifact:${corruptedRawIdentity}`)
   const corruptedAlias = corruptedAliases[0]
@@ -538,11 +547,13 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(corruptedResearchRecord?.internalGameIds?.includes(corruptedRawIdentity) === true, `${corruptedAssertion.id}: independent Artifact research must contain exact CorruptedSeeds internalGameId`)
   check(corruptedSourceIds.includes(corruptedSourceId), `${corruptedAssertion.id}: independent Artifact research source ID is missing`)
   check(corruptedSourceRecords.length === 1 && corruptedSourceRecords[0]?.kind === 'wiki', `${corruptedAssertion.id}: independent Artifact source evidence must resolve exactly once to the Wiki source record`)
+  check(sources.independentSourceArtifactBridges.length === 1, `${corruptedAssertion.id}: independent-source Artifact bridge set must contain exactly one mapping`)
   check(corruptedMappingsByDomain.length === 1 && corruptedMappingsByRaw.length === 1, `${corruptedAssertion.id}: research-owned bridge mapping must be unique by domain and Raw identity`)
   check(corruptedMapping?.rawIdentity === corruptedRawIdentity && corruptedMapping?.packagePath === corruptedPackage, `${corruptedAssertion.id}: research-owned bridge mapping domain/raw/package drift`)
   check(corruptedAliases.length === 1, `${corruptedAssertion.id}: generated reviewed alias must exist exactly once`)
   check(corruptedAlias?.category === 'artifact' && corruptedAlias?.status === 'accepted' && corruptedAlias?.confidence === 'high', `${corruptedAssertion.id}: generated reviewed alias must be Artifact accepted/high`)
   check(corruptedAlias?.rawIdentity === corruptedRawIdentity && corruptedAlias?.canonicalEntity === corruptedCanonicalEntity, `${corruptedAssertion.id}: generated reviewed alias raw/canonical identity drift`)
+  check(corruptedAlias?.basis === INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, `${corruptedAssertion.id}: generated reviewed alias independent-source basis drift`)
   check(corruptedAlias?.candidates?.length === 1 && corruptedAlias.candidates[0] === corruptedCanonicalEntity, `${corruptedAssertion.id}: generated reviewed alias canonical candidate drift`)
   check(corruptedAlias?.assetPaths?.length === 1 && corruptedAlias.assetPaths[0] === corruptedPackage, `${corruptedAssertion.id}: generated reviewed alias package must match exactly`)
   check(corruptedSeedMatches.length === 1 && corruptedSeed?.category === 'artifact', `${corruptedAssertion.id}: Raw Structural catalog seed must match the exact Artifact domain exactly once`)

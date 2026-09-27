@@ -612,7 +612,7 @@
       "candidates": [
         "artifact:corrupted-seeds"
       ],
-      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "basis": "serialized-item-id + independent-source-internal-id + catalog-category-evidence",
       "confidence": "high",
       "variant": "separate-gameplay-entity",
       "evidenceIds": [

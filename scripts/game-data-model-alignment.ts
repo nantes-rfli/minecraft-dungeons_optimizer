@@ -16,7 +16,6 @@ interface CatalogRecord { category: CanonicalResearchProperty['category']; id: s
 export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
   { domainId: 'blast-fungus', rawIdentity: 'NetherWartSporeGrenade', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance' },
   { domainId: 'corrupted-pumpkin', rawIdentity: 'CorruptedBeacon_Spooky1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance' },
-  { domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance' },
   { domainId: 'enchanted-grass', rawIdentity: 'RainbowGrass', packagePath: 'Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance' },
   { domainId: 'eye-of-the-guardian', rawIdentity: 'GuardianEye', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/GuardianEye/BP_GuardianEyeInstance' },
   { domainId: 'harpoon-quiver', rawIdentity: 'HeavyHarpoonQuiver', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/HeavyHarpoonQuiver/BP_HeavyHarpoonQuiverInstance' },
@@ -31,6 +30,12 @@ export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
   { domainId: 'satchel-of-elixirs', rawIdentity: 'SatchelOfNeed', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance' },
   { domainId: 'satchel-of-snacks', rawIdentity: 'SatchelOfNourishment', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance' },
 ] as const
+
+export const REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES = [
+  { domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance' },
+] as const
+
+export const INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS = 'serialized-item-id + independent-source-internal-id + catalog-category-evidence' as const
 
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
@@ -271,6 +276,29 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
       sourceRecordIds: [],
       canonicalEntity,
     })
+  }
+  for (const input of REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES) {
+    const aliasId = `artifact:${input.rawIdentity}`
+    const canonicalEntity = `artifact:${input.domainId}`
+    const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: independent-source Artifact bridge lacks catalog identity/category evidence`)
+    const existingIndex = reviewedAliases.findIndex((alias) => alias.id === aliasId)
+    const independentSourceAlias = {
+      id: aliasId,
+      rawIdentity: input.rawIdentity,
+      category: 'artifact',
+      status: 'accepted' as const,
+      candidates: [canonicalEntity],
+      basis: INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
+      confidence: 'high' as const,
+      variant: 'separate-gameplay-entity' as const,
+      evidenceIds: [...new Set(catalogEvidence)].sort(),
+      assetPaths: [input.packagePath],
+      sourceRecordIds: [],
+      canonicalEntity,
+    }
+    if (existingIndex >= 0) reviewedAliases[existingIndex] = independentSourceAlias
+    else reviewedAliases.push(independentSourceAlias)
   }
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {

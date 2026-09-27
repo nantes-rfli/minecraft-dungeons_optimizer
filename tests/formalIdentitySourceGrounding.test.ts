@@ -5,7 +5,7 @@ import {
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
 import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES } from '../scripts/game-data-model-alignment.ts'
+import { INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES } from '../scripts/game-data-model-alignment.ts'
 
 const repositoryRoot = process.cwd()
 const baseSources = readFormalReviewedSources(repositoryRoot)
@@ -24,7 +24,7 @@ describe('Formal Identity reviewed-source grounding', () => {
     const packagePath = 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'
     const research = sources.artifactAudit!.populationDifferences!.filter((entry) => entry.id === 'corrupted-seeds')
     const source = sources.artifactAudit!.sources!.filter((entry) => entry.id === 'wiki-corrupted-seeds')
-    const mappings = REVIEWED_ARTIFACT_ALIAS_BRIDGES.filter((entry) => entry.domainId === 'corrupted-seeds')
+    const mappings = sources.independentSourceArtifactBridges.filter((entry) => entry.domainId === 'corrupted-seeds')
     const alias = sources.aliases!.aliases!.filter((entry) => entry.id === 'artifact:CorruptedSeeds')
     const seeds = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === 'artifact' && entry.catalogId === 'corrupted-seeds')
     const binding = sources.sourceBackedArtifactInventoryBindings.filter((entry) => entry.definition.assertion.id === assertion.id)
@@ -33,9 +33,13 @@ describe('Formal Identity reviewed-source grounding', () => {
     expect(research[0]).toMatchObject({ id: 'corrupted-seeds', internalGameIds: expect.arrayContaining(['CorruptedSeeds']), sourceIds: expect.arrayContaining(['wiki-corrupted-seeds']) })
     expect(source).toHaveLength(1)
     expect(source[0]!.kind).toBe('wiki')
+    expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES).toHaveLength(15)
+    expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId }) => domainId as string)).not.toContain('corrupted-seeds')
+    expect(REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES).toHaveLength(1)
     expect(mappings).toEqual([{ domainId: 'corrupted-seeds', rawIdentity: 'CorruptedSeeds', packagePath }])
     expect(alias).toHaveLength(1)
-    expect(alias[0]).toMatchObject({ category: 'artifact', rawIdentity: 'CorruptedSeeds', canonicalEntity: 'artifact:corrupted-seeds', status: 'accepted', confidence: 'high', assetPaths: [packagePath] })
+    expect(alias[0]).toMatchObject({ category: 'artifact', rawIdentity: 'CorruptedSeeds', canonicalEntity: 'artifact:corrupted-seeds', status: 'accepted', confidence: 'high', basis: INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, assetPaths: [packagePath] })
+    expect(alias[0]!.basis).not.toContain('documented-entity-alias')
     expect(seeds).toHaveLength(1)
     expect(seeds[0]!.candidates).toHaveLength(1)
     expect(seeds[0]!.candidates![0]).toMatchObject({ role: 'instance', packagePath })
@@ -61,8 +65,12 @@ describe('Formal Identity reviewed-source grounding', () => {
     expect(errors(missingSource).some((message) => message.includes('source evidence must resolve exactly once'))).toBe(true)
 
     const mappingDrift = fixture()
-    mappingDrift.reviewedArtifactAliasBridges.find((entry) => entry.domainId === 'corrupted-seeds')!.packagePath = 'Dungeons/Content/Other'
+    mappingDrift.independentSourceArtifactBridges.find((entry) => entry.domainId === 'corrupted-seeds')!.packagePath = 'Dungeons/Content/Other'
     expect(errors(mappingDrift).some((message) => message.includes('bridge mapping domain/raw/package drift'))).toBe(true)
+
+    const duplicateIndependentBridge = fixture()
+    duplicateIndependentBridge.independentSourceArtifactBridges.push(structuredClone(duplicateIndependentBridge.independentSourceArtifactBridges[0]!))
+    expect(errors(duplicateIndependentBridge).some((message) => message.includes('bridge set must contain exactly one mapping'))).toBe(true)
 
     const duplicateAlias = fixture()
     duplicateAlias.aliases!.aliases!.push(structuredClone(alias(duplicateAlias, 'artifact:CorruptedSeeds')))
@@ -71,6 +79,10 @@ describe('Formal Identity reviewed-source grounding', () => {
     const wrongPackage = fixture()
     alias(wrongPackage, 'artifact:CorruptedSeeds').assetPaths = ['Dungeons/Content/Other']
     expect(errors(wrongPackage).some((message) => message.includes('generated reviewed alias package must match exactly'))).toBe(true)
+
+    const wrongAliasBasis = fixture()
+    alias(wrongAliasBasis, 'artifact:CorruptedSeeds').basis = 'serialized-item-id + documented-entity-alias + catalog-category-evidence'
+    expect(errors(wrongAliasBasis).some((message) => message.includes('independent-source basis drift'))).toBe(true)
 
     const wrongRawField = fixture()
     wrongRawField.sourceBackedArtifactInventoryBindings[0]!.observation.itemIdName.observation = { state: 'known', value: 'Corrupted-Seeds' }

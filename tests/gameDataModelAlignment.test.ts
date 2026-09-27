@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
@@ -12,7 +12,6 @@ describe('Phase 6.6 identity boundaries', () => {
     expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity }) => [domainId, rawIdentity])).toEqual([
       ['blast-fungus', 'NetherWartSporeGrenade'],
       ['corrupted-pumpkin', 'CorruptedBeacon_Spooky1'],
-      ['corrupted-seeds', 'CorruptedSeeds'],
       ['enchanted-grass', 'RainbowGrass'],
       ['eye-of-the-guardian', 'GuardianEye'],
       ['harpoon-quiver', 'HeavyHarpoonQuiver'],
@@ -27,6 +26,12 @@ describe('Phase 6.6 identity boundaries', () => {
       ['satchel-of-elixirs', 'SatchelOfNeed'],
       ['satchel-of-snacks', 'SatchelOfNourishment'],
     ])
+    expect(REVIEWED_ARTIFACT_ALIAS_BRIDGES).toHaveLength(15)
+    expect(REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES).toEqual([{
+      domainId: 'corrupted-seeds',
+      rawIdentity: 'CorruptedSeeds',
+      packagePath: 'Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance',
+    }])
     const aliases = JSON.parse(alignmentOutputs(result)['research/domain/game-data-entity-aliases.json']!).aliases as Array<{
       id: string
       rawIdentity: string
@@ -40,7 +45,7 @@ describe('Phase 6.6 identity boundaries', () => {
       evidenceIds: string[]
     }>
     const generatedBridges = aliases.filter(({ id }) => REVIEWED_ARTIFACT_ALIAS_BRIDGES.some(({ rawIdentity }) => id === `artifact:${rawIdentity}`))
-    expect(generatedBridges).toHaveLength(16)
+    expect(generatedBridges).toHaveLength(15)
     expect(generatedBridges.every(({ status, confidence }) => status === 'accepted' && confidence === 'high')).toBe(true)
     expect(generatedBridges.map(({ canonicalEntity }) => canonicalEntity).sort()).toEqual(
       REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId }) => `artifact:${domainId}`).sort(),
@@ -70,9 +75,10 @@ describe('Phase 6.6 identity boundaries', () => {
       confidence: 'high',
       canonicalEntity: 'artifact:corrupted-seeds',
       candidates: ['artifact:corrupted-seeds'],
-      basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+      basis: INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
       assetPaths: ['Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'],
     })
+    expect(corruptedSeedsAlias[0]!.basis).not.toContain('documented-entity-alias')
   })
 
   it.each([
