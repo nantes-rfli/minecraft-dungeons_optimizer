@@ -22,6 +22,7 @@ import {
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES } from './game-data-model-alignment.ts'
 
 type Alias = {
   id?: string
@@ -31,6 +32,7 @@ type Alias = {
   confidence?: string
   canonicalEntity?: string
   basis?: string
+  evidenceIds?: string[]
   candidates?: string[]
   assetPaths?: string[]
 }
@@ -84,6 +86,7 @@ export type FormalReviewedSources = {
 
 const knownPaths = [
   'research/domain/game-data-entity-aliases.json',
+  'scripts/game-data-model-alignment.ts',
   'generated/equipment-icons/manifest.json',
   'scripts/equipment-icons.ts',
   'scripts/audit-attack-event-comparison.ts',
@@ -411,6 +414,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(alias?.canonicalEntity === canonicalEntity, `${assertion.id}: reviewed bridge alias canonicalEntity drift`)
     check(alias?.candidates?.length === 1 && alias.candidates[0] === canonicalEntity, `${assertion.id}: reviewed bridge alias candidates drift`)
     check(alias?.assetPaths?.includes(input.packagePath) === true, `${assertion.id}: reviewed bridge alias package/source drift`)
+    check((alias?.evidenceIds?.length ?? 0) > 0, `${assertion.id}: reviewed bridge alias catalog evidence missing`)
     check(alias?.basis === reviewedBridgeBasis, `${assertion.id}: reviewed bridge basis drift`)
     const overrideValues = entityOverrideValues(sources.equipmentIconSource ?? '', overrideKey)
     check(overrideValues.length === 1 && overrideValues[0] === input.rawIdentity, `${assertion.id}: documented ENTITY_OVERRIDES key must exist exactly once with the exact Raw identity`)
@@ -423,11 +427,19 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
       `${assertion.id}: reviewed bridge evidence chain drift`,
     )
     check(definition.presentation.displayName === sourceDisplayName, `${assertion.id}: reviewed bridge presentation displayName drift`)
+    if (aliasCategory === 'artifact') {
+      const researchMappings = REVIEWED_ARTIFACT_ALIAS_BRIDGES.filter((mapping) => mapping.domainId === input.domainId)
+      check(researchMappings.length === 1, `${assertion.id}: research-owned Artifact bridge mapping must exist exactly once`)
+      check(
+        researchMappings[0]?.rawIdentity === input.rawIdentity && researchMappings[0]?.packagePath === input.packagePath,
+        `${assertion.id}: research-owned Artifact bridge mapping drift`,
+      )
+    }
   }
   check(reviewedBridgeMeleeFormalIdentities.length === 2, 'reviewed bridge Melee population drift')
   check(reviewedBridgeRangedFormalIdentities.length === 1, 'reviewed bridge Ranged population drift')
-  check(reviewedBridgeArtifactFormalIdentities.length === 12, 'reviewed bridge Artifact population drift')
-  check(bridgeCases.length === 15, 'reviewed bridge total population drift')
+  check(reviewedBridgeArtifactFormalIdentities.length === 15, 'reviewed bridge Artifact population drift')
+  check(bridgeCases.length === 18, 'reviewed bridge total population drift')
 
   const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
   for (const definition of reviewedBridgeArtifactFormalIdentities) {
@@ -512,7 +524,7 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 140, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 143, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
     'Formal matched Melee definition population drift',
@@ -522,12 +534,11 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     'Formal matched Ranged definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 19,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'death-cap-mushroom' || readyArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeArtifactFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 22,
     'Formal matched Artifact definition population drift',
   )
   check(formalIdentityDefinitions.filter(({ assertion }) => readyArmorFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 70, 'Formal matched Armor definition population drift')
   const excludedArtifactIds = [
-    'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
     'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
     'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
     'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',

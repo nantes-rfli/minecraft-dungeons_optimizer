@@ -502,6 +502,26 @@
       ]
     },
     {
+      "id": "artifact:BeeNest",
+      "rawIdentity": "BeeNest",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:buzzy-nest"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:buzzy-nest"
+    },
+    {
       "id": "artifact:BootsOfSwiftness",
       "rawIdentity": "BootsOfSwiftness",
       "category": "artifact",
@@ -876,6 +896,46 @@
       ],
       "sourceRecordIds": [],
       "canonicalEntity": "artifact:enchanted-grass"
+    },
+    {
+      "id": "artifact:SatchelOfNeed",
+      "rawIdentity": "SatchelOfNeed",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:satchel-of-elixirs"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:satchel-of-elixirs"
+    },
+    {
+      "id": "artifact:SatchelOfNourishment",
+      "rawIdentity": "SatchelOfNourishment",
+      "category": "artifact",
+      "status": "accepted",
+      "candidates": [
+        "artifact:satchel-of-snacks"
+      ],
+      "basis": "serialized-item-id + documented-entity-alias + catalog-category-evidence",
+      "confidence": "high",
+      "variant": "separate-gameplay-entity",
+      "evidenceIds": [
+        "artifact:dt-artifacts-117"
+      ],
+      "assetPaths": [
+        "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance"
+      ],
+      "sourceRecordIds": [],
+      "canonicalEntity": "artifact:satchel-of-snacks"
     },
     {
       "id": "artifact:SatchelOfTheElements",

@@ -22,19 +22,44 @@ describe('Phase 6.6 identity boundaries', () => {
       ['spinblade', 'SpinWheel'],
       ['totem-of-casting', 'SoulTotemOfCasting'],
       ['vexing-chant', 'LostEvocation'],
+      ['buzzy-nest', 'BeeNest'],
+      ['satchel-of-elixirs', 'SatchelOfNeed'],
+      ['satchel-of-snacks', 'SatchelOfNourishment'],
     ])
     const aliases = JSON.parse(alignmentOutputs(result)['research/domain/game-data-entity-aliases.json']!).aliases as Array<{
       id: string
+      rawIdentity: string
+      category: string
       canonicalEntity: string | null
       status: string
       confidence: string
+      basis: string
+      candidates: string[]
+      assetPaths: string[]
+      evidenceIds: string[]
     }>
     const generatedBridges = aliases.filter(({ id }) => REVIEWED_ARTIFACT_ALIAS_BRIDGES.some(({ rawIdentity }) => id === `artifact:${rawIdentity}`))
-    expect(generatedBridges).toHaveLength(12)
+    expect(generatedBridges).toHaveLength(15)
     expect(generatedBridges.every(({ status, confidence }) => status === 'accepted' && confidence === 'high')).toBe(true)
     expect(generatedBridges.map(({ canonicalEntity }) => canonicalEntity).sort()).toEqual(
       REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId }) => `artifact:${domainId}`).sort(),
     )
+    for (const mapping of REVIEWED_ARTIFACT_ALIAS_BRIDGES.filter(({ domainId }) => ['buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks'].includes(domainId))) {
+      const canonicalEntity = `artifact:${mapping.domainId}`
+      const matches = aliases.filter(({ id }) => id === `artifact:${mapping.rawIdentity}`)
+      expect(matches).toHaveLength(1)
+      expect(matches[0]).toMatchObject({
+        rawIdentity: mapping.rawIdentity,
+        category: 'artifact',
+        status: 'accepted',
+        confidence: 'high',
+        canonicalEntity,
+        candidates: [canonicalEntity],
+        basis: 'serialized-item-id + documented-entity-alias + catalog-category-evidence',
+        assetPaths: expect.arrayContaining([mapping.packagePath]),
+        evidenceIds: expect.arrayContaining(['artifact:dt-artifacts-117']),
+      })
+    }
   })
 
   it.each([

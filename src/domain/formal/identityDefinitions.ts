@@ -362,6 +362,9 @@ export const reviewedBridgeArtifactFormalIdentityInputs = [
   { domainId: 'spinblade', rawIdentity: 'SpinWheel', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance', displayName: 'Spinblade' },
   { domainId: 'totem-of-casting', rawIdentity: 'SoulTotemOfCasting', packagePath: 'Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance', displayName: 'Totem of Casting' },
   { domainId: 'vexing-chant', rawIdentity: 'LostEvocation', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance', displayName: 'Vexing Chant' },
+  { domainId: 'buzzy-nest', rawIdentity: 'BeeNest', packagePath: 'Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance', displayName: 'Buzzy Nest' },
+  { domainId: 'satchel-of-elixirs', rawIdentity: 'SatchelOfNeed', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance', displayName: 'Satchel of Elixirs' },
+  { domainId: 'satchel-of-snacks', rawIdentity: 'SatchelOfNourishment', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance', displayName: 'Satchel of Snacks' },
 ] as const satisfies readonly AcceptedArtifactIdentityInput[]
 
 export const reviewedBridgeArtifactFormalIdentities = reviewedBridgeArtifactFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'artifact'))
