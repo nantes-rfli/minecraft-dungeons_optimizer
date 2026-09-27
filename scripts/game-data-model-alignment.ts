@@ -26,6 +26,9 @@ export const REVIEWED_ARTIFACT_ALIAS_BRIDGES = [
   { domainId: 'spinblade', rawIdentity: 'SpinWheel', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance' },
   { domainId: 'totem-of-casting', rawIdentity: 'SoulTotemOfCasting', packagePath: 'Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCastingInstance' },
   { domainId: 'vexing-chant', rawIdentity: 'LostEvocation', packagePath: 'Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance' },
+  { domainId: 'buzzy-nest', rawIdentity: 'BeeNest', packagePath: 'Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance' },
+  { domainId: 'satchel-of-elixirs', rawIdentity: 'SatchelOfNeed', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance' },
+  { domainId: 'satchel-of-snacks', rawIdentity: 'SatchelOfNourishment', packagePath: 'Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance' },
 ] as const
 
 export function loadAlignmentInputs(root: string) {

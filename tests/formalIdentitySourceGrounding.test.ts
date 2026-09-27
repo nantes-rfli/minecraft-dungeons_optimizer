@@ -35,12 +35,13 @@ describe('Formal Identity reviewed-source grounding', () => {
     }
   })
 
-  it('grounds exactly the 12 reviewed Artifact bridges against override, canonical alias, and Structural evidence', () => {
+  it('grounds exactly the 15 reviewed Artifact bridges against override, canonical alias, and Structural evidence', () => {
     const sources = fixture()
-    expect(reviewedBridgeArtifactFormalIdentities).toHaveLength(12)
+    expect(reviewedBridgeArtifactFormalIdentities).toHaveLength(15)
     const expected = [
       'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
       'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
+      'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
     ]
     expect(reviewedBridgeArtifactFormalIdentities.map(({ assertion }) => assertion.domainId)).toEqual(expected)
     for (const definition of reviewedBridgeArtifactFormalIdentities) {
@@ -80,7 +81,6 @@ describe('Formal Identity reviewed-source grounding', () => {
       expect(sources.equipmentIconSource!.split(/\r?\n/).map((line) => line.trim()).filter((line) => line === overrideLine)).toHaveLength(1)
     }
     const excluded = [
-      'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
       'corrupted-beacon', 'corrupted-seeds', 'enchanters-tome', 'flaming-quiver', 'golem-kit', 'gong-of-weakening',
       'harvester', 'ice-wand', 'lightning-rod', 'love-medallion', 'soul-healer', 'soul-lantern', 'tasty-bone',
       'thundering-quiver', 'tome-of-duplication', 'torment-quiver', 'totem-of-regeneration', 'totem-of-shielding',
@@ -257,10 +257,39 @@ describe('Formal Identity reviewed-source grounding', () => {
     ['melee:sinister-sword', 'Sword_Spooky1'],
     ['ranged:shrieking-crossbow', 'BatCrossbow'],
     ['artifact:blast-fungus', 'NetherWartSporeGrenade'],
+    ['artifact:buzzy-nest', 'BeeNest'],
+    ['artifact:satchel-of-elixirs', 'SatchelOfNeed'],
+    ['artifact:satchel-of-snacks', 'SatchelOfNourishment'],
   ])('rejects documented ENTITY_OVERRIDES drift for %s', (overrideKey, rawIdentity) => {
     const sources = fixture()
     sources.equipmentIconSource = sources.equipmentIconSource!.replace(`'${overrideKey}': '${rawIdentity}'`, `'${overrideKey}': 'Other'`)
     expect(errors(sources).some((error) => error.includes('documented ENTITY_OVERRIDES key must exist exactly once'))).toBe(true)
+  })
+
+  it.each([
+    ['artifact:buzzy-nest', 'BeeNest', 'Beenest'],
+    ['artifact:satchel-of-elixirs', 'SatchelOfNeed', 'SatchelofNeed'],
+    ['artifact:satchel-of-snacks', 'SatchelOfNourishment', 'SatchelofNourishment'],
+  ])('rejects case-only ENTITY_OVERRIDES drift for %s', (overrideKey, rawIdentity, caseVariant) => {
+    const sources = fixture()
+    sources.equipmentIconSource = sources.equipmentIconSource!.replace(`'${overrideKey}': '${rawIdentity}'`, `'${overrideKey}': '${caseVariant}'`)
+    expect(errors(sources).some((error) => error.includes('documented ENTITY_OVERRIDES key must exist exactly once'))).toBe(true)
+  })
+
+  it.each([
+    ['buzzy-nest ItemIdName', 'buzzy-nest', 'ItemIdName', 'Beenest'],
+    ['buzzy-nest SerializedId', 'buzzy-nest', 'SerializedId', 'Beenest'],
+    ['satchel-of-elixirs ItemIdName', 'satchel-of-elixirs', 'ItemIdName', 'SatchelofNeed'],
+    ['satchel-of-elixirs SerializedId', 'satchel-of-elixirs', 'SerializedId', 'SatchelofNeed'],
+    ['satchel-of-snacks ItemIdName', 'satchel-of-snacks', 'ItemIdName', 'SatchelofNourishment'],
+    ['satchel-of-snacks SerializedId', 'satchel-of-snacks', 'SerializedId', 'SatchelofNourishment'],
+  ])('rejects case-only Raw Structural %s drift', (_label, domainId, field, caseVariant) => {
+    const sources = fixture()
+    const binding = sources.reviewedArtifactInventoryBindings.find((entry) => entry.definition.assertion.domainId === domainId)!
+    if (field === 'ItemIdName') binding.observation.itemIdName.observation = { state: 'known', value: caseVariant }
+    else binding.observation.serializedId.observation = { state: 'known', value: caseVariant }
+    const expectedError = field === 'ItemIdName' ? 'Structural ItemIdName differs from bridge Raw identity' : 'Structural SerializedId differs from bridge Raw identity'
+    expect(errors(sources).some((error) => error.includes(expectedError))).toBe(true)
   })
 
   it.each([

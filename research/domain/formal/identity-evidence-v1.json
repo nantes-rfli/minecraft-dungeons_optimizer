@@ -4342,6 +4342,99 @@
             "evidence:presentation:vexing-chant:artifact-catalog"
           ]
         }
+      },
+      {
+        "assertionId": "identity:buzzy-nest@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "BeeNest",
+            "evidenceRef": "evidence:raw:identity:buzzy-nest@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "BeeNest",
+            "evidenceRef": "evidence:raw:identity:buzzy-nest@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:buzzy-nest@1",
+          "domainId": "buzzy-nest",
+          "evidenceRefs": [
+            "evidence:raw:identity:buzzy-nest@1:ItemIdName",
+            "evidence:raw:identity:buzzy-nest@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "buzzy-nest",
+          "displayName": "Buzzy Nest",
+          "evidenceRefs": [
+            "evidence:presentation:buzzy-nest:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:satchel-of-elixirs@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SatchelOfNeed",
+            "evidenceRef": "evidence:raw:identity:satchel-of-elixirs@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SatchelOfNeed",
+            "evidenceRef": "evidence:raw:identity:satchel-of-elixirs@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:satchel-of-elixirs@1",
+          "domainId": "satchel-of-elixirs",
+          "evidenceRefs": [
+            "evidence:raw:identity:satchel-of-elixirs@1:ItemIdName",
+            "evidence:raw:identity:satchel-of-elixirs@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "satchel-of-elixirs",
+          "displayName": "Satchel of Elixirs",
+          "evidenceRefs": [
+            "evidence:presentation:satchel-of-elixirs:artifact-catalog"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:satchel-of-snacks@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SatchelOfNourishment",
+            "evidenceRef": "evidence:raw:identity:satchel-of-snacks@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SatchelOfNourishment",
+            "evidenceRef": "evidence:raw:identity:satchel-of-snacks@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:satchel-of-snacks@1",
+          "domainId": "satchel-of-snacks",
+          "evidenceRefs": [
+            "evidence:raw:identity:satchel-of-snacks@1:ItemIdName",
+            "evidence:raw:identity:satchel-of-snacks@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "satchel-of-snacks",
+          "displayName": "Satchel of Snacks",
+          "evidenceRefs": [
+            "evidence:presentation:satchel-of-snacks:artifact-catalog"
+          ]
+        }
       }
     ]
   },
@@ -7019,6 +7112,66 @@
       "evidenceRefs": [
         "evidence:reviewed:vexing-chant:accepted-alias",
         "evidence:reviewed:vexing-chant:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:buzzy-nest@1",
+      "rawIdentity": "BeeNest",
+      "domainId": "buzzy-nest",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:buzzy-nest:accepted-alias",
+        "evidence:reviewed:buzzy-nest:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:satchel-of-elixirs@1",
+      "rawIdentity": "SatchelOfNeed",
+      "domainId": "satchel-of-elixirs",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:satchel-of-elixirs:accepted-alias",
+        "evidence:reviewed:satchel-of-elixirs:documented-entity-alias"
+      ]
+    },
+    {
+      "id": "identity:satchel-of-snacks@1",
+      "rawIdentity": "SatchelOfNourishment",
+      "domainId": "satchel-of-snacks",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:satchel-of-snacks:accepted-alias",
+        "evidence:reviewed:satchel-of-snacks:documented-entity-alias"
       ]
     }
   ],
@@ -16171,6 +16324,231 @@
           "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/6/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:3363de7c"
+      },
+      {
+        "id": "evidence:reviewed:buzzy-nest:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:BeeNest]"
+        },
+        "fingerprint": "fnv1a32:845c6fac"
+      },
+      {
+        "id": "evidence:presentation:buzzy-nest:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=buzzy-nest].name"
+        },
+        "fingerprint": "fnv1a32:4371f4ad"
+      },
+      {
+        "id": "evidence:reviewed:buzzy-nest:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:buzzy-nest']"
+        },
+        "fingerprint": "fnv1a32:4bb00135"
+      },
+      {
+        "id": "evidence:raw:identity:buzzy-nest@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "BeeNest"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c2243270619e730e15bfba8e7d7feb909ea0e77c71fd74dec633d0192082223b",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "35af449e6bfcd5d74c6aecc170fc924d78b478eba2ef31ab16be900cf4fa5554"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:48f34b9c"
+      },
+      {
+        "id": "evidence:raw:identity:buzzy-nest@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "BeeNest"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c2243270619e730e15bfba8e7d7feb909ea0e77c71fd74dec633d0192082223b",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_BeenestInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "35af449e6bfcd5d74c6aecc170fc924d78b478eba2ef31ab16be900cf4fa5554"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:b1379ed1"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-elixirs:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:SatchelOfNeed]"
+        },
+        "fingerprint": "fnv1a32:56c166d1"
+      },
+      {
+        "id": "evidence:presentation:satchel-of-elixirs:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=satchel-of-elixirs].name"
+        },
+        "fingerprint": "fnv1a32:17f4d4f9"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-elixirs:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:satchel-of-elixirs']"
+        },
+        "fingerprint": "fnv1a32:33ca0379"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-elixirs@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfNeed"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:35544b3cdbaf2554a4fd6c1285a428286516e9e06ba97c0622c2ef0945d76ee6",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "24972bebb2da114134f32d1417bf7587d419653415f08d105bb376448c4e607d"
+          },
+          "nodePointer": "/packages/56/cdoPropertyInventory/0/properties/1"
+        },
+        "fingerprint": "fnv1a32:67d857f6"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-elixirs@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfNeed"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:35544b3cdbaf2554a4fd6c1285a428286516e9e06ba97c0622c2ef0945d76ee6",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "24972bebb2da114134f32d1417bf7587d419653415f08d105bb376448c4e607d"
+          },
+          "nodePointer": "/packages/56/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:40668efc"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-snacks:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical artifact entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=artifact:SatchelOfNourishment]"
+        },
+        "fingerprint": "fnv1a32:fe851e5a"
+      },
+      {
+        "id": "evidence:presentation:satchel-of-snacks:artifact-catalog",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The artifact audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/artifact-audit.json",
+          "locator": "entries[id=satchel-of-snacks].name"
+        },
+        "fingerprint": "fnv1a32:70832db9"
+      },
+      {
+        "id": "evidence:reviewed:satchel-of-snacks:documented-entity-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The documented ENTITY_OVERRIDES table maps the canonical catalog key to the exact Raw identity.",
+        "source": {
+          "artifactPath": "scripts/equipment-icons.ts",
+          "locator": "ENTITY_OVERRIDES['artifact:satchel-of-snacks']"
+        },
+        "fingerprint": "fnv1a32:5e30864b"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-snacks@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfNourishment"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:73afb504c4700ff6bfb214fbdf3ab33d884e834a3e39d166c75222d8872f165c",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "febfd37ccb3a8903fe0d8bc6d2e831fab3ce361c4ae36c727496478641ad5443"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/1"
+        },
+        "fingerprint": "fnv1a32:c33d15bd"
+      },
+      {
+        "id": "evidence:raw:identity:satchel-of-snacks@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SatchelOfNourishment"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:73afb504c4700ff6bfb214fbdf3ab33d884e834a3e39d166c75222d8872f165c",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "febfd37ccb3a8903fe0d8bc6d2e831fab3ce361c4ae36c727496478641ad5443"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:32390425"
       }
     ]
   }

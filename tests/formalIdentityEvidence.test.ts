@@ -42,8 +42,8 @@ describe('Formal Identity / Evidence v1', () => {
       { domainId: 'battle-robe', reviewState: 'provisional', confidence: undefined },
       { domainId: 'death-cap-mushroom', reviewState: 'accepted', confidence: 'high' },
     ])
-    expect(artifact.identityAssertions).toHaveLength(140)
-    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(140).fill('matched'))
+    expect(artifact.identityAssertions).toHaveLength(143)
+    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(143).fill('matched'))
     expect(artifact.semantic.identities.map(({ resolution }) => resolution.state === 'matched' && resolution.domainId)).toEqual(formalIdentityDefinitions.map(({ assertion }) => assertion.domainId))
     expect(artifact.identityAssertions.slice(4, 52).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities].map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
@@ -60,6 +60,7 @@ describe('Formal Identity / Evidence v1', () => {
     expect(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId)).toEqual([
       'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
       'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
+      'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
     ])
     expect(new Set(artifact.provenance.evidence.flatMap((record) => record.kind === 'reviewed' ? [record.role] : []))).toEqual(new Set(['support', 'limitation', 'conflict']))
   })
@@ -225,8 +226,8 @@ describe('Formal Identity / Evidence v1', () => {
     }
   })
 
-  it('grounds all 12 reviewed Artifact bridges in their exact Structural packages and both serialized identity fields', () => {
-    expect(reviewedArtifactInventoryInputs).toHaveLength(12)
+  it('grounds all 15 reviewed Artifact bridges in their exact Structural packages and both serialized identity fields', () => {
+    expect(reviewedArtifactInventoryInputs).toHaveLength(15)
     for (const input of reviewedArtifactInventoryInputs) {
       if (!('observation' in input) || !input.observation) throw new Error('expected reviewed Artifact inventory observation input')
       const { definition, observation } = input

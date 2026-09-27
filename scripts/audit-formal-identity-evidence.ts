@@ -43,10 +43,10 @@ const inventoryInputs = readFormalIdentityInventoryInputs(repositoryRoot, invent
 const artifact = buildFormalIdentityEvidenceArtifact([...representativeInputs, ...inventoryInputs])
 
 assert.deepEqual(collectFormalIdentityEvidenceErrors(artifact), [])
-assert.equal(artifact.identityAssertions.length, 140)
-assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 140)
-assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id)).size, 140, 'duplicate Formal Identity assertion')
-assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId)).size, 140, 'duplicate Formal Identity domain')
+assert.equal(artifact.identityAssertions.length, 143)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 143)
+assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id)).size, 143, 'duplicate Formal Identity assertion')
+assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId)).size, 143, 'duplicate Formal Identity domain')
 const matchedMelee = artifact.semantic.identities.filter(({ resolution }) =>
   resolution.state === 'matched'
   && (resolution.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedBridgeMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId)))
@@ -78,8 +78,9 @@ const reviewedArtifactDomainIds = reviewedBridgeArtifactFormalIdentities.map(({ 
 assert.deepEqual(reviewedArtifactDomainIds, [
   'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
   'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
+  'buzzy-nest', 'satchel-of-elixirs', 'satchel-of-snacks',
 ])
-assert.equal(reviewedArtifactDomainIds.length, 12, 'new reviewed Artifact identity population drift')
+assert.equal(reviewedArtifactDomainIds.length, 15, 'new reviewed Artifact identity population drift')
 assert.deepEqual(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId), reviewedArtifactDomainIds)
 assert.deepEqual(artifact.identityAssertions.slice(52, 58).map(({ domainId }) => domainId), artifactDomainIds)
 assert.deepEqual(artifact.semantic.identities.slice(52, 58).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), artifactDomainIds)
@@ -90,7 +91,7 @@ assert.deepEqual(artifact.semantic.identities.slice(58, 128).map(({ resolution }
 assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'battle-robe' || armorDomainIds.includes(resolution.domainId))).length, 71)
 assert.deepEqual(artifact.identityAssertions.slice(128).map(({ domainId }) => domainId), reviewedArtifactDomainIds)
 assert.deepEqual(artifact.semantic.identities.slice(128).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved'), reviewedArtifactDomainIds)
-assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'death-cap-mushroom' || artifactDomainIds.includes(resolution.domainId) || reviewedArtifactDomainIds.includes(resolution.domainId))).length, 19)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched' && (resolution.domainId === 'death-cap-mushroom' || artifactDomainIds.includes(resolution.domainId) || reviewedArtifactDomainIds.includes(resolution.domainId))).length, 22)
 
 for (const definition of readyArtifactFormalIdentities) {
   const input = inventoryInputs.find(({ definition: candidate }) => candidate.assertion.id === definition.assertion.id)
@@ -182,6 +183,22 @@ assert.equal(
   'Existing 128 Formal Identity assertions, semantic identities, or evidence/provenance changed',
 )
 
+const existing140Assertions = artifact.identityAssertions.slice(0, 140)
+const existing140AssertionIds = new Set(existing140Assertions.map(({ id }) => id))
+const existing140Semantics = artifact.semantic.identities.filter(({ assertionId }) => existing140AssertionIds.has(assertionId))
+const existing140EvidenceRefs = new Set(existing140Assertions.flatMap(({ evidenceRefs }) => evidenceRefs))
+for (const identity of existing140Semantics) {
+  existing140EvidenceRefs.add(identity.rawEvidence.itemIdName.evidenceRef)
+  existing140EvidenceRefs.add(identity.rawEvidence.serializedId.evidenceRef)
+  identity.resolution.evidenceRefs.forEach((reference) => existing140EvidenceRefs.add(reference))
+}
+const existing140Evidence = artifact.provenance.evidence.filter(({ id }) => existing140EvidenceRefs.has(id))
+assert.equal(
+  crypto.createHash('sha256').update(JSON.stringify({ identityAssertions: existing140Assertions, semanticIdentities: existing140Semantics, provenanceEvidence: existing140Evidence })).digest('hex'),
+  'b27f40a83a85a55d3e47ee6d9634f9b4b1c6faac30e4f19b9191efd9622e50d9',
+  'Existing 140 Formal Identity assertions, semantic identities, or evidence/provenance changed',
+)
+
 const roles = new Set(artifact.provenance.evidence.flatMap((record: EvidenceRecord) => record.kind === 'reviewed' ? [record.role] : []))
 assert.deepEqual([...roles].sort(), ['conflict', 'limitation', 'support'])
 for (const record of artifact.provenance.evidence) {
@@ -199,4 +216,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Identity/Evidence artifact drift; run generate:formal-identity-evidence')
-console.log('Formal Identity/Evidence v1 audit passed: 140 matched identities (27 Melee, 23 Ranged, 71 Armor, 19 Artifact); 12 reviewed Artifact bridges and exact Structural observations match; duplicate assertions/domains 0; unsupported promotions 0; the existing 128 and Phase A identities remain unchanged.')
+console.log('Formal Identity/Evidence v1 audit passed: 143 matched identities (27 Melee, 23 Ranged, 71 Armor, 22 Artifact); 15 reviewed Artifact bridges and exact Structural observations match; duplicate assertions/domains 0; unsupported promotions 0; the existing 140 and Phase A identities remain unchanged.')
