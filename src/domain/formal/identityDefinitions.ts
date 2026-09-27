@@ -410,6 +410,65 @@ export const corruptedSeedsFormalIdentity = definition(
   ],
 )
 
+export const reviewedTypedRelationMeleeFormalIdentityInputs = [
+  {
+    domainId: 'broken-sawblade',
+    rawIdentity: 'Chainsword',
+    packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance',
+    displayName: 'Broken Sawblade',
+  },
+  {
+    domainId: 'mechanized-sawblade',
+    rawIdentity: 'Chainsword_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance',
+    displayName: 'Mechanized Sawblade',
+  },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+
+function reviewedTypedRelationMeleeDefinition(input: AcceptedMeleeIdentityInput): FormalIdentityDefinition {
+  const aliasEvidenceRef = `evidence:reviewed:${input.domainId}:accepted-alias`
+  const bridgeEvidenceRef = `evidence:reviewed:${input.domainId}:typed-raw-relation-bridge`
+  const presentationEvidenceRef = `evidence:presentation:${input.domainId}:source-harvest`
+  return definition(
+    {
+      id: `identity:${input.domainId}@1`,
+      rawIdentity: input.rawIdentity,
+      domainId: input.domainId,
+      reviewState: 'accepted',
+      confidence: 'high',
+      applicationScope: scope(input.packagePath),
+      evidenceRefs: [aliasEvidenceRef, bridgeEvidenceRef],
+    },
+    input.displayName,
+    presentationEvidenceRef,
+    [
+      {
+        id: aliasEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'Research-owned typed-relation mapping materializes the exact Raw identity as an accepted high-confidence melee-weapon alias.',
+        source: { artifactPath: 'research/domain/game-data-entity-aliases.json', locator: `aliases[id=melee-weapon:${input.rawIdentity}]` },
+      },
+      {
+        id: bridgeEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The explicit reviewed Melee bridge binds the canonical source record to the exact Raw package and typed InventoryDropSound relation; no sound-cue inference rule is applied.',
+        source: { artifactPath: 'scripts/game-data-model-alignment.ts', locator: `REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES[domainId=${input.domainId}]` },
+      },
+      {
+        id: presentationEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'The canonical source-harvest identity record supplies the exact English display name.',
+        source: { artifactPath: 'research/source-harvest.json', locator: `records[category=melee-weapon,id=${input.domainId}].known[property=identity].value.names.en` },
+      },
+    ],
+  )
+}
+
+export const reviewedTypedRelationMeleeFormalIdentities = reviewedTypedRelationMeleeFormalIdentityInputs.map(reviewedTypedRelationMeleeDefinition)
+
 type ArmorIdentityInput = {
   domainId: string
   rawIdentity: string
@@ -539,4 +598,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...readyArmorFormalIdentities,
   ...reviewedBridgeArtifactFormalIdentities,
   corruptedSeedsFormalIdentity,
+  ...reviewedTypedRelationMeleeFormalIdentities,
 ]
