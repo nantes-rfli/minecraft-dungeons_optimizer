@@ -4466,6 +4466,68 @@
             "evidence:presentation:corrupted-seeds:artifact-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:broken-sawblade@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Chainsword",
+            "evidenceRef": "evidence:raw:identity:broken-sawblade@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Chainsword",
+            "evidenceRef": "evidence:raw:identity:broken-sawblade@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:broken-sawblade@1",
+          "domainId": "broken-sawblade",
+          "evidenceRefs": [
+            "evidence:raw:identity:broken-sawblade@1:ItemIdName",
+            "evidence:raw:identity:broken-sawblade@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "broken-sawblade",
+          "displayName": "Broken Sawblade",
+          "evidenceRefs": [
+            "evidence:presentation:broken-sawblade:source-harvest"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:mechanized-sawblade@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Chainsword_Unique1",
+            "evidenceRef": "evidence:raw:identity:mechanized-sawblade@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Chainsword_Unique1",
+            "evidenceRef": "evidence:raw:identity:mechanized-sawblade@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:mechanized-sawblade@1",
+          "domainId": "mechanized-sawblade",
+          "evidenceRefs": [
+            "evidence:raw:identity:mechanized-sawblade@1:ItemIdName",
+            "evidence:raw:identity:mechanized-sawblade@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "mechanized-sawblade",
+          "displayName": "Mechanized Sawblade",
+          "evidenceRefs": [
+            "evidence:presentation:mechanized-sawblade:source-harvest"
+          ]
+        }
       }
     ]
   },
@@ -7223,6 +7285,46 @@
       "evidenceRefs": [
         "evidence:reviewed:corrupted-seeds:accepted-alias",
         "evidence:reviewed:corrupted-seeds:independent-source-id"
+      ]
+    },
+    {
+      "id": "identity:broken-sawblade@1",
+      "rawIdentity": "Chainsword",
+      "domainId": "broken-sawblade",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:broken-sawblade:accepted-alias",
+        "evidence:reviewed:broken-sawblade:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:mechanized-sawblade@1",
+      "rawIdentity": "Chainsword_Unique1",
+      "domainId": "mechanized-sawblade",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:mechanized-sawblade:accepted-alias",
+        "evidence:reviewed:mechanized-sawblade:typed-raw-relation-bridge"
       ]
     }
   ],
@@ -16675,6 +16777,156 @@
           "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/7/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:a84a113e"
+      },
+      {
+        "id": "evidence:reviewed:broken-sawblade:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Research-owned typed-relation mapping materializes the exact Raw identity as an accepted high-confidence melee-weapon alias.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Chainsword]"
+        },
+        "fingerprint": "fnv1a32:c5da52e6"
+      },
+      {
+        "id": "evidence:reviewed:broken-sawblade:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The explicit reviewed Melee bridge binds the canonical source record to the exact Raw package and typed InventoryDropSound relation; no sound-cue inference rule is applied.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES[domainId=broken-sawblade]"
+        },
+        "fingerprint": "fnv1a32:d35754ab"
+      },
+      {
+        "id": "evidence:presentation:broken-sawblade:source-harvest",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The canonical source-harvest identity record supplies the exact English display name.",
+        "source": {
+          "artifactPath": "research/source-harvest.json",
+          "locator": "records[category=melee-weapon,id=broken-sawblade].known[property=identity].value.names.en"
+        },
+        "fingerprint": "fnv1a32:7de32416"
+      },
+      {
+        "id": "evidence:raw:identity:broken-sawblade@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Chainsword"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1df83f9568e9ffd5ebc449811569376bb96d4ea6cf33c878626c65c6fc4f2207",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3cda8f11864bf06deb03bb741fa2eae9c38f0dadb6b07d988fa918802cbebc3"
+          },
+          "nodePointer": "/packages/11/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:dc4ea4a5"
+      },
+      {
+        "id": "evidence:raw:identity:broken-sawblade@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Chainsword"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1df83f9568e9ffd5ebc449811569376bb96d4ea6cf33c878626c65c6fc4f2207",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3cda8f11864bf06deb03bb741fa2eae9c38f0dadb6b07d988fa918802cbebc3"
+          },
+          "nodePointer": "/packages/11/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:6eacaa3d"
+      },
+      {
+        "id": "evidence:reviewed:mechanized-sawblade:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Research-owned typed-relation mapping materializes the exact Raw identity as an accepted high-confidence melee-weapon alias.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Chainsword_Unique1]"
+        },
+        "fingerprint": "fnv1a32:8f801070"
+      },
+      {
+        "id": "evidence:reviewed:mechanized-sawblade:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The explicit reviewed Melee bridge binds the canonical source record to the exact Raw package and typed InventoryDropSound relation; no sound-cue inference rule is applied.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES[domainId=mechanized-sawblade]"
+        },
+        "fingerprint": "fnv1a32:d67e041b"
+      },
+      {
+        "id": "evidence:presentation:mechanized-sawblade:source-harvest",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The canonical source-harvest identity record supplies the exact English display name.",
+        "source": {
+          "artifactPath": "research/source-harvest.json",
+          "locator": "records[category=melee-weapon,id=mechanized-sawblade].known[property=identity].value.names.en"
+        },
+        "fingerprint": "fnv1a32:e067d120"
+      },
+      {
+        "id": "evidence:raw:identity:mechanized-sawblade@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Chainsword_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:70e764072bca462ff6d05f97abad3ddcfde6c3cfec1813f916a7b328897eb74d",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb8ac6644393f78f191e920bf7bbd7d63c62ff17587585ce6a5b60eaa1e8cc7"
+          },
+          "nodePointer": "/packages/62/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:3b509c95"
+      },
+      {
+        "id": "evidence:raw:identity:mechanized-sawblade@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Chainsword_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:70e764072bca462ff6d05f97abad3ddcfde6c3cfec1813f916a7b328897eb74d",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb8ac6644393f78f191e920bf7bbd7d63c62ff17587585ce6a5b60eaa1e8cc7"
+          },
+          "nodePointer": "/packages/62/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:4242868b"
       }
     ]
   }
