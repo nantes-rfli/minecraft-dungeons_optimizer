@@ -22,6 +22,8 @@ import {
   reviewedBridgeArtifactFormalIdentityInputs,
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationMeleeFormalIdentityInputs,
+  reviewedTypedRelationFormalIdentities,
+  reviewedTypedRelationFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
@@ -30,6 +32,8 @@ import {
   REVIEWED_ARTIFACT_ALIAS_BRIDGES,
   REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES,
   REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES,
+  REVIEWED_TYPED_RELATION_ALIAS_BRIDGES,
+  TYPED_RELATION_ALIAS_BASIS,
   TYPED_RELATION_MELEE_ALIAS_BASIS,
 } from './game-data-model-alignment.ts'
 
@@ -98,6 +102,24 @@ export type FormalReviewedSources = {
     edgeKind: string
     targetPackage: string
   }[]
+  reviewedTypedRelationInventoryBindings: FormalIdentityInventoryBindingInput[]
+  reviewedTypedRelationCanonicalRecords: SourceHarvestRecord[]
+  reviewedTypedRelationBridges: {
+    category: 'melee-weapon' | 'ranged-weapon'
+    domainId: string
+    displayName: string
+    rawIdentity: string
+    packagePath: string
+    canonicalSource: { artifactPath: string; locator: string }
+    relations: {
+      property: string
+      targetPackage: string
+      targetObject: string
+      rawEdgeLocator: string
+    }[]
+    reviewRationale: string
+  }[]
+  typedRelationReviewAuditSource?: string
   reviewedArtifactAliasBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   independentSourceArtifactBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   historicalMappingSource?: string
@@ -131,6 +153,7 @@ const knownPaths = [
   'src/data/artifacts.ts',
   'research/raw/game-data-raw-structural-inventory/manifest.json',
   'docs/remaining_formal_identity_breadth_readiness_audit.md',
+  'docs/remaining_ambiguous_formal_identity_resolution_audit.md',
 ] as const
 
 export function readFormalReviewedSources(repositoryRoot: string): FormalReviewedSources {
@@ -147,7 +170,9 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const rawStructuralSeeds = readJson<{ catalogSeeds?: RawStructuralSeed[] }>('research/raw/game-data-raw-structural-inventory/manifest.json')
   const sourceHarvest = readJson<{ records?: SourceHarvestRecord[] }>('research/source-harvest.json')
   const typedRelationDomainIds = new Set<string>(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map(({ domainId }) => domainId))
+  const reviewedTypedRelationDomainKeys = new Set<string>(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.map(({ category, domainId }) => `${category}:${domainId}`))
   const armorReadinessAuditSource = readText('docs/remaining_formal_identity_breadth_readiness_audit.md')
+  const typedRelationReviewAuditSource = readText('docs/remaining_ambiguous_formal_identity_resolution_audit.md')
   const weaponsSource = readText('src/data/weapons.ts') ?? ''
   const armorsSource = readText('src/data/armors.ts') ?? ''
   const artifactsSource = readText('src/data/artifacts.ts') ?? ''
@@ -170,6 +195,10 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     typedRelationMeleeInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedTypedRelationMeleeFormalIdentities),
     typedRelationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => record.category === 'melee-weapon' && typeof record.id === 'string' && typedRelationDomainIds.has(record.id)),
     reviewedTypedRelationMeleeBridges: REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map((bridge) => ({ ...bridge, canonicalSource: { ...bridge.canonicalSource } })),
+    reviewedTypedRelationInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedTypedRelationFormalIdentities),
+    reviewedTypedRelationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => typeof record.category === 'string' && typeof record.id === 'string' && reviewedTypedRelationDomainKeys.has(`${record.category}:${record.id}`)),
+    reviewedTypedRelationBridges: REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.map((bridge) => ({ ...bridge, canonicalSource: { ...bridge.canonicalSource }, relations: bridge.relations.map((relation) => ({ ...relation })) })),
+    typedRelationReviewAuditSource,
     reviewedArtifactAliasBridges: REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     independentSourceArtifactBridges: REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     historicalMappingSource: readText(historicalPath),
@@ -179,11 +208,11 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       scatterCrossbow: rangedAudit?.entries?.find((entry) => entry.id === 'scatter-crossbow')?.name?.en,
       battleRobe: battleRobeBlock?.[2],
       deathCapMushroom: mushroomBlock?.[1],
-      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs].map(({ domainId }) => [
+      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'melee')].map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
       ])),
-      ranged: Object.fromEntries([...readyRangedFormalIdentityInputs, ...reviewedBridgeRangedFormalIdentityInputs].map(({ domainId }) => [
+      ranged: Object.fromEntries([...readyRangedFormalIdentityInputs, ...reviewedBridgeRangedFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'ranged')].map(({ domainId }) => [
         domainId,
         rangedAudit?.entries?.find((entry) => entry.id === domainId)?.name?.en,
       ])),
@@ -571,6 +600,105 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
       `${assertion.id}: typed-relation Formal evidence chain drift`,
     )
     check(definition.presentation.displayName === input?.displayName && definition.presentation.displayName === sources.presentations.melee[assertion.domainId], `${assertion.id}: typed-relation presentation displayName drift`)
+  }
+
+  check(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.length === 6, 'reviewed typed-relation bridge source population drift')
+  check(sources.reviewedTypedRelationBridges.length === 6, 'reviewed typed-relation bridge population drift')
+  check(reviewedTypedRelationFormalIdentities.length === 6, 'reviewed typed-relation Formal population drift')
+  check(sources.reviewedTypedRelationBridges.reduce((sum, bridge) => sum + bridge.relations.length, 0) === 10, 'reviewed typed-relation exact observation population drift')
+  const normalizeTypedRelationProperty = (value: string | undefined) => value?.replace(/\[\d+\]/g, '[]') ?? ''
+  for (const definition of reviewedTypedRelationFormalIdentities) {
+    const assertion = definition.assertion
+    const input = reviewedTypedRelationFormalIdentityInputs.find((candidate) => candidate.domainId === assertion.domainId)
+    const expectedCategory = input?.category === 'melee' ? 'melee-weapon' : input?.category === 'ranged' ? 'ranged-weapon' : undefined
+    const rawSeedCategory = input?.category
+    const bridgeMatches = sources.reviewedTypedRelationBridges.filter((bridge) => bridge.category === expectedCategory && bridge.domainId === assertion.domainId)
+    const rawBridgeMatches = sources.reviewedTypedRelationBridges.filter((bridge) => bridge.category === expectedCategory && bridge.rawIdentity === assertion.rawIdentity)
+    const bridge = bridgeMatches[0]
+    const canonicalRecords = sources.reviewedTypedRelationCanonicalRecords.filter((record) => record.category === expectedCategory && record.id === assertion.domainId)
+    const canonicalRecord = canonicalRecords[0]
+    const identityKnown = canonicalRecord?.known?.filter((known) => known.property === 'identity') ?? []
+    const identityValue = identityKnown[0]?.value
+    const aliasId = expectedCategory ? `${expectedCategory}:${assertion.rawIdentity}` : ''
+    const canonicalEntity = expectedCategory ? `${expectedCategory}:${assertion.domainId}` : ''
+    const matchingAliases = aliases.filter((entry) => entry.id === aliasId)
+    const alias = matchingAliases[0]
+    const matchingSeeds = rawSeeds.filter((seed) => seed.category === rawSeedCategory && seed.catalogId === assertion.domainId)
+    const seed = matchingSeeds[0]
+    const candidates = seed?.candidates ?? []
+    const selectedCandidates = candidates.filter((candidate) =>
+      candidate.packagePath === bridge?.packagePath
+      && candidate.evidence?.includes(`serialized-identifier:ItemIdName=${assertion.rawIdentity}`) === true
+      && candidate.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${assertion.rawIdentity}`) === true)
+    const candidate = selectedCandidates[0]
+    const matchingBindings = sources.reviewedTypedRelationInventoryBindings.filter((binding) => binding.definition.assertion.id === assertion.id)
+    const binding = matchingBindings[0]
+    const cdoExports = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const cdo = cdoExports[0]
+    const cdoClass = cdo?.references.class
+    const cdoClassObjectName = cdoClass && typeof cdoClass === 'object' && 'objectName' in cdoClass ? cdoClass.objectName : undefined
+    const cdoInventories = cdo
+      ? binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo.exportIndex) ?? []
+      : []
+    const observation = binding?.observation
+    const aliasEvidenceRef = `evidence:reviewed:${assertion.domainId}:accepted-alias`
+    const bridgeEvidenceRef = `evidence:reviewed:${assertion.domainId}:typed-raw-relation-bridge`
+    const presentationSource = input?.category === 'melee' ? sources.presentations.melee[assertion.domainId] : sources.presentations.ranged[assertion.domainId]
+
+    check(Boolean(input) && Boolean(expectedCategory), `${assertion.id}: typed-relation identity is outside the reviewed six-domain input set`)
+    check(bridgeMatches.length === 1 && rawBridgeMatches.length === 1, `${assertion.id}: reviewed typed-relation bridge must exist exactly once by category/domain and Raw identity`)
+    check(bridge?.displayName === input?.displayName && bridge?.rawIdentity === input?.rawIdentity && bridge?.packagePath === input?.packagePath, `${assertion.id}: reviewed typed-relation bridge domain/raw/package drift`)
+    check(bridge?.canonicalSource.artifactPath === 'research/source-harvest.json' && bridge?.canonicalSource.locator === `records[category=${expectedCategory},id=${assertion.domainId}]/known[property=identity]`, `${assertion.id}: reviewed typed-relation canonical source locator drift`)
+    check(Boolean(bridge?.reviewRationale) && sources.typedRelationReviewAuditSource?.includes(bridge?.reviewRationale ?? '') === true, `${assertion.id}: reviewed typed-relation rationale is not grounded in the PR #139 audit`)
+    check((bridge?.relations.length ?? 0) > 0, `${assertion.id}: reviewed typed-relation exact relation set missing`)
+    check(canonicalRecords.length === 1, `${assertion.id}: reviewed typed-relation canonical source record must exist exactly once`)
+    check(canonicalRecord?.category === expectedCategory && canonicalRecord?.id === assertion.domainId && canonicalRecord?.label === input?.displayName, `${assertion.id}: reviewed typed-relation canonical source category/domain/displayName drift`)
+    check(identityKnown.length === 1 && identityValue?.canonicalId === assertion.domainId && identityValue?.names?.en === input?.displayName, `${assertion.id}: reviewed typed-relation canonical source identity value drift`)
+    check(matchingAliases.length === 1, `${assertion.id}: reviewed typed-relation alias must exist exactly once`)
+    check(alias?.category === expectedCategory && alias?.status === 'accepted' && alias?.confidence === 'high', `${assertion.id}: reviewed typed-relation alias must be category-correct accepted/high`)
+    check(alias?.rawIdentity === assertion.rawIdentity && alias?.canonicalEntity === canonicalEntity, `${assertion.id}: reviewed typed-relation alias raw/canonical identity drift`)
+    check(alias?.candidates?.length === 1 && alias.candidates[0] === canonicalEntity, `${assertion.id}: reviewed typed-relation alias canonical candidate drift`)
+    check(alias?.assetPaths?.length === 1 && alias.assetPaths[0] === bridge?.packagePath, `${assertion.id}: reviewed typed-relation alias package must match exactly`)
+    check(alias?.basis === TYPED_RELATION_ALIAS_BASIS, `${assertion.id}: reviewed typed-relation alias basis drift`)
+    check((alias?.evidenceIds?.length ?? 0) > 0, `${assertion.id}: reviewed typed-relation alias catalog evidence missing`)
+    check(matchingSeeds.length === 1, `${assertion.id}: Raw Structural catalog seed must exist exactly once`)
+    check(seed?.status === 'ambiguous' && candidates.length >= 2, `${assertion.id}: reviewed typed-relation source must remain an ambiguous multi-candidate seed`)
+    check(selectedCandidates.length === 1, `${assertion.id}: reviewed typed-relation selected candidate must resolve exactly once from exact package and serialized identities`)
+    check(candidate?.role === 'instance', `${assertion.id}: reviewed typed-relation selected candidate role must be instance`)
+    check(candidate?.packagePath === bridge?.packagePath && candidate?.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: reviewed typed-relation selected candidate package drift`)
+    check(matchingBindings.length === 1, `${assertion.id}: reviewed typed-relation exact Structural package binding must exist exactly once`)
+    check(binding?.structuralPackage.path === bridge?.packagePath, `${assertion.id}: reviewed typed-relation Structural package path drift`)
+    check(cdoExports.length === 1, `${assertion.id}: reviewed typed-relation Structural package must contain exactly one CDO`)
+    check(cdoClassObjectName === candidate?.objectName, `${assertion.id}: reviewed typed-relation candidate object does not bind to the Structural CDO class`)
+    check(cdoInventories.length === 1, `${assertion.id}: reviewed typed-relation Structural package must contain exactly one CDO property inventory`)
+    for (const relation of bridge?.relations ?? []) {
+      const exactEdges = binding?.structuralEdges.filter((edge) =>
+        edge.sourcePackage === bridge?.packagePath
+        && edge.sourceOccurrence.kind === 'cdo-property'
+        && normalizeTypedRelationProperty(edge.sourceOccurrence.propertyPath) === relation.property
+        && (edge.targetPackage ?? edge.targetPackageName) === relation.targetPackage
+        && edge.targetObject === relation.targetObject
+        && `research/raw/game-data-raw-structural-inventory/${binding?.shardPath}#/edges[id=${edge.id}]` === relation.rawEdgeLocator) ?? []
+      const auditTuple = `\`${relation.property}\` → \`${relation.targetPackage}\` :: \`${relation.targetObject}\``
+      check(exactEdges.length === 1, `${assertion.id}: reviewed exact typed relation edge must exist exactly once: ${relation.property}`)
+      check(exactEdges[0]?.kind.endsWith('-property') === true, `${assertion.id}: reviewed exact typed relation edge kind drift: ${relation.property}`)
+      check(sources.typedRelationReviewAuditSource?.includes(auditTuple) === true && sources.typedRelationReviewAuditSource?.includes(`Raw edge=\`${relation.rawEdgeLocator}\``) === true, `${assertion.id}: reviewed exact typed relation is not grounded in the PR #139 audit: ${relation.property}`)
+    }
+    check(observation?.packagePath === bridge?.packagePath && observation?.rawSchemaVersion === 2, `${assertion.id}: reviewed typed-relation Structural observation package/schema drift`)
+    check(observation?.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === assertion.rawIdentity, `${assertion.id}: Structural ItemIdName differs from reviewed typed-relation Raw identity`)
+    check(observation?.serializedId.observation.state === 'known' && observation.serializedId.observation.value === assertion.rawIdentity, `${assertion.id}: Structural SerializedId differs from reviewed typed-relation Raw identity`)
+    check(assertion.domainId === input?.domainId && assertion.rawIdentity === input?.rawIdentity && assertion.applicationScope.packagePath === input?.packagePath, `${assertion.id}: reviewed typed-relation Formal identity drift`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: reviewed typed-relation Formal assertion must be accepted/high`)
+    check(assertion.applicationScope.rawSchemaVersion === 2 && assertion.applicationScope.identityFields.itemIdName === 'ItemIdName' && assertion.applicationScope.identityFields.serializedId === 'ItemId.SerializedId', `${assertion.id}: reviewed typed-relation Formal Raw identity scope drift`)
+    check(
+      assertion.evidenceRefs.length === 2
+      && assertion.evidenceRefs[0] === aliasEvidenceRef
+      && assertion.evidenceRefs[1] === bridgeEvidenceRef
+      && definition.reviewedEvidence.some((record) => record.id === aliasEvidenceRef && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json' && record.source.locator === `aliases[id=${aliasId}]`)
+      && definition.reviewedEvidence.some((record) => record.id === bridgeEvidenceRef && record.source.artifactPath === 'scripts/game-data-model-alignment.ts' && record.source.locator === `REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=${assertion.domainId}]`),
+      `${assertion.id}: reviewed typed-relation Formal evidence chain drift`,
+    )
+    check(definition.presentation.displayName === input?.displayName && definition.presentation.displayName === presentationSource, `${assertion.id}: reviewed typed-relation presentation displayName drift`)
   }
 
   const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
