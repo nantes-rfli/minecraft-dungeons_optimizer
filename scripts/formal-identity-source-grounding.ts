@@ -859,13 +859,13 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 146, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 152, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 29,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 31,
     'Formal matched Melee definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 23,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'ranged' && input.domainId === assertion.domainId)).length === 27,
     'Formal matched Ranged definition population drift',
   )
   check(
