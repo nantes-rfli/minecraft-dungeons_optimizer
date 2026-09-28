@@ -35,13 +35,26 @@ const source = (definition: typeof scatterCrossbowFormalIdentity) => {
 }
 const identity = read<FormalIdentityEvidenceArtifact>('research/domain/formal/identity-evidence-v1.json')
 const wave = readHorizontalRelationWaveSources({ repositoryRoot, identity })
-assert.equal(new Set(wave.melee.map(({ occurrence }) => occurrence.domainId)).size, 27)
-assert.equal(wave.melee.length, 96)
-assert.equal(new Set(wave.ranged.map(({ occurrence }) => occurrence.domainId)).size, 23)
-assert.equal(wave.ranged.length, 23)
+assert.equal(new Set(wave.melee.map(({ occurrence }) => occurrence.domainId)).size, 31)
+assert.equal(wave.melee.length, 106)
+assert.equal(new Set(wave.ranged.map(({ occurrence }) => occurrence.domainId)).size, 27)
+assert.equal(wave.ranged.length, 27)
 const firstWave = [...wave.melee, ...wave.ranged]
-assert.equal(firstWave.length, 119)
+assert.equal(firstWave.length, 133)
 assert.ok(firstWave.every(({ serializedTargetResolution }) => serializedTargetResolution.state === 'resolved-local-package'))
+const catchupDomainIds = new Set([
+  'broken-sawblade',
+  'mechanized-sawblade',
+  'chill-gale-knife',
+  'resolute-tempest-knife',
+  'bonebow',
+  'twin-bow',
+  'burst-gale-bow',
+  'echo-of-the-valley',
+])
+assert.equal(wave.melee.filter(({ occurrence }) => catchupDomainIds.has(occurrence.domainId)).length, 10)
+assert.equal(wave.ranged.filter(({ occurrence }) => catchupDomainIds.has(occurrence.domainId)).length, 4)
+assert.equal(firstWave.filter(({ occurrence }) => catchupDomainIds.has(occurrence.domainId)).length, 14)
 const inputs: FormalRelationInputs = {
   structuralPackagePaths,
   scatter: { ...source(scatterCrossbowFormalIdentity), target: readRaw(scatterCrossbowRelationDefinition.targetRawPath) },
@@ -55,9 +68,9 @@ const inputs: FormalRelationInputs = {
 const artifact = buildFormalSerializedRelationArtifact(inputs)
 assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.equal(artifact.semantic.relations.length, 121)
-assert.equal(artifact.relationProjections.length, 121)
-assert.equal(artifact.relationCollections.length, 50)
+assert.equal(artifact.semantic.relations.length, 135)
+assert.equal(artifact.relationProjections.length, 135)
+assert.equal(artifact.relationCollections.length, 58)
 assert.deepEqual(
   artifact.relationProjections.slice(0, 3).map((record) => [
     record.occurrence.domainId,
@@ -79,16 +92,17 @@ assert.deepEqual(scatterProjection.result === 'projected' && scatterProjection.s
   scatterSource.serializedTargetResolution)
 const horizontal = artifact.relationProjections.filter(({ occurrence }) =>
   'sourceIndex' in occurrence && ['configured-attacks', 'projectile-definitions'].includes(occurrence.collectionRef))
-assert.equal(horizontal.length, 119)
+assert.equal(horizontal.length, 133)
 assert.ok(horizontal.every((record) => record.result === 'projected'
   && record.serializedTargetResolution.state === 'resolved-local-package'))
 assert.ok(horizontal.filter(({ occurrence }) => occurrence.domainId !== 'scatter-crossbow').every((record) =>
   record.result === 'projected' && record.targetRawVerification.input === 'not-supplied'
   && record.targetRawVerification.result === 'not-resolved'
   && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
-assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 121)
+assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 135)
 assert.equal(new Set(artifact.semantic.relations.map(({ relationRef, occurrence }) =>
-  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 121)
+  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 135)
+assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 60)
 
 for (const evidence of artifact.provenance.evidence) {
   if (evidence.provenance.artifactPath.endsWith('.json.gz')) {
