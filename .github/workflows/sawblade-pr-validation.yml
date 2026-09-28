@@ -1,0 +1,98 @@
+name: Sawblade PR Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund
+        timeout-minutes: 10
+      - name: Generate reviewed aliases
+        run: npm run generate:game-data-model-alignment
+      - name: Generate Formal Identity
+        run: npm run generate:formal-identity-evidence
+      - name: Upload generated identity artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sawblade-generated-identity
+          path: |
+            research/domain/game-data-entity-aliases.json
+            research/domain/formal/identity-evidence-v1.json
+          retention-days: 2
+      - name: Focused validation
+        run: |
+          npm run audit:game-data-model-alignment
+          npm run audit:formal-identity-evidence
+          npx vitest run tests/gameDataModelAlignment.test.ts tests/formalIdentityEvidence.test.ts tests/formalIdentitySourceGrounding.test.ts
+          git diff --check
+          npx tsc -b
+      - name: Full Validate
+        run: |
+          npm run audit:damage-events
+          npm run audit:dot-damage
+          npm run audit:temporal-enchants
+          npm run audit:soul
+          npm run audit:cc
+          npm run audit:charge-enchants
+          npm run audit:enchants
+          npm run audit:artifacts
+          npm run audit:artifact-control
+          npm run audit:artifact-soul
+          npm run audit:artifact-event
+          npm run audit:artifact-evidence
+          npm run audit:armor
+          npm run audit:armor-enchants
+          npm run audit:armor-runtime
+          npm run audit:armor-expansion
+          npm run audit:runtime-support
+          npm run audit:dps
+          npm run audit:melee
+          npm run audit:ranged
+          npm run audit:ranged-enchants
+          npm run audit:ranged-runtime
+          npm run audit:evidence-coverage
+          npm run audit:source-harvest
+          npm run audit:evidence-gap-map
+          npm run audit:coverage-priority
+          npm run audit:game-data-inventory
+          npm run audit:game-data-provenance
+          npm run audit:game-data-extractor
+          npm run audit:game-data-raw-package
+          npm run audit:game-data-raw-structural-inventory
+          npm run audit:game-data-horizontal-fact-inventory
+          npm run audit:formal-identity-evidence
+          npm run audit:formal-value-availability
+          npm run audit:formal-serialized-relation
+          npm run audit:formal-integration
+          npm run audit:game-data-semantic-mapping
+          npm run audit:game-data-bulk-harvest
+          npm run audit:game-data-gap-reconciliation
+          npm run audit:game-data-final-coverage
+          npm run audit:game-data-model-alignment
+          npm run audit:game-data-native-analysis
+          npm run audit:external-community
+          npm run audit:evidence-adapter
+          npm run audit:attack-event-comparison
+          npm run audit:dr-modifier-comparison
+          npm run audit:scenario-optimizer-comparison
+          npm run audit:runtime-promotion
+          npm run audit:roadmap
+          npm test
+          git diff --exit-code -- README.md ROADMAP.md docs research
+          npx tsc -b
+          npm run lint
+          npm run build
