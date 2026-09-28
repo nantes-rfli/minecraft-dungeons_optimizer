@@ -10,6 +10,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedTypedRelationCatchupMeleeFormalIdentities,
+  reviewedTypedRelationCatchupRangedFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { FormalIdentityEvidenceArtifact, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { collectFormalValueAvailabilityErrors, buildFormalValueAvailabilityArtifact, type FormalValueAvailabilityArtifact, type FormalValueInputs } from '../src/domain/formal/valueAvailability.ts'
@@ -43,6 +45,8 @@ const valueIdentityDefinitions = [
   ...readyRangedFormalIdentities,
   ...reviewedBridgeMeleeFormalIdentities,
   ...reviewedBridgeRangedFormalIdentities,
+  ...reviewedTypedRelationCatchupMeleeFormalIdentities,
+  ...reviewedTypedRelationCatchupRangedFormalIdentities,
 ]
 const horizontal = readHorizontalConfiguredValueSources({
   repositoryRoot: fs.realpathSync('.'),
@@ -62,10 +66,10 @@ const baseInputs: FormalValueInputs = {
   horizontalConfiguredSources: horizontal,
 }
 
-describe('Formal Horizontal Value first-wave population', () => {
+describe('Formal Horizontal Value reviewed breadth population', () => {
   it('populates the exact matched Melee and Ranged identity sets', () => {
-    expect(Object.keys(valueArtifact.semantic.melee)).toHaveLength(27)
-    expect(Object.keys(valueArtifact.semantic.ranged)).toHaveLength(23)
+    expect(Object.keys(valueArtifact.semantic.melee)).toHaveLength(31)
+    expect(Object.keys(valueArtifact.semantic.ranged)).toHaveLength(27)
     expect(Object.keys(valueArtifact.semantic.melee).sort()).toEqual(horizontal.filter(({ category }) => category === 'melee')
       .map(({ definition }) => definition.assertion.domainId).concat(fightersBindingsFormalIdentity.assertion.domainId).sort())
     expect(Object.keys(valueArtifact.semantic.ranged).sort()).toEqual(horizontal.filter(({ category }) => category === 'ranged')
@@ -74,11 +78,15 @@ describe('Formal Horizontal Value first-wave population', () => {
     expect(valueArtifact.semantic.melee).not.toHaveProperty('death-cap-mushroom')
     expect(valueArtifact.semantic.ranged).not.toHaveProperty('battle-robe')
     expect(valueArtifact.semantic.ranged).not.toHaveProperty('death-cap-mushroom')
-    expect(valueArtifact.semantic.melee).not.toHaveProperty('broken-sawblade')
-    expect(valueArtifact.semantic.melee).not.toHaveProperty('mechanized-sawblade')
+    for (const { assertion } of reviewedTypedRelationCatchupMeleeFormalIdentities) {
+      expect(valueArtifact.semantic.melee).toHaveProperty(assertion.domainId)
+    }
+    for (const { assertion } of reviewedTypedRelationCatchupRangedFormalIdentities) {
+      expect(valueArtifact.semantic.ranged).toHaveProperty(assertion.domainId)
+    }
   })
 
-  it('keeps every first-wave configured fact known at its recorded Raw elementIndex', () => {
+  it('keeps every reviewed breadth configured fact known at its recorded Raw elementIndex', () => {
     expect(collectFormalValueAvailabilityErrors(valueArtifact)).toEqual([])
     for (const [domainId, domain] of Object.entries(valueArtifact.semantic.melee)) {
       const indices = domain.configuredAttacks!.value
@@ -122,7 +130,7 @@ describe('Formal Horizontal Value first-wave population', () => {
     }
   })
 
-  it('uses same-source Structural shard evidence for the 48 newly populated domains', () => {
+  it('uses same-source Structural shard evidence for the 56 horizontally populated domains', () => {
     const identityByDomain = new Map<string, RawObservationEvidenceRecord['provenance']>()
     for (const semantic of identity.semantic.identities) {
       if (semantic.resolution.state !== 'matched') continue
@@ -132,7 +140,7 @@ describe('Formal Horizontal Value first-wave population', () => {
     }
     const domains = [...Object.keys(valueArtifact.semantic.melee), ...Object.keys(valueArtifact.semantic.ranged)]
       .filter((domainId) => domainId !== 'fighters-bindings' && domainId !== 'scatter-crossbow')
-    expect(domains).toHaveLength(48)
+    expect(domains).toHaveLength(56)
     for (const domainId of domains) {
       const identitySource = identityByDomain.get(domainId)
       expect(identitySource?.artifactPath).toContain('game-data-raw-structural-inventory/shards/')
