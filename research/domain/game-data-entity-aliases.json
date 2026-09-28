@@ -2632,12 +2632,16 @@
       "id": "melee-weapon:Chainsword",
       "rawIdentity": "Chainsword",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:broken-sawblade"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3abroken-sawblade"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance"
       ],
@@ -2646,18 +2650,23 @@
         "bulk-bp-chainsword-instance-24b73f07f972e237",
         "bulk-bp-chainsword-instance-3d0dcdeca5bb8ea5",
         "bulk-bp-chainsword-instance-6dea718e348c15a8"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:broken-sawblade"
     },
     {
       "id": "melee-weapon:Chainsword_Unique1",
       "rawIdentity": "Chainsword_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:mechanized-sawblade"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3amechanized-sawblade"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance"
       ],
@@ -2666,7 +2675,8 @@
         "bulk-bp-chainsword-unique1-instance-8087284ca0860508",
         "bulk-bp-chainsword-unique1-instance-b34b23581b7cb659",
         "bulk-bp-chainsword-unique1-instance-d2a6b5db61218390"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:mechanized-sawblade"
     },
     {
       "id": "melee-weapon:Claymore",
