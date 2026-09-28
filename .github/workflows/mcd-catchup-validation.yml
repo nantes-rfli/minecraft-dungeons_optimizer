@@ -1,4 +1,5 @@
 name: Temporary Formal Catch-up Validation
+# retry after exact catalog-row Value binding
 
 on:
   push:
