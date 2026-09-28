@@ -22,6 +22,8 @@ import {
   reviewedBridgeArtifactFormalIdentityInputs,
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationMeleeFormalIdentityInputs,
+  reviewedTypedRelationFormalIdentities,
+  reviewedTypedRelationFormalIdentityInputs,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { readFormalIdentityInventoryInputs } from '../scripts/formal-identity-inventory-source.ts'
@@ -33,12 +35,13 @@ const armorInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), re
 const reviewedArtifactInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), reviewedBridgeArtifactFormalIdentities)
 const corruptedSeedsInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), [corruptedSeedsFormalIdentity])
 const typedRelationMeleeInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), reviewedTypedRelationMeleeFormalIdentities)
+const reviewedTypedRelationInventoryInputs = readFormalIdentityInventoryInputs(process.cwd(), reviewedTypedRelationFormalIdentities)
 const project = (raw: RawPackageSnapshot) => projectFormalIdentity(raw, fightersBindingsFormalIdentity)
 const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => object.isClassDefaultObject)!
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
 
 describe('Formal Identity / Evidence v1', () => {
-  it('preserves the existing 144 identities and appends exactly two typed-relation Sawblade identities', () => {
+  it('preserves the existing 146 identities and appends exactly six reviewed typed-relation identities', () => {
     const artifact = artifactFixture()
     expect(collectFormalIdentityEvidenceErrors(artifact)).toEqual([])
     expect(artifact.identityAssertions.slice(0, 4).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual([
@@ -47,8 +50,8 @@ describe('Formal Identity / Evidence v1', () => {
       { domainId: 'battle-robe', reviewState: 'provisional', confidence: undefined },
       { domainId: 'death-cap-mushroom', reviewState: 'accepted', confidence: 'high' },
     ])
-    expect(artifact.identityAssertions).toHaveLength(146)
-    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(146).fill('matched'))
+    expect(artifact.identityAssertions).toHaveLength(152)
+    expect(artifact.semantic.identities.map(({ resolution }) => resolution.state)).toEqual(Array(152).fill('matched'))
     expect(artifact.semantic.identities.map(({ resolution }) => resolution.state === 'matched' && resolution.domainId)).toEqual(formalIdentityDefinitions.map(({ assertion }) => assertion.domainId))
     expect(artifact.identityAssertions.slice(4, 52).map(({ domainId, reviewState, confidence }) => ({ domainId, reviewState, confidence }))).toEqual(
       [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities].map(({ assertion }) => ({ domainId: assertion.domainId, reviewState: 'accepted', confidence: 'high' })),
@@ -70,6 +73,15 @@ describe('Formal Identity / Evidence v1', () => {
     ])
     expect(artifact.semantic.identities.slice(144, 146).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved')).toEqual(['broken-sawblade', 'mechanized-sawblade'])
     expect(reviewedTypedRelationMeleeFormalIdentityInputs.map(({ domainId }) => domainId)).toEqual(['broken-sawblade', 'mechanized-sawblade'])
+    expect(artifact.identityAssertions.slice(146, 152).map(({ domainId, rawIdentity, reviewState, confidence }) => ({ domainId, rawIdentity, reviewState, confidence }))).toEqual([
+      { domainId: 'chill-gale-knife', rawIdentity: 'TempestKnife_Unique2', reviewState: 'accepted', confidence: 'high' },
+      { domainId: 'resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1', reviewState: 'accepted', confidence: 'high' },
+      { domainId: 'bonebow', rawIdentity: 'Bow_Unique1', reviewState: 'accepted', confidence: 'high' },
+      { domainId: 'twin-bow', rawIdentity: 'Bow_Unique2', reviewState: 'accepted', confidence: 'high' },
+      { domainId: 'burst-gale-bow', rawIdentity: 'WindBow_Unique2', reviewState: 'accepted', confidence: 'high' },
+      { domainId: 'echo-of-the-valley', rawIdentity: 'WindBow_Unique1', reviewState: 'accepted', confidence: 'high' },
+    ])
+    expect(artifact.semantic.identities.slice(146, 152).map(({ resolution }) => resolution.state === 'matched' ? resolution.domainId : 'unresolved')).toEqual(reviewedTypedRelationFormalIdentityInputs.map(({ domainId }) => domainId))
     expect(reviewedBridgeArtifactFormalIdentityInputs.map(({ domainId }) => domainId)).toEqual([
       'blast-fungus', 'corrupted-pumpkin', 'enchanted-grass', 'eye-of-the-guardian', 'harpoon-quiver', 'powershaker',
       'satchel-of-elements', 'scatter-mines', 'shadow-shifter', 'spinblade', 'totem-of-casting', 'vexing-chant',
@@ -284,6 +296,28 @@ describe('Formal Identity / Evidence v1', () => {
     ])
     for (const input of typedRelationMeleeInventoryInputs) {
       if (!('observation' in input) || !input.observation) throw new Error('expected Sawblade Structural observation')
+      const { definition, observation } = input
+      const packagePath = definition.assertion.applicationScope.packagePath
+      expect(observation.rawSchemaVersion).toBe(2)
+      expect(observation.packagePath).toBe(packagePath)
+      expect(observation.itemIdName).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath } })
+      expect(observation.serializedId).toMatchObject({ observation: { state: 'known', value: definition.assertion.rawIdentity }, provenance: { packagePath } })
+      expect(projectFormalIdentityObservation(observation, definition).semantic.resolution).toMatchObject({ state: 'matched', domainId: definition.assertion.domainId })
+    }
+  })
+
+  it('grounds all six reviewed typed-relation identities in exact Raw Structural identity observations', () => {
+    expect(reviewedTypedRelationInventoryInputs).toHaveLength(6)
+    expect(reviewedTypedRelationFormalIdentities.map(({ assertion }) => ({ domainId: assertion.domainId, rawIdentity: assertion.rawIdentity }))).toEqual([
+      { domainId: 'chill-gale-knife', rawIdentity: 'TempestKnife_Unique2' },
+      { domainId: 'resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1' },
+      { domainId: 'bonebow', rawIdentity: 'Bow_Unique1' },
+      { domainId: 'twin-bow', rawIdentity: 'Bow_Unique2' },
+      { domainId: 'burst-gale-bow', rawIdentity: 'WindBow_Unique2' },
+      { domainId: 'echo-of-the-valley', rawIdentity: 'WindBow_Unique1' },
+    ])
+    for (const input of reviewedTypedRelationInventoryInputs) {
+      if (!('observation' in input) || !input.observation) throw new Error('expected reviewed typed-relation Structural observation')
       const { definition, observation } = input
       const packagePath = definition.assertion.applicationScope.packagePath
       expect(observation.rawSchemaVersion).toBe(2)

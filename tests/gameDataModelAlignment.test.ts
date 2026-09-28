@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, TYPED_RELATION_MELEE_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, REVIEWED_TYPED_RELATION_ALIAS_BRIDGES, TYPED_RELATION_ALIAS_BASIS, TYPED_RELATION_MELEE_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
@@ -109,6 +109,35 @@ describe('Phase 6.6 identity boundaries', () => {
       expect(matches[0]!.basis).not.toContain('documented-entity-alias')
       expect(matches[0]!.basis).not.toContain('independent-source-internal-id')
       expect(matches[0]!.basis).not.toContain('exact-catalog-slug')
+    }
+
+    expect(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.map(({ category, domainId, rawIdentity, relations }) => ({ category, domainId, rawIdentity, relationCount: relations.length }))).toEqual([
+      { category: 'melee-weapon', domainId: 'chill-gale-knife', rawIdentity: 'TempestKnife_Unique2', relationCount: 2 },
+      { category: 'melee-weapon', domainId: 'resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1', relationCount: 2 },
+      { category: 'ranged-weapon', domainId: 'bonebow', rawIdentity: 'Bow_Unique1', relationCount: 2 },
+      { category: 'ranged-weapon', domainId: 'twin-bow', rawIdentity: 'Bow_Unique2', relationCount: 2 },
+      { category: 'ranged-weapon', domainId: 'burst-gale-bow', rawIdentity: 'WindBow_Unique2', relationCount: 1 },
+      { category: 'ranged-weapon', domainId: 'echo-of-the-valley', rawIdentity: 'WindBow_Unique1', relationCount: 1 },
+    ])
+    expect(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.reduce((total, { relations }) => total + relations.length, 0)).toBe(10)
+    expect(TYPED_RELATION_ALIAS_BASIS).toBe('serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence')
+    expect(TYPED_RELATION_ALIAS_BASIS).not.toMatch(/ordinal|family|slug|fuzzy|normalized-name/i)
+    for (const mapping of REVIEWED_TYPED_RELATION_ALIAS_BRIDGES) {
+      const aliasId = `${mapping.category}:${mapping.rawIdentity}`
+      const canonicalEntity = `${mapping.category}:${mapping.domainId}`
+      const matches = aliases.filter(({ id }) => id === aliasId)
+      expect(matches).toHaveLength(1)
+      expect(matches[0]).toMatchObject({
+        rawIdentity: mapping.rawIdentity,
+        category: mapping.category,
+        status: 'accepted',
+        confidence: 'high',
+        canonicalEntity,
+        candidates: [canonicalEntity],
+        basis: TYPED_RELATION_ALIAS_BASIS,
+        assetPaths: [mapping.packagePath],
+      })
+      expect(mapping.relations.every(({ rawEdgeLocator }) => /^research\/raw\/game-data-raw-structural-inventory\/shards\/part-\d+\.json\.gz#\/edges\[id=[0-9a-f]{24}\]$/.test(rawEdgeLocator))).toBe(true)
     }
   })
 

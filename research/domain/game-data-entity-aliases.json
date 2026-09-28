@@ -4213,12 +4213,16 @@
       "id": "melee-weapon:TempestKnife_Unique1",
       "rawIdentity": "TempestKnife_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:resolute-tempest-knife"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3aresolute-tempest-knife"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance"
       ],
@@ -4229,18 +4233,23 @@
         "bulk-bp-tempest-knife-unique1-instance-67d2dbcd34ed59b6",
         "bulk-bp-tempest-knife-unique1-instance-919ff9250f417a92",
         "bulk-bp-tempest-knife-unique1-instance-feecfe509bd5b7d9"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:resolute-tempest-knife"
     },
     {
       "id": "melee-weapon:TempestKnife_Unique2",
       "rawIdentity": "TempestKnife_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:chill-gale-knife"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3achill-gale-knife"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance"
       ],
@@ -4251,7 +4260,8 @@
         "bulk-bp-tempest-knife-unique2-instance-94d4c218a7ef54d8",
         "bulk-bp-tempest-knife-unique2-instance-c79f08ce51418a11",
         "bulk-bp-tempest-knife-unique2-instance-cb7d44ab36f155d7"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:chill-gale-knife"
     },
     {
       "id": "melee-weapon:VoidTouchedBlades",
@@ -4423,37 +4433,49 @@
       "id": "ranged-weapon:Bow_Unique1",
       "rawIdentity": "Bow_Unique1",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:bonebow"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "ranged-weapon:primary-weapons",
+        "ranged-weapon:secondary-weapons"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-bow-unique1-instance-ba8d8fc4b1c225b6",
         "bulk-bp-bow-unique1-instance-c6e63769c6a1a036"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:bonebow"
     },
     {
       "id": "ranged-weapon:Bow_Unique2",
       "rawIdentity": "Bow_Unique2",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:twin-bow"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "ranged-weapon:primary-weapons",
+        "ranged-weapon:secondary-weapons"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-bow-unique2-instance-a458dab22d2d9951",
         "bulk-bp-bow-unique2-instance-d8e7b8da66d97060"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:twin-bow"
     },
     {
       "id": "ranged-weapon:BP_Bubble_Arrow",
@@ -6102,12 +6124,17 @@
       "id": "ranged-weapon:WindBow_Unique1",
       "rawIdentity": "WindBow_Unique1",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:echo-of-the-valley"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "ranged-weapon:primary-weapons",
+        "ranged-weapon:secondary-weapons"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance"
       ],
@@ -6115,18 +6142,24 @@
         "bulk-bp-wind-bow-unique1-instance-1b4255c0d5661826",
         "bulk-bp-wind-bow-unique1-instance-27273bdce0f4b013",
         "bulk-bp-wind-bow-unique1-instance-fcaf445ff06dcb29"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:echo-of-the-valley"
     },
     {
       "id": "ranged-weapon:WindBow_Unique2",
       "rawIdentity": "WindBow_Unique2",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:burst-gale-bow"
+      ],
+      "basis": "serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "ranged-weapon:primary-weapons",
+        "ranged-weapon:secondary-weapons"
+      ],
       "assetPaths": [
         "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance"
       ],
@@ -6134,7 +6167,8 @@
         "bulk-bp-wind-bow-unique2-instance-27e3862f8816e2bd",
         "bulk-bp-wind-bow-unique2-instance-d15a8c2b2d4ea582",
         "bulk-bp-wind-bow-unique2-instance-d56333b300185833"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:burst-gale-bow"
     }
   ],
   "rejectedAliases": [
