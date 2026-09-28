@@ -4,8 +4,8 @@ import {
   readFormalReviewedSources,
   type FormalReviewedSources,
 } from '../scripts/formal-identity-source-grounding.ts'
-import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities, reviewedTypedRelationMeleeFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
-import { INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, TYPED_RELATION_MELEE_ALIAS_BASIS } from '../scripts/game-data-model-alignment.ts'
+import { corruptedSeedsFormalIdentity, formalIdentityDefinitions, readyArtifactFormalIdentities, readyArmorFormalIdentities, reviewedBridgeArtifactFormalIdentities, reviewedTypedRelationMeleeFormalIdentities, reviewedTypedRelationFormalIdentities } from '../src/domain/formal/identityDefinitions.ts'
+import { INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, REVIEWED_TYPED_RELATION_ALIAS_BRIDGES, TYPED_RELATION_ALIAS_BASIS, TYPED_RELATION_MELEE_ALIAS_BASIS } from '../scripts/game-data-model-alignment.ts'
 
 const repositoryRoot = process.cwd()
 const baseSources = readFormalReviewedSources(repositoryRoot)
@@ -101,6 +101,74 @@ describe('Formal Identity reviewed-source grounding', () => {
     const aliasBasisDrift = fixture()
     alias(aliasBasisDrift, 'melee-weapon:Chainsword').basis = 'serialized-item-id + documented-entity-alias + catalog-category-evidence'
     expect(errors(aliasBasisDrift).some((message) => message.includes('typed-relation alias basis drift'))).toBe(true)
+  })
+
+  it('grounds exactly six reviewed Melee/Ranged bridges through ten exact candidate-specific typed relations', () => {
+    const sources = fixture()
+    expect(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES).toHaveLength(6)
+    expect(reviewedTypedRelationFormalIdentities).toHaveLength(6)
+    expect(sources.reviewedTypedRelationBridges).toHaveLength(6)
+    expect(sources.reviewedTypedRelationBridges.flatMap(({ relations }) => relations)).toHaveLength(10)
+
+    let exactRelationCount = 0
+    for (const definition of reviewedTypedRelationFormalIdentities) {
+      const assertion = definition.assertion
+      const bridge = sources.reviewedTypedRelationBridges.find((entry) => entry.domainId === assertion.domainId)!
+      const rawSeedCategory = bridge.category === 'melee-weapon' ? 'melee' : 'ranged'
+      const canonical = sources.reviewedTypedRelationCanonicalRecords.filter((entry) => entry.category === bridge.category && entry.id === assertion.domainId)
+      const aliases = sources.aliases!.aliases!.filter((entry) => entry.id === `${bridge.category}:${assertion.rawIdentity}`)
+      const seeds = sources.rawStructuralSeeds!.catalogSeeds!.filter((entry) => entry.category === rawSeedCategory && entry.catalogId === assertion.domainId)
+      const bindings = sources.reviewedTypedRelationInventoryBindings.filter((entry) => entry.definition.assertion.id === assertion.id)
+      const selectedCandidates = seeds[0]!.candidates!.filter((candidate) => candidate.packagePath === assertion.applicationScope.packagePath)
+      expect(canonical).toHaveLength(1)
+      expect(canonical[0]).toMatchObject({ category: bridge.category, id: assertion.domainId, label: definition.presentation.displayName })
+      expect(aliases).toHaveLength(1)
+      expect(aliases[0]).toMatchObject({ category: bridge.category, status: 'accepted', confidence: 'high', rawIdentity: assertion.rawIdentity, canonicalEntity: `${bridge.category}:${assertion.domainId}`, basis: TYPED_RELATION_ALIAS_BASIS, assetPaths: [assertion.applicationScope.packagePath] })
+      expect(seeds).toHaveLength(1)
+      expect(seeds[0]).toMatchObject({ status: 'ambiguous' })
+      expect(seeds[0]!.candidates!.length).toBeGreaterThanOrEqual(2)
+      expect(selectedCandidates).toHaveLength(1)
+      expect(selectedCandidates[0]).toMatchObject({ role: 'instance', packagePath: assertion.applicationScope.packagePath })
+      expect(bindings).toHaveLength(1)
+      expect(bindings[0]!.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject)).toHaveLength(1)
+      expect(bindings[0]!.observation).toMatchObject({
+        packagePath: assertion.applicationScope.packagePath,
+        itemIdName: { observation: { state: 'known', value: assertion.rawIdentity } },
+        serializedId: { observation: { state: 'known', value: assertion.rawIdentity } },
+      })
+      for (const relation of bridge.relations) {
+        const exactEdges = bindings[0]!.structuralEdges.filter((edge) =>
+          edge.sourceOccurrence.kind === 'cdo-property'
+          && edge.sourceOccurrence.propertyPath?.replace(/\[\d+\]/g, '[]') === relation.property
+          && (edge.targetPackage ?? edge.targetPackageName) === relation.targetPackage
+          && edge.targetObject === relation.targetObject
+          && `research/raw/game-data-raw-structural-inventory/${bindings[0]!.shardPath}#/edges[id=${edge.id}]` === relation.rawEdgeLocator)
+        expect(exactEdges).toHaveLength(1)
+        exactRelationCount += exactEdges.length
+      }
+    }
+    expect(exactRelationCount).toBe(10)
+    expect(errors(sources)).toEqual([])
+  })
+
+  it('fails closed when the six-domain reviewed typed-relation evidence drifts', () => {
+    const targetDrift = fixture()
+    targetDrift.reviewedTypedRelationBridges.find((entry) => entry.domainId === 'bonebow')!.relations[0]!.targetObject = '/Game/Other.Other'
+    expect(errors(targetDrift).some((message) => message.includes('reviewed exact typed relation edge must exist exactly once'))).toBe(true)
+
+    const locatorDrift = fixture()
+    locatorDrift.reviewedTypedRelationBridges.find((entry) => entry.domainId === 'echo-of-the-valley')!.relations[0]!.rawEdgeLocator = 'research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz#/edges[id=000000000000000000000000]'
+    expect(errors(locatorDrift).some((message) => message.includes('reviewed exact typed relation edge must exist exactly once'))).toBe(true)
+
+    const duplicateSelectedCandidate = fixture()
+    const seed = duplicateSelectedCandidate.rawStructuralSeeds!.catalogSeeds!.find((entry) => entry.catalogId === 'chill-gale-knife')!
+    const selected = seed.candidates!.find((entry) => entry.packagePath.includes('TempestKnife_Unique2'))!
+    seed.candidates!.push(structuredClone(selected))
+    expect(errors(duplicateSelectedCandidate).some((message) => message.includes('selected candidate must resolve exactly once'))).toBe(true)
+
+    const aliasDrift = fixture()
+    alias(aliasDrift, 'ranged-weapon:Bow_Unique1').basis = 'ordinal-family-rule'
+    expect(errors(aliasDrift).some((message) => message.includes('reviewed typed-relation alias basis drift'))).toBe(true)
   })
 
   it('grounds Corrupted Seeds through the independent Artifact source, reviewed mapping, alias, and exact Raw package', () => {
