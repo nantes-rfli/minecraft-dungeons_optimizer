@@ -260,6 +260,41 @@ function typedRelationAliasBridgeDefinition(input: AcceptedMeleeIdentityInput): 
 
 export const reviewedTypedRelationMeleeFormalIdentities = reviewedTypedRelationMeleeFormalIdentityInputs.map(typedRelationAliasBridgeDefinition)
 
+type ReviewedTypedRelationIdentityInput = AcceptedMeleeIdentityInput & { category: 'melee' | 'ranged' }
+
+export const reviewedTypedRelationFormalIdentityInputs = [
+  { category: 'melee', domainId: 'chill-gale-knife', rawIdentity: 'TempestKnife_Unique2', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance', displayName: 'Chill Gale Knife' },
+  { category: 'melee', domainId: 'resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance', displayName: 'Resolute Tempest Knife' },
+  { category: 'ranged', domainId: 'bonebow', rawIdentity: 'Bow_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance', displayName: 'Bonebow' },
+  { category: 'ranged', domainId: 'twin-bow', rawIdentity: 'Bow_Unique2', packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance', displayName: 'Twin Bow' },
+  { category: 'ranged', domainId: 'burst-gale-bow', rawIdentity: 'WindBow_Unique2', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance', displayName: 'Burst Gale Bow' },
+  { category: 'ranged', domainId: 'echo-of-the-valley', rawIdentity: 'WindBow_Unique1', packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance', displayName: 'Echo of the Valley' },
+] as const satisfies readonly ReviewedTypedRelationIdentityInput[]
+
+function reviewedTypedRelationBridgeDefinition(input: ReviewedTypedRelationIdentityInput): FormalIdentityDefinition {
+  const base = input.category === 'melee' ? acceptedMeleeDefinition(input) : acceptedRangedDefinition(input)
+  const bridgeEvidenceRef = `evidence:reviewed:${input.domainId}:typed-raw-relation-bridge`
+  return {
+    ...base,
+    assertion: {
+      ...base.assertion,
+      evidenceRefs: [...base.assertion.evidenceRefs, bridgeEvidenceRef],
+    },
+    reviewedEvidence: [
+      ...base.reviewedEvidence,
+      {
+        id: bridgeEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.',
+        source: { artifactPath: 'scripts/game-data-model-alignment.ts', locator: `REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=${input.domainId}]` },
+      },
+    ],
+  }
+}
+
+export const reviewedTypedRelationFormalIdentities = reviewedTypedRelationFormalIdentityInputs.map(reviewedTypedRelationBridgeDefinition)
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -569,4 +604,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedBridgeArtifactFormalIdentities,
   corruptedSeedsFormalIdentity,
   ...reviewedTypedRelationMeleeFormalIdentities,
+  ...reviewedTypedRelationFormalIdentities,
 ]
