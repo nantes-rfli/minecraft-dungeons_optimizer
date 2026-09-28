@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { resolveAlignedGameDataEntity, type ResearchEntityIdentity } from '../src/research/gameDataEntityResolver'
 import { auditCanonicalProperties, CANONICAL_GAME_DATA_PROPERTIES } from '../src/research/gameDataCanonicalProperties'
-import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
+import { REVIEWED_ARTIFACT_ALIAS_BRIDGES, REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES, INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS, REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES, TYPED_RELATION_MELEE_ALIAS_BASIS, loadAlignmentInputs, buildModelAlignment, auditModelAlignment, alignmentOutputs, recommendDeepResearch } from '../scripts/game-data-model-alignment'
 
 const input = loadAlignmentInputs(process.cwd())
 const result = buildModelAlignment(input)
@@ -79,6 +79,37 @@ describe('Phase 6.6 identity boundaries', () => {
       assetPaths: ['Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance'],
     })
     expect(corruptedSeedsAlias[0]!.basis).not.toContain('documented-entity-alias')
+
+    expect(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map(({ domainId, rawIdentity, relationProperty, edgeKind, targetPackage }) => ({ domainId, rawIdentity, relationProperty, edgeKind, targetPackage }))).toEqual([
+      {
+        domainId: 'broken-sawblade', rawIdentity: 'Chainsword', relationProperty: 'InventoryDropSound', edgeKind: 'soft-object-property',
+        targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_brokensawbladePlace',
+      },
+      {
+        domainId: 'mechanized-sawblade', rawIdentity: 'Chainsword_Unique1', relationProperty: 'InventoryDropSound', edgeKind: 'soft-object-property',
+        targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_mechanisedsawbladePlace',
+      },
+    ])
+    expect(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES).toHaveLength(2)
+    for (const mapping of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
+      const aliasId = `melee-weapon:${mapping.rawIdentity}`
+      const canonicalEntity = `melee-weapon:${mapping.domainId}`
+      const matches = aliases.filter(({ id }) => id === aliasId)
+      expect(matches).toHaveLength(1)
+      expect(matches[0]).toMatchObject({
+        rawIdentity: mapping.rawIdentity,
+        category: 'melee-weapon',
+        status: 'accepted',
+        confidence: 'high',
+        canonicalEntity,
+        candidates: [canonicalEntity],
+        basis: TYPED_RELATION_MELEE_ALIAS_BASIS,
+        assetPaths: [mapping.packagePath],
+      })
+      expect(matches[0]!.basis).not.toContain('documented-entity-alias')
+      expect(matches[0]!.basis).not.toContain('independent-source-internal-id')
+      expect(matches[0]!.basis).not.toContain('exact-catalog-slug')
+    }
   })
 
   it.each([
