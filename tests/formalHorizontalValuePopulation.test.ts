@@ -10,8 +10,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
-  reviewedTypedRelationCatchupMeleeFormalIdentities,
-  reviewedTypedRelationCatchupRangedFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { FormalIdentityEvidenceArtifact, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { collectFormalValueAvailabilityErrors, buildFormalValueAvailabilityArtifact, type FormalValueAvailabilityArtifact, type FormalValueInputs } from '../src/domain/formal/valueAvailability.ts'
@@ -38,6 +38,14 @@ function committedIdentity(definition: typeof fightersBindingsFormalIdentity): {
 
 const fightersIdentity = committedIdentity(fightersBindingsFormalIdentity)
 const scatterIdentity = committedIdentity(scatterCrossbowFormalIdentity)
+const reviewedTypedRelationCatchupMeleeFormalIdentities = [
+  ...reviewedTypedRelationMeleeFormalIdentities,
+  ...reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+    assertion.domainId === 'chill-gale-knife' || assertion.domainId === 'resolute-tempest-knife'),
+]
+const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+  assertion.domainId === 'bonebow' || assertion.domainId === 'twin-bow'
+  || assertion.domainId === 'burst-gale-bow' || assertion.domainId === 'echo-of-the-valley')
 const valueIdentityDefinitions = [
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
