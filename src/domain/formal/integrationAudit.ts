@@ -9,6 +9,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedTypedRelationCatchupMeleeFormalIdentities,
+  reviewedTypedRelationCatchupRangedFormalIdentities,
 } from './identityDefinitions.ts'
 import { sameLogicalRawPackage, sameRawSource } from './boundarySource.ts'
 import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
@@ -22,8 +24,18 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   value: FormalValueAvailabilityArtifact, relation: FormalSerializedRelationArtifact): string[] {
   const errors: string[] = []
   const check = (condition: boolean, message: string) => { if (!condition) errors.push(message) }
-  const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
-  const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
+  const meleeDefinitions = [
+    fightersBindingsFormalIdentity,
+    ...readyMeleeFormalIdentities,
+    ...reviewedBridgeMeleeFormalIdentities,
+    ...reviewedTypedRelationCatchupMeleeFormalIdentities,
+  ]
+  const rangedDefinitions = [
+    scatterCrossbowFormalIdentity,
+    ...readyRangedFormalIdentities,
+    ...reviewedBridgeRangedFormalIdentities,
+    ...reviewedTypedRelationCatchupRangedFormalIdentities,
+  ]
   const definitions = formalIdentityDefinitions
   const categoryByAssertionId = new Map([
     ...meleeDefinitions.map(({ assertion }) => [assertion.id, 'melee' as const] as const),
@@ -65,8 +77,8 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   const matchedRanged = new Set([...categoriesByDomain].filter(([, category]) => category === 'ranged').map(([domainId]) => domainId))
   const valueMelee = new Set(Object.keys(value.semantic.melee))
   const valueRanged = new Set(Object.keys(value.semantic.ranged))
-  check(matchedMelee.size === 27, `Formal Identity Melee matched count differs from expected: ${matchedMelee.size}`)
-  check(matchedRanged.size === 23, `Formal Identity Ranged matched count differs from expected: ${matchedRanged.size}`)
+  check(matchedMelee.size === 31, `Formal Identity Melee matched count differs from expected: ${matchedMelee.size}`)
+  check(matchedRanged.size === 27, `Formal Identity Ranged matched count differs from expected: ${matchedRanged.size}`)
   check(canonicalSet(matchedMelee) === canonicalSet(valueMelee), 'Formal Value Melee domains differ from matched Identity')
   check(canonicalSet(matchedRanged) === canonicalSet(valueRanged), 'Formal Value Ranged domains differ from matched Identity')
   check(!valueMelee.has('battle-robe') && !valueMelee.has('death-cap-mushroom')
