@@ -7,8 +7,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
-  reviewedTypedRelationCatchupMeleeFormalIdentities,
-  reviewedTypedRelationCatchupRangedFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationFormalIdentities,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type FormalIdentityDefinition, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
@@ -52,6 +52,14 @@ export function readHorizontalRelationWaveSources(args: {
     matches.push(source)
     byEdgeId.set(source.edgeId, matches)
   }
+  const reviewedTypedRelationCatchupMeleeFormalIdentities = [
+    ...reviewedTypedRelationMeleeFormalIdentities,
+    ...reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+      assertion.domainId === 'chill-gale-knife' || assertion.domainId === 'resolute-tempest-knife'),
+  ]
+  const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+    assertion.domainId === 'bonebow' || assertion.domainId === 'twin-bow'
+    || assertion.domainId === 'burst-gale-bow' || assertion.domainId === 'echo-of-the-valley')
   const categories = [
     {
       category: 'melee' as const,
