@@ -37,6 +37,31 @@ export const REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES = [
 
 export const INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS = 'serialized-item-id + independent-source-internal-id + catalog-category-evidence' as const
 
+export const REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES = [
+  {
+    domainId: 'broken-sawblade',
+    displayName: 'Broken Sawblade',
+    rawIdentity: 'Chainsword',
+    packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=melee-weapon,id=broken-sawblade]' },
+    relationProperty: 'InventoryDropSound',
+    edgeKind: 'soft-object-property',
+    targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_brokensawbladePlace',
+  },
+  {
+    domainId: 'mechanized-sawblade',
+    displayName: 'Mechanized Sawblade',
+    rawIdentity: 'Chainsword_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=melee-weapon,id=mechanized-sawblade]' },
+    relationProperty: 'InventoryDropSound',
+    edgeKind: 'soft-object-property',
+    targetPackage: 'Dungeons/Content/AudioForce/D4/04_playback_soundCue/D4_sfx_item_mechanisedsawbladePlace',
+  },
+] as const
+
+export const TYPED_RELATION_MELEE_ALIAS_BASIS = 'serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence' as const
+
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
@@ -299,6 +324,25 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     }
     if (existingIndex >= 0) reviewedAliases[existingIndex] = independentSourceAlias
     else reviewedAliases.push(independentSourceAlias)
+  }
+  for (const input of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
+    const aliasId = `melee-weapon:${input.rawIdentity}`
+    const canonicalEntity = `melee-weapon:${input.domainId}`
+    const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: typed-relation Melee bridge lacks catalog identity/category evidence`)
+    const matchingIndexes = reviewedAliases.map((alias, index) => alias.id === aliasId ? index : -1).filter((index) => index >= 0)
+    if (matchingIndexes.length !== 1) throw new Error(`${aliasId}: typed-relation Melee bridge requires exactly one generated alias source`)
+    const existing = reviewedAliases[matchingIndexes[0]!]!
+    reviewedAliases[matchingIndexes[0]!] = {
+      ...existing,
+      status: 'accepted' as const,
+      canonicalEntity,
+      candidates: [canonicalEntity],
+      basis: TYPED_RELATION_MELEE_ALIAS_BASIS,
+      confidence: 'high' as const,
+      evidenceIds: [...new Set(catalogEvidence)].sort(),
+      assetPaths: [input.packagePath],
+    }
   }
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
