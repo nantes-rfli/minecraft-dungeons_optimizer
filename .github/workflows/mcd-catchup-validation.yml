@@ -1,5 +1,5 @@
 name: Temporary Formal Catch-up Validation
-# final validation after breadth test expectation updates
+# final validation after Identity-definition boundary cleanup
 
 on:
   push:
