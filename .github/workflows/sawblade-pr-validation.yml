@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate:
@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
@@ -25,6 +26,18 @@ jobs:
         run: npm run generate:game-data-model-alignment
       - name: Generate Formal Identity
         run: npm run generate:formal-identity-evidence
+      - name: Commit generated identity artifacts
+        shell: bash
+        run: |
+          git add research/domain/game-data-entity-aliases.json research/domain/formal/identity-evidence-v1.json
+          if git diff --cached --quiet; then
+            echo "Generated identity artifacts already current."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "generated: refresh sawblade identity artifacts"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
       - name: Upload generated identity artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -96,3 +109,15 @@ jobs:
           npx tsc -b
           npm run lint
           npm run build
+      - name: Package validated source tree
+        if: ${{ success() }}
+        shell: bash
+        run: |
+          git ls-files -z | tar --null -T - -czf validated-source-tree.tgz
+      - name: Upload validated source tree
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: sawblade-validated-source-tree
+          path: validated-source-tree.tgz
+          retention-days: 2
