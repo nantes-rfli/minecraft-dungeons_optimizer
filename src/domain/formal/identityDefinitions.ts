@@ -231,6 +231,35 @@ function documentedAliasBridgeDefinition(input: AcceptedMeleeIdentityInput, cate
 export const reviewedBridgeMeleeFormalIdentities = reviewedBridgeMeleeFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'melee'))
 export const reviewedBridgeRangedFormalIdentities = reviewedBridgeRangedFormalIdentityInputs.map((input) => documentedAliasBridgeDefinition(input, 'ranged'))
 
+export const reviewedTypedRelationMeleeFormalIdentityInputs = [
+  { domainId: 'broken-sawblade', rawIdentity: 'Chainsword', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance', displayName: 'Broken Sawblade' },
+  { domainId: 'mechanized-sawblade', rawIdentity: 'Chainsword_Unique1', packagePath: 'Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance', displayName: 'Mechanized Sawblade' },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+
+function typedRelationAliasBridgeDefinition(input: AcceptedMeleeIdentityInput): FormalIdentityDefinition {
+  const base = acceptedMeleeDefinition(input)
+  const bridgeEvidenceRef = `evidence:reviewed:${input.domainId}:typed-raw-relation-bridge`
+  return {
+    ...base,
+    assertion: {
+      ...base.assertion,
+      evidenceRefs: [...base.assertion.evidenceRefs, bridgeEvidenceRef],
+    },
+    reviewedEvidence: [
+      ...base.reviewedEvidence,
+      {
+        id: bridgeEvidenceRef,
+        kind: 'reviewed',
+        role: 'support',
+        detail: 'A research-owned reviewed bridge pins the canonical source record to this exact Raw identity/package through the audited typed InventoryDropSound relation.',
+        source: { artifactPath: 'scripts/game-data-model-alignment.ts', locator: `REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES[domainId=${input.domainId}]` },
+      },
+    ],
+  }
+}
+
+export const reviewedTypedRelationMeleeFormalIdentities = reviewedTypedRelationMeleeFormalIdentityInputs.map(typedRelationAliasBridgeDefinition)
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -539,4 +568,5 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...readyArmorFormalIdentities,
   ...reviewedBridgeArtifactFormalIdentities,
   corruptedSeedsFormalIdentity,
+  ...reviewedTypedRelationMeleeFormalIdentities,
 ]
