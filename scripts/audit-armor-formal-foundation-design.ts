@@ -370,9 +370,9 @@ for (const assertion of armorAssertions) {
 const shardPaths = new Set<string>()
 for (const packagePath of allVisitedPackages) {
   const packageRecord = graph.packagesByPath.get(packagePath)
-  if (!packageRecord) throw new Error(\`Structural package vanished: \${packagePath}\`)
+  if (!packageRecord) throw new Error(`Structural package vanished: \${packagePath}`)
   const record = packageRecord as unknown as JsonRecord
-  if (typeof record.shardPath !== 'string') throw new Error(\`Structural package lacks shardPath: \${packagePath}\`)
+  if (typeof record.shardPath !== 'string') throw new Error(`Structural package lacks shardPath: \${packagePath}`)
   shardPaths.add(record.shardPath)
 }
 
@@ -381,12 +381,12 @@ const rawEdgesBySource = new Map<string, JsonRecord[]>()
 const structuralRoot = path.join(repositoryRoot, 'research/raw/game-data-raw-structural-inventory')
 for (const shardPath of [...shardPaths].sort(compare)) {
   const shard = JSON.parse(gunzipSync(fs.readFileSync(path.join(structuralRoot, shardPath))).toString('utf8')) as JsonRecord
-  for (const rawPackage of asArray(shard.packages, \`\${shardPath}.packages\`)) {
-    const record = asRecord(rawPackage, \`\${shardPath} package\`)
+  for (const rawPackage of asArray(shard.packages, `\${shardPath}.packages`)) {
+    const record = asRecord(rawPackage, `\${shardPath} package`)
     if (typeof record.path === 'string' && allVisitedPackages.has(record.path)) rawPackageByPath.set(record.path, record)
   }
-  for (const rawEdge of asArray(shard.edges, \`\${shardPath}.edges\`)) {
-    const edge = asRecord(rawEdge, \`\${shardPath} edge\`)
+  for (const rawEdge of asArray(shard.edges, `\${shardPath}.edges`)) {
+    const edge = asRecord(rawEdge, `\${shardPath} edge`)
     if (typeof edge.sourcePackage !== 'string' || !allVisitedPackages.has(edge.sourcePackage)) continue
     const list = rawEdgesBySource.get(edge.sourcePackage) ?? []
     list.push(edge)
@@ -394,7 +394,7 @@ for (const shardPath of [...shardPaths].sort(compare)) {
   }
 }
 if (rawPackageByPath.size !== allVisitedPackages.size) {
-  throw new Error(\`Full Structural package materialization mismatch: \${rawPackageByPath.size}/\${allVisitedPackages.size}\`)
+  throw new Error(`Full Structural package materialization mismatch: \${rawPackageByPath.size}/\${allVisitedPackages.size}`)
 }
 
 const traversalEdgePath = (
@@ -407,10 +407,10 @@ const traversalEdgePath = (
   const seen = new Set<string>()
   let current = targetPackage
   while (current !== rootPackage) {
-    if (seen.has(current)) throw new Error(\`Traversal cycle while resolving \${rootPackage} -> \${targetPackage}\`)
+    if (seen.has(current)) throw new Error(`Traversal cycle while resolving \${rootPackage} -> \${targetPackage}`)
     seen.add(current)
     const edge = parentEdgeByTarget.get(current)
-    if (!edge) throw new Error(\`Missing traversal parent for \${rootPackage} -> \${targetPackage} at \${current}\`)
+    if (!edge) throw new Error(`Missing traversal parent for \${rootPackage} -> \${targetPackage} at \${current}`)
     const record = edge as JsonRecord
     edges.push(record)
     current = String(record.sourcePackage)
@@ -420,7 +420,7 @@ const traversalEdgePath = (
 
 const sourceRoleForPath = (rootPackage: string, sourcePackage: string, edges: readonly JsonRecord[]): string => {
   if (rootPackage === sourcePackage) return 'root'
-  const names = edges.map((edge) => \`\${edge.kind ?? ''} \${edge.propertyPath ?? ''} \${edge.serializedField ?? ''}\`).join(' ')
+  const names = edges.map((edge) => `\${edge.kind ?? ''} \${edge.propertyPath ?? ''} \${edge.serializedField ?? ''}`).join(' ')
   if (/gearactor/i.test(names)) return 'gear-actor-traversal'
   if (/gameplayeffect|(?:^|[. ])effect(?:$|[. ])/i.test(names)) return 'effect-traversal'
   if (/enchant/i.test(names)) return 'enchantment-traversal'
@@ -440,7 +440,7 @@ const fullEdgeFamily = (edge: JsonRecord): string => {
   const occurrence = edge.sourceOccurrence && typeof edge.sourceOccurrence === 'object'
     ? edge.sourceOccurrence as JsonRecord
     : {}
-  const field = \`\${occurrence.propertyPath ?? ''} \${occurrence.serializedField ?? ''}\`
+  const field = `\${occurrence.propertyPath ?? ''} \${occurrence.serializedField ?? ''}`
   const kind = String(edge.kind ?? '')
   if (kind === 'super' || kind === 'template' || /superindex|templateindex/i.test(field)) return 'inheritance-template'
   if (/gearactor/i.test(field)) return 'gear-actor'
@@ -471,16 +471,16 @@ for (const assertion of armorAssertions) {
   const traversal = traversalByDomain.get(domainId)!
   for (const sourcePackage of [...traversal.visited].sort(compare)) {
     const edgePath = traversalEdgePath(rootPackage, sourcePackage, traversal.parentEdgeByTarget as Map<string, unknown>)
-    const traversalKinds = edgePath.map((edge) => \`\${edge.kind ?? 'unknown'}:\${edge.propertyPath ?? edge.serializedField ?? ''}\`)
+    const traversalKinds = edgePath.map((edge) => `\${edge.kind ?? 'unknown'}:\${edge.propertyPath ?? edge.serializedField ?? ''}`)
     const sourceRole = sourceRoleForPath(rootPackage, sourcePackage, edgePath)
     const rawPackage = rawPackageByPath.get(sourcePackage)!
-    const cdos = asArray(rawPackage.cdoPropertyInventory, \`\${sourcePackage}.cdoPropertyInventory\`)
+    const cdos = asArray(rawPackage.cdoPropertyInventory, `\${sourcePackage}.cdoPropertyInventory`)
     for (const [cdoIndex, rawCdo] of cdos.entries()) {
-      const cdo = asRecord(rawCdo, \`\${sourcePackage}.cdo[\${cdoIndex}]\`)
+      const cdo = asRecord(rawCdo, `\${sourcePackage}.cdo[\${cdoIndex}]`)
       const sourceObject = typeof cdo.objectName?.value === 'string' ? cdo.objectName.value : String(cdo.objectName ?? '')
       const walk = (properties: unknown[]): void => {
         for (const rawProperty of properties) {
-          const property = asRecord(rawProperty, \`\${sourcePackage} property\`)
+          const property = asRecord(rawProperty, `\${sourcePackage} property`)
           const decoding = property.decoding && typeof property.decoding === 'object' ? property.decoding as JsonRecord : {}
           const propertyName = typeof property.name?.value === 'string' ? property.name.value : ''
           const propertyPath = typeof property.path === 'string' ? property.path : propertyName
@@ -511,13 +511,13 @@ for (const assertion of armorAssertions) {
           if (Array.isArray(decoding.properties)) walk(decoding.properties)
           if (Array.isArray(decoding.elements)) {
             for (const rawElement of decoding.elements) {
-              const element = asRecord(rawElement, \`\${sourcePackage} array element\`)
+              const element = asRecord(rawElement, `\${sourcePackage} array element`)
               if (Array.isArray(element.properties)) walk(element.properties)
             }
           }
         }
       }
-      walk(asArray(cdo.properties, \`\${sourcePackage}.cdo[\${cdoIndex}].properties\`))
+      walk(asArray(cdo.properties, `\${sourcePackage}.cdo[\${cdoIndex}].properties`))
     }
 
     for (const rawEdge of rawEdgesBySource.get(sourcePackage) ?? []) {
@@ -554,7 +554,7 @@ for (const assertion of armorAssertions) {
 const fullPropertyGroups = (() => {
   const groups = new Map<string, FullPropertyObservation[]>()
   for (const property of fullPropertyObservations) {
-    const key = \`\${property.propertyName}\0\${property.propertyPath}\0\${property.propertyType}\0\${property.sourceRole}\`
+    const key = `\${property.propertyName}\0\${property.propertyPath}\0\${property.propertyType}\0\${property.sourceRole}`
     const list = groups.get(key) ?? []
     list.push(property)
     groups.set(key, list)
@@ -576,8 +576,8 @@ const fullPropertyGroups = (() => {
       decodingStates: [...new Set(rows.map((row) => row.decodingState))].sort(compare),
       decodedValueTypes: [...new Set(rows.map((row) => row.decodedValueType))].sort(compare),
       sourcePackageCount: new Set(rows.map((row) => row.sourcePackage)).size,
-      candidateGameplayName: fullValueNamePattern.test(\`\${first.propertyName} \${first.propertyPath}\`),
-      obviousPresentationName: obviousPresentationNamePattern.test(\`\${first.propertyName} \${first.propertyPath}\`),
+      candidateGameplayName: fullValueNamePattern.test(`\${first.propertyName} \${first.propertyPath}`),
+      obviousPresentationName: obviousPresentationNamePattern.test(`\${first.propertyName} \${first.propertyPath}`),
       sampleValues,
       sampleSources: rows.slice(0, 5).map((row) => ({
         domainId: row.domainId,
@@ -596,7 +596,7 @@ const fullPropertyGroups = (() => {
 const fullStructuralEdgeGroups = (() => {
   const groups = new Map<string, FullStructuralEdgeObservation[]>()
   for (const edge of fullStructuralEdgeObservations) {
-    const key = \`\${edge.family}\0\${edge.propertyPath ?? edge.serializedField ?? ''}\0\${edge.structuralKind}\0\${edge.sourceRole}\`
+    const key = `\${edge.family}\0\${edge.propertyPath ?? edge.serializedField ?? ''}\0\${edge.structuralKind}\0\${edge.sourceRole}`
     const list = groups.get(key) ?? []
     list.push(edge)
     groups.set(key, list)
