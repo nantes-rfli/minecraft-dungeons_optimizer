@@ -62,6 +62,103 @@ export const REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES = [
 
 export const TYPED_RELATION_MELEE_ALIAS_BASIS = 'serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence' as const
 
+export type ReviewedTypedRelationAliasBridge = {
+  category: 'melee-weapon' | 'ranged-weapon'
+  domainId: string
+  displayName: string
+  rawIdentity: string
+  packagePath: string
+  canonicalSource: { artifactPath: string; locator: string }
+  relations: readonly {
+    property: string
+    targetPackage: string
+    targetObject: string
+    rawEdgeLocator: string
+  }[]
+  reviewRationale: string
+}
+
+export const REVIEWED_TYPED_RELATION_ALIAS_BRIDGES = [
+  {
+    category: 'melee-weapon',
+    domainId: 'chill-gale-knife',
+    displayName: 'Chill Gale Knife',
+    rawIdentity: 'TempestKnife_Unique2',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=melee-weapon,id=chill-gale-knife]/known[property=identity]' },
+    relations: [
+      { property: 'ConfiguredAttackVariants[].HitSoundCue', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Swing', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Swing.DLC_sfx_wpn_ChillKnife_Swing', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz#/edges[id=5912291edc01a65c5cc3e3bf]' },
+      { property: 'InventoryDropSound', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Place', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Place.DLC_sfx_wpn_ChillKnife_Place', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz#/edges[id=f91efd52338aa65eb9ce83a1]' },
+    ],
+    reviewRationale: 'The dedicated ChillKnife place/swing targets on the exact CDO are candidate-specific; the competing CDO points to the separately item-specific ResTempKnife targets. The canonical source name is Chill Gale Knife.',
+  },
+  {
+    category: 'melee-weapon',
+    domainId: 'resolute-tempest-knife',
+    displayName: 'Resolute Tempest Knife',
+    rawIdentity: 'TempestKnife_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=melee-weapon,id=resolute-tempest-knife]/known[property=identity]' },
+    relations: [
+      { property: 'ConfiguredAttackVariants[].HitSoundCue', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Swing', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Swing.DLC_sfx_wpn_ResTempKnife_Swing', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz#/edges[id=6ddf03bd1de02f9508f23cfc]' },
+      { property: 'InventoryDropSound', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Place', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Place.DLC_sfx_wpn_ResTempKnife_Place', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz#/edges[id=5a9d56ae9b838e6e0a97e9ab]' },
+    ],
+    reviewRationale: 'The dedicated ResTempKnife place/swing targets on the exact CDO are candidate-specific; this is the explicit item abbreviation for Resolute Tempest Knife, and the competing CDO points to the separately item-specific ChillKnife targets.',
+  },
+  {
+    category: 'ranged-weapon',
+    domainId: 'bonebow',
+    displayName: 'Bonebow',
+    rawIdentity: 'Bow_Unique1',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=ranged-weapon,id=bonebow]/known[property=identity]' },
+    relations: [
+      { property: 'AnimNotifyStateData[].TriggerSound', targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowShoot', targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowShoot.sfx_item_BoneBowShoot', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz#/edges[id=6faed25f89ec795286e46837]' },
+      { property: 'AnimNotifyStateData[].TriggerSound', targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowChargedShoot', targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowChargedShoot.sfx_item_BoneBowChargedShoot', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz#/edges[id=634459080cf16f7127d87ab2]' },
+    ],
+    reviewRationale: 'The dedicated BoneBow shoot and charged-shoot cues occur only on this exact CDO; the competing CDO has TwinBow-specific shoot/place cues. The canonical source name is Bonebow.',
+  },
+  {
+    category: 'ranged-weapon',
+    domainId: 'twin-bow',
+    displayName: 'Twin Bow',
+    rawIdentity: 'Bow_Unique2',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=ranged-weapon,id=twin-bow]/known[property=identity]' },
+    relations: [
+      { property: 'AnimNotifyStateData[].TriggerSound', targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_twinBowShoot', targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_twinBowShoot.sfx_item_twinBowShoot', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz#/edges[id=763b244aedb9ec23f89b7abf]' },
+      { property: 'InventoryDropSound', targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_TwinbowPlace', targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_TwinbowPlace.sfx_item_TwinbowPlace', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz#/edges[id=eed1f73ea8784534b99968b6]' },
+    ],
+    reviewRationale: 'The dedicated TwinBow shoot/place cues occur only on this exact CDO; the competing CDO has BoneBow-specific shoot cues. The canonical source name is Twin Bow.',
+  },
+  {
+    category: 'ranged-weapon',
+    domainId: 'burst-gale-bow',
+    displayName: 'Burst Gale Bow',
+    rawIdentity: 'WindBow_Unique2',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=ranged-weapon,id=burst-gale-bow]/known[property=identity]' },
+    relations: [
+      { property: 'InventoryDropSound', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_BurstBow_Place', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_BurstBow_Place.DLC_sfx_wpn_BurstBow_Place', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz#/edges[id=a4818744a53ec6f5a5e3f169]' },
+    ],
+    reviewRationale: 'The dedicated BurstBow place cue occurs only on this exact CDO; the competing CDO has an EchoBow-specific place cue. The canonical source name is Burst Gale Bow.',
+  },
+  {
+    category: 'ranged-weapon',
+    domainId: 'echo-of-the-valley',
+    displayName: 'Echo of the Valley',
+    rawIdentity: 'WindBow_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance',
+    canonicalSource: { artifactPath: 'research/source-harvest.json', locator: 'records[category=ranged-weapon,id=echo-of-the-valley]/known[property=identity]' },
+    relations: [
+      { property: 'InventoryDropSound', targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_EchoBow_Place', targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_EchoBow_Place.DLC_sfx_wpn_EchoBow_Place', rawEdgeLocator: 'research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz#/edges[id=3cd91f6200379e38f58412c9]' },
+    ],
+    reviewRationale: 'The dedicated EchoBow place cue occurs only on this exact CDO; the competing CDO has a BurstBow-specific place cue. The canonical source name is Echo of the Valley.',
+  },
+] as const satisfies readonly ReviewedTypedRelationAliasBridge[]
+
+export const TYPED_RELATION_ALIAS_BASIS = TYPED_RELATION_MELEE_ALIAS_BASIS
+
 export function loadAlignmentInputs(root: string) {
   const input = loadInputs(root)
   const read = (name: string) => JSON.parse(fs.readFileSync(path.join(root, `research/${baselineArtifactPaths[name] ?? name}.json`), 'utf8'))
@@ -325,24 +422,34 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
     if (existingIndex >= 0) reviewedAliases[existingIndex] = independentSourceAlias
     else reviewedAliases.push(independentSourceAlias)
   }
-  for (const input of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
-    const aliasId = `melee-weapon:${input.rawIdentity}`
-    const canonicalEntity = `melee-weapon:${input.domainId}`
+  const materializeReviewedTypedRelationAlias = (
+    input: { category: 'melee-weapon' | 'ranged-weapon'; domainId: string; rawIdentity: string; packagePath: string },
+    basis: string,
+  ) => {
+    const aliasId = `${input.category}:${input.rawIdentity}`
+    const canonicalEntity = `${input.category}:${input.domainId}`
     const catalogEvidence = result.catalog.find((entry) => entry.entity === canonicalEntity)?.sourceIds ?? []
-    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: typed-relation Melee bridge lacks catalog identity/category evidence`)
+    if (catalogEvidence.length === 0) throw new Error(`${aliasId}: reviewed typed-relation bridge lacks catalog identity/category evidence`)
     const matchingIndexes = reviewedAliases.map((alias, index) => alias.id === aliasId ? index : -1).filter((index) => index >= 0)
-    if (matchingIndexes.length !== 1) throw new Error(`${aliasId}: typed-relation Melee bridge requires exactly one generated alias source`)
+    if (matchingIndexes.length !== 1) throw new Error(`${aliasId}: reviewed typed-relation bridge requires exactly one generated alias source`)
     const existing = reviewedAliases[matchingIndexes[0]!]!
+    if (existing.category !== input.category || existing.rawIdentity !== input.rawIdentity) throw new Error(`${aliasId}: reviewed typed-relation alias source category/identity drift`)
     reviewedAliases[matchingIndexes[0]!] = {
       ...existing,
       status: 'accepted' as const,
       canonicalEntity,
       candidates: [canonicalEntity],
-      basis: TYPED_RELATION_MELEE_ALIAS_BASIS,
+      basis,
       confidence: 'high' as const,
       evidenceIds: [...new Set(catalogEvidence)].sort(),
       assetPaths: [input.packagePath],
     }
+  }
+  for (const input of REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES) {
+    materializeReviewedTypedRelationAlias({ ...input, category: 'melee-weapon' }, TYPED_RELATION_MELEE_ALIAS_BASIS)
+  }
+  for (const input of REVIEWED_TYPED_RELATION_ALIAS_BRIDGES) {
+    materializeReviewedTypedRelationAlias(input, TYPED_RELATION_ALIAS_BASIS)
   }
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
