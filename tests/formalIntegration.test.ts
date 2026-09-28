@@ -33,23 +33,23 @@ function artifacts() {
 }
 
 describe('Formal Value v2 integration', () => {
-  it('accepts all 50 connected current Melee/Ranged domains', () => {
+  it('accepts all 58 connected current Melee/Ranged domains', () => {
     const identity = JSON.parse(fs.readFileSync('research/domain/formal/identity-evidence-v1.json', 'utf8')) as FormalIdentityEvidenceArtifact
     const value = JSON.parse(fs.readFileSync('research/domain/formal/value-availability-v2.json', 'utf8')) as FormalValueAvailabilityArtifact
     const relation = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8')) as FormalSerializedRelationArtifact
-    expect(Object.keys(value.semantic.melee)).toHaveLength(27)
-    expect(Object.keys(value.semantic.ranged)).toHaveLength(23)
+    expect(Object.keys(value.semantic.melee)).toHaveLength(31)
+    expect(Object.keys(value.semantic.ranged)).toHaveLength(27)
     const melee = relation.relationProjections.filter((item) => item.relationRef.endsWith(':attack-sequence@1'))
     const ranged = relation.relationProjections.filter((item) => item.relationRef.endsWith(':projectile@1'))
-    expect(new Set(melee.map((item) => item.occurrence.domainId)).size).toBe(27)
-    expect(melee).toHaveLength(96)
-    expect(new Set(ranged.map((item) => item.occurrence.domainId)).size).toBe(23)
-    expect(ranged).toHaveLength(23)
-    expect(relation.relationCollections).toHaveLength(50)
-    expect(relation.semantic.relations).toHaveLength(121)
-    expect(relation.relationProjections).toHaveLength(121)
-    expect(new Set(relation.relationProjections.map((item) => item.projectionRef)).size).toBe(121)
-    expect(new Set(relation.semantic.relations.map((item) => `${item.relationRef}:${JSON.stringify(item.occurrence)}`)).size).toBe(121)
+    expect(new Set(melee.map((item) => item.occurrence.domainId)).size).toBe(31)
+    expect(melee).toHaveLength(106)
+    expect(new Set(ranged.map((item) => item.occurrence.domainId)).size).toBe(27)
+    expect(ranged).toHaveLength(27)
+    expect(relation.relationCollections).toHaveLength(58)
+    expect(relation.semantic.relations).toHaveLength(135)
+    expect(relation.relationProjections).toHaveLength(135)
+    expect(new Set(relation.relationProjections.map((item) => item.projectionRef)).size).toBe(135)
+    expect(new Set(relation.semantic.relations.map((item) => `${item.relationRef}:${JSON.stringify(item.occurrence)}`)).size).toBe(135)
     expect(relation.relationProjections.slice(3).every((item) => item.result === 'projected'
       && item.serializedTargetResolution.state === 'resolved-local-package'
       && item.targetRawVerification.input === 'not-supplied'

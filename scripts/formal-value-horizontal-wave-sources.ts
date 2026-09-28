@@ -394,9 +394,11 @@ export function readHorizontalConfiguredValueSources(args: {
     if (!definition || definition.assertion.domainId !== identity.resolution.domainId) continue
     const identityEvidence = committedIdentity(args.identity, definition, identity)
     const packagePath = definition.assertion.applicationScope.packagePath
-    const candidateMatches = (inventory.items as HorizontalItem[]).flatMap((item) => item.rawCandidate.candidates
-      .filter((candidate) => candidate.packagePath === packagePath)
-      .map((candidate) => ({ item, candidate })))
+    const candidateMatches = (inventory.items as HorizontalItem[])
+      .filter((item) => item.catalogId === definition.assertion.domainId)
+      .flatMap((item) => item.rawCandidate.candidates
+        .filter((candidate) => candidate.packagePath === packagePath)
+        .map((candidate) => ({ item, candidate })))
     if (!candidateMatches.length) continue
     if (candidateMatches.length !== 1) throw new Error(`${packagePath}: expected one exact Horizontal catalog candidate, found ${candidateMatches.length}`)
     const { item, candidate } = candidateMatches[0]!

@@ -1691,6 +1691,176 @@
         ]
       },
       {
+        "projectionRef": "projection:relation:broken-sawblade:attack-sequence@1:0",
+        "relationRef": "relation:broken-sawblade:attack-sequence@1",
+        "occurrence": {
+          "domainId": "broken-sawblade",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "broken-sawblade",
+        "target": {
+          "objectName": "Player_Master_ChainswordCombo1",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:673f7fc7"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:broken-sawblade:attack-sequence@1:1",
+        "relationRef": "relation:broken-sawblade:attack-sequence@1",
+        "occurrence": {
+          "domainId": "broken-sawblade",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 1
+        },
+        "sourceDomainId": "broken-sawblade",
+        "target": {
+          "objectName": "Player_Master_ChainswordCombo1Loop",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:009faa84"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:mechanized-sawblade:attack-sequence@1:0",
+        "relationRef": "relation:mechanized-sawblade:attack-sequence@1",
+        "occurrence": {
+          "domainId": "mechanized-sawblade",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "mechanized-sawblade",
+        "target": {
+          "objectName": "Player_Master_ChainswordCombo1",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:af0898db"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:mechanized-sawblade:attack-sequence@1:1",
+        "relationRef": "relation:mechanized-sawblade:attack-sequence@1",
+        "occurrence": {
+          "domainId": "mechanized-sawblade",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 1
+        },
+        "sourceDomainId": "mechanized-sawblade",
+        "target": {
+          "objectName": "Player_Master_ChainswordCombo1Loop",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:89499880"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:0",
+        "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "chill-gale-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "chill-gale-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique2_Combo_Hit_1",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:761d7c51"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:1",
+        "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "chill-gale-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 1
+        },
+        "sourceDomainId": "chill-gale-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique2_Combo_Hit_2",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:da27d60e"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:2",
+        "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "chill-gale-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 2
+        },
+        "sourceDomainId": "chill-gale-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique2_Combo_Hit_3",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:8a95600a"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:0",
+        "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "resolute-tempest-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "resolute-tempest-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique1_Combo_Hit_1",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:1741caad"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:1",
+        "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "resolute-tempest-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 1
+        },
+        "sourceDomainId": "resolute-tempest-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique1_Combo_Hit_2",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:e9f77a6e"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:2",
+        "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+        "occurrence": {
+          "domainId": "resolute-tempest-knife",
+          "collectionRef": "configured-attacks",
+          "sourceIndex": 2
+        },
+        "sourceDomainId": "resolute-tempest-knife",
+        "target": {
+          "objectName": "TempestKnife_Unique1_Combo_Hit_3",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:9d48a1ba"
+        ]
+      },
+      {
         "projectionRef": "projection:relation:bow:projectile@1:0",
         "relationRef": "relation:bow:projectile@1",
         "occurrence": {
@@ -2063,6 +2233,74 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:ae0337df"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:bonebow:projectile@1:0",
+        "relationRef": "relation:bonebow:projectile@1",
+        "occurrence": {
+          "domainId": "bonebow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "bonebow",
+        "target": {
+          "objectName": "BP_Bow_Unique1Arrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:c88a43c2"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:twin-bow:projectile@1:0",
+        "relationRef": "relation:twin-bow:projectile@1",
+        "occurrence": {
+          "domainId": "twin-bow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "twin-bow",
+        "target": {
+          "objectName": "BP_Bow_Unique2Arrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:eced9376"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:burst-gale-bow:projectile@1:0",
+        "relationRef": "relation:burst-gale-bow:projectile@1",
+        "occurrence": {
+          "domainId": "burst-gale-bow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "burst-gale-bow",
+        "target": {
+          "objectName": "BP_WindBow_Unique2Arrow_C",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:d6dd6f4d"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:echo-of-the-valley:projectile@1:0",
+        "relationRef": "relation:echo-of-the-valley:projectile@1",
+        "occurrence": {
+          "domainId": "echo-of-the-valley",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "echo-of-the-valley",
+        "target": {
+          "objectName": "BP_WindBow_Unique1Arrow_C",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:e8eb8b51"
+        ]
       }
     ]
   },
@@ -2389,6 +2627,48 @@
       "result": "projected"
     },
     {
+      "domainId": "broken-sawblade",
+      "collectionRef": "configured-attacks",
+      "evidenceRef": "evidence:relation:fnv1a32:673f7fc7",
+      "sourceIndices": [
+        0,
+        1
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "mechanized-sawblade",
+      "collectionRef": "configured-attacks",
+      "evidenceRef": "evidence:relation:fnv1a32:af0898db",
+      "sourceIndices": [
+        0,
+        1
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "chill-gale-knife",
+      "collectionRef": "configured-attacks",
+      "evidenceRef": "evidence:relation:fnv1a32:761d7c51",
+      "sourceIndices": [
+        0,
+        1,
+        2
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "resolute-tempest-knife",
+      "collectionRef": "configured-attacks",
+      "evidenceRef": "evidence:relation:fnv1a32:1741caad",
+      "sourceIndices": [
+        0,
+        1,
+        2
+      ],
+      "result": "projected"
+    },
+    {
       "domainId": "bow",
       "collectionRef": "projectile-definitions",
       "evidenceRef": "evidence:relation:fnv1a32:efa5b5ca",
@@ -2581,6 +2861,42 @@
       "domainId": "shrieking-crossbow",
       "collectionRef": "projectile-definitions",
       "evidenceRef": "evidence:relation:fnv1a32:ae0337df",
+      "sourceIndices": [
+        0
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "bonebow",
+      "collectionRef": "projectile-definitions",
+      "evidenceRef": "evidence:relation:fnv1a32:c88a43c2",
+      "sourceIndices": [
+        0
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "twin-bow",
+      "collectionRef": "projectile-definitions",
+      "evidenceRef": "evidence:relation:fnv1a32:eced9376",
+      "sourceIndices": [
+        0
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "burst-gale-bow",
+      "collectionRef": "projectile-definitions",
+      "evidenceRef": "evidence:relation:fnv1a32:d6dd6f4d",
+      "sourceIndices": [
+        0
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "echo-of-the-valley",
+      "collectionRef": "projectile-definitions",
+      "evidenceRef": "evidence:relation:fnv1a32:e8eb8b51",
       "sourceIndices": [
         0
       ],
@@ -4771,6 +5087,226 @@
       }
     },
     {
+      "projectionRef": "projection:relation:broken-sawblade:attack-sequence@1:0",
+      "relationRef": "relation:broken-sawblade:attack-sequence@1",
+      "occurrence": {
+        "domainId": "broken-sawblade",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:673f7fc7"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:broken-sawblade:attack-sequence@1:1",
+      "relationRef": "relation:broken-sawblade:attack-sequence@1",
+      "occurrence": {
+        "domainId": "broken-sawblade",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:009faa84"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:mechanized-sawblade:attack-sequence@1:0",
+      "relationRef": "relation:mechanized-sawblade:attack-sequence@1",
+      "occurrence": {
+        "domainId": "mechanized-sawblade",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:af0898db"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:mechanized-sawblade:attack-sequence@1:1",
+      "relationRef": "relation:mechanized-sawblade:attack-sequence@1",
+      "occurrence": {
+        "domainId": "mechanized-sawblade",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:89499880"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:0",
+      "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "chill-gale-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:761d7c51"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:1",
+      "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "chill-gale-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:da27d60e"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:chill-gale-knife:attack-sequence@1:2",
+      "relationRef": "relation:chill-gale-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "chill-gale-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 2
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:8a95600a"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:0",
+      "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "resolute-tempest-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:1741caad"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:1",
+      "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "resolute-tempest-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 1
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:e9f77a6e"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:resolute-tempest-knife:attack-sequence@1:2",
+      "relationRef": "relation:resolute-tempest-knife:attack-sequence@1",
+      "occurrence": {
+        "domainId": "resolute-tempest-knife",
+        "collectionRef": "configured-attacks",
+        "sourceIndex": 2
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:9d48a1ba"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
       "projectionRef": "projection:relation:bow:projectile@1:0",
       "relationRef": "relation:bow:projectile@1",
       "occurrence": {
@@ -5247,6 +5783,94 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/BatCrossbow/BP_BatCrossbow_Arrow_02"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:bonebow:projectile@1:0",
+      "relationRef": "relation:bonebow:projectile@1",
+      "occurrence": {
+        "domainId": "bonebow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:c88a43c2"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:twin-bow:projectile@1:0",
+      "relationRef": "relation:twin-bow:projectile@1",
+      "occurrence": {
+        "domainId": "twin-bow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:eced9376"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:burst-gale-bow:projectile@1:0",
+      "relationRef": "relation:burst-gale-bow:projectile@1",
+      "occurrence": {
+        "domainId": "burst-gale-bow",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:d6dd6f4d"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:echo-of-the-valley:projectile@1:0",
+      "relationRef": "relation:echo-of-the-valley:projectile@1",
+      "occurrence": {
+        "domainId": "echo-of-the-valley",
+        "collectionRef": "projectile-definitions",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:e8eb8b51"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -10597,6 +11221,466 @@
         "fingerprint": "fnv1a32:3ad6852e"
       },
       {
+        "id": "evidence:relation:fnv1a32:673f7fc7",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1df83f9568e9ffd5ebc449811569376bb96d4ea6cf33c878626c65c6fc4f2207",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3cda8f11864bf06deb03bb741fa2eae9c38f0dadb6b07d988fa918802cbebc3"
+          },
+          "nodePointer": "/edges/287"
+        },
+        "observed": {
+          "id": "93bf6a80f66aaeb78b80bb95",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[0].AttackSequence",
+            "arrayIndex": 0,
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance.uexp",
+              "start": 224,
+              "end": 253
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance.uexp",
+              "start": 249,
+              "end": 253
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1.Player_Master_ChainswordCombo1",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:e1b9c9ad"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:009faa84",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1df83f9568e9ffd5ebc449811569376bb96d4ea6cf33c878626c65c6fc4f2207",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3cda8f11864bf06deb03bb741fa2eae9c38f0dadb6b07d988fa918802cbebc3"
+          },
+          "nodePointer": "/edges/312"
+        },
+        "observed": {
+          "id": "e825b5fb80a54d8cb72f1345",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[1].AttackSequence",
+            "arrayIndex": 1,
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance.uexp",
+              "start": 1453,
+              "end": 1482
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/BP_ChainswordInstance.uexp",
+              "start": 1478,
+              "end": 1482
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop.Player_Master_ChainswordCombo1Loop",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:f927efeb"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:af0898db",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:70e764072bca462ff6d05f97abad3ddcfde6c3cfec1813f916a7b328897eb74d",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb8ac6644393f78f191e920bf7bbd7d63c62ff17587585ce6a5b60eaa1e8cc7"
+          },
+          "nodePointer": "/edges/2351"
+        },
+        "observed": {
+          "id": "eea9a0ebdf2015c4d1cd46f2",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[0].AttackSequence",
+            "arrayIndex": 0,
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance.uexp",
+              "start": 224,
+              "end": 253
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance.uexp",
+              "start": 249,
+              "end": 253
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1.Player_Master_ChainswordCombo1",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:69a66f02"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:89499880",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-059.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:70e764072bca462ff6d05f97abad3ddcfde6c3cfec1813f916a7b328897eb74d",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb8ac6644393f78f191e920bf7bbd7d63c62ff17587585ce6a5b60eaa1e8cc7"
+          },
+          "nodePointer": "/edges/2327"
+        },
+        "observed": {
+          "id": "aeffd8bbd7f8b2aa3bfd16ef",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[1].AttackSequence",
+            "arrayIndex": 1,
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance.uexp",
+              "start": 1453,
+              "end": 1482
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword_Unique1/BP_Chainsword_Unique1Instance.uexp",
+              "start": 1478,
+              "end": 1482
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop.Player_Master_ChainswordCombo1Loop",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Equipment/MeleeWeapons/Chainsword/Animations/Player_Master_ChainswordCombo1Loop",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:b7cdf401"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:761d7c51",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:cc8904b547aa76e975a242741476fe0255147f2e41c942a5da015e8543ac7895",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e99e41aff01599415704af9385a3cfc16896ddae6e810c95a3c99f9897d01106"
+          },
+          "nodePointer": "/edges/970"
+        },
+        "observed": {
+          "id": "bfc168c5774a4128d9c15df6",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[0].AttackSequence",
+            "arrayIndex": 0,
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 224,
+              "end": 253
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 249,
+              "end": 253
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1.TempestKnife_Unique2_Combo_Hit_1",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_1",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:839fc5f0"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:da27d60e",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:cc8904b547aa76e975a242741476fe0255147f2e41c942a5da015e8543ac7895",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e99e41aff01599415704af9385a3cfc16896ddae6e810c95a3c99f9897d01106"
+          },
+          "nodePointer": "/edges/920"
+        },
+        "observed": {
+          "id": "134a9229bb77b8e316eb8b46",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[1].AttackSequence",
+            "arrayIndex": 1,
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 1453,
+              "end": 1482
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 1478,
+              "end": 1482
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2.TempestKnife_Unique2_Combo_Hit_2",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_2",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "followed",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:802bd928"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:8a95600a",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:cc8904b547aa76e975a242741476fe0255147f2e41c942a5da015e8543ac7895",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e99e41aff01599415704af9385a3cfc16896ddae6e810c95a3c99f9897d01106"
+          },
+          "nodePointer": "/edges/977"
+        },
+        "observed": {
+          "id": "ec16fdf7d591ff051f62cd82",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[2].AttackSequence",
+            "arrayIndex": 2,
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 2682,
+              "end": 2711
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance.uexp",
+              "start": 2707,
+              "end": 2711
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3.TempestKnife_Unique2_Combo_Hit_3",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/Animations/TempestKnife_Unique2_Combo_Hit_3",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:1c9dcf68"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:1741caad",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f990479298748530de07868fa8ebf4a62b5d39ed3522cdf8fd144df53df1f7e3",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4d7ee24ae3fc580c8fa138da198a40490e27aa5401609fc3fe65c282f4e1338e"
+          },
+          "nodePointer": "/edges/670"
+        },
+        "observed": {
+          "id": "3672c8d63b8e3966d39ee52a",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[0].AttackSequence",
+            "arrayIndex": 0,
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 224,
+              "end": 253
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 249,
+              "end": 253
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1.TempestKnife_Unique1_Combo_Hit_1",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_1",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:d320efc4"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:e9f77a6e",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f990479298748530de07868fa8ebf4a62b5d39ed3522cdf8fd144df53df1f7e3",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4d7ee24ae3fc580c8fa138da198a40490e27aa5401609fc3fe65c282f4e1338e"
+          },
+          "nodePointer": "/edges/699"
+        },
+        "observed": {
+          "id": "93087ceedff311d2072b8476",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[1].AttackSequence",
+            "arrayIndex": 1,
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 1453,
+              "end": 1482
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 1478,
+              "end": 1482
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2.TempestKnife_Unique1_Combo_Hit_2",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_2",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:00b6e755"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:9d48a1ba",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f990479298748530de07868fa8ebf4a62b5d39ed3522cdf8fd144df53df1f7e3",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4d7ee24ae3fc580c8fa138da198a40490e27aa5401609fc3fe65c282f4e1338e"
+          },
+          "nodePointer": "/edges/668"
+        },
+        "observed": {
+          "id": "28f54378e06aeedb26a36c2e",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ConfiguredAttackVariants[2].AttackSequence",
+            "arrayIndex": 2,
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 2682,
+              "end": 2711
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance.uexp",
+              "start": 2707,
+              "end": 2711
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3.TempestKnife_Unique1_Combo_Hit_3",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/Animations/TempestKnife_Unique1_Combo_Hit_3",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:6f1fa19a"
+      },
+      {
         "id": "evidence:relation:fnv1a32:efa5b5ca",
         "kind": "raw-relation-observation",
         "provenance": {
@@ -11607,6 +12691,190 @@
           }
         },
         "fingerprint": "fnv1a32:7c58338d"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:c88a43c2",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3acbc2e00d9c669c561575cee08f25718e30d957f977bdb28efddb957221247f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb485baccb6207c36bc3443a56e45cc28fd910080c9994b5d20c3098f5670f1"
+          },
+          "nodePointer": "/edges/897"
+        },
+        "observed": {
+          "id": "f74ba5b3419394bb50d77394",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "AttackDefintion.ProjectileDefinition[0].Projectile",
+            "arrayIndex": 0,
+            "rawPackageIndex": -4,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance.uexp",
+              "start": 240,
+              "end": 269
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance.uexp",
+              "start": 265,
+              "end": 269
+            }
+          },
+          "targetObject": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow.BP_Bow_Unique1Arrow_C",
+          "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow",
+          "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Arrow",
+          "targetRawPackageIndex": -4,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:9c0a3430"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:eced9376",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7288cd406397e18c0d399f14f4659171673915bbfc4a38d27964616b64f41f6e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e1d8353ad1e385f7b000be15d07db00b64bf8f3a0d5e5377f1404fd8362a1efa"
+          },
+          "nodePointer": "/edges/1232"
+        },
+        "observed": {
+          "id": "3fefb92dbb25b39055ec5952",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "AttackDefintion.ProjectileDefinition[0].Projectile",
+            "arrayIndex": 0,
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance.uexp",
+              "start": 240,
+              "end": 269
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance.uexp",
+              "start": 265,
+              "end": 269
+            }
+          },
+          "targetObject": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow.BP_Bow_Unique2Arrow_C",
+          "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow",
+          "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Arrow",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:de2cba43"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:d6dd6f4d",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:17eee581daf61492a506702e296b3351661efa425a2436c5f23eab682481c785",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e87a59180af29e2155e02694a762e148fbb8ebc263209b24eac175f6edeb4a1a"
+          },
+          "nodePointer": "/edges/605"
+        },
+        "observed": {
+          "id": "50453daa8e16727e4674fc3e",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "AttackDefintion.ProjectileDefinition[0].Projectile",
+            "arrayIndex": 0,
+            "rawPackageIndex": -5,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance.uexp",
+              "start": 269,
+              "end": 298
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance.uexp",
+              "start": 294,
+              "end": 298
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow.BP_WindBow_Unique2Arrow_C",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Arrow",
+          "targetRawPackageIndex": -5,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:60be3c4e"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:e8eb8b51",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:eb5539b9cda6299e4b243564c8cbdc3b5bae3fa7d999bb1df8c6f46546da4351",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "a1e041dbe92f2dcb3fb3ba973c75e8136b8cc24d6f7d05c4f652ad2f0911303d"
+          },
+          "nodePointer": "/edges/145"
+        },
+        "observed": {
+          "id": "277d64589d8e7438affd83bf",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "AttackDefintion.ProjectileDefinition[0].Projectile",
+            "arrayIndex": 0,
+            "rawPackageIndex": -5,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance.uexp",
+              "start": 269,
+              "end": 298
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance.uexp",
+              "start": 294,
+              "end": 298
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow.BP_WindBow_Unique1Arrow_C",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Arrow",
+          "targetRawPackageIndex": -5,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:6de27e20"
       }
     ]
   }

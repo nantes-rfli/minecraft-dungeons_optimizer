@@ -7,6 +7,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationFormalIdentities,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type FormalIdentityDefinition, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
@@ -37,7 +39,7 @@ function committedIdentity(artifact: FormalIdentityEvidenceArtifact, definition:
   return { identity, identityEvidence }
 }
 
-/** Re-enumerates first-wave occurrences from committed Horizontal references and verifies each exact Structural edge. */
+/** Re-enumerates reviewed breadth occurrences from committed Horizontal references and verifies each exact Structural edge. */
 export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
@@ -50,9 +52,33 @@ export function readHorizontalRelationWaveSources(args: {
     matches.push(source)
     byEdgeId.set(source.edgeId, matches)
   }
+  const reviewedTypedRelationCatchupMeleeFormalIdentities = [
+    ...reviewedTypedRelationMeleeFormalIdentities,
+    ...reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+      assertion.domainId === 'chill-gale-knife' || assertion.domainId === 'resolute-tempest-knife'),
+  ]
+  const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+    assertion.domainId === 'bonebow' || assertion.domainId === 'twin-bow'
+    || assertion.domainId === 'burst-gale-bow' || assertion.domainId === 'echo-of-the-valley')
   const categories = [
-    { category: 'melee' as const, definitions: [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities] },
-    { category: 'ranged' as const, definitions: [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities] },
+    {
+      category: 'melee' as const,
+      definitions: [
+        fightersBindingsFormalIdentity,
+        ...readyMeleeFormalIdentities,
+        ...reviewedBridgeMeleeFormalIdentities,
+        ...reviewedTypedRelationCatchupMeleeFormalIdentities,
+      ],
+    },
+    {
+      category: 'ranged' as const,
+      definitions: [
+        scatterCrossbowFormalIdentity,
+        ...readyRangedFormalIdentities,
+        ...reviewedBridgeRangedFormalIdentities,
+        ...reviewedTypedRelationCatchupRangedFormalIdentities,
+      ],
+    },
   ]
   const result = { melee: [] as HorizontalRelationInput[], ranged: [] as HorizontalRelationInput[] }
   for (const { category, definitions } of categories) {
