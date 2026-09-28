@@ -13,6 +13,83 @@ const reportPath = 'docs/remaining_ambiguous_formal_identity_resolution_audit.md
 const baseline = '791cf9305fbc2fcf15737ef793f3cafeaf8c0133'
 const rawUnavailableIds = ['sword', 'ender-armor', 'vanguard-armor'] as const
 
+// These are per-domain reviewed observations, not a name-matching rule. Each entry binds one
+// canonical source record to one exact candidate CDO property and one dedicated Raw target.
+const reviewedTypedRelationSelectors = [
+  {
+    domainId: 'melee-weapon:chill-gale-knife', rawIdentity: 'TempestKnife_Unique2',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance',
+    property: 'ConfiguredAttackVariants[].HitSoundCue',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Swing',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Swing.DLC_sfx_wpn_ChillKnife_Swing',
+  },
+  {
+    domainId: 'melee-weapon:chill-gale-knife', rawIdentity: 'TempestKnife_Unique2',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance',
+    property: 'InventoryDropSound',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Place',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ChillKnife_Place.DLC_sfx_wpn_ChillKnife_Place',
+  },
+  {
+    domainId: 'melee-weapon:resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance',
+    property: 'ConfiguredAttackVariants[].HitSoundCue',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Swing',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Swing.DLC_sfx_wpn_ResTempKnife_Swing',
+  },
+  {
+    domainId: 'melee-weapon:resolute-tempest-knife', rawIdentity: 'TempestKnife_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance',
+    property: 'InventoryDropSound',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Place',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_ResTempKnife_Place.DLC_sfx_wpn_ResTempKnife_Place',
+  },
+  {
+    domainId: 'ranged-weapon:bonebow', rawIdentity: 'Bow_Unique1',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance',
+    property: 'AnimNotifyStateData[].TriggerSound',
+    targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowShoot',
+    targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowShoot.sfx_item_BoneBowShoot',
+  },
+  {
+    domainId: 'ranged-weapon:bonebow', rawIdentity: 'Bow_Unique1',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance',
+    property: 'AnimNotifyStateData[].TriggerSound',
+    targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowChargedShoot',
+    targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_BoneBowChargedShoot.sfx_item_BoneBowChargedShoot',
+  },
+  {
+    domainId: 'ranged-weapon:twin-bow', rawIdentity: 'Bow_Unique2',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance',
+    property: 'AnimNotifyStateData[].TriggerSound',
+    targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_twinBowShoot',
+    targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_bow/sfx_item_twinBowShoot.sfx_item_twinBowShoot',
+  },
+  {
+    domainId: 'ranged-weapon:twin-bow', rawIdentity: 'Bow_Unique2',
+    packagePath: 'Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance',
+    property: 'InventoryDropSound',
+    targetPackage: 'Dungeons/Content/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_TwinbowPlace',
+    targetObject: '/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_TwinbowPlace.sfx_item_TwinbowPlace',
+  },
+  {
+    domainId: 'ranged-weapon:burst-gale-bow', rawIdentity: 'WindBow_Unique2',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance',
+    property: 'InventoryDropSound',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_BurstBow_Place',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_BurstBow_Place.DLC_sfx_wpn_BurstBow_Place',
+  },
+  {
+    domainId: 'ranged-weapon:echo-of-the-valley', rawIdentity: 'WindBow_Unique1',
+    packagePath: 'Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance',
+    property: 'InventoryDropSound',
+    targetPackage: 'Dungeons/Content/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_EchoBow_Place',
+    targetObject: '/Game/AudioForce/DLC_3/Item/Cues/Weapons/DLC_sfx_wpn_EchoBow_Place.DLC_sfx_wpn_EchoBow_Place',
+  },
+] as const
+
+const reviewedSelectorDomains = new Set(reviewedTypedRelationSelectors.map(({ domainId, rawIdentity, packagePath }) => `${domainId}\u0000${rawIdentity}\u0000${packagePath}`))
+
 function readJson<T>(relativePath: string): T {
   return JSON.parse(fs.readFileSync(path.join(repositoryRoot, relativePath), 'utf8')) as T
 }
@@ -33,6 +110,14 @@ function findUniqueProperty(properties: readonly any[], name: string): any | und
 
 function inline(value: string): string {
   return `\`${value.replaceAll('`', '\\`')}\``
+}
+
+function relationPropertyFamily(propertyPath: string): string {
+  return propertyPath.replace(/\[\d+\]/g, '[]')
+}
+
+function relationSignature(relation: { property: string; targetPackage: string; targetObject: string }): string {
+  return JSON.stringify([relation.property, relation.targetPackage, relation.targetObject])
 }
 
 const manifest = readJson<any>(`${inventoryDirectory}/manifest.json`)
@@ -161,6 +246,34 @@ function inspectCandidate(seed: any, candidate: any) {
     .map((edge: any) => edge.sourceOccurrence.propertyPath?.replace(/\[\d+\]/g, '[]'))
     .filter(Boolean))] as string[]
   const typedReferences = edges.filter((edge: any) => edge.kind.endsWith('-property'))
+  const typedRelationMap = new Map<string, any>()
+  for (const edge of edges) {
+    const propertyPath = edge.sourceOccurrence?.propertyPath
+    if (!edge.kind.endsWith('-property') || edge.sourceOccurrence?.kind !== 'cdo-property' || !propertyPath) continue
+    if (propertyPath === 'RootComponent' || propertyPath === 'GearActor') continue
+    const targetPackage = edge.targetPackage ?? edge.targetPackageName
+    const targetObject = edge.targetObject
+    if (!targetPackage && !targetObject) continue
+    const relation = {
+      property: relationPropertyFamily(propertyPath),
+      targetPackage: targetPackage ?? 'unresolved-target-package',
+      targetObject: targetObject ?? 'unresolved-target-object',
+      edgeKind: edge.kind,
+      rawPropertyPath: propertyPath,
+      rawEdgeLocator: `${inventoryDirectory}/${shardPath}#/edges[id=${edge.id}]`,
+    }
+    const signature = relationSignature(relation)
+    const current = typedRelationMap.get(signature)
+    if (current) {
+      current.rawPropertyPaths.add(propertyPath)
+    } else {
+      typedRelationMap.set(signature, { ...relation, rawPropertyPaths: new Set([propertyPath]) })
+    }
+  }
+  const typedRelations = [...typedRelationMap.values()].map((relation) => ({
+    ...relation,
+    rawPropertyPaths: [...relation.rawPropertyPaths].sort(),
+  }))
   const referenceTargets = [...new Set(edges.flatMap((edge: any) => [edge.targetPackage, edge.targetPackageName, edge.targetObject])
     .filter((target: unknown): target is string => typeof target === 'string' && /^(?:Dungeons\/|\/Game\/|\/Script\/)/.test(target)))]
   const rawLocator = `${inventoryDirectory}/${shardPath}#/packages/${packageIndex}/cdoPropertyInventory/${cdoInventoryIndex}`
@@ -185,6 +298,7 @@ function inspectCandidate(seed: any, candidate: any) {
     typedReferenceCount: typedReferences.length,
     referenceTargetCount: referenceTargets.length,
     referenceTargets,
+    typedRelations,
     rawLocator,
     aliasId,
     aliasState,
@@ -198,6 +312,17 @@ const entityOverrides = new Map([...overrideBlock.matchAll(/^\s*'([^']+)'\s*:\s*
 const sourceByEntity = new Map(sourceHarvest.records.map((record: any) => [`${record.category}:${record.id}`, record]))
 const meleeById = new Map(meleeAudit.weapons.map((entry: any) => [entry.weaponId, entry]))
 const rangedById = new Map(rangedAudit.entries.map((entry: any) => [entry.id, entry]))
+const selectorRationales = new Map([
+  ['melee-weapon:chill-gale-knife', 'The dedicated ChillKnife place/swing targets on the exact CDO are candidate-specific; the competing CDO points to the separately item-specific ResTempKnife targets. The canonical source name is Chill Gale Knife.'],
+  ['melee-weapon:resolute-tempest-knife', 'The dedicated ResTempKnife place/swing targets on the exact CDO are candidate-specific; this is the explicit item abbreviation for Resolute Tempest Knife, and the competing CDO points to the separately item-specific ChillKnife targets.'],
+  ['ranged-weapon:bonebow', 'The dedicated BoneBow shoot and charged-shoot cues occur only on this exact CDO; the competing CDO has TwinBow-specific shoot/place cues. The canonical source name is Bonebow.'],
+  ['ranged-weapon:twin-bow', 'The dedicated TwinBow shoot/place cues occur only on this exact CDO; the competing CDO has BoneBow-specific shoot cues. The canonical source name is Twin Bow.'],
+  ['ranged-weapon:burst-gale-bow', 'The dedicated BurstBow place cue occurs only on this exact CDO; the competing CDO has an EchoBow-specific place cue. The canonical source name is Burst Gale Bow.'],
+  ['ranged-weapon:echo-of-the-valley', 'The dedicated EchoBow place cue occurs only on this exact CDO; the competing CDO has a BurstBow-specific place cue. The canonical source name is Echo of the Valley.'],
+])
+assert.equal(selectorRationales.size, reviewedSelectorDomains.size)
+assert.equal(reviewedSelectorDomains.size, 6, 'Reviewed selector ledger drift')
+
 const targetRows = ambiguousSeeds.map((seed: any) => {
   const domainId = `${seed.category === 'melee' ? 'melee-weapon' : 'ranged-weapon'}:${seed.catalogId}`
   const sourceRecord = sourceByEntity.get(domainId)
@@ -211,14 +336,65 @@ const targetRows = ambiguousSeeds.map((seed: any) => {
   assert.equal(new Set(candidates.map((candidate: any) => candidate.serializedId)).size, candidates.length, `${domainId}: candidate identities collapsed`)
   const overrideKey = `${seed.category}:${seed.catalogId}`
   assert.equal(entityOverrides.has(overrideKey), false, `${domainId}: an ENTITY_OVERRIDES mapping requires separate adjudication`)
-  const sourceText = JSON.stringify({ sourceRecord, categoryRecord })
+  const relationCounts = new Map<string, number>()
   for (const candidate of candidates) {
-    assert.equal(sourceText.includes(candidate.packagePath), false, `${domainId}: canonical source contains an exact Raw package path; review the bridge`)
-    assert.equal(sourceText.includes(candidate.serializedId), false, `${domainId}: canonical source contains an exact Raw identity; review the bridge`)
-    for (const referenceTarget of candidate.referenceTargets) {
-      assert.equal(sourceText.includes(referenceTarget), false, `${domainId}: canonical source contains an exact typed Raw relation target; review the bridge`)
+    for (const relation of candidate.typedRelations) {
+      const signature = relationSignature(relation)
+      relationCounts.set(signature, (relationCounts.get(signature) ?? 0) + 1)
     }
   }
+  const matchedSelectorSignatures = new Set<string>()
+  let reviewedRelationCount = 0
+  for (const candidate of candidates) {
+    candidate.candidateSpecificRelations = candidate.typedRelations
+      .filter((relation: any) => relationCounts.get(relationSignature(relation)) === 1)
+      .map((relation: any) => {
+        reviewedRelationCount += 1
+        const signature = relationSignature(relation)
+        const selected = reviewedTypedRelationSelectors.filter((selector) =>
+          selector.domainId === domainId
+          && selector.rawIdentity === candidate.serializedId
+          && selector.packagePath === candidate.packagePath
+          && selector.property === relation.property
+          && selector.targetPackage === relation.targetPackage
+          && selector.targetObject === relation.targetObject)
+        assert.ok(selected.length <= 1, `${domainId}: duplicate reviewed selector for ${signature}`)
+        const selector = selected[0]
+        if (selector) matchedSelectorSignatures.add(`${domainId}\u0000${candidate.serializedId}\u0000${candidate.packagePath}\u0000${signature}`)
+        const siblingSelector = reviewedTypedRelationSelectors.find((entry) =>
+          entry.domainId !== domainId
+          && entry.property === relation.property
+          && entry.targetPackage === relation.targetPackage
+          && entry.targetObject === relation.targetObject)
+        const status = selector ? 'accepted' : 'rejected'
+        const canonicalCorrespondence = selector
+          ? `${seed.catalogName} (${domainId})`
+          : siblingSelector
+            ? `${siblingSelector.domainId} only; not ${domainId}`
+            : 'none established for this canonical item'
+        const rationale = selector
+          ? selectorRationales.get(domainId)!
+          : siblingSelector
+            ? `This exact dedicated target is reviewed for the distinct sibling canonical item ${siblingSelector.domainId}; it conflicts with selecting this candidate for ${domainId}.`
+            : /Projectile/.test(relation.property)
+              ? 'The exact target is a candidate-bound projectile implementation. Neither the canonical identity source nor this projectile object supplies a canonical item selector.'
+              : /Sound|SFX/.test(relation.property)
+                ? 'The exact sound target is generic, family-level, or tracks the Raw family/variant label; it does not name this canonical item independently.'
+                : 'The exact target is candidate-specific implementation/effect/animation data; no independent canonical source connects that target to this item.'
+        return { ...relation, status, canonicalCorrespondence, rationale, selected: Boolean(selector) }
+      })
+  }
+  const expectedSelectorSignatures = reviewedTypedRelationSelectors.filter((selector) => selector.domainId === domainId).map((selector) =>
+    `${selector.domainId}\u0000${selector.rawIdentity}\u0000${selector.packagePath}\u0000${relationSignature(selector)}`)
+  assert.deepEqual([...matchedSelectorSignatures].sort(), expectedSelectorSignatures.sort(), `${domainId}: reviewed selector evidence drift`)
+  assert.ok(reviewedRelationCount > 0, `${domainId}: candidate-specific typed relations were not reviewed`)
+  const acceptedCandidates = candidates.filter((candidate: any) => candidate.candidateSpecificRelations.some((relation: any) => relation.selected))
+  assert.ok(acceptedCandidates.length <= 1, `${domainId}: reviewed relations select multiple candidates`)
+  const decision = acceptedCandidates.length === 1
+    ? 'ready-with-new-explicit-reviewed-bridge'
+    : reviewedRelationCount > 0
+      ? 'true-ambiguity'
+      : 'needs-additional-identity-evidence'
   const sourceLocator = seed.category === 'melee'
     ? `research/melee-attack-profile-audit.json#/weapons[weaponId=${seed.catalogId}]`
     : `research/ranged-weapon-audit.json#/entries[id=${seed.catalogId}]`
@@ -228,25 +404,38 @@ const targetRows = ambiguousSeeds.map((seed: any) => {
   const candidateFacts = candidates.map((candidate: any) => {
     const inheritance = candidate.inheritanceTargets.length ? candidate.inheritanceTargets.join(' → ') : 'no serialized super hop'
     const imports = candidate.classImports.join(', ') || 'none'
+    const relationFacts = candidate.candidateSpecificRelations.length
+      ? candidate.candidateSpecificRelations.map((relation: any) => `${inline(relation.property)} → ${inline(relation.targetPackage)} :: ${inline(relation.targetObject)}; ${inline(relation.status)}; canonical correspondence=${inline(relation.canonicalCorrespondence)}; ${relation.rationale} Raw edge=${inline(relation.rawEdgeLocator)}`).join('<br>')
+      : 'none; all scoped exact targets are shared by the current candidates'
     return [
       `${inline(candidate.packagePath)} — role=${inline(candidate.role)}; ItemIdName=${inline(candidate.itemIdName)}; SerializedId=${inline(candidate.serializedId)}; CDO=1`,
       `class=${inline(candidate.generatedClass)}; super=${inline(candidate.superObject)}; template=${inline(candidate.templateObject)}; inheritance=${inline(inheritance)}`,
       `BlueprintGeneratedClass imports=${inline(imports)}; typed CDO reference edges=${candidate.typedReferenceCount}; property families=${candidate.edgeFields.map(inline).join(', ') || 'none'}; exact Raw target objects=${candidate.referenceTargetCount}`,
+      `Candidate-specific typed targets reviewed (${candidate.candidateSpecificRelations.length}):<br>${relationFacts}`,
       `Raw locator: ${inline(candidate.rawLocator)}`,
     ].join('<br>')
   }).join('<br><br>')
-  const survivorList = candidates.map((candidate: any) => `${candidate.serializedId} @ ${candidate.packagePath}`).map(inline).join('<br>')
+  const survivorCandidates = acceptedCandidates.length ? acceptedCandidates : candidates
+  const survivorList = survivorCandidates.map((candidate: any) => `${candidate.serializedId} @ ${candidate.packagePath}`).map(inline).join('<br>')
+  const selector = acceptedCandidates[0]
+  const selectedRelationCount = selector?.candidateSpecificRelations.filter((relation: any) => relation.selected).length ?? 0
+  const candidateSpecificRelationCount = candidates.reduce((sum: number, candidate: any) => sum + candidate.candidateSpecificRelations.length, 0)
+  const selectorRationale = selectorRationales.get(domainId)
   return {
     domainId,
     category: seed.category,
     canonicalName: seed.catalogName,
     candidateCount: candidates.length,
+    candidateSpecificRelationCount,
+    selectedRelationCount,
     candidateFacts,
     survivorList,
     bridgeFacts,
-    canonicalSource: `${inline(canonicalLocator)}<br>sourceIds=${sourceIds}<br>${inline(sourceLocator)}; canonical record does not assert a Raw ID/package path`,
-    conflict: `${candidates.length} equal-rank instance candidates; candidate Raw identities differ. No canonical source conflict or selector was found.`,
-    decision: 'true-ambiguity',
+    canonicalSource: `${inline(canonicalLocator)}<br>sourceIds=${sourceIds}<br>${inline(sourceLocator)}; canonical record supplies the independent item name/category; it does not assert a Raw ID/package path${selector ? `<br>Reviewed selector: ${selector.serializedId}; ${selectedRelationCount} exact candidate-specific target(s); ${selectorRationale}` : ''}`,
+    conflict: selector
+      ? `${candidates.length} equal-rank candidates; the dedicated typed target selects ${selector.serializedId}, while the competing candidate-specific targets were rejected or map to a distinct canonical sibling.`
+      : `${candidates.length} equal-rank instance candidates; ${candidateSpecificRelationCount} candidate-specific typed relation target(s) were inspected, but none selects this canonical item.`,
+    decision,
     candidates,
     sourceRecord,
   }
@@ -273,8 +462,17 @@ const existingMeleeOverrides = [...entityOverrides.keys()].filter((key) => key.s
 const existingRangedOverrides = [...entityOverrides.keys()].filter((key) => key.startsWith('ranged:'))
 assert.deepEqual(existingMeleeOverrides.sort(), ['melee:bonehead-hammer', 'melee:sinister-sword'].sort())
 assert.deepEqual(existingRangedOverrides, ['ranged:shrieking-crossbow'])
-assert.equal(targetRows.filter((row: any) => row.decision === 'true-ambiguity').length, 72)
-assert.equal(targetRows.filter((row: any) => row.decision.startsWith('ready-')).length, 0)
+const reviewedRelationTargetCount = targetRows.filter((row: any) => row.candidateSpecificRelationCount > 0).length
+const candidateSpecificRelationCount = targetRows.reduce((sum: number, row: any) => sum + row.candidateSpecificRelationCount, 0)
+const readyRows = targetRows.filter((row: any) => row.decision === 'ready-with-new-explicit-reviewed-bridge')
+const readyRelationRows = candidateOccurrences.flatMap((candidate: any) => candidate.candidateSpecificRelations).filter((relation: any) => relation.selected)
+const unsupportedOrdinalFamilyInference = readyRelationRows.filter((relation: any) => /Unique\d+|family|ordinal/i.test(`${relation.targetPackage} ${relation.targetObject}`)).length
+assert.equal(reviewedRelationTargetCount, 72, 'Every ambiguous target needs candidate-specific typed-relation adjudication')
+assert.equal(readyRows.length, reviewedSelectorDomains.size, 'Selector domains must be generated from the exact reviewed evidence ledger')
+assert.equal(readyRelationRows.length, reviewedTypedRelationSelectors.length, 'Accepted relation observations must match the explicit selector ledger')
+assert.equal(unsupportedOrdinalFamilyInference, 0, 'A reviewed selector cannot rely on an ordinal or family-only target')
+assert.equal(targetRows.filter((row: any) => row.decision === 'true-ambiguity').length, 66)
+assert.equal(targetRows.filter((row: any) => row.decision === 'needs-additional-identity-evidence').length, 0)
 
 const swordSeedCandidate = swordSeed.candidates[0]
 const loadedSword = packages.get(swordSeedCandidate.packagePath)
@@ -315,7 +513,7 @@ const unavailableRows = [
     candidate: `${inline(swordCandidate.packagePath)} — role=${inline(swordCandidate.role)}; CDO=1; ItemIdName=unavailable; ItemId.SerializedId=unavailable; Raw locator=${inline(swordCandidate.rawLocator)}`,
     source: `${inline('research/source-harvest.json#/records[category=melee-weapon,id=sword]/known[property=identity]')}<br>alias ${inline(swordAliasId)} is unresolved/unknown; ${inline("scripts/equipment-icons.ts#INTERNAL_FAMILY_ALIASES['sword']")} is icon-candidate search input only`,
     classification: 'raw-observation-required',
-    reason: 'The only committed instance package has no serialized identity fields. Asset index, extractor samples, semantic samples, and history contain no exact serialized identity to restore.',
+    reason: 'The only committed instance package has no serialized identity fields. The committed asset index, extractor samples, and semantic samples contain no exact serialized identity to restore.',
   },
   {
     domainId: 'armor:ender-armor', category: 'armor', canonicalName: 'Ender Armor', rawState: 'no Raw package candidate; asset index has no CuriousArmor/EnderArmor path',
@@ -334,16 +532,19 @@ const unavailableRows = [
 ]
 assert.equal(unavailableRows.length, 3)
 
-const classificationCounts = {
-  'ready-with-existing-independent-source': 0,
-  'ready-with-existing-reviewed-bridge-pattern': 0,
-  'ready-with-new-explicit-reviewed-bridge': 0,
-  'needs-additional-identity-evidence': 0,
-  'true-ambiguity': targetRows.length,
-  'raw-observation-required': unavailableRows.length,
-}
+const classifications = [...targetRows.map((row: any) => row.decision), ...unavailableRows.map((row) => row.classification)]
+const classificationCounts = Object.fromEntries([
+  'ready-with-existing-independent-source',
+  'ready-with-existing-reviewed-bridge-pattern',
+  'ready-with-new-explicit-reviewed-bridge',
+  'needs-additional-identity-evidence',
+  'true-ambiguity',
+  'raw-observation-required',
+].map((classification) => [classification, classifications.filter((value) => value === classification).length]))
 assert.equal(Object.values(classificationCounts).reduce((sum, count) => sum + count, 0), 75)
-assert.equal(classificationCounts['true-ambiguity'], 72)
+assert.equal(classificationCounts['ready-with-new-explicit-reviewed-bridge'], 6)
+assert.equal(classificationCounts['needs-additional-identity-evidence'], 0)
+assert.equal(classificationCounts['true-ambiguity'], 66)
 assert.equal(classificationCounts['raw-observation-required'], 3)
 
 const remainingPartition = {
@@ -356,14 +557,24 @@ const remainingCount = Object.values(remainingPartition).reduce((sum, count) => 
 assert.equal(remainingCount, 125)
 assert.equal(146 + remainingCount, 271)
 
-const rowMarkdown = targetRows.map((row: any) =>
-  `| ${inline(row.domainId)}<br>${inline(row.category)} — ${inline(row.canonicalName)} | ${row.candidateFacts} | none; all ${row.candidateCount} remain:<br>${row.survivorList} | ${row.canonicalSource}<br>Candidate alias rows:<br>${row.bridgeFacts}<br>No accepted/high canonical bridge; ENTITY_OVERRIDES has no row for this key. | ${row.conflict}<br>${inline(row.decision)} |`,
-).join('\n')
+const rowMarkdown = targetRows.map((row: any) => {
+  const candidateDisposition = row.decision === 'ready-with-new-explicit-reviewed-bridge'
+    ? `selected by reviewed candidate-specific targets:<br>${row.survivorList}`
+    : `none; all ${row.candidateCount} survive typed-relation review:<br>${row.survivorList}`
+  return `| ${inline(row.domainId)}<br>${inline(row.category)} — ${inline(row.canonicalName)} | ${row.candidateFacts} | ${candidateDisposition} | ${row.canonicalSource}<br>Candidate alias rows:<br>${row.bridgeFacts}<br>ENTITY_OVERRIDES has no row for this key; no alias/FI population was performed. | ${row.conflict}<br>candidate-specific targets reviewed=${row.candidateSpecificRelationCount}; accepted selectors=${row.selectedRelationCount}<br>${inline(row.decision)} |`
+}).join('\n')
 const unavailableMarkdown = unavailableRows.map((row) =>
   `| ${inline(row.domainId)}<br>${inline(row.category)} — ${inline(row.canonicalName)} | ${row.rawState}<br>${row.candidate} | ${row.source} | ${inline(row.classification)}<br>${row.reason} |`,
 ).join('\n')
 const aliasStateSummary = [...aliasStates.entries()].sort((left, right) => left[0].localeCompare(right[0]))
   .map(([state, count]) => `${inline(state)}: ${count} candidate observations`).join('; ')
+const nextWaveMarkdown = readyRows.map((row: any) => {
+  const selectedCandidate = row.candidates.find((candidate: any) => candidate.candidateSpecificRelations.some((relation: any) => relation.selected))
+  assert.ok(selectedCandidate, `${row.domainId}: reviewed wave candidate missing`)
+  const acceptedRelations = selectedCandidate.candidateSpecificRelations.filter((relation: any) => relation.selected)
+  return `### ${inline(row.domainId)} — ${inline(row.canonicalName)}\n\n- Raw identity: ${inline(selectedCandidate.serializedId)}\n- Exact candidate package: ${inline(selectedCandidate.packagePath)}\n- Exact reviewed bridge relations:\n${acceptedRelations.map((relation: any) => `  - ${inline(relation.property)} → ${inline(relation.targetPackage)} :: ${inline(relation.targetObject)} (Raw edge ${inline(relation.rawEdgeLocator)})`).join('\n')}\n- Canonical source: ${row.canonicalSource}\n- Review: ${selectorRationales.get(row.domainId)}\n`
+}).join('\n')
+const acceptedRelationCount = readyRelationRows.length
 const report = `# MCD Optimizer — Remaining Ambiguous Formal Identity Resolution Audit
 
 ## Scope and baseline
@@ -380,35 +591,38 @@ const report = `# MCD Optimizer — Remaining Ambiguous Formal Identity Resoluti
 | --- | ---: | --- |
 | ready-with-existing-independent-source | 0 | No independent canonical-to-Raw edge selects an exact candidate. |
 | ready-with-existing-reviewed-bridge-pattern | 0 | None of the targets has an accepted/high reviewed canonical alias or an applicable bridge pattern. |
-| ready-with-new-explicit-reviewed-bridge | 0 | No new source-backed mapping shape was found. |
-| needs-additional-identity-evidence | 0 | All 72 ambiguous targets retain competing current instance candidates, so they classify as true ambiguity in this sweep. |
-| true-ambiguity | 72 | Multiple equal-rank Raw instance candidates remain for each canonical identity. |
-| raw-observation-required | 3 | Existing committed sources cannot supply the exact missing package plus serialized identity observations. |
+| ready-with-new-explicit-reviewed-bridge | ${classificationCounts['ready-with-new-explicit-reviewed-bridge']} | Six domains have a candidate-specific dedicated typed target whose reviewed item cue selects one exact candidate. No Formal population is performed in this fix-up. |
+| needs-additional-identity-evidence | ${classificationCounts['needs-additional-identity-evidence']} | No target has an unresolved potentially canonical-specific typed selector after adjudication. |
+| true-ambiguity | ${classificationCounts['true-ambiguity']} | Each remaining target had its candidate-specific typed references reviewed; none supplies a canonical-specific selector. |
+| raw-observation-required | ${classificationCounts['raw-observation-required']} | Existing committed sources cannot supply the exact missing package plus serialized identity observations. |
 | **Total** | **75** | **38 Melee + 34 Ranged + 3 raw-unavailable.** |
 
-Audit reconciliation: 75 / 75 targets; Melee 38 / 38; Ranged 34 / 34; raw-unavailable 3 / 3; classification sum 75; unsupported inference promoted: **0**.
+Audit reconciliation: 75 / 75 targets; Melee 38 / 38; Ranged 34 / 34; raw-unavailable 3 / 3; candidate-specific typed-relation review 72 / 72; classification sum 75; accepted selector domains ${readyRows.length}; accepted exact typed relation observations ${acceptedRelationCount}; unsupported ordinal/family inference: **${unsupportedOrdinalFamilyInference}**.
 
 ## Source scan and evidence boundary
 
 | Source | Check | Finding |
 | --- | --- | --- |
 | research/raw/game-data-raw-structural-inventory/manifest.json and candidate shards | Re-read all 72 current seeds and every retained candidate package; verified shard hashes and CDO property records. | 158 target-candidate observations across ${uniqueCandidatePackages.size} exact packages; all roles are instance; each package has exactly one CDO; both decoded NameProperty values match exactly within that candidate, while IDs differ between candidates of the same target. Roles: ${Object.entries(candidateRoles).map(([role, count]) => `${role} ${count}`).join(', ')}. |
-| Raw class, super, template, imports, inheritance and typed CDO references | Inspected each unique candidate package's generated class export, serialized super chain, CDO template, BlueprintGeneratedClass imports, and property edges; compared every exact typed Raw target with the independent canonical/category source record. | Typed references include sound/effect/projectile and normal implementation links. They distinguish Raw implementations but no independent canonical source names the exact target package/object or serialized Raw ID; exact Raw target string matches in canonical sources: 0. They do not eliminate any candidate. Unique-package outgoing edge kinds: ${Object.entries(edgeCounts).map(([kind, count]) => `${kind} ${count}`).join(', ')}. |
+| Candidate-specific CDO typed references | Compared exact property family + target package + target object sets between every candidate for all 72 domains; generic RootComponent and GearActor references were excluded. Every differentiating target was individually marked accepted or rejected with a canonical correspondence and reason. | Reviewed ${reviewedRelationTargetCount}/72 target sets and ${candidateSpecificRelationCount} candidate-specific relation observations. Accepted ${acceptedRelationCount} observations form ${readyRows.length} explicit selectors; the remaining differentiating references identify family/ordinal cues or Raw implementation data, not a canonical selector. All referenced Raw edge IDs and exact target package/object paths are in the per-domain rows. |
+| Raw class, super, template, imports and inheritance | Inspected each unique candidate package's generated class export, serialized super chain, CDO template, BlueprintGeneratedClass imports and inheritance. | Candidate role and class structure remain instance-compatible across surviving candidates; no class-role evidence eliminates a candidate. Unique-package outgoing edge kinds: ${Object.entries(edgeCounts).map(([kind, count]) => `${kind} ${count}`).join(', ')}. |
 | Canonical source and category audit | research/source-harvest.json identity record plus the Melee/Ranged category row for every target. | These sources support canonical domain ID/name and category. No row asserts a candidate's exact ItemIdName, ItemId.SerializedId, or Raw package path. Family, variantOf, mechanics, and display name do not bridge identities. |
 | Game-data aliases and model alignment | Checked exact category + Raw identity alias rows and the current model-alignment resolver. | ${aliasStateSummary}. Rows with candidate identities are unresolved/unknown and have no canonical entity; missing rows remain missing. Model alignment therefore exposes unresolved/ambiguous candidates rather than a canonical Raw mapping. |
 | scripts/equipment-icons.ts | Checked exact ENTITY_OVERRIDES keys for every target and the family/icon candidate logic. | No target has an override. Existing Melee/Ranged overrides are only Bonehead Hammer, Sinister Sword and Shrieking Crossbow, outside this 72-item set. Icon path, family-ordinal selection and internal family aliases are presentation/search hints. |
 | Asset index and DataTable metadata | Checked research/raw/game-data-asset-index.json, Structural package references and table-like package metadata. | Asset paths describe source packages and presentation hints. The Structural inventory reaches ${tableLikePackageCount} table-like packages in its full graph; current parser does not decode DataTable row payloads, and no committed row/serialized mapping supplies a canonical-to-Raw edge. |
-| Existing committed source and Git history | Reviewed source-harvest, category audits, aliases, icon overrides, model-alignment sources, prior committed identity mappings and relevant history through the baseline. | No independent canonical↔Raw mapping for these 72 targets. The prior sawblade typed-relation mappings remain two explicit mappings only; they do not generalize to sibling variants or family ordinals. |
+| Existing committed mapping inputs | Reviewed current source-harvest/category records, aliases, icon overrides, model-alignment resolver and explicit identity bridge definitions. | No existing alias/identity mapping selects these targets. The Sawblade precedent is referenced below as a committed code pattern; this audit does not claim a Git history scan. |
 
 ### Candidate adjudication rule
 
-All ${ambiguousSeeds.length} target seed rows retain ${candidateOccurrences.length} candidate observations, each with role instance. Every candidate has one CDO, a decoded ItemIdName, and a decoded ItemId.SerializedId; those two exact fields agree within the package. Every target still has 2 or 3 distinct serialized Raw identities. No candidate is a helper, effect, projectile, actor, storable, template, or base class in the seed set, so no role-based elimination is justified. Typed effects, projectiles, sound references, class/super/template data and imports were inspected, but no independent canonical source binds one such Raw relation to any of these canonical identities.
+All ${ambiguousSeeds.length} target seed rows retain ${candidateOccurrences.length} candidate observations, each with role instance. Every candidate has one CDO, a decoded ItemIdName, and a decoded ItemId.SerializedId; those two exact fields agree within the package. Every target still has 2 or 3 distinct serialized Raw identities. No candidate is a helper, effect, projectile, actor, storable, template, or base class in the seed set, so role-based elimination is not justified. Candidate-specific sound/effect/projectile/animation references were compared by exact property and target. Six explicit item-specific cue sets select one candidate; the other ${classificationCounts['true-ambiguity']} target sets do not.
 
-No bridge relies on normalization, case folding, suffix removal, basename/name similarity, icon path, uniqueness, variantOf, family, or a serialized-catalog-identifier-match derived from the same normalization.
+The Sawblade baseline pattern is defined in \`scripts/game-data-model-alignment.ts#REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES\`: an independent canonical source record plus exact candidate CDO plus candidate-specific \`InventoryDropSound\` plus dedicated target package. That pattern is only a review precedent here. The six results below are separate per-domain entries; no sound-name resolver or generic matching rule was added.
+
+No accepted selector relies on \`Unique1\`/\`Unique2\` ordinal, candidate order, family, icon path, package basename, variantOf, suffix stripping, or normalized-catalog-name matching. Candidate-specific relations with those shapes were rejected individually in their rows.
 
 ## 72 ambiguous identities
 
-For each row, Raw locators point to the exact Structural shard, package index, and CDO property inventory. Candidate aliases are listed by exact raw identity. “none; all candidates survive” means source-backed elimination found no candidate that can be excluded. The canonical identity source is independent of the Raw Structural observation, but currently states only the canonical item and does not select an exact Raw identity.
+For each candidate, the row records exact package, role, ItemIdName, SerializedId, class, super, template and Raw CDO locator. The candidate-specific relation subsection lists each property/target signature present on that candidate and absent from its competitors, with exact target package/object, canonical correspondence, accepted/rejected decision, rationale and Raw edge locator. Shared targets do not select a candidate.
 
 | Domain / category / canonical name | Current candidates, roles, Raw identities, class relations and Raw locators | Candidate elimination and surviving candidates | Canonical bridge evidence, source locator and independence | Conflicting evidence and decision |
 | --- | --- | --- | --- | --- |
@@ -420,11 +634,15 @@ ${rowMarkdown}
 | --- | --- | --- | --- |
 ${unavailableMarkdown}
 
-## Wave selection and conditional implementation
+## NEXT IDENTITY WAVE — reviewed candidates only
 
-No implementation wave is safe from the committed evidence examined here. The 72 multi-candidate target sets lack a source-backed selector, and the 3 raw-unavailable records lack the exact required observation. Therefore no reviewed bridge, alias, Formal Identity assertion, or generated identity artifact was added. Existing Formal Identity remains 146 / 271 (Melee 29, Ranged 23, Armor 71, Artifact 23).
+Count: **${readyRows.length} domains**, with ${acceptedRelationCount} accepted exact typed relation observations. The mappings below are explicit and are not populated in this fix-up.
 
-Wave count: **0**. Population: **none**. Existing Value v2, Relation v2, Raw Structural Inventory and the existing 146 Formal assertions, semantic identities and provenance remain unchanged.
+${nextWaveMarkdown}
+
+Before a later implementation, fail closed on the exact candidate set and role, one CDO, ItemIdName/SerializedId agreement, every exact property and target package/object above, one canonical source record, one selected candidate, and then one accepted/high alias and one exact Formal Identity assertion. Candidate or target drift must stop that later wave.
+
+Formal Identity population in this fix-up: **none**. No aliases or Formal assertions were written. Formal Identity remains 146 / 271 (Melee 29, Ranged 23, Armor 71, Artifact 23). Value v2, Relation v2, Raw Structural Inventory, Application and Optimizer remain unchanged.
 
 ## Final reconciliation
 
@@ -437,7 +655,7 @@ Wave count: **0**. Population: **none**. Existing Value v2, Relation v2, Raw Str
 | Raw-unavailable | 3 |
 | **Catalog total** | **271** |
 
-The unpopulated remainder is 125 (21 + 73 + 28 + 3). The selected 75-target audit partition is independently complete: 72 true ambiguities + 3 raw-observation-required = 75.
+The unpopulated remainder is still 125 (21 + 73 + 28 + 3), because no identity was populated. Within this sweep, six are reviewed wave candidates, ${classificationCounts['true-ambiguity']} are true ambiguities, and three require new Raw observations. The catalog's 73 ambiguous seeds remain unchanged until a future population task.
 
 ## Reproduction
 
@@ -454,4 +672,4 @@ if (process.argv.includes('--write')) {
 }
 assert.equal(fs.readFileSync(absoluteReportPath, 'utf8'), serializedReport, `Audit report drift; run generate:remaining-formal-identity-resolution`)
 
-console.log(`Remaining Formal Identity audit passed: 75/75 targets (Melee 38/38; Ranged 34/34; raw-unavailable 3/3); classification sum 75; unsupported inference 0; Formal Identity 146/271; remainder 125; catalog reconciliation 271.`)
+console.log(`Remaining Formal Identity audit passed: 75/75 targets (Melee 38/38; Ranged 34/34; raw-unavailable 3/3); candidate-specific typed relation review ${reviewedRelationTargetCount}/72 (${candidateSpecificRelationCount} observations); reviewed selectors ${readyRows.length} domains/${acceptedRelationCount} exact targets; classification sum 75; unsupported ordinal/family inference ${unsupportedOrdinalFamilyInference}; Formal Identity 146/271; remainder 125; catalog reconciliation 271.`)
