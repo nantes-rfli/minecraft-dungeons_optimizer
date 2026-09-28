@@ -38,6 +38,8 @@ const scatterProjectileRaw = readRaw(scatterCrossbowRelationDefinition.targetRaw
 
 // Identity breadth can advance independently of the reviewed Value v2 breadth set.
 // Keep this list explicit so a newly accepted Identity cannot silently populate Value v2.
+const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
+const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
 const valueIdentityDefinitions = [...meleeDefinitions, ...rangedDefinitions]
 
 function committedIdentity(definition: FormalIdentityDefinition): {
@@ -86,8 +88,6 @@ for (const { id, provenance } of artifact.provenance.evidence) {
   )
 }
 
-const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
-const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
 const matchedMelee = new Set(identity.semantic.identities.filter((semantic) =>
   semantic.resolution.state === 'matched' && meleeDefinitions.some(({ assertion }) => assertion.id === semantic.assertionId))
   .map((semantic) => semantic.resolution.state === 'matched' ? semantic.resolution.domainId : ''))
