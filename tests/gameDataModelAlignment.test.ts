@@ -119,7 +119,7 @@ describe('Phase 6.6 identity boundaries', () => {
       { category: 'ranged-weapon', domainId: 'burst-gale-bow', rawIdentity: 'WindBow_Unique2', relationCount: 1 },
       { category: 'ranged-weapon', domainId: 'echo-of-the-valley', rawIdentity: 'WindBow_Unique1', relationCount: 1 },
     ])
-    expect(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.flatMap(({ relations }) => relations)).toHaveLength(10)
+    expect(REVIEWED_TYPED_RELATION_ALIAS_BRIDGES.reduce((total, { relations }) => total + relations.length, 0)).toBe(10)
     expect(TYPED_RELATION_ALIAS_BASIS).toBe('serialized-item-id + reviewed-typed-raw-relation + catalog-category-evidence')
     expect(TYPED_RELATION_ALIAS_BASIS).not.toMatch(/ordinal|family|slug|fuzzy|normalized-name/i)
     for (const mapping of REVIEWED_TYPED_RELATION_ALIAS_BRIDGES) {
