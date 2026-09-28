@@ -15,6 +15,7 @@ import type {
 } from './game-data-raw-structural-inventory.ts'
 
 type StructuralPackage = RawStructuralInventoryShard['packages'][number]
+type StructuralEdge = RawStructuralInventoryShard['edges'][number]
 type StructuralProperty = StructuralPackage['cdoPropertyInventory'][number]['properties'][number]
 type UnavailableReason = RawObservationEvidenceRecord['unavailableReason']
 
@@ -22,6 +23,7 @@ export type FormalIdentityInventoryBindingInput = {
   definition: FormalIdentityDefinition
   observation: FormalIdentityObservationInput
   structuralPackage: StructuralPackage
+  structuralEdges: readonly StructuralEdge[]
   shardPath: string
   packageIndex: number
 }
@@ -179,7 +181,7 @@ export function readFormalIdentityInventoryBindings(
   if (definitionByPackage.size !== definitions.length) throw new Error('Formal Identity package scopes must be unique')
 
   const targets = new Set(definitionByPackage.keys())
-  const found = new Map<string, { pkg: StructuralPackage; shardPath: string; packageIndex: number }>()
+  const found = new Map<string, { pkg: StructuralPackage; edges: readonly StructuralEdge[]; shardPath: string; packageIndex: number }>()
   const shardCache = new Map<number, LoadedShard>()
 
   const loadShard = (index: number): LoadedShard => {
@@ -196,7 +198,12 @@ export function readFormalIdentityInventoryBindings(
     if (shard.schemaVersion !== 1 || shard.packages.length !== meta.packageCount) throw new Error(`Raw Structural Inventory shard metadata mismatch: ${meta.path}`)
     if (shard.packages.length === 0) throw new Error(`Raw Structural Inventory shard is empty: ${meta.path}`)
     for (const [packageIndex, pkg] of shard.packages.entries()) {
-      if (targets.has(pkg.path)) found.set(pkg.path, { pkg, shardPath: meta.path, packageIndex })
+      if (targets.has(pkg.path)) found.set(pkg.path, {
+        pkg,
+        edges: shard.edges.filter((edge) => edge.sourcePackage === pkg.path),
+        shardPath: meta.path,
+        packageIndex,
+      })
     }
     const loaded = {
       firstPath: shard.packages[0]!.path,
@@ -227,6 +234,7 @@ export function readFormalIdentityInventoryBindings(
       definition,
       observation: inventoryObservation(manifest, source.shardPath, source.packageIndex, source.pkg, definition),
       structuralPackage: source.pkg,
+      structuralEdges: source.edges,
       shardPath: source.shardPath,
       packageIndex: source.packageIndex,
     }
