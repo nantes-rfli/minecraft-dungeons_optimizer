@@ -1,0 +1,29 @@
+name: Armor Formal Foundation Census
+
+on:
+  push:
+    branches:
+      - audit/armor-formal-foundation-design-20260928
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Run deterministic census twice
+        shell: bash
+        run: |
+          node scripts/audit-armor-formal-foundation-design.ts > /tmp/armor-audit-1.log
+          node scripts/audit-armor-formal-foundation-design.ts > /tmp/armor-audit-2.log
+          cmp /tmp/armor-audit-1.log /tmp/armor-audit-2.log
+          cat /tmp/armor-audit-1.log
+      - name: Confirm protected artifacts unchanged
+        run: |
+          git diff --exit-code --             research/domain/formal/identity-evidence-v1.json             research/domain/formal/value-availability-v2.json             research/domain/formal/serialized-relation-v2.json             research/raw             src
+      - run: git diff --check
