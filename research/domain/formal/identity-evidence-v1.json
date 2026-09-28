@@ -4528,6 +4528,192 @@
             "evidence:presentation:mechanized-sawblade:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:chill-gale-knife@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "TempestKnife_Unique2",
+            "evidenceRef": "evidence:raw:identity:chill-gale-knife@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "TempestKnife_Unique2",
+            "evidenceRef": "evidence:raw:identity:chill-gale-knife@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:chill-gale-knife@1",
+          "domainId": "chill-gale-knife",
+          "evidenceRefs": [
+            "evidence:raw:identity:chill-gale-knife@1:ItemIdName",
+            "evidence:raw:identity:chill-gale-knife@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "chill-gale-knife",
+          "displayName": "Chill Gale Knife",
+          "evidenceRefs": [
+            "evidence:presentation:chill-gale-knife:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:resolute-tempest-knife@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "TempestKnife_Unique1",
+            "evidenceRef": "evidence:raw:identity:resolute-tempest-knife@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "TempestKnife_Unique1",
+            "evidenceRef": "evidence:raw:identity:resolute-tempest-knife@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:resolute-tempest-knife@1",
+          "domainId": "resolute-tempest-knife",
+          "evidenceRefs": [
+            "evidence:raw:identity:resolute-tempest-knife@1:ItemIdName",
+            "evidence:raw:identity:resolute-tempest-knife@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "resolute-tempest-knife",
+          "displayName": "Resolute Tempest Knife",
+          "evidenceRefs": [
+            "evidence:presentation:resolute-tempest-knife:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:bonebow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Bow_Unique1",
+            "evidenceRef": "evidence:raw:identity:bonebow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Bow_Unique1",
+            "evidenceRef": "evidence:raw:identity:bonebow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:bonebow@1",
+          "domainId": "bonebow",
+          "evidenceRefs": [
+            "evidence:raw:identity:bonebow@1:ItemIdName",
+            "evidence:raw:identity:bonebow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "bonebow",
+          "displayName": "Bonebow",
+          "evidenceRefs": [
+            "evidence:presentation:bonebow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:twin-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Bow_Unique2",
+            "evidenceRef": "evidence:raw:identity:twin-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Bow_Unique2",
+            "evidenceRef": "evidence:raw:identity:twin-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:twin-bow@1",
+          "domainId": "twin-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:twin-bow@1:ItemIdName",
+            "evidence:raw:identity:twin-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "twin-bow",
+          "displayName": "Twin Bow",
+          "evidenceRefs": [
+            "evidence:presentation:twin-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:burst-gale-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "WindBow_Unique2",
+            "evidenceRef": "evidence:raw:identity:burst-gale-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "WindBow_Unique2",
+            "evidenceRef": "evidence:raw:identity:burst-gale-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:burst-gale-bow@1",
+          "domainId": "burst-gale-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:burst-gale-bow@1:ItemIdName",
+            "evidence:raw:identity:burst-gale-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "burst-gale-bow",
+          "displayName": "Burst Gale Bow",
+          "evidenceRefs": [
+            "evidence:presentation:burst-gale-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:echo-of-the-valley@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "WindBow_Unique1",
+            "evidenceRef": "evidence:raw:identity:echo-of-the-valley@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "WindBow_Unique1",
+            "evidenceRef": "evidence:raw:identity:echo-of-the-valley@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:echo-of-the-valley@1",
+          "domainId": "echo-of-the-valley",
+          "evidenceRefs": [
+            "evidence:raw:identity:echo-of-the-valley@1:ItemIdName",
+            "evidence:raw:identity:echo-of-the-valley@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "echo-of-the-valley",
+          "displayName": "Echo of the Valley",
+          "evidenceRefs": [
+            "evidence:presentation:echo-of-the-valley:ranged-audit"
+          ]
+        }
       }
     ]
   },
@@ -7325,6 +7511,126 @@
       "evidenceRefs": [
         "evidence:reviewed:mechanized-sawblade:accepted-alias",
         "evidence:reviewed:mechanized-sawblade:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:chill-gale-knife@1",
+      "rawIdentity": "TempestKnife_Unique2",
+      "domainId": "chill-gale-knife",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:chill-gale-knife:accepted-alias",
+        "evidence:reviewed:chill-gale-knife:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:resolute-tempest-knife@1",
+      "rawIdentity": "TempestKnife_Unique1",
+      "domainId": "resolute-tempest-knife",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:resolute-tempest-knife:accepted-alias",
+        "evidence:reviewed:resolute-tempest-knife:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:bonebow@1",
+      "rawIdentity": "Bow_Unique1",
+      "domainId": "bonebow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:bonebow:accepted-alias",
+        "evidence:reviewed:bonebow:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:twin-bow@1",
+      "rawIdentity": "Bow_Unique2",
+      "domainId": "twin-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:twin-bow:accepted-alias",
+        "evidence:reviewed:twin-bow:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:burst-gale-bow@1",
+      "rawIdentity": "WindBow_Unique2",
+      "domainId": "burst-gale-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:burst-gale-bow:accepted-alias",
+        "evidence:reviewed:burst-gale-bow:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:echo-of-the-valley@1",
+      "rawIdentity": "WindBow_Unique1",
+      "domainId": "echo-of-the-valley",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:echo-of-the-valley:accepted-alias",
+        "evidence:reviewed:echo-of-the-valley:typed-raw-relation-bridge"
       ]
     }
   ],
@@ -16927,6 +17233,456 @@
           "nodePointer": "/packages/62/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:4242868b"
+      },
+      {
+        "id": "evidence:reviewed:chill-gale-knife:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:TempestKnife_Unique2]"
+        },
+        "fingerprint": "fnv1a32:3e8a3a5e"
+      },
+      {
+        "id": "evidence:presentation:chill-gale-knife:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=chill-gale-knife].name.en"
+        },
+        "fingerprint": "fnv1a32:50a9e504"
+      },
+      {
+        "id": "evidence:reviewed:chill-gale-knife:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=chill-gale-knife]"
+        },
+        "fingerprint": "fnv1a32:63eb550b"
+      },
+      {
+        "id": "evidence:raw:identity:chill-gale-knife@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:cc8904b547aa76e975a242741476fe0255147f2e41c942a5da015e8543ac7895",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e99e41aff01599415704af9385a3cfc16896ddae6e810c95a3c99f9897d01106"
+          },
+          "nodePointer": "/packages/30/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:839ca911"
+      },
+      {
+        "id": "evidence:raw:identity:chill-gale-knife@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:cc8904b547aa76e975a242741476fe0255147f2e41c942a5da015e8543ac7895",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique2/BP_TempestKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e99e41aff01599415704af9385a3cfc16896ddae6e810c95a3c99f9897d01106"
+          },
+          "nodePointer": "/packages/30/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:5eedc10f"
+      },
+      {
+        "id": "evidence:reviewed:resolute-tempest-knife:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:TempestKnife_Unique1]"
+        },
+        "fingerprint": "fnv1a32:6e334c59"
+      },
+      {
+        "id": "evidence:presentation:resolute-tempest-knife:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=resolute-tempest-knife].name.en"
+        },
+        "fingerprint": "fnv1a32:13191624"
+      },
+      {
+        "id": "evidence:reviewed:resolute-tempest-knife:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=resolute-tempest-knife]"
+        },
+        "fingerprint": "fnv1a32:9465a1af"
+      },
+      {
+        "id": "evidence:raw:identity:resolute-tempest-knife@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f990479298748530de07868fa8ebf4a62b5d39ed3522cdf8fd144df53df1f7e3",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4d7ee24ae3fc580c8fa138da198a40490e27aa5401609fc3fe65c282f4e1338e"
+          },
+          "nodePointer": "/packages/21/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:6531f56d"
+      },
+      {
+        "id": "evidence:raw:identity:resolute-tempest-knife@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "TempestKnife_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-057.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f990479298748530de07868fa8ebf4a62b5d39ed3522cdf8fd144df53df1f7e3",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/TempestKnife_Unique1/BP_TempestKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4d7ee24ae3fc580c8fa138da198a40490e27aa5401609fc3fe65c282f4e1338e"
+          },
+          "nodePointer": "/packages/21/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e5e9a923"
+      },
+      {
+        "id": "evidence:reviewed:bonebow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Bow_Unique1]"
+        },
+        "fingerprint": "fnv1a32:705b6e8e"
+      },
+      {
+        "id": "evidence:presentation:bonebow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=bonebow].name.en"
+        },
+        "fingerprint": "fnv1a32:a225f25c"
+      },
+      {
+        "id": "evidence:reviewed:bonebow:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=bonebow]"
+        },
+        "fingerprint": "fnv1a32:8cdf026b"
+      },
+      {
+        "id": "evidence:raw:identity:bonebow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Bow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3acbc2e00d9c669c561575cee08f25718e30d957f977bdb28efddb957221247f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb485baccb6207c36bc3443a56e45cc28fd910080c9994b5d20c3098f5670f1"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:77cd1cc6"
+      },
+      {
+        "id": "evidence:raw:identity:bonebow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Bow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3acbc2e00d9c669c561575cee08f25718e30d957f977bdb28efddb957221247f",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique1/BP_Bow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0bb485baccb6207c36bc3443a56e45cc28fd910080c9994b5d20c3098f5670f1"
+          },
+          "nodePointer": "/packages/17/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a5e73ff2"
+      },
+      {
+        "id": "evidence:reviewed:twin-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Bow_Unique2]"
+        },
+        "fingerprint": "fnv1a32:886a3350"
+      },
+      {
+        "id": "evidence:presentation:twin-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=twin-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:7fb1759c"
+      },
+      {
+        "id": "evidence:reviewed:twin-bow:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=twin-bow]"
+        },
+        "fingerprint": "fnv1a32:a48af7e9"
+      },
+      {
+        "id": "evidence:raw:identity:twin-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Bow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7288cd406397e18c0d399f14f4659171673915bbfc4a38d27964616b64f41f6e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e1d8353ad1e385f7b000be15d07db00b64bf8f3a0d5e5377f1404fd8362a1efa"
+          },
+          "nodePointer": "/packages/26/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:5251a848"
+      },
+      {
+        "id": "evidence:raw:identity:twin-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Bow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7288cd406397e18c0d399f14f4659171673915bbfc4a38d27964616b64f41f6e",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow_Unique2/BP_Bow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e1d8353ad1e385f7b000be15d07db00b64bf8f3a0d5e5377f1404fd8362a1efa"
+          },
+          "nodePointer": "/packages/26/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:3f279dca"
+      },
+      {
+        "id": "evidence:reviewed:burst-gale-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:WindBow_Unique2]"
+        },
+        "fingerprint": "fnv1a32:2e2a7bf2"
+      },
+      {
+        "id": "evidence:presentation:burst-gale-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=burst-gale-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:b9082904"
+      },
+      {
+        "id": "evidence:reviewed:burst-gale-bow:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=burst-gale-bow]"
+        },
+        "fingerprint": "fnv1a32:adb78535"
+      },
+      {
+        "id": "evidence:raw:identity:burst-gale-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "WindBow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:17eee581daf61492a506702e296b3351661efa425a2436c5f23eab682481c785",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e87a59180af29e2155e02694a762e148fbb8ebc263209b24eac175f6edeb4a1a"
+          },
+          "nodePointer": "/packages/10/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:37ad91b6"
+      },
+      {
+        "id": "evidence:raw:identity:burst-gale-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "WindBow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:17eee581daf61492a506702e296b3351661efa425a2436c5f23eab682481c785",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique2/BP_WindBow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e87a59180af29e2155e02694a762e148fbb8ebc263209b24eac175f6edeb4a1a"
+          },
+          "nodePointer": "/packages/10/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:26a4f8a2"
+      },
+      {
+        "id": "evidence:reviewed:echo-of-the-valley:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:WindBow_Unique1]"
+        },
+        "fingerprint": "fnv1a32:b7b640e9"
+      },
+      {
+        "id": "evidence:presentation:echo-of-the-valley:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=echo-of-the-valley].name.en"
+        },
+        "fingerprint": "fnv1a32:19289164"
+      },
+      {
+        "id": "evidence:reviewed:echo-of-the-valley:typed-raw-relation-bridge",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "A per-domain reviewed bridge selects the exact Raw candidate through audited candidate-specific typed relations; no ordinal, family, slug, or fuzzy inference is used.",
+        "source": {
+          "artifactPath": "scripts/game-data-model-alignment.ts",
+          "locator": "REVIEWED_TYPED_RELATION_ALIAS_BRIDGES[domainId=echo-of-the-valley]"
+        },
+        "fingerprint": "fnv1a32:c9a45b0d"
+      },
+      {
+        "id": "evidence:raw:identity:echo-of-the-valley@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "WindBow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:eb5539b9cda6299e4b243564c8cbdc3b5bae3fa7d999bb1df8c6f46546da4351",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "a1e041dbe92f2dcb3fb3ba973c75e8136b8cc24d6f7d05c4f652ad2f0911303d"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:b941b48a"
+      },
+      {
+        "id": "evidence:raw:identity:echo-of-the-valley@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "WindBow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:eb5539b9cda6299e4b243564c8cbdc3b5bae3fa7d999bb1df8c6f46546da4351",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/RangedWeapons/WindBow_Unique1/BP_WindBow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "a1e041dbe92f2dcb3fb3ba973c75e8136b8cc24d6f7d05c4f652ad2f0911303d"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:dbeebdfa"
       }
     ]
   }
