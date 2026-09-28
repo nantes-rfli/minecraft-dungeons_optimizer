@@ -14,8 +14,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
-  reviewedTypedRelationCatchupMeleeFormalIdentities,
-  reviewedTypedRelationCatchupRangedFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import {
   type FormalIdentityDefinition,
@@ -40,6 +40,15 @@ const scatterProjectileRaw = readRaw(scatterCrossbowRelationDefinition.targetRaw
 
 // Identity breadth can advance independently of the reviewed Value v2 breadth set.
 // Keep this list explicit so a newly accepted Identity cannot silently populate Value v2.
+const reviewedTypedRelationCatchupMeleeFormalIdentities = [
+  ...reviewedTypedRelationMeleeFormalIdentities,
+  ...reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+    assertion.domainId === 'chill-gale-knife' || assertion.domainId === 'resolute-tempest-knife'),
+]
+const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+  assertion.domainId === 'bonebow' || assertion.domainId === 'twin-bow'
+  || assertion.domainId === 'burst-gale-bow' || assertion.domainId === 'echo-of-the-valley')
+
 const meleeDefinitions = [
   fightersBindingsFormalIdentity,
   ...readyMeleeFormalIdentities,
