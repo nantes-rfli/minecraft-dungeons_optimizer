@@ -20,6 +20,8 @@ import {
   reviewedBridgeRangedFormalIdentityInputs,
   reviewedBridgeArtifactFormalIdentities,
   reviewedBridgeArtifactFormalIdentityInputs,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
@@ -27,6 +29,8 @@ import {
   INDEPENDENT_SOURCE_ARTIFACT_ALIAS_BASIS,
   REVIEWED_ARTIFACT_ALIAS_BRIDGES,
   REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES,
+  REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES,
+  TYPED_RELATION_MELEE_ALIAS_BASIS,
 } from './game-data-model-alignment.ts'
 
 type Alias = {
@@ -54,6 +58,12 @@ type MeleeEntry = { weaponId?: string; name?: { en?: string } }
 type ArtifactEntry = { id?: string; name?: string; internalGameIds?: string[]; sourceIds?: string[] }
 type ArtifactSource = { id?: string; kind?: string }
 type ArmorAuditEntry = { id?: string; name?: string; levelId?: string }
+type SourceHarvestRecord = {
+  category?: string
+  id?: string
+  label?: string
+  known?: { property?: string; value?: { canonicalId?: string; names?: { en?: string } } }[]
+}
 type RawStructuralSeed = {
   catalogId?: string
   category?: string
@@ -76,6 +86,18 @@ export type FormalReviewedSources = {
   armorInventoryBindings: FormalIdentityInventoryBindingInput[]
   reviewedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
   sourceBackedArtifactInventoryBindings: FormalIdentityInventoryBindingInput[]
+  typedRelationMeleeInventoryBindings: FormalIdentityInventoryBindingInput[]
+  typedRelationCanonicalRecords: SourceHarvestRecord[]
+  reviewedTypedRelationMeleeBridges: {
+    domainId: string
+    displayName: string
+    rawIdentity: string
+    packagePath: string
+    canonicalSource: { artifactPath: string; locator: string }
+    relationProperty: string
+    edgeKind: string
+    targetPackage: string
+  }[]
   reviewedArtifactAliasBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   independentSourceArtifactBridges: { domainId: string; rawIdentity: string; packagePath: string }[]
   historicalMappingSource?: string
@@ -95,6 +117,7 @@ export type FormalReviewedSources = {
 
 const knownPaths = [
   'research/domain/game-data-entity-aliases.json',
+  'research/source-harvest.json',
   'scripts/game-data-model-alignment.ts',
   'generated/equipment-icons/manifest.json',
   'scripts/equipment-icons.ts',
@@ -122,6 +145,8 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const artifactAudit = readJson<{ entries?: ArtifactEntry[]; populationDifferences?: ArtifactEntry[]; sources?: ArtifactSource[] }>('research/artifact-audit.json')
   const armorAudit = readJson<{ entries?: ArmorAuditEntry[] }>('research/armor-audit.json')
   const rawStructuralSeeds = readJson<{ catalogSeeds?: RawStructuralSeed[] }>('research/raw/game-data-raw-structural-inventory/manifest.json')
+  const sourceHarvest = readJson<{ records?: SourceHarvestRecord[] }>('research/source-harvest.json')
+  const typedRelationDomainIds = new Set(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map(({ domainId }) => domainId))
   const armorReadinessAuditSource = readText('docs/remaining_formal_identity_breadth_readiness_audit.md')
   const weaponsSource = readText('src/data/weapons.ts') ?? ''
   const armorsSource = readText('src/data/armors.ts') ?? ''
@@ -142,6 +167,9 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
     armorInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, readyArmorFormalIdentities),
     reviewedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedBridgeArtifactFormalIdentities),
     sourceBackedArtifactInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, [corruptedSeedsFormalIdentity]),
+    typedRelationMeleeInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedTypedRelationMeleeFormalIdentities),
+    typedRelationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => record.category === 'melee-weapon' && typeof record.id === 'string' && typedRelationDomainIds.has(record.id)),
+    reviewedTypedRelationMeleeBridges: REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map((bridge) => ({ ...bridge, canonicalSource: { ...bridge.canonicalSource } })),
     reviewedArtifactAliasBridges: REVIEWED_ARTIFACT_ALIAS_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     independentSourceArtifactBridges: REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES.map(({ domainId, rawIdentity, packagePath }) => ({ domainId, rawIdentity, packagePath })),
     historicalMappingSource: readText(historicalPath),
@@ -151,7 +179,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       scatterCrossbow: rangedAudit?.entries?.find((entry) => entry.id === 'scatter-crossbow')?.name?.en,
       battleRobe: battleRobeBlock?.[2],
       deathCapMushroom: mushroomBlock?.[1],
-      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs].map(({ domainId }) => [
+      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs].map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
       ])),
@@ -456,6 +484,94 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
   check(sources.reviewedArtifactAliasBridges.length === 15, 'documented Artifact bridge source set population drift')
   check(REVIEWED_ARTIFACT_INDEPENDENT_SOURCE_BRIDGES.length === 1, 'independent-source Artifact bridge population drift')
   check(bridgeCases.length === 18, 'reviewed bridge total population drift')
+
+  check(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.length === 2, 'reviewed typed-relation Melee bridge source population drift')
+  check(sources.reviewedTypedRelationMeleeBridges.length === 2, 'reviewed typed-relation Melee bridge population drift')
+  check(reviewedTypedRelationMeleeFormalIdentities.length === 2, 'reviewed typed-relation Melee Formal population drift')
+  for (const definition of reviewedTypedRelationMeleeFormalIdentities) {
+    const assertion = definition.assertion
+    const input = reviewedTypedRelationMeleeFormalIdentityInputs.find((candidate) => candidate.domainId === assertion.domainId)
+    const bridgeMatches = sources.reviewedTypedRelationMeleeBridges.filter((bridge) => bridge.domainId === assertion.domainId)
+    const rawBridgeMatches = sources.reviewedTypedRelationMeleeBridges.filter((bridge) => bridge.rawIdentity === assertion.rawIdentity)
+    const bridge = bridgeMatches[0]
+    const canonicalRecords = sources.typedRelationCanonicalRecords.filter((record) => record.category === 'melee-weapon' && record.id === assertion.domainId)
+    const canonicalRecord = canonicalRecords[0]
+    const identityKnown = canonicalRecord?.known?.filter((known) => known.property === 'identity') ?? []
+    const identityValue = identityKnown[0]?.value
+    const aliasId = `melee-weapon:${assertion.rawIdentity}`
+    const canonicalEntity = `melee-weapon:${assertion.domainId}`
+    const matchingAliases = aliases.filter((entry) => entry.id === aliasId)
+    const alias = matchingAliases[0]
+    const matchingSeeds = rawSeeds.filter((seed) => seed.category === 'melee' && seed.catalogId === assertion.domainId)
+    const seed = matchingSeeds[0]
+    const candidates = seed?.candidates ?? []
+    const candidate = candidates[0]
+    const matchingBindings = sources.typedRelationMeleeInventoryBindings.filter((binding) => binding.definition.assertion.id === assertion.id)
+    const binding = matchingBindings[0]
+    const cdoExports = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const cdo = cdoExports[0]
+    const cdoClass = cdo?.references.class
+    const cdoClassObjectName = cdoClass && typeof cdoClass === 'object' && 'objectName' in cdoClass ? cdoClass.objectName : undefined
+    const cdoInventories = cdo
+      ? binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo.exportIndex) ?? []
+      : []
+    const relationProperties = cdoInventories[0]?.properties.filter((property) => property.name.value === bridge?.relationProperty && property.arrayIndex === 0) ?? []
+    const relationEdges = binding?.structuralEdges.filter((edge) =>
+      edge.sourcePackage === bridge?.packagePath
+      && edge.sourceOccurrence.kind === 'cdo-property'
+      && edge.sourceOccurrence.propertyPath === bridge?.relationProperty) ?? []
+    const relationEdge = relationEdges[0]
+    const observation = binding?.observation
+    const aliasEvidenceRef = `evidence:reviewed:${assertion.domainId}:accepted-alias`
+    const bridgeEvidenceRef = `evidence:reviewed:${assertion.domainId}:typed-raw-relation-bridge`
+
+    check(Boolean(input), `${assertion.id}: typed-relation identity is outside the reviewed input set`)
+    check(bridgeMatches.length === 1 && rawBridgeMatches.length === 1, `${assertion.id}: research-owned typed-relation bridge must exist exactly once by domain and Raw identity`)
+    check(bridge?.displayName === input?.displayName && bridge?.rawIdentity === input?.rawIdentity && bridge?.packagePath === input?.packagePath, `${assertion.id}: research-owned typed-relation bridge domain/raw/package drift`)
+    check(bridge?.canonicalSource.artifactPath === 'research/source-harvest.json' && bridge.canonicalSource.locator === `records[category=melee-weapon,id=${assertion.domainId}]`, `${assertion.id}: typed-relation canonical source locator drift`)
+    check(bridge?.relationProperty === 'InventoryDropSound', `${assertion.id}: typed relation property drift`)
+    check(bridge?.edgeKind === 'soft-object-property', `${assertion.id}: typed relation edge kind drift`)
+    check(typeof bridge?.targetPackage === 'string' && bridge.targetPackage.length > 0, `${assertion.id}: typed relation target package missing`)
+    check(canonicalRecords.length === 1, `${assertion.id}: canonical source record must exist exactly once`)
+    check(canonicalRecord?.category === 'melee-weapon' && canonicalRecord?.id === assertion.domainId && canonicalRecord?.label === input?.displayName, `${assertion.id}: canonical source category/domain/displayName drift`)
+    check(identityKnown.length === 1 && identityValue?.canonicalId === assertion.domainId && identityValue?.names?.en === input?.displayName, `${assertion.id}: canonical source identity value drift`)
+    check(matchingAliases.length === 1, `${assertion.id}: typed-relation alias must exist exactly once`)
+    check(alias?.category === 'melee-weapon' && alias?.status === 'accepted' && alias?.confidence === 'high', `${assertion.id}: typed-relation alias must be Melee accepted/high`)
+    check(alias?.rawIdentity === assertion.rawIdentity && alias?.canonicalEntity === canonicalEntity, `${assertion.id}: typed-relation alias raw/canonical identity drift`)
+    check(alias?.candidates?.length === 1 && alias.candidates[0] === canonicalEntity, `${assertion.id}: typed-relation alias canonical candidate drift`)
+    check(alias?.assetPaths?.length === 1 && alias.assetPaths[0] === bridge?.packagePath, `${assertion.id}: typed-relation alias package must match exactly`)
+    check(alias?.basis === TYPED_RELATION_MELEE_ALIAS_BASIS, `${assertion.id}: typed-relation alias basis drift`)
+    check((alias?.evidenceIds?.length ?? 0) > 0, `${assertion.id}: typed-relation alias catalog evidence missing`)
+    check(matchingSeeds.length === 1, `${assertion.id}: Raw Structural Melee catalog seed must exist exactly once`)
+    check(candidates.length === 1, `${assertion.id}: Raw Structural candidate must exist exactly once`)
+    check(candidate?.role === 'instance', `${assertion.id}: Raw Structural candidate role must be instance`)
+    check(candidate?.packagePath === bridge?.packagePath && candidate?.packagePath === assertion.applicationScope.packagePath, `${assertion.id}: Raw Structural candidate package drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemIdName=${assertion.rawIdentity}`) === true, `${assertion.id}: Raw Structural candidate ItemIdName evidence drift`)
+    check(candidate?.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${assertion.rawIdentity}`) === true, `${assertion.id}: Raw Structural candidate SerializedId evidence drift`)
+    check(matchingBindings.length === 1, `${assertion.id}: exact Structural package binding must exist exactly once`)
+    check(binding?.structuralPackage.path === bridge?.packagePath, `${assertion.id}: Structural package path drift`)
+    check(cdoExports.length === 1, `${assertion.id}: Structural package must contain exactly one CDO`)
+    check(cdoClassObjectName === candidate?.objectName, `${assertion.id}: candidate object does not bind to the Structural CDO class`)
+    check(cdoInventories.length === 1, `${assertion.id}: Structural package must contain exactly one CDO property inventory`)
+    check(relationProperties.length === 1 && relationProperties[0]?.type.value === 'SoftObjectProperty', `${assertion.id}: CDO InventoryDropSound SoftObjectProperty must exist exactly once`)
+    check(relationEdges.length === 1, `${assertion.id}: typed InventoryDropSound Structural edge must exist exactly once`)
+    check(relationEdge?.kind === bridge?.edgeKind, `${assertion.id}: typed relation Structural edge kind drift`)
+    check(relationEdge?.targetPackage === bridge?.targetPackage, `${assertion.id}: typed relation cue target drift`)
+    check(observation?.packagePath === bridge?.packagePath && observation?.rawSchemaVersion === 2, `${assertion.id}: Structural observation package/schema drift`)
+    check(observation?.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === assertion.rawIdentity, `${assertion.id}: Structural ItemIdName differs from typed-relation Raw identity`)
+    check(observation?.serializedId.observation.state === 'known' && observation.serializedId.observation.value === assertion.rawIdentity, `${assertion.id}: Structural SerializedId differs from typed-relation Raw identity`)
+    check(assertion.domainId === input?.domainId && assertion.rawIdentity === input?.rawIdentity && assertion.applicationScope.packagePath === input?.packagePath, `${assertion.id}: typed-relation Formal identity drift`)
+    check(assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${assertion.id}: typed-relation Formal assertion must be accepted/high`)
+    check(
+      assertion.evidenceRefs.length === 2
+      && assertion.evidenceRefs[0] === aliasEvidenceRef
+      && assertion.evidenceRefs[1] === bridgeEvidenceRef
+      && definition.reviewedEvidence.some((record) => record.id === aliasEvidenceRef && record.source.artifactPath === 'research/domain/game-data-entity-aliases.json' && record.source.locator === `aliases[id=${aliasId}]`)
+      && definition.reviewedEvidence.some((record) => record.id === bridgeEvidenceRef && record.source.artifactPath === 'scripts/game-data-model-alignment.ts' && record.source.locator === `REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES[domainId=${assertion.domainId}]`),
+      `${assertion.id}: typed-relation Formal evidence chain drift`,
+    )
+    check(definition.presentation.displayName === input?.displayName && definition.presentation.displayName === sources.presentations.melee[assertion.domainId], `${assertion.id}: typed-relation presentation displayName drift`)
+  }
 
   const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
   for (const definition of reviewedBridgeArtifactFormalIdentities) {
