@@ -146,7 +146,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const armorAudit = readJson<{ entries?: ArmorAuditEntry[] }>('research/armor-audit.json')
   const rawStructuralSeeds = readJson<{ catalogSeeds?: RawStructuralSeed[] }>('research/raw/game-data-raw-structural-inventory/manifest.json')
   const sourceHarvest = readJson<{ records?: SourceHarvestRecord[] }>('research/source-harvest.json')
-  const typedRelationDomainIds = new Set(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map(({ domainId }) => domainId))
+  const typedRelationDomainIds = new Set<string>(REVIEWED_MELEE_TYPED_RELATION_ALIAS_BRIDGES.map(({ domainId }) => domainId))
   const armorReadinessAuditSource = readText('docs/remaining_formal_identity_breadth_readiness_audit.md')
   const weaponsSource = readText('src/data/weapons.ts') ?? ''
   const armorsSource = readText('src/data/armors.ts') ?? ''
