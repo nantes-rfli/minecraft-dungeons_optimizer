@@ -9,8 +9,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
-  reviewedTypedRelationCatchupMeleeFormalIdentities,
-  reviewedTypedRelationCatchupRangedFormalIdentities,
+  reviewedTypedRelationMeleeFormalIdentities,
+  reviewedTypedRelationFormalIdentities,
 } from './identityDefinitions.ts'
 import { sameLogicalRawPackage, sameRawSource } from './boundarySource.ts'
 import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
@@ -24,6 +24,14 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   value: FormalValueAvailabilityArtifact, relation: FormalSerializedRelationArtifact): string[] {
   const errors: string[] = []
   const check = (condition: boolean, message: string) => { if (!condition) errors.push(message) }
+  const reviewedTypedRelationCatchupMeleeFormalIdentities = [
+    ...reviewedTypedRelationMeleeFormalIdentities,
+    ...reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+      assertion.domainId === 'chill-gale-knife' || assertion.domainId === 'resolute-tempest-knife'),
+  ]
+  const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities.filter(({ assertion }) =>
+    assertion.domainId === 'bonebow' || assertion.domainId === 'twin-bow'
+    || assertion.domainId === 'burst-gale-bow' || assertion.domainId === 'echo-of-the-valley')
   const meleeDefinitions = [
     fightersBindingsFormalIdentity,
     ...readyMeleeFormalIdentities,
