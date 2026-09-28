@@ -731,9 +731,9 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 144, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 146, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 27,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id)).length === 29,
     'Formal matched Melee definition population drift',
   )
   check(
