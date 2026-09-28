@@ -8,7 +8,6 @@ import {
 } from '../src/domain/formal/valueAvailability.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import {
-  formalIdentityDefinitions,
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
   readyMeleeFormalIdentities,
@@ -37,6 +36,12 @@ const fightersRaw = readRaw(fightersBindingsFormalIdentity.assertion.application
 const scatterRaw = readRaw(scatterCrossbowFormalIdentity.assertion.applicationScope.packagePath)
 const scatterProjectileRaw = readRaw(scatterCrossbowRelationDefinition.targetRawPath)
 
+// Identity breadth can advance independently of the reviewed Value v2 breadth set.
+// Keep this list explicit so a newly accepted Identity cannot silently populate Value v2.
+const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
+const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
+const valueIdentityDefinitions = [...meleeDefinitions, ...rangedDefinitions]
+
 function committedIdentity(definition: FormalIdentityDefinition): {
   identity: FormalSemanticIdentity
   evidence: RawObservationEvidenceRecord[]
@@ -55,7 +60,7 @@ const scatterIdentity = committedIdentity(scatterCrossbowFormalIdentity)
 const horizontal = readHorizontalConfiguredValueSources({
   repositoryRoot,
   identity,
-  definitions: formalIdentityDefinitions,
+  definitions: valueIdentityDefinitions,
   excludedDomainIds: new Set([fightersBindingsFormalIdentity.assertion.domainId, scatterCrossbowFormalIdentity.assertion.domainId]),
 })
 const artifact = buildFormalValueAvailabilityArtifact({
@@ -83,8 +88,6 @@ for (const { id, provenance } of artifact.provenance.evidence) {
   )
 }
 
-const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
-const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
 const matchedMelee = new Set(identity.semantic.identities.filter((semantic) =>
   semantic.resolution.state === 'matched' && meleeDefinitions.some(({ assertion }) => assertion.id === semantic.assertionId))
   .map((semantic) => semantic.resolution.state === 'matched' ? semantic.resolution.domainId : ''))
@@ -102,6 +105,8 @@ assert.equal(artifact.semantic.melee['battle-robe'], undefined)
 assert.equal(artifact.semantic.melee['death-cap-mushroom'], undefined)
 assert.equal(artifact.semantic.ranged['battle-robe'], undefined)
 assert.equal(artifact.semantic.ranged['death-cap-mushroom'], undefined)
+assert.equal(artifact.semantic.melee['broken-sawblade'], undefined)
+assert.equal(artifact.semantic.melee['mechanized-sawblade'], undefined)
 
 function requireProjected(record: ValueProjectionRecord | undefined, label: string): void {
   assert.ok(record, `${label}: first-wave projection is missing`)

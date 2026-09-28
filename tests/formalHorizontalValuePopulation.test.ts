@@ -4,9 +4,12 @@ import type { RawPackageSnapshot } from '../scripts/game-data-raw-package.ts'
 import { readHorizontalConfiguredValueSources } from '../scripts/formal-value-horizontal-wave-sources.ts'
 import { collectFormalIntegrationErrors } from '../src/domain/formal/integrationAudit.ts'
 import {
-  formalIdentityDefinitions,
   fightersBindingsFormalIdentity,
   scatterCrossbowFormalIdentity,
+  readyMeleeFormalIdentities,
+  readyRangedFormalIdentities,
+  reviewedBridgeMeleeFormalIdentities,
+  reviewedBridgeRangedFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { FormalIdentityEvidenceArtifact, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { collectFormalValueAvailabilityErrors, buildFormalValueAvailabilityArtifact, type FormalValueAvailabilityArtifact, type FormalValueInputs } from '../src/domain/formal/valueAvailability.ts'
@@ -33,10 +36,18 @@ function committedIdentity(definition: typeof fightersBindingsFormalIdentity): {
 
 const fightersIdentity = committedIdentity(fightersBindingsFormalIdentity)
 const scatterIdentity = committedIdentity(scatterCrossbowFormalIdentity)
+const valueIdentityDefinitions = [
+  fightersBindingsFormalIdentity,
+  scatterCrossbowFormalIdentity,
+  ...readyMeleeFormalIdentities,
+  ...readyRangedFormalIdentities,
+  ...reviewedBridgeMeleeFormalIdentities,
+  ...reviewedBridgeRangedFormalIdentities,
+]
 const horizontal = readHorizontalConfiguredValueSources({
   repositoryRoot: fs.realpathSync('.'),
   identity,
-  definitions: formalIdentityDefinitions,
+  definitions: valueIdentityDefinitions,
   excludedDomainIds: new Set([fightersBindingsFormalIdentity.assertion.domainId, scatterCrossbowFormalIdentity.assertion.domainId]),
 })
 const baseInputs: FormalValueInputs = {
@@ -63,6 +74,8 @@ describe('Formal Horizontal Value first-wave population', () => {
     expect(valueArtifact.semantic.melee).not.toHaveProperty('death-cap-mushroom')
     expect(valueArtifact.semantic.ranged).not.toHaveProperty('battle-robe')
     expect(valueArtifact.semantic.ranged).not.toHaveProperty('death-cap-mushroom')
+    expect(valueArtifact.semantic.melee).not.toHaveProperty('broken-sawblade')
+    expect(valueArtifact.semantic.melee).not.toHaveProperty('mechanized-sawblade')
   })
 
   it('keeps every first-wave configured fact known at its recorded Raw elementIndex', () => {
