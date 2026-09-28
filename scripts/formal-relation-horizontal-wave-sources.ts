@@ -7,6 +7,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedTypedRelationCatchupMeleeFormalIdentities,
+  reviewedTypedRelationCatchupRangedFormalIdentities,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type FormalIdentityDefinition, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
@@ -37,7 +39,7 @@ function committedIdentity(artifact: FormalIdentityEvidenceArtifact, definition:
   return { identity, identityEvidence }
 }
 
-/** Re-enumerates first-wave occurrences from committed Horizontal references and verifies each exact Structural edge. */
+/** Re-enumerates reviewed breadth occurrences from committed Horizontal references and verifies each exact Structural edge. */
 export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
@@ -51,8 +53,24 @@ export function readHorizontalRelationWaveSources(args: {
     byEdgeId.set(source.edgeId, matches)
   }
   const categories = [
-    { category: 'melee' as const, definitions: [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities] },
-    { category: 'ranged' as const, definitions: [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities] },
+    {
+      category: 'melee' as const,
+      definitions: [
+        fightersBindingsFormalIdentity,
+        ...readyMeleeFormalIdentities,
+        ...reviewedBridgeMeleeFormalIdentities,
+        ...reviewedTypedRelationCatchupMeleeFormalIdentities,
+      ],
+    },
+    {
+      category: 'ranged' as const,
+      definitions: [
+        scatterCrossbowFormalIdentity,
+        ...readyRangedFormalIdentities,
+        ...reviewedBridgeRangedFormalIdentities,
+        ...reviewedTypedRelationCatchupRangedFormalIdentities,
+      ],
+    },
   ]
   const result = { melee: [] as HorizontalRelationInput[], ranged: [] as HorizontalRelationInput[] }
   for (const { category, definitions } of categories) {
