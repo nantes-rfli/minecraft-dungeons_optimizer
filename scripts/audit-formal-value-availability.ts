@@ -14,6 +14,8 @@ import {
   readyRangedFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
+  reviewedTypedRelationCatchupMeleeFormalIdentities,
+  reviewedTypedRelationCatchupRangedFormalIdentities,
 } from '../src/domain/formal/identityDefinitions.ts'
 import {
   type FormalIdentityDefinition,
@@ -38,8 +40,18 @@ const scatterProjectileRaw = readRaw(scatterCrossbowRelationDefinition.targetRaw
 
 // Identity breadth can advance independently of the reviewed Value v2 breadth set.
 // Keep this list explicit so a newly accepted Identity cannot silently populate Value v2.
-const meleeDefinitions = [fightersBindingsFormalIdentity, ...readyMeleeFormalIdentities, ...reviewedBridgeMeleeFormalIdentities]
-const rangedDefinitions = [scatterCrossbowFormalIdentity, ...readyRangedFormalIdentities, ...reviewedBridgeRangedFormalIdentities]
+const meleeDefinitions = [
+  fightersBindingsFormalIdentity,
+  ...readyMeleeFormalIdentities,
+  ...reviewedBridgeMeleeFormalIdentities,
+  ...reviewedTypedRelationCatchupMeleeFormalIdentities,
+]
+const rangedDefinitions = [
+  scatterCrossbowFormalIdentity,
+  ...readyRangedFormalIdentities,
+  ...reviewedBridgeRangedFormalIdentities,
+  ...reviewedTypedRelationCatchupRangedFormalIdentities,
+]
 const valueIdentityDefinitions = [...meleeDefinitions, ...rangedDefinitions]
 
 function committedIdentity(definition: FormalIdentityDefinition): {
@@ -96,17 +108,21 @@ const matchedRanged = new Set(identity.semantic.identities.filter((semantic) =>
   .map((semantic) => semantic.resolution.state === 'matched' ? semantic.resolution.domainId : ''))
 const valueMelee = new Set(Object.keys(artifact.semantic.melee))
 const valueRanged = new Set(Object.keys(artifact.semantic.ranged))
-assert.equal(matchedMelee.size, 27)
-assert.equal(matchedRanged.size, 23)
+assert.equal(matchedMelee.size, 31)
+assert.equal(matchedRanged.size, 27)
 assert.deepEqual([...valueMelee].sort(), [...matchedMelee].sort())
 assert.deepEqual([...valueRanged].sort(), [...matchedRanged].sort())
-assert.equal(valueMelee.size + valueRanged.size, 50)
+assert.equal(valueMelee.size + valueRanged.size, 58)
 assert.equal(artifact.semantic.melee['battle-robe'], undefined)
 assert.equal(artifact.semantic.melee['death-cap-mushroom'], undefined)
 assert.equal(artifact.semantic.ranged['battle-robe'], undefined)
 assert.equal(artifact.semantic.ranged['death-cap-mushroom'], undefined)
-assert.equal(artifact.semantic.melee['broken-sawblade'], undefined)
-assert.equal(artifact.semantic.melee['mechanized-sawblade'], undefined)
+for (const { assertion } of reviewedTypedRelationCatchupMeleeFormalIdentities) {
+  assert.ok(valueMelee.has(assertion.domainId), `${assertion.domainId}: reviewed catch-up Melee Value domain missing`)
+}
+for (const { assertion } of reviewedTypedRelationCatchupRangedFormalIdentities) {
+  assert.ok(valueRanged.has(assertion.domainId), `${assertion.domainId}: reviewed catch-up Ranged Value domain missing`)
+}
 
 function requireProjected(record: ValueProjectionRecord | undefined, label: string): void {
   assert.ok(record, `${label}: first-wave projection is missing`)
@@ -191,4 +207,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Value/Availability artifact drift; run generate:formal-value-availability')
-console.log('Formal Value/Availability v2 audit passed: 27 Melee + 23 Ranged matched domains, complete first-wave projections, preserved baseline records, and verified source provenance.')
+console.log('Formal Value/Availability v2 audit passed: 31 Melee + 27 Ranged matched domains, complete reviewed breadth projections, preserved baseline records, and verified source provenance.')
