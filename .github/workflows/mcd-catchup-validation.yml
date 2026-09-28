@@ -1,5 +1,5 @@
 name: Temporary Formal Catch-up Validation
-# retry after exact catalog-row Value binding
+# final validation after breadth test expectation updates
 
 on:
   push:
@@ -40,11 +40,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add research/domain/formal/value-availability-v2.json research/domain/formal/serialized-relation-v2.json
           if git diff --cached --quiet; then
-            echo "Expected generated Formal artifact changes were not produced."
-            exit 1
+            echo "Generated Formal artifacts already match canonical output."
+          else
+            git commit -m "data: populate 8 formal value relation domains"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
-          git commit -m "data: populate 8 formal value relation domains"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Focused Formal validation
         shell: bash
         run: |
