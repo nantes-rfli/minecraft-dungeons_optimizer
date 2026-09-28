@@ -162,7 +162,7 @@ describe('Formal Identity reviewed-source grounding', () => {
 
     const duplicateSelectedCandidate = fixture()
     const seed = duplicateSelectedCandidate.rawStructuralSeeds!.catalogSeeds!.find((entry) => entry.catalogId === 'chill-gale-knife')!
-    const selected = seed.candidates!.find((entry) => entry.packagePath.includes('TempestKnife_Unique2'))!
+    const selected = seed.candidates!.find((entry) => entry.packagePath?.includes('TempestKnife_Unique2'))!
     seed.candidates!.push(structuredClone(selected))
     expect(errors(duplicateSelectedCandidate).some((message) => message.includes('selected candidate must resolve exactly once'))).toBe(true)
 
