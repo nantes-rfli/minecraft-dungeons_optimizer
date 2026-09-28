@@ -295,14 +295,6 @@ function reviewedTypedRelationBridgeDefinition(input: ReviewedTypedRelationIdent
 
 export const reviewedTypedRelationFormalIdentities = reviewedTypedRelationFormalIdentityInputs.map(reviewedTypedRelationBridgeDefinition)
 
-export const reviewedTypedRelationCatchupMeleeFormalIdentities = [
-  ...reviewedTypedRelationMeleeFormalIdentities,
-  ...reviewedTypedRelationFormalIdentities.filter((_, index) =>
-    reviewedTypedRelationFormalIdentityInputs[index]?.category === 'melee'),
-]
-export const reviewedTypedRelationCatchupRangedFormalIdentities = reviewedTypedRelationFormalIdentities
-  .filter((_, index) => reviewedTypedRelationFormalIdentityInputs[index]?.category === 'ranged')
-
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
