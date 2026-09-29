@@ -2,6 +2,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import {
+  formalIdentityDefinitions,
+  READY_ARTIFACT_EFFECT_DOMAINS,
   fightersBindingsFormalIdentity,
   readyMeleeFormalIdentities,
   readyRangedFormalIdentities,
@@ -19,6 +21,7 @@ import { readHorizontalRawFactInventory } from './formal-value-horizontal-source
 import {
   ownsHorizontalRelationCollectionChild,
   resolveHorizontalArmorScopeRelationSource,
+  resolveHorizontalArtifactEffectRelationSource,
   resolveHorizontalRelationSource,
 } from './formal-relation-horizontal-source.ts'
 import type { HorizontalRawFactInventory } from './game-data-horizontal-fact-inventory.ts'
@@ -58,7 +61,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[] } {
   const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
   const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
@@ -99,6 +102,7 @@ export function readHorizontalRelationWaveSources(args: {
     melee: [] as HorizontalRelationInput[],
     ranged: [] as HorizontalRelationInput[],
     armor: [] as HorizontalRelationInput[],
+    artifactEffect: [] as HorizontalRelationInput[],
   }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
@@ -174,6 +178,35 @@ export function readHorizontalRelationWaveSources(args: {
       throw new Error(`${domainId} GearActor edgeId=${edgeId}: ${error instanceof Error ? error.message : String(error)}`,
         { cause: error })
     }
+  }
+
+  const newArtifactDomains = READY_ARTIFACT_EFFECT_DOMAINS.filter((domainId) => domainId !== 'death-cap-mushroom')
+  assert.equal(newArtifactDomains.length, 9)
+  for (const domainId of newArtifactDomains) {
+    const definitions = formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === domainId)
+    assert.equal(definitions.length, 1, `${domainId}: Artifact Effect Identity missing or duplicated`)
+    const definition = definitions[0]!
+    const packagePath = definition.assertion.applicationScope.packagePath
+    const items = inventory.items.filter((item) => item.category === 'artifact' && item.catalogId === domainId)
+    assert.equal(items.length, 1, `${domainId}: Artifact catalog item missing or duplicated`)
+    const candidates = items[0]!.rawCandidate.candidates.filter((candidate) => candidate.packagePath === packagePath)
+    assert.equal(candidates.length, 1, `${domainId}: Artifact candidate package missing or duplicated`)
+    const references = candidates[0]!.relations.flatMap((reference) => {
+      const matches = byEdgeId.get(reference.edgeId) ?? []
+      if (matches.length !== 1) return []
+      const source = matches[0]!
+      return reference.sourceRelationPathId === 'rp-root'
+        && reference.sourcePackage === packagePath
+        && source.sourcePackage === packagePath
+        && source.propertyPath === 'Effect'
+        ? [reference] : []
+    })
+    assert.equal(references.length, 1, `${domainId}: root Effect relation must resolve exactly once`)
+    const { identity, identityEvidence } = committedIdentity(args.identity, definition)
+    result.artifactEffect.push(resolveHorizontalArtifactEffectRelationSource(args.repositoryRoot, sourceInventory, {
+      category: 'artifact', catalogId: domainId, candidatePackage: packagePath,
+      edgeId: references[0]!.edgeId, definition, identity, identityEvidence,
+    }))
   }
 
   return result

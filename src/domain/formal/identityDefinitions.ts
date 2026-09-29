@@ -606,3 +606,9 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedTypedRelationMeleeFormalIdentities,
   ...reviewedTypedRelationFormalIdentities,
 ]
+
+export const READY_ARTIFACT_EFFECT_DOMAINS = [
+  'boots-of-swiftness', 'corrupted-pumpkin', 'death-cap-mushroom', 'fishing-rod',
+  'ghost-cloak', 'iron-hide-amulet', 'light-feather', 'powershaker',
+  'shadow-shifter', 'shock-powder',
+] as const

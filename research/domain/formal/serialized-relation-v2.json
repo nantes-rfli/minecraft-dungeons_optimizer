@@ -3421,6 +3421,150 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:341d376e"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:boots-of-swiftness:effect@1:source",
+        "relationRef": "relation:boots-of-swiftness:effect@1",
+        "occurrence": {
+          "domainId": "boots-of-swiftness",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "boots-of-swiftness",
+        "target": {
+          "objectName": "BP_BootsOfSwiftnessGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:d9a3a74d"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:corrupted-pumpkin:effect@1:source",
+        "relationRef": "relation:corrupted-pumpkin:effect@1",
+        "occurrence": {
+          "domainId": "corrupted-pumpkin",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "corrupted-pumpkin",
+        "target": {
+          "objectName": "BP_CorruptedBeacon_Spooky1GameplayEffect_C",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:f8cee023"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:fishing-rod:effect@1:source",
+        "relationRef": "relation:fishing-rod:effect@1",
+        "occurrence": {
+          "domainId": "fishing-rod",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "fishing-rod",
+        "target": {
+          "objectName": "FishingRodGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/FishingRod/FishingRodGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:d834ebb1"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:ghost-cloak:effect@1:source",
+        "relationRef": "relation:ghost-cloak:effect@1",
+        "occurrence": {
+          "domainId": "ghost-cloak",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "ghost-cloak",
+        "target": {
+          "objectName": "BP_GhostFormGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/GhostCloak/BP_GhostFormGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:955962aa"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:iron-hide-amulet:effect@1:source",
+        "relationRef": "relation:iron-hide-amulet:effect@1",
+        "occurrence": {
+          "domainId": "iron-hide-amulet",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "iron-hide-amulet",
+        "target": {
+          "objectName": "BP_IronHideAmuletGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:a41c441b"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:light-feather:effect@1:source",
+        "relationRef": "relation:light-feather:effect@1",
+        "occurrence": {
+          "domainId": "light-feather",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "light-feather",
+        "target": {
+          "objectName": "LightFeatherGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/LightFeather/LightFeatherGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:bec72fdf"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:powershaker:effect@1:source",
+        "relationRef": "relation:powershaker:effect@1",
+        "occurrence": {
+          "domainId": "powershaker",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "powershaker",
+        "target": {
+          "objectName": "BP_MobMashGameplayEffect_C",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMashGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:a565b825"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:shadow-shifter:effect@1:source",
+        "relationRef": "relation:shadow-shifter:effect@1",
+        "occurrence": {
+          "domainId": "shadow-shifter",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "shadow-shifter",
+        "target": {
+          "objectName": "BP_ShadowSplinterGameplayEffect_C",
+          "gamePackagePath": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:69f8ce22"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:shock-powder:effect@1:source",
+        "relationRef": "relation:shock-powder:effect@1",
+        "occurrence": {
+          "domainId": "shock-powder",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "shock-powder",
+        "target": {
+          "objectName": "ShockpowderGameplayEffect_C",
+          "gamePackagePath": "/Game/Actors/Items/ShockPowder/ShockpowderGameplayEffect"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:a9307c9e"
+        ]
       }
     ]
   },
@@ -8461,6 +8605,195 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Actors/Equipment/Armor/WolfArmor/BP_WolfArmor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:boots-of-swiftness:effect@1:source",
+      "relationRef": "relation:boots-of-swiftness:effect@1",
+      "occurrence": {
+        "domainId": "boots-of-swiftness",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:d9a3a74d"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:corrupted-pumpkin:effect@1:source",
+      "relationRef": "relation:corrupted-pumpkin:effect@1",
+      "occurrence": {
+        "domainId": "corrupted-pumpkin",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:f8cee023"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:fishing-rod:effect@1:source",
+      "relationRef": "relation:fishing-rod:effect@1",
+      "occurrence": {
+        "domainId": "fishing-rod",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:d834ebb1"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/FishingRod/FishingRodGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:ghost-cloak:effect@1:source",
+      "relationRef": "relation:ghost-cloak:effect@1",
+      "occurrence": {
+        "domainId": "ghost-cloak",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:955962aa"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostFormGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:iron-hide-amulet:effect@1:source",
+      "relationRef": "relation:iron-hide-amulet:effect@1",
+      "occurrence": {
+        "domainId": "iron-hide-amulet",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:a41c441b"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:light-feather:effect@1:source",
+      "relationRef": "relation:light-feather:effect@1",
+      "occurrence": {
+        "domainId": "light-feather",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:bec72fdf"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/LightFeather/LightFeatherGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:powershaker:effect@1:source",
+      "relationRef": "relation:powershaker:effect@1",
+      "occurrence": {
+        "domainId": "powershaker",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:a565b825"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMashGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:shadow-shifter:effect@1:source",
+      "relationRef": "relation:shadow-shifter:effect@1",
+      "occurrence": {
+        "domainId": "shadow-shifter",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:69f8ce22"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:shock-powder:effect@1:source",
+      "relationRef": "relation:shock-powder:effect@1",
+      "occurrence": {
+        "domainId": "shock-powder",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:a9307c9e"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/ShockPowder/ShockpowderGameplayEffect"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -18615,6 +18948,411 @@
           }
         },
         "fingerprint": "fnv1a32:6ffaea64"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:d9a3a74d",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a7b09f498accb5155d5cbf65d97a976f3e1cd8ae2b201be89de69c9af2085d91",
+          "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "846cf26905065b662a6c81eee83783f8ed7c82ab24f9334ad8cafdb457744a89"
+          },
+          "nodePointer": "/edges/4093"
+        },
+        "observed": {
+          "id": "abea8c708ae5374221cc9cbd",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect.BP_BootsOfSwiftnessGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:7760a2c9"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:f8cee023",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bfb69669c1737a7c60b5e8fe8465163d0232ddbacf01367bf1f72dc7d730cbc0",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "51088d9e6f5a4730773b8aca25fde825574db99da33b56d5f66a6a0bff2a2f0a"
+          },
+          "nodePointer": "/edges/2252"
+        },
+        "observed": {
+          "id": "8841d0d8fc89ada1d0958883",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1Instance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect.BP_CorruptedBeacon_Spooky1GameplayEffect_C",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/CorruptedBeacon_Spooky1/BP_CorruptedBeacon_Spooky1GameplayEffect",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:7dff8f85"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:d834ebb1",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e4370973f2ca948bf0db4b0fe1457451f271fe79300104d58b19eb7bef1c1e30",
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "23a2e3a9853b53286a399e95c1baace9b6d9c72c1aa5d244c97d98fb5f3af2c1"
+          },
+          "nodePointer": "/edges/4493"
+        },
+        "observed": {
+          "id": "f092a103e2f226a4d0150fad",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -6,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance.uexp",
+              "start": 163,
+              "end": 192
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance.uexp",
+              "start": 188,
+              "end": 192
+            }
+          },
+          "targetObject": "/Game/Actors/Items/FishingRod/FishingRodGameplayEffect.FishingRodGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/FishingRod/FishingRodGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/FishingRod/FishingRodGameplayEffect",
+          "targetRawPackageIndex": -6,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:73f7c4e7"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:955962aa",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6337bf63f8ddbb59b6d5389881ab15673d73fb548145604d6eb259200ff2d271",
+          "packagePath": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4bdbab39ec7908ae2ed3976bf69e26cd9c5ac796cbbf64590881e2c33eaa980b"
+          },
+          "nodePointer": "/edges/6894"
+        },
+        "observed": {
+          "id": "ad9a9cfa49458a8982b5df0b",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -1,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostCloakInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/GhostCloak/BP_GhostFormGameplayEffect.BP_GhostFormGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/GhostCloak/BP_GhostFormGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/GhostCloak/BP_GhostFormGameplayEffect",
+          "targetRawPackageIndex": -1,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:b30ea0be"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:a41c441b",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ca766d9187ca28c8c1a59cf07fce4cf3290323e0f13510e63e6532143db52ff",
+          "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4336cd79bfee0cb78e9fd5ddd6d6e8ced890f23f19885a9468fdcb24759d063b"
+          },
+          "nodePointer": "/edges/1299"
+        },
+        "observed": {
+          "id": "a20e1ea56212c2e6d17878ef",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect.BP_IronHideAmuletGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletGameplayEffect",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:451d3a44"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:bec72fdf",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:3d7a984ff7e00a7a5238d2f5c123af166f445b48594f0a8ebddb57225a4d1a31",
+          "packagePath": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ca1c7f6122de5115ed0c6d956fb3916e75ec604c3200985269e89fb4315959af"
+          },
+          "nodePointer": "/edges/1027"
+        },
+        "observed": {
+          "id": "e04b67bea093d5eee14a49c4",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/LightFeather/BP_LightFeatherInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/LightFeather/LightFeatherGameplayEffect.LightFeatherGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/LightFeather/LightFeatherGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/LightFeather/LightFeatherGameplayEffect",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:7b9774e9"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:a565b825",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1523e17c3d20d5aefef2f8aedf598526a4d073f3b73c8308f1b95ea9093a2127",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9b0030f205074650cd0f67ae3a297352a79d0b4f076c7d85ba94106befebdd7a"
+          },
+          "nodePointer": "/edges/122"
+        },
+        "observed": {
+          "id": "8af2112e882cf55800d9f34c",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -4,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance.uexp",
+              "start": 163,
+              "end": 192
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance.uexp",
+              "start": 188,
+              "end": 192
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMashGameplayEffect.BP_MobMashGameplayEffect_C",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMashGameplayEffect",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMashGameplayEffect",
+          "targetRawPackageIndex": -4,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:cee7e970"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:69f8ce22",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:32c7456ccc8d1851f3b37e89401c4d2f5ef24d34f92e5b3d736302e208ff1740",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1cd4ad17549afe9774867817cc88535bae418e53a0f8548f50afdba10d5f4621"
+          },
+          "nodePointer": "/edges/3806"
+        },
+        "observed": {
+          "id": "16be8389364ab51c39160258",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterGameplayEffect.BP_ShadowSplinterGameplayEffect_C",
+          "targetPackageName": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterGameplayEffect",
+          "targetPackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterGameplayEffect",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:563aad31"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:a9307c9e",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e72cb1b18cd414c27c0b38f6b39cf31216df06124d2996c75b171eba0809a3af",
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ed246dd9cb05e745080bbfd48e1c95393206586df519e5b6791af0add2814de6"
+          },
+          "nodePointer": "/edges/2156"
+        },
+        "observed": {
+          "id": "574ffbddac1b7bc8714571ae",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "Effect",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/ShockPowder/ShockpowderGameplayEffect.ShockpowderGameplayEffect_C",
+          "targetPackageName": "/Game/Actors/Items/ShockPowder/ShockpowderGameplayEffect",
+          "targetPackage": "Dungeons/Content/Actors/Items/ShockPowder/ShockpowderGameplayEffect",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:99e86cf6"
       }
     ]
   }

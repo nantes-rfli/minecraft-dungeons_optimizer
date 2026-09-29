@@ -12,6 +12,7 @@ import {
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationFormalIdentities,
   battleRobeFormalIdentity,
+  READY_ARTIFACT_EFFECT_DOMAINS,
   readyArmorFormalIdentities,
 } from './identityDefinitions.ts'
 import { sameLogicalRawPackage, sameRawSource } from './boundarySource.ts'
@@ -163,13 +164,38 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   }
   check(relation.relationCollections.every((item) => !armorDomainIds.has(item.domainId)),
     'Armor scope relation entered relationCollections')
-  check(relation.semantic.relations.length === 205,
+  const artifactEffects = relation.relationProjections.filter((item) => item.relationRef.endsWith(':effect@1'))
+  check(artifactEffects.length === 10, `Artifact Effect count differs from expected: ${artifactEffects.length}`)
+  check(canonicalSet(new Set(artifactEffects.map((item) => item.occurrence.domainId)))
+    === canonicalSet(new Set(READY_ARTIFACT_EFFECT_DOMAINS)), 'Artifact Effect domains differ from reviewed ready set')
+  for (const domainId of READY_ARTIFACT_EFFECT_DOMAINS) {
+    const matches = artifactEffects.filter((item) => item.occurrence.domainId === domainId)
+    check(matches.length === 1, `${domainId}: Artifact Effect projection must resolve exactly once`)
+    const record = matches[0]
+    if (!record) continue
+    check(!('sourceIndex' in record.occurrence) && record.occurrence.scopeRef === 'source',
+      `${domainId}: Artifact Effect occurrence must be source scope`)
+    check(record.result === 'projected', `${domainId}: Artifact Effect is not projected`)
+    if (record.result === 'projected') {
+      check(record.serializedTargetResolution.state === 'resolved-local-package',
+        `${domainId}: Artifact Effect target is not resolved-local-package`)
+      if (domainId !== 'death-cap-mushroom') {
+        check(record.targetRawVerification.input === 'not-supplied'
+          && record.targetRawVerification.result === 'not-resolved'
+          && record.targetRawVerification.reason === 'target-snapshot-not-supplied',
+          `${domainId}: Artifact Effect target Raw verification boundary changed`)
+      }
+    }
+  }
+  check(relation.relationCollections.every((item) => !READY_ARTIFACT_EFFECT_DOMAINS.includes(item.domainId as typeof READY_ARTIFACT_EFFECT_DOMAINS[number])),
+    'Artifact Effect scope relation entered relationCollections')
+  check(relation.semantic.relations.length === 214,
     `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
-  check(relation.relationProjections.length === 205,
+  check(relation.relationProjections.length === 214,
     `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
   check(relation.relationCollections.length === 58,
     `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
-  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 130,
+  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 139,
     'Formal Relation unique source domain count differs from expected')
 
   for (const [category, domains, collectionRef] of [
