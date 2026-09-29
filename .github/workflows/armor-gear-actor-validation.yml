@@ -1,4 +1,5 @@
 name: Temporary Armor GearActor Validation
+# final validation includes committed pre-Armor baseline preservation guard
 
 on:
   push:
