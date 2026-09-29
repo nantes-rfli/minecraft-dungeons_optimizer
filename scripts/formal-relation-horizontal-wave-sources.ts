@@ -33,7 +33,10 @@ type SourceRelation = {
   propertyPath: string | null
   arrayIndex: number | null
 }
-type Inventory = HorizontalRawFactInventory & { items: Item[]; sourceRelations: SourceRelation[] }
+type Inventory = Omit<HorizontalRawFactInventory, 'items' | 'sourceRelations'> & {
+  items: Item[]
+  sourceRelations: SourceRelation[]
+}
 
 const canonical = (value: unknown): string => JSON.stringify(value)
 
