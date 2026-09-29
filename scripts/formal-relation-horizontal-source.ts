@@ -6,8 +6,10 @@ import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEv
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
 import {
   horizontalRelationDefinition,
+  relationRefForDomain,
   serializedTargetResolutionFromStructuralEdge,
   type CollectionRelationOccurrence,
+  type ScopeRelationOccurrence,
   type RelationRef,
   type SerializedTarget,
   type SerializedTargetResolution,
@@ -82,6 +84,28 @@ export type ResolvedHorizontalRelationSource = {
   structuralEdge: JsonRecord
 }
 
+export type ArmorScopeRelationSourceRequest = {
+  category: 'armor'
+  catalogId: string
+  candidatePackage: string
+  edgeId: string
+  definition: FormalIdentityDefinition
+  identity: FormalSemanticIdentity
+  identityEvidence: RawObservationEvidenceRecord[]
+  identitySource?: RawPackageSnapshot
+}
+
+export type ResolvedArmorScopeRelationSource = {
+  sourceDomainId: string
+  relationRef: RelationRef
+  occurrence: ScopeRelationOccurrence
+  edgeId: string
+  source: RawTrace
+  target: SerializedTarget
+  serializedTargetResolution: SerializedTargetResolution
+  structuralEdge: JsonRecord
+}
+
 const isRecord = (value: unknown): value is JsonRecord =>
   typeof value === 'object' && value !== null && !Array.isArray(value)
 
@@ -98,7 +122,7 @@ const canonicalJson = (value: unknown): string => {
   return JSON.stringify(value) ?? 'undefined'
 }
 
-function exactItem(inventory: InventoryView, request: HorizontalRelationSourceRequest): HorizontalItem {
+function exactItem(inventory: InventoryView, request: { category: string; catalogId: string }): HorizontalItem {
   const matches = inventory.items.filter((item) => item.category === request.category && item.catalogId === request.catalogId)
   if (matches.length !== 1) {
     throw new Error(`Horizontal relation catalog item does not resolve exactly once: ${request.category}:${request.catalogId}`)
@@ -106,7 +130,7 @@ function exactItem(inventory: InventoryView, request: HorizontalRelationSourceRe
   return matches[0]!
 }
 
-function exactCandidate(item: HorizontalItem, request: HorizontalRelationSourceRequest): HorizontalCandidate {
+function exactCandidate(item: HorizontalItem, request: { candidatePackage: string }): HorizontalCandidate {
   const matches = item.rawCandidate.candidates.filter((candidate) => candidate.packagePath === request.candidatePackage)
   if (matches.length !== 1) {
     throw new Error(`Horizontal relation candidate package does not resolve exactly once: ${request.candidatePackage}`)
@@ -344,6 +368,140 @@ export function resolveHorizontalRelationSource(
       collectionRef: expected.collectionRef,
       sourceIndex: request.sourceIndex,
     },
+    edgeId: request.edgeId,
+    source,
+    target: target.target,
+    serializedTargetResolution: target.serializedTargetResolution,
+    structuralEdge: edgeMatch.edge,
+  }
+}
+
+
+/**
+ * Resolves one Armor root GearActor scope relation from the Horizontal inventory back to its
+ * exact committed Structural edge. The Armor lane is deliberately scope-based: it never
+ * synthesizes collection/sourceIndex semantics and it fails closed on duplicate or drifted roots.
+ */
+export function resolveHorizontalArmorScopeRelationSource(
+  repositoryRoot: string,
+  inventoryInput: HorizontalRawFactInventory,
+  request: ArmorScopeRelationSourceRequest,
+): ResolvedArmorScopeRelationSource {
+  const inventory = inventoryInput as unknown as InventoryView
+  const item = exactItem(inventory, request)
+  const candidate = exactCandidate(item, request)
+
+  if (request.catalogId !== request.definition.assertion.domainId) {
+    throw new Error('Horizontal Armor relation catalog/domain binding mismatch')
+  }
+  if (request.candidatePackage !== request.definition.assertion.applicationScope.packagePath) {
+    throw new Error('Horizontal Armor relation candidate/Identity package binding mismatch')
+  }
+
+  const gearActorMatches = candidate.relations.flatMap((candidateRelation) => {
+    const sourceMatches = inventory.sourceRelations.filter((source) => source.edgeId === candidateRelation.edgeId)
+    if (sourceMatches.length !== 1) return []
+    const source = sourceMatches[0]!
+    return candidateRelation.sourcePackage === request.candidatePackage
+      && candidateRelation.sourceRelationPathId === 'rp-root'
+      && source.sourcePackage === request.candidatePackage
+      && source.relationKind === 'object-property'
+      && source.propertyPath === 'GearActor'
+      ? [{ reference: candidateRelation, source }]
+      : []
+  })
+  if (gearActorMatches.length !== 1) {
+    throw new Error(`Horizontal Armor GearActor root occurrence does not resolve exactly once: ${request.catalogId}`)
+  }
+  if (gearActorMatches[0]!.reference.edgeId !== request.edgeId) {
+    throw new Error('Horizontal Armor GearActor edgeId does not own the unique root occurrence')
+  }
+
+  const reference = exactCandidateReference(candidate, request.edgeId)
+  const sourceRelation = exactSourceRelation(inventory, request.edgeId)
+  if (reference.sourceRelationPathId !== 'rp-root') {
+    throw new Error('Horizontal Armor GearActor source requires sourceRelationPathId=rp-root')
+  }
+  if (reference.sourcePackage !== request.candidatePackage
+    || sourceRelation.sourcePackage !== request.candidatePackage
+    || reference.sourcePackage !== sourceRelation.sourcePackage) {
+    throw new Error('Horizontal Armor GearActor source requires candidatePackage == sourcePackage')
+  }
+  if (sourceRelation.relationKind !== 'object-property' || sourceRelation.propertyPath !== 'GearActor') {
+    throw new Error('Horizontal Armor GearActor source occurrence binding mismatch')
+  }
+
+  const provenance = candidate.candidatePackageProvenance
+  const datasetId = requiredString(inventory.inventoryIdentity?.datasetId, 'Horizontal Armor relation datasetId')
+  const sourceShardPath = requiredString(provenance?.sourceShardPath, 'Horizontal Armor relation source shard path')
+  const sourceShardUncompressedSha256 = requiredString(
+    provenance?.sourceShardUncompressedSha256,
+    'Horizontal Armor relation source shard uncompressed hash',
+  )
+  const sourcePackageHash = requiredString(provenance?.packageHash, 'Horizontal Armor relation source package hash')
+  const { shard } = readVerifiedStructuralShard(
+    repositoryRoot,
+    sourceShardPath,
+    datasetId,
+    sourceShardUncompressedSha256,
+  )
+
+  const packageMatches = shard.packages.map((pkg, index) => ({ pkg, index }))
+    .filter(({ pkg }) => pkg.path === request.candidatePackage)
+  if (packageMatches.length !== 1) {
+    throw new Error(`Structural Armor relation source package does not resolve exactly once: ${request.candidatePackage}`)
+  }
+  const packageMatch = packageMatches[0]!
+  if (!packageMatch.pkg.packageHash || packageMatch.pkg.packageHash.value !== sourcePackageHash) {
+    throw new Error(`Structural Armor relation source package hash mismatch: ${request.candidatePackage}`)
+  }
+  if (!packageMatch.pkg.parse.runId) {
+    throw new Error(`Structural Armor relation source package parse runId is missing: ${request.candidatePackage}`)
+  }
+
+  const edgeMatches = shard.edges.map((edge, index) => ({ edge: edge as unknown as JsonRecord, index }))
+    .filter(({ edge }) => edge.id === request.edgeId)
+  if (edgeMatches.length !== 1) {
+    throw new Error(`Structural Armor GearActor edgeId does not resolve exactly once: ${request.edgeId}`)
+  }
+  const edgeMatch = edgeMatches[0]!
+  const structuralSummary = structuralRelationSummary(edgeMatch.edge, repositoryRoot, datasetId)
+  if (canonicalJson(structuralSummary) !== canonicalJson(sourceRelation)) {
+    throw new Error(`Horizontal Armor source relation does not match its exact Structural edge: ${request.edgeId}`)
+  }
+  if (structuralSummary.relationKind !== 'object-property' || structuralSummary.propertyPath !== 'GearActor') {
+    throw new Error(`Structural Armor root edge is not GearActor: ${request.edgeId}`)
+  }
+
+  const source: RawTrace = {
+    artifactPath: sourceShardPath,
+    datasetId,
+    extractionRunId: packageMatch.pkg.parse.runId,
+    packagePath: request.candidatePackage,
+    packageHash: packageMatch.pkg.packageHash,
+    nodePointer: `/edges/${edgeMatch.index}`,
+  }
+  const matchedStructuralIdentity = matchedIdentityDomainIdFromSource(
+    source,
+    request.definition,
+    request.identity,
+    request.identityEvidence,
+  )
+  const direct = request.identitySource
+  const sourceDomainId = matchedStructuralIdentity ?? (direct
+    && matchedIdentityDomainId(direct, request.definition, request.identity, request.identityEvidence)
+    && sameLogicalRawPackage(snapshotSource(direct), source)
+    ? request.definition.assertion.domainId : undefined)
+  if (sourceDomainId !== request.definition.assertion.domainId) {
+    throw new Error(`${request.definition.assertion.id}: Horizontal Armor Relation source failed the same-source Identity gate`)
+  }
+
+  const targetResolution = serializedTargetResolution(repositoryRoot, edgeMatch.edge, datasetId)
+  const target = requireFirstWaveTarget(sourceRelation, targetResolution)
+  return {
+    sourceDomainId,
+    relationRef: relationRefForDomain(sourceDomainId, 'gear-actor'),
+    occurrence: { domainId: sourceDomainId, scopeRef: 'source' },
     edgeId: request.edgeId,
     source,
     target: target.target,
