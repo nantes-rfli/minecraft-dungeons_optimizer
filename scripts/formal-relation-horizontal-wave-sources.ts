@@ -5,6 +5,7 @@ import {
   fightersBindingsFormalIdentity,
   readyMeleeFormalIdentities,
   readyRangedFormalIdentities,
+  readyArmorFormalIdentities,
   reviewedBridgeMeleeFormalIdentities,
   reviewedBridgeRangedFormalIdentities,
   reviewedTypedRelationMeleeFormalIdentities,
@@ -15,13 +16,23 @@ import { projectFormalIdentity, type FormalIdentityDefinition, type FormalIdenti
 import { horizontalRelationDefinition, type HorizontalRelationInput } from '../src/domain/formal/serializedRelation.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { readHorizontalRawFactInventory } from './formal-value-horizontal-source.ts'
-import { ownsHorizontalRelationCollectionChild, resolveHorizontalRelationSource } from './formal-relation-horizontal-source.ts'
+import {
+  ownsHorizontalRelationCollectionChild,
+  resolveHorizontalArmorScopeRelationSource,
+  resolveHorizontalRelationSource,
+} from './formal-relation-horizontal-source.ts'
 import type { HorizontalRawFactInventory } from './game-data-horizontal-fact-inventory.ts'
 
 type RelationReference = { edgeId: string; sourcePackage: string; sourceRelationPathId: string }
 type Candidate = { packagePath: string; relations: RelationReference[] }
 type Item = { category: string; catalogId: string; rawCandidate: { candidates: Candidate[] } }
-type SourceRelation = { edgeId: string; propertyPath: string | null; arrayIndex: number | null }
+type SourceRelation = {
+  edgeId: string
+  relationKind: string
+  sourcePackage: string
+  propertyPath: string | null
+  arrayIndex: number | null
+}
 type Inventory = HorizontalRawFactInventory & { items: Item[]; sourceRelations: SourceRelation[] }
 
 const canonical = (value: unknown): string => JSON.stringify(value)
@@ -44,7 +55,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[] } {
   const inventory = (args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)) as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
   for (const source of inventory.sourceRelations) {
@@ -80,7 +91,11 @@ export function readHorizontalRelationWaveSources(args: {
       ],
     },
   ]
-  const result = { melee: [] as HorizontalRelationInput[], ranged: [] as HorizontalRelationInput[] }
+  const result = {
+    melee: [] as HorizontalRelationInput[],
+    ranged: [] as HorizontalRelationInput[],
+    armor: [] as HorizontalRelationInput[],
+  }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
       const domainId = definition.assertion.domainId
@@ -119,5 +134,43 @@ export function readHorizontalRelationWaveSources(args: {
       }
     }
   }
+
+  for (const definition of readyArmorFormalIdentities) {
+    const domainId = definition.assertion.domainId
+    const packagePath = definition.assertion.applicationScope.packagePath
+    const items = inventory.items.filter((item) => item.category === 'armor' && item.catalogId === domainId)
+    assert.equal(items.length, 1, `${domainId}: Horizontal Armor catalog item missing or duplicated`)
+    const candidates = items[0]!.rawCandidate.candidates.filter((candidate) => candidate.packagePath === packagePath)
+    assert.equal(candidates.length, 1, `${domainId}: Horizontal Armor candidate package missing or duplicated`)
+    const gearActorReferences = candidates[0]!.relations.flatMap((reference) => {
+      const sourceMatches = byEdgeId.get(reference.edgeId) ?? []
+      if (sourceMatches.length !== 1) return []
+      const source = sourceMatches[0]!
+      return reference.sourceRelationPathId === 'rp-root'
+        && reference.sourcePackage === packagePath
+        && source.sourcePackage === packagePath
+        && source.relationKind === 'object-property'
+        && source.propertyPath === 'GearActor'
+        ? [{ edgeId: reference.edgeId }] : []
+    })
+    assert.equal(gearActorReferences.length, 1, `${domainId}: root GearActor relation must resolve exactly once`)
+    const { identity, identityEvidence } = committedIdentity(args.identity, definition)
+    const edgeId = gearActorReferences[0]!.edgeId
+    try {
+      result.armor.push(resolveHorizontalArmorScopeRelationSource(args.repositoryRoot, inventory, {
+        category: 'armor',
+        catalogId: domainId,
+        candidatePackage: packagePath,
+        edgeId,
+        definition,
+        identity,
+        identityEvidence,
+      }))
+    } catch (error) {
+      throw new Error(`${domainId} GearActor edgeId=${edgeId}: ${error instanceof Error ? error.message : String(error)}`,
+        { cause: error })
+    }
+  }
+
   return result
 }
