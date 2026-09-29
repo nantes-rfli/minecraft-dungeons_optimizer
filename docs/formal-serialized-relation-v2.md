@@ -55,6 +55,7 @@ horizontal population 用の relation identity は domain から安定生成し�
 ```text
 relation:<domainId>:attack-sequence@1
 relation:<domainId>:projectile@1
+relation:<domainId>:gear-actor@1
 ```
 
 既存 representative relation は同じ規則の下で既存文字列を維持します。
@@ -77,7 +78,7 @@ adapter は fail closed です。candidate relation の edgeId と sourceRelatio
 
 Fighter's Bindings と Scatter Crossbow の Identity は既存の full Raw snapshot を参照します。これら2件は full Raw 上で matched Identity を再検証し、Structural shard と dataset ID・package path・package content hash が一致する場合に限って adapter を通します。両形式の extraction run ID は別であり、各 artifact の provenance はそれぞれ検証します。
 
-Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。property 名や target path の類似だけで sibling occurrence を借りません。
+Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind し、collection/sourceIndex semantics へ変換しません。いずれも property 名や target path の類似だけで別 occurrence を借りません。
 
 ## Same-source Formal Identity gate
 
@@ -89,13 +90,13 @@ committed Formal Relation population は次のとおりです。
 
 ```text
 schemaVersion: 2
-Melee: 27 domains / 96 AttackSequence occurrences
-Ranged: 23 domains / 23 Projectile occurrences
-horizontal collections: 50
-horizontal relation projections: 119
-existing non-horizontal relations: 2
-semantic relations: 121
-relation projections: 121
+Melee: 31 domains / 106 AttackSequence occurrences
+Ranged: 27 domains / 27 Projectile occurrences
+Armor: 71 domains / 71 GearActor scope occurrences
+relation collections: 58
+semantic relations: 205
+relation projections: 205
+unique source domains: 130
 ```
 
-119件には既存の Scatter Crossbow 1件を含みます。追加した118件の `targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` です。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。既存3件の RelationRef、projectionRef、occurrence、EvidenceRef、serialized target、target Raw verification と Scatter Value の join は維持します。
+Armor 71件のうち Battle Robe は既存 representative path をそのまま維持し、追加70件だけを Horizontal Armor scope lane から生成します。追加70件はすべて exact root `GearActor` Structural edge が `resolved-local-package` であることを要求し、`targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。
