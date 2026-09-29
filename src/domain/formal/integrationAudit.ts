@@ -11,6 +11,8 @@ import {
   reviewedBridgeRangedFormalIdentities,
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationFormalIdentities,
+  battleRobeFormalIdentity,
+  readyArmorFormalIdentities,
 } from './identityDefinitions.ts'
 import { sameLogicalRawPackage, sameRawSource } from './boundarySource.ts'
 import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
@@ -44,6 +46,8 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     ...reviewedBridgeRangedFormalIdentities,
     ...reviewedTypedRelationCatchupRangedFormalIdentities,
   ]
+  const armorDefinitions = [battleRobeFormalIdentity, ...readyArmorFormalIdentities]
+  const armorDomainIds = new Set(armorDefinitions.map(({ assertion }) => assertion.domainId))
   const definitions = formalIdentityDefinitions
   const categoryByAssertionId = new Map([
     ...meleeDefinitions.map(({ assertion }) => [assertion.id, 'melee' as const] as const),
@@ -87,10 +91,15 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   const valueRanged = new Set(Object.keys(value.semantic.ranged))
   check(matchedMelee.size === 31, `Formal Identity Melee matched count differs from expected: ${matchedMelee.size}`)
   check(matchedRanged.size === 27, `Formal Identity Ranged matched count differs from expected: ${matchedRanged.size}`)
+  const matchedArmor = new Set(armorDefinitions.filter(({ assertion }) => sources.has(assertion.domainId))
+    .map(({ assertion }) => assertion.domainId))
+  check(matchedArmor.size === 71, `Formal Identity Armor matched count differs from expected: ${matchedArmor.size}`)
   check(canonicalSet(matchedMelee) === canonicalSet(valueMelee), 'Formal Value Melee domains differ from matched Identity')
   check(canonicalSet(matchedRanged) === canonicalSet(valueRanged), 'Formal Value Ranged domains differ from matched Identity')
   check(!valueMelee.has('battle-robe') && !valueMelee.has('death-cap-mushroom')
-    && !valueRanged.has('battle-robe') && !valueRanged.has('death-cap-mushroom'), 'Armor or Artifact entered the Melee/Ranged Value wave')
+    && !valueRanged.has('battle-robe') && !valueRanged.has('death-cap-mushroom')
+    && [...armorDomainIds].every((domainId) => !valueMelee.has(domainId) && !valueRanged.has(domainId)),
+  'Armor or Artifact entered the Melee/Ranged Value wave')
 
   const validMappingIds = new Map<string, Set<string>>()
   for (const domainId of valueMelee) validMappingIds.set(domainId, new Set(Object.values(horizontalMeleeValueMappings(domainId)).map(({ id }) => id)))
@@ -129,6 +138,40 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
           && sameLogicalRawPackage(evidence.provenance, source)))), `${projected.projectionRef}: Relation/Identity source mismatch`)
     }
   }
+  const armorGearActor = relation.relationProjections.filter((item) => item.relationRef.endsWith(':gear-actor@1'))
+  const armorGearActorDomains = new Set(armorGearActor.map((item) => item.occurrence.domainId))
+  check(armorGearActor.length === 71, `Armor GearActor relation count differs from expected: ${armorGearActor.length}`)
+  check(canonicalSet(armorGearActorDomains) === canonicalSet(armorDomainIds), 'Armor GearActor domains differ from matched Armor Identity')
+  for (const domainId of armorDomainIds) {
+    const matches = armorGearActor.filter((item) => item.occurrence.domainId === domainId)
+    check(matches.length === 1, `${domainId}: Armor GearActor relation must resolve exactly once`)
+    const record = matches[0]
+    if (!record) continue
+    check(!('sourceIndex' in record.occurrence) && record.occurrence.scopeRef === 'source',
+      `${domainId}: Armor GearActor occurrence must be source scope`)
+    check(record.result === 'projected', `${domainId}: Armor GearActor relation is not projected`)
+    if (record.result === 'projected') {
+      check(record.serializedTargetResolution.state === 'resolved-local-package',
+        `${domainId}: Armor GearActor target is not resolved-local-package`)
+      if (domainId !== 'battle-robe') {
+        check(record.targetRawVerification.input === 'not-supplied'
+          && record.targetRawVerification.result === 'not-resolved'
+          && record.targetRawVerification.reason === 'target-snapshot-not-supplied',
+        `${domainId}: Armor GearActor target Raw verification boundary changed`)
+      }
+    }
+  }
+  check(relation.relationCollections.every((item) => !armorDomainIds.has(item.domainId)),
+    'Armor scope relation entered relationCollections')
+  check(relation.semantic.relations.length === 205,
+    `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
+  check(relation.relationProjections.length === 205,
+    `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
+  check(relation.relationCollections.length === 58,
+    `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
+  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 130,
+    'Formal Relation unique source domain count differs from expected')
+
   for (const [category, domains, collectionRef] of [
     ['melee', valueMelee, 'configured-attacks'],
     ['ranged', valueRanged, 'projectile-definitions'],
