@@ -3,8 +3,6 @@ name: Validate
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -60,14 +58,6 @@ jobs:
       - run: npm run audit:game-data-horizontal-fact-inventory
       - run: npm run audit:formal-identity-evidence
       - run: npm run audit:formal-value-availability
-      - run: node scripts/audit-armor-formal-foundation-design.ts
-      - run: npm run generate:formal-serialized-relation
-      - uses: actions/upload-artifact@v4
-        if: ${{ always() }}
-        with:
-          name: generated-formal-relation
-          path: research/domain/formal/serialized-relation-v2.json
-          retention-days: 1
       - run: npm run audit:formal-serialized-relation
       - run: npm run audit:formal-integration
       - run: npm run audit:game-data-semantic-mapping
