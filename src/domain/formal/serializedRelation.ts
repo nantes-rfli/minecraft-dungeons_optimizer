@@ -104,7 +104,7 @@ export type FormalRelationInputs = {
 export type HorizontalRelationInput = {
   sourceDomainId: string
   relationRef: RelationRef
-  occurrence: CollectionRelationOccurrence
+  occurrence: RelationOccurrence
   source: RawTrace
   target: SerializedTarget
   serializedTargetResolution: SerializedTargetResolution
@@ -431,8 +431,15 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
   const horizontalCollections = new Map<string, { domainId: string; collectionRef: string; evidenceRef: string; sourceIndices: number[] }>()
   for (const input of inputs.horizontalRelations ?? []) {
     const { occurrence } = input
-    if (input.sourceDomainId !== occurrence.domainId || !Number.isInteger(occurrence.sourceIndex) || occurrence.sourceIndex < 0) {
+    if (input.sourceDomainId !== occurrence.domainId) {
       throw new Error(`Invalid horizontal Relation occurrence: ${input.relationRef}`)
+    }
+    if ('sourceIndex' in occurrence) {
+      if (!Number.isInteger(occurrence.sourceIndex) || occurrence.sourceIndex < 0) {
+        throw new Error(`Invalid horizontal Relation occurrence: ${input.relationRef}`)
+      }
+    } else if (occurrence.scopeRef !== 'source') {
+      throw new Error(`Invalid horizontal scope Relation occurrence: ${input.relationRef}`)
     }
     const projectionRef = relationProjectionRef(input.relationRef, occurrence)
     if (records.some((record) => record.projectionRef === projectionRef)) {
@@ -445,11 +452,13 @@ export function buildFormalSerializedRelationArtifact(inputs: FormalRelationInpu
     records.push({ projectionRef, relationRef: input.relationRef, occurrence, evidenceRefs, result: 'projected',
       serializedTargetResolution: input.serializedTargetResolution,
       targetRawVerification: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } })
-    const key = `${occurrence.domainId}\0${occurrence.collectionRef}`
-    const collection = horizontalCollections.get(key)
-    if (collection) collection.sourceIndices.push(occurrence.sourceIndex)
-    else horizontalCollections.set(key, { domainId: occurrence.domainId, collectionRef: occurrence.collectionRef,
-      evidenceRef, sourceIndices: [occurrence.sourceIndex] })
+    if ('sourceIndex' in occurrence) {
+      const key = `${occurrence.domainId}\0${occurrence.collectionRef}`
+      const collection = horizontalCollections.get(key)
+      if (collection) collection.sourceIndices.push(occurrence.sourceIndex)
+      else horizontalCollections.set(key, { domainId: occurrence.domainId, collectionRef: occurrence.collectionRef,
+        evidenceRef, sourceIndices: [occurrence.sourceIndex] })
+    }
   }
   relationCollections.push(...[...horizontalCollections.values()].map((collection) => ({ ...collection, result: 'projected' as const })))
 
