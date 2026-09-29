@@ -12,7 +12,7 @@ import {
   deathCapMushroomFormalIdentity,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
-import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
+import { evidenceFingerprint, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { loadStructuralGraph } from './game-data-horizontal-fact-inventory.ts'
 import { readHorizontalRelationWaveSources } from './formal-relation-horizontal-wave-sources.ts'
@@ -165,6 +165,41 @@ assert.ok(newArmorGearActor.every((record) => record.result === 'projected'
   && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
 assert.equal(artifact.relationCollections.filter(({ domainId }) =>
   domainId === 'battle-robe' || newArmorDomainIds.has(domainId)).length, 0)
+
+const committedBaselineProjectionRefs = new Set(artifact.relationProjections
+  .filter(({ occurrence }) => !newArmorDomainIds.has(occurrence.domainId))
+  .map(({ projectionRef }) => projectionRef))
+const committedBaselineEvidenceRefs = new Set<string>()
+for (const relation of artifact.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
+  for (const evidenceRef of relation.evidenceRefs) committedBaselineEvidenceRefs.add(evidenceRef)
+}
+for (const projection of artifact.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
+  for (const evidenceRef of projection.evidenceRefs) committedBaselineEvidenceRefs.add(evidenceRef)
+  if (projection.result === 'projected' && 'targetEvidenceRef' in projection.targetRawVerification) {
+    committedBaselineEvidenceRefs.add(projection.targetRawVerification.targetEvidenceRef)
+  }
+}
+for (const collection of artifact.relationCollections) committedBaselineEvidenceRefs.add(collection.evidenceRef)
+const committedBaselineView = {
+  schemaVersion: artifact.schemaVersion,
+  artifactKind: artifact.artifactKind,
+  semantic: {
+    relations: artifact.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
+  },
+  relationCollections: artifact.relationCollections,
+  relationProjections: artifact.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
+  provenance: {
+    evidence: artifact.provenance.evidence.filter(({ id }) => committedBaselineEvidenceRefs.has(id)),
+  },
+}
+assert.equal(committedBaselineView.semantic.relations.length, 135)
+assert.equal(committedBaselineView.relationProjections.length, 135)
+assert.equal(committedBaselineView.relationCollections.length, 58)
+assert.equal(committedBaselineView.provenance.evidence.length, 144)
+assert.equal(JSON.stringify(committedBaselineView).length, 397339,
+  'Existing committed Relation baseline serialized length changed')
+assert.equal(evidenceFingerprint(committedBaselineView), 'fnv1a32:a6bf6a42',
+  'Existing committed 135 Relation records/evidence changed from baseline main 03bf6a5939a4fef1204ef1529c6e1156169eac6e')
 
 const battleProjectionRef = 'projection:relation:battle-robe:gear-actor@1:source'
 const preBattleProjection = preArmorArtifact.relationProjections.find(({ projectionRef }) => projectionRef === battleProjectionRef)
