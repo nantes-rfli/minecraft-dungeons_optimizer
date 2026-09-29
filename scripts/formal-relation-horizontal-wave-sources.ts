@@ -59,7 +59,8 @@ export function readHorizontalRelationWaveSources(args: {
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
 }): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[] } {
-  const inventory = (args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)) as Inventory
+  const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
+  const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
   for (const source of inventory.sourceRelations) {
     const matches = byEdgeId.get(source.edgeId) ?? []
@@ -126,7 +127,7 @@ export function readHorizontalRelationWaveSources(args: {
         `${domainId}: committed full Raw Identity does not match current snapshot`)
       for (const { edgeId, sourceIndex } of occurrences) {
         try {
-          result[category].push(resolveHorizontalRelationSource(args.repositoryRoot, inventory, {
+          result[category].push(resolveHorizontalRelationSource(args.repositoryRoot, sourceInventory, {
             category, catalogId: domainId, candidatePackage: packagePath, edgeId, sourceIndex,
             definition, identity, identityEvidence, identitySource: direct,
           }))
@@ -160,7 +161,7 @@ export function readHorizontalRelationWaveSources(args: {
     const { identity, identityEvidence } = committedIdentity(args.identity, definition)
     const edgeId = gearActorReferences[0]!.edgeId
     try {
-      result.armor.push(resolveHorizontalArmorScopeRelationSource(args.repositoryRoot, inventory, {
+      result.armor.push(resolveHorizontalArmorScopeRelationSource(args.repositoryRoot, sourceInventory, {
         category: 'armor',
         catalogId: domainId,
         candidatePackage: packagePath,
