@@ -46,10 +46,20 @@ describe('Formal Value v2 integration', () => {
     expect(new Set(ranged.map((item) => item.occurrence.domainId)).size).toBe(27)
     expect(ranged).toHaveLength(27)
     expect(relation.relationCollections).toHaveLength(58)
-    expect(relation.semantic.relations).toHaveLength(135)
-    expect(relation.relationProjections).toHaveLength(135)
-    expect(new Set(relation.relationProjections.map((item) => item.projectionRef)).size).toBe(135)
-    expect(new Set(relation.semantic.relations.map((item) => `${item.relationRef}:${JSON.stringify(item.occurrence)}`)).size).toBe(135)
+    expect(relation.semantic.relations).toHaveLength(205)
+    expect(relation.relationProjections).toHaveLength(205)
+    expect(new Set(relation.relationProjections.map((item) => item.projectionRef)).size).toBe(205)
+    expect(new Set(relation.semantic.relations.map((item) => `${item.relationRef}:${JSON.stringify(item.occurrence)}`)).size).toBe(205)
+    const armor = relation.relationProjections.filter((item) => item.relationRef.endsWith(':gear-actor@1'))
+    expect(armor).toHaveLength(71)
+    expect(new Set(armor.map((item) => item.occurrence.domainId)).size).toBe(71)
+    expect(armor.every((item) => !('sourceIndex' in item.occurrence) && item.occurrence.scopeRef === 'source')).toBe(true)
+    expect(armor.every((item) => item.result === 'projected'
+      && item.serializedTargetResolution.state === 'resolved-local-package')).toBe(true)
+    expect(armor.filter((item) => item.occurrence.domainId !== 'battle-robe').every((item) =>
+      item.result === 'projected'
+      && item.targetRawVerification.input === 'not-supplied'
+      && item.targetRawVerification.reason === 'target-snapshot-not-supplied')).toBe(true)
     expect(relation.relationProjections.slice(3).every((item) => item.result === 'projected'
       && item.serializedTargetResolution.state === 'resolved-local-package'
       && item.targetRawVerification.input === 'not-supplied'
