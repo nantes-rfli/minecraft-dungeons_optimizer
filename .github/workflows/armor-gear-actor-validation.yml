@@ -1,0 +1,142 @@
+name: Temporary Armor GearActor Validation
+
+on:
+  push:
+    branches:
+      - impl/armor-gear-actor-relation-breadth-20260929
+    paths:
+      - .github/workflows/armor-gear-actor-validation.yml
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund --timing
+        timeout-minutes: 10
+      - name: Armor source census
+        run: node scripts/audit-armor-formal-foundation-design.ts
+      - name: Generate canonical Relation artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run generate:formal-serialized-relation
+          git diff --check
+          git diff --exit-code -- research/domain/formal/value-availability-v2.json research/domain/formal/identity-evidence-v1.json research/raw
+      - name: Commit generated Relation artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/domain/formal/serialized-relation-v2.json
+          if git diff --cached --quiet; then
+            echo "Generated Formal Relation artifact already matches canonical output."
+          else
+            git commit -m "data: populate Armor GearActor formal relations"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
+      - name: Focused Armor Relation validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          node scripts/audit-armor-formal-foundation-design.ts
+          npm run audit:formal-identity-evidence
+          npm run audit:formal-value-availability
+          npm run audit:formal-serialized-relation
+          npm run audit:formal-integration
+          npx vitest run tests/armorFormalRelationPopulation.test.ts tests/horizontalFormalRelationSource.test.ts tests/formalSerializedRelation.test.ts tests/formalIntegration.test.ts
+      - name: Assert expected Formal counts
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs'
+          const r = JSON.parse(fs.readFileSync('research/domain/formal/serialized-relation-v2.json', 'utf8'))
+          const gear = r.relationProjections.filter(x => x.relationRef.endsWith(':gear-actor@1'))
+          const unique = new Set(r.semantic.relations.map(x => x.sourceDomainId))
+          if (r.semantic.relations.length !== 205) throw new Error('semantic relations != 205')
+          if (r.relationProjections.length !== 205) throw new Error('relation projections != 205')
+          if (r.relationCollections.length !== 58) throw new Error('relation collections != 58')
+          if (unique.size !== 130) throw new Error('unique source domains != 130')
+          if (gear.length !== 71 || new Set(gear.map(x => x.occurrence.domainId)).size !== 71) throw new Error('Armor GearActor != 71/71')
+          console.log('Formal Relation counts: 205 / 205 / 58 / 130; Armor GearActor 71/71')
+          NODE
+      - name: Full Validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run audit:damage-events
+          npm run audit:dot-damage
+          npm run audit:temporal-enchants
+          npm run audit:soul
+          npm run audit:cc
+          npm run audit:charge-enchants
+          npm run audit:enchants
+          npm run audit:artifacts
+          npm run audit:artifact-control
+          npm run audit:artifact-soul
+          npm run audit:artifact-event
+          npm run audit:artifact-evidence
+          npm run audit:armor
+          npm run audit:armor-enchants
+          npm run audit:armor-runtime
+          npm run audit:armor-expansion
+          npm run audit:runtime-support
+          npm run audit:dps
+          npm run audit:melee
+          npm run audit:ranged
+          npm run audit:ranged-enchants
+          npm run audit:ranged-runtime
+          npm run audit:evidence-coverage
+          npm run audit:source-harvest
+          npm run audit:evidence-gap-map
+          npm run audit:coverage-priority
+          npm run audit:game-data-inventory
+          npm run audit:game-data-provenance
+          npm run audit:game-data-extractor
+          npm run audit:game-data-raw-package
+          npm run audit:game-data-raw-structural-inventory
+          npm run audit:game-data-horizontal-fact-inventory
+          npm run audit:formal-identity-evidence
+          npm run audit:formal-value-availability
+          npm run audit:formal-serialized-relation
+          npm run audit:formal-integration
+          npm run audit:game-data-semantic-mapping
+          npm run audit:game-data-bulk-harvest
+          npm run audit:game-data-gap-reconciliation
+          npm run audit:game-data-final-coverage
+          npm run audit:game-data-model-alignment
+          npm run audit:game-data-native-analysis
+          npm run audit:external-community
+          npm run audit:evidence-adapter
+          npm run audit:attack-event-comparison
+          npm run audit:dr-modifier-comparison
+          npm run audit:scenario-optimizer-comparison
+          npm run audit:runtime-promotion
+          npm run audit:roadmap
+          node scripts/audit-armor-formal-foundation-design.ts
+          npm test
+          git diff --exit-code -- README.md ROADMAP.md docs research
+          npx tsc -b
+          npm run lint
+          npm run build
+      - name: E2E
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - name: Report validated head
+        run: |
+          git rev-parse HEAD
+          git status --short
