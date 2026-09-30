@@ -3565,6 +3565,182 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:a9307c9e"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:corrupted-seeds:item-actor@1:source",
+        "relationRef": "relation:corrupted-seeds:item-actor@1",
+        "occurrence": {
+          "domainId": "corrupted-seeds",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "corrupted-seeds",
+        "target": {
+          "objectName": "BP_CorruptedSeedsActor_C",
+          "gamePackagePath": "/Game/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:5ed9d0f1"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:death-cap-mushroom:item-actor@1:source",
+        "relationRef": "relation:death-cap-mushroom:item-actor@1",
+        "occurrence": {
+          "domainId": "death-cap-mushroom",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "death-cap-mushroom",
+        "target": {
+          "objectName": "BP_DeathCapMushroomActor_C",
+          "gamePackagePath": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:10718a67"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:enchanted-grass:item-actor@1:source",
+        "relationRef": "relation:enchanted-grass:item-actor@1",
+        "occurrence": {
+          "domainId": "enchanted-grass",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "enchanted-grass",
+        "target": {
+          "objectName": "BP_RainbowGrassActor_C",
+          "gamePackagePath": "/Game/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:fee57ee8"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:iron-hide-amulet:item-actor@1:source",
+        "relationRef": "relation:iron-hide-amulet:item-actor@1",
+        "occurrence": {
+          "domainId": "iron-hide-amulet",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "iron-hide-amulet",
+        "target": {
+          "objectName": "BP_IronHideActor_C",
+          "gamePackagePath": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:bd751d96"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:powershaker:item-actor@1:source",
+        "relationRef": "relation:powershaker:item-actor@1",
+        "occurrence": {
+          "domainId": "powershaker",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "powershaker",
+        "target": {
+          "objectName": "BP_MobMasherActor_C",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:ae2b0934"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:satchel-of-elements:item-actor@1:source",
+        "relationRef": "relation:satchel-of-elements:item-actor@1",
+        "occurrence": {
+          "domainId": "satchel-of-elements",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "satchel-of-elements",
+        "target": {
+          "objectName": "BP_SatchelOfTheElementsActor_C",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:778ce9ab"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:satchel-of-elixirs:item-actor@1:source",
+        "relationRef": "relation:satchel-of-elixirs:item-actor@1",
+        "occurrence": {
+          "domainId": "satchel-of-elixirs",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "satchel-of-elixirs",
+        "target": {
+          "objectName": "BP_SatchelOfNeedActor_C",
+          "gamePackagePath": "/Game/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:300a8002"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:satchel-of-snacks:item-actor@1:source",
+        "relationRef": "relation:satchel-of-snacks:item-actor@1",
+        "occurrence": {
+          "domainId": "satchel-of-snacks",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "satchel-of-snacks",
+        "target": {
+          "objectName": "BP_SatchelOfNourishmentActor_C",
+          "gamePackagePath": "/Game/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:0b90f92b"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:scatter-mines:item-actor@1:source",
+        "relationRef": "relation:scatter-mines:item-actor@1",
+        "occurrence": {
+          "domainId": "scatter-mines",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "scatter-mines",
+        "target": {
+          "objectName": "BP_ChargedRedstoneMinesActor_C",
+          "gamePackagePath": "/Game/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:e7616156"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:shadow-shifter:item-actor@1:source",
+        "relationRef": "relation:shadow-shifter:item-actor@1",
+        "occurrence": {
+          "domainId": "shadow-shifter",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "shadow-shifter",
+        "target": {
+          "objectName": "BP_ShadowSplinterActor_C",
+          "gamePackagePath": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:205edc0e"
+        ]
+      },
+      {
+        "projectionRef": "projection:relation:shock-powder:item-actor@1:source",
+        "relationRef": "relation:shock-powder:item-actor@1",
+        "occurrence": {
+          "domainId": "shock-powder",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "shock-powder",
+        "target": {
+          "objectName": "BP_ShockPowerActor_C",
+          "gamePackagePath": "/Game/Actors/Items/ShockPowder/BP_ShockPowerActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:17155654"
+        ]
       }
     ]
   },
@@ -8794,6 +8970,237 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Actors/Items/ShockPowder/ShockpowderGameplayEffect"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:corrupted-seeds:item-actor@1:source",
+      "relationRef": "relation:corrupted-seeds:item-actor@1",
+      "occurrence": {
+        "domainId": "corrupted-seeds",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:5ed9d0f1"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:death-cap-mushroom:item-actor@1:source",
+      "relationRef": "relation:death-cap-mushroom:item-actor@1",
+      "occurrence": {
+        "domainId": "death-cap-mushroom",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:10718a67"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:enchanted-grass:item-actor@1:source",
+      "relationRef": "relation:enchanted-grass:item-actor@1",
+      "occurrence": {
+        "domainId": "enchanted-grass",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:fee57ee8"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:iron-hide-amulet:item-actor@1:source",
+      "relationRef": "relation:iron-hide-amulet:item-actor@1",
+      "occurrence": {
+        "domainId": "iron-hide-amulet",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:bd751d96"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:powershaker:item-actor@1:source",
+      "relationRef": "relation:powershaker:item-actor@1",
+      "occurrence": {
+        "domainId": "powershaker",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:ae2b0934"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:satchel-of-elements:item-actor@1:source",
+      "relationRef": "relation:satchel-of-elements:item-actor@1",
+      "occurrence": {
+        "domainId": "satchel-of-elements",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:778ce9ab"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:satchel-of-elixirs:item-actor@1:source",
+      "relationRef": "relation:satchel-of-elixirs:item-actor@1",
+      "occurrence": {
+        "domainId": "satchel-of-elixirs",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:300a8002"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:satchel-of-snacks:item-actor@1:source",
+      "relationRef": "relation:satchel-of-snacks:item-actor@1",
+      "occurrence": {
+        "domainId": "satchel-of-snacks",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:0b90f92b"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:scatter-mines:item-actor@1:source",
+      "relationRef": "relation:scatter-mines:item-actor@1",
+      "occurrence": {
+        "domainId": "scatter-mines",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:e7616156"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:shadow-shifter:item-actor@1:source",
+      "relationRef": "relation:shadow-shifter:item-actor@1",
+      "occurrence": {
+        "domainId": "shadow-shifter",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:205edc0e"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:shock-powder:item-actor@1:source",
+      "relationRef": "relation:shock-powder:item-actor@1",
+      "occurrence": {
+        "domainId": "shock-powder",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:17155654"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowerActor"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -19353,6 +19760,501 @@
           }
         },
         "fingerprint": "fnv1a32:99e86cf6"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:5ed9d0f1",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bf73f054d341e115cb4329318f7d14da53fb126c343d1ce8877efcadeff778b1",
+          "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db9bf6c88e0cb96eee5475e818a87cbefa32e106e728fc89a6686fdc2f826c90"
+          },
+          "nodePointer": "/edges/4842"
+        },
+        "observed": {
+          "id": "cc52e293d6a1111764ff5862",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance.uexp",
+              "start": 291,
+              "end": 320
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance.uexp",
+              "start": 316,
+              "end": 320
+            }
+          },
+          "targetObject": "/Game/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor.BP_CorruptedSeedsActor_C",
+          "targetPackageName": "/Game/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor",
+          "targetPackage": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:96b2d2bf"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:10718a67",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e0aafbf4f47f3567720b1090dcd104864f3196ca1fdbc197e3a02a86d65084a5",
+          "packagePath": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "973ee093eb5081eba985e8a34e868ad9434637da41a35e2ad1c55c13d7372113"
+          },
+          "nodePointer": "/edges/5009"
+        },
+        "observed": {
+          "id": "861a84c4b48cdb8e0c5d4174",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp",
+              "start": 233,
+              "end": 262
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance.uexp",
+              "start": 258,
+              "end": 262
+            }
+          },
+          "targetObject": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor.BP_DeathCapMushroomActor_C",
+          "targetPackageName": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor",
+          "targetPackage": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:407e428f"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:fee57ee8",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7e4d57f353b61142d33fab2882cab40639145b60de4f7071418199c9ce267462",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aac709b372de9d02c8080dbd50b4307a9b544dda1b33d293d84cd4e62997a9d1"
+          },
+          "nodePointer": "/edges/2766"
+        },
+        "observed": {
+          "id": "5ac3c879c46e134df54657a9",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance.uexp",
+              "start": 553,
+              "end": 582
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance.uexp",
+              "start": 578,
+              "end": 582
+            }
+          },
+          "targetObject": "/Game/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor.BP_RainbowGrassActor_C",
+          "targetPackageName": "/Game/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor",
+          "targetPackage": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:edc9d2c4"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:bd751d96",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:8ca766d9187ca28c8c1a59cf07fce4cf3290323e0f13510e63e6532143db52ff",
+          "packagePath": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4336cd79bfee0cb78e9fd5ddd6d6e8ced890f23f19885a9468fdcb24759d063b"
+          },
+          "nodePointer": "/edges/1294"
+        },
+        "observed": {
+          "id": "822a263ab30f379d5f90bdac",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance.uexp",
+              "start": 233,
+              "end": 262
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance.uexp",
+              "start": 258,
+              "end": 262
+            }
+          },
+          "targetObject": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor.BP_IronHideActor_C",
+          "targetPackageName": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor",
+          "targetPackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:ca0dccb9"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:ae2b0934",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1523e17c3d20d5aefef2f8aedf598526a4d073f3b73c8308f1b95ea9093a2127",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9b0030f205074650cd0f67ae3a297352a79d0b4f076c7d85ba94106befebdd7a"
+          },
+          "nodePointer": "/edges/103"
+        },
+        "observed": {
+          "id": "3aebaebec7fd6c6313c011e9",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance.uexp",
+              "start": 349,
+              "end": 378
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance.uexp",
+              "start": 374,
+              "end": 378
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor.BP_MobMasherActor_C",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "followed",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:4e5d8323"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:778ce9ab",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:14ffd0113bee2c0305cae6c2bdf6d58acbd50dab2fb3856e62864fd851461e97",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0477ddffb765c6045ea1c65ba79e676937e94031cc2e487810eb4f8cf7d58703"
+          },
+          "nodePointer": "/edges/2806"
+        },
+        "observed": {
+          "id": "2ab482908e2f6dd15f887392",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance.uexp",
+              "start": 233,
+              "end": 262
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance.uexp",
+              "start": 258,
+              "end": 262
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor.BP_SatchelOfTheElementsActor_C",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:b901da96"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:300a8002",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:35544b3cdbaf2554a4fd6c1285a428286516e9e06ba97c0622c2ef0945d76ee6",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "24972bebb2da114134f32d1417bf7587d419653415f08d105bb376448c4e607d"
+          },
+          "nodePointer": "/edges/2726"
+        },
+        "observed": {
+          "id": "5248246433c8caacca6cbb4c",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance.uexp",
+              "start": 204,
+              "end": 233
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance.uexp",
+              "start": 229,
+              "end": 233
+            }
+          },
+          "targetObject": "/Game/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor.BP_SatchelOfNeedActor_C",
+          "targetPackageName": "/Game/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor",
+          "targetPackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "followed",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:82295f66"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:0b90f92b",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-063.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:73afb504c4700ff6bfb214fbdf3ab33d884e834a3e39d166c75222d8872f165c",
+          "packagePath": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "febfd37ccb3a8903fe0d8bc6d2e831fab3ce361c4ae36c727496478641ad5443"
+          },
+          "nodePointer": "/edges/2947"
+        },
+        "observed": {
+          "id": "ffd4e4adb2c06fffb89b0af5",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance.uexp",
+              "start": 204,
+              "end": 233
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance.uexp",
+              "start": 229,
+              "end": 233
+            }
+          },
+          "targetObject": "/Game/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor.BP_SatchelOfNourishmentActor_C",
+          "targetPackageName": "/Game/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor",
+          "targetPackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:889e683a"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:e7616156",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-058.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c880b9a1554346d33e23bb45ded5339bd1f955186907f1e56c97e018b5d52a0f",
+          "packagePath": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "89ce0fc0e18672ab4f8b0deaff19ee5f7182cb7d83b973988cf730961ebfeef2"
+          },
+          "nodePointer": "/edges/1992"
+        },
+        "observed": {
+          "id": "8f71e60cf346d94ec4512443",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -4,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance.uexp",
+              "start": 378,
+              "end": 407
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance.uexp",
+              "start": 403,
+              "end": 407
+            }
+          },
+          "targetObject": "/Game/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor.BP_ChargedRedstoneMinesActor_C",
+          "targetPackageName": "/Game/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor",
+          "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor",
+          "targetRawPackageIndex": -4,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:69e8b4e2"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:205edc0e",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:32c7456ccc8d1851f3b37e89401c4d2f5ef24d34f92e5b3d736302e208ff1740",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1cd4ad17549afe9774867817cc88535bae418e53a0f8548f50afdba10d5f4621"
+          },
+          "nodePointer": "/edges/3833"
+        },
+        "observed": {
+          "id": "ab6522296904385611e35e34",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance.uexp",
+              "start": 291,
+              "end": 320
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance.uexp",
+              "start": 316,
+              "end": 320
+            }
+          },
+          "targetObject": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor.BP_ShadowSplinterActor_C",
+          "targetPackageName": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor",
+          "targetPackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:2744ead1"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:17155654",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-031.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e72cb1b18cd414c27c0b38f6b39cf31216df06124d2996c75b171eba0809a3af",
+          "packagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "ed246dd9cb05e745080bbfd48e1c95393206586df519e5b6791af0add2814de6"
+          },
+          "nodePointer": "/edges/2176"
+        },
+        "observed": {
+          "id": "bde681f432228094b2b1eade",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ItemActorClass",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance.uexp",
+              "start": 233,
+              "end": 262
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance.uexp",
+              "start": 258,
+              "end": 262
+            }
+          },
+          "targetObject": "/Game/Actors/Items/ShockPowder/BP_ShockPowerActor.BP_ShockPowerActor_C",
+          "targetPackageName": "/Game/Actors/Items/ShockPowder/BP_ShockPowerActor",
+          "targetPackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowerActor",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:33790997"
       }
     ]
   }

@@ -16,12 +16,14 @@ import {
 } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type FormalIdentityDefinition, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import { horizontalRelationDefinition, type HorizontalRelationInput } from '../src/domain/formal/serializedRelation.ts'
+import { READY_ARTIFACT_ITEM_ACTOR_DOMAINS } from '../src/domain/formal/relationWaves.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { readHorizontalRawFactInventory } from './formal-value-horizontal-source.ts'
 import {
   ownsHorizontalRelationCollectionChild,
   resolveHorizontalArmorScopeRelationSource,
   resolveHorizontalArtifactEffectRelationSource,
+  resolveHorizontalArtifactItemActorRelationSource,
   resolveHorizontalRelationSource,
 } from './formal-relation-horizontal-source.ts'
 import type { HorizontalRawFactInventory } from './game-data-horizontal-fact-inventory.ts'
@@ -61,7 +63,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[] } {
   const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
   const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
@@ -103,6 +105,7 @@ export function readHorizontalRelationWaveSources(args: {
     ranged: [] as HorizontalRelationInput[],
     armor: [] as HorizontalRelationInput[],
     artifactEffect: [] as HorizontalRelationInput[],
+    artifactItemActor: [] as HorizontalRelationInput[],
   }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
@@ -167,6 +170,7 @@ export function readHorizontalRelationWaveSources(args: {
     try {
       result.armor.push(resolveHorizontalArmorScopeRelationSource(args.repositoryRoot, sourceInventory, {
         category: 'armor',
+        relationKind: 'gear-actor', propertyPath: 'GearActor',
         catalogId: domainId,
         candidatePackage: packagePath,
         edgeId,
@@ -204,8 +208,41 @@ export function readHorizontalRelationWaveSources(args: {
     assert.equal(references.length, 1, `${domainId}: root Effect relation must resolve exactly once`)
     const { identity, identityEvidence } = committedIdentity(args.identity, definition)
     result.artifactEffect.push(resolveHorizontalArtifactEffectRelationSource(args.repositoryRoot, sourceInventory, {
-      category: 'artifact', catalogId: domainId, candidatePackage: packagePath,
+      category: 'artifact', relationKind: 'effect', propertyPath: 'Effect', catalogId: domainId, candidatePackage: packagePath,
       edgeId: references[0]!.edgeId, definition, identity, identityEvidence,
+    }))
+  }
+
+  for (const domainId of READY_ARTIFACT_ITEM_ACTOR_DOMAINS) {
+    const definitions = formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === domainId)
+    assert.equal(definitions.length, 1, `${domainId}: Artifact ItemActor Identity missing or duplicated`)
+    const definition = definitions[0]!
+    const packagePath = definition.assertion.applicationScope.packagePath
+    const items = inventory.items.filter((item) => item.category === 'artifact' && item.catalogId === domainId)
+    assert.equal(items.length, 1, `${domainId}: Artifact ItemActor catalog item missing or duplicated`)
+    const candidates = items[0]!.rawCandidate.candidates.filter((candidate) => candidate.packagePath === packagePath)
+    assert.equal(candidates.length, 1, `${domainId}: Artifact ItemActor candidate package missing or duplicated`)
+    const references = candidates[0]!.relations.flatMap((reference) => {
+      const matches = byEdgeId.get(reference.edgeId) ?? []
+      if (matches.length !== 1) return []
+      const source = matches[0]!
+      return reference.sourceRelationPathId === 'rp-root'
+        && reference.sourcePackage === packagePath && source.sourcePackage === packagePath
+        && source.propertyPath === 'ItemActorClass' ? [reference] : []
+    })
+    assert.equal(references.length, 1, `${domainId}: root ItemActorClass relation must resolve exactly once`)
+    const { identity, identityEvidence } = committedIdentity(args.identity, definition)
+    const directPath = `research/raw/packages/${packagePath}.raw.json`
+    const direct = identityEvidence.length === 2
+      && identityEvidence.every(({ provenance }) => provenance.artifactPath === directPath)
+      ? JSON.parse(fs.readFileSync(path.join(args.repositoryRoot, directPath), 'utf8')) as RawPackageSnapshot
+      : undefined
+    if (direct) assert.equal(canonical(projectFormalIdentity(direct, definition).semantic), canonical(identity),
+      `${domainId}: committed full Raw Identity does not match current snapshot`)
+    result.artifactItemActor.push(resolveHorizontalArtifactItemActorRelationSource(args.repositoryRoot, sourceInventory, {
+      category: 'artifact', relationKind: 'item-actor', propertyPath: 'ItemActorClass',
+      catalogId: domainId, candidatePackage: packagePath, edgeId: references[0]!.edgeId,
+      definition, identity, identityEvidence, identitySource: direct,
     }))
   }
 

@@ -1,0 +1,468 @@
+{
+  "auditKind": "artifact-item-actor-relation-design-census",
+  "baselineMain": "5796c70774c92672b87b40354e2194dd4c03292d",
+  "currentRelationCounts": {
+    "collections": 58,
+    "projections": 214,
+    "semantic": 214,
+    "uniqueSourceDomains": 139
+  },
+  "domainCount": 11,
+  "existingSourceDomains": [
+    "death-cap-mushroom",
+    "iron-hide-amulet",
+    "powershaker",
+    "shadow-shifter",
+    "shock-powder"
+  ],
+  "newSourceDomains": [
+    "corrupted-seeds",
+    "enchanted-grass",
+    "satchel-of-elements",
+    "satchel-of-elixirs",
+    "satchel-of-snacks",
+    "scatter-mines"
+  ],
+  "otherClassFields": [
+    {
+      "domainId": "blast-fungus",
+      "edgeId": "cbca1ff1473ec0b3b53a43ea",
+      "propertyPath": "ProjectileItemSpec.ClassesToSpawn[0]",
+      "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade",
+      "targetSuper": [
+        "/Script/Dungeons.SporeGrenade"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "buzzy-nest",
+      "edgeId": "f02ac79f98d642001867c8ec",
+      "propertyPath": "BeesNestClass",
+      "targetPackage": "Dungeons/Content/Patch2/Actors/Items/Beenest/BP_Beenest",
+      "targetSuper": [
+        "/Script/Dungeons.BeeNest"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "fishing-rod",
+      "edgeId": "61c85456ce1c89009060695d",
+      "propertyPath": "FishingHookActorClass",
+      "targetPackage": "Dungeons/Content/Actors/Items/FishingRod/BP_FishHookItem",
+      "targetSuper": [
+        "/Script/Dungeons.FishHookItem"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "fishing-rod",
+      "edgeId": "a5980691c198c7fd05bd2a0c",
+      "propertyPath": "FishingRodActorClass",
+      "targetPackage": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRod",
+      "targetSuper": [
+        "/Script/Engine.Actor"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "light-feather",
+      "edgeId": "e46cec8f231640716e16cc33",
+      "propertyPath": "CustomMover",
+      "targetPackage": "Dungeons/Content/Actors/Items/LightFeather/BP_LightfeatherCustomMover",
+      "targetSuper": [
+        "/Script/Dungeons.PushbackCustomMover"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "powershaker",
+      "edgeId": "184f285d23b605e92ac20377",
+      "propertyPath": "MobMashShockWavePrimaryClass",
+      "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherShockWave",
+      "targetSuper": [
+        "/Script/Dungeons.MobMashShockWave"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "powershaker",
+      "edgeId": "736256eb6b887c81c1aa80e1",
+      "propertyPath": "MobMashShockWaveSecondaryClass",
+      "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherShockWave",
+      "targetSuper": [
+        "/Script/Dungeons.MobMashShockWave"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "scatter-mines",
+      "edgeId": "698f18b4f6d00a168d8f0e1f",
+      "propertyPath": "ChargedRedstoneMineBP",
+      "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMine",
+      "targetSuper": [
+        "/Script/Dungeons.ChargedRedstoneMineActor"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "spinblade",
+      "edgeId": "2cd31aaf1c49b33bd4dca244",
+      "propertyPath": "SpinWheelActorClass",
+      "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor",
+      "targetSuper": [
+        "/Script/Dungeons.SpinWheelActor"
+      ],
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "totem-of-casting",
+      "edgeId": "abba8ad43cb2a63d66abc89c",
+      "propertyPath": "TotemClass",
+      "targetPackage": "Dungeons/Content/Actors/Items/SoulTotemOfCasting/BP_SoulTotemOfCasting",
+      "targetSuper": [
+        "/Script/Dungeons.SoulTotemOfCastingActor"
+      ],
+      "traversalResolution": "already-visited"
+    }
+  ],
+  "postWaveCounts": {
+    "collections": 58,
+    "projections": 225,
+    "semantic": 225,
+    "uniqueSourceDomains": 145
+  },
+  "rootEdgeCount": 11,
+  "rows": [
+    {
+      "domainId": "corrupted-seeds",
+      "edgeId": "cc52e293d6a1111764ff5862",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:corrupted-seeds@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+      "sourceEdgePointer": "/edges/4842",
+      "sourcePackage": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+      "sourcePackagePointer": "/packages/54",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-029.json.gz",
+      "targetCdo": "Default__BP_CorruptedSeedsActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_CorruptedSeedsActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor.BP_CorruptedSeedsActor_C",
+      "targetPackage": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsActor",
+      "targetPackageHash": "494ec7023f5aa16fa082a9034cce676c2af5974171199923b58a3b643f72d142",
+      "targetPackagePointer": "/packages/53",
+      "targetShard": "shards/part-029.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "171034eae042d3326170e08a",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "death-cap-mushroom",
+      "edgeId": "861a84c4b48cdb8e0c5d4174",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:death-cap-mushroom@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+      "sourceEdgePointer": "/edges/5009",
+      "sourcePackage": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomInstance",
+      "sourcePackagePointer": "/packages/60",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-029.json.gz",
+      "targetCdo": "Default__BP_DeathCapMushroomActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_DeathCapMushroomActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor.BP_DeathCapMushroomActor_C",
+      "targetPackage": "Dungeons/Content/Actors/Items/DeathCapMushroom/BP_DeathCapMushroomACtor",
+      "targetPackageHash": "87cc9f938d657a1ee14c7cecc3bf2366d2f62b47d5a7b59e9aa35005ebfa6fe5",
+      "targetPackagePointer": "/packages/58",
+      "targetShard": "shards/part-029.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "52a63f99c2772f7f6cb925b5",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "enchanted-grass",
+      "edgeId": "5ac3c879c46e134df54657a9",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:enchanted-grass@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+      "sourceEdgePointer": "/edges/2766",
+      "sourcePackage": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+      "sourcePackagePointer": "/packages/61",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-078.json.gz",
+      "targetCdo": "Default__BP_RainbowGrassActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_RainbowGrassActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor.BP_RainbowGrassActor_C",
+      "targetPackage": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassActor",
+      "targetPackageHash": "39eea6c69782b95067e76f909f40f28806c524a962e8265194ca209ad17b5eb0",
+      "targetPackagePointer": "/packages/60",
+      "targetShard": "shards/part-078.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "d3829dfacf0627a869ff67a3",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "iron-hide-amulet",
+      "edgeId": "822a263ab30f379d5f90bdac",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:iron-hide-amulet@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+      "sourceEdgePointer": "/edges/1294",
+      "sourcePackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideAmuletInstance",
+      "sourcePackagePointer": "/packages/28",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-029.json.gz",
+      "targetCdo": "Default__BP_IronHideActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_IronHideActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor.BP_IronHideActor_C",
+      "targetPackage": "Dungeons/Content/Actors/Items/Amulets/IronHideAmulet/BP_IronHideActor",
+      "targetPackageHash": "73c99a39750ab0cdd47cac5fbeac653719fa1cfc064dcc5ea24a198eb1709722",
+      "targetPackagePointer": "/packages/26",
+      "targetShard": "shards/part-029.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "d24f9d0cab6b973ea812b286",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "powershaker",
+      "edgeId": "3aebaebec7fd6c6313c011e9",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:powershaker@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+      "sourceEdgePointer": "/edges/103",
+      "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+      "sourcePackagePointer": "/packages/3",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-061.json.gz",
+      "targetCdo": "Default__BP_MobMasherActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_MobMasherActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor.BP_MobMasherActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherActor",
+      "targetPackageHash": "758666d995fc4c92b7888e58ea9054e5702e8d83df9993c8675fac1f7f7147d5",
+      "targetPackagePointer": "/packages/2",
+      "targetShard": "shards/part-061.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "5f5e2819c86f256f262f8f9a",
+      "traversalResolution": "followed"
+    },
+    {
+      "domainId": "satchel-of-elements",
+      "edgeId": "2ab482908e2f6dd15f887392",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:satchel-of-elements@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+      "sourceEdgePointer": "/edges/2806",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsInstance",
+      "sourcePackagePointer": "/packages/56",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-058.json.gz",
+      "targetCdo": "Default__BP_SatchelOfTheElementsActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_SatchelOfTheElementsActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor.BP_SatchelOfTheElementsActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/SatchelOfTheElements/BP_SatchelOfTheElementsActor",
+      "targetPackageHash": "08039a6024ef69418a2329f8d834474680c87bccf2fb143b47df6e6bac33dce6",
+      "targetPackagePointer": "/packages/55",
+      "targetShard": "shards/part-058.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "0efe112434026a431f7ab7a3",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "satchel-of-elixirs",
+      "edgeId": "5248246433c8caacca6cbb4c",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:satchel-of-elixirs@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+      "sourceEdgePointer": "/edges/2726",
+      "sourcePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedInstance",
+      "sourcePackagePointer": "/packages/56",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-063.json.gz",
+      "targetCdo": "Default__BP_SatchelOfNeedActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_SatchelOfNeedActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor.BP_SatchelOfNeedActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNeed/BP_SatchelOfNeedActor",
+      "targetPackageHash": "aec43375d9c9e44595a4f7b26bc925bfcd2c1e800a5c06d89186b167822a36c8",
+      "targetPackagePointer": "/packages/55",
+      "targetShard": "shards/part-063.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "7566903d62c0fb627c7d2a2f",
+      "traversalResolution": "followed"
+    },
+    {
+      "domainId": "satchel-of-snacks",
+      "edgeId": "ffd4e4adb2c06fffb89b0af5",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:satchel-of-snacks@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+      "sourceEdgePointer": "/edges/2947",
+      "sourcePackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelofNourishmentInstance",
+      "sourcePackagePointer": "/packages/61",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-063.json.gz",
+      "targetCdo": "Default__BP_SatchelOfNourishmentActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_SatchelOfNourishmentActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor.BP_SatchelOfNourishmentActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC5/Actors/Items/SatchelofNourishment/BP_SatchelOfNourishmentActor",
+      "targetPackageHash": "fb9d92530bb67e3d9a59a97a10c91cd7a9c00fdffafd6cf2abae3309a94cc195",
+      "targetPackagePointer": "/packages/60",
+      "targetShard": "shards/part-063.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "05b9751983d594f5703e105a",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "scatter-mines",
+      "edgeId": "8f71e60cf346d94ec4512443",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:scatter-mines@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+      "sourceEdgePointer": "/edges/1992",
+      "sourcePackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesInstance",
+      "sourcePackagePointer": "/packages/32",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-058.json.gz",
+      "targetCdo": "Default__BP_ChargedRedstoneMinesActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_ChargedRedstoneMinesActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor.BP_ChargedRedstoneMinesActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC3/Actors/Items/ChargedRedstoneMines/BP_ChargedRedstoneMinesActor",
+      "targetPackageHash": "111bbb5c42c567418b90cba781f3a171aaec80dda4ee425fc6529b71b89473ee",
+      "targetPackagePointer": "/packages/31",
+      "targetShard": "shards/part-058.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "c840e174b4696c07caf8fd18",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "shadow-shifter",
+      "edgeId": "ab6522296904385611e35e34",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:shadow-shifter@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+      "sourceEdgePointer": "/edges/3833",
+      "sourcePackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterInstance",
+      "sourcePackagePointer": "/packages/17",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-067.json.gz",
+      "targetCdo": "Default__BP_ShadowSplinterActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_ShadowSplinterActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor.BP_ShadowSplinterActor_C",
+      "targetPackage": "Dungeons/Content/Content_DLC6/Actors/Items/ShadowSplinter/BP_ShadowSplinterActor",
+      "targetPackageHash": "4793f26bf5f421031b66e68e7dcbea29295057fe824d1204e1ccea521adcaf16",
+      "targetPackagePointer": "/packages/15",
+      "targetShard": "shards/part-067.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "75796ca477c623e0d477136a",
+      "traversalResolution": "already-visited"
+    },
+    {
+      "domainId": "shock-powder",
+      "edgeId": "bde681f432228094b2b1eade",
+      "edgeKind": "object-property",
+      "identityAssertion": "identity:shock-powder@1",
+      "inheritanceStopReason": "native-boundary",
+      "propertyPath": "ItemActorClass",
+      "selectedCandidatePackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+      "sourceEdgePointer": "/edges/2176",
+      "sourcePackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowderInstance",
+      "sourcePackagePointer": "/packages/33",
+      "sourceRelationPathId": "rp-root",
+      "sourceShard": "shards/part-031.json.gz",
+      "targetCdo": "Default__BP_ShockPowerActor_C",
+      "targetCdoRelations": [
+        "Paperdoll",
+        "RootComponent"
+      ],
+      "targetCdoTemplate": "Default__ItemActor",
+      "targetClass": "BP_ShockPowerActor_C",
+      "targetKind": "import",
+      "targetObject": "/Game/Actors/Items/ShockPowder/BP_ShockPowerActor.BP_ShockPowerActor_C",
+      "targetPackage": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowerActor",
+      "targetPackageHash": "04a0112f4ddbe32ad577078beb322fc400bab23d35e071d5a1cfc581da5043da",
+      "targetPackagePointer": "/packages/34",
+      "targetShard": "shards/part-031.json.gz",
+      "targetSuper": "/Script/Dungeons.ItemActor",
+      "targetSuperEdgeId": "970891fad9ec911081bc17cf",
+      "traversalResolution": "already-visited"
+    }
+  ],
+  "structuralRootEdgeCount": 11
+}

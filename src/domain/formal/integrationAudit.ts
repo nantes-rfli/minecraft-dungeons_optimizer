@@ -1,6 +1,7 @@
 import type { FormalIdentityEvidenceArtifact, RawObservationEvidenceRecord } from './identityEvidence.ts'
 import type { FormalValueAvailabilityArtifact } from './valueAvailability.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
+import { READY_ARTIFACT_ITEM_ACTOR_DOMAINS } from './relationWaves.ts'
 import {
   formalIdentityDefinitions,
   fightersBindingsFormalIdentity,
@@ -189,13 +190,38 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   }
   check(relation.relationCollections.every((item) => !READY_ARTIFACT_EFFECT_DOMAINS.includes(item.domainId as typeof READY_ARTIFACT_EFFECT_DOMAINS[number])),
     'Artifact Effect scope relation entered relationCollections')
-  check(relation.semantic.relations.length === 214,
+  const itemActors = relation.relationProjections.filter((item) => item.relationRef.endsWith(':item-actor@1'))
+  check(itemActors.length === 11, `Artifact ItemActor count differs from expected: ${itemActors.length}`)
+  check(canonicalSet(new Set(itemActors.map((item) => item.occurrence.domainId)))
+    === canonicalSet(new Set(READY_ARTIFACT_ITEM_ACTOR_DOMAINS)), 'Artifact ItemActor domains differ from reviewed set')
+  for (const domainId of READY_ARTIFACT_ITEM_ACTOR_DOMAINS) {
+    const matches = itemActors.filter((item) => item.occurrence.domainId === domainId)
+    const record = matches[0]
+    check(matches.length === 1, `${domainId}: Artifact ItemActor projection must resolve exactly once`)
+    if (!record) continue
+    check(record.projectionRef === `projection:relation:${domainId}:item-actor@1:source`,
+      `${domainId}: Artifact ItemActor projectionRef mismatch`)
+    check(!('sourceIndex' in record.occurrence) && record.occurrence.scopeRef === 'source',
+      `${domainId}: Artifact ItemActor occurrence must be source scope`)
+    check(record.result === 'projected', `${domainId}: Artifact ItemActor is not projected`)
+    if (record.result === 'projected') {
+      check(record.serializedTargetResolution.state === 'resolved-local-package',
+        `${domainId}: Artifact ItemActor target is not resolved-local-package`)
+      check(record.targetRawVerification.input === 'not-supplied'
+        && record.targetRawVerification.result === 'not-resolved'
+        && record.targetRawVerification.reason === 'target-snapshot-not-supplied',
+      `${domainId}: Artifact ItemActor target Raw verification boundary changed`)
+    }
+  }
+  check(relation.relationCollections.every((item) => !READY_ARTIFACT_ITEM_ACTOR_DOMAINS.includes(item.domainId as typeof READY_ARTIFACT_ITEM_ACTOR_DOMAINS[number])),
+    'Artifact ItemActor scope relation entered relationCollections')
+  check(relation.semantic.relations.length === 225,
     `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
-  check(relation.relationProjections.length === 214,
+  check(relation.relationProjections.length === 225,
     `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
   check(relation.relationCollections.length === 58,
     `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
-  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 139,
+  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 145,
     'Formal Relation unique source domain count differs from expected')
 
   for (const [category, domains, collectionRef] of [

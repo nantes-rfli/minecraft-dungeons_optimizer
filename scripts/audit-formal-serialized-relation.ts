@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import {
   buildFormalSerializedRelationArtifact,
@@ -17,6 +18,7 @@ import { evidenceFingerprint, projectFormalIdentity, type RawObservationEvidence
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { loadStructuralGraph } from './game-data-horizontal-fact-inventory.ts'
 import { readHorizontalRelationWaveSources } from './formal-relation-horizontal-wave-sources.ts'
+import { READY_ARTIFACT_ITEM_ACTOR_DOMAINS } from '../src/domain/formal/relationWaves.ts'
 import { readVerifiedStructuralShard, resolveJsonPointer } from './formal-value-source-provenance.ts'
 import type { FormalIdentityEvidenceArtifact } from '../src/domain/formal/identityEvidence.ts'
 
@@ -75,6 +77,7 @@ const inputs: FormalRelationInputs = {
     ...collectionWave.filter(({ occurrence }) => occurrence.domainId !== 'scatter-crossbow'),
     ...wave.armor,
     ...wave.artifactEffect,
+    ...wave.artifactItemActor,
   ],
 }
 const preArmorInputs: FormalRelationInputs = {
@@ -89,7 +92,8 @@ assert.equal(new Set(preArmorArtifact.semantic.relations.map(({ sourceDomainId }
 
 const beforeArtifactEffect = buildFormalSerializedRelationArtifact({
   ...inputs, horizontalRelations: inputs.horizontalRelations?.filter(({ occurrence }) =>
-    !wave.artifactEffect.some((item) => item.occurrence.domainId === occurrence.domainId)),
+    !wave.artifactEffect.some((item) => item.occurrence.domainId === occurrence.domainId))
+    .filter(({ relationRef }) => !relationRef.endsWith(':item-actor@1')),
 })
 assert.equal(createHash('sha256').update(JSON.stringify(beforeArtifactEffect)).digest('hex'),
   '256a9a0e6e834a29ac8ff5e42c5773d193f30d4bab709a2968e3d29f774ede0b',
@@ -97,11 +101,13 @@ assert.equal(createHash('sha256').update(JSON.stringify(beforeArtifactEffect)).d
 const artifact = buildFormalSerializedRelationArtifact(inputs)
 assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.equal(artifact.semantic.relations.length, 214)
-assert.equal(artifact.relationProjections.length, 214)
+assert.equal(artifact.semantic.relations.length, 225)
+assert.equal(artifact.relationProjections.length, 225)
 assert.equal(artifact.relationCollections.length, 58)
+const committedRelation = JSON.parse(execFileSync('git', ['show', '5796c70774c92672b87b40354e2194dd4c03292d:research/domain/formal/serialized-relation-v2.json'],
+  { cwd: repositoryRoot, encoding: 'utf8' })) as ReturnType<typeof buildFormalSerializedRelationArtifact>
 assert.equal(beforeArtifactEffect.provenance.evidence.length, 214)
-assert.equal(artifact.provenance.evidence.length, 223, 'Artifact Effect must add exactly nine source observations')
+assert.equal(artifact.provenance.evidence.length, 234, 'Artifact Effect and ItemActor must add twenty source observations')
 assert.deepEqual(
   artifact.relationProjections.slice(0, 3).map((record) => [
     record.occurrence.domainId,
@@ -130,10 +136,24 @@ assert.ok(horizontal.filter(({ occurrence }) => occurrence.domainId !== 'scatter
   record.result === 'projected' && record.targetRawVerification.input === 'not-supplied'
   && record.targetRawVerification.result === 'not-resolved'
   && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
-assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 214)
+assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 225)
 assert.equal(new Set(artifact.semantic.relations.map(({ relationRef, occurrence }) =>
-  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 214)
-assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 139)
+  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 225)
+assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 145)
+assert.equal(wave.artifactItemActor.length, 11)
+assert.deepEqual(new Set(wave.artifactItemActor.map(({ sourceDomainId }) => sourceDomainId)),
+  new Set(READY_ARTIFACT_ITEM_ACTOR_DOMAINS))
+for (const input of wave.artifactItemActor) {
+  assert.equal(input.relationRef, `relation:${input.sourceDomainId}:item-actor@1`)
+  assert.deepEqual(input.occurrence, { domainId: input.sourceDomainId, scopeRef: 'source' })
+  assert.equal(input.serializedTargetResolution.state, 'resolved-local-package')
+}
+assert.equal(artifact.relationCollections.filter(({ domainId }) =>
+  READY_ARTIFACT_ITEM_ACTOR_DOMAINS.includes(domainId as typeof READY_ARTIFACT_ITEM_ACTOR_DOMAINS[number])).length, 0)
+const withoutItemActor = buildFormalSerializedRelationArtifact({ ...inputs,
+  horizontalRelations: inputs.horizontalRelations?.filter(({ relationRef }) => !relationRef.endsWith(':item-actor@1')) })
+assert.deepEqual(withoutItemActor, committedRelation, 'Existing 214 Relation records or evidence changed')
+assert.equal(artifact.provenance.evidence.length - withoutItemActor.provenance.evidence.length, 11)
 
 assert.equal(wave.artifactEffect.length, 9)
 assert.deepEqual(new Set(wave.artifactEffect.map(({ occurrence }) => occurrence.domainId)),

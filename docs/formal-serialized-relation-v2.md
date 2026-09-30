@@ -57,6 +57,7 @@ relation:<domainId>:attack-sequence@1
 relation:<domainId>:projectile@1
 relation:<domainId>:gear-actor@1
 relation:<domainId>:effect@1
+relation:<domainId>:item-actor@1
 ```
 
 既存 representative relation は同じ規則の下で既存文字列を維持します。
@@ -79,7 +80,9 @@ adapter は fail closed です。candidate relation の edgeId と sourceRelatio
 
 Fighter's Bindings と Scatter Crossbow の Identity は既存の full Raw snapshot を参照します。これら2件は full Raw 上で matched Identity を再検証し、Structural shard と dataset ID・package path・package content hash が一致する場合に限って adapter を通します。両形式の extraction run ID は別であり、各 artifact の provenance はそれぞれ検証します。
 
-Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind します。Artifact は exact Identity source package の root `Effect` edge を `{ domainId, scopeRef: "source" }` として bind します。どちらも collection/sourceIndex semantics へ変換しません。いずれも property 名や target path の類似だけで別 occurrence を借りません。
+Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind します。Artifact は承認済み typed policy に従い、root `Effect` または root `ItemActorClass` edge を同じ source scope に bind します。category だけで property や kind を決定しません。これらは collection/sourceIndex semantics へ変換しません。property 名や target path の類似だけで別 occurrence を借りません。
+
+`item-actor` は source Artifact に設定された Blueprint class が、exact target class として `/Script/Dungeons.ItemActor` を直接継承する configured class relation です。verified Structural target package の class export、class 自身の super edge と native-boundary inheritance chain、class reference で結ばれた CDO を必須確認します。actor の実際の spawn、時点、数、持続時間、効果、damage、activation、cooldown は assert しません。target package の Structural 解決と full target Raw snapshot 検証は別の境界です。
 
 ## Same-source Formal Identity gate
 
@@ -94,13 +97,16 @@ schemaVersion: 2
 Melee: 31 domains / 106 AttackSequence occurrences
 Ranged: 27 domains / 27 Projectile occurrences
 Armor: 71 domains / 71 GearActor scope occurrences
-Artifact: 10 domains / 10 Effect scope occurrences
+Artifact Effect: 10 domains / 10 scope occurrences
+Artifact ItemActor: 11 domains / 11 scope occurrences
 relation collections: 58
-semantic relations: 214
-relation projections: 214
-unique source domains: 139
+semantic relations: 225
+relation projections: 225
+unique source domains: 145
 ```
 
 Armor 71件のうち Battle Robe は既存 representative path をそのまま維持し、追加70件だけを Horizontal Armor scope lane から生成します。追加70件はすべて exact root `GearActor` Structural edge が `resolved-local-package` であることを要求し、`targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。
 
 Artifact Effect 10件のうち Death Cap Mushroom は既存 representative path を維持し、追加9件を Horizontal Artifact scope lane から生成します。追加9件は exact root `Effect` Structural edge の target が `resolved-local-package` であることを要求し、full Raw target snapshot は供給しないため `targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。
+
+Artifact ItemActor 11件はすべて root `ItemActorClass` の scope relation です。各 target は `resolved-local-package` で、直接の `/Script/Dungeons.ItemActor` superclass と対応する CDO を Structural source で確認します。full Raw target snapshot は供給しないため `targetRawVerification` は全件 `not-supplied / not-resolved / target-snapshot-not-supplied` です。Effect と重なる5 domain は異なる RelationRef と独立した source edge evidence を持ちます。

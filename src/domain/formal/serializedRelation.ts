@@ -5,7 +5,7 @@ import { evidenceFingerprint, type FormalSemanticIdentity, type RawObservationEv
 import { matchedIdentityDomainId } from './boundarySource.ts'
 import type { RawTrace } from './rawProjection.ts'
 
-export type RelationKind = 'attack-sequence' | 'projectile' | 'gear-actor' | 'effect'
+export type RelationKind = 'attack-sequence' | 'projectile' | 'gear-actor' | 'effect' | 'item-actor'
 export type RelationRef = `relation:${string}:${RelationKind}@1`
 export type RelationProjectionRef = string
 export type RelationEvidenceRef = string

@@ -1,5 +1,7 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { type HorizontalRawFactInventory, type JsonRecord } from './game-data-horizontal-fact-inventory.ts'
-import { hasVerifiedStructuralPackage, readVerifiedStructuralShard } from './formal-value-source-provenance.ts'
+import { hasVerifiedStructuralPackage, readVerifiedStructuralShard, RAW_STRUCTURAL_INVENTORY_DIRECTORY } from './formal-value-source-provenance.ts'
 import { matchedIdentityDomainId, matchedIdentityDomainIdFromSource, sameLogicalRawPackage, snapshotSource } from '../src/domain/formal/boundarySource.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
@@ -84,8 +86,12 @@ export type ResolvedHorizontalRelationSource = {
   structuralEdge: JsonRecord
 }
 
-export type ScopeRelationSourceRequest = {
-  category: 'armor' | 'artifact'
+type ScopeRelationPolicy =
+  | { category: 'armor'; relationKind: 'gear-actor'; propertyPath: 'GearActor' }
+  | { category: 'artifact'; relationKind: 'effect'; propertyPath: 'Effect' }
+  | { category: 'artifact'; relationKind: 'item-actor'; propertyPath: 'ItemActorClass' }
+
+export type ScopeRelationSourceRequest = ScopeRelationPolicy & {
   catalogId: string
   candidatePackage: string
   edgeId: string
@@ -95,8 +101,9 @@ export type ScopeRelationSourceRequest = {
   identitySource?: RawPackageSnapshot
 }
 
-export type ArmorScopeRelationSourceRequest = ScopeRelationSourceRequest & { category: 'armor' }
-export type ArtifactEffectRelationSourceRequest = ScopeRelationSourceRequest & { category: 'artifact' }
+export type ArmorScopeRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'gear-actor' }
+export type ArtifactEffectRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'effect' }
+export type ArtifactItemActorRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'item-actor' }
 
 export type ResolvedScopeRelationSource = {
   sourceDomainId: string
@@ -237,6 +244,89 @@ function requireFirstWaveTarget(
       gamePackagePath: sourceRelation.targetPackageName,
     },
     serializedTargetResolution,
+  }
+}
+
+/** Resolve the exact committed target package without inferring it from a domain or class name. */
+function targetStructuralPackage(repositoryRoot: string, targetPath: string, datasetId: string): {
+  pkg: JsonRecord
+  edges: JsonRecord[]
+} {
+  const manifest = JSON.parse(fs.readFileSync(path.join(repositoryRoot,
+    RAW_STRUCTURAL_INVENTORY_DIRECTORY, 'manifest.json'), 'utf8')) as { shards: { path: string }[] }
+  // Package paths are sorted across shards. Every visited shard is hash verified.
+  let low = 0
+  let high = manifest.shards.length - 1
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2)
+    const meta = manifest.shards[middle]!
+    const { shard } = readVerifiedStructuralShard(repositoryRoot,
+      `${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/${meta.path}`, datasetId)
+    const first = shard.packages[0]?.path
+    const last = shard.packages[shard.packages.length - 1]?.path
+    if (!first || !last) throw new Error('ItemActor target Structural shard is empty')
+    if (targetPath.localeCompare(first) < 0) { high = middle - 1; continue }
+    if (targetPath.localeCompare(last) > 0) { low = middle + 1; continue }
+    const matches = shard.packages.filter((pkg) => pkg.path === targetPath)
+    if (matches.length > 1) throw new Error(`ItemActor target package duplicated: ${targetPath}`)
+    if (matches.length === 1) return { pkg: matches[0] as unknown as JsonRecord,
+      edges: shard.edges.filter((edge) => edge.sourcePackage === targetPath) as unknown as JsonRecord[] }
+    break
+  }
+  throw new Error(`ItemActor target package missing: ${targetPath}`)
+}
+
+/** Bind the serialized target object to its class export, direct super edge and class-owned CDO. */
+export function verifyItemActorTargetStructural(
+  targetObject: string, targetPackage: JsonRecord, targetEdges: readonly JsonRecord[],
+): void {
+  const packagePath = requiredString(targetPackage.path, 'ItemActor target package path')
+  const gamePackageName = requiredString(targetPackage.gamePackageName, 'ItemActor target game package')
+  if (!targetObject.startsWith(`${gamePackageName}.`)) throw new Error('ItemActor target object/package mismatch')
+  const className = targetObject.slice(gamePackageName.length + 1)
+  const exports = targetPackage.exports as JsonRecord[] | undefined
+  const chains = targetPackage.inheritanceChains as JsonRecord[] | undefined
+  if (!Array.isArray(exports) || !Array.isArray(chains)) throw new Error('ItemActor target package has no Structural class data')
+  const classes = exports.filter((entry) => isRecord(entry.objectName)
+    && entry.objectName.value === className && entry.isClassDefaultObject === false)
+  if (classes.length !== 1) throw new Error('ItemActor exact target class missing or duplicated')
+  const cls = classes[0]!
+  const refs = cls.references as JsonRecord | undefined
+  const superRef = refs?.super as JsonRecord | undefined
+  if (superRef?.kind !== 'import' || superRef.objectName !== 'ItemActor') {
+    throw new Error('ItemActor target class direct superclass mismatch')
+  }
+  const directSupers = targetEdges.filter((edge) => edge.kind === 'super'
+    && edge.sourcePackage === packagePath && isRecord(edge.sourceOccurrence)
+    && edge.sourceOccurrence.sourceObject === className
+    && edge.sourceOccurrence.serializedField === 'superIndex')
+  if (directSupers.length !== 1) throw new Error('ItemActor target class super edge missing or duplicated')
+  const directSuper = directSupers[0]!
+  if (directSuper.targetObject !== '/Script/Dungeons.ItemActor'
+    || directSuper.targetKind !== 'import'
+    || !isRecord(directSuper.traversal) || directSuper.traversal.stopReason !== 'native-boundary'
+    || !isRecord(directSuper.sourceOccurrence)
+    || directSuper.sourceOccurrence.rawPackageIndex !== superRef.rawPackageIndex) {
+    throw new Error('ItemActor target class super edge semantic mismatch')
+  }
+  const matchingChains = chains.filter((chain) => chain.sourceObject === className)
+  const chain = matchingChains[0]
+  if (matchingChains.length !== 1 || !chain || !Array.isArray(chain.hops)
+    || chain.hops.length !== 1 || !isRecord(chain.hops[0])
+    || chain.hops[0].edgeId !== directSuper.id
+    || chain.hops[0].targetObject !== '/Script/Dungeons.ItemActor'
+    || chain.stopReason !== 'native-boundary') {
+    throw new Error('ItemActor target class inheritance chain mismatch')
+  }
+  const cdos = exports.filter((entry) => entry.isClassDefaultObject === true
+    && isRecord(entry.references) && isRecord(entry.references.class)
+    && entry.references.class.kind === 'export'
+    && entry.references.class.rawPackageIndex === cls.rawPackageIndex)
+  if (cdos.length !== 1 || !isRecord(cdos[0]!.references)
+    || !isRecord(cdos[0]!.references.template)
+    || cdos[0]!.references.template.kind !== 'import'
+    || cdos[0]!.references.template.objectName !== 'Default__ItemActor') {
+    throw new Error('ItemActor target class CDO missing or mismatched')
   }
 }
 
@@ -390,12 +480,23 @@ export function resolveHorizontalScopeRelationSource(
   inventoryInput: HorizontalRawFactInventory,
   request: ScopeRelationSourceRequest,
 ): ResolvedScopeRelationSource {
-  const policy = request.category === 'armor'
-    ? { propertyPath: 'GearActor', relationKind: 'gear-actor' } as const
-    : { propertyPath: 'Effect', relationKind: 'effect' } as const
+  const policy = request.category === 'armor' && request.relationKind === 'gear-actor' && request.propertyPath === 'GearActor'
+    ? request : request.category === 'artifact' && request.relationKind === 'effect' && request.propertyPath === 'Effect'
+      ? request : request.category === 'artifact' && request.relationKind === 'item-actor' && request.propertyPath === 'ItemActorClass'
+        ? request : undefined
+  if (!policy) throw new Error('Unsupported Horizontal scope Relation policy')
   const inventory = inventoryInput as unknown as InventoryView
   const item = exactItem(inventory, request)
   const candidate = exactCandidate(item, request)
+
+  if (policy.relationKind === 'item-actor') {
+    const fieldReferences = candidate.relations.filter((reference) =>
+      inventory.sourceRelations.some((source) => source.edgeId === reference.edgeId
+        && source.propertyPath === 'ItemActorClass'))
+    if (fieldReferences.length !== 1 || fieldReferences[0]!.edgeId !== request.edgeId) {
+      throw new Error('ItemActor candidate property occurrence missing or duplicated')
+    }
+  }
 
   if (request.catalogId !== request.definition.assertion.domainId) {
     throw new Error('Horizontal scope relation catalog/domain binding mismatch')
@@ -435,6 +536,10 @@ export function resolveHorizontalScopeRelationSource(
   if (sourceRelation.relationKind !== 'object-property' || sourceRelation.propertyPath !== policy.propertyPath) {
     throw new Error('Horizontal scope relation source occurrence binding mismatch')
   }
+  if (policy.relationKind === 'item-actor'
+    && (sourceRelation.sourceOccurrenceKind !== 'cdo-property' || sourceRelation.arrayIndex !== null)) {
+    throw new Error('ItemActor source must be an exact root CDO property')
+  }
 
   const provenance = candidate.candidatePackageProvenance
   const datasetId = requiredString(inventory.inventoryIdentity?.datasetId, 'Horizontal scope relation datasetId')
@@ -472,10 +577,18 @@ export function resolveHorizontalScopeRelationSource(
   const edgeMatch = edgeMatches[0]!
   const structuralSummary = structuralRelationSummary(edgeMatch.edge, repositoryRoot, datasetId)
   if (canonicalJson(structuralSummary) !== canonicalJson(sourceRelation)) {
-    throw new Error(`Horizontal Armor source relation does not match its exact Structural edge: ${request.edgeId}`)
+    throw new Error(`Horizontal scope source relation does not match its exact Structural edge: ${request.edgeId}`)
   }
   if (structuralSummary.relationKind !== 'object-property' || structuralSummary.propertyPath !== policy.propertyPath) {
-    throw new Error(`Structural Armor root edge is not GearActor: ${request.edgeId}`)
+    throw new Error(`Structural scope root edge policy mismatch: ${request.edgeId}`)
+  }
+  if (policy.relationKind === 'item-actor') {
+    const structuralRoots = shard.edges.filter((edge) => edge.sourcePackage === request.candidatePackage
+      && edge.kind === 'object-property' && edge.sourceOccurrence.kind === 'cdo-property'
+      && edge.sourceOccurrence.propertyPath === 'ItemActorClass')
+    if (structuralRoots.length !== 1 || structuralRoots[0]!.id !== request.edgeId) {
+      throw new Error('ItemActor exact Structural root occurrence missing or duplicated')
+    }
   }
 
   const source: RawTrace = {
@@ -503,6 +616,12 @@ export function resolveHorizontalScopeRelationSource(
 
   const targetResolution = serializedTargetResolution(repositoryRoot, edgeMatch.edge, datasetId)
   const target = requireFirstWaveTarget(sourceRelation, targetResolution)
+  if (policy.relationKind === 'item-actor') {
+    const targetPath = requiredString(edgeMatch.edge.targetPackage, 'ItemActor target package')
+    const structuralTarget = targetStructuralPackage(repositoryRoot, targetPath, datasetId)
+    verifyItemActorTargetStructural(requiredString(edgeMatch.edge.targetObject, 'ItemActor target object'),
+      structuralTarget.pkg, structuralTarget.edges)
+  }
   return {
     sourceDomainId,
     relationRef: relationRefForDomain(sourceDomainId, policy.relationKind),
@@ -516,13 +635,19 @@ export function resolveHorizontalScopeRelationSource(
 }
 
 export function resolveHorizontalArmorScopeRelationSource(
-  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ScopeRelationSourceRequest & { category: 'armor' },
+  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ArmorScopeRelationSourceRequest,
 ): ResolvedScopeRelationSource {
   return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
 }
 
 export function resolveHorizontalArtifactEffectRelationSource(
-  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ScopeRelationSourceRequest & { category: 'artifact' },
+  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ArtifactEffectRelationSourceRequest,
+): ResolvedScopeRelationSource {
+  return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
+}
+
+export function resolveHorizontalArtifactItemActorRelationSource(
+  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ArtifactItemActorRelationSourceRequest,
 ): ResolvedScopeRelationSource {
   return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
 }
