@@ -56,6 +56,7 @@ horizontal population 用の relation identity は domain から安定生成し�
 relation:<domainId>:attack-sequence@1
 relation:<domainId>:projectile@1
 relation:<domainId>:gear-actor@1
+relation:<domainId>:effect@1
 ```
 
 既存 representative relation は同じ規則の下で既存文字列を維持します。
@@ -78,7 +79,7 @@ adapter は fail closed です。candidate relation の edgeId と sourceRelatio
 
 Fighter's Bindings と Scatter Crossbow の Identity は既存の full Raw snapshot を参照します。これら2件は full Raw 上で matched Identity を再検証し、Structural shard と dataset ID・package path・package content hash が一致する場合に限って adapter を通します。両形式の extraction run ID は別であり、各 artifact の provenance はそれぞれ検証します。
 
-Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind し、collection/sourceIndex semantics へ変換しません。いずれも property 名や target path の類似だけで別 occurrence を借りません。
+Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind します。Artifact は exact Identity source package の root `Effect` edge を `{ domainId, scopeRef: "source" }` として bind します。どちらも collection/sourceIndex semantics へ変換しません。いずれも property 名や target path の類似だけで別 occurrence を借りません。
 
 ## Same-source Formal Identity gate
 
@@ -93,10 +94,13 @@ schemaVersion: 2
 Melee: 31 domains / 106 AttackSequence occurrences
 Ranged: 27 domains / 27 Projectile occurrences
 Armor: 71 domains / 71 GearActor scope occurrences
+Artifact: 10 domains / 10 Effect scope occurrences
 relation collections: 58
-semantic relations: 205
-relation projections: 205
-unique source domains: 130
+semantic relations: 214
+relation projections: 214
+unique source domains: 139
 ```
 
 Armor 71件のうち Battle Robe は既存 representative path をそのまま維持し、追加70件だけを Horizontal Armor scope lane から生成します。追加70件はすべて exact root `GearActor` Structural edge が `resolved-local-package` であることを要求し、`targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。
+
+Artifact Effect 10件のうち Death Cap Mushroom は既存 representative path を維持し、追加9件を Horizontal Artifact scope lane から生成します。追加9件は exact root `Effect` Structural edge の target が `resolved-local-package` であることを要求し、full Raw target snapshot は供給しないため `targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。
