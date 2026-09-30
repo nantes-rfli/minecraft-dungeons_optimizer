@@ -35,7 +35,7 @@ function fixture(): { request: ArtifactEffectRelationSourceRequest; inventory: H
   const semantic = identity.semantic.identities.find((entry) => entry.assertionId === definition.assertion.id)!
   const evidence = identity.provenance.evidence.filter((entry): entry is RawObservationEvidenceRecord =>
     entry.kind === 'raw-observation' && semantic.resolution.evidenceRefs.includes(entry.id))
-  return { request: { category: 'artifact', catalogId: domainId, candidatePackage: packagePath,
+  return { request: { category: 'artifact', relationKind: 'effect', propertyPath: 'Effect', catalogId: domainId, candidatePackage: packagePath,
     edgeId: String(root.edgeId), definition, identity: structuredClone(semantic), identityEvidence: evidence },
   inventory: value, candidate: selectedCandidate, source: selectedSource }
 }
@@ -62,10 +62,10 @@ describe('Artifact Effect Formal Relation breadth', () => {
     expect(effects).toHaveLength(10)
     expect(new Set(effects.map((entry) => entry.occurrence.domainId))).toEqual(new Set(READY_ARTIFACT_EFFECT_DOMAINS))
     expect(artifact.relationCollections.some((entry) => READY_ARTIFACT_EFFECT_DOMAINS.includes(entry.domainId as typeof READY_ARTIFACT_EFFECT_DOMAINS[number]))).toBe(false)
-    expect(artifact.semantic.relations).toHaveLength(214)
-    expect(artifact.relationProjections).toHaveLength(214)
+    expect(artifact.semantic.relations).toHaveLength(225)
+    expect(artifact.relationProjections).toHaveLength(225)
     expect(artifact.relationCollections).toHaveLength(58)
-    expect(new Set(artifact.semantic.relations.map((entry) => entry.sourceDomainId)).size).toBe(139)
+    expect(new Set(artifact.semantic.relations.map((entry) => entry.sourceDomainId)).size).toBe(145)
     expect(effects.filter((entry) => entry.occurrence.domainId !== 'death-cap-mushroom').every((entry) =>
       entry.result === 'projected' && entry.targetRawVerification.input === 'not-supplied'
       && entry.targetRawVerification.result === 'not-resolved'

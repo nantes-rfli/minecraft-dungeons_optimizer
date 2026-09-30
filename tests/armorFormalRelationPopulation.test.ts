@@ -118,6 +118,7 @@ function armorFixture() {
   const { identity, evidence } = committedIdentity(domainId)
   const request: ArmorScopeRelationSourceRequest = {
     category: 'armor',
+    relationKind: 'gear-actor', propertyPath: 'GearActor',
     catalogId: domainId,
     candidatePackage: packagePath,
     edgeId: String(root[0]!.reference.edgeId),
