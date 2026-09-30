@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import {
   buildFormalSerializedRelationArtifact,
@@ -73,6 +74,7 @@ const inputs: FormalRelationInputs = {
   horizontalRelations: [
     ...collectionWave.filter(({ occurrence }) => occurrence.domainId !== 'scatter-crossbow'),
     ...wave.armor,
+    ...wave.artifactEffect,
   ],
 }
 const preArmorInputs: FormalRelationInputs = {
@@ -85,12 +87,21 @@ assert.equal(preArmorArtifact.relationProjections.length, 135)
 assert.equal(preArmorArtifact.relationCollections.length, 58)
 assert.equal(new Set(preArmorArtifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 60)
 
+const beforeArtifactEffect = buildFormalSerializedRelationArtifact({
+  ...inputs, horizontalRelations: inputs.horizontalRelations?.filter(({ occurrence }) =>
+    !wave.artifactEffect.some((item) => item.occurrence.domainId === occurrence.domainId)),
+})
+assert.equal(createHash('sha256').update(JSON.stringify(beforeArtifactEffect)).digest('hex'),
+  '256a9a0e6e834a29ac8ff5e42c5773d193f30d4bab709a2968e3d29f774ede0b',
+  'Existing committed 205 Relation records, projections, collections or evidence changed')
 const artifact = buildFormalSerializedRelationArtifact(inputs)
 assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.equal(artifact.semantic.relations.length, 205)
-assert.equal(artifact.relationProjections.length, 205)
+assert.equal(artifact.semantic.relations.length, 214)
+assert.equal(artifact.relationProjections.length, 214)
 assert.equal(artifact.relationCollections.length, 58)
+assert.equal(beforeArtifactEffect.provenance.evidence.length, 214)
+assert.equal(artifact.provenance.evidence.length, 223, 'Artifact Effect must add exactly nine source observations')
 assert.deepEqual(
   artifact.relationProjections.slice(0, 3).map((record) => [
     record.occurrence.domainId,
@@ -119,13 +130,31 @@ assert.ok(horizontal.filter(({ occurrence }) => occurrence.domainId !== 'scatter
   record.result === 'projected' && record.targetRawVerification.input === 'not-supplied'
   && record.targetRawVerification.result === 'not-resolved'
   && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
-assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 205)
+assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 214)
 assert.equal(new Set(artifact.semantic.relations.map(({ relationRef, occurrence }) =>
-  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 205)
-assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 130)
+  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 214)
+assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 139)
 
+assert.equal(wave.artifactEffect.length, 9)
+assert.deepEqual(new Set(wave.artifactEffect.map(({ occurrence }) => occurrence.domainId)),
+  new Set(['boots-of-swiftness', 'corrupted-pumpkin', 'fishing-rod', 'ghost-cloak', 'iron-hide-amulet',
+    'light-feather', 'powershaker', 'shadow-shifter', 'shock-powder']))
+assert.equal(artifact.relationProjections.filter(({ relationRef }) => relationRef.endsWith(':effect@1')).length, 10)
+assert.ok(wave.artifactEffect.every(({ occurrence, serializedTargetResolution }) =>
+  !('sourceIndex' in occurrence) && occurrence.scopeRef === 'source'
+  && serializedTargetResolution.state === 'resolved-local-package'))
+for (const existing of beforeArtifactEffect.semantic.relations) {
+  assert.deepEqual(artifact.semantic.relations.find(({ projectionRef }) => projectionRef === existing.projectionRef), existing)
+}
+for (const existing of beforeArtifactEffect.relationProjections) {
+  assert.deepEqual(artifact.relationProjections.find(({ projectionRef }) => projectionRef === existing.projectionRef), existing)
+}
+assert.deepEqual(artifact.relationCollections, beforeArtifactEffect.relationCollections)
+for (const existing of beforeArtifactEffect.provenance.evidence) {
+  assert.deepEqual(artifact.provenance.evidence.find(({ id }) => id === existing.id), existing)
+}
 const preArmorProjectionRefs = new Set(preArmorArtifact.relationProjections.map(({ projectionRef }) => projectionRef))
-assert.equal(artifact.relationProjections.filter(({ projectionRef }) => !preArmorProjectionRefs.has(projectionRef)).length, 70)
+assert.equal(beforeArtifactEffect.relationProjections.filter(({ projectionRef }) => !preArmorProjectionRefs.has(projectionRef)).length, 70)
 for (const relation of preArmorArtifact.semantic.relations) {
   assert.deepEqual(
     artifact.semantic.relations.find(({ projectionRef }) => projectionRef === relation.projectionRef),
@@ -166,30 +195,30 @@ assert.ok(newArmorGearActor.every((record) => record.result === 'projected'
 assert.equal(artifact.relationCollections.filter(({ domainId }) =>
   domainId === 'battle-robe' || newArmorDomainIds.has(domainId)).length, 0)
 
-const committedBaselineProjectionRefs = new Set(artifact.relationProjections
+const committedBaselineProjectionRefs = new Set(beforeArtifactEffect.relationProjections
   .filter(({ occurrence }) => !newArmorDomainIds.has(occurrence.domainId))
   .map(({ projectionRef }) => projectionRef))
 const committedBaselineEvidenceRefs = new Set<string>()
-for (const relation of artifact.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
+for (const relation of beforeArtifactEffect.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
   for (const evidenceRef of relation.evidenceRefs) committedBaselineEvidenceRefs.add(evidenceRef)
 }
-for (const projection of artifact.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
+for (const projection of beforeArtifactEffect.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef))) {
   for (const evidenceRef of projection.evidenceRefs) committedBaselineEvidenceRefs.add(evidenceRef)
   if (projection.result === 'projected' && 'targetEvidenceRef' in projection.targetRawVerification) {
     committedBaselineEvidenceRefs.add(projection.targetRawVerification.targetEvidenceRef)
   }
 }
-for (const collection of artifact.relationCollections) committedBaselineEvidenceRefs.add(collection.evidenceRef)
+for (const collection of beforeArtifactEffect.relationCollections) committedBaselineEvidenceRefs.add(collection.evidenceRef)
 const committedBaselineView = {
-  schemaVersion: artifact.schemaVersion,
-  artifactKind: artifact.artifactKind,
+  schemaVersion: beforeArtifactEffect.schemaVersion,
+  artifactKind: beforeArtifactEffect.artifactKind,
   semantic: {
-    relations: artifact.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
+    relations: beforeArtifactEffect.semantic.relations.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
   },
-  relationCollections: artifact.relationCollections,
-  relationProjections: artifact.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
+  relationCollections: beforeArtifactEffect.relationCollections,
+  relationProjections: beforeArtifactEffect.relationProjections.filter(({ projectionRef }) => committedBaselineProjectionRefs.has(projectionRef)),
   provenance: {
-    evidence: artifact.provenance.evidence.filter(({ id }) => committedBaselineEvidenceRefs.has(id)),
+    evidence: beforeArtifactEffect.provenance.evidence.filter(({ id }) => committedBaselineEvidenceRefs.has(id)),
   },
 }
 assert.equal(committedBaselineView.semantic.relations.length, 135)
