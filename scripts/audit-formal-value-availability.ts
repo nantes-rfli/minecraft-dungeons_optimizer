@@ -1,3 +1,5 @@
+import { readArtifactConfiguredValueSources } from './formal-value-artifact-sources.ts'
+import { artifactValueMappings } from '../src/domain/formal/artifactValueMappings.ts'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import {
@@ -94,10 +96,19 @@ const artifact = buildFormalValueAvailabilityArtifact({
   scatterCrossbowIdentityEvidence: scatterIdentity.evidence,
   relations: relation,
   horizontalConfiguredSources: horizontal,
+  artifactConfiguredSources: readArtifactConfiguredValueSources({ repositoryRoot, identity }),
 })
 
 assert.deepEqual(collectFormalValueAvailabilityErrors(artifact), [])
 assert.equal(artifact.schemaVersion, 2)
+assert.deepEqual(Object.keys(artifact.semantic.artifact).sort(), artifactValueMappings.map(({ domainId }) => domainId).sort())
+for (const mapping of artifactValueMappings) {
+  assert.ok(artifact.semantic.artifact[mapping.domainId]?.[mapping.field])
+  const records = artifact.valueProjections.filter(({ mappingId }) => mappingId === mapping.id)
+  assert.equal(records.length, 1)
+  assert.deepEqual(records[0]!.occurrence, { domainId: mapping.domainId, scopeRef: 'source' })
+  assert.equal(records[0]!.result, 'projected')
+}
 assert.deepEqual(artifact.semantic.melee[fightersBindingsFormalIdentity.assertion.domainId]?.configuredAttacks?.value, [0, 1, 2, 3])
 assert.equal(artifact.semantic.melee[fightersBindingsFormalIdentity.assertion.domainId]?.attacks?.length, 4)
 assert.deepEqual(artifact.semantic.ranged[scatterCrossbowFormalIdentity.assertion.domainId]?.configuredProjectileDefinitions?.value, [0])
@@ -216,4 +227,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Value/Availability artifact drift; run generate:formal-value-availability')
-console.log('Formal Value/Availability v2 audit passed: 31 Melee + 27 Ranged matched domains, complete reviewed breadth projections, preserved baseline records, and verified source provenance.')
+console.log('Formal Value/Availability v2 audit passed: 31 Melee + 27 Ranged + 3 Artifact matched domains, complete reviewed breadth projections, preserved baseline records, and verified source provenance.')

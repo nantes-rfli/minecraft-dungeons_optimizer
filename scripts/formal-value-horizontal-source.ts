@@ -30,7 +30,7 @@ const requiredString = (value: unknown, label: string): string => {
 const canonicalJson = (value: unknown): string => JSON.stringify(value) ?? 'undefined'
 
 export type DirectHorizontalSourceRequest = {
-  category: 'melee' | 'ranged'
+  category: 'melee' | 'ranged' | 'artifact'
   catalogId: string
   candidatePackage: string
   sourceFactId: string

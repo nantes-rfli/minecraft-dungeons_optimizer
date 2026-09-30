@@ -1,3 +1,4 @@
+import { artifactValueMappings, type ArtifactValueMapping } from './artifactValueMappings.ts'
 import type { RawPackageSnapshot } from '../../../scripts/game-data-raw-package.ts'
 import { fightersBindingsValueMappings } from './fightersBindingsValueMappings.ts'
 import { horizontalMeleeValueMappings, horizontalRangedValueMappings } from './horizontalValueMappings.ts'
@@ -100,12 +101,28 @@ export type FormalRangedConfiguredValues = {
   }[]
 }
 
+export type FormalArtifactConfiguredValues = {
+  configuredTargetCount?: SourceBackedValue<number>
+  configuredIncreasedMaxHealthMultiplier?: SourceBackedValue<number>
+  configuredPetAmountCap?: SourceBackedValue<number>
+}
+
+export type FormalArtifactConfiguredValueSource = {
+  sourceProvenance: RawTrace
+  definition: FormalIdentityDefinition
+  identity: FormalSemanticIdentity
+  identityEvidence: RawObservationEvidenceRecord[]
+  mapping: ArtifactValueMapping
+  field: Field<number>
+}
+
 export type FormalValueAvailabilityArtifact = {
   schemaVersion: 2
   artifactKind: 'formal-domain-value-availability'
   semantic: {
     melee: Record<string, FormalMeleeConfiguredValues>
     ranged: Record<string, FormalRangedConfiguredValues>
+    artifact: Record<string, FormalArtifactConfiguredValues>
   }
   valueProjections: ValueProjectionRecord[]
   provenance: { evidence: ValueEvidenceRecord[] }
@@ -130,6 +147,7 @@ export type FormalValueInputs = {
   scatterCrossbowIdentity: FormalSemanticIdentity
   scatterCrossbowIdentityEvidence: RawObservationEvidenceRecord[]
   relations: FormalSerializedRelationArtifact
+  artifactConfiguredSources?: readonly FormalArtifactConfiguredValueSource[]
   horizontalConfiguredSources?: readonly FormalHorizontalConfiguredValueSource[]
 }
 
@@ -445,7 +463,7 @@ function projectRangedConfiguredValues(
 
 export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs): FormalValueAvailabilityArtifact {
   const accumulator: ProjectionAccumulator = { records: [], evidence: [] }
-  const semantic: FormalValueAvailabilityArtifact['semantic'] = { melee: {}, ranged: {} }
+  const semantic: FormalValueAvailabilityArtifact['semantic'] = { melee: {}, ranged: {}, artifact: {} }
 
   const fightersDomainId = matchedIdentityDomainId(
     inputs.fightersBindingsRaw,
@@ -561,6 +579,17 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
     }
   }
 
+  for (const source of inputs.artifactConfiguredSources ?? []) {
+    const mapping = artifactValueMappings.find(({ domainId }) => domainId === source.definition.assertion.domainId)
+    if (!mapping || canonicalJson(mapping) !== canonicalJson(source.mapping)) throw new Error('Artifact Value mapping binding mismatch')
+    assertHorizontalFieldBinding(source.field, source.sourceProvenance, source.definition, mapping.id, mapping.field)
+    const domainId = matchedIdentityDomainIdFromSource(source.sourceProvenance, source.definition, source.identity, source.identityEvidence)
+    if (!domainId) continue
+    if (semantic.artifact[domainId]) throw new Error(`Duplicate Formal Artifact Value source: ${domainId}`)
+    const projected = addProjection(accumulator, mapping.id, valueScopeOccurrence(domainId, 'source'), source.field)
+    semantic.artifact[domainId] = projected ? { [mapping.field]: projected } : {}
+  }
+
   return {
     schemaVersion: 2,
     artifactKind: 'formal-domain-value-availability',
@@ -643,6 +672,11 @@ function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['s
       add(mapping.pushbackEnabled, occurrence, definition.configuredPushbackEnabled)
       add(mapping.pushbackStrength, occurrence, definition.configuredPushbackStrength)
       add(mapping.ignoreFriendlyFire, occurrence, definition.configuredIgnoreFriendlyFire)
+    }
+  }
+  for (const [domainId, domain] of Object.entries(semantic.artifact)) {
+    for (const mapping of artifactValueMappings) {
+      if (mapping.domainId === domainId) add(mapping.id, valueScopeOccurrence(domainId, 'source'), domain[mapping.field])
     }
   }
   return values
@@ -758,6 +792,21 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     } else {
       check(domain.projectileDefinitions === undefined, `${domainId}: ranged children exist without a projected parent collection`)
       check(!value.valueProjections.some(({ occurrence }) => occurrence.domainId === domainId && 'collectionRef' in occurrence && occurrence.collectionRef === 'projectile-definitions'), `${domainId}: ranged child records exist before parent enumeration`)
+    }
+  }
+
+  for (const [domainId, domain] of Object.entries(value.semantic.artifact)) {
+    const mapping = artifactValueMappings.find((entry) => entry.domainId === domainId)
+    check(Boolean(mapping), `${domainId}: unsupported Artifact Value domain`)
+    if (!mapping) continue
+    check(Object.keys(domain).every((key) => key === mapping.field), `${domainId}: unsupported Artifact Value field`)
+    const key = recordOccurrenceKey(mapping.id, valueScopeOccurrence(domainId, 'source'))
+    check(byOccurrence.has(key), `${domainId}: missing required Artifact scope projection record`)
+    for (const record of value.valueProjections.filter((entry) => entry.occurrence.domainId === domainId)) {
+      check(record.mappingId === mapping.id && canonicalJson(record.occurrence) === canonicalJson(valueScopeOccurrence(domainId, 'source')),
+        `${domainId}: invalid Artifact mapping/occurrence`)
+      check(record.relationProjectionRef === undefined && !(record.result === 'unavailable' && record.failureKind === 'dependency'),
+        `${domainId}: Artifact source Value cannot depend on Relation`)
     }
   }
 

@@ -1,3 +1,4 @@
+import { artifactValueMappings } from './artifactValueMappings.ts'
 import type { FormalIdentityEvidenceArtifact, RawObservationEvidenceRecord } from './identityEvidence.ts'
 import type { FormalValueAvailabilityArtifact } from './valueAvailability.ts'
 import type { FormalSerializedRelationArtifact } from './serializedRelation.ts'
@@ -51,13 +52,14 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   const armorDefinitions = [battleRobeFormalIdentity, ...readyArmorFormalIdentities]
   const armorDomainIds = new Set(armorDefinitions.map(({ assertion }) => assertion.domainId))
   const definitions = formalIdentityDefinitions
-  const categoryByAssertionId = new Map([
+  const categoryByAssertionId = new Map<string, 'melee' | 'ranged' | 'artifact'>([
+    ...definitions.filter(({ assertion }) => artifactValueMappings.some(({ domainId }) => domainId === assertion.domainId)).map(({ assertion }) => [assertion.id, 'artifact' as const] as const),
     ...meleeDefinitions.map(({ assertion }) => [assertion.id, 'melee' as const] as const),
     ...rangedDefinitions.map(({ assertion }) => [assertion.id, 'ranged' as const] as const),
   ])
   const rawIdentity = identity.provenance.evidence.filter((item): item is RawObservationEvidenceRecord => item.kind === 'raw-observation')
   const sources = new Map<string, RawObservationEvidenceRecord['provenance']>()
-  const categoriesByDomain = new Map<string, 'melee' | 'ranged'>()
+  const categoriesByDomain = new Map<string, 'melee' | 'ranged' | 'artifact'>()
   for (const definition of definitions) {
     const semantic = identity.semantic.identities.find((entry) => entry.assertionId === definition.assertion.id)
     const refs = semantic?.resolution.evidenceRefs ?? []
@@ -103,9 +105,16 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     && [...armorDomainIds].every((domainId) => !valueMelee.has(domainId) && !valueRanged.has(domainId)),
   'Armor or Artifact entered the Melee/Ranged Value wave')
 
+  const valueArtifact = new Set(Object.keys(value.semantic.artifact))
+  check(canonicalSet(valueArtifact) === canonicalSet(new Set(artifactValueMappings.map(({ domainId }) => domainId))), 'Artifact Value domains differ from reviewed narrow set')
+  for (const mapping of artifactValueMappings) {
+    const records = value.valueProjections.filter(({ occurrence }) => occurrence.domainId === mapping.domainId)
+    check(records.length === 1 && records[0]?.mappingId === mapping.id && 'scopeRef' in records[0].occurrence && records[0].occurrence.scopeRef === 'source', `${mapping.domainId}: Artifact Value must have one exact source occurrence`)
+  }
   const validMappingIds = new Map<string, Set<string>>()
   for (const domainId of valueMelee) validMappingIds.set(domainId, new Set(Object.values(horizontalMeleeValueMappings(domainId)).map(({ id }) => id)))
   for (const domainId of valueRanged) validMappingIds.set(domainId, new Set(Object.values(horizontalRangedValueMappings(domainId)).map(({ id }) => id)))
+  for (const mapping of artifactValueMappings) validMappingIds.set(mapping.domainId, new Set([mapping.id]))
   const scatterMappings = validMappingIds.get(scatterCrossbowFormalIdentity.assertion.domainId)
   if (scatterMappings) for (const mapping of Object.values(scatterValueMappings)) scatterMappings.add(mapping.id)
   for (const record of value.valueProjections) {
@@ -114,7 +123,7 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     const category = categoriesByDomain.get(domainId)
     const mappingIds = validMappingIds.get(domainId)
     check(Boolean(source), `${record.projectionId}: missing matched Identity`)
-    const categoryMatches = category === 'melee' ? valueMelee.has(domainId) : category === 'ranged' && valueRanged.has(domainId)
+    const categoryMatches = category === 'melee' ? valueMelee.has(domainId) : category === 'ranged' ? valueRanged.has(domainId) : category === 'artifact' && valueArtifact.has(domainId)
     check(Boolean(categoryMatches), `${record.projectionId}: Value category does not match authoritative Formal Identity category`)
     check(Boolean(mappingIds?.has(record.mappingId)), `${record.projectionId}: mapping is not bound to its matched domain/configured semantic`)
     const targetSide = record.occurrence.domainId === scatterCrossbowFormalIdentity.assertion.domainId && [scatterValueMappings.pushbackEnabled.id,

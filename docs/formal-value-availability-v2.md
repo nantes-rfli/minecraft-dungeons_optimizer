@@ -100,3 +100,30 @@ preserves the existing Scatter Crossbow relation sourceIndex/target-provenance c
 horizontalization remains deferred. The Value audit regenerates v2, preserves the original 17
 representative projection/evidence records exactly, and byte-compares the result with the committed
 artifact.
+
+## Additive narrow Artifact lane
+
+`schemaVersion: 2` also includes `semantic.artifact: Record<string,
+FormalArtifactConfiguredValues>`. Only the following reviewed independent root CDO
+configuration fields are populated; each uses `{ domainId, scopeRef: "source" }`
+and has no Relation dependency.
+
+| Domain | Formal field | Raw property | Mapping ID | Unit |
+| --- | --- | --- | --- | --- |
+| corrupted-seeds | configuredTargetCount | TargetCount | corrupted-seeds:configured-target-count@1 | count |
+| enchanted-grass | configuredIncreasedMaxHealthMultiplier | IncreasedMaxHealthMultiplier | enchanted-grass:configured-max-health-multiplier@1 | dimensionless multiplier |
+| vexing-chant | configuredPetAmountCap | PetAmountCap | vexing-chant:configured-pet-cap@1 | count |
+
+The reader requires the committed matched Identity, its exact selected Horizontal
+candidate package, a unique root CDO occurrence, and verified Structural/Horizontal
+provenance. Drift or missing observations produce unavailable records; undecoded
+properties retain their actual Raw availability state. Missing facts use the
+verified root property or CDO inventory as evidence, never an invented value or
+locator. Identity/provenance integrity failures stop generation.
+
+The mapping registry, generator, semantic occurrence enumeration, required scope
+coverage, evidence/projection audit and integration audit all recognize this lane.
+The other 20 Artifact domains receive no Value records. No generic damage,
+duration, heal, range, base cooldown or effective gameplay semantics are introduced.
+Existing Melee/Ranged Value records and Identity/Relation artifacts are preserved;
+`tests/fixtures/artifact-narrow-value-baseline.json` captures full baseline hashes.

@@ -56,7 +56,7 @@ function canonicalJson(value: unknown): string {
   return JSON.stringify(value)
 }
 
-function committedIdentity(
+export function committedIdentity(
   artifact: FormalIdentityEvidenceArtifact,
   definition: FormalIdentityDefinition,
   identity: FormalSemanticIdentity,
