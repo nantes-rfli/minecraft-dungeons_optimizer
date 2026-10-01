@@ -410,6 +410,21 @@ function verifySpinWheelClassStructural(
     || cdos[0]!.references.template.objectName !== `Default__${nativeClass}`) {
     throw new Error('SpinWheel target class CDO missing or mismatched')
   }
+  const cdoRefs = cdos[0]!.references as JsonRecord
+  for (const [kind, field, reference, expectedObject, expectedKind] of [
+    ['class', 'classIndex', cdoRefs.class, targetObject, 'export'],
+    ['template', 'templateIndex', cdoRefs.template, `/Script/Dungeons.Default__${nativeClass}`, 'import'],
+  ] as const) {
+    const ref = reference as JsonRecord
+    const edges = targetEdges.filter((edge) => edge.kind === kind && edge.sourcePackage === packagePath
+      && isRecord(edge.sourceOccurrence) && edge.sourceOccurrence.sourceObject === `Default__${className}`
+      && edge.sourceOccurrence.serializedField === field)
+    if (edges.length !== 1 || edges[0]!.targetObject !== expectedObject || edges[0]!.targetKind !== expectedKind
+      || edges[0]!.targetRawPackageIndex !== ref.rawPackageIndex
+      || (edges[0]!.sourceOccurrence as JsonRecord).rawPackageIndex !== ref.rawPackageIndex) {
+      throw new Error(`SpinWheel CDO ${kind} edge binding mismatch`)
+    }
+  }
 }
 
 /** SpinWheel's configured actor role; independent of the ItemActor verifier. */
