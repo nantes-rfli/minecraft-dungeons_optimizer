@@ -62,10 +62,10 @@ describe('Artifact Effect Formal Relation breadth', () => {
     expect(effects).toHaveLength(10)
     expect(new Set(effects.map((entry) => entry.occurrence.domainId))).toEqual(new Set(READY_ARTIFACT_EFFECT_DOMAINS))
     expect(artifact.relationCollections.some((entry) => READY_ARTIFACT_EFFECT_DOMAINS.includes(entry.domainId as typeof READY_ARTIFACT_EFFECT_DOMAINS[number]))).toBe(false)
-    expect(artifact.semantic.relations).toHaveLength(225)
-    expect(artifact.relationProjections).toHaveLength(225)
+    expect(artifact.semantic.relations).toHaveLength(226)
+    expect(artifact.relationProjections).toHaveLength(226)
     expect(artifact.relationCollections).toHaveLength(58)
-    expect(new Set(artifact.semantic.relations.map((entry) => entry.sourceDomainId)).size).toBe(145)
+    expect(new Set(artifact.semantic.relations.map((entry) => entry.sourceDomainId)).size).toBe(146)
     expect(effects.filter((entry) => entry.occurrence.domainId !== 'death-cap-mushroom').every((entry) =>
       entry.result === 'projected' && entry.targetRawVerification.input === 'not-supplied'
       && entry.targetRawVerification.result === 'not-resolved'

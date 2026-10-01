@@ -90,6 +90,7 @@ type ScopeRelationPolicy =
   | { category: 'armor'; relationKind: 'gear-actor'; propertyPath: 'GearActor' }
   | { category: 'artifact'; relationKind: 'effect'; propertyPath: 'Effect' }
   | { category: 'artifact'; relationKind: 'item-actor'; propertyPath: 'ItemActorClass' }
+  | { category: 'artifact'; relationKind: 'spin-wheel-actor'; propertyPath: 'SpinWheelActorClass' }
 
 export type ScopeRelationSourceRequest = ScopeRelationPolicy & {
   catalogId: string
@@ -104,6 +105,7 @@ export type ScopeRelationSourceRequest = ScopeRelationPolicy & {
 export type ArmorScopeRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'gear-actor' }
 export type ArtifactEffectRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'effect' }
 export type ArtifactItemActorRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'item-actor' }
+export type SpinWheelActorRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'spin-wheel-actor' }
 
 export type ResolvedScopeRelationSource = {
   sourceDomainId: string
@@ -330,6 +332,108 @@ export function verifyItemActorTargetStructural(
   }
 }
 
+export const SPIN_WHEEL_ACTOR_POLICY = {
+  domainId: 'spinblade',
+  sourcePackage: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance',
+  edgeId: '2cd31aaf1c49b33bd4dca244',
+  targetPackage: 'Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor',
+  targetObject: '/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor.BP_SpinWheelActor_C',
+} as const
+
+/** Bind the serialized target object to its class export, direct super edge and class-owned CDO. */
+function verifySpinWheelClassStructural(
+  targetObject: string, targetPackage: JsonRecord, targetEdges: readonly JsonRecord[], role: 'actor' | 'instance',
+): void {
+  const nativeClass = role === 'actor' ? 'SpinWheelActor' : 'SpinWheelInstance'
+  const className = role === 'actor' ? 'BP_SpinWheelActor_C' : 'BP_SpinWheelInstance_C'
+  const exactPackage = role === 'actor' ? SPIN_WHEEL_ACTOR_POLICY.targetPackage : SPIN_WHEEL_ACTOR_POLICY.sourcePackage
+  const exactGamePackage = `/Game/Content_DLC4/Actors/Items/SpinWheel/${className.slice(0, -2)}`
+  if (targetPackage.path !== exactPackage || targetPackage.gamePackageName !== exactGamePackage
+    || targetObject !== `${exactGamePackage}.${className}`) throw new Error('SpinWheel exact class/package mismatch')
+  const packagePath = requiredString(targetPackage.path, 'SpinWheel target package path')
+  const gamePackageName = requiredString(targetPackage.gamePackageName, 'SpinWheel target game package')
+  if (!targetObject.startsWith(`${gamePackageName}.`)) throw new Error('SpinWheel target object/package mismatch')
+  const exports = targetPackage.exports as JsonRecord[] | undefined
+  const chains = targetPackage.inheritanceChains as JsonRecord[] | undefined
+  if (!Array.isArray(exports) || !Array.isArray(chains)) throw new Error('SpinWheel target package has no Structural class data')
+  const classes = exports.filter((entry) => isRecord(entry.objectName)
+    && entry.objectName.value === className && entry.isClassDefaultObject === false)
+  if (classes.length !== 1) throw new Error('SpinWheel exact target class missing or duplicated')
+  const cls = classes[0]!
+  const refs = cls.references as JsonRecord | undefined
+  if (!isRecord(refs?.class) || refs.class.kind !== 'import'
+    || refs.class.objectName !== 'BlueprintGeneratedClass' || refs.class.className !== 'Class'
+    || !Number.isInteger(cls.rawPackageIndex) || Number(cls.rawPackageIndex) <= 0
+    || cls.rawPackageIndex !== Number(cls.exportIndex) + 1) throw new Error('SpinWheel generated class kind/index mismatch')
+  const superRef = refs?.super as JsonRecord | undefined
+  if (superRef?.kind !== 'import' || superRef.className !== 'Class' || superRef.objectName !== nativeClass) {
+    throw new Error('SpinWheel target class direct superclass mismatch')
+  }
+  const directSupers = targetEdges.filter((edge) => edge.kind === 'super'
+    && edge.sourcePackage === packagePath && isRecord(edge.sourceOccurrence)
+    && edge.sourceOccurrence.sourceObject === className
+    && edge.sourceOccurrence.serializedField === 'superIndex')
+  if (directSupers.length !== 1) throw new Error('SpinWheel target class super edge missing or duplicated')
+  const directSuper = directSupers[0]!
+  if (directSuper.targetObject !== `/Script/Dungeons.${nativeClass}`
+    || directSuper.targetKind !== 'import'
+    || !isRecord(directSuper.traversal) || directSuper.traversal.stopReason !== 'native-boundary'
+    || !isRecord(directSuper.sourceOccurrence)
+    || directSuper.sourceOccurrence.rawPackageIndex !== superRef.rawPackageIndex) {
+    throw new Error('SpinWheel target class super edge semantic mismatch')
+  }
+  const matchingChains = chains.filter((chain) => chain.sourceObject === className)
+  const chain = matchingChains[0]
+  if (matchingChains.length !== 1 || !chain || !Array.isArray(chain.hops)
+    || chain.hops.length !== 1 || !isRecord(chain.hops[0])
+    || chain.hops[0].edgeId !== directSuper.id
+    || chain.hops[0].targetObject !== `/Script/Dungeons.${nativeClass}`
+    || chain.hops[0].rawPackageIndex !== superRef.rawPackageIndex
+    || chain.hops[0].targetPackageName !== '/Script/Dungeons'
+    || chain.stopReason !== 'native-boundary') {
+    throw new Error('SpinWheel target class inheritance chain mismatch')
+  }
+  const cdos = exports.filter((entry) => entry.isClassDefaultObject === true
+    && isRecord(entry.references) && isRecord(entry.references.class)
+    && entry.references.class.kind === 'export'
+    && entry.references.class.rawPackageIndex === cls.rawPackageIndex)
+  const namedCdos = exports.filter((entry) => isRecord(entry.objectName) && entry.objectName.value === `Default__${className}`)
+  if (namedCdos.length !== 1 || namedCdos[0] !== cdos[0]
+    || !isRecord(cdos[0]?.references) || !isRecord(cdos[0].references.class)
+    || cdos[0].references.class.objectName !== className
+    || cdos[0].references.class.className !== 'BlueprintGeneratedClass'
+    || cdos[0].references.class.index !== cls.exportIndex
+    || cdos.length !== 1 || !isRecord(cdos[0]!.references)
+    || !isRecord(cdos[0]!.references.template)
+    || cdos[0]!.references.template.className !== nativeClass
+    || cdos[0]!.references.template.kind !== 'import'
+    || cdos[0]!.references.template.objectName !== `Default__${nativeClass}`) {
+    throw new Error('SpinWheel target class CDO missing or mismatched')
+  }
+  const cdoRefs = cdos[0]!.references as JsonRecord
+  for (const [kind, field, reference, expectedObject, expectedKind] of [
+    ['class', 'classIndex', cdoRefs.class, targetObject, 'export'],
+    ['template', 'templateIndex', cdoRefs.template, `/Script/Dungeons.Default__${nativeClass}`, 'import'],
+  ] as const) {
+    const ref = reference as JsonRecord
+    const edges = targetEdges.filter((edge) => edge.kind === kind && edge.sourcePackage === packagePath
+      && isRecord(edge.sourceOccurrence) && edge.sourceOccurrence.sourceObject === `Default__${className}`
+      && edge.sourceOccurrence.serializedField === field)
+    if (edges.length !== 1 || edges[0]!.targetObject !== expectedObject || edges[0]!.targetKind !== expectedKind
+      || edges[0]!.targetRawPackageIndex !== ref.rawPackageIndex
+      || (edges[0]!.sourceOccurrence as JsonRecord).rawPackageIndex !== ref.rawPackageIndex) {
+      throw new Error(`SpinWheel CDO ${kind} edge binding mismatch`)
+    }
+  }
+}
+
+/** SpinWheel's configured actor role; independent of the ItemActor verifier. */
+export function verifySpinWheelActorTargetStructural(
+  targetObject: string, targetPackage: JsonRecord, targetEdges: readonly JsonRecord[],
+): void {
+  verifySpinWheelClassStructural(targetObject, targetPackage, targetEdges, 'actor')
+}
+
 /**
  * Resolves one first-wave Melee/Ranged relation from the Horizontal inventory back to its
  * exact committed Structural edge. Every join is exact and fail-closed; neither target
@@ -483,16 +587,27 @@ export function resolveHorizontalScopeRelationSource(
   const policy = request.category === 'armor' && request.relationKind === 'gear-actor' && request.propertyPath === 'GearActor'
     ? request : request.category === 'artifact' && request.relationKind === 'effect' && request.propertyPath === 'Effect'
       ? request : request.category === 'artifact' && request.relationKind === 'item-actor' && request.propertyPath === 'ItemActorClass'
-        ? request : undefined
+        ? request : request.category === 'artifact' && request.relationKind === 'spin-wheel-actor' && request.propertyPath === 'SpinWheelActorClass'
+          ? request : undefined
   if (!policy) throw new Error('Unsupported Horizontal scope Relation policy')
+  if (policy.relationKind === 'spin-wheel-actor' && (request.catalogId !== SPIN_WHEEL_ACTOR_POLICY.domainId
+    || request.candidatePackage !== SPIN_WHEEL_ACTOR_POLICY.sourcePackage || request.edgeId !== SPIN_WHEEL_ACTOR_POLICY.edgeId)) {
+    throw new Error('SpinWheel exact source policy mismatch')
+  }
   const inventory = inventoryInput as unknown as InventoryView
   const item = exactItem(inventory, request)
   const candidate = exactCandidate(item, request)
+  if (policy.relationKind === 'spin-wheel-actor' && (candidate.role !== 'instance'
+    || candidate.objectName !== 'BP_SpinWheelInstance_C' || !Array.isArray(candidate.evidence)
+    || !candidate.evidence.includes('serialized-identifier:ItemIdName=SpinWheel')
+    || !candidate.evidence.includes('serialized-identifier:ItemId.SerializedId=SpinWheel'))) {
+    throw new Error('SpinWheel selected candidate identity/role mismatch')
+  }
 
-  if (policy.relationKind === 'item-actor') {
+  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor') {
     const fieldReferences = candidate.relations.filter((reference) =>
       inventory.sourceRelations.some((source) => source.edgeId === reference.edgeId
-        && source.propertyPath === 'ItemActorClass'))
+        && source.propertyPath === policy.propertyPath))
     if (fieldReferences.length !== 1 || fieldReferences[0]!.edgeId !== request.edgeId) {
       throw new Error('ItemActor candidate property occurrence missing or duplicated')
     }
@@ -536,7 +651,7 @@ export function resolveHorizontalScopeRelationSource(
   if (sourceRelation.relationKind !== 'object-property' || sourceRelation.propertyPath !== policy.propertyPath) {
     throw new Error('Horizontal scope relation source occurrence binding mismatch')
   }
-  if (policy.relationKind === 'item-actor'
+  if ((policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor')
     && (sourceRelation.sourceOccurrenceKind !== 'cdo-property' || sourceRelation.arrayIndex !== null)) {
     throw new Error('ItemActor source must be an exact root CDO property')
   }
@@ -582,10 +697,10 @@ export function resolveHorizontalScopeRelationSource(
   if (structuralSummary.relationKind !== 'object-property' || structuralSummary.propertyPath !== policy.propertyPath) {
     throw new Error(`Structural scope root edge policy mismatch: ${request.edgeId}`)
   }
-  if (policy.relationKind === 'item-actor') {
+  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor') {
     const structuralRoots = shard.edges.filter((edge) => edge.sourcePackage === request.candidatePackage
       && edge.kind === 'object-property' && edge.sourceOccurrence.kind === 'cdo-property'
-      && edge.sourceOccurrence.propertyPath === 'ItemActorClass')
+      && edge.sourceOccurrence.propertyPath === policy.propertyPath)
     if (structuralRoots.length !== 1 || structuralRoots[0]!.id !== request.edgeId) {
       throw new Error('ItemActor exact Structural root occurrence missing or duplicated')
     }
@@ -622,6 +737,39 @@ export function resolveHorizontalScopeRelationSource(
     verifyItemActorTargetStructural(requiredString(edgeMatch.edge.targetObject, 'ItemActor target object'),
       structuralTarget.pkg, structuralTarget.edges)
   }
+  if (policy.relationKind === 'spin-wheel-actor') {
+    verifySpinWheelClassStructural(
+      '/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance.BP_SpinWheelInstance_C',
+      packageMatch.pkg as unknown as JsonRecord,
+      shard.edges.filter((edge) => edge.sourcePackage === request.candidatePackage) as unknown as JsonRecord[], 'instance')
+    if (edgeMatch.edge.targetPackage !== SPIN_WHEEL_ACTOR_POLICY.targetPackage
+      || edgeMatch.edge.targetObject !== SPIN_WHEEL_ACTOR_POLICY.targetObject) {
+      throw new Error('SpinWheel exact root/target policy mismatch')
+    }
+    const sourcePackage = packageMatch.pkg as unknown as JsonRecord
+    const inventories = sourcePackage.cdoPropertyInventory as JsonRecord[]
+    if (!Array.isArray(inventories)) throw new Error('SpinWheel source CDO inventory missing')
+    const sourceCdo = (sourcePackage.exports as JsonRecord[]).find((entry) => entry.isClassDefaultObject === true
+      && isRecord(entry.objectName) && entry.objectName.value === 'Default__BP_SpinWheelInstance_C')!
+    const roots = inventories.filter((entry) => entry.objectName === 'Default__BP_SpinWheelInstance_C')
+    const properties = roots.length === 1 && Array.isArray(roots[0]!.properties)
+      ? (roots[0]!.properties as JsonRecord[]).filter((entry) => entry.path === 'SpinWheelActorClass') : []
+    const property = properties[0]
+    const occurrence = edgeMatch.edge.sourceOccurrence as JsonRecord
+    const decoding = property?.decoding as JsonRecord | undefined
+    const value = decoding?.value as JsonRecord | undefined
+    if (roots.length !== 1 || roots[0]!.exportIndex !== sourceCdo.exportIndex
+      || properties.length !== 1 || !property || !isRecord(property.type) || property.type.value !== 'ObjectProperty'
+      || property.arrayIndex !== 0 || decoding?.state !== 'decoded'
+      || value?.kind !== 'import' || value.objectName !== 'BP_SpinWheelActor_C'
+      || value.className !== 'BlueprintGeneratedClass' || value.rawPackageIndex !== occurrence.rawPackageIndex
+      || canonicalJson(property.sourceRange) !== canonicalJson(occurrence.sourceRange)
+      || canonicalJson(property.valueRange) !== canonicalJson(occurrence.valueRange)) {
+      throw new Error('SpinWheel decoded scalar CDO property/edge mismatch')
+    }
+    const structuralTarget = targetStructuralPackage(repositoryRoot, SPIN_WHEEL_ACTOR_POLICY.targetPackage, datasetId)
+    verifySpinWheelActorTargetStructural(SPIN_WHEEL_ACTOR_POLICY.targetObject, structuralTarget.pkg, structuralTarget.edges)
+  }
   return {
     sourceDomainId,
     relationRef: relationRefForDomain(sourceDomainId, policy.relationKind),
@@ -648,6 +796,12 @@ export function resolveHorizontalArtifactEffectRelationSource(
 
 export function resolveHorizontalArtifactItemActorRelationSource(
   repositoryRoot: string, inventory: HorizontalRawFactInventory, request: ArtifactItemActorRelationSourceRequest,
+): ResolvedScopeRelationSource {
+  return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
+}
+
+export function resolveHorizontalSpinWheelActorRelationSource(
+  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: SpinWheelActorRelationSourceRequest,
 ): ResolvedScopeRelationSource {
   return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
 }
