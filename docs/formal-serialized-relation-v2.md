@@ -99,10 +99,11 @@ Ranged: 27 domains / 27 Projectile occurrences
 Armor: 71 domains / 71 GearActor scope occurrences
 Artifact Effect: 10 domains / 10 scope occurrences
 Artifact ItemActor: 11 domains / 11 scope occurrences
+Artifact SpinWheelActor: 1 domain / 1 scope occurrence
 relation collections: 58
-semantic relations: 225
-relation projections: 225
-unique source domains: 145
+semantic relations: 226
+relation projections: 226
+unique source domains: 146
 ```
 
 Armor 71件のうち Battle Robe は既存 representative path をそのまま維持し、追加70件だけを Horizontal Armor scope lane から生成します。追加70件はすべて exact root `GearActor` Structural edge が `resolved-local-package` であることを要求し、`targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。
@@ -110,3 +111,11 @@ Armor 71件のうち Battle Robe は既存 representative path をそのまま�
 Artifact Effect 10件のうち Death Cap Mushroom は既存 representative path を維持し、追加9件を Horizontal Artifact scope lane から生成します。追加9件は exact root `Effect` Structural edge の target が `resolved-local-package` であることを要求し、full Raw target snapshot は供給しないため `targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。
 
 Artifact ItemActor 11件はすべて root `ItemActorClass` の scope relation です。各 target は `resolved-local-package` で、直接の `/Script/Dungeons.ItemActor` superclass と対応する CDO を Structural source で確認します。full Raw target snapshot は供給しないため `targetRawVerification` は全件 `not-supplied / not-resolved / target-snapshot-not-supplied` です。Effect と重なる5 domain は異なる RelationRef と独立した source edge evidence を持ちます。
+
+## SpinWheelActor source population
+
+`spin-wheel-actor` は `spinblade` の exact `SpinWheelActorClass`（Structural edge `2cd31aaf1c49b33bd4dca244`）に設定された class relation 1件です。`relation:spinblade:spin-wheel-actor@1`、occurrence `{ domainId: "spinblade", scopeRef: "source" }`、projection `projection:relation:spinblade:spin-wheel-actor@1:source` を使用します。schemaVersion は2、Relation kindsは6、collectionsは58です。
+
+matched same-source Identity、exact selected Horizontal candidate と unique `rp-root`、source provenance/hash と unique scalar CDO occurrence を要求します。独立した SpinWheel verifier が source の direct `SpinWheelInstance`、target の exact `BP_SpinWheelActor_C` / direct `/Script/Dungeons.SpinWheelActor`、one-hop native-boundary inheritance、unique corresponding `Default__BP_SpinWheelActor_C` と class binding / `Default__SpinWheelActor` template を検証します。既存 ItemActor verifier の native parent条件は維持します。
+
+target full-Raw verification は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。飛翔、帰還、移動、攻撃、damage、spawn、activation 等の runtime behavior は推論しません。既存225 Relation/projection、58 collections、全既存evidence、Identity/Value/Raw/Application は保持します。レビュー済み remaining census は過去baselineの監査authorityとして変更しません。

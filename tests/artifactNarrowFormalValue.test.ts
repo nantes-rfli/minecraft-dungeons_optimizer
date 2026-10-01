@@ -1,4 +1,5 @@
 import os from 'node:os'
+import { execFileSync } from 'node:child_process'
 import path from 'node:path'
 import { gunzipSync, gzipSync } from 'node:zlib'
 import fs from 'node:fs'
@@ -80,9 +81,15 @@ describe('Artifact narrow Formal Value v2', () => {
     expect(hash(records)).toBe(baseline.value.valueProjections)
     const newRefs = new Set(sources.map(({ field }) => field.trace.raw.nodePointer))
     expect(hash({ evidence: value.provenance.evidence.filter(({ provenance }) => !newRefs.has(provenance.nodePointer)) })).toBe(baseline.value.provenance)
-    for (const [path, expected] of Object.entries(baseline.files)) expect(crypto.createHash('sha256').update(fs.readFileSync(path)).digest('hex')).toBe(expected.sha256)
+    for (const [path, expected] of Object.entries(baseline.files)) {
+      // This historical Value wave also locked Relation bytes before SpinWheel population.
+      const bytes = path === 'research/domain/formal/serialized-relation-v2.json'
+        ? execFileSync('git', ['show', `07160c289dcf987ab5bee5ae69e448d906724aef:${path}`]) : fs.readFileSync(path)
+      expect(crypto.createHash('sha256').update(bytes).digest('hex')).toBe(expected.sha256)
+    }
     expect(identity.semantic.identities.length).toBe(baseline.files['research/domain/formal/identity-evidence-v1.json'].semanticCount)
-    expect(relations.semantic.relations.length).toBe(baseline.files['research/domain/formal/serialized-relation-v2.json'].semanticCount)
+    expect(relations.semantic.relations.filter((entry) => !entry.relationRef.endsWith(':spin-wheel-actor@1')).length)
+      .toBe(baseline.files['research/domain/formal/serialized-relation-v2.json'].semanticCount)
   })
 
   it.each(['value', 'hash', 'pointer', 'candidate', 'missing', 'duplicate'] as const)('fails closed on Horizontal %s drift', (kind) => {

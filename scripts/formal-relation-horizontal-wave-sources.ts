@@ -21,6 +21,8 @@ import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { readHorizontalRawFactInventory } from './formal-value-horizontal-source.ts'
 import {
   ownsHorizontalRelationCollectionChild,
+  SPIN_WHEEL_ACTOR_POLICY,
+  resolveHorizontalSpinWheelActorRelationSource,
   resolveHorizontalArmorScopeRelationSource,
   resolveHorizontalArtifactEffectRelationSource,
   resolveHorizontalArtifactItemActorRelationSource,
@@ -63,7 +65,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[]; spinWheelActor: HorizontalRelationInput[] } {
   const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
   const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
@@ -106,6 +108,7 @@ export function readHorizontalRelationWaveSources(args: {
     armor: [] as HorizontalRelationInput[],
     artifactEffect: [] as HorizontalRelationInput[],
     artifactItemActor: [] as HorizontalRelationInput[],
+    spinWheelActor: [] as HorizontalRelationInput[],
   }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
@@ -245,6 +248,17 @@ export function readHorizontalRelationWaveSources(args: {
       definition, identity, identityEvidence, identitySource: direct,
     }))
   }
+
+  const spinDefinitions = formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === SPIN_WHEEL_ACTOR_POLICY.domainId)
+  assert.equal(spinDefinitions.length, 1, 'SpinWheel Identity missing or duplicated')
+  const spinDefinition = spinDefinitions[0]!
+  const spinIdentity = committedIdentity(args.identity, spinDefinition)
+  result.spinWheelActor.push(resolveHorizontalSpinWheelActorRelationSource(args.repositoryRoot, sourceInventory, {
+    category: 'artifact', relationKind: 'spin-wheel-actor', propertyPath: 'SpinWheelActorClass',
+    catalogId: SPIN_WHEEL_ACTOR_POLICY.domainId, candidatePackage: SPIN_WHEEL_ACTOR_POLICY.sourcePackage,
+    edgeId: SPIN_WHEEL_ACTOR_POLICY.edgeId, definition: spinDefinition,
+    identity: spinIdentity.identity, identityEvidence: spinIdentity.identityEvidence,
+  }))
 
   return result
 }

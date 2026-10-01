@@ -224,13 +224,33 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   }
   check(relation.relationCollections.every((item) => !READY_ARTIFACT_ITEM_ACTOR_DOMAINS.includes(item.domainId as typeof READY_ARTIFACT_ITEM_ACTOR_DOMAINS[number])),
     'Artifact ItemActor scope relation entered relationCollections')
-  check(relation.semantic.relations.length === 225,
+  const spinWheels = relation.relationProjections.filter((item) => item.relationRef.endsWith(':spin-wheel-actor@1'))
+  check(spinWheels.length === 1, 'SpinWheelActor projection must resolve exactly once')
+  const spinWheel = spinWheels[0]
+  if (spinWheel) {
+    check(spinWheel.relationRef === 'relation:spinblade:spin-wheel-actor@1'
+      && spinWheel.projectionRef === 'projection:relation:spinblade:spin-wheel-actor@1:source', 'SpinWheelActor refs mismatch')
+    check(spinWheel.occurrence.domainId === 'spinblade' && !('sourceIndex' in spinWheel.occurrence)
+      && spinWheel.occurrence.scopeRef === 'source', 'SpinWheelActor occurrence mismatch')
+    check(spinWheel.result === 'projected', 'SpinWheelActor must be projected')
+    if (spinWheel.result === 'projected') {
+      const spinRelation = relation.semantic.relations.filter((item) => item.projectionRef === spinWheel.projectionRef)
+      check(spinRelation.length === 1 && spinRelation[0]?.target.objectName === 'BP_SpinWheelActor_C'
+        && spinRelation[0]?.target.gamePackagePath === '/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor', 'SpinWheelActor target mismatch')
+      check(spinWheel.serializedTargetResolution.state === 'resolved-local-package', 'SpinWheelActor Structural target unresolved')
+      check(spinWheel.targetRawVerification.input === 'not-supplied'
+        && spinWheel.targetRawVerification.result === 'not-resolved'
+        && spinWheel.targetRawVerification.reason === 'target-snapshot-not-supplied', 'SpinWheelActor full Raw boundary changed')
+    }
+  }
+  check(relation.relationCollections.every((item) => item.domainId !== 'spinblade'), 'SpinWheelActor entered collections')
+  check(relation.semantic.relations.length === 226,
     `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
-  check(relation.relationProjections.length === 225,
+  check(relation.relationProjections.length === 226,
     `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
   check(relation.relationCollections.length === 58,
     `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
-  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 145,
+  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 146,
     'Formal Relation unique source domain count differs from expected')
 
   for (const [category, domains, collectionRef] of [

@@ -3741,6 +3741,22 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:17155654"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:spinblade:spin-wheel-actor@1:source",
+        "relationRef": "relation:spinblade:spin-wheel-actor@1",
+        "occurrence": {
+          "domainId": "spinblade",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "spinblade",
+        "target": {
+          "objectName": "BP_SpinWheelActor_C",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:d6bcb0e2"
+        ]
       }
     ]
   },
@@ -9201,6 +9217,27 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Actors/Items/ShockPowder/BP_ShockPowerActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:spinblade:spin-wheel-actor@1:source",
+      "relationRef": "relation:spinblade:spin-wheel-actor@1",
+      "occurrence": {
+        "domainId": "spinblade",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:d6bcb0e2"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -20255,6 +20292,51 @@
           }
         },
         "fingerprint": "fnv1a32:33790997"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:d6bcb0e2",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a84fab9a69637669c189326da1e751098c683845617e384a6dbc7530511e0f25",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3429c5237a59a0a945c2bf279aea30d1df89597117ff899d3a9102c785ab8446"
+          },
+          "nodePointer": "/edges/2281"
+        },
+        "observed": {
+          "id": "2cd31aaf1c49b33bd4dca244",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "SpinWheelActorClass",
+            "rawPackageIndex": -3,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance.uexp",
+              "start": 163,
+              "end": 192
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelInstance.uexp",
+              "start": 188,
+              "end": 192
+            }
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor.BP_SpinWheelActor_C",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor",
+          "targetRawPackageIndex": -3,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:6b38970d"
       }
     ]
   }
