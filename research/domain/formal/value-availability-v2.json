@@ -8698,6 +8698,35 @@
           }
         ]
       }
+    },
+    "artifact": {
+      "corrupted-seeds": {
+        "configuredTargetCount": {
+          "value": 8,
+          "projectionRef": "projection:value:corrupted-seeds:configured-target-count@1:corrupted-seeds:scope:source",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:389b3e54"
+          ]
+        }
+      },
+      "enchanted-grass": {
+        "configuredIncreasedMaxHealthMultiplier": {
+          "value": 2.5,
+          "projectionRef": "projection:value:enchanted-grass:configured-max-health-multiplier@1:enchanted-grass:scope:source",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:908d0e3a"
+          ]
+        }
+      },
+      "vexing-chant": {
+        "configuredPetAmountCap": {
+          "value": 3,
+          "projectionRef": "projection:value:vexing-chant:configured-pet-cap@1:vexing-chant:scope:source",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:d70b1fb9"
+          ]
+        }
+      }
     }
   },
   "valueProjections": [
@@ -23255,6 +23284,42 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:6ff3893b"
+      ]
+    },
+    {
+      "projectionId": "projection:value:corrupted-seeds:configured-target-count@1:corrupted-seeds:scope:source",
+      "mappingId": "corrupted-seeds:configured-target-count@1",
+      "occurrence": {
+        "domainId": "corrupted-seeds",
+        "scopeRef": "source"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:389b3e54"
+      ]
+    },
+    {
+      "projectionId": "projection:value:enchanted-grass:configured-max-health-multiplier@1:enchanted-grass:scope:source",
+      "mappingId": "enchanted-grass:configured-max-health-multiplier@1",
+      "occurrence": {
+        "domainId": "enchanted-grass",
+        "scopeRef": "source"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:908d0e3a"
+      ]
+    },
+    {
+      "projectionId": "projection:value:vexing-chant:configured-pet-cap@1:vexing-chant:scope:source",
+      "mappingId": "vexing-chant:configured-pet-cap@1",
+      "occurrence": {
+        "domainId": "vexing-chant",
+        "scopeRef": "source"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:d70b1fb9"
       ]
     }
   ],
@@ -44615,6 +44680,63 @@
           "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/0/decoding/properties/1/decoding/elements/0/properties/2"
         },
         "fingerprint": "fnv1a32:7d65d633"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:389b3e54",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:bf73f054d341e115cb4329318f7d14da53fb126c343d1ce8877efcadeff778b1",
+          "packagePath": "Dungeons/Content/Actors/Items/CorruptedSeeds/BP_CorruptedSeedsInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "db9bf6c88e0cb96eee5475e818a87cbefa32e106e728fc89a6686fdc2f826c90"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/1"
+        },
+        "fingerprint": "fnv1a32:7d114a20"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:908d0e3a",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-078.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7e4d57f353b61142d33fab2882cab40639145b60de4f7071418199c9ce267462",
+          "packagePath": "Dungeons/Content/Patch2/Actors/Items/RainbowGrass/BP_RainbowGrassInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "aac709b372de9d02c8080dbd50b4307a9b544dda1b33d293d84cd4e62997a9d1"
+          },
+          "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/1"
+        },
+        "fingerprint": "fnv1a32:5ef48441"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:d70b1fb9",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b45c5ebb007cc057b465ac3b7f91f3ac4bdf5ed1ef085dc51482359a54565467",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cb9ca1eb5e3b50ada2ae3c56e8ed453f4b2441f0eab958546ed512468f997041"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/0"
+        },
+        "fingerprint": "fnv1a32:7acc85a9"
       }
     ]
   }

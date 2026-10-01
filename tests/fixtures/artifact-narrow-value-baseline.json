@@ -1,0 +1,21 @@
+{
+  "baseline": "86c4cd7c3e5972518c6db3e183f470431b8b440f",
+  "value": {
+    "valueProjections": "b25d79a84ac2abf7b572d6cbcf25ff174c69edfb8bb0bdb8fe62173c2bf07d68",
+    "provenance": "4484f1cab1d5dbf963efe46f6acf0d0511b490be8fe846acc3ecd5ce7abc5d66"
+  },
+  "semantic": {
+    "melee": "27c73b98063a70b0557a9e769775dc7ba9e1b35cdf89798f98b95eca1da0f5f7",
+    "ranged": "17ff4744a269311579f842b70ddd8ce1e828207a58b144319097e621643aa9b6"
+  },
+  "files": {
+    "research/domain/formal/identity-evidence-v1.json": {
+      "sha256": "8fe57ce68301b9a5ce35d17e585b75790287be28b812ddfffdae8b2cafecc26c",
+      "semanticCount": 152
+    },
+    "research/domain/formal/serialized-relation-v2.json": {
+      "sha256": "c5258a70a92505041324f7c81476d8663a405cd7f965d50d2848353d71d99db8",
+      "semanticCount": 225
+    }
+  }
+}
