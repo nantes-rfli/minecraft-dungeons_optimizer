@@ -22,6 +22,8 @@ import { readHorizontalRawFactInventory } from './formal-value-horizontal-source
 import {
   ownsHorizontalRelationCollectionChild,
   SPIN_WHEEL_ACTOR_POLICY,
+  FISH_HOOK_POLICY,
+  resolveHorizontalFishHookRelationSource,
   resolveHorizontalSpinWheelActorRelationSource,
   resolveHorizontalArmorScopeRelationSource,
   resolveHorizontalArtifactEffectRelationSource,
@@ -65,7 +67,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[]; spinWheelActor: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[]; spinWheelActor: HorizontalRelationInput[]; fishHook: HorizontalRelationInput[] } {
   const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
   const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
@@ -109,6 +111,7 @@ export function readHorizontalRelationWaveSources(args: {
     artifactEffect: [] as HorizontalRelationInput[],
     artifactItemActor: [] as HorizontalRelationInput[],
     spinWheelActor: [] as HorizontalRelationInput[],
+    fishHook: [] as HorizontalRelationInput[],
   }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
@@ -258,6 +261,17 @@ export function readHorizontalRelationWaveSources(args: {
     catalogId: SPIN_WHEEL_ACTOR_POLICY.domainId, candidatePackage: SPIN_WHEEL_ACTOR_POLICY.sourcePackage,
     edgeId: SPIN_WHEEL_ACTOR_POLICY.edgeId, definition: spinDefinition,
     identity: spinIdentity.identity, identityEvidence: spinIdentity.identityEvidence,
+  }))
+
+  const hookDefinitions = formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === FISH_HOOK_POLICY.domainId)
+  assert.equal(hookDefinitions.length, 1, 'FishHook Identity missing or duplicated')
+  const hookDefinition = hookDefinitions[0]!
+  const hookIdentity = committedIdentity(args.identity, hookDefinition)
+  result.fishHook.push(resolveHorizontalFishHookRelationSource(args.repositoryRoot, sourceInventory, {
+    category: 'artifact', relationKind: 'fish-hook', propertyPath: 'FishingHookActorClass',
+    catalogId: FISH_HOOK_POLICY.domainId, candidatePackage: FISH_HOOK_POLICY.sourcePackage,
+    edgeId: FISH_HOOK_POLICY.edgeId, definition: hookDefinition,
+    identity: hookIdentity.identity, identityEvidence: hookIdentity.identityEvidence,
   }))
 
   return result

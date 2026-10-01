@@ -73,8 +73,8 @@ describe('Artifact ItemActor Formal Relation', () => {
       if (projection.result === 'projected') expect(projection.targetRawVerification)
         .toEqual({ input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' })
     }
-    expect(artifact.semantic.relations).toHaveLength(226)
-    expect(artifact.relationProjections).toHaveLength(226)
+    expect(artifact.semantic.relations).toHaveLength(227)
+    expect(artifact.relationProjections).toHaveLength(227)
     expect(artifact.relationCollections).toHaveLength(58)
     expect(new Set(artifact.semantic.relations.map((item) => item.sourceDomainId)).size).toBe(146)
     expect(artifact.relationCollections.every((item) => !READY_ARTIFACT_ITEM_ACTOR_DOMAINS.includes(

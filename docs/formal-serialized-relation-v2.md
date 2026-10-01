@@ -100,9 +100,10 @@ Armor: 71 domains / 71 GearActor scope occurrences
 Artifact Effect: 10 domains / 10 scope occurrences
 Artifact ItemActor: 11 domains / 11 scope occurrences
 Artifact SpinWheelActor: 1 domain / 1 scope occurrence
+Artifact FishHook: 1 domain / 1 scope occurrence
 relation collections: 58
-semantic relations: 226
-relation projections: 226
+semantic relations: 227
+relation projections: 227
 unique source domains: 146
 ```
 
@@ -119,3 +120,11 @@ Artifact ItemActor 11件はすべて root `ItemActorClass` の scope relation �
 matched same-source Identity、exact selected Horizontal candidate と unique `rp-root`、source provenance/hash と unique scalar CDO occurrence を要求します。独立した SpinWheel verifier が source の direct `SpinWheelInstance`、target の exact `BP_SpinWheelActor_C` / direct `/Script/Dungeons.SpinWheelActor`、one-hop native-boundary inheritance、unique corresponding `Default__BP_SpinWheelActor_C` と class binding / `Default__SpinWheelActor` template を検証します。既存 ItemActor verifier の native parent条件は維持します。
 
 target full-Raw verification は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。飛翔、帰還、移動、攻撃、damage、spawn、activation 等の runtime behavior は推論しません。既存225 Relation/projection、58 collections、全既存evidence、Identity/Value/Raw/Application は保持します。レビュー済み remaining census は過去baselineの監査authorityとして変更しません。
+
+## FishHook source population
+
+`fish-hook` は `fishing-rod` の exact `FishingHookActorClass`（Structural edge `61c85456ce1c89009060695d`）に設定された class relation 1件です。`relation:fishing-rod:fish-hook@1`、occurrence `{ domainId: "fishing-rod", scopeRef: "source" }`、projection `projection:relation:fishing-rod:fish-hook@1:source` を使用します。schemaVersion は2、Relation kindsは7、Relation/projectionは227、collectionsは58、unique source domainsは146です。既存 Effect とsource domainを共有します。
+
+matched same-source Formal Identity と exact applicationScope、exact selected Horizontal candidate と unique `rp-root`、source provenance/hash、unique decoded scalar CDO rootと exact Structural edge を要求します。FishHook専用verifierが exact target package/object、unique generated `BP_FishHookItem_C`、direct `/Script/Dungeons.FishHookItem` superclass と one-hop native-boundary inheritance、unique corresponding `Default__BP_FishHookItem_C` と class binding / `Default__FishHookItem` template を検証します。
+
+target full Raw verification は `not-supplied / not-resolved / target-snapshot-not-supplied` を維持します。`FishingRodActorClass` は semantic-ambiguous のままです。TypeHierarchy、animation sequences、他のArtifact familyは追加せず、投射・牽引・spawn・damage等のruntime semanticsを推論しません。baseline `50c94d6d9d9fb68c00e84a8dbf03dc806817323f` の既存226 Relation/projection/evidence、58 collectionsとIdentity/Value/Raw/Applicationを保持します。レビュー済みremaining監査authorityとcensusは変更しません。

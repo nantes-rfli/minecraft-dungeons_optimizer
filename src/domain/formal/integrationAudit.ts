@@ -244,9 +244,29 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     }
   }
   check(relation.relationCollections.every((item) => item.domainId !== 'spinblade'), 'SpinWheelActor entered collections')
-  check(relation.semantic.relations.length === 226,
+  const fishHooks = relation.relationProjections.filter((item) => item.relationRef.endsWith(':fish-hook@1'))
+  check(fishHooks.length === 1, 'FishHook projection must resolve exactly once')
+  const fishHook = fishHooks[0]
+  if (fishHook) {
+    check(fishHook.relationRef === 'relation:fishing-rod:fish-hook@1'
+      && fishHook.projectionRef === 'projection:relation:fishing-rod:fish-hook@1:source', 'FishHook refs mismatch')
+    check(fishHook.occurrence.domainId === 'fishing-rod' && !('sourceIndex' in fishHook.occurrence)
+      && fishHook.occurrence.scopeRef === 'source', 'FishHook occurrence mismatch')
+    check(fishHook.result === 'projected', 'FishHook must be projected')
+    if (fishHook.result === 'projected') {
+      const hookRelation = relation.semantic.relations.filter((item) => item.projectionRef === fishHook.projectionRef)
+      check(hookRelation.length === 1 && hookRelation[0]?.target.objectName === 'BP_FishHookItem_C'
+        && hookRelation[0]?.target.gamePackagePath === '/Game/Actors/Items/FishingRod/BP_FishHookItem', 'FishHook target mismatch')
+      check(fishHook.serializedTargetResolution.state === 'resolved-local-package', 'FishHook Structural target unresolved')
+      check(fishHook.targetRawVerification.input === 'not-supplied'
+        && fishHook.targetRawVerification.result === 'not-resolved'
+        && fishHook.targetRawVerification.reason === 'target-snapshot-not-supplied', 'FishHook full Raw boundary changed')
+    }
+  }
+  check(relation.relationCollections.every((item) => item.domainId !== 'fishing-rod'), 'FishHook entered collections')
+  check(relation.semantic.relations.length === 227,
     `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
-  check(relation.relationProjections.length === 226,
+  check(relation.relationProjections.length === 227,
     `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
   check(relation.relationCollections.length === 58,
     `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
