@@ -3757,6 +3757,22 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:d6bcb0e2"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:fishing-rod:fish-hook@1:source",
+        "relationRef": "relation:fishing-rod:fish-hook@1",
+        "occurrence": {
+          "domainId": "fishing-rod",
+          "scopeRef": "source"
+        },
+        "sourceDomainId": "fishing-rod",
+        "target": {
+          "objectName": "BP_FishHookItem_C",
+          "gamePackagePath": "/Game/Actors/Items/FishingRod/BP_FishHookItem"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:8257535b"
+        ]
       }
     ]
   },
@@ -9238,6 +9254,27 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Items/SpinWheel/BP_SpinWheelActor"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:fishing-rod:fish-hook@1:source",
+      "relationRef": "relation:fishing-rod:fish-hook@1",
+      "occurrence": {
+        "domainId": "fishing-rod",
+        "scopeRef": "source"
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:8257535b"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishHookItem"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -20337,6 +20374,51 @@
           }
         },
         "fingerprint": "fnv1a32:6b38970d"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:8257535b",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-030.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e4370973f2ca948bf0db4b0fe1457451f271fe79300104d58b19eb7bef1c1e30",
+          "packagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "23a2e3a9853b53286a399e95c1baace9b6d9c72c1aa5d244c97d98fb5f3af2c1"
+          },
+          "nodePointer": "/edges/4451"
+        },
+        "observed": {
+          "id": "61c85456ce1c89009060695d",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "FishingHookActorClass",
+            "rawPackageIndex": -4,
+            "sourceRange": {
+              "file": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance.uexp",
+              "start": 105,
+              "end": 134
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance.uexp",
+              "start": 130,
+              "end": 134
+            }
+          },
+          "targetObject": "/Game/Actors/Items/FishingRod/BP_FishHookItem.BP_FishHookItem_C",
+          "targetPackageName": "/Game/Actors/Items/FishingRod/BP_FishHookItem",
+          "targetPackage": "Dungeons/Content/Actors/Items/FishingRod/BP_FishHookItem",
+          "targetRawPackageIndex": -4,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:070fb790"
       }
     ]
   }

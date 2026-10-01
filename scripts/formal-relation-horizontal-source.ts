@@ -3,6 +3,7 @@ import path from 'node:path'
 import { type HorizontalRawFactInventory, type JsonRecord } from './game-data-horizontal-fact-inventory.ts'
 import { hasVerifiedStructuralPackage, readVerifiedStructuralShard, RAW_STRUCTURAL_INVENTORY_DIRECTORY } from './formal-value-source-provenance.ts'
 import { matchedIdentityDomainId, matchedIdentityDomainIdFromSource, sameLogicalRawPackage, snapshotSource } from '../src/domain/formal/boundarySource.ts'
+import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
@@ -91,6 +92,7 @@ type ScopeRelationPolicy =
   | { category: 'artifact'; relationKind: 'effect'; propertyPath: 'Effect' }
   | { category: 'artifact'; relationKind: 'item-actor'; propertyPath: 'ItemActorClass' }
   | { category: 'artifact'; relationKind: 'spin-wheel-actor'; propertyPath: 'SpinWheelActorClass' }
+  | { category: 'artifact'; relationKind: 'fish-hook'; propertyPath: 'FishingHookActorClass' }
 
 export type ScopeRelationSourceRequest = ScopeRelationPolicy & {
   catalogId: string
@@ -105,6 +107,7 @@ export type ScopeRelationSourceRequest = ScopeRelationPolicy & {
 export type ArmorScopeRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'gear-actor' }
 export type ArtifactEffectRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'effect' }
 export type ArtifactItemActorRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'item-actor' }
+export type FishHookRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'fish-hook' }
 export type SpinWheelActorRelationSourceRequest = ScopeRelationSourceRequest & { relationKind: 'spin-wheel-actor' }
 
 export type ResolvedScopeRelationSource = {
@@ -276,6 +279,110 @@ function targetStructuralPackage(repositoryRoot: string, targetPath: string, dat
     break
   }
   throw new Error(`ItemActor target package missing: ${targetPath}`)
+}
+
+export const FISH_HOOK_POLICY = {
+  domainId: 'fishing-rod',
+  sourcePackage: 'Dungeons/Content/Actors/Items/FishingRod/BP_FishingRodInstance',
+  edgeId: '61c85456ce1c89009060695d',
+  targetPackage: 'Dungeons/Content/Actors/Items/FishingRod/BP_FishHookItem',
+  targetObject: '/Game/Actors/Items/FishingRod/BP_FishHookItem.BP_FishHookItem_C',
+} as const
+
+/** Bind the serialized target object to its class export, direct super edge and class-owned CDO. */
+export function verifyFishHookTargetStructural(
+  targetObject: string, targetPackage: JsonRecord, targetEdges: readonly JsonRecord[],
+): void {
+  const nativeClass = 'FishHookItem'
+  const className = 'BP_FishHookItem_C'
+  const exactPackage = FISH_HOOK_POLICY.targetPackage
+  const exactGamePackage = `/Game/Actors/Items/FishingRod/${className.slice(0, -2)}`
+  if (targetPackage.path !== exactPackage || targetPackage.gamePackageName !== exactGamePackage
+    || targetObject !== `${exactGamePackage}.${className}`) throw new Error('FishHook exact class/package mismatch')
+  const packagePath = requiredString(targetPackage.path, 'FishHook target package path')
+  const gamePackageName = requiredString(targetPackage.gamePackageName, 'FishHook target game package')
+  if (!targetObject.startsWith(`${gamePackageName}.`)) throw new Error('FishHook target object/package mismatch')
+  const exports = targetPackage.exports as JsonRecord[] | undefined
+  const chains = targetPackage.inheritanceChains as JsonRecord[] | undefined
+  if (!Array.isArray(exports) || !Array.isArray(chains)) throw new Error('FishHook target package has no Structural class data')
+  const classes = exports.filter((entry) => isRecord(entry.objectName)
+    && entry.objectName.value === className && entry.isClassDefaultObject === false)
+  if (classes.length !== 1) throw new Error('FishHook exact target class missing or duplicated')
+  const cls = classes[0]!
+  const refs = cls.references as JsonRecord | undefined
+  if (!isRecord(refs?.class) || refs.class.kind !== 'import'
+    || refs.class.objectName !== 'BlueprintGeneratedClass' || refs.class.className !== 'Class'
+    || !Number.isInteger(cls.rawPackageIndex) || Number(cls.rawPackageIndex) <= 0
+    || cls.rawPackageIndex !== Number(cls.exportIndex) + 1) throw new Error('FishHook generated class kind/index mismatch')
+  const superRef = refs?.super as JsonRecord | undefined
+  if (superRef?.kind !== 'import' || superRef.className !== 'Class' || superRef.objectName !== nativeClass
+    || !Number.isInteger(superRef.rawPackageIndex) || Number(superRef.rawPackageIndex) >= 0
+    || superRef.index !== -Number(superRef.rawPackageIndex) - 1) {
+    throw new Error('FishHook target class direct superclass mismatch')
+  }
+  const directSupers = targetEdges.filter((edge) => edge.kind === 'super'
+    && edge.sourcePackage === packagePath && isRecord(edge.sourceOccurrence)
+    && edge.sourceOccurrence.sourceObject === className
+    && edge.sourceOccurrence.serializedField === 'superIndex')
+  if (directSupers.length !== 1) throw new Error('FishHook target class super edge missing or duplicated')
+  const directSuper = directSupers[0]!
+  if (directSuper.targetObject !== `/Script/Dungeons.${nativeClass}`
+    || directSuper.targetKind !== 'import' || directSuper.targetPackageName !== '/Script/Dungeons'
+    || directSuper.targetRawPackageIndex !== superRef.rawPackageIndex
+    || !isRecord(directSuper.traversal) || directSuper.traversal.stopReason !== 'native-boundary'
+    || !isRecord(directSuper.sourceOccurrence)
+    || directSuper.sourceOccurrence.rawPackageIndex !== superRef.rawPackageIndex) {
+    throw new Error('FishHook target class super edge semantic mismatch')
+  }
+  const matchingChains = chains.filter((chain) => chain.sourceObject === className)
+  const chain = matchingChains[0]
+  if (matchingChains.length !== 1 || !chain || !Array.isArray(chain.hops)
+    || chain.hops.length !== 1 || !isRecord(chain.hops[0])
+    || chain.hops[0].edgeId !== directSuper.id
+    || chain.hops[0].targetObject !== `/Script/Dungeons.${nativeClass}`
+    || chain.hops[0].rawPackageIndex !== superRef.rawPackageIndex
+    || chain.hops[0].targetPackageName !== '/Script/Dungeons'
+    || chain.stopReason !== 'native-boundary') {
+    throw new Error('FishHook target class inheritance chain mismatch')
+  }
+  const cdos = exports.filter((entry) => entry.isClassDefaultObject === true
+    && isRecord(entry.references) && isRecord(entry.references.class)
+    && entry.references.class.kind === 'export'
+    && entry.references.class.rawPackageIndex === cls.rawPackageIndex)
+  const namedCdos = exports.filter((entry) => isRecord(entry.objectName) && entry.objectName.value === `Default__${className}`)
+  if (namedCdos.length !== 1 || namedCdos[0] !== cdos[0]
+    || !isRecord(cdos[0]?.references) || !isRecord(cdos[0].references.class)
+    || cdos[0].references.class.objectName !== className
+    || cdos[0].references.class.className !== 'BlueprintGeneratedClass'
+    || cdos[0].references.class.index !== cls.exportIndex
+    || cdos.length !== 1 || !isRecord(cdos[0]!.references)
+    || !isRecord(cdos[0]!.references.template)
+    || cdos[0]!.references.template.className !== nativeClass
+    || cdos[0]!.references.template.kind !== 'import'
+    || cdos[0]!.references.template.objectName !== `Default__${nativeClass}`
+    || !Number.isInteger(cdos[0]!.rawPackageIndex)
+    || cdos[0]!.rawPackageIndex !== Number(cdos[0]!.exportIndex) + 1
+    || Number(cdos[0]!.rawPackageIndex) <= 0
+    || !Number.isInteger(cdos[0]!.references.template.rawPackageIndex)
+    || Number(cdos[0]!.references.template.rawPackageIndex) >= 0
+    || cdos[0]!.references.template.index !== -Number(cdos[0]!.references.template.rawPackageIndex) - 1) {
+    throw new Error('FishHook target class CDO missing or mismatched')
+  }
+  const cdoRefs = cdos[0]!.references as JsonRecord
+  for (const [kind, field, reference, expectedObject, expectedKind] of [
+    ['class', 'classIndex', cdoRefs.class, targetObject, 'export'],
+    ['template', 'templateIndex', cdoRefs.template, `/Script/Dungeons.Default__${nativeClass}`, 'import'],
+  ] as const) {
+    const ref = reference as JsonRecord
+    const edges = targetEdges.filter((edge) => edge.kind === kind && edge.sourcePackage === packagePath
+      && isRecord(edge.sourceOccurrence) && edge.sourceOccurrence.sourceObject === `Default__${className}`
+      && edge.sourceOccurrence.serializedField === field)
+    if (edges.length !== 1 || edges[0]!.targetObject !== expectedObject || edges[0]!.targetKind !== expectedKind
+      || edges[0]!.targetRawPackageIndex !== ref.rawPackageIndex
+      || (edges[0]!.sourceOccurrence as JsonRecord).rawPackageIndex !== ref.rawPackageIndex) {
+      throw new Error(`FishHook CDO ${kind} edge binding mismatch`)
+    }
+  }
 }
 
 /** Bind the serialized target object to its class export, direct super edge and class-owned CDO. */
@@ -588,11 +695,18 @@ export function resolveHorizontalScopeRelationSource(
     ? request : request.category === 'artifact' && request.relationKind === 'effect' && request.propertyPath === 'Effect'
       ? request : request.category === 'artifact' && request.relationKind === 'item-actor' && request.propertyPath === 'ItemActorClass'
         ? request : request.category === 'artifact' && request.relationKind === 'spin-wheel-actor' && request.propertyPath === 'SpinWheelActorClass'
-          ? request : undefined
+          ? request : request.category === 'artifact' && request.relationKind === 'fish-hook' && request.propertyPath === 'FishingHookActorClass'
+            ? request : undefined
   if (!policy) throw new Error('Unsupported Horizontal scope Relation policy')
   if (policy.relationKind === 'spin-wheel-actor' && (request.catalogId !== SPIN_WHEEL_ACTOR_POLICY.domainId
     || request.candidatePackage !== SPIN_WHEEL_ACTOR_POLICY.sourcePackage || request.edgeId !== SPIN_WHEEL_ACTOR_POLICY.edgeId)) {
     throw new Error('SpinWheel exact source policy mismatch')
+  }
+  if (policy.relationKind === 'fish-hook' && (request.catalogId !== FISH_HOOK_POLICY.domainId
+    || request.candidatePackage !== FISH_HOOK_POLICY.sourcePackage || request.edgeId !== FISH_HOOK_POLICY.edgeId
+    || canonicalJson(request.definition.assertion) !== canonicalJson(formalIdentityDefinitions.find(
+      ({ assertion }) => assertion.domainId === FISH_HOOK_POLICY.domainId)?.assertion))) {
+    throw new Error('FishHook exact source/applicationScope policy mismatch')
   }
   const inventory = inventoryInput as unknown as InventoryView
   const item = exactItem(inventory, request)
@@ -604,7 +718,25 @@ export function resolveHorizontalScopeRelationSource(
     throw new Error('SpinWheel selected candidate identity/role mismatch')
   }
 
-  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor') {
+  if (policy.relationKind === 'fish-hook') {
+    const rawCandidate = item.rawCandidate as JsonRecord
+    const traversal = candidate.traversal as JsonRecord | undefined
+    const paths = traversal?.relationPaths as JsonRecord[] | undefined
+    const roots = Array.isArray(paths) ? paths.filter((entry) => entry.id === 'rp-root') : []
+    if (rawCandidate.status !== 'exact' || candidate.candidateMappingStatus !== 'exact'
+      || candidate.role !== 'instance' || candidate.objectName !== 'BP_FishingRodInstance_C'
+      || !Array.isArray(candidate.evidence)
+      || !candidate.evidence.includes('serialized-identifier:ItemIdName=FishingRod')
+      || !candidate.evidence.includes('serialized-identifier:ItemId.SerializedId=FishingRod')
+      || traversal?.rootPackage !== FISH_HOOK_POLICY.sourcePackage || roots.length !== 1
+      || roots[0]!.sourcePackage !== FISH_HOOK_POLICY.sourcePackage
+      || !Array.isArray(roots[0]!.edgeIds) || roots[0]!.edgeIds.length !== 0
+      || !Array.isArray(roots[0]!.edgeSequence) || roots[0]!.edgeSequence.length !== 0) {
+      throw new Error('FishHook exact selected candidate/rp-root mismatch')
+    }
+  }
+
+  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor' || policy.relationKind === 'fish-hook') {
     const fieldReferences = candidate.relations.filter((reference) =>
       inventory.sourceRelations.some((source) => source.edgeId === reference.edgeId
         && source.propertyPath === policy.propertyPath))
@@ -651,7 +783,7 @@ export function resolveHorizontalScopeRelationSource(
   if (sourceRelation.relationKind !== 'object-property' || sourceRelation.propertyPath !== policy.propertyPath) {
     throw new Error('Horizontal scope relation source occurrence binding mismatch')
   }
-  if ((policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor')
+  if ((policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor' || policy.relationKind === 'fish-hook')
     && (sourceRelation.sourceOccurrenceKind !== 'cdo-property' || sourceRelation.arrayIndex !== null)) {
     throw new Error('ItemActor source must be an exact root CDO property')
   }
@@ -697,7 +829,7 @@ export function resolveHorizontalScopeRelationSource(
   if (structuralSummary.relationKind !== 'object-property' || structuralSummary.propertyPath !== policy.propertyPath) {
     throw new Error(`Structural scope root edge policy mismatch: ${request.edgeId}`)
   }
-  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor') {
+  if (policy.relationKind === 'item-actor' || policy.relationKind === 'spin-wheel-actor' || policy.relationKind === 'fish-hook') {
     const structuralRoots = shard.edges.filter((edge) => edge.sourcePackage === request.candidatePackage
       && edge.kind === 'object-property' && edge.sourceOccurrence.kind === 'cdo-property'
       && edge.sourceOccurrence.propertyPath === policy.propertyPath)
@@ -770,6 +902,36 @@ export function resolveHorizontalScopeRelationSource(
     const structuralTarget = targetStructuralPackage(repositoryRoot, SPIN_WHEEL_ACTOR_POLICY.targetPackage, datasetId)
     verifySpinWheelActorTargetStructural(SPIN_WHEEL_ACTOR_POLICY.targetObject, structuralTarget.pkg, structuralTarget.edges)
   }
+  if (policy.relationKind === 'fish-hook') {
+    if (edgeMatch.edge.targetPackage !== FISH_HOOK_POLICY.targetPackage
+      || edgeMatch.edge.targetObject !== FISH_HOOK_POLICY.targetObject) {
+      throw new Error('FishHook exact root/target policy mismatch')
+    }
+    const sourcePackage = packageMatch.pkg as unknown as JsonRecord
+    const exports = sourcePackage.exports as JsonRecord[]
+    const inventories = sourcePackage.cdoPropertyInventory as JsonRecord[]
+    const cdos = exports.filter((entry) => entry.isClassDefaultObject === true
+      && isRecord(entry.objectName) && entry.objectName.value === 'Default__BP_FishingRodInstance_C')
+    const roots = Array.isArray(inventories)
+      ? inventories.filter((entry) => entry.objectName === 'Default__BP_FishingRodInstance_C') : []
+    const properties = roots.length === 1 && Array.isArray(roots[0]!.properties)
+      ? (roots[0]!.properties as JsonRecord[]).filter((entry) => entry.path === 'FishingHookActorClass') : []
+    const property = properties[0]
+    const occurrence = edgeMatch.edge.sourceOccurrence as JsonRecord
+    const decoding = property?.decoding as JsonRecord | undefined
+    const value = decoding?.value as JsonRecord | undefined
+    if (cdos.length !== 1 || roots.length !== 1 || roots[0]!.exportIndex !== cdos[0]!.exportIndex
+      || properties.length !== 1 || !property || !isRecord(property.type) || property.type.value !== 'ObjectProperty'
+      || property.arrayIndex !== 0 || decoding?.state !== 'decoded'
+      || value?.kind !== 'import' || value.objectName !== 'BP_FishHookItem_C'
+      || value.className !== 'BlueprintGeneratedClass' || value.rawPackageIndex !== occurrence.rawPackageIndex
+      || canonicalJson(property.sourceRange) !== canonicalJson(occurrence.sourceRange)
+      || canonicalJson(property.valueRange) !== canonicalJson(occurrence.valueRange)) {
+      throw new Error('FishHook decoded scalar CDO property/edge mismatch')
+    }
+    const structuralTarget = targetStructuralPackage(repositoryRoot, FISH_HOOK_POLICY.targetPackage, datasetId)
+    verifyFishHookTargetStructural(FISH_HOOK_POLICY.targetObject, structuralTarget.pkg, structuralTarget.edges)
+  }
   return {
     sourceDomainId,
     relationRef: relationRefForDomain(sourceDomainId, policy.relationKind),
@@ -802,6 +964,12 @@ export function resolveHorizontalArtifactItemActorRelationSource(
 
 export function resolveHorizontalSpinWheelActorRelationSource(
   repositoryRoot: string, inventory: HorizontalRawFactInventory, request: SpinWheelActorRelationSourceRequest,
+): ResolvedScopeRelationSource {
+  return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
+}
+
+export function resolveHorizontalFishHookRelationSource(
+  repositoryRoot: string, inventory: HorizontalRawFactInventory, request: FishHookRelationSourceRequest,
 ): ResolvedScopeRelationSource {
   return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
 }
