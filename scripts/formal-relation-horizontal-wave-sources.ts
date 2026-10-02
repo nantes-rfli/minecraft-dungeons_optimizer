@@ -23,6 +23,8 @@ import {
   ownsHorizontalRelationCollectionChild,
   SPIN_WHEEL_ACTOR_POLICY,
   FISH_HOOK_POLICY,
+  SPORE_GRENADE_POLICY,
+  resolveHorizontalSporeGrenadeRelationSource,
   resolveHorizontalFishHookRelationSource,
   resolveHorizontalSpinWheelActorRelationSource,
   resolveHorizontalArmorScopeRelationSource,
@@ -67,7 +69,7 @@ export function readHorizontalRelationWaveSources(args: {
   repositoryRoot: string
   identity: FormalIdentityEvidenceArtifact
   inventory?: HorizontalRawFactInventory
-}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[]; spinWheelActor: HorizontalRelationInput[]; fishHook: HorizontalRelationInput[] } {
+}): { melee: HorizontalRelationInput[]; ranged: HorizontalRelationInput[]; armor: HorizontalRelationInput[]; artifactEffect: HorizontalRelationInput[]; artifactItemActor: HorizontalRelationInput[]; spinWheelActor: HorizontalRelationInput[]; fishHook: HorizontalRelationInput[]; sporeGrenade: HorizontalRelationInput[] } {
   const sourceInventory = args.inventory ?? readHorizontalRawFactInventory(args.repositoryRoot)
   const inventory = sourceInventory as unknown as Inventory
   const byEdgeId = new Map<string, SourceRelation[]>()
@@ -112,6 +114,7 @@ export function readHorizontalRelationWaveSources(args: {
     artifactItemActor: [] as HorizontalRelationInput[],
     spinWheelActor: [] as HorizontalRelationInput[],
     fishHook: [] as HorizontalRelationInput[],
+    sporeGrenade: [] as HorizontalRelationInput[],
   }
   for (const { category, definitions } of categories) {
     for (const definition of definitions) {
@@ -274,5 +277,15 @@ export function readHorizontalRelationWaveSources(args: {
     identity: hookIdentity.identity, identityEvidence: hookIdentity.identityEvidence,
   }))
 
+  const sporeDefinitions = formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === SPORE_GRENADE_POLICY.domainId)
+  assert.equal(sporeDefinitions.length, 1, 'SporeGrenade Identity missing or duplicated')
+  const sporeDefinition = sporeDefinitions[0]!
+  const sporeIdentity = committedIdentity(args.identity, sporeDefinition)
+  result.sporeGrenade.push(resolveHorizontalSporeGrenadeRelationSource(args.repositoryRoot, sourceInventory, {
+    category: 'artifact', relationKind: 'spore-grenade-spawn-class', propertyPath: 'ProjectileItemSpec.ClassesToSpawn[0]',
+    catalogId: SPORE_GRENADE_POLICY.domainId, candidatePackage: SPORE_GRENADE_POLICY.sourcePackage,
+    edgeId: SPORE_GRENADE_POLICY.edgeId, sourceIndex: 0, definition: sporeDefinition,
+    identity: sporeIdentity.identity, identityEvidence: sporeIdentity.identityEvidence,
+  }))
   return result
 }

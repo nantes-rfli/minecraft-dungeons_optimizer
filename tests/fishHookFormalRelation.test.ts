@@ -65,23 +65,23 @@ describe('FishHook Formal Relation', () => {
     expect(projection).toMatchObject({ result: 'projected', serializedTargetResolution: { state: 'resolved-local-package' },
       targetRawVerification: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } })
     expect(artifact.semantic.relations.filter((r) => r.relationRef.endsWith(':fish-hook@1'))).toHaveLength(1)
-    expect(new Set(artifact.semantic.relations.map((r) => r.relationRef.split(':').at(-1))).size).toBe(7)
+    expect(new Set(artifact.semantic.relations.map((r) => r.relationRef.split(':').at(-1))).size).toBe(8)
     expect(artifact.semantic.relations.filter((r) => r.sourceDomainId === 'fishing-rod').map((r) => r.relationRef))
       .toEqual(['relation:fishing-rod:effect@1', 'relation:fishing-rod:fish-hook@1'])
     for (const file of ['research/domain/formal/identity-evidence-v1.json', 'research/domain/formal/value-availability-v2.json']) {
       expect(fs.readFileSync(file).equals(execFileSync('git', ['show', `50c94d6d9d9fb68c00e84a8dbf03dc806817323f:${file}`], { maxBuffer: 32 * 1024 * 1024 }))).toBe(true)
     }
     expect(artifact.schemaVersion).toBe(2)
-    expect(artifact.semantic.relations).toHaveLength(227)
-    expect(artifact.relationProjections).toHaveLength(227)
-    expect(artifact.relationCollections).toHaveLength(58)
-    expect(new Set(artifact.semantic.relations.map((item) => item.sourceDomainId)).size).toBe(146)
+    expect(artifact.semantic.relations).toHaveLength(228)
+    expect(artifact.relationProjections).toHaveLength(228)
+    expect(artifact.relationCollections).toHaveLength(59)
+    expect(new Set(artifact.semantic.relations.map((item) => item.sourceDomainId)).size).toBe(147)
     const baseline = JSON.parse(execFileSync('git', ['show', '50c94d6d9d9fb68c00e84a8dbf03dc806817323f:research/domain/formal/serialized-relation-v2.json'], { encoding: 'utf8' })) as FormalSerializedRelationArtifact
     for (const existing of baseline.semantic.relations) expect(artifact.semantic.relations.find((r) => r.projectionRef === existing.projectionRef)).toEqual(existing)
     for (const existing of baseline.relationProjections) expect(artifact.relationProjections.find((r) => r.projectionRef === existing.projectionRef)).toEqual(existing)
     for (const existing of baseline.provenance.evidence) expect(artifact.provenance.evidence.find((e) => e.id === existing.id)).toEqual(existing)
-    expect(artifact.relationCollections).toEqual(baseline.relationCollections)
-    expect(artifact.provenance.evidence.length - baseline.provenance.evidence.length).toBe(1)
+    expect(artifact.relationCollections.filter((row) => row.domainId !== 'blast-fungus')).toEqual(baseline.relationCollections)
+    expect(artifact.provenance.evidence.length - baseline.provenance.evidence.length).toBe(2)
     const baseInput = (definition: typeof scatterCrossbowFormalIdentity) => {
       const source = JSON.parse(fs.readFileSync(`research/raw/packages/${definition.assertion.applicationScope.packagePath}.raw.json`, 'utf8')) as RawPackageSnapshot
       const projected = projectFormalIdentity(source, definition)

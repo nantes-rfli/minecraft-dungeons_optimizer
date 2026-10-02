@@ -973,3 +973,341 @@ export function resolveHorizontalFishHookRelationSource(
 ): ResolvedScopeRelationSource {
   return resolveHorizontalScopeRelationSource(repositoryRoot, inventory, request)
 }
+
+export const SPORE_GRENADE_POLICY = {
+  domainId: 'blast-fungus',
+  sourcePackage: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance',
+  edgeId: 'cbca1ff1473ec0b3b53a43ea',
+  targetPackage: 'Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade',
+  targetObject: '/Game/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade.BP_SporeGrenade_C',
+} as const
+
+/** Bind the serialized target object to its class export, direct super edge and class-owned CDO. */
+export function verifySporeGrenadeTargetStructural(
+  targetObject: string, targetPackage: JsonRecord, targetEdges: readonly JsonRecord[],
+): void {
+  const nativeClass = 'SporeGrenade'
+  const className = 'BP_SporeGrenade_C'
+  const exactPackage = SPORE_GRENADE_POLICY.targetPackage
+  const exactGamePackage = `/Game/Content_DLC4/Actors/Items/NetherWartSporeGrenade/${className.slice(0, -2)}`
+  if (targetPackage.path !== exactPackage || targetPackage.gamePackageName !== exactGamePackage
+    || targetObject !== `${exactGamePackage}.${className}`) throw new Error('SporeGrenade exact class/package mismatch')
+  const packagePath = requiredString(targetPackage.path, 'SporeGrenade target package path')
+  const gamePackageName = requiredString(targetPackage.gamePackageName, 'SporeGrenade target game package')
+  if (!targetObject.startsWith(`${gamePackageName}.`)) throw new Error('SporeGrenade target object/package mismatch')
+  const exports = targetPackage.exports as JsonRecord[] | undefined
+  const chains = targetPackage.inheritanceChains as JsonRecord[] | undefined
+  if (!Array.isArray(exports) || !Array.isArray(chains)) throw new Error('SporeGrenade target package has no Structural class data')
+  const classes = exports.filter((entry) => isRecord(entry.objectName)
+    && entry.objectName.value === className && entry.isClassDefaultObject === false)
+  if (classes.length !== 1) throw new Error('SporeGrenade exact target class missing or duplicated')
+  const cls = classes[0]!
+  const refs = cls.references as JsonRecord | undefined
+  if (!isRecord(refs?.class) || refs.class.kind !== 'import'
+    || refs.class.objectName !== 'BlueprintGeneratedClass' || refs.class.className !== 'Class'
+    || !Number.isInteger(cls.rawPackageIndex) || Number(cls.rawPackageIndex) <= 0
+    || cls.rawPackageIndex !== Number(cls.exportIndex) + 1) throw new Error('SporeGrenade generated class kind/index mismatch')
+  const superRef = refs?.super as JsonRecord | undefined
+  if (superRef?.kind !== 'import' || superRef.className !== 'Class' || superRef.objectName !== nativeClass
+    || !Number.isInteger(superRef.rawPackageIndex) || Number(superRef.rawPackageIndex) >= 0
+    || superRef.index !== -Number(superRef.rawPackageIndex) - 1) {
+    throw new Error('SporeGrenade target class direct superclass mismatch')
+  }
+  const directSupers = targetEdges.filter((edge) => edge.kind === 'super'
+    && edge.sourcePackage === packagePath && isRecord(edge.sourceOccurrence)
+    && edge.sourceOccurrence.sourceObject === className
+    && edge.sourceOccurrence.serializedField === 'superIndex')
+  if (directSupers.length !== 1) throw new Error('SporeGrenade target class super edge missing or duplicated')
+  const directSuper = directSupers[0]!
+  if (directSuper.targetObject !== `/Script/Dungeons.${nativeClass}`
+    || directSuper.targetKind !== 'import' || directSuper.targetPackageName !== '/Script/Dungeons'
+    || directSuper.targetRawPackageIndex !== superRef.rawPackageIndex
+    || !isRecord(directSuper.traversal) || directSuper.traversal.stopReason !== 'native-boundary'
+    || !isRecord(directSuper.sourceOccurrence)
+    || directSuper.sourceOccurrence.rawPackageIndex !== superRef.rawPackageIndex) {
+    throw new Error('SporeGrenade target class super edge semantic mismatch')
+  }
+  const matchingChains = chains.filter((chain) => chain.sourceObject === className)
+  const chain = matchingChains[0]
+  if (matchingChains.length !== 1 || !chain || !Array.isArray(chain.hops)
+    || chain.hops.length !== 1 || !isRecord(chain.hops[0])
+    || chain.hops[0].edgeId !== directSuper.id
+    || chain.hops[0].targetObject !== `/Script/Dungeons.${nativeClass}`
+    || chain.hops[0].rawPackageIndex !== superRef.rawPackageIndex
+    || chain.hops[0].targetPackageName !== '/Script/Dungeons'
+    || chain.stopReason !== 'native-boundary') {
+    throw new Error('SporeGrenade target class inheritance chain mismatch')
+  }
+  const cdos = exports.filter((entry) => entry.isClassDefaultObject === true
+    && isRecord(entry.references) && isRecord(entry.references.class)
+    && entry.references.class.kind === 'export'
+    && entry.references.class.rawPackageIndex === cls.rawPackageIndex)
+  const namedCdos = exports.filter((entry) => isRecord(entry.objectName) && entry.objectName.value === `Default__${className}`)
+  if (namedCdos.length !== 1 || namedCdos[0] !== cdos[0]
+    || !isRecord(cdos[0]?.references) || !isRecord(cdos[0].references.class)
+    || cdos[0].references.class.objectName !== className
+    || cdos[0].references.class.className !== 'BlueprintGeneratedClass'
+    || cdos[0].references.class.index !== cls.exportIndex
+    || cdos.length !== 1 || !isRecord(cdos[0]!.references)
+    || !isRecord(cdos[0]!.references.template)
+    || cdos[0]!.references.template.className !== nativeClass
+    || cdos[0]!.references.template.kind !== 'import'
+    || cdos[0]!.references.template.objectName !== `Default__${nativeClass}`
+    || !Number.isInteger(cdos[0]!.rawPackageIndex)
+    || cdos[0]!.rawPackageIndex !== Number(cdos[0]!.exportIndex) + 1
+    || Number(cdos[0]!.rawPackageIndex) <= 0
+    || !Number.isInteger(cdos[0]!.references.template.rawPackageIndex)
+    || Number(cdos[0]!.references.template.rawPackageIndex) >= 0
+    || cdos[0]!.references.template.index !== -Number(cdos[0]!.references.template.rawPackageIndex) - 1) {
+    throw new Error('SporeGrenade target class CDO missing or mismatched')
+  }
+  const cdoRefs = cdos[0]!.references as JsonRecord
+  for (const [kind, field, reference, expectedObject, expectedKind] of [
+    ['class', 'classIndex', cdoRefs.class, targetObject, 'export'],
+    ['template', 'templateIndex', cdoRefs.template, `/Script/Dungeons.Default__${nativeClass}`, 'import'],
+  ] as const) {
+    const ref = reference as JsonRecord
+    const edges = targetEdges.filter((edge) => edge.kind === kind && edge.sourcePackage === packagePath
+      && isRecord(edge.sourceOccurrence) && edge.sourceOccurrence.sourceObject === `Default__${className}`
+      && edge.sourceOccurrence.serializedField === field)
+    if (edges.length !== 1 || edges[0]!.targetObject !== expectedObject || edges[0]!.targetKind !== expectedKind
+      || edges[0]!.targetRawPackageIndex !== ref.rawPackageIndex
+      || (edges[0]!.sourceOccurrence as JsonRecord).rawPackageIndex !== ref.rawPackageIndex) {
+      throw new Error(`SporeGrenade CDO ${kind} edge binding mismatch`)
+    }
+  }
+}
+
+
+export type SporeGrenadeRelationSourceRequest = Omit<HorizontalRelationSourceRequest, 'category'> & {
+  category: 'artifact'
+  relationKind: 'spore-grenade-spawn-class'
+  propertyPath: 'ProjectileItemSpec.ClassesToSpawn[0]'
+}
+const SPORE_GRENADE_PROPERTY = 'ProjectileItemSpec.ClassesToSpawn[0]'
+
+/** Resolve the reviewed raw indexed member; never renumber successful array elements. */
+export function resolveHorizontalSporeGrenadeRelationSource(
+  repositoryRoot: string, inventoryInput: HorizontalRawFactInventory, request: SporeGrenadeRelationSourceRequest,
+): ResolvedHorizontalRelationSource {
+  if (request.category !== 'artifact' || request.relationKind !== 'spore-grenade-spawn-class'
+    || request.propertyPath !== SPORE_GRENADE_PROPERTY || request.sourceIndex !== 0
+    || request.catalogId !== SPORE_GRENADE_POLICY.domainId
+    || request.candidatePackage !== SPORE_GRENADE_POLICY.sourcePackage || request.edgeId !== SPORE_GRENADE_POLICY.edgeId
+    || canonicalJson(request.definition.assertion) !== canonicalJson(formalIdentityDefinitions.find(
+      ({ assertion }) => assertion.domainId === SPORE_GRENADE_POLICY.domainId)?.assertion)) {
+    throw new Error('SporeGrenade exact source/applicationScope/index policy mismatch')
+  }
+  const inventory = inventoryInput as unknown as InventoryView
+  const item = exactItem(inventory, request)
+  const candidate = exactCandidate(item, request)
+  {
+    const rawCandidate = item.rawCandidate as JsonRecord
+    const traversal = candidate.traversal as JsonRecord | undefined
+    const paths = traversal?.relationPaths as JsonRecord[] | undefined
+    const roots = Array.isArray(paths) ? paths.filter((entry) => entry.id === 'rp-root') : []
+    if (rawCandidate.status !== 'provisional' || candidate.candidateMappingStatus !== 'provisional'
+      || candidate.role !== 'instance' || candidate.objectName !== 'BP_NetherWartSporeGrenadeInstance_C'
+      || !Array.isArray(candidate.evidence)
+      || !candidate.evidence.includes('serialized-identifier:ItemIdName=NetherWartSporeGrenade')
+      || !candidate.evidence.includes('serialized-identifier:ItemId.SerializedId=NetherWartSporeGrenade')
+      || traversal?.rootPackage !== SPORE_GRENADE_POLICY.sourcePackage || roots.length !== 1
+      || roots[0]!.sourcePackage !== SPORE_GRENADE_POLICY.sourcePackage
+      || !Array.isArray(roots[0]!.edgeIds) || roots[0]!.edgeIds.length !== 0
+      || !Array.isArray(roots[0]!.edgeSequence) || roots[0]!.edgeSequence.length !== 0) {
+      throw new Error('SporeGrenade exact selected candidate/rp-root mismatch')
+    }
+  }
+
+  {
+    const fieldReferences = candidate.relations.filter((reference) =>
+      inventory.sourceRelations.some((source) => source.edgeId === reference.edgeId
+        && source.propertyPath === SPORE_GRENADE_PROPERTY))
+    if (fieldReferences.length !== 1 || fieldReferences[0]!.edgeId !== request.edgeId) {
+      throw new Error('SporeGrenade candidate property occurrence missing or duplicated')
+    }
+  }
+
+  if (request.catalogId !== request.definition.assertion.domainId) {
+    throw new Error('SporeGrenade indexed relation catalog/domain binding mismatch')
+  }
+  if (request.candidatePackage !== request.definition.assertion.applicationScope.packagePath) {
+    throw new Error('SporeGrenade indexed relation candidate/Identity package binding mismatch')
+  }
+
+  const rootMatches = candidate.relations.flatMap((candidateRelation) => {
+    const sourceMatches = inventory.sourceRelations.filter((source) => source.edgeId === candidateRelation.edgeId)
+    if (sourceMatches.length !== 1) return []
+    const source = sourceMatches[0]!
+    return candidateRelation.sourcePackage === request.candidatePackage
+      && candidateRelation.sourceRelationPathId === 'rp-root'
+      && source.sourcePackage === request.candidatePackage
+      && source.propertyPath === SPORE_GRENADE_PROPERTY
+      ? [{ reference: candidateRelation, source }]
+      : []
+  })
+  if (rootMatches.length !== 1) {
+    throw new Error(`SporeGrenade indexed relation root occurrence does not resolve exactly once: ${request.catalogId}`)
+  }
+  if (rootMatches[0]!.reference.edgeId !== request.edgeId) {
+    throw new Error('SporeGrenade indexed relation edgeId does not own the unique root occurrence')
+  }
+
+  const reference = exactCandidateReference(candidate, request.edgeId)
+  const sourceRelation = exactSourceRelation(inventory, request.edgeId)
+  if (reference.sourceRelationPathId !== 'rp-root') {
+    throw new Error('SporeGrenade indexed relation source requires sourceRelationPathId=rp-root')
+  }
+  if (reference.sourcePackage !== request.candidatePackage
+    || sourceRelation.sourcePackage !== request.candidatePackage
+    || reference.sourcePackage !== sourceRelation.sourcePackage) {
+    throw new Error('SporeGrenade indexed relation source requires candidatePackage == sourcePackage')
+  }
+  if (sourceRelation.relationKind !== 'object-property' || sourceRelation.propertyPath !== SPORE_GRENADE_PROPERTY) {
+    throw new Error('SporeGrenade indexed relation source occurrence binding mismatch')
+  }
+  if ((sourceRelation.sourceOccurrenceKind !== 'cdo-property' || sourceRelation.arrayIndex !== 0)) {
+    throw new Error('SporeGrenade source must be an exact root CDO property')
+  }
+
+  const provenance = candidate.candidatePackageProvenance
+  const datasetId = requiredString(inventory.inventoryIdentity?.datasetId, 'SporeGrenade indexed relation datasetId')
+  const sourceShardPath = requiredString(provenance?.sourceShardPath, 'SporeGrenade indexed relation source shard path')
+  const sourceShardUncompressedSha256 = requiredString(
+    provenance?.sourceShardUncompressedSha256,
+    'SporeGrenade indexed relation source shard uncompressed hash',
+  )
+  const sourcePackageHash = requiredString(provenance?.packageHash, 'SporeGrenade indexed relation source package hash')
+  const { shard } = readVerifiedStructuralShard(
+    repositoryRoot,
+    sourceShardPath,
+    datasetId,
+    sourceShardUncompressedSha256,
+  )
+
+  const packageMatches = shard.packages.map((pkg, index) => ({ pkg, index }))
+    .filter(({ pkg }) => pkg.path === request.candidatePackage)
+  if (packageMatches.length !== 1) {
+    throw new Error(`SporeGrenade Structural relation source package does not resolve exactly once: ${request.candidatePackage}`)
+  }
+  const packageMatch = packageMatches[0]!
+  if (!packageMatch.pkg.packageHash || packageMatch.pkg.packageHash.value !== sourcePackageHash) {
+    throw new Error(`SporeGrenade Structural relation source package hash mismatch: ${request.candidatePackage}`)
+  }
+  if (!packageMatch.pkg.parse.runId) {
+    throw new Error(`SporeGrenade Structural relation source package parse runId is missing: ${request.candidatePackage}`)
+  }
+
+  const edgeMatches = shard.edges.map((edge, index) => ({ edge: edge as unknown as JsonRecord, index }))
+    .filter(({ edge }) => edge.id === request.edgeId)
+  if (edgeMatches.length !== 1) {
+    throw new Error(`SporeGrenade Structural relation edgeId does not resolve exactly once: ${request.edgeId}`)
+  }
+  const edgeMatch = edgeMatches[0]!
+  const structuralSummary = structuralRelationSummary(edgeMatch.edge, repositoryRoot, datasetId)
+  if (canonicalJson(structuralSummary) !== canonicalJson(sourceRelation)) {
+    throw new Error(`SporeGrenade indexed source relation does not match its exact Structural edge: ${request.edgeId}`)
+  }
+  if (structuralSummary.relationKind !== 'object-property' || structuralSummary.propertyPath !== SPORE_GRENADE_PROPERTY) {
+    throw new Error(`SporeGrenade Structural root edge policy mismatch: ${request.edgeId}`)
+  }
+  {
+    const structuralRoots = shard.edges.filter((edge) => edge.sourcePackage === request.candidatePackage
+      && edge.kind === 'object-property' && edge.sourceOccurrence.kind === 'cdo-property'
+      && edge.sourceOccurrence.propertyPath === SPORE_GRENADE_PROPERTY)
+    if (structuralRoots.length !== 1 || structuralRoots[0]!.id !== request.edgeId) {
+      throw new Error('SporeGrenade exact Structural root occurrence missing or duplicated')
+    }
+  }
+
+  const source: RawTrace = {
+    artifactPath: sourceShardPath,
+    datasetId,
+    extractionRunId: packageMatch.pkg.parse.runId,
+    packagePath: request.candidatePackage,
+    packageHash: packageMatch.pkg.packageHash,
+    nodePointer: `/edges/${edgeMatch.index}`,
+  }
+  const matchedStructuralIdentity = matchedIdentityDomainIdFromSource(
+    source,
+    request.definition,
+    request.identity,
+    request.identityEvidence,
+  )
+  const direct = request.identitySource
+  const sourceDomainId = matchedStructuralIdentity ?? (direct
+    && matchedIdentityDomainId(direct, request.definition, request.identity, request.identityEvidence)
+    && sameLogicalRawPackage(snapshotSource(direct), source)
+    ? request.definition.assertion.domainId : undefined)
+  if (sourceDomainId !== request.definition.assertion.domainId) {
+    throw new Error(`${request.definition.assertion.id}: SporeGrenade indexed Relation source failed the same-source Identity gate`)
+  }
+
+  const targetResolution = serializedTargetResolution(repositoryRoot, edgeMatch.edge, datasetId)
+  const target = requireFirstWaveTarget(sourceRelation, targetResolution)
+  verifySporeGrenadeSourceStructural(packageMatch.pkg as unknown as JsonRecord, edgeMatch.edge)
+  if (edgeMatch.edge.targetPackage !== SPORE_GRENADE_POLICY.targetPackage
+    || edgeMatch.edge.targetObject !== SPORE_GRENADE_POLICY.targetObject) throw new Error('SporeGrenade exact target mismatch')
+  const structuralTarget = targetStructuralPackage(repositoryRoot, SPORE_GRENADE_POLICY.targetPackage, datasetId)
+  verifySporeGrenadeTargetStructural(SPORE_GRENADE_POLICY.targetObject, structuralTarget.pkg, structuralTarget.edges)
+  return {
+    sourceDomainId, relationRef: relationRefForDomain(sourceDomainId, 'spore-grenade-spawn-class'),
+    occurrence: { domainId: sourceDomainId, collectionRef: 'spore-grenade-spawn-classes', sourceIndex: request.sourceIndex },
+    edgeId: request.edgeId, source, target: target.target,
+    serializedTargetResolution: target.serializedTargetResolution, structuralEdge: edgeMatch.edge,
+  }
+}
+
+/** Structural elements expose their owning array ranges, not an independent element byte range. */
+export function verifySporeGrenadeSourceStructural(pkg: JsonRecord, edge: JsonRecord): void {
+  const rows = Array.isArray(pkg.cdoPropertyInventory) ? pkg.cdoPropertyInventory as JsonRecord[] : []
+  const roots = rows.filter((row) => row.objectName === 'Default__BP_NetherWartSporeGrenadeInstance_C')
+  const exports = Array.isArray(pkg.exports) ? pkg.exports as JsonRecord[] : []
+  const cdos = exports.filter((row) => row.isClassDefaultObject === true && isRecord(row.objectName)
+    && row.objectName.value === 'Default__BP_NetherWartSporeGrenadeInstance_C')
+  const one = (rows: unknown, field: string): JsonRecord => {
+    const matches = Array.isArray(rows) ? rows.filter((row): row is JsonRecord => isRecord(row) && row.path === field) : []
+    if (matches.length !== 1) throw new Error(`SporeGrenade exact container/property missing or duplicated: ${field}`)
+    return matches[0]!
+  }
+  if (pkg.path !== SPORE_GRENADE_POLICY.sourcePackage || roots.length !== 1 || cdos.length !== 1
+    || roots[0]!.exportIndex !== cdos[0]!.exportIndex) throw new Error('SporeGrenade source CDO binding mismatch')
+  const container = one(roots[0]!.properties, 'ProjectileItemSpec')
+  const decoded = isRecord(container.decoding) ? container.decoding : {}
+  if (!isRecord(container.name) || container.name.value !== 'ProjectileItemSpec'
+    || !isRecord(container.type) || container.type.value !== 'StructProperty'
+    || container.arrayIndex !== 0 || !isRecord(container.metadata) || container.metadata.structType !== 'ProjectileItemSpec'
+    || decoded.state !== 'decoded') throw new Error('SporeGrenade decoded ProjectileItemSpec mismatch')
+  const array = one(decoded.properties, 'ProjectileItemSpec.ClassesToSpawn')
+  const arrayDecoded = isRecord(array.decoding) ? array.decoding : {}
+  const elements = Array.isArray(arrayDecoded.elements) ? arrayDecoded.elements as JsonRecord[] : []
+  const element = elements[0]
+  const value = isRecord(element?.value) ? element.value : {}
+  const occurrence = isRecord(edge.sourceOccurrence) ? edge.sourceOccurrence : {}
+  if (!isRecord(array.name) || array.name.value !== 'ClassesToSpawn'
+    || !isRecord(array.type) || array.type.value !== 'ArrayProperty' || array.arrayIndex !== 0
+    || !isRecord(array.metadata) || array.metadata.innerType !== 'ObjectProperty'
+    || !isRecord(array.metadata.innerTypeReference) || array.metadata.innerTypeReference.value !== 'ObjectProperty'
+    || arrayDecoded.state !== 'decoded' || elements.length !== 1 || element?.index !== 0
+    || !isRecord(element.decoding) || element.decoding.state !== 'decoded'
+    || value.kind !== 'import' || value.objectName !== 'BP_SporeGrenade_C'
+    || value.className !== 'BlueprintGeneratedClass' || value.rawPackageIndex !== -2 || value.index !== 1
+    || edge.id !== SPORE_GRENADE_POLICY.edgeId || edge.sourcePackage !== pkg.path
+    || edge.kind !== 'object-property' || occurrence.kind !== 'cdo-property'
+    || occurrence.propertyPath !== SPORE_GRENADE_PROPERTY || occurrence.arrayIndex !== 0
+    || occurrence.rawPackageIndex !== value.rawPackageIndex || edge.targetRawPackageIndex !== value.rawPackageIndex
+    || edge.targetObject !== SPORE_GRENADE_POLICY.targetObject || edge.targetPackage !== SPORE_GRENADE_POLICY.targetPackage) {
+    throw new Error('SporeGrenade exact ClassesToSpawn ObjectProperty/raw element/edge mismatch')
+  }
+  const file = `${SPORE_GRENADE_POLICY.sourcePackage}.uexp`
+  for (const [actual, expected] of [
+    [container.sourceRange, { file, start: 105, end: 264 }],
+    [container.valueRange, { file, start: 154, end: 264 }],
+    [array.sourceRange, { file, start: 154, end: 195 }],
+    [array.valueRange, { file, start: 187, end: 195 }],
+    [occurrence.sourceRange, array.sourceRange], [occurrence.valueRange, array.valueRange],
+  ]) {
+    if (canonicalJson(actual) !== canonicalJson(expected)) throw new Error('SporeGrenade container/element owning source range mismatch')
+  }
+  if (container.serializedSize !== 110 || array.serializedSize !== 8) throw new Error('SporeGrenade serialized container/array size mismatch')
+}

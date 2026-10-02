@@ -100,16 +100,22 @@ const beforeArtifactEffect = buildFormalSerializedRelationArtifact({
 assert.equal(createHash('sha256').update(JSON.stringify(beforeArtifactEffect)).digest('hex'),
   '256a9a0e6e834a29ac8ff5e42c5773d193f30d4bab709a2968e3d29f774ede0b',
   'Existing committed 205 Relation records, projections, collections or evidence changed')
-const artifact = buildFormalSerializedRelationArtifact(inputs)
-assert.deepEqual(collectFormalSerializedRelationErrors(artifact, inputs), [])
+const artifact = buildFormalSerializedRelationArtifact({ ...inputs, horizontalRelations: [...inputs.horizontalRelations!, ...wave.sporeGrenade] })
+const previousArtifact = buildFormalSerializedRelationArtifact(inputs)
+assert.deepEqual(collectFormalSerializedRelationErrors(artifact, { ...inputs, horizontalRelations: [...inputs.horizontalRelations!, ...wave.sporeGrenade] }), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.equal(artifact.semantic.relations.length, 227)
-assert.equal(artifact.relationProjections.length, 227)
-assert.equal(artifact.relationCollections.length, 58)
+assert.equal(artifact.semantic.relations.length, 228)
+assert.equal(artifact.relationProjections.length, 228)
+assert.equal(artifact.relationCollections.length, 59)
+const sporeBaseline = JSON.parse(execFileSync('git', ['show', '597916f064c807d6a83fdf35ba17b7d486b8bbc9:research/domain/formal/serialized-relation-v2.json'], { encoding: 'utf8' }))
+assert.deepEqual(previousArtifact, sporeBaseline, 'Existing 227 Relation/projections, 58 collections and all evidence changed')
+assert.equal(wave.sporeGrenade.length, 1)
+assert.deepEqual(artifact.relationCollections.filter((row) => row.domainId === 'blast-fungus').map((row) =>
+  row.result === 'projected' && [row.collectionRef, row.sourceIndices]), [['spore-grenade-spawn-classes', [0]]])
 const committedRelation = JSON.parse(execFileSync('git', ['show', '5796c70774c92672b87b40354e2194dd4c03292d:research/domain/formal/serialized-relation-v2.json'],
   { cwd: repositoryRoot, encoding: 'utf8' })) as ReturnType<typeof buildFormalSerializedRelationArtifact>
 assert.equal(beforeArtifactEffect.provenance.evidence.length, 214)
-assert.equal(artifact.provenance.evidence.length, 236, 'Artifact Effect, ItemActor, SpinWheel and FishHook must add twenty-two source observations')
+assert.equal(artifact.provenance.evidence.length, 237, 'Final Relation artifact must retain 236 observations and add one SporeGrenade source observation')
 assert.deepEqual(
   artifact.relationProjections.slice(0, 3).map((record) => [
     record.occurrence.domainId,
@@ -138,10 +144,10 @@ assert.ok(horizontal.filter(({ occurrence }) => occurrence.domainId !== 'scatter
   record.result === 'projected' && record.targetRawVerification.input === 'not-supplied'
   && record.targetRawVerification.result === 'not-resolved'
   && record.targetRawVerification.reason === 'target-snapshot-not-supplied'))
-assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 227)
+assert.equal(new Set(artifact.relationProjections.map(({ projectionRef }) => projectionRef)).size, 228)
 assert.equal(new Set(artifact.semantic.relations.map(({ relationRef, occurrence }) =>
-  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 227)
-assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 146)
+  `${relationRef}\0${JSON.stringify(occurrence)}`)).size, 228)
+assert.equal(new Set(artifact.semantic.relations.map(({ sourceDomainId }) => sourceDomainId)).size, 147)
 const withoutSpinWheel = buildFormalSerializedRelationArtifact({ ...inputs,
   horizontalRelations: inputs.horizontalRelations?.filter(({ relationRef }) => !relationRef.endsWith(':spin-wheel-actor@1') && !relationRef.endsWith(':fish-hook@1')) })
 const spinBaseline = JSON.parse(execFileSync('git', ['show', '07160c289dcf987ab5bee5ae69e448d906724aef:research/domain/formal/serialized-relation-v2.json'],
@@ -156,13 +162,13 @@ assert.equal(wave.fishHook.length, 1)
 assert.equal(wave.fishHook[0]!.relationRef, 'relation:fishing-rod:fish-hook@1')
 assert.deepEqual(wave.fishHook[0]!.occurrence, { domainId: 'fishing-rod', scopeRef: 'source' })
 assert.equal(artifact.semantic.relations.filter(({ relationRef }) => relationRef.endsWith(':fish-hook@1')).length, 1)
-assert.equal(new Set(artifact.semantic.relations.map(({ relationRef }) => relationRef.split(':').at(-1))).size, 7)
-assert.equal(artifact.provenance.evidence.length - withoutFishHook.provenance.evidence.length, 1)
+assert.equal(new Set(artifact.semantic.relations.map(({ relationRef }) => relationRef.split(':').at(-1))).size, 8)
+assert.equal(previousArtifact.provenance.evidence.length - withoutFishHook.provenance.evidence.length, 1)
 
 assert.equal(wave.spinWheelActor.length, 1)
 assert.equal(wave.spinWheelActor[0]!.relationRef, 'relation:spinblade:spin-wheel-actor@1')
 assert.deepEqual(wave.spinWheelActor[0]!.occurrence, { domainId: 'spinblade', scopeRef: 'source' })
-assert.equal(artifact.provenance.evidence.length - withoutSpinWheel.provenance.evidence.length, 2)
+assert.equal(previousArtifact.provenance.evidence.length - withoutSpinWheel.provenance.evidence.length, 2)
 
 assert.equal(wave.artifactItemActor.length, 11)
 assert.deepEqual(new Set(wave.artifactItemActor.map(({ sourceDomainId }) => sourceDomainId)),
@@ -177,7 +183,7 @@ assert.equal(artifact.relationCollections.filter(({ domainId }) =>
 const withoutItemActor = buildFormalSerializedRelationArtifact({ ...inputs,
   horizontalRelations: inputs.horizontalRelations?.filter(({ relationRef }) => !relationRef.endsWith(':item-actor@1') && !relationRef.endsWith(':spin-wheel-actor@1') && !relationRef.endsWith(':fish-hook@1')) })
 assert.deepEqual(withoutItemActor, committedRelation, 'Existing 214 Relation records or evidence changed')
-assert.equal(artifact.provenance.evidence.length - withoutItemActor.provenance.evidence.length, 13)
+assert.equal(previousArtifact.provenance.evidence.length - withoutItemActor.provenance.evidence.length, 13)
 
 assert.equal(wave.artifactEffect.length, 9)
 assert.deepEqual(new Set(wave.artifactEffect.map(({ occurrence }) => occurrence.domainId)),
@@ -193,7 +199,7 @@ for (const existing of beforeArtifactEffect.semantic.relations) {
 for (const existing of beforeArtifactEffect.relationProjections) {
   assert.deepEqual(artifact.relationProjections.find(({ projectionRef }) => projectionRef === existing.projectionRef), existing)
 }
-assert.deepEqual(artifact.relationCollections, beforeArtifactEffect.relationCollections)
+assert.deepEqual(previousArtifact.relationCollections, beforeArtifactEffect.relationCollections)
 for (const existing of beforeArtifactEffect.provenance.evidence) {
   assert.deepEqual(artifact.provenance.evidence.find(({ id }) => id === existing.id), existing)
 }
@@ -213,7 +219,7 @@ for (const projection of preArmorArtifact.relationProjections) {
     `${projection.projectionRef}: existing Relation projection changed during Armor breadth`,
   )
 }
-assert.deepEqual(artifact.relationCollections, preArmorArtifact.relationCollections,
+assert.deepEqual(previousArtifact.relationCollections, preArmorArtifact.relationCollections,
   'Existing Relation collections changed during Armor breadth')
 for (const evidenceRecord of preArmorArtifact.provenance.evidence) {
   assert.deepEqual(

@@ -264,13 +264,20 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
     }
   }
   check(relation.relationCollections.every((item) => item.domainId !== 'fishing-rod'), 'FishHook entered collections')
-  check(relation.semantic.relations.length === 227,
+  const spores = relation.relationProjections.filter((row) => row.relationRef.endsWith(':spore-grenade-spawn-class@1'))
+  check(spores.length === 1, 'SporeGrenade exact population mismatch')
+  check(spores[0]?.relationRef === 'relation:blast-fungus:spore-grenade-spawn-class@1'
+    && JSON.stringify(spores[0].occurrence) === JSON.stringify({ domainId: 'blast-fungus', collectionRef: 'spore-grenade-spawn-classes', sourceIndex: 0 }), 'SporeGrenade indexed occurrence mismatch')
+  const sporeCollections = relation.relationCollections.filter((row) => row.domainId === 'blast-fungus')
+  check(sporeCollections.length === 1 && sporeCollections[0]?.collectionRef === 'spore-grenade-spawn-classes'
+    && sporeCollections[0].result === 'projected' && JSON.stringify(sporeCollections[0].sourceIndices) === '[0]', 'SporeGrenade collection mismatch')
+  check(relation.semantic.relations.length === 228,
     `Formal Relation semantic count differs from expected: ${relation.semantic.relations.length}`)
-  check(relation.relationProjections.length === 227,
+  check(relation.relationProjections.length === 228,
     `Formal Relation projection count differs from expected: ${relation.relationProjections.length}`)
-  check(relation.relationCollections.length === 58,
+  check(relation.relationCollections.length === 59,
     `Formal Relation collection count differs from expected: ${relation.relationCollections.length}`)
-  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 146,
+  check(new Set(relation.semantic.relations.map((item) => item.sourceDomainId)).size === 147,
     'Formal Relation unique source domain count differs from expected')
 
   for (const [category, domains, collectionRef] of [

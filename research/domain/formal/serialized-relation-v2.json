@@ -3773,6 +3773,23 @@
         "evidenceRefs": [
           "evidence:relation:fnv1a32:8257535b"
         ]
+      },
+      {
+        "projectionRef": "projection:relation:blast-fungus:spore-grenade-spawn-class@1:0",
+        "relationRef": "relation:blast-fungus:spore-grenade-spawn-class@1",
+        "occurrence": {
+          "domainId": "blast-fungus",
+          "collectionRef": "spore-grenade-spawn-classes",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "blast-fungus",
+        "target": {
+          "objectName": "BP_SporeGrenade_C",
+          "gamePackagePath": "/Game/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:a6940168"
+        ]
       }
     ]
   },
@@ -4369,6 +4386,15 @@
       "domainId": "echo-of-the-valley",
       "collectionRef": "projectile-definitions",
       "evidenceRef": "evidence:relation:fnv1a32:e8eb8b51",
+      "sourceIndices": [
+        0
+      ],
+      "result": "projected"
+    },
+    {
+      "domainId": "blast-fungus",
+      "collectionRef": "spore-grenade-spawn-classes",
+      "evidenceRef": "evidence:relation:fnv1a32:a6940168",
       "sourceIndices": [
         0
       ],
@@ -9275,6 +9301,28 @@
       "serializedTargetResolution": {
         "state": "resolved-local-package",
         "structuralPackagePath": "Dungeons/Content/Actors/Items/FishingRod/BP_FishHookItem"
+      },
+      "targetRawVerification": {
+        "input": "not-supplied",
+        "result": "not-resolved",
+        "reason": "target-snapshot-not-supplied"
+      }
+    },
+    {
+      "projectionRef": "projection:relation:blast-fungus:spore-grenade-spawn-class@1:0",
+      "relationRef": "relation:blast-fungus:spore-grenade-spawn-class@1",
+      "occurrence": {
+        "domainId": "blast-fungus",
+        "collectionRef": "spore-grenade-spawn-classes",
+        "sourceIndex": 0
+      },
+      "evidenceRefs": [
+        "evidence:relation:fnv1a32:a6940168"
+      ],
+      "result": "projected",
+      "serializedTargetResolution": {
+        "state": "resolved-local-package",
+        "structuralPackagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade"
       },
       "targetRawVerification": {
         "input": "not-supplied",
@@ -20419,6 +20467,52 @@
           }
         },
         "fingerprint": "fnv1a32:070fb790"
+      },
+      {
+        "id": "evidence:relation:fnv1a32:a6940168",
+        "kind": "raw-relation-observation",
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:dd781a22ca85ba29f58a141883938a9d8967acb6220095e6bba515af2eac46a2",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5af1680b056b3557714d23d420475da83abd8b4c7b4ff98b6268df30a1195a15"
+          },
+          "nodePointer": "/edges/1058"
+        },
+        "observed": {
+          "id": "cbca1ff1473ec0b3b53a43ea",
+          "kind": "object-property",
+          "sourcePackage": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance",
+          "sourceOccurrence": {
+            "kind": "cdo-property",
+            "propertyPath": "ProjectileItemSpec.ClassesToSpawn[0]",
+            "rawPackageIndex": -2,
+            "sourceRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance.uexp",
+              "start": 154,
+              "end": 195
+            },
+            "valueRange": {
+              "file": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_NetherWartSporeGrenadeInstance.uexp",
+              "start": 187,
+              "end": 195
+            },
+            "arrayIndex": 0
+          },
+          "targetObject": "/Game/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade.BP_SporeGrenade_C",
+          "targetPackageName": "/Game/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade",
+          "targetPackage": "Dungeons/Content/Content_DLC4/Actors/Items/NetherWartSporeGrenade/BP_SporeGrenade",
+          "targetRawPackageIndex": -2,
+          "targetKind": "import",
+          "traversal": {
+            "stopReason": "already-visited",
+            "targetDepth": 1
+          }
+        },
+        "fingerprint": "fnv1a32:b783364d"
       }
     ]
   }
