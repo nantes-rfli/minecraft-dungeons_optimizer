@@ -88,7 +88,7 @@ describe('Artifact narrow Formal Value v2', () => {
       expect(crypto.createHash('sha256').update(bytes).digest('hex')).toBe(expected.sha256)
     }
     expect(identity.semantic.identities.length).toBe(baseline.files['research/domain/formal/identity-evidence-v1.json'].semanticCount)
-    expect(relations.semantic.relations.filter((entry) => !entry.relationRef.endsWith(':spin-wheel-actor@1') && !entry.relationRef.endsWith(':fish-hook@1')).length)
+    expect(relations.semantic.relations.filter((entry) => !entry.relationRef.endsWith(':spin-wheel-actor@1') && !entry.relationRef.endsWith(':fish-hook@1') && !entry.relationRef.endsWith(':spore-grenade-spawn-class@1')).length)
       .toBe(baseline.files['research/domain/formal/serialized-relation-v2.json'].semanticCount)
   })
 

@@ -65,16 +65,16 @@ describe('SpinWheelActor Formal Relation', () => {
     expect(projection).toMatchObject({ result: 'projected', serializedTargetResolution: { state: 'resolved-local-package' },
       targetRawVerification: { input: 'not-supplied', result: 'not-resolved', reason: 'target-snapshot-not-supplied' } })
     expect(artifact.schemaVersion).toBe(2)
-    expect(artifact.semantic.relations).toHaveLength(227)
-    expect(artifact.relationProjections).toHaveLength(227)
-    expect(artifact.relationCollections).toHaveLength(58)
-    expect(new Set(artifact.semantic.relations.map((item) => item.sourceDomainId)).size).toBe(146)
+    expect(artifact.semantic.relations).toHaveLength(228)
+    expect(artifact.relationProjections).toHaveLength(228)
+    expect(artifact.relationCollections).toHaveLength(59)
+    expect(new Set(artifact.semantic.relations.map((item) => item.sourceDomainId)).size).toBe(147)
     const baseline = JSON.parse(execFileSync('git', ['show', '07160c289dcf987ab5bee5ae69e448d906724aef:research/domain/formal/serialized-relation-v2.json'], { encoding: 'utf8' })) as FormalSerializedRelationArtifact
     for (const existing of baseline.semantic.relations) expect(artifact.semantic.relations.find((r) => r.projectionRef === existing.projectionRef)).toEqual(existing)
     for (const existing of baseline.relationProjections) expect(artifact.relationProjections.find((r) => r.projectionRef === existing.projectionRef)).toEqual(existing)
     for (const existing of baseline.provenance.evidence) expect(artifact.provenance.evidence.find((e) => e.id === existing.id)).toEqual(existing)
-    expect(artifact.relationCollections).toEqual(baseline.relationCollections)
-    expect(artifact.provenance.evidence.length - baseline.provenance.evidence.length).toBe(2)
+    expect(artifact.relationCollections.filter((row) => row.domainId !== 'blast-fungus')).toEqual(baseline.relationCollections)
+    expect(artifact.provenance.evidence.length - baseline.provenance.evidence.length).toBe(3)
     const baseInput = (definition: typeof scatterCrossbowFormalIdentity) => {
       const source = JSON.parse(fs.readFileSync(`research/raw/packages/${definition.assertion.applicationScope.packagePath}.raw.json`, 'utf8')) as RawPackageSnapshot
       const projected = projectFormalIdentity(source, definition)

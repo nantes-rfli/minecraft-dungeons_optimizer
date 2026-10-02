@@ -58,6 +58,9 @@ relation:<domainId>:projectile@1
 relation:<domainId>:gear-actor@1
 relation:<domainId>:effect@1
 relation:<domainId>:item-actor@1
+relation:spinblade:spin-wheel-actor@1
+relation:fishing-rod:fish-hook@1
+relation:blast-fungus:spore-grenade-spawn-class@1
 ```
 
 既存 representative relation は同じ規則の下で既存文字列を維持します。
@@ -101,10 +104,11 @@ Artifact Effect: 10 domains / 10 scope occurrences
 Artifact ItemActor: 11 domains / 11 scope occurrences
 Artifact SpinWheelActor: 1 domain / 1 scope occurrence
 Artifact FishHook: 1 domain / 1 scope occurrence
-relation collections: 58
-semantic relations: 227
-relation projections: 227
-unique source domains: 146
+Artifact SporeGrenade: 1 domain / 1 indexed occurrence
+relation collections: 59
+semantic relations: 228
+relation projections: 228
+unique source domains: 147
 ```
 
 Armor 71件のうち Battle Robe は既存 representative path をそのまま維持し、追加70件だけを Horizontal Armor scope lane から生成します。追加70件はすべて exact root `GearActor` Structural edge が `resolved-local-package` であることを要求し、`targetRawVerification` は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。Structural target の local package 解決は gameplay semantic や full Raw target snapshot の検証を意味しません。
@@ -128,3 +132,17 @@ target full-Raw verification は `not-supplied / not-resolved / target-snapshot-
 matched same-source Formal Identity と exact applicationScope、exact selected Horizontal candidate と unique `rp-root`、source provenance/hash、unique decoded scalar CDO rootと exact Structural edge を要求します。FishHook専用verifierが exact target package/object、unique generated `BP_FishHookItem_C`、direct `/Script/Dungeons.FishHookItem` superclass と one-hop native-boundary inheritance、unique corresponding `Default__BP_FishHookItem_C` と class binding / `Default__FishHookItem` template を検証します。
 
 target full Raw verification は `not-supplied / not-resolved / target-snapshot-not-supplied` を維持します。`FishingRodActorClass` は semantic-ambiguous のままです。TypeHierarchy、animation sequences、他のArtifact familyは追加せず、投射・牽引・spawn・damage等のruntime semanticsを推論しません。baseline `50c94d6d9d9fb68c00e84a8dbf03dc806817323f` の既存226 Relation/projection/evidence、58 collectionsとIdentity/Value/Raw/Applicationを保持します。レビュー済みremaining監査authorityとcensusは変更しません。
+
+## Blast Fungus SporeGrenade indexed collection
+
+`spore-grenade-spawn-class` adds only the reviewed Blast Fungus configured class reference:
+`relation:blast-fungus:spore-grenade-spawn-class@1`, occurrence
+`{ domainId: "blast-fungus", collectionRef: "spore-grenade-spawn-classes", sourceIndex: 0 }`.
+This is an indexed `ProjectileItemSpec.ClassesToSpawn[0]` ObjectProperty member, distinct from ranged `projectile`.
+The committed Horizontal candidate remains provisional; exact selection means the reviewed package and matched same-source Formal Identity, not promotion of Horizontal mapping status.
+
+The reader checks the exact applicationScope/candidate/rp-root/Structural edge, verified shard and package provenance, decoded ProjectileItemSpec struct, ClassesToSpawn array and ObjectProperty inner type, raw element index 0 and owning ranges. Structural inventory records the member's owning array source/value ranges; it does not supply a separate per-element byte range. No range is invented or successful-element renumbering performed.
+
+Target verification requires the exact BP_SporeGrenade package/object, unique generated class, direct `/Script/Dungeons.SporeGrenade` superclass, one-hop native-boundary inheritance, unique class-bound `Default__BP_SporeGrenade_C`, and `Default__SporeGrenade` template. Full target Raw remains `not-supplied / not-resolved / target-snapshot-not-supplied`.
+
+SchemaVersion stays 2. Final counts are 8 kinds, 228 relations/projections, 59 collections and 147 source domains. The only new collection has sourceIndices `[0]`. All previous 227 relations/projections, 58 collections, and evidence are compared to baseline `597916f064c807d6a83fdf35ba17b7d486b8bbc9`. Identity/Value/Raw/Application and reviewed census remain unchanged. This configuration does not assert spawning, projectile, damage, explosion, attack or activation runtime behavior.
