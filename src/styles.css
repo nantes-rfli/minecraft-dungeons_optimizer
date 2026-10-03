@@ -799,3 +799,14 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.formal-values-browser { margin-top: 16px; }
+.formal-values-browser table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px; }
+.formal-values-browser caption { padding: 12px 0; text-align: left; }
+.formal-values-browser th, .formal-values-browser td { padding: 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+.formal-values-browser th small { display: block; color: var(--muted); }
+.formal-values-browser .domain-trace dl { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 6px 12px; }
+.formal-values-browser .domain-trace dd { min-width: 0; }
+@media (max-width: 600px) { .formal-values-browser .domain-trace dl { grid-template-columns: 1fr; } }
+.subnav[aria-label="データカテゴリ"] span { color: #b3bfb5; }
+.catalog-row:has(.formal-values-browser) { min-width: 0; }

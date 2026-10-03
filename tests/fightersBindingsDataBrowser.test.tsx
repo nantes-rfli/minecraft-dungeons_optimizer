@@ -11,7 +11,8 @@ function fightersBindingsRow(): string {
   const html = renderToStaticMarkup(createElement(DataBrowserPage, { route: '/data/melee' }))
   const start = html.indexOf('data-equipment-id="fighters-bindings"')
   const end = html.indexOf('data-equipment-id="', start + 30)
-  return html.slice(start, end === -1 ? undefined : end)
+  // Preserve assertions for the existing representative panel independently of the additive shared panel.
+  return html.slice(start, end === -1 ? undefined : end).split('<details class="technical-detail formal-values-browser"')[0]!
 }
 
 describe('Fighter’s Bindings Formal Data Browser consumer', () => {
