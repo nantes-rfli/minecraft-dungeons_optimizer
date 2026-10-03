@@ -47,22 +47,22 @@ const canonical = (input: unknown): string => {
 const hash = (input: unknown) => crypto.createHash('sha256').update(canonical(input)).digest('hex')
 
 describe('Artifact narrow Formal Value v2', () => {
-  it('populates exactly three independent source occurrences with unique mappings and exact provenance', () => {
+  it('populates exactly four independent source occurrences with unique mappings and exact provenance', () => {
     expect(value.schemaVersion).toBe(2)
     expect(Object.keys(value.semantic.artifact).sort()).toEqual(artifactValueMappings.map(({ domainId }) => domainId).sort())
     const artifactDomains = [deathCapMushroomFormalIdentity, corruptedSeedsFormalIdentity, ...readyArtifactFormalIdentities, ...reviewedBridgeArtifactFormalIdentities]
     expect(artifactDomains).toHaveLength(23)
     const excluded = artifactDomains.filter(({ assertion }) => !artifactValueMappings.some(({ domainId }) => domainId === assertion.domainId))
-    expect(excluded).toHaveLength(20)
+    expect(excluded).toHaveLength(19)
     for (const { assertion } of excluded) {
       expect(value.semantic.artifact).not.toHaveProperty(assertion.domainId)
       expect(value.valueProjections.some(({ occurrence }) => occurrence.domainId === assertion.domainId)).toBe(false)
     }
-    expect(new Set(artifactValueMappings.map(({ id }) => id)).size).toBe(3)
+    expect(new Set(artifactValueMappings.map(({ id }) => id)).size).toBe(4)
     for (const [index, mapping] of artifactValueMappings.entries()) {
       const semantic = value.semantic.artifact[mapping.domainId]!
       expect(Object.keys(semantic)).toEqual([mapping.field])
-      expect(semantic[mapping.field]?.value).toBe([8, 2.5, 3][index])
+      expect(semantic[mapping.field]?.value).toBe([8, 2.5, 5, 3][index])
       const projections = value.valueProjections.filter(({ occurrence }) => occurrence.domainId === mapping.domainId)
       expect(projections).toHaveLength(1)
       expect(projections[0]).toMatchObject({ mappingId: mapping.id, result: 'projected', occurrence: { domainId: mapping.domainId, scopeRef: 'source' } })
@@ -72,6 +72,47 @@ describe('Artifact narrow Formal Value v2', () => {
     }
     expect(collectFormalValueAvailabilityErrors(value)).toEqual([])
     expect(collectFormalIntegrationErrors(identity, value, relations)).toEqual([])
+  })
+
+  it('binds Powershaker stacks to its root IntProperty and retains unavailable states', () => {
+    const source = sources.find(({ mapping }) => mapping.domainId === 'powershaker')!
+    expect(source.mapping.rawField).toBe('AttackStacks')
+    expect(source.field).toMatchObject({ state: 'known', value: 5 })
+    expect(source.sourceProvenance.packagePath).toBe(source.definition.assertion.applicationScope.packagePath)
+    const fact = inventory.sourceFacts.find((entry) => entry.propertyName === 'AttackStacks'
+      && entry.source.sourcePackage === source.sourceProvenance.packagePath)!
+    const resolved = resolveDirectHorizontalSourceFact(repositoryRoot, inventory, {
+      category: 'artifact', catalogId: 'powershaker', candidatePackage: source.sourceProvenance.packagePath,
+      sourceFactId: fact.factId,
+    })
+    expect(resolved.propertyType).toBe('IntProperty')
+    expect(resolved.propertyPath).toBe('AttackStacks')
+    for (const state of ['unknown', 'unsupported', 'parse-failed', 'not-extracted'] as const) {
+      const field = { state, reason: 'Powershaker count unavailable', trace: source.field.trace }
+      const result = build(sources.map((entry) => entry === source ? { ...entry, field } : entry))
+      expect(result.semantic.artifact.powershaker).toEqual({})
+      expect(result.semantic.artifact['vexing-chant']).toEqual(value.semantic.artifact['vexing-chant'])
+      expect(result.valueProjections.find(({ mappingId }) => mappingId === source.mapping.id))
+        .toMatchObject({ result: 'unavailable', sourceState: state })
+      expect(collectFormalValueAvailabilityErrors(result)).toEqual([])
+    }
+  })
+
+  it('preserves every pre-extension Value record, Identity and Relation byte for byte', () => {
+    const readBaseline = (file: string) => execFileSync('git', ['show', `f9033fc826fcb46ce22273cbe917adff9211aba8:${file}`], { maxBuffer: 16 * 1024 * 1024 })
+    const previous = JSON.parse(readBaseline('research/domain/formal/value-availability-v2.json').toString()) as FormalValueAvailabilityArtifact
+    const newMapping = artifactValueMappings.find(({ domainId }) => domainId === 'powershaker')!
+    const preserved = structuredClone(value)
+    delete preserved.semantic.artifact.powershaker
+    const newRecord = preserved.valueProjections.find(({ mappingId }) => mappingId === newMapping.id)!
+    preserved.valueProjections = preserved.valueProjections.filter(({ mappingId }) => mappingId !== newMapping.id)
+    preserved.provenance.evidence = preserved.provenance.evidence.filter(({ id }) => !newRecord.evidenceRefs?.includes(id))
+    expect(preserved).toEqual(previous)
+    expect(Buffer.from(`${JSON.stringify(preserved, null, 2)}\n`).equals(readBaseline('research/domain/formal/value-availability-v2.json'))).toBe(true)
+    for (const file of ['identity-evidence-v1.json', 'serialized-relation-v2.json']) {
+      const filePath = `research/domain/formal/${file}`
+      expect(fs.readFileSync(filePath).equals(readBaseline(filePath))).toBe(true)
+    }
   })
 
   it('preserves all existing semantic lanes, projection/evidence bytes, Identity and Relation contents/counts', () => {

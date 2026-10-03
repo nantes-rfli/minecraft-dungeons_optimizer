@@ -21,7 +21,7 @@ semantic
 
 Each domain value remains a typed category semantic, not an arbitrary fact bag or Raw-field mirror.
 The committed artifact populates all 31 matched Melee domains, all 27 matched Ranged domains,
-and the three reviewed Artifact domains described below. Armor (including `battle-robe`) has no
+and the four reviewed Artifact domains described below. Armor (including `battle-robe`) has no
 Value lane; `death-cap-mushroom` is outside the narrow Artifact Value set. These are configured
 values, not runtime support counts. The canonical artifact and the Value/integration audits are
 the scope authority; [Project Status](../PROJECT_STATUS.md) provides the generated overview.
@@ -100,7 +100,7 @@ Value v2 does not assert final damage, effective cadence, effective projectile b
 effects, armor properties, enchantments, native behavior, or generic dependency paths. Configured
 serialized values remain distinct from effective gameplay semantics.
 
-`npm run audit:formal-integration` checks all 58 Melee/Ranged and three narrow Artifact
+`npm run audit:formal-integration` checks all 58 Melee/Ranged and four narrow Artifact
 Identity ↔ Value same-source joins. It also preserves the existing Scatter Crossbow relation
 sourceIndex/target-provenance checks. Relation horizontalization is implemented under its own
 [v2 contract](./formal-serialized-relation-v2.md); it does not automatically introduce new
@@ -128,6 +128,7 @@ and has no Relation dependency.
 | --- | --- | --- | --- | --- |
 | corrupted-seeds | configuredTargetCount | TargetCount | corrupted-seeds:configured-target-count@1 | count |
 | enchanted-grass | configuredIncreasedMaxHealthMultiplier | IncreasedMaxHealthMultiplier | enchanted-grass:configured-max-health-multiplier@1 | dimensionless multiplier |
+| powershaker | configuredAttackStacks | AttackStacks | powershaker:configured-attack-stacks@1 | count |
 | vexing-chant | configuredPetAmountCap | PetAmountCap | vexing-chant:configured-pet-cap@1 | count |
 
 The reader requires the committed matched Identity, its exact selected Horizontal
@@ -139,7 +140,11 @@ locator. Identity/provenance integrity failures stop generation.
 
 The mapping registry, generator, semantic occurrence enumeration, required scope
 coverage, evidence/projection audit and integration audit all recognize this lane.
-The other 20 Artifact domains receive no Value records. No generic damage,
+The other 19 Artifact domains receive no Value records. No generic damage,
 duration, heal, range, base cooldown or effective gameplay semantics are introduced.
 Existing Melee/Ranged Value records and Identity/Relation artifacts are preserved;
 `tests/fixtures/artifact-narrow-value-baseline.json` captures full baseline hashes.
+
+The Powershaker stack-count extension reuses the same root scalar adapter. `AttackStacks = 5`
+is the serialized count configuration only; it does not assert how stacks are consumed,
+triggered, replenished, or scaled during play. `ShockwaveDamage` remains outside this lane.

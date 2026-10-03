@@ -8718,6 +8718,15 @@
           ]
         }
       },
+      "powershaker": {
+        "configuredAttackStacks": {
+          "value": 5,
+          "projectionRef": "projection:value:powershaker:configured-attack-stacks@1:powershaker:scope:source",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:545ff5c4"
+          ]
+        }
+      },
       "vexing-chant": {
         "configuredPetAmountCap": {
           "value": 3,
@@ -23308,6 +23317,18 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:908d0e3a"
+      ]
+    },
+    {
+      "projectionId": "projection:value:powershaker:configured-attack-stacks@1:powershaker:scope:source",
+      "mappingId": "powershaker:configured-attack-stacks@1",
+      "occurrence": {
+        "domainId": "powershaker",
+        "scopeRef": "source"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:545ff5c4"
       ]
     },
     {
@@ -44718,6 +44739,25 @@
           "nodePointer": "/packages/61/cdoPropertyInventory/0/properties/1"
         },
         "fingerprint": "fnv1a32:5ef48441"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:545ff5c4",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:1523e17c3d20d5aefef2f8aedf598526a4d073f3b73c8308f1b95ea9093a2127",
+          "packagePath": "Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9b0030f205074650cd0f67ae3a297352a79d0b4f076c7d85ba94106befebdd7a"
+          },
+          "nodePointer": "/packages/3/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:76fefa49"
       },
       {
         "id": "evidence:value:raw:fnv1a32:d70b1fb9",
