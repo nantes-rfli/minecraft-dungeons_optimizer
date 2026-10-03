@@ -29,7 +29,7 @@ Raw factsをApplicationが安全に扱える装備・値・関係の意味へ変
 
 採用可能なGame Domain / Evidenceだけを使って比較・説明・推薦を行う層です。Layer 2全体の完成を待たず、安全に使える範囲から段階的に接続します。Unknown / Unsupportedを0やneutralへ置き換えません。
 
-RangedはMelee / Armor / Artifactと同型のruntime-support manifestではなく、current structured runtime definitionsで管理しています。Bow / CrossbowはLimitedで、neutralな単一矢damage・完全な発射周期・有限矢数を利用者が観測入力します。Powerからdamageを生成しません。Ranged Enchantmentは Power / Critical Hit / Unchanting のLimited定義だけを評価対象にし、複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果などはResearch-onlyです。
+RangedはMelee / Armor / Artifactと同型のruntime-support manifestではなく、current structured runtime definitionsで管理しています。Bow / CrossbowはLimitedです。入力境界: Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。 Ranged Enchantmentは Power / Critical Hit / Unchanting のLimited定義だけを評価対象にします。未対応境界: 複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。
 
 Melee / Armor / Artifactのruntime support manifestでは、Melee enchantmentは Full 19 / Limited 9 / Research-only 5（population 33）、Armorは Limited 7 / Research-only 66（population 73）、Artifactは Full 2 / Limited 1 / Research-only 42（population 45）です。Rangedとは母集団と管理形式が異なるため、これらのpopulationへ単純合算しません。runtime promotion pipelineは candidate 1、eligible 0、promoted 0 で、採用gateを満たさない値を自動昇格させません。
 
