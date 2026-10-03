@@ -636,7 +636,7 @@ function rangedMappingIds(domainId: string) {
   }
 }
 
-function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['semantic']): SemanticOccurrence[] {
+export function collectSemanticOccurrences(semantic: FormalValueAvailabilityArtifact['semantic']): SemanticOccurrence[] {
   const values: SemanticOccurrence[] = []
   const add = (mappingId: string, occurrence: ValueOccurrence, value: SourceBackedValue<unknown> | undefined) => {
     if (value) values.push({ mappingId, occurrence, value })

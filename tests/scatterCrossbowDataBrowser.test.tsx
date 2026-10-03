@@ -11,7 +11,8 @@ import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 function scatterCrossbowRow(html: string): string {
   const start = html.indexOf('data-equipment-id="scatter-crossbow"')
   const end = html.indexOf('data-equipment-id="', start + 40)
-  return html.slice(start, end === -1 ? undefined : end)
+  // Preserve assertions for the existing representative panel independently of the additive shared panel.
+  return html.slice(start, end === -1 ? undefined : end).split('<details class="technical-detail formal-values-browser"')[0]!
 }
 
 function renderedRow(): string {
