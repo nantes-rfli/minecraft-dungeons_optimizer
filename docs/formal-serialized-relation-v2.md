@@ -93,7 +93,7 @@ Horizontal Relation source は reviewed Formal Identity assertion、committed `r
 
 ## Current population
 
-committed Formal Relation population は次のとおりです。
+committed Formal Relation population は次のとおりです。件数の正本はcanonical artifactとauditであり、層横断のoverviewは生成された [Project Status](../PROJECT_STATUS.md) を参照します。後続のfamily節にある拡張前後の件数は各実装時点の履歴で、current populationを置き換えません。
 
 ```text
 schemaVersion: 2
@@ -119,6 +119,8 @@ Artifact ItemActor 11件はすべて root `ItemActorClass` の scope relation �
 
 ## SpinWheelActor source population
 
+以下の拡張・preservation件数はSpinWheelActor追加時点の履歴です。
+
 `spin-wheel-actor` は `spinblade` の exact `SpinWheelActorClass`（Structural edge `2cd31aaf1c49b33bd4dca244`）に設定された class relation 1件です。`relation:spinblade:spin-wheel-actor@1`、occurrence `{ domainId: "spinblade", scopeRef: "source" }`、projection `projection:relation:spinblade:spin-wheel-actor@1:source` を使用します。schemaVersion は2、Relation kindsは6、collectionsは58です。
 
 matched same-source Identity、exact selected Horizontal candidate と unique `rp-root`、source provenance/hash と unique scalar CDO occurrence を要求します。独立した SpinWheel verifier が source の direct `SpinWheelInstance`、target の exact `BP_SpinWheelActor_C` / direct `/Script/Dungeons.SpinWheelActor`、one-hop native-boundary inheritance、unique corresponding `Default__BP_SpinWheelActor_C` と class binding / `Default__SpinWheelActor` template を検証します。既存 ItemActor verifier の native parent条件は維持します。
@@ -126,6 +128,8 @@ matched same-source Identity、exact selected Horizontal candidate と unique `r
 target full-Raw verification は `not-supplied / not-resolved / target-snapshot-not-supplied` のままです。飛翔、帰還、移動、攻撃、damage、spawn、activation 等の runtime behavior は推論しません。既存225 Relation/projection、58 collections、全既存evidence、Identity/Value/Raw/Application は保持します。レビュー済み remaining census は過去baselineの監査authorityとして変更しません。
 
 ## FishHook source population
+
+以下の拡張・preservation件数はFishHook追加時点の履歴です。
 
 `fish-hook` は `fishing-rod` の exact `FishingHookActorClass`（Structural edge `61c85456ce1c89009060695d`）に設定された class relation 1件です。`relation:fishing-rod:fish-hook@1`、occurrence `{ domainId: "fishing-rod", scopeRef: "source" }`、projection `projection:relation:fishing-rod:fish-hook@1:source` を使用します。schemaVersion は2、Relation kindsは7、Relation/projectionは227、collectionsは58、unique source domainsは146です。既存 Effect とsource domainを共有します。
 
