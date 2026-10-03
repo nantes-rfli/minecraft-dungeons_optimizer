@@ -8,6 +8,7 @@ The current flat layout is intentionally preserved until producer / consumer lin
 
 For normal development and current project decisions:
 
+- [Project status](../PROJECT_STATUS.md) — generated human-readable overview of merged main across Raw / Game Domain / Application
 - [Roadmap](../ROADMAP.md) — current goal and generated Research / Product work units
 - [Autonomous development](../AUTONOMOUS.md) — selection, stop conditions, review and PR handoff; [bootstrap](autonomous-bootstrap.md) / [iteration record](autonomous-iteration-template.md)
 - [Data update workflow](data-update-workflow.md) — Source → Research / Canonical → Evidence → Runtime promotion

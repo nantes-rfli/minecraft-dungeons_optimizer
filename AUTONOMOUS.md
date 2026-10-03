@@ -12,7 +12,7 @@
 | [Data workflow](docs/data-update-workflow.md) / [research layout](research/README.md) | Source・Canonical・Evidence・Promotionの所有権と更新順 |
 | [CI](.github/workflows/ci.yml) / [package.json](package.json) | 実行する検証とコマンドの定義 |
 
-進捗やcoverageの新しい正本を作らない。各iterationの判断・検証記録は [record template](docs/autonomous-iteration-template.md) からPR本文に作る。これはbaseline SHA時点の記録であり、live backlogでもEvidenceでもない。永続的なWork Unit状態を変える場合はroadmapの正本を更新し、既存generatorで反映する。
+進捗やcoverageの新しい正本を作らない。[PROJECT_STATUS.md](PROJECT_STATUS.md) はmerged mainのcanonical stateから生成する人間向けoverviewであり、正本ではない。作業途中の状態やlive GitHub stateを混ぜず、driftは `npm run audit:project-status` で検出する。各iterationの判断・検証記録は [record template](docs/autonomous-iteration-template.md) からPR本文に作る。これはbaseline SHA時点の記録であり、live backlogでもEvidenceでもない。永続的なWork Unit状態を変える場合はroadmapの正本を更新し、既存generatorで反映する。
 
 ## North Star and initial mission
 
@@ -125,7 +125,7 @@ gh run view <run-id> --json headSha,status,conclusion,url,jobs
 ## PR handoff and resumption
 
 1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは検証待ちを明示する。最終CI成功後にreview可能にする。
-2. PR本文にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Site対象なら既存本人限定projectへの反映結果も記録する。
+2. PR / handoffの最初に `Human Progress Summary` を置き、全体で今どこか、今回何を進めたか、なぜ選んだか、3層のどこが変わったか、blocker、次の方向を人間向けに短く説明する。その後にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Site対象なら既存本人限定projectへの反映結果も記録する。
 3. `AWAITING_MERGE` で人間へ引き継ぐ。AIはマージしない。未マージの同一missionから次PRを量産しない。次候補の調査メモは可能だが、別Work Unitの実装は始めない。
 4. 次回起動でPRの状態を確認する。openなら検証済みheadを報告して待ち、ユーザーから修正依頼があればそのPRを更新する。closed-unmergedなら理由を確認して再選定し、同じPRを自動再作成しない。mergedならfetchしたmainへ統合済みであることを確認してouter loopへ戻る。古いnext候補を無条件で実行しない。
 
