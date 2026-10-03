@@ -86,6 +86,10 @@ function blockerBullet(unit: RoadmapWorkUnit): string {
 
 function renderProjectStatus(): string {
   assert.deepEqual(collectRoadmapWorkUnitErrors(ROADMAP_WORK_UNITS), [])
+  const autonomous = fs.readFileSync(path.join(root, 'AUTONOMOUS.md'), 'utf8')
+  assert.ok(autonomous.includes('Applicationが信頼して利用できるGame Domainをsource-backed / fail-closedで拡張する。Raw / Formal完全網羅を目標にしない。'), 'AUTONOMOUS North Star drift')
+  assert.ok(autonomous.includes('`Raw Game Sources → Game Domain / Canonical → Application / Optimizer`'), 'AUTONOMOUS 3-layer architecture drift')
+  assert.ok(autonomous.includes('Unknown / Unclassifiedを数値評価へ渡さない。'), 'AUTONOMOUS fail-closed runtime boundary drift')
 
   const raw = readJson<RawStructuralManifest>('research/raw/game-data-raw-structural-inventory/manifest.json')
   const identity = readJson<IdentityArtifact>('research/domain/formal/identity-evidence-v1.json')
@@ -113,6 +117,7 @@ function renderProjectStatus(): string {
   const blockedUnits = ROADMAP_WORK_UNITS.filter(({ status }) => status === 'blocked')
 
   const sourcePaths = [
+    '`AUTONOMOUS.md`',
     '`src/data/roadmap.ts`',
     '`research/raw/game-data-raw-structural-inventory/manifest.json`',
     '`research/domain/formal/identity-evidence-v1.json`',
