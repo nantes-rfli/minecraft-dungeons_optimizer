@@ -27,6 +27,8 @@
 
 この比較により、未完のRelation件数だけで次タスクを決める必要はない。Product候補が設計時に大規模波及を要すると判明したら再選定し、低ROI候補だけなら停止する。今回は上記候補を実装しない。
 
+Roadmap statusとの照合: P6は`later`だが、`dependsOn`のP1/P2はDoneであり、候補への包含を妨げない。Current R2の直近actionは独立raw traceの取得、Next R3は対象Evidence取得、Next P4はP3Bの成立を必要とし、このbaselineではその入力・gateが揃っていない。一方、共通readerは既知のFormalを利用者へ説明する直接のpayoffを持つ（ResearchのEvidence blockerを解消する作業ではない）。これは次回の比較理由であり、R2全体がblockedという判定やP6への主作業移行ではない。今回は選定dry runのみなのでstatusを変更しない。実際に選ぶ際は、最新のCurrent/Next候補も比較し直し、bounded contributionか恒久的なstatus変更かをiteration recordへ残す。
+
 件数と過去候補との差分は、baseline checkoutで次のread-only処理から再現できる。これは既存census内の候補との照合に限り、未観測sourceの完全性を主張しない。
 
 ```sh
@@ -68,6 +70,8 @@ PY
 | CIが使えない／無関係な失敗を局所修正できない | 未検証を明示して停止。成功扱いにしない |
 | 未マージPR／merge済みPRから再開 | 前者は待機、後者はfetch → recompute → reprioritize |
 | Relationだけが残りconsumerがない | freezeしValue/Productを比較。高価値候補がなければ停止 |
+| Laterの候補が依存条件を満たし、Current/Nextよりpayoffが高い | Current/Nextとの比較根拠を記録して選択可能。恒久的なstatus変更なら正本も更新 |
+| Current/Nextの候補が高ROIでも依存条件を満たさない | statusやROIでgateを迂回せず、対象を保留 |
 
 責務分離、リンク、コマンド、CI起動条件を確認。AGENTSの通常main反映規則に対して、自律モードのみ人間mergeというscope制限を明示した。レビューでreadinessとApplication usefulnessの重なりを確認し、Evidenceが足りても用途がなければ選ばないと明文化した。また、fetch後も古いcheckoutを監査し得る手順を修正し、baselineからclean branchを用意してから再計算する順にした。Raw/Domain/Application、CI、既存生成物は変更していない。contractの導入自体ではSite反映条件に該当しない。
 

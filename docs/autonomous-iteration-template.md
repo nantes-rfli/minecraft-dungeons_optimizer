@@ -22,6 +22,9 @@
 | ... | ... | ... | ... | ... | ... |
 
 - Why this candidate wins / rejected alternatives:
+- Roadmap status / dependsOn・dependencyCondition充足の根拠:
+- Laterを選ぶ場合のCurrent/Next比較・Application payoff・依存解消効果:
+- 恒久的なstatus変更と正本更新 / bounded contributionとして変更しない理由:
 - Relation breadth: continue or freeze, reason / reopen condition:
 - Required evidence or human decision / resume condition:
 

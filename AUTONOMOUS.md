@@ -52,6 +52,13 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 
 readinessとROIは別。readinessは上から判定し、Evidence不足・曖昧さをREADYとしない。Evidenceが十分でも用途がなければ `APPLICATION_NOT_USEFUL` とする。単なるadapter欠如とEvidence欠如を区別する。
 
+ROADMAPの依存条件と計画上の優先順位は、次のように扱う:
+
+- `dependsOn` / `dependencyCondition` は着手可否の必須条件（hard eligibility gate）。対象parameter / mechanic単位の条件がある場合はその単位で充足を確認し、依存先Track全体のDoneを要求しない。未充足の条件を高ROIや`current / next`というstatusで迂回しない。
+- `status`は計画上の優先順位を示す。`current / next`を先に比較するが、`later`自体は実装禁止ではない。`blocked`はblockerの解消を確認するまで選ばず、`done`の完了済みscopeを再実装しない。
+- `current / next`より`later`を選ぶ場合は、Application payoff・依存解消への効果（該当しなければその旨）と、比較したCurrent/Next候補がblockedまたは相対的に低ROIである理由をiteration recordへ明示する。statusを無視してROIだけで選ばない。
+- 選択が継続的な主作業への昇格など恒久的なproject status変更を意味する場合は、同じiterationで`src/data/roadmap.ts`を更新し、既存generatorでROADMAPへ反映する。単発のbounded contributionならstatus変更は必須ではないが、変更しない理由を記録する。
+
 優先するのは、既存foundationで複数domainを処理できる作業、小さなfoundationで複数domainを解禁する作業、Value / Application / explanation / optimizer qualityを直接改善する作業。Identity breadthはそれらの依存を解消する場合に上げる。単独domain専用Relationや利用予定のない構造は低順位。同程度ならsemantic risk、変更範囲、依存解消効果の順で比較し、なお同等なら候補IDの辞書順で選ぶ。固定スコアやFormal件数の最大化は採用しない。
 
 default Work Unitは **1 reusable foundation + そのfoundationで安全に処理可能な全population**。全populationとはEvidence・semantic family・preservation境界が共通のeligible集合であり、Raw全件ではない。1件1PRへ分割する場合は、独立semantic family、高いpreservation risk、schema migration、review boundaryのいずれかを具体的に説明する。共通adapterで異なるfamilyを処理しても、各typed guardをgeneric taxonomyへ潰さない。調査中に集合を修正したら根拠と除外を記録する。
