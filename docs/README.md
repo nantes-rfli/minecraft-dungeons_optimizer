@@ -9,6 +9,7 @@ The current flat layout is intentionally preserved until producer / consumer lin
 For normal development and current project decisions:
 
 - [Roadmap](../ROADMAP.md) — current goal and generated Research / Product work units
+- [Autonomous development](../AUTONOMOUS.md) — selection, stop conditions, review and PR handoff; [bootstrap](autonomous-bootstrap.md) / [iteration record](autonomous-iteration-template.md)
 - [Data update workflow](data-update-workflow.md) — Source → Research / Canonical → Evidence → Runtime promotion
 - [Runtime limitations](runtime-limitations.md) — current support boundaries and close conditions
 - [Combined Evidence & Coverage](combined-evidence-coverage.md) — current cross-category coverage view

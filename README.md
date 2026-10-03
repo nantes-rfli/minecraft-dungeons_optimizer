@@ -112,6 +112,8 @@ npm run test:e2e
 
 エージェント向けの作業ルールは [AGENTS.md](./AGENTS.md)、CIの正本は [.github/workflows/ci.yml](./.github/workflows/ci.yml) です。
 
+自律的なWork Unit選定から検証済みPRまでの運用は [Autonomous development contract](./AUTONOMOUS.md)、新しいセッションからの起動は [Bootstrap prompt](./docs/autonomous-bootstrap.md) を参照してください。
+
 ## Project status
 
 現在の目標と人間向けoverviewは [ROADMAP.md](./ROADMAP.md)、Work UnitのTrack / status / dependency / completion / next actionは [src/data/roadmap.ts](./src/data/roadmap.ts) を構造化正本とします。ROADMAPのWork Unitsはそこから生成します。
