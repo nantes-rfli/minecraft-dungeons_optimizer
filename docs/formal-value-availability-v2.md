@@ -15,11 +15,16 @@ semantic
     → <domainId>
   → ranged
     → <domainId>
+  → artifact
+    → <reviewed domainId>
 ```
 
 Each domain value remains a typed category semantic, not an arbitrary fact bag or Raw-field mirror.
-The committed artifact populates all 27 matched Melee domains and all 23 matched Ranged domains.
-Armor (`battle-robe`) and Artifact (`death-cap-mushroom`) remain outside this Value wave.
+The committed artifact populates all 31 matched Melee domains, all 27 matched Ranged domains,
+and the three reviewed Artifact domains described below. Armor (including `battle-robe`) has no
+Value lane; `death-cap-mushroom` is outside the narrow Artifact Value set. These are configured
+values, not runtime support counts. The canonical artifact and the Value/integration audits are
+the scope authority; [Project Status](../PROJECT_STATUS.md) provides the generated overview.
 
 Every asserted value keeps `value`, `projectionRef`, one or more `evidenceRefs`, and an optional
 `relationProjectionRef`. Value evidence continues to identify the Raw observation independently
@@ -58,7 +63,7 @@ siblings. A failed parent collection does not invent child occurrences. Decoded 
 Projection still requires a matched Formal Identity from the same Raw source. Candidate Raw identity
 alone is insufficient. Identity review decisions and the Identity schema are unchanged.
 
-## First-wave configured fields
+## Configured collection fields
 
 Every Melee configured attack is indexed by its recorded Raw `elementIndex` and carries:
 
@@ -78,16 +83,16 @@ Every Ranged configured projectile definition is indexed by its recorded Raw `el
 carries `NumberOfProjectiles`, `DelaySeconds`, `DelaySecondsPerProjectile`, and `AngleSpan`.
 These are configured source values; the fields do not assert effective combat behavior.
 
-The 48 additional Melee/Ranged domains use source facts joined to their exact Raw Structural
+The 56 non-representative Melee/Ranged domains use source facts joined to their exact Raw Structural
 Inventory shard occurrences. The existing Fighter's Bindings and Scatter Crossbow domains retain
 their representative full-Raw snapshot lane, including Scatter Crossbow's narrow relation-backed
 pushback and friendly-fire values.
 
 Scatter Crossbow's three referenced-projectile configured fields remain a narrow relation-dependent
-extension. They use the existing Serialized Relation v1 projection through `relationProjectionRef`.
+extension. They use the preserved representative projection in [Serialized Relation v2](./formal-serialized-relation-v2.md) through `relationProjectionRef`.
 If the relation, target resolution, or target snapshot dependency fails, Value records
 `failureKind: dependency` without fabricating Raw Value evidence. Serialized Relation itself is
-not reinterpreted by Value v2.
+not reinterpreted by Value v2; its v1-to-v2 migration preserves that projection identity.
 
 ## Boundaries
 
@@ -95,11 +100,22 @@ Value v2 does not assert final damage, effective cadence, effective projectile b
 effects, armor properties, enchantments, native behavior, or generic dependency paths. Configured
 serialized values remain distinct from effective gameplay semantics.
 
-`npm run audit:formal-integration` checks all 50 Melee/Ranged Identity ↔ Value same-source joins and
-preserves the existing Scatter Crossbow relation sourceIndex/target-provenance checks. Relation
-horizontalization remains deferred. The Value audit regenerates v2, preserves the original 17
-representative projection/evidence records exactly, and byte-compares the result with the committed
-artifact.
+`npm run audit:formal-integration` checks all 58 Melee/Ranged and three narrow Artifact
+Identity ↔ Value same-source joins. It also preserves the existing Scatter Crossbow relation
+sourceIndex/target-provenance checks. Relation horizontalization is implemented under its own
+[v2 contract](./formal-serialized-relation-v2.md); it does not automatically introduce new
+relation-dependent Values. The Value audit regenerates v2, preserves the original 17
+representative projection/evidence records exactly, and byte-compares the result with the
+committed artifact.
+
+## Application consumer
+
+The shared [Formal Value browser reader](../src/screens/dataBrowser/formalValuesBrowserModel.ts)
+exposes all existing Value-lane domains in the Melee, Ranged, and Artifact data pages. It reads
+validated Domain artifacts, preserves projection/evidence references and Raw `sourceIndex`, and
+shows unavailable states and dependency failures without numeric fallback. Domains without a
+Value lane receive no invented values. This inspection consumer does not adopt configured values
+into Optimizer runtime or establish effective gameplay behavior.
 
 ## Additive narrow Artifact lane
 
