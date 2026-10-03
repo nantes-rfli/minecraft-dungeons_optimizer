@@ -69,7 +69,11 @@ describe('SporeGrenade Formal Relation', () => {
     expect(artifact.semantic.relations.filter((r) => r.sourceDomainId === 'blast-fungus').map((r) => r.relationRef))
       .toEqual(['relation:blast-fungus:spore-grenade-spawn-class@1'])
     for (const file of ['research/domain/formal/identity-evidence-v1.json', 'research/domain/formal/value-availability-v2.json']) {
-      expect(fs.readFileSync(file).equals(execFileSync('git', ['show', `597916f064c807d6a83fdf35ba17b7d486b8bbc9:${file}`], { maxBuffer: 32 * 1024 * 1024 }))).toBe(true)
+      // Freeze this wave's no-Value-change proof; later Value waves have their own preservation tests.
+      const bytes = file.endsWith('value-availability-v2.json')
+        ? execFileSync('git', ['show', `0f54edff3d0cd4d70b6c4c2e4d8383781b8c0f2c:${file}`], { maxBuffer: 32 * 1024 * 1024 })
+        : fs.readFileSync(file)
+      expect(bytes.equals(execFileSync('git', ['show', `597916f064c807d6a83fdf35ba17b7d486b8bbc9:${file}`], { maxBuffer: 32 * 1024 * 1024 }))).toBe(true)
     }
     expect(artifact.schemaVersion).toBe(2)
     expect(artifact.semantic.relations).toHaveLength(228)
