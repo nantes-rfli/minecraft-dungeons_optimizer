@@ -3,6 +3,15 @@
 [AUTONOMOUS.md](../AUTONOMOUS.md) に従い、下の枠をPR本文へコピーして埋める。PR以前はセッション内の作業メモを使い、停止してPRがない場合は最終報告に残す。これは判断の記録であり、roadmapやEvidenceの正本を置き換えない。該当しない欄も理由を書く。
 
 ```markdown
+## Human Progress Summary
+
+- 全体では今どこか:
+- 今回何を進めたか:
+- なぜそれを選んだか:
+- 3層のどこが変わったか:
+- 何がblockされているか:
+- 次に進む方向:
+
 ## Outcome and scope
 
 - Work Unit / Track:

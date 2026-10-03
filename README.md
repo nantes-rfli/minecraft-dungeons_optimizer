@@ -116,7 +116,7 @@ npm run test:e2e
 
 ## Project status
 
-現在の目標と人間向けoverviewは [ROADMAP.md](./ROADMAP.md)、Work UnitのTrack / status / dependency / completion / next actionは [src/data/roadmap.ts](./src/data/roadmap.ts) を構造化正本とします。ROADMAPのWork Unitsはそこから生成します。
+merged mainの人間向け現在地は [PROJECT_STATUS.md](./PROJECT_STATUS.md) を参照してください。これはcanonical stateから生成するoverviewで、進捗の正本ではありません。Work UnitのTrack / status / dependency / completion / next actionは [src/data/roadmap.ts](./src/data/roadmap.ts) を構造化正本とし、[ROADMAP.md](./ROADMAP.md) のWork Unitsはそこから生成します。
 
 旧Phase 0〜8の経緯や過去の完了記録は [Historical Roadmap](./docs/historical-roadmap.md) に凍結しています。現行の判断へ旧Phase番号や過去のpercentageを再利用しません。
 

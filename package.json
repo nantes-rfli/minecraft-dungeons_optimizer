@@ -95,6 +95,8 @@
     "audit:phase7-research-quest": "node scripts/audit-phase7-research-quest.ts",
     "generate:roadmap": "node scripts/audit-roadmap.ts --write",
     "audit:roadmap": "node scripts/audit-roadmap.ts",
+    "generate:project-status": "node scripts/audit-project-status.ts --write",
+    "audit:project-status": "node scripts/audit-project-status.ts",
     "generate:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts --write",
     "audit:formal-identity-evidence": "node scripts/audit-formal-identity-evidence.ts",
     "generate:remaining-formal-identity-resolution": "node scripts/audit-remaining-formal-identity-resolution.ts --write",
