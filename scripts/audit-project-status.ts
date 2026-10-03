@@ -109,7 +109,7 @@ function renderProjectStatus(): string {
   const rangedWeaponNames = rangedWeapons.map(({ name }) => name.en).join(' / ')
   assert.ok(RANGED_LIMITATIONS.length > 0, 'Ranged runtime limitations must remain explicit')
   const rangedEnchantmentNames = rangedEnchantments.map(({ name }) => name.en).join(' / ')
-  const rangedInputBoundary = RANGED_LIMITATIONS[0]!.replace(/^Limited:\\s*/, '')
+  const rangedInputBoundary = RANGED_LIMITATIONS[0]!.replace(/^Limited:\s*/, '')
   const rangedResearchBoundary = RANGED_LIMITATIONS[RANGED_LIMITATIONS.length - 1]!
 
   const matchedIdentityDomains = new Set(identity.semantic.identities.flatMap(({ resolution }) =>
