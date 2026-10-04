@@ -28,7 +28,9 @@ the scope authority; [Project Status](../PROJECT_STATUS.md) provides the generat
 
 Every asserted value keeps `value`, `projectionRef`, one or more `evidenceRefs`, and an optional
 `relationProjectionRef`. Value evidence continues to identify the Raw observation independently
-of semantic location.
+of semantic location. The integrity validator recomputes each EvidenceRef from its complete
+Raw provenance as well as checking the content fingerprint. Updating a fingerprint alone
+cannot retain an EvidenceRef after changing its source locator, run, dataset, or package hash.
 
 ## Value occurrence and stable projection identity
 
