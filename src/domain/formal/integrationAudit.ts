@@ -108,13 +108,17 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   const valueArtifact = new Set(Object.keys(value.semantic.artifact))
   check(canonicalSet(valueArtifact) === canonicalSet(new Set(artifactValueMappings.map(({ domainId }) => domainId))), 'Artifact Value domains differ from reviewed narrow set')
   for (const mapping of artifactValueMappings) {
-    const records = value.valueProjections.filter(({ occurrence }) => occurrence.domainId === mapping.domainId)
+    const records = value.valueProjections.filter(({ mappingId, occurrence }) => occurrence.domainId === mapping.domainId && mappingId === mapping.id)
     check(records.length === 1 && records[0]?.mappingId === mapping.id && 'scopeRef' in records[0].occurrence && records[0].occurrence.scopeRef === 'source', `${mapping.domainId}: Artifact Value must have one exact source occurrence`)
   }
   const validMappingIds = new Map<string, Set<string>>()
   for (const domainId of valueMelee) validMappingIds.set(domainId, new Set(Object.values(horizontalMeleeValueMappings(domainId)).map(({ id }) => id)))
   for (const domainId of valueRanged) validMappingIds.set(domainId, new Set(Object.values(horizontalRangedValueMappings(domainId)).map(({ id }) => id)))
-  for (const mapping of artifactValueMappings) validMappingIds.set(mapping.domainId, new Set([mapping.id]))
+  for (const mapping of artifactValueMappings) {
+    const ids = validMappingIds.get(mapping.domainId) ?? new Set<string>()
+    ids.add(mapping.id)
+    validMappingIds.set(mapping.domainId, ids)
+  }
   const scatterMappings = validMappingIds.get(scatterCrossbowFormalIdentity.assertion.domainId)
   if (scatterMappings) for (const mapping of Object.values(scatterValueMappings)) scatterMappings.add(mapping.id)
   for (const record of value.valueProjections) {

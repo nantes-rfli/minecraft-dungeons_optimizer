@@ -47,9 +47,9 @@ const canonical = (input: unknown): string => {
 const hash = (input: unknown) => crypto.createHash('sha256').update(canonical(input)).digest('hex')
 
 describe('Artifact narrow Formal Value v2', () => {
-  it('populates exactly four independent source occurrences with unique mappings and exact provenance', () => {
+  it('populates exactly five independent source occurrences with unique mappings and exact provenance', () => {
     expect(value.schemaVersion).toBe(2)
-    expect(Object.keys(value.semantic.artifact).sort()).toEqual(artifactValueMappings.map(({ domainId }) => domainId).sort())
+    expect(Object.keys(value.semantic.artifact).sort()).toEqual([...new Set(artifactValueMappings.map(({ domainId }) => domainId))].sort())
     const artifactDomains = [deathCapMushroomFormalIdentity, corruptedSeedsFormalIdentity, ...readyArtifactFormalIdentities, ...reviewedBridgeArtifactFormalIdentities]
     expect(artifactDomains).toHaveLength(23)
     const excluded = artifactDomains.filter(({ assertion }) => !artifactValueMappings.some(({ domainId }) => domainId === assertion.domainId))
@@ -58,12 +58,12 @@ describe('Artifact narrow Formal Value v2', () => {
       expect(value.semantic.artifact).not.toHaveProperty(assertion.domainId)
       expect(value.valueProjections.some(({ occurrence }) => occurrence.domainId === assertion.domainId)).toBe(false)
     }
-    expect(new Set(artifactValueMappings.map(({ id }) => id)).size).toBe(4)
+    expect(new Set(artifactValueMappings.map(({ id }) => id)).size).toBe(5)
     for (const [index, mapping] of artifactValueMappings.entries()) {
       const semantic = value.semantic.artifact[mapping.domainId]!
-      expect(Object.keys(semantic)).toEqual([mapping.field])
-      expect(semantic[mapping.field]?.value).toBe([8, 2.5, 5, 3][index])
-      const projections = value.valueProjections.filter(({ occurrence }) => occurrence.domainId === mapping.domainId)
+      expect(Object.keys(semantic)).toEqual(artifactValueMappings.filter(({ domainId }) => domainId === mapping.domainId).map(({ field }) => field))
+      expect(semantic[mapping.field]?.value).toBe([8, 2.5, 5, 3, false][index])
+      const projections = value.valueProjections.filter(({ mappingId }) => mappingId === mapping.id)
       expect(projections).toHaveLength(1)
       expect(projections[0]).toMatchObject({ mappingId: mapping.id, result: 'projected', occurrence: { domainId: mapping.domainId, scopeRef: 'source' } })
       expect(projections[0]?.relationProjectionRef).toBeUndefined()
@@ -102,7 +102,8 @@ describe('Artifact narrow Formal Value v2', () => {
     const readBaseline = (file: string) => execFileSync('git', ['show', `f9033fc826fcb46ce22273cbe917adff9211aba8:${file}`], { maxBuffer: 16 * 1024 * 1024 })
     const previous = JSON.parse(readBaseline('research/domain/formal/value-availability-v2.json').toString()) as FormalValueAvailabilityArtifact
     const newMapping = artifactValueMappings.find(({ domainId }) => domainId === 'powershaker')!
-    const preserved = structuredClone(value)
+    // Keep this wave's historical no-change proof tied to its own final head.
+    const preserved = JSON.parse(execFileSync('git', ['show', '79067eeae3d6f32be756ef56a0cfe197506c8e1d:research/domain/formal/value-availability-v2.json'], { maxBuffer: 16 * 1024 * 1024 }).toString()) as FormalValueAvailabilityArtifact
     delete preserved.semantic.artifact.powershaker
     const newRecord = preserved.valueProjections.find(({ mappingId }) => mappingId === newMapping.id)!
     preserved.valueProjections = preserved.valueProjections.filter(({ mappingId }) => mappingId !== newMapping.id)
@@ -113,6 +114,76 @@ describe('Artifact narrow Formal Value v2', () => {
       const filePath = `research/domain/formal/${file}`
       expect(fs.readFileSync(filePath).equals(readBaseline(filePath))).toBe(true)
     }
+  })
+
+  it('preserves the current baseline except for the new boolean field and its exact projection/evidence', () => {
+    const readBaseline = (file: string) => execFileSync('git', ['show', `7a86eda609ace436b409bf17d9cc65831b2ec54e:${file}`], { maxBuffer: 16 * 1024 * 1024 })
+    const preserved = structuredClone(value)
+    delete preserved.semantic.artifact['vexing-chant']!.configuredCoolDownForEachPetDeath
+    const mapping = artifactValueMappings.find(({ rawType }) => rawType === 'BoolProperty')!
+    const record = preserved.valueProjections.find(({ mappingId }) => mappingId === mapping.id)!
+    preserved.valueProjections = preserved.valueProjections.filter(({ mappingId }) => mappingId !== mapping.id)
+    preserved.provenance.evidence = preserved.provenance.evidence.filter(({ id }) => !record.evidenceRefs?.includes(id))
+    expect(Buffer.from(`${JSON.stringify(preserved, null, 2)}\n`).equals(readBaseline('research/domain/formal/value-availability-v2.json'))).toBe(true)
+    for (const file of ['identity-evidence-v1.json', 'serialized-relation-v2.json']) {
+      const filePath = `research/domain/formal/${file}`
+      expect(fs.readFileSync(filePath).equals(readBaseline(filePath))).toBe(true)
+    }
+  })
+
+  it('binds the boolean root source, preserves false and keeps unavailable siblings independent', () => {
+    const source = sources.find(({ mapping }) => mapping.rawType === 'BoolProperty')!
+    const fact = inventory.sourceFacts.find((entry) => entry.propertyName === source.mapping.rawField
+      && entry.source.sourcePackage === source.sourceProvenance.packagePath)!
+    const resolved = resolveDirectHorizontalSourceFact(repositoryRoot, inventory, {
+      category: 'artifact', catalogId: source.mapping.domainId, candidatePackage: source.sourceProvenance.packagePath, sourceFactId: fact.factId,
+    })
+    expect(resolved.propertyType).toBe('BoolProperty')
+    expect(source.field).toMatchObject({ state: 'known', value: false })
+    for (const state of ['unknown', 'unsupported', 'parse-failed', 'not-extracted'] as const) {
+      const result = build(sources.map((entry) => entry === source ? { ...entry, field: { state, reason: 'flag unavailable', trace: source.field.trace } } : entry))
+      expect(result.semantic.artifact['vexing-chant']).toEqual({ configuredPetAmountCap: value.semantic.artifact['vexing-chant']!.configuredPetAmountCap })
+      expect(result.valueProjections.find(({ mappingId }) => mappingId === source.mapping.id)).toMatchObject({ result: 'unavailable', sourceState: state })
+      expect(collectFormalValueAvailabilityErrors(result)).toEqual([])
+    }
+    for (const value of [true, false]) {
+      const result = build(sources.map((entry) => entry === source ? { ...entry, field: { state: 'known', value, trace: source.field.trace } } : entry))
+      expect(result.semantic.artifact['vexing-chant']!.configuredCoolDownForEachPetDeath?.value).toBe(value)
+      expect(collectFormalValueAvailabilityErrors(result)).toEqual([])
+    }
+    const wrongType = horizontalScalarFieldFromResolved<boolean>({ ...resolved, sourceFact: { ...resolved.sourceFact, decodedValue: 0 } }, source.mapping.id, source.definition.assertion.id, source.mapping.rawField, source.mapping.rawType, 'boolean')
+    expect(wrongType).toMatchObject({ state: 'unknown' })
+    expect(wrongType).not.toHaveProperty('value')
+    expect(() => build([...sources, source])).toThrow(/Duplicate/)
+    expect(() => build(sources.map((entry) => entry === source ? { ...entry, field: { state: 'known', value: 0, trace: source.field.trace } } : entry))).toThrow(/scalar type mismatch/)
+    for (const numberSource of sources.filter(({ mapping }) => mapping.rawType !== 'BoolProperty')) {
+      for (const value of [false, Number.NaN, Number.POSITIVE_INFINITY]) {
+        expect(() => build(sources.map((entry) => entry === numberSource ? { ...entry, field: { state: 'known', value, trace: entry.field.trace } } : entry))).toThrow(/scalar type mismatch/)
+      }
+    }
+    const cap = sources.find(({ mapping }) => mapping.field === 'configuredPetAmountCap')!
+    const unavailableCap = build(sources.map((entry) => entry === cap ? { ...entry, field: { state: 'unknown', reason: 'cap unavailable', trace: cap.field.trace } } : entry))
+    expect(unavailableCap.semantic.artifact['vexing-chant']).toEqual({ configuredCoolDownForEachPetDeath: value.semantic.artifact['vexing-chant']!.configuredCoolDownForEachPetDeath })
+    expect(collectFormalValueAvailabilityErrors(unavailableCap)).toEqual([])
+    const invalid = structuredClone(value)
+    Object.assign(invalid.semantic.artifact['vexing-chant']!.configuredCoolDownForEachPetDeath!, { value: 0 })
+    expect(collectFormalValueAvailabilityErrors(invalid).join('\n')).toMatch(/scalar type mismatch/)
+    const missing = structuredClone(value)
+    missing.valueProjections = missing.valueProjections.filter(({ mappingId }) => mappingId !== source.mapping.id)
+    expect(collectFormalValueAvailabilityErrors(missing).join('\n')).toMatch(/missing required Artifact scope/)
+    expect(collectFormalIntegrationErrors(identity, missing, relations).join('\n')).toMatch(/one exact source occurrence/)
+    const duplicate = structuredClone(value)
+    duplicate.valueProjections.push(duplicate.valueProjections.find(({ mappingId }) => mappingId === source.mapping.id)!)
+    expect(collectFormalIntegrationErrors(identity, duplicate, relations).join('\n')).toMatch(/one exact source occurrence/)
+    const unsupported = structuredClone(value)
+    unsupported.valueProjections.find(({ mappingId }) => mappingId === source.mapping.id)!.mappingId = 'vexing-chant:unreviewed@1'
+    expect(collectFormalIntegrationErrors(identity, unsupported, relations).length).toBeGreaterThan(0)
+    for (const rawType of ['IntProperty', 'FloatProperty']) {
+      expect(horizontalScalarFieldFromResolved<boolean>({ ...resolved, propertyType: rawType }, source.mapping.id, source.definition.assertion.id, source.mapping.rawField, source.mapping.rawType, 'boolean')).toMatchObject({ state: 'unknown' })
+    }
+    const drift = structuredClone(inventory)
+    drift.sourceFacts.find(({ factId }) => factId === fact.factId)!.decodedValue = true
+    expect(readArtifactConfiguredValueSources({ repositoryRoot, identity, inventory: drift }).find(({ mapping }) => mapping.id === source.mapping.id)!.field).toMatchObject({ state: 'unknown' })
   })
 
   it('preserves all existing semantic lanes, projection/evidence bytes, Identity and Relation contents/counts', () => {

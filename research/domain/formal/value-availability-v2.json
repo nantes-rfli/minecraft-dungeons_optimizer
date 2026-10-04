@@ -8734,6 +8734,13 @@
           "evidenceRefs": [
             "evidence:value:raw:fnv1a32:d70b1fb9"
           ]
+        },
+        "configuredCoolDownForEachPetDeath": {
+          "value": false,
+          "projectionRef": "projection:value:vexing-chant:configured-cooldown-for-each-pet-death@1:vexing-chant:scope:source",
+          "evidenceRefs": [
+            "evidence:value:raw:fnv1a32:0a96a20f"
+          ]
         }
       }
     }
@@ -23341,6 +23348,18 @@
       "result": "projected",
       "evidenceRefs": [
         "evidence:value:raw:fnv1a32:d70b1fb9"
+      ]
+    },
+    {
+      "projectionId": "projection:value:vexing-chant:configured-cooldown-for-each-pet-death@1:vexing-chant:scope:source",
+      "mappingId": "vexing-chant:configured-cooldown-for-each-pet-death@1",
+      "occurrence": {
+        "domainId": "vexing-chant",
+        "scopeRef": "source"
+      },
+      "result": "projected",
+      "evidenceRefs": [
+        "evidence:value:raw:fnv1a32:0a96a20f"
       ]
     }
   ],
@@ -44777,6 +44796,25 @@
           "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/0"
         },
         "fingerprint": "fnv1a32:7acc85a9"
+      },
+      {
+        "id": "evidence:value:raw:fnv1a32:0a96a20f",
+        "kind": "raw-value-observation",
+        "observation": {
+          "sourceState": "known"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-067.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b45c5ebb007cc057b465ac3b7f91f3ac4bdf5ed1ef085dc51482359a54565467",
+          "packagePath": "Dungeons/Content/Content_DLC6/Actors/Items/LostEvocation/BP_LostEvocationInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cb9ca1eb5e3b50ada2ae3c56e8ed453f4b2441f0eab958546ed512468f997041"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/2"
+        },
+        "fingerprint": "fnv1a32:ee697fe7"
       }
     ]
   }
