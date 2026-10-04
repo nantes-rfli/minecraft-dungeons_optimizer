@@ -41,7 +41,7 @@
 
 - Changed source/generator/consumer/artifacts:
 - Preservation baseline / stable identity / determinism:
-- Independent review: source grounding; overclaim; Raw/Domain/Application boundaries;
+- Self-review pass: source grounding; overclaim; Raw/Domain/Application boundaries;
   schema creep; duplicate truth; preservation; determinism; projection/evidence identity;
   test completeness; unrelated changes
 - Findings → fix → revalidation → review result (or no findings and inspected scope):
@@ -56,5 +56,11 @@
 - Site applicability and result:
 - Unresolved items / limitations:
 - Next candidate and reason, to recompute after merge:
-- PR URL / human merge pending or stop/resume condition:
+- Independent automated reviewer identity / reviewed final head / review URL (未実施ならpending):
+- Merge gate: 各必須条件の結果と証跡（未確認はunknown、Site非対象は理由）:
+- Live current main SHA / PR head SHA / behind count / mergeability:
+- Unresolved significant findings / REQUEST_CHANGES / required threads:
+- Expected head SHA / merge result or pending / stop/resume condition:
+- PR URL:
+- Merge確認後の人間向け報告: アプリで可能になったこと / 全体の進展 / 方針逸脱・残る重大リスク:
 ```

@@ -2,7 +2,7 @@
 
 ## Scope and authorities
 
-この契約は、ユーザーが自律ループを依頼したセッションに適用する。1 iterationは1 Work Unitを検証済みPRにするまで。マージは人間が行い、auto-mergeは有効化しない。通常作業の規則は [AGENTS.md](AGENTS.md) に従い、このモードだけ提出先をPRまでに制限する。契約を読むこと自体はループ開始や常駐実行の指示ではない。
+この契約は、ユーザーが自律ループを依頼したセッションに適用する。1 iterationは1 Work Unitを1検証済みPRにし、merge確認までを扱う。implementerはPR提出までを担当し、マージは人間または下記gateを満たすtrusted independent automated reviewerが行う。通常作業の規則は [AGENTS.md](AGENTS.md) に従う。契約を読むこと自体はループ開始や常駐実行の指示ではない。
 
 | 正本 | 責務 |
 | --- | --- |
@@ -36,7 +36,7 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 
 ## Outer loop: recompute → select
 
-1. `git status --short --branch`、`git fetch origin`、`git rev-parse origin/main`で作業状態とbaseline SHAを確認する。fetch失敗時は古いmainをcurrentと呼ばない。他者の未commit変更をreset/stashせず、必要なら分離する。open PRのhead・対象・担当を確認し、同じmissionの未完了PRがあれば新規着手よりその状況確認を優先する。無関係なPRは閉じない。新規iterationは、そのbaselineから`codex/` branchを作ったclean checkoutで以下を読む・実行する。fetchしただけで古い作業branchを監査しない。既存PRの修正時はそのheadを使い、mainとの差を記録する。
+1. `git status --short --branch`、`git fetch origin`、`git rev-parse origin/main`で作業状態とbaseline SHAを確認する。fetch失敗時は古いmainをcurrentと呼ばない。他者の未commit変更をreset/stashせず、必要なら分離する。open PRのhead・対象・担当を確認し、open autonomous PRがあればその状況を確認し、次のWork Unitを開始しない。無関係なPRは閉じない。新規iterationは、そのbaselineから`codex/` branchを作ったclean checkoutで以下を読む・実行する。fetchしただけで古い作業branchを監査しない。既存PRの修正時はそのheadを使い、mainとの差を記録する。
 2. 上記正本、対象familyの契約・generator・audit・preservation tests、最近のPRを読む。過去の監査はbaselineと入力を確認する。固定SHAを読むcensusを再実行してもcurrentの再計算にはならない。古い監査を改変せず、current artifactとの差分を照合する。
 3. 選定に関係する既存read-only auditを実行し、committed artifactからcoverage・blocker・未処理populationを再計算する。Game Domain missionではFormal Identity / Value / Relation / integrationとPromotion eligibilityを比較する。countsには意味と分母とsource pathを添える。文書とartifactの差は記録し、推測で件数を埋めない。
 4. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。Formalだけでなく利用可能なEvidence内のProduct改善も比較する。
@@ -83,13 +83,13 @@ default Work Unitは **1 reusable foundation + そのfoundationで安全に処�
 
 小さなadapter、deterministic audit、狭いkind追加、複数domain、自己変更によるtest failure、docs/count/fixtureの正当な更新は停止理由ではない。反復が進展しない場合は、同一原因へのfix-upを3回までとして診断と未解決点を引き継ぐ。新Evidenceもcode差分も得られない再監査を繰り返さない。ユーザー指定の時間・予算・中断があれば従う。
 
-## Inner loop and independent self-review
+## Inner loop and self-review
 
 `research → design → implementation → focused tests / audits → self-review → fix → revalidate → commit / push → full CI Validate → PR handoff`
 
 調査・実装・レビューだけを返して終了しない。通常の局所判断は自律的に完了する。ただし明示された調査専用scopeや停止条件は守る。
 
-実装passを終えてから、baselineとのdiffを最初から読む別のself-review passを必ず行う。別エージェントは必須ではない。次をsource・code・testsで確認し、問題ごとにseverity、箇所、修正、再検証結果を記録する:
+実装passを終えてから、baselineとのdiffを最初から読む別のself-review passを必ず行う。self-reviewには別エージェントは必須ではないが、下記の独立merge reviewの代替にはならない。次をsource・code・testsで確認し、問題ごとにseverity、箇所、修正、再検証結果を記録する:
 
 - source grounding、semantic overclaim、Raw → Domain境界、Domain → Applicationへの未採用値の漏れ。
 - schema creep、重複するsource of truth、無関係な変更。
@@ -122,11 +122,36 @@ gh run view <run-id> --json headSha,status,conclusion,url,jobs
 
 ローカルで全CIを理由なく重複実行しない。head変更後の古いsuccessは再利用しない。CI failureはログから原因を特定し、自分の変更を修正して必要な局所検証と最終headのCIを再実行する。CIを弱める、skipする、無関係なvalidation用PRを作ることで迂回しない。
 
+## Trusted automated merge gate
+
+trusted reviewerは、人間が指定または承認した独立automated reviewerであり、implementerとは別のreview主体である。implementer自身のself-review、名義だけを変えた承認、CI successだけではmerge不可。reviewerは最終diff・source・検証証跡を独立に確認し、review主体、対象head SHA、findingsと解決根拠をPRのiteration recordまたはそこからリンクしたreviewへ記録する。この契約だけでbot・scheduler・権限を新設せず、契約変更PR自身を根拠に自分へmerge権限を付与しない。
+
+reviewerはmerge直前にlive GitHub stateとcurrent mainを再取得し、以下を**すべて**確認する。取得失敗や不明な状態をsuccess / 0と扱わない。
+
+| 必須条件 | 確認証跡 |
+| --- | --- |
+| current main向けautonomous iterationのPR | open / review可能なPRのbaseが当該repositoryのmainであり、1 Work Unitのscope・current mainからの再評価記録がある |
+| Human Progress Summaryとiteration recordが存在する | PR本文のsummaryとbaseline / final head・選定・scope・review・検証記録 |
+| stop condition非該当 | 上記stop条件とユーザーの停止・予算・merge制限を再確認する |
+| architecture / acceptance standard / fail-closedの無断変更がない | architecture invariantsとsource-backed境界を最終diffで照合し、方針変更は明示された人間の承認を確認する |
+| unresolved significant review finding = 0 | 独立reviewとself-reviewの重大findingの修正・再review根拠。確認不能は未解決とする |
+| unresolved REQUEST_CHANGES / required review thread = 0 | GitHubの有効な変更要求・必須review thread・required approvalを確認する。thread解決だけで有効なREQUEST_CHANGESを解消済みとしない |
+| final PR headそのもののFull Validateがsuccess | 上記Validation gateのfull Validate runと全必須job / 追加required checkのsuccess。skip・pending・cancelled・failureは不可 |
+| CI head SHA = current PR head SHA | CI runのheadShaとlive PR head SHAの完全一致 |
+| PRがmergeable | GitHubのmergeabilityとbranch protectionの必須条件を満たす。UNKNOWNや判定中は不可 |
+| current mainに対してbehind 0 | 取得したmain SHAがPR headのancestorであり、base側の未取り込みcommit数が0。base差分で選定・preservationが変われば再評価する |
+| required Site handling完了 | AGENTSに従う本人限定の既存projectへの反映証跡。非対象なら理由を記録する |
+| merge時のexpected head SHA固定 | 確認したfinal head SHAをmerge APIのexpected SHAまたは `gh pr merge <PR> --merge --match-head-commit <SHA>` に渡す |
+
+一つでも確認不能・不成立ならmergeせず `AWAITING_MERGE` / `STOPPED`で必要判断を示すか、そのPRのfix-upへ戻す。rate limit / interruption / CI failure時もmergeしない。head変更時は独立reviewと最終headのFull Validateをやり直し、main変更時もbehind・選定根拠・preservationを再評価し、必要な更新後に再review / 再検証する。`--admin`等の保護迂回や、gate未確認のまま将来mergeを予約する `--auto` は使わない。expected head SHAはmain変更を固定しないため、mainが進んでbehindになるmergeを拒否するサーバー側の保護も必要であり、それを保証できなければ自動mergeしない。
+
+merge応答が不明・中断した場合は成功を推測せず停止する。再開時にPRのmerged状態と対象headの統合を確認し、未mergeならgateを最初から確認する。gate確認結果・reviewer・確認時のmain / head SHA・CI URL・merge結果を同じPRのiteration record / reviewに残す。これは監査記録であり、新しい進捗の正本ではない。
+
 ## PR handoff and resumption
 
 1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは検証待ちを明示する。最終CI成功後にreview可能にする。
 2. PR / handoffの最初に `Human Progress Summary` を置き、全体で今どこか、今回何を進めたか、なぜ選んだか、3層のどこが変わったか、blocker、次の方向を人間向けに短く説明する。その後にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Site対象なら既存本人限定projectへの反映結果も記録する。
-3. `AWAITING_MERGE` で人間へ引き継ぐ。AIはマージしない。未マージの同一missionから次PRを量産しない。次候補の調査メモは可能だが、別Work Unitの実装は始めない。
-4. 次回起動でPRの状態を確認する。openなら検証済みheadを報告して待ち、ユーザーから修正依頼があればそのPRを更新する。closed-unmergedなら理由を確認して再選定し、同じPRを自動再作成しない。mergedならfetchしたmainへ統合済みであることを確認してouter loopへ戻る。古いnext候補を無条件で実行しない。
+3. `AWAITING_MERGE` で人間またはtrusted independent automated reviewerへ引き継ぐ。automated reviewerは上記gateをすべて満たす場合だけmergeする。open autonomous PRがある間は次のWork Unitを開始しない。次候補の調査メモは可能だが、別Work Unitの実装は始めない。
+4. 次回起動でPRの状態を確認する。openなら同じPRのreview / gate確認・fix-upを行い、条件を満たさなければ待機または停止する。closed-unmergedなら理由と再開条件を人間へ示して停止し、自動的に次iterationや同じPRを開始しない。mergedならfetchしたmainへ統合済みであることを確認してouter loopへ戻る。次iterationはmerge確認後だけ開始でき、古いnext候補を無条件で実行しない。merge後の人間向け報告は、(1) アプリとして何ができるようになったか（内部整備だけならその旨）、(2) プロジェクト全体のどこが進んだか、(3) 方針逸脱や残る重大リスクがあるか、を短く説明する。細かい実装・検証証跡はPRの記録を参照する。
 
-再開時にはmainのCI失敗や競合変更も確認する。新しいmainにより選択根拠やpreservationが変わった場合は再設計・再検証する。停止時は `STOPPED` と原因・必要判断・再開条件、検証待ちは `VALIDATING` とrun/head、マージ待ちは `AWAITING_MERGE` とPR/headを記録する。常駐schedulerや自動mergeはこの契約の導入には含めない。
+再開時にはmainのCI失敗や競合変更も確認する。新しいmainにより選択根拠やpreservationが変わった場合は再設計・再検証する。停止時は `STOPPED` と原因・必要判断・再開条件、検証待ちは `VALIDATING` とrun/head、マージ待ちは `AWAITING_MERGE` とPR/headを記録する。常駐schedulerやreviewerの実装・権限設定はこの契約の導入には含めない。
