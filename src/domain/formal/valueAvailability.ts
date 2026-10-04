@@ -105,6 +105,7 @@ export type FormalArtifactConfiguredValues = {
   configuredTargetCount?: SourceBackedValue<number>
   configuredIncreasedMaxHealthMultiplier?: SourceBackedValue<number>
   configuredPetAmountCap?: SourceBackedValue<number>
+  configuredAttackStacks?: SourceBackedValue<number>
 }
 
 export type FormalArtifactConfiguredValueSource = {

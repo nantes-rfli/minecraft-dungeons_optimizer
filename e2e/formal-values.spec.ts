@@ -20,3 +20,18 @@ test('shared configured values remain distinct from effective behavior and expos
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
   expect(errors).toEqual([])
 })
+
+test('Powershaker exposes only its configured stack count with exact Raw provenance', async ({ page }) => {
+  await page.goto('/#/data/artifacts')
+  const row = page.locator('[data-equipment-id="powershaker"]')
+  await row.locator(':scope > summary').click()
+  const panel = row.locator('[data-formal-values-domain="powershaker"]')
+  await panel.locator(':scope > summary').click()
+  await expect(panel.getByText('設定攻撃スタック数', { exact: true })).toBeVisible()
+  await expect(panel.locator('tbody tr')).toHaveCount(1)
+  await expect(panel.locator('tbody td').first()).toHaveText('5')
+  await expect(panel.getByText(/Optimizerでの採用を意味しません/)).toBeVisible()
+  await panel.getByText('出典を確認', { exact: true }).click()
+  await expect(panel.getByText('/packages/3/cdoPropertyInventory/0/properties/4', { exact: true })).toBeVisible()
+  await expect(panel.getByText('Dungeons/Content/Content_DLC4/Actors/Items/MobMasher/BP_MobMasherInstance', { exact: true })).toBeVisible()
+})

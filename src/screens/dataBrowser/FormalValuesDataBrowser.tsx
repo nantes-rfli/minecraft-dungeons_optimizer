@@ -22,6 +22,7 @@ const labels: Readonly<Record<string, string>> = {
   'configured-ignore-friendly-fire': '設定friendly fire無視',
   'configured-target-count': '設定対象数',
   'configured-max-health-multiplier': '設定最大HP倍率',
+  'configured-attack-stacks': '設定攻撃スタック数',
   'configured-pet-cap': '設定pet数上限',
 }
 

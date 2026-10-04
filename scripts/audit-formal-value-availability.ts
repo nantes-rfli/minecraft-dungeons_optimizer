@@ -227,4 +227,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Value/Availability artifact drift; run generate:formal-value-availability')
-console.log('Formal Value/Availability v2 audit passed: 31 Melee + 27 Ranged + 3 Artifact matched domains, complete reviewed breadth projections, preserved baseline records, and verified source provenance.')
+console.log('Formal Value/Availability v2 audit passed: 31 Melee + 27 Ranged + 4 Artifact matched domains, complete reviewed breadth projections, preserved baseline records, and verified source provenance.')

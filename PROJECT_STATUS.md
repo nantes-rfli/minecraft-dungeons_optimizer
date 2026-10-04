@@ -20,7 +20,7 @@ Applicationが信頼して利用できるGame Domainを、source-backed / fail-c
 Raw factsをApplicationが安全に扱える装備・値・関係の意味へ変換する層で、現在の主戦場です。Formal Identity / Value / Relationはこの層の内部contractであり、互いに別の意味を持つため件数を単純合算しません。
 
 - Formal Identity: 152 matched domains
-- Formal Value: 61 domains（Melee 31 / Ranged 27 / Artifact 3）
+- Formal Value: 62 domains（Melee 31 / Ranged 27 / Artifact 4）
 - Formal Relation: 147 source domains、228 relation records、59 collections
 
 これらは「全装備をFormal化すれば完了」という進捗率ではありません。Applicationに必要なGame Domainを優先し、source evidenceが足りない対象や用途の薄いbreadthは止められる設計です。
@@ -47,7 +47,7 @@ Formal breadthだけを独立目的にせず、既存DomainのApplication利用�
 | --- | --- | --- |
 | Raw structural inventory | 271 seeds / 6,086 parsed packages / 992,099 edges | horizontal source tracingの基盤。boundaryは保持したまま使う |
 | Formal Identity | 152 matched domains | Raw identityをcanonical equipment identityへsource-backedに接続できる範囲 |
-| Formal Value | 61 domains | configured valueをsource-backedに保持できる範囲。effective behaviorとは別 |
+| Formal Value | 62 domains | configured valueをsource-backedに保持できる範囲。effective behaviorとは別 |
 | Formal Relation | 147 source domains / 228 records | serialized relationを追跡できる範囲。relation存在だけではruntime effectを証明しない |
 | Ranged runtime | Bow / Crossbow: Limited observed-input / Enchant Power / Critical Hit / Unchanting: Limited | 利用者観測に依存し、Power fallbackなし。特殊projectile・固有効果・未検証interactionはResearch-only |
 | Runtime promotion | 1 candidate / 0 eligible / 0 promoted | Domain/Evidenceからruntimeへ進める対象はgateを通過したものだけ |

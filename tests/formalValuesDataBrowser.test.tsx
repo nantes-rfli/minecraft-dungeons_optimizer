@@ -36,8 +36,8 @@ function unavailable(state: 'unknown' | 'unsupported' | 'parse-failed' | 'not-ex
 
 describe('shared Formal Value browser', () => {
   it('covers every current Value domain and projection without changing ordering or values', () => {
-    expect(formalValuesBrowserIndex.size).toBe(61)
-    expect([...formalValuesBrowserIndex.values()].flatMap((model) => model.rows)).toHaveLength(1127)
+    expect(formalValuesBrowserIndex.size).toBe(62)
+    expect([...formalValuesBrowserIndex.values()].flatMap((model) => model.rows)).toHaveLength(1128)
     const sourceValues = new Map(collectSemanticOccurrences(values.semantic).map((entry) => [entry.value.projectionRef, entry.value.value]))
     for (const [domainId, model] of formalValuesBrowserIndex) {
       expect(model.rows.map((row) => row.projectionRef)).toEqual(values.valueProjections.filter((p) => p.occurrence.domainId === domainId).map((p) => p.projectionId))
@@ -46,6 +46,17 @@ describe('shared Formal Value browser', () => {
     }
     expect(formalValuesBrowserIndex.has('battle-robe')).toBe(false)
     expect(renderToStaticMarkup(createElement(FormalValuesDataBrowser, { domainId: 'missing' }))).toBe('')
+  })
+
+  it('shows Powershaker configured stacks with source trace and the effective-behavior limitation', () => {
+    const model = formalValuesBrowserIndex.get('powershaker')!
+    expect(model.rows).toHaveLength(1)
+    expect(model.rows[0]).toMatchObject({ state: 'known', value: 5, mappingId: 'powershaker:configured-attack-stacks@1' })
+    const html = renderToStaticMarkup(createElement(FormalValuesPanel, { model }))
+    expect(html).toContain('<code>5</code>')
+    expect(html).toContain('設定攻撃スタック数')
+    expect(html).toContain('Raw node')
+    expect(html).toContain('最終ダメージ・実効攻撃間隔・実際の効果やOptimizerでの採用を意味しません')
   })
 
   it.each(['unknown', 'unsupported', 'parse-failed', 'not-extracted', 'dependency'] as const)('preserves %s without a numeric fallback or invented evidence', (state) => {
@@ -101,7 +112,7 @@ describe('shared Formal Value browser', () => {
     const routes = ['/data/melee', '/data/ranged', '/data/artifacts'] as const
     const html = routes.map((route) => renderToStaticMarkup(createElement(DataBrowserPage, { route }))).join('')
     for (const domainId of formalValuesBrowserIndex.keys()) expect(html).toContain(`data-formal-values-domain="${domainId}"`)
-    expect(html.match(/data-formal-projection=/g)).toHaveLength(1127)
+    expect(html.match(/data-formal-projection=/g)).toHaveLength(1128)
     expect(html).toContain('最終ダメージ・実効攻撃間隔・実際の効果やOptimizerでの採用を意味しません')
     expect(html).toContain('Extraction run')
     expect(html).toContain('Raw node')
