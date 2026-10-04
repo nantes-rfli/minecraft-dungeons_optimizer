@@ -519,16 +519,19 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
         && record.occurrence.sourceIndex === entry.sourceIndex
       )
       const relation = candidates.length === 1 ? candidates[0] : undefined
-      const relationSource = relation?.evidenceRefs.every((ref) => {
-        const evidence = inputs.relations.provenance.evidence.find((item) => item.id === ref)
-        return evidence && sameRawSource(evidence.provenance, snapshotSource(inputs.scatterCrossbowInstanceRaw))
-      })
+      const relationSource = relation && relation.evidenceRefs.length > 0
+        && new Set(relation.evidenceRefs).size === relation.evidenceRefs.length
+        && relation.evidenceRefs.every((ref) => {
+          const evidence = inputs.relations.provenance.evidence.filter((item) => item.id === ref)
+          return evidence.length === 1 && sameRawSource(evidence[0]!.provenance, snapshotSource(inputs.scatterCrossbowInstanceRaw))
+        })
       const semanticRelation = relation && inputs.relations.semantic.relations.filter((item) => item.projectionRef === relation.projectionRef)
       const relationReady = relation?.result === 'projected' && relationSource && semanticRelation?.length === 1
         && semanticRelation[0]?.sourceDomainId === scatterDomainId
       const targetRef = relationReady && relation.targetRawVerification.result === 'resolved' && 'targetEvidenceRef' in relation.targetRawVerification
         ? relation.targetRawVerification.targetEvidenceRef : undefined
-      const target = targetRef ? inputs.relations.provenance.evidence.find((evidence) => evidence.id === targetRef) : undefined
+      const targets = targetRef ? inputs.relations.provenance.evidence.filter((evidence) => evidence.id === targetRef) : []
+      const target = targets.length === 1 ? targets[0] : undefined
       const targetReady = Boolean(
         relationReady
         && relation.targetRawVerification.result === 'resolved'

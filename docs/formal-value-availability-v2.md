@@ -90,6 +90,10 @@ pushback and friendly-fire values.
 
 Scatter Crossbow's three referenced-projectile configured fields remain a narrow relation-dependent
 extension. They use the preserved representative projection in [Serialized Relation v2](./formal-serialized-relation-v2.md) through `relationProjectionRef`.
+Source Relation EvidenceRefs must be non-empty and distinct, and each referenced source
+or target EvidenceRef must resolve to exactly one provenance record. Empty or ambiguous
+references fail closed before target-dependent fields are read; source-side configured
+values remain available.
 If the relation, target resolution, or target snapshot dependency fails, Value records
 `failureKind: dependency` without fabricating Raw Value evidence. Serialized Relation itself is
 not reinterpreted by Value v2; its v1-to-v2 migration preserves that projection identity.

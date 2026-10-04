@@ -195,6 +195,41 @@ describe('Formal Value / Availability v2 projection', () => {
     expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
   })
 
+  it.each(['empty-source-refs', 'duplicate-source-refs', 'missing-source-evidence', 'duplicate-source-evidence', 'missing-target-evidence', 'duplicate-target-evidence'] as const)(
+    'fails closed on %s before projecting target-dependent values', (kind) => {
+      const baseline = build()
+      const artifact = build(fixtures(), (inputs) => {
+        const relation = inputs.relations.relationProjections.find(({ occurrence }) => occurrence.domainId === 'scatter-crossbow')!
+        if (relation.result !== 'projected' || relation.targetRawVerification.result !== 'resolved') throw new Error('resolved Scatter fixture missing')
+        const sourceRef = relation.evidenceRefs[0]!
+        const targetRef = relation.targetRawVerification.targetEvidenceRef
+        if (kind === 'empty-source-refs') relation.evidenceRefs = []
+        if (kind === 'duplicate-source-refs') relation.evidenceRefs.push(sourceRef)
+        const ref = kind.includes('target') ? targetRef : sourceRef
+        if (kind.includes('missing')) inputs.relations.provenance.evidence = inputs.relations.provenance.evidence.filter(({ id }) => id !== ref)
+        if (kind.endsWith('-evidence') && kind.startsWith('duplicate')) {
+          const evidence = inputs.relations.provenance.evidence.find(({ id }) => id === ref)!
+          const conflict = structuredClone(evidence)
+          conflict.provenance.packageHash = { ...conflict.provenance.packageHash, value: 'conflicting-snapshot' }
+          inputs.relations.provenance.evidence.push(conflict)
+        }
+      })
+      const targetMappings = [scatterValueMappings.pushbackEnabled.id, scatterValueMappings.pushbackStrength.id, scatterValueMappings.ignoreFriendlyFire.id]
+      const targetRecords = artifact.valueProjections.filter(({ mappingId }) => targetMappings.includes(mappingId as typeof targetMappings[number]))
+      expect(targetRecords).toHaveLength(3)
+      for (const record of targetRecords) {
+        expect(record).toMatchObject({ result: 'unavailable', failureKind: 'dependency', reason: kind.includes('target') ? 'target-snapshot-mismatch' : 'relation-source-mismatch' })
+        expect(record.evidenceRefs).toBeUndefined()
+      }
+      const child = artifact.semantic.ranged['scatter-crossbow']!.projectileDefinitions![0]!
+      for (const field of ['configuredPushbackEnabled', 'configuredPushbackStrength', 'configuredIgnoreFriendlyFire']) expect(child).not.toHaveProperty(field)
+      expect(artifact.valueProjections.filter(({ mappingId }) => !targetMappings.includes(mappingId as typeof targetMappings[number])))
+        .toEqual(baseline.valueProjections.filter(({ mappingId }) => !targetMappings.includes(mappingId as typeof targetMappings[number])))
+      expect(artifact.semantic.melee).toEqual(baseline.semantic.melee)
+      expect(collectFormalValueAvailabilityErrors(artifact)).toEqual([])
+    },
+  )
+
   it('keeps source-side values when target resolution fails', () => {
     const input = fixtures()
     input.scatterCrossbowProjectileRaw.dataset.id = 'different-dataset'
