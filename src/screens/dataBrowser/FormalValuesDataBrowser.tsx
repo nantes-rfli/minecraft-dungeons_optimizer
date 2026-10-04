@@ -1,4 +1,5 @@
-import { formalValuesBrowserIndex, type FormalValuesBrowserModel } from './formalValuesBrowserModel'
+import { useState } from 'react'
+import { filterFormalValuesRows, formalValuesBrowserIndex, type FormalValuesBrowserModel } from './formalValuesBrowserModel'
 
 const labels: Readonly<Record<string, string>> = {
   'configured-attacks': '攻撃設定のエントリ番号',
@@ -28,15 +29,27 @@ const labels: Readonly<Record<string, string>> = {
 }
 
 export function FormalValuesPanel({ model }: { model: FormalValuesBrowserModel }) {
+  const [selectedMapping, setSelectedMapping] = useState('')
+  const mappings = [...new Set(model.rows.map((row) => row.mappingId))]
+  const selection = mappings.includes(selectedMapping) ? selectedMapping : ''
+  const rows = filterFormalValuesRows(model.rows, selection)
+  const labelFor = (mappingId: string) => labels[mappingId.split(':').slice(1).join(':').split('@')[0]!] ?? mappingId
   return <details className="technical-detail formal-values-browser" data-formal-values-domain={model.domainId}>
     <summary>ゲームファイルの設定値・取得状況</summary>
     <p className="domain-boundary-note">ゲームファイルに記録された設定値です。最終ダメージ・実効攻撃間隔・実際の効果やOptimizerでの採用を意味しません。取得できない値を0や中立倍率へ置き換えません。</p>
     <p>装備との対応: {model.identityStatus === 'provisional' ? '暫定（provisional）' : '確認済み（accepted）'}。取得不能の理由は各項目に表示します。</p>
+    <div className="formal-values-controls">
+      <label>項目で絞り込む <select value={selection} onChange={(event) => setSelectedMapping(event.target.value)}>
+        <option value="">すべての項目</option>
+        {mappings.map((mappingId) => <option key={mappingId} value={mappingId}>{labelFor(mappingId)}</option>)}
+      </select></label>
+      <p role="status">表示 {rows.length} / {model.rows.length} 行（取得不能 {rows.filter((row) => row.state !== 'known').length} / 全体 {model.rows.filter((row) => row.state !== 'known').length} 行）</p>
+    </div>
     <div className="domain-table-scroll"><table>
       <caption>設定値と取得状況</caption>
       <thead><tr><th scope="col">項目</th><th scope="col">設定値・状態</th><th scope="col">出典</th></tr></thead>
-      <tbody>{model.rows.map((row) => <tr key={row.projectionRef} data-formal-projection={row.projectionRef}>
-        <th scope="row">{labels[row.mappingId.split(':').slice(1).join(':').split('@')[0]!] ?? row.mappingId}{'sourceIndex' in row.occurrence && <small> · エントリ {row.occurrence.sourceIndex}</small>}</th>
+      <tbody>{rows.map((row) => <tr key={row.projectionRef} data-formal-projection={row.projectionRef}>
+        <th scope="row">{labelFor(row.mappingId)}{'sourceIndex' in row.occurrence && <small> · エントリ {row.occurrence.sourceIndex}</small>}</th>
         <td>{row.state === 'known' ? <code>{JSON.stringify(row.value)}</code> : <><strong className="domain-unresolved">取得不能（{row.state}）</strong><p>{row.reason}</p></>}</td>
         <td><details className="domain-trace"><summary>出典を確認</summary><dl>
           <dt>Occurrence</dt><dd><code>{JSON.stringify(row.occurrence)}</code></dd>

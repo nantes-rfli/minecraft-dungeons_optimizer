@@ -6,7 +6,7 @@ import identityJson from '../research/domain/formal/identity-evidence-v1.json'
 import valueJson from '../research/domain/formal/value-availability-v2.json'
 import { evidenceFingerprint, type FormalIdentityEvidenceArtifact } from '../src/domain/formal/identityEvidence'
 import { collectSemanticOccurrences, type FormalValueAvailabilityArtifact } from '../src/domain/formal/valueAvailability'
-import { createFormalValuesBrowserIndex, formalValuesBrowserIndex } from '../src/screens/dataBrowser/formalValuesBrowserModel'
+import { createFormalValuesBrowserIndex, filterFormalValuesRows, formalValuesBrowserIndex } from '../src/screens/dataBrowser/formalValuesBrowserModel'
 import { FormalValuesDataBrowser, FormalValuesPanel } from '../src/screens/dataBrowser/FormalValuesDataBrowser'
 import { DataBrowserPage } from '../src/screens/DataBrowserPage'
 
@@ -35,6 +35,20 @@ function unavailable(state: 'unknown' | 'unsupported' | 'parse-failed' | 'not-ex
 }
 
 describe('shared Formal Value browser', () => {
+  it('filters every domain by exact mapping without losing projection identity, order or trace', () => {
+    for (const model of formalValuesBrowserIndex.values()) {
+      expect(filterFormalValuesRows(model.rows, '')).toBe(model.rows)
+      for (const mappingId of new Set(model.rows.map((row) => row.mappingId))) {
+        const filtered = filterFormalValuesRows(model.rows, mappingId)
+        expect(filtered.map((row) => row.projectionRef)).toEqual(values.valueProjections
+          .filter((record) => record.occurrence.domainId === model.domainId && record.mappingId === mappingId)
+          .map((record) => record.projectionId))
+        for (const row of filtered) expect(model.rows.find((original) => original.projectionRef === row.projectionRef)).toBe(row)
+      }
+      expect(filterFormalValuesRows(model.rows, 'missing-mapping')).toEqual([])
+    }
+  })
+
   it('covers every current Value domain and projection without changing ordering or values', () => {
     expect(formalValuesBrowserIndex.size).toBe(62)
     expect([...formalValuesBrowserIndex.values()].flatMap((model) => model.rows)).toHaveLength(1129)
@@ -76,8 +90,10 @@ describe('shared Formal Value browser', () => {
     expect(row.state).toBe(state)
     expect(row).not.toHaveProperty('value')
     expect(row.evidence.length).toBe(state === 'dependency' ? 0 : 1)
+    expect(filterFormalValuesRows(model.rows, row.mappingId)).toContain(row)
     const html = renderToStaticMarkup(createElement(FormalValuesPanel, { model }))
     expect(html).toContain(`取得不能（${state}）`)
+    expect(html).toContain('全体 1 行')
     expect(html).toContain(state === 'dependency' ? 'Relation target snapshot not supplied' : 'Raw value not available')
     if (state !== 'dependency') expect(html).not.toContain('<code>0</code>')
   })

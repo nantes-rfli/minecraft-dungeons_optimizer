@@ -17,6 +17,11 @@ export type FormalValuesBrowserModel = {
   rows: FormalBrowserRow[]
 }
 
+/** A view over existing projections: keep state, provenance and source ordering intact. */
+export function filterFormalValuesRows(rows: FormalBrowserRow[], mappingId: string): FormalBrowserRow[] {
+  return mappingId === '' ? rows : rows.filter((row) => row.mappingId === mappingId)
+}
+
 /** Read only audited Domain artifacts; never re-extract Raw or infer effective behavior. */
 export function createFormalValuesBrowserIndex(
   identity: FormalIdentityEvidenceArtifact,
