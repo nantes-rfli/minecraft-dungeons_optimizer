@@ -106,6 +106,7 @@ export type FormalArtifactConfiguredValues = {
   configuredIncreasedMaxHealthMultiplier?: SourceBackedValue<number>
   configuredPetAmountCap?: SourceBackedValue<number>
   configuredAttackStacks?: SourceBackedValue<number>
+  configuredCoolDownForEachPetDeath?: SourceBackedValue<boolean>
 }
 
 export type FormalArtifactConfiguredValueSource = {
@@ -114,7 +115,7 @@ export type FormalArtifactConfiguredValueSource = {
   identity: FormalSemanticIdentity
   identityEvidence: RawObservationEvidenceRecord[]
   mapping: ArtifactValueMapping
-  field: Field<number>
+  field: Field<number | boolean>
 }
 
 export type FormalValueAvailabilityArtifact = {
@@ -581,14 +582,20 @@ export function buildFormalValueAvailabilityArtifact(inputs: FormalValueInputs):
   }
 
   for (const source of inputs.artifactConfiguredSources ?? []) {
-    const mapping = artifactValueMappings.find(({ domainId }) => domainId === source.definition.assertion.domainId)
+    const mapping = artifactValueMappings.find(({ id }) => id === source.mapping.id && source.definition.assertion.domainId === source.mapping.domainId)
     if (!mapping || canonicalJson(mapping) !== canonicalJson(source.mapping)) throw new Error('Artifact Value mapping binding mismatch')
     assertHorizontalFieldBinding(source.field, source.sourceProvenance, source.definition, mapping.id, mapping.field)
     const domainId = matchedIdentityDomainIdFromSource(source.sourceProvenance, source.definition, source.identity, source.identityEvidence)
     if (!domainId) continue
-    if (semantic.artifact[domainId]) throw new Error(`Duplicate Formal Artifact Value source: ${domainId}`)
+    if (accumulator.records.some((record) => record.mappingId === mapping.id && record.occurrence.domainId === domainId)) throw new Error(`Duplicate Formal Artifact Value source: ${mapping.id}`)
+    if (source.field.state === 'known' && (typeof source.field.value !== (mapping.rawType === 'BoolProperty' ? 'boolean' : 'number')
+      || (typeof source.field.value === 'number' && !Number.isFinite(source.field.value)))) throw new Error(`Artifact Value scalar type mismatch: ${mapping.id}`)
     const projected = addProjection(accumulator, mapping.id, valueScopeOccurrence(domainId, 'source'), source.field)
-    semantic.artifact[domainId] = projected ? { [mapping.field]: projected } : {}
+    const domain = semantic.artifact[domainId] ??= {}
+    if (projected) {
+      if (mapping.rawType === 'BoolProperty') domain[mapping.field] = projected as SourceBackedValue<boolean>
+      else domain[mapping.field] = projected as SourceBackedValue<number>
+    }
   }
 
   return {
@@ -797,14 +804,19 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
   }
 
   for (const [domainId, domain] of Object.entries(value.semantic.artifact)) {
-    const mapping = artifactValueMappings.find((entry) => entry.domainId === domainId)
-    check(Boolean(mapping), `${domainId}: unsupported Artifact Value domain`)
-    if (!mapping) continue
-    check(Object.keys(domain).every((key) => key === mapping.field), `${domainId}: unsupported Artifact Value field`)
-    const key = recordOccurrenceKey(mapping.id, valueScopeOccurrence(domainId, 'source'))
-    check(byOccurrence.has(key), `${domainId}: missing required Artifact scope projection record`)
+    const mappings = artifactValueMappings.filter((entry) => entry.domainId === domainId)
+    check(mappings.length > 0, `${domainId}: unsupported Artifact Value domain`)
+    if (!mappings.length) continue
+    check(Object.keys(domain).every((key) => mappings.some((mapping) => key === mapping.field)), `${domainId}: unsupported Artifact Value field`)
+    for (const mapping of mappings) {
+      const key = recordOccurrenceKey(mapping.id, valueScopeOccurrence(domainId, 'source'))
+      check(byOccurrence.has(key), `${domainId}: missing required Artifact scope projection record: ${mapping.id}`)
+      const scalar = domain[mapping.field]
+      if (scalar) check(typeof scalar.value === (mapping.rawType === 'BoolProperty' ? 'boolean' : 'number')
+        && (typeof scalar.value !== 'number' || Number.isFinite(scalar.value)), `${mapping.id}: Artifact Value scalar type mismatch`)
+    }
     for (const record of value.valueProjections.filter((entry) => entry.occurrence.domainId === domainId)) {
-      check(record.mappingId === mapping.id && canonicalJson(record.occurrence) === canonicalJson(valueScopeOccurrence(domainId, 'source')),
+      check(mappings.some((mapping) => record.mappingId === mapping.id) && canonicalJson(record.occurrence) === canonicalJson(valueScopeOccurrence(domainId, 'source')),
         `${domainId}: invalid Artifact mapping/occurrence`)
       check(record.relationProjectionRef === undefined && !(record.result === 'unavailable' && record.failureKind === 'dependency'),
         `${domainId}: Artifact source Value cannot depend on Relation`)

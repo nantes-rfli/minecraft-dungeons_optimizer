@@ -24,6 +24,7 @@ const labels: Readonly<Record<string, string>> = {
   'configured-max-health-multiplier': '設定最大HP倍率',
   'configured-attack-stacks': '設定攻撃スタック数',
   'configured-pet-cap': '設定pet数上限',
+  'configured-cooldown-for-each-pet-death': '設定CoolDownForEachPetDeathフラグ',
 }
 
 export function FormalValuesPanel({ model }: { model: FormalValuesBrowserModel }) {

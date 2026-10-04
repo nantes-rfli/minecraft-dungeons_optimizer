@@ -101,7 +101,7 @@ const artifact = buildFormalValueAvailabilityArtifact({
 
 assert.deepEqual(collectFormalValueAvailabilityErrors(artifact), [])
 assert.equal(artifact.schemaVersion, 2)
-assert.deepEqual(Object.keys(artifact.semantic.artifact).sort(), artifactValueMappings.map(({ domainId }) => domainId).sort())
+assert.deepEqual(Object.keys(artifact.semantic.artifact).sort(), [...new Set(artifactValueMappings.map(({ domainId }) => domainId))].sort())
 for (const mapping of artifactValueMappings) {
   assert.ok(artifact.semantic.artifact[mapping.domainId]?.[mapping.field])
   const records = artifact.valueProjections.filter(({ mappingId }) => mappingId === mapping.id)

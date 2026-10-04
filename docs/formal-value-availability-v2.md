@@ -121,7 +121,7 @@ into Optimizer runtime or establish effective gameplay behavior.
 
 `schemaVersion: 2` also includes `semantic.artifact: Record<string,
 FormalArtifactConfiguredValues>`. Only the following reviewed independent root CDO
-configuration fields are populated; each uses `{ domainId, scopeRef: "source" }`
+configuration fields are populated; multiple fields may share a domain, and each uses `{ domainId, scopeRef: "source" }`
 and has no Relation dependency.
 
 | Domain | Formal field | Raw property | Mapping ID | Unit |
@@ -129,6 +129,7 @@ and has no Relation dependency.
 | corrupted-seeds | configuredTargetCount | TargetCount | corrupted-seeds:configured-target-count@1 | count |
 | enchanted-grass | configuredIncreasedMaxHealthMultiplier | IncreasedMaxHealthMultiplier | enchanted-grass:configured-max-health-multiplier@1 | dimensionless multiplier |
 | powershaker | configuredAttackStacks | AttackStacks | powershaker:configured-attack-stacks@1 | count |
+| vexing-chant | configuredCoolDownForEachPetDeath | CoolDownForEachPetDeath | vexing-chant:configured-cooldown-for-each-pet-death@1 | boolean flag |
 | vexing-chant | configuredPetAmountCap | PetAmountCap | vexing-chant:configured-pet-cap@1 | count |
 
 The reader requires the committed matched Identity, its exact selected Horizontal
@@ -148,3 +149,9 @@ Existing Melee/Ranged Value records and Identity/Relation artifacts are preserve
 The Powershaker stack-count extension reuses the same root scalar adapter. `AttackStacks = 5`
 is the serialized count configuration only; it does not assert how stacks are consumed,
 triggered, replenished, or scaled during play. `ShockwaveDamage` remains outside this lane.
+
+The Vexing Chant boolean extension uses the same verified root scalar reader with a
+`BoolProperty` / boolean guard. Serialized `CoolDownForEachPetDeath = false` is known;
+it does not establish effective cooldown start/reset behavior or pet death triggers.
+Each reviewed field requires its own mapping/projection even when another field on
+the domain is unavailable. Unavailable flags have no boolean or numeric fallback.

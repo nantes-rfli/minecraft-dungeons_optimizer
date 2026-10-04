@@ -46,7 +46,7 @@ export function readArtifactConfiguredValueSources(args: {
     const trace = { raw, mappingId: mapping.id, identityAssertionId: definition.assertion.id }
     const decodingState: string | undefined = occurrence?.property.decoding.state
     const state: UnavailableState = decodingState === 'unsupported' || decodingState === 'parse-failed' || decodingState === 'not-extracted' ? decodingState : 'unknown'
-    let field: Field<number>
+    let field: Field<number | boolean>
     try {
       const items = inventory.items.filter((item) => item.category === 'artifact' && item.catalogId === mapping.domainId)
       if (items.length !== 1) throw new Error('Horizontal Artifact item is missing or ambiguous')
@@ -62,7 +62,7 @@ export function readArtifactConfiguredValueSources(args: {
       })
       if (resolved.raw.nodePointer !== raw.nodePointer
         || !matchedIdentityDomainIdFromSource(resolved.raw, definition, identity, identityEvidence)) throw new Error('Artifact root source binding drift')
-      field = horizontalScalarFieldFromResolved<number>(resolved, mapping.id, definition.assertion.id, mapping.rawField, mapping.rawType, 'number')
+      field = horizontalScalarFieldFromResolved<number | boolean>(resolved, mapping.id, definition.assertion.id, mapping.rawField, mapping.rawType, mapping.rawType === 'BoolProperty' ? 'boolean' : 'number')
     } catch (error) {
       field = { state, reason: `Artifact source unavailable: ${error instanceof Error ? error.message : String(error)}`, trace }
     }
