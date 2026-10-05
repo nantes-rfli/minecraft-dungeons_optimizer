@@ -81,6 +81,8 @@ candidate relation reference
 
 adapter は fail closed です。candidate relation の edgeId と sourceRelations edge は一意でなければならず、first-wave source は `candidatePackage == sourcePackage` かつ `sourceRelationPathId == rp-root` を要求します。Structural manifest / shard の dataset identity、compressed/uncompressed hash、source package hash、edgeId、propertyPath、arrayIndex、target kind/object/package を exact に照合します。
 
+Structural target package の存在・不在をキャッシュする場合も、呼び出しごとに現在のmanifestのschema・datasetを確認します。manifestの内容が変われば探索をやり直し、同一manifestでも探索に使った全shardのbytes/hashを再検証してから結果を再利用します。古い存在・不在の結果でsource driftや欠損を隠しません。
+
 Fighter's Bindings と Scatter Crossbow の Identity は既存の full Raw snapshot を参照します。これら2件は full Raw 上で matched Identity を再検証し、Structural shard と dataset ID・package path・package content hash が一致する場合に限って adapter を通します。両形式の extraction run ID は別であり、各 artifact の provenance はそれぞれ検証します。
 
 Melee は `ConfiguredAttackVariants[sourceIndex] -> AttackSequence`、Ranged は `ProjectileDefinition[sourceIndex] -> Projectile` として parent collection / sourceIndex / exact child edge を bind します。Armor は exact Identity source package の root `GearActor` edge を `{ domainId, scopeRef: "source" }` として bind します。Artifact は承認済み typed policy に従い、root `Effect` または root `ItemActorClass` edge を同じ source scope に bind します。category だけで property や kind を決定しません。これらは collection/sourceIndex semantics へ変換しません。property 名や target path の類似だけで別 occurrence を借りません。

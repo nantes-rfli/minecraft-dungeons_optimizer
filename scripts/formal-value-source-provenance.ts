@@ -17,7 +17,11 @@ type JsonRecord = Record<string, unknown>
 const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).digest('hex')
 const isRecord = (value: unknown): value is JsonRecord => typeof value === 'object' && value !== null && !Array.isArray(value)
 const verifiedShardCache = new Map<string, RawStructuralInventoryShard>()
-const verifiedPackageExistenceCache = new Map<string, boolean>()
+const verifiedPackageExistenceCache = new Map<string, {
+  manifestSha256: string
+  shardPaths: readonly string[]
+  exists: boolean
+}>()
 const comparePackagePath = (left: string, right: string): number => left.localeCompare(right)
 
 function deepFreeze<T>(value: T): T {
@@ -115,11 +119,9 @@ export function hasVerifiedStructuralPackage(
   expectedDatasetId: string,
 ): boolean {
   const cacheKey = `${path.resolve(repositoryRoot)}\0${expectedDatasetId}\0${packagePath}`
-  const cached = verifiedPackageExistenceCache.get(cacheKey)
-  if (cached !== undefined) return cached
-
   const manifestPath = path.join(repositoryRoot, RAW_STRUCTURAL_INVENTORY_MANIFEST)
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as RawStructuralInventoryManifest
+  const manifestBytes = fs.readFileSync(manifestPath)
+  const manifest = JSON.parse(manifestBytes.toString('utf8')) as RawStructuralInventoryManifest
   if (manifest.schemaVersion !== 1
     || manifest.artifactKind !== 'raw-structural-inventory-with-dependency-graph'
     || manifest.representation !== 'canonical-json-in-deterministic-gzip-shards') {
@@ -127,6 +129,22 @@ export function hasVerifiedStructuralPackage(
   }
   if (manifest.scope.dataset.id !== expectedDatasetId) {
     throw new Error('Structural Inventory dataset identity mismatch')
+  }
+
+  const manifestSha256 = sha256(manifestBytes)
+  const cached = verifiedPackageExistenceCache.get(cacheKey)
+  if (cached?.manifestSha256 === manifestSha256) {
+    // The manifest revision binds the search ranges; verify every shard that
+    // established membership or absence before reusing that result.
+    for (const artifactPath of cached.shardPaths) {
+      readVerifiedStructuralShard(repositoryRoot, artifactPath, expectedDatasetId)
+    }
+    return cached.exists
+  }
+  const shardPaths: string[] = []
+  const remember = (exists: boolean): boolean => {
+    verifiedPackageExistenceCache.set(cacheKey, { manifestSha256, shardPaths, exists })
+    return exists
   }
 
   let low = 0
@@ -137,6 +155,7 @@ export function hasVerifiedStructuralPackage(
     if (!meta) throw new Error(`Structural Inventory shard index out of range: ${middle}`)
     const artifactPath = `${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/${meta.path}`
     const { shard } = readVerifiedStructuralShard(repositoryRoot, artifactPath, expectedDatasetId)
+    shardPaths.push(artifactPath)
     if (shard.packages.length === 0) throw new Error(`Structural Inventory shard is empty: ${artifactPath}`)
 
     const packagePaths = shard.packages.map((pkg) => pkg.path)
@@ -156,13 +175,11 @@ export function hasVerifiedStructuralPackage(
       const matches = shard.packages.filter((pkg) => pkg.path === packagePath)
       if (matches.length > 1) throw new Error(`Structural Inventory package does not resolve exactly once: ${packagePath}`)
       const exists = matches.length === 1
-      verifiedPackageExistenceCache.set(cacheKey, exists)
-      return exists
+      return remember(exists)
     }
   }
 
-  verifiedPackageExistenceCache.set(cacheKey, false)
-  return false
+  return remember(false)
 }
 
 export function verifyValueRawTraceProvenance(
