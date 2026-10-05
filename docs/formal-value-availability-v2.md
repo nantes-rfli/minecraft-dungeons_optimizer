@@ -32,6 +32,11 @@ of semantic location. The integrity validator recomputes each EvidenceRef from i
 Raw provenance as well as checking the content fingerprint. Updating a fingerprint alone
 cannot retain an EvidenceRef after changing its source locator, run, dataset, or package hash.
 
+The offline Value provenance verifier rejects full-Raw snapshots with an unsupported or
+missing schema version, snapshot kind, parser ID, or parser schema version before resolving
+the occurrence. These compatibility checks use the existing Raw extractor/parser constants;
+matching dataset/run/package provenance alone does not establish format compatibility.
+
 ## Value occurrence and stable projection identity
 
 v2 serializes either a scope occurrence:
