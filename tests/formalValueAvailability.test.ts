@@ -1,6 +1,6 @@
 import { battleRobeRelationDefinition, buildFormalSerializedRelationArtifact, deathCapMushroomRelationDefinition, scatterCrossbowRelationDefinition } from '../src/domain/formal/serializedRelation.ts'
 import { fightersBindingsFormalIdentity, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
-import { projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
+import { evidenceFingerprint, projectFormalIdentity, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
@@ -376,6 +376,19 @@ describe('Formal Value / Availability v2 integrity audit', () => {
     shared.semantic.melee['fighters-bindings']!.attacks![1]!.configuredDamage = structuredClone(shared.semantic.melee['fighters-bindings']!.attacks![0]!.configuredDamage)
     expect(collectFormalValueAvailabilityErrors(shared)).toContainEqual(expect.stringContaining('found 2'))
   })
+
+  it.each(['artifactPath', 'datasetId', 'extractionRunId', 'packagePath', 'packageHash', 'nodePointer'] as const)(
+    'rejects %s provenance drift even with a recomputed content fingerprint', (field) => {
+      const artifact = clone(build())
+      const evidence = artifact.provenance.evidence[0]!
+      if (field === 'packageHash') evidence.provenance.packageHash = { ...evidence.provenance.packageHash, value: 'changed-hash' }
+      else evidence.provenance[field] += ':changed'
+      const { fingerprint: _, ...content } = evidence
+      void _
+      evidence.fingerprint = evidenceFingerprint(content)
+      expect(collectFormalValueAvailabilityErrors(artifact)).toContainEqual(expect.stringContaining('EvidenceRef does not match Raw provenance'))
+    },
+  )
 
   it('rejects empty, dangling, and mismatched evidence references', () => {
     const empty = clone(build())

@@ -704,6 +704,7 @@ export function collectFormalValueAvailabilityErrors(value: FormalValueAvailabil
     if (!evidence.has(record.id)) evidence.set(record.id, record)
     const content: Record<string, unknown> = { ...record }
     delete content.fingerprint
+    check(record.id === valueEvidenceRef(record.provenance), `EvidenceRef does not match Raw provenance: ${record.id}`)
     check(record.fingerprint === evidenceFingerprint(content), `evidence fingerprint mismatch: ${record.id}`)
     check(record.provenance.artifactPath.length > 0 && record.provenance.nodePointer !== undefined, `invalid evidence provenance: ${record.id}`)
   }

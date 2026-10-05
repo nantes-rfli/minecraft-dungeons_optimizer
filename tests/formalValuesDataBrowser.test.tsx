@@ -119,6 +119,13 @@ describe('shared Formal Value browser', () => {
   it('rejects dangling/duplicate/conflicting provenance and identity or occurrence drift', () => {
     const mutations: ((value: FormalValueAvailabilityArtifact) => void)[] = [
       (v) => { v.provenance.evidence.pop() },
+      (v) => {
+        const evidence = v.provenance.evidence[0]!
+        evidence.provenance.nodePointer += '/changed'
+        const { fingerprint: _, ...content } = evidence
+        void _
+        evidence.fingerprint = evidenceFingerprint(content)
+      },
       (v) => { v.valueProjections.push(v.valueProjections[0]!) },
       (v) => { v.semantic.melee['fighters-bindings']!.attacks![0]!.configuredDamage!.evidenceRefs = ['missing'] },
       (v) => { v.valueProjections[0]!.occurrence.domainId = 'wrong-domain' },
