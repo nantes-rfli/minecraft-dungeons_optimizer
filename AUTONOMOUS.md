@@ -138,12 +138,28 @@ reviewerはmerge直前にlive GitHub stateとcurrent mainを再取得し、以�
 | unresolved REQUEST_CHANGES / required review thread = 0 | GitHubの有効な変更要求・必須review thread・required approvalを確認する。thread解決だけで有効なREQUEST_CHANGESを解消済みとしない |
 | final PR headそのもののFull Validateがsuccess | 上記Validation gateのfull Validate runと全必須job / 追加required checkのsuccess。skip・pending・cancelled・failureは不可 |
 | CI head SHA = current PR head SHA | CI runのheadShaとlive PR head SHAの完全一致 |
-| PRがmergeable | GitHubのmergeabilityとbranch protectionの必須条件を満たす。UNKNOWNや判定中は不可 |
+| PRがmergeable | GitHubのmergeabilityを確認する。branch protection / rulesetが設定されている場合はその必須条件も満たす。利用不可・未設定であること自体は失敗とせず、状態を確認できない場合やmergeabilityがUNKNOWN / 判定中の場合は不可 |
 | current mainに対してbehind 0 | 取得したmain SHAがPR headのancestorであり、base側の未取り込みcommit数が0。base差分で選定・preservationが変われば再評価する |
 | required Site handling完了 | AGENTSに従う本人限定の既存projectへの反映証跡。非対象なら理由を記録する |
 | merge時のexpected head SHA固定 | 確認したfinal head SHAをmerge APIのexpected SHAまたは `gh pr merge <PR> --merge --match-head-commit <SHA>` に渡す |
 
-一つでも確認不能・不成立ならmergeせず `AWAITING_MERGE` / `STOPPED`で必要判断を示すか、そのPRのfix-upへ戻す。rate limit / interruption / CI failure時もmergeしない。head変更時は独立reviewと最終headのFull Validateをやり直し、main変更時もbehind・選定根拠・preservationを再評価し、必要な更新後に再review / 再検証する。`--admin`等の保護迂回や、gate未確認のまま将来mergeを予約する `--auto` は使わない。expected head SHAはmain変更を固定しないため、mainが進んでbehindになるmergeを拒否するサーバー側の保護も必要であり、それを保証できなければ自動mergeしない。
+一つでも必須条件が確認不能・不成立ならmergeせず `AWAITING_MERGE` / `STOPPED`で必要判断を示すか、そのPRのfix-upへ戻す。rate limit / interruption / CI failure時もmergeしない。head変更時は独立reviewと最終headのFull Validateをやり直し、main変更時もbehind・選定根拠・preservationを再評価し、必要な更新後に再review / 再検証する。`--admin`等の保護迂回や、gate未確認のまま将来mergeを予約する `--auto` は使わない。
+
+branch protection / rulesetが設定されていてその状態を確認できる場合は、merge前にその必須条件も満たす。GitHub Freeのprivate repositoryのようなプラン制約により未設定・利用不可と確認できた場合、server-side protectionの不在自体はmerge停止理由にしない。権限不足・API error等により保護の有無を判定できない場合はUNKNOWNとして停止し、不在と推測しない。
+
+server-side protection / rulesetが利用できない場合は、merge直前に次を続けて一度に確認・実行する。確認中またはmerge直前にmain / headの変化やraceを疑う状態があればmergeせず、live stateからgate全体を再評価する。
+
+1. GitHubからlive current `main` SHAを再取得する。
+2. GitHubからlive PR state、base、head SHA、mergeabilityを再取得する。
+3. independent review対象head SHA、Full ValidateのCI head SHA、live PR head SHAが完全一致することを確認する。
+4. live current `main` に対してPRがbehind 0であることを確認する。
+5. live current `main` SHAがPR headのancestorであることを確認する。
+6. live mergeabilityを再確認し、protectionが存在する場合はその必須条件も再確認する。
+7. unresolved significant findings、REQUEST_CHANGES、required review threadが0で、必要なapprovalが満たされていることを再確認する。
+8. 以上の確認後、不要な処理や待機を挟まず直ちにmerge APIを呼ぶ。
+9. 確認済みlive PR head SHAをmerge APIのexpected head SHAまたは `gh pr merge <PR> --merge --match-head-commit <SHA>` に指定する。
+
+GitHub Freeのprivate repositoryではmain SHAをmerge操作にatomicに固定できないため、最後のlive main確認後からmerge API実行までのごく短いrace conditionは完全には排除できない。この残余リスクは人間が明示的に受け入れたものとして扱い、behind 0等の上記gateを省略する理由にはしない。将来server-side branch protection / rulesetが利用可能になった場合は、その必須条件をこのlive-check gateに追加して従う。
 
 merge応答が不明・中断した場合は成功を推測せず停止する。再開時にPRのmerged状態と対象headの統合を確認し、未mergeならgateを最初から確認する。gate確認結果・reviewer・確認時のmain / head SHA・CI URL・merge結果を同じPRのiteration record / reviewに残す。これは監査記録であり、新しい進捗の正本ではない。
 
