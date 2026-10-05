@@ -2,7 +2,8 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { gunzipSync } from 'node:zlib'
-import type { RawPackageSnapshot } from './game-data-raw-package.ts'
+import { RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION, type RawPackageSnapshot } from './game-data-raw-package.ts'
+import { PARSER_ID, PARSER_SCHEMA_VERSION } from './game-data-package-source.ts'
 import type {
   RawStructuralInventoryManifest,
   RawStructuralInventoryShard,
@@ -210,6 +211,12 @@ export function verifyValueRawTraceProvenance(
     throw new Error(`Unsupported Value Raw provenance source: ${trace.artifactPath}`)
   }
   const raw = JSON.parse(fs.readFileSync(path.join(repositoryRoot, trace.artifactPath), 'utf8')) as RawPackageSnapshot
+  if (raw.schemaVersion !== RAW_PACKAGE_SNAPSHOT_SCHEMA_VERSION || raw.snapshotKind !== 'generated-raw-package') {
+    throw new Error(`Unsupported Raw snapshot header: ${trace.artifactPath}`)
+  }
+  if (raw.extraction?.parser?.id !== PARSER_ID || raw.extraction?.parser?.schemaVersion !== PARSER_SCHEMA_VERSION) {
+    throw new Error(`Unsupported Raw snapshot parser: ${trace.artifactPath}`)
+  }
   if (raw.dataset.id !== trace.datasetId) throw new Error(`Raw snapshot dataset mismatch: ${trace.artifactPath}`)
   if (raw.extraction.runId !== trace.extractionRunId) throw new Error(`Raw snapshot extraction run mismatch: ${trace.artifactPath}`)
   if (raw.logicalPackage.path !== trace.packagePath) throw new Error(`Raw snapshot package path mismatch: ${trace.artifactPath}`)
