@@ -1,11 +1,12 @@
+import { readVerifiedStructuralShard } from '../scripts/formal-value-source-provenance.ts'
+import { cloneHorizontalRelationFixture } from './helpers/horizontalRelationFixture.ts'
 import fs from 'node:fs'
-import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { readHorizontalRawFactInventory } from '../scripts/formal-value-horizontal-source.ts'
 import { readHorizontalRelationWaveSources } from '../scripts/formal-relation-horizontal-wave-sources.ts'
 import { resolveHorizontalSporeGrenadeRelationSource, verifySporeGrenadeTargetStructural, verifySporeGrenadeSourceStructural,
   type SporeGrenadeRelationSourceRequest } from '../scripts/formal-relation-horizontal-source.ts'
-import type { HorizontalRawFactInventory, JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
+import type { JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
 import { formalIdentityDefinitions, scatterCrossbowFormalIdentity, battleRobeFormalIdentity, deathCapMushroomFormalIdentity } from '../src/domain/formal/identityDefinitions.ts'
 import { projectFormalIdentity, type FormalIdentityEvidenceArtifact, type RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
@@ -24,7 +25,7 @@ const array = (value: unknown): JsonRecord[] => value as JsonRecord[]
 function fixture(domainId = 'blast-fungus') {
   const definition = formalIdentityDefinitions.find(({ assertion }) => assertion.domainId === domainId)!
   const packagePath = definition.assertion.applicationScope.packagePath
-  const value = structuredClone(inventory) as HorizontalRawFactInventory
+  const value = cloneHorizontalRelationFixture(inventory, 'artifact', domainId)
   const item = value.items.find((entry) => entry.category === 'artifact' && entry.catalogId === domainId)!
   const candidate = array(record(item.rawCandidate).candidates).find((entry) => entry.packagePath === packagePath)!
   const sourceRelations = array(record(value).sourceRelations)
@@ -44,8 +45,8 @@ function fixture(domainId = 'blast-fungus') {
 
 function targetFixture() {
   const row = { targetObject: SPORE_GRENADE_POLICY.targetObject as string, targetPackage: SPORE_GRENADE_POLICY.targetPackage as string, targetShard: 'shards/part-061.json.gz' }
-  const shard = JSON.parse(gunzipSync(fs.readFileSync(
-    `research/raw/game-data-raw-structural-inventory/${row.targetShard}`)).toString('utf8')) as JsonRecord
+  const { shard } = readVerifiedStructuralShard(root,
+    `research/raw/game-data-raw-structural-inventory/${row.targetShard}`)
   return { row, pkg: structuredClone(array(shard.packages).find((entry) => entry.path === row.targetPackage)!),
     edges: structuredClone(array(shard.edges).filter((edge) => edge.sourcePackage === row.targetPackage)) }
 }
@@ -193,9 +194,9 @@ describe('SporeGrenade Formal Relation', () => {
 
 describe('SporeGrenade decoded source collection', () => {
   function sourceFixture() {
-    const shard = JSON.parse(gunzipSync(fs.readFileSync('research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz')).toString('utf8')) as JsonRecord
-    const pkg = array(shard.packages).find((row) => row.path === SPORE_GRENADE_POLICY.sourcePackage)!
-    const edge = array(shard.edges).find((row) => row.id === SPORE_GRENADE_POLICY.edgeId)!
+    const { shard } = readVerifiedStructuralShard(root, 'research/raw/game-data-raw-structural-inventory/shards/part-061.json.gz')
+    const pkg = structuredClone(array(shard.packages).find((row) => row.path === SPORE_GRENADE_POLICY.sourcePackage)!)
+    const edge = structuredClone(array(shard.edges).find((row) => row.id === SPORE_GRENADE_POLICY.edgeId)!)
     const container = array(array(pkg.cdoPropertyInventory)[0]!.properties)[0]!
     const property = array(record(container.decoding).properties)[0]!
     const element = array(record(property.decoding).elements)[0]!

@@ -63,6 +63,10 @@ ROADMAPの依存条件と計画上の優先順位は、次のように扱う:
 
 default Work Unitは **1 reusable foundation + そのfoundationで安全に処理可能な全population**。全populationとはEvidence・semantic family・preservation境界が共通のeligible集合であり、Raw全件ではない。1件1PRへ分割する場合は、独立semantic family、高いpreservation risk、schema migration、review boundaryのいずれかを具体的に説明する。共通adapterで異なるfamilyを処理しても、各typed guardをgeneric taxonomyへ潰さない。調査中に集合を修正したら根拠と除外を記録する。
 
+同一Track・同一boundaryのmaintenance defectを選ぶ場合、その時点で隣接する同種invariantも横断確認する。同じacceptance boundary・foundation・同程度のsemantic riskで安全に修正できるものは **1 reusable foundation + all safely eligible adjacent fixes** として1 Work Unitへまとめ、対象と除外理由を記録する。PRサイズや変更ファイル数を目的にしない。
+
+直近の複数Work Unitがmaintenanceだった場合、次のselectionではApplication capability、Optimizer / recommendation quality、reusable breadth foundation、current blocker解消、Evidence acquisition / adoptionを明示的に再探索し、readinessとproject payoffを比較する。maintenanceをさらに選ぶのは、現実的なcorrectness riskを再現でき、かつ他のREADY候補よりproject payoffが高い場合に限る。「安全に実装できる」「fail-closed defectを見つけた」だけを連続maintenanceの十分な選定理由にしない。
+
 ## Continue, defer, stop
 
 上の境界内では、current-state audit、deterministic census、existing schema reuse、小さなsource adapter、狭いschema/kind/typed semantic extension、batch population、tests・fixtures・expected counts・生成物・docs更新、focused validation、CI Validate、self-review、自己変更のfix-up、commit/push、PR作成・更新、次候補選定を追加確認なしで行う。生成物は正本から更新する。新reject条件にはnegative testを追加し、preservation fixtureを失敗隠しのために書き換えない。
@@ -118,7 +122,7 @@ gh run list --workflow ci.yml --branch <branch> --event workflow_dispatch --json
 gh run view <run-id> --json headSha,status,conclusion,url,jobs
 ```
 
-実行IDのheadShaが `git rev-parse HEAD` と一致することと、全必須jobのsuccessを確認する。現行CIは手動起動ではMarkdownだけでもChromium/E2Eを実行する。main push時のMarkdown-only skipを手動起動へ流用しない。[Raw inventory CI](.github/workflows/raw-structural-inventory.yml) など対象pathで要求される追加checkも確認する。CIが変わったらcurrent workflowを読む。
+実行IDのheadShaが `git rev-parse HEAD` と一致することと、全必須jobのsuccessを確認する。Full Validateは独立した `validate`（全audit・全Vitest・生成drift・typecheck・lint）と `browser`（build・Chromium E2E）の両jobで成立する。片方のsuccessだけを全体successとして扱わない。現行CIは手動起動ではMarkdownだけでもChromium/E2Eを実行する。main push時のMarkdown-only skipを手動起動へ流用しない。[Raw inventory CI](.github/workflows/raw-structural-inventory.yml) など対象pathで要求される追加checkも確認する。CIが変わったらcurrent workflowを読む。
 
 ローカルで全CIを理由なく重複実行しない。head変更後の古いsuccessは再利用しない。CI failureはログから原因を特定し、自分の変更を修正して必要な局所検証と最終headのCIを再実行する。CIを弱める、skipする、無関係なvalidation用PRを作ることで迂回しない。
 
