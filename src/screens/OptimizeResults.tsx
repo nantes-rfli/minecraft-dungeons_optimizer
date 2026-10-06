@@ -1,4 +1,4 @@
-import type { OptimizationResult } from '../core/types'
+import type { OptimizationResult, Scenario } from '../core/types'
 import { estimatedParametersForBuild, type EvidencePolicy } from '../core/evidenceStatus'
 import { summarizeDamageRegression } from '../core/modelError'
 import { DAMAGE_REGRESSION_SAMPLES } from '../data/regressionSamples'
@@ -19,13 +19,14 @@ const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
 const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
 
 export interface OptimizeResultsProps {
+  readonly weights: Scenario['weights']
   readonly error: string | null
   readonly result: OptimizationResult | null
   readonly status: 'idle' | 'working' | 'complete' | 'cancelled' | 'error'
   readonly evidencePolicy?: EvidencePolicy
 }
 
-export function OptimizeResults({ error, result, status, evidencePolicy = 'include-estimated' }: OptimizeResultsProps) {
+export function OptimizeResults({ weights, error, result, status, evidencePolicy = 'include-estimated' }: OptimizeResultsProps) {
   const estimatedParameters = result ? estimatedParametersForBuild(result.best.build) : []
   return <section className="results optimize-results" aria-label="最適化結果">
     {error && <div className="error-panel" role="alert">{error}</div>}
@@ -35,11 +36,11 @@ export function OptimizeResults({ error, result, status, evidencePolicy = 'inclu
       {result.unsupportedChoices.length > 0 && <div className="model-warning" role="note"><strong>未対応の候補は評価から除外しました（0点として採用しません）</strong>{result.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}</div>}
       <div className={`evidence-result ${estimatedParameters.length ? 'estimated' : 'strict'}`} role="note"><strong>{evidencePolicy === 'include-estimated' ? 'Estimatedを含めて評価' : '確度の高い情報のみで評価'}</strong>{estimatedParameters.length > 0 ? <><p>次のmechanic / parameterに推定値を使用しました。</p><ul>{estimatedParameters.map((parameter) => <li key={`${parameter.mechanicId}-${parameter.parameterId}`}><strong>{parameter.label}</strong><code>{parameter.mechanicId} / {parameter.parameterId}</code><span>{parameter.basis}</span><small>{parameter.conditions} · version: {parameter.gameVersion} · confidence: {parameter.confidence}</small></li>)}</ul></> : <p>この結果には登録済みのEstimated parameterを使用していません。</p>}</div>
       <div className="result-meta"><span>{result.evaluatedBuildCount}通りを全探索</span><span>Evidence coverage {Math.round(result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[result.best.confidence.label]}）</span></div>
-      <RecommendedBuild evaluation={result.best} />
+      <RecommendedBuild evaluation={result.best} weights={weights} />
       <section className="result-reasons" aria-labelledby="result-reasons-title"><h3 id="result-reasons-title">選ばれた理由</h3><ul>{result.best.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section>
       <h3 className="alternatives-title">次点候補</h3>
-      <div className="alternatives">{result.alternatives.slice(0, 4).map((evaluation, index) => <BuildAlternative evaluation={evaluation} best={result.best} key={`alternative-${evaluation.build.weapon.instanceId}-${index}`} />)}</div>
-      <details className="secondary-results"><summary>パレート候補を見る</summary><h3>Pareto前線</h3><div className="alternatives">{result.paretoFrontier.slice(0, 3).map((evaluation, index) => <BuildAlternative title={`PARETO ${index + 1}`} evaluation={evaluation} best={result.best} key={`pareto-${evaluation.build.weapon.instanceId}-${index}`} />)}</div></details>
+      <div className="alternatives">{result.alternatives.slice(0, 4).map((evaluation, index) => <BuildAlternative evaluation={evaluation} best={result.best} weights={weights} key={`alternative-${evaluation.build.weapon.instanceId}-${index}`} />)}</div>
+      <details className="secondary-results"><summary>パレート候補を見る</summary><h3>Pareto前線</h3><div className="alternatives">{result.paretoFrontier.slice(0, 3).map((evaluation, index) => <BuildAlternative title={`PARETO ${index + 1}`} evaluation={evaluation} best={result.best} weights={weights} key={`pareto-${evaluation.build.weapon.instanceId}-${index}`} />)}</div></details>
       <details className="technical-results"><summary>計算と Evidence の詳細を見る</summary>
         <DpsRegressionPanel summary={DAMAGE_MODEL_ERROR} predictedDps={result.best.damage.singleTargetDps} />
         <RangedResult evaluation={result.best} />

@@ -2,6 +2,12 @@
 
 現行supportの正本は[manifest](../research/runtime/melee-runtime-support.json)、一覧と実数は[生成matrix](melee-runtime-support.md)。mechanicsの根拠は[research audit](../research/melee-enchantment-audit.json)。Phaseのpartial履歴と現在の機能範囲は別軸です。近接拡張はここで一旦freezeし、新Evidenceまたは明示的なobjective設計が得られるまで未登録5種を追加しません。
 
+## 推薦スコアの確認
+
+最適化結果の「総合スコアの内訳」で、評価済みのDamage / Healing / Defense / Control、目的の重み、各軸の加点を確認できます。次点・パレート候補の「1位とのスコア差の内訳」は同じ重みで各軸の差を表示します。DamageはAoEのutility、Healingは自己damageを差し引いた回復のutility、Defenseは被damage軽減、Controlは制御utilityに基づきます。負のHealingは減点として保持し、表示の丸め前の加点合計は既存の総合スコアと一致します。
+
+これは現在のモデルとEvidence適用方針の範囲内での説明であり、未対応効果を採用したりEvidenceの確度を引き上げたりしません。数式・順位・runtime coverageは変更しません。
+
 ## 判定ルールと再確認
 
 - Fullは現アーキテクチャ・合法装備・明示されたScenario仮定内で主要経路が完結すること。低信頼度だけではLimitedにしません。
