@@ -37,6 +37,13 @@ missing schema version, snapshot kind, parser ID, or parser schema version befor
 the occurrence. These compatibility checks use the existing Raw extractor/parser constants;
 matching dataset/run/package provenance alone does not establish format compatibility.
 
+Full-Raw evidence must also use the canonical repository locator
+`research/raw/packages/<logicalPackage.path>.raw.json`. The logical package path uses
+nonempty forward-slash-separated segments without `.` or `..`; backslashes and NUL
+are rejected. Relocated copies, different package filenames, and traversal or
+normalization aliases are rejected before reading the snapshot, even when its bytes
+and all other provenance match. This preserves the extractor's existing locator contract.
+
 Both offline Structural Value readers also require the manifest's parser and the selected
 package's parser to match the canonical parser ID and schema version before resolving a
 decoded occurrence. Missing or incompatible parser provenance is rejected even when shard
