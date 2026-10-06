@@ -77,7 +77,7 @@ describe('parameter evidence status', () => {
       expect.objectContaining({ mechanicId: 'melee-enchantment:guarding-strike', parameterId: 'activation-coverage-model' }),
     ]))
     const result = optimize({ weapons: [estimatedBuild.weapon], artifacts: [] }, { ...DEFAULT_SCENARIO, evidencePolicy: 'include-estimated' })
-    const html = renderToStaticMarkup(createElement(OptimizeResults, { error: null, result, status: 'complete', evidencePolicy: 'include-estimated' }))
+    const html = renderToStaticMarkup(createElement(OptimizeResults, { weights: DEFAULT_SCENARIO.weights, error: null, result, status: 'complete', evidencePolicy: 'include-estimated' }))
     expect(html).toContain('ガードストライク / activation coverage')
     expect(html).toContain('melee-enchantment:guarding-strike')
   })

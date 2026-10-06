@@ -1,4 +1,5 @@
-import type { Evaluation, LocalizedName, SelectedEnchantment } from '../core/types'
+import { ScoreBreakdown } from './ScoreBreakdown'
+import type { Evaluation, LocalizedName, Scenario, SelectedEnchantment } from '../core/types'
 import type { ArmorId, SelectedArmorEnchantment } from '../core/armor'
 import type { SelectedRangedEnchantment } from '../core/rangedTypes'
 import { getEnchantmentRuntimeSupport } from '../core/runtimeSupport'
@@ -53,7 +54,7 @@ function Metric({ label, value, detail }: { label: string; value: number; detail
   return <div className="metric"><span>{label}</span><strong>{numberFormat.format(value)}</strong>{detail && <small>{detail}</small>}</div>
 }
 
-export function RecommendedBuild({ evaluation }: { evaluation: Evaluation }) {
+export function RecommendedBuild({ evaluation, weights }: { evaluation: Evaluation; weights: Scenario['weights'] }) {
   const weapon = WEAPONS[evaluation.build.weapon.weaponId]
   const armorItem = evaluation.build.armor
   const armor = armorItem ? ARMORS[armorItem.armorId as ArmorId] : undefined
@@ -101,6 +102,7 @@ export function RecommendedBuild({ evaluation }: { evaluation: Evaluation }) {
       <Metric label="Defense / 実効HP" value={evaluation.defense.effectiveHealth} />
       <Metric label="Control / 100" value={evaluation.control.utility * 100} />
     </section>
+    <ScoreBreakdown evaluation={evaluation} weights={weights} />
   </article>
 }
 
@@ -110,7 +112,7 @@ function difference(value: number, baseline: number) {
   return `${percent >= 0 ? '+' : ''}${numberFormat.format(percent)}%`
 }
 
-export function BuildAlternative({ evaluation, best, title = '次点候補' }: { evaluation: Evaluation; best: Evaluation; title?: string }) {
+export function BuildAlternative({ evaluation, best, weights, title = '次点候補' }: { evaluation: Evaluation; best: Evaluation; weights: Scenario['weights']; title?: string }) {
   const weapon = WEAPONS[evaluation.build.weapon.weaponId]
   const armor = evaluation.build.armor ? ARMORS[evaluation.build.armor.armorId as ArmorId].name.ja : 'なし'
   const ranged = evaluation.build.rangedWeapon ? RANGED_WEAPONS[evaluation.build.rangedWeapon.weaponId]?.name.ja ?? evaluation.build.rangedWeapon.weaponId : 'なし'
@@ -120,5 +122,6 @@ export function BuildAlternative({ evaluation, best, title = '次点候補' }: {
     <header><p className="eyebrow">{title}</p><div className="alternative-score"><strong>{numberFormat.format(evaluation.objectiveScore)}</strong><span>1位との差 {scoreDelta >= 0 ? '+' : ''}{numberFormat.format(scoreDelta)}</span></div></header>
     <dl className="alternative-equipment"><dt>近接</dt><dd>{weapon.name.ja}<small lang="en">{weapon.name.en}</small></dd><dt>防具</dt><dd>{armor}</dd><dt>遠距離</dt><dd>{ranged}</dd><dt>Artifact</dt><dd>{artifacts}</dd></dl>
     <dl className="alternative-deltas"><div><dt>Damage</dt><dd>{difference(evaluation.damage.singleTargetDps, best.damage.singleTargetDps) ?? '比較不可'}</dd></div><div><dt>Defense</dt><dd>{difference(evaluation.defense.effectiveHealth, best.defense.effectiveHealth) ?? '比較不可'}</dd></div></dl>
+    <ScoreBreakdown evaluation={evaluation} weights={weights} best={best} />
   </article>
 }

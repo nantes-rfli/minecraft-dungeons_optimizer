@@ -17,7 +17,7 @@ const inventory: Inventory = {
 describe('Phase 3.6 UX fix-up', () => {
   it('renders the recommended build as one semantically separated equipment set', () => {
     const evaluation = optimize(inventory, { ...DEFAULT_SCENARIO, rangedTimeShare: 0.2 }).best
-    const html = renderToStaticMarkup(<RecommendedBuild evaluation={evaluation} />)
+    const html = renderToStaticMarkup(<RecommendedBuild evaluation={evaluation} weights={DEFAULT_SCENARIO.weights} />)
     expect(html).toContain('この装備セットを使う')
     for (const label of ['近接', '防具', '遠距離', 'Artifact']) expect(html).toContain(label)
     for (const item of ['ダブルアックス', 'クリティカルヒット', 'Gilded', 'バトルローブ', '冷気', '弓', 'パワー', 'シロタマゴテングタケ']) expect(html).toContain(item)

@@ -814,3 +814,12 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 @media (max-width: 600px) { .formal-values-browser .domain-trace dl { grid-template-columns: 1fr; } }
 .subnav[aria-label="データカテゴリ"] span { color: #b3bfb5; }
 .catalog-row:has(.formal-values-browser) { min-width: 0; }
+
+.score-breakdown { margin-top: 1rem; font-size: .85rem; }
+.score-breakdown summary { cursor: pointer; }
+.score-breakdown p { color: var(--muted); line-height: 1.6; }
+.score-breakdown-scroll { overflow-x: auto; }
+.score-breakdown table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+.score-breakdown th, .score-breakdown td { padding: .5rem; text-align: right; border-bottom: 1px solid var(--line); }
+.score-breakdown th:first-child { text-align: left; }
+.score-breakdown caption { text-align: left; margin-bottom: .5rem; }
