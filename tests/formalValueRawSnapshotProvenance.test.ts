@@ -26,6 +26,31 @@ describe('Full Raw snapshot Value provenance compatibility', () => {
 
   describe.each(sources)('$packagePath', (trace) => {
     it.each([
+      ['outside packages directory', 'research/raw/packages/../outside.raw.json'],
+      ['outside Raw directory', 'research/raw/packages/../../outside.raw.json'],
+      ['different package locator', 'research/raw/packages/other-package.raw.json'],
+      ['dot segment', trace.artifactPath.replace('/packages/', '/packages/./')],
+      ['parent segment alias', trace.artifactPath.replace('/packages/', '/packages/unused/../')],
+      ['empty segment', trace.artifactPath.replace('/packages/', '/packages//')],
+    ])('rejects %s even when the snapshot and all other provenance match', (_label, artifactPath) => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'formal-value-raw-path-'))
+      roots.push(root)
+      const file = path.join(root, artifactPath)
+      fs.mkdirSync(path.dirname(file), { recursive: true })
+      // The file exists and has the real source bytes: rejection must be about its locator.
+      fs.writeFileSync(file, fs.readFileSync(path.join(repositoryRoot, trace.artifactPath)))
+      expect(() => verifyValueRawTraceProvenance(root, { ...trace, artifactPath }))
+        .toThrow(/Unsupported Value Raw provenance source/)
+    })
+
+    it.each(['../escaped', './alias', 'double//segment', 'windows\\package', '/absolute', '', 'nul\0segment'])('rejects noncanonical logical package path %s', (packagePath) => {
+      const artifactPath = `research/raw/packages/${packagePath}.raw.json`
+      // No file access is needed for a malformed locator.
+      expect(() => verifyValueRawTraceProvenance(repositoryRoot, { ...trace, packagePath, artifactPath }))
+        .toThrow(/Unsupported Value Raw provenance source/)
+    })
+
+    it.each([
       ['old schema', { schemaVersion: 1 }],
       ['future schema', { schemaVersion: 99 }],
       ['missing schema', { schemaVersion: undefined }],

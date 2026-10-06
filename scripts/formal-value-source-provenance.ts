@@ -209,7 +209,11 @@ export function verifyValueRawTraceProvenance(
     return { sourceKind: 'structural-inventory-shard', node }
   }
 
-  if (!trace.artifactPath.startsWith('research/raw/packages/') || !trace.artifactPath.endsWith('.raw.json')) {
+  // Full-Raw snapshots have one canonical repository locator per logical package.
+  // Prefix/suffix checks alone accept relocated copies and path traversal aliases.
+  if (trace.packagePath.includes('\\') || trace.packagePath.includes('\0')
+    || trace.packagePath.split('/').some((segment) => !segment || segment === '.' || segment === '..')
+    || trace.artifactPath !== `research/raw/packages/${trace.packagePath}.raw.json`) {
     throw new Error(`Unsupported Value Raw provenance source: ${trace.artifactPath}`)
   }
   const raw = JSON.parse(fs.readFileSync(path.join(repositoryRoot, trace.artifactPath), 'utf8')) as RawPackageSnapshot
