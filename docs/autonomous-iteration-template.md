@@ -15,9 +15,10 @@
 ## Outcome and scope
 
 - Work Unit / Track:
-- Status: SELECTING | IMPLEMENTING | VALIDATING | AWAITING_MERGE | STOPPED
+- Status: SELECTING | IMPLEMENTING | LOCAL_FIX_REQUIRED | VALIDATING | AWAITING_MERGE | STOPPED
 - Baseline main SHA / final head SHA:
 - Existing PR reconciliation / current main CI:
+- Live PR state / resume action / remaining handoff tasks:
 - Application consumer / Value unlocked / observable completion:
 - Foundation + eligible population / exclusions and split rationale:
 

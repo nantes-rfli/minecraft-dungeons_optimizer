@@ -36,7 +36,7 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 
 ## Outer loop: recompute → select
 
-1. `git status --short --branch`、`git fetch origin`、`git rev-parse origin/main`で作業状態とbaseline SHAを確認する。fetch失敗時は古いmainをcurrentと呼ばない。他者の未commit変更をreset/stashせず、必要なら分離する。open PRのhead・対象・担当を確認し、open autonomous PRがあればその状況を確認し、次のWork Unitを開始しない。無関係なPRは閉じない。新規iterationは、そのbaselineから`codex/` branchを作ったclean checkoutで以下を読む・実行する。fetchしただけで古い作業branchを監査しない。既存PRの修正時はそのheadを使い、mainとの差を記録する。
+1. `git status --short --branch`、`git fetch origin`、`git rev-parse origin/main`で作業状態とbaseline SHAを確認する。fetch失敗時は古いmainをcurrentと呼ばない。他者の未commit変更をreset/stashせず、必要なら分離する。open PRのhead・対象・担当を確認し、open autonomous PRがあれば [PR handoff and resumption](#pr-handoff-and-resumption) の状態別処理へ進み、次のWork Unitを開始しない。無関係なPRは閉じない。新規iterationは、そのbaselineから`codex/` branchを作ったclean checkoutで以下を読む・実行する。fetchしただけで古い作業branchを監査しない。既存PRの修正時はそのheadを使い、mainとの差を記録する。
 2. 上記正本、対象familyの契約・generator・audit・preservation tests、最近のPRを読む。過去の監査はbaselineと入力を確認する。固定SHAを読むcensusを再実行してもcurrentの再計算にはならない。古い監査を改変せず、current artifactとの差分を照合する。
 3. 選定に関係する既存read-only auditを実行し、committed artifactからcoverage・blocker・未処理populationを再計算する。Game Domain missionではFormal Identity / Value / Relation / integrationとPromotion eligibilityを比較する。countsには意味と分母とsource pathを添える。文書とartifactの差は記録し、推測で件数を埋めない。
 4. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。Formalだけでなく利用可能なEvidence内のProduct改善も比較する。
@@ -169,9 +169,21 @@ merge応答が不明・中断した場合は成功を推測せず停止する。
 
 ## PR handoff and resumption
 
-1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは検証待ちを明示する。最終CI成功後にreview可能にする。
+1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは `VALIDATING` を明示する。必要な局所検証・最終headのFull Validate・required Site handlingを完了し、PR recordへ証跡を更新した後にReady for review化する。
 2. PR / handoffの最初に `Human Progress Summary` を置き、全体で今どこか、今回何を進めたか、なぜ選んだか、3層のどこが変わったか、blocker、次の方向を人間向けに短く説明する。その後にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Site対象なら既存本人限定projectへの反映結果も記録する。
 3. `AWAITING_MERGE` で人間またはtrusted independent automated reviewerへ引き継ぐ。automated reviewerは上記gateをすべて満たす場合だけmergeする。open autonomous PRがある間は次のWork Unitを開始しない。次候補の調査メモは可能だが、別Work Unitの実装は始めない。
-4. 次回起動でPRの状態を確認する。openなら同じPRのreview / gate確認・fix-upを行い、条件を満たさなければ待機または停止する。closed-unmergedなら理由と再開条件を人間へ示して停止し、自動的に次iterationや同じPRを開始しない。mergedならfetchしたmainへ統合済みであることを確認してouter loopへ戻る。次iterationはmerge確認後だけ開始でき、古いnext候補を無条件で実行しない。merge後の人間向け報告は、(1) アプリとして何ができるようになったか（内部整備だけならその旨）、(2) プロジェクト全体のどこが進んだか、(3) 方針逸脱や残る重大リスクがあるか、を短く説明する。細かい実装・検証証跡はPRの記録を参照する。
+4. 次回Developer起動ではlive GitHub state（open / closed / merged、Draft、base / head SHA、review・CI）と同じPRの最新recordを取得し、下表で再開先を決める。PRが存在するだけで待機せず、open中は同じPRだけを扱う。Developerはmergeせず、独立Reviewerのreview / merge gate確認を代行しない。
+
+| 状態 | Developerの処理 |
+| --- | --- |
+| open / `LOCAL_FIX_REQUIRED` | 同じPRの指摘・失敗をfixし、必要な局所再検証とself-reviewを行い、`VALIDATING` へ戻して下記handoffを完了する。Draft / Readyよりこのfix要求を優先する |
+| open / Draft または `VALIDATING` | 同じPRの未完了handoffを継続する。required local / focused validation → final-head Full Validate → required Site handling（非対象なら理由）→ PR record更新 → Ready for review化 → `AWAITING_MERGE` の順に完了する。head変更時は既存Validation gateに従って再検証する |
+| open / Ready かつ `AWAITING_MERGE` | handoff完了の証跡を確認し、Developerは変更せずReviewer / human mergeを待つ。fix要求があれば `LOCAL_FIX_REQUIRED`、handoff未完了なら `VALIDATING` として同じPRを再開する |
+| closed-unmerged | `STOPPED` と理由・再開条件を人間へ示し、自動的に次iterationや同じPRを開始しない |
+| merged | fetchしたmainへ統合済みであることを確認してouter loopへ戻る。確認できるまで次iterationを開始しない |
+
+Draft / `VALIDATING` は「open PRがあるため何もしない」状態ではない。実行中のCIは同じheadのrunを確認して待ち、完了後にhandoffを続ける。取得失敗・不明な状態や必須作業を完了できない場合は既存stop条件に従い、原因・未完了作業・再開条件をrecordへ残す。古いrecordの `AWAITING_MERGE` だけでlive Draftや未完了handoffを見落とさない。
+
+次iterationはmerge確認後だけ開始でき、古いnext候補を無条件で実行しない。merge後の人間向け報告は、(1) アプリとして何ができるようになったか（内部整備だけならその旨）、(2) プロジェクト全体のどこが進んだか、(3) 方針逸脱や残る重大リスクがあるか、を短く説明する。細かい実装・検証証跡はPRの記録を参照する。
 
 再開時にはmainのCI失敗や競合変更も確認する。新しいmainにより選択根拠やpreservationが変わった場合は再設計・再検証する。停止時は `STOPPED` と原因・必要判断・再開条件、検証待ちは `VALIDATING` とrun/head、マージ待ちは `AWAITING_MERGE` とPR/headを記録する。常駐schedulerやreviewerの実装・権限設定はこの契約の導入には含めない。
