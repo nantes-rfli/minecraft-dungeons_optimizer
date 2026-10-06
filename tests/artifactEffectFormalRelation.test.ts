@@ -1,3 +1,4 @@
+import { cloneHorizontalRelationFixture } from './helpers/horizontalRelationFixture.ts'
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { readHorizontalRawFactInventory } from '../scripts/formal-value-horizontal-source.ts'
@@ -28,7 +29,7 @@ function fixture(): { request: ArtifactEffectRelationSourceRequest; inventory: H
     const source = sourceRelations.find((entry) => entry.edgeId === reference.edgeId)
     return reference.sourceRelationPathId === 'rp-root' && source?.propertyPath === 'Effect'
   })!
-  const value = structuredClone(inventory) as HorizontalRawFactInventory
+  const value = cloneHorizontalRelationFixture(inventory, 'artifact', domainId)
   const selectedItem = value.items.find((entry) => entry.category === 'artifact' && entry.catalogId === domainId)!
   const selectedCandidate = array(record(selectedItem.rawCandidate).candidates).find((entry) => entry.packagePath === packagePath)!
   const selectedSource = array(record(value).sourceRelations).find((entry) => entry.edgeId === root.edgeId)!

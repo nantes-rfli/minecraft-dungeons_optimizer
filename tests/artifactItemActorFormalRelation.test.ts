@@ -1,11 +1,12 @@
+import { readVerifiedStructuralShard } from '../scripts/formal-value-source-provenance.ts'
+import { cloneHorizontalRelationFixture } from './helpers/horizontalRelationFixture.ts'
 import fs from 'node:fs'
-import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { readHorizontalRawFactInventory } from '../scripts/formal-value-horizontal-source.ts'
 import { readHorizontalRelationWaveSources } from '../scripts/formal-relation-horizontal-wave-sources.ts'
 import { resolveHorizontalArtifactItemActorRelationSource, verifyItemActorTargetStructural,
   type ArtifactItemActorRelationSourceRequest } from '../scripts/formal-relation-horizontal-source.ts'
-import type { HorizontalRawFactInventory, JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
+import type { JsonRecord } from '../scripts/game-data-horizontal-fact-inventory.ts'
 import { formalIdentityDefinitions, READY_ARTIFACT_EFFECT_DOMAINS } from '../src/domain/formal/identityDefinitions.ts'
 import type { FormalIdentityEvidenceArtifact, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { FormalSerializedRelationArtifact } from '../src/domain/formal/serializedRelation.ts'
@@ -24,7 +25,7 @@ const array = (value: unknown): JsonRecord[] => value as JsonRecord[]
 function fixture(domainId = 'corrupted-seeds') {
   const definition = formalIdentityDefinitions.find(({ assertion }) => assertion.domainId === domainId)!
   const packagePath = definition.assertion.applicationScope.packagePath
-  const value = structuredClone(inventory) as HorizontalRawFactInventory
+  const value = cloneHorizontalRelationFixture(inventory, 'artifact', domainId)
   const item = value.items.find((entry) => entry.category === 'artifact' && entry.catalogId === domainId)!
   const candidate = array(record(item.rawCandidate).candidates).find((entry) => entry.packagePath === packagePath)!
   const sourceRelations = array(record(value).sourceRelations)
@@ -44,8 +45,8 @@ function fixture(domainId = 'corrupted-seeds') {
 
 function targetFixture() {
   const row = census.rows.find((entry) => entry.domainId === 'corrupted-seeds')!
-  const shard = JSON.parse(gunzipSync(fs.readFileSync(
-    `research/raw/game-data-raw-structural-inventory/${row.targetShard}`)).toString('utf8')) as JsonRecord
+  const { shard } = readVerifiedStructuralShard(root,
+    `research/raw/game-data-raw-structural-inventory/${row.targetShard}`)
   return { row, pkg: structuredClone(array(shard.packages).find((entry) => entry.path === row.targetPackage)!),
     edges: structuredClone(array(shard.edges).filter((edge) => edge.sourcePackage === row.targetPackage)) }
 }
