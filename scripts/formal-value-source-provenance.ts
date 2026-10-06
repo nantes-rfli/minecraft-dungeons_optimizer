@@ -189,11 +189,12 @@ export function verifyValueRawTraceProvenance(
   trace: RawTrace,
 ): { sourceKind: 'full-raw-snapshot' | 'structural-inventory-shard'; node: unknown } {
   if (trace.artifactPath.startsWith(`${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/shards/`)) {
-    const { shard } = readVerifiedStructuralShard(repositoryRoot, trace.artifactPath, trace.datasetId)
+    const { manifest, shard } = readVerifiedStructuralShard(repositoryRoot, trace.artifactPath, trace.datasetId)
     const matches = shard.packages.map((pkg, index) => ({ pkg, index }))
       .filter(({ pkg }) => pkg.path === trace.packagePath)
     if (matches.length !== 1) throw new Error(`Structural Inventory package does not resolve exactly once: ${trace.packagePath}`)
     const match = matches[0]!
+    verifyStructuralValueParser(manifest, match.pkg)
     if (match.pkg.parse.runId !== trace.extractionRunId) {
       throw new Error(`Structural Inventory package parse run mismatch: ${trace.packagePath}`)
     }
@@ -225,4 +226,17 @@ export function verifyValueRawTraceProvenance(
   const node = resolveJsonPointer(raw, trace.nodePointer)
   if (node === undefined) throw new Error(`Raw snapshot nodePointer does not resolve: ${trace.nodePointer}`)
   return { sourceKind: 'full-raw-snapshot', node }
+}
+
+/** Hash/run identity alone does not establish a compatible decoded Value format. */
+export function verifyStructuralValueParser(
+  manifest: RawStructuralInventoryManifest,
+  pkg: RawStructuralInventoryShard['packages'][number],
+): void {
+  if (manifest.scope.parser?.id !== PARSER_ID || manifest.scope.parser?.schemaVersion !== PARSER_SCHEMA_VERSION) {
+    throw new Error('Unsupported Structural Value manifest parser')
+  }
+  if (pkg.parse?.parser?.id !== PARSER_ID || pkg.parse?.parser?.schemaVersion !== PARSER_SCHEMA_VERSION) {
+    throw new Error(`Unsupported Structural Value package parser: ${pkg.path}`)
+  }
 }

@@ -37,6 +37,12 @@ missing schema version, snapshot kind, parser ID, or parser schema version befor
 the occurrence. These compatibility checks use the existing Raw extractor/parser constants;
 matching dataset/run/package provenance alone does not establish format compatibility.
 
+Both offline Structural Value readers also require the manifest's parser and the selected
+package's parser to match the canonical parser ID and schema version before resolving a
+decoded occurrence. Missing or incompatible parser provenance is rejected even when shard
+hashes, dataset, package hash, and extraction run still match, including after cache reuse.
+This does not change configured values, availability states, or runtime adoption.
+
 The shared Raw JSON pointer resolver used by Value provenance, Horizontal Value source
 reads, and Structural Relation audits resolves only own JSON members. Array indices must
 use canonical decimal notation (`0` or a nonzero digit followed by digits), and only `~0`

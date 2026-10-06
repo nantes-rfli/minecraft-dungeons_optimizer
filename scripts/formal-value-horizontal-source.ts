@@ -8,6 +8,7 @@ import {
 import {
   readVerifiedStructuralShard,
   resolveJsonPointer,
+  verifyStructuralValueParser,
 } from './formal-value-source-provenance.ts'
 import type { Field, RawTrace, Trace, UnavailableState } from '../src/domain/formal/rawProjection.ts'
 
@@ -187,7 +188,7 @@ export function resolveDirectHorizontalSourceFact(
   const sourcePackageHash = requiredString(source.sourcePackageHash, 'Horizontal source package hash')
   const propertyPointer = requiredString(source.propertyPointer, 'Horizontal source property pointer')
 
-  const { shard } = readVerifiedStructuralShard(
+  const { manifest, shard } = readVerifiedStructuralShard(
     repositoryRoot,
     sourceShardPath,
     datasetId,
@@ -197,6 +198,7 @@ export function resolveDirectHorizontalSourceFact(
     .filter(({ pkg }) => pkg.path === sourcePackage)
   if (packageMatches.length !== 1) throw new Error(`Horizontal source package does not resolve exactly once in its shard: ${sourcePackage}`)
   const match = packageMatches[0]!
+  verifyStructuralValueParser(manifest, match.pkg)
   if (!match.pkg.packageHash || match.pkg.packageHash.value !== sourcePackageHash) {
     throw new Error(`Horizontal source package hash mismatch: ${sourcePackage}`)
   }
