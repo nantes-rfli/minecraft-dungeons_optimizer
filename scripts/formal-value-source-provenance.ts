@@ -43,11 +43,12 @@ export function resolveJsonPointer(value: unknown, pointer: string): unknown {
   if (!pointer.startsWith('/')) return undefined
   let current: unknown = value
   for (const rawKey of pointer.slice(1).split('/')) {
+    if (/~(?:[^01]|$)/.test(rawKey)) return undefined
     const key = rawKey.replace(/~1/g, '/').replace(/~0/g, '~')
     if (Array.isArray(current)) {
-      if (!/^\d+$/.test(key)) return undefined
+      if (!/^(0|[1-9]\d*)$/.test(key) || !Object.hasOwn(current, key)) return undefined
       current = current[Number(key)]
-    } else if (isRecord(current)) current = current[key]
+    } else if (isRecord(current) && Object.hasOwn(current, key)) current = current[key]
     else return undefined
   }
   return current

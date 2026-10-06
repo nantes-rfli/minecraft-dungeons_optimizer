@@ -37,6 +37,14 @@ missing schema version, snapshot kind, parser ID, or parser schema version befor
 the occurrence. These compatibility checks use the existing Raw extractor/parser constants;
 matching dataset/run/package provenance alone does not establish format compatibility.
 
+The shared Raw JSON pointer resolver used by Value provenance, Horizontal Value source
+reads, and Structural Relation audits resolves only own JSON members. Array indices must
+use canonical decimal notation (`0` or a nonzero digit followed by digits), and only `~0`
+and `~1` escapes are accepted. Inherited JavaScript properties, malformed escapes, and
+zero-padded array indices remain unresolved; callers reject missing provenance nodes.
+Own members named `constructor` or `__proto__`, escaped keys, and decoded `0`, `false`,
+`null`, or empty collections still resolve without fallback.
+
 ## Value occurrence and stable projection identity
 
 v2 serializes either a scope occurrence:
