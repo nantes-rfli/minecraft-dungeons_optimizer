@@ -33,6 +33,7 @@ Hash routeを採用する。既存の単一Next routeと依存関係を保った
 ## Progressive disclosure
 
 - Inventoryは個体のsummaryを最初に表示し、Power、observed value、候補、lock、Gilded、削除を編集時だけ開く。
+- 個体の削除は一覧・コンパクト・グリッド共通で、装備名と登録内容が消えることをブラウザの確認ダイアログに表示する。キャンセル時は個体・保存内容を保持し、確定時だけ選択した個体を削除する。同名の別個体は残す。runtime未対応のCatalog個体にも同じ確認を適用する。
 - Optimizationは目的presetと実行をprimaryにし、Scenarioの詳細入力を折りたたむ。
 - ResultはBest Build、次点、Pareto / caveat、効果別詳細の順に表示する。
 - Modelは全体フロー、各評価軸の基本式、詳細条件、limitations、Evidence / 実装詳細の順に表示する。
