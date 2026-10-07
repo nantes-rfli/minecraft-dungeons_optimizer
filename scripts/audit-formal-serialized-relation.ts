@@ -19,6 +19,7 @@ import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import { loadStructuralGraph } from './game-data-horizontal-fact-inventory.ts'
 import { readHorizontalRelationWaveSources } from './formal-relation-horizontal-wave-sources.ts'
 import { READY_ARTIFACT_ITEM_ACTOR_DOMAINS } from '../src/domain/formal/relationWaves.ts'
+import { verifyStructuralRelationParser } from './formal-relation-horizontal-source.ts'
 import { readVerifiedStructuralShard, resolveJsonPointer } from './formal-value-source-provenance.ts'
 import type { FormalIdentityEvidenceArtifact } from '../src/domain/formal/identityEvidence.ts'
 
@@ -297,8 +298,11 @@ for (const evidenceRef of battleSemantic?.evidenceRefs ?? []) {
 
 for (const evidence of artifact.provenance.evidence) {
   if (evidence.provenance.artifactPath.endsWith('.json.gz')) {
-    const { shard } = readVerifiedStructuralShard(repositoryRoot, evidence.provenance.artifactPath,
+    const { manifest, shard } = readVerifiedStructuralShard(repositoryRoot, evidence.provenance.artifactPath,
       evidence.provenance.datasetId)
+    const packages = shard.packages.filter((pkg) => pkg.path === evidence.provenance.packagePath)
+    assert.equal(packages.length, 1, `${evidence.id}: Structural source package missing or duplicated`)
+    verifyStructuralRelationParser(manifest, packages[0]!)
     const observed = resolveJsonPointer(shard, evidence.provenance.nodePointer!)
     assert.notEqual(observed, undefined, `${evidence.id}: Structural edge pointer missing`)
     assert.deepEqual(evidence.observed, observed, `${evidence.id}: Structural edge drift`)
