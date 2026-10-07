@@ -10,6 +10,7 @@ test('candidate Evidence opens by keyboard and stays local to each worker result
   await page.getByRole('textbox', { name: 'Inventory JSON' }).fill(JSON.stringify({ version: 5, inventory }))
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
   await expect(page.getByRole('status').filter({ hasText: 'JSONを読み込みました。' })).toBeVisible()
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, key)).toEqual(inventory)
   const persisted = await page.evaluate((key) => localStorage.getItem(key), key)
   await page.evaluate(() => { window.location.hash = '/optimize' })
   await page.getByRole('button', { name: '最適化する', exact: true }).click()
