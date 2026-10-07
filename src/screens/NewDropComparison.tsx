@@ -43,6 +43,7 @@ export function NewDropComparison({
   trial,
   onOpenPicker,
   onClearTrial,
+  onKeepCandidate,
 }: {
   readonly inventory: Inventory
   readonly scenario: Scenario
@@ -50,6 +51,7 @@ export function NewDropComparison({
   readonly trial: NewDropTrial | null
   readonly onOpenPicker: () => void
   readonly onClearTrial: () => void
+  readonly onKeepCandidate: () => void
 }) {
   const trialInventory = trial?.inventory ?? inventory
   const comparison = useOptimizer(trialInventory, scenario, true)
@@ -101,7 +103,7 @@ export function NewDropComparison({
 
   return <section className="new-drop-comparison" aria-labelledby="new-drop-title">
     <header><div><p className="section-label">NEW DROP</p><h2 id="new-drop-title">新しい装備を試す</h2></div></header>
-    <p>ドロップした装備を1件だけ仮追加して、現在の最良ビルドと比べます。比較候補はInventoryへ保存されません。</p>
+    <p>ドロップした装備を1件だけ仮追加して、現在の最良ビルドと比べます。比較結果を確認して残す場合は、候補をInventoryへ登録できます。</p>
     {!trial ? <button className="secondary-button" type="button" onClick={onOpenPicker}>比較候補を選ぶ</button> : <>
       <div className="drop-candidate-summary"><strong>{candidate?.catalog.name.ja ?? candidate?.catalog.name.en ?? researchOnly?.catalogId ?? trial.instanceId}</strong><span>{candidate?.category ?? researchOnly?.category} · Power {candidate?.powerLevel ?? researchOnly?.powerLevel}</span></div>
       <div className="drop-candidate-actions"><button className="secondary-button" type="button" onClick={onOpenPicker}>候補を変更</button><button type="button" onClick={onClearTrial}>候補を外す</button></div>
@@ -119,6 +121,7 @@ export function NewDropComparison({
         </div>
         <p className="drop-comparison-outcome">総合スコア差: {scoreDelta! >= 0 ? '+' : ''}{numberFormat.format(scoreDelta!)} · {candidateIncluded ? '新しい装備が最良ビルドに含まれています。' : '新しい装備は最良ビルドに選ばれませんでした。'}</p>
         <details className="drop-build-details"><summary>仮追加後の構成と現在との差を見る</summary><BuildAlternative title="仮追加後の最良構成" evaluation={comparisonResult.best} best={baseline.result.best} weights={scenario.weights} /></details>
+        <button className="primary-button" type="button" onClick={onKeepCandidate}>この候補をInventoryに追加</button>
       </>}
     </>}
   </section>
