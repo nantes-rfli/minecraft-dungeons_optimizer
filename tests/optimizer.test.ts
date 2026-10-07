@@ -59,6 +59,20 @@ describe('optimize', () => {
     const result = optimize(inventory, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
     expect(result.best.build.artifacts).toEqual([])
     expect(result.unsupportedChoices).toEqual(expect.arrayContaining([expect.stringContaining('Estimated parameter')]))
+    expect(result.evaluatedInstanceIds).not.toContain('mushroom-test')
+    expect(result.evaluatedInstanceIds).not.toContain('amulet-test')
+  })
+
+  it('marks a staged artifact excluded by Evidence policy as unevaluated', () => {
+    const stagedArtifact: Inventory = {
+      weapons: [inventory.weapons[0]!],
+      artifacts: [{ instanceId: 'drop-artifact', artifactId: 'death-cap-mushroom', powerLevel: 251 }],
+    }
+    const result = optimize(stagedArtifact, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
+
+    expect(result.evaluatedInstanceIds).toContain('bindings-test')
+    expect(result.evaluatedInstanceIds).not.toContain('drop-artifact')
+    expect(result.unsupportedChoices).toContain('drop-artifact: Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外')
   })
 
   it('changes rankings when scenario weights change', () => {

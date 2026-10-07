@@ -259,6 +259,12 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   const evaluations = evidenceAllowedBuilds
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
+  const evaluatedInstanceIds = [...new Set(evidenceAllowedBuilds.flatMap((build) => [
+    build.weapon.instanceId,
+    ...(build.armor ? [build.armor.instanceId] : []),
+    ...(build.rangedWeapon ? [build.rangedWeapon.instanceId] : []),
+    ...build.artifacts.map((artifact) => artifact.instanceId),
+  ]))]
 
   const best = evaluations[0]
   if (!best) {
@@ -280,6 +286,7 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   }
   return {
     unsupportedChoices: [...unsupportedChoices],
+    evaluatedInstanceIds,
     best: withDetails(best),
     alternatives: recommendations.slice(1, 5).map(withDetails),
     paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),

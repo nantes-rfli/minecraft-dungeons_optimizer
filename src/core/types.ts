@@ -1091,6 +1091,8 @@ export interface EffectContribution {
 export interface OptimizationResult {
   /** Unsupported choices are excluded, never evaluated as zero-damage effects. */
   readonly unsupportedChoices: readonly string[]
+  /** Inventory instances included in at least one build sent to numerical evaluation. */
+  readonly evaluatedInstanceIds: readonly string[]
   readonly best: Evaluation
   readonly alternatives: readonly Evaluation[]
   readonly paretoFrontier: readonly Evaluation[]

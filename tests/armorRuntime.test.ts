@@ -77,6 +77,16 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(renegade.confidence.factors).toContainEqual(expect.objectContaining({ id: 'renegade-runtime-boundary', confidence: 'low' }))
   })
 
+  it('keeps an unequipped runtime Armor with missing observed health out of evaluated builds', () => {
+    const baselineArmor = armor('battle-robe')
+    const stagedArmor: OwnedArmor = { ...armor('scale-mail'), instanceId: 'drop-armor', observedHealthBonus: undefined }
+    const result = optimize({ weapons: [weapon], armors: [baselineArmor, stagedArmor], artifacts: [] }, scenario)
+
+    expect(result.evaluatedInstanceIds).toContain(baselineArmor.instanceId)
+    expect(result.evaluatedInstanceIds).not.toContain(stagedArmor.instanceId)
+    expect(result.unsupportedChoices).toContain('drop-armor: MISSING_OBSERVED_ARMOR_HEALTH')
+  })
+
   it('keeps unsupported Renegade speed and Armor DR combinations explicit', () => {
     expect(() => evaluate({ ...build('renegade-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
     expect(() => evaluate({ ...build('wither-armor'), artifacts: [{ instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ARMOR_DR_COMBINATION/)

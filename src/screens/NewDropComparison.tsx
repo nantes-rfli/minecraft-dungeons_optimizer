@@ -61,7 +61,17 @@ export function NewDropComparison({
   const rangedBlocker = rangedCandidate ? rangedWeaponUnsupportedReason(rangedCandidate) : undefined
   const candidateEstimate = trial ? estimateSearchCandidates(trial.inventory) : 0
   const candidateOverBudget = trial !== null && candidateEstimate > SEARCH_MAX_CANDIDATES
-  const resultsReady = Boolean(baseline.result && comparisonResult && comparisonStatus === 'complete')
+  const candidateEvaluated = Boolean(trial && comparisonResult?.evaluatedInstanceIds.includes(trial.instanceId))
+  const candidateExclusionReasons = trial && comparisonResult
+    ? comparisonResult.unsupportedChoices
+      .filter((choice) => choice.startsWith(`${trial.instanceId}:`))
+      .map((choice) => choice.slice(trial.instanceId.length + 1).trim())
+    : []
+  const candidateExcluded = Boolean(trial && comparisonResult && comparisonStatus === 'complete' && !candidateEvaluated)
+  const candidateExclusionMessage = candidateExclusionReasons.length
+    ? `この候補は比較に使えませんでした: ${candidateExclusionReasons.join(' / ')}`
+    : 'この候補が評価対象に含まれていないため、比較結果を表示しません。'
+  const resultsReady = Boolean(baseline.result && comparisonResult && comparisonStatus === 'complete' && candidateEvaluated)
   const candidateIncluded = trial && comparisonResult ? buildUsesInstance(comparisonResult.best.build, trial.instanceId) : false
 
   useEffect(() => {
@@ -97,8 +107,9 @@ export function NewDropComparison({
       <div className="drop-candidate-actions"><button className="secondary-button" type="button" onClick={onOpenPicker}>候補を変更</button><button type="button" onClick={onClearTrial}>候補を外す</button></div>
       {blocker && <p className="drop-comparison-warning" role="note">{blocker}</p>}
       {candidateOverBudget && <p className="drop-comparison-warning" role="alert">この候補を含めると探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えます。候補を減らしてください。</p>}
-      <button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget}>現在の最良ビルドと比較</button>
-      <p className="drop-comparison-status" role="status">{waitingForBaseline ? '現在のInventoryを探索しています…' : comparisonStatus === 'working' ? '仮追加後の候補を探索しています…' : comparisonStatus === 'complete' ? '比較が完了しました。' : comparisonStatus === 'error' || (pendingBaseline?.instanceId === trial.instanceId && baseline.status === 'error') ? '比較できませんでした。' : blocker ? '入力条件を確認してください。' : '同じ目的と条件で比較します。'}</p>
+      <button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget || candidateExcluded}>現在の最良ビルドと比較</button>
+      <p className="drop-comparison-status" role="status">{candidateExcluded ? '仮候補は今回の探索で評価されませんでした。' : waitingForBaseline ? '現在のInventoryを探索しています…' : comparisonStatus === 'working' ? '仮追加後の候補を探索しています…' : comparisonStatus === 'complete' ? '比較が完了しました。' : comparisonStatus === 'error' || (pendingBaseline?.instanceId === trial.instanceId && baseline.status === 'error') ? '比較できませんでした。' : blocker ? '入力条件を確認してください。' : '同じ目的と条件で比較します。'}</p>
+      {candidateExcluded && <p className="drop-comparison-warning" role="alert">{candidateExclusionMessage}</p>}
       {baseline.error && pendingBaseline?.instanceId === trial.instanceId && <p className="drop-comparison-warning" role="alert">{baseline.error}</p>}
       {comparisonError && <p className="drop-comparison-warning" role="alert">{comparisonError}</p>}
       {resultsReady && baseline.result && comparisonResult && <>
