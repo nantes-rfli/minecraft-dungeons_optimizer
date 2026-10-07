@@ -158,6 +158,25 @@ test('major equipment flow, observed ranged, locks, gilded, JSON and persistence
   expect(errors).toEqual([])
 })
 
+test('alternative composition opens by keyboard and keeps mobile equipment readable', async ({ page }) => {
+  await page.goto('/#/optimize')
+  await optimize(page)
+  const alternative = page.locator('.build-alternative').first()
+  const summary = alternative.getByText('装備とEnchantの構成を見る', { exact: true })
+  const composition = alternative.locator('.alternative-composition')
+  await expect(composition).not.toHaveAttribute('open', '')
+  await summary.focus()
+  await page.keyboard.press('Enter')
+  await expect(composition).toHaveAttribute('open', '')
+  await expect(composition.locator('.build-enchantments').first()).toBeVisible()
+  await expect(composition).toContainText('通常枠')
+  await expect(composition).toContainText('Power')
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(summary).toBeVisible()
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
+  await audit(page)
+})
+
 test('no-ranged flow, keyboard controls, error recovery and methodology a11y', async ({ page }) => {
   await page.goto('/#/optimize')
   await page.keyboard.press('Tab')

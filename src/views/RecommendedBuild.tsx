@@ -121,6 +121,14 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
   return <article className="result-card compact build-alternative">
     <header><p className="eyebrow">{title}</p><div className="alternative-score"><strong>{numberFormat.format(evaluation.objectiveScore)}</strong><span>1位との差 {scoreDelta >= 0 ? '+' : ''}{numberFormat.format(scoreDelta)}</span></div></header>
     <dl className="alternative-equipment"><dt>近接</dt><dd>{weapon.name.ja}<small lang="en">{weapon.name.en}</small></dd><dt>防具</dt><dd>{armor}</dd><dt>遠距離</dt><dd>{ranged}</dd><dt>Artifact</dt><dd>{artifacts}</dd></dl>
+    <details className="alternative-composition"><summary>装備とEnchantの構成を見る</summary>
+      <dl className="alternative-equipment">
+        <dt>近接</dt><dd>{weapon.name.ja}<small>Power {evaluation.build.weapon.powerLevel}</small><EnchantmentList enchantments={evaluation.build.enchantments} /></dd>
+        <dt>防具</dt><dd>{armor}{evaluation.build.armor && <><small>Power {evaluation.build.armor.powerLevel}</small><ArmorEnchantmentList enchantments={evaluation.build.armorEnchantments} /></>}</dd>
+        <dt>遠距離</dt><dd>{ranged}{evaluation.build.rangedWeapon && <><small>Power {evaluation.build.rangedWeapon.powerLevel}</small><RangedEnchantmentList enchantments={evaluation.build.rangedEnchantments} /></>}</dd>
+        <dt>Artifact</dt><dd>{evaluation.build.artifacts.length === 0 ? 'なし' : <ol>{evaluation.build.artifacts.map((item) => <li key={item.instanceId}>{ARTIFACTS[item.artifactId].name.ja}<small>Power {item.powerLevel}</small></li>)}</ol>}</dd>
+      </dl>
+    </details>
     <dl className="alternative-deltas"><div><dt>Damage</dt><dd>{difference(evaluation.damage.singleTargetDps, best.damage.singleTargetDps) ?? '比較不可'}</dd></div><div><dt>Defense</dt><dd>{difference(evaluation.defense.effectiveHealth, best.defense.effectiveHealth) ?? '比較不可'}</dd></div></dl>
     <ScoreBreakdown evaluation={evaluation} weights={weights} best={best} />
   </article>
