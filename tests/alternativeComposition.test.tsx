@@ -26,6 +26,13 @@ const inventory: Inventory = {
 const scenario = { ...DEFAULT_SCENARIO, rangedTimeShare: 0.5 }
 const tiers = { 1: 'I', 2: 'II', 3: 'III' } as const
 const sources = { slot: '通常枠', gilded: 'Gilded', 'built-in': 'Built-in' } as const
+const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
+
+function formattedDelta(value: number) {
+  const formatted = numberFormat.format(value)
+  if (formatted === '0' || formatted === '-0') return '0'
+  return value > 0 ? `+${formatted}` : formatted
+}
 
 describe('reproducible alternative equipment', () => {
   it('shows each evaluated choice, its tier/source and all equipment powers, without displaying unselected rolls', () => {
@@ -37,6 +44,19 @@ describe('reproducible alternative equipment', () => {
       const html = renderToStaticMarkup(<BuildAlternative evaluation={evaluation} best={result.best} weights={scenario.weights} />)
       const composition = html.split('<summary>装備とEnchantの構成を見る</summary>')[1]?.split('</details>')[0]
       expect(composition).toBeDefined()
+      const deltas = html.split('class="alternative-deltas"')[1]?.split('</dl>')[0]
+      expect(html).toContain('1位との差（候補 − 1位）')
+      expect(deltas).toBeDefined()
+      const expectedDeltas = [
+        ['単体DPS', evaluation.damage.singleTargetDps - result.best.damage.singleTargetDps],
+        ['AoE DPS', evaluation.damage.aoeDps - result.best.damage.aoeDps],
+        ['回復 / 秒', evaluation.healing.totalPerSecond - result.best.healing.totalPerSecond],
+        ['実効HP', evaluation.defense.effectiveHealth - result.best.defense.effectiveHealth],
+        ['Control / 100', (evaluation.control.utility - result.best.control.utility) * 100],
+      ] as const
+      for (const [label, value] of expectedDeltas) {
+        expect(deltas).toContain(`<dt>${label}</dt><dd>${formattedDelta(value)}</dd>`)
+      }
       for (const [choices, catalog] of [
         [evaluation.build.enchantments, ENCHANTMENTS],
         [evaluation.build.armorEnchantments ?? [], ARMOR_ENCHANTMENTS],
@@ -73,5 +93,24 @@ describe('reproducible alternative equipment', () => {
     expect(html).toContain('<dt>遠距離</dt><dd>なし</dd>')
     expect(html).toContain('<dt>Artifact</dt><dd>なし</dd>')
     expect(html).not.toMatch(/undefined|NaN/)
+  })
+
+  it('shows absolute signed deltas when the first-place metric is zero', () => {
+    const result = optimize(inventory, scenario)
+    const zeroBaseline = {
+      ...result.best,
+      damage: { ...result.best.damage, singleTargetDps: 0, aoeDps: 0 },
+      healing: { ...result.best.healing, totalPerSecond: 0 },
+      defense: { ...result.best.defense, effectiveHealth: 0 },
+      control: { ...result.best.control, utility: 0 },
+    }
+    const html = renderToStaticMarkup(<BuildAlternative evaluation={result.best} best={zeroBaseline} weights={scenario.weights} />)
+    const deltas = html.split('class="alternative-deltas"')[1]?.split('</dl>')[0]
+    expect(deltas).toContain(`<dt>単体DPS</dt><dd>${formattedDelta(result.best.damage.singleTargetDps)}</dd>`)
+    expect(deltas).toContain(`<dt>AoE DPS</dt><dd>${formattedDelta(result.best.damage.aoeDps)}</dd>`)
+    expect(deltas).toContain(`<dt>回復 / 秒</dt><dd>${formattedDelta(result.best.healing.totalPerSecond)}</dd>`)
+    expect(deltas).toContain(`<dt>実効HP</dt><dd>${formattedDelta(result.best.defense.effectiveHealth)}</dd>`)
+    expect(deltas).toContain(`<dt>Control / 100</dt><dd>${formattedDelta(result.best.control.utility * 100)}</dd>`)
+    expect(html).not.toContain('比較不可')
   })
 })

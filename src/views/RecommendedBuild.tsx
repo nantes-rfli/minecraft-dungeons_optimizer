@@ -107,10 +107,11 @@ export function RecommendedBuild({ evaluation, weights }: { evaluation: Evaluati
   </article>
 }
 
-function difference(value: number, baseline: number) {
-  if (baseline === 0) return null
-  const percent = ((value - baseline) / Math.abs(baseline)) * 100
-  return `${percent >= 0 ? '+' : ''}${numberFormat.format(percent)}%`
+function signedDelta(value: number, baseline: number) {
+  const delta = value - baseline
+  const formatted = numberFormat.format(delta)
+  if (formatted === '0' || formatted === '-0') return '0'
+  return delta > 0 ? `+${formatted}` : formatted
 }
 
 export function BuildAlternative({ evaluation, best, weights, title = '次点候補' }: { evaluation: Evaluation; best: Evaluation; weights: Scenario['weights']; title?: string }) {
@@ -119,6 +120,13 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
   const ranged = evaluation.build.rangedWeapon ? RANGED_WEAPONS[evaluation.build.rangedWeapon.weaponId]?.name.ja ?? evaluation.build.rangedWeapon.weaponId : 'なし'
   const artifacts = evaluation.build.artifacts.map((item) => ARTIFACTS[item.artifactId].name.ja).join(' / ') || 'なし'
   const scoreDelta = evaluation.objectiveScore - best.objectiveScore
+  const metricDeltas = [
+    { label: '単体DPS', value: signedDelta(evaluation.damage.singleTargetDps, best.damage.singleTargetDps) },
+    { label: 'AoE DPS', value: signedDelta(evaluation.damage.aoeDps, best.damage.aoeDps) },
+    { label: '回復 / 秒', value: signedDelta(evaluation.healing.totalPerSecond, best.healing.totalPerSecond) },
+    { label: '実効HP', value: signedDelta(evaluation.defense.effectiveHealth, best.defense.effectiveHealth) },
+    { label: 'Control / 100', value: signedDelta(evaluation.control.utility * 100, best.control.utility * 100) },
+  ]
   return <article className="result-card compact build-alternative">
     <header><p className="eyebrow">{title}</p><div className="alternative-score"><strong>{numberFormat.format(evaluation.objectiveScore)}</strong><span>1位との差 {scoreDelta >= 0 ? '+' : ''}{numberFormat.format(scoreDelta)}</span></div></header>
     <dl className="alternative-equipment"><dt>近接</dt><dd>{weapon.name.ja}<small lang="en">{weapon.name.en}</small></dd><dt>防具</dt><dd>{armor}</dd><dt>遠距離</dt><dd>{ranged}</dd><dt>Artifact</dt><dd>{artifacts}</dd></dl>
@@ -130,7 +138,10 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
         <dt>Artifact</dt><dd>{evaluation.build.artifacts.length === 0 ? 'なし' : <ol>{evaluation.build.artifacts.map((item) => <li key={item.instanceId}>{ARTIFACTS[item.artifactId].name.ja}<small>Power {item.powerLevel}</small></li>)}</ol>}</dd>
       </dl>
     </details>
-    <dl className="alternative-deltas"><div><dt>Damage</dt><dd>{difference(evaluation.damage.singleTargetDps, best.damage.singleTargetDps) ?? '比較不可'}</dd></div><div><dt>Defense</dt><dd>{difference(evaluation.defense.effectiveHealth, best.defense.effectiveHealth) ?? '比較不可'}</dd></div></dl>
+    <section className="alternative-deltas-section" aria-label="おすすめ1位との主要評価差">
+      <p>1位との差（候補 − 1位）</p>
+      <dl className="alternative-deltas">{metricDeltas.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
+    </section>
     <ScoreBreakdown evaluation={evaluation} weights={weights} best={best} />
     <BuildEvidenceDetails evaluation={evaluation} />
   </article>
