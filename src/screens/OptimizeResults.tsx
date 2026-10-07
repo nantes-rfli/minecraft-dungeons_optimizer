@@ -13,6 +13,7 @@ import { ChargeConsumeDetails } from '../views/ChargeConsumeDetails'
 import { SoulStateDetails } from '../views/SoulStateDetails'
 import { DamageEventDetails } from '../views/DamageEventControls'
 import { RangedResult } from '../views/RangedEquipment'
+import { EstimatedParameterDetails } from '../views/BuildEvidenceDetails'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
@@ -34,7 +35,7 @@ export function OptimizeResults({ weights, error, result, status, evidencePolicy
     {status === 'working' && <div className="empty-state working"><span className="spinner" aria-hidden="true" /><h2>すべての候補を比較しています</h2><p>この間も探索を中止できます。</p></div>}
     {result && <>
       {result.unsupportedChoices.length > 0 && <div className="model-warning" role="note"><strong>未対応の候補は評価から除外しました（0点として採用しません）</strong>{result.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}</div>}
-      <div className={`evidence-result ${estimatedParameters.length ? 'estimated' : 'strict'}`} role="note"><strong>{evidencePolicy === 'include-estimated' ? 'Estimatedを含めて評価' : '確度の高い情報のみで評価'}</strong>{estimatedParameters.length > 0 ? <><p>次のmechanic / parameterに推定値を使用しました。</p><ul>{estimatedParameters.map((parameter) => <li key={`${parameter.mechanicId}-${parameter.parameterId}`}><strong>{parameter.label}</strong><code>{parameter.mechanicId} / {parameter.parameterId}</code><span>{parameter.basis}</span><small>{parameter.conditions} · version: {parameter.gameVersion} · confidence: {parameter.confidence}</small></li>)}</ul></> : <p>この結果には登録済みのEstimated parameterを使用していません。</p>}</div>
+      <div className={`evidence-result ${estimatedParameters.length ? 'estimated' : 'strict'}`} role="note"><strong>{evidencePolicy === 'include-estimated' ? 'Estimatedを含めて評価' : '確度の高い情報のみで評価'}</strong><EstimatedParameterDetails parameters={estimatedParameters} /></div>
       <div className="result-meta"><span>{result.evaluatedBuildCount}通りを全探索</span><span>Evidence coverage {Math.round(result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[result.best.confidence.label]}）</span></div>
       <RecommendedBuild evaluation={result.best} weights={weights} />
       <section className="result-reasons" aria-labelledby="result-reasons-title"><h3 id="result-reasons-title">選ばれた理由</h3><ul>{result.best.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section>

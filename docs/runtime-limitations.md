@@ -84,3 +84,7 @@ Phase 2-3CではArmor primary71 / Wiki known73 / obtainable71の母集団を維�
 この順序は現在のcurated software testとEvidence blockerに基づく提案で、人気統計や実ゲームの使用頻度を測ったものではありません。
 
 Health Synergyはcooldown-only Artifactの`sum(1 / effectiveCooldownSeconds) × resolvedMaxHealth × Tier率`によるsteady-state nominal healing capacityです。overhealと有限encounterの実発動回数は未計算で、Artifact Synergyの数値は変更しません。Grim / WitherのSoul倍率は共通ArmorState propertyから取得し、既存のflat Gatheringのみ1.5倍にします。Armor単独ではSoul収集を発生させず、pickup回数は変えません。詳細は[Phase 2-3C fix-up](armor-expansion-state-enchants.md)を参照してください。
+
+## 候補ごとのEvidence説明
+
+次点・パレート候補の「Evidenceと計算上の注意」には、その候補自身の登録済みEstimated parameter（根拠・条件・version・confidence）、Evidence coverage、計算上の注意を表示する。最良候補の説明を別候補へ流用しない。Estimatedが0件でも独立検証済みとは限らない。表示は既存のparameter Evidenceと評価結果を使用し、runtime support、採用方針、順位、coverageを変更しない。
