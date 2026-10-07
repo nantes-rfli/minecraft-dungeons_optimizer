@@ -21,6 +21,7 @@ import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsuppor
 import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { soulEnchantmentUnsupportedReason } from './soulLegality'
+import { distinctRecommendations } from './distinctRecommendations'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -264,6 +265,10 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     throw new OptimizerInputError('NO_EVIDENCE_ALLOWED_CANDIDATES', `選択したEvidence policyで評価できる候補がありません。${[...unsupportedChoices].join(' ')}`)
   }
 
+  // Deduplicate display candidates after exhaustive scoring, before output
+  // limits. Preserve the best feasible slot allocation and the search count.
+  const recommendations = distinctRecommendations(evaluations)
+
   // Cache only for this optimization call: no stale scenarios or global growth.
   const detailed = new Map<Build, Evaluation>()
   const withDetails = (candidate: typeof best): Evaluation => {
@@ -276,8 +281,8 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   return {
     unsupportedChoices: [...unsupportedChoices],
     best: withDetails(best),
-    alternatives: evaluations.slice(1, 5).map(withDetails),
-    paretoFrontier: calculateParetoFrontier(evaluations).map(withDetails),
+    alternatives: recommendations.slice(1, 5).map(withDetails),
+    paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),
     evaluatedBuildCount: evaluations.length,
     searchMode: 'exhaustive',
   }

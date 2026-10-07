@@ -39,6 +39,8 @@ export function OptimizeResults({ weights, error, result, status, evidencePolicy
       <RecommendedBuild evaluation={result.best} weights={weights} />
       <section className="result-reasons" aria-labelledby="result-reasons-title"><h3 id="result-reasons-title">選ばれた理由</h3><ul>{result.best.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section>
       <h3 className="alternatives-title">次点候補</h3>
+      <p>Enchantの枠順だけが異なる同じ構成はまとめて表示します。個体・Tier・通常枠／Gildedが違う候補は別構成として残します。</p>
+      {result.alternatives.length === 0 && <p>現在の条件で評価できる別構成の候補はありません。</p>}
       <div className="alternatives">{result.alternatives.slice(0, 4).map((evaluation, index) => <BuildAlternative evaluation={evaluation} best={result.best} weights={weights} key={`alternative-${evaluation.build.weapon.instanceId}-${index}`} />)}</div>
       <details className="secondary-results"><summary>パレート候補を見る</summary><h3>Pareto前線</h3><div className="alternatives">{result.paretoFrontier.slice(0, 3).map((evaluation, index) => <BuildAlternative title={`PARETO ${index + 1}`} evaluation={evaluation} best={result.best} weights={weights} key={`pareto-${evaluation.build.weapon.instanceId}-${index}`} />)}</div></details>
       <details className="technical-results"><summary>計算と Evidence の詳細を見る</summary>

@@ -10,6 +10,8 @@
 
 ## 判定ルールと再確認
 
+次点・パレート候補では、同じ所持個体・同じEnchant（Tier・source・コピー数を含む）の枠順違いをまとめ、スコア順で最初の実現可能な構成を表示します。スコア・単体DPS・AoE DPS・回復/秒・実効HP・Control utilityのいずれかが異なる場合はまとめません。個体・Enchant・Tier・通常枠／Gilded／Built-in・Artifactの個体集合が異なる候補は、同点でも別構成として保持します。全探索件数と最良候補、評価式は変わりません。これは所持品を削除する判断や、枠順の異なるすべての装備を実ゲームで同等と認証するものではありません。
+
 - Fullは現アーキテクチャ・合法装備・明示されたScenario仮定内で主要経路が完結すること。低信頼度だけではLimitedにしません。
 - Limitedは固有のPower・コピー・併用境界があるもの。制限の所有者をmanifestに記録し、matrix/APIは逆方向の併用制限も表示します。Sharpness / Critical Hit / Committed等をPain・Dynamo側の未検証pairだけでLimitedにしません。
 - Artifact Synergy / RampagingはFull。平均使用頻度・固定点・コピーdurationのモデルが完結しています。frame capやaction解釈のEvidence課題は[Temporal](temporal-enchantments.md)へ。
