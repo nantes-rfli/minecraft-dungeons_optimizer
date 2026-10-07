@@ -18,7 +18,13 @@
 
 Applicationが信頼して利用できるGame Domainをsource-backed / fail-closedで拡張する。Raw / Formal完全網羅を目標にしない。Formal Identity / Value / Relationはそのための内部契約である。
 
-初期missionは、Game Domain breadthをApplicationに必要な境界まで効率よく進めること。reusable foundationと安全なbatch populationを優先し、具体的なValue・説明・比較・推薦改善への経路がないFormal作業は後順位にする。Research全体の完了をProduct改善の開始条件にしない。ただしroadmapのparameter単位の依存とPromotion gateは維持する。
+最終ゴールは、3層そのものを完成させることではなく、利用者の装備比較・説明・推薦を実用的に改善できるOptimizerを完成させること。3層はそのためのarchitectureであり、Raw件数、Formal件数、Evidence tooling件数、runtime promotion件数のいずれも単独では最適化対象にしない。
+
+各iterationは **completion frontier** を再計算する。completion frontierとは、(1) Applicationが現在できること、(2) 次に実用価値を増やす最小のuser-facing capability、(3) そのcapabilityを止めている最小のbottleneck（Raw / Domain / Evidence / Runtime / Optimizer / UXのどこか）である。Work Unitは原則としてこのbottleneckを解消するものを選ぶ。補助toolingやfoundationは、それ自体が便利だからではなく、名前を挙げたcapabilityの解禁・品質向上・blocker除去へ因果的につながる場合に優先する。
+
+初期missionは、Game Domain breadthをApplicationに必要な境界まで効率よく進めつつ、既に利用可能なruntime範囲ではOptimizer / recommendation qualityも並行して前進させること。reusable foundationと安全なbatch populationを優先するが、具体的なValue・説明・比較・推薦改善への経路がないFormal作業や、隣接する補助toolingだけを連鎖的に増やす作業は後順位にする。Research全体の完了をProduct改善の開始条件にしない。ただしroadmapのparameter単位の依存とPromotion gateは維持する。
+
+固定ローテーション、層ごとのquota、一定回数ごとの強制切替は設けない。同じ層・同じTrack・同じ補助作業が続くことは停止条件ではなく **stagnation signal** とする。signalが出たiterationでは、継続候補と少なくとも1つのApplication / Optimizer候補、1つのcross-layer blocker候補を比較し、それでも継続がcompletion frontier上の最短経路なら続けてよい。逆に、単に「前回の続き」「currentだから」「安全に追加できるから」は継続理由にしない。
 
 毎iterationでRelation breadthの継続／freezeを判断する。残るRelation候補が単独family専用で、具体的なconsumerやValue解禁への効果を説明できない場合、その候補群をfreezeし、既知のValueやApplication payoffを比較対象へ移す。freezeはunknownの解決でも全体完了でもない。新Evidence・consumer・再利用可能foundationが現れたら再評価する。domain名・件数・PR番号をmissionへ固定しない。
 
@@ -38,9 +44,10 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 
 1. `git status --short --branch`、`git fetch origin`、`git rev-parse origin/main`で作業状態とbaseline SHAを確認する。fetch失敗時は古いmainをcurrentと呼ばない。他者の未commit変更をreset/stashせず、必要なら分離する。open PRのhead・対象・担当を確認し、open autonomous PRがあれば [PR handoff and resumption](#pr-handoff-and-resumption) の状態別処理へ進み、次のWork Unitを開始しない。無関係なPRは閉じない。新規iterationは、そのbaselineから`codex/` branchを作ったclean checkoutで以下を読む・実行する。fetchしただけで古い作業branchを監査しない。既存PRの修正時はそのheadを使い、mainとの差を記録する。
 2. 上記正本、対象familyの契約・generator・audit・preservation tests、最近のPRを読む。過去の監査はbaselineと入力を確認する。固定SHAを読むcensusを再実行してもcurrentの再計算にはならない。古い監査を改変せず、current artifactとの差分を照合する。
-3. 選定に関係する既存read-only auditを実行し、committed artifactからcoverage・blocker・未処理populationを再計算する。Game Domain missionではFormal Identity / Value / Relation / integrationとPromotion eligibilityを比較する。countsには意味と分母とsource pathを添える。文書とartifactの差は記録し、推測で件数を埋めない。
-4. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。Formalだけでなく利用可能なEvidence内のProduct改善も比較する。
-5. READY候補をbenefit対cost対riskで比較する。理由を残し、最上位を1つ選ぶ。候補がない場合もその根拠を残す。作業前に対象・除外・関連検証・preservation baselineを固定する。
+3. merged mainのApplication / Optimizerを利用者視点で確認し、completion frontierを1つ定義する。「今できること」「次に増やす実用capability」「そのcapabilityを止める最小bottleneck」を記録する。promotion eligibleが0件でも、既存runtime範囲の推薦品質・比較・説明・入力体験などProduct側で前進できる候補を必ず再探索する。逆にProduct案を作るために未確認semanticsを捏造しない。
+4. 選定に関係する既存read-only auditを実行し、committed artifactからcoverage・blocker・未処理populationを再計算する。auditはcompletion frontierのbottleneckを検証するために使い、auditで見つけた作業を自動的に次の仕事へ昇格させない。Game Domain missionではFormal Identity / Value / Relation / integrationとPromotion eligibilityを比較する。countsには意味と分母とsource pathを添える。文書とartifactの差は記録し、推測で件数を埋めない。
+5. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、completion frontierとの因果関係、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。Formalだけでなく利用可能なEvidence内のProduct改善、既存runtime範囲で完結するOptimizer改善、必要なEvidence acquisitionを同じ候補表で比較する。
+6. READY候補を **tool completionへの前進量**、benefit、cost、riskで比較する。理由を残し、最上位を1つ選ぶ。補助tooling候補は、名前を挙げたcapabilityのblockerを実際に閉じる場合を除き、隣接する補助toolingの利便性だけでは上位にしない。候補がない場合もその根拠を残す。作業前に対象・除外・関連検証・preservation baselineを固定する。
 
 | Readiness | 判定と扱い |
 | --- | --- |
@@ -55,8 +62,8 @@ readinessとROIは別。readinessは上から判定し、Evidence不足・曖昧
 ROADMAPの依存条件と計画上の優先順位は、次のように扱う:
 
 - `dependsOn` / `dependencyCondition` は着手可否の必須条件（hard eligibility gate）。対象parameter / mechanic単位の条件がある場合はその単位で充足を確認し、依存先Track全体のDoneを要求しない。未充足の条件を高ROIや`current / next`というstatusで迂回しない。
-- `status`は計画上の優先順位を示す。`current / next`を先に比較するが、`later`自体は実装禁止ではない。`blocked`はblockerの解消を確認するまで選ばず、`done`の完了済みscopeを再実装しない。
-- `current / next`より`later`を選ぶ場合は、Application payoff・依存解消への効果（該当しなければその旨）と、比較したCurrent/Next候補がblockedまたは相対的に低ROIである理由をiteration recordへ明示する。statusを無視してROIだけで選ばない。
+- `status`は計画上の方向と継続性を示すが、既存作業へのincumbency bonusにはしない。`current / next`は有力候補だが、completion frontier上で別のeligible Product / Domain候補の方がtool completionへ大きく前進するならそちらを選べる。`later`自体は実装禁止ではない。`blocked`はblockerの解消を確認するまで選ばず、`done`の完了済みscopeを再実装しない。
+- `current / next`以外を選ぶ場合は、Application payoff・依存解消への効果（該当しなければその旨）と、比較したCurrent/Next候補よりcompletion frontier上で優位な理由をiteration recordへ明示する。逆にCurrentを継続する場合も、直近のWork Unitと同じTrack / layer / support familyが続くなら、他TrackのREADY候補を比較したうえで継続理由を残す。statusだけでもROIだけでも選ばない。
 - 選択が継続的な主作業への昇格など恒久的なproject status変更を意味する場合は、同じiterationで`src/data/roadmap.ts`を更新し、既存generatorでROADMAPへ反映する。単発のbounded contributionならstatus変更は必須ではないが、変更しない理由を記録する。
 
 優先するのは、既存foundationで複数domainを処理できる作業、小さなfoundationで複数domainを解禁する作業、Value / Application / explanation / optimizer qualityを直接改善する作業。Identity breadthはそれらの依存を解消する場合に上げる。単独domain専用Relationや利用予定のない構造は低順位。同程度ならsemantic risk、変更範囲、依存解消効果の順で比較し、なお同等なら候補IDの辞書順で選ぶ。固定スコアやFormal件数の最大化は採用しない。
@@ -65,7 +72,7 @@ default Work Unitは **1 reusable foundation + そのfoundationで安全に処�
 
 同一Track・同一boundaryのmaintenance defectを選ぶ場合、その時点で隣接する同種invariantも横断確認する。同じacceptance boundary・foundation・同程度のsemantic riskで安全に修正できるものは **1 reusable foundation + all safely eligible adjacent fixes** として1 Work Unitへまとめ、対象と除外理由を記録する。PRサイズや変更ファイル数を目的にしない。
 
-直近の複数Work Unitがmaintenanceだった場合、次のselectionではApplication capability、Optimizer / recommendation quality、reusable breadth foundation、current blocker解消、Evidence acquisition / adoptionを明示的に再探索し、readinessとproject payoffを比較する。maintenanceをさらに選ぶのは、現実的なcorrectness riskを再現でき、かつ他のREADY候補よりproject payoffが高い場合に限る。「安全に実装できる」「fail-closed defectを見つけた」だけを連続maintenanceの十分な選定理由にしない。
+直近の複数Work Unitがmaintenanceだった場合だけでなく、Evidence handoff / audit / validator / acquisition-supportなど **user-facing capabilityを直接増やさないWork Unitが続いた場合** もstagnation signalとして扱う。次のselectionではApplication capability、Optimizer / recommendation quality、reusable breadth foundation、cross-layer handoff、current blocker解消、Evidence acquisition / adoptionを明示的に再探索し、readinessとtool completionへの寄与を比較する。同種のsupport workをさらに選ぶのは、現実的なcorrectness riskまたは具体的なcompletion frontier blockerを閉じ、他のREADY候補よりproject payoffが高い場合に限る。「安全に実装できる」「handoffが少し便利になる」「fail-closed defectを見つけた」だけを連続選定の十分な理由にしない。ただし固定回数での強制切替は行わず、同じcritical pathを進む合理性が残る場合は継続できる。
 
 ## Continue, defer, stop
 
