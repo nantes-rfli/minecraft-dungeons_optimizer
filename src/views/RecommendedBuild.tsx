@@ -1,4 +1,5 @@
 import { ScoreBreakdown } from './ScoreBreakdown'
+import { BuildEvidenceDetails } from './BuildEvidenceDetails'
 import type { Evaluation, LocalizedName, Scenario, SelectedEnchantment } from '../core/types'
 import type { ArmorId, SelectedArmorEnchantment } from '../core/armor'
 import type { SelectedRangedEnchantment } from '../core/rangedTypes'
@@ -131,5 +132,6 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
     </details>
     <dl className="alternative-deltas"><div><dt>Damage</dt><dd>{difference(evaluation.damage.singleTargetDps, best.damage.singleTargetDps) ?? '比較不可'}</dd></div><div><dt>Defense</dt><dd>{difference(evaluation.defense.effectiveHealth, best.defense.effectiveHealth) ?? '比較不可'}</dd></div></dl>
     <ScoreBreakdown evaluation={evaluation} weights={weights} best={best} />
+    <BuildEvidenceDetails evaluation={evaluation} />
   </article>
 }
