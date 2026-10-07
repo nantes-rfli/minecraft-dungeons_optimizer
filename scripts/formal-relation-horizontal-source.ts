@@ -4,6 +4,8 @@ import { type HorizontalRawFactInventory, type JsonRecord } from './game-data-ho
 import { hasVerifiedStructuralPackage, readVerifiedStructuralShard, RAW_STRUCTURAL_INVENTORY_DIRECTORY } from './formal-value-source-provenance.ts'
 import { matchedIdentityDomainId, matchedIdentityDomainIdFromSource, sameLogicalRawPackage, snapshotSource } from '../src/domain/formal/boundarySource.ts'
 import { formalIdentityDefinitions } from '../src/domain/formal/identityDefinitions.ts'
+import { PARSER_ID, PARSER_SCHEMA_VERSION } from './game-data-package-source.ts'
+import type { RawStructuralInventoryManifest, RawStructuralInventoryShard } from './game-data-raw-structural-inventory.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
 import type { FormalIdentityDefinition, FormalSemanticIdentity, RawObservationEvidenceRecord } from '../src/domain/formal/identityEvidence.ts'
 import type { RawTrace } from '../src/domain/formal/rawProjection.ts'
@@ -137,6 +139,19 @@ const canonicalJson = (value: unknown): string => {
   return JSON.stringify(value) ?? 'undefined'
 }
 
+/** Relation edges and typed target structures require the supported decoded format. */
+export function verifyStructuralRelationParser(
+  manifest: RawStructuralInventoryManifest,
+  pkg: RawStructuralInventoryShard['packages'][number],
+): void {
+  if (manifest.scope.parser?.id !== PARSER_ID || manifest.scope.parser?.schemaVersion !== PARSER_SCHEMA_VERSION) {
+    throw new Error('Unsupported Structural Relation manifest parser')
+  }
+  if (pkg.parse?.parser?.id !== PARSER_ID || pkg.parse?.parser?.schemaVersion !== PARSER_SCHEMA_VERSION) {
+    throw new Error(`Unsupported Structural Relation package parser: ${pkg.path}`)
+  }
+}
+
 function exactItem(inventory: InventoryView, request: { category: string; catalogId: string }): HorizontalItem {
   const matches = inventory.items.filter((item) => item.category === request.category && item.catalogId === request.catalogId)
   if (matches.length !== 1) {
@@ -265,7 +280,7 @@ function targetStructuralPackage(repositoryRoot: string, targetPath: string, dat
   while (low <= high) {
     const middle = Math.floor((low + high) / 2)
     const meta = manifest.shards[middle]!
-    const { shard } = readVerifiedStructuralShard(repositoryRoot,
+    const { manifest: verifiedManifest, shard } = readVerifiedStructuralShard(repositoryRoot,
       `${RAW_STRUCTURAL_INVENTORY_DIRECTORY}/${meta.path}`, datasetId)
     const first = shard.packages[0]?.path
     const last = shard.packages[shard.packages.length - 1]?.path
@@ -274,8 +289,11 @@ function targetStructuralPackage(repositoryRoot: string, targetPath: string, dat
     if (targetPath.localeCompare(last) > 0) { low = middle + 1; continue }
     const matches = shard.packages.filter((pkg) => pkg.path === targetPath)
     if (matches.length > 1) throw new Error(`ItemActor target package duplicated: ${targetPath}`)
-    if (matches.length === 1) return { pkg: matches[0] as unknown as JsonRecord,
-      edges: shard.edges.filter((edge) => edge.sourcePackage === targetPath) as unknown as JsonRecord[] }
+    if (matches.length === 1) {
+      verifyStructuralRelationParser(verifiedManifest, matches[0]!)
+      return { pkg: matches[0] as unknown as JsonRecord,
+        edges: shard.edges.filter((edge) => edge.sourcePackage === targetPath) as unknown as JsonRecord[] }
+    }
     break
   }
   throw new Error(`ItemActor target package missing: ${targetPath}`)
@@ -608,7 +626,7 @@ export function resolveHorizontalRelationSource(
     'Horizontal relation source shard uncompressed hash',
   )
   const sourcePackageHash = requiredString(provenance?.packageHash, 'Horizontal relation source package hash')
-  const { shard } = readVerifiedStructuralShard(
+  const { manifest: verifiedManifest, shard } = readVerifiedStructuralShard(
     repositoryRoot,
     sourceShardPath,
     datasetId,
@@ -621,6 +639,7 @@ export function resolveHorizontalRelationSource(
     throw new Error(`Structural relation source package does not resolve exactly once: ${request.candidatePackage}`)
   }
   const packageMatch = packageMatches[0]!
+  verifyStructuralRelationParser(verifiedManifest, packageMatch.pkg)
   if (!packageMatch.pkg.packageHash || packageMatch.pkg.packageHash.value !== sourcePackageHash) {
     throw new Error(`Structural relation source package hash mismatch: ${request.candidatePackage}`)
   }
@@ -796,7 +815,7 @@ export function resolveHorizontalScopeRelationSource(
     'Horizontal scope relation source shard uncompressed hash',
   )
   const sourcePackageHash = requiredString(provenance?.packageHash, 'Horizontal scope relation source package hash')
-  const { shard } = readVerifiedStructuralShard(
+  const { manifest: verifiedManifest, shard } = readVerifiedStructuralShard(
     repositoryRoot,
     sourceShardPath,
     datasetId,
@@ -809,6 +828,7 @@ export function resolveHorizontalScopeRelationSource(
     throw new Error(`Structural scope relation source package does not resolve exactly once: ${request.candidatePackage}`)
   }
   const packageMatch = packageMatches[0]!
+  verifyStructuralRelationParser(verifiedManifest, packageMatch.pkg)
   if (!packageMatch.pkg.packageHash || packageMatch.pkg.packageHash.value !== sourcePackageHash) {
     throw new Error(`Structural scope relation source package hash mismatch: ${request.candidatePackage}`)
   }
@@ -1178,7 +1198,7 @@ export function resolveHorizontalSporeGrenadeRelationSource(
     'SporeGrenade indexed relation source shard uncompressed hash',
   )
   const sourcePackageHash = requiredString(provenance?.packageHash, 'SporeGrenade indexed relation source package hash')
-  const { shard } = readVerifiedStructuralShard(
+  const { manifest: verifiedManifest, shard } = readVerifiedStructuralShard(
     repositoryRoot,
     sourceShardPath,
     datasetId,
@@ -1191,6 +1211,7 @@ export function resolveHorizontalSporeGrenadeRelationSource(
     throw new Error(`SporeGrenade Structural relation source package does not resolve exactly once: ${request.candidatePackage}`)
   }
   const packageMatch = packageMatches[0]!
+  verifyStructuralRelationParser(verifiedManifest, packageMatch.pkg)
   if (!packageMatch.pkg.packageHash || packageMatch.pkg.packageHash.value !== sourcePackageHash) {
     throw new Error(`SporeGrenade Structural relation source package hash mismatch: ${request.candidatePackage}`)
   }
