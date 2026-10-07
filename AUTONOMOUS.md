@@ -20,7 +20,7 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 
 最終ゴールは、3層そのものを完成させることではなく、利用者の装備比較・説明・推薦を実用的に改善できるOptimizerを完成させること。3層はそのためのarchitectureであり、Raw件数、Formal件数、Evidence tooling件数、runtime promotion件数のいずれも単独では最適化対象にしない。
 
-各iterationは **completion frontier** を再計算する。completion frontierとは、(1) Applicationが現在できること、(2) 次に実用価値を増やす最小のuser-facing capability、(3) そのcapabilityを止めている最小のbottleneck（Raw / Domain / Evidence / Runtime / Optimizer / UXのどこか）である。Work Unitは原則としてこのbottleneckを解消するものを選ぶ。補助toolingやfoundationは、それ自体が便利だからではなく、名前を挙げたcapabilityの解禁・品質向上・blocker除去へ因果的につながる場合に優先する。
+各iterationは **completion frontier** を再計算する。completion frontierとは、(1) Applicationが現在できること、(2) 次に実用価値を増やす最小のuser-facing capability、(3) そのcapabilityを止めている最小のbottleneck（Raw / Domain / Evidence / Runtime / Optimizer / UXのどこか）である。Work Unitは原則としてこのbottleneckを解消するものを選ぶ。候補比較では、**既存coverage内の品質向上** と、**追加の実装可能な装備・mechanicをDomain / Evidence / RuntimeからOptimizerへ到達させるcoverage expansionまたは最寄りのcross-layer blocker解消** を必ず同じ表で比較する。coverageを常に優先するのではなく、安全なcoverage-unlock候補が存在しない場合は既存coverage内のP5 / P6改善を選んでよい。逆に、反復可能なmicro-improvementがuser-facingであることだけでは、coverage reachを広げる候補よりtool completionへの前進が大きいとは扱わない。補助toolingやfoundationは、それ自体が便利だからではなく、名前を挙げたcapabilityの解禁・品質向上・blocker除去へ因果的につながる場合に優先する。
 
 初期missionは、Game Domain breadthをApplicationに必要な境界まで効率よく進めつつ、既に利用可能なruntime範囲ではOptimizer / recommendation qualityも並行して前進させること。reusable foundationと安全なbatch populationを優先するが、具体的なValue・説明・比較・推薦改善への経路がないFormal作業や、隣接する補助toolingだけを連鎖的に増やす作業は後順位にする。Research全体の完了をProduct改善の開始条件にしない。ただしroadmapのparameter単位の依存とPromotion gateは維持する。
 
@@ -46,7 +46,7 @@ Applicationが信頼して利用できるGame Domainをsource-backed / fail-clos
 2. 上記正本、対象familyの契約・generator・audit・preservation tests、最近のPRを読む。過去の監査はbaselineと入力を確認する。固定SHAを読むcensusを再実行してもcurrentの再計算にはならない。古い監査を改変せず、current artifactとの差分を照合する。
 3. merged mainのApplication / Optimizerを利用者視点で確認し、completion frontierを1つ定義する。「今できること」「次に増やす実用capability」「そのcapabilityを止める最小bottleneck」を記録する。promotion eligibleが0件でも、既存runtime範囲の推薦品質・比較・説明・入力体験などProduct側で前進できる候補を必ず再探索する。逆にProduct案を作るために未確認semanticsを捏造しない。
 4. 選定に関係する既存read-only auditを実行し、committed artifactからcoverage・blocker・未処理populationを再計算する。auditはcompletion frontierのbottleneckを検証するために使い、auditで見つけた作業を自動的に次の仕事へ昇格させない。Game Domain missionではFormal Identity / Value / Relation / integrationとPromotion eligibilityを比較する。countsには意味と分母とsource pathを添える。文書とartifactの差は記録し、推測で件数を埋めない。
-5. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、completion frontierとの因果関係、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。Formalだけでなく利用可能なEvidence内のProduct改善、既存runtime範囲で完結するOptimizer改善、必要なEvidence acquisitionを同じ候補表で比較する。
+5. foundation単位の候補を列挙する。候補ごとにTrack、source locator、consumer／解禁するValue、completion frontierとの因果関係、対象母集団と除外理由、依存、完了条件、cost、semantic risk、下表のreadinessを記録する。候補表には最低限、(a) 既存coverage内で完結するApplication / Optimizer品質改善と、(b) coverage reachを増やすDomain / Evidence / Runtime候補またはその最寄りcross-layer blockerを含める。Formalだけでなく利用可能なEvidence内のProduct改善、既存runtime範囲で完結するOptimizer改善、必要なEvidence acquisitionを同じ候補表で比較する。
 6. READY候補を **tool completionへの前進量**、benefit、cost、riskで比較する。理由を残し、最上位を1つ選ぶ。補助tooling候補は、名前を挙げたcapabilityのblockerを実際に閉じる場合を除き、隣接する補助toolingの利便性だけでは上位にしない。候補がない場合もその根拠を残す。作業前に対象・除外・関連検証・preservation baselineを固定する。
 
 | Readiness | 判定と扱い |
