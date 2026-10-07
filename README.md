@@ -22,7 +22,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 - Artifact: Death Cap Mushroom / Iron Hide Amulet / Shock Powder
 - Enchantment: Full / Limited / Research-onlyを明示し、未対応候補を0点評価しない
 - 比較: Damage / Healing / Defense / Control、6種のScenario profile、Pareto前線、効果ごとの寄与
-- Inventory: 監査済み装備をruntime対応外も含めて保持し、ブラウザ保存とJSON入出力に対応
+- Inventory: 監査済み装備をruntime対応外も含めて保持し、ブラウザ保存、JSONファイルのバックアップ、検証後の明示的な復元に対応
 - Evidence: Verified / Measured / Derived / Estimated / Unknown / Unclassifiedをruntime supportとは別軸で管理
 
 詳細な対応範囲と制約:

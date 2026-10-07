@@ -220,6 +220,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   const [jsonText, setJsonText] = useState(initialInventory.error ? initialInventory.storedJson : '')
   const [dataError, setDataError] = useState(false)
   const [dataMessage, setDataMessage] = useState('ブラウザに自動保存されます。')
+  const [readingBackup, setReadingBackup] = useState(false)
   const [inventoryTab, setInventoryTab] = useState<'list' | 'statistics'>('list')
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [inventoryQuery, setInventoryQuery] = useState('')
@@ -274,6 +275,46 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     catch (error) { setDataError(true); setDataMessage(error instanceof Error ? error.message : '読み込みに失敗しました。') }
   }
 
+  const downloadBackup = () => {
+    try {
+      const json = serializeInventory(inventory)
+      // Like autosave, refuse an invalid partially edited inventory.
+      deserializeInventory(json)
+      const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }))
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `mcd-inventory-${new Date().toISOString().slice(0, 10)}.json`
+      document.body.append(link)
+      try { link.click() } finally {
+        link.remove()
+        setTimeout(() => URL.revokeObjectURL(url), 30_000)
+      }
+      setDataError(false)
+      setDataMessage('現在の装備JSONのダウンロードを開始しました。')
+    } catch (error) {
+      setDataError(true)
+      setDataMessage(error instanceof Error ? error.message : 'ファイルを書き出せませんでした。')
+    }
+  }
+  const stageBackup = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    setReadingBackup(true)
+    setDataError(false)
+    setDataMessage('ファイルを読み取っています。')
+    try {
+      const json = await file.text()
+      deserializeInventory(json)
+      setJsonText(json)
+      setDataError(false)
+      setDataMessage('ファイルを検証して表示しました。現在の装備を置き換えるには「JSONを読み込む」を押してください。')
+    } catch (error) {
+      setDataError(true)
+      setDataMessage(error instanceof Error ? error.message : 'ファイルを読み取れませんでした。')
+    } finally { setReadingBackup(false) }
+  }
+
   const updateNumber = (key: keyof Pick<Scenario,
     | 'enemySupplyPerSecond'
     | 'averageTargetsInReach'
@@ -309,7 +350,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     <header className="page-intro"><p className="eyebrow">UTILITY / LOCAL DATA</p><h1>保存・復元</h1><p>装備データはこのブラウザへ自動保存されます。JSON schema v5で別ブラウザへの移行や復旧ができます。</p></header>
     {(loadError || saveError) && <div className="error-panel" role="alert"><strong>自動保存を確認してください</strong><p>{loadError ?? saveError}</p></div>}
     <section className="storage-card"><div><p className="section-label">LOCAL STORAGE</p><h2>{loadError ? '復旧が必要です' : '自動保存は有効です'}</h2><p>{loadError ? '保存済みJSONを確認し、修正したデータを読み込んでください。' : '装備を変更すると、この端末のブラウザ内へ保存します。'}</p></div><span className={loadError ? 'storage-status error' : 'storage-status'}>{loadError ? '要確認' : '保存中'}</span></section>
-    <section className="panel data-tools storage-tools"><h2>JSONを書き出す / 読み込む</h2><p>書き出したJSONにはコレクションの全装備、エンチャント候補、金色効果、詳しい記録が含まれます。最適化条件は含みません。</p><textarea aria-label="Inventory JSON" aria-describedby="json-message" aria-invalid={dataError} value={jsonText} placeholder="「書き出す」で現在のデータを表示するか、読み込むJSONを貼り付けます" onChange={(event) => setJsonText(event.target.value)} /><div><button className="primary-button" type="button" onClick={() => { setDataError(false); setJsonText(serializeInventory(inventory)); setDataMessage('JSON schema v5を書き出しました。') }}>現在の装備を書き出す</button><button type="button" onClick={importData}>JSONを読み込む</button></div><p id="json-message" role={dataError ? 'alert' : 'status'}>{dataMessage}</p><details><summary>データ形式と復旧について</summary><p>schema v1〜v5を読み込み、常にv5を書き出します。読み込みに失敗したデータは自動的に上書きしないため、この画面で修正できます。</p></details></section>
+    <section className="panel data-tools storage-tools"><h2>JSONを書き出す / 読み込む</h2><p>書き出したJSONにはコレクションの全装備、エンチャント候補、金色効果、詳しい記録が含まれます。最適化条件は含みません。</p><div className="backup-file-tools"><button type="button" disabled={readingBackup || Boolean(loadError)} onClick={downloadBackup}>JSONファイルを保存</button><label>JSONファイルを選択<input type="file" accept=".json,application/json" disabled={readingBackup} onChange={stageBackup} /></label></div><p>ファイルの選択だけでは装備を変更しません。読み込むと現在の装備をすべて置き換えます。必要なら先にファイルを保存してください。</p><textarea disabled={readingBackup} aria-label="Inventory JSON" aria-describedby="json-message" aria-invalid={dataError} value={jsonText} placeholder="「書き出す」で現在のデータを表示するか、読み込むJSONを貼り付けます" onChange={(event) => setJsonText(event.target.value)} /><div><button className="primary-button" type="button" disabled={readingBackup} onClick={() => { setDataError(false); setJsonText(serializeInventory(inventory)); setDataMessage('JSON schema v5を書き出しました。') }}>現在の装備を書き出す</button><button type="button" disabled={readingBackup} onClick={importData}>JSONを読み込む</button></div><p id="json-message" role={dataError ? 'alert' : 'status'}>{dataMessage}</p><details><summary>データ形式と復旧について</summary><p>schema v1〜v5を読み込み、常にv5を書き出します。読み込みに失敗したデータは自動的に上書きしないため、この画面で修正できます。</p></details></section>
   </main>
 
   if (route === '/inventory') {
