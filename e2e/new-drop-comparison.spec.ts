@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 const storageKey = 'minecraft-dungeons-optimizer.inventory.v1'
 
-test('compares one staged drop without changing saved Inventory', async ({ page }) => {
+test('compares a staged drop and saves it only after an explicit keep action', async ({ page }) => {
   const inventory = {
     weapons: [{ instanceId: 'drop-baseline', weaponId: 'double-axe', powerLevel: 100, enchantmentSlots: [{ candidates: ['sharpness'] }] }],
     artifacts: [],
@@ -40,9 +40,22 @@ test('compares one staged drop without changing saved Inventory', async ({ page 
   await expect(panel.locator('.drop-comparison-results')).toContainText('仮追加後の最良ビルド')
   expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
 
-  await panel.getByRole('button', { name: '候補を外す' }).click()
+  await panel.getByRole('button', { name: 'この候補をInventoryに追加' }).click()
+  await expect(page.getByRole('status').filter({ hasText: '比較候補をInventoryへ登録しました' })).toBeVisible()
   await expect(panel.getByRole('button', { name: '比較候補を選ぶ' })).toBeVisible()
-  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
+  await expect.poll(() => page.evaluate((key) => {
+    const stored = localStorage.getItem(key)
+    return stored ? JSON.parse(stored).inventory.weapons.length : undefined
+  }, storageKey)).toBe(2)
+  const retainedInventoryJson = await page.evaluate((key) => localStorage.getItem(key), storageKey)
+  const retainedInventory = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)
+  expect(retainedInventory.weapons).toHaveLength(2)
+  expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId === 'drop-baseline')).toEqual(inventory.weapons[0])
+  expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId !== 'drop-baseline')).toMatchObject({
+    weaponId: 'double-axe', powerLevel: 263,
+    enchantmentSlots: [expect.objectContaining({ candidates: ['sharpness'] })],
+  })
+  expect(retainedInventory.artifacts).toEqual([])
 
   await panel.getByRole('button', { name: '比較候補を選ぶ' }).click()
   const weakerDrawer = page.getByRole('dialog', { name: '比較候補を選ぶ' })
@@ -57,9 +70,9 @@ test('compares one staged drop without changing saved Inventory', async ({ page 
   await panel.getByRole('button', { name: '現在の最良ビルドと比較' }).click()
   await expect(panel.locator('.drop-comparison-status')).toHaveText('比較が完了しました。', { timeout: 60_000 })
   await expect(panel.locator('.drop-comparison-outcome')).toContainText('新しい装備は最良ビルドに選ばれませんでした。')
-  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
+  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(retainedInventoryJson)
   await panel.getByRole('button', { name: '候補を外す' }).click()
-  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
+  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(retainedInventoryJson)
 
   await page.setViewportSize({ width: 390, height: 844 })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true)
