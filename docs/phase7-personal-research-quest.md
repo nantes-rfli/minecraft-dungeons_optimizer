@@ -15,3 +15,15 @@ Observe / Measure / Experimentを選択でき、現在の残余taskはExperiment
 ## Boundary
 
 runtime昇格0、新規Gap close 0、8CのAdoptionDecisionはholdのまま。queue消化率をモデル精度とは扱わない。
+
+## オフラインの受け渡しJSON検査
+
+Research Quest画面の「8A / 8C受け渡しJSON」をファイルへ保存した後、repository rootで次を実行できる（Node.js 22、既存の依存を使用）。
+
+```sh
+npm run audit:research-quest-submission -- /absolute/path/submission.json
+```
+
+検査はファイルの読み取りだけを行い、個人観測をGitやcanonical Evidenceへ取り込まない。全8条件のself-observation / external exportを同じ入口で扱う。Evidence Repositoryのassessmentを再計算し、run・claim・equipment・条件・locatorの対応を既存exporterで照合する。埋め込まれた自前raw recordはSHA-256、runの観測値・metadataとの一致、欠落・重複・孤立recordを検査する。保存済みvalidationは固定済み8C planで再計算した結果との完全一致を要求し、不正時は終了code 1を返す。未取得のEvidenceは引き続きholdで、欠損metricを0にしない。
+
+出力の`scope: offline-integrity-only`は整合性検査を意味する。HTTPS先の外部traceは取得せず、`externalRawTracesNotChecked`に件数を示す。自己観測を含め、実際の測定・版・条件・runの独立性を認証したものではなく、`measurementAuthenticity: not-checked`を維持する。`recomputedDecision`は研究上の保存済み判定の再計算であり、このcommandでAdoptionDecision保存、runtime昇格、Gap closeは行わない。実測の取得とR3の採用審査は従来どおり別に必要。
