@@ -38,6 +38,7 @@ Melee / Armor / Artifactのruntime support manifestでは、Melee enchantmentは
 Architecture上はLayer 2のGame Domainを、具体的なApplication payoffへつながる単位で前進させることが中心です。同時にroadmap上のCurrent workは次です。
 
 - **R2 — Evidence Acquisition**: Personal Research Quest、独立raw trace、Measure / Experimentを優先度順に取得する。 次: Limited DRの8条件を別runとして取得する。
+- **P5 — Recommendation / Optimizer Quality**: available runtime scope内でobjective、scoring、推薦品質、説明を改善する。Researchやruntime coverage全体の完了は待たない。 次: 現行Full / Limited範囲で、比較・推薦・残す価値の判断を妨げる最大の不足を再評価し、最小の検証可能な改善を選ぶ。
 
 Formal breadthだけを独立目的にせず、既存DomainのApplication利用、必要なEvidence acquisition、blocker解消を同じcurrent stateから比較して選びます。
 
