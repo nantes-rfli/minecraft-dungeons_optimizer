@@ -1,0 +1,77 @@
+import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, expect, it } from 'vitest'
+import { optimize } from '../src/core'
+import type { Inventory } from '../src/core/types'
+import { DEFAULT_SCENARIO } from '../src/data/scenarios'
+import { ENCHANTMENTS } from '../src/data/enchantments'
+import { ARMOR_ENCHANTMENTS } from '../src/data/armors'
+import { RANGED_ENCHANTMENTS } from '../src/data/ranged'
+import { BuildAlternative } from '../src/views/RecommendedBuild'
+import { OptimizeResults } from '../src/screens/OptimizeResults'
+
+// Synthetic input fixtures, not independent gameplay evidence.
+const inventory: Inventory = {
+  weapons: [{ instanceId: 'melee', weaponId: 'double-axe', powerLevel: 250,
+    enchantmentSlots: [{ candidates: ['radiance', 'sharpness'] }],
+    gilded: { enchantmentId: 'critical-hit', tier: 2 } }],
+  armors: [{ instanceId: 'armor', armorId: 'battle-robe', powerLevel: 249, observedHealthBonus: 400,
+    enchantmentSlots: [{ candidates: ['chilling'], selected: { enchantmentId: 'chilling', tier: 1 } }],
+    gilded: { enchantmentId: 'potion-barrier', tier: 2 } }],
+  rangedWeapons: [{ instanceId: 'ranged', weaponId: 'bow', powerLevel: 248,
+    enchantmentSlots: [{ candidates: ['power'], selected: { enchantmentId: 'power', tier: 1 } }],
+    gilded: { enchantmentId: 'critical-hit', tier: 2 },
+    observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 100, sourceNote: 'SYNTHETIC ONLY' } }],
+  artifacts: [{ instanceId: 'm1', artifactId: 'death-cap-mushroom', powerLevel: 200 }, { instanceId: 'm2', artifactId: 'death-cap-mushroom', powerLevel: 251 }],
+}
+const scenario = { ...DEFAULT_SCENARIO, rangedTimeShare: 0.5 }
+const tiers = { 1: 'I', 2: 'II', 3: 'III' } as const
+const sources = { slot: '通常枠', gilded: 'Gilded', 'built-in': 'Built-in' } as const
+
+describe('reproducible alternative equipment', () => {
+  it('shows each evaluated choice, its tier/source and all equipment powers, without displaying unselected rolls', () => {
+    const result = optimize(inventory, scenario)
+    expect(result.alternatives.length).toBeGreaterThan(0)
+    expect(result.paretoFrontier.length).toBeGreaterThan(0)
+    const before = JSON.stringify(result)
+    for (const evaluation of [...result.alternatives, ...result.paretoFrontier]) {
+      const html = renderToStaticMarkup(<BuildAlternative evaluation={evaluation} best={result.best} weights={scenario.weights} />)
+      const composition = html.split('<summary>装備とEnchantの構成を見る</summary>')[1]?.split('</details>')[0]
+      expect(composition).toBeDefined()
+      for (const [choices, catalog] of [
+        [evaluation.build.enchantments, ENCHANTMENTS],
+        [evaluation.build.armorEnchantments ?? [], ARMOR_ENCHANTMENTS],
+        [evaluation.build.rangedEnchantments ?? [], RANGED_ENCHANTMENTS],
+      ] as const) {
+        for (const choice of choices) {
+          const definition = (catalog as Record<string, { name: { ja?: string } }>)[choice.enchantmentId]!
+          expect(composition).toContain(`${definition.name.ja} ${tiers[choice.tier]}`)
+          expect(composition).toContain(`>${sources[choice.source]}</span>`)
+        }
+      }
+      for (const power of [250, 249, 248, 200, 251]) expect(composition).toContain(`Power ${power}`)
+      const melee = composition!.split('<dt>防具</dt>')[0]!
+      const selectedId = evaluation.build.enchantments[0]!.enchantmentId
+      expect(melee).not.toContain(`${ENCHANTMENTS[selectedId === 'radiance' ? 'sharpness' : 'radiance'].name.ja} `)
+    }
+    expect(JSON.stringify(result)).toBe(before)
+  })
+
+  it('connects composition disclosure to every displayed next-best and Pareto card', () => {
+    const result = optimize(inventory, scenario)
+    const html = renderToStaticMarkup(<OptimizeResults weights={scenario.weights} result={result} error={null} status="complete" />)
+    expect(html.match(/<summary>装備とEnchantの構成を見る<\/summary>/g)).toHaveLength(result.alternatives.slice(0, 4).length + result.paretoFrontier.slice(0, 3).length)
+    expect(html).toContain('Estimatedを含めて評価')
+  })
+
+  it('keeps absent equipment and enchantment-free builds explicit', () => {
+    const result = optimize({ weapons: [{ instanceId: 'plain', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['sharpness'] }] }], artifacts: [] }, DEFAULT_SCENARIO)
+    // Renderer-only empty composition specimen; not an engine-supported build.
+    const empty = { ...result.best, build: { ...result.best.build, enchantments: [] } }
+    const html = renderToStaticMarkup(<BuildAlternative evaluation={empty} best={result.best} weights={DEFAULT_SCENARIO.weights} />)
+    expect(html).toContain('Enchantなし')
+    expect(html).toContain('<dt>防具</dt><dd>なし</dd>')
+    expect(html).toContain('<dt>遠距離</dt><dd>なし</dd>')
+    expect(html).toContain('<dt>Artifact</dt><dd>なし</dd>')
+    expect(html).not.toMatch(/undefined|NaN/)
+  })
+})
