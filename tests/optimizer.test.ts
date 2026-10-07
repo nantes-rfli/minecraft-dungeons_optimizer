@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { optimize, OptimizerInputError } from '../src/core'
+import { optimize, optimizeWithMetadata, OptimizerInputError } from '../src/core'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import type { Inventory } from '../src/core'
 
@@ -56,9 +56,23 @@ describe('optimize', () => {
   })
 
   it('excludes Estimated artifact mechanics in high-confidence-only mode', () => {
-    const result = optimize(inventory, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata(inventory, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
     expect(result.best.build.artifacts).toEqual([])
     expect(result.unsupportedChoices).toEqual(expect.arrayContaining([expect.stringContaining('Estimated parameter')]))
+    expect(evaluatedInstanceIds).not.toContain('mushroom-test')
+    expect(evaluatedInstanceIds).not.toContain('amulet-test')
+  })
+
+  it('marks a staged artifact excluded by Evidence policy as unevaluated', () => {
+    const stagedArtifact: Inventory = {
+      weapons: [inventory.weapons[0]!],
+      artifacts: [{ instanceId: 'drop-artifact', artifactId: 'death-cap-mushroom', powerLevel: 251 }],
+    }
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata(stagedArtifact, { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' })
+
+    expect(evaluatedInstanceIds).toContain('bindings-test')
+    expect(evaluatedInstanceIds).not.toContain('drop-artifact')
+    expect(result.unsupportedChoices).toContain('drop-artifact: Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外')
   })
 
   it('changes rankings when scenario weights change', () => {

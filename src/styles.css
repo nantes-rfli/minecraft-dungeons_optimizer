@@ -818,6 +818,36 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .subnav[aria-label="データカテゴリ"] span { color: #b3bfb5; }
 .catalog-row:has(.formal-values-browser) { min-width: 0; }
 
+.new-drop-comparison { margin: 18px 0 24px; border: 1px solid var(--line); padding: 22px; background: var(--surface); }
+.new-drop-comparison > header { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
+.new-drop-comparison h2 { margin: 0; font-size: 22px; }
+.new-drop-comparison > p { max-width: 760px; color: var(--muted); line-height: 1.65; }
+.new-drop-comparison button.secondary-button, .drop-candidate-actions button { border: 1px solid #465649; padding: 9px 13px; color: var(--text); background: #111a14; }
+.drop-candidate-summary { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; border-left: 2px solid var(--accent); padding: 10px 14px; background: #121b14; }
+.drop-candidate-summary span { color: var(--muted); font-size: 13px; }
+.drop-candidate-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.new-drop-comparison > .primary-button { margin-top: 12px; }
+.drop-comparison-status { color: var(--muted); }
+.drop-comparison-warning { border-left: 3px solid var(--warning); padding: 10px 13px; color: #d4c783; background: #1b1a11; line-height: 1.6; }
+.drop-comparison-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+.drop-metric-card { min-width: 0; border: 1px solid var(--line); padding: 16px; background: #0e1511; }
+.drop-metric-card h3 { margin: 0 0 10px; font-size: 15px; }
+.drop-objective-score { display: flex; justify-content: space-between; gap: 12px; margin: 0; border-bottom: 1px solid var(--line); padding-bottom: 9px; color: var(--muted); }
+.drop-objective-score strong { color: var(--accent); font: 500 18px 'DM Mono', monospace; }
+.drop-metric-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 12px 0 0; }
+.drop-metric-card dl div { display: flex; justify-content: space-between; gap: 8px; min-width: 0; }
+.drop-metric-card dt { color: var(--muted); font-size: 12px; }
+.drop-metric-card dd { margin: 0; color: var(--text); font: 12px 'DM Mono', monospace; }
+.drop-comparison-outcome { border-top: 1px solid var(--line); padding-top: 12px; color: #d5e1d8; }
+.drop-build-details { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+.drop-build-details > summary, .trial-candidate-editor > summary { cursor: pointer; color: var(--accent); }
+.trial-candidate-editor { margin: -10px 0 24px; border: 1px solid var(--line); padding: 15px 18px; background: var(--surface); }
+.trial-candidate-editor .equipment-card { margin-top: 12px; }
+@media (max-width: 720px) {
+  .new-drop-comparison { padding: 18px; }
+  .drop-comparison-results { grid-template-columns: 1fr; }
+}
+
 .score-breakdown { margin-top: 1rem; font-size: .85rem; }
 .score-breakdown summary { cursor: pointer; }
 .score-breakdown p { color: var(--muted); line-height: 1.6; }

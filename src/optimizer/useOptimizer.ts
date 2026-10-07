@@ -3,7 +3,7 @@ import type { Inventory, Scenario } from '../core/types'
 import OptimizerWorker from './worker?worker'
 import { IDLE_SEARCH, OptimizerController } from './controller'
 
-export function useOptimizer(inventory: Inventory, scenario: Scenario) {
+export function useOptimizer(inventory: Inventory, scenario: Scenario, includeEvaluationMetadata = false) {
   const [controller] = useState(() => new OptimizerController(() => new OptimizerWorker()))
   const snapshot = useSyncExternalStore(controller.subscribe, controller.getSnapshot, () => IDLE_SEARCH)
   useEffect(() => {
@@ -12,5 +12,5 @@ export function useOptimizer(inventory: Inventory, scenario: Scenario) {
   }, [controller, inventory, scenario])
   // Hide the previous inputs' results immediately, before passive effect cleanup.
   const state = snapshot.request?.inventory === inventory && snapshot.request.scenario === scenario ? snapshot : IDLE_SEARCH
-  return { ...state, start: () => controller.start({ inventory, scenario }), cancel: controller.cancel }
+  return { ...state, start: () => controller.start({ inventory, scenario, includeEvaluationMetadata }), cancel: controller.cancel }
 }

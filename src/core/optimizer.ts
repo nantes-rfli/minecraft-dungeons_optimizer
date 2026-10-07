@@ -194,6 +194,27 @@ export function calculateParetoFrontier<T extends ParetoCandidate>(evaluations: 
 }
 
 export function optimize(inventory: Inventory, scenario: Scenario): OptimizationResult {
+  return optimizeInternal(inventory, scenario, false).result
+}
+
+/**
+ * Runs the optimizer with participation metadata for callers that need to
+ * distinguish evaluated inventory instances from candidates excluded before
+ * numerical scoring. The metadata stays outside OptimizationResult so its
+ * long-standing serialized shape remains stable.
+ */
+export function optimizeWithMetadata(
+  inventory: Inventory,
+  scenario: Scenario,
+): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[] } {
+  return optimizeInternal(inventory, scenario, true)
+}
+
+function optimizeInternal(
+  inventory: Inventory,
+  scenario: Scenario,
+  includeEvaluationMetadata: boolean,
+): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[] } {
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory)
@@ -259,6 +280,14 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   const evaluations = evidenceAllowedBuilds
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
+  const evaluatedInstanceIds = includeEvaluationMetadata
+    ? [...new Set(evidenceAllowedBuilds.flatMap((build) => [
+      build.weapon.instanceId,
+      ...(build.armor ? [build.armor.instanceId] : []),
+      ...(build.rangedWeapon ? [build.rangedWeapon.instanceId] : []),
+      ...build.artifacts.map((artifact) => artifact.instanceId),
+    ]))]
+    : []
 
   const best = evaluations[0]
   if (!best) {
@@ -279,11 +308,14 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
     return result
   }
   return {
-    unsupportedChoices: [...unsupportedChoices],
-    best: withDetails(best),
-    alternatives: recommendations.slice(1, 5).map(withDetails),
-    paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),
-    evaluatedBuildCount: evaluations.length,
-    searchMode: 'exhaustive',
+    evaluatedInstanceIds,
+    result: {
+      unsupportedChoices: [...unsupportedChoices],
+      best: withDetails(best),
+      alternatives: recommendations.slice(1, 5).map(withDetails),
+      paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),
+      evaluatedBuildCount: evaluations.length,
+      searchMode: 'exhaustive',
+    },
   }
 }

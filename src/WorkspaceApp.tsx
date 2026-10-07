@@ -26,7 +26,7 @@ import { AmbushShareControl, UndeadShareControl } from './views/EnemyStateContro
 import { EnemyDebuffControl } from './views/EnemyDebuffControl'
 import { ChargeConsumeControls } from './views/ChargeConsumeDetails'
 import { DamageEventTargetingControl, PersistentAreaTargetingControl, ProcPowerSupport } from './views/DamageEventControls'
-import { RangedInventorySection } from './views/RangedEquipment'
+import { OwnedRangedEditor, RangedInventorySection } from './views/RangedEquipment'
 import { AppShell } from './app/AppShell'
 import { useAppRoute, type AppRoute } from './app/routes'
 import { ModelExplorerPage } from './screens/ModelExplorerPage'
@@ -45,6 +45,7 @@ import { resolveEnchantment } from './data/enchantmentCatalog'
 import { groupCatalogItemsByCategory } from './inventory/catalogPresentation'
 import { EquipmentInstanceEditor } from './components/EquipmentInstanceEditor'
 import { selectedEnchantmentSummary } from './inventory/enchantmentSummary'
+import { NewDropComparison, type NewDropTrial } from './screens/NewDropComparison'
 
 const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
 
@@ -130,7 +131,7 @@ function EquipmentIcon({ category, id, label }: { category: keyof typeof CATEGOR
   return catalog ? <EquipmentArtwork catalog={catalog} compact /> : <span className={`equipment-icon ${category}`}><EquipmentCategoryIcon category={category} /></span>
 }
 
-function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory: Inventory; open: boolean; onClose: () => void; onChange: (inventory: Inventory) => void }) {
+function AddEquipmentDrawer({ inventory, open, onClose, onChange, previewMode = false, onPreviewAdd }: { inventory: Inventory; open: boolean; onClose: () => void; onChange: (inventory: Inventory) => void; previewMode?: boolean; onPreviewAdd?: (inventory: Inventory, instanceId: string) => void }) {
   const [category, setCategory] = useState<keyof typeof CATEGORY_LABELS>('melee')
   const [classFilter, setClassFilter] = useState<'normal' | 'unique'>('normal')
   const [query, setQuery] = useState('')
@@ -152,8 +153,15 @@ function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory:
   }, [open, onClose])
   const add = () => {
     const instanceId = nextInstanceId(selected.id)
-    onChange(addEquipmentToInventory(inventory, selected, instanceId, powerLevel, selected.rarityFamily === 'unique' ? 'unique' : selected.category === 'artifact' ? undefined : rarity, selected.category === 'artifact' ? undefined : { slots: enchantmentSlots, ...(gilded ? { gilded } : {}) }))
-    setMessage(`${selected.name.ja}を装備に追加しました。`)
+    const next = addEquipmentToInventory(inventory, selected, instanceId, powerLevel, selected.rarityFamily === 'unique' ? 'unique' : selected.category === 'artifact' ? undefined : rarity, selected.category === 'artifact' ? undefined : { slots: enchantmentSlots, ...(gilded ? { gilded } : {}) })
+    if (previewMode) {
+      onPreviewAdd?.(next, instanceId)
+      setMessage(`${selected.name.ja}を比較候補に仮追加しました。`)
+      onClose()
+    } else {
+      onChange(next)
+      setMessage(`${selected.name.ja}を装備に追加しました。`)
+    }
   }
   const chooseCategory = (next: keyof typeof CATEGORY_LABELS) => {
     const nextClass = next === 'artifact' ? 'normal' : classFilter
@@ -165,8 +173,8 @@ function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory:
     setClassFilter(next); setSelectedKey(first ? equipmentKey(first.category, first.id) : ''); setMessage(''); setEnchantmentSlots([]); setGilded(undefined)
   }
   if (!open) return null
-  return <><button className="drawer-scrim" type="button" aria-label="装備登録を閉じる" onClick={onClose} /><aside className="equipment-drawer" role="dialog" aria-modal="true" aria-labelledby="equipment-drawer-title">
-    <header><div><p className="section-label">ADD EQUIPMENT</p><h2 id="equipment-drawer-title">装備を登録</h2></div><button ref={closeButtonRef} type="button" className="drawer-close" onClick={onClose} aria-label="装備登録を閉じる">×</button></header>
+  return <><button className="drawer-scrim" type="button" aria-label={previewMode ? '比較候補の選択を閉じる' : '装備登録を閉じる'} onClick={onClose} /><aside className="equipment-drawer" role="dialog" aria-modal="true" aria-labelledby="equipment-drawer-title">
+    <header><div><p className="section-label">{previewMode ? 'TRY A NEW DROP' : 'ADD EQUIPMENT'}</p><h2 id="equipment-drawer-title">{previewMode ? '比較候補を選ぶ' : '装備を登録'}</h2></div><button ref={closeButtonRef} type="button" className="drawer-close" onClick={onClose} aria-label={previewMode ? '比較候補の選択を閉じる' : '装備登録を閉じる'}>×</button></header>
     <div className="drawer-form"><fieldset className="picker-step"><legend><b>1</b> カテゴリ</legend><div className="picker-segments">{(['melee', 'ranged', 'armor', 'artifact'] as const).map((value) => <button type="button" key={value} aria-pressed={category === value} onClick={() => chooseCategory(value)}><EquipmentCategoryIcon category={value} />{CATEGORY_LABELS[value]}</button>)}</div></fieldset>
       {category !== 'artifact' && <fieldset className="picker-step"><legend><b>2</b> 装備クラス</legend><div className="picker-segments two">{(['normal', 'unique'] as const).map((value) => <button type="button" key={value} aria-pressed={classFilter === value} onClick={() => chooseClass(value)}>{value === 'normal' ? '通常装備' : 'Unique'}</button>)}</div></fieldset>}
       <fieldset className="picker-step picker-browser"><legend><b>3</b> 装備を選択</legend><label className="picker-search"><span className="sr-only">装備を検索</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="日本語名・英語名で検索" /></label><VisualEquipmentPicker category={category} classFilter={classFilter} query={query} selectedKey={selectedKey} onSelect={(key) => { setSelectedKey(key); setMessage(''); setEnchantmentSlots([]); setGilded(undefined) }} /></fieldset>
@@ -174,7 +182,7 @@ function AddEquipmentDrawer({ inventory, open, onClose, onChange }: { inventory:
       <fieldset className="picker-step instance-properties"><legend><b>4</b> 個体情報</legend>{category !== 'artifact' && selected.rarityFamily !== 'unique' && <label>レアリティ<select value={rarity} onChange={(event) => setRarity(event.target.value as typeof rarity)}><option value="common">Common</option><option value="rare">Rare</option></select></label>}<label>Power<input type="number" min="1" value={powerLevel} onChange={(event) => setPowerLevel(Number(event.target.value))} /></label></fieldset>
       {category !== 'artifact' && <fieldset className="picker-step drawer-enchantments"><legend><b>5</b> Enchantment</legend><EnchantmentSlotEditor slots={enchantmentSlots} category={category} soulGear={Boolean(selected.soulGear)} onChange={setEnchantmentSlots} label="登録する装備のエンチャント" /></fieldset>}
       {category !== 'artifact' && <fieldset className="picker-step drawer-gilded"><legend><b>6</b> Gilded</legend><GildedEnchantmentEditor value={gilded} category={category} soulGear={Boolean(selected.soulGear)} onChange={setGilded} /></fieldset>}
-      <button className="primary-button" type="button" disabled={!Number.isInteger(powerLevel) || powerLevel < 1} onClick={add}>装備に追加</button><p role="status">{message}</p>
+      <button className="primary-button" type="button" disabled={!Number.isInteger(powerLevel) || powerLevel < 1} onClick={add}>{previewMode ? '比較候補に追加' : '装備に追加'}</button><p role="status">{message}</p>
     </div>
   </aside></>
 }
@@ -203,7 +211,25 @@ export function CatalogInventoryItems({ inventory, onChange, items = inventory.c
       return <details className="equipment-card" key={item.instanceId}><summary><EquipmentIcon category={item.category} id={item.catalogId} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{catalog?.name.en}</small></span><span className="equipment-meta">Power {item.powerLevel}{item.category !== 'artifact' && <small>{selectedEnchantmentSummary(item.enchantmentSlots)}</small>}</span>{item.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
         {catalog && <EquipmentInstanceEditor category={item.category} catalog={catalog} powerLevel={item.powerLevel} rarity={item.rarity} notes={item.notes} enchantmentSlots={item.enchantmentSlots} gilded={item.gilded} onPowerChange={(powerLevel) => update(item.instanceId, (current) => ({ ...current, powerLevel }))} onRarityChange={item.category === 'artifact' ? undefined : (rarity) => update(item.instanceId, (current) => ({ ...current, rarity }))} onNotesChange={(notes) => update(item.instanceId, (current) => ({ ...current, notes }))} onEnchantmentSlotsChange={item.category === 'artifact' ? undefined : (enchantmentSlots) => update(item.instanceId, (current) => ({ ...current, enchantmentSlots }))} onGildedChange={item.category === 'artifact' ? undefined : (gilded) => update(item.instanceId, (current) => ({ ...current, gilded }))} onDelete={() => onChange({ ...inventory, catalogItems: (inventory.catalogItems ?? []).filter((current) => current.instanceId !== item.instanceId) })} />}
       </details>
-    })}</>
+  })}</>
+}
+
+function TrialCandidateEditor({ trial, onChange, onRemove }: { trial: NewDropTrial; onChange: (trial: NewDropTrial) => void; onRemove: () => void }) {
+  const { inventory, instanceId } = trial
+  const weapon = inventory.weapons.find((item) => item.instanceId === instanceId)
+  const armor = inventory.armors?.find((item) => item.instanceId === instanceId)
+  const ranged = inventory.rangedWeapons?.find((item) => item.instanceId === instanceId)
+  const artifact = inventory.artifacts.find((item) => item.instanceId === instanceId)
+  const catalogItem = inventory.catalogItems?.find((item) => item.instanceId === instanceId)
+  const update = (next: Inventory) => onChange({ ...trial, inventory: next })
+  if (catalogItem) return <p className="drop-comparison-warning" role="note">この装備はInventoryには追加せず、Research-only候補として表示しています。現在のOptimizerでは評価しません。</p>
+  return <details className="trial-candidate-editor">
+    <summary>候補の個体情報を確認・調整する</summary>
+    {weapon && <OwnedMeleeEditor weapon={weapon} onChange={(next) => update({ ...inventory, weapons: inventory.weapons.map((item) => item.instanceId === instanceId ? next : item) })} onRemove={onRemove} />}
+    {armor && <OwnedArmorEditor armor={armor} onChange={(next) => update({ ...inventory, armors: (inventory.armors ?? []).map((item) => item.instanceId === instanceId ? next : item) })} onRemove={onRemove} />}
+    {ranged && <OwnedRangedEditor weapon={ranged} onChange={(next) => update({ ...inventory, rangedWeapons: (inventory.rangedWeapons ?? []).map((item) => item.instanceId === instanceId ? next : item) })} onRemove={onRemove} />}
+    {artifact && <OwnedArtifactEditor artifact={artifact} onChange={(next) => update({ ...inventory, artifacts: inventory.artifacts.map((item) => item.instanceId === instanceId ? next : item) })} onRemove={onRemove} />}
+  </details>
 }
 
 function OptimizerPage({ route }: { route: AppRoute }) {
@@ -229,6 +255,8 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   const [inventorySort, setInventorySort] = useState<'name' | 'power-desc' | 'power-asc' | 'recent'>('recent')
   const [inventoryView, setInventoryView] = useState<'compact' | 'list' | 'grid'>('grid')
   const [fullEditorPending, setFullEditorPending] = useState<string | null>(null)
+  const [dropDrawerOpen, setDropDrawerOpen] = useState(false)
+  const [dropTrial, setDropTrial] = useState<(NewDropTrial & { baselineInventory: Inventory; baselineScenario: Scenario }) | null>(null)
 
   useEffect(() => {
     if (!hydrated || loadError) return
@@ -255,6 +283,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   }, [fullEditorPending, inventoryView, inventoryQuery, inventory])
 
   const optimization = useOptimizer(inventory, scenario)
+  const activeDropTrial = dropTrial?.baselineInventory === inventory && dropTrial.baselineScenario === scenario ? dropTrial : null
   const candidateEstimate = estimateSearchCandidates(inventory)
   const usesObservedDamage = inventory.weapons.some(
     (weapon) => weapon.observedDamagePerHit !== undefined,
@@ -390,7 +419,10 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     <section className="optimize-controls"><div className="objective-card"><label>目的<select aria-label="最適化の目的" value={scenario.profileId} onChange={(event) => setScenario(SCENARIO_PROFILES[event.target.value as ScenarioProfileId])}>{PROFILE_ORDER.map((id) => <option key={id} value={id}>{SCENARIO_PROFILES[id].name}</option>)}</select></label><div className="optimize-actions"><button className="primary-button" type="button" disabled={optimization.status === 'working' || candidateEstimate > SEARCH_MAX_CANDIDATES} onClick={optimization.start}>最適化する</button><button type="button" disabled={optimization.status !== 'working'} onClick={optimization.cancel}>探索を中止</button></div><p role="status">{optimization.status === 'working' ? '探索中…' : optimization.status === 'complete' ? `探索完了（${Math.round(optimization.durationMs ?? 0)} ms）` : optimization.status === 'cancelled' ? '探索を中止しました。再度開始できます。' : optimization.status === 'error' ? '探索に失敗しました。入力を確認して再実行してください。' : '目的を選び、最適化を開始してください。'}</p><small>候補数の上限推定: {candidateEstimate.toLocaleString()}通り</small>{candidateEstimate > SEARCH_MAX_CANDIDATES ? <p role="alert">安全上限{SEARCH_MAX_CANDIDATES.toLocaleString()}通りを超えています。装備画面で候補を減らすかlockしてください。</p> : candidateEstimate >= SEARCH_WARNING_CANDIDATES && <p>候補が多いため時間がかかる場合があります。</p>}</div>
       <details className="advanced-settings"><summary><span><strong>詳細条件</strong><small>敵・回復・Controlなどのモデル入力</small></span><span aria-hidden="true">＋</span></summary><div className="sliders"><ChargeConsumeControls scenario={scenario} onChange={setScenario} /><ControlSettings scenario={scenario} onChange={setScenario} /><DamageEventTargetingControl value={scenario.damageEventTargeting} maximum={scenario.averageTargetsInReach} onChange={(damageEventTargeting) => setScenario((current) => ({ ...current, damageEventTargeting }))} /><PersistentAreaTargetingControl value={scenario.persistentAreaTargeting} maximum={scenario.averageTargetsInReach} onChange={(persistentAreaTargeting) => setScenario((current) => ({ ...current, persistentAreaTargeting }))} /><EnemyDebuffControl value={scenario.enemyDebuffs} onChange={(enemyDebuffs) => setScenario((current) => ({ ...current, enemyDebuffs }))} /><UndeadShareControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><AmbushShareControl value={scenario.enemyState} onChange={(enemyState) => setScenario((current) => ({ ...current, enemyState }))} /><EnemyCompositionControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><label><span>敵供給上限 / 秒 <output>{scenario.enemySupplyPerSecond.toFixed(1)}</output></span><input type="range" min="0" max="2" step="0.1" value={scenario.enemySupplyPerSecond} onChange={updateNumber('enemySupplyPerSecond')} /></label><label><span>射程内の敵 <output>{scenario.averageTargetsInReach.toFixed(1)}</output></span><input type="range" min="1" max="6" step="0.5" value={scenario.averageTargetsInReach} onChange={updateNumber('averageTargetsInReach')} /></label>{(inventory.rangedWeapons?.length ?? 0) > 0 && <label><span>遠距離に予約する攻撃時間割合</span><input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="明示入力が必要" onChange={(event) => setScenario((current) => ({ ...current, rangedTimeShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label>}<label><span>開始Soul <output>{scenario.initialSoulUnits ?? 0}</output></span><input aria-label="開始Soul" type="range" min="0" max="300" step="5" value={scenario.initialSoulUnits ?? 0} onChange={updateNumber('initialSoulUnits')} /></label><label><span>Cowardice 満タンHP時間割合</span><input aria-label="Cowardice 満タンHP時間割合" type="number" min="0" max="1" step="0.05" placeholder="使用時に入力" value={scenario.cowardiceFullHealthShare ?? ''} onChange={(event) => setScenario((current) => ({ ...current, cowardiceFullHealthShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label><label><span>Artifactのクールダウン短縮 <output>{percentage(scenario.cooldownReduction)}</output></span><input type="range" min="0" max="0.75" step="0.05" value={scenario.cooldownReduction} onChange={updateNumber('cooldownReduction')} /></label><details className="scenario-values"><summary>HP・ダメージの実数値</summary><p>{usesObservedDamage ? '表示ダメージ' : 'Power換算ダメージ'}と同じゲーム内単位で入力してください。</p><label><span>平均敵HP</span><input aria-label="平均敵HP" type="number" min="0.01" step="any" value={scenario.averageEnemyHealth} onChange={updateNumber('averageEnemyHealth')} /></label><label><span>被ダメージ / 秒</span><input aria-label="被ダメージ毎秒" type="number" min="0" step="any" value={scenario.incomingDamagePerSecond} onChange={updateNumber('incomingDamagePerSecond')} /></label><label><span>{(inventory.armors?.length ?? 0) > 0 ? '最大HP（Armor使用時は無効）' : '最大HP'}</span><input aria-label="最大HP" type="number" min="0.01" step="any" disabled={(inventory.armors?.length ?? 0) > 0} value={scenario.maxHealth} onChange={updateNumber('maxHealth')} /></label><label><span>輝き1回の回復量</span><input aria-label="輝き1回の回復量" type="number" min="0" step="any" value={scenario.radianceHealPerProc} onChange={updateNumber('radianceHealPerProc')} /></label></details></div></details>
     </section>
+    <NewDropComparison inventory={inventory} scenario={scenario} baseline={optimization} trial={activeDropTrial} onOpenPicker={() => setDropDrawerOpen(true)} onClearTrial={() => setDropTrial(null)} />
+    {activeDropTrial && <TrialCandidateEditor trial={activeDropTrial} onChange={(next) => setDropTrial((current) => current ? { ...current, inventory: next.inventory } : current)} onRemove={() => setDropTrial(null)} />}
     <OptimizeResults weights={scenario.weights} error={optimization.error} result={optimization.result} status={optimization.status} evidencePolicy={scenario.evidencePolicy} />
+    {dropDrawerOpen && <AddEquipmentDrawer inventory={inventory} open onClose={() => setDropDrawerOpen(false)} onChange={() => undefined} previewMode onPreviewAdd={(candidateInventory, instanceId) => setDropTrial({ inventory: candidateInventory, instanceId, baselineInventory: inventory, baselineScenario: scenario })} />}
   </main>
 
   return null

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { IDLE_SEARCH, OptimizerController, type WorkerPort } from '../src/optimizer/controller'
 import type { OptimizeRequest, OptimizeResponse } from '../src/optimizer/protocol'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
-import { optimize } from '../src/core/optimizer'
+import { optimizeWithMetadata } from '../src/core/optimizer'
 
 const input = { inventory: { weapons: [{ instanceId: 'w', weaponId: 'double-axe' as const, powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit' as const] }] }], artifacts: [] }, scenario: DEFAULT_SCENARIO }
 class FakeWorker implements WorkerPort {
@@ -18,11 +18,11 @@ describe('worker lifecycle', () => {
   it('completes with exactly the core exhaustive result and releases the worker', () => {
     const worker = new FakeWorker()
     const controller = new OptimizerController(() => worker)
-    controller.start(input)
+    controller.start({ ...input, includeEvaluationMetadata: true })
     expect(controller.getSnapshot().status).toBe('working')
-    const result = optimize(input.inventory, input.scenario)
-    worker.reply({ id: worker.postMessage.mock.calls[0]![0].id, type: 'complete', result, durationMs: 5 })
-    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result, durationMs: 5 })
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata(input.inventory, input.scenario)
+    worker.reply({ id: worker.postMessage.mock.calls[0]![0].id, type: 'complete', result, evaluatedInstanceIds, durationMs: 5 })
+    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result, evaluatedInstanceIds, durationMs: 5 })
     expect(worker.terminate).toHaveBeenCalledOnce()
   })
   it('discards stale completion on cancel, restart, changed inputs and unmount reset', () => {

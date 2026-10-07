@@ -1,5 +1,5 @@
 export { evaluate } from './evaluate'
-export { optimize } from './optimizer'
+export { optimize, optimizeWithMetadata } from './optimizer'
 export { getEnchantmentRuntimeSupport, summarizeRuntimeSupport } from './runtimeSupport'
 export type { RuntimeSupportLevel, RuntimeSupportReason, EnchantmentRuntimeSupport } from './runtimeSupport'
 export { deriveCombatState } from './combatState'
