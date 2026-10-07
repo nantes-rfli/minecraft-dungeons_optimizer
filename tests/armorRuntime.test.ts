@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { evaluate, optimize } from '../src/core'
+import { evaluate, optimize, optimizeWithMetadata } from '../src/core'
 import type { Build, Scenario, SelectedEnchantment } from '../src/core'
 import type { ArmorEnchantmentId, ArmorId, OwnedArmor, SelectedArmorEnchantment } from '../src/core/armor'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
@@ -80,10 +80,10 @@ describe('Phase 2-3B Armor runtime', () => {
   it('keeps an unequipped runtime Armor with missing observed health out of evaluated builds', () => {
     const baselineArmor = armor('battle-robe')
     const stagedArmor: OwnedArmor = { ...armor('scale-mail'), instanceId: 'drop-armor', observedHealthBonus: undefined }
-    const result = optimize({ weapons: [weapon], armors: [baselineArmor, stagedArmor], artifacts: [] }, scenario)
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [baselineArmor, stagedArmor], artifacts: [] }, scenario)
 
-    expect(result.evaluatedInstanceIds).toContain(baselineArmor.instanceId)
-    expect(result.evaluatedInstanceIds).not.toContain(stagedArmor.instanceId)
+    expect(evaluatedInstanceIds).toContain(baselineArmor.instanceId)
+    expect(evaluatedInstanceIds).not.toContain(stagedArmor.instanceId)
     expect(result.unsupportedChoices).toContain('drop-armor: MISSING_OBSERVED_ARMOR_HEALTH')
   })
 

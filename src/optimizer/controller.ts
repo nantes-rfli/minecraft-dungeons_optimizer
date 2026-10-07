@@ -11,6 +11,7 @@ export interface WorkerPort {
 export interface SearchState {
   readonly status: 'idle' | 'working' | 'complete' | 'error' | 'cancelled'
   readonly result: OptimizationResult | null
+  readonly evaluatedInstanceIds?: readonly string[]
   readonly error: string | null
   readonly request?: OptimizeRequest
   readonly durationMs?: number
@@ -63,7 +64,7 @@ export class OptimizerController {
         if (id !== this.sequence || data.id !== id) return
         if (data.type === 'error') { fail(data.error); return }
         this.stop()
-        this.publish({ status: 'complete', result: data.result, error: null, durationMs: data.durationMs, request })
+        this.publish({ status: 'complete', result: data.result, evaluatedInstanceIds: data.evaluatedInstanceIds, error: null, durationMs: data.durationMs, request })
       }
       worker.onerror = () => fail('探索Workerでエラーが発生しました。再度開始してください。')
       worker.onmessageerror = () => fail('探索結果を読み取れませんでした。再度開始してください。')

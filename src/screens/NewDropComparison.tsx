@@ -52,8 +52,8 @@ export function NewDropComparison({
   readonly onClearTrial: () => void
 }) {
   const trialInventory = trial?.inventory ?? inventory
-  const comparison = useOptimizer(trialInventory, scenario)
-  const { start: startComparisonWorker, status: comparisonStatus, result: comparisonResult, error: comparisonError } = comparison
+  const comparison = useOptimizer(trialInventory, scenario, true)
+  const { start: startComparisonWorker, status: comparisonStatus, result: comparisonResult, evaluatedInstanceIds, error: comparisonError } = comparison
   const [pendingBaseline, setPendingBaseline] = useState<{ instanceId: string; inventory: Inventory } | null>(null)
   const candidate = trial ? inventoryGridItems(trial.inventory).find((item) => item.instanceId === trial.instanceId) : undefined
   const researchOnly = trial?.inventory.catalogItems?.find((item) => item.instanceId === trial.instanceId)
@@ -61,7 +61,7 @@ export function NewDropComparison({
   const rangedBlocker = rangedCandidate ? rangedWeaponUnsupportedReason(rangedCandidate) : undefined
   const candidateEstimate = trial ? estimateSearchCandidates(trial.inventory) : 0
   const candidateOverBudget = trial !== null && candidateEstimate > SEARCH_MAX_CANDIDATES
-  const candidateEvaluated = Boolean(trial && comparisonResult?.evaluatedInstanceIds.includes(trial.instanceId))
+  const candidateEvaluated = Boolean(trial && evaluatedInstanceIds?.includes(trial.instanceId))
   const candidateExclusionReasons = trial && comparisonResult
     ? comparisonResult.unsupportedChoices
       .filter((choice) => choice.startsWith(`${trial.instanceId}:`))
