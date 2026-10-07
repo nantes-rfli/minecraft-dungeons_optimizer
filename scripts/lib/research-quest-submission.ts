@@ -4,8 +4,15 @@ import { buildPhase7Submission, defaultResearchQuestState, type Phase7Submission
 import { LIMITED_DR_ACCEPTANCE_PLAN } from '../../src/research/limitedDrValidation.ts'
 import { parseEvidenceRepository } from '../../src/research/evidenceIntake.ts'
 
-/** Offline integrity check, not authentication of a measurement or an adoption action. */
-export function auditResearchQuestSubmission(serialized: string) {
+export interface LocalResearchTrace {
+  readonly locator: string
+  readonly bytes: Uint8Array
+}
+
+/** Offline integrity check, not authentication of a measurement or an adoption action.
+ * Supplying local traces requires complete coverage of non-embedded locators.
+ */
+export function auditResearchQuestSubmission(serialized: string, localTraces?: readonly LocalResearchTrace[]) {
   const submission = JSON.parse(serialized) as Phase7Submission
   assert(submission && submission.schemaVersion === 1 && submission.phase === '7B' && submission.questId === 'limited-dr-composition', 'unsupported Research Quest submission')
   assert(typeof submission.generatedAt === 'string' && Number.isFinite(Date.parse(submission.generatedAt)), 'invalid generatedAt')
@@ -59,11 +66,33 @@ export function auditResearchQuestSubmission(serialized: string) {
   assert.equal(usedRaw.size, rawByLocator.size, 'orphan embedded raw record')
   const replayed = buildPhase7Submission({ ...defaultResearchQuestState(submission.generatedAt), runs: drafts }, submission.generatedAt)
   assert.deepEqual(submission, replayed, 'submission differs from recomputed Evidence, runs or frozen validation')
+  let verifiedExternalRawTraces = 0
+  if (localTraces !== undefined) {
+    const expected = new Map<string, string>()
+    for (const run of replayed.runs) {
+      if (usedRaw.has(run.rawTraceLocator)) continue
+      assert.equal(new URL(run.rawTraceLocator).protocol, 'https:', 'non-embedded trace must use HTTPS')
+      const previous = expected.get(run.rawTraceLocator)
+      assert(previous === undefined || previous === run.rawTraceSha256, 'conflicting hashes for one trace locator')
+      expected.set(run.rawTraceLocator, run.rawTraceSha256)
+    }
+    const supplied = new Set<string>()
+    for (const trace of localTraces) {
+      assert(trace && typeof trace.locator === 'string' && trace.bytes instanceof Uint8Array, 'invalid local trace')
+      assert(!supplied.has(trace.locator), 'duplicate local trace locator')
+      assert(expected.has(trace.locator), 'unexpected local trace locator')
+      assert.equal(createHash('sha256').update(trace.bytes).digest('hex'), expected.get(trace.locator), 'local trace content hash mismatch')
+      supplied.add(trace.locator)
+    }
+    assert.equal(supplied.size, expected.size, 'missing local trace locator')
+    verifiedExternalRawTraces = replayed.runs.length - usedRaw.size
+  }
   return {
     scope: 'offline-integrity-only',
     submittedRuns: replayed.runs.length,
     verifiedEmbeddedRawRecords: usedRaw.size,
-    externalRawTracesNotChecked: replayed.runs.length - usedRaw.size,
+    verifiedExternalRawTraces,
+    externalRawTracesNotChecked: replayed.runs.length - usedRaw.size - verifiedExternalRawTraces,
     eligibleIndependentHoldoutRuns: replayed.validation.evidenceBoundary.eligibleIndependentHoldoutRuns,
     eligibleHits: replayed.validation.comparison.eligibleHitCount,
     recomputedDecision: replayed.validation.adoptionDecision.decision,

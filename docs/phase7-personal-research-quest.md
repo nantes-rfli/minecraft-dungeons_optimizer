@@ -27,3 +27,26 @@ npm run audit:research-quest-submission -- /absolute/path/submission.json
 検査はファイルの読み取りだけを行い、個人観測をGitやcanonical Evidenceへ取り込まない。全8条件のself-observation / external exportを同じ入口で扱う。Evidence Repositoryのassessmentを再計算し、run・claim・equipment・条件・locatorの対応を既存exporterで照合する。埋め込まれた自前raw recordはSHA-256、runの観測値・metadataとの一致、欠落・重複・孤立recordを検査する。保存済みvalidationは固定済み8C planで再計算した結果との完全一致を要求し、不正時は終了code 1を返す。未取得のEvidenceは引き続きholdで、欠損metricを0にしない。
 
 出力の`scope: offline-integrity-only`は整合性検査を意味する。HTTPS先の外部traceは取得せず、`externalRawTracesNotChecked`に件数を示す。自己観測を含め、実際の測定・版・条件・runの独立性を認証したものではなく、`measurementAuthenticity: not-checked`を維持する。`recomputedDecision`は研究上の保存済み判定の再計算であり、このcommandでAdoptionDecision保存、runtime昇格、Gap closeは行わない。実測の取得とR3の採用審査は従来どおり別に必要。
+
+### 保存済み外部traceのbytesを照合する
+
+HTTPS先から別途保存したraw traceを受け渡すときは、任意のlocal sidecarを指定できる。このcommand自体はネットワークへアクセスしない。
+
+```sh
+npm run audit:research-quest-submission -- /absolute/path/submission.json --trace-files /absolute/path/traces.json
+```
+
+`traces.json`の例（個人観測と同様、Gitへ含めない）:
+
+```json
+{
+  "schemaVersion": 1,
+  "traces": [
+    { "locator": "https://example.test/trace.csv", "path": "saved/trace.csv" }
+  ]
+}
+```
+
+`locator`はsubmissionの`rawTraceLocator`と完全一致させる。`path`はsidecarのディレクトリを基準とする相対path、または絶対path。保存ファイルのbinary bytesをそのままSHA-256で照合し、文字コード・改行・JSONの再整形は行わない。埋め込みraw record以外の全locatorに対して1 file entryを要求し、欠落・重複・余分なlocator・同じlocatorの異なるhash・hash不一致・読めないfileは終了code 1で拒否する。HTTPSを使用したself-observationもこの集合に含む。同一traceを複数runが使う場合は1 entryとし、既存の独立run除外は維持する。全traceが埋め込みの場合は`traces: []`でよい。
+
+成功時の`verifiedExternalRawTraces`は保存bytesを照合したrunの件数であり、独立run数ではない。`externalRawTracesNotChecked`は0になる。sidecarを省略した場合は従来どおり外部bytesは未確認とし、照合件数は0。照合成功は実測の真正性、HTTPSでの取得元、trace内容と観測値のsemantic対応を保証しない。`measurementAuthenticity: not-checked`とruntime昇格0は維持し、canonical Evidenceや既存の採用gateは変更しない。
