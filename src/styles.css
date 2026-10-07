@@ -152,10 +152,12 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .alternative-equipment dt { color: #77847b; }
 .alternative-equipment dd { margin: 0; color: #cbd4cd; }
 .alternative-equipment dd small { display: block; color: #77847b; font: 11px 'DM Mono', monospace; }
-.alternative-deltas { display: flex; gap: 16px; margin: 14px 0 0; border-top: 1px solid var(--line); padding-top: 10px; }
-.alternative-deltas div { display: flex; gap: 8px; }
+.alternative-deltas-section { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+.alternative-deltas-section > p { margin: 0 0 8px; color: #7d8980; font-size: 11px; }
+.alternative-deltas { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px 12px; margin: 0; }
+.alternative-deltas div { display: grid; gap: 3px; min-width: 0; }
 .alternative-deltas dt { color: #7d8980; font-size: 12px; }
-.alternative-deltas dd { margin: 0; color: #c7d0c9; font: 12px 'DM Mono', monospace; }
+.alternative-deltas dd { margin: 0; color: #c7d0c9; font: 12px 'DM Mono', monospace; overflow-wrap: anywhere; }
 .technical-results { margin-top: 10px; border: 1px solid var(--line); padding: 18px; background: var(--surface); }
 .technical-results > summary { cursor: pointer; color: #c6d0c8; font-weight: 600; }
 .technical-results > :not(summary) { margin-top: 18px; }
