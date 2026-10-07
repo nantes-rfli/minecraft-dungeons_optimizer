@@ -158,6 +158,10 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .alternative-deltas div { display: grid; gap: 3px; min-width: 0; }
 .alternative-deltas dt { color: #7d8980; font-size: 12px; }
 .alternative-deltas dd { margin: 0; color: #c7d0c9; font: 12px 'DM Mono', monospace; overflow-wrap: anywhere; }
+.alternative-reasons { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
+.alternative-reasons > summary { color: #a5b0a7; cursor: pointer; font-size: 12px; }
+.alternative-reasons ul { margin: 8px 0 0; padding-left: 20px; color: #a5b0a7; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.alternative-reasons li + li { margin-top: 6px; }
 .technical-results { margin-top: 10px; border: 1px solid var(--line); padding: 18px; background: var(--surface); }
 .technical-results > summary { cursor: pointer; color: #c6d0c8; font-weight: 600; }
 .technical-results > :not(summary) { margin-top: 18px; }
