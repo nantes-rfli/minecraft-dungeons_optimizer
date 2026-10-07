@@ -31,6 +31,14 @@ test('candidate Evidence opens by keyboard and stays local to each worker result
   await expect(details).toHaveAttribute('open', '')
   await expect(details.getByText('独立検証済みであることを意味しません。', { exact: false })).toBeVisible()
   await expect(details).toContainText('この候補の計算上の注意')
+  const reasons = alternative.locator('.alternative-reasons')
+  const reasonsSummary = reasons.locator('summary')
+  await expect(reasonsSummary).toContainText('この候補に含まれる効果の評価メモを見る')
+  await expect(reasons).not.toHaveAttribute('open', '')
+  await reasonsSummary.focus()
+  await page.keyboard.press('Enter')
+  await expect(reasons).toHaveAttribute('open', '')
+  await expect(reasons.locator('li').first()).toBeVisible()
   // Default Balanced ranks Guarding Strike first; the Critical Hit alternative
   // must not inherit its estimate. Both are actual evaluated worker candidates.
   await expect(page.locator('.optimize-results > .evidence-result')).toContainText('melee-enchantment:guarding-strike')

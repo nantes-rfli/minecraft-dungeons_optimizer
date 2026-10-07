@@ -142,6 +142,10 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
       <p>1位との差（候補 − 1位）</p>
       <dl className="alternative-deltas">{metricDeltas.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
     </section>
+    <details className="alternative-reasons">
+      <summary>この候補に含まれる効果の評価メモを見る</summary>
+      <ul>{evaluation.reasons.map((reason, index) => <li key={`${index}-${reason}`}>{reason}</li>)}</ul>
+    </details>
     <ScoreBreakdown evaluation={evaluation} weights={weights} best={best} />
     <BuildEvidenceDetails evaluation={evaluation} />
   </article>

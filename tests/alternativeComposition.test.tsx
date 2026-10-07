@@ -44,6 +44,10 @@ describe('reproducible alternative equipment', () => {
       const html = renderToStaticMarkup(<BuildAlternative evaluation={evaluation} best={result.best} weights={scenario.weights} />)
       const composition = html.split('<summary>装備とEnchantの構成を見る</summary>')[1]?.split('</details>')[0]
       expect(composition).toBeDefined()
+      expect(html).toContain('<summary>この候補に含まれる効果の評価メモを見る</summary>')
+      const evaluationNotes = html.split('この候補に含まれる効果の評価メモを見る</summary>')[1]?.split('</details>')[0]
+      expect(evaluationNotes).toBeDefined()
+      for (const reason of evaluation.reasons) expect(evaluationNotes).toContain(reason)
       const deltas = html.split('class="alternative-deltas"')[1]?.split('</dl>')[0]
       expect(html).toContain('1位との差（候補 − 1位）')
       expect(deltas).toBeDefined()
