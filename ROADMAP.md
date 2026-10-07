@@ -94,12 +94,18 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Unlocks: P3B, P4
   - Completion: 未検証値を昇格せず、対象0件を表現し、最初のeligible単位にatomic bundleと内容hashを必須化して安全に受け入れられる。
 
+#### Current
+
+- **P5 — Recommendation / Optimizer Quality**: available runtime scope内でobjective、scoring、推薦品質、説明を改善する。Researchやruntime coverage全体の完了は待たない。
+  - Depends on: P2
+  - Completion: 変更した目的・順位・説明を代表fixtureと回帰で検証でき、現在の対応範囲だけでも利用者の装備判断が改善する。
+  - Next: 現行Full / Limited範囲で、比較・推薦・残す価値の判断を妨げる最大の不足を再評価し、最小の検証可能な改善を選ぶ。
+
 #### Next
 
 - **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。
   - Depends on: P3B
   - Entry condition: 対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み
-  - Unlocks: P5
   - Completion: 追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。
 
 #### Blocked
@@ -112,10 +118,6 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
   - Next: eligible targetなし。P3の基盤整備を継続し、acceptedな対象を待つ。
 
 #### Later
-
-- **P5 — Recommendation / Optimizer Quality**: available runtime scope内でobjective、scoring、推薦品質、説明を改善する。
-  - Depends on: P2
-  - Completion: 変更した目的・順位・説明を代表fixtureと回帰で検証できる。
 
 - **P6 — Product UX / Public-use Readiness**: Inventory workflow、UX、performance、regression、本人実利用での有用性を継続改善する。
   - Depends on: P1, P2
