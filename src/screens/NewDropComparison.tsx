@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import type { AssessmentCondition } from '../core/equipmentAssessment'
 import type { Build, Inventory, Scenario } from '../core/types'
 import { useOptimizer } from '../optimizer/useOptimizer'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
 import { inventoryGridItems } from '../inventory/gridPresentation'
 import { rangedWeaponUnsupportedReason } from '../core/ranged'
+import type { SavedScenarioPreset } from '../scenario/presets'
 import { BuildAlternative } from '../views/RecommendedBuild'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
+const formatGap = (gap: number) => gap > 0 && gap < 0.005 ? '0.01未満' : numberFormat.format(gap)
 
 export interface NewDropTrial {
   readonly inventory: Inventory
@@ -41,6 +44,7 @@ export function NewDropComparison({
   scenario,
   baseline,
   trial,
+  presets,
   onOpenPicker,
   onClearTrial,
   onKeepCandidate,
@@ -49,6 +53,7 @@ export function NewDropComparison({
   readonly scenario: Scenario
   readonly baseline: OptimizerState
   readonly trial: NewDropTrial | null
+  readonly presets: readonly SavedScenarioPreset[]
   readonly onOpenPicker: () => void
   readonly onClearTrial: () => void
   readonly onKeepCandidate: () => void
@@ -56,6 +61,16 @@ export function NewDropComparison({
   const trialInventory = trial?.inventory ?? inventory
   const comparison = useOptimizer(trialInventory, scenario, true)
   const { start: startComparisonWorker, status: comparisonStatus, result: comparisonResult, evaluatedInstanceIds, error: comparisonError } = comparison
+  const [selectedPresetIds, setSelectedPresetIds] = useState<readonly string[]>([])
+  const comparisonConditions = useMemo<readonly AssessmentCondition[]>(() => presets
+    .filter((preset) => selectedPresetIds.includes(preset.id))
+    .map((preset) => ({ id: `saved:${preset.id}`, name: preset.name, scenario: preset.scenario })), [presets, selectedPresetIds])
+  const candidateInstanceId = trial?.instanceId
+  const trialComparisonInput = useMemo(() => candidateInstanceId && comparisonConditions.length > 0
+    ? { baselineInventory: inventory, candidateInstanceId }
+    : undefined, [inventory, candidateInstanceId, comparisonConditions.length])
+  const savedComparison = useOptimizer(trialInventory, scenario, false,
+    comparisonConditions.length > 0 ? comparisonConditions : undefined, trialComparisonInput)
   const [pendingBaseline, setPendingBaseline] = useState<{ instanceId: string; inventory: Inventory } | null>(null)
   const candidate = trial ? inventoryGridItems(trial.inventory).find((item) => item.instanceId === trial.instanceId) : undefined
   const researchOnly = trial?.inventory.catalogItems?.find((item) => item.instanceId === trial.instanceId)
@@ -75,6 +90,8 @@ export function NewDropComparison({
     : 'この候補が評価対象に含まれていないため、比較結果を表示しません。'
   const resultsReady = Boolean(baseline.result && comparisonResult && comparisonStatus === 'complete' && candidateEvaluated)
   const candidateIncluded = trial && comparisonResult ? buildUsesInstance(comparisonResult.best.build, trial.instanceId) : false
+  const savedComparisons = savedComparison.trialComparisons
+  const savedCandidateEvaluated = Boolean(savedComparisons?.some((item) => item.status === 'complete' && item.candidate.status === 'evaluated'))
 
   useEffect(() => {
     if (!trial || pendingBaseline?.instanceId !== trial.instanceId || pendingBaseline.inventory !== trial.inventory) return
@@ -93,13 +110,23 @@ export function NewDropComparison({
     baseline.start()
   }
 
-  const running = waitingForBaseline || baseline.status === 'working' || comparisonStatus === 'working'
+  const startSavedComparison = () => {
+    if (!trial || comparisonConditions.length === 0 || researchOnly || rangedBlocker || candidateOverBudget) return
+    savedComparison.start()
+  }
+
+  const running = waitingForBaseline || baseline.status === 'working' || comparisonStatus === 'working' || savedComparison.status === 'working'
   const blocker = researchOnly
     ? 'この装備は現在の計算対象外です。未対応の効果を0点として比較しません。'
     : rangedBlocker
   const scoreDelta = baseline.result && comparisonResult
     ? comparisonResult.best.objectiveScore - baseline.result.best.objectiveScore
     : undefined
+  const savedComparisonStatus = savedComparison.status === 'working' ? '選んだ保存条件を比較しています…'
+    : savedComparison.status === 'complete' ? savedCandidateEvaluated ? '保存済み条件の比較が完了しました。' : '選んだ保存条件では候補を数値評価できませんでした。'
+      : savedComparison.status === 'error' ? '保存済み条件を比較できませんでした。'
+        : savedComparison.status === 'cancelled' ? '保存済み条件の比較を中止しました。'
+          : '選んだ条件ごとに追加前後を比べます。'
 
   return <section className="new-drop-comparison" aria-labelledby="new-drop-title">
     <header><div><p className="section-label">NEW DROP</p><h2 id="new-drop-title">新しい装備を試す</h2></div></header>
@@ -107,13 +134,35 @@ export function NewDropComparison({
     {!trial ? <button className="secondary-button" type="button" onClick={onOpenPicker}>比較候補を選ぶ</button> : <>
       <div className="drop-candidate-summary"><strong>{candidate?.catalog.name.ja ?? candidate?.catalog.name.en ?? researchOnly?.catalogId ?? trial.instanceId}</strong><span>{candidate?.category ?? researchOnly?.category} · Power {candidate?.powerLevel ?? researchOnly?.powerLevel}</span></div>
       <div className="drop-candidate-actions"><button className="secondary-button" type="button" onClick={onOpenPicker}>候補を変更</button><button type="button" onClick={onClearTrial}>候補を外す</button></div>
+      {presets.length > 0 && <fieldset className="drop-condition-picker"><legend>保存済み条件でも比較</legend><p>選んだ条件では、現在のInventoryと候補追加後を別々に探索します。</p>{presets.map((preset) => <label key={preset.id}><input type="checkbox" checked={selectedPresetIds.includes(preset.id)} onChange={(event) => setSelectedPresetIds((current) => event.target.checked ? [...current, preset.id] : current.filter((id) => id !== preset.id))} />{preset.name}</label>)}</fieldset>}
       {blocker && <p className="drop-comparison-warning" role="note">{blocker}</p>}
       {candidateOverBudget && <p className="drop-comparison-warning" role="alert">この候補を含めると探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えます。候補を減らしてください。</p>}
-      <button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget || candidateExcluded}>現在の最良ビルドと比較</button>
+      <div className="drop-comparison-actions"><button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget || candidateExcluded}>現在の最良ビルドと比較</button>{comparisonConditions.length > 0 && <button type="button" onClick={startSavedComparison} disabled={running || Boolean(blocker) || candidateOverBudget}>選んだ保存条件で比較</button>}</div>
       <p className="drop-comparison-status" role="status">{candidateExcluded ? '仮候補は今回の探索で評価されませんでした。' : waitingForBaseline ? '現在のInventoryを探索しています…' : comparisonStatus === 'working' ? '仮追加後の候補を探索しています…' : comparisonStatus === 'complete' ? '比較が完了しました。' : comparisonStatus === 'error' || (pendingBaseline?.instanceId === trial.instanceId && baseline.status === 'error') ? '比較できませんでした。' : blocker ? '入力条件を確認してください。' : '同じ目的と条件で比較します。'}</p>
       {candidateExcluded && <p className="drop-comparison-warning" role="alert">{candidateExclusionMessage}</p>}
       {baseline.error && pendingBaseline?.instanceId === trial.instanceId && <p className="drop-comparison-warning" role="alert">{baseline.error}</p>}
       {comparisonError && <p className="drop-comparison-warning" role="alert">{comparisonError}</p>}
+      {comparisonConditions.length > 0 && <>
+        <div className="drop-saved-comparison-actions"><button type="button" onClick={() => savedComparison.cancel()} disabled={savedComparison.status !== 'working'}>保存条件の比較を中止</button><p className="drop-comparison-status" role="status">{savedComparisonStatus}</p></div>
+        {savedComparison.error && <p className="drop-comparison-warning" role="alert">{savedComparison.error}</p>}
+        {savedComparisons && <section className="drop-saved-comparisons" aria-label="保存済み条件のドロップ比較">
+          <h3>保存済み条件の比較結果</h3>
+          {savedComparisons.map((result) => <article key={result.condition.id} className="drop-saved-comparison">
+            <h4>{result.condition.name}</h4>
+            {result.status === 'error' ? <p className="drop-comparison-warning" role="alert">この条件は比較できませんでした: {result.error}</p> : <>
+              <div className="drop-comparison-results">
+                <MetricSummary label="候補追加前の最良ビルド" evaluation={result.baselineBest} />
+                <MetricSummary label="候補追加後の最良ビルド" evaluation={result.withCandidateBest} />
+              </div>
+              <p className="drop-comparison-outcome">総合スコア差: {result.withCandidateBest.objectiveScore - result.baselineBest.objectiveScore >= 0 ? '+' : ''}{numberFormat.format(result.withCandidateBest.objectiveScore - result.baselineBest.objectiveScore)} · {buildUsesInstance(result.withCandidateBest.build, trial.instanceId) ? '候補が最良ビルドに含まれています。' : '候補は最良ビルドに選ばれませんでした。'}</p>
+              {result.candidate.status === 'evaluated' ? <>
+                <p>候補を必須にした最良スコア: {numberFormat.format(result.candidate.best.objectiveScore)} · 追加後の最良との差 {formatGap(result.candidate.scoreGap)}pt</p>
+                <details className="drop-build-details"><summary>候補を使う構成と差を見る</summary><BuildAlternative title="候補を必須にした最良構成" evaluation={result.candidate.best} best={result.withCandidateBest} weights={result.condition.scenario.weights} /></details>
+              </> : <p className="drop-comparison-warning" role="note">この条件では候補を数値評価できませんでした。{result.candidate.reasons.join(' / ')}</p>}
+            </>}
+          </article>)}
+        </section>}
+      </>}
       {resultsReady && baseline.result && comparisonResult && <>
         <div className="drop-comparison-results">
           <MetricSummary label="現在の最良ビルド" evaluation={baseline.result.best} />

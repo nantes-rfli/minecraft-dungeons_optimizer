@@ -1,12 +1,19 @@
 import { optimize, optimizeWithMetadata } from '../core/optimizer'
 import { assessEquipment } from '../core/equipmentAssessment'
+import { compareTrialAcrossConditions } from '../core/trialConditionComparison'
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
-  const { id, inventory, scenario, includeEvaluationMetadata, assessmentConditions } = event.data
+  const { id, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison } = event.data
   let response: OptimizeResponse
   try {
     const start = performance.now()
+    if (trialComparison && !assessmentConditions) throw new Error('保存済み条件を選んでから比較してください。')
+    if (assessmentConditions && trialComparison) {
+      response = { id, type: 'trial-comparison-complete', comparisons: compareTrialAcrossConditions(trialComparison.baselineInventory, inventory, trialComparison.candidateInstanceId, assessmentConditions), durationMs: performance.now() - start }
+      self.postMessage(response)
+      return
+    }
     if (assessmentConditions) {
       response = { id, type: 'assessment-complete', assessments: assessEquipment(inventory, assessmentConditions), durationMs: performance.now() - start }
       self.postMessage(response)

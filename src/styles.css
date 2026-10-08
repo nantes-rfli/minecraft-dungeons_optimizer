@@ -879,10 +879,19 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .drop-candidate-summary { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; border-left: 2px solid var(--accent); padding: 10px 14px; background: #121b14; }
 .drop-candidate-summary span { color: var(--muted); font-size: 13px; }
 .drop-candidate-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-.new-drop-comparison > .primary-button { margin-top: 12px; }
+.drop-condition-picker { min-width: 0; margin: 14px 0; border: 1px solid var(--line); padding: 10px 14px; }
+.drop-condition-picker p { color: var(--muted); line-height: 1.6; }
+.drop-condition-picker label { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.drop-comparison-actions, .drop-saved-comparison-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.drop-comparison-actions button:not(.primary-button), .drop-saved-comparison-actions button { border: 1px solid #465649; padding: 9px 13px; color: var(--text); background: #111a14; }
+.drop-comparison-actions button:disabled, .drop-saved-comparison-actions button:disabled { opacity: .48; cursor: not-allowed; }
 .drop-comparison-status { color: var(--muted); }
 .drop-comparison-warning { border-left: 3px solid var(--warning); padding: 10px 13px; color: #d4c783; background: #1b1a11; line-height: 1.6; }
 .drop-comparison-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+.drop-saved-comparisons { margin-top: 20px; }
+.drop-saved-comparisons > h3 { margin: 0; font-size: 18px; }
+.drop-saved-comparison { min-width: 0; margin-top: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+.drop-saved-comparison h4 { margin: 0; font-size: 16px; }
 .drop-metric-card { min-width: 0; border: 1px solid var(--line); padding: 16px; background: #0e1511; }
 .drop-metric-card h3 { margin: 0 0 10px; font-size: 15px; }
 .drop-objective-score { display: flex; justify-content: space-between; gap: 12px; margin: 0; border-bottom: 1px solid var(--line); padding-bottom: 9px; color: var(--muted); }
