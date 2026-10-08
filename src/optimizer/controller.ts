@@ -1,4 +1,5 @@
 import type { OptimizationResult } from '../core/types'
+import type { ConditionAssessment } from '../core/equipmentAssessment'
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 export interface WorkerPort {
@@ -12,6 +13,7 @@ export interface SearchState {
   readonly status: 'idle' | 'working' | 'complete' | 'error' | 'cancelled'
   readonly result: OptimizationResult | null
   readonly evaluatedInstanceIds?: readonly string[]
+  readonly assessments?: readonly ConditionAssessment[]
   readonly error: string | null
   readonly request?: OptimizeRequest
   readonly durationMs?: number
@@ -64,6 +66,10 @@ export class OptimizerController {
         if (id !== this.sequence || data.id !== id) return
         if (data.type === 'error') { fail(data.error); return }
         this.stop()
+        if (data.type === 'assessment-complete') {
+          this.publish({ status: 'complete', result: null, assessments: data.assessments, error: null, durationMs: data.durationMs, request })
+          return
+        }
         this.publish({ status: 'complete', result: data.result, evaluatedInstanceIds: data.evaluatedInstanceIds, error: null, durationMs: data.durationMs, request })
       }
       worker.onerror = () => fail('探索Workerでエラーが発生しました。再度開始してください。')

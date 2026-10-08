@@ -197,6 +197,21 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
   return optimizeInternal(inventory, scenario, false).result
 }
 
+/** Best feasible build containing each inventory instance, before display limits. */
+export function optimizeForEquipment(inventory: Inventory, scenario: Scenario): {
+  readonly result: OptimizationResult
+  readonly bestByInstance: ReadonlyMap<string, Evaluation>
+} {
+  const execution = optimizeInternal(inventory, scenario, false, true)
+  return { result: execution.result, bestByInstance: execution.bestByInstance }
+}
+
+function buildInstanceIds(build: Build): string[] {
+  return [build.weapon.instanceId, ...(build.armor ? [build.armor.instanceId] : []),
+    ...(build.rangedWeapon ? [build.rangedWeapon.instanceId] : []),
+    ...build.artifacts.map((artifact) => artifact.instanceId)]
+}
+
 /**
  * Runs the optimizer with participation metadata for callers that need to
  * distinguish evaluated inventory instances from candidates excluded before
@@ -207,14 +222,16 @@ export function optimizeWithMetadata(
   inventory: Inventory,
   scenario: Scenario,
 ): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[] } {
-  return optimizeInternal(inventory, scenario, true)
+  const { result, evaluatedInstanceIds } = optimizeInternal(inventory, scenario, true)
+  return { result, evaluatedInstanceIds }
 }
 
 function optimizeInternal(
   inventory: Inventory,
   scenario: Scenario,
   includeEvaluationMetadata: boolean,
-): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[] } {
+  includeEquipmentAssessment = false,
+): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly bestByInstance: ReadonlyMap<string, Evaluation> } {
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory)
@@ -281,12 +298,7 @@ function optimizeInternal(
     .map((build) => evaluateCandidate(build, scenario))
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
   const evaluatedInstanceIds = includeEvaluationMetadata
-    ? [...new Set(evidenceAllowedBuilds.flatMap((build) => [
-      build.weapon.instanceId,
-      ...(build.armor ? [build.armor.instanceId] : []),
-      ...(build.rangedWeapon ? [build.rangedWeapon.instanceId] : []),
-      ...build.artifacts.map((artifact) => artifact.instanceId),
-    ]))]
+    ? [...new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds))]
     : []
 
   const best = evaluations[0]
@@ -309,6 +321,17 @@ function optimizeInternal(
   }
   return {
     evaluatedInstanceIds,
+    bestByInstance: includeEquipmentAssessment
+      ? (() => {
+        const winners = new Map<string, Evaluation>()
+        for (const candidate of evaluations) {
+          for (const id of buildInstanceIds(candidate.build)) {
+            if (!winners.has(id)) winners.set(id, withDetails(candidate))
+          }
+        }
+        return winners
+      })()
+      : new Map(),
     result: {
       unsupportedChoices: [...unsupportedChoices],
       best: withDetails(best),
