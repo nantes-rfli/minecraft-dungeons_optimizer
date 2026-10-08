@@ -75,6 +75,13 @@ export function addScenarioPreset(
   return normalized
 }
 
+export function mergeScenarioPresets(
+  presets: readonly SavedScenarioPreset[],
+  importedPresets: readonly SavedScenarioPreset[],
+): readonly SavedScenarioPreset[] {
+  return normalizePresets([...presets, ...importedPresets])
+}
+
 export function removeScenarioPreset(
   presets: readonly SavedScenarioPreset[],
   presetId: string,

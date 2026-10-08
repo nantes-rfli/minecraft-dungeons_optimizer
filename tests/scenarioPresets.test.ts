@@ -3,6 +3,7 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import {
   addScenarioPreset,
   deserializeScenarioPresets,
+  mergeScenarioPresets,
   MAX_SCENARIO_PRESETS,
   removeScenarioPreset,
   serializeScenarioPresets,
@@ -32,6 +33,7 @@ describe('saved optimizer scenario presets', () => {
   it('rejects invalid optimizer inputs and unsupported document versions', () => {
     expect(() => addScenarioPreset([], preset('invalid', '不正条件', { averageEnemyHealth: 0 }))).toThrow(/現在のOptimizerで使える条件ではありません/)
     expect(() => deserializeScenarioPresets(JSON.stringify({ version: 2, presets: [] }))).toThrow(/対応していません/)
+    expect(() => deserializeScenarioPresets(JSON.stringify({ version: 1, presets: [preset('invalid', '不正条件', { averageEnemyHealth: 0 })] }))).toThrow(/現在のOptimizerで使える条件ではありません/)
   })
 
   it('requires unique names and identifiers and caps the list at eight presets', () => {
@@ -40,6 +42,18 @@ describe('saved optimizer scenario presets', () => {
     expect(() => addScenarioPreset(existing, preset('one', '別名'))).toThrow(/IDが重複/)
     const full = Array.from({ length: MAX_SCENARIO_PRESETS }, (_, index) => preset(`preset-${index}`, `条件${index}`))
     expect(() => addScenarioPreset(full, preset('extra', '追加'))).toThrow(/最大8件/)
+  })
+
+  it('merges imported presets only when the complete addition is valid', () => {
+    const existing = [preset('one', '近接')]
+    const imported = [preset('two', 'ボス')]
+    expect(mergeScenarioPresets(existing, imported)).toEqual([...existing, ...imported])
+    expect(existing).toHaveLength(1)
+    expect(() => mergeScenarioPresets(existing, [preset('three', '近接')])).toThrow(/名前が重複/)
+
+    const seven = Array.from({ length: 7 }, (_, index) => preset(`existing-${index}`, `既存${index}`))
+    expect(() => mergeScenarioPresets(seven, [preset('incoming-1', '追加1'), preset('incoming-2', '追加2')])).toThrow(/最大8件/)
+    expect(seven).toHaveLength(7)
   })
 
   it('removes only the explicitly selected preset', () => {
