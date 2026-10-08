@@ -7,6 +7,7 @@ import {
   MAX_SCENARIO_PRESETS,
   removeScenarioPreset,
   serializeScenarioPresets,
+  updateScenarioPreset,
   type SavedScenarioPreset,
 } from '../src/scenario/presets'
 
@@ -42,6 +43,23 @@ describe('saved optimizer scenario presets', () => {
     expect(() => addScenarioPreset(existing, preset('one', '別名'))).toThrow(/IDが重複/)
     const full = Array.from({ length: MAX_SCENARIO_PRESETS }, (_, index) => preset(`preset-${index}`, `条件${index}`))
     expect(() => addScenarioPreset(full, preset('extra', '追加'))).toThrow(/最大8件/)
+  })
+
+  it('updates only the selected scenario while preserving preset identity and name', () => {
+    const original = preset('one', '近接')
+    const other = preset('two', 'ボス')
+    const updated = updateScenarioPreset([original, other], 'one', {
+      ...DEFAULT_SCENARIO,
+      profileId: 'survival',
+      name: 'サバイバル',
+      averageEnemyHealth: 888,
+    })
+
+    expect(updated).toEqual([{ ...original, scenario: { ...DEFAULT_SCENARIO, profileId: 'survival', name: 'サバイバル', averageEnemyHealth: 888 } }, other])
+    expect(updated[0]).toMatchObject({ id: 'one', name: '近接' })
+    expect(original.scenario).toEqual(DEFAULT_SCENARIO)
+    expect(() => updateScenarioPreset([original], 'missing', DEFAULT_SCENARIO)).toThrow(/見つかりません/)
+    expect(() => updateScenarioPreset([original], 'one', { ...DEFAULT_SCENARIO, averageEnemyHealth: 0 })).toThrow(/現在のOptimizerで使える条件ではありません/)
   })
 
   it('merges imported presets only when the complete addition is valid', () => {

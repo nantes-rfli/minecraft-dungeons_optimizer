@@ -32,6 +32,20 @@ test('saves complete custom conditions and restores them after a profile change 
   await expect(page.getByLabel('確度の高い情報のみ')).toBeChecked()
   await expect(page.getByText('探索完了', { exact: false })).toHaveCount(0)
 
+  await page.getByLabel('平均敵HP').fill('888')
+  await page.getByRole('button', { name: '選択中の条件を現在条件で上書き' }).click()
+  await expect(page.getByRole('status').filter({ hasText: '「深層ボス」を現在条件で更新しました。' })).toBeVisible()
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? 'null')?.presets?.[0], storageKey)).toMatchObject({
+    id: expect.any(String), name: '深層ボス', scenario: { profileId: 'balanced', averageEnemyHealth: 888, evidencePolicy: 'high-confidence-only' },
+  })
+
+  await page.reload()
+  await page.getByText('詳細条件', { exact: true }).click()
+  await page.getByText('HP・ダメージの実数値', { exact: true }).click()
+  await page.getByLabel('保存済み条件').selectOption({ label: '深層ボス' })
+  await page.getByRole('button', { name: '読み込む', exact: true }).click()
+  await expect(page.getByLabel('平均敵HP')).toHaveValue('888')
+
   const downloadPromise = page.waitForEvent('download')
   await page.getByRole('button', { name: 'JSONを書き出す' }).click()
   const download = await downloadPromise
@@ -49,9 +63,9 @@ test('saves complete custom conditions and restores them after a profile change 
   const importedId = await page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? 'null')?.presets?.[0]?.id, storageKey)
   await expect(page.getByLabel('保存済み条件')).toHaveValue(importedId)
   await page.getByRole('button', { name: '読み込む', exact: true }).click()
-  await expect(page.getByLabel('平均敵HP')).toHaveValue('777')
+  await expect(page.getByLabel('平均敵HP')).toHaveValue('888')
   await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? 'null')?.presets?.[0]?.scenario, storageKey)).toMatchObject({
-    profileId: 'balanced', averageEnemyHealth: 777, evidencePolicy: 'high-confidence-only',
+    profileId: 'balanced', averageEnemyHealth: 888, evidencePolicy: 'high-confidence-only',
   })
 
   await page.setViewportSize({ width: 390, height: 844 })
