@@ -9,6 +9,13 @@ import { BuildAlternative } from '../views/RecommendedBuild'
 
 const format = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const formatGap = (gap: number) => gap > 0 && gap < 0.005 ? '0.01未満' : format.format(gap)
+const categoryOptions = [
+  { id: 'all', label: 'すべて' },
+  { id: 'melee', label: '近接武器' },
+  { id: 'armor', label: '防具' },
+  { id: 'ranged', label: '遠距離武器' },
+  { id: 'artifact', label: 'Artifact' },
+] as const
 
 export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   readonly inventory: Inventory
@@ -17,12 +24,35 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
 }) {
   const [selectedIds, setSelectedIds] = useState<readonly string[]>([])
   const [inspected, setInspected] = useState<{ instanceId: string; conditionId: string } | null>(null)
+  const [categoryFilter, setCategoryFilter] = useState<(typeof categoryOptions)[number]['id']>('all')
+  const [sortBy, setSortBy] = useState('inventory')
   const conditions = useMemo<readonly AssessmentCondition[]>(() => [
     { id: 'current', name: '現在の条件', scenario },
     ...presets.filter((preset) => selectedIds.includes(preset.id)).map((preset) => ({ ...preset, id: `saved:${preset.id}` })),
   ], [scenario, presets, selectedIds])
   const search = useOptimizer(inventory, scenario, false, conditions)
-  const items = inventoryGridItems(inventory)
+  const items = useMemo(() => inventoryGridItems(inventory), [inventory])
+  const selectedConditionId = sortBy.startsWith('gap-') ? sortBy.slice(sortBy.indexOf(':') + 1) : null
+  const selectedSortBy = selectedConditionId && !conditions.some((condition) => condition.id === selectedConditionId) ? 'inventory' : sortBy
+  const tableItems = useMemo(() => {
+    const categoryItems = items.filter((item) => categoryFilter === 'all' || item.category === categoryFilter)
+    if (!selectedSortBy.startsWith('gap-')) return categoryItems
+    const separator = selectedSortBy.indexOf(':')
+    const direction = selectedSortBy.slice(4, separator)
+    const conditionId = selectedSortBy.slice(separator + 1)
+    const condition = search.assessments?.find((assessment) => assessment.condition.id === conditionId)
+    const byInstance = new Map(condition?.status === 'complete' ? condition.equipment.map((item) => [item.instanceId, item]) : [])
+    return categoryItems.map((item, index) => ({ item, index, assessment: byInstance.get(item.instanceId) }))
+      .sort((a, b) => {
+        const aGap = a.assessment?.status === 'evaluated' ? a.assessment.scoreGap : null
+        const bGap = b.assessment?.status === 'evaluated' ? b.assessment.scoreGap : null
+        if (aGap === null) return bGap === null ? a.index - b.index : 1
+        if (bGap === null) return -1
+        const difference = direction === 'desc' ? bGap - aGap : aGap - bGap
+        return difference || a.index - b.index
+      })
+      .map(({ item }) => item)
+  }, [categoryFilter, items, search.assessments, selectedSortBy])
   const overBudget = estimateSearchCandidates(inventory) > SEARCH_MAX_CANDIDATES
   const inspectedCondition = search.assessments?.find((assessment) => assessment.condition.id === inspected?.conditionId)
   const inspectedEquipment = inspectedCondition?.status === 'complete'
@@ -50,9 +80,22 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           {assessment.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}
         </>}
       </details>)}
-      <div className="assessment-table-scroll"><table className="assessment-table"><caption>装備個体ごとの最良スコアとの差</caption>
+      <fieldset className="assessment-view-controls"><legend>表示する装備</legend>
+        <label>カテゴリ<select aria-label="表示カテゴリ" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value as (typeof categoryOptions)[number]['id'])}>
+          {categoryOptions.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
+        </select></label>
+        <label>並び順<select aria-label="装備の並び順" value={selectedSortBy} onChange={(event) => setSortBy(event.target.value)}>
+          <option value="inventory">所持品順</option>
+          {conditions.map((condition) => <optgroup key={condition.id} label={condition.name}>
+            <option value={`gap-asc:${condition.id}`}>最良との差が小さい順</option>
+            <option value={`gap-desc:${condition.id}`}>最良との差が大きい順</option>
+          </optgroup>)}
+        </select></label>
+        <p>{tableItems.length} / {items.length}件を表示。数値で評価できない装備は並べ替え時に末尾へ残り、同じ差の装備は所持品順です。</p>
+      </fieldset>
+      <div className="assessment-table-scroll"><table className="assessment-table"><caption>装備個体ごとの最良スコアとの差 · {tableItems.length}件</caption>
         <thead><tr><th scope="col">装備</th>{search.assessments.map(({ condition }) => <th scope="col" key={condition.id}>{condition.name}</th>)}</tr></thead>
-        <tbody>{items.map((item) => <tr key={item.instanceId}>
+        <tbody>{tableItems.map((item) => <tr key={item.instanceId}>
           <th scope="row">{item.catalog.name.ja}<small>{item.category} · Power {item.powerLevel} · {item.instanceId}</small></th>
           {search.assessments!.map((assessment) => {
             const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined

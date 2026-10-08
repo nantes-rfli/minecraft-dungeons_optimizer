@@ -5,6 +5,7 @@ test('compares every individual across saved purposes, shows exclusions and clea
   const inventory = {
     weapons: [
       { instanceId: 'firepower', weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['critical-hit'] }] },
+      { instanceId: 'firepower-copy', weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['critical-hit'] }] },
       { instanceId: 'sustain', weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['radiance'] }] },
     ],
     artifacts: [],
@@ -40,6 +41,26 @@ test('compares every individual across saved purposes, shows exclusions and clea
     await expect(cell).toContainText('計算対象外')
     await expect(cell.getByRole('button')).toHaveCount(0)
   }
+  const rowHeaders = table.getByRole('rowheader')
+  await panel.getByLabel('装備の並び順').selectOption('gap-asc:saved:healing')
+  await expect(rowHeaders.nth(0)).toContainText('sustain')
+  await expect(rowHeaders.nth(1)).toContainText('firepower')
+  await expect(rowHeaders.nth(2)).toContainText('firepower-copy')
+  await expect(rowHeaders.nth(3)).toContainText('research-gong')
+  await panel.getByLabel('表示カテゴリ').selectOption('artifact')
+  await expect(rowHeaders).toHaveCount(1)
+  await expect(rowHeaders.nth(0)).toContainText('research-gong')
+  await expect(panel).toContainText('1 / 4件を表示')
+  await panel.getByLabel('表示カテゴリ').selectOption('all')
+  await panel.getByLabel('装備の並び順').selectOption('gap-desc:saved:healing')
+  await expect(rowHeaders.nth(0)).toContainText('firepower')
+  await expect(rowHeaders.nth(1)).toContainText('firepower-copy')
+  await expect(rowHeaders.nth(2)).toContainText('sustain')
+  await expect(rowHeaders.nth(3)).toContainText('research-gong')
+  await panel.getByLabel('装備の並び順').selectOption('inventory')
+  await expect(rowHeaders.nth(0)).toContainText('firepower')
+  await expect(rowHeaders.nth(1)).toContainText('firepower-copy')
+  await expect(rowHeaders.nth(2)).toContainText('sustain')
   await panel.getByRole('button', { name: 'sustainの回復用の構成を見る', exact: true }).click()
   const details = panel.getByRole('region', { name: '用途別の個体必須構成' })
   await expect(details).toContainText('回復用')
