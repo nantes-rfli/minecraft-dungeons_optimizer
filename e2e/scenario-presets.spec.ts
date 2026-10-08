@@ -33,6 +33,19 @@ test('saves complete custom conditions and restores them after a profile change 
   await expect(page.getByText('探索完了', { exact: false })).toHaveCount(0)
 
   await page.getByLabel('平均敵HP').fill('888')
+  const savedBeforeCancelledOverwrite = await page.evaluate((key) => localStorage.getItem(key), storageKey)
+  let cancelMessage = ''
+  page.once('dialog', async (dialog) => {
+    cancelMessage = dialog.message()
+    await dialog.dismiss()
+  })
+  await page.getByRole('button', { name: '選択中の条件を現在条件で上書き' }).click()
+  expect(cancelMessage).toBe('保存済み条件「深層ボス」を現在の条件で上書きしますか？')
+  await expect(page.getByLabel('平均敵HP')).toHaveValue('888')
+  expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedBeforeCancelledOverwrite)
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? 'null')?.presets?.[0]?.scenario, storageKey)).toMatchObject({ averageEnemyHealth: 777 })
+
+  page.once('dialog', (dialog) => dialog.accept())
   await page.getByRole('button', { name: '選択中の条件を現在条件で上書き' }).click()
   await expect(page.getByRole('status').filter({ hasText: '「深層ボス」を現在条件で更新しました。' })).toBeVisible()
   await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key) ?? 'null')?.presets?.[0], storageKey)).toMatchObject({

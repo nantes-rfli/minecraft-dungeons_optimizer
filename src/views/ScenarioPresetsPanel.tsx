@@ -112,7 +112,7 @@ export function ScenarioPresetsPanel({ scenario, onLoad }: { scenario: Scenario;
   }
 
   const updateSelected = () => {
-    if (!selectedPreset) return
+    if (!selectedPreset || !window.confirm(`保存済み条件「${selectedPreset.name}」を現在の条件で上書きしますか？`)) return
     try {
       const next = updateScenarioPreset(presets, selectedPreset.id, scenario)
       persist(next, `「${selectedPreset.name}」を現在条件で更新しました。`)
