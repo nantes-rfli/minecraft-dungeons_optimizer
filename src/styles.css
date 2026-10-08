@@ -295,7 +295,7 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
   .inventory-heading-actions { align-items: stretch; flex-direction: column; }
   .inventory-total { align-self: start; }
   .inventory-toolbar { grid-template-columns: 1fr; }
-  .inventory-search, .view-switcher { grid-column: auto; }
+  .inventory-search, .inventory-power-range, .view-switcher { grid-column: auto; }
   .view-switcher { display: grid; grid-template-columns: repeat(3, 1fr); }
   .inventory-tabs button { min-width: 0; flex: 1; }
   .equipment-drawer { padding: 22px 18px; }
@@ -389,9 +389,10 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .inventory-tabs button { min-width: 130px; border: 0; border-bottom: 2px solid transparent; padding: 13px 18px; color: var(--muted); background: transparent; font-weight: 700; }
 .inventory-tabs button[aria-selected='true'] { border-bottom-color: var(--accent); color: var(--text); background: linear-gradient(0deg, rgba(199,243,106,.08), transparent); }
 .inventory-tabs span { margin-left: 7px; color: var(--accent); font: 12px 'DM Mono', monospace; }
-.inventory-toolbar { display: grid; grid-template-columns: minmax(230px, 1fr) repeat(3, minmax(120px, auto)) auto; gap: 8px; align-items: end; border: 1px solid var(--line); padding: 14px; background: var(--surface); }
+.inventory-toolbar { display: grid; grid-template-columns: minmax(230px, 1fr) repeat(3, minmax(120px, auto)) minmax(180px, auto) auto; gap: 8px; align-items: end; border: 1px solid var(--line); padding: 14px; background: var(--surface); }
 .inventory-toolbar label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; }
 .inventory-toolbar input, .inventory-toolbar select, .drawer-form input, .drawer-form select { width: 100%; min-height: 42px; border: 1px solid #39483c; padding: 9px 11px; color: var(--text); background: #0c130f; }
+.inventory-power-range { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
 .view-switcher { display: flex; gap: 3px; }
 .view-switcher button { min-height: 42px; border: 1px solid #39483c; padding: 7px 9px; color: #aab5ac; background: #0c130f; font-size: 12px; }
 .view-switcher button[aria-pressed='true'] { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
@@ -765,10 +766,18 @@ button:disabled { cursor: not-allowed; opacity: .6; }
   .quest-facts, .condition-grid { grid-template-columns: repeat(2, 1fr); }
   .inventory-toolbar { grid-template-columns: repeat(3, 1fr); }
   .inventory-search { grid-column: 1 / -1; }
+  .inventory-power-range { grid-column: span 2; }
   .view-switcher { grid-column: span 2; }
   .missing-equipment-list { grid-template-columns: repeat(3, 1fr); }
   .inventory-game-layout { grid-template-columns: minmax(0, 1fr) 250px; }
   .game-inventory-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); }
+}
+
+@media (min-width: 981px) and (max-width: 1120px) {
+  .inventory-toolbar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .inventory-search { grid-column: 1 / -1; }
+  .inventory-power-range { grid-column: span 2; }
+  .view-switcher { grid-column: span 1; }
 }
 
 @media (max-width: 720px) {

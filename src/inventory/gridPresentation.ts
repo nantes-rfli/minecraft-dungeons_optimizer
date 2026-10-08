@@ -18,6 +18,14 @@ export interface InventoryGridItem {
   readonly catalog: EquipmentCatalogEntry
 }
 
+export interface InventoryGridFilters {
+  readonly query: string
+  readonly category: 'all' | EquipmentCategory
+  readonly gilded: 'all' | 'gilded' | 'standard'
+  readonly powerMinimum: number | null
+  readonly powerMaximum: number | null
+}
+
 export function inventoryGridItems(inventory: Inventory): InventoryGridItem[] {
   const selectedNames = (slots: readonly OwnedEnchantmentSlot<string>[]) => slots.flatMap((slot) => slot.selected ? [resolveEnchantment(slot.selected.enchantmentId)?.name.ja ?? slot.selected.enchantmentId] : [])
   const item = (instanceId: string, category: EquipmentCategory, catalogId: string, powerLevel: number, rarity: EquipmentRarity | undefined, gilded: boolean, enchantments: readonly string[], enchantmentSlots: readonly OwnedEnchantmentSlot<string>[] = [], gildedEnchantment?: { enchantmentId: string; tier: EnchantmentTier }, notes?: string, researchEnchantmentIds: readonly string[] = []): InventoryGridItem => {
@@ -83,4 +91,16 @@ export function inventoryGridItemMatchesQuery(item: InventoryGridItem, query: st
   ].filter((term): term is string => Boolean(term)).join(' ').toLocaleLowerCase()
 
   return searchableText.includes(normalizedQuery)
+}
+
+export function inventoryGridItemMatchesFilters(item: InventoryGridItem, filters: InventoryGridFilters): boolean {
+  if (filters.category !== 'all' && item.category !== filters.category) return false
+  if (filters.gilded !== 'all' && (filters.gilded === 'gilded') !== item.gilded) return false
+
+  const { powerMinimum, powerMaximum } = filters
+  if (powerMinimum !== null && (!Number.isFinite(powerMinimum) || powerMinimum < 0 || item.powerLevel < powerMinimum)) return false
+  if (powerMaximum !== null && (!Number.isFinite(powerMaximum) || powerMaximum < 0 || item.powerLevel > powerMaximum)) return false
+  if (powerMinimum !== null && powerMaximum !== null && powerMinimum > powerMaximum) return false
+
+  return inventoryGridItemMatchesQuery(item, filters.query)
 }

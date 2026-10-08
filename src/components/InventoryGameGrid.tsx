@@ -5,7 +5,7 @@ import type { EquipmentCategory, EquipmentRarity, Inventory } from '../core'
 import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
 import { hrefForEquipment } from '../app/routes'
-import { inventoryGridItemMatchesQuery, inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
+import { inventoryGridItemMatchesFilters, inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
 import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
 import { EnchantmentIdentity } from './EnchantmentArtwork'
 import { EnchantmentDiamond } from './EnchantmentSlotEditor'
@@ -44,12 +44,13 @@ export function SelectedEquipmentPane({ item, duplicateCount, inventory, onChang
   </aside>
 }
 
-export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query, category, gilded, sort }: { inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; query: string; category: 'all' | EquipmentCategory; gilded: 'all' | 'gilded' | 'standard'; sort: 'name' | 'power-desc' | 'power-asc' | 'recent' }) {
+export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query, category, gilded, powerMinimum, powerMaximum, sort }: { inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; query: string; category: 'all' | EquipmentCategory; gilded: 'all' | 'gilded' | 'standard'; powerMinimum: number | null; powerMaximum: number | null; sort: 'name' | 'power-desc' | 'power-asc' | 'recent' }) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const items = useMemo(() => {
-    const filtered = inventoryGridItems(inventory).filter((item) => (category === 'all' || item.category === category) && (gilded === 'all' || (gilded === 'gilded') === item.gilded) && inventoryGridItemMatchesQuery(item, query))
+    const filters = { query, category, gilded, powerMinimum, powerMaximum }
+    const filtered = inventoryGridItems(inventory).filter((item) => inventoryGridItemMatchesFilters(item, filters))
     return filtered.sort((left, right) => sort === 'power-desc' ? right.powerLevel - left.powerLevel : sort === 'power-asc' ? left.powerLevel - right.powerLevel : sort === 'name' ? (left.catalog.name.ja ?? left.catalog.name.en).localeCompare(right.catalog.name.ja ?? right.catalog.name.en, 'ja') : 0)
-  }, [inventory, query, category, gilded, sort])
+  }, [inventory, query, category, gilded, powerMinimum, powerMaximum, sort])
   const selected = items.find((item) => item.instanceId === selectedId) ?? null
   return <div className={`inventory-game-layout ${selected ? 'has-selection' : ''}`}>
     <section className="inventory-grid-panel" aria-label="所持装備グリッド"><div className="game-inventory-grid" role="listbox" aria-label="所持装備">
