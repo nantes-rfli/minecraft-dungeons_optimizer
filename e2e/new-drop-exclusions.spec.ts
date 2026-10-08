@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 
 const storageKey = 'minecraft-dungeons-optimizer.inventory.v1'
 
@@ -36,6 +37,7 @@ test('reports a staged Armor missing observed health as excluded, not as a losin
   await expect(panel.getByRole('alert')).toContainText('MISSING_OBSERVED_ARMOR_HEALTH')
   await expect(panel.locator('.drop-comparison-results')).toHaveCount(0)
   await expect(panel.locator('.drop-comparison-outcome')).toHaveCount(0)
+  await expect(panel.locator('.drop-metric-deltas')).toHaveCount(0)
   expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
 })
 
@@ -44,6 +46,10 @@ test('reports a staged Artifact excluded by Evidence policy as unevaluated', asy
     weapons: [{ instanceId: 'artifact-test-weapon', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['sharpness'] }] }],
     artifacts: [],
   }
+  const strictScenario = { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' as const }
+  await page.addInitScript((scenario) => {
+    localStorage.setItem('minecraft-dungeons-optimizer.scenario-presets.v1', JSON.stringify({ version: 1, presets: [{ id: 'strict', name: '確度条件', scenario }] }))
+  }, strictScenario)
   await page.goto('/#/storage')
   await page.getByRole('textbox', { name: 'Inventory JSON' }).fill(JSON.stringify({ version: 5, inventory }))
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
@@ -68,5 +74,13 @@ test('reports a staged Artifact excluded by Evidence policy as unevaluated', asy
   await expect(panel.getByRole('alert')).toContainText('Estimated parameter')
   await expect(panel.locator('.drop-comparison-results')).toHaveCount(0)
   await expect(panel.locator('.drop-comparison-outcome')).toHaveCount(0)
+  await expect(panel.locator('.drop-metric-deltas')).toHaveCount(0)
+
+  await panel.getByLabel('確度条件', { exact: true }).check()
+  await panel.getByRole('button', { name: '選んだ保存条件で比較' }).click()
+  await expect(panel.getByRole('status').filter({ hasText: '選んだ保存条件では候補を数値評価できませんでした。' })).toBeVisible({ timeout: 60_000 })
+  const savedResults = panel.getByRole('region', { name: '保存済み条件のドロップ比較' })
+  await expect(savedResults).toContainText('この条件では候補を数値評価できませんでした。')
+  await expect(savedResults.locator('.drop-metric-deltas')).toHaveCount(0)
   expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(savedInventory)
 })

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { AssessmentCondition } from '../core/equipmentAssessment'
-import type { Build, Inventory, Scenario } from '../core/types'
+import type { Build, Evaluation, Inventory, Scenario } from '../core/types'
 import { useOptimizer } from '../optimizer/useOptimizer'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
 import { inventoryGridItems } from '../inventory/gridPresentation'
@@ -25,7 +25,7 @@ function buildUsesInstance(build: Build, instanceId: string): boolean {
     || build.artifacts.some((artifact) => artifact.instanceId === instanceId)
 }
 
-function MetricSummary({ label, evaluation }: { label: string; evaluation: NonNullable<OptimizerState['result']>['best'] }) {
+function MetricSummary({ label, evaluation }: { label: string; evaluation: Evaluation }) {
   return <section className="drop-metric-card" aria-label={label}>
     <h3>{label}</h3>
     <p className="drop-objective-score">総合スコア <strong>{numberFormat.format(evaluation.objectiveScore)}</strong></p>
@@ -36,6 +36,28 @@ function MetricSummary({ label, evaluation }: { label: string; evaluation: NonNu
       <div><dt>実効HP</dt><dd>{numberFormat.format(evaluation.defense.effectiveHealth)}</dd></div>
       <div><dt>Control / 100</dt><dd>{numberFormat.format(evaluation.control.utility * 100)}</dd></div>
     </dl>
+  </section>
+}
+
+function formatSignedDifference(value: number): string {
+  const formatted = numberFormat.format(value)
+  if (formatted === '0' || formatted === '-0') return '0'
+  return value > 0 ? `+${formatted}` : formatted
+}
+
+function MetricDeltaSummary({ before, after }: { before: Evaluation; after: Evaluation }) {
+  const metrics = [
+    { label: '単体DPS', value: after.damage.singleTargetDps - before.damage.singleTargetDps },
+    { label: 'AoE DPS', value: after.damage.aoeDps - before.damage.aoeDps },
+    { label: '回復 / 秒', value: after.healing.totalPerSecond - before.healing.totalPerSecond },
+    { label: '実効HP', value: after.defense.effectiveHealth - before.defense.effectiveHealth },
+    { label: 'Control / 100', value: (after.control.utility - before.control.utility) * 100 },
+  ]
+
+  return <section className="drop-metric-deltas" aria-label="候補追加前後の最良ビルドの指標差">
+    <p><strong>候補追加前後の最良ビルドの指標差</strong></p>
+    <p>同じ条件で評価した最良ビルド同士の差です。各指標は別々に表示します。</p>
+    <dl>{metrics.map(({ label, value }) => <div key={label}><dt>{label}</dt><dd>{formatSignedDifference(value)}</dd></div>)}</dl>
   </section>
 }
 
@@ -154,6 +176,7 @@ export function NewDropComparison({
                 <MetricSummary label="候補追加前の最良ビルド" evaluation={result.baselineBest} />
                 <MetricSummary label="候補追加後の最良ビルド" evaluation={result.withCandidateBest} />
               </div>
+              {result.candidate.status === 'evaluated' && <MetricDeltaSummary before={result.baselineBest} after={result.withCandidateBest} />}
               <p className="drop-comparison-outcome">総合スコア差: {result.withCandidateBest.objectiveScore - result.baselineBest.objectiveScore >= 0 ? '+' : ''}{numberFormat.format(result.withCandidateBest.objectiveScore - result.baselineBest.objectiveScore)} · {buildUsesInstance(result.withCandidateBest.build, trial.instanceId) ? '候補が最良ビルドに含まれています。' : '候補は最良ビルドに選ばれませんでした。'}</p>
               {result.candidate.status === 'evaluated' ? <>
                 <p>候補を必須にした最良スコア: {numberFormat.format(result.candidate.best.objectiveScore)} · 追加後の最良との差 {formatGap(result.candidate.scoreGap)}pt</p>
@@ -168,6 +191,7 @@ export function NewDropComparison({
           <MetricSummary label="現在の最良ビルド" evaluation={baseline.result.best} />
           <MetricSummary label="仮追加後の最良ビルド" evaluation={comparisonResult.best} />
         </div>
+        <MetricDeltaSummary before={baseline.result.best} after={comparisonResult.best} />
         <p className="drop-comparison-outcome">総合スコア差: {scoreDelta! >= 0 ? '+' : ''}{numberFormat.format(scoreDelta!)} · {candidateIncluded ? '新しい装備が最良ビルドに含まれています。' : '新しい装備は最良ビルドに選ばれませんでした。'}</p>
         <details className="drop-build-details"><summary>仮追加後の構成と現在との差を見る</summary><BuildAlternative title="仮追加後の最良構成" evaluation={comparisonResult.best} best={baseline.result.best} weights={scenario.weights} /></details>
         <button className="primary-button" type="button" onClick={onKeepCandidate}>この候補をInventoryに追加</button>
