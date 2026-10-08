@@ -1,0 +1,89 @@
+import { expect, test } from '@playwright/test'
+import { DEFAULT_SCENARIO } from '../src/data/scenarios'
+
+test('compares every individual across saved purposes, shows exclusions and clears stale results', async ({ page }) => {
+  const inventory = {
+    weapons: [
+      { instanceId: 'firepower', weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['critical-hit'] }] },
+      { instanceId: 'sustain', weaponId: 'fighters-bindings', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['radiance'] }] },
+    ],
+    artifacts: [],
+    catalogItems: [{ instanceId: 'research-gong', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251 }],
+  }
+  const damage = { ...DEFAULT_SCENARIO, averageEnemyHealth: 1000, enemySupplyPerSecond: 1, weights: { damage: 1, healing: 0, defense: 0, control: 0 } }
+  const healing = { ...damage, weights: { damage: 0, healing: 1, defense: 0, control: 0 } }
+  await page.addInitScript(({ inventory, damage, healing }) => {
+    localStorage.setItem('minecraft-dungeons-optimizer.inventory.v1', JSON.stringify({ version: 5, inventory }))
+    localStorage.setItem('minecraft-dungeons-optimizer.scenario-presets.v1', JSON.stringify({ version: 1, presets: [
+      { id: 'damage', name: '火力用', scenario: damage },
+      { id: 'healing', name: '回復用', scenario: healing },
+    ] }))
+  }, { inventory, damage, healing })
+  await page.goto('/#/optimize')
+  const saved = await page.evaluate(() => localStorage.getItem('minecraft-dungeons-optimizer.inventory.v1'))
+  const panel = page.getByRole('region', { name: '装備の用途別評価' })
+  await panel.getByLabel('火力用', { exact: true }).check()
+  await panel.getByLabel('回復用', { exact: true }).check()
+  await panel.getByRole('button', { name: '用途別に評価する', exact: true }).click()
+  await expect(panel.getByRole('status')).toHaveText('用途別評価が完了しました。', { timeout: 60_000 })
+  const table = panel.getByRole('table')
+  await expect(table.getByRole('columnheader')).toHaveText(['装備', '現在の条件', '火力用', '回復用'])
+  const damageRow = table.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'firepower' }) })
+  const healingRow = table.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'sustain' }) })
+  await expect(damageRow.getByRole('cell').nth(1)).toContainText('最良と同点')
+  await expect(damageRow.getByRole('cell').nth(2)).toContainText('最良との差')
+  await expect(healingRow.getByRole('cell').nth(1)).toContainText('最良との差')
+  await expect(healingRow.getByRole('cell').nth(2)).toContainText('最良と同点')
+  const researchRow = table.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'research-gong' }) })
+  for (const cell of await researchRow.getByRole('cell').all()) {
+    await expect(cell).toContainText('未評価')
+    await expect(cell).toContainText('計算対象外')
+    await expect(cell.getByRole('button')).toHaveCount(0)
+  }
+  await panel.getByRole('button', { name: 'sustainの回復用の構成を見る', exact: true }).click()
+  const details = panel.getByRole('region', { name: '用途別の個体必須構成' })
+  await expect(details).toContainText('回復用')
+  await details.getByText('装備とEnchantの構成を見る', { exact: true }).click()
+  await expect(details.locator('.alternative-composition')).toContainText('輝き')
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('minecraft-dungeons-optimizer.inventory.v1')!))).toEqual(JSON.parse(saved!))
+  await page.setViewportSize({ width: 390, height: 844 })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await panel.getByLabel('回復用', { exact: true }).uncheck()
+  await expect(panel.getByRole('table')).toHaveCount(0)
+  await expect(panel.getByRole('region', { name: '用途別の個体必須構成' })).toHaveCount(0)
+  await panel.getByRole('button', { name: '用途別に評価する', exact: true }).click()
+  await expect(panel.getByRole('status')).toHaveText('用途別評価が完了しました。', { timeout: 60_000 })
+  await page.getByLabel('最適化の目的').selectOption('boss')
+  await expect(panel.getByRole('table')).toHaveCount(0)
+  // Save and update a condition while results exist: the new input must invalidate them.
+  await panel.getByRole('button', { name: '用途別に評価する', exact: true }).click()
+  await expect(panel.getByRole('table')).toBeVisible({ timeout: 60_000 })
+  await page.getByLabel('保存済み条件').selectOption('damage')
+  page.once('dialog', (dialog) => dialog.accept())
+  await page.getByRole('button', { name: '選択中の条件を現在条件で上書き', exact: true }).click()
+  await expect(panel.getByRole('table')).toHaveCount(0)
+})
+
+test('holds the failed condition while still evaluating a supported ranged condition', async ({ page }) => {
+  const inventory = {
+    weapons: [{ instanceId: 'melee', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 10, enchantmentSlots: [{ candidates: ['critical-hit'] }] }], artifacts: [],
+    rangedWeapons: [{ instanceId: 'bow', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [], observation: { gameVersion: '1.17.0.0', mode: 'charged', projectileDamage: 10, shotCycleSeconds: 2, availableAmmo: 20, sourceNote: 'SYNTHETIC TEST ONLY' } }],
+  }
+  await page.addInitScript(({ inventory, scenario }) => {
+    localStorage.setItem('minecraft-dungeons-optimizer.inventory.v1', JSON.stringify({ version: 5, inventory }))
+    localStorage.setItem('minecraft-dungeons-optimizer.scenario-presets.v1', JSON.stringify({ version: 1, presets: [{ id: 'ranged', name: '遠距離あり', scenario }] }))
+  }, { inventory, scenario: { ...DEFAULT_SCENARIO, rangedTimeShare: 0.5 } })
+  await page.goto('/#/optimize')
+  const panel = page.getByRole('region', { name: '装備の用途別評価' })
+  await panel.getByLabel('遠距離あり', { exact: true }).check()
+  await panel.getByRole('button', { name: '用途別に評価する', exact: true }).click()
+  await expect(panel.getByRole('table')).toBeVisible({ timeout: 60_000 })
+  const bow = panel.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'bow' }) })
+  await expect(bow.getByRole('cell').nth(0)).toContainText('未評価')
+  await expect(bow.getByRole('cell').nth(0).getByRole('button')).toHaveCount(0)
+  await expect(bow.getByRole('cell').nth(1)).toContainText('最良と同点')
+  const failed = panel.locator('.assessment-condition').filter({ hasText: '現在の条件' })
+  await expect(failed).toContainText('評価できませんでした')
+  await failed.locator('summary').click()
+  await expect(failed.getByRole('alert')).toContainText('遠距離時間割合を明示')
+})

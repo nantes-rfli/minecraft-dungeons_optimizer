@@ -3,6 +3,7 @@ import { IDLE_SEARCH, OptimizerController, type WorkerPort } from '../src/optimi
 import type { OptimizeRequest, OptimizeResponse } from '../src/optimizer/protocol'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { optimizeWithMetadata } from '../src/core/optimizer'
+import { assessEquipment } from '../src/core/equipmentAssessment'
 
 const input = { inventory: { weapons: [{ instanceId: 'w', weaponId: 'double-axe' as const, powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit' as const] }] }], artifacts: [] }, scenario: DEFAULT_SCENARIO }
 class FakeWorker implements WorkerPort {
@@ -15,6 +16,26 @@ class FakeWorker implements WorkerPort {
 }
 afterEach(() => vi.useRealTimers())
 describe('worker lifecycle', () => {
+  it('transfers an independent equipment assessment batch and drops it on cancellation or reset', () => {
+    const worker = new FakeWorker()
+    const controller = new OptimizerController(() => worker)
+    const assessmentConditions = [{ id: 'current', name: '現在の条件', scenario: input.scenario }]
+    controller.start({ ...input, assessmentConditions })
+    const request = worker.postMessage.mock.calls[0]![0]
+    expect(request.assessmentConditions).toEqual(assessmentConditions)
+    const assessments = assessEquipment(input.inventory, assessmentConditions)
+    worker.reply({ id: request.id, type: 'assessment-complete', assessments, durationMs: 5 })
+    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result: null, assessments })
+    controller.start({ ...input, assessmentConditions })
+    const pending = worker.postMessage.mock.calls[1]![0]
+    expect(controller.getSnapshot().assessments).toBeUndefined()
+    controller.cancel()
+    worker.reply({ id: pending.id, type: 'assessment-complete', assessments, durationMs: 5 })
+    expect(controller.getSnapshot().status).toBe('cancelled')
+    expect(controller.getSnapshot().assessments).toBeUndefined()
+    controller.reset()
+    expect(controller.getSnapshot()).toEqual(IDLE_SEARCH)
+  })
   it('completes with exactly the core exhaustive result and releases the worker', () => {
     const worker = new FakeWorker()
     const controller = new OptimizerController(() => worker)

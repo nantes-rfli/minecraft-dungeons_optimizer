@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react'
+import { useEffect, useState, type ChangeEvent } from 'react'
 import type { Scenario } from '../core/types'
 import {
   addScenarioPreset,
@@ -14,7 +14,7 @@ import {
   type SavedScenarioPreset,
 } from '../scenario/presets'
 
-export function ScenarioPresetsPanel({ scenario, onLoad }: { scenario: Scenario; onLoad: (scenario: Scenario) => void }) {
+export function ScenarioPresetsPanel({ scenario, onLoad, onPresetsChange }: { scenario: Scenario; onLoad: (scenario: Scenario) => void; onPresetsChange?: (presets: readonly SavedScenarioPreset[]) => void }) {
   const [initialLoad] = useState(loadScenarioPresets)
   const [presets, setPresets] = useState<readonly SavedScenarioPreset[]>(initialLoad.presets)
   const [storageError, setStorageError] = useState<string | null>(initialLoad.error)
@@ -24,6 +24,7 @@ export function ScenarioPresetsPanel({ scenario, onLoad }: { scenario: Scenario;
   const [importing, setImporting] = useState(false)
   const [message, setMessage] = useState('')
   const [messageIsError, setMessageIsError] = useState(false)
+  useEffect(() => { onPresetsChange?.(presets) }, [onPresetsChange, presets])
 
   const selectedPreset = presets.find((preset) => preset.id === selectedId)
 
