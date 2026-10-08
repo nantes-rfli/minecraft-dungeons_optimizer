@@ -87,6 +87,53 @@ describe('reproducible alternative equipment', () => {
     expect(html).toContain('Estimatedを含めて評価')
   })
 
+  it('shows only equipment-slot changes against first place, including power and selected enchantments', () => {
+    const result = optimize(inventory, scenario)
+    const best = result.best
+    const selectedSlotEnchantment = best.build.enchantments.find((item) => item.source === 'slot')
+    expect(selectedSlotEnchantment).toBeDefined()
+    const alternativeEnchantmentId: 'radiance' | 'sharpness' = selectedSlotEnchantment?.enchantmentId === 'radiance' ? 'sharpness' : 'radiance'
+    const armor = best.build.armor ?? inventory.armors![0]!
+    const ranged = best.build.rangedWeapon ?? inventory.rangedWeapons![0]!
+    const artifacts = best.build.artifacts.length > 0 ? best.build.artifacts : [inventory.artifacts[0]!]
+    // Renderer-only specimen; mutating these copies is not gameplay evidence.
+    const candidate = {
+      ...best,
+      build: {
+        ...best.build,
+        weapon: { ...best.build.weapon, powerLevel: best.build.weapon.powerLevel - 1 },
+        enchantments: best.build.enchantments.map((item) => item.source === 'slot'
+          ? { ...item, enchantmentId: alternativeEnchantmentId }
+          : item),
+        armor: { ...armor, powerLevel: armor.powerLevel + 1 },
+        rangedWeapon: { ...ranged, powerLevel: ranged.powerLevel + 1 },
+        artifacts: artifacts.map((item) => ({ ...item, powerLevel: item.powerLevel + 1 })),
+      },
+    }
+    const html = renderToStaticMarkup(<BuildAlternative evaluation={candidate} best={best} weights={scenario.weights} />)
+    const differences = html.split('<summary>1位との装備差を見る</summary>')[1]?.split('</details>')[0]
+    expect(differences).toBeDefined()
+    expect(differences).toContain('<dt>近接</dt>')
+    expect(differences).toContain('<dt>防具</dt>')
+    expect(differences).toContain('<dt>遠距離</dt>')
+    expect(differences).toContain('<dt>Artifact</dt>')
+    expect(differences).toContain('1位')
+    expect(differences).toContain('候補')
+    expect(differences).toContain(`Power ${best.build.weapon.powerLevel}`)
+    expect(differences).toContain(`Power ${candidate.build.weapon.powerLevel}`)
+    expect(differences).toContain(ENCHANTMENTS[selectedSlotEnchantment!.enchantmentId].name.ja)
+    expect(differences).toContain(ENCHANTMENTS[alternativeEnchantmentId].name.ja)
+  })
+
+  it('treats artifact display order as unchanged and labels identical visible equipment', () => {
+    const result = optimize(inventory, scenario)
+    const candidate = { ...result.best, build: { ...result.best.build, artifacts: [...result.best.build.artifacts].reverse() } }
+    const html = renderToStaticMarkup(<BuildAlternative evaluation={candidate} best={result.best} weights={scenario.weights} />)
+    const differences = html.split('<summary>1位との装備差を見る</summary>')[1]?.split('</details>')[0]
+    expect(differences).toContain('表示されている装備・Enchantの差はありません。')
+    expect(differences).not.toContain('<dt>Artifact</dt>')
+  })
+
   it('keeps absent equipment and enchantment-free builds explicit', () => {
     const result = optimize({ weapons: [{ instanceId: 'plain', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['sharpness'] }] }], artifacts: [] }, DEFAULT_SCENARIO)
     // Renderer-only empty composition specimen; not an engine-supported build.
