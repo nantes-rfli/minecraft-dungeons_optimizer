@@ -55,7 +55,9 @@ function Metric({ label, value, detail }: { label: string; value: number; detail
   return <div className="metric"><span>{label}</span><strong>{numberFormat.format(value)}</strong>{detail && <small>{detail}</small>}</div>
 }
 
-export function RecommendedBuild({ evaluation, weights }: { evaluation: Evaluation; weights: Scenario['weights'] }) {
+export function RecommendedBuild({ evaluation, weights, idPrefix }: { readonly evaluation: Evaluation; readonly weights: Scenario['weights']; readonly idPrefix?: string }) {
+  const titleId = idPrefix ? `${idPrefix}-title` : 'recommended-build-title'
+  const equipmentHeadingId = (slot: 'melee' | 'armor' | 'ranged' | 'artifacts') => idPrefix ? `${idPrefix}-${slot}` : `recommended-${slot}`
   const weapon = WEAPONS[evaluation.build.weapon.weaponId]
   const armorItem = evaluation.build.armor
   const armor = armorItem ? ARMORS[armorItem.armorId as ArmorId] : undefined
@@ -63,31 +65,31 @@ export function RecommendedBuild({ evaluation, weights }: { evaluation: Evaluati
   const ranged = rangedItem ? RANGED_WEAPONS[rangedItem.weaponId] : undefined
   const limitedMelee = [...new Set(evaluation.build.enchantments.map((item) => item.enchantmentId))]
     .some((id) => getEnchantmentRuntimeSupport(id).supportLevel === 'limited')
-  return <article className="result-card recommended-build" aria-labelledby="recommended-build-title">
+  return <article className="result-card recommended-build" aria-labelledby={titleId}>
     <header className="result-heading">
-      <div><p className="eyebrow">おすすめビルド</p><h2 id="recommended-build-title">この装備セットを使う</h2></div>
+      <div><p className="eyebrow">おすすめビルド</p><h2 id={titleId}>この装備セットを使う</h2></div>
       <div className="score"><span>総合スコア / 100</span><strong>{numberFormat.format(evaluation.objectiveScore)}</strong></div>
     </header>
 
     <div className="build-equipment-grid">
       <section className="build-equipment melee" aria-label="近接">
         <div className="build-equipment-heading"><p>近接</p>{limitedMelee && <span className="support limited">Limited</span>}</div>
-        <h3 id="recommended-melee"><BilingualName name={weapon.name} /><span>Power {evaluation.build.weapon.powerLevel}</span></h3>
+        <h3 id={equipmentHeadingId('melee')}><BilingualName name={weapon.name} /><span>Power {evaluation.build.weapon.powerLevel}</span></h3>
         <EnchantmentList enchantments={evaluation.build.enchantments} />
       </section>
       <section className="build-equipment armor" aria-label="防具">
         <div className="build-equipment-heading"><p>防具</p>{armor && <span className="support limited">Limited</span>}</div>
-        <h3 id="recommended-armor">{armor && armorItem ? <><BilingualName name={armor.name} /><span>Power {armorItem.powerLevel}</span></> : <span className="empty-equipment">未選択</span>}</h3>
+        <h3 id={equipmentHeadingId('armor')}>{armor && armorItem ? <><BilingualName name={armor.name} /><span>Power {armorItem.powerLevel}</span></> : <span className="empty-equipment">未選択</span>}</h3>
         {armor && <ArmorEnchantmentList enchantments={evaluation.build.armorEnchantments} />}
       </section>
       <section className="build-equipment ranged" aria-label="遠距離">
         <div className="build-equipment-heading"><p>遠距離</p>{ranged && <span className="support limited">Limited</span>}</div>
-        <h3 id="recommended-ranged">{ranged && rangedItem ? <><BilingualName name={ranged.name} /><span>Power {rangedItem.powerLevel}</span></> : <span className="empty-equipment">未選択</span>}</h3>
+        <h3 id={equipmentHeadingId('ranged')}>{ranged && rangedItem ? <><BilingualName name={ranged.name} /><span>Power {rangedItem.powerLevel}</span></> : <span className="empty-equipment">未選択</span>}</h3>
         {ranged && <RangedEnchantmentList enchantments={evaluation.build.rangedEnchantments} />}
       </section>
       <section className="build-equipment artifacts" aria-label="Artifact">
         <div className="build-equipment-heading"><p>Artifact</p></div>
-        <h3 id="recommended-artifacts" className="sr-only">Artifact 3枠</h3>
+        <h3 id={equipmentHeadingId('artifacts')} className="sr-only">Artifact 3枠</h3>
         <ol className="artifact-slots">{Array.from({ length: 3 }, (_, index) => {
           const item = evaluation.build.artifacts[index]
           if (!item) return <li key={`empty-${index}`}><span>枠 {index + 1}</span><span className="empty-equipment">未選択</span></li>
