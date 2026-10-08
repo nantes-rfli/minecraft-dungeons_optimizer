@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-10 — 用途別評価のmobile表示
+
+- 条件ごとの装備個体評価を、幅640px以下では横スクロール表から読みやすい装備cardへ切替。
+- カテゴリ・並び順、未評価理由、構成詳細への導線を維持し、主要装備判断フローのnarrow viewport E2Eを追加。
+- Optimizer・Evidence・runtime semanticsとInventory schemaは変更なし。
+
 ## 2026-09 — Phase 7 Personal Research Quest
 
 - 所持装備に合う限定DR調査をResearch Questへ接続し、Observe / Measure / Experiment、途中保存、条件別進捗を追加。

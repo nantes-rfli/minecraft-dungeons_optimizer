@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Inventory, Scenario } from '../core/types'
-import type { AssessmentCondition } from '../core/equipmentAssessment'
+import type { AssessmentCondition, EquipmentAssessment } from '../core/equipmentAssessment'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
 import { inventoryGridItems } from '../inventory/gridPresentation'
 import { useOptimizer } from '../optimizer/useOptimizer'
@@ -16,6 +16,21 @@ const categoryOptions = [
   { id: 'ranged', label: '遠距離武器' },
   { id: 'artifact', label: 'Artifact' },
 ] as const
+
+function AssessmentValue({ equipment, instanceId, conditionId, conditionName, onInspect }: {
+  readonly equipment: EquipmentAssessment | undefined
+  readonly instanceId: string
+  readonly conditionId: string
+  readonly conditionName: string
+  readonly onInspect: (instanceId: string, conditionId: string) => void
+}) {
+  if (equipment?.status !== 'evaluated') return <><strong>未評価</strong><small>{equipment?.status === 'excluded' ? equipment.reasons.join(' / ') : '条件の評価に失敗しました。上の条件詳細を確認してください。'}</small></>
+  return <>
+    <strong>{equipment.scoreGap === 0 ? '最良と同点' : `最良との差 ${formatGap(equipment.scoreGap)}pt`}</strong>
+    <small>この装備を使う最良: {format.format(equipment.best.objectiveScore)}</small>
+    <button type="button" onClick={() => onInspect(instanceId, conditionId)} aria-label={`${instanceId}の${conditionName}の構成を見る`}>構成を見る</button>
+  </>
+}
 
 export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   readonly inventory: Inventory
@@ -100,15 +115,26 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           {search.assessments!.map((assessment) => {
             const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined
             return <td key={assessment.condition.id}>
-              {equipment?.status === 'evaluated' ? <>
-                <strong>{equipment.scoreGap === 0 ? '最良と同点' : `最良との差 ${formatGap(equipment.scoreGap)}pt`}</strong>
-                <small>この装備を使う最良: {format.format(equipment.best.objectiveScore)}</small>
-                <button type="button" onClick={() => setInspected({ instanceId: item.instanceId, conditionId: assessment.condition.id })} aria-label={`${item.instanceId}の${assessment.condition.name}の構成を見る`}>構成を見る</button>
-              </> : <><strong>未評価</strong><small>{equipment?.status === 'excluded' ? equipment.reasons.join(' / ') : '条件の評価に失敗しました。上の条件詳細を確認してください。'}</small></>}
+              <AssessmentValue equipment={equipment} instanceId={item.instanceId} conditionId={assessment.condition.id} conditionName={assessment.condition.name} onInspect={(nextInstanceId, conditionId) => setInspected({ instanceId: nextInstanceId, conditionId })} />
             </td>
           })}
         </tr>)}</tbody>
       </table></div>
+      <section className="assessment-cards" aria-label="装備個体ごとの用途別評価">
+        {tableItems.map((item) => <article className="assessment-card" key={item.instanceId}>
+          <h3>{item.catalog.name.ja}</h3>
+          <p>{item.category} · Power {item.powerLevel} · {item.instanceId}</p>
+          <dl>
+            {search.assessments!.map((assessment) => {
+              const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined
+              return <div key={assessment.condition.id}>
+                <dt>{assessment.condition.name}</dt>
+                <dd><AssessmentValue equipment={equipment} instanceId={item.instanceId} conditionId={assessment.condition.id} conditionName={assessment.condition.name} onInspect={(nextInstanceId, conditionId) => setInspected({ instanceId: nextInstanceId, conditionId })} /></dd>
+              </div>
+            })}
+          </dl>
+        </article>)}
+      </section>
       {inspectedCondition?.status === 'complete' && inspectedEquipment?.status === 'evaluated' && <section aria-label="用途別の個体必須構成">
         <h3>{inspectedItem?.catalog.name.ja} · {inspected?.instanceId} · {inspectedCondition.condition.name}</h3>
         <BuildAlternative title="この個体を使う最良構成" evaluation={inspectedEquipment.best} best={inspectedCondition.best} weights={inspectedCondition.condition.scenario.weights} />
