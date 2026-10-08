@@ -75,6 +75,21 @@ export function addScenarioPreset(
   return normalized
 }
 
+export function updateScenarioPreset(
+  presets: readonly SavedScenarioPreset[],
+  presetId: string,
+  scenario: Scenario,
+): readonly SavedScenarioPreset[] {
+  let found = false
+  const updated = presets.map((preset) => {
+    if (preset.id !== presetId) return preset
+    found = true
+    return { ...preset, scenario }
+  })
+  if (!found) throw new Error('更新する保存済み条件が見つかりません。')
+  return normalizePresets(updated)
+}
+
 export function mergeScenarioPresets(
   presets: readonly SavedScenarioPreset[],
   importedPresets: readonly SavedScenarioPreset[],

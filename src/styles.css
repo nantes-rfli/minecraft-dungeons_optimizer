@@ -579,6 +579,8 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .scenario-presets-save, .scenario-presets-load { display: grid; gap: 8px; align-items: end; margin-top: 12px; }
 .scenario-presets-save { grid-template-columns: minmax(0, 1fr) auto; }
 .scenario-presets-load { grid-template-columns: minmax(0, 1fr) auto auto; }
+.scenario-presets-update { margin-top: 8px; }
+.scenario-presets-update button { width: 100%; }
 .scenario-presets-transfer { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: end; margin-top: 12px; }
 .scenario-presets-save label, .scenario-presets-load label { display: grid; gap: 6px; color: #aeb9b0; font-size: 12px; }
 .scenario-presets-transfer label { display: grid; gap: 6px; min-width: 0; color: #aeb9b0; font-size: 12px; }

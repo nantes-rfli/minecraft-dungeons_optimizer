@@ -10,6 +10,7 @@ import {
   removeScenarioPreset,
   serializeScenarioPresets,
   saveScenarioPresets,
+  updateScenarioPreset,
   type SavedScenarioPreset,
 } from '../scenario/presets'
 
@@ -110,6 +111,17 @@ export function ScenarioPresetsPanel({ scenario, onLoad }: { scenario: Scenario;
     setMessageIsError(false)
   }
 
+  const updateSelected = () => {
+    if (!selectedPreset || !window.confirm(`保存済み条件「${selectedPreset.name}」を現在の条件で上書きしますか？`)) return
+    try {
+      const next = updateScenarioPreset(presets, selectedPreset.id, scenario)
+      persist(next, `「${selectedPreset.name}」を現在条件で更新しました。`)
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : '保存済み条件を更新できませんでした。')
+      setMessageIsError(true)
+    }
+  }
+
   const deleteSelected = () => {
     if (!selectedPreset || !window.confirm(`保存済み条件「${selectedPreset.name}」を削除しますか？`)) return
     const next = removeScenarioPreset(presets, selectedPreset.id)
@@ -145,6 +157,9 @@ export function ScenarioPresetsPanel({ scenario, onLoad }: { scenario: Scenario;
       </select></label>
       <button type="button" onClick={loadSelected} disabled={!selectedPreset || Boolean(storageError) || importing}>読み込む</button>
       <button type="button" onClick={deleteSelected} disabled={!selectedPreset || Boolean(storageError) || importing}>削除</button>
+    </div>
+    <div className="scenario-presets-update">
+      <button type="button" onClick={updateSelected} disabled={!selectedPreset || Boolean(storageError) || importing}>選択中の条件を現在条件で上書き</button>
     </div>
     <div className="scenario-presets-transfer">
       <button type="button" onClick={downloadPresets} disabled={Boolean(storageError) || importing || presets.length === 0}>JSONを書き出す</button>
