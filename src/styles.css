@@ -152,6 +152,15 @@ h1 { max-width: 800px; margin: 0; font-size: clamp(44px, 7vw, 82px); line-height
 .alternative-equipment dt { color: #77847b; }
 .alternative-equipment dd { margin: 0; color: #cbd4cd; }
 .alternative-equipment dd small { display: block; color: #77847b; font: 11px 'DM Mono', monospace; }
+.alternative-changes { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.alternative-changes > summary { color: #a5b0a7; cursor: pointer; font-size: 12px; }
+.alternative-changes > dl { display: grid; gap: 9px; margin: 10px 0 0; }
+.alternative-changes > dl > div { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 6px 12px; }
+.alternative-changes dt { color: #77847b; font-size: 12px; }
+.alternative-changes dd { display: grid; gap: 5px; min-width: 0; margin: 0; color: #cbd4cd; font-size: 12px; overflow-wrap: anywhere; }
+.alternative-changes dd span { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; }
+.alternative-changes dd small { color: #77847b; }
+.alternative-changes > p { margin: 9px 0 0; color: #849188; font-size: 12px; }
 .alternative-deltas-section { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
 .alternative-deltas-section > p { margin: 0 0 8px; color: #7d8980; font-size: 11px; }
 .alternative-deltas { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px 12px; margin: 0; }
@@ -553,6 +562,20 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .optimize-actions .primary-button { border-color: var(--accent); color: #10160c; background: var(--accent); }
 .objective-card > p { min-height: 20px; margin: 16px 0 4px; color: #b9c3bb; font-size: 13px; }
 .objective-card > small { color: #87948a; font: 11px 'DM Mono', monospace; }
+.scenario-presets { margin-top: 20px; border: 1px solid var(--line); background: #101812; }
+.scenario-presets > summary { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 13px 14px; color: #d2dbd4; cursor: pointer; }
+.scenario-presets > summary small { color: #87948a; font: 11px 'DM Mono', monospace; }
+.scenario-presets-content { display: grid; gap: 12px; border-top: 1px solid var(--line); padding: 14px; }
+.scenario-presets-content > p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.scenario-presets-content form, .scenario-preset-actions { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 9px; align-items: end; }
+.scenario-presets-content label { display: grid; min-width: 0; gap: 6px; color: var(--muted); font-size: 12px; }
+.scenario-presets-content input, .scenario-presets-content select { width: 100%; min-width: 0; border: 1px solid #39483c; border-radius: 0; padding: 9px 10px; color: var(--text); background: #0c130f; font-size: 13px; }
+.scenario-presets-content button { min-height: 38px; border: 1px solid #526354; padding: 8px 10px; color: #d5ded6; background: #1a261d; font-size: 12px; cursor: pointer; }
+.scenario-presets-content button:disabled { opacity: .48; cursor: not-allowed; }
+.scenario-preset-actions > div { display: flex; gap: 8px; }
+.scenario-presets-empty { color: #87948a !important; }
+.scenario-presets-message { min-height: 18px; color: #aab8ad !important; }
+.scenario-presets-message.error { color: #ffad9e !important; }
 .advanced-settings { align-self: start; }
 .advanced-settings > summary { display: flex; justify-content: space-between; align-items: center; padding: 24px; cursor: pointer; list-style: none; }
 .advanced-settings > summary::-webkit-details-marker { display: none; }
@@ -775,6 +798,9 @@ button:disabled { cursor: not-allowed; opacity: .6; }
   .dps-evidence-card { grid-template-columns: 1fr; gap: 12px; }
   .catalog-toolbar { grid-template-columns: 1fr; }.catalog-toolbar p { margin: 0; }
   .evidence-policy { display: grid; }
+  .scenario-presets-content form, .scenario-preset-actions { grid-template-columns: 1fr; }
+  .scenario-preset-actions > div { flex-wrap: wrap; }
+  .scenario-preset-actions > div button { flex: 1 1 150px; }
   .catalog-row > summary { grid-template-columns: 1fr auto; }.catalog-row > summary > span:nth-child(2) { grid-column: 1; }.catalog-row .support { grid-column: 2; grid-row: 1 / span 2; }
   .catalog-detail dl { grid-template-columns: 1fr; gap: 4px; }.catalog-detail dd { margin-bottom: 8px; }.fighters-domain .domain-identity > dl, .fighters-domain .domain-trace > dl, .fighters-domain .projectile-reference-trace > ol dl { grid-template-columns: 1fr; }
   .storage-card { align-items: start; flex-direction: column; }

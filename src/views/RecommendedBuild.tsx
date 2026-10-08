@@ -114,6 +114,72 @@ function signedDelta(value: number, baseline: number) {
   return delta > 0 ? `+${formatted}` : formatted
 }
 
+type SelectedEquipmentEnchantment<TId extends string> = {
+  readonly enchantmentId: TId
+  readonly tier: 1 | 2 | 3
+  readonly source: keyof typeof SOURCE_LABELS
+}
+
+function describeEnchantments<TId extends string>(enchantments: readonly SelectedEquipmentEnchantment<TId>[], nameFor: (id: TId) => string | undefined) {
+  if (enchantments.length === 0) return 'Enchantなし'
+  return enchantments
+    .map((item) => `${nameFor(item.enchantmentId) ?? item.enchantmentId} ${TIER_LABELS[item.tier]} (${SOURCE_LABELS[item.source]})`)
+    .sort()
+    .join(' / ')
+}
+
+function describeBuildEquipment(evaluation: Evaluation) {
+  const build = evaluation.build
+  const armor = build.armor
+  const ranged = build.rangedWeapon
+  return [
+    {
+      label: '近接',
+      value: `${WEAPONS[build.weapon.weaponId].name.ja} · Power ${build.weapon.powerLevel} · ${describeEnchantments(build.enchantments, (id) => ENCHANTMENTS[id]?.name.ja)}`,
+    },
+    {
+      label: '防具',
+      value: armor
+        ? `${ARMORS[armor.armorId as ArmorId].name.ja} · Power ${armor.powerLevel} · ${describeEnchantments(build.armorEnchantments ?? [], (id) => ARMOR_ENCHANTMENTS[id]?.name.ja)}`
+        : 'なし',
+    },
+    {
+      label: '遠距離',
+      value: ranged
+        ? `${RANGED_WEAPONS[ranged.weaponId]?.name.ja ?? ranged.weaponId} · Power ${ranged.powerLevel} · ${describeEnchantments(build.rangedEnchantments ?? [], (id) => RANGED_ENCHANTMENTS[id]?.name.ja)}`
+        : 'なし',
+    },
+    {
+      label: 'Artifact',
+      value: build.artifacts
+        .map((item) => `${ARTIFACTS[item.artifactId].name.ja} · Power ${item.powerLevel}`)
+        .sort()
+        .join(' / ') || 'なし',
+    },
+  ]
+}
+
+function EquipmentDifferences({ evaluation, best }: { evaluation: Evaluation; best: Evaluation }) {
+  const bestEquipment = describeBuildEquipment(best)
+  const candidateEquipment = describeBuildEquipment(evaluation)
+  const changes = candidateEquipment.flatMap((candidate, index) => {
+    const recommended = bestEquipment[index]
+    return recommended && recommended.value !== candidate.value
+      ? [{ label: candidate.label, recommended: recommended.value, candidate: candidate.value }]
+      : []
+  })
+
+  return <details className="alternative-changes">
+    <summary>1位との装備差を見る</summary>
+    {changes.length > 0
+      ? <dl>{changes.map((change) => <div key={change.label}>
+        <dt>{change.label}</dt>
+        <dd><span><small>1位</small>{change.recommended}</span><span><small>候補</small>{change.candidate}</span></dd>
+      </div>)}</dl>
+      : <p>表示されている装備・Enchantの差はありません。</p>}
+  </details>
+}
+
 export function BuildAlternative({ evaluation, best, weights, title = '次点候補' }: { evaluation: Evaluation; best: Evaluation; weights: Scenario['weights']; title?: string }) {
   const weapon = WEAPONS[evaluation.build.weapon.weaponId]
   const armor = evaluation.build.armor ? ARMORS[evaluation.build.armor.armorId as ArmorId].name.ja : 'なし'
@@ -138,6 +204,7 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
         <dt>Artifact</dt><dd>{evaluation.build.artifacts.length === 0 ? 'なし' : <ol>{evaluation.build.artifacts.map((item) => <li key={item.instanceId}>{ARTIFACTS[item.artifactId].name.ja}<small>Power {item.powerLevel}</small></li>)}</ol>}</dd>
       </dl>
     </details>
+    <EquipmentDifferences evaluation={evaluation} best={best} />
     <section className="alternative-deltas-section" aria-label="おすすめ1位との主要評価差">
       <p>1位との差（候補 − 1位）</p>
       <dl className="alternative-deltas">{metricDeltas.map((metric) => <div key={metric.label}><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
