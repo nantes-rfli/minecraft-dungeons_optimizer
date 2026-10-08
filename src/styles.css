@@ -926,6 +926,13 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .drop-metric-card dl div { display: flex; justify-content: space-between; gap: 8px; min-width: 0; }
 .drop-metric-card dt { color: var(--muted); font-size: 12px; }
 .drop-metric-card dd { margin: 0; color: var(--text); font: 12px 'DM Mono', monospace; }
+.drop-metric-deltas { margin-top: 12px; border: 1px solid var(--line); padding: 12px 14px; background: #0e1511; }
+.drop-metric-deltas > p { margin: 0 0 8px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.drop-metric-deltas > p strong { color: var(--text); font-size: 14px; }
+.drop-metric-deltas dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 10px 0 0; }
+.drop-metric-deltas dl div { display: flex; justify-content: space-between; gap: 8px; min-width: 0; }
+.drop-metric-deltas dt { color: var(--muted); font-size: 12px; }
+.drop-metric-deltas dd { margin: 0; color: var(--text); font: 12px 'DM Mono', monospace; text-align: right; }
 .drop-comparison-outcome { border-top: 1px solid var(--line); padding-top: 12px; color: #d5e1d8; }
 .drop-build-details { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
 .drop-build-details > summary, .trial-candidate-editor > summary { cursor: pointer; color: var(--accent); }
