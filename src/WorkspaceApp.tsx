@@ -461,7 +461,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     </section>
     <ScenarioPresetsPanel scenario={scenario} onLoad={setScenario} onPresetsChange={setAssessmentPresets} />
     <EquipmentAssessmentPanel inventory={inventory} scenario={scenario} presets={assessmentPresets} />
-    <NewDropComparison inventory={inventory} scenario={scenario} baseline={optimization} trial={activeDropTrial} onOpenPicker={() => { setDropKeepMessage(null); setDropKeepFailed(false); setDropDrawerOpen(true) }} onClearTrial={clearDropTrial} onKeepCandidate={retainActiveDropTrial} />
+    <NewDropComparison inventory={inventory} scenario={scenario} baseline={optimization} trial={activeDropTrial} presets={assessmentPresets} onOpenPicker={() => { setDropKeepMessage(null); setDropKeepFailed(false); setDropDrawerOpen(true) }} onClearTrial={clearDropTrial} onKeepCandidate={retainActiveDropTrial} />
     {dropKeepMessage && <p className={dropKeepFailed ? 'drop-comparison-warning' : 'drop-comparison-status'} role={dropKeepFailed ? 'alert' : 'status'}>{dropKeepMessage}</p>}
     {activeDropTrial && <TrialCandidateEditor trial={activeDropTrial} onChange={(next) => setDropTrial((current) => current ? { ...current, inventory: next.inventory } : current)} onRemove={() => setDropTrial(null)} />}
     <OptimizeResults weights={scenario.weights} error={optimization.error} result={optimization.result} status={optimization.status} evidencePolicy={scenario.evidencePolicy} />
