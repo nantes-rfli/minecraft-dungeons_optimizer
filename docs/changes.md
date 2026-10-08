@@ -7,6 +7,7 @@ Git commit historyを変更追跡の正本とします。ここには意味の�
 - 条件ごとの装備個体評価を、幅640px以下では横スクロール表から読みやすい装備cardへ切替。
 - カテゴリ・並び順、未評価理由、構成詳細への導線を維持し、主要装備判断フローのnarrow viewport E2Eを追加。
 - 保存した各条件の全体最良構成を展開表示し、用途間の推奨ビルドを同じ評価結果から比較可能にする。
+- Inventory一覧で装備名・Powerに加え、Enchant候補・個体ID・メモから装備個体を検索可能にする。
 - Optimizer・Evidence・runtime semanticsとInventory schemaは変更なし。
 
 ## 2026-09 — Phase 7 Personal Research Quest

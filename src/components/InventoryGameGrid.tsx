@@ -5,7 +5,7 @@ import type { EquipmentCategory, EquipmentRarity, Inventory } from '../core'
 import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
 import { hrefForEquipment } from '../app/routes'
-import { inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
+import { inventoryGridItemMatchesQuery, inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
 import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
 import { EnchantmentIdentity } from './EnchantmentArtwork'
 import { EnchantmentDiamond } from './EnchantmentSlotEditor'
@@ -47,8 +47,7 @@ export function SelectedEquipmentPane({ item, duplicateCount, inventory, onChang
 export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query, category, gilded, sort }: { inventory: Inventory; onChange: (inventory: Inventory) => void; onOpenFullEditor: (name: string, instanceId: string) => void; query: string; category: 'all' | EquipmentCategory; gilded: 'all' | 'gilded' | 'standard'; sort: 'name' | 'power-desc' | 'power-asc' | 'recent' }) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const items = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase()
-    const filtered = inventoryGridItems(inventory).filter((item) => (category === 'all' || item.category === category) && (gilded === 'all' || (gilded === 'gilded') === item.gilded) && (!normalized || `${item.catalog.name.ja} ${item.catalog.name.en} ${item.powerLevel}`.toLocaleLowerCase().includes(normalized)))
+    const filtered = inventoryGridItems(inventory).filter((item) => (category === 'all' || item.category === category) && (gilded === 'all' || (gilded === 'gilded') === item.gilded) && inventoryGridItemMatchesQuery(item, query))
     return filtered.sort((left, right) => sort === 'power-desc' ? right.powerLevel - left.powerLevel : sort === 'power-asc' ? left.powerLevel - right.powerLevel : sort === 'name' ? (left.catalog.name.ja ?? left.catalog.name.en).localeCompare(right.catalog.name.ja ?? right.catalog.name.en, 'ja') : 0)
   }, [inventory, query, category, gilded, sort])
   const selected = items.find((item) => item.instanceId === selectedId) ?? null
