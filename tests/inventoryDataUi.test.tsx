@@ -20,7 +20,7 @@ const inventory: Inventory = {
 
 describe('inventory and data presentation', () => {
   it('renders every owned instance as an accessible selectable game slot', () => {
-    const html = renderToStaticMarkup(createElement(InventoryGameGrid, { inventory, onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all', gilded: 'all', sort: 'recent' }))
+    const html = renderToStaticMarkup(createElement(InventoryGameGrid, { inventory, onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all', gilded: 'all', powerMinimum: null, powerMaximum: null, sort: 'recent' }))
     expect(inventoryGridItems(inventory)).toHaveLength(2)
     expect(html.match(/role="option"/g)).toHaveLength(2)
     expect(html).toContain('aria-label="両刃斧、Double Axe"')

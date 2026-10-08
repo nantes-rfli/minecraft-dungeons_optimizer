@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Inventory } from '../src/core'
-import { inventoryGridItemMatchesQuery, inventoryGridItems } from '../src/inventory/gridPresentation'
+import { inventoryGridItemMatchesFilters, inventoryGridItemMatchesQuery, inventoryGridItems } from '../src/inventory/gridPresentation'
 
 const inventory: Inventory = {
   weapons: [{
@@ -55,5 +55,15 @@ describe('inventory search', () => {
     expect(inventoryGridItemMatchesQuery(researchItem, 'chilling')).toBe(true)
     expect(inventoryGridItemMatchesQuery(researchItem, '冷気')).toBe(true)
     expect(researchItem.gilded).toBe(true)
+  })
+
+  it('filters Power ranges inclusively and rejects invalid or reversed bounds', () => {
+    const filters = { query: 'bindings', category: 'melee' as const, gilded: 'gilded' as const, powerMinimum: 251, powerMaximum: 251 }
+    expect(inventoryGridItemMatchesFilters(item, filters)).toBe(true)
+    expect(inventoryGridItemMatchesFilters(item, { ...filters, powerMinimum: 252 })).toBe(false)
+    expect(inventoryGridItemMatchesFilters(item, { ...filters, powerMaximum: 250 })).toBe(false)
+    expect(inventoryGridItemMatchesFilters(item, { ...filters, powerMinimum: 252, powerMaximum: 250 })).toBe(false)
+    expect(inventoryGridItemMatchesFilters(item, { ...filters, powerMinimum: Number.NaN })).toBe(false)
+    expect(inventoryGridItemMatchesFilters(item, { ...filters, powerMaximum: -1 })).toBe(false)
   })
 })
