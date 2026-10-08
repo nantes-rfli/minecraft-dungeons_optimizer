@@ -5,7 +5,7 @@ import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchB
 import { inventoryGridItems } from '../inventory/gridPresentation'
 import { useOptimizer } from '../optimizer/useOptimizer'
 import type { SavedScenarioPreset } from '../scenario/presets'
-import { BuildAlternative } from '../views/RecommendedBuild'
+import { BuildAlternative, RecommendedBuild } from '../views/RecommendedBuild'
 
 const format = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const formatGap = (gap: number) => gap > 0 && gap < 0.005 ? '0.01未満' : format.format(gap)
@@ -87,12 +87,16 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
     {search.error && <p role="alert">{search.error}</p>}
     <p className="assessment-limitations">差は用途ごとに読む値です。用途間のスコアは合算しません。最良と同点でも効果や性能が同じとは限らず、差があっても売却してよいという意味ではありません。未評価は0点にせず、売却判断を保留してください。</p>
     {search.assessments && <>
-      {search.assessments.map((assessment) => <details key={assessment.condition.id} className="assessment-condition">
+      {search.assessments.map((assessment, conditionIndex) => <details key={assessment.condition.id} className="assessment-condition">
         <summary>{assessment.condition.name} · {assessment.status === 'complete' ? `${assessment.evaluatedBuildCount}通りを全探索` : '評価できませんでした'}</summary>
         <p>{assessment.condition.scenario.name} · {assessment.condition.scenario.evidencePolicy === 'high-confidence-only' ? '確度の高い情報のみ' : 'Estimatedを含める'}</p>
         {assessment.status === 'error' ? <p role="alert">{assessment.error}</p> : <>
           <p>この条件の最良スコア: {format.format(assessment.best.objectiveScore)}</p>
           {assessment.unsupportedChoices.map((reason) => <p key={reason}>{reason}</p>)}
+          <details className="assessment-best-build">
+            <summary>{assessment.condition.name}のおすすめ構成を見る</summary>
+            <RecommendedBuild evaluation={assessment.best} weights={assessment.condition.scenario.weights} idPrefix={`assessment-best-build-${conditionIndex}`} />
+          </details>
         </>}
       </details>)}
       <fieldset className="assessment-view-controls"><legend>表示する装備</legend>
