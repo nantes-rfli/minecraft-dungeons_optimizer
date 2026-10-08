@@ -870,7 +870,22 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .assessment-table caption { padding: 12px 0; text-align: left; }
 .assessment-table th, .assessment-table td { min-width: 170px; max-width: 260px; padding: 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; overflow-wrap: anywhere; }
 .assessment-table small { display: block; margin: 6px 0; font-weight: normal; }
+.assessment-cards { display: none; }
+.assessment-card { min-width: 0; border: 1px solid var(--line); padding: 12px; background: #0e1511; }
+.assessment-card h3 { margin: 0; font-size: 16px; overflow-wrap: anywhere; }
+.assessment-card > p { margin: 5px 0 0; overflow-wrap: anywhere; }
+.assessment-card dl { display: grid; gap: 10px; margin: 12px 0 0; }
+.assessment-card dl > div { min-width: 0; border-top: 1px solid var(--line); padding-top: 9px; }
+.assessment-card dt { font-weight: 600; }
+.assessment-card dd { display: grid; gap: 4px; min-width: 0; margin: 5px 0 0; overflow-wrap: anywhere; }
+.assessment-card dd small { display: block; }
+.assessment-card dd button { justify-self: start; margin-top: 4px; }
 .assessment-condition { margin: 12px 0; overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .equipment-assessment { padding: 16px; }
+  .assessment-table-scroll { display: none; }
+  .assessment-cards { display: grid; gap: 10px; }
+}
 .new-drop-comparison { margin: 18px 0 24px; border: 1px solid var(--line); padding: 22px; background: var(--surface); }
 .new-drop-comparison > header { display: flex; justify-content: space-between; align-items: start; gap: 18px; }
 .new-drop-comparison h2 { margin: 0; font-size: 22px; }

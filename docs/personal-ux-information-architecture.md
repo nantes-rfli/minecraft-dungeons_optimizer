@@ -42,6 +42,8 @@ Hash routeを採用する。既存の単一Next routeと依存関係を保った
 
 PCとmobileで同じnavigation groupを使う。`nav` landmark、`aria-current`、skip link、route変更後のmain focus、見出し階層、mobile menuの開閉状態を提供する。200% text拡大とreduced motionを考慮し、主操作の文字サイズは14px以上を基本とする。
 
+用途別装備評価はdesktopで条件別の比較表、幅640px以下では装備個体ごとに条件を並べるcardを表示する。mobileでも条件名と未評価理由を同じ項目内で読め、構成詳細へ進める。
+
 ## Preserved boundaries
 
 Inventory schema、計算式、Worker、runtime support、unsupported候補の除外方針は変更しない。Research-onlyを0点候補として登録せず、Phase 2-5A/B/Cおよび既存Evidence blockerはpartialのまま保持する。Public Availabilityは本人の実利用後に判断するfuture milestoneとする。
