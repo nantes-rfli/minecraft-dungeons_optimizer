@@ -24,7 +24,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 - 比較: Damage / Healing / Defense / Control、6種のScenario profile、Pareto前線、効果ごとの寄与
 - 用途別評価: 現在の条件と選択した保存条件で、各装備個体を必須にした最良構成と、その条件の最良スコアとの差を全探索で比較。各条件の全体最良構成も折りたたみで確認でき、カテゴリ絞り込み・条件別の並べ替え・mobileの装備個体cardに対応
 - 新しい装備: 現在条件に加えて保存済み条件を選び、候補を加える前後の最良構成と候補必須の構成を個別に比較
-- Inventory: 装備名・Power・Enchant候補・個体ID・メモで検索でき、Power範囲でも絞り込み可能。監査済み装備をruntime対応外も含めて保持し、ブラウザ保存、JSONファイルのバックアップ、検証後の明示的な復元にも対応
+- Inventory: 装備名・Power・Enchant候補・個体ID・メモで検索でき、Power範囲でも絞り込み可能。条件を一括解除して一覧へ戻せます。監査済み装備をruntime対応外も含めて保持し、ブラウザ保存、JSONファイルのバックアップ、検証後の明示的な復元にも対応
 - Evidence: Verified / Measured / Derived / Estimated / Unknown / Unclassifiedをruntime supportとは別軸で管理
 
 詳細な対応範囲と制約:
