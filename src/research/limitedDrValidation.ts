@@ -63,6 +63,8 @@ export const LIMITED_DR_ACCEPTANCE_PLAN: LimitedDrAcceptancePlan = {
   rankingComparatorDamageTaken: 0.18,
 }
 
+export const PHASE8C_CALIBRATION_ORIGIN_GROUPS = ['shin-dr', 'caramel-dr-guide', 'anotherraalt'] as const
+
 const CONDITION_EFFECTS: Readonly<Record<LimitedDrConditionId, readonly DefenseEffectId[]>> = {
   baseline: [],
   'armor-35': ['armor-35'],
@@ -145,6 +147,18 @@ export function selectIndependentLimitedDrRuns(runs: readonly LimitedDrRun[]) {
   return { independentRuns, excludedDuplicateRunIds }
 }
 
+/** Apply the frozen Phase 8C holdout eligibility boundary to independent runs. */
+export function selectEligibleLimitedDrHoldoutRuns(input: Pick<LimitedDrValidationInput, 'plan' | 'calibrationOriginGroups' | 'runs'>) {
+  const { independentRuns, excludedDuplicateRunIds } = selectIndependentLimitedDrRuns(input.runs)
+  const calibrationOrigins = new Set(input.calibrationOriginGroups)
+  const eligibleRuns = independentRuns.filter((run) => run.partition === 'holdout'
+    && run.gameVersion === input.plan.gameVersion
+    && run.damageChannel === input.plan.damageChannel
+    && !calibrationOrigins.has(run.originGroup)
+    && run.observedDamage.length >= input.plan.minimumHitsPerRun)
+  return { eligibleRuns, excludedDuplicateRunIds }
+}
+
 function compareRow(condition: LimitedDrConditionId, baselineDamage: number, observedDamage: number) {
   const observedDamageTaken = observedDamage / baselineDamage
   const proposed = proposedDamageTaken(condition)
@@ -162,7 +176,6 @@ function compareRow(condition: LimitedDrConditionId, baselineDamage: number, obs
 
 export function evaluateLimitedDrValidation(input: LimitedDrValidationInput) {
   validatePlan(input.plan)
-  const calibrationOrigins = new Set(input.calibrationOriginGroups)
   const ids = new Set<string>()
   for (const run of input.runs) {
     validateRun(run)
@@ -170,8 +183,7 @@ export function evaluateLimitedDrValidation(input: LimitedDrValidationInput) {
     ids.add(run.id)
   }
 
-  const { independentRuns, excludedDuplicateRunIds } = selectIndependentLimitedDrRuns(input.runs)
-  const eligibleRuns = independentRuns.filter((run) => run.partition === 'holdout' && run.gameVersion === input.plan.gameVersion && run.damageChannel === input.plan.damageChannel && !calibrationOrigins.has(run.originGroup) && run.observedDamage.length >= input.plan.minimumHitsPerRun)
+  const { eligibleRuns, excludedDuplicateRunIds } = selectEligibleLimitedDrHoldoutRuns(input)
   const conditionCoverage = Object.fromEntries(input.plan.requiredConditions.map((condition) => {
     const rows = eligibleRuns.filter((run) => run.condition === condition)
     return [condition, { eligibleRuns: rows.length, eligibleHits: rows.reduce((sum, row) => sum + row.observedDamage.length, 0), pass: rows.length >= input.plan.minimumIndependentRunsPerCondition }]

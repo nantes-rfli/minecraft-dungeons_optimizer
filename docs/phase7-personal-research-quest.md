@@ -12,6 +12,8 @@ Observe / Measure / Experimentを選択でき、現在の残余taskはExperiment
 
 保存済みrunはPhase 8AのEvidence RepositoryとPhase 8Cの`LimitedDrRun`へ同時変換し、同じ画面で固定済みvalidatorを再実行できる。個人観測はブラウザlocalStorageにだけ保存し、Gitへ含めない。
 
+runを保存すると、固定planで最初に必要run数へ達していない条件を次のrunに選びます。測定者を示すorigin group、incoming hit ID、baseline damage、platform、difficulty、Evidence種別は引き継ぎます。run ID、観測値、activation frame locator、raw trace、確認状態はrunごとに入力し直します。別の測定セットへ移る場合は、引き継いだ共通情報を更新してください。条件と入力項目は手動で変更できます。
+
 ## Boundary
 
 runtime昇格0、新規Gap close 0、8CのAdoptionDecisionはholdのまま。queue消化率をモデル精度とは扱わない。

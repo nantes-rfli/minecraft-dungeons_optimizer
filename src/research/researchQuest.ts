@@ -11,6 +11,8 @@ import {
 import {
   evaluateLimitedDrValidation,
   LIMITED_DR_ACCEPTANCE_PLAN,
+  PHASE8C_CALIBRATION_ORIGIN_GROUPS,
+  selectEligibleLimitedDrHoldoutRuns,
   selectIndependentLimitedDrRuns,
   type LimitedDrConditionId,
   type LimitedDrRun,
@@ -294,6 +296,54 @@ export function independentResearchQuestRuns(runs: readonly ResearchQuestRunDraf
   return selectIndependentLimitedDrRuns(runs.map(toLimitedDrRun)).independentRuns.map((run) => byId.get(run.id)!)
 }
 
+export interface ResearchQuestConditionProgress {
+  readonly eligibleRunCount: number
+  readonly completedConditionCount: number
+  readonly runsByCondition: Readonly<Record<LimitedDrConditionId, number>>
+}
+
+export function researchQuestConditionProgress(runs: readonly ResearchQuestRunDraft[]): ResearchQuestConditionProgress {
+  const eligibleRuns = selectEligibleLimitedDrHoldoutRuns({
+    plan: LIMITED_DR_ACCEPTANCE_PLAN,
+    calibrationOriginGroups: PHASE8C_CALIBRATION_ORIGIN_GROUPS,
+    runs: runs.map(toLimitedDrRun),
+  }).eligibleRuns
+  const runsByCondition = Object.fromEntries(LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => [
+    condition,
+    eligibleRuns.filter((run) => run.condition === condition).length,
+  ])) as Record<LimitedDrConditionId, number>
+  return {
+    eligibleRunCount: eligibleRuns.length,
+    completedConditionCount: LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.filter((condition) => runsByCondition[condition] >= LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition).length,
+    runsByCondition,
+  }
+}
+
+export function nextResearchQuestCondition(runs: readonly ResearchQuestRunDraft[], fallback: LimitedDrConditionId = 'baseline'): LimitedDrConditionId {
+  const { runsByCondition } = researchQuestConditionProgress(runs)
+  return LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.find((condition) => runsByCondition[condition] < LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition) ?? fallback
+}
+
+export function prepareNextResearchQuestRunDraft(
+  previous: ResearchQuestRunDraft,
+  savedRuns: readonly ResearchQuestRunDraft[],
+  capturedAt = new Date().toISOString(),
+): ResearchQuestRunDraft {
+  return {
+    ...previous,
+    id: '',
+    condition: nextResearchQuestCondition(savedRuns, previous.condition),
+    rawTraceUrl: '',
+    rawTraceSha256: '',
+    rawTraceRecord: null,
+    activationFrameLocators: [],
+    observedDamage: [],
+    capturedAt,
+    reviewed: false,
+    equipment: [],
+  }
+}
+
 function toEvidenceRecord(draft: ResearchQuestRunDraft, run: LimitedDrRun): EvidenceIntakeRecord {
   const selfGenerated = draft.originKind === 'self-observation' && draft.rawTraceUrl.startsWith('urn:')
   return {
@@ -334,6 +384,6 @@ export function buildPhase7Submission(state: ResearchQuestState, generatedAt = n
     schemaVersion: 1, phase: '7B', questId: 'limited-dr-composition', generatedAt,
     evidenceRepository, runs,
     rawRecords: state.runs.flatMap((draft) => draft.rawTraceRecord === null ? [] : [{ locator: draft.rawTraceUrl, sha256: draft.rawTraceSha256, content: draft.rawTraceRecord }]),
-    validation: evaluateLimitedDrValidation({ plan: LIMITED_DR_ACCEPTANCE_PLAN, calibrationOriginGroups: ['shin-dr', 'caramel-dr-guide', 'anotherraalt'], runs, excludedReferenceRows: [] }),
+    validation: evaluateLimitedDrValidation({ plan: LIMITED_DR_ACCEPTANCE_PLAN, calibrationOriginGroups: PHASE8C_CALIBRATION_ORIGIN_GROUPS, runs, excludedReferenceRows: [] }),
   }
 }
