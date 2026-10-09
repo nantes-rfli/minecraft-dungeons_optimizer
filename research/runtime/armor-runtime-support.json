@@ -1027,12 +1027,15 @@
     {
       "id": "thief-armor",
       "name": "Thief Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "+25% melee attack speed is inherited by the existing Limited Spider Armor; applies only to modeled melee cadence.",
+        "No Life Steal or other Spider-only property is assigned to Thief Armor."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Death Cap Mushroom and Rampaging speed compositions remain unsupported; other unmodeled effects are not credited."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"

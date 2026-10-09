@@ -79,6 +79,13 @@ export const ARMORS: Readonly<Record<ArmorId, RuntimeArmorDefinition>> = {
     meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0,
     soulGatheringMultiplier: 1, lifeStealFraction: 0.06, artifactCooldownReduction: 0, supportLevel: 'limited',
   },
+  'thief-armor': {
+    id: 'thief-armor', name: { en: 'Thief Armor', ja: '盗人のアーマー' }, family: 'Thief Armor',
+    soul: { acceptsSoulEnchantments: false }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0,
+    soulGatheringMultiplier: 1, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
 }
 
 export const ARMOR_ENCHANTMENTS: Readonly<Record<ArmorEnchantmentId, RuntimeArmorEnchantmentDefinition>> = {

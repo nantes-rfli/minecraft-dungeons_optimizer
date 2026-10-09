@@ -11,6 +11,7 @@ export type ArmorId =
   | 'grim-armor'
   | 'scale-mail'
   | 'spider-armor'
+  | 'thief-armor'
 export type ArmorEnchantmentId =
   | 'cool-down'
   | 'potion-barrier'

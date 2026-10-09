@@ -77,6 +77,30 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(renegade.confidence.factors).toContainEqual(expect.objectContaining({ id: 'renegade-runtime-boundary', confidence: 'low' }))
   })
 
+  it('calculates Thief Armor speed-only using existing Spider cadence without inheriting Life Steal', () => {
+    const plain = evaluate({ weapon, enchantments: selected, artifacts: [] }, { ...scenario, maxHealth: 500 })
+    const thief = evaluate(build('thief-armor'), scenario)
+    const spider = evaluate(build('spider-armor'), scenario)
+    expect(thief.armorState?.meleeAttackSpeedBonus).toBe(0.25)
+    expect(thief.damage.hitsPerSecond).toBe(spider.damage.hitsPerSecond)
+    expect(thief.damage.hitsPerSecond / plain.damage.hitsPerSecond).toBeCloseTo(1.25)
+    expect(thief.healing.lifeStealPerSecond).toBe(0)
+    expect(thief.defense.damageTakenMultiplier).toBe(1)
+    expect(thief.armorState?.finalMaxHealth).toBe(500)
+    const result = optimize({ weapons: [weapon], armors: [armor('thief-armor')], artifacts: [] }, scenario)
+    expect(result.best.build.armor?.armorId).toBe('thief-armor')
+    expect(result.best.damage.hitsPerSecond).toBe(thief.damage.hitsPerSecond)
+  })
+
+  it('fails closed for Thief Armor without observed health or with unknown speed composition', () => {
+    expect(() => evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
+    expect(() => evaluate({ ...build('thief-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
+    const staged = { ...armor('thief-armor'), observedHealthBonus: undefined }
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [staged], artifacts: [] }, scenario)
+    expect(evaluatedInstanceIds).not.toContain('thief-armor')
+    expect(result.unsupportedChoices.join(' ')).toMatch(/MISSING_OBSERVED_ARMOR_HEALTH/)
+  })
+
   it('keeps an unequipped runtime Armor with missing observed health out of evaluated builds', () => {
     const baselineArmor = armor('battle-robe')
     const stagedArmor: OwnedArmor = { ...armor('scale-mail'), instanceId: 'drop-armor', observedHealthBonus: undefined }

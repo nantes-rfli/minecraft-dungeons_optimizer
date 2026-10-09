@@ -58,7 +58,7 @@ describe('Phase 2-3A Armor audit foundation', () => {
     }
     expect(collectArmorSupportErrors()).toEqual([])
     expect(ARMOR_RUNTIME_SUPPORT.entries).toHaveLength(73)
-    expect(ARMOR_RUNTIME_SUPPORT.entries.filter((entry) => entry.supportLevel === 'limited').map((entry) => entry.id)).toEqual(['battle-robe', 'grim-armor', 'mercenary-armor', 'renegade-armor', 'scale-mail', 'spider-armor', 'wither-armor'])
+    expect(ARMOR_RUNTIME_SUPPORT.entries.filter((entry) => entry.supportLevel === 'limited').map((entry) => entry.id)).toEqual(['battle-robe', 'grim-armor', 'mercenary-armor', 'renegade-armor', 'scale-mail', 'spider-armor', 'thief-armor', 'wither-armor'])
     expect(ARMOR_RUNTIME_SUPPORT.nextBatch).toMatchObject({
       armorIds: ['battle-robe', 'renegade-armor', 'wither-armor', 'mercenary-armor', 'grim-armor', 'scale-mail', 'spider-armor'],
       armorEnchantmentIds: ['cool-down', 'potion-barrier', 'chilling', 'health-synergy', 'snowball', 'cowardice', 'protection'],

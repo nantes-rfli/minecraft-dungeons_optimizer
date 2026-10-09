@@ -37,6 +37,7 @@ describe('Phase 2-3C Armor runtime audit', () => {
       'grim-armor',
       'scale-mail',
       'spider-armor',
+      'thief-armor',
     ])
     expect(ARMOR_CORE_RUNTIME_AUDIT.runtimeArmorEnchantmentIds).toEqual([
       'cool-down',
@@ -47,16 +48,23 @@ describe('Phase 2-3C Armor runtime audit', () => {
       'cowardice',
       'protection',
     ])
+    expect(ARMOR_CORE_RUNTIME_AUDIT.decisions.thiefAttackSpeedReuse).toMatchObject({ sourceArmorId: 'thief-armor', inheritanceTarget: 'spider-armor', singleArmorBonus: 0.25, deathCapOrRampaging: 'unsupported' })
     expect(ARMOR_CORE_RUNTIME_AUDIT.decisions.coolDownTierThree).toMatchObject({
       gameFileValue: 0.37,
       currentWikiDisplay: 0.38,
       runtimeValue: 0.37,
     })
     expect(ARMOR_CORE_RUNTIME_AUDIT.completion).toEqual({
-      runtimeArmorCount: 7,
+      runtimeArmorCount: 8,
       runtimeArmorEnchantmentCount: 7,
       supportLevel: 'limited',
     })
+  })
+
+  it('rejects a drift in Thief's inherited Limited speed rule', () => {
+    const wrong = clone(ARMOR_CORE_RUNTIME_AUDIT)
+    wrong.decisions.thiefAttackSpeedReuse.singleArmorBonus = 0.3
+    expect(collectArmorRuntimeAuditErrors(wrong)).toContain('Thief Armor limited speed-only source or reuse boundary drift')
   })
 
   it('fails when a conflict decision or runtime count drifts', () => {

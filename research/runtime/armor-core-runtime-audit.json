@@ -15,7 +15,7 @@
     { "id": "wiki-chilling", "kind": "published-reference", "url": "https://minecraft.wiki/w/Dungeons:Chilling", "note": "20/40/60% movement and attack slow for one second every two seconds." },
     { "id": "community-defense-tests", "kind": "community-test", "url": "https://www.reddit.com/r/MinecraftDungeons/comments/10bdh7s/protection_actual_values/", "note": "Anchors 35% Armor + Protection III at 41.65% and 35% Armor + Iron Hide at 60.6%; not generalized into an unverified formula." }
   ],
-  "runtimeArmorIds": ["battle-robe", "renegade-armor", "wither-armor", "mercenary-armor", "grim-armor", "scale-mail", "spider-armor"],
+  "runtimeArmorIds": ["battle-robe", "renegade-armor", "wither-armor", "mercenary-armor", "grim-armor", "scale-mail", "spider-armor", "thief-armor"],
   "runtimeArmorEnchantmentIds": ["cool-down", "potion-barrier", "chilling", "health-synergy", "snowball", "cowardice", "protection"],
   "decisions": {
     "coolDownTierThree": { "gameFileValue": 0.37, "currentWikiDisplay": 0.38, "runtimeValue": 0.37, "conclusion": "Use the version-targeted game-file-derived value. No evidence establishes that 38% is an exact internal value rather than a current display conflict." },
@@ -23,9 +23,10 @@
     "artifactCooldownComposition": { "singleSourceOnly": true, "battleRobeWithCoolDown": "unsupported", "externalWithArmorSource": "unsupported" },
     "damageReductionComposition": { "singleSourceAnchors": { "armor": 0.35, "ironHide": 0.5, "potionBarrier": 0.9, "guardingStrike": 0.5 }, "armorWithOtherRuntimeDefense": "unsupported", "protection": "sole-source-only" },
     "renegadeAttackSpeed": { "singleArmorBonus": 0.25, "appliedTo": "attack-cadence", "deathCapOrRampaging": "unsupported" },
+    "thiefAttackSpeedReuse": { "sourceArmorId": "thief-armor", "inheritanceTarget": "spider-armor", "singleArmorBonus": 0.25, "appliedTo": "attack-cadence", "deathCapOrRampaging": "unsupported", "rawIdentity": "AssassinArmor", "sourceRef": "research/armor-audit.json" },
     "witherSouls": { "multiplier": 1.5, "zeroFlatGatheringRemainsZero": true, "pickupEventsUnchanged": true, "soulSiphon": "unsupported" },
     "witherLifeSteal": { "fraction": 0.06, "eligibleChannels": ["direct-melee"], "excludedChannels": ["enchantment-proc", "dot", "on-kill-explosion", "artifact-damage", "ranged"] },
     "chilling": { "pulseSeconds": 2, "durationSeconds": 1, "rawTemporalCoverage": 0.5, "objective": "control-only" }
   },
-  "completion": { "runtimeArmorCount": 7, "runtimeArmorEnchantmentCount": 7, "supportLevel": "limited" }
+  "completion": { "runtimeArmorCount": 8, "runtimeArmorEnchantmentCount": 7, "supportLevel": "limited" }
 }

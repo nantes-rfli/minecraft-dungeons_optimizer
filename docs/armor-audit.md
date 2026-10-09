@@ -40,7 +40,7 @@ The population remains the normalized display union, not an exhaustive raw game-
 | threat-modifier | 4 |
 | weapon-damage-aura | 12 |
 
-Runtime support is **Full 0 / Limited 7 / Research-only 66**. Research-only properties are never registered as zero-effect candidates.
+Runtime support is **Full 0 / Limited 8 / Research-only 65**. Research-only properties are never registered as zero-effect candidates.
 
 ## Health route
 
@@ -56,6 +56,7 @@ Base Hero health is **100**. Runtime Armor requires direct card `observedHealthB
 | Renegade Armor | observedHealthBonus is required; no Power midpoint is imputed.; +25% speed changes attack cadence; +20% aura applies to the hero's modeled direct melee channel.; 35% Armor damage reduction is supported alone. | Death Cap Mushroom and Rampaging speed combinations are unsupported.; Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported. |
 | Scale Mail | observedHealthBonus is required; no Power midpoint is imputed.; +30% applies to modeled direct melee only; proc, DoT, and explosions are excluded.; 35% Armor DR is supported as the only active DR source. | Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection combinations are unsupported. |
 | Spider Armor | observedHealthBonus is required; no Power midpoint is imputed.; +25% melee attack speed applies to cadence as a sole Armor speed source.; 6% Life Steal credits modeled direct melee AoE damage after the cadence increase. | Death Cap Mushroom and Rampaging speed compositions are unsupported; non-direct-melee Life Steal is excluded. |
+| Thief Armor | observedHealthBonus is required; no Power midpoint is imputed.; +25% melee attack speed is inherited by the existing Limited Spider Armor; applies only to modeled melee cadence.; No Life Steal or other Spider-only property is assigned to Thief Armor. | Death Cap Mushroom and Rampaging speed compositions remain unsupported; other unmodeled effects are not credited. |
 | Wither Armor | observedHealthBonus is required; no Power midpoint is imputed.; 35% Armor damage reduction is supported alone; +50% multiplies existing flat Gathering without creating collection.; 6% Life Steal credits modeled direct melee AoE damage only. | Soul Siphon multiplication is unsupported.; Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported.; Indirect proc, DoT, explosion, Artifact, and ranged damage receive no Life Steal credit. |
 
 Owned Armor, actual slot rolls, locked rolls, fixed gilded Enchants, and built-ins are separate sources. The optimizer enumerates only owned rolls. A free slot containing any research-only alternative excludes that Armor candidate; locking a supported roll permits evaluation.
