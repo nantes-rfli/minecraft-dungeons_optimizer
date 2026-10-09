@@ -11,10 +11,11 @@ test('backup files round-trip and stage without replacing stored inventory', asy
     artifacts: [{ instanceId: 'backup-artifact-1', artifactId: 'iron-hide-amulet', powerLevel: 248 }, { instanceId: 'backup-artifact-2', artifactId: 'iron-hide-amulet', powerLevel: 251 }],
     catalogItems: [{ instanceId: 'backup-catalog', category: 'armor', catalogId: 'champion-s-armor', powerLevel: 251, notes: 'Unknown effects stay research-only', research: { observations: [{ parameterId: 'incoming-damage', value: 'unknown', notes: 'SYNTHETIC — not Evidence' }] } }],
   } }
+  const normalizedFixture = { version: 6, inventory: fixture.inventory }
   await page.goto('/#/storage')
   await page.getByRole('textbox', { name: 'Inventory JSON' }).fill(JSON.stringify(fixture))
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
-  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), storageKey)).toEqual(fixture)
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), storageKey)).toEqual(normalizedFixture)
   const json = page.getByRole('textbox', { name: 'Inventory JSON' })
   await expect(json).toBeVisible()
   await page.getByRole('button', { name: '現在の装備を書き出す', exact: true }).click()
@@ -26,7 +27,7 @@ test('backup files round-trip and stage without replacing stored inventory', asy
   expect(download.suggestedFilename()).toMatch(/^mcd-inventory-\d{4}-\d{2}-\d{2}\.json$/)
   const saved = await readFile((await download.path())!, 'utf8')
   expect(saved).toBe(current)
-  expect(JSON.parse(saved)).toEqual(fixture)
+  expect(JSON.parse(saved)).toEqual(normalizedFixture)
   const replacement = JSON.stringify({ version: 1, inventory: { weapons: [], artifacts: [] } })
   const fileInput = page.getByLabel('JSONファイルを選択', { exact: true })
   await fileInput.setInputFiles({ name: 'legacy.json', mimeType: 'application/json', buffer: Buffer.from(replacement) })
@@ -43,7 +44,7 @@ test('backup files round-trip and stage without replacing stored inventory', asy
   // Selecting the same valid file again must work after input reset.
   await fileInput.setInputFiles({ name: 'legacy.json', mimeType: 'application/json', buffer: Buffer.from(replacement) })
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
-  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), storageKey)).toEqual({ version: 5, inventory: { weapons: [], artifacts: [] } })
+  await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), storageKey)).toEqual({ version: 6, inventory: { weapons: [], artifacts: [] } })
   await fileInput.setInputFiles({ name: 'backup.json', mimeType: 'application/json', buffer: Buffer.from(saved) })
   await expect(json).toHaveValue(saved)
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
@@ -85,6 +86,6 @@ test('invalid saved data is retained while a valid file is staged for recovery',
   await expect(json).toHaveValue(recovery)
   expect(await page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe('{broken-original')
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()
-  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(JSON.stringify(JSON.parse(recovery), null, 2))
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), storageKey)).toBe(JSON.stringify({ ...JSON.parse(recovery), version: 6 }, null, 2))
   await expect(page.getByRole('button', { name: 'JSONファイルを保存', exact: true })).toBeEnabled()
 })
