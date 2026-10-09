@@ -17,6 +17,53 @@ export type ConditionAssessment =
   | { readonly condition: AssessmentCondition; readonly status: 'complete'; readonly best: Evaluation; readonly evaluatedBuildCount: number; readonly unsupportedChoices: readonly string[]; readonly equipment: readonly EquipmentAssessment[] }
   | { readonly condition: AssessmentCondition; readonly status: 'error'; readonly error: string }
 
+export interface MultiConditionBestScoreEquipment {
+  readonly instanceId: string
+  readonly conditionIds: readonly string[]
+  readonly conditionNames: readonly string[]
+}
+
+export interface MultiConditionBestScoreSummary {
+  readonly completedConditionCount: number
+  readonly items: readonly MultiConditionBestScoreEquipment[]
+}
+
+/**
+ * Finds equipment that can appear in a best-scoring loadout when required
+ * individually across multiple conditions. Scores are only compared within
+ * each condition; this summary never combines different objectives.
+ */
+export function summarizeMultiConditionBestScores(assessments: readonly ConditionAssessment[]): MultiConditionBestScoreSummary {
+  const completed = assessments.filter((assessment) => assessment.status === 'complete')
+  const usage = new Map<string, { readonly order: number; readonly conditionIds: string[]; readonly conditionNames: string[] }>()
+  let order = 0
+
+  for (const assessment of completed) {
+    for (const equipment of assessment.equipment) {
+      if (equipment.status !== 'evaluated' || equipment.scoreGap !== 0) continue
+      let entry = usage.get(equipment.instanceId)
+      if (!entry) {
+        entry = { order: order++, conditionIds: [], conditionNames: [] }
+        usage.set(equipment.instanceId, entry)
+      }
+      if (entry.conditionIds.includes(assessment.condition.id)) continue
+      entry.conditionIds.push(assessment.condition.id)
+      entry.conditionNames.push(assessment.condition.name)
+    }
+  }
+
+  const items = [...usage.entries()]
+    .filter(([, entry]) => entry.conditionIds.length > 1)
+    .sort(([, left], [, right]) => right.conditionIds.length - left.conditionIds.length || left.order - right.order)
+    .map(([instanceId, entry]) => ({
+      instanceId,
+      conditionIds: entry.conditionIds,
+      conditionNames: entry.conditionNames,
+    }))
+
+  return { completedConditionCount: completed.length, items }
+}
+
 export const MAX_ASSESSMENT_CONDITIONS = 9 // current condition + up to eight saved conditions
 
 /** Independent exhaustive searches; scores are compared only within a condition. */

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Inventory, Scenario } from '../core/types'
-import type { AssessmentCondition, EquipmentAssessment } from '../core/equipmentAssessment'
+import { summarizeMultiConditionBestScores, type AssessmentCondition, type EquipmentAssessment } from '../core/equipmentAssessment'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
 import { inventoryGridItemMatchesQuery, inventoryGridItems } from '../inventory/gridPresentation'
 import { useOptimizer } from '../optimizer/useOptimizer'
@@ -70,6 +70,8 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
     if (removalInput && removalStatus === 'idle') startRemoval()
   }, [removalInput, removalStatus, startRemoval])
   const items = useMemo(() => inventoryGridItems(inventory), [inventory])
+  const itemById = useMemo(() => new Map(items.map((item) => [item.instanceId, item])), [items])
+  const multiConditionBestScores = useMemo(() => search.assessments ? summarizeMultiConditionBestScores(search.assessments) : null, [search.assessments])
   const selectedConditionId = sortBy.startsWith('gap-') ? sortBy.slice(sortBy.indexOf(':') + 1) : null
   const selectedSortBy = selectedConditionId && !conditions.some((condition) => condition.id === selectedConditionId) ? 'inventory' : sortBy
   const canCompareRemoval = (instanceId: string) => search.assessments?.some((assessment) => assessment.status === 'complete'
@@ -126,6 +128,19 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           </details>
         </>}
       </details>)}
+      {multiConditionBestScores && multiConditionBestScores.completedConditionCount > 1 && <section className="assessment-cross-condition" aria-label="複数条件で最良スコアに届く装備">
+        <h3>複数条件で最良スコアの構成に使える装備</h3>
+        <p>装備個体を1つずつ必須にした最良構成を各条件で調べ、条件ごとの最良スコアと同点になった装備を表示します。複数の表示装備を同じ構成で同時に使えるとは限らず、条件間のスコアも比べたり合算したりしません。未評価の装備は含まず、ここにない装備が不要という意味ではありません。</p>
+        {multiConditionBestScores.items.length > 0
+          ? <ul>{multiConditionBestScores.items.map((entry) => {
+            const item = itemById.get(entry.instanceId)
+            return <li key={entry.instanceId}>
+              <span className="cross-condition-equipment-name"><strong>{item?.catalog.name.ja ?? entry.instanceId}</strong><small>{item ? `${categoryOptions.find((option) => option.id === item.category)?.label ?? item.category} · Power ${item.powerLevel} · ${entry.instanceId}` : entry.instanceId}</small></span>
+              <span className="cross-condition-equipment-conditions"><strong>{entry.conditionIds.length} / {multiConditionBestScores.completedConditionCount}条件</strong><small>{entry.conditionNames.join(' · ')}</small></span>
+            </li>
+          })}</ul>
+          : <p>完了した{multiConditionBestScores.completedConditionCount}条件では、同じ装備個体が複数条件でそれぞれ最良スコアに届く構成はありませんでした。</p>}
+      </section>}
       <fieldset className="assessment-view-controls"><legend>表示する装備</legend>
         <label>カテゴリ<select aria-label="表示カテゴリ" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value as (typeof categoryOptions)[number]['id'])}>
           {categoryOptions.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { assessEquipment, MAX_ASSESSMENT_CONDITIONS } from '../src/core/equipmentAssessment'
+import { assessEquipment, MAX_ASSESSMENT_CONDITIONS, summarizeMultiConditionBestScores } from '../src/core/equipmentAssessment'
 import { optimize, optimizeForEquipment } from '../src/core/optimizer'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import type { Inventory, Scenario } from '../src/core/types'
@@ -46,6 +46,36 @@ describe('equipment value across independent conditions', () => {
     const assessed = assessEquipment(many, [condition])[0]!
     if (assessed.status !== 'complete') throw new Error(assessed.error)
     expect(assessed.equipment.slice(0, 2).map((item) => item.status === 'evaluated' ? item.scoreGap : null)).toEqual([0, 0])
+  })
+
+  it('summarizes exact best-score ties across completed conditions without combining their scores', () => {
+    const tiedInventory: Inventory = {
+      ...inventory,
+      weapons: [
+        inventory.weapons[0]!,
+        { ...inventory.weapons[0]!, instanceId: 'damage-copy' },
+        inventory.weapons[1]!,
+        inventory.weapons[2]!,
+      ],
+      catalogItems: [{ instanceId: 'research-only', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251 }],
+    }
+    const duplicateDamageCondition = { ...condition, id: 'damage-copy-condition', name: '火力確認用' }
+    const failedCondition = { ...condition, id: 'failed', name: '失敗条件', scenario: { ...scenario, averageEnemyHealth: 0 } }
+    const assessments = assessEquipment(tiedInventory, [condition, duplicateDamageCondition, failedCondition])
+    const summary = summarizeMultiConditionBestScores(assessments)
+
+    expect(assessments.map((assessment) => assessment.status)).toEqual(['complete', 'complete', 'error'])
+    expect(summary.completedConditionCount).toBe(2)
+    expect(summary.items.map((item) => item.instanceId)).toEqual(['damage', 'damage-copy'])
+    expect(summary.items[0]?.conditionIds).toEqual(['damage', 'damage-copy-condition'])
+    expect(summary.items[0]?.conditionNames).toEqual(['火力用', '火力確認用'])
+    expect(summary.items.some((item) => item.instanceId === 'healing' || item.instanceId === 'weaker')).toBe(false)
+    expect(summary.items.some((item) => item.instanceId === 'research-only')).toBe(false)
+    expect(summarizeMultiConditionBestScores([assessments[0]!])).toEqual({ completedConditionCount: 1, items: [] })
+    for (const assessment of assessments.slice(0, 2)) {
+      if (assessment.status !== 'complete') throw new Error(assessment.error)
+      expect(assessment.equipment.find((item) => item.instanceId === 'research-only')?.status).toBe('excluded')
+    }
   })
 
   it('optimizes full loadouts for armor, ranged, artifacts and alternative enchantments, retaining locks and tiers', () => {
