@@ -96,7 +96,7 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(() => evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
     expect(() => evaluate({ ...build('thief-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
     const staged = { ...armor('thief-armor'), observedHealthBonus: undefined }
-    const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [staged], artifacts: [] }, scenario)
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [armor('battle-robe'), staged], artifacts: [] }, scenario)
     expect(evaluatedInstanceIds).not.toContain('thief-armor')
     expect(result.unsupportedChoices.join(' ')).toMatch(/MISSING_OBSERVED_ARMOR_HEALTH/)
   })
