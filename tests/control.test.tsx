@@ -12,6 +12,7 @@ import { CONTROL_IDS, CONTROL_ENCHANTMENTS, DEFAULT_CONTROL_POLICY } from '../sr
 import { DEFAULT_SCENARIO, SCENARIO_PROFILES } from '../src/data/scenarios'
 import { deserializeInventory, loadInventory, saveInventory, serializeInventory } from '../src/inventory/storage'
 import { ControlDetails, ControlSettings } from '../src/views/ControlDetails'
+import { ObjectiveWeightsControls } from '../src/views/ObjectiveWeightsControls'
 
 const selection = (enchantmentId: EnchantmentId, tier: EnchantmentTier = 3, source: SelectedEnchantment['source'] = 'slot'): SelectedEnchantment => ({ enchantmentId, tier, source })
 function buildFor(enchantments: SelectedEnchantment[], weaponId: WeaponId = 'double-axe'): Build {
@@ -298,7 +299,9 @@ describe('Control optimizer, persistence and UI', () => {
     const html = renderToStaticMarkup(<ControlDetails evaluation={evaluate(build, DEFAULT_SCENARIO)} />)
     for (const label of ['Hard disable', 'Attack slow', 'Root', 'Grouping', 'Control utility', '信頼度低', '攻撃可能', 'DPS bonusなし', '被ダメージ削減率ではありません']) expect(html).toContain(label)
     const controls = renderToStaticMarkup(<ControlSettings scenario={DEFAULT_SCENARIO} onChange={() => undefined} />)
-    for (const label of ['Stunning 適用可能', 'Chains 適用可能', 'Freezing 適用可能', 'Gravity 適用可能', '平均対象数 / proc', '平均対象数 / hit', '総合評価のControl重み', '順位付けの好み']) expect(controls).toContain(label)
+    for (const label of ['Stunning 適用可能', 'Chains 適用可能', 'Freezing 適用可能', 'Gravity 適用可能', '平均対象数 / proc', '平均対象数 / hit', 'Control utility内の順位付けの好み']) expect(controls).toContain(label)
+    const objectiveWeights = renderToStaticMarkup(<ObjectiveWeightsControls scenario={DEFAULT_SCENARIO} onChange={() => undefined} />)
+    for (const label of ['Damageの重み', 'Healingの重み', 'Defenseの重み', 'Controlの重み', '選択中の目的の重みに戻す']) expect(objectiveWeights).toContain(label)
   })
 })
 

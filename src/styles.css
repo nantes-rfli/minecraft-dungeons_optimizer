@@ -560,6 +560,17 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .objective-card { padding: 26px; }
 .objective-card > label { display: grid; gap: 9px; color: var(--muted); font-size: 13px; }
 .objective-card select { width: 100%; color: var(--text); font-size: 18px; }
+.objective-weight-settings { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.objective-weight-settings > summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; cursor: pointer; color: var(--text); font-size: 13px; }
+.objective-weight-settings > summary small { color: var(--muted); font-size: 11px; font-weight: 400; }
+.objective-weight-controls { display: grid; gap: 8px; margin-top: 12px; }
+.objective-weight-controls > p { margin: 0 0 2px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.objective-weight-controls label { display: grid; grid-template-columns: minmax(0, 1fr) 105px; align-items: center; gap: 10px; color: var(--muted); font-size: 12px; }
+.objective-weight-controls label span { display: flex; justify-content: space-between; gap: 8px; }
+.objective-weight-controls output { color: var(--accent); font: 11px 'DM Mono', monospace; }
+.objective-weight-controls input { min-width: 0; border: 1px solid #39483c; padding: 6px 8px; color: var(--text); background: #0c130f; }
+.objective-weight-controls .objective-weight-error { color: #f1aa86; }
+.objective-weight-reset { justify-self: start; border: 1px solid #3a483c; padding: 7px 10px; color: #b7c1b9; background: #111a14; font-size: 12px; }
 .optimize-actions { display: flex; gap: 8px; margin-top: 20px; }
 .optimize-actions button { padding: 11px 18px; border: 1px solid #3a483c; color: #b7c1b9; background: #111a14; }
 .optimize-actions .primary-button { border-color: var(--accent); color: #10160c; background: var(--accent); }
