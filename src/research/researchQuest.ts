@@ -11,6 +11,8 @@ import {
 import {
   evaluateLimitedDrValidation,
   LIMITED_DR_ACCEPTANCE_PLAN,
+  PHASE8C_CALIBRATION_ORIGIN_GROUPS,
+  selectEligibleLimitedDrHoldoutRuns,
   selectIndependentLimitedDrRuns,
   type LimitedDrConditionId,
   type LimitedDrRun,
@@ -301,8 +303,11 @@ export interface ResearchQuestConditionProgress {
 }
 
 export function researchQuestConditionProgress(runs: readonly ResearchQuestRunDraft[]): ResearchQuestConditionProgress {
-  const eligibleRuns = independentResearchQuestRuns(runs)
-    .filter((run) => run.observedDamage.length >= LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun)
+  const eligibleRuns = selectEligibleLimitedDrHoldoutRuns({
+    plan: LIMITED_DR_ACCEPTANCE_PLAN,
+    calibrationOriginGroups: PHASE8C_CALIBRATION_ORIGIN_GROUPS,
+    runs: runs.map(toLimitedDrRun),
+  }).eligibleRuns
   const runsByCondition = Object.fromEntries(LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => [
     condition,
     eligibleRuns.filter((run) => run.condition === condition).length,
@@ -379,6 +384,6 @@ export function buildPhase7Submission(state: ResearchQuestState, generatedAt = n
     schemaVersion: 1, phase: '7B', questId: 'limited-dr-composition', generatedAt,
     evidenceRepository, runs,
     rawRecords: state.runs.flatMap((draft) => draft.rawTraceRecord === null ? [] : [{ locator: draft.rawTraceUrl, sha256: draft.rawTraceSha256, content: draft.rawTraceRecord }]),
-    validation: evaluateLimitedDrValidation({ plan: LIMITED_DR_ACCEPTANCE_PLAN, calibrationOriginGroups: ['shin-dr', 'caramel-dr-guide', 'anotherraalt'], runs, excludedReferenceRows: [] }),
+    validation: evaluateLimitedDrValidation({ plan: LIMITED_DR_ACCEPTANCE_PLAN, calibrationOriginGroups: PHASE8C_CALIBRATION_ORIGIN_GROUPS, runs, excludedReferenceRows: [] }),
   }
 }

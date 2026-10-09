@@ -162,6 +162,27 @@ describe('Phase 7 Personal Research Quest', () => {
     })
   })
 
+  it('does not count calibration-origin runs toward Phase 8C progress or advance past the condition', () => {
+    const calibrationRuns = [1, 2, 3].map((index) => ({
+      ...draft(`calibration-${index}`),
+      condition: 'baseline' as const,
+      originGroup: 'shin-dr',
+      rawTraceSha256: index.toString(16).repeat(64),
+      rawTraceUrl: `https://example.test/calibration-${index}.csv`,
+      capturedAt: `2026-09-10T11:0${index}:00+09:00`,
+      observedDamage: Array(10).fill(100000),
+      activationFrameLocators: [],
+    }))
+
+    expect(researchQuestConditionProgress(calibrationRuns)).toMatchObject({
+      eligibleRunCount: 0,
+      completedConditionCount: 0,
+      runsByCondition: { baseline: 0 },
+    })
+    expect(nextResearchQuestCondition(calibrationRuns)).toBe('baseline')
+    expect(buildPhase7Submission({ ...defaultResearchQuestState(), runs: calibrationRuns }).validation.conditionCoverage.baseline.eligibleRuns).toBe(0)
+  })
+
   it('rejects short traces and duplicate run identities before handoff', async () => {
     const short = { ...draft(), observedDamage: [19697] }
     expect(() => buildPhase7Submission({ ...defaultResearchQuestState(), runs: [short] })).toThrow('10 hit以上')
