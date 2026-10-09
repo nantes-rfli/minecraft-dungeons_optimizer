@@ -1,11 +1,9 @@
 import type { Scenario } from '../core/types'
 import { SCENARIO_PROFILES } from '../data/scenarios'
+import { SCORE_AXES, SCORE_AXIS_LABELS } from './objectiveScoreBreakdown'
 
 const OBJECTIVE_AXES = [
-  { key: 'damage', label: 'Damage' },
-  { key: 'healing', label: 'Healing' },
-  { key: 'defense', label: 'Defense' },
-  { key: 'control', label: 'Control' },
+  ...SCORE_AXES.map((key) => ({ key, label: SCORE_AXIS_LABELS[key] })),
 ] as const satisfies readonly { key: keyof Scenario['weights']; label: string }[]
 
 const percentFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 1 })

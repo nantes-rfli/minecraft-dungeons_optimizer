@@ -4,7 +4,7 @@ import { optimize } from '../src/core'
 import type { Evaluation, Inventory } from '../src/core/types'
 import { DEFAULT_SCENARIO, SCENARIO_PROFILES } from '../src/data/scenarios'
 import { ScoreBreakdown } from '../src/views/ScoreBreakdown'
-import { scoreBreakdown } from '../src/views/objectiveScoreBreakdown'
+import { formatObjectiveWeightSummary, objectiveWeightShares, scoreBreakdown } from '../src/views/objectiveScoreBreakdown'
 import { OptimizeResults } from '../src/screens/OptimizeResults'
 
 const inventory: Inventory = {
@@ -15,6 +15,16 @@ const inventory: Inventory = {
 const sum = (rows: ReturnType<typeof scoreBreakdown>) => rows.reduce((total, row) => total + row.scorePoints, 0)
 
 describe('evaluated score explanation', () => {
+  it('shows normalized objective shares and preserves explicitly zero-weight axes', () => {
+    const weights = { damage: 2, healing: 1, defense: 1, control: 0 }
+    expect(objectiveWeightShares(weights)?.map((share) => share.weightPercent)).toEqual([50, 25, 25, 0])
+    expect(formatObjectiveWeightSummary(weights)).toBe('Damage 50% · Healing 25% · Defense 25% · Control 0%')
+    expect(formatObjectiveWeightSummary({ damage: 0, healing: 0, defense: 0, control: 0 })).toBeNull()
+    expect(scoreBreakdown({ damage: 0, healing: 0, defense: 0, control: 0 }, weights).map((row) => row.weightPercent)).toEqual(
+      objectiveWeightShares(weights).map((share) => share.weightPercent),
+    )
+  })
+
   it.each(Object.entries(SCENARIO_PROFILES))('reconstructs best and all alternative/Pareto scores for %s', (_id, scenario) => {
     const result = optimize(inventory, scenario)
     for (const evaluation of [result.best, ...result.alternatives, ...result.paretoFrontier]) {
