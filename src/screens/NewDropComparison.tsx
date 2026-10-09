@@ -7,6 +7,7 @@ import { inventoryGridItems } from '../inventory/gridPresentation'
 import { rangedWeaponUnsupportedReason } from '../core/ranged'
 import type { SavedScenarioPreset } from '../scenario/presets'
 import { BuildAlternative } from '../views/RecommendedBuild'
+import { ObjectiveWeightSummary } from '../views/ObjectiveWeightSummary'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const formatGap = (gap: number) => gap > 0 && gap < 0.005 ? '0.01未満' : numberFormat.format(gap)
@@ -155,6 +156,7 @@ export function NewDropComparison({
     <p>ドロップした装備を1件だけ仮追加して、現在の最良ビルドと比べます。比較結果を確認して残す場合は、候補をInventoryへ登録できます。</p>
     {!trial ? <button className="secondary-button" type="button" onClick={onOpenPicker}>比較候補を選ぶ</button> : <>
       <div className="drop-candidate-summary"><strong>{candidate?.catalog.name.ja ?? candidate?.catalog.name.en ?? researchOnly?.catalogId ?? trial.instanceId}</strong><span>{candidate?.category ?? researchOnly?.category} · Power {candidate?.powerLevel ?? researchOnly?.powerLevel}</span></div>
+      <ObjectiveWeightSummary weights={scenario.weights} />
       <div className="drop-candidate-actions"><button className="secondary-button" type="button" onClick={onOpenPicker}>候補を変更</button><button type="button" onClick={onClearTrial}>候補を外す</button></div>
       {presets.length > 0 && <fieldset className="drop-condition-picker"><legend>保存済み条件でも比較</legend><p>選んだ条件では、現在のInventoryと候補追加後を別々に探索します。</p>{presets.map((preset) => <label key={preset.id}><input type="checkbox" checked={selectedPresetIds.includes(preset.id)} onChange={(event) => setSelectedPresetIds((current) => event.target.checked ? [...current, preset.id] : current.filter((id) => id !== preset.id))} />{preset.name}</label>)}</fieldset>}
       {blocker && <p className="drop-comparison-warning" role="note">{blocker}</p>}
@@ -171,6 +173,7 @@ export function NewDropComparison({
           <h3>保存済み条件の比較結果</h3>
           {savedComparisons.map((result) => <article key={result.condition.id} className="drop-saved-comparison">
             <h4>{result.condition.name}</h4>
+            <ObjectiveWeightSummary weights={result.condition.scenario.weights} />
             {result.status === 'error' ? <p className="drop-comparison-warning" role="alert">この条件は比較できませんでした: {result.error}</p> : <>
               <div className="drop-comparison-results">
                 <MetricSummary label="候補追加前の最良ビルド" evaluation={result.baselineBest} />

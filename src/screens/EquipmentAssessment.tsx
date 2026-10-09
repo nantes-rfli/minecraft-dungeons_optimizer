@@ -6,6 +6,7 @@ import { inventoryGridItemMatchesQuery, inventoryGridItems } from '../inventory/
 import { useOptimizer } from '../optimizer/useOptimizer'
 import type { SavedScenarioPreset } from '../scenario/presets'
 import { BuildAlternative, RecommendedBuild } from '../views/RecommendedBuild'
+import { ObjectiveWeightSummary } from '../views/ObjectiveWeightSummary'
 
 const format = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
 const formatGap = (gap: number) => gap > 0 && gap < 0.005 ? '0.01未満' : format.format(gap)
@@ -116,6 +117,13 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
     {search.error && <p role="alert">{search.error}</p>}
     <p className="assessment-limitations">差は用途ごとに読む値です。用途間のスコアは合算しません。最良と同点でも効果や性能が同じとは限らず、差があっても売却してよいという意味ではありません。未評価は0点にせず、売却判断を保留してください。</p>
     {search.assessments && <>
+      <section className="assessment-weight-key" aria-label="比較条件の評価配分">
+        <h3>条件ごとの評価配分</h3>
+        <ul>{search.assessments.map(({ condition }) => <li key={condition.id}>
+          <strong>{condition.name}</strong>
+          <ObjectiveWeightSummary weights={condition.scenario.weights} />
+        </li>)}</ul>
+      </section>
       {search.assessments.map((assessment, conditionIndex) => <details key={assessment.condition.id} className="assessment-condition">
         <summary>{assessment.condition.name} · {assessment.status === 'complete' ? `${assessment.evaluatedBuildCount}通りを全探索` : '評価できませんでした'}</summary>
         <p>{assessment.condition.scenario.name} · {assessment.condition.scenario.evidencePolicy === 'high-confidence-only' ? '確度の高い情報のみ' : 'Estimatedを含める'}</p>

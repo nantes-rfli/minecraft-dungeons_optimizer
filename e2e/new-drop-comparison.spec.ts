@@ -32,6 +32,7 @@ test('compares a staged drop before and after under a selected saved condition',
   await panel.getByRole('button', { name: '選んだ保存条件で比較' }).click()
   await expect(panel.getByRole('status').filter({ hasText: '保存済み条件の比較が完了しました。' })).toBeVisible({ timeout: 60_000 })
   const results = panel.getByRole('region', { name: '保存済み条件のドロップ比較' })
+  await expect(results.locator('.objective-weight-summary')).toContainText('Damage 0% · Healing 100% · Defense 0% · Control 0%')
   await expect(results).toContainText('候補追加前の最良ビルド')
   await expect(results).toContainText('候補追加後の最良ビルド')
   const savedMetricDeltas = results.locator('.drop-metric-deltas')
