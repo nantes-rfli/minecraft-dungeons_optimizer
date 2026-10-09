@@ -128,18 +128,18 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           </details>
         </>}
       </details>)}
-      {multiConditionBestScores && multiConditionBestScores.completedConditionCount > 1 && <section className="assessment-cross-condition" aria-label="複数条件で最良スコアに届く装備">
+      {multiConditionBestScores && multiConditionBestScores.distinctCompletedConditionCount > 1 && <section className="assessment-cross-condition" aria-label="複数条件で最良スコアに届く装備">
         <h3>複数条件で最良スコアの構成に使える装備</h3>
-        <p>装備個体を1つずつ必須にした最良構成を各条件で調べ、条件ごとの最良スコアと同点になった装備を表示します。複数の表示装備を同じ構成で同時に使えるとは限らず、条件間のスコアも比べたり合算したりしません。未評価の装備は含まず、ここにない装備が不要という意味ではありません。</p>
+        <p>装備個体を1つずつ必須にした最良構成を各条件で調べ、条件ごとの最良スコアと同点になった装備を表示します。表示名が異なっても評価入力が同じ条件は1件として数えます。複数の表示装備を同じ構成で同時に使えるとは限らず、条件間のスコアも比べたり合算したりしません。未評価の装備は含まず、ここにない装備が不要という意味ではありません。</p>
         {multiConditionBestScores.items.length > 0
           ? <ul>{multiConditionBestScores.items.map((entry) => {
             const item = itemById.get(entry.instanceId)
             return <li key={entry.instanceId}>
               <span className="cross-condition-equipment-name"><strong>{item?.catalog.name.ja ?? entry.instanceId}</strong><small>{item ? `${categoryOptions.find((option) => option.id === item.category)?.label ?? item.category} · Power ${item.powerLevel} · ${entry.instanceId}` : entry.instanceId}</small></span>
-              <span className="cross-condition-equipment-conditions"><strong>{entry.conditionIds.length} / {multiConditionBestScores.completedConditionCount}条件</strong><small>{entry.conditionNames.join(' · ')}</small></span>
+              <span className="cross-condition-equipment-conditions"><strong>{entry.conditionIds.length} / {multiConditionBestScores.distinctCompletedConditionCount}条件</strong><small>{entry.conditionNames.join(' · ')}</small></span>
             </li>
           })}</ul>
-          : <p>完了した{multiConditionBestScores.completedConditionCount}条件では、同じ装備個体が複数条件でそれぞれ最良スコアに届く構成はありませんでした。</p>}
+          : <p>完了した{multiConditionBestScores.distinctCompletedConditionCount}条件では、同じ装備個体が複数条件でそれぞれ最良スコアに届く構成はありませんでした。</p>}
       </section>}
       <fieldset className="assessment-view-controls"><legend>表示する装備</legend>
         <label>カテゴリ<select aria-label="表示カテゴリ" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value as (typeof categoryOptions)[number]['id'])}>

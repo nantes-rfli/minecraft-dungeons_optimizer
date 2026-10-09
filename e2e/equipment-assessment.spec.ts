@@ -13,29 +13,33 @@ test('compares every individual across saved purposes, shows exclusions and clea
   }
   const damage = { ...DEFAULT_SCENARIO, averageEnemyHealth: 1000, enemySupplyPerSecond: 1, weights: { damage: 1, healing: 0, defense: 0, control: 0 } }
   const healing = { ...damage, weights: { damage: 0, healing: 1, defense: 0, control: 0 } }
-  await page.addInitScript(({ inventory, damage, healing }) => {
+  const longerDamage = { ...damage, encounterDurationSeconds: damage.encounterDurationSeconds + 1 }
+  await page.addInitScript(({ inventory, damage, healing, longerDamage }) => {
     localStorage.setItem('minecraft-dungeons-optimizer.inventory.v1', JSON.stringify({ version: 5, inventory }))
     localStorage.setItem('minecraft-dungeons-optimizer.scenario-presets.v1', JSON.stringify({ version: 1, presets: [
       { id: 'damage', name: '火力用', scenario: damage },
       { id: 'healing', name: '回復用', scenario: healing },
       { id: 'damage-confirm', name: '火力確認用', scenario: damage },
+      { id: 'damage-longer', name: '長期戦用', scenario: longerDamage },
     ] }))
-  }, { inventory, damage, healing })
+  }, { inventory, damage, healing, longerDamage })
   await page.goto('/#/optimize')
   const saved = await page.evaluate(() => localStorage.getItem('minecraft-dungeons-optimizer.inventory.v1'))
   const panel = page.getByRole('region', { name: '装備の用途別評価' })
   await panel.getByLabel('火力用', { exact: true }).check()
   await panel.getByLabel('回復用', { exact: true }).check()
   await panel.getByLabel('火力確認用', { exact: true }).check()
+  await panel.getByLabel('長期戦用', { exact: true }).check()
   await panel.getByRole('button', { name: '用途別に評価する', exact: true }).click()
   await expect(panel.getByRole('status')).toHaveText('用途別評価が完了しました。', { timeout: 60_000 })
   const crossCondition = panel.getByRole('region', { name: '複数条件で最良スコアに届く装備' })
   await expect(crossCondition).toBeVisible()
   const repeatedCopy = crossCondition.getByRole('listitem').filter({ hasText: 'firepower-copy' })
   await expect(repeatedCopy).toContainText('火力用')
-  await expect(repeatedCopy).toContainText('火力確認用')
+  await expect(repeatedCopy).toContainText('長期戦用')
+  await expect(repeatedCopy).not.toContainText('火力確認用')
   const table = panel.getByRole('table')
-  await expect(table.getByRole('columnheader')).toHaveText(['装備', '現在の条件', '火力用', '回復用', '火力確認用'])
+  await expect(table.getByRole('columnheader')).toHaveText(['装備', '現在の条件', '火力用', '回復用', '火力確認用', '長期戦用'])
   const damageRow = table.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'firepower' }) })
   const healingRow = table.getByRole('row').filter({ has: page.getByRole('rowheader').filter({ hasText: 'sustain' }) })
   await expect(damageRow.getByRole('cell').nth(1)).toContainText('最良と同点')
