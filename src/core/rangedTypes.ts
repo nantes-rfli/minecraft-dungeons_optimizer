@@ -10,6 +10,8 @@ export interface OwnedRangedWeapon {
   readonly enchantmentSlots: readonly OwnedEnchantmentSlot<string>[]
   readonly gilded?: RangedRoll
   readonly rarity?: EquipmentRarity
+  /** User-owned organization metadata; does not affect optimizer eligibility or score. */
+  readonly isFavorite?: boolean
   readonly notes?: string
   /** Neutral, single-projectile damage, before selectable enchants/Armor/Strength/target DR. */
   readonly observation?: {

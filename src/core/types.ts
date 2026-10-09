@@ -434,6 +434,8 @@ export interface OwnedWeapon {
   readonly observedDamagePerHit?: number
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
+  /** User-owned organization metadata; does not affect optimizer eligibility or score. */
+  readonly isFavorite?: boolean
   readonly locked?: boolean
   readonly rarity?: EquipmentRarity
   readonly notes?: string
@@ -444,6 +446,8 @@ export interface OwnedArtifact {
   readonly artifactId: ArtifactId
   readonly powerLevel: number
   readonly rarity?: EquipmentRarity
+  /** User-owned organization metadata; does not affect optimizer eligibility or score. */
+  readonly isFavorite?: boolean
   readonly notes?: string
 }
 
@@ -480,6 +484,8 @@ export interface CatalogInventoryItem {
   readonly category: EquipmentCategory
   readonly catalogId: string
   readonly powerLevel: number
+  /** User-owned organization metadata; does not imply runtime support. */
+  readonly isFavorite?: boolean
   readonly notes?: string
   /** Per-instance facts for Research Quest; never implies runtime support. */
   readonly research?: CatalogResearchAttributes

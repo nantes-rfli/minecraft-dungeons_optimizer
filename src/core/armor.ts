@@ -98,6 +98,8 @@ export interface OwnedArmor<TArmorId extends string = string, TArmorEnchantmentI
   readonly observedHealthBonus?: number
   readonly enchantmentSlots: readonly ArmorEnchantmentSlot<TArmorEnchantmentId>[]
   readonly gilded?: ArmorGildedEnchantment<TArmorEnchantmentId>
+  /** User-owned organization metadata; does not affect optimizer eligibility or score. */
+  readonly isFavorite?: boolean
   readonly locked?: boolean
   /** Required for Mystery Armor and any future variable intrinsic roll. */
   readonly actualIntrinsicRolls?: readonly ArmorIntrinsicProperty[]
