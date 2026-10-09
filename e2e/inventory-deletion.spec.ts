@@ -65,6 +65,49 @@ test('inventory grid options support spatial keyboard selection', async ({ page 
   await expect(filteredOptions.nth(1)).toBeFocused()
 })
 
+test('favorites persist and filter across inventory views, including catalog-only equipment', async ({ page }) => {
+  const inventory: Inventory = {
+    weapons: [
+      { instanceId: 'anchor-copy', weaponId: 'anchor', powerLevel: 251, enchantmentSlots: [] },
+      { instanceId: 'axe-copy', weaponId: 'double-axe', powerLevel: 250, enchantmentSlots: [] },
+    ],
+    armors: [], rangedWeapons: [], artifacts: [],
+    catalogItems: [{ instanceId: 'unsupported-keeper', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251, isFavorite: true }],
+  }
+  const json = JSON.stringify({ version: 6, inventory })
+  await page.addInitScript(({ key, json }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, json) }, { key: storageKey, json })
+  await page.goto('/#/inventory')
+
+  const options = page.getByRole('listbox', { name: '所持装備', exact: true }).getByRole('option')
+  await expect(options).toHaveCount(3)
+  await expect(options.nth(2)).toHaveAttribute('data-favorite', 'true')
+  await options.nth(1).click()
+  const favoriteButton = page.getByRole('button', { name: /お気に入りに追加|お気に入りから解除/ })
+  await favoriteButton.click()
+  await expect(favoriteButton).toHaveAttribute('aria-pressed', 'true')
+  await expect.poll(() => page.evaluate((key) => {
+    const saved = JSON.parse(localStorage.getItem(key)!)
+    return saved.version === 6 && saved.inventory.weapons[1].isFavorite === true
+  }, storageKey)).toBe(true)
+
+  await page.getByRole('button', { name: 'お気に入りのみ', exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: '2件を表示' })).toBeVisible()
+  await expect(page.getByRole('listbox', { name: '所持装備', exact: true }).getByRole('option')).toHaveCount(2)
+  await page.getByRole('button', { name: 'リスト', exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: '2件を表示' })).toBeVisible()
+  await page.getByRole('button', { name: 'コンパクト', exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: '2件を表示' })).toBeVisible()
+
+  await page.getByRole('button', { name: '絞り込みを解除', exact: true }).click()
+  await expect(page.getByRole('status').filter({ hasText: '3件を表示' })).toBeVisible()
+  await page.evaluate(() => { window.location.hash = '/storage' })
+  await page.getByRole('button', { name: '現在の装備を書き出す' }).click()
+  const exported = JSON.parse(await page.getByRole('textbox', { name: 'Inventory JSON' }).inputValue())
+  expect(exported.version).toBe(6)
+  expect(exported.inventory.catalogItems[0].isFavorite).toBe(true)
+  expect(exported.inventory.weapons[1].isFavorite).toBe(true)
+})
+
 for (const view of ['list', 'compact', 'grid'] as const) {
   for (const target of cases) {
     test(`${view} ${target.name}: cancel preserves data; confirm deletes only selected instance`, async ({ page }) => {

@@ -8,6 +8,7 @@ export interface InventoryGridItem {
   readonly category: EquipmentCategory
   readonly catalogId: string
   readonly powerLevel: number
+  readonly isFavorite: boolean
   readonly rarity: EquipmentRarity | 'unrecorded'
   readonly gilded: boolean
   readonly notes?: string
@@ -24,21 +25,22 @@ export interface InventoryGridFilters {
   readonly gilded: 'all' | 'gilded' | 'standard'
   readonly powerMinimum: number | null
   readonly powerMaximum: number | null
+  readonly favoritesOnly?: boolean
 }
 
 export function inventoryGridItems(inventory: Inventory): InventoryGridItem[] {
   const selectedNames = (slots: readonly OwnedEnchantmentSlot<string>[]) => slots.flatMap((slot) => slot.selected ? [resolveEnchantment(slot.selected.enchantmentId)?.name.ja ?? slot.selected.enchantmentId] : [])
-  const item = (instanceId: string, category: EquipmentCategory, catalogId: string, powerLevel: number, rarity: EquipmentRarity | undefined, gilded: boolean, enchantments: readonly string[], enchantmentSlots: readonly OwnedEnchantmentSlot<string>[] = [], gildedEnchantment?: { enchantmentId: string; tier: EnchantmentTier }, notes?: string, researchEnchantmentIds: readonly string[] = []): InventoryGridItem => {
+  const item = (instanceId: string, category: EquipmentCategory, catalogId: string, powerLevel: number, rarity: EquipmentRarity | undefined, gilded: boolean, enchantments: readonly string[], enchantmentSlots: readonly OwnedEnchantmentSlot<string>[] = [], gildedEnchantment?: { enchantmentId: string; tier: EnchantmentTier }, notes?: string, researchEnchantmentIds: readonly string[] = [], isFavorite?: boolean): InventoryGridItem => {
     const catalog = getEquipmentCatalogEntry(category, catalogId)
     if (!catalog) throw new Error(`Equipment catalog missing: ${equipmentKey(category, catalogId)}`)
-    return { instanceId, category, catalogId, powerLevel, rarity: rarity ?? (catalog.rarityFamily === 'unique' ? 'unique' : 'unrecorded'), gilded, enchantments, enchantmentSlots, researchEnchantmentIds, ...(gildedEnchantment ? { gildedEnchantment } : {}), ...(notes ? { notes } : {}), catalog }
+    return { instanceId, category, catalogId, powerLevel, isFavorite: isFavorite ?? false, rarity: rarity ?? (catalog.rarityFamily === 'unique' ? 'unique' : 'unrecorded'), gilded, enchantments, enchantmentSlots, researchEnchantmentIds, ...(gildedEnchantment ? { gildedEnchantment } : {}), ...(notes ? { notes } : {}), catalog }
   }
   return [
-    ...inventory.weapons.map((owned) => item(owned.instanceId, 'melee', owned.weaponId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes)),
-    ...(inventory.armors ?? []).map((owned) => item(owned.instanceId, 'armor', owned.armorId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes)),
-    ...(inventory.rangedWeapons ?? []).map((owned) => item(owned.instanceId, 'ranged', owned.weaponId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes)),
-    ...inventory.artifacts.map((owned) => item(owned.instanceId, 'artifact', owned.artifactId, owned.powerLevel, owned.rarity, false, [], undefined, undefined, owned.notes)),
-    ...(inventory.catalogItems ?? []).map((owned) => item(owned.instanceId, owned.category, owned.catalogId, owned.powerLevel, owned.rarity, Boolean(owned.gilded ?? owned.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')), owned.enchantmentSlots ? selectedNames(owned.enchantmentSlots) : owned.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').map((enchantment) => resolveEnchantment(enchantment.enchantmentId)?.name.ja ?? enchantment.enchantmentId) ?? [], owned.enchantmentSlots ?? [], owned.gilded, owned.notes, owned.research?.enchantments?.map((enchantment) => enchantment.enchantmentId) ?? [])),
+    ...inventory.weapons.map((owned) => item(owned.instanceId, 'melee', owned.weaponId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes, [], owned.isFavorite)),
+    ...(inventory.armors ?? []).map((owned) => item(owned.instanceId, 'armor', owned.armorId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes, [], owned.isFavorite)),
+    ...(inventory.rangedWeapons ?? []).map((owned) => item(owned.instanceId, 'ranged', owned.weaponId, owned.powerLevel, owned.rarity, Boolean(owned.gilded), selectedNames(owned.enchantmentSlots), owned.enchantmentSlots, owned.gilded, owned.notes, [], owned.isFavorite)),
+    ...inventory.artifacts.map((owned) => item(owned.instanceId, 'artifact', owned.artifactId, owned.powerLevel, owned.rarity, false, [], undefined, undefined, owned.notes, [], owned.isFavorite)),
+    ...(inventory.catalogItems ?? []).map((owned) => item(owned.instanceId, owned.category, owned.catalogId, owned.powerLevel, owned.rarity, Boolean(owned.gilded ?? owned.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')), owned.enchantmentSlots ? selectedNames(owned.enchantmentSlots) : owned.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').map((enchantment) => resolveEnchantment(enchantment.enchantmentId)?.name.ja ?? enchantment.enchantmentId) ?? [], owned.enchantmentSlots ?? [], owned.gilded, owned.notes, owned.research?.enchantments?.map((enchantment) => enchantment.enchantmentId) ?? [], owned.isFavorite)),
   ]
 }
 
@@ -85,6 +87,7 @@ export function inventoryGridItemMatchesQuery(item: InventoryGridItem, query: st
     item.rarity,
     raritySearchLabels[item.rarity],
     item.gilded ? 'gilded gold 金色' : 'standard 通常',
+    item.isFavorite ? 'お気に入り favorite' : undefined,
     item.notes,
     ...item.enchantments,
     ...enchantmentTerms,
@@ -94,6 +97,7 @@ export function inventoryGridItemMatchesQuery(item: InventoryGridItem, query: st
 }
 
 export function inventoryGridItemMatchesFilters(item: InventoryGridItem, filters: InventoryGridFilters): boolean {
+  if (filters.favoritesOnly && !item.isFavorite) return false
   if (filters.category !== 'all' && item.category !== filters.category) return false
   if (filters.gilded !== 'all' && (filters.gilded === 'gilded') !== item.gilded) return false
 

@@ -152,7 +152,7 @@ test('major equipment flow, observed ranged, locks, gilded, JSON and persistence
   await page.getByRole('button', { name: '現在の装備を書き出す', exact: true }).click()
   const exported = await json.inputValue()
   const data = JSON.parse(exported)
-  expect(data.version).toBe(5)
+  expect(data.version).toBe(6)
   expect(data.inventory.rangedWeapons[0].gilded.enchantmentId).toBe('critical-hit')
   await json.fill('{invalid')
   await page.getByRole('button', { name: 'JSONを読み込む', exact: true }).click()

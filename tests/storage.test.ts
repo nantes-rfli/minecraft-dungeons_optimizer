@@ -35,10 +35,33 @@ describe('inventory JSON', () => {
     expect(deserializeInventory(serializeInventory(inventory))).toEqual(inventory)
   })
 
-  it('writes schema v5 and retains research attributes for audited runtime-unsupported equipment', () => {
+  it('writes schema v6 and retains research attributes for audited runtime-unsupported equipment', () => {
     const serialized = serializeInventory(inventory)
-    expect(JSON.parse(serialized).version).toBe(5)
+    expect(JSON.parse(serialized).version).toBe(6)
     expect(deserializeInventory(serialized).catalogItems).toEqual(inventory.catalogItems)
+  })
+
+  it('round-trips favorites across runtime and catalog-only equipment without changing unsupported data', () => {
+    const favoriteInventory: Inventory = {
+      weapons: [{ ...inventory.weapons[0]!, isFavorite: true }],
+      armors: [{ instanceId: 'armor-favorite', armorId: 'battle-robe', powerLevel: 251, enchantmentSlots: [], isFavorite: false }],
+      rangedWeapons: [{ instanceId: 'ranged-favorite', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [], isFavorite: true }],
+      artifacts: [{ ...inventory.artifacts[0]!, isFavorite: false }],
+      catalogItems: [{ ...inventory.catalogItems![0]!, isFavorite: true }],
+    }
+    const serialized = serializeInventory(favoriteInventory)
+
+    expect(JSON.parse(serialized).version).toBe(6)
+    expect(deserializeInventory(serialized)).toEqual(favoriteInventory)
+  })
+
+  it('rejects non-boolean favorites instead of silently dropping malformed preference data', () => {
+    const invalid = JSON.stringify({ version: 6, inventory: {
+      weapons: [{ instanceId: 'invalid-favorite', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [], isFavorite: 'yes' }],
+      artifacts: [],
+    } })
+
+    expect(() => deserializeInventory(invalid)).toThrow('isFavoriteはboolean')
   })
 
   it('rejects non-audited catalog-only equipment', () => {

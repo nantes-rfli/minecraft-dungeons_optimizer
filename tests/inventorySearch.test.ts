@@ -38,6 +38,19 @@ describe('inventory search', () => {
     expect(inventoryGridItemMatchesQuery(item, '   ')).toBe(true)
   })
 
+  it('filters favorite equipment independently of search and gameplay support', () => {
+    const favorites = inventoryGridItems({
+      weapons: [{ ...inventory.weapons[0]!, isFavorite: true }],
+      artifacts: [],
+      catalogItems: [{ instanceId: 'unsupported-favorite', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251, isFavorite: true }],
+    })
+    const filters = { query: '', category: 'all' as const, gilded: 'all' as const, powerMinimum: null, powerMaximum: null, favoritesOnly: true }
+
+    expect(inventoryGridItemMatchesQuery(favorites[0]!, 'お気に入り')).toBe(true)
+    expect(favorites.filter((candidate) => inventoryGridItemMatchesFilters(candidate, filters)).map((candidate) => candidate.instanceId)).toEqual(['bindings-control-copy', 'unsupported-favorite'])
+    expect(inventoryGridItemMatchesFilters(item, filters)).toBe(false)
+  })
+
   it('matches preserved research enchantment IDs and localized names', () => {
     const researchInventory: Inventory = {
       weapons: [],
