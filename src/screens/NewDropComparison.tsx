@@ -81,8 +81,8 @@ export function NewDropComparison({
   readonly onKeepCandidate: () => void
 }) {
   const trialInventory = trial?.inventory ?? inventory
-  const comparison = useOptimizer(trialInventory, scenario, true)
-  const { start: startComparisonWorker, status: comparisonStatus, result: comparisonResult, evaluatedInstanceIds, error: comparisonError } = comparison
+  const comparison = useOptimizer(trialInventory, scenario, true, undefined, undefined, undefined, trial?.instanceId)
+  const { start: startComparisonWorker, status: comparisonStatus, result: comparisonResult, evaluatedInstanceIds, equipmentEvaluation, error: comparisonError } = comparison
   const [selectedPresetIds, setSelectedPresetIds] = useState<readonly string[]>([])
   const comparisonConditions = useMemo<readonly AssessmentCondition[]>(() => presets
     .filter((preset) => selectedPresetIds.includes(preset.id))
@@ -110,7 +110,7 @@ export function NewDropComparison({
   const candidateExclusionMessage = candidateExclusionReasons.length
     ? `この候補は比較に使えませんでした: ${candidateExclusionReasons.join(' / ')}`
     : 'この候補が評価対象に含まれていないため、比較結果を表示しません。'
-  const resultsReady = Boolean(baseline.result && comparisonResult && comparisonStatus === 'complete' && candidateEvaluated)
+  const resultsReady = Boolean(baseline.result && comparisonResult && comparisonStatus === 'complete' && candidateEvaluated && equipmentEvaluation)
   const candidateIncluded = trial && comparisonResult ? buildUsesInstance(comparisonResult.best.build, trial.instanceId) : false
   const savedComparisons = savedComparison.trialComparisons
   const savedCandidateEvaluated = Boolean(savedComparisons?.some((item) => item.status === 'complete' && item.candidate.status === 'evaluated'))
@@ -194,6 +194,11 @@ export function NewDropComparison({
         <MetricDeltaSummary before={baseline.result.best} after={comparisonResult.best} />
         <p className="drop-comparison-outcome">総合スコア差: {scoreDelta! >= 0 ? '+' : ''}{numberFormat.format(scoreDelta!)} · {candidateIncluded ? '新しい装備が最良ビルドに含まれています。' : '新しい装備は最良ビルドに選ばれませんでした。'}</p>
         <details className="drop-build-details"><summary>仮追加後の構成と現在との差を見る</summary><BuildAlternative title="仮追加後の最良構成" evaluation={comparisonResult.best} best={baseline.result.best} weights={scenario.weights} /></details>
+        <section className="drop-candidate-build" aria-label="仮候補を使う最良構成">
+          <MetricSummary label="候補を使う最良ビルド" evaluation={equipmentEvaluation!} />
+          <p>候補を必須にした最良スコア: {numberFormat.format(equipmentEvaluation!.objectiveScore)} · 仮追加後の全体最良との差 {formatGap(comparisonResult.best.objectiveScore - equipmentEvaluation!.objectiveScore)}pt</p>
+          <details className="drop-build-details"><summary>候補を使う構成と全体最良との差を見る</summary><BuildAlternative title="候補を使う最良構成" evaluation={equipmentEvaluation!} best={comparisonResult.best} weights={scenario.weights} /></details>
+        </section>
         <button className="primary-button" type="button" onClick={onKeepCandidate}>この候補をInventoryに追加</button>
       </>}
     </>}

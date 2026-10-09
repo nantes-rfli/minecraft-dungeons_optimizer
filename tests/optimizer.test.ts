@@ -75,6 +75,35 @@ describe('optimize', () => {
     expect(result.unsupportedChoices).toContain('drop-artifact: Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外')
   })
 
+  it('returns the best supported build containing one requested equipment instance', () => {
+    const candidateInventory: Inventory = {
+      ...inventory,
+      weapons: [...inventory.weapons, { ...inventory.weapons[0]!, instanceId: 'staged-drop', powerLevel: 263 }],
+    }
+    const original = JSON.stringify(candidateInventory)
+    const { result, evaluatedInstanceIds, equipmentEvaluation } = optimizeWithMetadata(candidateInventory, DEFAULT_SCENARIO, 'staged-drop')
+
+    expect(evaluatedInstanceIds).toContain('staged-drop')
+    expect(equipmentEvaluation?.build.weapon.instanceId).toBe('staged-drop')
+    expect(equipmentEvaluation?.objectiveScore).toBeLessThanOrEqual(result.best.objectiveScore)
+    expect(JSON.stringify(candidateInventory)).toBe(original)
+  })
+
+  it('does not return a numeric evaluation for an excluded requested item', () => {
+    const candidateInventory: Inventory = {
+      weapons: [inventory.weapons[0]!],
+      artifacts: [{ instanceId: 'excluded-drop', artifactId: 'death-cap-mushroom', powerLevel: 251 }],
+    }
+    const { evaluatedInstanceIds, equipmentEvaluation } = optimizeWithMetadata(
+      candidateInventory,
+      { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' },
+      'excluded-drop',
+    )
+
+    expect(evaluatedInstanceIds).not.toContain('excluded-drop')
+    expect(equipmentEvaluation).toBeUndefined()
+  })
+
   it('changes rankings when scenario weights change', () => {
     const damage = optimize(inventory, {
       ...DEFAULT_SCENARIO,

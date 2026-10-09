@@ -5,12 +5,13 @@ import { compareRemovalAcrossConditions } from '../core/inventoryRemovalComparis
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
-  const { id, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison } = event.data
+  const { id, inventory, scenario, includeEvaluationMetadata, equipmentInstanceId, assessmentConditions, trialComparison, removalComparison } = event.data
   let response: OptimizeResponse
   try {
     const start = performance.now()
     if ((trialComparison || removalComparison) && !assessmentConditions) throw new Error('比較する条件を選んでください。')
     if (trialComparison && removalComparison) throw new Error('追加と除去の比較を同時に実行できません。')
+    if (equipmentInstanceId !== undefined && (assessmentConditions || trialComparison || removalComparison)) throw new Error('個体別評価は単独の最適化で指定してください。')
     if (assessmentConditions && trialComparison) {
       response = { id, type: 'trial-comparison-complete', comparisons: compareTrialAcrossConditions(trialComparison.baselineInventory, inventory, trialComparison.candidateInstanceId, assessmentConditions), durationMs: performance.now() - start }
       self.postMessage(response)
@@ -26,13 +27,16 @@ self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
       self.postMessage(response)
       return
     }
-    const execution = includeEvaluationMetadata ? optimizeWithMetadata(inventory, scenario) : undefined
+    const execution = includeEvaluationMetadata || equipmentInstanceId !== undefined
+      ? optimizeWithMetadata(inventory, scenario, equipmentInstanceId)
+      : undefined
     const result = execution?.result ?? optimize(inventory, scenario)
     response = {
       id,
       type: 'complete',
       result,
       ...(execution ? { evaluatedInstanceIds: execution.evaluatedInstanceIds } : {}),
+      ...(execution?.equipmentEvaluation ? { equipmentEvaluation: execution.equipmentEvaluation } : {}),
       durationMs: performance.now() - start,
     }
   } catch (error) {

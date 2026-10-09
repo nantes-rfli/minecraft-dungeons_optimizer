@@ -65,6 +65,16 @@ describe('worker lifecycle', () => {
     expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result, evaluatedInstanceIds, durationMs: 5 })
     expect(worker.terminate).toHaveBeenCalledOnce()
   })
+  it('returns a requested equipment evaluation without changing the exhaustive result', () => {
+    const worker = new FakeWorker()
+    const controller = new OptimizerController(() => worker)
+    controller.start({ ...input, includeEvaluationMetadata: true, equipmentInstanceId: 'w' })
+    const request = worker.postMessage.mock.calls[0]![0]
+    const { result, evaluatedInstanceIds, equipmentEvaluation } = optimizeWithMetadata(input.inventory, input.scenario, 'w')
+    expect(equipmentEvaluation).toEqual(result.best)
+    worker.reply({ id: request.id, type: 'complete', result, evaluatedInstanceIds, equipmentEvaluation, durationMs: 5 })
+    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result, evaluatedInstanceIds, equipmentEvaluation, durationMs: 5 })
+  })
   it('discards stale completion on cancel, restart, changed inputs and unmount reset', () => {
     const workers: FakeWorker[] = []
     const controller = new OptimizerController(() => { const w = new FakeWorker(); workers.push(w); return w })
