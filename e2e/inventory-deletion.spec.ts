@@ -18,6 +18,53 @@ const cases: { name: string; collection: keyof Inventory; item: { instanceId: st
   })),
 ]
 
+test('inventory grid options support spatial keyboard selection', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 })
+  const inventory: Inventory = {
+    weapons: Array.from({ length: 6 }, (_, index) => ({ instanceId: `keyboard-${index}`, weaponId: 'double-axe', powerLevel: 250 + index, rarity: 'unique', enchantmentSlots: [] })),
+    armors: [], rangedWeapons: [], artifacts: [], catalogItems: [],
+  }
+  const json = JSON.stringify({ version: 5, inventory })
+  await page.addInitScript(({ key, json }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, json) }, { key: storageKey, json })
+  await page.goto('/#/inventory')
+
+  const listbox = page.getByRole('listbox', { name: '所持装備', exact: true })
+  const options = listbox.getByRole('option')
+  await expect(options).toHaveCount(6)
+  await expect(options.nth(0)).toHaveAttribute('tabindex', '0')
+  await expect(options.nth(1)).toHaveAttribute('tabindex', '-1')
+  await options.nth(0).focus()
+  await page.keyboard.press('ArrowDown')
+  await expect(options.nth(3)).toBeFocused()
+  await expect(options.nth(3)).toHaveAttribute('aria-selected', 'true')
+  await page.keyboard.press('ArrowUp')
+  await expect(options.nth(0)).toBeFocused()
+  await page.keyboard.press('End')
+  await expect(options.nth(5)).toBeFocused()
+  await page.keyboard.press('Home')
+  await expect(options.nth(0)).toBeFocused()
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+  const boundaryScroll = await page.evaluate(() => window.scrollY)
+  expect(boundaryScroll).toBeGreaterThan(0)
+  await page.keyboard.press('Home')
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(boundaryScroll)
+  await page.keyboard.press('ArrowRight')
+  await expect(options.nth(1)).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expect(options.nth(1)).toHaveAttribute('aria-selected', 'true')
+  await expect(options.nth(1)).toHaveAttribute('tabindex', '0')
+  await expect(options.nth(0)).toHaveAttribute('tabindex', '-1')
+  await expect(page.getByRole('complementary', { name: '選択した装備の詳細' })).toContainText('Double Axe')
+
+  await page.getByRole('spinbutton', { name: 'Power 最小値' }).fill('253')
+  const filteredOptions = listbox.getByRole('option')
+  await expect(filteredOptions).toHaveCount(3)
+  await expect(filteredOptions.first()).toHaveAttribute('tabindex', '0')
+  await filteredOptions.first().focus()
+  await page.keyboard.press('ArrowRight')
+  await expect(filteredOptions.nth(1)).toBeFocused()
+})
+
 for (const view of ['list', 'compact', 'grid'] as const) {
   for (const target of cases) {
     test(`${view} ${target.name}: cancel preserves data; confirm deletes only selected instance`, async ({ page }) => {

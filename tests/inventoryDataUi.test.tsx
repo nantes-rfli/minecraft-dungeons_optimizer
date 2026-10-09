@@ -23,6 +23,8 @@ describe('inventory and data presentation', () => {
     const html = renderToStaticMarkup(createElement(InventoryGameGrid, { inventory, onChange: () => undefined, onOpenFullEditor: () => undefined, query: '', category: 'all', gilded: 'all', powerMinimum: null, powerMaximum: null, sort: 'recent' }))
     expect(inventoryGridItems(inventory)).toHaveLength(2)
     expect(html.match(/role="option"/g)).toHaveLength(2)
+    expect(html.match(/tabindex="0"/g)).toHaveLength(1)
+    expect(html.match(/tabindex="-1"/g)).toHaveLength(1)
     expect(html).toContain('aria-label="両刃斧、Double Axe"')
     expect(html).toContain('data-rarity="rare"')
     expect(html).toContain('data-gilded="true"')

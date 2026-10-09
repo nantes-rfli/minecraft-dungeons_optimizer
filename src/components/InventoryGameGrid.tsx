@@ -6,6 +6,7 @@ import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
 import { hrefForEquipment } from '../app/routes'
 import { inventoryGridItemMatchesFilters, inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
+import { nextInventoryGridIndex, type InventoryGridNavigationKey } from '../inventory/gridKeyboardNavigation'
 import { EquipmentArtwork, EquipmentCategoryIcon, SoulMarker } from './EquipmentArtwork'
 import { EnchantmentIdentity } from './EnchantmentArtwork'
 import { EnchantmentDiamond } from './EnchantmentSlotEditor'
@@ -14,6 +15,10 @@ import { InventoryDeleteButton } from './InventoryDeleteButton'
 
 const EQUIPMENT_CATEGORY_LABELS = { melee: '近接', armor: '防具', ranged: '遠距離', artifact: 'アーティファクト' } as const
 const RARITY_LABELS: Record<EquipmentRarity | 'unrecorded', string> = { common: 'コモン', rare: 'レア', unique: 'ユニーク', unrecorded: '未記録' }
+
+function isInventoryGridNavigationKey(key: string): key is InventoryGridNavigationKey {
+  return key === 'ArrowDown' || key === 'ArrowLeft' || key === 'ArrowRight' || key === 'ArrowUp' || key === 'End' || key === 'Home'
+}
 
 export { EquipmentArtwork } from './EquipmentArtwork'
 
@@ -52,13 +57,47 @@ export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query
     return filtered.sort((left, right) => sort === 'power-desc' ? right.powerLevel - left.powerLevel : sort === 'power-asc' ? left.powerLevel - right.powerLevel : sort === 'name' ? (left.catalog.name.ja ?? left.catalog.name.en).localeCompare(right.catalog.name.ja ?? right.catalog.name.en, 'ja') : 0)
   }, [inventory, query, category, gilded, powerMinimum, powerMaximum, sort])
   const selected = items.find((item) => item.instanceId === selectedId) ?? null
+  const tabStopId = selected?.instanceId ?? items[0]?.instanceId ?? null
   return <div className={`inventory-game-layout ${selected ? 'has-selection' : ''}`}>
     <section className="inventory-grid-panel" aria-label="所持装備グリッド"><div className="game-inventory-grid" role="listbox" aria-label="所持装備">
-      {items.map((item, index) => { const label = `${item.catalog.name.ja}、${item.catalog.name.en}${item.enchantments.length ? `、選択済み ${item.enchantments.join('、')}` : ''}`; const tooltipId = `slot-tooltip-${item.instanceId.replace(/[^a-zA-Z0-9_-]/g, '-')}`; return <button key={item.instanceId} type="button" role="option" aria-selected={selectedId === item.instanceId} aria-label={label} aria-describedby={tooltipId} className="inventory-slot" data-rarity={item.rarity} data-gilded={item.gilded || undefined} onClick={() => setSelectedId(item.instanceId)}>
-        <EquipmentArtwork catalog={item.catalog} priority={index < 12} />{item.catalog.soulGear && <SoulMarker size="small" />}{item.enchantments.length > 0 && <span className="slot-selected-enchants" aria-hidden="true">◇{item.enchantments.length}</span>}<span className="slot-power"><i><EquipmentCategoryIcon category={item.category as EnchantmentCatalogCategory} /></i><b>{item.powerLevel}</b></span><span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span><span className="slot-name-tooltip" id={tooltipId} role="tooltip"><strong>{item.catalog.name.ja}</strong><small lang="en">{item.catalog.name.en}</small>{item.enchantments.length > 0 && <small>選択済み: {item.enchantments.join(' · ')}</small>}</span>
-      </button> })}
-      {items.length === 0 && <div className="grid-empty"><strong>該当する装備がありません</strong><p>検索語や絞り込みを変更してください。</p></div>}
-    </div></section>
+      {items.map((item, index) => {
+        const label = `${item.catalog.name.ja}、${item.catalog.name.en}${item.enchantments.length ? `、選択済み ${item.enchantments.join('、')}` : ''}`
+        const tooltipId = `slot-tooltip-${item.instanceId.replace(/[^a-zA-Z0-9_-]/g, '-')}`
+        return <button
+          key={item.instanceId}
+          type="button"
+          role="option"
+          aria-selected={selectedId === item.instanceId}
+          tabIndex={tabStopId === item.instanceId ? 0 : -1}
+          aria-label={label}
+          aria-describedby={tooltipId}
+          className="inventory-slot"
+          data-rarity={item.rarity}
+          data-gilded={item.gilded || undefined}
+          onClick={() => setSelectedId(item.instanceId)}
+          onKeyDown={(event) => {
+            if (!isInventoryGridNavigationKey(event.key)) return
+            const listbox = event.currentTarget.parentElement
+            const columnTemplate = listbox ? window.getComputedStyle(listbox).gridTemplateColumns.trim() : ''
+            const columns = columnTemplate.split(/\s+/).filter(Boolean).length || 1
+            const targetIndex = nextInventoryGridIndex(index, items.length, columns, event.key)
+            event.preventDefault()
+            if (targetIndex === index || targetIndex < 0) return
+            const targetItem = items[targetIndex]
+            if (!targetItem) return
+            setSelectedId(targetItem.instanceId)
+            listbox?.querySelectorAll<HTMLButtonElement>('[role="option"]')[targetIndex]?.focus()
+          }}
+        >
+          <EquipmentArtwork catalog={item.catalog} priority={index < 12} />
+          {item.catalog.soulGear && <SoulMarker size="small" />}
+          {item.enchantments.length > 0 && <span className="slot-selected-enchants" aria-hidden="true">◇{item.enchantments.length}</span>}
+          <span className="slot-power"><i><EquipmentCategoryIcon category={item.category as EnchantmentCatalogCategory} /></i><b>{item.powerLevel}</b></span>
+          <span className="sr-only">{RARITY_LABELS[item.rarity]}{item.gilded ? '、金色' : ''}</span>
+          <span className="slot-name-tooltip" id={tooltipId} role="tooltip"><strong>{item.catalog.name.ja}</strong><small lang="en">{item.catalog.name.en}</small>{item.enchantments.length > 0 && <small>選択済み: {item.enchantments.join(' · ')}</small>}</span>
+        </button>
+      })}
+    </div>{items.length === 0 && <div className="grid-empty" role="status"><strong>該当する装備がありません</strong><p>検索語や絞り込みを変更してください。</p></div>}</section>
     {selected ? <SelectedEquipmentPane item={selected} duplicateCount={inventoryGridItems(inventory).filter((item) => item.category === selected.category && item.catalogId === selected.catalogId).length} inventory={inventory} onChange={onChange} onOpenFullEditor={onOpenFullEditor} onClose={() => setSelectedId(null)} /> : <aside className="selected-equipment-pane detail-empty"><span aria-hidden="true">◇</span><h2>装備を選択してください</h2><p>スロットを選ぶと、この個体の Power・Enchant・金色状態を確認できます。</p></aside>}
   </div>
 }
