@@ -892,6 +892,12 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .assessment-card dd small { display: block; }
 .assessment-card dd button { justify-self: start; margin-top: 4px; }
 .assessment-condition { margin: 12px 0; overflow-wrap: anywhere; }
+.assessment-table th > button, .assessment-card > button { display: block; max-width: 100%; margin-top: 8px; }
+.assessment-removal { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
+.assessment-removal h3 { margin: 0; font-size: 18px; }
+.assessment-removal-condition { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+.assessment-removal-condition h4 { margin: 0 0 8px; }
+.assessment-removal-condition .build-alternative { margin-top: 10px; }
 @media (max-width: 640px) {
   .equipment-assessment { padding: 16px; }
   .assessment-table-scroll { display: none; }

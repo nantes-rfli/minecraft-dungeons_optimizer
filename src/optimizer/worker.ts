@@ -1,16 +1,23 @@
 import { optimize, optimizeWithMetadata } from '../core/optimizer'
 import { assessEquipment } from '../core/equipmentAssessment'
 import { compareTrialAcrossConditions } from '../core/trialConditionComparison'
+import { compareRemovalAcrossConditions } from '../core/inventoryRemovalComparison'
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
-  const { id, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison } = event.data
+  const { id, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison } = event.data
   let response: OptimizeResponse
   try {
     const start = performance.now()
-    if (trialComparison && !assessmentConditions) throw new Error('保存済み条件を選んでから比較してください。')
+    if ((trialComparison || removalComparison) && !assessmentConditions) throw new Error('比較する条件を選んでください。')
+    if (trialComparison && removalComparison) throw new Error('追加と除去の比較を同時に実行できません。')
     if (assessmentConditions && trialComparison) {
       response = { id, type: 'trial-comparison-complete', comparisons: compareTrialAcrossConditions(trialComparison.baselineInventory, inventory, trialComparison.candidateInstanceId, assessmentConditions), durationMs: performance.now() - start }
+      self.postMessage(response)
+      return
+    }
+    if (assessmentConditions && removalComparison) {
+      response = { id, type: 'removal-comparison-complete', comparisons: compareRemovalAcrossConditions(inventory, removalComparison.instanceId, assessmentConditions, removalComparison.baseline), durationMs: performance.now() - start }
       self.postMessage(response)
       return
     }

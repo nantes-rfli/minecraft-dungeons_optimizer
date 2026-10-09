@@ -1,18 +1,19 @@
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react'
 import type { Inventory, Scenario } from '../core/types'
 import type { AssessmentCondition } from '../core/equipmentAssessment'
-import type { TrialComparisonInput } from './protocol'
+import type { RemovalComparisonInput, TrialComparisonInput } from './protocol'
 import OptimizerWorker from './worker?worker'
 import { IDLE_SEARCH, OptimizerController } from './controller'
 
-export function useOptimizer(inventory: Inventory, scenario: Scenario, includeEvaluationMetadata = false, assessmentConditions?: readonly AssessmentCondition[], trialComparison?: TrialComparisonInput) {
+export function useOptimizer(inventory: Inventory, scenario: Scenario, includeEvaluationMetadata = false, assessmentConditions?: readonly AssessmentCondition[], trialComparison?: TrialComparisonInput, removalComparison?: RemovalComparisonInput) {
   const [controller] = useState(() => new OptimizerController(() => new OptimizerWorker()))
   const snapshot = useSyncExternalStore(controller.subscribe, controller.getSnapshot, () => IDLE_SEARCH)
   useEffect(() => {
     controller.reset()
     return () => controller.reset()
-  }, [controller, inventory, scenario, assessmentConditions, trialComparison])
+  }, [controller, inventory, scenario, assessmentConditions, trialComparison, removalComparison])
   // Hide the previous inputs' results immediately, before passive effect cleanup.
-  const state = snapshot.request?.inventory === inventory && snapshot.request.scenario === scenario && snapshot.request.assessmentConditions === assessmentConditions && snapshot.request.trialComparison === trialComparison ? snapshot : IDLE_SEARCH
-  return { ...state, start: () => controller.start({ inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison }), cancel: controller.cancel }
+  const state = snapshot.request?.inventory === inventory && snapshot.request.scenario === scenario && snapshot.request.assessmentConditions === assessmentConditions && snapshot.request.trialComparison === trialComparison && snapshot.request.removalComparison === removalComparison ? snapshot : IDLE_SEARCH
+  const start = useCallback(() => controller.start({ inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison }), [controller, inventory, scenario, includeEvaluationMetadata, assessmentConditions, trialComparison, removalComparison])
+  return { ...state, start, cancel: controller.cancel }
 }
