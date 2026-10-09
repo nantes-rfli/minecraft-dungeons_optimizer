@@ -892,6 +892,14 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .assessment-card dd small { display: block; }
 .assessment-card dd button { justify-self: start; margin-top: 4px; }
 .assessment-condition { margin: 12px 0; overflow-wrap: anywhere; }
+.assessment-cross-condition { margin: 18px 0; border-left: 3px solid var(--accent); padding: 12px 14px; background: #121b14; }
+.assessment-cross-condition h3 { margin: 0; font-size: 18px; }
+.assessment-cross-condition > p { max-width: 900px; margin: 7px 0 12px; }
+.assessment-cross-condition > ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.assessment-cross-condition li { display: flex; justify-content: space-between; gap: 10px; min-width: 0; border: 1px solid var(--line); padding: 10px 12px; background: #0e1511; }
+.assessment-cross-condition li > span { display: grid; align-content: start; min-width: 0; overflow-wrap: anywhere; }
+.assessment-cross-condition li > span:last-child { text-align: right; }
+.assessment-cross-condition li small { font-size: 12px; }
 .assessment-table th > button, .assessment-card > button { display: block; max-width: 100%; margin-top: 8px; }
 .assessment-removal { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 16px; }
 .assessment-removal h3 { margin: 0; font-size: 18px; }
