@@ -51,8 +51,7 @@ export function ControlSettings({ scenario, onChange }: { scenario: Scenario; on
       <span>{label}</span><input aria-label={label} type="number" min="1" max={scenario.averageTargetsInReach} step="any" value={assumptions[key]} onChange={(event) => changeAssumption(key, Number(event.target.value))} />
     </label>)}
     <small>範囲は1〜射程内の敵数。初期1体は半径・密度の実測がないための保守的な仮定です。</small>
-    <label><span>総合評価のControl重み</span><input aria-label="総合評価のControl重み" type="number" min="0" step="0.05" value={scenario.weights.control} onChange={(event) => onChange({ ...scenario, weights: { ...scenario.weights, control: Number(event.target.value) } })} /></label>
-    <p>以下はゲームの強さの証拠ではなく、順位付けの好みです。初期値は等重み。全て0ならControl utilityは0です。</p>
+    <p>以下はゲームの強さの証拠ではなく、Control utility内の順位付けの好みです。初期値は等重み。全て0ならControl utilityは0です。</p>
     {POLICIES.map(([key, label]) => <label key={key}><span>{label}</span><input aria-label={label} type="number" min="0" step="0.1" value={scenario.controlPolicy[key]} onChange={(event) => onChange({ ...scenario, controlPolicy: { ...scenario.controlPolicy, [key]: Number(event.target.value) } })} /></label>)}
   </details>
 }
