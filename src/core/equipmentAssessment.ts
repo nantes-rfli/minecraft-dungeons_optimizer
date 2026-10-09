@@ -24,17 +24,41 @@ export interface MultiConditionBestScoreEquipment {
 }
 
 export interface MultiConditionBestScoreSummary {
-  readonly completedConditionCount: number
+  readonly distinctCompletedConditionCount: number
   readonly items: readonly MultiConditionBestScoreEquipment[]
+}
+
+function stableScenarioInputJson(value: unknown): string {
+  if (Array.isArray(value)) return `[${value.map(stableScenarioInputJson).join(',')}]`
+  if (typeof value === 'object' && value !== null) {
+    const record = value as Record<string, unknown>
+    const keys = Object.keys(record).filter((key) => record[key] !== undefined).sort()
+    return `{${keys.map((key) => `${JSON.stringify(key)}:${stableScenarioInputJson(record[key])}`).join(',')}}`
+  }
+  return JSON.stringify(value) ?? 'null'
+}
+
+function scenarioInputKey(scenario: Scenario): string {
+  const inputs = Object.fromEntries(Object.entries(scenario).filter(([key]) => key !== 'name'))
+  return stableScenarioInputJson(inputs)
 }
 
 /**
  * Finds equipment that can appear in a best-scoring loadout when required
- * individually across multiple conditions. Scores are only compared within
- * each condition; this summary never combines different objectives.
+ * individually across multiple distinct scenario inputs. Display names do not
+ * make otherwise identical inputs count twice. Scores are only compared within
+ * each scenario; this summary never combines different objectives.
  */
 export function summarizeMultiConditionBestScores(assessments: readonly ConditionAssessment[]): MultiConditionBestScoreSummary {
-  const completed = assessments.filter((assessment) => assessment.status === 'complete')
+  const seenScenarioInputs = new Set<string>()
+  const completed: Extract<ConditionAssessment, { readonly status: 'complete' }>[] = []
+  for (const assessment of assessments) {
+    if (assessment.status !== 'complete') continue
+    const key = scenarioInputKey(assessment.condition.scenario)
+    if (seenScenarioInputs.has(key)) continue
+    seenScenarioInputs.add(key)
+    completed.push(assessment)
+  }
   const usage = new Map<string, { readonly order: number; readonly conditionIds: string[]; readonly conditionNames: string[] }>()
   let order = 0
 
@@ -61,7 +85,7 @@ export function summarizeMultiConditionBestScores(assessments: readonly Conditio
       conditionNames: entry.conditionNames,
     }))
 
-  return { completedConditionCount: completed.length, items }
+  return { distinctCompletedConditionCount: completed.length, items }
 }
 
 export const MAX_ASSESSMENT_CONDITIONS = 9 // current condition + up to eight saved conditions

@@ -59,20 +59,22 @@ describe('equipment value across independent conditions', () => {
       ],
       catalogItems: [{ instanceId: 'research-only', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251 }],
     }
-    const duplicateDamageCondition = { ...condition, id: 'damage-copy-condition', name: '火力確認用' }
+    const duplicateDamageCondition = { ...condition, id: 'damage-copy-condition', name: '火力確認用', scenario: { ...scenario, name: '火力確認用', weights: { healing: 0, damage: 1, defense: 0, control: 0 } } }
+    const distinctDamageCondition = { ...condition, id: 'damage-longer-condition', name: '長期火力用', scenario: { ...scenario, encounterDurationSeconds: scenario.encounterDurationSeconds + 1 } }
     const failedCondition = { ...condition, id: 'failed', name: '失敗条件', scenario: { ...scenario, averageEnemyHealth: 0 } }
-    const assessments = assessEquipment(tiedInventory, [condition, duplicateDamageCondition, failedCondition])
+    const assessments = assessEquipment(tiedInventory, [condition, duplicateDamageCondition, distinctDamageCondition, failedCondition])
     const summary = summarizeMultiConditionBestScores(assessments)
 
-    expect(assessments.map((assessment) => assessment.status)).toEqual(['complete', 'complete', 'error'])
-    expect(summary.completedConditionCount).toBe(2)
+    expect(assessments.map((assessment) => assessment.status)).toEqual(['complete', 'complete', 'complete', 'error'])
+    expect(summary.distinctCompletedConditionCount).toBe(2)
     expect(summary.items.map((item) => item.instanceId)).toEqual(['damage', 'damage-copy'])
-    expect(summary.items[0]?.conditionIds).toEqual(['damage', 'damage-copy-condition'])
-    expect(summary.items[0]?.conditionNames).toEqual(['火力用', '火力確認用'])
+    expect(summary.items[0]?.conditionIds).toEqual(['damage', 'damage-longer-condition'])
+    expect(summary.items[0]?.conditionNames).toEqual(['火力用', '長期火力用'])
     expect(summary.items.some((item) => item.instanceId === 'healing' || item.instanceId === 'weaker')).toBe(false)
     expect(summary.items.some((item) => item.instanceId === 'research-only')).toBe(false)
-    expect(summarizeMultiConditionBestScores([assessments[0]!])).toEqual({ completedConditionCount: 1, items: [] })
-    for (const assessment of assessments.slice(0, 2)) {
+    expect(summarizeMultiConditionBestScores([assessments[0]!])).toEqual({ distinctCompletedConditionCount: 1, items: [] })
+    expect(summarizeMultiConditionBestScores(assessments.slice(0, 2))).toEqual({ distinctCompletedConditionCount: 1, items: [] })
+    for (const assessment of assessments.slice(0, 3)) {
       if (assessment.status !== 'complete') throw new Error(assessment.error)
       expect(assessment.equipment.find((item) => item.instanceId === 'research-only')?.status).toBe('excluded')
     }
