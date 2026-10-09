@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import type { Inventory, Scenario } from '../core/types'
 import type { AssessmentCondition, EquipmentAssessment } from '../core/equipmentAssessment'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
-import { inventoryGridItems } from '../inventory/gridPresentation'
+import { inventoryGridItemMatchesQuery, inventoryGridItems } from '../inventory/gridPresentation'
 import { useOptimizer } from '../optimizer/useOptimizer'
 import type { SavedScenarioPreset } from '../scenario/presets'
 import { BuildAlternative, RecommendedBuild } from '../views/RecommendedBuild'
@@ -40,6 +40,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   const [selectedIds, setSelectedIds] = useState<readonly string[]>([])
   const [inspected, setInspected] = useState<{ instanceId: string; conditionId: string } | null>(null)
   const [categoryFilter, setCategoryFilter] = useState<(typeof categoryOptions)[number]['id']>('all')
+  const [itemQuery, setItemQuery] = useState('')
   const [sortBy, setSortBy] = useState('inventory')
   const conditions = useMemo<readonly AssessmentCondition[]>(() => [
     { id: 'current', name: '現在の条件', scenario },
@@ -74,7 +75,8 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   const canCompareRemoval = (instanceId: string) => search.assessments?.some((assessment) => assessment.status === 'complete'
     && assessment.equipment.some((equipment) => equipment.instanceId === instanceId && equipment.status === 'evaluated')) ?? false
   const tableItems = useMemo(() => {
-    const categoryItems = items.filter((item) => categoryFilter === 'all' || item.category === categoryFilter)
+    const categoryItems = items.filter((item) => (categoryFilter === 'all' || item.category === categoryFilter)
+      && inventoryGridItemMatchesQuery(item, itemQuery))
     if (!selectedSortBy.startsWith('gap-')) return categoryItems
     const separator = selectedSortBy.indexOf(':')
     const direction = selectedSortBy.slice(4, separator)
@@ -91,7 +93,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
         return difference || a.index - b.index
       })
       .map(({ item }) => item)
-  }, [categoryFilter, items, search.assessments, selectedSortBy])
+  }, [categoryFilter, itemQuery, items, search.assessments, selectedSortBy])
   const overBudget = estimateSearchCandidates(inventory) > SEARCH_MAX_CANDIDATES
   const inspectedCondition = search.assessments?.find((assessment) => assessment.condition.id === inspected?.conditionId)
   const inspectedEquipment = inspectedCondition?.status === 'complete'
@@ -128,6 +130,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
         <label>カテゴリ<select aria-label="表示カテゴリ" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value as (typeof categoryOptions)[number]['id'])}>
           {categoryOptions.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
         </select></label>
+        <label>装備を検索<input type="search" aria-label="装備を検索" value={itemQuery} onChange={(event) => setItemQuery(event.target.value)} placeholder="名前・Power・Enchant・個体ID" /></label>
         <label>並び順<select aria-label="装備の並び順" value={selectedSortBy} onChange={(event) => setSortBy(event.target.value)}>
           <option value="inventory">所持品順</option>
           {conditions.map((condition) => <optgroup key={condition.id} label={condition.name}>
@@ -139,7 +142,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
       </fieldset>
       <div className="assessment-table-scroll"><table className="assessment-table"><caption>装備個体ごとの最良スコアとの差 · {tableItems.length}件</caption>
         <thead><tr><th scope="col">装備</th>{search.assessments.map(({ condition }) => <th scope="col" key={condition.id}>{condition.name}</th>)}</tr></thead>
-        <tbody>{tableItems.map((item) => <tr key={item.instanceId}>
+        <tbody>{tableItems.length === 0 && <tr><td colSpan={search.assessments.length + 1}>条件に一致する装備はありません。検索語を変えるかカテゴリを見直してください。</td></tr>}{tableItems.map((item) => <tr key={item.instanceId}>
           <th scope="row">{item.catalog.name.ja}<small>{item.category} · Power {item.powerLevel} · {item.instanceId}</small>{canCompareRemoval(item.instanceId) && <button type="button" aria-pressed={removalTargetId === item.instanceId} aria-label={`${item.instanceId}を外した場合を比較`} onClick={() => setRemovalTargetId((current) => current === item.instanceId ? null : item.instanceId)}>{removalTargetId === item.instanceId ? '比較結果を閉じる' : '外した場合を比較'}</button>}</th>
           {search.assessments!.map((assessment) => {
             const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined
@@ -150,7 +153,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
         </tr>)}</tbody>
       </table></div>
       <section className="assessment-cards" aria-label="装備個体ごとの用途別評価">
-        {tableItems.map((item) => <article className="assessment-card" key={item.instanceId}>
+        {tableItems.length === 0 && <p>条件に一致する装備はありません。検索語を変えるかカテゴリを見直してください。</p>}{tableItems.map((item) => <article className="assessment-card" key={item.instanceId}>
           <h3>{item.catalog.name.ja}</h3>
           <p>{item.category} · Power {item.powerLevel} · {item.instanceId}</p>
           {canCompareRemoval(item.instanceId) && <button type="button" aria-pressed={removalTargetId === item.instanceId} aria-label={`${item.instanceId}を外した場合を比較`} onClick={() => setRemovalTargetId((current) => current === item.instanceId ? null : item.instanceId)}>{removalTargetId === item.instanceId ? '比較結果を閉じる' : '外した場合を比較'}</button>}

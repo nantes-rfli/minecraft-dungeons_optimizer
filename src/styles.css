@@ -872,7 +872,7 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .assessment-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .assessment-view-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 18px; }
 .assessment-view-controls label { display: grid; gap: 6px; min-width: 180px; }
-.assessment-view-controls select { max-width: 100%; min-height: 38px; padding: 6px 9px; color: var(--text); background: #111a14; border: 1px solid #465649; }
+.assessment-view-controls select, .assessment-view-controls input[type="search"] { max-width: 100%; min-height: 38px; padding: 6px 9px; color: var(--text); background: #111a14; border: 1px solid #465649; }
 .assessment-view-controls p { flex: 1 1 100%; margin: 2px 0 0; font-size: 14px; }
 .equipment-assessment button:not(.primary-button) { border: 1px solid #465649; padding: 8px 12px; color: var(--text); background: #111a14; }
 .equipment-assessment button:disabled { opacity: .48; cursor: not-allowed; }
