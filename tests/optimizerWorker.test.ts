@@ -4,6 +4,7 @@ import type { OptimizeRequest, OptimizeResponse } from '../src/optimizer/protoco
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { optimizeWithMetadata } from '../src/core/optimizer'
 import { assessEquipment } from '../src/core/equipmentAssessment'
+import { compareRemovalAcrossConditions } from '../src/core/inventoryRemovalComparison'
 
 const input = { inventory: { weapons: [{ instanceId: 'w', weaponId: 'double-axe' as const, powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit' as const] }] }], artifacts: [] }, scenario: DEFAULT_SCENARIO }
 class FakeWorker implements WorkerPort {
@@ -35,6 +36,24 @@ describe('worker lifecycle', () => {
     expect(controller.getSnapshot().assessments).toBeUndefined()
     controller.reset()
     expect(controller.getSnapshot()).toEqual(IDLE_SEARCH)
+  })
+  it('transfers and retains an inventory removal comparison batch', () => {
+    const worker = new FakeWorker()
+    const controller = new OptimizerController(() => worker)
+    const inventory = { weapons: [
+      ...input.inventory.weapons,
+      { ...input.inventory.weapons[0]!, instanceId: 'backup' },
+    ], artifacts: [] }
+    const assessmentConditions = [{ id: 'current', name: '現在の条件', scenario: input.scenario }]
+    const removalComparison = { instanceId: 'w', baseline: assessEquipment(inventory, assessmentConditions).map((assessment) => assessment.status === 'error'
+      ? { conditionId: assessment.condition.id, status: 'error' as const, error: assessment.error }
+      : { conditionId: assessment.condition.id, status: 'complete' as const, best: assessment.best, target: { status: 'evaluated' as const } }) }
+    controller.start({ ...input, inventory, assessmentConditions, removalComparison })
+    const request = worker.postMessage.mock.calls[0]![0]
+    expect(request.removalComparison).toEqual(removalComparison)
+    const comparisons = compareRemovalAcrossConditions(inventory, 'w', assessmentConditions, removalComparison.baseline)
+    worker.reply({ id: request.id, type: 'removal-comparison-complete', comparisons, durationMs: 5 })
+    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result: null, removalComparisons: comparisons })
   })
   it('completes with exactly the core exhaustive result and releases the worker', () => {
     const worker = new FakeWorker()

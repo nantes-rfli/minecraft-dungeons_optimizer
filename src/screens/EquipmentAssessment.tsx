@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { Inventory, Scenario } from '../core/types'
 import type { AssessmentCondition, EquipmentAssessment } from '../core/equipmentAssessment'
 import { estimateSearchCandidates, SEARCH_MAX_CANDIDATES } from '../core/searchBudget'
@@ -46,9 +46,33 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
     ...presets.filter((preset) => selectedIds.includes(preset.id)).map((preset) => ({ ...preset, id: `saved:${preset.id}` })),
   ], [scenario, presets, selectedIds])
   const search = useOptimizer(inventory, scenario, false, conditions)
+  const [removalTargetId, setRemovalTargetId] = useState<string | null>(null)
+  const removalBaseline = useMemo(() => {
+    if (!removalTargetId || !search.assessments) return undefined
+    return search.assessments.map((assessment) => {
+      if (assessment.status === 'error') return { conditionId: assessment.condition.id, status: 'error' as const, error: assessment.error }
+      const target = assessment.equipment.find((equipment) => equipment.instanceId === removalTargetId)
+      return {
+        conditionId: assessment.condition.id,
+        status: 'complete' as const,
+        best: assessment.best,
+        target: target?.status === 'evaluated' ? { status: 'evaluated' as const }
+          : { status: 'excluded' as const, reasons: target?.status === 'excluded' ? target.reasons : ['この条件の基準評価に対象装備がありません。'] },
+      }
+    })
+  }, [removalTargetId, search.assessments])
+  const removalInput = useMemo(() => removalTargetId && removalBaseline ? { instanceId: removalTargetId, baseline: removalBaseline } : undefined, [removalTargetId, removalBaseline])
+  const removalSearch = useOptimizer(inventory, scenario, false, removalInput ? conditions : undefined, undefined, removalInput)
+  const removalStatus = removalSearch.status
+  const startRemoval = removalSearch.start
+  useEffect(() => {
+    if (removalInput && removalStatus === 'idle') startRemoval()
+  }, [removalInput, removalStatus, startRemoval])
   const items = useMemo(() => inventoryGridItems(inventory), [inventory])
   const selectedConditionId = sortBy.startsWith('gap-') ? sortBy.slice(sortBy.indexOf(':') + 1) : null
   const selectedSortBy = selectedConditionId && !conditions.some((condition) => condition.id === selectedConditionId) ? 'inventory' : sortBy
+  const canCompareRemoval = (instanceId: string) => search.assessments?.some((assessment) => assessment.status === 'complete'
+    && assessment.equipment.some((equipment) => equipment.instanceId === instanceId && equipment.status === 'evaluated')) ?? false
   const tableItems = useMemo(() => {
     const categoryItems = items.filter((item) => categoryFilter === 'all' || item.category === categoryFilter)
     if (!selectedSortBy.startsWith('gap-')) return categoryItems
@@ -73,6 +97,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
   const inspectedEquipment = inspectedCondition?.status === 'complete'
     ? inspectedCondition.equipment.find((item) => item.instanceId === inspected?.instanceId) : undefined
   const inspectedItem = items.find((item) => item.instanceId === inspected?.instanceId)
+  const removalTargetItem = items.find((item) => item.instanceId === removalTargetId)
 
   return <section className="equipment-assessment" aria-labelledby="equipment-assessment-title">
     <p className="section-label">EQUIPMENT VALUE</p><h2 id="equipment-assessment-title">装備の用途別評価</h2>
@@ -115,7 +140,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
       <div className="assessment-table-scroll"><table className="assessment-table"><caption>装備個体ごとの最良スコアとの差 · {tableItems.length}件</caption>
         <thead><tr><th scope="col">装備</th>{search.assessments.map(({ condition }) => <th scope="col" key={condition.id}>{condition.name}</th>)}</tr></thead>
         <tbody>{tableItems.map((item) => <tr key={item.instanceId}>
-          <th scope="row">{item.catalog.name.ja}<small>{item.category} · Power {item.powerLevel} · {item.instanceId}</small></th>
+          <th scope="row">{item.catalog.name.ja}<small>{item.category} · Power {item.powerLevel} · {item.instanceId}</small>{canCompareRemoval(item.instanceId) && <button type="button" aria-pressed={removalTargetId === item.instanceId} aria-label={`${item.instanceId}を外した場合を比較`} onClick={() => setRemovalTargetId((current) => current === item.instanceId ? null : item.instanceId)}>{removalTargetId === item.instanceId ? '比較結果を閉じる' : '外した場合を比較'}</button>}</th>
           {search.assessments!.map((assessment) => {
             const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined
             return <td key={assessment.condition.id}>
@@ -128,6 +153,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
         {tableItems.map((item) => <article className="assessment-card" key={item.instanceId}>
           <h3>{item.catalog.name.ja}</h3>
           <p>{item.category} · Power {item.powerLevel} · {item.instanceId}</p>
+          {canCompareRemoval(item.instanceId) && <button type="button" aria-pressed={removalTargetId === item.instanceId} aria-label={`${item.instanceId}を外した場合を比較`} onClick={() => setRemovalTargetId((current) => current === item.instanceId ? null : item.instanceId)}>{removalTargetId === item.instanceId ? '比較結果を閉じる' : '外した場合を比較'}</button>}
           <dl>
             {search.assessments!.map((assessment) => {
               const equipment = assessment.status === 'complete' ? assessment.equipment.find((entry) => entry.instanceId === item.instanceId) : undefined
@@ -139,6 +165,19 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           </dl>
         </article>)}
       </section>
+      {removalTargetId && <section className="assessment-removal" aria-label="所持装備を外した場合の比較">
+        <h3>{removalTargetItem?.catalog.name.ja ?? removalTargetId}を外した場合</h3>
+        <p>比較結果は選んだ条件だけに適用されます。未知の効果は数値化せず、Inventoryは変更しません。評価結果だけで売却を判断しないでください。</p>
+        <div className="assessment-actions"><button type="button" onClick={() => removalSearch.cancel()} disabled={removalSearch.status !== 'working'}>比較を中止</button><button type="button" onClick={() => setRemovalTargetId(null)}>比較結果を閉じる</button></div>
+        <p role="status">{removalSearch.status === 'working' ? '外した後の構成を比較しています…' : removalSearch.status === 'complete' ? '比較が完了しました。' : removalSearch.status === 'cancelled' ? '比較を中止しました。' : removalSearch.status === 'error' ? '比較できませんでした。' : '比較を開始しています…'}</p>
+        {removalSearch.error && <p role="alert">{removalSearch.error}</p>}
+        {removalSearch.removalComparisons?.map((comparison) => <article className="assessment-removal-condition" key={comparison.condition.id}>
+          <h4>{comparison.condition.name}</h4>
+          {comparison.status === 'error' ? <p role="alert">この条件では比較できませんでした: {comparison.error}</p>
+            : comparison.status === 'excluded' ? <><p>この条件では対象装備を数値評価できないため、外した後との差は表示しません。</p><ul>{comparison.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></>
+              : <><p>現在の最良構成は対象個体を{comparison.baselineBestUsesInstance ? '含みます' : '含みません'}。</p><BuildAlternative title="外した後の最良構成" evaluation={comparison.afterRemovalBest} best={comparison.baselineBest} weights={comparison.condition.scenario.weights} /></>}
+        </article>)}
+      </section>}
       {inspectedCondition?.status === 'complete' && inspectedEquipment?.status === 'evaluated' && <section aria-label="用途別の個体必須構成">
         <h3>{inspectedItem?.catalog.name.ja} · {inspected?.instanceId} · {inspectedCondition.condition.name}</h3>
         <BuildAlternative title="この個体を使う最良構成" evaluation={inspectedEquipment.best} best={inspectedCondition.best} weights={inspectedCondition.condition.scenario.weights} />
