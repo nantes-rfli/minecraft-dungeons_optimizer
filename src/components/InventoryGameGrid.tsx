@@ -81,8 +81,8 @@ export function InventoryGameGrid({ inventory, onChange, onOpenFullEditor, query
             const columnTemplate = listbox ? window.getComputedStyle(listbox).gridTemplateColumns.trim() : ''
             const columns = columnTemplate.split(/\s+/).filter(Boolean).length || 1
             const targetIndex = nextInventoryGridIndex(index, items.length, columns, event.key)
-            if (targetIndex === index || targetIndex < 0) return
             event.preventDefault()
+            if (targetIndex === index || targetIndex < 0) return
             const targetItem = items[targetIndex]
             if (!targetItem) return
             setSelectedId(targetItem.instanceId)
