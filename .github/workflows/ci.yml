@@ -73,6 +73,7 @@ jobs:
       - run: npm run audit:dr-modifier-comparison
       - run: npm run audit:scenario-optimizer-comparison
       - run: npm run audit:runtime-promotion
+      - run: npm run audit:phase7-research-quest
       - run: npm run audit:roadmap
       - run: npm run audit:project-status
       - run: npm test
