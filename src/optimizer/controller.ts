@@ -1,4 +1,4 @@
-import type { OptimizationResult } from '../core/types'
+import type { Evaluation, OptimizationResult } from '../core/types'
 import type { ConditionAssessment } from '../core/equipmentAssessment'
 import type { TrialConditionComparison } from '../core/trialConditionComparison'
 import type { RemovalConditionComparison } from '../core/inventoryRemovalComparison'
@@ -15,6 +15,7 @@ export interface SearchState {
   readonly status: 'idle' | 'working' | 'complete' | 'error' | 'cancelled'
   readonly result: OptimizationResult | null
   readonly evaluatedInstanceIds?: readonly string[]
+  readonly equipmentEvaluation?: Evaluation
   readonly assessments?: readonly ConditionAssessment[]
   readonly trialComparisons?: readonly TrialConditionComparison[]
   readonly removalComparisons?: readonly RemovalConditionComparison[]
@@ -82,7 +83,7 @@ export class OptimizerController {
           this.publish({ status: 'complete', result: null, removalComparisons: data.comparisons, error: null, durationMs: data.durationMs, request })
           return
         }
-        this.publish({ status: 'complete', result: data.result, evaluatedInstanceIds: data.evaluatedInstanceIds, error: null, durationMs: data.durationMs, request })
+        this.publish({ status: 'complete', result: data.result, evaluatedInstanceIds: data.evaluatedInstanceIds, ...(data.equipmentEvaluation ? { equipmentEvaluation: data.equipmentEvaluation } : {}), error: null, durationMs: data.durationMs, request })
       }
       worker.onerror = () => fail('探索Workerでエラーが発生しました。再度開始してください。')
       worker.onmessageerror = () => fail('探索結果を読み取れませんでした。再度開始してください。')

@@ -221,16 +221,26 @@ function buildInstanceIds(build: Build): string[] {
 export function optimizeWithMetadata(
   inventory: Inventory,
   scenario: Scenario,
-): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[] } {
-  const { result, evaluatedInstanceIds } = optimizeInternal(inventory, scenario, true)
-  return { result, evaluatedInstanceIds }
+  equipmentInstanceId?: string,
+): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly equipmentEvaluation?: Evaluation } {
+  if (equipmentInstanceId !== undefined && !equipmentInstanceId.trim()) {
+    throw new OptimizerInputError('INVALID_INVENTORY', '個体別評価には装備の個体IDが必要です。')
+  }
+  const { result, evaluatedInstanceIds, bestByInstance } = optimizeInternal(
+    inventory,
+    scenario,
+    true,
+    equipmentInstanceId === undefined ? false : new Set([equipmentInstanceId]),
+  )
+  const equipmentEvaluation = equipmentInstanceId === undefined ? undefined : bestByInstance.get(equipmentInstanceId)
+  return { result, evaluatedInstanceIds, ...(equipmentEvaluation ? { equipmentEvaluation } : {}) }
 }
 
 function optimizeInternal(
   inventory: Inventory,
   scenario: Scenario,
   includeEvaluationMetadata: boolean,
-  includeEquipmentAssessment = false,
+  includeEquipmentAssessment: boolean | ReadonlySet<string> = false,
 ): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly bestByInstance: ReadonlyMap<string, Evaluation> } {
   validateInventory(inventory)
   validateScenario(scenario)
@@ -321,17 +331,17 @@ function optimizeInternal(
   }
   return {
     evaluatedInstanceIds,
-    bestByInstance: includeEquipmentAssessment
-      ? (() => {
-        const winners = new Map<string, Evaluation>()
-        for (const candidate of evaluations) {
-          for (const id of buildInstanceIds(candidate.build)) {
-            if (!winners.has(id)) winners.set(id, withDetails(candidate))
-          }
+    bestByInstance: (() => {
+      const winners = new Map<string, Evaluation>()
+      if (!includeEquipmentAssessment) return winners
+      for (const candidate of evaluations) {
+        for (const id of buildInstanceIds(candidate.build)) {
+          if (includeEquipmentAssessment !== true && !includeEquipmentAssessment.has(id)) continue
+          if (!winners.has(id)) winners.set(id, withDetails(candidate))
         }
-        return winners
-      })()
-      : new Map(),
+      }
+      return winners
+    })(),
     result: {
       unsupportedChoices: [...unsupportedChoices],
       best: withDetails(best),
