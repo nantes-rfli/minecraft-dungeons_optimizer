@@ -294,6 +294,51 @@ export function independentResearchQuestRuns(runs: readonly ResearchQuestRunDraf
   return selectIndependentLimitedDrRuns(runs.map(toLimitedDrRun)).independentRuns.map((run) => byId.get(run.id)!)
 }
 
+export interface ResearchQuestConditionProgress {
+  readonly eligibleRunCount: number
+  readonly completedConditionCount: number
+  readonly runsByCondition: Readonly<Record<LimitedDrConditionId, number>>
+}
+
+export function researchQuestConditionProgress(runs: readonly ResearchQuestRunDraft[]): ResearchQuestConditionProgress {
+  const eligibleRuns = independentResearchQuestRuns(runs)
+    .filter((run) => run.observedDamage.length >= LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun)
+  const runsByCondition = Object.fromEntries(LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => [
+    condition,
+    eligibleRuns.filter((run) => run.condition === condition).length,
+  ])) as Record<LimitedDrConditionId, number>
+  return {
+    eligibleRunCount: eligibleRuns.length,
+    completedConditionCount: LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.filter((condition) => runsByCondition[condition] >= LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition).length,
+    runsByCondition,
+  }
+}
+
+export function nextResearchQuestCondition(runs: readonly ResearchQuestRunDraft[], fallback: LimitedDrConditionId = 'baseline'): LimitedDrConditionId {
+  const { runsByCondition } = researchQuestConditionProgress(runs)
+  return LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.find((condition) => runsByCondition[condition] < LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition) ?? fallback
+}
+
+export function prepareNextResearchQuestRunDraft(
+  previous: ResearchQuestRunDraft,
+  savedRuns: readonly ResearchQuestRunDraft[],
+  capturedAt = new Date().toISOString(),
+): ResearchQuestRunDraft {
+  return {
+    ...previous,
+    id: '',
+    condition: nextResearchQuestCondition(savedRuns, previous.condition),
+    rawTraceUrl: '',
+    rawTraceSha256: '',
+    rawTraceRecord: null,
+    activationFrameLocators: [],
+    observedDamage: [],
+    capturedAt,
+    reviewed: false,
+    equipment: [],
+  }
+}
+
 function toEvidenceRecord(draft: ResearchQuestRunDraft, run: LimitedDrRun): EvidenceIntakeRecord {
   const selfGenerated = draft.originKind === 'self-observation' && draft.rawTraceUrl.startsWith('urn:')
   return {

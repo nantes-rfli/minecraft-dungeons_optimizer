@@ -9,6 +9,9 @@ import {
   independentResearchQuestRuns,
   parseResearchQuestState,
   RESEARCH_QUEST_STORAGE_KEY,
+  nextResearchQuestCondition,
+  prepareNextResearchQuestRunDraft,
+  researchQuestConditionProgress,
   resolveResearchQuestReadiness,
   saveResearchQuestState,
   type ResearchQuestRunDraft,
@@ -110,6 +113,53 @@ describe('Phase 7 Personal Research Quest', () => {
     const copied = { ...samePlayerRuns[0]!, id: 'copied', rawTraceUrl: 'https://example.test/copied.csv', rawTraceSha256: 'f'.repeat(64) }
     const reusedTrace = { ...samePlayerRuns[1]!, id: 'reused', rawTraceUrl: samePlayerRuns[0]!.rawTraceUrl, rawTraceSha256: samePlayerRuns[0]!.rawTraceSha256 }
     expect(independentResearchQuestRuns([...samePlayerRuns, copied, reusedTrace]).map((run) => run.id)).toEqual(['same-player-1', 'same-player-2', 'same-player-3'])
+  })
+
+  it('counts accepted independent runs and carries shared context into the first incomplete condition', () => {
+    const runs = [1, 2, 3].map((index) => ({
+      ...draft(`baseline-${index}`),
+      condition: 'baseline' as const,
+      originGroup: 'same-measurer',
+      rawTraceSha256: index.toString(16).repeat(64),
+      rawTraceUrl: `https://example.test/baseline-${index}.csv`,
+      capturedAt: `2026-09-10T10:0${index}:00+09:00`,
+      observedDamage: Array(10).fill(100000),
+      activationFrameLocators: [],
+    }))
+    expect(researchQuestConditionProgress(runs)).toMatchObject({
+      eligibleRunCount: 3,
+      completedConditionCount: 1,
+      runsByCondition: { baseline: 3, 'armor-35': 0 },
+    })
+    expect(nextResearchQuestCondition(runs)).toBe('armor-35')
+
+    const next = prepareNextResearchQuestRunDraft({
+      ...runs[0]!,
+      originKind: 'external',
+      reviewed: true,
+      rawTraceUrl: 'https://example.test/old-trace.csv',
+      rawTraceSha256: 'f'.repeat(64),
+      activationFrameLocators: ['video 00:10-00:12'],
+      observedDamage: Array(10).fill(100000),
+    }, runs, '2026-09-10T12:00:00.000Z')
+    expect(next).toMatchObject({
+      id: '',
+      condition: 'armor-35',
+      originGroup: 'same-measurer',
+      incomingHitId: 'zombie-melee-fixed',
+      originKind: 'external',
+      baselineDamage: 100000,
+      platform: 'Windows',
+      difficulty: 'Apocalypse +25',
+      rawTraceUrl: '',
+      rawTraceSha256: '',
+      rawTraceRecord: null,
+      activationFrameLocators: [],
+      observedDamage: [],
+      capturedAt: '2026-09-10T12:00:00.000Z',
+      reviewed: false,
+      equipment: [],
+    })
   })
 
   it('rejects short traces and duplicate run identities before handoff', async () => {

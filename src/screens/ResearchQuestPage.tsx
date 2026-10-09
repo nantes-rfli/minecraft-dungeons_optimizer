@@ -6,9 +6,11 @@ import {
   buildPhase7Submission,
   captureResearchQuestRun,
   defaultResearchQuestState,
-  independentResearchQuestRuns,
   LIMITED_DR_CONDITION_LABELS,
   loadResearchQuestState,
+  nextResearchQuestCondition,
+  prepareNextResearchQuestRunDraft,
+  researchQuestConditionProgress,
   PHASE7_GAP_IDS,
   resolveResearchQuestReadiness,
   saveResearchQuestState,
@@ -25,8 +27,8 @@ const MODES: readonly { id: ResearchQuestMode; label: string; description: strin
   { id: 'experiment', label: 'Experiment', description: '単独・組合せを比較する課題' },
 ]
 
-const newDraft = (): ResearchQuestRunDraft => ({
-  id: '', condition: 'baseline', originGroup: '', incomingHitId: '', originKind: 'self-observation',
+const newDraft = (condition: LimitedDrConditionId = 'baseline'): ResearchQuestRunDraft => ({
+  id: '', condition, originGroup: '', incomingHitId: '', originKind: 'self-observation',
   rawTraceUrl: '', rawTraceSha256: '', rawTraceRecord: null,
   activationFrameLocators: [], baselineDamage: 0, observedDamage: [], platform: '', difficulty: '',
   capturedAt: new Date().toISOString(), reviewed: false,
@@ -39,15 +41,13 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
   const [state, setState] = useState<ResearchQuestState>(() => {
     try { return loadResearchQuestState() } catch { return defaultResearchQuestState() }
   })
-  const [draft, setDraft] = useState<ResearchQuestRunDraft>(() => state.draft ?? newDraft())
+  const [draft, setDraft] = useState<ResearchQuestRunDraft>(() => state.draft ?? newDraft(nextResearchQuestCondition(state.runs)))
   const [damageText, setDamageText] = useState(() => state.draft?.observedDamage.join('\n') ?? '')
   const [activationText, setActivationText] = useState(() => state.draft?.activationFrameLocators.join('\n') ?? '')
   const [message, setMessage] = useState('この記録は装備JSONとは別に、このブラウザへ保存されます。')
   const [exportText, setExportText] = useState('')
   const readiness = useMemo(() => resolveResearchQuestReadiness(inventory), [inventory])
-  const eligibleRuns = independentResearchQuestRuns(state.runs).filter((run) => run.observedDamage.length >= LIMITED_DR_ACCEPTANCE_PLAN.minimumHitsPerRun)
-  const progress = Object.fromEntries(LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => [condition, eligibleRuns.filter((run) => run.condition === condition).length])) as Record<LimitedDrConditionId, number>
-  const completedConditions = LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.filter((condition) => progress[condition] >= LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition).length
+  const progress = useMemo(() => researchQuestConditionProgress(state.runs), [state.runs])
 
   const updateState = (patch: Partial<ResearchQuestState>) => setState((current) => {
     const next = { ...current, ...patch, updatedAt: new Date().toISOString() }
@@ -58,16 +58,18 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
   const recordRun = async () => {
     try {
       const nextDraft = await captureResearchQuestRun({ ...draft, observedDamage: parseDamage(damageText), activationFrameLocators: activationText.split(/[,\n]+/).map((value) => value.trim()).filter(Boolean) }, inventory)
-      const submission = buildPhase7Submission({ ...state, status: 'active', runs: [...state.runs, nextDraft], updatedAt: new Date().toISOString() })
-      updateState({ status: 'active', runs: [...state.runs, nextDraft], draft: null })
-      setDraft(newDraft())
+      const savedRuns = [...state.runs, nextDraft]
+      const submission = buildPhase7Submission({ ...state, status: 'active', runs: savedRuns, updatedAt: new Date().toISOString() })
+      const followingDraft = prepareNextResearchQuestRunDraft(draft, savedRuns)
+      updateState({ status: 'active', runs: savedRuns, draft: followingDraft })
+      setDraft(followingDraft)
       setDamageText('')
       setActivationText('')
       setExportText('')
       const duplicated = submission.validation.evidenceBoundary.excludedDuplicateRunIds.includes(nextDraft.id)
       setMessage(duplicated
-        ? 'runを保存しましたが、複製または同じraw traceの再利用として独立runには数えません。'
-        : `runを保存しました。8C対象 ${submission.validation.evidenceBoundary.eligibleIndependentHoldoutRuns} / 24 run。`)
+        ? `runを保存しましたが、複製または同じraw traceの再利用として独立runには数えません。次は「${LIMITED_DR_CONDITION_LABELS[followingDraft.condition]}」を選択し、共通情報を引き継ぎました。`
+        : `runを保存しました。8C対象 ${submission.validation.evidenceBoundary.eligibleIndependentHoldoutRuns} / 24 run。次は「${LIMITED_DR_CONDITION_LABELS[followingDraft.condition]}」を選択しています。共通情報は次のrunへ引き継ぎました。`)
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'runを保存できませんでした。')
     }
@@ -89,7 +91,7 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
   return <main id="main-content" tabIndex={-1} className="page-main research-page">
     <header className="page-intro page-intro-row">
       <div><p className="eyebrow">PERSONAL RESEARCH / PHASE 7</p><h1>調査クエスト</h1><p>所持装備で実施できる不足Evidenceだけを選び、途中保存しながら8A/8Cへ渡せるraw traceを作ります。runtime未対応の所持品も{inventory.catalogItems?.length ?? 0}件保持しています。</p></div>
-      <div className="research-progress"><strong>{eligibleRuns.length}<small>/ 24 RUN</small></strong><span>{completedConditions} / 8 条件完了</span></div>
+      <div className="research-progress"><strong>{progress.eligibleRunCount}<small>/ 24 RUN</small></strong><span>{progress.completedConditionCount} / 8 条件完了</span></div>
     </header>
 
     <section className="research-mode-tabs" aria-label="調査方法">
@@ -112,11 +114,11 @@ export function ResearchQuestPage({ inventory }: { inventory: Inventory }) {
 
       {readiness.ready && state.status === 'active' && <section className="quest-workspace">
         <div className="condition-progress"><div className="section-heading"><div><p className="section-label">PROTOCOL PROGRESS</p><h2>全8条件の独立run</h2><p>run IDは別々に実施した反復測定、origin groupはEvidenceの測定者・取得元です。同じ測定者の別runは個別に数え、複製runや同じraw traceの再利用は数えません。</p></div><span>各3 run × 10 hit以上</span></div>
-          <div className="condition-grid">{LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => <article className={progress[condition] >= 3 ? 'complete' : ''} key={condition}><span>{LIMITED_DR_CONDITION_LABELS[condition]}</span><strong>{progress[condition]} / 3</strong></article>)}</div>
+          <div className="condition-grid">{LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => <article className={progress.runsByCondition[condition] >= LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition ? 'complete' : ''} key={condition}><span>{LIMITED_DR_CONDITION_LABELS[condition]}</span><strong>{progress.runsByCondition[condition]} / {LIMITED_DR_ACCEPTANCE_PLAN.minimumIndependentRunsPerCondition}</strong></article>)}</div>
         </div>
 
         <form className="run-form" onSubmit={(event) => { event.preventDefault(); void recordRun() }}>
-          <div className="section-heading"><div><p className="section-label">RAW TRACE INTAKE</p><h2>1 runを記録</h2></div><span>Game 1.17.0.0 · direct mob attack</span></div>
+          <div className="section-heading"><div><p className="section-label">RAW TRACE INTAKE</p><h2>1 runを記録</h2><p>保存後は最初の未達条件を選び、測定者・incoming hit・Baseline damage・Platform・Difficulty・Evidence種別を次のrunへ引き継ぎます。測定セットを変える場合は更新してください。run ID・被ダメージ・activation frame・raw traceをrunごとに更新し、確認状態も毎回確認します。</p></div><span>Game 1.17.0.0 · direct mob attack</span></div>
           <div className="run-fields">
             <label>条件<select value={draft.condition} onChange={(event) => setDraft({ ...draft, condition: event.target.value as LimitedDrConditionId })}>{LIMITED_DR_ACCEPTANCE_PLAN.requiredConditions.map((condition) => <option key={condition} value={condition}>{LIMITED_DR_CONDITION_LABELS[condition]}</option>)}</select></label>
             <label>run ID<input value={draft.id} placeholder="例: dr-20260910-01" onChange={(event) => setDraft({ ...draft, id: event.target.value })} /></label>
