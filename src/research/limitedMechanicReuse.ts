@@ -1,22 +1,11 @@
 import { ARMORS, type RuntimeArmorDefinition } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
-import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS, armorNumericEvidenceRows } from '../core/armorEvidence'
+import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS, ARMOR_PARAMETER_IDS, armorNumericEvidenceRows, type ArmorNumericParameter } from '../core/armorEvidence'
+import { collectRuntimePromotionErrors, type RuntimePromotionManifest } from './runtimePromotion'
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 import promotionManifest from '../../research/runtime/runtime-promotion-manifest.json'
 
-const checkedPromotionManifest = promotionManifest as unknown as {
-  readonly gameVersion: string
-  readonly candidates: readonly {
-    readonly targetId: string
-    readonly outcome: string
-    readonly eligibility: { readonly status: string }
-    readonly regression: string
-    readonly valueStatus: string
-    readonly gameVersion: string
-    readonly blockers: readonly string[]
-  }[]
-  readonly promotions: readonly { readonly targetId: string }[]
-}
+const checkedPromotionManifest = promotionManifest as unknown as RuntimePromotionManifest
 
 const reviewedIdentity = formalIdentity as unknown as {
   identityAssertions: readonly { id: string; domainId: string; reviewState: string; confidence?: string; rawIdentity: string }[]
@@ -138,11 +127,75 @@ export function collectLimitedArmorReuseErrors(
  * promotion. No free-form "already promoted" boolean can bypass the gate.
  * This link is empty while the promotion manifest has zero eligible targets.
  */
+const ARMOR_PROMOTION_PARAMETER_SCOPES = {
+  meleeDamageBonus: { propertyKind: 'melee-damage', channel: 'direct-melee-damage' },
+  weaponDamageAuraBonus: { propertyKind: 'weapon-damage-aura', channel: 'direct-melee-damage' },
+  meleeAttackSpeedBonus: { propertyKind: 'melee-attack-speed', channel: 'direct-melee-cadence' },
+  armorDamageReduction: { propertyKind: 'damage-reduction', channel: 'incoming-damage' },
+  soulGatheringMultiplier: { propertyKind: 'soul-gathering', channel: 'soul-collection' },
+  lifeStealFraction: { propertyKind: 'life-steal-aura', channel: 'direct-melee-life-steal' },
+  artifactCooldownReduction: { propertyKind: 'artifact-cooldown', channel: 'artifact-cooldown' },
+} as const satisfies Record<ArmorNumericParameter, { propertyKind: string; channel: string }>
+
 export interface PromotedArmorRuntimeLink {
   readonly armorId: string
+  /** Target-specific ID in the accepted Promotion claim; unrelated global
+   * Promotion achievements are NOT grants for arbitrary Armor.
+   */
   readonly mechanicTargetId: string
+  readonly parameter: ArmorNumericParameter
+  readonly channel: (typeof ARMOR_PROMOTION_PARAMETER_SCOPES)[ArmorNumericParameter]['channel']
+  readonly scope: 'self-armor'
+  readonly sourceRef: 'research/armor-audit.json'
+  readonly sourceId: string
+  readonly propertyRaw: string
+  readonly gameVersion: string
 }
 export const PROMOTED_ARMOR_RUNTIME_LINKS: readonly PromotedArmorRuntimeLink[] = []
+
+/** The claim ID, the target's own audited property and its runtime channel
+ * must ALL match. This is deliberately stricter than the presence of any
+ * eligible global Promotion target. The adoption decision for a future Armor
+ * target must use the exact `armor.<id>.<parameter-id>` target identity.
+ */
+export function collectPromotedArmorLinkErrors(
+  link: PromotedArmorRuntimeLink,
+  armors: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = ARMORS,
+  manifest: RuntimePromotionManifest = checkedPromotionManifest,
+): string[] {
+  const errors: string[] = []
+  const armor = armors[link.armorId]
+  const audited = ARMOR_AUDIT.entries.find((entry) => entry.id === link.armorId)
+  const definition = ARMOR_PROMOTION_PARAMETER_SCOPES[link.parameter]
+  if (!armor) errors.push('P3B link has no runtime target')
+  const expectedTarget = `armor.${link.armorId}.${ARMOR_PARAMETER_IDS[link.parameter]}`
+  if (link.mechanicTargetId !== expectedTarget) errors.push('P3B Promotion target does not cover Armor parameter')
+  if (!definition || link.channel !== definition.channel || link.scope !== 'self-armor'
+    || !armor || armor[link.parameter] === (link.parameter === 'soulGatheringMultiplier' ? 1 : 0)) {
+    errors.push('P3B link mechanic/channel/scope is not applied by target Armor')
+  }
+  if (link.sourceRef !== 'research/armor-audit.json'
+    || !audited || audited.gameVersion !== link.gameVersion || manifest.gameVersion !== link.gameVersion
+    || !ARMOR_AUDIT.sources.some((source) => source.id === link.sourceId)
+    || !audited.sourceIds.includes(link.sourceId)
+    || !audited.intrinsicProperties.some((property) => property.kind === definition?.propertyKind
+      && property.raw === link.propertyRaw && property.sourceIds.includes(link.sourceId))
+    || !armor?.intrinsicProperties.some((property) => property.kind === definition?.propertyKind
+      && property.raw === link.propertyRaw)) {
+    errors.push('P3B link lacks matching source-backed Armor property/version')
+  }
+  const candidate = manifest.candidates.find((entry) => entry.targetId === link.mechanicTargetId)
+  const bundled = manifest.promotions.some((entry) => entry.targetId === link.mechanicTargetId)
+  if (!candidate || candidate.outcome !== 'accepted' || candidate.eligibility.status !== 'eligible'
+    || candidate.regression !== 'passed' || !candidate.regressionSourceRef
+    || candidate.regressionGameVersion !== manifest.gameVersion
+    || candidate.valueStatus !== 'known' || candidate.gameVersion !== manifest.gameVersion
+    || candidate.blockers.length !== 0 || !bundled || collectRuntimePromotionErrors(manifest).length) {
+    errors.push('P3B link lacks eligible accepted promotion and atomic bundle')
+  }
+  return errors
+}
+
 
 /** Enforce grants on every post-policy runtime Armor via either an existing
  * Limited reuse approval OR a manifest-backed new-mechanic Promotion.
@@ -152,6 +205,7 @@ export function collectLimitedArmorCatalogErrors(
   armors: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = ARMORS,
   approvals: readonly LimitedArmorReuseApproval[] = LIMITED_ARMOR_REUSE_APPROVALS,
   promotionLinks: readonly PromotedArmorRuntimeLink[] = PROMOTED_ARMOR_RUNTIME_LINKS,
+  manifest: RuntimePromotionManifest = checkedPromotionManifest,
 ): string[] {
   const errors: string[] = []
   const legacy = new Set(HISTORICAL_LIMITED_ARMOR_IDS)
@@ -162,14 +216,7 @@ export function collectLimitedArmorCatalogErrors(
     if (promoted.has(link.armorId)) errors.push(`${link.armorId}: duplicate P3B promotion link`)
     promoted.add(link.armorId)
     if (legacy.has(link.armorId)) errors.push(`${link.armorId}: pre-policy Armor cannot claim P3B promotion`)
-    if (!armors[link.armorId]) errors.push(`${link.armorId}: P3B link has no runtime target`)
-    const candidate = checkedPromotionManifest.candidates.find((entry) => entry.targetId === link.mechanicTargetId)
-    const bundled = checkedPromotionManifest.promotions.some((entry) => entry.targetId === link.mechanicTargetId)
-    if (!candidate || candidate.outcome !== 'accepted' || candidate.eligibility.status !== 'eligible'
-      || candidate.regression !== 'passed' || candidate.valueStatus !== 'known'
-      || candidate.gameVersion !== checkedPromotionManifest.gameVersion || candidate.blockers.length !== 0 || !bundled) {
-      errors.push(`${link.armorId}: P3B link lacks eligible accepted promotion and atomic bundle`)
-    }
+    errors.push(...collectPromotedArmorLinkErrors(link, armors, manifest).map((reason) => `${link.armorId}: ${reason}`))
   }
   for (const approval of approvals) {
     if (seen.has(approval.targetId)) errors.push(`${approval.targetId}: duplicate reuse approval`)
