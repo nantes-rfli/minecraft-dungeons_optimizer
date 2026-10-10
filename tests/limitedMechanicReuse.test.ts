@@ -300,7 +300,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
 
   it('negative: runtime registration or reuse approval alone never adopts target parameter Evidence', () => {
     const syntheticCatalog = { ...ARMORS, 'thief-armor': proposedThief }
-    expect(collectLimitedArmorCatalogErrors(syntheticCatalog)).toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval or P3B promotion')
+    expect(collectLimitedArmorCatalogErrors(syntheticCatalog)).toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion')
     expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [thiefCase])).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
     expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
     expect(ARMOR_EVIDENCE_BINDINGS['thief-armor']).toBeUndefined()
