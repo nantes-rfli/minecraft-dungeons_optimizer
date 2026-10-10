@@ -90,6 +90,7 @@ describe('Phase 2-3B Armor runtime', () => {
       expect(replica.damage.directWeaponSingleTargetDps).toBe(renegade.damage.directWeaponSingleTargetDps)
       expect(replica.defense.damageTakenMultiplier).toBe(renegade.defense.damageTakenMultiplier)
       expect(replica.armorState?.weaponDamageAuraMultiplier).toBe(renegade.armorState?.weaponDamageAuraMultiplier)
+      // B2 exact replicas must never appear more trustworthy than the Limited donor model they reuse.
       expect(replica.confidence.coverageScore).toBeCloseTo(renegade.confidence.coverageScore, 12)
       expect(replica.confidence.label).toBe(renegade.confidence.label)
       expect(replica.confidence.factors).toContainEqual(expect.objectContaining({
