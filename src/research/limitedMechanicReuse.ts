@@ -108,6 +108,16 @@ export function collectLimitedArmorReuseErrors(
     'reuse target has unreviewed extra intrinsic properties')
   check(target.meleeAttackSpeedBonus === approval.parameterValue && target.supportLevel === 'limited',
     'reuse runtime parameter/support mismatch')
+  // This narrow Thief reuse approves only its single intrinsic cadence property.
+  // Neither target-only nor donor-only built-ins / Soul effects may be inherited.
+  check(targetAudit?.builtInEnchantments.length === 0
+    && Array.isArray(target.builtInEnchantments) && target.builtInEnchantments.length === 0,
+    'reuse target has unreviewed built-in Enchantments')
+  check(targetAudit?.soulGear === false && target.soul?.acceptsSoulEnchantments === false,
+    'reuse target Soul enchantment eligibility mismatch')
+  // Even an explicit neutral/zero field is not an approved Soul effect declaration.
+  check(!!target.soul && !Object.prototype.hasOwnProperty.call(target.soul, 'intrinsicSoulModifier'),
+    'reuse target has unreviewed intrinsic Soul modifier')
   for (const key of ARMOR_NUMERIC_PARAMETERS) {
     if (key === 'meleeAttackSpeedBonus') continue
     check(target[key] === (key === 'soulGatheringMultiplier' ? 1 : 0), `reuse target inherits unrelated runtime effect: ${key}`)
