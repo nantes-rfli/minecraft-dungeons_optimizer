@@ -80,18 +80,21 @@ const promotionCandidate: PromotionCandidateInput = {
   regressionGameVersion: '1.17.0.0', regressionSourceRef: 'tests/limitedMechanicReuse.test.ts#independent-fixture',
   blockers: [],
 }
-function eligiblePromotion(targetId: string = eligibleTarget) {
-  const candidate = { ...promotionCandidate, targetId }
+function eligiblePromotions(targetIds: readonly string[]) {
+  const candidates = targetIds.map((targetId) => ({ ...promotionCandidate, targetId }))
   const artifacts = Object.fromEntries(PROMOTION_ARTIFACT_KINDS.map((kind) =>
     [kind, { path: `fixture/${kind}.json`, sha256: 'a'.repeat(64) }],
   )) as PromotionBundle['artifacts']
   return buildRuntimePromotionManifest({
-    gameVersion: '1.17.0.0', candidates: [candidate],
-    promotions: [{
-      targetId, decisionRef: candidate.decisionRef, supportLevel: 'limited', artifacts,
-      rollback: { strategy: 'revert-commit', note: 'Revert the fixture.' },
-    }],
+    gameVersion: '1.17.0.0', candidates,
+    promotions: candidates.map(({ targetId, decisionRef }) => ({
+      targetId, decisionRef, supportLevel: 'limited' as const, artifacts,
+      rollback: { strategy: 'revert-commit' as const, note: 'Revert the fixture.' },
+    })),
   })
+}
+function eligiblePromotion(targetId: string = eligibleTarget) {
+  return eligiblePromotions([targetId])
 }
 const exactPromotionLink: PromotedArmorRuntimeLink = {
   armorId: 'thief-armor', mechanicTargetId: eligibleTarget,
@@ -100,6 +103,51 @@ const exactPromotionLink: PromotedArmorRuntimeLink = {
   sourceId: 'dungeons-tools-armor-index', propertyRaw: '+25% melee attack speed',
   gameVersion: '1.17.0.0',
 }
+
+// Synthetic multi-effect Armor: all three parameters have independent
+// source-grounded Derived declarations in the Armor audit, but NONE is R3
+// adopted without its own accepted/bundled P3B target.
+const multiArmor: RuntimeArmorDefinition = {
+  ...ARMORS['renegade-armor'],
+  id: 'hungry-horror' as ArmorId,
+  name: { en: 'Hungry Horror', ja: 'ハングリーホラー' },
+  intrinsicProperties: [
+    { kind: 'melee-attack-speed', raw: '+25% melee attack speed' },
+    { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' },
+    { kind: 'damage-reduction', raw: '35% damage reduction' },
+  ],
+}
+const multiEvidence = {
+  ...ARMOR_EVIDENCE_BINDINGS,
+  'hungry-horror': {
+    meleeAttackSpeedBonus: ARMOR_EVIDENCE_BINDINGS['renegade-armor']!.meleeAttackSpeedBonus!,
+    weaponDamageAuraBonus: ARMOR_EVIDENCE_BINDINGS['renegade-armor']!.weaponDamageAuraBonus!,
+    armorDamageReduction: {
+      ...ARMOR_EVIDENCE_BINDINGS['renegade-armor']!.armorDamageReduction!,
+      propertyRaw: '35% damage reduction',
+    },
+  },
+}
+const multiTargets = {
+  speed: 'armor.hungry-horror.melee-attack-speed-bonus',
+  aura: 'armor.hungry-horror.weapon-damage-aura-bonus',
+  reduction: 'armor.hungry-horror.damage-reduction',
+}
+const multiLinks: readonly PromotedArmorRuntimeLink[] = [
+  {
+    ...exactPromotionLink, armorId: 'hungry-horror', mechanicTargetId: multiTargets.speed,
+  },
+  {
+    ...exactPromotionLink, armorId: 'hungry-horror', mechanicTargetId: multiTargets.aura,
+    parameter: 'weaponDamageAuraBonus', expectedValue: 0.2, channel: 'direct-melee-damage',
+    propertyRaw: '+20% weapon damage boost aura',
+  },
+  {
+    ...exactPromotionLink, armorId: 'hungry-horror', mechanicTargetId: multiTargets.reduction,
+    parameter: 'armorDamageReduction', expectedValue: 0.35, channel: 'incoming-damage',
+    propertyRaw: '35% damage reduction',
+  },
+]
 
 const derivedThief = ARMOR_EVIDENCE_BINDINGS['spider-armor']!.meleeAttackSpeedBonus!
 const measuredThief: ArmorEvidenceBinding = {
@@ -218,6 +266,51 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       'spider-armor: pre-policy Armor cannot claim P3B promotion',
     )
   })
+  it('A/P3B negative: one accepted link cannot promote other source-backed Derived effects', () => {
+    const catalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    const oneLink = [multiLinks[0]!]
+    const errors = collectLimitedArmorCatalogErrors(
+      catalog, [], oneLink, eligiblePromotions([multiTargets.speed]), multiEvidence,
+    )
+    expect(errors).toContain('hungry-horror/weaponDamageAuraBonus: active runtime parameter lacks target-specific P3B promotion')
+    expect(errors).toContain('hungry-horror/armorDamageReduction: active runtime parameter lacks target-specific P3B promotion')
+    // A missing grant cannot be disguised as a missing Evidence declaration:
+    // these three values are grounded in research/armor-audit.json and Derived.
+    expect(errors.some((reason) => reason.includes('missing or drifted parameter Evidence declaration'))).toBe(false)
+    expect(errors.some((reason) => reason.includes('Evidence declaration lacks source grounding'))).toBe(false)
+    expect(errors).not.toContain('hungry-horror/meleeAttackSpeedBonus: active runtime parameter lacks target-specific P3B promotion')
+  })
+
+  it('A/P3B positive: distinct eligible parameter links for one Armor are allowed, but identical targets are not', () => {
+    const catalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    const manifest = eligiblePromotions(Object.values(multiTargets))
+    expect(manifest.summary).toEqual({ candidates: 3, eligible: 3, promoted: 3 })
+    expect(collectLimitedArmorCatalogErrors(catalog, [], multiLinks, manifest, multiEvidence)).toEqual([])
+    const duplicate = collectLimitedArmorCatalogErrors(
+      catalog, [], [...multiLinks, multiLinks[0]!], manifest, multiEvidence,
+    )
+    expect(duplicate).toContain('hungry-horror: duplicate P3B promotion link')
+  })
+
+  it('A/P3B negative: built-in, Soul and non-numeric intrinsic effects require separate promotion support', () => {
+    const manifest = eligiblePromotions(Object.values(multiTargets))
+    const baseCatalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    expect(collectLimitedArmorCatalogErrors(baseCatalog, [], multiLinks, manifest, multiEvidence)).toEqual([])
+    const errors = (armor: RuntimeArmorDefinition) => collectLimitedArmorCatalogErrors(
+      { ...ARMORS, 'hungry-horror': armor }, [], multiLinks, manifest, multiEvidence,
+    )
+    expect(errors({ ...multiArmor, builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }] }))
+      .toContain('hungry-horror: A/P3B route has unpromoted built-in Enchantments')
+    expect(errors({ ...multiArmor, soul: { acceptsSoulEnchantments: true } }))
+      .toContain('hungry-horror: A/P3B route has unpromoted Soul effects')
+    expect(errors({ ...multiArmor, soul: { acceptsSoulEnchantments: false, intrinsicSoulModifier: 0 } }))
+      .toContain('hungry-horror: A/P3B route has unpromoted Soul effects')
+    expect(errors({
+      ...multiArmor,
+      intrinsicProperties: [...multiArmor.intrinsicProperties, { kind: 'other', raw: 'unreviewed event effect' }],
+    })).toContain('hungry-horror: A/P3B route has unpromoted intrinsic property other')
+  })
+
   it('Fix 1: validates Armor Evidence with and without Scenario, preserving both policy modes', () => {
     expect(() => validateBuild(sampleArmorBuild)).not.toThrow()
     expect(() => validateBuild(sampleArmorBuild, DEFAULT_SCENARIO)).not.toThrow()
