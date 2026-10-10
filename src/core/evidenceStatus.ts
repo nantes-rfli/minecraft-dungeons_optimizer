@@ -1,5 +1,6 @@
 import { ATTACK_PROFILES } from '../data/attackProfiles'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import { armorNumericEvidenceRows } from './armorEvidence'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { RANGED_ENCHANTMENTS } from '../data/ranged'
@@ -80,20 +81,18 @@ const enchantmentEvidence = Object.values(ENCHANTMENTS).flatMap((enchantment): r
   ]
 })
 
-const armorEvidence = Object.values(ARMORS).flatMap((armor): readonly ParameterEvidence[] => {
-  const mechanicId = `armor:${armor.id}`
-  const parameters = [
-    ['melee-damage-bonus', armor.meleeDamageBonus], ['weapon-damage-aura-bonus', armor.weaponDamageAuraBonus],
-    ['melee-attack-speed-bonus', armor.meleeAttackSpeedBonus], ['damage-reduction', armor.armorDamageReduction],
-    ['soul-gathering-multiplier', armor.soulGatheringMultiplier], ['life-steal-fraction', armor.lifeStealFraction],
-    ['artifact-cooldown-reduction', armor.artifactCooldownReduction],
-  ] as const
-  return parameters.filter(([, value]) => value !== 0 && value !== 1).map(([parameterId]) => ({
-    mechanicId, parameterId, label: `${armor.name.ja} / ${parameterId}`, status: 'derived' as const,
-    basis: `Armor auditのintrinsic property「${armor.intrinsicProperties.find((property) => property.kind.includes(parameterId.split('-')[0]!))?.raw ?? parameterId}」から個別に正規化。`,
-    conditions: '監査済みintrinsic propertyの自己効果だけ。', gameVersion: '1.17.0.0', confidence: 'medium' as const,
-  }))
-})
+const armorEvidence = Object.values(ARMORS).flatMap((armor): readonly ParameterEvidence[] =>
+  armorNumericEvidenceRows(armor).map(({ parameterId, binding }): ParameterEvidence => {
+    const mechanicId = `armor:${armor.id}`
+    const label = `${armor.name.ja} / ${parameterId}`
+    if (!binding) return unclassified(mechanicId, parameterId, label, 'runtime数値は登録済みだが、独立したsource-bound parameter Evidence宣言がないか値・意味がdrift。')
+    return {
+      mechanicId, parameterId, label, status: binding.status,
+      basis: `research/armor-audit.json: ${binding.sourceId} / ${binding.propertyKind}「${binding.propertyRaw}」`,
+      conditions: binding.conditions, gameVersion: binding.gameVersion, confidence: 'medium',
+    }
+  }),
+)
 
 const armorEnchantmentEvidence = Object.values(ARMOR_ENCHANTMENTS).flatMap((enchantment): readonly ParameterEvidence[] => [
   { mechanicId: `armor-enchantment:${enchantment.id}`, parameterId: 'tier-values', label: `${enchantment.name.ja} / tier values`, status: 'derived', basis: `Armor Enchantment auditで${enchantment.effect}のtier値を個別採用。`, conditions: 'runtimeMaxCopies=1の実装範囲。', gameVersion: '1.17.0.0', confidence: 'medium' },
