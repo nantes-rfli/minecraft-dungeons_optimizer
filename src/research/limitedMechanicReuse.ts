@@ -1,6 +1,7 @@
 import { ARMORS, type RuntimeArmorDefinition } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
 import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS } from '../core/armorEvidence'
+import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 
 /**
  * An explicit approval for reusing a bounded existing Limited Armor mechanic.
@@ -55,9 +56,23 @@ export function collectLimitedArmorReuseErrors(
   const donorAudit = ARMOR_AUDIT.entries.find((entry) => entry.id === approval.donorId)
   const source = ARMOR_AUDIT.sources.find((entry) => entry.id === approval.sourceId)
   const property = targetAudit?.intrinsicProperties.find((item) => item.kind === approval.propertyKind && item.raw === approval.propertyRaw)
+  const targetAssertion = formalIdentity.identityAssertions.find((entry) => entry.domainId === approval.targetId)
+  const donorAssertion = formalIdentity.identityAssertions.find((entry) => entry.domainId === approval.donorId)
+  const resolved = formalIdentity.semantic.identities.find((entry) => entry.assertionId === targetAssertion?.id)
+
 
   check(!!targetAudit && targetAudit.levelId === approval.rawIdentity && target.id === approval.targetId,
     'reuse target Identity is not source-backed')
+  check(targetAssertion?.reviewState === 'accepted' && targetAssertion.confidence === 'high'
+    && targetAssertion.rawIdentity === approval.rawIdentity
+    && resolved?.resolution.state === 'matched'
+    && resolved.rawEvidence.itemIdName.state === 'known'
+    && resolved.rawEvidence.itemIdName.value === approval.rawIdentity
+    && resolved.rawEvidence.serializedId.state === 'known'
+    && resolved.rawEvidence.serializedId.value === approval.rawIdentity,
+    'reuse target Formal Identity is not independently matched')
+  check(donorAssertion?.reviewState === 'accepted' && donorAssertion.rawIdentity === donorAudit?.levelId,
+    'reuse donor Formal Identity drift')
   check(approval.sourceRef === 'research/armor-audit.json' && !!source && !!targetAudit?.sourceIds.includes(approval.sourceId)
     && !!property?.sourceIds.includes(approval.sourceId), 'reuse source/property provenance is missing')
   check(targetAudit?.gameVersion === approval.gameVersion && ARMOR_AUDIT.gameVersion === approval.gameVersion,
