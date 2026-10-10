@@ -23,6 +23,65 @@ export interface ArmorEvidenceBinding {
   readonly conditions: string
 }
 
+/**
+ * This independent, reviewed decision is required only when a parameter is
+ * classified as Measured or Verified. A Limited reuse approval is not an
+ * Evidence classification decision. References must identify retained
+ * research records, not runtime definitions or tests.
+ */
+export interface ArmorIndependentClassificationDecision {
+  readonly armorId: string
+  readonly parameter: ArmorNumericParameter
+  readonly expectedValue: number
+  readonly gameVersion: string
+  readonly status: 'measured' | 'verified'
+  readonly decision: 'accepted' | 'held' | 'rejected'
+  readonly decisionRef: string
+  readonly independentEvidence: readonly {
+    readonly ref: string
+    readonly originId: string
+    readonly gameVersion: string
+    readonly method: 'measurement' | 'holdout'
+  }[]
+  readonly reviewerDecision: 'approved' | 'pending'
+}
+
+/** No currently registered Armor parameter has a high-confidence adoption
+ * decision; adding an Armor to runtime NEVER populates this registry.
+ */
+export const ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS: readonly ArmorIndependentClassificationDecision[] = []
+
+/** A declaration alone, or a Limited reuse approval, cannot grant
+ * Measured/Verified. Evidence and review must be separately recorded.
+ */
+export function hasIndependentArmorClassification(
+  armorId: string,
+  parameter: ArmorNumericParameter,
+  declaration: ArmorEvidenceBinding,
+  decisions: readonly ArmorIndependentClassificationDecision[] = ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS,
+): boolean {
+  if (declaration.status !== 'measured' && declaration.status !== 'verified') return true
+  const accepted = decisions.filter((item) => item.armorId === armorId && item.parameter === parameter)
+  if (accepted.length !== 1) return false
+  const decision = accepted[0]!
+  const evidence = decision.independentEvidence
+  const origins = new Set(evidence.map((item) => item.originId))
+  return decision.status === declaration.status
+    && decision.expectedValue === declaration.expectedValue
+    && decision.gameVersion === declaration.gameVersion
+    && decision.decision === 'accepted'
+    && decision.reviewerDecision === 'approved'
+    && decision.decisionRef.startsWith('research/')
+    && decision.decisionRef.includes('#')
+    && evidence.length > 0 && origins.size === evidence.length
+    && evidence.every((item) => item.ref.startsWith('research/')
+      && item.ref.includes('#') && item.ref !== decision.decisionRef
+      && item.originId.trim().length > 0
+      && item.gameVersion === declaration.gameVersion)
+    && (declaration.status !== 'verified'
+      || (evidence.length >= 2 && evidence.some((item) => item.method === 'holdout')))
+}
+
 /** Deliberately not populated by iterating over runtime definitions. */
 export const ARMOR_EVIDENCE_BINDINGS: Readonly<Record<string, Partial<Record<ArmorNumericParameter, ArmorEvidenceBinding>>>> = {
   "battle-robe": {
@@ -197,7 +256,11 @@ export const ARMOR_PARAMETER_IDS: Readonly<Record<ArmorNumericParameter, string>
 
 /** Non-neutral registered numbers without a matching source-bound declaration
  * stay unclassified, rather than acquiring Evidence from runtime membership. */
-export function armorNumericEvidenceRows(armor: RuntimeArmorDefinition): readonly {
+export function armorNumericEvidenceRows(
+  armor: RuntimeArmorDefinition,
+  declarations: Readonly<Record<string, Partial<Record<ArmorNumericParameter, ArmorEvidenceBinding>>>> = ARMOR_EVIDENCE_BINDINGS,
+  decisions: readonly ArmorIndependentClassificationDecision[] = ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS,
+): readonly {
   readonly parameter: ArmorNumericParameter
   readonly parameterId: string
   readonly value: number
@@ -206,10 +269,11 @@ export function armorNumericEvidenceRows(armor: RuntimeArmorDefinition): readonl
   return ARMOR_NUMERIC_PARAMETERS.flatMap((parameter) => {
     const value = armor[parameter]
     if (value === (parameter === 'soulGatheringMultiplier' ? 1 : 0)) return []
-    const declaration = ARMOR_EVIDENCE_BINDINGS[armor.id]?.[parameter]
+    const declaration = declarations[armor.id]?.[parameter]
     const matched = declaration
       && declaration.expectedValue === value
       && armor.intrinsicProperties.some((property) => property.kind === declaration.propertyKind && property.raw === declaration.propertyRaw)
+      && hasIndependentArmorClassification(armor.id, parameter, declaration, decisions)
     return [{
       parameter,
       parameterId: ARMOR_PARAMETER_IDS[parameter],
