@@ -95,6 +95,8 @@ describe('Phase 2-3B Armor runtime', () => {
   it('fails closed for Thief Armor without observed health or with unknown speed composition', () => {
     expect(() => evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
     expect(() => evaluate({ ...build('thief-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
+    const rampaging = { ...build('thief-armor'), weapon: { ...weapon, enchantmentSlots: [{ candidates: ['rampaging' as const], selected: { enchantmentId: 'rampaging' as const, tier: 3 as const } }] }, enchantments: [{ enchantmentId: 'rampaging' as const, tier: 3 as const, source: 'slot' as const }] }
+    expect(() => evaluate(rampaging, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
     const staged = { ...armor('thief-armor'), observedHealthBonus: undefined }
     const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [armor('battle-robe'), staged], artifacts: [] }, scenario)
     expect(evaluatedInstanceIds).not.toContain('thief-armor')

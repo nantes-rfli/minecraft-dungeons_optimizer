@@ -40,7 +40,7 @@ export const ARMORS: Readonly<Record<ArmorId, RuntimeArmorDefinition>> = {
   'renegade-armor': {
     id: 'renegade-armor', name: { en: 'Renegade Armor', ja: 'レネゲイドアーマー' }, family: 'Mercenary Armor',
     soul: { acceptsSoulEnchantments: false }, builtInEnchantments: [],
-    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }, { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' }, { kind: 'damage-reduction', raw: '35% damage reduction' }],
+    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }, { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' }, { kind: 'damage-reduction', raw: '35% Damage reduction' }],
     meleeDamageBonus: 0, weaponDamageAuraBonus: 0.2, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0.35,
     soulGatheringMultiplier: 1, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
   },
@@ -75,7 +75,7 @@ export const ARMORS: Readonly<Record<ArmorId, RuntimeArmorDefinition>> = {
   'spider-armor': {
     id: 'spider-armor', name: { en: 'Spider Armor', ja: 'スパイダーアーマー' }, family: 'Thief Armor',
     soul: { acceptsSoulEnchantments: false }, builtInEnchantments: [],
-    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }, { kind: 'life-steal-aura', raw: '6% life steal aura' }],
+    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '25% melee attack speed' }, { kind: 'life-steal-aura', raw: '6% life steal aura' }],
     meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0,
     soulGatheringMultiplier: 1, lifeStealFraction: 0.06, artifactCooldownReduction: 0, supportLevel: 'limited',
   },
