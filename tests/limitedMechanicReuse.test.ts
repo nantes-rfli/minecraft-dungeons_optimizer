@@ -11,9 +11,9 @@ import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { buildRuntimePromotionManifest, PROMOTION_ARTIFACT_KINDS, type PromotionBundle, type PromotionCandidateInput } from '../src/research/runtimePromotion'
 import { PARAMETER_EVIDENCE } from '../src/core/evidenceStatus'
 import {
-  collectLimitedArmorCatalogErrors, collectLimitedArmorReuseErrors, collectPromotedArmorLinkErrors,
-  HISTORICAL_LIMITED_ARMOR_IDS, LIMITED_ARMOR_REUSE_APPROVALS, PROMOTED_ARMOR_RUNTIME_LINKS,
-  type LimitedArmorReuseApproval, type PromotedArmorRuntimeLink,
+  collectLimitedArmorCatalogErrors, collectLimitedArmorReplicaReuseErrors, collectLimitedArmorReuseErrors, collectPromotedArmorLinkErrors,
+  HISTORICAL_LIMITED_ARMOR_IDS, LIMITED_ARMOR_REPLICA_REUSE_APPROVALS, LIMITED_ARMOR_REUSE_APPROVALS, PROMOTED_ARMOR_RUNTIME_LINKS,
+  type LimitedArmorReplicaReuseApproval, type LimitedArmorReuseApproval, type PromotedArmorRuntimeLink,
 } from '../src/research/limitedMechanicReuse'
 
 // Contract case only: Thief is NOT added to ARMORS or runtime support by this PR.
@@ -117,6 +117,30 @@ const multiArmor: RuntimeArmorDefinition = {
     { kind: 'damage-reduction', raw: '35% damage reduction' },
   ],
 }
+const hungryReplicaCase: LimitedArmorReplicaReuseApproval = {
+  targetId: 'hungry-horror',
+  rawIdentity: 'MercenaryArmor_Spooky1',
+  donorId: 'renegade-armor',
+  sourceRef: 'research/armor-audit.json',
+  sourceId: 'dungeons-tools-armor-index',
+  gameVersion: '1.17.0.0',
+  mode: 'exact-runtime-replica',
+  properties: [
+    { kind: 'melee-attack-speed', raw: '+25% melee attack speed', ownership: 'unique-only' },
+    { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura', ownership: 'inherited' },
+    { kind: 'damage-reduction', raw: '35% damage reduction', ownership: 'inherited' },
+  ],
+  rejectedInteractions: [
+    'death-cap-mushroom', 'rampaging',
+    'iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection',
+  ],
+  testRefs: {
+    positive: 'tests/limitedMechanicReuse.test.ts#replica-positive',
+    negative: 'tests/limitedMechanicReuse.test.ts#replica-negative',
+    preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
+  },
+}
+
 const multiEvidence = {
   ...ARMOR_EVIDENCE_BINDINGS,
   'hungry-horror': {
@@ -171,6 +195,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
   it('preservation: preserves seven historical Limited Armors and their 16 explicit derived Evidence entries', () => {
     expect(Object.keys(ARMORS)).toEqual(HISTORICAL_LIMITED_ARMOR_IDS)
     expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([])
+    expect(LIMITED_ARMOR_REPLICA_REUSE_APPROVALS).toEqual([])
     expect(PROMOTED_ARMOR_RUNTIME_LINKS).toEqual([])
     expect(collectLimitedArmorCatalogErrors()).toEqual([])
     // flatMap passes (value, index, array); pass only the Armor so Evidence defaults remain in effect.
@@ -240,9 +265,42 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(collectLimitedArmorReuseErrors(thiefCase, { ...proposedThief, armorDamageReduction: 0.35 })).toContain('reuse target inherits unrelated runtime effect: armorDamageReduction')
   })
 
+  it('replica-positive: exact full intrinsic/runtime model can reuse an existing Limited donor without omission', () => {
+    expect(collectLimitedArmorReplicaReuseErrors(hungryReplicaCase, multiArmor)).toEqual([])
+    expect(multiArmor.builtInEnchantments).toEqual(ARMORS['renegade-armor'].builtInEnchantments)
+    expect(multiArmor.soul).toEqual(ARMORS['renegade-armor'].soul)
+  })
+
+  it('replica-negative: any omitted effect, parameter drift, Soul/built-in drift or unlisted interaction fails closed', () => {
+    expect(collectLimitedArmorReplicaReuseErrors(hungryReplicaCase, {
+      ...multiArmor,
+      intrinsicProperties: multiArmor.intrinsicProperties.slice(0, 2),
+    })).toContain('replica runtime intrinsic set differs from donor')
+    expect(collectLimitedArmorReplicaReuseErrors(hungryReplicaCase, {
+      ...multiArmor,
+      armorDamageReduction: 0,
+    })).toContain('replica runtime parameter differs from donor: armorDamageReduction')
+    expect(collectLimitedArmorReplicaReuseErrors(hungryReplicaCase, {
+      ...multiArmor,
+      builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }],
+    })).toContain('replica runtime built-in Enchantments differ from donor')
+    expect(collectLimitedArmorReplicaReuseErrors(hungryReplicaCase, {
+      ...multiArmor,
+      soul: { acceptsSoulEnchantments: true },
+    })).toContain('replica runtime Soul semantics differ from donor')
+    expect(collectLimitedArmorReplicaReuseErrors({
+      ...hungryReplicaCase,
+      properties: hungryReplicaCase.properties.slice(0, 2),
+    }, multiArmor)).toContain('replica approval does not enumerate the exact target intrinsic set')
+    expect(collectLimitedArmorReplicaReuseErrors({
+      ...hungryReplicaCase,
+      rejectedInteractions: hungryReplicaCase.rejectedInteractions.filter((id) => id !== 'guarding-strike'),
+    }, multiArmor)).toContain('replica unverified interaction is not rejected: guarding-strike')
+  })
+
   it('negative: runtime registration or reuse approval alone never adopts target parameter Evidence', () => {
     const syntheticCatalog = { ...ARMORS, 'thief-armor': proposedThief }
-    expect(collectLimitedArmorCatalogErrors(syntheticCatalog)).toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval or P3B promotion')
+    expect(collectLimitedArmorCatalogErrors(syntheticCatalog)).toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion')
     expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [thiefCase])).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
     expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
     expect(ARMOR_EVIDENCE_BINDINGS['thief-armor']).toBeUndefined()

@@ -28,6 +28,9 @@ Bは次のすべてが揃うときだけ許可する。
 - `src/core/evidenceStatus.ts`は明示的なbindingを照合し、未宣言・値ずれ・raw propertyずれの数値をUnclassifiedとする。直接`evaluate`する場合も`src/core/validation.ts`でfail-closedする。
 - `src/research/limitedMechanicReuse.ts`の承認台帳は**空**。pre-policy7件を歴史的Limited扱いとするが、R3 acceptedと読み替えない。新規ArmorがBを使うには、source・同じmechanic/版/channel/scope・継承・非継承・併用拒否・テスト参照を備える個別の承認recordが必要。登録だけのArmorは`audit:armor-runtime`で拒否する。 P3B経由の新規Armor（A）は別途`PROMOTED_ARMOR_RUNTIME_LINKS`に対象を明記し、`runtime-promotion-manifest`上のaccepted/eligible/passedかつatomic bundle済みの対象へのlinkだけ許可。AとBの同時指定は拒否する。現行Link件数は0。
 - 実装済みB validatorは **Thief系の単独+25%近接cadence**だけに限定。より広いeffectやstackingなどの新しい意味は自動承認せず、Aまたは追加Architecture審査を要求する。これは全mechanicへの包括的な無審査許可ではない。
+- 追加の **B2 — Exact Limited Replica Reuse** は、targetの監査済みintrinsic setが既存Limited donorと**全件一致**する場合だけを扱う。property kind / raw意味 / ownership、built-in Enchantment、Soul semantics、全runtime numeric parameter、game version、source provenanceを一致させ、targetの全propertyをapproval recordへ列挙する。1件でもtarget-only effect、donor-only effect、未列挙property、parameter差分があればB2を拒否する。
+- B2はinteractionを広げない。donorで既に拒否しているspeed composition、DR composition、Soul Siphon、非direct-melee Life Steal、CDR compositionなどはtargetでも明示的に拒否する。runtime側の既存fail-closed boundaryをそのまま再利用し、Evidence Statusはtargetごとのsource-bound Derived宣言を別途要求する。
+- B2のarchitecture foundation自体はruntime Armorを追加しない。現行audit / Formal Identity上では `hungry-horror` と `hungriest-horror` が `renegade-armor` と、`the-spooky-gourdian` が `wither-armor` と完全な監査済みintrinsic set一致を持つ候補だが、各targetのapproval、Evidence binding、support manifest、coverage、regressionは別の実装PRで審査する。
 - 対象parameterのEvidence宣言はBの承認recordと独立して必要。source-backedなDerivedは公開監査値由来の分類に留まり、**ゲーム内interactionの採用やVerified認定ではない**。
 
 ## PR #209 fix-up: classificationとPromotion対象の追加gate
