@@ -35,3 +35,10 @@ eligibleになった対象は同じpromotion bundleで次の5成果物をすべ�
 5. eligible対象についてruntime、support manifest、利用者向け説明、coverage、regressionの5ファイルとSHA-256、support level、rollback noteを同じpromotion bundleへ登録する。
 6. `npm run audit:runtime-promotion`と関連audit、test、lint、buildを通す。
 7. P3Bの最初のeligible単位をreference implementationとして記録する。
+
+## Independent Existing Limited Mechanic Reuse
+
+This is a **separate conditional P4 path**, not a Promotion candidate or an exemption for new formulas. See [ADR 0002](./adr/0002-limited-runtime-reuse.md).
+
+An already-Limited calculation may be reused for another source-backed equipment identity only after exact parameter/value/version, mechanic/channel/scope/inheritance, noninheritance of donor-only effects, and rejection of unverified interaction are reviewed. Explicit per-target Evidence classification, support manifest and positive/negative/preservation tests are required. An unclassified target cannot be evaluated. This path does **not** change R3 acceptance, P3B, Product regression, the five-hash promotion bundle, or Candidate/Eligible/Promoted totals. Outside the existing Limited model's boundary, use New Mechanic Promotion (A).
+
