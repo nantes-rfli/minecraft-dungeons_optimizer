@@ -67,6 +67,8 @@ export function hasIndependentArmorClassification(
   // must never be sufficient to classify a parameter as Measured or Verified.
   // Fail closed until a source-backed verifier with an independent review gate
   // is implemented. Existing Derived/Estimated declarations are unaffected.
+  // An invalid injected decision registry must not bypass this boundary.
+  if (!Array.isArray(_decisions)) return false
   return declaration.status !== 'measured' && declaration.status !== 'verified'
 }
 
