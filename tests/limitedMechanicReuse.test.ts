@@ -95,7 +95,7 @@ function eligiblePromotion(targetId: string = eligibleTarget) {
 }
 const exactPromotionLink: PromotedArmorRuntimeLink = {
   armorId: 'thief-armor', mechanicTargetId: eligibleTarget,
-  parameter: 'meleeAttackSpeedBonus', channel: 'direct-melee-cadence',
+  parameter: 'meleeAttackSpeedBonus', expectedValue: 0.25, channel: 'direct-melee-cadence',
   scope: 'self-armor', sourceRef: 'research/armor-audit.json',
   sourceId: 'dungeons-tools-armor-index', propertyRaw: '+25% melee attack speed',
   gameVersion: '1.17.0.0',
@@ -256,6 +256,9 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(collectPromotedArmorLinkErrors({
       ...exactPromotionLink, parameter: 'armorDamageReduction',
     }, catalog, eligiblePromotion())).toContain('P3B Promotion target does not cover Armor parameter')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, expectedValue: 0.30,
+    }, catalog, eligiblePromotion())).toContain('P3B link mechanic/channel/scope is not applied by target Armor')
     expect(collectPromotedArmorLinkErrors({
       ...exactPromotionLink, sourceId: 'fabricated-source',
     }, catalog, eligiblePromotion())).toContain('P3B link lacks matching source-backed Armor property/version')
