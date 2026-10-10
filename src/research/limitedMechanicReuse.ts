@@ -1,6 +1,6 @@
 import { ARMORS, type RuntimeArmorDefinition } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
-import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS } from '../core/armorEvidence'
+import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS, armorNumericEvidenceRows } from '../core/armorEvidence'
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 import promotionManifest from '../../research/runtime/runtime-promotion-manifest.json'
 
@@ -187,6 +187,11 @@ export function collectLimitedArmorCatalogErrors(
       const neutral = key === 'soulGatheringMultiplier' ? 1 : 0
       if (armor[key] === neutral) continue
       const evidence = ARMOR_EVIDENCE_BINDINGS[id]?.[key]
+      if (evidence && (evidence.status === 'measured' || evidence.status === 'verified')
+        && !armorNumericEvidenceRows(armor).some((row) => row.parameter === key && row.binding)) {
+        errors.push(`${id}/${key}: Measured/Verified requires an independently accepted classification decision`)
+        continue
+      }
       if (!evidence || evidence.expectedValue !== armor[key]
         || !armor.intrinsicProperties.some((property) => property.kind === evidence.propertyKind && property.raw === evidence.propertyRaw)) {
         errors.push(`${id}/${key}: missing or drifted parameter Evidence declaration`)
