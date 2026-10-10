@@ -61,7 +61,7 @@ describe('Phase 2-3C Armor runtime audit', () => {
     })
   })
 
-  it('rejects a drift in Thief's inherited Limited speed rule', () => {
+  it("rejects a drift in Thief's inherited Limited speed rule", () => {
     const wrong = clone(ARMOR_CORE_RUNTIME_AUDIT)
     wrong.decisions.thiefAttackSpeedReuse.singleArmorBonus = 0.3
     expect(collectArmorRuntimeAuditErrors(wrong)).toContain('Thief Armor limited speed-only source or reuse boundary drift')
