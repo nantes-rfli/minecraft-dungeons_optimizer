@@ -265,7 +265,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
   it('negative: live Thief source, support, classification and route drift fail closed', () => {
     expect(collectLimitedArmorCatalogErrors({ ...ARMORS, 'thief-armor': {
       ...ARMORS['thief-armor'], meleeAttackSpeedBonus: 0.3,
-    } })).toContain('thief-armor: reuse donor has no matching Limited model/parameter')
+    } })).toContain('thief-armor: reuse runtime parameter/support mismatch')
     expect(collectLimitedArmorCatalogErrors(ARMORS, [{ ...thiefCase, sourceId: 'invented' }]))
       .toContain('thief-armor: reuse source/property provenance is missing')
     expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase], [], undefined, {

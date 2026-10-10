@@ -11,7 +11,7 @@ try {
   const module = await server.ssrLoadModule('/src/research/sourceHarvest.ts')
   const harvest = module.buildSourceHarvest()
   const errors = module.collectSourceHarvestErrors(harvest)
-  const json = `${JSON.stringify(harvest, null, 2)}\n`
+  const json = `${JSON.stringify(harvest)}\n` // Compact, lossless large research snapshot
   const markdown = module.renderSourceHarvest(harvest)
   const browserValue = (value: unknown): string => {
     const rendered = typeof value === 'string' ? value : JSON.stringify(value)
@@ -34,7 +34,7 @@ try {
   }
   const browserJson = `${JSON.stringify(browser, null, 2)}\n`
   const generated = { 'research/source-harvest.json': json, 'research/source-harvest-browser.json': browserJson, 'docs/source-harvest.md': markdown }
-  if (json !== `${JSON.stringify(module.buildSourceHarvest(), null, 2)}\n`) errors.push('Source Harvest generation is not deterministic')
+  if (json !== `${JSON.stringify(module.buildSourceHarvest())}\n`) errors.push('Source Harvest generation is not deterministic')
   if (write) for (const [file, content] of Object.entries(generated)) fs.writeFileSync(path.join(root, file), content as string)
   else for (const [file, content] of Object.entries(generated)) {
     if (!fs.existsSync(path.join(root, file)) || fs.readFileSync(path.join(root, file), 'utf8') !== content) errors.push(`${file}: stale generated output; run npm run harvest:sources`)
