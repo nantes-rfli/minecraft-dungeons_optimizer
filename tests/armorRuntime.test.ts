@@ -79,12 +79,29 @@ describe('Phase 2-3B Armor runtime', () => {
 
   it('event-replica-positive: Hungry variants match Renegade and Spooky Gourdian matches Wither inside existing Limited boundaries', () => {
     const renegade = evaluate(build('renegade-armor'), scenario)
-    for (const armorId of ['hungry-horror', 'hungriest-horror'] as const) {
+    const renegadeBoundaryCaveat = renegade.confidence.caveats.find((item) => item.startsWith('Renegade Armorは単独speed bucket'))
+    expect(renegadeBoundaryCaveat).toBeDefined()
+    for (const [armorId, displayName] of [
+      ['hungry-horror', 'Hungry Horror'],
+      ['hungriest-horror', 'Hungriest Horror'],
+    ] as const) {
       const replica = evaluate(build(armorId), scenario)
       expect(replica.damage.hitsPerSecond).toBe(renegade.damage.hitsPerSecond)
       expect(replica.damage.directWeaponSingleTargetDps).toBe(renegade.damage.directWeaponSingleTargetDps)
       expect(replica.defense.damageTakenMultiplier).toBe(renegade.defense.damageTakenMultiplier)
       expect(replica.armorState?.weaponDamageAuraMultiplier).toBe(renegade.armorState?.weaponDamageAuraMultiplier)
+      expect(replica.confidence.coverageScore).toBeCloseTo(renegade.confidence.coverageScore, 12)
+      expect(replica.confidence.label).toBe(renegade.confidence.label)
+      expect(replica.confidence.factors).toContainEqual(expect.objectContaining({
+        id: 'renegade-runtime-boundary',
+        label: `${displayName}の単独speed bucketとself aura ownership`,
+        confidence: 'low',
+        weight: 2,
+      }))
+      const replicaBoundaryCaveat = replica.confidence.caveats.find((item) => item.startsWith(`${displayName}は単独speed bucket`))
+      expect(replicaBoundaryCaveat?.replace(displayName, '<armor>')).toBe(
+        renegadeBoundaryCaveat?.replace('Renegade Armor', '<armor>'),
+      )
       const optimized = optimize({ weapons: [weapon], armors: [armor(armorId)], artifacts: [] }, scenario)
       expect(optimized.best.build.armor?.armorId).toBe(armorId)
     }
@@ -95,6 +112,20 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(spooky.armorState?.soulGatheringMultiplier).toBe(wither.armorState?.soulGatheringMultiplier)
     expect(spooky.armorState?.lifeStealFraction).toBe(wither.armorState?.lifeStealFraction)
     expect(spooky.healing.lifeStealPerSecond).toBe(wither.healing.lifeStealPerSecond)
+    expect(spooky.confidence.coverageScore).toBeCloseTo(wither.confidence.coverageScore, 12)
+    expect(spooky.confidence.label).toBe(wither.confidence.label)
+    expect(spooky.confidence.factors).toContainEqual(expect.objectContaining({
+      id: 'wither-life-steal-eligibility',
+      label: 'The Spooky GourdianのLife Steal対象channel',
+      confidence: 'low',
+      weight: 2,
+    }))
+    const witherBoundaryCaveat = wither.confidence.caveats.find((item) => item.startsWith('Wither ArmorのLife Steal'))
+    const spookyBoundaryCaveat = spooky.confidence.caveats.find((item) => item.startsWith('The Spooky GourdianのLife Steal'))
+    expect(witherBoundaryCaveat).toBeDefined()
+    expect(spookyBoundaryCaveat?.replace('The Spooky Gourdian', '<armor>')).toBe(
+      witherBoundaryCaveat?.replace('Wither Armor', '<armor>'),
+    )
 
     const soulWeapon = { ...weapon, weaponId: 'soul-scythe' as const }
     const witherSoul = evaluate({ ...build('wither-armor'), weapon: soulWeapon }, scenario)
