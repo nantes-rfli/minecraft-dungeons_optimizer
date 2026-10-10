@@ -74,6 +74,8 @@ export function hasIndependentArmorClassification(
     && decision.decisionRef.startsWith('research/')
     && decision.decisionRef.includes('#')
     && evidence.length > 0 && origins.size === evidence.length
+    && new Set(evidence.map((item) => item.ref)).size === evidence.length
+    && evidence.some((item) => item.method === 'measurement')
     && evidence.every((item) => item.ref.startsWith('research/')
       && item.ref.includes('#') && item.ref !== decision.decisionRef
       && item.originId.trim().length > 0
