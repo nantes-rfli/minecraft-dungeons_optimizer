@@ -3,6 +3,15 @@ import { ARMOR_AUDIT } from './armorAudit'
 import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS } from '../core/armorEvidence'
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 
+const reviewedIdentity = formalIdentity as unknown as {
+  identityAssertions: readonly { id: string; domainId: string; reviewState: string; confidence?: string; rawIdentity: string }[]
+  semantic: { identities: readonly {
+    assertionId: string
+    resolution: { state: string }
+    rawEvidence: { itemIdName: { state: string; value?: string }; serializedId: { state: string; value?: string } }
+  }[] }
+}
+
 /**
  * An explicit approval for reusing a bounded existing Limited Armor mechanic.
  * This is NOT an R3 AdoptionDecision or a P3B promotion bundle.
@@ -56,9 +65,9 @@ export function collectLimitedArmorReuseErrors(
   const donorAudit = ARMOR_AUDIT.entries.find((entry) => entry.id === approval.donorId)
   const source = ARMOR_AUDIT.sources.find((entry) => entry.id === approval.sourceId)
   const property = targetAudit?.intrinsicProperties.find((item) => item.kind === approval.propertyKind && item.raw === approval.propertyRaw)
-  const targetAssertion = formalIdentity.identityAssertions.find((entry) => entry.domainId === approval.targetId)
-  const donorAssertion = formalIdentity.identityAssertions.find((entry) => entry.domainId === approval.donorId)
-  const resolved = formalIdentity.semantic.identities.find((entry) => entry.assertionId === targetAssertion?.id)
+  const targetAssertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === approval.targetId)
+  const donorAssertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === approval.donorId)
+  const resolved = reviewedIdentity.semantic.identities.find((entry) => entry.assertionId === targetAssertion?.id)
 
 
   check(!!targetAudit && targetAudit.levelId === approval.rawIdentity && target.id === approval.targetId,
