@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 # A PR can receive several commits while validation is still running.
 # Keep only the newest PR-head run so obsolete heads do not consume hosted-runner minutes.
@@ -44,63 +44,6 @@ jobs:
         # The advisory API can stall for minutes; dependency-audit.yml reports it separately.
         run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
-      # TEMPORARY PR #213 fix-up capture. Remove after committing these canonical generator outputs.
-      - name: Generate runtime-derived artifacts for fix-up capture
-        run: |
-          npm run audit:armor
-          npm run generate:evidence-coverage
-          npm run harvest:sources
-          npm run generate:project-status
-      - name: Upload runtime-derived fix-up artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr213-runtime-derived-fixup
-          path: |
-            PROJECT_STATUS.md
-            docs/armor-audit.md
-            docs/armor-runtime-support.md
-            docs/combined-evidence-coverage.md
-            docs/evidence-gap-map.md
-            docs/measurement-protocols.md
-            docs/runtime-limitations.md
-            docs/source-harvest.md
-            research/analysis/evidence-coverage.json
-            research/analysis/evidence-coverage-dashboard.json
-            research/evidence-gap-map.json
-            research/source-harvest.json
-            research/source-harvest-browser.json
-            research/workflow/measurement-protocols.json
-          retention-days: 1
-      - name: Commit canonical generated fix-up
-        if: ${{ github.event_name == 'pull_request' }}
-        env:
-          PR_BRANCH: ${{ github.head_ref }}
-        run: |
-          paths=(
-            PROJECT_STATUS.md
-            docs/armor-audit.md
-            docs/armor-runtime-support.md
-            docs/combined-evidence-coverage.md
-            docs/evidence-gap-map.md
-            docs/measurement-protocols.md
-            docs/runtime-limitations.md
-            docs/source-harvest.md
-            research/analysis/evidence-coverage.json
-            research/analysis/evidence-coverage-dashboard.json
-            research/evidence-gap-map.json
-            research/source-harvest.json
-            research/source-harvest-browser.json
-            research/workflow/measurement-protocols.json
-          )
-          if git diff --quiet -- "${paths[@]}"; then
-            echo "Canonical generator outputs already committed."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- "${paths[@]}"
-          git commit -m "docs: sync Armor runtime generated artifacts"
-          git push origin "HEAD:${PR_BRANCH}"
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
