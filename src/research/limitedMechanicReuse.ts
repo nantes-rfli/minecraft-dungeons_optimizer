@@ -289,7 +289,13 @@ export function collectLimitedArmorCatalogErrors(
         || Object.prototype.hasOwnProperty.call(armor.soul, 'intrinsicSoulModifier')) {
         errors.push(`${id}: A/P3B route has unpromoted Soul effects`)
       }
+      const coveredProperties = new Set<string>()
       for (const property of armor.intrinsicProperties) {
+        const propertyKey = `${property.kind}:${property.raw}`
+        if (coveredProperties.has(propertyKey)) {
+          errors.push(`${id}: A/P3B route has duplicate intrinsic property ${property.kind}`)
+        }
+        coveredProperties.add(propertyKey)
         if (!links.some((link) => link.mechanicTargetId === `armor.${id}.${ARMOR_PARAMETER_IDS[link.parameter]}`
           && armor[link.parameter] !== (link.parameter === 'soulGatheringMultiplier' ? 1 : 0)
           && ARMOR_PROMOTION_PARAMETER_SCOPES[link.parameter]?.propertyKind === property.kind
