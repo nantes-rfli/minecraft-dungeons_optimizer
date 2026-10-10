@@ -260,6 +260,25 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       ...exactPromotionLink, expectedValue: 0.30,
     }, catalog, eligiblePromotion())).toContain('P3B link mechanic/channel/scope is not applied by target Armor')
     expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, scope: 'global' as PromotedArmorRuntimeLink['scope'],
+    }, catalog, eligiblePromotion())).toContain('P3B link mechanic/channel/scope is not applied by target Armor')
+    const valid = eligiblePromotion()
+    const invalidBundle = {
+      ...valid, promotions: [{
+        ...valid.promotions[0]!, artifacts: {
+          ...valid.promotions[0]!.artifacts,
+          coverage: { ...valid.promotions[0]!.artifacts.coverage, sha256: 'invalid-hash' },
+        },
+      }],
+    }
+    expect(collectPromotedArmorLinkErrors(exactPromotionLink, catalog, invalidBundle))
+      .toContain('P3B link lacks eligible accepted promotion and atomic bundle')
+    const invalidRegression = {
+      ...valid, candidates: [{ ...valid.candidates[0]!, regression: 'failed' as const }],
+    }
+    expect(collectPromotedArmorLinkErrors(exactPromotionLink, catalog, invalidRegression))
+      .toContain('P3B link lacks eligible accepted promotion and atomic bundle')
+    expect(collectPromotedArmorLinkErrors({
       ...exactPromotionLink, sourceId: 'fabricated-source',
     }, catalog, eligiblePromotion())).toContain('P3B link lacks matching source-backed Armor property/version')
     expect(collectPromotedArmorLinkErrors({
