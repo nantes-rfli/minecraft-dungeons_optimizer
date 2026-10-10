@@ -9,6 +9,8 @@ import { OptimizerInputError } from './errors'
 import { validateWeaponSoulLegality } from './soulLegality'
 import type { Build, EnchantmentId, Inventory, Scenario } from './types'
 import { armorCombinationUnsupportedReason } from './armor'
+import { armorNumericEvidenceRows } from './armorEvidence'
+import { evidencePolicy, isEvidenceStatusAllowed } from './evidenceStatus'
 import { parseRangedWeapon, validateRangedBuild } from './ranged'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 
@@ -175,6 +177,15 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
     assertPowerLevel(`armor ${build.armor.instanceId} powerLevel`, build.armor.powerLevel, 'INVALID_ARMOR')
     if (build.armor.enchantmentSlots.length < 1 || build.armor.enchantmentSlots.length > 3) throw new OptimizerInputError('INVALID_ARMOR', 'Armor Enchantmentスロットは1〜3個にしてください。')
     const definition = getArmorDefinition(build.armor.armorId)
+    // Fail closed even for direct evaluate(): runtime registration is not Evidence adoption.
+    const armorEvidencePolicy = scenario === undefined ? 'include-estimated' : evidencePolicy(scenario)
+    const unclassifiedArmor = armorNumericEvidenceRows(definition).filter(
+      ({ binding }) => !binding || !isEvidenceStatusAllowed(binding.status, armorEvidencePolicy),
+    )
+    if (unclassifiedArmor.length) throw new OptimizerInputError(
+      'UNSUPPORTED_ARMOR_EVIDENCE',
+      `Armor parameter Evidence未採用: ${unclassifiedArmor.map((item) => item.parameterId).join(', ')}`,
+    )
     const selected = build.armorEnchantments ?? []
     const expected = build.armor.enchantmentSlots.length + (build.armor.gilded ? 1 : 0) + definition.builtInEnchantments.length
     if (selected.length !== expected) throw new OptimizerInputError('INVALID_BUILD', 'Armorの各スロット・金色・固有Enchantをすべて選択してください。')

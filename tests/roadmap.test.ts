@@ -51,4 +51,16 @@ describe('roadmap work unit validation', () => {
     const source = { ...unit('R1'), [field]: ['R2', 'R2'] }
     expect(collectRoadmapWorkUnitErrors([source, unit('R2')])).toContain(`R1: duplicate ${label} R2`)
   })
+  it('keeps P3B mandatory for new mechanic promotion while allowing only reviewed Limited reuse in P4', () => {
+    const promotion = ROADMAP_WORK_UNITS.find((item) => item.id === 'P3B')!
+    const coverage = ROADMAP_WORK_UNITS.find((item) => item.id === 'P4')!
+    expect(promotion.dependsOn).toContain('R3')
+    expect(promotion.dependencyCondition).toContain('R3でaccepted')
+    expect(coverage.dependsOn).toEqual(['P3'])
+    expect(coverage.dependencyCondition).toContain('R3 accepted/P3B')
+    expect(coverage.dependencyCondition).toContain('Identity')
+    expect(coverage.dependencyCondition).toContain('interaction拒否')
+    expect(coverage.completionCriteria).toContain('Unclassified')
+  })
+
 })

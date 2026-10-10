@@ -1,5 +1,6 @@
 import auditJson from '../../research/runtime/armor-core-runtime-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import { collectLimitedArmorCatalogErrors } from './limitedMechanicReuse'
 
 export const ARMOR_CORE_RUNTIME_AUDIT = auditJson
 
@@ -30,5 +31,6 @@ export function collectArmorRuntimeAuditErrors(value: unknown = ARMOR_CORE_RUNTI
     check(record(decisions.chilling) && decisions.chilling.rawTemporalCoverage === 0.5 && decisions.chilling.objective === 'control-only', 'Chilling periodic/control decision drift')
   }
   check(record(value.completion) && value.completion.runtimeArmorCount === armorIds.length && value.completion.runtimeArmorEnchantmentCount === enchantmentIds.length && value.completion.supportLevel === 'limited', 'Armor runtime completion counts drift')
+  errors.push(...collectLimitedArmorCatalogErrors())
   return errors
 }

@@ -73,6 +73,6 @@ Formal breadthだけを独立目的にせず、既存DomainのApplication利用�
 Roadmap上のNextは次です。着手時にはその時点のcanonical stateと依存条件を再評価します。
 
 - **R3 — Evidence Validation / Adoption**: 取得済みEvidenceをsemantic / version / conflict / holdout gateで評価し、parameter単位のAdoptionDecisionを確定する。
-- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。
+- **P4 — Runtime Coverage Expansion**: 新規mechanicはP3B通過後に昇格する。既存Limited mechanicはsource-backedな対象別Reuse審査を通った場合に限り、独立した経路で適用装備を拡張する。
 
 Layer 2では、既存Formal breadthをApplicationへ安全に接続する価値と、Applicationに必要なDomain gapを埋める価値を比較します。Evidence待ちやsemantic ambiguityがある対象はfail-closedのまま保留します。

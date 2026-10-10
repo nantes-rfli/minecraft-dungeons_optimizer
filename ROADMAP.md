@@ -103,10 +103,10 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
 
 #### Next
 
-- **P4 — Runtime Coverage Expansion**: P3Bを通過した小さい単位ごとにruntime coverageを拡張する。巨大な全装備Promotion Phaseは作らない。
-  - Depends on: P3B
-  - Entry condition: 対象単位についてP3BのEnd-to-End promotion reference implementationが成立済み
-  - Completion: 追加単位ごとにsupport boundaryとregressionが明示され、Research-onlyを0点候補へ混ぜない。
+- **P4 — Runtime Coverage Expansion**: 新規mechanicはP3B通過後に昇格する。既存Limited mechanicはsource-backedな対象別Reuse審査を通った場合に限り、独立した経路で適用装備を拡張する。
+  - Depends on: P3
+  - Entry condition: A（新規式・未採用値・未検証interaction）: 対象のR3 accepted/P3B/独立Product regression/atomic bundle必須。B（既存Limitedモデル再利用）: Identity、対象parameterのsource・version、channel/scope/inheritance、非継承とinteraction拒否、個別Evidence宣言、manifest、正負・保存テストを承認済み。適用範囲外はAに戻す。
+  - Completion: 両経路ともsourceからruntime・support manifest・説明・coverage・regressionを一致させ、Unknown/Unclassifiedを数値化せず、LimitedをVerifiedへ自動変更しない。
 
 #### Blocked
 
@@ -134,15 +134,20 @@ Optimizerが使用するparameter / mechanicの根拠を取得・検証し、採
 ## Cross-track Handoff
 
 ```text
-Research Evidence
-  → Evidence Adoption Decision
-  → Promotion Eligibility
-  → Product Runtime Promotion
-  → Optimizer Runtime
-  → Coverage / Recommendation
+A — New Mechanic Promotion:
+Research Evidence → R3 accepted → P3B + independent Product regression
+  → atomic promotion bundle → Optimizer Runtime
+
+B — Existing Limited Mechanic Reuse:
+audited Identity + source-bound target parameter + version + semantic match
+  → explicit per-target Limited reuse approval + parameter Evidence classification
+  → preservation/positive/negative regressions + support manifest
+  → Optimizer Runtime (Limited only)
+
+Both → Coverage / Recommendation (unsupported/unknown combinations rejected)
 ```
 
-handoffはparameter / mechanic単位で行う。Track全体の完了、Full / Limited分類、既存runtimeであることのいずれからもEvidence Statusを推定しない。
+handoffはparameter / mechanic単位で行う。Aは従来どおりP3Bが必須であり、Bは既存Limited計算式の同一意味・同一適用範囲内だけを追加対象にする。Track全体の完了、Full / Limited分類、既存runtimeであることのいずれからもEvidence Statusを推定しない。BはR3 acceptedやVerifiedを主張せず、未検証interactionは引き続き拒否する。
 
 ## Document Links
 
