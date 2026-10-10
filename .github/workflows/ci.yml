@@ -5,11 +5,18 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
 
 permissions:
   contents: read
+
+# A PR can receive several commits while validation is still running.
+# Keep only the newest PR-head run so obsolete heads do not consume hosted-runner minutes.
+# Push and manual runs use a unique fallback group and are never canceled by this policy.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   validate:
