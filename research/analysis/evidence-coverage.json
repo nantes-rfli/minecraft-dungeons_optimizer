@@ -693,6 +693,15 @@
             "appliedTo": "attack-cadence",
             "deathCapOrRampaging": "unsupported"
           },
+          "thiefAttackSpeedReuse": {
+            "sourceArmorId": "thief-armor",
+            "inheritanceTarget": "spider-armor",
+            "singleArmorBonus": 0.25,
+            "appliedTo": "attack-cadence",
+            "deathCapOrRampaging": "unsupported",
+            "rawIdentity": "AssassinArmor",
+            "sourceRef": "research/armor-audit.json"
+          },
           "witherSouls": {
             "multiplier": 1.5,
             "zeroFlatGatheringRemainsZero": true,
