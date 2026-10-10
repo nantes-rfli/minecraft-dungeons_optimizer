@@ -231,6 +231,93 @@ export const ARMOR_EVIDENCE_BINDINGS: Readonly<Record<string, Partial<Record<Arm
       "status": "derived",
       "conditions": "監査済みintrinsic propertyの自己効果だけ。"
     }
+  },
+  "hungry-horror": {
+    "meleeAttackSpeedBonus": {
+      "expectedValue": 0.25,
+      "propertyKind": "melee-attack-speed",
+      "propertyRaw": "+25% melee attack speed",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungry Horror自身の監査済みpropertyをRenegade Armorの既存Limited境界で完全一致再利用。Death Cap/Rampaging合成はunsupported。"
+    },
+    "weaponDamageAuraBonus": {
+      "expectedValue": 0.2,
+      "propertyKind": "weapon-damage-aura",
+      "propertyRaw": "+20% weapon damage boost aura",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungry Horror自身の監査済みpropertyを既存Limited direct-melee damage境界で完全一致再利用。"
+    },
+    "armorDamageReduction": {
+      "expectedValue": 0.35,
+      "propertyKind": "damage-reduction",
+      "propertyRaw": "35% damage reduction",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungry Horror自身の監査済み35% Armor DR。Iron Hide/Potion Barrier/Guarding Strike/Weakening/Protectionとの合成はunsupported。"
+    }
+  },
+  "hungriest-horror": {
+    "meleeAttackSpeedBonus": {
+      "expectedValue": 0.25,
+      "propertyKind": "melee-attack-speed",
+      "propertyRaw": "+25% melee attack speed",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungriest Horror自身の監査済みpropertyをRenegade Armorの既存Limited境界で完全一致再利用。Death Cap/Rampaging合成はunsupported。"
+    },
+    "weaponDamageAuraBonus": {
+      "expectedValue": 0.2,
+      "propertyKind": "weapon-damage-aura",
+      "propertyRaw": "+20% weapon damage boost aura",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungriest Horror自身の監査済みpropertyを既存Limited direct-melee damage境界で完全一致再利用。"
+    },
+    "armorDamageReduction": {
+      "expectedValue": 0.35,
+      "propertyKind": "damage-reduction",
+      "propertyRaw": "35% damage reduction",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Hungriest Horror自身の監査済み35% Armor DR。Iron Hide/Potion Barrier/Guarding Strike/Weakening/Protectionとの合成はunsupported。"
+    }
+  },
+  "the-spooky-gourdian": {
+    "armorDamageReduction": {
+      "expectedValue": 0.35,
+      "propertyKind": "damage-reduction",
+      "propertyRaw": "35% damage reduction",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "The Spooky Gourdian自身の監査済み35% Armor DRをWither Armorの既存Limited境界で完全一致再利用。防御source合成はunsupported。"
+    },
+    "soulGatheringMultiplier": {
+      "expectedValue": 1.5,
+      "propertyKind": "soul-gathering",
+      "propertyRaw": "+50% souls gathered",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "The Spooky Gourdian自身の監査済み+50% souls。既存flat Gatheringだけを1.5倍し、Soul Siphon合成はunsupported。"
+    },
+    "lifeStealFraction": {
+      "expectedValue": 0.06,
+      "propertyKind": "life-steal-aura",
+      "propertyRaw": "6% life steal aura",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "The Spooky Gourdian自身の監査済み6% Life Steal。既存Wither境界どおりmodeled direct melee damageだけを対象とする。"
+    }
   }
 } as const
 
