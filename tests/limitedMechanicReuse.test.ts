@@ -190,9 +190,11 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
   })
 
-  it('Fix 2 positive: a separate independently approved Measured decision admits the exact parameter', () => {
+  it('Fix 2: accepted labels and distinct origin strings cannot grant Measured/Verified without verifiable raw evidence', () => {
+    // Synthetic refs intentionally do not identify independently verified files/runs.
+    // A decision record alone must remain insufficient, even with approved labels.
     expect(armorNumericEvidenceRows(proposedThief, measuredDeclarations, [independentMeasurement])
-      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding?.status).toBe('measured')
+      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
     const verifiedDeclarations = {
       ...measuredDeclarations,
       'thief-armor': { meleeAttackSpeedBonus: { ...measuredThief, status: 'verified' as const } },
@@ -205,7 +207,19 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       }],
     }
     expect(armorNumericEvidenceRows(proposedThief, verifiedDeclarations, [verifiedDecision])
-      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding?.status).toBe('verified')
+      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
+    const forgedDecision: ArmorIndependentClassificationDecision = {
+      ...independentMeasurement,
+      decisionRef: 'research/nonexistent-decision.json#/accepted',
+      independentEvidence: [{
+        ref: 'research/nonexistent-trace.json#/runs/1',
+        originId: 'claimed-independent-run',
+        gameVersion: '1.17.0.0',
+        method: 'measurement',
+      }],
+    }
+    expect(armorNumericEvidenceRows(proposedThief, measuredDeclarations, [forgedDecision])
+      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
   })
 
   it('Fix 2 negative: reuse and runtime registration cannot grant unsupported Measured/Verified', () => {
