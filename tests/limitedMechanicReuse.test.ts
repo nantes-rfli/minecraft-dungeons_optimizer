@@ -136,8 +136,48 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
 
   it('positive: Thief source, exact base→unique inheritance, Limited speed and single-channel model match', () => {
     expect(collectLimitedArmorReuseErrors(thiefCase, proposedThief)).toEqual([])
+    expect(proposedThief.builtInEnchantments).toEqual([])
+    expect(proposedThief.soul).toEqual({ acceptsSoulEnchantments: false })
     expect(proposedThief.lifeStealFraction).toBe(0)
     expect(ARMORS['spider-armor'].lifeStealFraction).toBe(0.06)
+  })
+
+  it('negative: Thief reuse rejects unreviewed built-in Enchantments and Soul fields', () => {
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }],
+    })).toContain('reuse target has unreviewed built-in Enchantments')
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, soul: { acceptsSoulEnchantments: true },
+    })).toContain('reuse target Soul enchantment eligibility mismatch')
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, soul: { acceptsSoulEnchantments: false, intrinsicSoulModifier: { bonus: 0.25 } },
+    })).toContain('reuse target has unreviewed intrinsic Soul modifier')
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, soul: { acceptsSoulEnchantments: false, intrinsicSoulModifier: 0 },
+    })).toContain('reuse target has unreviewed intrinsic Soul modifier')
+  })
+
+  it('negative: donor-only built-in and Soul effects cannot leak into a reused Thief target', () => {
+    const donorWithBuiltIn: RuntimeArmorDefinition = {
+      ...ARMORS['spider-armor'], builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }],
+    }
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, builtInEnchantments: donorWithBuiltIn.builtInEnchantments,
+    }, donorWithBuiltIn)).toContain('reuse target has unreviewed built-in Enchantments')
+
+    const donorWithSoul: RuntimeArmorDefinition = {
+      ...ARMORS['spider-armor'],
+      soul: { acceptsSoulEnchantments: false, intrinsicSoulModifier: { bonus: 0.25 } },
+    }
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, soul: donorWithSoul.soul,
+    }, donorWithSoul)).toContain('reuse target has unreviewed intrinsic Soul modifier')
+    const donorWithSoulEligibility: RuntimeArmorDefinition = {
+      ...ARMORS['spider-armor'], soul: { acceptsSoulEnchantments: true },
+    }
+    expect(collectLimitedArmorReuseErrors(thiefCase, {
+      ...proposedThief, soul: donorWithSoulEligibility.soul,
+    }, donorWithSoulEligibility)).toContain('reuse target Soul enchantment eligibility mismatch')
   })
 
   it('negative: source Identity, value, version, semantics, extra effect and interaction drift fail closed', () => {
