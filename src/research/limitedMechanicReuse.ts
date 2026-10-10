@@ -4,6 +4,20 @@ import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS } from '../core/armor
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 import promotionManifest from '../../research/runtime/runtime-promotion-manifest.json'
 
+const checkedPromotionManifest = promotionManifest as unknown as {
+  readonly gameVersion: string
+  readonly candidates: readonly {
+    readonly targetId: string
+    readonly outcome: string
+    readonly eligibility: { readonly status: string }
+    readonly regression: string
+    readonly valueStatus: string
+    readonly gameVersion: string
+    readonly blockers: readonly string[]
+  }[]
+  readonly promotions: readonly { readonly targetId: string }[]
+}
+
 const reviewedIdentity = formalIdentity as unknown as {
   identityAssertions: readonly { id: string; domainId: string; reviewState: string; confidence?: string; rawIdentity: string }[]
   semantic: { identities: readonly {
@@ -149,11 +163,11 @@ export function collectLimitedArmorCatalogErrors(
     promoted.add(link.armorId)
     if (legacy.has(link.armorId)) errors.push(`${link.armorId}: pre-policy Armor cannot claim P3B promotion`)
     if (!armors[link.armorId]) errors.push(`${link.armorId}: P3B link has no runtime target`)
-    const candidate = promotionManifest.candidates.find((entry) => entry.targetId === link.mechanicTargetId)
-    const bundled = promotionManifest.promotions.some((entry) => entry.targetId === link.mechanicTargetId)
+    const candidate = checkedPromotionManifest.candidates.find((entry) => entry.targetId === link.mechanicTargetId)
+    const bundled = checkedPromotionManifest.promotions.some((entry) => entry.targetId === link.mechanicTargetId)
     if (!candidate || candidate.outcome !== 'accepted' || candidate.eligibility.status !== 'eligible'
       || candidate.regression !== 'passed' || candidate.valueStatus !== 'known'
-      || candidate.gameVersion !== promotionManifest.gameVersion || candidate.blockers.length !== 0 || !bundled) {
+      || candidate.gameVersion !== checkedPromotionManifest.gameVersion || candidate.blockers.length !== 0 || !bundled) {
       errors.push(`${link.armorId}: P3B link lacks eligible accepted promotion and atomic bundle`)
     }
   }
