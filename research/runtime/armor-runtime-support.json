@@ -510,14 +510,15 @@
     {
       "id": "hungriest-horror",
       "name": "Hungriest Horror",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
+        "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -526,14 +527,15 @@
     {
       "id": "hungry-horror",
       "name": "Hungry Horror",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
+        "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -995,14 +997,16 @@
     {
       "id": "the-spooky-gourdian",
       "name": "The Spooky Gourdian",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
-        "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "Full audited intrinsic set exactly reuses the existing Limited Wither Armor model: 35% Armor DR alone, +50% on existing flat Soul Gathering, and 6% Life Steal on modeled direct melee AoE damage only."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Soul Siphon multiplication is unsupported.",
+        "Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported.",
+        "Indirect proc, DoT, explosion, Artifact, and ranged damage receive no Life Steal credit."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
