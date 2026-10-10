@@ -1,12 +1,19 @@
 import { describe, expect, it } from 'vitest'
 import { ARMORS, type RuntimeArmorDefinition } from '../src/data/armors'
 import type { ArmorId } from '../src/core/armor'
-import { ARMOR_EVIDENCE_BINDINGS, armorNumericEvidenceRows } from '../src/core/armorEvidence'
+import {
+  ARMOR_EVIDENCE_BINDINGS, ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS, armorNumericEvidenceRows,
+  type ArmorEvidenceBinding, type ArmorIndependentClassificationDecision,
+} from '../src/core/armorEvidence'
+import { validateBuild } from '../src/core/validation'
+import type { Build } from '../src/core/types'
+import { DEFAULT_SCENARIO } from '../src/data/scenarios'
+import { buildRuntimePromotionManifest, PROMOTION_ARTIFACT_KINDS, type PromotionBundle, type PromotionCandidateInput } from '../src/research/runtimePromotion'
 import { PARAMETER_EVIDENCE } from '../src/core/evidenceStatus'
 import {
-  collectLimitedArmorCatalogErrors, collectLimitedArmorReuseErrors,
+  collectLimitedArmorCatalogErrors, collectLimitedArmorReuseErrors, collectPromotedArmorLinkErrors,
   HISTORICAL_LIMITED_ARMOR_IDS, LIMITED_ARMOR_REUSE_APPROVALS, PROMOTED_ARMOR_RUNTIME_LINKS,
-  type LimitedArmorReuseApproval,
+  type LimitedArmorReuseApproval, type PromotedArmorRuntimeLink,
 } from '../src/research/limitedMechanicReuse'
 
 // Contract case only: Thief is NOT added to ARMORS or runtime support by this PR.
@@ -45,6 +52,71 @@ const thiefCase: LimitedArmorReuseApproval = {
     negative: 'tests/limitedMechanicReuse.test.ts#negative',
     preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
   },
+}
+
+
+const sampleArmorBuild: Build = {
+  weapon: {
+    instanceId: 'weapon', weaponId: 'double-axe', powerLevel: 251, observedDamagePerHit: 100,
+    enchantmentSlots: [{ candidates: ['critical-hit'], selected: { enchantmentId: 'critical-hit', tier: 3 } }],
+  },
+  enchantments: [{ enchantmentId: 'critical-hit', tier: 3, source: 'slot' }],
+  armor: {
+    instanceId: 'armor', armorId: 'spider-armor', powerLevel: 251, observedHealthBonus: 400,
+    enchantmentSlots: [{ candidates: ['chilling'], selected: { enchantmentId: 'chilling', tier: 3 } }],
+  },
+  armorEnchantments: [{ enchantmentId: 'chilling', tier: 3, source: 'slot' }],
+  artifacts: [],
+}
+
+// Synthetic acceptance fixtures test the contract only: no promotion is
+// registered in the checked-in manifest and no Thief Armor enters runtime.
+const eligibleTarget = 'armor.thief-armor.melee-attack-speed-bonus'
+const promotionCandidate: PromotionCandidateInput = {
+  targetId: eligibleTarget, targetKind: 'parameter',
+  decisionRef: 'research/fixture.json#/decisions/thief-cadence', outcome: 'accepted',
+  gameVersion: '1.17.0.0', valueStatus: 'known', regression: 'passed',
+  regressionRef: 'research/fixture-regression.json#/targets/0',
+  regressionGameVersion: '1.17.0.0', regressionSourceRef: 'tests/limitedMechanicReuse.test.ts#independent-fixture',
+  blockers: [],
+}
+function eligiblePromotion(targetId: string = eligibleTarget) {
+  const candidate = { ...promotionCandidate, targetId }
+  const artifacts = Object.fromEntries(PROMOTION_ARTIFACT_KINDS.map((kind) =>
+    [kind, { path: `fixture/${kind}.json`, sha256: 'a'.repeat(64) }],
+  )) as PromotionBundle['artifacts']
+  return buildRuntimePromotionManifest({
+    gameVersion: '1.17.0.0', candidates: [candidate],
+    promotions: [{
+      targetId, decisionRef: candidate.decisionRef, supportLevel: 'limited', artifacts,
+      rollback: { strategy: 'revert-commit', note: 'Revert the fixture.' },
+    }],
+  })
+}
+const exactPromotionLink: PromotedArmorRuntimeLink = {
+  armorId: 'thief-armor', mechanicTargetId: eligibleTarget,
+  parameter: 'meleeAttackSpeedBonus', channel: 'direct-melee-cadence',
+  scope: 'self-armor', sourceRef: 'research/armor-audit.json',
+  sourceId: 'dungeons-tools-armor-index', propertyRaw: '+25% melee attack speed',
+  gameVersion: '1.17.0.0',
+}
+
+const derivedThief = ARMOR_EVIDENCE_BINDINGS['spider-armor']!.meleeAttackSpeedBonus!
+const measuredThief: ArmorEvidenceBinding = {
+  ...derivedThief, propertyRaw: '+25% melee attack speed', status: 'measured',
+}
+const measuredDeclarations = {
+  ...ARMOR_EVIDENCE_BINDINGS, 'thief-armor': { meleeAttackSpeedBonus: measuredThief },
+}
+const independentMeasurement: ArmorIndependentClassificationDecision = {
+  armorId: 'thief-armor', parameter: 'meleeAttackSpeedBonus',
+  expectedValue: 0.25, gameVersion: '1.17.0.0', status: 'measured',
+  decision: 'accepted', reviewerDecision: 'approved',
+  decisionRef: 'research/evidence/armor-measurement.json#/decisions/thief',
+  independentEvidence: [{
+    ref: 'research/evidence/armor-measurement.json#/runs/1',
+    originId: 'independent-run-1', gameVersion: '1.17.0.0', method: 'measurement',
+  }],
 }
 
 describe('Existing Limited Armor mechanic reuse architecture', () => {
@@ -91,7 +163,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
 
   it('negative: P3B linkage cannot endorse a held/noneligible manifest candidate or self-approve', () => {
     const syntheticCatalog = { ...ARMORS, 'thief-armor': proposedThief }
-    const link = { armorId: 'thief-armor', mechanicTargetId: 'defense.damage-taken-composition' }
+    const link = { ...exactPromotionLink, mechanicTargetId: 'defense.damage-taken-composition' }
     expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [], [link])).toContain(
       'thief-armor: P3B link lacks eligible accepted promotion and atomic bundle',
     )
@@ -105,4 +177,84 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       'spider-armor: pre-policy Armor cannot claim P3B promotion',
     )
   })
+  it('Fix 1: validates Armor Evidence with and without Scenario, preserving both policy modes', () => {
+    expect(() => validateBuild(sampleArmorBuild)).not.toThrow()
+    expect(() => validateBuild(sampleArmorBuild, DEFAULT_SCENARIO)).not.toThrow()
+    expect(() => validateBuild(sampleArmorBuild, {
+      ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only',
+    })).not.toThrow()
+    expect(() => validateBuild(sampleArmorBuild, {
+      ...DEFAULT_SCENARIO, evidencePolicy: 'include-estimated',
+    })).not.toThrow()
+    expect(ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS).toEqual([])
+    expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
+  })
+
+  it('Fix 2 positive: a separate independently approved Measured decision admits the exact parameter', () => {
+    expect(armorNumericEvidenceRows(proposedThief, measuredDeclarations, [independentMeasurement])
+      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding?.status).toBe('measured')
+    const verifiedDeclarations = {
+      ...measuredDeclarations,
+      'thief-armor': { meleeAttackSpeedBonus: { ...measuredThief, status: 'verified' as const } },
+    }
+    const verifiedDecision: ArmorIndependentClassificationDecision = {
+      ...independentMeasurement, status: 'verified',
+      independentEvidence: [...independentMeasurement.independentEvidence, {
+        ref: 'research/evidence/armor-holdout.json#/runs/2', originId: 'independent-holdout-2',
+        gameVersion: '1.17.0.0', method: 'holdout',
+      }],
+    }
+    expect(armorNumericEvidenceRows(proposedThief, verifiedDeclarations, [verifiedDecision])
+      .find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding?.status).toBe('verified')
+  })
+
+  it('Fix 2 negative: reuse and runtime registration cannot grant unsupported Measured/Verified', () => {
+    const resolved = (decisions: readonly ArmorIndependentClassificationDecision[], status: 'measured' | 'verified' = 'measured') =>
+      armorNumericEvidenceRows(proposedThief, {
+        ...measuredDeclarations, 'thief-armor': { meleeAttackSpeedBonus: { ...measuredThief, status } },
+      }, decisions).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding
+    expect(collectLimitedArmorReuseErrors(thiefCase, proposedThief)).toEqual([])
+    expect(resolved([])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, decision: 'held' }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, reviewerDecision: 'pending' }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, armorId: 'spider-armor' }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, expectedValue: 0.30 }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, gameVersion: 'other-version' }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, independentEvidence: [] }])).toBeUndefined()
+    expect(resolved([independentMeasurement], 'verified')).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, status: 'verified' }], 'verified')).toBeUndefined()
+    expect(resolved([independentMeasurement, independentMeasurement])).toBeUndefined()
+  })
+
+  it('Fix 3 positive: exact accepted promotion claim, target property and channel match', () => {
+    const catalog = { ...ARMORS, 'thief-armor': proposedThief }
+    const manifest = eligiblePromotion()
+    expect(manifest.summary).toEqual({ candidates: 1, eligible: 1, promoted: 1 })
+    expect(collectPromotedArmorLinkErrors(exactPromotionLink, catalog, manifest)).toEqual([])
+    // The P3B link is valid, but its separate parameter Evidence declaration is still missing.
+    const errors = collectLimitedArmorCatalogErrors(catalog, [], [exactPromotionLink], manifest)
+    expect(errors).not.toContain('thief-armor: P3B link lacks eligible accepted promotion and atomic bundle')
+    expect(errors).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
+  })
+
+  it('Fix 3 negative: an unrelated eligible promotion does not authorize this Armor', () => {
+    const catalog = { ...ARMORS, 'thief-armor': proposedThief }
+    const unrelated = eligiblePromotion('armor.unrelated-armor.melee-attack-speed-bonus')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, mechanicTargetId: 'armor.unrelated-armor.melee-attack-speed-bonus',
+    }, catalog, unrelated)).toContain('P3B Promotion target does not cover Armor parameter')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, channel: 'incoming-damage',
+    }, catalog, eligiblePromotion())).toContain('P3B link mechanic/channel/scope is not applied by target Armor')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, parameter: 'armorDamageReduction',
+    }, catalog, eligiblePromotion())).toContain('P3B Promotion target does not cover Armor parameter')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, sourceId: 'fabricated-source',
+    }, catalog, eligiblePromotion())).toContain('P3B link lacks matching source-backed Armor property/version')
+    expect(collectPromotedArmorLinkErrors({
+      ...exactPromotionLink, gameVersion: 'other-version',
+    }, catalog, eligiblePromotion())).toContain('P3B link lacks matching source-backed Armor property/version')
+  })
+
 })
