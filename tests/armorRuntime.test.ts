@@ -84,7 +84,8 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(thief.armorState?.meleeAttackSpeedBonus).toBe(0.25)
     expect(thief.damage.hitsPerSecond).toBe(spider.damage.hitsPerSecond)
     expect(thief.damage.hitsPerSecond / plain.damage.hitsPerSecond).toBeCloseTo(1.25)
-    expect(thief.healing.lifeStealPerSecond).toBe(0)
+    expect(thief.armorState?.lifeStealFraction).toBe(0)
+    expect(thief.healing.lifeStealPerSecond).toBeUndefined()
     expect(thief.defense.damageTakenMultiplier).toBe(1)
     expect(thief.armorState?.finalMaxHealth).toBe(500)
     const result = optimize({ weapons: [weapon], armors: [armor('thief-armor')], artifacts: [] }, scenario)
@@ -93,7 +94,13 @@ describe('Phase 2-3B Armor runtime', () => {
   })
 
   it('fails closed for Thief Armor without observed health or with unknown speed composition', () => {
-    expect(() => evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)).toThrow(/MISSING_OBSERVED_ARMOR_HEALTH/)
+    let missingHealthError: unknown
+    try {
+      evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)
+    } catch (error) {
+      missingHealthError = error
+    }
+    expect(missingHealthError).toMatchObject({ code: 'MISSING_OBSERVED_ARMOR_HEALTH' })
     expect(() => evaluate({ ...build('thief-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
     const rampaging = { ...build('thief-armor'), weapon: { ...weapon, enchantmentSlots: [{ candidates: ['rampaging' as const], selected: { enchantmentId: 'rampaging' as const, tier: 3 as const } }] }, enchantments: [{ enchantmentId: 'rampaging' as const, tier: 3 as const, source: 'slot' as const }] }
     expect(() => evaluate(rampaging, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
