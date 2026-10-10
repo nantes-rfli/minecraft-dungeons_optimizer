@@ -5,7 +5,7 @@ import { ARMOR_EVIDENCE_BINDINGS, armorNumericEvidenceRows } from '../src/core/a
 import { PARAMETER_EVIDENCE } from '../src/core/evidenceStatus'
 import {
   collectLimitedArmorCatalogErrors, collectLimitedArmorReuseErrors,
-  HISTORICAL_LIMITED_ARMOR_IDS, LIMITED_ARMOR_REUSE_APPROVALS,
+  HISTORICAL_LIMITED_ARMOR_IDS, LIMITED_ARMOR_REUSE_APPROVALS, PROMOTED_ARMOR_RUNTIME_LINKS,
   type LimitedArmorReuseApproval,
 } from '../src/research/limitedMechanicReuse'
 
@@ -51,6 +51,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
   it('preservation: preserves seven historical Limited Armors and their 16 explicit derived Evidence entries', () => {
     expect(Object.keys(ARMORS)).toEqual(HISTORICAL_LIMITED_ARMOR_IDS)
     expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([])
+    expect(PROMOTED_ARMOR_RUNTIME_LINKS).toEqual([])
     expect(collectLimitedArmorCatalogErrors()).toEqual([])
     const rows = Object.values(ARMORS).flatMap(armorNumericEvidenceRows)
     expect(rows).toHaveLength(16)
@@ -86,5 +87,22 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(ARMOR_EVIDENCE_BINDINGS['thief-armor']).toBeUndefined()
     expect(PARAMETER_EVIDENCE.some((row) => row.mechanicId === 'armor:thief-armor')).toBe(false)
     expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase])).toContain('thief-armor: reuse approval has no runtime target')
+  })
+
+  it('negative: P3B linkage cannot endorse a held/noneligible manifest candidate or self-approve', () => {
+    const syntheticCatalog = { ...ARMORS, 'thief-armor': proposedThief }
+    const link = { armorId: 'thief-armor', mechanicTargetId: 'defense.damage-taken-composition' }
+    expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [], [link])).toContain(
+      'thief-armor: P3B link lacks eligible accepted promotion and atomic bundle',
+    )
+    expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [thiefCase], [link])).toContain(
+      'thief-armor: choose exactly one P4 route',
+    )
+    expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [], [link, link])).toContain(
+      'thief-armor: duplicate P3B promotion link',
+    )
+    expect(collectLimitedArmorCatalogErrors(ARMORS, [], [{ ...link, armorId: 'spider-armor' }])).toContain(
+      'spider-armor: pre-policy Armor cannot claim P3B promotion',
+    )
   })
 })
