@@ -26,7 +26,7 @@ Bは次のすべてが揃うときだけ許可する。
 
 - `src/core/armorEvidence.ts`はこれまでの7 Armor / 16 non-neutral parameterのEvidenceを**明示的なsource・値・property・版に固定**する。既存分類はすべてDerivedのまま変更しない。runtime定義から自動でEvidenceを生成しない。
 - `src/core/evidenceStatus.ts`は明示的なbindingを照合し、未宣言・値ずれ・raw propertyずれの数値をUnclassifiedとする。直接`evaluate`する場合も`src/core/validation.ts`でfail-closedする。
-- `src/research/limitedMechanicReuse.ts`の承認台帳は**空**。pre-policy7件を歴史的Limited扱いとするが、R3 acceptedと読み替えない。新規ArmorがBを使うには、source・同じmechanic/版/channel/scope・継承・非継承・併用拒否・テスト参照を備える個別の承認recordが必要。登録だけのArmorは`audit:armor-runtime`で拒否する。
+- `src/research/limitedMechanicReuse.ts`の承認台帳は**空**。pre-policy7件を歴史的Limited扱いとするが、R3 acceptedと読み替えない。新規ArmorがBを使うには、source・同じmechanic/版/channel/scope・継承・非継承・併用拒否・テスト参照を備える個別の承認recordが必要。登録だけのArmorは`audit:armor-runtime`で拒否する。 P3B経由の新規Armor（A）は別途`PROMOTED_ARMOR_RUNTIME_LINKS`に対象を明記し、`runtime-promotion-manifest`上のaccepted/eligible/passedかつatomic bundle済みの対象へのlinkだけ許可。AとBの同時指定は拒否する。現行Link件数は0。
 - 実装済みB validatorは **Thief系の単独+25%近接cadence**だけに限定。より広いeffectやstackingなどの新しい意味は自動承認せず、Aまたは追加Architecture審査を要求する。これは全mechanicへの包括的な無審査許可ではない。
 - 対象parameterのEvidence宣言はBの承認recordと独立して必要。source-backedなDerivedは公開監査値由来の分類に留まり、**ゲーム内interactionの採用やVerified認定ではない**。
 
