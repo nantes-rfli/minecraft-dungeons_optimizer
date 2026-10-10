@@ -79,6 +79,27 @@ export const ARMORS: Readonly<Record<ArmorId, RuntimeArmorDefinition>> = {
     meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0,
     soulGatheringMultiplier: 1, lifeStealFraction: 0.06, artifactCooldownReduction: 0, supportLevel: 'limited',
   },
+  'hungry-horror': {
+    id: 'hungry-horror', name: { en: 'Hungry Horror' }, family: 'Mercenary Armor',
+    soul: { acceptsSoulEnchantments: false }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }, { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' }, { kind: 'damage-reduction', raw: '35% damage reduction' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0.2, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0.35,
+    soulGatheringMultiplier: 1, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
+  'hungriest-horror': {
+    id: 'hungriest-horror', name: { en: 'Hungriest Horror' }, family: 'Mercenary Armor',
+    soul: { acceptsSoulEnchantments: false }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }, { kind: 'damage-reduction', raw: '35% damage reduction' }, { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0.2, meleeAttackSpeedBonus: 0.25, armorDamageReduction: 0.35,
+    soulGatheringMultiplier: 1, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
+  'the-spooky-gourdian': {
+    id: 'the-spooky-gourdian', name: { en: 'The Spooky Gourdian' }, family: 'Grim Armor',
+    soul: { acceptsSoulEnchantments: true }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'damage-reduction', raw: '35% damage reduction' }, { kind: 'soul-gathering', raw: '+50% souls gathered' }, { kind: 'life-steal-aura', raw: '6% life steal aura' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0, armorDamageReduction: 0.35,
+    soulGatheringMultiplier: 1.5, lifeStealFraction: 0.06, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
 }
 
 export const ARMOR_ENCHANTMENTS: Readonly<Record<ArmorEnchantmentId, RuntimeArmorEnchantmentDefinition>> = {
