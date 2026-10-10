@@ -125,7 +125,8 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([])
     expect(PROMOTED_ARMOR_RUNTIME_LINKS).toEqual([])
     expect(collectLimitedArmorCatalogErrors()).toEqual([])
-    const rows = Object.values(ARMORS).flatMap(armorNumericEvidenceRows)
+    // flatMap passes (value, index, array); pass only the Armor so Evidence defaults remain in effect.
+    const rows = Object.values(ARMORS).flatMap((armor) => armorNumericEvidenceRows(armor))
     expect(rows).toHaveLength(16)
     expect(rows.every((row) => row.binding?.status === 'derived')).toBe(true)
     const registered = PARAMETER_EVIDENCE.filter((entry) => entry.mechanicId.startsWith('armor:'))
