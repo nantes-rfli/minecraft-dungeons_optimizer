@@ -10,7 +10,7 @@ const cases: { name: string; collection: keyof Inventory; item: { instanceId: st
   { name: 'runtime ranged', collection: 'rangedWeapons', item: supported.rangedWeapons![0]! },
   { name: 'runtime artifact', collection: 'artifacts', item: supported.artifacts[0]! },
   ...([
-    ['melee', 'diamond-sword'], ['armor', 'hungry-horror'],
+    ['melee', 'diamond-sword'], ['armor', 'archer-s-armor'],
     ['ranged', 'bow-of-lost-souls'], ['artifact', 'blast-fungus'],
   ] as const).map(([category, catalogId]) => ({
     name: `catalog ${category}`, collection: 'catalogItems' as const,
