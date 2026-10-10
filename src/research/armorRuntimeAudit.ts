@@ -1,6 +1,6 @@
 import auditJson from '../../research/runtime/armor-core-runtime-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
-import { collectLimitedArmorCatalogErrors } from './limitedMechanicReuse'
+import { collectLimitedArmorCatalogErrors, LIMITED_ARMOR_REPLICA_REUSE_APPROVALS } from './limitedMechanicReuse'
 
 export const ARMOR_CORE_RUNTIME_AUDIT = auditJson
 
@@ -26,6 +26,17 @@ export function collectArmorRuntimeAuditErrors(value: unknown = ARMOR_CORE_RUNTI
     check(record(decisions.artifactCooldownComposition) && decisions.artifactCooldownComposition.battleRobeWithCoolDown === 'unsupported' && decisions.artifactCooldownComposition.externalWithArmorSource === 'unsupported', 'cooldown composition gate missing')
     check(record(decisions.damageReductionComposition) && decisions.damageReductionComposition.armorWithOtherRuntimeDefense === 'unsupported' && decisions.damageReductionComposition.protection === 'sole-source-only', 'Armor DR composition gate missing')
     check(record(decisions.renegadeAttackSpeed) && decisions.renegadeAttackSpeed.appliedTo === 'attack-cadence' && decisions.renegadeAttackSpeed.deathCapOrRampaging === 'unsupported', 'Renegade cadence boundary missing')
+    const replicaDecisions = decisions.exactReplicaReuse
+    check(Array.isArray(replicaDecisions)
+      && replicaDecisions.length === LIMITED_ARMOR_REPLICA_REUSE_APPROVALS.length
+      && LIMITED_ARMOR_REPLICA_REUSE_APPROVALS.every((approval) => replicaDecisions.some((entry) =>
+        record(entry)
+        && entry.targetArmorId === approval.targetId
+        && entry.donorArmorId === approval.donorId
+        && entry.rawIdentity === approval.rawIdentity
+        && entry.sourceRef === approval.sourceRef
+        && entry.mode === approval.mode)),
+    'exact Limited replica reuse decisions drift')
     check(record(decisions.witherSouls) && decisions.witherSouls.multiplier === 1.5 && decisions.witherSouls.zeroFlatGatheringRemainsZero === true && decisions.witherSouls.pickupEventsUnchanged === true && decisions.witherSouls.soulSiphon === 'unsupported', 'Wither Soul boundary missing')
     check(record(decisions.witherLifeSteal) && decisions.witherLifeSteal.fraction === 0.06 && Array.isArray(decisions.witherLifeSteal.eligibleChannels) && decisions.witherLifeSteal.eligibleChannels.join('|') === 'direct-melee', 'Wither Life Steal boundary missing')
     check(record(decisions.chilling) && decisions.chilling.rawTemporalCoverage === 0.5 && decisions.chilling.objective === 'control-only', 'Chilling periodic/control decision drift')
