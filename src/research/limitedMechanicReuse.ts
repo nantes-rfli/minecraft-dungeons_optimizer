@@ -144,6 +144,7 @@ export interface PromotedArmorRuntimeLink {
    */
   readonly mechanicTargetId: string
   readonly parameter: ArmorNumericParameter
+  readonly expectedValue: number
   readonly channel: (typeof ARMOR_PROMOTION_PARAMETER_SCOPES)[ArmorNumericParameter]['channel']
   readonly scope: 'self-armor'
   readonly sourceRef: 'research/armor-audit.json'
@@ -171,7 +172,8 @@ export function collectPromotedArmorLinkErrors(
   const expectedTarget = `armor.${link.armorId}.${ARMOR_PARAMETER_IDS[link.parameter]}`
   if (link.mechanicTargetId !== expectedTarget) errors.push('P3B Promotion target does not cover Armor parameter')
   if (!definition || link.channel !== definition.channel || link.scope !== 'self-armor'
-    || !armor || armor[link.parameter] === (link.parameter === 'soulGatheringMultiplier' ? 1 : 0)) {
+    || !armor || !Number.isFinite(link.expectedValue) || armor[link.parameter] !== link.expectedValue
+    || armor[link.parameter] === (link.parameter === 'soulGatheringMultiplier' ? 1 : 0)) {
     errors.push('P3B link mechanic/channel/scope is not applied by target Armor')
   }
   if (link.sourceRef !== 'research/armor-audit.json'
