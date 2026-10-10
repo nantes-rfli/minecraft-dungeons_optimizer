@@ -1,5 +1,6 @@
 import auditJson from '../../research/armor-expansion-state-enchant-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import { HISTORICAL_LIMITED_ARMOR_IDS } from './limitedMechanicReuse'
 import { ARMOR_ENCHANTMENT_REFERENCE_IDS } from './armorEnchantmentAudit'
 
 export const ARMOR_EXPANSION_AUDIT = auditJson
@@ -29,6 +30,14 @@ export function collectArmorExpansionAuditErrors(value: unknown = ARMOR_EXPANSIO
   check(record(value.contributionPolicy) && value.contributionPolicy.wholeArmorLeaveOneOut === 'removed' && value.contributionPolicy.armorEnchantmentLeaveOneOut === 'retained' && value.contributionPolicy.rankingMetricsChanged === false, 'Armor contribution display policy drift')
   check(record(value.inventoryPolicy) && value.inventoryPolicy.referenceCatalogCount === ARMOR_ENCHANTMENT_REFERENCE_IDS.length && value.inventoryPolicy.referenceCatalogCount === 41 && value.inventoryPolicy.runtimeCatalogCount === Object.keys(ARMOR_ENCHANTMENTS).length && value.inventoryPolicy.unsupportedFreeAlternative === 'reject', 'Armor Enchantment inventory policy drift')
   check(record(value.cooldownStacking) && value.cooldownStacking.status === 'inconclusive' && record(value.cooldownStacking.runtimePolicy) && value.cooldownStacking.runtimePolicy.battleRobeWithCoolDown === 'unsupported' && value.cooldownStacking.runtimePolicy.multipleCoolDownCopies === 'unsupported' && value.cooldownStacking.runtimePolicy.runtimeMaxCopies === 1, 'CDR rejection policy drift')
-  check(record(value.completion) && value.completion.runtimeArmorCount === 7 && value.completion.runtimeArmorCount === Object.keys(ARMORS).length && value.completion.newRuntimeArmorCount === 4 && value.completion.runtimeArmorEnchantmentCount === 7 && value.completion.runtimeArmorEnchantmentCount === Object.keys(ARMOR_ENCHANTMENTS).length && value.completion.newRuntimeArmorEnchantmentCount === 4, 'Armor expansion completion counts drift')
+  const currentArmorIds = Object.keys(ARMORS)
+  check(record(value.completion) && value.completion.runtimeArmorCount === 7
+    && HISTORICAL_LIMITED_ARMOR_IDS.length === 7
+    && HISTORICAL_LIMITED_ARMOR_IDS.every((id) => currentArmorIds.includes(id))
+    && value.completion.newRuntimeArmorCount === 4
+    && value.completion.runtimeArmorEnchantmentCount === 7
+    && value.completion.runtimeArmorEnchantmentCount === Object.keys(ARMOR_ENCHANTMENTS).length
+    && value.completion.newRuntimeArmorEnchantmentCount === 4,
+  'Armor expansion completion counts drift')
   return errors
 }
