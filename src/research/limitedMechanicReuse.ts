@@ -1,6 +1,6 @@
 import { ARMORS, type RuntimeArmorDefinition } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
-import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS, ARMOR_PARAMETER_IDS, armorNumericEvidenceRows, type ArmorNumericParameter } from '../core/armorEvidence'
+import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS, ARMOR_PARAMETER_IDS, armorNumericEvidenceRows, type ArmorEvidenceBinding, type ArmorNumericParameter } from '../core/armorEvidence'
 import { collectRuntimePromotionErrors, type RuntimePromotionManifest } from './runtimePromotion'
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
 import promotionManifest from '../../research/runtime/runtime-promotion-manifest.json'
@@ -211,22 +211,29 @@ export function collectPromotedArmorLinkErrors(
 
 /** Enforce grants on every post-policy runtime Armor via either an existing
  * Limited reuse approval OR a manifest-backed new-mechanic Promotion.
- * Both routes separately need source-bound parameter Evidence declarations.
+ * A route covers an Armor, but A authorization applies to EACH active mechanic,
+ * not to the Armor as a whole. Evidence declarations alone never grant A.
  */
 export function collectLimitedArmorCatalogErrors(
   armors: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = ARMORS,
   approvals: readonly LimitedArmorReuseApproval[] = LIMITED_ARMOR_REUSE_APPROVALS,
   promotionLinks: readonly PromotedArmorRuntimeLink[] = PROMOTED_ARMOR_RUNTIME_LINKS,
   manifest: RuntimePromotionManifest = checkedPromotionManifest,
+  evidenceBindings: Readonly<Record<string, Partial<Record<ArmorNumericParameter, ArmorEvidenceBinding>>>> = ARMOR_EVIDENCE_BINDINGS,
 ): string[] {
   const errors: string[] = []
   const legacy = new Set(HISTORICAL_LIMITED_ARMOR_IDS)
   const ids = Object.keys(armors)
   const seen = new Set<string>()
-  const promoted = new Set<string>()
+  const promoted = new Map<string, PromotedArmorRuntimeLink[]>()
+  const promotedTargets = new Set<string>()
   for (const link of promotionLinks) {
-    if (promoted.has(link.armorId)) errors.push(`${link.armorId}: duplicate P3B promotion link`)
-    promoted.add(link.armorId)
+    const targetKey = `${link.armorId}:${link.mechanicTargetId}`
+    if (promotedTargets.has(targetKey)) errors.push(`${link.armorId}: duplicate P3B promotion link`)
+    promotedTargets.add(targetKey)
+    const links = promoted.get(link.armorId) ?? []
+    links.push(link)
+    promoted.set(link.armorId, links)
     if (legacy.has(link.armorId)) errors.push(`${link.armorId}: pre-policy Armor cannot claim P3B promotion`)
     errors.push(...collectPromotedArmorLinkErrors(link, armors, manifest).map((reason) => `${link.armorId}: ${reason}`))
   }
@@ -242,12 +249,19 @@ export function collectLimitedArmorCatalogErrors(
   for (const id of ids) {
     if (!legacy.has(id) && !seen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval or P3B promotion`)
     const armor = armors[id]!
+    const links = promoted.get(id) ?? []
+    const routeA = !legacy.has(id) && !seen.has(id) && links.length > 0
     for (const key of ARMOR_NUMERIC_PARAMETERS) {
       const neutral = key === 'soulGatheringMultiplier' ? 1 : 0
       if (armor[key] === neutral) continue
-      const evidence = ARMOR_EVIDENCE_BINDINGS[id]?.[key]
+      // One accepted/bundled parameter link cannot authorize a second active effect.
+      if (routeA && !links.some((link) => link.parameter === key
+        && link.mechanicTargetId === `armor.${id}.${ARMOR_PARAMETER_IDS[key]}`)) {
+        errors.push(`${id}/${key}: active runtime parameter lacks target-specific P3B promotion`)
+      }
+      const evidence = evidenceBindings[id]?.[key]
       if (evidence && (evidence.status === 'measured' || evidence.status === 'verified')
-        && !armorNumericEvidenceRows(armor).some((row) => row.parameter === key && row.binding)) {
+        && !armorNumericEvidenceRows(armor, evidenceBindings).some((row) => row.parameter === key && row.binding)) {
         errors.push(`${id}/${key}: Measured/Verified requires an independently accepted classification decision`)
         continue
       }
@@ -262,6 +276,26 @@ export function collectLimitedArmorCatalogErrors(
           && property.raw === evidence.propertyRaw && property.sourceIds.includes(evidence.sourceId))
         || !ARMOR_AUDIT.sources.some((source) => source.id === evidence.sourceId)) {
         errors.push(`${id}/${key}: Evidence declaration lacks source grounding`)
+      }
+    }
+    if (routeA) {
+      // Current A link vocabulary authorizes numeric intrinsic effects only.
+      // Built-ins, Soul semantics and any unlinked/non-numeric intrinsic need
+      // their own reviewed Promotion support; never assume they are neutral.
+      if (!Array.isArray(armor.builtInEnchantments) || armor.builtInEnchantments.length !== 0) {
+        errors.push(`${id}: A/P3B route has unpromoted built-in Enchantments`)
+      }
+      if (!armor.soul || armor.soul.acceptsSoulEnchantments !== false
+        || Object.prototype.hasOwnProperty.call(armor.soul, 'intrinsicSoulModifier')) {
+        errors.push(`${id}: A/P3B route has unpromoted Soul effects`)
+      }
+      for (const property of armor.intrinsicProperties) {
+        if (!links.some((link) => link.mechanicTargetId === `armor.${id}.${ARMOR_PARAMETER_IDS[link.parameter]}`
+          && armor[link.parameter] !== (link.parameter === 'soulGatheringMultiplier' ? 1 : 0)
+          && ARMOR_PROMOTION_PARAMETER_SCOPES[link.parameter]?.propertyKind === property.kind
+          && link.propertyRaw === property.raw)) {
+          errors.push(`${id}: A/P3B route has unpromoted intrinsic property ${property.kind}`)
+        }
       }
     }
   }
