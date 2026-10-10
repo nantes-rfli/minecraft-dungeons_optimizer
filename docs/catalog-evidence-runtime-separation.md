@@ -35,4 +35,4 @@ Inventory JSONはschema v4で`catalogItems[].research`に実物のEnchant / 金�
 - **A: New Mechanic Promotion** — 新しい式・未採用parameter・未検証interactionは、R3 accepted、P3B、独立Product regression、atomic promotion bundleを従来どおり要求。LimitedをVerifiedへ昇格しない。
 - **B: Existing Limited Mechanic Reuse** — 既存Limitedモデルの適用装備を増やす場合は、targetのIdentity、source付きparameter値/version、mechanic/channel/scope/継承関係、donor固有効果の非継承、未検証compositionの拒否、対象別Evidence宣言、support manifest、正/負/preservation testがすべて必要。適用範囲外はAへ戻す。
 
-`ARMORS`へ数値を加えることはEvidence採用を意味しない。既存7件/16 non-neutral parameterのDerived宣言を別台帳に固定し、未登録・値driftの新parameterはUnclassifiedとして直接評価/Optimizerの両経路で拒否する。BによってR3 accepted/P3Bのpromoted数を増やさない。詳細とThief Armor審査は[ADR 0002](./adr/0002-limited-runtime-reuse.md)に記録する。
+`ARMORS`へ数値を加えることはEvidence採用を意味しない。既存7件/16 non-neutral parameterのDerived宣言を別台帳に固定し、未登録・値driftの新parameterはUnclassifiedとして直接評価/Optimizerの両経路で拒否する。BによってR3 accepted/P3Bのpromoted数を増やさない。 新規mechanicのA経路をArmorへ追加するときは既存Promotion manifest上のaccepted/eligible/atomic bundleへ結びつく明示Linkも必要で、Bの承認と併用できない。詳細とThief Armor審査は[ADR 0002](./adr/0002-limited-runtime-reuse.md)に記録する。
