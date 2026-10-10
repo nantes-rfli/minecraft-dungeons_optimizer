@@ -47,6 +47,32 @@ export interface LimitedArmorReuseApproval {
   }
 }
 
+/**
+ * A second, deliberately stricter B-route for event/reskin Armors whose
+ * complete audited/runtime intrinsic model is an exact replica of an already
+ * Limited donor. No target effect may be omitted, neutralized or inferred.
+ */
+export interface LimitedArmorReplicaReuseApproval {
+  readonly targetId: string
+  readonly rawIdentity: string
+  readonly donorId: string
+  readonly sourceRef: 'research/armor-audit.json'
+  readonly sourceId: string
+  readonly gameVersion: '1.17.0.0'
+  readonly mode: 'exact-runtime-replica'
+  readonly properties: readonly {
+    readonly kind: string
+    readonly raw: string
+    readonly ownership: 'base' | 'inherited' | 'unique-only'
+  }[]
+  readonly rejectedInteractions: readonly string[]
+  readonly testRefs: {
+    readonly positive: string
+    readonly negative: string
+    readonly preservation: string
+  }
+}
+
 /** Existing seven pre-policy Armors are preserved as Limited, not R3-accepted. */
 export const HISTORICAL_LIMITED_ARMOR_IDS: readonly string[] = [
   'battle-robe', 'renegade-armor', 'wither-armor',
@@ -57,6 +83,109 @@ export const HISTORICAL_LIMITED_ARMOR_IDS: readonly string[] = [
  * Intentionally empty until an architecture-approved per-target follow-up PR.
  */
 export const LIMITED_ARMOR_REUSE_APPROVALS: readonly LimitedArmorReuseApproval[] = []
+
+/**
+ * Exact-replica grants are also explicit and per-target. Foundation PR keeps
+ * this empty; runtime additions belong in a separately reviewed follow-up.
+ */
+export const LIMITED_ARMOR_REPLICA_REUSE_APPROVALS: readonly LimitedArmorReplicaReuseApproval[] = []
+
+const normalizedRaw = (raw: string) => raw.trim().replace(/\s+/g, ' ').toLowerCase()
+const sortedJson = (value: readonly unknown[]) => JSON.stringify([...value].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b))))
+const auditedPropertyShape = (properties: readonly { kind: string; raw: string; ownership: string }[]) =>
+  properties.map((property) => ({ kind: property.kind, raw: normalizedRaw(property.raw), ownership: property.ownership }))
+const runtimePropertyShape = (properties: readonly { kind: string; raw: string }[]) =>
+  properties.map((property) => ({ kind: property.kind, raw: normalizedRaw(property.raw) }))
+
+function requiredReplicaInteractionKeys(donor: RuntimeArmorDefinition): readonly string[] {
+  return [
+    ...(donor.meleeAttackSpeedBonus > 0 ? ['death-cap-mushroom', 'rampaging'] : []),
+    ...(donor.armorDamageReduction > 0
+      ? ['iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection']
+      : []),
+    ...(donor.soulGatheringMultiplier > 1 ? ['soul-siphon'] : []),
+    ...(donor.lifeStealFraction > 0 ? ['non-direct-melee-life-steal'] : []),
+    ...(donor.artifactCooldownReduction > 0 ? ['cool-down', 'external-scenario-cdr'] : []),
+  ]
+}
+
+export function collectLimitedArmorReplicaReuseErrors(
+  approval: LimitedArmorReplicaReuseApproval,
+  target: RuntimeArmorDefinition,
+  donor: RuntimeArmorDefinition | undefined = ARMORS[approval.donorId as keyof typeof ARMORS],
+): string[] {
+  const errors: string[] = []
+  const check = (valid: boolean, message: string) => { if (!valid) errors.push(message) }
+  const targetAudit = ARMOR_AUDIT.entries.find((entry) => entry.id === approval.targetId)
+  const donorAudit = ARMOR_AUDIT.entries.find((entry) => entry.id === approval.donorId)
+  const source = ARMOR_AUDIT.sources.find((entry) => entry.id === approval.sourceId)
+  const targetAssertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === approval.targetId)
+  const donorAssertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === approval.donorId)
+  const targetResolved = reviewedIdentity.semantic.identities.find((entry) => entry.assertionId === targetAssertion?.id)
+  const donorResolved = reviewedIdentity.semantic.identities.find((entry) => entry.assertionId === donorAssertion?.id)
+
+  check(approval.mode === 'exact-runtime-replica', 'replica reuse mode mismatch')
+  check(!!targetAudit && targetAudit.levelId === approval.rawIdentity && target.id === approval.targetId,
+    'replica target Identity is not source-backed')
+  check(targetAssertion?.reviewState === 'accepted' && targetAssertion.confidence === 'high'
+    && targetAssertion.rawIdentity === approval.rawIdentity
+    && targetResolved?.resolution.state === 'matched'
+    && targetResolved.rawEvidence.itemIdName.state === 'known'
+    && targetResolved.rawEvidence.itemIdName.value === approval.rawIdentity
+    && targetResolved.rawEvidence.serializedId.state === 'known'
+    && targetResolved.rawEvidence.serializedId.value === approval.rawIdentity,
+  'replica target Formal Identity is not independently matched')
+  check(donorAssertion?.reviewState === 'accepted' && donorAssertion.confidence === 'high'
+    && donorAssertion.rawIdentity === donorAudit?.levelId
+    && donorResolved?.resolution.state === 'matched',
+  'replica donor Formal Identity drift')
+  check(approval.sourceRef === 'research/armor-audit.json' && !!source
+    && !!targetAudit?.sourceIds.includes(approval.sourceId)
+    && !!donorAudit?.sourceIds.includes(approval.sourceId)
+    && (targetAudit?.intrinsicProperties.every((property) => property.sourceIds.includes(approval.sourceId)) ?? false)
+    && (donorAudit?.intrinsicProperties.every((property) => property.sourceIds.includes(approval.sourceId)) ?? false),
+  'replica source/property provenance is missing')
+  check(targetAudit?.gameVersion === approval.gameVersion
+    && donorAudit?.gameVersion === approval.gameVersion
+    && ARMOR_AUDIT.gameVersion === approval.gameVersion,
+  'replica game version mismatch')
+  check(!!donor && donor.supportLevel === 'limited' && donor.id === approval.donorId,
+    'replica donor is not an existing Limited runtime Armor')
+  check(targetAudit?.family === donorAudit?.family, 'replica Armor family mismatch')
+
+  if (targetAudit && donorAudit) {
+    check(sortedJson(auditedPropertyShape(targetAudit.intrinsicProperties))
+      === sortedJson(auditedPropertyShape(donorAudit.intrinsicProperties)),
+    'replica audited intrinsic set differs from donor')
+    check(sortedJson(auditedPropertyShape(targetAudit.intrinsicProperties))
+      === sortedJson(auditedPropertyShape(approval.properties)),
+    'replica approval does not enumerate the exact target intrinsic set')
+    check(JSON.stringify(targetAudit.builtInEnchantments) === JSON.stringify(donorAudit.builtInEnchantments),
+      'replica audited built-in Enchantments differ from donor')
+    check(targetAudit.soulGear === donorAudit.soulGear, 'replica audited Soul semantics differ from donor')
+  }
+
+  if (donor) {
+    check(target.supportLevel === 'limited', 'replica target must remain Limited')
+    check(sortedJson(runtimePropertyShape(target.intrinsicProperties))
+      === sortedJson(runtimePropertyShape(donor.intrinsicProperties)),
+    'replica runtime intrinsic set differs from donor')
+    check(JSON.stringify(target.builtInEnchantments) === JSON.stringify(donor.builtInEnchantments),
+      'replica runtime built-in Enchantments differ from donor')
+    check(JSON.stringify(target.soul) === JSON.stringify(donor.soul),
+      'replica runtime Soul semantics differ from donor')
+    for (const key of ARMOR_NUMERIC_PARAMETERS) {
+      check(target[key] === donor[key], `replica runtime parameter differs from donor: ${key}`)
+    }
+    for (const interaction of requiredReplicaInteractionKeys(donor)) {
+      check(approval.rejectedInteractions.includes(interaction),
+        `replica unverified interaction is not rejected: ${interaction}`)
+    }
+  }
+  check(Object.values(approval.testRefs).every((ref) => ref.startsWith('tests/') && ref.includes('#')),
+    'replica positive/negative/preservation test references required')
+  return errors
+}
 
 export function collectLimitedArmorReuseErrors(
   approval: LimitedArmorReuseApproval,
@@ -220,11 +349,13 @@ export function collectLimitedArmorCatalogErrors(
   promotionLinks: readonly PromotedArmorRuntimeLink[] = PROMOTED_ARMOR_RUNTIME_LINKS,
   manifest: RuntimePromotionManifest = checkedPromotionManifest,
   evidenceBindings: Readonly<Record<string, Partial<Record<ArmorNumericParameter, ArmorEvidenceBinding>>>> = ARMOR_EVIDENCE_BINDINGS,
+  replicaApprovals: readonly LimitedArmorReplicaReuseApproval[] = LIMITED_ARMOR_REPLICA_REUSE_APPROVALS,
 ): string[] {
   const errors: string[] = []
   const legacy = new Set(HISTORICAL_LIMITED_ARMOR_IDS)
   const ids = Object.keys(armors)
   const seen = new Set<string>()
+  const replicaSeen = new Set<string>()
   const promoted = new Map<string, PromotedArmorRuntimeLink[]>()
   const promotedTargets = new Set<string>()
   for (const link of promotionLinks) {
@@ -246,11 +377,20 @@ export function collectLimitedArmorCatalogErrors(
     if (!target) errors.push(`${approval.targetId}: reuse approval has no runtime target`)
     else errors.push(...collectLimitedArmorReuseErrors(approval, target, armors[approval.donorId]).map((reason) => `${approval.targetId}: ${reason}`))
   }
+  for (const approval of replicaApprovals) {
+    if (replicaSeen.has(approval.targetId)) errors.push(`${approval.targetId}: duplicate replica reuse approval`)
+    replicaSeen.add(approval.targetId)
+    if (legacy.has(approval.targetId)) errors.push(`${approval.targetId}: pre-policy Armor cannot self-approve replica reuse`)
+    if (seen.has(approval.targetId) || promoted.has(approval.targetId)) errors.push(`${approval.targetId}: choose exactly one P4 route`)
+    const target = armors[approval.targetId]
+    if (!target) errors.push(`${approval.targetId}: replica reuse approval has no runtime target`)
+    else errors.push(...collectLimitedArmorReplicaReuseErrors(approval, target, armors[approval.donorId]).map((reason) => `${approval.targetId}: ${reason}`))
+  }
   for (const id of ids) {
-    if (!legacy.has(id) && !seen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval or P3B promotion`)
+    if (!legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion`)
     const armor = armors[id]!
     const links = promoted.get(id) ?? []
-    const routeA = !legacy.has(id) && !seen.has(id) && links.length > 0
+    const routeA = !legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && links.length > 0
     for (const key of ARMOR_NUMERIC_PARAMETERS) {
       const neutral = key === 'soulGatheringMultiplier' ? 1 : 0
       if (armor[key] === neutral) continue
