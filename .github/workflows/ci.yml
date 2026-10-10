@@ -44,6 +44,33 @@ jobs:
         # The advisory API can stall for minutes; dependency-audit.yml reports it separately.
         run: npm ci --prefer-offline --no-audit --no-fund --timing
         timeout-minutes: 10
+      # TEMPORARY PR #213 fix-up capture. Remove after committing these canonical generator outputs.
+      - name: Generate runtime-derived artifacts for fix-up capture
+        run: |
+          npm run audit:armor
+          npm run generate:evidence-coverage
+          npm run harvest:sources
+          npm run generate:project-status
+      - name: Upload runtime-derived fix-up artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr213-runtime-derived-fixup
+          path: |
+            PROJECT_STATUS.md
+            docs/armor-audit.md
+            docs/armor-runtime-support.md
+            docs/combined-evidence-coverage.md
+            docs/evidence-gap-map.md
+            docs/measurement-protocols.md
+            docs/runtime-limitations.md
+            docs/source-harvest.md
+            research/analysis/evidence-coverage.json
+            research/analysis/evidence-coverage-dashboard.json
+            research/evidence-gap-map.json
+            research/source-harvest.json
+            research/source-harvest-browser.json
+            research/workflow/measurement-protocols.json
+          retention-days: 1
       - run: npm run audit:damage-events
       - run: npm run audit:dot-damage
       - run: npm run audit:temporal-enchants
