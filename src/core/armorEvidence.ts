@@ -27,7 +27,8 @@ export interface ArmorEvidenceBinding {
  * This independent, reviewed decision is required only when a parameter is
  * classified as Measured or Verified. A Limited reuse approval is not an
  * Evidence classification decision. References must identify retained
- * research records, not runtime definitions or tests.
+ * research records, not runtime definitions or tests. Their existence and
+ * independence are not verified here, so these decisions cannot yet grant status.
  */
 export interface ArmorIndependentClassificationDecision {
   readonly armorId: string
@@ -55,33 +56,18 @@ export const ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS: readonly ArmorIndepende
  * Measured/Verified. Evidence and review must be separately recorded.
  */
 export function hasIndependentArmorClassification(
-  armorId: string,
-  parameter: ArmorNumericParameter,
+  _armorId: string,
+  _parameter: ArmorNumericParameter,
   declaration: ArmorEvidenceBinding,
-  decisions: readonly ArmorIndependentClassificationDecision[] = ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS,
+  _decisions: readonly ArmorIndependentClassificationDecision[] = ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS,
 ): boolean {
-  if (declaration.status !== 'measured' && declaration.status !== 'verified') return true
-  const accepted = decisions.filter((item) => item.armorId === armorId && item.parameter === parameter)
-  if (accepted.length !== 1) return false
-  const decision = accepted[0]!
-  const evidence = decision.independentEvidence
-  const origins = new Set(evidence.map((item) => item.originId))
-  return decision.status === declaration.status
-    && decision.expectedValue === declaration.expectedValue
-    && decision.gameVersion === declaration.gameVersion
-    && decision.decision === 'accepted'
-    && decision.reviewerDecision === 'approved'
-    && decision.decisionRef.startsWith('research/')
-    && decision.decisionRef.includes('#')
-    && evidence.length > 0 && origins.size === evidence.length
-    && new Set(evidence.map((item) => item.ref)).size === evidence.length
-    && evidence.some((item) => item.method === 'measurement')
-    && evidence.every((item) => item.ref.startsWith('research/')
-      && item.ref.includes('#') && item.ref !== decision.decisionRef
-      && item.originId.trim().length > 0
-      && item.gameVersion === declaration.gameVersion)
-    && (declaration.status !== 'verified'
-      || (evidence.length >= 2 && evidence.some((item) => item.method === 'holdout')))
+  // These records contain self-declared references and origin IDs. Neither
+  // existence of the referenced files nor independence of the underlying raw
+  // measurements is verified by this runtime path. An accepted/approved string
+  // must never be sufficient to classify a parameter as Measured or Verified.
+  // Fail closed until a source-backed verifier with an independent review gate
+  // is implemented. Existing Derived/Estimated declarations are unaffected.
+  return declaration.status !== 'measured' && declaration.status !== 'verified'
 }
 
 /** Deliberately not populated by iterating over runtime definitions. */
