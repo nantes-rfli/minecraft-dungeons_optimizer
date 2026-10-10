@@ -107,6 +107,7 @@ const exactPromotionLink: PromotedArmorRuntimeLink = {
 // Synthetic multi-effect Armor: all three parameters have independent
 // source-grounded Derived declarations in the Armor audit, but NONE is R3
 // adopted without its own accepted/bundled P3B target.
+// Keep synthetic A/P3B contract cases isolated from checked-in post-policy B2 replica targets.
 const historicalArmorCatalog: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = Object.fromEntries(
   HISTORICAL_LIMITED_ARMOR_IDS.map((id) => [id, ARMORS[id as keyof typeof ARMORS]]),
 )
