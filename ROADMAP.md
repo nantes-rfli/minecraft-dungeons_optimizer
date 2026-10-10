@@ -22,7 +22,7 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-Armorは監査母集団73件中7件、Armor Enchantは41件中7件をLimited runtime対応。RangedはBow / Crossbowと3 Enchantを観測入力付きLimited runtime対応。カテゴリごとに意味と母集団が異なるため、横断の総合percentageは表示しない。
+Armorは監査母集団73件中10件、Armor Enchantは41件中7件をLimited runtime対応。RangedはBow / Crossbowと3 Enchantを観測入力付きLimited runtime対応。カテゴリごとに意味と母集団が異なるため、横断の総合percentageは表示しない。
 
 <!-- roadmap-data:start -->
 ## Work Units
