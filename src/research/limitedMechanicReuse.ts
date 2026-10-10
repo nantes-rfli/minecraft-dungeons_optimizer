@@ -2,6 +2,7 @@ import { ARMORS, type RuntimeArmorDefinition } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
 import { ARMOR_EVIDENCE_BINDINGS, ARMOR_NUMERIC_PARAMETERS } from '../core/armorEvidence'
 import formalIdentity from '../../research/domain/formal/identity-evidence-v1.json'
+import promotionManifest from '../../research/runtime/runtime-promotion-manifest.json'
 
 const reviewedIdentity = formalIdentity as unknown as {
   identityAssertions: readonly { id: string; domainId: string; reviewState: string; confidence?: string; rawIdentity: string }[]
@@ -91,7 +92,7 @@ export function collectLimitedArmorReuseErrors(
     'reuse donor has no matching Limited model/parameter')
   check(!!donorAudit && donorAudit.inheritance.baseArmorId === approval.targetId
     && donorAudit.family === targetAudit?.family
-    && donorAudit.intrinsicProperties.some((item) => item.kind === 'melee-attack-speed' && item.ownership === 'inherited'),
+    && donorAudit.intrinsicProperties.some((item) => item.kind === 'melee-attack-speed' && item.ownership === 'inherited' && item.sourceIds.includes(approval.sourceId)),
     'reuse inheritance/mechanic family mismatch')
   check(approval.propertyKind === 'melee-attack-speed' && approval.parameterId === 'meleeAttackSpeedBonus'
     && approval.channel === 'direct-melee-cadence' && approval.scope === 'single-armor-speed-source'
@@ -119,28 +120,54 @@ export function collectLimitedArmorReuseErrors(
   return errors
 }
 
-/** Enforce grants on every post-policy runtime Armor; main currently has no grants.
- * An approval alone cannot classify Evidence: each non-neutral parameter also
- * needs its own source-bound entry in ARMOR_EVIDENCE_BINDINGS.
+/** The *other* P4 route must point to an independently eligible, bundled P3B
+ * promotion. No free-form "already promoted" boolean can bypass the gate.
+ * This link is empty while the promotion manifest has zero eligible targets.
+ */
+export interface PromotedArmorRuntimeLink {
+  readonly armorId: string
+  readonly mechanicTargetId: string
+}
+export const PROMOTED_ARMOR_RUNTIME_LINKS: readonly PromotedArmorRuntimeLink[] = []
+
+/** Enforce grants on every post-policy runtime Armor via either an existing
+ * Limited reuse approval OR a manifest-backed new-mechanic Promotion.
+ * Both routes separately need source-bound parameter Evidence declarations.
  */
 export function collectLimitedArmorCatalogErrors(
   armors: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = ARMORS,
   approvals: readonly LimitedArmorReuseApproval[] = LIMITED_ARMOR_REUSE_APPROVALS,
+  promotionLinks: readonly PromotedArmorRuntimeLink[] = PROMOTED_ARMOR_RUNTIME_LINKS,
 ): string[] {
   const errors: string[] = []
   const legacy = new Set(HISTORICAL_LIMITED_ARMOR_IDS)
   const ids = Object.keys(armors)
   const seen = new Set<string>()
+  const promoted = new Set<string>()
+  for (const link of promotionLinks) {
+    if (promoted.has(link.armorId)) errors.push(`${link.armorId}: duplicate P3B promotion link`)
+    promoted.add(link.armorId)
+    if (legacy.has(link.armorId)) errors.push(`${link.armorId}: pre-policy Armor cannot claim P3B promotion`)
+    if (!armors[link.armorId]) errors.push(`${link.armorId}: P3B link has no runtime target`)
+    const candidate = promotionManifest.candidates.find((entry) => entry.targetId === link.mechanicTargetId)
+    const bundled = promotionManifest.promotions.some((entry) => entry.targetId === link.mechanicTargetId)
+    if (!candidate || candidate.outcome !== 'accepted' || candidate.eligibility.status !== 'eligible'
+      || candidate.regression !== 'passed' || candidate.valueStatus !== 'known'
+      || candidate.gameVersion !== promotionManifest.gameVersion || candidate.blockers.length !== 0 || !bundled) {
+      errors.push(`${link.armorId}: P3B link lacks eligible accepted promotion and atomic bundle`)
+    }
+  }
   for (const approval of approvals) {
     if (seen.has(approval.targetId)) errors.push(`${approval.targetId}: duplicate reuse approval`)
     seen.add(approval.targetId)
     if (legacy.has(approval.targetId)) errors.push(`${approval.targetId}: pre-policy Armor cannot self-approve reuse`)
+    if (promoted.has(approval.targetId)) errors.push(`${approval.targetId}: choose exactly one P4 route`)
     const target = armors[approval.targetId]
     if (!target) errors.push(`${approval.targetId}: reuse approval has no runtime target`)
     else errors.push(...collectLimitedArmorReuseErrors(approval, target, armors[approval.donorId]).map((reason) => `${approval.targetId}: ${reason}`))
   }
   for (const id of ids) {
-    if (!legacy.has(id) && !seen.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval or P3B promotion`)
+    if (!legacy.has(id) && !seen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval or P3B promotion`)
     const armor = armors[id]!
     for (const key of ARMOR_NUMERIC_PARAMETERS) {
       const neutral = key === 'soulGatheringMultiplier' ? 1 : 0
