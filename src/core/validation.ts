@@ -178,8 +178,9 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
     if (build.armor.enchantmentSlots.length < 1 || build.armor.enchantmentSlots.length > 3) throw new OptimizerInputError('INVALID_ARMOR', 'Armor Enchantmentスロットは1〜3個にしてください。')
     const definition = getArmorDefinition(build.armor.armorId)
     // Fail closed even for direct evaluate(): runtime registration is not Evidence adoption.
+    const armorEvidencePolicy = scenario === undefined ? 'include-estimated' : evidencePolicy(scenario)
     const unclassifiedArmor = armorNumericEvidenceRows(definition).filter(
-      ({ binding }) => !binding || !isEvidenceStatusAllowed(binding.status, evidencePolicy(scenario)),
+      ({ binding }) => !binding || !isEvidenceStatusAllowed(binding.status, armorEvidencePolicy),
     )
     if (unclassifiedArmor.length) throw new OptimizerInputError(
       'UNSUPPORTED_ARMOR_EVIDENCE',
