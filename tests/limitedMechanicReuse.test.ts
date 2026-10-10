@@ -107,6 +107,10 @@ const exactPromotionLink: PromotedArmorRuntimeLink = {
 // Synthetic multi-effect Armor: all three parameters have independent
 // source-grounded Derived declarations in the Armor audit, but NONE is R3
 // adopted without its own accepted/bundled P3B target.
+const historicalArmorCatalog: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = Object.fromEntries(
+  HISTORICAL_LIMITED_ARMOR_IDS.map((id) => [id, ARMORS[id as keyof typeof ARMORS]]),
+)
+
 const multiArmor: RuntimeArmorDefinition = {
   ...ARMORS['renegade-armor'],
   id: 'hungry-horror' as ArmorId,
@@ -334,7 +338,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     )
   })
   it('A/P3B negative: one accepted link cannot promote other source-backed Derived effects', () => {
-    const catalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    const catalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
     const oneLink = [multiLinks[0]!]
     const errors = collectLimitedArmorCatalogErrors(
       catalog, [], oneLink, eligiblePromotions([multiTargets.speed]), multiEvidence, [],
@@ -349,7 +353,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
   })
 
   it('A/P3B positive: distinct eligible parameter links for one Armor are allowed, but identical targets are not', () => {
-    const catalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    const catalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
     const manifest = eligiblePromotions(Object.values(multiTargets))
     expect(manifest.summary).toEqual({ candidates: 3, eligible: 3, promoted: 3 })
     expect(collectLimitedArmorCatalogErrors(catalog, [], multiLinks, manifest, multiEvidence, [])).toEqual([])
@@ -361,10 +365,10 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
 
   it('A/P3B negative: built-in, Soul and non-numeric intrinsic effects require separate promotion support', () => {
     const manifest = eligiblePromotions(Object.values(multiTargets))
-    const baseCatalog = { ...ARMORS, 'hungry-horror': multiArmor }
+    const baseCatalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
     expect(collectLimitedArmorCatalogErrors(baseCatalog, [], multiLinks, manifest, multiEvidence, [])).toEqual([])
     const errors = (armor: RuntimeArmorDefinition) => collectLimitedArmorCatalogErrors(
-      { ...ARMORS, 'hungry-horror': armor }, [], multiLinks, manifest, multiEvidence, [],
+      { ...historicalArmorCatalog, 'hungry-horror': armor }, [], multiLinks, manifest, multiEvidence, [],
     )
     expect(errors({ ...multiArmor, builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }] }))
       .toContain('hungry-horror: A/P3B route has unpromoted built-in Enchantments')
