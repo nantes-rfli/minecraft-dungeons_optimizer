@@ -573,23 +573,23 @@
       "population": 73,
       "runtime": {
         "full": 0,
-        "limited": 7,
-        "researchOnly": 66,
+        "limited": 8,
+        "researchOnly": 65,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 267,
+        "total": 269,
         "evidenceBlocked": 4,
         "notImplemented": 1,
-        "unclassified": 262,
+        "unclassified": 264,
         "priorities": {
           "P0": 0,
           "P1": 4,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 262,
+        "unprioritized": 264,
         "p1EvidenceBlocked": 4
       },
       "sourceRefs": [
@@ -31569,7 +31569,7 @@
       "category": "armor",
       "id": "thief-armor",
       "label": "Thief Armor",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/65",
       "evidence": {
         "confidence": null,
@@ -31644,12 +31644,15 @@
             "value": {
               "id": "thief-armor",
               "name": "Thief Armor",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "+25% melee attack speed is inherited by the existing Limited Spider Armor; applies only to modeled melee cadence.",
+                "No Life Steal or other Spider-only property is assigned to Thief Armor."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Death Cap Mushroom and Rampaging speed compositions remain unsupported; other unmodeled effects are not credited."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -31660,7 +31663,9 @@
       },
       "blockerIds": [
         "armor:thief-armor:runtime:0",
-        "armor:thief-armor:runtime:1"
+        "armor:thief-armor:runtime:1",
+        "armor:thief-armor:runtime:2",
+        "armor:thief-armor:runtime:3"
       ]
     },
     {
@@ -49603,12 +49608,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/65"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:thief-armor:runtime:1",
@@ -49622,12 +49627,50 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+      "description": "+25% melee attack speed is inherited by the existing Limited Spider Armor; applies only to modeled melee cadence.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/65"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:thief-armor:runtime:2",
+      "label": "Thief Armor",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:thief-armor"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "No Life Steal or other Spider-only property is assigned to Thief Armor.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/65"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:thief-armor:runtime:3",
+      "label": "Thief Armor",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:thief-armor"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Death Cap Mushroom and Rampaging speed compositions remain unsupported; other unmodeled effects are not credited.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/65"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "armor:titan-s-shroud:runtime:0",
@@ -55080,17 +55123,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 554,
+    "total": 556,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 522,
+    "unclassified": 524,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 528,
+    "unprioritized": 530,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {
