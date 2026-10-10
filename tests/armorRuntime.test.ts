@@ -77,6 +77,47 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(renegade.confidence.factors).toContainEqual(expect.objectContaining({ id: 'renegade-runtime-boundary', confidence: 'low' }))
   })
 
+  it('event-replica-positive: Hungry variants match Renegade and Spooky Gourdian matches Wither inside existing Limited boundaries', () => {
+    const renegade = evaluate(build('renegade-armor'), scenario)
+    for (const armorId of ['hungry-horror', 'hungriest-horror'] as const) {
+      const replica = evaluate(build(armorId), scenario)
+      expect(replica.damage.hitsPerSecond).toBe(renegade.damage.hitsPerSecond)
+      expect(replica.damage.directWeaponSingleTargetDps).toBe(renegade.damage.directWeaponSingleTargetDps)
+      expect(replica.defense.damageTakenMultiplier).toBe(renegade.defense.damageTakenMultiplier)
+      expect(replica.armorState?.weaponDamageAuraMultiplier).toBe(renegade.armorState?.weaponDamageAuraMultiplier)
+      const optimized = optimize({ weapons: [weapon], armors: [armor(armorId)], artifacts: [] }, scenario)
+      expect(optimized.best.build.armor?.armorId).toBe(armorId)
+    }
+
+    const wither = evaluate(build('wither-armor'), scenario)
+    const spooky = evaluate(build('the-spooky-gourdian'), scenario)
+    expect(spooky.defense.damageTakenMultiplier).toBe(wither.defense.damageTakenMultiplier)
+    expect(spooky.armorState?.soulGatheringMultiplier).toBe(wither.armorState?.soulGatheringMultiplier)
+    expect(spooky.armorState?.lifeStealFraction).toBe(wither.armorState?.lifeStealFraction)
+    expect(spooky.healing.lifeStealPerSecond).toBe(wither.healing.lifeStealPerSecond)
+
+    const soulWeapon = { ...weapon, weaponId: 'soul-scythe' as const }
+    const witherSoul = evaluate({ ...build('wither-armor'), weapon: soulWeapon }, scenario)
+    const spookySoul = evaluate({ ...build('the-spooky-gourdian'), weapon: soulWeapon }, scenario)
+    expect(spookySoul.soulState?.totalSoulGathering).toBe(witherSoul.soulState?.totalSoulGathering)
+    expect(spookySoul.soulState?.totalPickupEventsPerSecond).toBe(witherSoul.soulState?.totalPickupEventsPerSecond)
+  })
+
+  it('event-replica-negative: exact replicas inherit donor fail-closed speed and DR composition boundaries', () => {
+    expect(() => evaluate({
+      ...build('hungry-horror'),
+      artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }],
+    }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
+    expect(() => evaluate({
+      ...build('hungriest-horror'),
+      artifacts: [{ instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }],
+    }, scenario)).toThrow(/UNSUPPORTED_ARMOR_DR_COMBINATION/)
+    expect(() => evaluate({
+      ...build('the-spooky-gourdian'),
+      artifacts: [{ instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }],
+    }, scenario)).toThrow(/UNSUPPORTED_ARMOR_DR_COMBINATION/)
+  })
+
   it('keeps an unequipped runtime Armor with missing observed health out of evaluated builds', () => {
     const baselineArmor = armor('battle-robe')
     const stagedArmor: OwnedArmor = { ...armor('scale-mail'), instanceId: 'drop-armor', observedHealthBonus: undefined }
