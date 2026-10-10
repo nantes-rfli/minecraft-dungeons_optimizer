@@ -3,6 +3,9 @@ name: Validate
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +19,15 @@ jobs:
         with:
           # Formal preservation audits read committed historical baselines.
           fetch-depth: 0
+          # A pull_request run defaults to a synthetic merge SHA. Test the actual PR head.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Confirm validated commit
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          actual_sha="$(git rev-parse HEAD)"
+          echo "Validating commit $actual_sha"
+          test "$actual_sha" = "$EXPECTED_SHA"
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -86,8 +98,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # The push E2E decision needs HEAD^; historical audits run in validate.
+          # The push E2E decision needs HEAD^; PR validation uses its exact head.
           fetch-depth: 2
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Confirm validated commit
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          actual_sha="$(git rev-parse HEAD)"
+          echo "Validating commit $actual_sha"
+          test "$actual_sha" = "$EXPECTED_SHA"
       - uses: actions/setup-node@v7
         with:
           node-version: 22
@@ -100,7 +120,8 @@ jobs:
         id: e2e
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          # PR runs always execute E2E; a one-commit push diff can miss earlier PR changes.
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "pull_request" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
