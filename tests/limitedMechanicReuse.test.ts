@@ -221,6 +221,13 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     expect(resolved([{ ...independentMeasurement, expectedValue: 0.30 }])).toBeUndefined()
     expect(resolved([{ ...independentMeasurement, gameVersion: 'other-version' }])).toBeUndefined()
     expect(resolved([{ ...independentMeasurement, independentEvidence: [] }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, independentEvidence: [{
+      ...independentMeasurement.independentEvidence[0]!, method: 'holdout',
+    }] }])).toBeUndefined()
+    expect(resolved([{ ...independentMeasurement, status: 'verified', independentEvidence: [
+      independentMeasurement.independentEvidence[0]!,
+      { ...independentMeasurement.independentEvidence[0]!, originId: 'origin-2', method: 'holdout' },
+    ] }], 'verified')).toBeUndefined()
     expect(resolved([independentMeasurement], 'verified')).toBeUndefined()
     expect(resolved([{ ...independentMeasurement, status: 'verified' }], 'verified')).toBeUndefined()
     expect(resolved([independentMeasurement, independentMeasurement])).toBeUndefined()
