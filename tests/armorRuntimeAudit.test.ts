@@ -37,6 +37,9 @@ describe('Phase 2-3C Armor runtime audit', () => {
       'grim-armor',
       'scale-mail',
       'spider-armor',
+      'hungry-horror',
+      'hungriest-horror',
+      'the-spooky-gourdian',
     ])
     expect(ARMOR_CORE_RUNTIME_AUDIT.runtimeArmorEnchantmentIds).toEqual([
       'cool-down',
@@ -47,13 +50,18 @@ describe('Phase 2-3C Armor runtime audit', () => {
       'cowardice',
       'protection',
     ])
+    expect(ARMOR_CORE_RUNTIME_AUDIT.decisions.exactReplicaReuse).toEqual([
+      expect.objectContaining({ targetArmorId: 'hungry-horror', donorArmorId: 'renegade-armor', mode: 'exact-runtime-replica' }),
+      expect.objectContaining({ targetArmorId: 'hungriest-horror', donorArmorId: 'renegade-armor', mode: 'exact-runtime-replica' }),
+      expect.objectContaining({ targetArmorId: 'the-spooky-gourdian', donorArmorId: 'wither-armor', mode: 'exact-runtime-replica' }),
+    ])
     expect(ARMOR_CORE_RUNTIME_AUDIT.decisions.coolDownTierThree).toMatchObject({
       gameFileValue: 0.37,
       currentWikiDisplay: 0.38,
       runtimeValue: 0.37,
     })
     expect(ARMOR_CORE_RUNTIME_AUDIT.completion).toEqual({
-      runtimeArmorCount: 7,
+      runtimeArmorCount: 10,
       runtimeArmorEnchantmentCount: 7,
       supportLevel: 'limited',
     })

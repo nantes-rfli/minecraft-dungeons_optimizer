@@ -119,9 +119,9 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     const armor = ARMORS[build.armor.armorId as ArmorId]
     add('armor-runtime-properties', `${armor.name.en}の固有property`, 'medium', 3)
     caveats.push('ArmorありBuildの最大HPはbase Hero 100 + card表示Healthだけを使用し、scenario.maxHealthを加算しません。')
-    if (armor.id === 'renegade-armor') {
-      add('renegade-runtime-boundary', 'Renegade Armorの単独speed bucketとself aura ownership', 'low', 2)
-      caveats.push('Renegade Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。+20% auraはselfのdirect meleeだけへ適用します。')
+    if (armor.id === 'renegade-armor' || armor.id === 'hungry-horror' || armor.id === 'hungriest-horror') {
+      add('renegade-runtime-boundary', `${armor.name.en}の単独speed bucketとself aura ownership`, 'low', 2)
+      caveats.push(`${armor.name.en}は単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。+20% auraはselfのdirect meleeだけへ適用します。`)
     }
     if (armor.id === 'mercenary-armor') {
       add('mercenary-aura-ownership', 'Mercenary Armorのself aura ownership', 'low', 2)
@@ -135,9 +135,9 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       add('spider-runtime-boundary', 'Spider Armorの単独speed bucketとLife Steal対象channel', 'low', 2)
       caveats.push('Spider Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。Life Stealはdirect melee AoE damageだけの名目回復容量です。')
     }
-    if (armor.id === 'wither-armor') {
-      add('wither-life-steal-eligibility', 'Wither ArmorのLife Steal対象channel', 'low', 2)
-      caveats.push('Wither ArmorのLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。')
+    if (armor.id === 'wither-armor' || armor.id === 'the-spooky-gourdian') {
+      add('wither-life-steal-eligibility', `${armor.name.en}のLife Steal対象channel`, 'low', 2)
+      caveats.push(`${armor.name.en}のLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。`)
     }
     if (armor.id === 'grim-armor') {
       add('grim-life-steal-eligibility', 'Grim ArmorのLife Steal対象channel', 'low', 2)

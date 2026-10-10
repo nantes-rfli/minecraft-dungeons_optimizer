@@ -48366,7 +48366,7 @@
       "category": "armor",
       "id": "hungriest-horror",
       "label": "Hungriest Horror",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -48648,7 +48648,7 @@
       "category": "armor",
       "id": "hungry-horror",
       "label": "Hungry Horror",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -56805,7 +56805,7 @@
       "category": "armor",
       "id": "the-spooky-gourdian",
       "label": "The Spooky Gourdian",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",

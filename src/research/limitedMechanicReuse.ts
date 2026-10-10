@@ -88,7 +88,68 @@ export const LIMITED_ARMOR_REUSE_APPROVALS: readonly LimitedArmorReuseApproval[]
  * Exact-replica grants are also explicit and per-target. Foundation PR keeps
  * this empty; runtime additions belong in a separately reviewed follow-up.
  */
-export const LIMITED_ARMOR_REPLICA_REUSE_APPROVALS: readonly LimitedArmorReplicaReuseApproval[] = []
+export const LIMITED_ARMOR_REPLICA_REUSE_APPROVALS: readonly LimitedArmorReplicaReuseApproval[] = [
+  {
+    targetId: 'hungry-horror',
+    rawIdentity: 'MercenaryArmor_Spooky1',
+    donorId: 'renegade-armor',
+    sourceRef: 'research/armor-audit.json',
+    sourceId: 'dungeons-tools-armor-index',
+    gameVersion: '1.17.0.0',
+    mode: 'exact-runtime-replica',
+    properties: [
+      { kind: 'melee-attack-speed', raw: '+25% melee attack speed', ownership: 'unique-only' },
+      { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura', ownership: 'inherited' },
+      { kind: 'damage-reduction', raw: '35% damage reduction', ownership: 'inherited' },
+    ],
+    rejectedInteractions: ['death-cap-mushroom', 'rampaging', 'iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection'],
+    testRefs: {
+      positive: 'tests/armorRuntime.test.ts#event-replica-positive',
+      negative: 'tests/armorRuntime.test.ts#event-replica-negative',
+      preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
+    },
+  },
+  {
+    targetId: 'hungriest-horror',
+    rawIdentity: 'MercenaryArmor_Spooky2',
+    donorId: 'renegade-armor',
+    sourceRef: 'research/armor-audit.json',
+    sourceId: 'dungeons-tools-armor-index',
+    gameVersion: '1.17.0.0',
+    mode: 'exact-runtime-replica',
+    properties: [
+      { kind: 'melee-attack-speed', raw: '+25% melee attack speed', ownership: 'unique-only' },
+      { kind: 'damage-reduction', raw: '35% damage reduction', ownership: 'inherited' },
+      { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura', ownership: 'inherited' },
+    ],
+    rejectedInteractions: ['death-cap-mushroom', 'rampaging', 'iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection'],
+    testRefs: {
+      positive: 'tests/armorRuntime.test.ts#event-replica-positive',
+      negative: 'tests/armorRuntime.test.ts#event-replica-negative',
+      preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
+    },
+  },
+  {
+    targetId: 'the-spooky-gourdian',
+    rawIdentity: 'GrimArmor_Spooky2',
+    donorId: 'wither-armor',
+    sourceRef: 'research/armor-audit.json',
+    sourceId: 'dungeons-tools-armor-index',
+    gameVersion: '1.17.0.0',
+    mode: 'exact-runtime-replica',
+    properties: [
+      { kind: 'damage-reduction', raw: '35% damage reduction', ownership: 'unique-only' },
+      { kind: 'soul-gathering', raw: '+50% souls gathered', ownership: 'inherited' },
+      { kind: 'life-steal-aura', raw: '6% life steal aura', ownership: 'inherited' },
+    ],
+    rejectedInteractions: ['iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection', 'soul-siphon', 'non-direct-melee-life-steal'],
+    testRefs: {
+      positive: 'tests/armorRuntime.test.ts#event-replica-positive',
+      negative: 'tests/armorRuntime.test.ts#event-replica-negative',
+      preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
+    },
+  },
+]
 
 const normalizedRaw = (raw: string) => raw.trim().replace(/\s+/g, ' ').toLowerCase()
 const sortedJson = (value: readonly unknown[]) => JSON.stringify([...value].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b))))

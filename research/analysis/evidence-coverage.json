@@ -573,23 +573,23 @@
       "population": 73,
       "runtime": {
         "full": 0,
-        "limited": 7,
-        "researchOnly": 66,
+        "limited": 10,
+        "researchOnly": 63,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 267,
+        "total": 268,
         "evidenceBlocked": 4,
         "notImplemented": 1,
-        "unclassified": 262,
+        "unclassified": 263,
         "priorities": {
           "P0": 0,
           "P1": 4,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 262,
+        "unprioritized": 263,
         "p1EvidenceBlocked": 4
       },
       "sourceRefs": [
@@ -717,7 +717,30 @@
             "durationSeconds": 1,
             "rawTemporalCoverage": 0.5,
             "objective": "control-only"
-          }
+          },
+          "exactReplicaReuse": [
+            {
+              "targetArmorId": "hungry-horror",
+              "donorArmorId": "renegade-armor",
+              "rawIdentity": "MercenaryArmor_Spooky1",
+              "sourceRef": "research/armor-audit.json",
+              "mode": "exact-runtime-replica"
+            },
+            {
+              "targetArmorId": "hungriest-horror",
+              "donorArmorId": "renegade-armor",
+              "rawIdentity": "MercenaryArmor_Spooky2",
+              "sourceRef": "research/armor-audit.json",
+              "mode": "exact-runtime-replica"
+            },
+            {
+              "targetArmorId": "the-spooky-gourdian",
+              "donorArmorId": "wither-armor",
+              "rawIdentity": "GrimArmor_Spooky2",
+              "sourceRef": "research/armor-audit.json",
+              "mode": "exact-runtime-replica"
+            }
+          ]
         },
         "cooldownStacking": {
           "status": "inconclusive",
@@ -27548,7 +27571,7 @@
       "category": "armor",
       "id": "hungriest-horror",
       "label": "Hungriest Horror",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/32",
       "evidence": {
         "confidence": null,
@@ -27645,14 +27668,15 @@
             "value": {
               "id": "hungriest-horror",
               "name": "Hungriest Horror",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-                "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-                "Weapon damage aura self/party scope and melee/ranged ownership are unresolved."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
+                "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -27672,7 +27696,7 @@
       "category": "armor",
       "id": "hungry-horror",
       "label": "Hungry Horror",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/33",
       "evidence": {
         "confidence": null,
@@ -27769,14 +27793,15 @@
             "value": {
               "id": "hungry-horror",
               "name": "Hungry Horror",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
-                "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
-                "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
+                "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -31322,7 +31347,7 @@
       "category": "armor",
       "id": "the-spooky-gourdian",
       "label": "The Spooky Gourdian",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/63",
       "evidence": {
         "confidence": null,
@@ -31419,14 +31444,16 @@
             "value": {
               "id": "the-spooky-gourdian",
               "name": "The Spooky Gourdian",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-                "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
-                "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "Full audited intrinsic set exactly reuses the existing Limited Wither Armor model: 35% Armor DR alone, +50% on existing flat Soul Gathering, and 6% Life Steal on modeled direct melee AoE damage only."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Soul Siphon multiplication is unsupported.",
+                "Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported.",
+                "Indirect proc, DoT, explosion, Artifact, and ranged damage receive no Life Steal credit."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -31439,7 +31466,8 @@
         "armor:the-spooky-gourdian:runtime:0",
         "armor:the-spooky-gourdian:runtime:1",
         "armor:the-spooky-gourdian:runtime:2",
-        "armor:the-spooky-gourdian:runtime:3"
+        "armor:the-spooky-gourdian:runtime:3",
+        "armor:the-spooky-gourdian:runtime:4"
       ]
     },
     {
@@ -47380,12 +47408,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/32"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungriest-horror:runtime:1",
@@ -47399,12 +47427,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+      "description": "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/32"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungriest-horror:runtime:2",
@@ -47418,12 +47446,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+      "description": "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/32"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungriest-horror:runtime:3",
@@ -47437,12 +47465,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+      "description": "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/32"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungry-horror:runtime:0",
@@ -47456,12 +47484,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/33"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungry-horror:runtime:1",
@@ -47475,12 +47503,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor attack-speed bucket ownership relative to Death Cap Mushroom and Rampaging is not independently verified.",
+      "description": "Full audited intrinsic set exactly reuses the existing Limited Renegade Armor model: +25% melee cadence, +20% weapon damage aura on modeled direct melee, and 35% Armor DR as the sole Armor DR source.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/33"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungry-horror:runtime:2",
@@ -47494,12 +47522,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+      "description": "Death Cap Mushroom and Rampaging speed compositions are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/33"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hungry-horror:runtime:3",
@@ -47513,12 +47541,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+      "description": "Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection DR combinations are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/33"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:hunter-s-armor:runtime:0",
@@ -49451,12 +49479,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/63"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:the-spooky-gourdian:runtime:1",
@@ -49470,12 +49498,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+      "description": "Full audited intrinsic set exactly reuses the existing Limited Wither Armor model: 35% Armor DR alone, +50% on existing flat Soul Gathering, and 6% Life Steal on modeled direct melee AoE damage only.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/63"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:the-spooky-gourdian:runtime:2",
@@ -49489,12 +49517,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+      "description": "Soul Siphon multiplication is unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/63"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:the-spooky-gourdian:runtime:3",
@@ -49508,12 +49536,31 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Eligible direct, ranged, Artifact, proc, DoT, and explosion damage sources need an explicit life-steal policy.",
+      "description": "Iron Hide, Guarding Strike, Weakening, Potion Barrier, and Protection DR combinations are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/63"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:the-spooky-gourdian:runtime:4",
+      "label": "The Spooky Gourdian",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:the-spooky-gourdian"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Indirect proc, DoT, explosion, Artifact, and ranged damage receive no Life Steal credit.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/63"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "armor:the-troubadour:runtime:0",
@@ -55080,17 +55127,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 554,
+    "total": 555,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 522,
+    "unclassified": 523,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 528,
+    "unprioritized": 529,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {
