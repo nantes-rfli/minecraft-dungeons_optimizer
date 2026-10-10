@@ -309,6 +309,10 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       ...multiArmor,
       intrinsicProperties: [...multiArmor.intrinsicProperties, { kind: 'other', raw: 'unreviewed event effect' }],
     })).toContain('hungry-horror: A/P3B route has unpromoted intrinsic property other')
+    expect(errors({
+      ...multiArmor,
+      intrinsicProperties: [...multiArmor.intrinsicProperties, multiArmor.intrinsicProperties[0]!],
+    })).toContain('hungry-horror: A/P3B route has duplicate intrinsic property melee-attack-speed')
   })
 
   it('Fix 1: validates Armor Evidence with and without Scenario, preserving both policy modes', () => {
