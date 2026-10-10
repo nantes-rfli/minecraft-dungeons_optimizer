@@ -30,6 +30,13 @@ Bは次のすべてが揃うときだけ許可する。
 - 実装済みB validatorは **Thief系の単独+25%近接cadence**だけに限定。より広いeffectやstackingなどの新しい意味は自動承認せず、Aまたは追加Architecture審査を要求する。これは全mechanicへの包括的な無審査許可ではない。
 - 対象parameterのEvidence宣言はBの承認recordと独立して必要。source-backedなDerivedは公開監査値由来の分類に留まり、**ゲーム内interactionの採用やVerified認定ではない**。
 
+## PR #209 fix-up: classificationとPromotion対象の追加gate
+
+- `validateBuild(build, scenario?)`はScenario省略時も`include-estimated`を既定方針としてArmor parameter Evidenceを検証する。Scenarioありの場合は既存Evidence policyを尊重し、未分類を許可しない。
+- `Derived`の既存7 Armor / 16 parameter分類は維持。新しい`Measured` / `Verified`分類は個別bindingを追加しただけでは認めない。独立した`ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS`に対象装備・parameter・値・version・statusが一致するaccepted/approvedの判断、永続化されたResearch Evidence参照、異なるoriginのmeasurementが必要。Verifiedはさらに独立したholdoutを要する。分類レコードはruntime登録やReuse承認から自動作成しない。sourceの真正性・独立性・判断内容は設計承認・監査で別途確認する。登録なし・不一致はUnclassifiedとして評価拒否。
+- A経路の新Armorを有効化するには、Promotion candidate/bundleの存在だけでなく、claim target IDが正確に`armor.<armorId>.<parameter-id>`であり、対象Armor自身のaudit property・source・版・parameter・適用channel・`self-armor` scopeが一致しなければならない。独立Product regression、eligibility、atomic bundle検査を維持し、無関係なPromotion targetからの横流用を拒否する。現行のPromotion件数・active link件数は変更しない。
+- これらはsource-backedかつreview済みの意思決定レコードを**別途登録するためのgate**であり、新たなMeasured/Verified認定やA経路での実装済みmechanicを宣言するものではない。
+
 ## Thief Armor: PR #208の独立審査で確認すべき事項
 
 対象のaudit entryは`thief-armor` / `AssassinArmor` / 1.17.0.0で、`dungeons-tools-armor-index`をsourceとした`+25% melee attack speed`を持つ。既存Limited donorは`spider-armor` / `AssassinArmor_Unique1`。audit上Spiderの`baseArmorId=thief-armor`でspeedのみがinherited、`6% life steal aura`はSpider unique-only。共通+25% cadence単独ならB validatorに適合する（**テストfixture上の成立**）。
