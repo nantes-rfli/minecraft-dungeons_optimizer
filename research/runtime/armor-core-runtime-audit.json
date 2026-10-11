@@ -73,6 +73,7 @@
     "grim-armor",
     "scale-mail",
     "spider-armor",
+    "thief-armor",
     "hungry-horror",
     "hungriest-horror",
     "the-spooky-gourdian"
@@ -165,10 +166,19 @@
         "sourceRef": "research/armor-audit.json",
         "mode": "exact-runtime-replica"
       }
-    ]
+    ],
+    "thiefAttackSpeedReuse": {
+      "sourceArmorId": "thief-armor",
+      "inheritanceTarget": "spider-armor",
+      "singleArmorBonus": 0.25,
+      "appliedTo": "attack-cadence",
+      "deathCapOrRampaging": "unsupported",
+      "rawIdentity": "AssassinArmor",
+      "sourceRef": "research/armor-audit.json"
+    }
   },
   "completion": {
-    "runtimeArmorCount": 10,
+    "runtimeArmorCount": 11,
     "runtimeArmorEnchantmentCount": 7,
     "supportLevel": "limited"
   }
