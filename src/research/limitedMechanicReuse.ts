@@ -80,9 +80,30 @@ export const HISTORICAL_LIMITED_ARMOR_IDS: readonly string[] = [
 ]
 
 /** Separate reviewed grants belong here, never inferred by iterating ARMORS.
- * Intentionally empty until an architecture-approved per-target follow-up PR.
+ * Each grant is reviewed separately from parameter Evidence.
  */
-export const LIMITED_ARMOR_REUSE_APPROVALS: readonly LimitedArmorReuseApproval[] = []
+export const LIMITED_ARMOR_REUSE_APPROVALS: readonly LimitedArmorReuseApproval[] = [{
+  targetId: 'thief-armor',
+  rawIdentity: 'AssassinArmor',
+  donorId: 'spider-armor',
+  sourceRef: 'research/armor-audit.json',
+  sourceId: 'dungeons-tools-armor-index',
+  propertyRaw: '+25% melee attack speed',
+  propertyKind: 'melee-attack-speed',
+  parameterId: 'meleeAttackSpeedBonus',
+  parameterValue: 0.25,
+  gameVersion: '1.17.0.0',
+  channel: 'direct-melee-cadence',
+  scope: 'single-armor-speed-source',
+  composition: 'reject-unverified',
+  excludedPropertyKinds: ['life-steal-aura'],
+  rejectedInteractions: ['death-cap-mushroom', 'rampaging'],
+  testRefs: {
+    positive: 'tests/limitedMechanicReuse.test.ts#positive',
+    negative: 'tests/limitedMechanicReuse.test.ts#negative',
+    preservation: 'tests/limitedMechanicReuse.test.ts#preservation',
+  },
+}]
 
 /**
  * Exact-replica grants are also explicit and per-target. Foundation PR keeps
