@@ -54,7 +54,7 @@
 | ... | ... | ... |
 
 - CI run headSha matches final PR head / additional required checks:
-- Site（merge gate外。別途依頼・実施した場合だけ反映結果を記録）:
+- Site（merge gate外。Site影響の有無、merge後に実行可能なら反映結果、不可・失敗なら理由を記録）:
 - Unresolved items / limitations:
 - Next candidate and reason, to recompute after merge:
 - Independent automated reviewer identity / reviewed final head / review URL (未実施ならpending):
