@@ -54,11 +54,11 @@
 | ... | ... | ... |
 
 - CI run headSha matches final PR head / additional required checks:
-- Site applicability and result:
+- Site（merge gate外。別途依頼・実施した場合だけ反映結果を記録）:
 - Unresolved items / limitations:
 - Next candidate and reason, to recompute after merge:
 - Independent automated reviewer identity / reviewed final head / review URL (未実施ならpending):
-- Merge gate: 各必須条件の結果と証跡（未確認はunknown、Site非対象は理由）:
+- Merge gate: 各必須条件の結果と証跡（未確認はunknown。Site反映は対象外）:
 - Live current main SHA / PR head SHA / behind count / mergeability:
 - Unresolved significant findings / REQUEST_CHANGES / required threads:
 - Expected head SHA / merge result or pending / stop/resume condition:
