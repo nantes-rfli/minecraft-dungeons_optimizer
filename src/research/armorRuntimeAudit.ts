@@ -1,5 +1,6 @@
 import auditJson from '../../research/runtime/armor-core-runtime-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
+import { ARMOR_AUDIT } from './armorAudit'
 import { collectLimitedArmorCatalogErrors, LIMITED_ARMOR_REPLICA_REUSE_APPROVALS } from './limitedMechanicReuse'
 
 export const ARMOR_CORE_RUNTIME_AUDIT = auditJson
@@ -26,6 +27,28 @@ export function collectArmorRuntimeAuditErrors(value: unknown = ARMOR_CORE_RUNTI
     check(record(decisions.artifactCooldownComposition) && decisions.artifactCooldownComposition.battleRobeWithCoolDown === 'unsupported' && decisions.artifactCooldownComposition.externalWithArmorSource === 'unsupported', 'cooldown composition gate missing')
     check(record(decisions.damageReductionComposition) && decisions.damageReductionComposition.armorWithOtherRuntimeDefense === 'unsupported' && decisions.damageReductionComposition.protection === 'sole-source-only', 'Armor DR composition gate missing')
     check(record(decisions.renegadeAttackSpeed) && decisions.renegadeAttackSpeed.appliedTo === 'attack-cadence' && decisions.renegadeAttackSpeed.deathCapOrRampaging === 'unsupported', 'Renegade cadence boundary missing')
+    const thief = ARMOR_AUDIT.entries.find((entry) => entry.id === 'thief-armor')
+    check(
+      record(decisions.thiefAttackSpeedReuse) &&
+      decisions.thiefAttackSpeedReuse.sourceArmorId === 'thief-armor' &&
+      decisions.thiefAttackSpeedReuse.inheritanceTarget === 'spider-armor' &&
+      decisions.thiefAttackSpeedReuse.rawIdentity === 'AssassinArmor' &&
+      decisions.thiefAttackSpeedReuse.sourceRef === 'research/armor-audit.json' &&
+      decisions.thiefAttackSpeedReuse.singleArmorBonus === 0.25 &&
+      decisions.thiefAttackSpeedReuse.appliedTo === 'attack-cadence' &&
+      decisions.thiefAttackSpeedReuse.deathCapOrRampaging === 'unsupported' &&
+      thief?.levelId === 'AssassinArmor' &&
+      thief.intrinsicProperties.length === 1 &&
+      thief.intrinsicProperties[0]?.kind === 'melee-attack-speed' &&
+      thief.intrinsicProperties[0]?.raw === '+25% melee attack speed' &&
+      ARMORS['thief-armor'].meleeAttackSpeedBonus === ARMORS['spider-armor'].meleeAttackSpeedBonus &&
+      ARMORS['thief-armor'].meleeDamageBonus === 0 &&
+      ARMORS['thief-armor'].weaponDamageAuraBonus === 0 &&
+      ARMORS['thief-armor'].armorDamageReduction === 0 &&
+      ARMORS['thief-armor'].lifeStealFraction === 0 &&
+      ARMORS['thief-armor'].artifactCooldownReduction === 0,
+      'Thief Armor limited speed-only source or reuse boundary drift',
+    )
     const replicaDecisions = decisions.exactReplicaReuse
     check(Array.isArray(replicaDecisions)
       && replicaDecisions.length === LIMITED_ARMOR_REPLICA_REUSE_APPROVALS.length

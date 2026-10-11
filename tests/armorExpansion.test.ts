@@ -217,7 +217,7 @@ describe('Phase 2-3C inventory and contribution policy', () => {
     const result = evaluate(build('grim-armor', 'health-synergy'), scenario)
     expect(result.contributions.some((entry) => entry.sourceType === 'armor')).toBe(false)
     expect(result.contributions).toContainEqual(expect.objectContaining({ sourceType: 'armor-enchantment', sourceId: 'health-synergy' }))
-    expect(Object.keys(ARMORS)).toHaveLength(10)
+    expect(Object.keys(ARMORS)).toHaveLength(11)
     expect(Object.keys(ARMOR_ENCHANTMENTS)).toHaveLength(7)
   })
 

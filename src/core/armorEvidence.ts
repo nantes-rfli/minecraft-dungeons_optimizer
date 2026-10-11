@@ -232,6 +232,17 @@ export const ARMOR_EVIDENCE_BINDINGS: Readonly<Record<string, Partial<Record<Arm
       "conditions": "監査済みintrinsic propertyの自己効果だけ。"
     }
   },
+  "thief-armor": {
+    "meleeAttackSpeedBonus": {
+      "expectedValue": 0.25,
+      "propertyKind": "melee-attack-speed",
+      "propertyRaw": "+25% melee attack speed",
+      "sourceId": "dungeons-tools-armor-index",
+      "gameVersion": "1.17.0.0",
+      "status": "derived",
+      "conditions": "Thief自身の公開Armor監査値を既存Limited単独Armor近接cadenceモデルで再利用。Spider専用Life Stealは非継承。Death Cap Mushroom/Rampaging合成はunsupported。Measured/Verifiedではない。"
+    }
+  },
   "hungry-horror": {
     "meleeAttackSpeedBonus": {
       "expectedValue": 0.25,

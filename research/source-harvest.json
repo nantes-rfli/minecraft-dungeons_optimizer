@@ -57368,7 +57368,7 @@
       "category": "armor",
       "id": "thief-armor",
       "label": "Thief Armor",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",

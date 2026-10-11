@@ -31,7 +31,7 @@ Raw factsをApplicationが安全に扱える装備・値・関係の意味へ変
 
 RangedはMelee / Armor / Artifactと同型のruntime-support manifestではなく、current structured runtime definitionsで管理しています。Bow / CrossbowはLimitedです。入力境界: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。 Ranged Enchantmentは Power / Critical Hit / Unchanting のLimited定義だけを評価対象にします。未対応境界: 複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。
 
-Melee / Armor / Artifactのruntime support manifestでは、Melee enchantmentは Full 19 / Limited 9 / Research-only 5（population 33）、Armorは Limited 10 / Research-only 63（population 73）、Artifactは Full 2 / Limited 1 / Research-only 42（population 45）です。Rangedとは母集団と管理形式が異なるため、これらのpopulationへ単純合算しません。runtime promotion pipelineは candidate 1、eligible 0、promoted 0 で、採用gateを満たさない値を自動昇格させません。
+Melee / Armor / Artifactのruntime support manifestでは、Melee enchantmentは Full 19 / Limited 9 / Research-only 5（population 33）、Armorは Limited 11 / Research-only 62（population 73）、Artifactは Full 2 / Limited 1 / Research-only 42（population 45）です。Rangedとは母集団と管理形式が異なるため、これらのpopulationへ単純合算しません。runtime promotion pipelineは candidate 1、eligible 0、promoted 0 で、採用gateを満たさない値を自動昇格させません。
 
 ## Current Focus
 

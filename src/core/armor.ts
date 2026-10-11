@@ -11,6 +11,7 @@ export type ArmorId =
   | 'grim-armor'
   | 'scale-mail'
   | 'spider-armor'
+  | 'thief-armor'
   | 'hungry-horror'
   | 'hungriest-horror'
   | 'the-spooky-gourdian'
