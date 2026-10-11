@@ -119,7 +119,7 @@ default Work Unitは **1 reusable foundation + そのfoundationで安全に処�
 | Formal / source adapter / population | 関連unit・negative・preservation test、family audit、integration、生成drift。generator変更時は2回生成しbyte一致を確認 |
 | Evidence / Promotion / runtime | 既存採用gate、対象audit、関連regression。Promotionは既存atomic bundle契約を適用 |
 | TypeScript / schema / migration | 関連testとtype/lint、互換性・round-trip・旧形式復旧。履歴baselineを読めるcheckoutを使用 |
-| UI / 配信成果物 | 関連test/build、必要なbrowser/E2E。Site反映の条件・公開範囲はAGENTSを参照 |
+| UI / 配信成果物 | 関連test/build、必要なbrowser/E2E。Siteへの反映可否はAGENTSに従いmerge後に判定し、merge gateに含めない |
 
 PRの最終headではfull Validate成功を必須とする。現行CIは `push: main` と `workflow_dispatch` で動き、PR作成だけでは動かない。commitをbranchへpush後、以下の手順で検証する（placeholderは実際の値へ置換）:
 
@@ -151,9 +151,9 @@ reviewerはmerge直前にlive GitHub stateとcurrent mainを再取得し、以�
 | CI head SHA = current PR head SHA | CI runのheadShaとlive PR head SHAの完全一致 |
 | PRがmergeable | GitHubのmergeabilityを確認する。branch protection / rulesetが設定されている場合はその必須条件も満たす。利用不可・未設定であること自体は失敗とせず、状態を確認できない場合やmergeabilityがUNKNOWN / 判定中の場合は不可 |
 | current mainに対してbehind 0 | 取得したmain SHAがPR headのancestorであり、base側の未取り込みcommit数が0。base差分で選定・preservationが変われば再評価する |
-| required Site handling完了 | AGENTSに従う本人限定の既存projectへの反映証跡。非対象なら理由を記録する |
 | merge時のexpected head SHA固定 | 確認したfinal head SHAをmerge APIのexpected SHAまたは `gh pr merge <PR> --merge --match-head-commit <SHA>` に渡す |
 
+Site反映はPRのmerge可否に関係しない。Site未反映・デプロイ手段未接続・反映失敗・反映証跡なしを理由にmergeを停止しない。Siteに影響する変更は、merge後、実行環境に更新手段・権限があり既存本人限定Siteの公開範囲を維持できる場合に原則反映する。反映できない場合はスキップまたは失敗の理由を報告する。Site無関係の変更は反映不要。CIのbuild/E2EとSiteへの実デプロイは区別する。
 一つでも必須条件が確認不能・不成立ならmergeせず `AWAITING_MERGE` / `STOPPED`で必要判断を示すか、そのPRのfix-upへ戻す。rate limit / interruption / CI failure時もmergeしない。head変更時は独立reviewと最終headのFull Validateをやり直し、main変更時もbehind・選定根拠・preservationを再評価し、必要な更新後に再review / 再検証する。`--admin`等の保護迂回や、gate未確認のまま将来mergeを予約する `--auto` は使わない。
 
 branch protection / rulesetが設定されていてその状態を確認できる場合は、merge前にその必須条件も満たす。GitHub Freeのprivate repositoryのようなプラン制約により未設定・利用不可と確認できた場合、server-side protectionの不在自体はmerge停止理由にしない。権限不足・API error等により保護の有無を判定できない場合はUNKNOWNとして停止し、不在と推測しない。
@@ -176,15 +176,15 @@ merge応答が不明・中断した場合は成功を推測せず停止する。
 
 ## PR handoff and resumption
 
-1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは `VALIDATING` を明示する。必要な局所検証・最終headのFull Validate・required Site handlingを完了し、PR recordへ証跡を更新した後にReady for review化する。
-2. PR / handoffの最初に `Human Progress Summary` を置き、全体で今どこか、今回何を進めたか、なぜ選んだか、3層のどこが変わったか、blocker、次の方向を人間向けに短く説明する。その後にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Site対象なら既存本人限定projectへの反映結果も記録する。
+1. self-reviewと局所検証後、branchをpushしmain向けPRを1つ作る。CI待ちならDraftまたは `VALIDATING` を明示する。必要な局所検証・最終headのFull Validateを完了し、PR recordへ証跡を更新した後にReady for review化する。
+2. PR / handoffの最初に `Human Progress Summary` を置き、全体で今どこか、今回何を進めたか、なぜ選んだか、3層のどこが変わったか、blocker、次の方向を人間向けに短く説明する。その後にiteration recordを残す。baseline/final head SHA、selectionとbatch範囲、source/preservation、review/fix-up、検証コマンドと結果、CI URL/headSha、未解決点、次候補と再評価条件を含める。Siteに影響する変更については、merge後に反映を実施できたか、実施不可・失敗ならその理由を報告する（Site無関係なら対象外）。
 3. `AWAITING_MERGE` で人間またはtrusted independent automated reviewerへ引き継ぐ。automated reviewerは上記gateをすべて満たす場合だけmergeする。open autonomous PRがある間は次のWork Unitを開始しない。次候補の調査メモは可能だが、別Work Unitの実装は始めない。
 4. 次回Developer起動ではlive GitHub state（open / closed / merged、Draft、base / head SHA、review・CI）と同じPRの最新recordを取得し、下表で再開先を決める。PRが存在するだけで待機せず、open中は同じPRだけを扱う。Developerはmergeせず、独立Reviewerのreview / merge gate確認を代行しない。
 
 | 状態 | Developerの処理 |
 | --- | --- |
 | open / `LOCAL_FIX_REQUIRED` | 同じPRの指摘・失敗をfixし、必要な局所再検証とself-reviewを行い、`VALIDATING` へ戻して下記handoffを完了する。Draft / Readyよりこのfix要求を優先する |
-| open / Draft または `VALIDATING` | 同じPRの未完了handoffを継続する。required local / focused validation → final-head Full Validate → required Site handling（非対象なら理由）→ PR record更新 → Ready for review化 → `AWAITING_MERGE` の順に完了する。head変更時は既存Validation gateに従って再検証する |
+| open / Draft または `VALIDATING` | 同じPRの未完了handoffを継続する。required local / focused validation → final-head Full Validate → PR record更新 → Ready for review化 → `AWAITING_MERGE` の順に完了する。head変更時は既存Validation gateに従って再検証する |
 | open / Ready かつ `AWAITING_MERGE` | handoff完了の証跡を確認し、Developerは変更せずReviewer / human mergeを待つ。fix要求があれば `LOCAL_FIX_REQUIRED`、handoff未完了なら `VALIDATING` として同じPRを再開する |
 | closed-unmerged | `STOPPED` と理由・再開条件を人間へ示し、自動的に次iterationや同じPRを開始しない |
 | merged | fetchしたmainへ統合済みであることを確認してouter loopへ戻る。確認できるまで次iterationを開始しない |
