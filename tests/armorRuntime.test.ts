@@ -77,6 +77,40 @@ describe('Phase 2-3B Armor runtime', () => {
     expect(renegade.confidence.factors).toContainEqual(expect.objectContaining({ id: 'renegade-runtime-boundary', confidence: 'low' }))
   })
 
+  it('calculates Thief Armor speed-only using existing Spider cadence without inheriting Life Steal', () => {
+    const plain = evaluate({ weapon, enchantments: selected, artifacts: [] }, { ...scenario, maxHealth: 500 })
+    const thief = evaluate(build('thief-armor'), scenario)
+    const spider = evaluate(build('spider-armor'), scenario)
+    expect(thief.armorState?.meleeAttackSpeedBonus).toBe(0.25)
+    expect(thief.damage.hitsPerSecond).toBe(spider.damage.hitsPerSecond)
+    expect(thief.damage.hitsPerSecond / plain.damage.hitsPerSecond).toBeCloseTo(1.25)
+    expect(thief.armorState?.lifeStealFraction).toBe(0)
+    expect(thief.healing.lifeStealPerSecond).toBeUndefined()
+    expect(thief.defense.damageTakenMultiplier).toBe(1)
+    expect(thief.armorState?.finalMaxHealth).toBe(500)
+    expect(thief.confidence.factors).toContainEqual(expect.objectContaining({ id: 'thief-runtime-boundary', confidence: 'low' }))
+    const result = optimize({ weapons: [weapon], armors: [armor('thief-armor')], artifacts: [] }, scenario)
+    expect(result.best.build.armor?.armorId).toBe('thief-armor')
+    expect(result.best.damage.hitsPerSecond).toBe(thief.damage.hitsPerSecond)
+  })
+
+  it('fails closed for Thief Armor without observed health or with unknown speed composition', () => {
+    let missingHealthError: unknown
+    try {
+      evaluate({ ...build('thief-armor'), armor: { ...armor('thief-armor'), observedHealthBonus: undefined } }, scenario)
+    } catch (error) {
+      missingHealthError = error
+    }
+    expect(missingHealthError).toMatchObject({ code: 'MISSING_OBSERVED_ARMOR_HEALTH' })
+    expect(() => evaluate({ ...build('thief-armor'), artifacts: [{ instanceId: 'mushroom', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
+    const rampaging = { ...build('thief-armor'), weapon: { ...weapon, enchantmentSlots: [{ candidates: ['rampaging' as const], selected: { enchantmentId: 'rampaging' as const, tier: 3 as const } }] }, enchantments: [{ enchantmentId: 'rampaging' as const, tier: 3 as const, source: 'slot' as const }] }
+    expect(() => evaluate(rampaging, scenario)).toThrow(/UNSUPPORTED_ATTACK_SPEED_COMBINATION/)
+    const staged = { ...armor('thief-armor'), observedHealthBonus: undefined }
+    const { result, evaluatedInstanceIds } = optimizeWithMetadata({ weapons: [weapon], armors: [armor('battle-robe'), staged], artifacts: [] }, scenario)
+    expect(evaluatedInstanceIds).not.toContain('thief-armor')
+    expect(result.unsupportedChoices.join(' ')).toMatch(/MISSING_OBSERVED_ARMOR_HEALTH/)
+  })
+
   it('event-replica-positive: Hungry variants match Renegade and Spooky Gourdian matches Wither inside existing Limited boundaries', () => {
     const renegade = evaluate(build('renegade-armor'), scenario)
     const renegadeBoundaryCaveat = renegade.confidence.caveats.find((item) => item.startsWith('Renegade Armorは単独speed bucket'))
