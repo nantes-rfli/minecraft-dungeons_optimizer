@@ -83,6 +83,7 @@ export const HISTORICAL_LIMITED_ARMOR_IDS: readonly string[] = [
  * Each grant is reviewed separately from parameter Evidence.
  */
 export const LIMITED_ARMOR_REUSE_APPROVALS: readonly LimitedArmorReuseApproval[] = [{
+  // B single-property reuse: this is intentionally not a B2 exact-replica grant.
   targetId: 'thief-armor',
   rawIdentity: 'AssassinArmor',
   donorId: 'spider-armor',
