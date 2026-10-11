@@ -16,11 +16,11 @@ import {
   type LimitedArmorReplicaReuseApproval, type LimitedArmorReuseApproval, type PromotedArmorRuntimeLink,
 } from '../src/research/limitedMechanicReuse'
 
-// Contract case only: Thief is NOT added to ARMORS or runtime support by this PR.
+// Keep a synthetic Thief fixture for negative contract tests and compare it to live runtime.
 const proposedThief: RuntimeArmorDefinition = {
   ...ARMORS['spider-armor'],
   id: 'thief-armor' as ArmorId,
-  name: { en: 'Thief Armor', ja: 'シーフアーマー' },
+  name: { en: 'Thief Armor', ja: '盗人のアーマー' },
   family: 'Thief Armor',
   intrinsicProperties: [{ kind: 'melee-attack-speed', raw: '+25% melee attack speed' }],
   meleeDamageBonus: 0,
@@ -69,8 +69,8 @@ const sampleArmorBuild: Build = {
   artifacts: [],
 }
 
-// Synthetic acceptance fixtures test the contract only: no promotion is
-// registered in the checked-in manifest and no Thief Armor enters runtime.
+// Synthetic A/P3B fixture only. Live Thief has B reuse approval; the checked-in
+// Promotion manifest remains unchanged (no adopted target).
 const eligibleTarget = 'armor.thief-armor.melee-attack-speed-bonus'
 const promotionCandidate: PromotionCandidateInput = {
   targetId: eligibleTarget, targetKind: 'parameter',
@@ -178,7 +178,7 @@ const multiLinks: readonly PromotedArmorRuntimeLink[] = [
   },
 ]
 
-const derivedThief = ARMOR_EVIDENCE_BINDINGS['spider-armor']!.meleeAttackSpeedBonus!
+const derivedThief = ARMOR_EVIDENCE_BINDINGS['thief-armor']!.meleeAttackSpeedBonus!
 const measuredThief: ArmorEvidenceBinding = {
   ...derivedThief, propertyRaw: '+25% melee attack speed', status: 'measured',
 }
@@ -197,14 +197,15 @@ const independentMeasurement: ArmorIndependentClassificationDecision = {
 }
 
 describe('Existing Limited Armor mechanic reuse architecture', () => {
-  it('preservation: keeps seven historical Armors while registering three explicit replica grants and 25 derived parameters', () => {
+  it('preservation: keeps seven historical Armors, Thief B reuse, three replica grants and 26 derived parameters', () => {
     expect(Object.keys(ARMORS)).toEqual([
       ...HISTORICAL_LIMITED_ARMOR_IDS,
+      'thief-armor',
       'hungry-horror',
       'hungriest-horror',
       'the-spooky-gourdian',
     ])
-    expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([])
+    expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([thiefCase])
     expect(LIMITED_ARMOR_REPLICA_REUSE_APPROVALS.map((approval) => approval.targetId)).toEqual([
       'hungry-horror',
       'hungriest-horror',
@@ -212,17 +213,22 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     ])
     expect(PROMOTED_ARMOR_RUNTIME_LINKS).toEqual([])
     expect(collectLimitedArmorCatalogErrors()).toEqual([])
-    // flatMap passes (value, index, array); pass only the Armor so Evidence defaults remain in effect.
+    const historical = HISTORICAL_LIMITED_ARMOR_IDS.map((id) => ARMORS[id as keyof typeof ARMORS])
+    expect(historical.flatMap((armor) => armorNumericEvidenceRows(armor))).toHaveLength(16)
     const rows = Object.values(ARMORS).flatMap((armor) => armorNumericEvidenceRows(armor))
-    expect(rows).toHaveLength(25)
+    expect(rows).toHaveLength(26)
     expect(rows.every((row) => row.binding?.status === 'derived')).toBe(true)
     const registered = PARAMETER_EVIDENCE.filter((entry) => entry.mechanicId.startsWith('armor:'))
-    expect(registered).toHaveLength(25)
-    expect(registered.every((entry) => entry.status === 'derived')).toBe(true)
+    expect(registered).toHaveLength(26)
+    expect(registered.find((entry) => entry.mechanicId === 'armor:thief-armor')).toMatchObject({
+      parameterId: 'melee-attack-speed-bonus', status: 'derived', gameVersion: '1.17.0.0',
+    })
   })
 
   it('positive: Thief source, exact base→unique inheritance, Limited speed and single-channel model match', () => {
     expect(collectLimitedArmorReuseErrors(thiefCase, proposedThief)).toEqual([])
+    expect(ARMORS['thief-armor']).toEqual(proposedThief)
+    expect(collectLimitedArmorCatalogErrors()).toEqual([])
     expect(proposedThief.builtInEnchantments).toEqual([])
     expect(proposedThief.soul).toEqual({ acceptsSoulEnchantments: false })
     expect(proposedThief.lifeStealFraction).toBe(0)
@@ -312,14 +318,19 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     }, multiArmor)).toContain('replica unverified interaction is not rejected: guarding-strike')
   })
 
-  it('negative: runtime registration or reuse approval alone never adopts target parameter Evidence', () => {
-    const syntheticCatalog = { ...ARMORS, 'thief-armor': proposedThief }
-    expect(collectLimitedArmorCatalogErrors(syntheticCatalog)).toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion')
-    expect(collectLimitedArmorCatalogErrors(syntheticCatalog, [thiefCase])).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
-    expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
-    expect(ARMOR_EVIDENCE_BINDINGS['thief-armor']).toBeUndefined()
-    expect(PARAMETER_EVIDENCE.some((row) => row.mechanicId === 'armor:thief-armor')).toBe(false)
-    expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase])).toContain('thief-armor: reuse approval has no runtime target')
+  it('negative: runtime registration or B approval alone cannot grant missing parameter Evidence', () => {
+    const missing = { ...ARMOR_EVIDENCE_BINDINGS, 'thief-armor': {} }
+    expect(collectLimitedArmorCatalogErrors(ARMORS, [], [], undefined, ARMOR_EVIDENCE_BINDINGS))
+      .toContain('thief-armor: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion')
+    expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase], [], undefined, missing))
+      .toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
+    expect(armorNumericEvidenceRows(proposedThief, missing)[0]?.binding).toBeUndefined()
+    expect(armorNumericEvidenceRows(proposedThief)[0]?.binding?.status).toBe('derived')
+    expect(ARMOR_EVIDENCE_BINDINGS['thief-armor']?.meleeAttackSpeedBonus?.expectedValue).toBe(0.25)
+    expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase, thiefCase]))
+      .toContain('thief-armor: duplicate reuse approval')
+    expect(collectLimitedArmorCatalogErrors(ARMORS, [thiefCase], [exactPromotionLink]))
+      .toContain('thief-armor: choose exactly one P4 route')
   })
 
   it('negative: P3B linkage cannot endorse a held/noneligible manifest candidate or self-approve', () => {
@@ -397,7 +408,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
       ...DEFAULT_SCENARIO, evidencePolicy: 'include-estimated',
     })).not.toThrow()
     expect(ARMOR_INDEPENDENT_CLASSIFICATION_DECISIONS).toEqual([])
-    expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding).toBeUndefined()
+    expect(armorNumericEvidenceRows(proposedThief).find((row) => row.parameter === 'meleeAttackSpeedBonus')?.binding?.status).toBe('derived')
   })
 
   it('Fix 2: accepted labels and distinct origin strings cannot grant Measured/Verified without verifiable raw evidence', () => {
@@ -462,10 +473,13 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     const manifest = eligiblePromotion()
     expect(manifest.summary).toEqual({ candidates: 1, eligible: 1, promoted: 1 })
     expect(collectPromotedArmorLinkErrors(exactPromotionLink, catalog, manifest)).toEqual([])
-    // The P3B link is valid, but its separate parameter Evidence declaration is still missing.
+    // Synthetic A-route linkage does not change the checked-in live B-route grant.
     const errors = collectLimitedArmorCatalogErrors(catalog, [], [exactPromotionLink], manifest)
-    expect(errors).not.toContain('thief-armor: P3B link lacks eligible accepted promotion and atomic bundle')
-    expect(errors).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
+    expect(errors).toEqual([])
+    const missing = collectLimitedArmorCatalogErrors(catalog, [], [exactPromotionLink], manifest, {
+      ...ARMOR_EVIDENCE_BINDINGS, 'thief-armor': {},
+    })
+    expect(missing).toContain('thief-armor/meleeAttackSpeedBonus: missing or drifted parameter Evidence declaration')
   })
 
   it('Fix 3 negative: an unrelated eligible promotion does not authorize this Armor', () => {
