@@ -135,6 +135,10 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
       add('spider-runtime-boundary', 'Spider Armorの単独speed bucketとLife Steal対象channel', 'low', 2)
       caveats.push('Spider Armorは単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。Life Stealはdirect melee AoE damageだけの名目回復容量です。')
     }
+    if (armor.id === 'thief-armor') {
+      add('thief-runtime-boundary', 'Thief Armorの単独speed bucket境界', 'low', 2)
+      caveats.push('Thief Armorは+25%の単独speed bucketだけをcadenceへ反映し、Death Cap/Rampagingとの組合せを除外します。Spider Armor固有のLife Stealは付与しません。')
+    }
     if (armor.id === 'wither-armor' || armor.id === 'the-spooky-gourdian') {
       add('wither-life-steal-eligibility', `${armor.name.en}のLife Steal対象channel`, 'low', 2)
       caveats.push(`${armor.name.en}のLife Stealはdirect melee AoE damageだけの名目回復容量です。間接proc・DoT・爆発は不明のため加点しません。Soul Siphonとの+50% Gathering合成も除外します。`)
