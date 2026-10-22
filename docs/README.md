@@ -23,6 +23,7 @@ For normal development and current project decisions:
 - [Raw Structural Inventory + Dependency Graph](game-data-raw-structural-inventory.md) — 271 catalog candidate seeds, reachable package structures, serialized reference edges, and explicit parser/native/missing-target boundaries
 - [Pre-Breadth Source Closure](pre-breadth-source-closure.md) — linked timing traversal and Artifact base-cooldown source outcomes before horizontal breadth
 - [Native game-data analysis](game-data-native-analysis.md) — current Stage 1/2 baseline, PE map, SMBIOS boundary continuation, external prior art, and the unresolved Raw-to-native bridge
+- [Native自己exe読み取り・計算式候補](./game-data-native-self-file.md) — 2026-10-22の条件付き実行とcommit固定の外部候補。
 
 ## Architecture / policy
 

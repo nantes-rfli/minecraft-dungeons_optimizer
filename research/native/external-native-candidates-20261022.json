@@ -1,0 +1,393 @@
+{
+  "schemaVersion": 1,
+  "retrievedDate": "2026-10-22",
+  "status": "external-old-source-hypothesis",
+  "runtimePromotion": false,
+  "localNativeVerification": false,
+  "scope": "Metadata, identifiers and mathematical summaries only. No external code or binaries copied into this artifact. Public source authenticity and correspondence to local 1.17.0.0 executable remain unverified.",
+  "localInput": {
+    "versionLabel": "1.17.0.0",
+    "file": "Dungeons-Win64-Shipping.exe",
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "entryRva": "0x5a5e058",
+    "stage1Rva": "0x4bb8000",
+    "stage1Size": 15360000
+  },
+  "repositories": [
+    {
+      "id": "mcd-pe",
+      "repository": "Minecraforever/MCD-PE",
+      "commit": "be646dcd82a689e24709b7abd4cff30fb60b7c9f",
+      "commitDate": "2026-08-03T02:49:20Z",
+      "classification": "external technique report plus old-source mirror",
+      "claimedEngine": "UE4.22",
+      "claimedBuild": "Steam final version; no input SHA-256 located in inspected documents or repository sha256 search",
+      "reportedEntryRva": "0x5ad8058",
+      "reportedStage1Rva": "0x4c00000",
+      "reportedStage1Size": 15564800,
+      "localBuildMatch": "not established; section RVAs and Stage1 size differ",
+      "oldSourceProvenanceClaim": "1.8.0.0 master:72b74aba29",
+      "limits": [
+        "Its gameplay source mirror is old source, not final-build decompilation.",
+        "Class-name/string survival does not prove unchanged gameplay implementation.",
+        "Reported OEP and symbol addresses cannot be transferred to the local binary."
+      ]
+    },
+    {
+      "id": "old-source",
+      "repository": "RatCatcherVr-dev/Minecraft-Dungeons-Source",
+      "commit": "0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd",
+      "commitDate": "2026-06-15T05:48:35Z",
+      "classification": "public source-like mirror; authenticity/version unverified",
+      "comparison": "ItemPowerStats.cpp equals MCD-PE's declared 1.8 mirror after removing its provenance header and normalizing leading BOM/CRLF. This is agreement between mirrors, not independent native validation."
+    },
+    {
+      "id": "sdk",
+      "repository": "zH4x-SDK/zMCDungeons-SDK",
+      "commit": "ab9d8f0ab04b215577dd2eb067e65015b5a70521",
+      "commitDate": "2021-08-27T13:49:22Z",
+      "classification": "external generated SDK identifier hints",
+      "claimedTool": "CheatGear",
+      "limits": [
+        "Headers identify DBZKakarot 1.0.3 despite Dungeons class names.",
+        "Inspected classes have zero size and functions have empty parameter wrappers.",
+        "BasicHelper targets Dungeons.exe; GObjects 0x43942B8 and GNames 0x438FFA8 are external-only offsets.",
+        "Not a build-matched reflection dump, gameplay implementation, or valid local layout."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "technique",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_re/TECHNICAL_PROCESS.md",
+      "gitBlobSha": "bb8b5cc131120653e27fb31644623b7619831a2e",
+      "lines": null
+    },
+    {
+      "id": "capture-script",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_unpack/runtime_dump.py",
+      "gitBlobSha": "e3ec4d6c0a5b33113e3abb3072d9b08341898eca",
+      "lines": null
+    },
+    {
+      "id": "stack-script",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_unpack/stack_walk.py",
+      "gitBlobSha": "c6356878f2c768057dc3d463d3f79c0ac9b1553c",
+      "lines": null
+    },
+    {
+      "id": "power-stats",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_re/systems/item/source/game/item/power/ItemPowerStats.cpp",
+      "gitBlobSha": "90d70899f2c8743bc490c5abea29f41c1986eeb1",
+      "lines": [
+        "12-34",
+        "37-41",
+        "55-59",
+        "74-76",
+        "98-113",
+        "122-158"
+      ]
+    },
+    {
+      "id": "power-display",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_re/systems/item/source/game/item/power/ItemPowerUtil.cpp",
+      "gitBlobSha": "a6bfded58e7d40e6ca88fb557b5a934ff7ad56f9",
+      "lines": [
+        "5-25"
+      ]
+    },
+    {
+      "id": "power-effects",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_re/systems/item/source/game/item/power/ItemPowerEffectDefs.cpp",
+      "gitBlobSha": "c4bd14052e17ccc6cccdb2c8def4ca5e308d8120",
+      "lines": [
+        "20-104",
+        "189-195"
+      ]
+    },
+    {
+      "id": "difficulty",
+      "url": "https://github.com/RatCatcherVr-dev/Minecraft-Dungeons-Source/blob/0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd/Source/Dungeons/game/difficulty/Difficulty.cpp",
+      "gitBlobSha": "d509e461e254471815c0a167a89ae5658eb22a8b",
+      "lines": [
+        "104-106"
+      ]
+    },
+    {
+      "id": "difficulty-enum",
+      "url": "https://github.com/RatCatcherVr-dev/Minecraft-Dungeons-Source/blob/0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd/Source/Dungeons/game/difficulty/Difficulty.h",
+      "gitBlobSha": "9d2fc2b3cbd0e3b7d2f9c6e65d187f4ec0dfdfe4",
+      "lines": [
+        "8-21"
+      ]
+    },
+    {
+      "id": "threat-enum",
+      "url": "https://github.com/RatCatcherVr-dev/Minecraft-Dungeons-Source/blob/0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd/Source/Dungeons/game/difficulty/ThreatLevel.h",
+      "gitBlobSha": "ab8eafab8ad85597a58ba00dd8c423d0b71b5d02",
+      "lines": [
+        "6-22"
+      ]
+    },
+    {
+      "id": "range",
+      "url": "https://github.com/RatCatcherVr-dev/Minecraft-Dungeons-Source/blob/0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd/Source/Dungeons/util/FloatRange.h",
+      "gitBlobSha": "d34936cc40bb044d5bbc60aefb149e1427cc7139",
+      "lines": [
+        "21-38"
+      ]
+    },
+    {
+      "id": "matching-old-power-stats",
+      "url": "https://github.com/RatCatcherVr-dev/Minecraft-Dungeons-Source/blob/0a7ffbabcb8026d9bfa64d6708484eaed2c21ccd/Source/Dungeons/game/item/power/ItemPowerStats.cpp",
+      "gitBlobSha": "db801228d7296da6d9ce1cf1f203f0fe80336540",
+      "lines": null
+    },
+    {
+      "id": "sdk-classes",
+      "url": "https://github.com/zH4x-SDK/zMCDungeons-SDK/blob/ab9d8f0ab04b215577dd2eb067e65015b5a70521/Cpp/SDK/Dungeons_classes.h",
+      "gitBlobSha": "5927d543c96e03d66d80dc4866239da954999a8b",
+      "lines": [
+        "1410-1419",
+        "13570-13705",
+        "14990-15071"
+      ]
+    },
+    {
+      "id": "sdk-init",
+      "url": "https://github.com/zH4x-SDK/zMCDungeons-SDK/blob/ab9d8f0ab04b215577dd2eb067e65015b5a70521/Cpp/SDK/BasicHelper.cpp",
+      "gitBlobSha": "fc75e8b91b94a058ee7690c740f07507466fcda9",
+      "lines": [
+        "1-43"
+      ]
+    },
+    {
+      "id": "external-symbol-labels",
+      "url": "https://github.com/Minecraforever/MCD-PE/blob/be646dcd82a689e24709b7abd4cff30fb60b7c9f/_unpack/symbol_labels.json",
+      "gitBlobSha": "2b718fe5e0b4d14601cc848fc73da994171a4597",
+      "lines": null
+    }
+  ],
+  "formulaHypothesis": {
+    "classification": "old-source equation family; not native-verified for local build",
+    "variables": {
+      "x": "internal floating item power",
+      "d": "unrounded display-scale power",
+      "display": "integer shown in UI",
+      "q": "power progress fraction",
+      "E": "exponential efficiency",
+      "L": "linear efficiency"
+    },
+    "constants": {
+      "difficulties": 3,
+      "threatLevels": 7,
+      "overlap": 1,
+      "numGlobalThreats": 19,
+      "numGlobalThreatsDerivation": "3*7 - (3-1)*1",
+      "releaseThreatBaseline": 18,
+      "displayRangeBaseline": 99,
+      "linearEfficiencyRangeBaseline": 2.6,
+      "exponentialBase": 0.75,
+      "exponentialStep": 1.25,
+      "exponentialOffset": 0.25,
+      "maximumProgress": 3
+    },
+    "equations": {
+      "displayScale": "d = 1 + 10*max(x-1, 0); display = floor(d)",
+      "fromUnroundedDisplay": "x = 1 + (d-1)/10",
+      "internalRange": "[1, 1 + (99/170)*(19-1)]",
+      "progress": "q = (x-1)/((99/170)*18); no clamp here",
+      "exponentialEfficiency": "E = 0.75*1.25^(19*clamp(q,0,3)) + 0.25",
+      "linearEfficiency": "L = 1 + (2.6/17)*18*q",
+      "damageMultiplier": "1 + 2*max(E-1,0)",
+      "maxHealthAndHealingMultiplier": "1 + max(E-1,0)",
+      "damageTakenMultiplier": "0.25 + 0.75/(1 + max(L-1,0))",
+      "durationMultiplier": "1 + 0.25*max(L-1,0)",
+      "cooldownMultiplier": "0.5 + 0.5/(1 + 0.33*max(L-1,0))"
+    },
+    "numericSemantics": "Algebra uses real numbers. Original expressions use float/FMath::Pow/FMath::Lerp, so host-double predictions are approximate, not bit-exact native results.",
+    "resolvedOldSourceOnly": true,
+    "limits": [
+      "Multipliers are not absolute damage, health, or cooldown values.",
+      "Integer display loses the fractional internal power; identical UI power does not establish identical x.",
+      "Presence of UCooldownReduction does not establish which current items use it.",
+      "Old-source algebra and SDK names are separate evidence; neither binds a function to a local RVA."
+    ]
+  },
+  "nativeIdentifierTargets": [
+    {
+      "purpose": "armor bridge",
+      "names": [
+        "ArmorGearItemInstance",
+        "GearItemInstance"
+      ],
+      "source": "sdk-classes",
+      "line": 1410
+    },
+    {
+      "purpose": "power damage and health",
+      "names": [
+        "ItemPowerMeleeDamageModCalculation",
+        "ItemPowerRangedDamageModCalculation",
+        "ItemPowerHealthModCalculation",
+        "ItemPowerArmorDamageModCalculation",
+        "ItemPowerUtil"
+      ],
+      "source": "sdk-classes",
+      "line": 13570
+    },
+    {
+      "purpose": "power effect binding",
+      "names": [
+        "MeleeDamageItemPowerGameplayEffect",
+        "RangedDamageItemPowerGameplayEffect",
+        "MaxHealthItemPowerGameplayEffect",
+        "ArmorDamageItemPowerGameplayEffect",
+        "CooldownReduction"
+      ],
+      "sources": [
+        "sdk-classes",
+        "power-effects"
+      ]
+    },
+    {
+      "purpose": "melee timing",
+      "names": [
+        "MeleeAttackComponent",
+        "OnVariantCooldownDone",
+        "OnRep_MeleeAttackSpeedMultiplier"
+      ],
+      "source": "sdk-classes",
+      "line": 14990
+    }
+  ],
+  "techniqueAssessment": {
+    "reportedApproach": "Windows x64 normal game launch, then read all PE sections from process memory after 4–6 seconds without debugger attachment; obtain module bases and main-thread context for analysis.",
+    "externalScriptsExecuted": false,
+    "proprietaryBinariesDownloaded": false,
+    "requirements": [
+      "Working owned Windows game installation; macOS static files alone cannot provide this capture.",
+      "Hash-pinned disk executable plus capture image base, section RVAs, exact read lengths, hashes, and same-run module map.",
+      "Observe decrypted original-image code and independently bind class/registration/function pointers before interpreting gameplay."
+    ],
+    "scriptAudit": [
+      "runtime_dump.py launches and terminates a process; it is not read-only process attachment.",
+      "Its inspected implementation does not write modules.txt although the document says it does.",
+      "Its WinAPI calls omit explicit ctypes argtypes/restype and do not assert requested bytes equal bytes read.",
+      "stack_walk.py hardcodes an ASLR base and selects the first enumerated thread instead of the launch thread ID.",
+      "Pointer-like stack values from mixed code/data ranges are OEP hints, not independently established return addresses."
+    ]
+  },
+  "discriminatingValidation": [
+    {
+      "target": "build identity",
+      "check": "Reject all external RVAs. Compare disk SHA-256 and PE section geometry before joining any capture or external record."
+    },
+    {
+      "target": "power law",
+      "inputs": [
+        1,
+        6,
+        10.9,
+        20,
+        27.2
+      ],
+      "check": "Use exact internal x for the same item/configuration and neutral target. Compare ratios after controlling base damage, hit/combo variant, enchantments, difficulty and rounding. Low/high holdouts distinguish exponential and linear models."
+    },
+    {
+      "target": "clamp",
+      "inputs": [
+        32.4,
+        32.5,
+        35
+      ],
+      "check": "Old-source exponential path plateaus after x=1+3*(99/170)*18. Linear-dependent duration/cooldown paths do not share that clamp. Use synthetic old-source model tests or authorized controlled measurements; do not infer live outcomes."
+    },
+    {
+      "target": "display precision",
+      "inputs": [
+        10.9,
+        10.95,
+        10.99
+      ],
+      "check": "All floor to displayed power 100 in ideal arithmetic, while old-source damage multiplier differs. Record actual internal power instead of assigning displayed integer as exact input."
+    },
+    {
+      "target": "native binding",
+      "check": "Recover same-build class registration/function pointer and inspect caller/data flow into the multiplier. Confirm constants and the 19-threat derivation independently in the local executable."
+    }
+  ],
+  "resultingLocalMechanicClaims": {
+    "powerScaling": "unknown",
+    "nativeDamage": "unknown",
+    "effectStacking": "unknown",
+    "cooldown": "unknown",
+    "attackTimingApplication": "unknown"
+  },
+  "oldSourcePredictionsApproximate": [
+    {
+      "internalPower": 1,
+      "unroundedDisplay": 1,
+      "damageMultiplier": 1,
+      "healthMultiplier": 1,
+      "cooldownMultiplier": 1,
+      "durationMultiplier": 1
+    },
+    {
+      "internalPower": 6,
+      "unroundedDisplay": 51,
+      "damageMultiplier": 10.83371378810465,
+      "healthMultiplier": 5.916856894052325,
+      "cooldownMultiplier": 0.8488372093023255,
+      "durationMultiplier": 1.3282828282828283
+    },
+    {
+      "internalPower": 10.9,
+      "unroundedDisplay": 100,
+      "damageMultiplier": 81.74085251208655,
+      "healthMultiplier": 41.370426256043274,
+      "cooldownMultiplier": 0.7691065662002152,
+      "durationMultiplier": 1.65
+    },
+    {
+      "internalPower": 20,
+      "unroundedDisplay": 191,
+      "damageMultiplier": 3262.0636336425414,
+      "healthMultiplier": 1631.5318168212707,
+      "cooldownMultiplier": 0.6889168765743072,
+      "durationMultiplier": 2.2474747474747474
+    },
+    {
+      "internalPower": 27.2,
+      "unroundedDisplay": 263,
+      "damageMultiplier": 60017.78827950952,
+      "healthMultiplier": 30009.39413975476,
+      "cooldownMultiplier": 0.6528740317977986,
+      "durationMultiplier": 2.72020202020202
+    },
+    {
+      "internalPower": 32.4,
+      "unroundedDisplay": 315,
+      "damageMultiplier": 491694.53911960317,
+      "healthMultiplier": 245847.76955980159,
+      "cooldownMultiplier": 0.6343604442852024,
+      "durationMultiplier": 3.0616161616161617
+    },
+    {
+      "internalPower": 32.5,
+      "unroundedDisplay": 316,
+      "damageMultiplier": 501142.8831422867,
+      "healthMultiplier": 250571.94157114334,
+      "cooldownMultiplier": 0.6340482573726541,
+      "durationMultiplier": 3.0681818181818183
+    },
+    {
+      "internalPower": 35,
+      "unroundedDisplay": 341,
+      "damageMultiplier": 501142.8831422867,
+      "healthMultiplier": 250571.94157114334,
+      "cooldownMultiplier": 0.6266891891891893,
+      "durationMultiplier": 3.2323232323232323
+    }
+  ]
+}

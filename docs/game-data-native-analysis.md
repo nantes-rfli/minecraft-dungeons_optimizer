@@ -1,5 +1,7 @@
 # Native game-data analysis restart
 
+2026-10-22追記: [自己exe読み取りの継続解析と旧版計算式候補](./game-data-native-self-file.md)を追加した。以下は2026-09の静的調査の履歴。新しい条件付き実行でもゲーム本体への移行・現行戦闘式の確定には至っていない。
+
 調査日: 2026-09-24。`main` の `647fcaefed2a8b90372fcc1e5f1297371ae0ee9d` を基準に D-2 終盤の Native Static Boundary Survey を実施した。アプリ、Formal Domain、Optimizer、Gap、runtime support は変更していない。ゲーム executable、DLL、生メモリイメージ、raw asset はGitに含めない。
 
 ## Status

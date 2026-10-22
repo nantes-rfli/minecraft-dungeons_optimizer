@@ -5,6 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -350,6 +352,9 @@ def main() -> None:
     docs = ROOT / "docs" / "game-data-native-analysis.md"
     require(docs.is_file(), "Native Analysis documentation is missing")
     require("game-data-native-analysis.md" in (ROOT / "docs" / "README.md").read_text(), "docs index is missing the Native Analysis link")
+
+    subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/validate_self_file_artifacts.py")], check=True)
+    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_self_file_model.py"], check=True)
 
     print(json.dumps({
         "status": "passed",
