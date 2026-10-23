@@ -11,13 +11,13 @@
   "profiles": [
     {
       "profile": "self-file-legacy",
-      "localOutput": "phase6.8/native-stage2/self-file-experiments/final-legacy-a",
-      "traceSha256": "baad9f69101a771fb4bd02b345fd05a44d3f1db0c4ea5078a1760cf05685302b",
+      "localOutput": "phase6.8/native-stage2/self-file-experiments/verified-legacy-b",
+      "traceSha256": "a1c76a53c01fc386818c0582b4d85430f5be081a8cbf7fcc3f5db6ae260c72eb",
       "baselineScriptSha256": "ec0ccf5e9a8af7457eda3d279b5da01eb704f51862e82e25a357e1207e8d7915",
-      "adapterScriptSha256": "a59ca7fdf0a59c19f3fab02bfddbdf690cbb91c353df6394554520a8f9fbd5f2",
+      "adapterScriptSha256": "5c1f551ed66801e117c13645a2c79cec3d79750bcf1a51ad7e2ac3a020a6f622",
       "modelScriptSha256": "12190b3bd9b938c34bf1bee28e6446e7866f2dc8f942806a88f31adc7321bfd8",
-      "stopReason": "bounded run ended at 0x144e129a0",
-      "stopVa": "0x144e129a0",
+      "stopReason": "bounded run ended at 0x144eee164",
+      "stopVa": "0x144eee164",
       "eventCountIncludingRdtsc": 85,
       "apiCountIncludingBoundary": 83,
       "lastApi": {
@@ -331,7 +331,7 @@
           "rva": 79396864,
           "virtualSize": 15360000,
           "initial": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
-          "final": "8402a209298bd11dcb744a115cb16c897674d25182e68e3e355e68d41317a6f5"
+          "final": "d3f38ca7a7510e10931d850e74385e355cf17e4697509a8f821b1ffdc47a5d79"
         },
         {
           "index": 14,
@@ -354,8 +354,8 @@
         13
       ],
       "originalImageEntryObserved": false,
-      "dungeonSha256": "8402a209298bd11dcb744a115cb16c897674d25182e68e3e355e68d41317a6f5",
-      "mappedImageSha256": "6279171c5b840d2776b9537aa04e41169af136f81d3c1cda6e74e8cfc62aee17",
+      "dungeonSha256": "d3f38ca7a7510e10931d850e74385e355cf17e4697509a8f821b1ffdc47a5d79",
+      "mappedImageSha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
       "mappedImageBytes": 103702528,
       "readConsumers": [
         {
@@ -370,7 +370,7 @@
               "text": "add dword ptr [r12], r15d"
             }
           ],
-          "inputSha256": "6279171c5b840d2776b9537aa04e41169af136f81d3c1cda6e74e8cfc62aee17",
+          "inputSha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
           "interpretation": "Observed file read and adjacent decoded arithmetic only; no whole-loop/checksum algorithm claim."
         }
       ],
@@ -521,52 +521,22 @@
             "rip": "0x144eee164",
             "events": 85,
             "stopReason": null
-          },
-          {
-            "slice": 2,
-            "rip": "0x144eee2d5",
-            "events": 85,
-            "stopReason": null
-          },
-          {
-            "slice": 3,
-            "rip": "0x144ec030e",
-            "events": 85,
-            "stopReason": null
-          },
-          {
-            "slice": 4,
-            "rip": "0x144ca82a8",
-            "events": 85,
-            "stopReason": null
-          },
-          {
-            "slice": 5,
-            "rip": "0x144e12830",
-            "events": 85,
-            "stopReason": null
-          },
-          {
-            "slice": 6,
-            "rip": "0x144e129a0",
-            "events": 85,
-            "stopReason": null
           }
         ],
-        "maximumSlices": 6,
+        "maximumSlices": 1,
         "instructionsPerSliceLimit": 500000000,
         "microsecondsPerSliceLimit": 60000000
       }
     },
     {
       "profile": "self-file-consistent",
-      "localOutput": "phase6.8/native-stage2/self-file-experiments/final-consistent-a",
-      "traceSha256": "10a9d2114936acba925c61347561022c587226a4ea7539df3490ca563f1fc41a",
+      "localOutput": "phase6.8/native-stage2/self-file-experiments/verified-consistent-b",
+      "traceSha256": "8187e6dde07698857acc086321fa2ad2414d342d1b5eccef05cd12407718dca0",
       "baselineScriptSha256": "ec0ccf5e9a8af7457eda3d279b5da01eb704f51862e82e25a357e1207e8d7915",
-      "adapterScriptSha256": "a59ca7fdf0a59c19f3fab02bfddbdf690cbb91c353df6394554520a8f9fbd5f2",
+      "adapterScriptSha256": "5c1f551ed66801e117c13645a2c79cec3d79750bcf1a51ad7e2ac3a020a6f622",
       "modelScriptSha256": "12190b3bd9b938c34bf1bee28e6446e7866f2dc8f942806a88f31adc7321bfd8",
-      "stopReason": "bounded run ended at 0x144e69d8c",
-      "stopVa": "0x144e69d8c",
+      "stopReason": "bounded run ended at 0x144ca8290",
+      "stopVa": "0x144ca8290",
       "eventCountIncludingRdtsc": 80,
       "apiCountIncludingBoundary": 78,
       "lastApi": {
@@ -861,7 +831,7 @@
           "rva": 79396864,
           "virtualSize": 15360000,
           "initial": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
-          "final": "ee9469c66ec6723858fc89c95b955ffd3499b4acde0becd2d752a10e78c00cba"
+          "final": "b99165a47635fb54ab7b3e903a9e945a6208925cecaba82746b242a755b34218"
         },
         {
           "index": 14,
@@ -884,8 +854,8 @@
         13
       ],
       "originalImageEntryObserved": false,
-      "dungeonSha256": "ee9469c66ec6723858fc89c95b955ffd3499b4acde0becd2d752a10e78c00cba",
-      "mappedImageSha256": "cf16906cfa0564176ae6cd68aeed55b34aee5f4c17f09b3ac0546bb5daee1def",
+      "dungeonSha256": "b99165a47635fb54ab7b3e903a9e945a6208925cecaba82746b242a755b34218",
+      "mappedImageSha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
       "mappedImageBytes": 103702528,
       "readConsumers": [
         {
@@ -900,7 +870,7 @@
               "text": "add dword ptr [r12], r15d"
             }
           ],
-          "inputSha256": "cf16906cfa0564176ae6cd68aeed55b34aee5f4c17f09b3ac0546bb5daee1def",
+          "inputSha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
           "interpretation": "Observed file read and adjacent decoded arithmetic only; no whole-loop/checksum algorithm claim."
         }
       ],
@@ -1051,39 +1021,9 @@
             "rip": "0x144ca8290",
             "events": 80,
             "stopReason": null
-          },
-          {
-            "slice": 2,
-            "rip": "0x144ca8400",
-            "events": 80,
-            "stopReason": null
-          },
-          {
-            "slice": 3,
-            "rip": "0x144e12989",
-            "events": 80,
-            "stopReason": null
-          },
-          {
-            "slice": 4,
-            "rip": "0x144e12afa",
-            "events": 80,
-            "stopReason": null
-          },
-          {
-            "slice": 5,
-            "rip": "0x144bb9821",
-            "events": 80,
-            "stopReason": null
-          },
-          {
-            "slice": 6,
-            "rip": "0x144e69d8c",
-            "events": 80,
-            "stopReason": null
           }
         ],
-        "maximumSlices": 6,
+        "maximumSlices": 1,
         "instructionsPerSliceLimit": 500000000,
         "microsecondsPerSliceLimit": 60000000
       }
@@ -1125,14 +1065,14 @@
         "matches": []
       },
       {
-        "input": "phase6.8/native-stage2/self-file-experiments/final-legacy-a/mapped-image.bin",
-        "sha256": "6279171c5b840d2776b9537aa04e41169af136f81d3c1cda6e74e8cfc62aee17",
+        "input": "phase6.8/native-stage2/self-file-experiments/verified-legacy-b/mapped-image.bin",
+        "sha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
         "sizeBytes": 103702528,
         "matches": []
       },
       {
-        "input": "phase6.8/native-stage2/self-file-experiments/final-consistent-a/mapped-image.bin",
-        "sha256": "cf16906cfa0564176ae6cd68aeed55b34aee5f4c17f09b3ac0546bb5daee1def",
+        "input": "phase6.8/native-stage2/self-file-experiments/verified-consistent-b/mapped-image.bin",
+        "sha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
         "sizeBytes": 103702528,
         "matches": []
       }

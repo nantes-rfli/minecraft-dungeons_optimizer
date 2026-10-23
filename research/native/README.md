@@ -60,8 +60,8 @@ A serialized `/Script/Dungeons` superclass is not a native function address. A f
 The adapter verifies the historical tracer SHA-256 and applies exact, checked source anchors in memory. The original script and its earlier evidence hashes remain unchanged. It adds guest-only self-file APIs, disables expensive historical focused hooks, and retains the original-image execution stop guard. All raw output remains under the private local data root. Use a fresh run ID; existing output is never overwritten.
 
 ```sh
-MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py legacy --run-id legacy-20261022 --slices 6
-MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py consistent --run-id consistent-20261022 --slices 6
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py legacy --run-id legacy-20261022 --slices 1
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py consistent --run-id consistent-20261022 --slices 1
 python3 -B research/native/scripts/summarize_self_file.py \
   --local-root /path/to/local-game-data \
   --runs legacy-20261022 consistent-20261022 \
@@ -70,7 +70,7 @@ python3 -B research/native/scripts/summarize_self_file.py \
 python3 -B research/native/scripts/validate_native_artifacts.py
 ```
 
-The committed capture uses run IDs `final-legacy-a` and `final-consistent-a`. Slice boundaries can depend on the 60-second timeout; a replay need not stop at the same instruction or produce the same memory hash. The four file-API boundaries and bounded read observations, not byte-identical budget-stop snapshots, are the reproducibility target. The summary generator uses the existing local Capstone package. Validation requires neither private game files nor Unicorn/Capstone and includes eight boundary tests for the file model.
+The committed capture uses run IDs `verified-legacy-b` and `verified-consistent-b`. Slice boundaries can depend on the 60-second timeout; a replay need not stop at the same instruction or produce the same memory hash. The four file-API boundaries and bounded read observations, not byte-identical budget-stop snapshots, are the reproducibility target. The summary generator uses the existing local Capstone package. Validation requires neither private game files nor Unicorn/Capstone and includes eleven boundary/lifecycle tests for the file model and API adapter.
 
 - [Continuation metadata](self-file-continuation.json): profile conditions, file API arguments, read instruction, section hashes, bounded read samples and literal search.
 - [External candidates](external-native-candidates-20261022.json): commit-pinned SDK identifiers, old-source formula hypotheses, source/build discrepancies and discriminating checks.

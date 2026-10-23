@@ -354,7 +354,7 @@ def main() -> None:
     require("game-data-native-analysis.md" in (ROOT / "docs" / "README.md").read_text(), "docs index is missing the Native Analysis link")
 
     subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/validate_self_file_artifacts.py")], check=True)
-    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_self_file_model.py"], check=True)
+    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_self_file*.py"], check=True)
 
     print(json.dumps({
         "status": "passed",

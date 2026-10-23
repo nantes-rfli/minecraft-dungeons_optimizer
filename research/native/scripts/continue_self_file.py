@@ -35,10 +35,14 @@ def install_extension(g, settings):
     read_hook = None
 
     def capture_read(emu, access, address, size, value, _):
+        nonlocal read_hook
+        if len(reads) >= 256:
+            return
         reads.append({"offset": address - model.VIEW_ADDRESS, "size": size,
                       "instructionRva": hex(emu.reg_read(g["UC_X86_REG_RIP"]) - g["base"])})
-        if len(reads) == 256:
+        if len(reads) >= 256 and read_hook is not None:
             emu.hook_del(read_hook)
+            read_hook = None
 
     arities = {"CreateFileW": 7, "CreateFileMappingW": 6, "MapViewOfFile": 5,
                "UnmapViewOfFile": 1, "GetFileSize": 2, "ReadFile": 5,
@@ -89,7 +93,10 @@ def install_extension(g, settings):
             if result is None:
                 raise Unmodeled("file operation not modeled")
             event.update(result["metadata"], modeledReturn=hex(result["returnValue"]))
-            if name == "MapViewOfFile":
+            if name == "UnmapViewOfFile" and read_hook is not None:
+                emu.hook_del(read_hook)
+                read_hook = None
+            if name == "MapViewOfFile" and len(reads) < 256:
                 read_hook = emu.hook_add(un.UC_HOOK_MEM_READ, capture_read,
                                          begin=model.VIEW_ADDRESS,
                                          end=model.VIEW_ADDRESS + len(model.data) - 1)
@@ -126,6 +133,9 @@ def main():
     settings = parser.parse_args()
     if not 1 <= settings.slices <= 12 or not settings.run_id.replace("-", "").isalnum():
         parser.error("slices must be 1..12 and run-id must be alphanumeric/hyphens")
+    adapter_hash = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    model_path = Path(__file__).with_name("self_file_model.py")
+    model_hash = hashlib.sha256(model_path.read_bytes()).hexdigest()
     baseline = settings.baseline_script.resolve()
     source = baseline.read_text()
     if hashlib.sha256(baseline.read_bytes()).hexdigest() != BASELINE_SHA256:
@@ -150,14 +160,16 @@ def main():
                  "continuationSettings": settings, "installExtension": install_extension,
                  "runSlices": run_slices}
     exec(compile(source, str(baseline) + ":self-file-adapter", "exec"), namespace)
+    if adapter_hash != hashlib.sha256(Path(__file__).read_bytes()).hexdigest() or model_hash != hashlib.sha256(model_path.read_bytes()).hexdigest():
+        raise SystemExit("source changed during emulation; discard this incomplete capture")
     u = namespace["u"]
     image = bytes(u.mem_read(namespace["base"], namespace["imageSize"]))
     (output / "mapped-image.bin").write_bytes(image)
     report = namespace["report"]
     report.update(profile="self-file-" + settings.profile,
                   baselineScriptSha256=BASELINE_SHA256,
-                  adapterScriptSha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-                  modelScriptSha256=hashlib.sha256(Path(__file__).with_name("self_file_model.py").read_bytes()).hexdigest(),
+                  adapterScriptSha256=adapter_hash,
+                  modelScriptSha256=model_hash,
                   mappedImageSha256=hashlib.sha256(image).hexdigest(),
                   mappedImageBytes=len(image),
                   fileReadSamples=namespace["selfFileReads"],
