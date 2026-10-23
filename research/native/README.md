@@ -4,6 +4,8 @@ Independent executable-analysis lane. These records do not become serialized Raw
 
 ## Current state
 
+2026-10-22 update: [self-file continuation and external formula candidates](../../docs/game-data-native-self-file.md). Both synthetic profiles now reach actual reads from the pinned executable after read-only mapping. Original-image execution and gameplay functions remain unverified. The older static-only survey below is retained as historical evidence.
+
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
 - **D-2 static boundary survey complete:** paired synthetic traces close the modeled RSMB return-to-EBX-bit dataflow inside `.dungeon`. A new range-seeded sweep found two unexecuted `.dungeon` to `.boot` JMP candidates; neither reaches stable section-0 code. The 87 aligned absolute references are sparse typed records, and several target exception-range starts, but none identifies a Dungeons class/function. Current-environment static native evidence is exhausted; further progress needs a new source such as a Windows capture, a full post-unpack image, or matching symbols.
 - **D-3 not started:** no gameplay native function has an executable address or evidence chain. One serialized `/Script/Dungeons` parent-class link is retained as a candidate only.
@@ -52,3 +54,25 @@ Replace `/path/to/local-game-data` with the local directory path. The inventory 
 ## Acceptance boundary
 
 A serialized `/Script/Dungeons` superclass is not a native function address. A future `supported` or `accepted` candidate needs the exact executable hash and RVA, independent class-registration or reflection evidence, control-flow and data-flow observations, and a Raw identity correlation. A nearby string, generic UE4 layout, or external game's offset is insufficient.
+
+## Self-file continuation (2026-10-22)
+
+The adapter verifies the historical tracer SHA-256 and applies exact, checked source anchors in memory. The original script and its earlier evidence hashes remain unchanged. It adds guest-only self-file APIs, disables expensive historical focused hooks, and retains the original-image execution stop guard. All raw output remains under the private local data root. Use a fresh run ID; existing output is never overwritten.
+
+```sh
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py legacy --run-id legacy-20261022 --slices 1
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data python3 -B research/native/scripts/continue_self_file.py consistent --run-id consistent-20261022 --slices 1
+python3 -B research/native/scripts/summarize_self_file.py \
+  --local-root /path/to/local-game-data \
+  --runs legacy-20261022 consistent-20261022 \
+  --external research/native/external-native-candidates-20261022.json \
+  --output research/native/self-file-continuation.json
+python3 -B research/native/scripts/validate_native_artifacts.py
+```
+
+The committed capture uses run IDs `verified-legacy-b` and `verified-consistent-b`. Slice boundaries can depend on the 60-second timeout; a replay need not stop at the same instruction or produce the same memory hash. The four file-API boundaries and bounded read observations, not byte-identical budget-stop snapshots, are the reproducibility target. The summary generator uses the existing local Capstone package. Validation requires neither private game files nor Unicorn/Capstone and includes eleven boundary/lifecycle tests for the file model and API adapter.
+
+- [Continuation metadata](self-file-continuation.json): profile conditions, file API arguments, read instruction, section hashes, bounded read samples and literal search.
+- [External candidates](external-native-candidates-20261022.json): commit-pinned SDK identifiers, old-source formula hypotheses, source/build discrepancies and discriminating checks.
+- [Self-file model](scripts/self_file_model.py): in-memory input only; unsupported operations and arguments stop.
+- [Adapter](scripts/continue_self_file.py), [summary generator](scripts/summarize_self_file.py), [new evidence validator](scripts/validate_self_file_artifacts.py).

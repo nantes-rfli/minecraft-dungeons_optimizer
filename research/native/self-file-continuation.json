@@ -1,0 +1,1103 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-22",
+  "status": "research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "analysisBaselineCommit": "8fd4bde40f42d1aeee2571d441d8b6214e1c3046",
+  "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "stage1Sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+  "distributionAuthenticity": "unverified",
+  "profiles": [
+    {
+      "profile": "self-file-legacy",
+      "localOutput": "phase6.8/native-stage2/self-file-experiments/verified-legacy-b",
+      "traceSha256": "a1c76a53c01fc386818c0582b4d85430f5be081a8cbf7fcc3f5db6ae260c72eb",
+      "baselineScriptSha256": "ec0ccf5e9a8af7457eda3d279b5da01eb704f51862e82e25a357e1207e8d7915",
+      "adapterScriptSha256": "5c1f551ed66801e117c13645a2c79cec3d79750bcf1a51ad7e2ac3a020a6f622",
+      "modelScriptSha256": "12190b3bd9b938c34bf1bee28e6446e7866f2dc8f942806a88f31adc7321bfd8",
+      "stopReason": "bounded run ended at 0x144eee164",
+      "stopVa": "0x144eee164",
+      "eventCountIncludingRdtsc": 85,
+      "apiCountIncludingBoundary": 83,
+      "lastApi": {
+        "dll": "kernel32.dll",
+        "name": "GetFileSize",
+        "args": [
+          "0x950000",
+          "0x0",
+          "0x0",
+          "0x0"
+        ],
+        "returnAddress": "0x1450e02cb",
+        "returnRva": "0x50e02cb",
+        "model": "self-file-legacy",
+        "typedArguments": [
+          "0x950000",
+          "0x0"
+        ],
+        "fileBytes": 37613072,
+        "modeledReturn": "0x23dee10"
+      },
+      "fileEvents": [
+        {
+          "dll": "kernel32.dll",
+          "name": "CreateFileW",
+          "args": [
+            "0x8000a000",
+            "0x80000000",
+            "0x1",
+            "0x0"
+          ],
+          "returnAddress": "0x1450dea6c",
+          "returnRva": "0x50dea6c",
+          "model": "self-file-legacy",
+          "typedArguments": [
+            "0x8000a000",
+            "0x80000000",
+            "0x1",
+            "0x0",
+            "0x3",
+            "0x20",
+            "0x0"
+          ],
+          "inputBytes": 37613072,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0x950000"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "CreateFileMappingW",
+          "args": [
+            "0x950000",
+            "0x0",
+            "0x2",
+            "0x0"
+          ],
+          "returnAddress": "0x1450d5b1d",
+          "returnRva": "0x50d5b1d",
+          "model": "self-file-legacy",
+          "typedArguments": [
+            "0x950000",
+            "0x0",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "mappedFileBytes": 37613072,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0x950001"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "MapViewOfFile",
+          "args": [
+            "0x950001",
+            "0x4",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450dde55",
+          "returnRva": "0x50dde55",
+          "model": "self-file-legacy",
+          "typedArguments": [
+            "0x950001",
+            "0x4",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "fileOffset": 0,
+          "mappedFileBytes": 37613072,
+          "mappedPageBytes": 37613568,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0xc1000000"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "GetFileSize",
+          "args": [
+            "0x950000",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450e02cb",
+          "returnRva": "0x50e02cb",
+          "model": "self-file-legacy",
+          "typedArguments": [
+            "0x950000",
+            "0x0"
+          ],
+          "fileBytes": 37613072,
+          "modeledReturn": "0x23dee10"
+        }
+      ],
+      "firmwareEvents": [
+        {
+          "dll": "kernel32.dll",
+          "name": "GetSystemFirmwareTable",
+          "args": [
+            "0x52534d42",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450d0fe9",
+          "returnRva": "0x50d0fe9",
+          "provider": "RSMB",
+          "tableId": 0,
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledReturn": 4096
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "GetSystemFirmwareTable",
+          "args": [
+            "0x52534d42",
+            "0x0",
+            "0x80007000",
+            "0x1000"
+          ],
+          "returnAddress": "0x1450d1349",
+          "returnRva": "0x50d1349",
+          "provider": "RSMB",
+          "tableId": 0,
+          "counterfactualModel": "firmware-registry-failure",
+          "syntheticSmbiosBytes": 4096,
+          "syntheticSmbiosSha256": "22c4189052548b07c529deebd5853676dd9c6adb6b8b9ff95dd7ccb0f2bf5b9e",
+          "modeledReturn": 80
+        }
+      ],
+      "registryEvents": [
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144ee755b",
+            "0x144eda9d0",
+            "0x1000"
+          ],
+          "returnAddress": "0x1450f434d",
+          "returnRva": "0x50f434d",
+          "requestedPath": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        },
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144dd3f59",
+            "0x144eda9d0",
+            "0x1000"
+          ],
+          "returnAddress": "0x1450dd7a3",
+          "returnRva": "0x50dd7a3",
+          "requestedPath": "Hardware\\description\\System",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        },
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144d211c3",
+            "0x144eda9d0",
+            "0x1000"
+          ],
+          "returnAddress": "0x1450df840",
+          "returnRva": "0x50df840",
+          "requestedPath": "HARDWARE\\ACPI\\DSDT\\VBOX__",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        }
+      ],
+      "sectionHashes": [
+        {
+          "index": 0,
+          "name": "        ",
+          "rva": 4096,
+          "virtualSize": 50932648,
+          "initial": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722",
+          "final": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722"
+        },
+        {
+          "index": 1,
+          "name": "        ",
+          "rva": 50937856,
+          "virtualSize": 17778500,
+          "initial": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42",
+          "final": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42"
+        },
+        {
+          "index": 2,
+          "name": "        ",
+          "rva": 68718592,
+          "virtualSize": 6337216,
+          "initial": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d",
+          "final": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d"
+        },
+        {
+          "index": 3,
+          "name": "        ",
+          "rva": 75059200,
+          "virtualSize": 2820132,
+          "initial": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c",
+          "final": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c"
+        },
+        {
+          "index": 4,
+          "name": "        ",
+          "rva": 77881344,
+          "virtualSize": 4400,
+          "initial": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c",
+          "final": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c"
+        },
+        {
+          "index": 5,
+          "name": "        ",
+          "rva": 77889536,
+          "virtualSize": 42288,
+          "initial": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b",
+          "final": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b"
+        },
+        {
+          "index": 6,
+          "name": "        ",
+          "rva": 77934592,
+          "virtualSize": 4776,
+          "initial": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91",
+          "final": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91"
+        },
+        {
+          "index": 7,
+          "name": "        ",
+          "rva": 77942784,
+          "virtualSize": 1433228,
+          "initial": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e",
+          "final": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e"
+        },
+        {
+          "index": 8,
+          "name": ".debug",
+          "rva": 79376384,
+          "virtualSize": 4096,
+          "initial": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec",
+          "final": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec"
+        },
+        {
+          "index": 9,
+          "name": ".edata",
+          "rva": 79380480,
+          "virtualSize": 4096,
+          "initial": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802",
+          "final": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802"
+        },
+        {
+          "index": 10,
+          "name": ".idata",
+          "rva": 79384576,
+          "virtualSize": 4096,
+          "initial": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712",
+          "final": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712"
+        },
+        {
+          "index": 11,
+          "name": ".tls",
+          "rva": 79388672,
+          "virtualSize": 4096,
+          "initial": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401",
+          "final": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401"
+        },
+        {
+          "index": 12,
+          "name": ".rsrc",
+          "rva": 79392768,
+          "virtualSize": 4096,
+          "initial": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e",
+          "final": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e"
+        },
+        {
+          "index": 13,
+          "name": ".dungeon",
+          "rva": 79396864,
+          "virtualSize": 15360000,
+          "initial": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+          "final": "d3f38ca7a7510e10931d850e74385e355cf17e4697509a8f821b1ffdc47a5d79"
+        },
+        {
+          "index": 14,
+          "name": ".boot",
+          "rva": 94756864,
+          "virtualSize": 8937984,
+          "initial": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742",
+          "final": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742"
+        },
+        {
+          "index": 15,
+          "name": ".reloc",
+          "rva": 103698432,
+          "virtualSize": 4096,
+          "initial": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00",
+          "final": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00"
+        }
+      ],
+      "changedSectionIndices": [
+        13
+      ],
+      "originalImageEntryObserved": false,
+      "dungeonSha256": "d3f38ca7a7510e10931d850e74385e355cf17e4697509a8f821b1ffdc47a5d79",
+      "mappedImageSha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
+      "mappedImageBytes": 103702528,
+      "readConsumers": [
+        {
+          "readRva": "0x4cf723c",
+          "instructions": [
+            {
+              "rva": "0x4cf723c",
+              "text": "mov r15d, dword ptr [r15]"
+            },
+            {
+              "rva": "0x4cf723f",
+              "text": "add dword ptr [r12], r15d"
+            }
+          ],
+          "inputSha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
+          "interpretation": "Observed file read and adjacent decoded arithmetic only; no whole-loop/checksum algorithm claim."
+        }
+      ],
+      "fileReadSample": {
+        "count": 256,
+        "limit": 256,
+        "completeReadHistory": false,
+        "offsetMinimum": 0,
+        "offsetExclusiveMaximum": 1040,
+        "instructionRvas": [
+          "0x4cf723c"
+        ],
+        "unreadDwordOffsetsWithinSampleSpan": [
+          576,
+          584,
+          664,
+          668
+        ],
+        "firstReads": [
+          {
+            "offset": 0,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 4,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 8,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 12,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 16,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 20,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 24,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 28,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 32,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 36,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 40,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 44,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          }
+        ],
+        "lastReads": [
+          {
+            "offset": 992,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 996,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1000,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1004,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1008,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1012,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1016,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1020,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1024,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1028,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1032,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1036,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          }
+        ]
+      },
+      "budget": {
+        "slices": [
+          {
+            "slice": 1,
+            "rip": "0x144eee164",
+            "events": 85,
+            "stopReason": null
+          }
+        ],
+        "maximumSlices": 1,
+        "instructionsPerSliceLimit": 500000000,
+        "microsecondsPerSliceLimit": 60000000
+      }
+    },
+    {
+      "profile": "self-file-consistent",
+      "localOutput": "phase6.8/native-stage2/self-file-experiments/verified-consistent-b",
+      "traceSha256": "8187e6dde07698857acc086321fa2ad2414d342d1b5eccef05cd12407718dca0",
+      "baselineScriptSha256": "ec0ccf5e9a8af7457eda3d279b5da01eb704f51862e82e25a357e1207e8d7915",
+      "adapterScriptSha256": "5c1f551ed66801e117c13645a2c79cec3d79750bcf1a51ad7e2ac3a020a6f622",
+      "modelScriptSha256": "12190b3bd9b938c34bf1bee28e6446e7866f2dc8f942806a88f31adc7321bfd8",
+      "stopReason": "bounded run ended at 0x144ca8290",
+      "stopVa": "0x144ca8290",
+      "eventCountIncludingRdtsc": 80,
+      "apiCountIncludingBoundary": 78,
+      "lastApi": {
+        "dll": "kernel32.dll",
+        "name": "GetFileSize",
+        "args": [
+          "0x950000",
+          "0x0",
+          "0x0",
+          "0x0"
+        ],
+        "returnAddress": "0x1450e02cb",
+        "returnRva": "0x50e02cb",
+        "model": "self-file-consistent",
+        "typedArguments": [
+          "0x950000",
+          "0x0"
+        ],
+        "fileBytes": 37613072,
+        "modeledReturn": "0x23dee10"
+      },
+      "fileEvents": [
+        {
+          "dll": "kernel32.dll",
+          "name": "CreateFileW",
+          "args": [
+            "0x80009000",
+            "0x80000000",
+            "0x1",
+            "0x0"
+          ],
+          "returnAddress": "0x1450dea6c",
+          "returnRva": "0x50dea6c",
+          "model": "self-file-consistent",
+          "typedArguments": [
+            "0x80009000",
+            "0x80000000",
+            "0x1",
+            "0x0",
+            "0x3",
+            "0x20",
+            "0x0"
+          ],
+          "inputBytes": 37613072,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0x950000"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "CreateFileMappingW",
+          "args": [
+            "0x950000",
+            "0x0",
+            "0x2",
+            "0x0"
+          ],
+          "returnAddress": "0x1450d5b1d",
+          "returnRva": "0x50d5b1d",
+          "model": "self-file-consistent",
+          "typedArguments": [
+            "0x950000",
+            "0x0",
+            "0x2",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "mappedFileBytes": 37613072,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0x950001"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "MapViewOfFile",
+          "args": [
+            "0x950001",
+            "0x4",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450dde55",
+          "returnRva": "0x50dde55",
+          "model": "self-file-consistent",
+          "typedArguments": [
+            "0x950001",
+            "0x4",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "fileOffset": 0,
+          "mappedFileBytes": 37613072,
+          "mappedPageBytes": 37613568,
+          "inputSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+          "modeledReturn": "0xc1000000"
+        },
+        {
+          "dll": "kernel32.dll",
+          "name": "GetFileSize",
+          "args": [
+            "0x950000",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450e02cb",
+          "returnRva": "0x50e02cb",
+          "model": "self-file-consistent",
+          "typedArguments": [
+            "0x950000",
+            "0x0"
+          ],
+          "fileBytes": 37613072,
+          "modeledReturn": "0x23dee10"
+        }
+      ],
+      "firmwareEvents": [
+        {
+          "dll": "kernel32.dll",
+          "name": "GetSystemFirmwareTable",
+          "args": [
+            "0x52534d42",
+            "0x0",
+            "0x0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450d0fe9",
+          "returnRva": "0x50d0fe9",
+          "model": "self-file-consistent",
+          "modeledReturn": 89,
+          "fixtureSha256": "e2b4c19178d6fa0bd6718622eb319fa488a25623bdeb05194dc777f1685101dc"
+        }
+      ],
+      "registryEvents": [
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144ee755b",
+            "0x144eda9d0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450f434d",
+          "returnRva": "0x50f434d",
+          "requestedPath": "SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        },
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144dd3f59",
+            "0x144eda9d0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450dd7a3",
+          "returnRva": "0x50dd7a3",
+          "requestedPath": "Hardware\\description\\System",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        },
+        {
+          "dll": "advapi32.dll",
+          "name": "RegOpenKeyA",
+          "args": [
+            "0x80000002",
+            "0x144d211c3",
+            "0x144eda9d0",
+            "0x0"
+          ],
+          "returnAddress": "0x1450df840",
+          "returnRva": "0x50df840",
+          "requestedPath": "HARDWARE\\ACPI\\DSDT\\VBOX__",
+          "counterfactualModel": "firmware-registry-failure",
+          "modeledStatus": "ERROR_FILE_NOT_FOUND",
+          "outputHandlePointer": "0x144eda9d0"
+        }
+      ],
+      "sectionHashes": [
+        {
+          "index": 0,
+          "name": "        ",
+          "rva": 4096,
+          "virtualSize": 50932648,
+          "initial": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722",
+          "final": "f2dd55857526de19fe85793140799aa3525b5b626d7612845e0e1f6afadd0722"
+        },
+        {
+          "index": 1,
+          "name": "        ",
+          "rva": 50937856,
+          "virtualSize": 17778500,
+          "initial": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42",
+          "final": "d5059d13c8959e769ab3a3cf346f1c7bd5f799d792a0d406cdcde13e66fe3e42"
+        },
+        {
+          "index": 2,
+          "name": "        ",
+          "rva": 68718592,
+          "virtualSize": 6337216,
+          "initial": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d",
+          "final": "7bacdbb7118c5a159e0fc69528dd226a333568b7b81fa03c6e8b3aa1123a582d"
+        },
+        {
+          "index": 3,
+          "name": "        ",
+          "rva": 75059200,
+          "virtualSize": 2820132,
+          "initial": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c",
+          "final": "ea9d10cd9e49d570b5ef2c6333bedd58cf89f0c8749224f29a7257bed212185c"
+        },
+        {
+          "index": 4,
+          "name": "        ",
+          "rva": 77881344,
+          "virtualSize": 4400,
+          "initial": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c",
+          "final": "fc8c799f278ae92d4c881bc3390501367c88ba73b0eecfaea1ad830513b3051c"
+        },
+        {
+          "index": 5,
+          "name": "        ",
+          "rva": 77889536,
+          "virtualSize": 42288,
+          "initial": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b",
+          "final": "706e16ca845cb2dcfa34651d4e5e5cc0ae5f38cc60d5a284ac6e1ac199bd259b"
+        },
+        {
+          "index": 6,
+          "name": "        ",
+          "rva": 77934592,
+          "virtualSize": 4776,
+          "initial": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91",
+          "final": "8821a28093b516a7a857fa171a74608fcda18e3b5f15d65f3bb10a6ba2bf2d91"
+        },
+        {
+          "index": 7,
+          "name": "        ",
+          "rva": 77942784,
+          "virtualSize": 1433228,
+          "initial": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e",
+          "final": "0e81afb3f5870476edf6dbb5fe3e6f88fa3280df0d5abd328bbf0558d2de5f5e"
+        },
+        {
+          "index": 8,
+          "name": ".debug",
+          "rva": 79376384,
+          "virtualSize": 4096,
+          "initial": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec",
+          "final": "d905e9ce77d120331c2879bac0b6c8aedab6f277f902b8a7f6be950a368225ec"
+        },
+        {
+          "index": 9,
+          "name": ".edata",
+          "rva": 79380480,
+          "virtualSize": 4096,
+          "initial": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802",
+          "final": "fd671717aee1e1a01927a2ada228757032b305d7221891fb20229ed828fd1802"
+        },
+        {
+          "index": 10,
+          "name": ".idata",
+          "rva": 79384576,
+          "virtualSize": 4096,
+          "initial": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712",
+          "final": "7bbf7e3f5026728f4ed404803277af92c30200f3ed5bfbc14ffe4358fa627712"
+        },
+        {
+          "index": 11,
+          "name": ".tls",
+          "rva": 79388672,
+          "virtualSize": 4096,
+          "initial": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401",
+          "final": "469c43283c39e1d825ca171fa32b42bf791df61e4322bf5f35050a6bc6d38401"
+        },
+        {
+          "index": 12,
+          "name": ".rsrc",
+          "rva": 79392768,
+          "virtualSize": 4096,
+          "initial": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e",
+          "final": "61262cbc560b1d583434826fd3fb1e13bc6be69a1b24785b357752b64a7a335e"
+        },
+        {
+          "index": 13,
+          "name": ".dungeon",
+          "rva": 79396864,
+          "virtualSize": 15360000,
+          "initial": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+          "final": "b99165a47635fb54ab7b3e903a9e945a6208925cecaba82746b242a755b34218"
+        },
+        {
+          "index": 14,
+          "name": ".boot",
+          "rva": 94756864,
+          "virtualSize": 8937984,
+          "initial": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742",
+          "final": "e441324845455cbf0cd63ac04c3f8952eba0b5d0ddfa75d13f91148b0948c742"
+        },
+        {
+          "index": 15,
+          "name": ".reloc",
+          "rva": 103698432,
+          "virtualSize": 4096,
+          "initial": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00",
+          "final": "a0cb916a705c2383a2061ea8ef7633af5efd921156c421921dd990e463551b00"
+        }
+      ],
+      "changedSectionIndices": [
+        13
+      ],
+      "originalImageEntryObserved": false,
+      "dungeonSha256": "b99165a47635fb54ab7b3e903a9e945a6208925cecaba82746b242a755b34218",
+      "mappedImageSha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
+      "mappedImageBytes": 103702528,
+      "readConsumers": [
+        {
+          "readRva": "0x4cf723c",
+          "instructions": [
+            {
+              "rva": "0x4cf723c",
+              "text": "mov r15d, dword ptr [r15]"
+            },
+            {
+              "rva": "0x4cf723f",
+              "text": "add dword ptr [r12], r15d"
+            }
+          ],
+          "inputSha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
+          "interpretation": "Observed file read and adjacent decoded arithmetic only; no whole-loop/checksum algorithm claim."
+        }
+      ],
+      "fileReadSample": {
+        "count": 256,
+        "limit": 256,
+        "completeReadHistory": false,
+        "offsetMinimum": 0,
+        "offsetExclusiveMaximum": 1040,
+        "instructionRvas": [
+          "0x4cf723c"
+        ],
+        "unreadDwordOffsetsWithinSampleSpan": [
+          576,
+          584,
+          664,
+          668
+        ],
+        "firstReads": [
+          {
+            "offset": 0,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 4,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 8,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 12,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 16,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 20,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 24,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 28,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 32,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 36,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 40,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 44,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          }
+        ],
+        "lastReads": [
+          {
+            "offset": 992,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 996,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1000,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1004,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1008,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1012,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1016,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1020,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1024,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1028,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1032,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          },
+          {
+            "offset": 1036,
+            "size": 4,
+            "instructionRva": "0x4cf723c"
+          }
+        ]
+      },
+      "budget": {
+        "slices": [
+          {
+            "slice": 1,
+            "rip": "0x144ca8290",
+            "events": 80,
+            "stopReason": null
+          }
+        ],
+        "maximumSlices": 1,
+        "instructionsPerSliceLimit": 500000000,
+        "microsecondsPerSliceLimit": 60000000
+      }
+    }
+  ],
+  "identifierScan": {
+    "names": [
+      "ArmorDamageItemPowerGameplayEffect",
+      "ArmorGearItemInstance",
+      "CooldownReduction",
+      "GearItemInstance",
+      "ItemPowerArmorDamageModCalculation",
+      "ItemPowerHealthModCalculation",
+      "ItemPowerMeleeDamageModCalculation",
+      "ItemPowerRangedDamageModCalculation",
+      "ItemPowerUtil",
+      "MaxHealthItemPowerGameplayEffect",
+      "MeleeAttackComponent",
+      "MeleeDamageItemPowerGameplayEffect",
+      "OnRep_MeleeAttackSpeedMultiplier",
+      "OnVariantCooldownDone",
+      "RangedDamageItemPowerGameplayEffect"
+    ],
+    "encodings": [
+      "ascii",
+      "utf-16le"
+    ],
+    "inputs": [
+      {
+        "input": "archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+        "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+        "sizeBytes": 37613072,
+        "matches": []
+      },
+      {
+        "input": "phase6.8/mechanics/stage1.bin",
+        "sha256": "d68e1bdf0e4ac23427d9978198a9b459183ad75b34666ca1ea298689e99d925b",
+        "sizeBytes": 15360000,
+        "matches": []
+      },
+      {
+        "input": "phase6.8/native-stage2/self-file-experiments/verified-legacy-b/mapped-image.bin",
+        "sha256": "5756222e45ba16756b0150c509cd090eb442c308eba2e209c29d6eb0f23240cf",
+        "sizeBytes": 103702528,
+        "matches": []
+      },
+      {
+        "input": "phase6.8/native-stage2/self-file-experiments/verified-consistent-b/mapped-image.bin",
+        "sha256": "362240ec8f28734119c052d7d7bcfe6145877669f0237cc777838688bc044d88",
+        "sizeBytes": 103702528,
+        "matches": []
+      }
+    ],
+    "scope": "Exact literal search; only first hit per name/encoding. Encoded or runtime-generated names remain possible."
+  },
+  "interpretation": {
+    "newBoundary": "Self-file CreateFileW, CreateFileMappingW, MapViewOfFile and GetFileSize have explicit pinned-byte models.",
+    "nativeGameplayImplementation": "unknown",
+    "powerScaling": "unknown",
+    "cooldown": "unknown",
+    "attackTimingApplication": "unknown",
+    "effectStacking": "unknown",
+    "oldStaticSurvey": "Historical static-only exhaustion is not a prohibition on new conditional execution experiments."
+  },
+  "limitations": [
+    "All Windows APIs and environment values remain synthetic. No real Windows process or adjacent DLL was loaded.",
+    "legacy inherits malformed SMBIOS size/fill behavior; consistent uses an internally length-consistent synthetic fixture.",
+    "All three registry keys are modeled missing, including Hardware\\description\\System; this is not a real-machine observation.",
+    "Initial original-image pages remain RWX and initial stack layout is inherited from the historical tracer.",
+    "RegOpenKeyA has three arguments. Older accessMask fields were stale R9 values; new traces use outputHandlePointer.",
+    "Historical focused EBX/dispatch hooks are disabled, and write-page telemetry now covers only the original-image range.",
+    "Each slice has instruction and wall-clock ceilings. Budget stops are not crashes, hangs or whole-binary negative proofs.",
+    "The mapped image is a partial synthetic emulator snapshot, not a verified post-unpack image.",
+    "File-read samples are capped; their span is not the total file-read span.",
+    "External class names and old-source equations do not establish a current-build RVA or mechanic."
+  ]
+}
