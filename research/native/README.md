@@ -59,6 +59,9 @@ directory from successful capture evidence, even if image/trace files exist.
 `forcedKill` records escalation separately. A complete conditional capture is an
 `analysis-stopped` result, never proof of game startup or accepted Evidence;
 `evidenceAccepted`, `runtimePromotion` and `resumable` remain false.
+An unexpected Unicorn `UcError` without a prior modeled stop reason is recorded
+as `emulationError`; its capture is incomplete and the worker exits with code 1.
+An error string alone never establishes a deliberate analysis stop.
 
 Exit codes: 2 = recorded analysis stop with complete conditional output;
 124 = external or Unicorn timeout; 137 = external timeout requiring SIGKILL;
@@ -67,7 +70,7 @@ The process supervisor separately distinguishes an ordinary child exit (0) from
 an analysis stop. Timeout states are never resumed or reconstructed. Use a fresh
 run ID; existing outputs and monitoring records are never overwritten.
 
-The Power evidence manifest pins the **historical** runner at PR head
+The Power evidence manifest pins the **historical** recovery scripts at PR head
 `a5b6105ab94a3352efd89217a0555a6e4090854a`. Its hashes and captures are preserved;
 this watchdog fix-up does not regenerate them. New captures record their own
 runner hash and require separate validation.

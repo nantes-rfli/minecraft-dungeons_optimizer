@@ -27,19 +27,21 @@ def run_once(g, seconds, observation):
     emu = g["u"]
     observation["emuStartCalls"] = 1
     started = time.monotonic()
+    emulation_error = None
     try:
         emu.emu_start(g["base"] + 0x4BB8000 + 0x2C495F, 0,
                       timeout=seconds * 1_000_000, count=0)
     except g["un"].UcError as exc:
         if g["reason"] is None:
             g["reason"] = str(exc)
+            emulation_error = str(exc)
     terminal_timeout = g["reason"] is None
     if terminal_timeout:
         g["reason"] = "terminal time budget; do not resume this state"
     observation.update(
         emuStartCalls=1, instructionLimit=None, timeLimitSeconds=seconds,
         elapsedSeconds=time.monotonic() - started,
-        terminalTimeout=terminal_timeout, resumable=False,
+        terminalTimeout=terminal_timeout, emulationError=emulation_error, resumable=False,
         stopReason=g["reason"], stopVa=hex(emu.reg_read(g["UC_X86_REG_RIP"])),
         registers={name: hex(emu.reg_read(reg)) for name, reg in g["checkpointRegisters"].items()},
     )
@@ -96,12 +98,13 @@ def run_worker(args):
         trace.pop(key, None)
     trace["continuousExecution"] = {key: observation[key] for key in (
         "executionMode", "emuStartCalls", "instructionLimit", "timeLimitSeconds",
-        "terminalTimeout", "resumable")}
+        "terminalTimeout", "emulationError", "resumable")}
     trace["runnerScriptSha256"] = script_hash
     trace_path.write_text(json.dumps(trace, indent=2) + "\n")
     observation.update(
         schemaVersion=1, status="conditional-emulation", runtimePromotion=False,
-        captureComplete=not observation["terminalTimeout"], evidenceAccepted=False,
+        captureComplete=not observation["terminalTimeout"] and observation["emulationError"] is None,
+        evidenceAccepted=False,
         applicationImpact=False, runnerScriptSha256=script_hash,
         copySummaryEnabled=args.verified_copy, copySummaryScriptSha256=copy_hash,
         baselineScriptSha256=trace["baselineScriptSha256"],
@@ -116,6 +119,8 @@ def run_worker(args):
     print(json.dumps({"output": str(output), "stopReason": observation["stopReason"],
                       "fileReadCount": observation["fileReadCount"]}), flush=True)
     # A recorded analysis stop is distinct from successful program completion.
+    if observation["emulationError"] is not None:
+        return 1
     return 124 if observation["terminalTimeout"] else 2
 
 
@@ -155,6 +160,7 @@ def supervise_capture(args):
                 trace = output / "api-trace.json"
                 valid = (observation["traceSha256"] == hashlib.sha256(trace.read_bytes()).hexdigest()
                          and observation["resumable"] is False
+                         and observation["emulationError"] is None
                          and observation["evidenceAccepted"] is False)
                 if valid and result["cleanupComplete"] and not result["forcedKill"]:
                     if result["returncode"] == 2 and observation["captureComplete"] is True and observation["terminalTimeout"] is False:

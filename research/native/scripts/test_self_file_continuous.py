@@ -32,6 +32,7 @@ class ContinuousRunnerTests(unittest.TestCase):
         self.assertEqual(len(calls), 1)
         self.assertEqual(calls[0][1], {"timeout": 2_000_000, "count": 0})
         self.assertTrue(result["terminalTimeout"])
+        self.assertIsNone(result["emulationError"])
         self.assertFalse(result["resumable"])
         self.assertIsNone(result["instructionLimit"])
         self.assertEqual(state["sliceObservations"], [])
@@ -46,6 +47,7 @@ class ContinuousRunnerTests(unittest.TestCase):
         run_once(state, 3, result)
         self.assertEqual(result["stopReason"], reason)
         self.assertFalse(result["terminalTimeout"])
+        self.assertIsNone(result["emulationError"])
         self.assertEqual(len(calls), 1)
 
     def test_unreported_unicorn_error_is_not_timeout_or_success(self):
@@ -54,6 +56,8 @@ class ContinuousRunnerTests(unittest.TestCase):
         run_once(state, 3, result)
         self.assertEqual(result["stopReason"], "invalid instruction")
         self.assertFalse(result["terminalTimeout"])
+        self.assertEqual(result["emulationError"], "invalid instruction")
+        self.assertFalse(result["resumable"])
 
     def test_invalid_budget_never_executes(self):
         for seconds in (0, -1, 3601):

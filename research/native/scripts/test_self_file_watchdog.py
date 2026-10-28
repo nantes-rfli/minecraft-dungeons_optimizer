@@ -29,6 +29,47 @@ def alive(pid):
     return bool(result.stdout.strip()) and not result.stdout.strip().startswith("Z")
 
 
+def run_synthetic_emulation(mode):
+    """Child-only fixture: exercise the real CLI/worker with a fake emulator.
+
+    Only private-input loading and the historical trace writer are replaced.
+    run_once, worker capture construction, exit codes and parent classification
+    all execute their production paths.
+    """
+    class SyntheticUcError(Exception):
+        pass
+
+    def historical_main():
+        run_id = sys.argv[sys.argv.index("--run-id") + 1]
+        output = Path(os.environ["MCD_LOCAL_GAME_DATA_ROOT"]) / "phase6.8/native-stage2/self-file-experiments" / run_id
+        output.mkdir()
+        state = {"base": 0x140000000, "reason": None, "UC_X86_REG_RIP": 1,
+                 "checkpointRegisters": {"rip": 1}, "outdir": output,
+                 "expectedExe": "0" * 64, "expectedStage": "1" * 64,
+                 "data": b"synthetic", "start": time.monotonic(),
+                 "un": SimpleNamespace(UcError=SyntheticUcError, __version__="synthetic", UC_HOOK_MEM_READ=1)}
+
+        def start(*args, **kwargs):
+            if mode == "deliberate-stop":
+                state["reason"] = {"unmodeledApi": "synthetic-stop"}
+            if mode != "timeout":
+                raise SyntheticUcError("invalid instruction")
+
+        state["u"] = SimpleNamespace(emu_start=start, reg_read=lambda reg: 0x144CF723C,
+                                     hook_add=lambda *args, **kwargs: None)
+        runner.historical.install_extension(state, None)
+        runner.historical.run_slices(state, None)
+        trace = {"baselineScriptSha256": "2" * 64, "adapterScriptSha256": "3" * 64,
+                 "modelScriptSha256": "4" * 64, "mappedImageSha256": "5" * 64,
+                 "sectionHashes": [], "stopReason": state["reason"]}
+        (output / "api-trace.json").write_text(json.dumps(trace))
+
+    runner.historical.install_extension = lambda state, settings: None
+    runner.historical.main = historical_main
+    runner.print = lambda *args, **kwargs: None
+    return runner.main()
+
+
 class WatchdogTests(unittest.TestCase):
     def test_normal_exit_preserves_result_and_stdout(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -167,12 +208,13 @@ class WatchdogTests(unittest.TestCase):
 
 
 class CaptureStatusTests(unittest.TestCase):
-    def capture(self, directory, *, timeout=False, corrupt=False, exitcode=None):
+    def capture(self, directory, *, timeout=False, corrupt=False, exitcode=None, emulation_error=None):
         args = SimpleNamespace(profile="consistent", run_id="synthetic", seconds=1, verified_copy=False)
         output = Path(directory) / "phase6.8/native-stage2/self-file-experiments/synthetic"
         trace = b'{"synthetic": true}\n'
         observation = {"traceSha256": hashlib.sha256(trace).hexdigest(), "resumable": False,
-                       "evidenceAccepted": False, "terminalTimeout": timeout, "captureComplete": not timeout}
+                       "evidenceAccepted": False, "terminalTimeout": timeout, "captureComplete": not timeout,
+                       "emulationError": emulation_error}
 
         def worker(command, seconds):
             self.assertIn("--_worker", command)
@@ -222,6 +264,13 @@ class CaptureStatusTests(unittest.TestCase):
             self.assertEqual(record["status"], "failed")
             self.assertFalse(record["captureComplete"])
 
+    def test_error_flag_cannot_be_overridden_by_complete_flag_or_exit_two(self):
+        with tempfile.TemporaryDirectory() as directory:
+            code, record, _ = self.capture(directory, emulation_error="invalid instruction")
+            self.assertEqual(code, 1)
+            self.assertEqual(record["status"], "failed")
+            self.assertFalse(record["captureComplete"])
+
     def test_existing_output_is_not_overwritten(self):
         with tempfile.TemporaryDirectory() as directory:
             _, _, output = self.capture(directory)
@@ -242,6 +291,64 @@ class CaptureStatusTests(unittest.TestCase):
                     self.assertEqual(runner.supervise_capture(args), 1)
                 record_path = Path(directory) / "phase6.8/native-stage2/self-file-experiments/missing.watchdog.json"
                 self.assertFalse(json.loads(record_path.read_text())["captureComplete"])
+
+
+class WorkerWatchdogIntegrationTests(unittest.TestCase):
+    def capture(self, mode):
+        with tempfile.TemporaryDirectory() as directory:
+            args = SimpleNamespace(profile="consistent", run_id="worker-integration", seconds=3, verified_copy=False)
+
+            def launch_worker(command, seconds):
+                bootstrap = (f"import sys; sys.path.insert(0, {str(SCRIPTS)!r}); "
+                             "from test_self_file_watchdog import run_synthetic_emulation; "
+                             f"raise SystemExit(run_synthetic_emulation({mode!r}))")
+                return supervise(python(bootstrap) + command[3:], seconds)
+
+            with patch.dict(os.environ, {"MCD_LOCAL_GAME_DATA_ROOT": directory}), patch.object(runner, "supervise", side_effect=launch_worker), patch.object(runner, "print", create=True):
+                code = runner.supervise_capture(args)
+            output = Path(directory) / "phase6.8/native-stage2/self-file-experiments" / args.run_id
+            observation = json.loads((output / "continuous-run.json").read_text())
+            trace_path = output / "api-trace.json"
+            trace = json.loads(trace_path.read_text())
+            record = json.loads(output.with_name(args.run_id + ".watchdog.json").read_text())
+            self.assertEqual(record, json.loads((output / "watchdog-run.json").read_text()))
+            self.assertEqual(observation["traceSha256"], hashlib.sha256(trace_path.read_bytes()).hexdigest())
+            self.assertEqual(observation["emulationError"], trace["continuousExecution"]["emulationError"])
+            self.assertEqual(observation["emuStartCalls"], 1)
+            for result in (observation, record):
+                self.assertFalse(result["resumable"])
+                self.assertFalse(result["evidenceAccepted"])
+            return code, record, observation
+
+    def test_unexpected_unicorn_error_is_incomplete_through_worker_and_watchdog(self):
+        code, record, observation = self.capture("unexpected-error")
+        self.assertEqual(code, 1)
+        self.assertEqual(record["returncode"], 1)
+        self.assertEqual(record["status"], "failed")
+        self.assertFalse(record["captureComplete"])
+        self.assertFalse(observation["captureComplete"])
+        self.assertEqual(observation["emulationError"], "invalid instruction")
+        self.assertFalse(observation["terminalTimeout"])
+
+    def test_deliberate_stop_survives_unicorn_error_through_worker_and_watchdog(self):
+        code, record, observation = self.capture("deliberate-stop")
+        self.assertEqual(code, 2)
+        self.assertEqual(record["returncode"], 2)
+        self.assertEqual(record["status"], "analysis-stopped")
+        self.assertTrue(record["captureComplete"])
+        self.assertTrue(observation["captureComplete"])
+        self.assertIsNone(observation["emulationError"])
+        self.assertEqual(observation["stopReason"], {"unmodeledApi": "synthetic-stop"})
+
+    def test_terminal_timeout_stays_incomplete_through_worker_and_watchdog(self):
+        code, record, observation = self.capture("timeout")
+        self.assertEqual(code, 124)
+        self.assertEqual(record["returncode"], 124)
+        self.assertEqual(record["status"], "emulation-timeout")
+        self.assertFalse(record["captureComplete"])
+        self.assertFalse(observation["captureComplete"])
+        self.assertIsNone(observation["emulationError"])
+        self.assertTrue(observation["terminalTimeout"])
 
 
 if __name__ == "__main__":
