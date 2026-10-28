@@ -4,7 +4,9 @@ Independent executable-analysis lane. These records do not become serialized Raw
 
 ## Current state
 
-2026-10-22 update: [self-file continuation and external formula candidates](../../docs/game-data-native-self-file.md). Both synthetic profiles now reach actual reads from the pinned executable after read-only mapping. Original-image execution and gameplay functions remain unverified. The older static-only survey below is retained as historical evidence.
+2026-10-28 update: [Native Power findings and reproduction handoff](power-117-handoff.md), with a [hash-pinned evidence inventory](power-117-evidence-manifest.json). A continuous conditional loader run recovered native code and data. Power damage/HP scalar arithmetic, named class bindings, item input transport, display conversions and three additional Power modifier functions now have build-matched native evidence. The `powf` candidate's import record, cached lookup and committed IAT store are independently checked under explicit export fixtures. Actual Windows CRT output, complete effect application and final combat values remain unverified; runtime promotion is false.
+
+The following milestone assessment is historical, through 2026-10-22. Its pinned artifacts are preserved. The [self-file continuation report](../../docs/game-data-native-self-file.md) records the earlier partial captures and external formula candidates; the new handoff supersedes its current-state limits where explicitly verified.
 
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
 - **D-2 static boundary survey complete:** paired synthetic traces close the modeled RSMB return-to-EBX-bit dataflow inside `.dungeon`. A new range-seeded sweep found two unexecuted `.dungeon` to `.boot` JMP candidates; neither reaches stable section-0 code. The 87 aligned absolute references are sparse typed records, and several target exception-range starts, but none identifies a Dungeons class/function. Current-environment static native evidence is exhausted; further progress needs a new source such as a Windows capture, a full post-unpack image, or matching symbols.
@@ -12,6 +14,10 @@ Independent executable-analysis lane. These records do not become serialized Raw
 
 ## Artifacts
 
+- [Native Power handoff](power-117-handoff.md) — function RVAs, per-operation binary32 formulas, constants, native caller/name bindings, validation scope and concrete remaining inputs.
+- [Power evidence inventory](power-117-evidence-manifest.json) — hashes for private proof files and public recovery scripts; an inventory, not Formal acceptance.
+- [Continuous self-file runner](scripts/run_continuous_self_file.py) and [verified copy-loop summary](scripts/verified_copy_loop.py) — one loader emulation call with terminal timeout handling and optional hash-bound copy acceleration.
+- [Native copy differential check](scripts/check_native_copy_loop.py) — optional private-input verification of native versus summarized registers, flags and memory.
 - [Native input inventory](native-source-inventory.json) — PE sections/directories, imports/exports, TLS, unwind, resources, CodeView, symbol-file search, and bounded identifier scan.
 - [Native architecture map](native-architecture.json) — bootstrap, `.dungeon`, original-image boundary, observed control-flow transitions, and explicit unknowns.
 - [Firmware boundary observations](firmware-boundary-observations.json) — conditional SMBIOS and registry paths, API return RVAs, local output hashes, and semantic limits.
@@ -27,6 +33,47 @@ Independent executable-analysis lane. These records do not become serialized Raw
 - [Artifact validator](scripts/validate_native_artifacts.py) — schema, hash, cross-reference, URL, and repository-hygiene checks.
 
 ## Reproduction
+
+### Continuous runner deadline (macOS/POSIX)
+
+```sh
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data \
+  python3 -B research/native/scripts/run_continuous_self_file.py consistent \
+  --run-id fresh-capture-id --seconds 1800 --verified-copy
+```
+
+The CLI now supervises a dedicated child session. `--seconds` (1..3600) is a
+wall-clock limit for the entire child, including setup, emulation and saving.
+At the deadline the parent sends SIGTERM to that session's process group, waits
+up to one second, then sends SIGKILL if needed and waits at most one more second.
+SIGINT, SIGTERM and SIGHUP to the parent use the same cleanup, including repeated
+interruptions and descendants left after the worker exits. The runner does not
+detach descendants from this group. SIGKILL to the parent and OS failures cannot
+be handled; an unfinished monitoring record remains incomplete.
+
+The sibling `<run-id>.watchdog.json` is reserved before spawning and is the
+authoritative capture status. A final copy is saved as `watchdog-run.json` inside
+the output directory when it exists. `captureComplete: false` (including
+`running`, timeout, crash, interrupted or unconfirmed cleanup) excludes the whole
+directory from successful capture evidence, even if image/trace files exist.
+`forcedKill` records escalation separately. A complete conditional capture is an
+`analysis-stopped` result, never proof of game startup or accepted Evidence;
+`evidenceAccepted`, `runtimePromotion` and `resumable` remain false.
+An unexpected Unicorn `UcError` without a prior modeled stop reason is recorded
+as `emulationError`; its capture is incomplete and the worker exits with code 1.
+An error string alone never establishes a deliberate analysis stop.
+
+Exit codes: 2 = recorded analysis stop with complete conditional output;
+124 = external or Unicorn timeout; 137 = external timeout requiring SIGKILL;
+128 + signal = parent interrupted; 1 = failure or unconfirmed cleanup.
+The process supervisor separately distinguishes an ordinary child exit (0) from
+an analysis stop. Timeout states are never resumed or reconstructed. Use a fresh
+run ID; existing outputs and monitoring records are never overwritten.
+
+The Power evidence manifest pins the **historical** recovery scripts at PR head
+`a5b6105ab94a3352efd89217a0555a6e4090854a`. Its hashes and captures are preserved;
+this watchdog fix-up does not regenerate them. New captures record their own
+runner hash and require separate validation.
 
 With the matching private `local-game-data` directory available (it contains the executable, Stage 1 output, Stage 2 import map, Wine export lists, and local Python tools):
 
