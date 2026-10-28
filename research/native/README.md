@@ -4,7 +4,9 @@ Independent executable-analysis lane. These records do not become serialized Raw
 
 ## Current state
 
-2026-10-22 update: [self-file continuation and external formula candidates](../../docs/game-data-native-self-file.md). Both synthetic profiles now reach actual reads from the pinned executable after read-only mapping. Original-image execution and gameplay functions remain unverified. The older static-only survey below is retained as historical evidence.
+2026-10-28 update: [Native Power findings and reproduction handoff](power-117-handoff.md), with a [hash-pinned evidence inventory](power-117-evidence-manifest.json). A continuous conditional loader run recovered native code and data. Power damage/HP scalar arithmetic, named class bindings, item input transport, display conversions and three additional Power modifier functions now have build-matched native evidence. The `powf` candidate's import record, cached lookup and committed IAT store are independently checked under explicit export fixtures. Actual Windows CRT output, complete effect application and final combat values remain unverified; runtime promotion is false.
+
+The following milestone assessment is historical, through 2026-10-22. Its pinned artifacts are preserved. The [self-file continuation report](../../docs/game-data-native-self-file.md) records the earlier partial captures and external formula candidates; the new handoff supersedes its current-state limits where explicitly verified.
 
 - **D-1 complete:** the local executable hash matches the Stage 1 record, and the 15,360,000-byte `.dungeon` output hash matches. The two-decoder agreement is reused from Stage 1.
 - **D-2 static boundary survey complete:** paired synthetic traces close the modeled RSMB return-to-EBX-bit dataflow inside `.dungeon`. A new range-seeded sweep found two unexecuted `.dungeon` to `.boot` JMP candidates; neither reaches stable section-0 code. The 87 aligned absolute references are sparse typed records, and several target exception-range starts, but none identifies a Dungeons class/function. Current-environment static native evidence is exhausted; further progress needs a new source such as a Windows capture, a full post-unpack image, or matching symbols.
@@ -12,6 +14,10 @@ Independent executable-analysis lane. These records do not become serialized Raw
 
 ## Artifacts
 
+- [Native Power handoff](power-117-handoff.md) — function RVAs, per-operation binary32 formulas, constants, native caller/name bindings, validation scope and concrete remaining inputs.
+- [Power evidence inventory](power-117-evidence-manifest.json) — hashes for private proof files and public recovery scripts; an inventory, not Formal acceptance.
+- [Continuous self-file runner](scripts/run_continuous_self_file.py) and [verified copy-loop summary](scripts/verified_copy_loop.py) — one loader emulation call with terminal timeout handling and optional hash-bound copy acceleration.
+- [Native copy differential check](scripts/check_native_copy_loop.py) — optional private-input verification of native versus summarized registers, flags and memory.
 - [Native input inventory](native-source-inventory.json) — PE sections/directories, imports/exports, TLS, unwind, resources, CodeView, symbol-file search, and bounded identifier scan.
 - [Native architecture map](native-architecture.json) — bootstrap, `.dungeon`, original-image boundary, observed control-flow transitions, and explicit unknowns.
 - [Firmware boundary observations](firmware-boundary-observations.json) — conditional SMBIOS and registry paths, API return RVAs, local output hashes, and semantic limits.

@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 1,
+  "status": "difficult-analysis-handoff-not-formal-acceptance",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "analysisBaselineCommit": "5ce5790ff0217c338b6a7fcb37b2dc9dffefedea",
+  "remoteMainRecheckedOn": "2026-10-28",
+  "binary": {
+    "archiveLabel": "1.17.0.0",
+    "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+    "imageBase": "0x140000000",
+    "distributionAuthenticity": "unverified"
+  },
+  "recoveredImageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "privateEvidenceRoot": "/Users/nanto/Development/minecraft-dungeons_optimizer/local-game-data",
+  "functions": [
+    {
+      "label": "damage_multiplier",
+      "rva": "0xb88f20",
+      "size": 122,
+      "sha256": "6d52671a58504b1398bff613421f4dd0070ea20afd79f89a1d44ccd7562cb325"
+    },
+    {
+      "label": "health_multiplier",
+      "rva": "0xb94940",
+      "size": 118,
+      "sha256": "23b04e9937edd5393a1f0298df7ad029c65720c823228237c1c7b0c9999f071d"
+    },
+    {
+      "label": "normalization",
+      "rva": "0xb8f610",
+      "size": 111,
+      "sha256": "046e847987d97156550b4e7811c3921ca603f64c8087420ebdb88de28637df36"
+    },
+    {
+      "label": "range_constructor",
+      "rva": "0x753ef0",
+      "size": 13,
+      "sha256": "c733758ba990a55d653f24e5a443dac352c7da554844c1a98aa9250049172f84"
+    },
+    {
+      "label": "constant_19",
+      "rva": "0xa3fa50",
+      "size": 6,
+      "sha256": "4becd086c8729211c845a4bf1497d75a688c76b952462edfe7f7b5a56f63b399"
+    },
+    {
+      "label": "external_import_thunk",
+      "rva": "0x2f46ee5",
+      "size": 6,
+      "sha256": "636000e27c91a27248515fd4bf7605a2cffbf06ecd771bace945e5d665d6fb71"
+    },
+    {
+      "label": "damage_override",
+      "rva": "0x7b02e0",
+      "size": 21,
+      "sha256": "779dad0aac87990cd78c783d14030d7af06a08c43aab4bfc164d22ac07464245"
+    },
+    {
+      "label": "health_override",
+      "rva": "0x7b0300",
+      "size": 21,
+      "sha256": "5c74515403c6c9ecdf9fe0cab9bbb57c7f3339e567d4d57f472ef809b9da0bdc"
+    },
+    {
+      "label": "spec_float_accessor",
+      "rva": "0x3b4ac0",
+      "size": 9,
+      "sha256": "81b32c564a9c55df86cae4179ef32aaea1b2ebb096826741231f99718b4b1310"
+    },
+    {
+      "label": "DamageReductionScalar",
+      "rva": "0xb88fa0",
+      "size": 104,
+      "sha256": "3d84b175d412b7217781f384c96bc8a5fd5ee25830fc7b5fc118297c2b55b930"
+    },
+    {
+      "label": "DurationIncreaseScalar",
+      "rva": "0xb8a5f0",
+      "size": 89,
+      "sha256": "07b2c894b0484c9e3e77ce51c5e38b80fbb7c82139a17e268d1768c8b217698f"
+    },
+    {
+      "label": "CooldownReductionScalar",
+      "rva": "0xb86b70",
+      "size": 111,
+      "sha256": "4980ae3b9334fbc31776cb1169e052c0298561ea0ec44998b48df18423cb8e4e"
+    },
+    {
+      "label": "functorInvoke",
+      "rva": "0xa7a3a0",
+      "size": 11,
+      "sha256": "202f66b452eb58215e5bc92248ed0027ff4060687d83cffc611fb7bc1a357384"
+    }
+  ],
+  "constants": [
+    {
+      "rva": "0x331c414",
+      "bits": "0x3f151515",
+      "float32": 0.5823529362678528
+    },
+    {
+      "rva": "0x30ca850",
+      "bits": "0x40400000",
+      "float32": 3
+    },
+    {
+      "rva": "0x320a5d0",
+      "bits": "0x3fa00000",
+      "float32": 1.25
+    },
+    {
+      "rva": "0x30ca84c",
+      "bits": "0x3f400000",
+      "float32": 0.75
+    },
+    {
+      "rva": "0x3cc0548",
+      "bits": "0x3f800000",
+      "float32": 1
+    },
+    {
+      "rva": "0x331c410",
+      "bits": "0x3e1c9c9c",
+      "float32": 0.15294116735458374
+    },
+    {
+      "rva": "0x30ca848",
+      "bits": "0x3e800000",
+      "float32": 0.25
+    },
+    {
+      "rva": "0x30c7634",
+      "bits": "0x3f000000",
+      "float32": 0.5
+    },
+    {
+      "rva": "0x3142b24",
+      "bits": "0x3ea8f5c3",
+      "float32": 0.33000001311302185
+    }
+  ],
+  "proofFiles": {
+    "recovery": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/continuous-run.json",
+        "sha256": "6e8f165c019b9e29ff4284e52a452b570257cc364dc293d12cb75ec283533a38"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/api-trace.json",
+        "sha256": "8568799c0393f78e062a9c2c0d2b49dc8ed056cd377fec7b29691ab6ebe3b133"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/independent-copy-comparison.json",
+        "sha256": "1c3c03f3d60d74a0031766451a262ddc67a59dc205dc256dc2eab166925b6d7d"
+      }
+    ],
+    "power": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-native-replay.py",
+        "sha256": "2913c51c8eae92e686cc00deeae7ef499981a968f55fd19561e024a081167b25"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-native-isolated-replay.json",
+        "sha256": "460d5dfd30501100a98b2d3044b65297b73b97f42af56f2af5379d6d954a1e08"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_power_math_independent_review.py",
+        "sha256": "053232c25a4814dc04fd7d3dd637222f3b616f3fe18bc06712d8af0b131e1edb"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-native-independent-review.json",
+        "sha256": "50addacd267da1700bc9a45cfe6e1f6a8113393bead1e58f83ae0352eb25f893"
+      }
+    ],
+    "bindings": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_power_registration_check.py",
+        "sha256": "d0de5af5e9b5ff0e7c198cebeeb87e567a35bdfb02d8004e8b47737502482684"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-registration-bindings.json",
+        "sha256": "2fb1fa5238adf8c0ae042c20b06a8dbd3aa5ff5fbccdefa418a8eccf0f2d2343"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_power_secondary_check.py",
+        "sha256": "01faccb6459db1ce8f786fa2b202359b26b5330a8fa5d6619acb0673609e02a5"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-secondary-bindings.json",
+        "sha256": "93b5ede9645097043630bbf811abf2902da997a1bbef8641e984c805e609de43"
+      }
+    ],
+    "inputAndDisplay": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/verify_item_power_input.py",
+        "sha256": "aff3e3af827bcee691d90cff979f25c049cd4da4e286964891926e5f82e435aa"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/item-power-input-evidence.json",
+        "sha256": "bb515d28bd227729274e5b57a0616115940b013b8068bb386eec788525b0873f"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/verify_display_conversion.py",
+        "sha256": "3fe07272af0526ac35b15cb7d6b26e24e726332459995b035871ed2821c15802"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/display-conversion-evidence.json",
+        "sha256": "f5453fda7d91204a0e60809f0857dd608b385131574086a3b882b3799710e6c5"
+      }
+    ],
+    "linearScalars": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/verify_linear_power_scalars.py",
+        "sha256": "e4e40f96ee73e21b670cd404c5b074f05465f2a3820924ca02eaa3ac25e23971"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/linear-power-scalars-evidence.json",
+        "sha256": "8d4b3cfc595540fd0bca21d18081eda81d0e73e4e3a1aa0c6aa062d5b6c182d1"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_linear_review.py",
+        "sha256": "e66873be515486531d86387eb9ab19f575f33026064f4eb9d57d528580ee0586"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_linear_review.cpp",
+        "sha256": "66208cb77d673150dd94e9accc72bcc039b75a1f0a778bb420d65ff87cce4de5"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/linear-power-independent-review.json",
+        "sha256": "f19e283935217fa91b1b8fe6b1c7872f0d4b5060069f70a4e041e6f619840d7a"
+      }
+    ],
+    "importPartial": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/native-import-checksum-replay.py",
+        "sha256": "7fd19d01e7102faed1a1960713963c15e86415ba8a8691f78d3237b7b81cddf9"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/native-import-checksum.json",
+        "sha256": "cb2511b47196ac697e4cc10dea2bbc2abd13ec12c533905a731f744d2cfdba17"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/native-import-binding-review.py",
+        "sha256": "72b39f1ea7a96687c8c162531cf5081b595fad61494efa401c4e9bccfcf8f918"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/native-import-binding-independent-review.json",
+        "sha256": "32120cc64dced2ca3176973fbf7f6830cef5a894ec058bb174b6a705c14f2362"
+      }
+    ],
+    "oldSourceComparison": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_old_order_compare.py",
+        "sha256": "d7c5033a359db57195898a3f78261d16b5dd3a7eb28ae5c149e8a61c5cda4bd8"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mcd_old_order_compare.cpp",
+        "sha256": "6185d7699b70403fc52c870f21cbb9126f6ad41ea4855ad3c4a4679c6bd930e3"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/power-source-order-comparison.json",
+        "sha256": "eadd81ae40b28120fe76b337867d15e6d0fc3c15f69234a9014083154e6b88ec"
+      }
+    ],
+    "fullCheckpoint": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/capture-import-checkpoint.py",
+        "sha256": "2dd728180ac57b8ed22b5cfdfd097c6bb4915ac8fd343030e5f982dc63787535"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/import-checkpoint.json",
+        "sha256": "6032850ed65e18ce0ef03fc354f9417e580424a4e0878860cb9cebe93684ec07"
+      }
+    ],
+    "importComplete": [
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/native-import-binding-complete.json",
+        "sha256": "6070a96d8ed5401b05fff2f4e59d06d3e293cf708e3ea0ed41c2d7546f136585"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/mcd_complete_import_binding.py",
+        "sha256": "3dbe22363ad6338b2e2105aac3f0726a6d09fd40a10010f61ac36fe6c47e5785"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/import-parser-binding-independent-review.json",
+        "sha256": "5bf787cddf8ac13551674bcd564184ee26d328683d83befb1679bdbfdb10183b"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/review-import-parser-binding.py",
+        "sha256": "4fc02fdd4c3d5af64f7650dd0bf7340c0a7b8a98efe5cdaecbdd031cf001b8f1"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-minimal-targetfirst-a/import-parser-trial.json",
+        "sha256": "9b42f7de56758445ab8cc0db305c38984febbdbc5002edada31efc703daa6ce4"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-minimal-targetfirst-a/import-parser-harness.py",
+        "sha256": "c0f718f43e6f0ec2afb1dcd0fa773587dfd90da97d056eb684780fb834314dc5"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-cached-targetfirst-20261028-a/import-parser-trial.json",
+        "sha256": "e0aef2153381612732730dc946abb3f3f32343b10cd993e4176a31f7b9518518"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-cached-targetfirst-20261028-a/import-parser-harness.py",
+        "sha256": "d9bf2e2a13825e1e350dd6892c12ab660c2c51ec4dc9ee2193d96ec17a01387c"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-review-rva6000-20261028-a/import-parser-trial.json",
+        "sha256": "133549b19d6dedb89619fb0a47732361bad6dc6ac35242d9f41e797190699f25"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-review-rva6000-20261028-a/import-parser-harness.py",
+        "sha256": "9f0b77adb870d04cf0aee35cab02d7788d08cb2a6ba0018e65ca34ae82ec1a2a"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-review-nonmatching-20261028-a/import-parser-trial.json",
+        "sha256": "e012960344753a0e41edf4c275c2d80691fa6496c0aad8f6db20c552ff2cefbe"
+      },
+      {
+        "path": "phase6.8/native-stage2/self-file-experiments/import-checkpoint-20261026-a/parser-review-nonmatching-20261028-a/import-parser-harness.py",
+        "sha256": "921f373989e5c4cb2580863da9b6a3d9ff93e3a6ac595410100c0f45a05db254"
+      }
+    ]
+  },
+  "claimBoundaries": [
+    "Function arithmetic, constants, class/functor bindings and isolated input transport are verified for this recovered image.",
+    "Power external-call arguments and synthetic-return suffixes are verified; actual Windows CRT outputs are not.",
+    "Original target record bytes, native decoded math module/index36, powf-compatible checksum, cached lookup, PE export lookup and committed IAT store are linked under explicit fixture/record-order interventions and independently reviewed. Actual Windows provider export set, collision absence and numerical outputs remain unverified.",
+    "Linear scalar checks cover complete functions, not particular equipment use, absolute base values or stacking.",
+    "Independent arithmetic implementations are not independent live-game observations.",
+    "Displayed integer Power does not uniquely identify the native float32 input.",
+    "Existing repository artifact validators do not yet validate this handoff manifest; routine schema integration remains pending.",
+    "No private game binaries, memory buffers or external source mirrors are included in this repository manifest."
+  ],
+  "repositoryScripts": [
+    {
+      "path": "research/native/scripts/run_continuous_self_file.py",
+      "sha256": "a3d9efe57b2077cb170d5fcbd22db3b60fdf2b4caccdc3ffa5906ba12077c073"
+    },
+    {
+      "path": "research/native/scripts/verified_copy_loop.py",
+      "sha256": "f8536e5c171d5461b93c52a890194a494d7b593c87fdd856fc11433d1d3eb963"
+    },
+    {
+      "path": "research/native/scripts/check_native_copy_loop.py",
+      "sha256": "b7ad1a3b11874d5c2198b03b89b5403093847bbe5a031de0319800b0490b7d5b"
+    },
+    {
+      "path": "research/native/scripts/test_self_file_continuous.py",
+      "sha256": "3bade2924c08436260c279944c555d4172aa5aefa3fcd3877b577d5f6d3c208e"
+    },
+    {
+      "path": "research/native/scripts/test_self_file_copy.py",
+      "sha256": "063d5609df51ccf4fd7e26cfd264e57d2a966d580e1a76e8ef34c1531badfbc6"
+    }
+  ],
+  "focusedValidation": {
+    "selfFileUnitTests": 19,
+    "selfFileUnitTestsPassed": 19,
+    "nativeFunctionSpansVerified": 13,
+    "nativeConstantsVerified": 9,
+    "privateProofFileHashesVerified": 41,
+    "formalAcceptance": false
+  }
+}
