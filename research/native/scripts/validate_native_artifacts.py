@@ -355,6 +355,8 @@ def main() -> None:
 
     subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/validate_self_file_artifacts.py")], check=True)
     subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_self_file*.py"], check=True)
+    subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/check_armor_hp_connection.py")], check=True)
+    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_armor_hp_connection.py"], check=True)
 
     print(json.dumps({
         "status": "passed",

@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "native-raw-armor-hp-connection",
+  "baselineCommit": "0990f9731dba5ab668cbaf97a1b5da0fcb366bda",
+  "status": "held-research-only",
+  "selectedTarget": "armor-maximum-health",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "newCalculableEquipment": [],
+  "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "recoveredImageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "raw": {
+    "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-010.json.gz",
+    "compressedSha256": "0162e9a4abdde2d2dece269ab5aaf0671d01e99daf97e9c136dfac8a1b7b666b",
+    "uncompressedSha256": "7855eccceadcb7f2e7e415cc9d45310cbceceec0c2d77976b453cb66207ef7d8",
+    "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+    "packagePath": "Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor/BP_MercenaryArmorInstance",
+    "packageHash": "19cbc2aa1602857bd977f2f94e4c73894e1bb25b94d6cfbf248a736c7cc3521e",
+    "packagePointer": "/packages/28",
+    "cdoPointer": "/packages/28/cdoPropertyInventory/0",
+    "serializedPropertyNames": [
+      "GearActor",
+      "InventoryDropSound",
+      "ItemIdName",
+      "ItemId",
+      "RootComponent"
+    ],
+    "serializedPowerEffects": "not-present-not-an-empty-array",
+    "nativeSuperclass": "/Script/Dungeons.ArmorGearItemInstance",
+    "identityRef": "research/domain/formal/identity-evidence-v1.json#/semantic/identities/92",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor/BP_MercenaryArmorInstance.uasset",
+        "size": 3380,
+        "sha256": "531fe665de599b40f521797258aa7690f2f34f52454c3dc13e4ff6f76a832b01"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/Armor/MercenaryArmor/BP_MercenaryArmorInstance.uexp",
+        "size": 556,
+        "sha256": "4c522dc98a1228eb79cb967ffa58ad7ae0ce702204d07416f86e14333b04db41"
+      }
+    ]
+  },
+  "nativeSpans": [
+    {
+      "label": "armor-class-registration",
+      "rva": "0xea3cd0",
+      "size": 162,
+      "sha256": "961c7b945c20f0d9b60496fb75dea4ad8facbcc2c007b59a9e1c759d2c1b8302"
+    },
+    {
+      "label": "armor-constructor-thunk",
+      "rva": "0xea3e50",
+      "size": 13,
+      "sha256": "bed4ba68bced03085d751e11f19c2bdc85b190f792f68259594b8ea4bc426d7a"
+    },
+    {
+      "label": "armor-constructor",
+      "rva": "0xad8000",
+      "size": 155,
+      "sha256": "68efe01d803b6ef9bd2b0eaa4b9ecc1829b5e187fdb95c9e742806888800d977"
+    },
+    {
+      "label": "armor-apply-override",
+      "rva": "0xaea3a0",
+      "size": 85,
+      "sha256": "9a421fe08f05dc65710b8df11806eb35ef5a8a9886e5fd382feb31b20aea0bd0"
+    },
+    {
+      "label": "item-power-effect-loop",
+      "rva": "0xaea5a0",
+      "size": 629,
+      "sha256": "114eff88fee1e26eb1fd3384cbcd7b258c29cf02a2942a7d0dd6c96bb9e32fe9"
+    },
+    {
+      "label": "max-health-increase-registration",
+      "rva": "0xf1c730",
+      "size": 162,
+      "sha256": "a23c08331ab5c57f3e3ffbd0b6a9c242b91850ed10e910b196b5dea717ebc6d5"
+    },
+    {
+      "label": "armor-damage-increase-registration",
+      "rva": "0xf1c7e0",
+      "size": 162,
+      "sha256": "47994faa742d0d0eea6ce6157e0bf4fd4a4366d7a9772f5f026c0cbc509f30ff"
+    },
+    {
+      "label": "health-effect-constructor",
+      "rva": "0x7a1430",
+      "size": 629,
+      "sha256": "e03c3ab7d66c11d6e5ca770894a31cc21aae69f2ddab69f22fc0020aca05f056"
+    },
+    {
+      "label": "modifier-constructor",
+      "rva": "0x400cd0",
+      "size": 203,
+      "sha256": "fc8fa60258e9befc7cf2a564e5ad0d350fb8a7e1668be04c5df491ce5639fabd"
+    },
+    {
+      "label": "magnitude-constructor",
+      "rva": "0x400bf0",
+      "size": 213,
+      "sha256": "6ed272ca68677da66d914593b69b5d373022ae6eff89ad479c84f71429349634"
+    },
+    {
+      "label": "custom-calculation-constructor",
+      "rva": "0x39fa90",
+      "size": 175,
+      "sha256": "fa07271932677e97bcd800692b10643b2de5d4f7909561b6be51e92af1136846"
+    },
+    {
+      "label": "modifier-copy",
+      "rva": "0x796c70",
+      "size": 323,
+      "sha256": "f8a2dba1503b8d3ec951baf5b1b2d807c7f232721abea3979dc2bb702a71b7b3"
+    },
+    {
+      "label": "custom-calculation-copy",
+      "rva": "0x7968c0",
+      "size": 273,
+      "sha256": "a77633d806d8441c238dd876d609a45cc08c87dc0b9c92f298b710cf9b216d92"
+    },
+    {
+      "label": "health-attribute-registration",
+      "rva": "0xf05130",
+      "size": 162,
+      "sha256": "0a899261d5917f9384f1bce834c9b5d60f1c4e39bdcac34876d172003e98cea5"
+    },
+    {
+      "label": "health-attribute-constructor",
+      "rva": "0xf06a50",
+      "size": 147,
+      "sha256": "b8275c5ae9d226ac5488cadeedc31682b5dc5a685d3dcae4a57b8da3e4e7ab89"
+    },
+    {
+      "label": "ability-constructor-prefix",
+      "rva": "0x356cd0",
+      "size": 83,
+      "sha256": "a7ffa09f72a25fa04e8f857283b058b1e8a1c6a110735e3b4870fc031e58e822"
+    },
+    {
+      "label": "apply-spec-prefix",
+      "rva": "0x362ce0",
+      "size": 172,
+      "sha256": "b3e90ef43cd7869f9e831627313a9f30e41ba6b520f615647b7d86367b2dcc7c"
+    },
+    {
+      "label": "custom-magnitude-branch",
+      "rva": "0x3a9f06",
+      "size": 351,
+      "sha256": "d9bd6f7cd8750b24220cd0043ecba5775666dfe5ba9f8329d91065befb36bbef"
+    },
+    {
+      "label": "scalable-float-evaluation",
+      "rva": "0x3b55f0",
+      "size": 314,
+      "sha256": "3f0c8ffe178629c137a4e630f779c60a38b46a54aa5331fc0675d3b81e918661"
+    }
+  ],
+  "facts": {
+    "nativeDefaultPowerEffects": [
+      "MaxHealthIncrease",
+      "ArmorDamageIncrease"
+    ],
+    "nativeArmorVtable": "0x32c2a00",
+    "applySlot": "0x678",
+    "applyOverride": "0xaea3a0",
+    "sharedEffectLoop": "0xaea5a0",
+    "healthEffectConstructor": "0x7a1430",
+    "magnitudeKindByte": 2,
+    "modifierOperationByte": 1,
+    "modifierOperationGameplayMeaning": "not-adopted",
+    "commonCustomMagnitudeDefaults": {
+      "coefficient": 1,
+      "preAdd": 0,
+      "postAdd": 0,
+      "finalCurvePointer": null
+    },
+    "healthAttributeConstructorMaxHealthBits": "0x43fa0000",
+    "healthAttributeConstructorMaxHealthValue": 500,
+    "constructorDefaultIsEffectivePlayerBase": false
+  },
+  "limits": {
+    "continuousEquipmentDispatch": "unknown",
+    "effectivePlayerBaseMaxHealth": "unknown",
+    "finalAttributeAggregation": "unknown",
+    "windowsCrtOutputs": "unverified",
+    "liveGameMxcsr": "unknown",
+    "officialVersionAuthenticity": "unverified",
+    "rawNativeSameBuild": "unverified",
+    "displayPowerToExactInternalPower": "not-unique",
+    "independentLiveGameMeasurement": "not-observed"
+  },
+  "adoption": {
+    "route": "new-mechanic-promotion",
+    "decision": "not-submitted",
+    "eligibility": "not-established",
+    "productRegression": "not-run"
+  }
+}
