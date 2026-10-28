@@ -34,6 +34,44 @@ The following milestone assessment is historical, through 2026-10-22. Its pinned
 
 ## Reproduction
 
+### Continuous runner deadline (macOS/POSIX)
+
+```sh
+MCD_LOCAL_GAME_DATA_ROOT=/path/to/local-game-data \
+  python3 -B research/native/scripts/run_continuous_self_file.py consistent \
+  --run-id fresh-capture-id --seconds 1800 --verified-copy
+```
+
+The CLI now supervises a dedicated child session. `--seconds` (1..3600) is a
+wall-clock limit for the entire child, including setup, emulation and saving.
+At the deadline the parent sends SIGTERM to that session's process group, waits
+up to one second, then sends SIGKILL if needed and waits at most one more second.
+SIGINT, SIGTERM and SIGHUP to the parent use the same cleanup, including repeated
+interruptions and descendants left after the worker exits. The runner does not
+detach descendants from this group. SIGKILL to the parent and OS failures cannot
+be handled; an unfinished monitoring record remains incomplete.
+
+The sibling `<run-id>.watchdog.json` is reserved before spawning and is the
+authoritative capture status. A final copy is saved as `watchdog-run.json` inside
+the output directory when it exists. `captureComplete: false` (including
+`running`, timeout, crash, interrupted or unconfirmed cleanup) excludes the whole
+directory from successful capture evidence, even if image/trace files exist.
+`forcedKill` records escalation separately. A complete conditional capture is an
+`analysis-stopped` result, never proof of game startup or accepted Evidence;
+`evidenceAccepted`, `runtimePromotion` and `resumable` remain false.
+
+Exit codes: 2 = recorded analysis stop with complete conditional output;
+124 = external or Unicorn timeout; 137 = external timeout requiring SIGKILL;
+128 + signal = parent interrupted; 1 = failure or unconfirmed cleanup.
+The process supervisor separately distinguishes an ordinary child exit (0) from
+an analysis stop. Timeout states are never resumed or reconstructed. Use a fresh
+run ID; existing outputs and monitoring records are never overwritten.
+
+The Power evidence manifest pins the **historical** runner at PR head
+`a5b6105ab94a3352efd89217a0555a6e4090854a`. Its hashes and captures are preserved;
+this watchdog fix-up does not regenerate them. New captures record their own
+runner hash and require separate validation.
+
 With the matching private `local-game-data` directory available (it contains the executable, Stage 1 output, Stage 2 import map, Wine export lists, and local Python tools):
 
 ```sh
