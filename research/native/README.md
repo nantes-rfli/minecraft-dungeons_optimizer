@@ -1,5 +1,15 @@
 # Native Analysis
 
+## Armor HP connection after PR #217
+
+[Bounded connection study](armor-hp-connection.md) links Mercenary Armor's existing
+Raw/Identity evidence to native ArmorGearItemInstance PowerEffects defaults and
+records the remaining dispatch/attribute-aggregation join. [Metadata](armor-hp-connection.json)
+and [focused checker](scripts/check_armor_hp_connection.py) keep constructor defaults,
+effective gameplay values and promotion status separate. New calculable equipment:
+**none**; the HP formula remains held. The Native audit includes public source and
+rejection checks; private byte verification requires `--local-root`.
+
 Independent executable-analysis lane. These records do not become serialized Raw facts, Formal values, runtime support, optimizer inputs, or Gap classifications.
 
 ## Current state
