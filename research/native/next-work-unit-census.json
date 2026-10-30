@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "next-runtime-work-unit-selection-census",
+  "baselineCommit": "e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a",
+  "status": "planning-only",
+  "runtimePromotion": false,
+  "newCalculableEquipment": [],
+  "population": {
+    "melee": 82,
+    "armor": 73,
+    "ranged": 71,
+    "artifact": 45
+  },
+  "runtimeIds": {
+    "melee": [
+      "anchor",
+      "double-axe",
+      "fighters-bindings",
+      "soul-scythe"
+    ],
+    "armor": [
+      "battle-robe",
+      "grim-armor",
+      "hungriest-horror",
+      "hungry-horror",
+      "mercenary-armor",
+      "renegade-armor",
+      "scale-mail",
+      "spider-armor",
+      "the-spooky-gourdian",
+      "thief-armor",
+      "wither-armor"
+    ],
+    "ranged": [
+      "bow",
+      "crossbow"
+    ],
+    "artifact": [
+      "death-cap-mushroom",
+      "iron-hide-amulet",
+      "shock-powder"
+    ]
+  },
+  "selectedWorkUnit": "source-bound-observed-single-projectile-ranged-batch",
+  "conditionalNewEquipmentUpperBound": 4,
+  "acceptedNewEquipment": 0,
+  "selectedTargets": [
+    {
+      "domainId": "shortbow",
+      "mode": "charged",
+      "rawIdentity": "Shortbow",
+      "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+      "identityRef": "identity:shortbow@1",
+      "identityEvidenceRefs": [
+        "evidence:reviewed:shortbow:accepted-alias"
+      ],
+      "publishedOwnIntrinsic": [],
+      "publishedInheritedIntrinsic": [],
+      "completeMechanicVerification": false,
+      "configuredProjectileCount": {
+        "value": 1,
+        "projectionRef": "projection:value:shortbow:configured-projectile-count@1:shortbow:source-index:0",
+        "evidenceRefs": [
+          "evidence:value:raw:fnv1a32:28725355"
+        ]
+      },
+      "projectileRelation": {
+        "projectionRef": "projection:relation:shortbow:projectile@1:0",
+        "relationRef": "relation:shortbow:projectile@1",
+        "occurrence": {
+          "domainId": "shortbow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "shortbow",
+        "target": {
+          "objectName": "BP_ShortBow_Arrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:334b6a1c"
+        ]
+      },
+      "effectiveSingleHitAndAmmo": "unverified",
+      "switchEvidence": "not-acquired",
+      "runtimeEligibility": "held-pending-target-specific-evidence-and-review"
+    },
+    {
+      "domainId": "longbow",
+      "mode": "charged",
+      "rawIdentity": "Longbow",
+      "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+      "identityRef": "identity:longbow@1",
+      "identityEvidenceRefs": [
+        "evidence:reviewed:longbow:accepted-alias"
+      ],
+      "publishedOwnIntrinsic": [
+        "Strong Charged Attacks"
+      ],
+      "publishedInheritedIntrinsic": [],
+      "completeMechanicVerification": false,
+      "configuredProjectileCount": {
+        "value": 1,
+        "projectionRef": "projection:value:longbow:configured-projectile-count@1:longbow:source-index:0",
+        "evidenceRefs": [
+          "evidence:value:raw:fnv1a32:cc5ec5ab"
+        ]
+      },
+      "projectileRelation": {
+        "projectionRef": "projection:relation:longbow:projectile@1:0",
+        "relationRef": "relation:longbow:projectile@1",
+        "occurrence": {
+          "domainId": "longbow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "longbow",
+        "target": {
+          "objectName": "BP_LongBowArrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:ed3a2db2"
+        ]
+      },
+      "effectiveSingleHitAndAmmo": "unverified",
+      "switchEvidence": "not-acquired",
+      "runtimeEligibility": "held-pending-target-specific-evidence-and-review"
+    },
+    {
+      "domainId": "power-bow",
+      "mode": "charged",
+      "rawIdentity": "Powerbow",
+      "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+      "identityRef": "identity:power-bow@1",
+      "identityEvidenceRefs": [
+        "evidence:reviewed:power-bow:accepted-alias"
+      ],
+      "publishedOwnIntrinsic": [
+        "Strong Charged Attacks"
+      ],
+      "publishedInheritedIntrinsic": [],
+      "completeMechanicVerification": false,
+      "configuredProjectileCount": {
+        "value": 1,
+        "projectionRef": "projection:value:power-bow:configured-projectile-count@1:power-bow:source-index:0",
+        "evidenceRefs": [
+          "evidence:value:raw:fnv1a32:a86b8dd9"
+        ]
+      },
+      "projectileRelation": {
+        "projectionRef": "projection:relation:power-bow:projectile@1:0",
+        "relationRef": "relation:power-bow:projectile@1",
+        "occurrence": {
+          "domainId": "power-bow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "power-bow",
+        "target": {
+          "objectName": "BP_PlayerPowerBowArrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:9a847517"
+        ]
+      },
+      "effectiveSingleHitAndAmmo": "unverified",
+      "switchEvidence": "not-acquired",
+      "runtimeEligibility": "held-pending-target-specific-evidence-and-review"
+    },
+    {
+      "domainId": "heavy-crossbow",
+      "mode": "single",
+      "rawIdentity": "HeavyCrossbow",
+      "sourcePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+      "identityRef": "identity:heavy-crossbow@1",
+      "identityEvidenceRefs": [
+        "evidence:reviewed:heavy-crossbow:accepted-alias"
+      ],
+      "publishedOwnIntrinsic": [
+        "Powerful Shots"
+      ],
+      "publishedInheritedIntrinsic": [],
+      "completeMechanicVerification": false,
+      "configuredProjectileCount": {
+        "value": 1,
+        "projectionRef": "projection:value:heavy-crossbow:configured-projectile-count@1:heavy-crossbow:source-index:0",
+        "evidenceRefs": [
+          "evidence:value:raw:fnv1a32:8aae2791"
+        ]
+      },
+      "projectileRelation": {
+        "projectionRef": "projection:relation:heavy-crossbow:projectile@1:0",
+        "relationRef": "relation:heavy-crossbow:projectile@1",
+        "occurrence": {
+          "domainId": "heavy-crossbow",
+          "collectionRef": "projectile-definitions",
+          "sourceIndex": 0
+        },
+        "sourceDomainId": "heavy-crossbow",
+        "target": {
+          "objectName": "BP_HeavyCrossbow_Arrow_C",
+          "gamePackagePath": "/Game/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow"
+        },
+        "evidenceRefs": [
+          "evidence:relation:fnv1a32:10476eec"
+        ]
+      },
+      "effectiveSingleHitAndAmmo": "unverified",
+      "switchEvidence": "not-acquired",
+      "runtimeEligibility": "held-pending-target-specific-evidence-and-review"
+    }
+  ],
+  "excludedAfterRawCrosscheck": [
+    {
+      "domainId": "twisting-vine-bow",
+      "reason": "additional-gameplay-effect-reference",
+      "rawLocator": "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz#/packages/49/cdoPropertyInventory/0",
+      "property": "SporeDamageEffect",
+      "reference": {
+        "rawPackageIndex": -28,
+        "kind": "import",
+        "index": 27,
+        "objectName": "TwistingVineDamageGameplayEffect",
+        "className": "Class"
+      },
+      "effectMagnitudeAndRuntimeBehavior": "unknown"
+    }
+  ],
+  "armorExistingNumericFamilyScreen": [
+    {
+      "domainId": "dark-armor",
+      "rawIdentity": "DarkArmor",
+      "properties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "base",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "reuseEligibility": "not-approved-by-current-B-or-B2"
+    },
+    {
+      "domainId": "titan-s-shroud",
+      "rawIdentity": "DarkArmor_Unique1",
+      "properties": [
+        {
+          "kind": "damage-reduction",
+          "raw": "35% damage reduction",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "weapon-damage-aura",
+          "raw": "+20% weapon damage boost aura",
+          "ownership": "unique-only",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        },
+        {
+          "kind": "soul-gathering",
+          "raw": "+50% souls gathered",
+          "ownership": "inherited",
+          "sourceIds": [
+            "dungeons-tools-armor-index"
+          ]
+        }
+      ],
+      "builtInEnchantments": [],
+      "reuseEligibility": "not-approved-by-current-B-or-B2"
+    }
+  ],
+  "inputSha256": {
+    "research/armor-audit.json": "1dc1f5027be4ddc39450cd276ff5204a43d799a57d3b032d863936c9ebfebdc3",
+    "research/artifact-audit.json": "ece9c342b2f7b2ae3a96606c05c34b50a039e96fc99b91807af24ea2a37602e7",
+    "research/domain/formal/identity-evidence-v1.json": "8fe57ce68301b9a5ce35d17e585b75790287be28b812ddfffdae8b2cafecc26c",
+    "research/domain/formal/serialized-relation-v2.json": "93c249f6807245e98784ec05653c87cded95747c86c59cfc81a6270f5648bc4c",
+    "research/domain/formal/value-availability-v2.json": "baa744d0985d73e2c1a8143a19d7cc5c7fb206ed545606dd7ddc0415f3aea0cc",
+    "research/melee-attack-profile-audit.json": "811848e0e1d8270bce9ebbee001b3fdb1069cfd5399a0772e7918808cc1adc45",
+    "research/ranged-weapon-audit.json": "0019d072aed43c87c4b57378e2bc1edcb0dc8bcda937e2684d948f6fd1091cd8",
+    "research/raw/game-data-raw-structural-inventory/shards/part-060.json.gz": "9ad60c3ca883c32896e1a68141f395520d8c9aae28595b03812283c7067e086d",
+    "src/data/armors.ts": "326b853ccf4ad2e16931e77773e7b7dfe3a95a514223d43ab14aae6fdb34cd5d",
+    "src/data/artifacts.ts": "a1153fe8ceb3f52cf687c7c0d14e7d9f9010aba1bc48c75d6a927f6001ad821b",
+    "src/data/ranged.ts": "42f5a5a0506871877295beaa8ffc2e9b3eee5af33d0a790b60c3f76fe661e029",
+    "src/data/weapons.ts": "3b8e59d60fbdf276f00a6efee21197421b5106217d1d1ba142e75b90cc7e9ebe"
+  }
+}
