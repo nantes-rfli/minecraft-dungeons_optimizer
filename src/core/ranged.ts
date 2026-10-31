@@ -1,3 +1,4 @@
+import { rangedReuseIsEligible } from './rangedReuse'
 import { ARMORS } from '../data/armors'
 import { RANGED_ENCHANTMENTS, RANGED_LIMITATIONS, RANGED_WEAPONS, isRuntimeRangedEnchantment, isRuntimeRangedWeapon } from '../data/ranged'
 import { isAuditedRangedEnchantment, isAuditedRangedWeapon } from '../research/rangedAudit'
@@ -58,6 +59,7 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
 export function rangedWeaponUnsupportedReason(weapon: OwnedRangedWeapon): string | null {
   if (!isRuntimeRangedWeapon(weapon.weaponId)) return `${weapon.weaponId}: Research-only。固有効果を無視した評価はできません。`
   if (!weapon.observation) return `${weapon.weaponId}: neutral projectile damage・完全発射周期・矢数・観測メモが必要です。`
+  if (weapon.weaponId !== 'bow' && weapon.weaponId !== 'crossbow' && !rangedReuseIsEligible(weapon.weaponId, weapon.observation.mode)) return `${weapon.weaponId}: shot modeまたはsource-bound Limited reuse条件が一致しません。`
   if (!RANGED_WEAPONS[weapon.weaponId]!.modes.includes(weapon.observation.mode)) return `${weapon.weaponId}: shot modeが一致しません。`
   for (const slot of weapon.enchantmentSlots) {
     const candidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? candidate : (candidate as RangedRoll).enchantmentId)

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "route": "existing-limited-mechanic-reuse",
+  "newMechanicPromotion": false,
+  "approvals": [
+    {
+      "targetId": "shortbow",
+      "rawIdentity": "Shortbow",
+      "donorId": "bow",
+      "mode": "charged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/shortbow",
+      "intrinsicFacts": [],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "single normal arrow; damage, charge and recovery supplied by target observation",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedNativeReuse.test.ts"
+    },
+    {
+      "targetId": "longbow",
+      "rawIdentity": "Longbow",
+      "donorId": "bow",
+      "mode": "charged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/longbow",
+      "intrinsicFacts": [
+        "Strong Charged Attacks"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "strong charged direct damage included in target observation; no extra multiplier",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedNativeReuse.test.ts"
+    },
+    {
+      "targetId": "power-bow",
+      "rawIdentity": "Powerbow",
+      "donorId": "bow",
+      "mode": "charged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/power-bow",
+      "intrinsicFacts": [
+        "Strong Charged Attacks"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "strong charged direct damage included in target observation; no extra multiplier",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedNativeReuse.test.ts"
+    },
+    {
+      "targetId": "heavy-crossbow",
+      "rawIdentity": "HeavyCrossbow",
+      "donorId": "crossbow",
+      "mode": "single",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/heavy-crossbow",
+      "intrinsicFacts": [
+        "Powerful Shots"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "powerful direct damage included in target observation; no inferred reload or velocity multiplier",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedNativeReuse.test.ts"
+    }
+  ]
+}

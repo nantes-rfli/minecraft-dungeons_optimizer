@@ -1,0 +1,1109 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0 local-input claim",
+  "scope": "four derived-class serialized Function bodies only; no game execution, full VM proof, or independent gameplay evidence",
+  "tokenReference": {
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/CoreUObject/EExprToken",
+    "version": "UE 5.8 API corroboration only; not proof of this game VM version"
+  },
+  "runtimePromotion": false,
+  "results": [
+    {
+      "domainId": "shortbow",
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+      "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+      "packageIndex": 18,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uasset",
+          "size": 8068,
+          "sha256": "90818f21c0d5b642247aa06473d17f576fe84e6a4b2a66a096027434f3eda15e"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "size": 4004,
+          "sha256": "2a2d8bbe7f270806dde44b55d35a87d5715c2d9821ea041207bfc94ad4b1ab85"
+        }
+      ],
+      "functions": [
+        {
+          "name": "ExecuteUbergraph_BP_ShortBow_Arrow",
+          "exportIndex": 4,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 775,
+            "end": 879
+          },
+          "payloadSha256": "c72b5f11a2da642c41b640a78c3192106f072de4416aabce39426b4e33a033d8",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 815,
+            "end": 867
+          },
+          "scriptSha256": "4eb1ad84cd9ce670f927e69012de7cdae55ffe616002dc815410572f675647fe",
+          "expandedSize": 76,
+          "serializedSize": 52,
+          "expressions": [
+            {
+              "op": "computed-jump",
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 4,
+                  "name": "EntryPoint",
+                  "class": "IntProperty",
+                  "outer": 5
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -24,
+                "name": "OnProjectileReset",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": []
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 73
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -25,
+                "name": "ToggleCharged",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 6,
+                    "name": "K2Node_Event_charged",
+                    "class": "BoolProperty",
+                    "outer": 5
+                  }
+                }
+              ]
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 73
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 10
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -23,
+                "name": "OnProjectileLaunch",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 15,
+                    "name": "K2Node_Event_pOwner",
+                    "class": "ObjectProperty",
+                    "outer": 5
+                  }
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileLaunch",
+          "exportIndex": 7,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 949,
+            "end": 1017
+          },
+          "payloadSha256": "7bfa3357f82ae6182dda6d8bb201ee0fdaf511b5ff712c63cb0e3121753f4b77",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 981,
+            "end": 1005
+          },
+          "scriptSha256": "5c4feb776c1fdce071c6ad66d9e5a42ca8936355d723499ee686ba06db73ddf3",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 15,
+                "name": "K2Node_Event_pOwner",
+                "class": "ObjectProperty",
+                "outer": 5
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 7,
+                  "name": "pOwner",
+                  "class": "ObjectProperty",
+                  "outer": 8
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_ShortBow_Arrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 54
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileReset",
+          "exportIndex": 8,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 1017,
+            "end": 1071
+          },
+          "payloadSha256": "8e6ccb2a4b62556f6ceb524aaa1660aa21a93b3ee1f853adcba7d60a9856596f",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 1045,
+            "end": 1059
+          },
+          "scriptSha256": "eed9fcdceea18e54abe6a7aac0109dd960fb8b409731076e2c4f5431c9496fb3",
+          "expandedSize": 18,
+          "serializedSize": 14,
+          "expressions": [
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_ShortBow_Arrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 49
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "ToggleCharged",
+          "exportIndex": 9,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 1071,
+            "end": 1139
+          },
+          "payloadSha256": "001fc135706d3c4806373aecc8bd933a2ef33e5feb4072ea8283fda2712d2561",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 1103,
+            "end": 1127
+          },
+          "scriptSha256": "2fdf88aec3165407bbb3b0ecde4fe2a0fa030521fa5907c317f283be80050918",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 6,
+                "name": "K2Node_Event_charged",
+                "class": "BoolProperty",
+                "outer": 5
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 11,
+                  "name": "charged",
+                  "class": "BoolProperty",
+                  "outer": 10
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_ShortBow_Arrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 25
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        }
+      ],
+      "conclusion": "source-derived bounded observation reuse: parent event forwarding; Heavy Crossbow additionally activates/deactivates audio/particle components; no additional combat expression in these serialized scripts"
+    },
+    {
+      "domainId": "longbow",
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+      "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+      "packageIndex": 63,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uasset",
+          "size": 8062,
+          "sha256": "bfc175cbda3704cc9830b0fe8d26d97d634cc5dc7eec2e4e036dcb6f07682338"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "size": 4004,
+          "sha256": "7124f89c9f05ca8b4e6b4ee08d9e07c7f3f7b17e7f34e9baf5f4d48aadad9bd0"
+        }
+      ],
+      "functions": [
+        {
+          "name": "ExecuteUbergraph_BP_LongBowArrow",
+          "exportIndex": 4,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 775,
+            "end": 879
+          },
+          "payloadSha256": "c72b5f11a2da642c41b640a78c3192106f072de4416aabce39426b4e33a033d8",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 815,
+            "end": 867
+          },
+          "scriptSha256": "4eb1ad84cd9ce670f927e69012de7cdae55ffe616002dc815410572f675647fe",
+          "expandedSize": 76,
+          "serializedSize": 52,
+          "expressions": [
+            {
+              "op": "computed-jump",
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 4,
+                  "name": "EntryPoint",
+                  "class": "IntProperty",
+                  "outer": 5
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -24,
+                "name": "OnProjectileReset",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": []
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 73
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -25,
+                "name": "ToggleCharged",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 6,
+                    "name": "K2Node_Event_charged",
+                    "class": "BoolProperty",
+                    "outer": 5
+                  }
+                }
+              ]
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 73
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 10
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -23,
+                "name": "OnProjectileLaunch",
+                "class": "Function",
+                "outer": -2
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 15,
+                    "name": "K2Node_Event_pOwner",
+                    "class": "ObjectProperty",
+                    "outer": 5
+                  }
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileLaunch",
+          "exportIndex": 7,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 949,
+            "end": 1017
+          },
+          "payloadSha256": "7bfa3357f82ae6182dda6d8bb201ee0fdaf511b5ff712c63cb0e3121753f4b77",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 981,
+            "end": 1005
+          },
+          "scriptSha256": "5c4feb776c1fdce071c6ad66d9e5a42ca8936355d723499ee686ba06db73ddf3",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 15,
+                "name": "K2Node_Event_pOwner",
+                "class": "ObjectProperty",
+                "outer": 5
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 7,
+                  "name": "pOwner",
+                  "class": "ObjectProperty",
+                  "outer": 8
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_LongBowArrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 54
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileReset",
+          "exportIndex": 8,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 1017,
+            "end": 1071
+          },
+          "payloadSha256": "8e6ccb2a4b62556f6ceb524aaa1660aa21a93b3ee1f853adcba7d60a9856596f",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 1045,
+            "end": 1059
+          },
+          "scriptSha256": "eed9fcdceea18e54abe6a7aac0109dd960fb8b409731076e2c4f5431c9496fb3",
+          "expandedSize": 18,
+          "serializedSize": 14,
+          "expressions": [
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_LongBowArrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 49
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "ToggleCharged",
+          "exportIndex": 9,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 1071,
+            "end": 1139
+          },
+          "payloadSha256": "001fc135706d3c4806373aecc8bd933a2ef33e5feb4072ea8283fda2712d2561",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 1103,
+            "end": 1127
+          },
+          "scriptSha256": "2fdf88aec3165407bbb3b0ecde4fe2a0fa030521fa5907c317f283be80050918",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 6,
+                "name": "K2Node_Event_charged",
+                "class": "BoolProperty",
+                "outer": 5
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 11,
+                  "name": "charged",
+                  "class": "BoolProperty",
+                  "outer": 10
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 5,
+                "name": "ExecuteUbergraph_BP_LongBowArrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 25
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        }
+      ],
+      "conclusion": "source-derived bounded observation reuse: parent event forwarding; Heavy Crossbow additionally activates/deactivates audio/particle components; no additional combat expression in these serialized scripts"
+    },
+    {
+      "domainId": "power-bow",
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow",
+      "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+      "packageIndex": 45,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uasset",
+          "size": 8195,
+          "sha256": "79da09fcadf5c385fa6677b5ff1c748a671f67808ad0481ec0fe951cf3e3138f"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "size": 3636,
+          "sha256": "9798e97b83cc68734b18c38e4d87d13505c2c99720e8c1ae7a83bed1df00a70b"
+        }
+      ],
+      "functions": [
+        {
+          "name": "ExecuteUbergraph_BP_PlayerPowerBowArrow",
+          "exportIndex": 6,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+            "start": 587,
+            "end": 655
+          },
+          "payloadSha256": "34bb7399bb01e3fee069ddf5f4fcf79c4a54f5ad3320f0b7ba725e151d4aaa36",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+            "start": 623,
+            "end": 643
+          },
+          "scriptSha256": "d703f5a6a3521be17ebac494d6851375f5707dac3542c919702f2cd9c06a705d",
+          "expandedSize": 32,
+          "serializedSize": 20,
+          "expressions": [
+            {
+              "op": "computed-jump",
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 6,
+                  "name": "EntryPoint",
+                  "class": "IntProperty",
+                  "outer": 7
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -27,
+                "name": "ToggleCharged",
+                "class": "Function",
+                "outer": -3
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 8,
+                    "name": "K2Node_Event_charged",
+                    "class": "BoolProperty",
+                    "outer": 7
+                  }
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "ToggleCharged",
+          "exportIndex": 8,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+            "start": 689,
+            "end": 757
+          },
+          "payloadSha256": "658611c2b21fe4f40e2d3868078c2db4ccf4d8dd8d0c0bba27d028b6f18d5b95",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+            "start": 721,
+            "end": 745
+          },
+          "scriptSha256": "294875fef2f7eb59082460e7e50c594f517d3ddf42671024809e197753693647",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 8,
+                "name": "K2Node_Event_charged",
+                "class": "BoolProperty",
+                "outer": 7
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 10,
+                  "name": "charged",
+                  "class": "BoolProperty",
+                  "outer": 9
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 7,
+                "name": "ExecuteUbergraph_BP_PlayerPowerBowArrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        }
+      ],
+      "conclusion": "source-derived bounded observation reuse: parent event forwarding; Heavy Crossbow additionally activates/deactivates audio/particle components; no additional combat expression in these serialized scripts"
+    },
+    {
+      "domainId": "heavy-crossbow",
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+      "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+      "packageIndex": 0,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uasset",
+          "size": 8574,
+          "sha256": "c023c3b862d6ea994cb6550f1c7aafa310fe27c06e28f07aff14fb4fd800d764"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "size": 3765,
+          "sha256": "e70d8c2da591c11d20cef3d1dcfb8c04ccbe5fa1acf79cf6c8bf2fcd4b53a84d"
+        }
+      ],
+      "functions": [
+        {
+          "name": "ExecuteUbergraph_BP_HeavyCrossbow_Arrow",
+          "exportIndex": 9,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 902,
+            "end": 1119
+          },
+          "payloadSha256": "2dceafbed22b81f62a80f445e74b5e40d1b44bbd928c9463dbf27f002056cef9",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 938,
+            "end": 1107
+          },
+          "scriptSha256": "29269d5bb3cc97e0edcc4a13436bb6c41a77cd852b3697167d1aa8475511baad",
+          "expandedSize": 245,
+          "serializedSize": 169,
+          "expressions": [
+            {
+              "op": "computed-jump",
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 9,
+                  "name": "EntryPoint",
+                  "class": "IntProperty",
+                  "outer": 10
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -23,
+                "name": "OnProjectileLaunch",
+                "class": "Function",
+                "outer": -3
+              },
+              "args": [
+                {
+                  "op": "local",
+                  "property": {
+                    "index": 8,
+                    "name": "K2Node_Event_pOwner",
+                    "class": "ObjectProperty",
+                    "outer": 10
+                  }
+                }
+              ]
+            },
+            {
+              "op": "context",
+              "object": {
+                "op": "instance",
+                "property": {
+                  "index": 7,
+                  "name": "ParticleSystem_0",
+                  "class": "ObjectProperty",
+                  "outer": 2
+                }
+              },
+              "expandedSkip": 15,
+              "rvalueProperty": {
+                "index": 0,
+                "name": null,
+                "class": null,
+                "outer": null
+              },
+              "call": {
+                "op": "virtual-call",
+                "name": {
+                  "index": 10,
+                  "name": "Activate"
+                },
+                "args": [
+                  {
+                    "op": "bool",
+                    "value": false
+                  }
+                ]
+              }
+            },
+            {
+              "op": "context",
+              "object": {
+                "op": "instance",
+                "property": {
+                  "index": 6,
+                  "name": "sfx_item_crossbowHeavyArrows",
+                  "class": "ObjectProperty",
+                  "outer": 2
+                }
+              },
+              "expandedSkip": 15,
+              "rvalueProperty": {
+                "index": 0,
+                "name": null,
+                "class": null,
+                "outer": null
+              },
+              "call": {
+                "op": "virtual-call",
+                "name": {
+                  "index": 10,
+                  "name": "Activate"
+                },
+                "args": [
+                  {
+                    "op": "bool",
+                    "value": true
+                  }
+                ]
+              }
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 242
+            },
+            {
+              "op": "context",
+              "object": {
+                "op": "instance",
+                "property": {
+                  "index": 6,
+                  "name": "sfx_item_crossbowHeavyArrows",
+                  "class": "ObjectProperty",
+                  "outer": 2
+                }
+              },
+              "expandedSkip": 14,
+              "rvalueProperty": {
+                "index": 0,
+                "name": null,
+                "class": null,
+                "outer": null
+              },
+              "call": {
+                "op": "virtual-call",
+                "name": {
+                  "index": 39,
+                  "name": "Deactivate"
+                },
+                "args": []
+              }
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 242
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": -24,
+                "name": "OnProjectileReset",
+                "class": "Function",
+                "outer": -3
+              },
+              "args": []
+            },
+            {
+              "op": "context",
+              "object": {
+                "op": "instance",
+                "property": {
+                  "index": 7,
+                  "name": "ParticleSystem_0",
+                  "class": "ObjectProperty",
+                  "outer": 2
+                }
+              },
+              "expandedSkip": 15,
+              "rvalueProperty": {
+                "index": 0,
+                "name": null,
+                "class": null,
+                "outer": null
+              },
+              "call": {
+                "op": "virtual-call",
+                "name": {
+                  "index": 10,
+                  "name": "Activate"
+                },
+                "args": [
+                  {
+                    "op": "bool",
+                    "value": true
+                  }
+                ]
+              }
+            },
+            {
+              "op": "context",
+              "object": {
+                "op": "instance",
+                "property": {
+                  "index": 7,
+                  "name": "ParticleSystem_0",
+                  "class": "ObjectProperty",
+                  "outer": 2
+                }
+              },
+              "expandedSkip": 14,
+              "rvalueProperty": {
+                "index": 0,
+                "name": null,
+                "class": null,
+                "outer": null
+              },
+              "call": {
+                "op": "virtual-call",
+                "name": {
+                  "index": 39,
+                  "name": "Deactivate"
+                },
+                "args": []
+              }
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 108
+            },
+            {
+              "op": "jump",
+              "expandedOffset": 149
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileLaunch",
+          "exportIndex": 11,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 1155,
+            "end": 1223
+          },
+          "payloadSha256": "5b7198a50ac51d4acc971c99593be7704824ca8193d143a7e471f876483cb41c",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 1187,
+            "end": 1211
+          },
+          "scriptSha256": "79a3cfc7f13e3aaa7aa365a7eec010a030c801c6223f3ad8a13e2b3ce4cb9820",
+          "expandedSize": 36,
+          "serializedSize": 24,
+          "expressions": [
+            {
+              "op": "persistent-frame-copy",
+              "target": {
+                "index": 8,
+                "name": "K2Node_Event_pOwner",
+                "class": "ObjectProperty",
+                "outer": 10
+              },
+              "value": {
+                "op": "local",
+                "property": {
+                  "index": 11,
+                  "name": "pOwner",
+                  "class": "ObjectProperty",
+                  "outer": 12
+                }
+              }
+            },
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 10,
+                "name": "ExecuteUbergraph_BP_HeavyCrossbow_Arrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        },
+        {
+          "name": "OnProjectileReset",
+          "exportIndex": 12,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 1223,
+            "end": 1277
+          },
+          "payloadSha256": "16122475908b37c56a042e79aee3c8a6ebb312d9d76903c2875ae989b3cfa15a",
+          "scriptRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 1251,
+            "end": 1265
+          },
+          "scriptSha256": "103c7a63d552374ed67eeebcabe5a46e7f5acf70a33b17498b9ba65a2deffa42",
+          "expandedSize": 18,
+          "serializedSize": 14,
+          "expressions": [
+            {
+              "op": "local-final-call",
+              "function": {
+                "index": 10,
+                "name": "ExecuteUbergraph_BP_HeavyCrossbow_Arrow",
+                "class": "Function",
+                "outer": 2
+              },
+              "args": [
+                {
+                  "op": "int",
+                  "value": 237
+                }
+              ]
+            },
+            {
+              "op": "return",
+              "value": {
+                "op": "nothing"
+              }
+            },
+            {
+              "op": "end-script"
+            }
+          ]
+        }
+      ],
+      "conclusion": "source-derived bounded observation reuse: parent event forwarding; Heavy Crossbow additionally activates/deactivates audio/particle components; no additional combat expression in these serialized scripts"
+    }
+  ],
+  "limits": [
+    "Inherited parent behavior retains the existing observed single-projectile runtime boundary.",
+    "Observation damage/cycle remain mandatory; these scripts do not establish final damage or effective cadence.",
+    "No unverified proc, target/channel, Soul, armor, speed composition, or unique variant is authorized."
+  ]
+}

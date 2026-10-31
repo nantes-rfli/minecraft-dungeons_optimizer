@@ -70,7 +70,7 @@
     "generate:ranged": "node scripts/audit-ranged.ts --write",
     "audit:ranged": "node scripts/audit-ranged.ts",
     "audit:ranged-enchants": "node scripts/audit-ranged.ts --enchantments",
-    "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts",
+    "audit:ranged-runtime": "vitest run tests/rangedRuntime.test.ts tests/rangedNativeReuse.test.ts",
     "test:e2e": "playwright test",
     "test:performance": "vitest run tests/performance.test.ts",
     "generate:game-data-final-coverage": "node scripts/audit-game-data-final-coverage.ts --write",

@@ -1,0 +1,32 @@
+{
+  "ranged-constructor": {
+    "start": "0xb19370",
+    "end_exclusive": "0xb194a0",
+    "sha256": "769db01f1c9e404a329da2a3274c7570277d6b1acceb79299a2246e061590a8c"
+  },
+  "attack-definition-copy": {
+    "start": "0xa0b350",
+    "end_exclusive": "0xa0b430",
+    "sha256": "9a492cb79724e4bb189069b845878c792afea41cec4ef6f16bb78e80dfdd87ce"
+  },
+  "equip-component-copy": {
+    "start": "0xa2ce00",
+    "end_exclusive": "0xa2cf00",
+    "sha256": "7244a0028ec3035488c36169278c848cf2300d06d35106e6eda48a621e969b33"
+  },
+  "charge-callback": {
+    "start": "0xa14e00",
+    "end_exclusive": "0xa14e40",
+    "sha256": "aaf9a4df6282588da91b979dcac4000912ca2667c91247d99487e7cf2f6c93f7"
+  },
+  "delay-builder-default": {
+    "start": "0xb1c110",
+    "end_exclusive": "0xb1c200",
+    "sha256": "95abc3d6e4b2fc50cc85a9f8b7baeb047271ae5feda1bf86431efc6a9086d910"
+  },
+  "projectile-growing-default": {
+    "start": "0x8233d0",
+    "end_exclusive": "0x8235b0",
+    "sha256": "aeb72e45f922cdd9e69253b0b63d50f79d796b77436f57ca82db20515ff50277"
+  }
+}

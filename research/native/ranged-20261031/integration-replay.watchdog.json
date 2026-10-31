@@ -1,0 +1,9 @@
+{
+  "status": "exited",
+  "returncode": 0,
+  "forcedKill": false,
+  "cleanupComplete": true,
+  "interruptSignal": null,
+  "timeLimitSeconds": 60,
+  "elapsedSeconds": 2.410951118916273
+}

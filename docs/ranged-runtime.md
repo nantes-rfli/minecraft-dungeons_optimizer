@@ -7,13 +7,13 @@ Population reconciliation and the observation-driven MVP are implemented. This P
 - 2-5A: population 71/71 reconciled; taxonomy and Japanese names partial.
 - 2-5B: typed projectile/attack boundary and finite observation-driven rate; built-in measured profiles pending.
 - 2-5C: primary 38 / secondary 41 / union 41; initial tier/trigger audit, unresolved stack/Tier/channel fields explicit.
-- 2-5D: Limited MVP for Bow (uncharged/charged) and Crossbow (single). Full 0, Limited 2, Research-only 69.
+- 2-5D: Bow (uncharged/charged), Crossbow (single), plus source-bound reuse for Shortbow / Longbow / Power Bow (charged only) and Heavy Crossbow (single). Full 0, Limited 6, Research-only 65.
 - 2-5E: inventory → evaluate → optimize → explanations, actual Tier rolls, locks, Gilded I–III, JSON v2.
 - 2-5F: common read-model adapter, structured backlog, three protocols, generated reports and CI checks.
 
 ## Sources and reconciliation
 
-Primary: [dungeons.tools weapons](https://www.dungeons.tools/weapons) and [enchantments](https://www.dungeons.tools/enchantments), which claim extraction from 1.17.0.0. The project has **not** independently inspected game binaries. Factual index snapshots retain source URL, acquisition date and HTML SHA256; `extract-ranged-sources.ts` regenerates them from explicitly downloaded HTML. Normal audits run offline and do not replace source evidence. Secondary: [Wiki Gear](https://minecraft.wiki/w/Dungeons:Gear) and the [ranged Enchantment table](https://minecraft.wiki/w/Dungeons:Enchantment). Where direct access failed, search-index text was inspected, not invented. Audit capture: 2026-09-04.
+Primary: [dungeons.tools weapons](https://www.dungeons.tools/weapons) and [enchantments](https://www.dungeons.tools/enchantments), which claim extraction from 1.17.0.0. The historical population audit did not independently inspect game binaries. The later [Native integration](./ranged-native-integration.md) separately verifies local hash-bound Raw/Native inputs; official authenticity and same-build applicability remain unverified. Factual index snapshots retain source URL, acquisition date and HTML SHA256; `extract-ranged-sources.ts` regenerates them from explicitly downloaded HTML. Normal audits run offline and do not replace source evidence. Secondary: [Wiki Gear](https://minecraft.wiki/w/Dungeons:Gear) and the [ranged Enchantment table](https://minecraft.wiki/w/Dungeons:Enchantment). Where direct access failed, search-index text was inspected, not invented. Audit capture: 2026-09-04.
 
 Weapons reconcile after explicit Burst Gale Bow / Burst Gust Bow and apostrophe normalization. The seven seasonal variants are classified Common in the primary index but Unique in the secondary definition; both values remain. “Obtainable” describes published hero gear, including legacy seasonal ownership, not a guarantee of drops today. No raw game-ID completeness claim.
 
@@ -30,7 +30,7 @@ Every evaluated ranged instance requires `observation`:
 | Field | Meaning |
 | --- | --- |
 | gameVersion | Exactly 1.17.0.0, user-declared |
-| mode | Bow uncharged/charged; Crossbow single |
+| mode | Bow uncharged/charged; Shortbow / Longbow / Power Bow charged only; Crossbow / Heavy Crossbow single |
 | projectileDamage | Neutral damage of one normal projectile, before selectable Enchants, Armor, Strength and target DR; may be read from the matching card/neutral hit |
 | shotCycleSeconds | Complete measured cycle including charge, release, reload and recovery to the next ready state |
 | availableAmmo | Explicit finite number of normal arrows available in the encounter, no replenishment |
@@ -75,3 +75,9 @@ Two common read-model categories were added: `ranged-weapon` (includes its attac
 `npm run generate:ranged` regenerates the JSON/doc audits. `audit:ranged` and `audit:ranged-enchants` reject stale artifacts and population/support/tier drift. `audit:ranged-runtime` exercises evaluate/optimize, finite ammo, channels, exclusions and input validity. Run category audits before `generate:evidence-coverage` / `audit:evidence-coverage`, then the full tests, tsc, lint and build. Existing golden fixtures are not regenerated to accommodate ranged changes.
 
 Validation on 2026-09-04: all 23 audit commands passed, including the existing historical partial gates; 39 test files / 1,322 tests passed, as did TypeScript, lint and production build. New runtime arithmetic fixtures are synthetic, not independent DPS samples. The build still warns about a client chunk above 500 kB (App roughly 581 kB / 134 kB gzip); code splitting and large-inventory performance remain Phase 3 work. The warning is not suppressed and no performance gate is claimed complete.
+
+## Native connection and bounded reuse (2026-10-31)
+
+[Integration contract](./ranged-native-integration.md) and [per-target support/Evidence ledger](../research/runtime/ranged-observed-reuse.json) connect four additional identities to the same observed arithmetic. This is Existing Limited Mechanic Reuse, not New Mechanic Promotion or an R3 accepted/Measured/Verified claim. Each target keeps its own neutral damage and complete cycle input; Strong Charged Attacks/Powerful Shots are included in that observation and never applied again as an inferred multiplier. Existing selectable enchant expectations and all rejected shared interactions are unchanged.
+
+Five [conditional Native CDO models](../research/domain/ranged-native-model.json) retain base damage, charge completion and timing parameters with Raw ranges, inheritance and Native default provenance. These are derived domain information, outside serialized Formal Value/Relation v2. They cannot replace either observed numeric input. Unknown final damage and effective cadence remain explicit. The reference model adds **zero** calculable equipment; the actual observed-input expansion adds **four**.
