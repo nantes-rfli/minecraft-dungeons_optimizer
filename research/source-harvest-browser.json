@@ -13048,7 +13048,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"heavy-crossbow\",\"names\":{\"en\":\"Heavy Crossbow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"heavy-crossbow\",\"names\":{\"en\":\"Heavy Crossbow\",\"ja\":\"ヘビークロスボウ\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -13113,7 +13113,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Powerful Shots\"],\"inherited\":[],\"families\":[\"flat-modifier\"],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[\"Powerful Shots\"],\"inherited\":[],\"families\":[\"flat-modifier\"],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -14535,7 +14535,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"longbow\",\"names\":{\"en\":\"Longbow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"longbow\",\"names\":{\"en\":\"Longbow\",\"ja\":\"長弓\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -14600,7 +14600,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Strong Charged Attacks\"],\"inherited\":[],\"families\":[\"charge-modifier\"],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[\"Strong Charged Attacks\"],\"inherited\":[],\"families\":[\"charge-modifier\"],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -16614,7 +16614,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"power-bow\",\"names\":{\"en\":\"Power Bow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"power-bow\",\"names\":{\"en\":\"Power Bow\",\"ja\":\"力の弓\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -16679,7 +16679,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Strong Charged Attacks\"],\"inherited\":[],\"families\":[\"charge-modifier\"],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[\"Strong Charged Attacks\"],\"inherited\":[],\"families\":[\"charge-modifier\"],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -19289,7 +19289,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"shortbow\",\"names\":{\"en\":\"Shortbow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"shortbow\",\"names\":{\"en\":\"Shortbow\",\"ja\":\"短弓\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -19354,7 +19354,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[],\"inherited\":[],\"families\":[],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[],\"inherited\":[],\"families\":[],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
