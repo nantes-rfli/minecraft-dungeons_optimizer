@@ -19498,8 +19498,8 @@
     {
       "category": "ranged-weapon",
       "id": "heavy-crossbow",
-      "label": "Heavy Crossbow",
-      "runtimeSupport": "research-only",
+      "label": "ヘビークロスボウ",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -19507,7 +19507,7 @@
             "canonicalId": "heavy-crossbow",
             "names": {
               "en": "Heavy Crossbow",
-              "ja": null
+              "ja": "ヘビークロスボウ"
             }
           },
           "sourceIds": [
@@ -19646,7 +19646,7 @@
             "families": [
               "flat-modifier"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [
@@ -21829,8 +21829,8 @@
     {
       "category": "ranged-weapon",
       "id": "longbow",
-      "label": "Longbow",
-      "runtimeSupport": "research-only",
+      "label": "長弓",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -21838,7 +21838,7 @@
             "canonicalId": "longbow",
             "names": {
               "en": "Longbow",
-              "ja": null
+              "ja": "長弓"
             }
           },
           "sourceIds": [
@@ -21977,7 +21977,7 @@
             "families": [
               "charge-modifier"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [
@@ -25082,8 +25082,8 @@
     {
       "category": "ranged-weapon",
       "id": "power-bow",
-      "label": "Power Bow",
-      "runtimeSupport": "research-only",
+      "label": "力の弓",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -25091,7 +25091,7 @@
             "canonicalId": "power-bow",
             "names": {
               "en": "Power Bow",
-              "ja": null
+              "ja": "力の弓"
             }
           },
           "sourceIds": [
@@ -25230,7 +25230,7 @@
             "families": [
               "charge-modifier"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [
@@ -29268,8 +29268,8 @@
     {
       "category": "ranged-weapon",
       "id": "shortbow",
-      "label": "Shortbow",
-      "runtimeSupport": "research-only",
+      "label": "短弓",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -29277,7 +29277,7 @@
             "canonicalId": "shortbow",
             "names": {
               "en": "Shortbow",
-              "ja": null
+              "ja": "短弓"
             }
           },
           "sourceIds": [
@@ -29412,7 +29412,7 @@
             "own": [],
             "inherited": [],
             "families": [],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [

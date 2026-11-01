@@ -1,0 +1,784 @@
+{
+  "schemaVersion": 1,
+  "kind": "conditional-native-cdo-ranged-model",
+  "gameVersion": "1.17.0.0",
+  "evidenceStatus": "derived",
+  "runtimePromotion": false,
+  "identitySource": "research/domain/formal/identity-evidence-v1.json",
+  "rawValueRelationBoundary": "Formal v2 remains serialized configured values; this derived Native model does not mint Formal Value or Relation assertions",
+  "nativeEvidence": "research/native/ranged-20261031/verification.json",
+  "nativeImageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "conditions": [
+    "local Raw/Native inputs, same build and distribution authenticity unverified",
+    "normal single arrow on land; G explicitly 1; no extra effects or event changes",
+    "constructor defaults only after checking listed Raw inheritance; not a live equipment capture",
+    "binary32 round-nearest/ties-even, FTZ/DAZ off; live FP state unknown"
+  ],
+  "formula": {
+    "baseline": "F(F(G * F((charged ? K : 1) * P)) * B)",
+    "cooldownDuration": "F(F(1 / S_fire) * R)",
+    "chargeDuration": "F(C / S_charge)",
+    "nextAllowed": "F(F(cooldownDuration + worldNow) + itemTypeDelay)",
+    "chargeTimeAPI": "F(F(C + R) / S)",
+    "timerCallback": "timerClock > expiry; not >=; no assumed FPS"
+  },
+  "profiles": {
+    "bow": {
+      "identityAssertionId": "identity:bow@1",
+      "rawIdentity": "Bow",
+      "weaponPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+      "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+      "parameters": {
+        "projectileBaseDamage": {
+          "value": 50,
+          "bits": "42480000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "packageIndex": 35,
+          "rawPath": "damage",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+            "start": 810,
+            "end": 814
+          },
+          "sourceSha256": "f1443404e67e0669901a8fef94b8a137d28067a8d998adc1cb4f6e60ca56b472"
+        },
+        "projectileDamageFactor": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb19418",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        },
+        "chargeDamageMultiplier": {
+          "value": 2.5,
+          "bits": "40200000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "packageIndex": 36,
+          "rawPath": "AttackDefintion.ChargeDamageMultiplier",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+            "start": 650,
+            "end": 654
+          },
+          "sourceSha256": "cdadefb52493639c71bf00591268897c85573df496449aa648d575b3c283fe7b"
+        },
+        "attackRateSeconds": {
+          "value": 0.41999998688697815,
+          "bits": "3ed70a3d",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "packageIndex": 36,
+          "rawPath": "AttackDefintion.AttackRateSeconds",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+            "start": 592,
+            "end": 596
+          },
+          "sourceSha256": "cdadefb52493639c71bf00591268897c85573df496449aa648d575b3c283fe7b"
+        },
+        "chargeTimeSeconds": {
+          "value": 0.3499999940395355,
+          "bits": "3eb33333",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "packageIndex": 36,
+          "rawPath": "AttackDefintion.ChargeTimeSecond",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+            "start": 621,
+            "end": 625
+          },
+          "sourceSha256": "cdadefb52493639c71bf00591268897c85573df496449aa648d575b3c283fe7b"
+        },
+        "activeCancelPointFactor": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb19404",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        }
+      },
+      "configuredProjectile": {
+        "Projectile": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_BowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "NumberOfProjectiles": 1,
+        "DelaySeconds": 0,
+        "DelaySecondsPerProjectile": 0
+      },
+      "chargeSwitch": "completion-callback-boolean",
+      "derivedCdoBaseline": {
+        "uncharged": 50.0,
+        "charged": 125.0
+      },
+      "finalProjectileDamage": {
+        "state": "unknown",
+        "reason": "internal ItemPower, exact CRT, effective captured attributes, event and target handling not established"
+      },
+      "effectiveShotCycleSeconds": {
+        "state": "unknown",
+        "reason": "input/tick order, clocks and effective speed/action state not supplied"
+      },
+      "formalConnection": {
+        "relationProjectionRef": "projection:relation:bow:projectile@1:0",
+        "relationEvidenceRefs": [
+          "evidence:relation:fnv1a32:efa5b5ca"
+        ],
+        "configuredValues": {
+          "configuredProjectileCount": {
+            "value": 1,
+            "projectionRef": "projection:value:bow:configured-projectile-count@1:bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:37401b3f"
+            ]
+          },
+          "configuredDelaySeconds": {
+            "value": 0,
+            "projectionRef": "projection:value:bow:configured-delay-seconds@1:bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:73746350"
+            ]
+          },
+          "configuredDelaySecondsPerProjectile": {
+            "value": 0,
+            "projectionRef": "projection:value:bow:configured-delay-per-projectile@1:bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:4d8dbb45"
+            ]
+          }
+        }
+      }
+    },
+    "shortbow": {
+      "identityAssertionId": "identity:shortbow@1",
+      "rawIdentity": "Shortbow",
+      "weaponPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+      "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+      "parameters": {
+        "projectileBaseDamage": {
+          "value": 50,
+          "bits": "42480000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "packageIndex": 18,
+          "rawPath": "damage",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+            "start": 690,
+            "end": 694
+          },
+          "sourceSha256": "2a2d8bbe7f270806dde44b55d35a87d5715c2d9821ea041207bfc94ad4b1ab85"
+        },
+        "projectileDamageFactor": {
+          "value": 0.75,
+          "bits": "3f400000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "packageIndex": 19,
+          "rawPath": "AttackDefintion.ProjectileDamageFactor",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+            "start": 708,
+            "end": 712
+          },
+          "sourceSha256": "880121870e6275f0852c66304f9953058944c08bdb8bf9e2244d34204e4d619b"
+        },
+        "chargeDamageMultiplier": {
+          "value": 1.649999976158142,
+          "bits": "3fd33333",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "packageIndex": 19,
+          "rawPath": "AttackDefintion.ChargeDamageMultiplier",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+            "start": 650,
+            "end": 654
+          },
+          "sourceSha256": "880121870e6275f0852c66304f9953058944c08bdb8bf9e2244d34204e4d619b"
+        },
+        "attackRateSeconds": {
+          "value": 0.20999999344348907,
+          "bits": "3e570a3d",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "packageIndex": 19,
+          "rawPath": "AttackDefintion.AttackRateSeconds",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+            "start": 592,
+            "end": 596
+          },
+          "sourceSha256": "880121870e6275f0852c66304f9953058944c08bdb8bf9e2244d34204e4d619b"
+        },
+        "chargeTimeSeconds": {
+          "value": 0.125,
+          "bits": "3e000000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+          "packageIndex": 19,
+          "rawPath": "AttackDefintion.ChargeTimeSecond",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+            "start": 621,
+            "end": 625
+          },
+          "sourceSha256": "880121870e6275f0852c66304f9953058944c08bdb8bf9e2244d34204e4d619b"
+        },
+        "activeCancelPointFactor": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb19404",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        }
+      },
+      "configuredProjectile": {
+        "Projectile": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ShortBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "NumberOfProjectiles": 1,
+        "DelaySeconds": 0,
+        "DelaySecondsPerProjectile": 0
+      },
+      "chargeSwitch": "completion-callback-boolean",
+      "derivedCdoBaseline": {
+        "uncharged": 37.5,
+        "charged": 61.874996185302734
+      },
+      "finalProjectileDamage": {
+        "state": "unknown",
+        "reason": "internal ItemPower, exact CRT, effective captured attributes, event and target handling not established"
+      },
+      "effectiveShotCycleSeconds": {
+        "state": "unknown",
+        "reason": "input/tick order, clocks and effective speed/action state not supplied"
+      },
+      "formalConnection": {
+        "relationProjectionRef": "projection:relation:shortbow:projectile@1:0",
+        "relationEvidenceRefs": [
+          "evidence:relation:fnv1a32:334b6a1c"
+        ],
+        "configuredValues": {
+          "configuredProjectileCount": {
+            "value": 1,
+            "projectionRef": "projection:value:shortbow:configured-projectile-count@1:shortbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:28725355"
+            ]
+          },
+          "configuredDelaySeconds": {
+            "value": 0,
+            "projectionRef": "projection:value:shortbow:configured-delay-seconds@1:shortbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:d9866b36"
+            ]
+          },
+          "configuredDelaySecondsPerProjectile": {
+            "value": 0,
+            "projectionRef": "projection:value:shortbow:configured-delay-per-projectile@1:shortbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:c3538a6f"
+            ]
+          }
+        }
+      },
+      "blueprintReview": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "status": "source-derived-limited-observed-only",
+        "scriptHashes": [
+          "4eb1ad84cd9ce670f927e69012de7cdae55ffe616002dc815410572f675647fe",
+          "5c4feb776c1fdce071c6ad66d9e5a42ca8936355d723499ee686ba06db73ddf3",
+          "eed9fcdceea18e54abe6a7aac0109dd960fb8b409731076e2c4f5431c9496fb3",
+          "2fdf88aec3165407bbb3b0ecde4fe2a0fa030521fa5907c317f283be80050918"
+        ]
+      }
+    },
+    "longbow": {
+      "identityAssertionId": "identity:longbow@1",
+      "rawIdentity": "Longbow",
+      "weaponPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+      "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+      "parameters": {
+        "projectileBaseDamage": {
+          "value": 50,
+          "bits": "42480000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "packageIndex": 63,
+          "rawPath": "damage",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+            "start": 690,
+            "end": 694
+          },
+          "sourceSha256": "7124f89c9f05ca8b4e6b4ee08d9e07c7f3f7b17e7f34e9baf5f4d48aadad9bd0"
+        },
+        "projectileDamageFactor": {
+          "value": 1.2000000476837158,
+          "bits": "3f99999a",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 0,
+          "rawPath": "AttackDefintion.ProjectileDamageFactor",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+            "start": 708,
+            "end": 712
+          },
+          "sourceSha256": "9e301fbb386d5c7ec672771a7d1fdb44b89e6ce1f3635080fdd5bc95a1ad0e3c"
+        },
+        "chargeDamageMultiplier": {
+          "value": 3,
+          "bits": "40400000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 0,
+          "rawPath": "AttackDefintion.ChargeDamageMultiplier",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+            "start": 650,
+            "end": 654
+          },
+          "sourceSha256": "9e301fbb386d5c7ec672771a7d1fdb44b89e6ce1f3635080fdd5bc95a1ad0e3c"
+        },
+        "attackRateSeconds": {
+          "value": 0.41999998688697815,
+          "bits": "3ed70a3d",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 0,
+          "rawPath": "AttackDefintion.AttackRateSeconds",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+            "start": 592,
+            "end": 596
+          },
+          "sourceSha256": "9e301fbb386d5c7ec672771a7d1fdb44b89e6ce1f3635080fdd5bc95a1ad0e3c"
+        },
+        "chargeTimeSeconds": {
+          "value": 0.3499999940395355,
+          "bits": "3eb33333",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 0,
+          "rawPath": "AttackDefintion.ChargeTimeSecond",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+            "start": 621,
+            "end": 625
+          },
+          "sourceSha256": "9e301fbb386d5c7ec672771a7d1fdb44b89e6ce1f3635080fdd5bc95a1ad0e3c"
+        },
+        "activeCancelPointFactor": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb19404",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        }
+      },
+      "configuredProjectile": {
+        "Projectile": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_LongBowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "NumberOfProjectiles": 1,
+        "DelaySeconds": 0,
+        "DelaySecondsPerProjectile": 0
+      },
+      "chargeSwitch": "completion-callback-boolean",
+      "derivedCdoBaseline": {
+        "uncharged": 60.000003814697266,
+        "charged": 180.0
+      },
+      "finalProjectileDamage": {
+        "state": "unknown",
+        "reason": "internal ItemPower, exact CRT, effective captured attributes, event and target handling not established"
+      },
+      "effectiveShotCycleSeconds": {
+        "state": "unknown",
+        "reason": "input/tick order, clocks and effective speed/action state not supplied"
+      },
+      "formalConnection": {
+        "relationProjectionRef": "projection:relation:longbow:projectile@1:0",
+        "relationEvidenceRefs": [
+          "evidence:relation:fnv1a32:ed3a2db2"
+        ],
+        "configuredValues": {
+          "configuredProjectileCount": {
+            "value": 1,
+            "projectionRef": "projection:value:longbow:configured-projectile-count@1:longbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:cc5ec5ab"
+            ]
+          },
+          "configuredDelaySeconds": {
+            "value": 0,
+            "projectionRef": "projection:value:longbow:configured-delay-seconds@1:longbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:ab53aad0"
+            ]
+          },
+          "configuredDelaySecondsPerProjectile": {
+            "value": 0,
+            "projectionRef": "projection:value:longbow:configured-delay-per-projectile@1:longbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:fa1a4c29"
+            ]
+          }
+        }
+      },
+      "blueprintReview": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "status": "source-derived-limited-observed-only",
+        "scriptHashes": [
+          "4eb1ad84cd9ce670f927e69012de7cdae55ffe616002dc815410572f675647fe",
+          "5c4feb776c1fdce071c6ad66d9e5a42ca8936355d723499ee686ba06db73ddf3",
+          "eed9fcdceea18e54abe6a7aac0109dd960fb8b409731076e2c4f5431c9496fb3",
+          "2fdf88aec3165407bbb3b0ecde4fe2a0fa030521fa5907c317f283be80050918"
+        ]
+      }
+    },
+    "power-bow": {
+      "identityAssertionId": "identity:power-bow@1",
+      "rawIdentity": "Powerbow",
+      "weaponPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+      "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow",
+      "parameters": {
+        "projectileBaseDamage": {
+          "value": 50,
+          "bits": "42480000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+          "packageIndex": 35,
+          "rawPath": "damage",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+            "start": 810,
+            "end": 814
+          },
+          "sourceSha256": "f1443404e67e0669901a8fef94b8a137d28067a8d998adc1cb4f6e60ca56b472"
+        },
+        "projectileDamageFactor": {
+          "value": 2,
+          "bits": "40000000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 47,
+          "rawPath": "AttackDefintion.ProjectileDamageFactor",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+            "start": 798,
+            "end": 802
+          },
+          "sourceSha256": "3030daf3131f8e60555c9a27830cf2e4654b3091a45b19b4e7f85603ec31e9eb"
+        },
+        "chargeDamageMultiplier": {
+          "value": 3,
+          "bits": "40400000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 47,
+          "rawPath": "AttackDefintion.ChargeDamageMultiplier",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+            "start": 740,
+            "end": 744
+          },
+          "sourceSha256": "3030daf3131f8e60555c9a27830cf2e4654b3091a45b19b4e7f85603ec31e9eb"
+        },
+        "attackRateSeconds": {
+          "value": 0.41999998688697815,
+          "bits": "3ed70a3d",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 47,
+          "rawPath": "AttackDefintion.AttackRateSeconds",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+            "start": 682,
+            "end": 686
+          },
+          "sourceSha256": "3030daf3131f8e60555c9a27830cf2e4654b3091a45b19b4e7f85603ec31e9eb"
+        },
+        "chargeTimeSeconds": {
+          "value": 0.3499999940395355,
+          "bits": "3eb33333",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "packageIndex": 47,
+          "rawPath": "AttackDefintion.ChargeTimeSecond",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+            "start": 711,
+            "end": 715
+          },
+          "sourceSha256": "3030daf3131f8e60555c9a27830cf2e4654b3091a45b19b4e7f85603ec31e9eb"
+        },
+        "activeCancelPointFactor": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb19404",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        }
+      },
+      "configuredProjectile": {
+        "Projectile": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_PlayerPowerBowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "NumberOfProjectiles": 1,
+        "DelaySeconds": 0,
+        "DelaySecondsPerProjectile": 0
+      },
+      "chargeSwitch": "completion-callback-boolean",
+      "derivedCdoBaseline": {
+        "uncharged": 100.0,
+        "charged": 300.0
+      },
+      "finalProjectileDamage": {
+        "state": "unknown",
+        "reason": "internal ItemPower, exact CRT, effective captured attributes, event and target handling not established"
+      },
+      "effectiveShotCycleSeconds": {
+        "state": "unknown",
+        "reason": "input/tick order, clocks and effective speed/action state not supplied"
+      },
+      "formalConnection": {
+        "relationProjectionRef": "projection:relation:power-bow:projectile@1:0",
+        "relationEvidenceRefs": [
+          "evidence:relation:fnv1a32:9a847517"
+        ],
+        "configuredValues": {
+          "configuredProjectileCount": {
+            "value": 1,
+            "projectionRef": "projection:value:power-bow:configured-projectile-count@1:power-bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:a86b8dd9"
+            ]
+          },
+          "configuredDelaySeconds": {
+            "value": 0,
+            "projectionRef": "projection:value:power-bow:configured-delay-seconds@1:power-bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:984410c2"
+            ]
+          },
+          "configuredDelaySecondsPerProjectile": {
+            "value": 0,
+            "projectionRef": "projection:value:power-bow:configured-delay-per-projectile@1:power-bow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:76bb5fdf"
+            ]
+          }
+        }
+      },
+      "blueprintReview": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "status": "source-derived-limited-observed-only",
+        "scriptHashes": [
+          "d703f5a6a3521be17ebac494d6851375f5707dac3542c919702f2cd9c06a705d",
+          "294875fef2f7eb59082460e7e50c594f517d3ddf42671024809e197753693647"
+        ]
+      }
+    },
+    "heavy-crossbow": {
+      "identityAssertionId": "identity:heavy-crossbow@1",
+      "rawIdentity": "HeavyCrossbow",
+      "weaponPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+      "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+      "parameters": {
+        "projectileBaseDamage": {
+          "value": 50,
+          "bits": "42480000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "packageIndex": 0,
+          "rawPath": "damage",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+            "start": 656,
+            "end": 660
+          },
+          "sourceSha256": "e70d8c2da591c11d20cef3d1dcfb8c04ccbe5fa1acf79cf6c8bf2fcd4b53a84d"
+        },
+        "projectileDamageFactor": {
+          "value": 2.700000047683716,
+          "bits": "402ccccd",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "packageIndex": 1,
+          "rawPath": "AttackDefintion.ProjectileDamageFactor",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+            "start": 650,
+            "end": 654
+          },
+          "sourceSha256": "eb02271dfbc78833ec01c68b704d431866d3b1b8ea09ef99798e788e4ebf9d6c"
+        },
+        "chargeDamageMultiplier": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb193fa",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        },
+        "attackRateSeconds": {
+          "value": 1,
+          "bits": "3f800000",
+          "origin": "native-constructor",
+          "rva": "0xb193e5",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        },
+        "chargeTimeSeconds": {
+          "value": 0,
+          "bits": "00000000",
+          "origin": "native-constructor",
+          "rva": "0xb193e5",
+          "absenceCheckedIn": [
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+            "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon"
+          ]
+        },
+        "activeCancelPointFactor": {
+          "value": 0.5,
+          "bits": "3f000000",
+          "origin": "raw-cdo",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+          "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+          "packageIndex": 1,
+          "rawPath": "AttackDefintion.ActiveCancelPorintFactor",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+            "start": 592,
+            "end": 596
+          },
+          "sourceSha256": "eb02271dfbc78833ec01c68b704d431866d3b1b8ea09ef99798e788e4ebf9d6c"
+        }
+      },
+      "configuredProjectile": {
+        "Projectile": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_HeavyCrossbow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "NumberOfProjectiles": 1,
+        "DelaySeconds": 0,
+        "DelaySecondsPerProjectile": 0
+      },
+      "chargeSwitch": "not-chargeable",
+      "derivedCdoBaseline": {
+        "uncharged": 135.0,
+        "charged": null
+      },
+      "finalProjectileDamage": {
+        "state": "unknown",
+        "reason": "internal ItemPower, exact CRT, effective captured attributes, event and target handling not established"
+      },
+      "effectiveShotCycleSeconds": {
+        "state": "unknown",
+        "reason": "input/tick order, clocks and effective speed/action state not supplied"
+      },
+      "formalConnection": {
+        "relationProjectionRef": "projection:relation:heavy-crossbow:projectile@1:0",
+        "relationEvidenceRefs": [
+          "evidence:relation:fnv1a32:10476eec"
+        ],
+        "configuredValues": {
+          "configuredProjectileCount": {
+            "value": 1,
+            "projectionRef": "projection:value:heavy-crossbow:configured-projectile-count@1:heavy-crossbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:8aae2791"
+            ]
+          },
+          "configuredDelaySeconds": {
+            "value": 0,
+            "projectionRef": "projection:value:heavy-crossbow:configured-delay-seconds@1:heavy-crossbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:69712d6a"
+            ]
+          },
+          "configuredDelaySecondsPerProjectile": {
+            "value": 0,
+            "projectionRef": "projection:value:heavy-crossbow:configured-delay-per-projectile@1:heavy-crossbow:source-index:0",
+            "evidenceRefs": [
+              "evidence:value:raw:fnv1a32:e0b7c503"
+            ]
+          }
+        }
+      },
+      "blueprintReview": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "status": "source-derived-limited-observed-only",
+        "scriptHashes": [
+          "29269d5bb3cc97e0edcc4a13436bb6c41a77cd852b3697167d1aa8475511baad",
+          "79a3cfc7f13e3aaa7aa365a7eec010a030c801c6223f3ad8a13e2b3ce4cb9820",
+          "103c7a63d552374ed67eeebcabe5a46e7f5acf70a33b17498b9ba65a2deffa42"
+        ]
+      }
+    }
+  }
+}

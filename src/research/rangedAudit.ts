@@ -61,6 +61,7 @@ export function buildRangedWeaponAudit() {
     const base = snapshot.weapons.rows.find((entry) => entry.id === family)!
     const rawEffects = row.facts.slice(3)
     const inherited = row.id === family ? [] : base.facts.slice(3)
+    const historicalRuntime = row.id === 'bow' || row.id === 'crossbow'
     const supportLevel = isRuntimeRangedWeapon(row.id) ? 'limited' : 'research-only'
     return { id: row.id, name: { en: row.name, ja: RANGED_WEAPONS[row.id]?.name.ja ?? null }, japaneseNameStatus: RANGED_WEAPONS[row.id] ? 'runtime-label' : 'not-yet-verified',
       baseWeaponId: row.id === family ? null : family, variantOf: row.id === family ? null : family, family,
@@ -69,11 +70,11 @@ export function buildRangedWeaponAudit() {
       firingMode: family === 'burst-crossbow' ? 'burst' : family === 'rapid-crossbow' ? 'rapid-fire' : family === 'cog-crossbow' ? 'wind-up' : crossbow ? 'single-shot' : 'chargeable',
       chargeBehavior: crossbow ? 'not-chargeable' : 'manual; timings unknown',
       projectileFamily: family === 'harpoon-crossbow' ? 'harpoon' : family === 'bubble-bow' ? 'bubble' : family === 'exploding-crossbow' ? 'explosive-arrow' : family === 'twisting-vine-bow' ? 'poison-trail-arrow' : 'arrow',
-      multiProjectile: isRuntimeRangedWeapon(row.id) ? false : ['burst-crossbow', 'dual-crossbows', 'scatter-crossbow'].includes(family) || /Multiple projectiles|Double Projectiles|more projectiles|Bonus Shot|Multishot|3 arrows|Chain Reaction/i.test(rawEffects.join(' ')) ? true : null,
-      projectileCount: isRuntimeRangedWeapon(row.id) ? 1 : null,
+      multiProjectile: historicalRuntime ? false : ['burst-crossbow', 'dual-crossbows', 'scatter-crossbow'].includes(family) || /Multiple projectiles|Double Projectiles|more projectiles|Bonus Shot|Multishot|3 arrows|Chain Reaction/i.test(rawEffects.join(' ')) ? true : null,
+      projectileCount: historicalRuntime ? 1 : null,
       chargeTimeSeconds: null, recoverySeconds: null, shotsPerSecond: null, burstCount: null, spread: null,
-      multiHitPossibility: isRuntimeRangedWeapon(row.id) ? false : null, duplication: null, pierce: null, ricochet: null,
-      ammo: { consumptionPerShot: isRuntimeRangedWeapon(row.id) ? 1 : null, quiverSize: null, policy: 'no rating-to-ammo conversion; special quivers excluded' },
+      multiHitPossibility: historicalRuntime ? false : null, duplication: null, pierce: null, ricochet: null,
+      ammo: { consumptionPerShot: historicalRuntime ? 1 : null, quiverSize: null, policy: 'no rating-to-ammo conversion; special quivers excluded' },
       soul: { related: family.startsWith('soul-') || row.id === 'soul-hunter-crossbow', gathering: null, consumption: null },
       intrinsic: { own: rawEffects, inherited, families: [...new Set([...rawEffects, ...inherited].map(effectFamily))], support: supportLevel, completeMechanicVerification: false },
       rawRatings: row.facts.slice(0, 3), gameVersion: '1.17.0.0', currentVersionApplicability: 'publisher-claimed; no independent gameplay verification',
@@ -89,7 +90,7 @@ export function buildRangedWeaponAudit() {
       aliases: [{ primary: 'Burst Gale Bow', secondary: 'Burst Gust Bow', normalizedId: 'burst-gale-bow', note: 'Shared Wind Bow variant relationship; preserve both labels.' }],
       excluded: ['Unused/mob-only definitions outside the hero display list'], exhaustiveRawGameIdClaim: false,
       rarityDifferences: entries.filter((entry) => entry.eventExclusive && entry.primaryRarity === 'Common').map((entry) => entry.id), secondaryNames: secondaryIds.map(alias) },
-    selection: { promotedIds: Object.keys(RANGED_WEAPONS), rationale: 'Two simple projectile archetypes: chargeable Bow and non-chargeable Crossbow. No Power curve or cadence inferred; requires explicit neutral observations.', powerFallback: false, independentMeasuredRuns: 0 }, entries }
+    selection: { promotedIds: Object.keys(RANGED_WEAPONS).filter(isRuntimeRangedWeapon), rationale: 'Bow/Crossbow plus four source-bound Existing Limited single-projectile reuses. New bows charged only; target neutral damage and complete cycle observations required. Native CDO values never supply runtime damage/cadence.', powerFallback: false, independentMeasuredRuns: 0 }, entries }
 }
 
 const families: Record<string, string[]> = {
@@ -148,10 +149,13 @@ export function collectRangedAuditErrors(weapons = buildRangedWeaponAudit(), enc
   }
   for (const entry of weapons.entries) {
     check(entry.supportLevel === (isRuntimeRangedWeapon(entry.id) ? 'limited' : 'research-only'), `${entry.id}: weapon support drift`)
-    check(entry.projectileCount === (isRuntimeRangedWeapon(entry.id) ? 1 : null) && entry.shotsPerSecond === null && entry.chargeTimeSeconds === null, `${entry.id}: invented projectile/cadence value`)
+    check(entry.projectileCount === (['bow', 'crossbow'].includes(entry.id) ? 1 : null) && entry.shotsPerSecond === null && entry.chargeTimeSeconds === null, `${entry.id}: invented projectile/cadence value`)
     check(!entry.sharedMechanicsProvenance.inheritsTiming && !entry.sharedMechanicsProvenance.inheritsEnchantRuntime, `${entry.id}: unsupported inheritance`)
   }
-  for (const id of Object.keys(RANGED_WEAPONS)) check(weapons.entries.some((entry) => entry.id === id), `missing runtime weapon ${id}`)
+  for (const id of Object.keys(RANGED_WEAPONS)) {
+    check(weapons.entries.some((entry) => entry.id === id), `missing runtime weapon ${id}`)
+    check(isRuntimeRangedWeapon(id), `${id}: unapproved runtime declaration`)
+  }
   for (const entry of enchants.entries) check(entry.supportLevel === (isRuntimeRangedEnchantment(entry.id) ? 'limited' : 'research-only') && JSON.stringify(entry.runtimeTiers) === JSON.stringify(RANGED_ENCHANTMENTS[entry.id]?.tiers ?? null), `${entry.id}: enchant support/tier drift`)
   for (const id of Object.keys(RANGED_ENCHANTMENTS)) check(enchants.entries.some((entry) => entry.id === id), `missing runtime enchant ${id}`)
   check(!weapons.population.exhaustiveRawGameIdClaim && !weapons.selection.powerFallback, 'Unsupported completeness/Power claim')

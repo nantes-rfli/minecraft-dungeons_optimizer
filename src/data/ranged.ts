@@ -1,3 +1,4 @@
+import { hasRangedReuseGrant } from '../core/rangedReuse.ts'
 import type { RangedShotMode } from '../core/rangedTypes'
 import type { EnchantmentTier, LocalizedName } from '../core/types'
 
@@ -9,6 +10,10 @@ export const RANGED_LIMITATIONS = [
 ] as const
 export const RANGED_WEAPONS: Readonly<Record<string, { readonly name: LocalizedName; readonly modes: readonly RangedShotMode[]; readonly supportLevel: 'limited'; readonly intrinsic: string }>> = {
   bow: { name: { ja: '弓', en: 'Bow' }, modes: ['uncharged', 'charged'], supportLevel: 'limited', intrinsic: '通常矢。チャージ段階ごとに観測値を分離。' },
+  shortbow: { name: { ja: '短弓', en: 'Shortbow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: '単一通常矢・フルチャージ限定。対象個体の観測damageと完全周期が必須。' },
+  longbow: { name: { ja: '長弓', en: 'Longbow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: 'Strong Charged Attacksは観測damageに含む。追加倍率を推定しない。' },
+  'power-bow': { name: { ja: '力の弓', en: 'Power Bow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: 'Strong Charged Attacksは観測damageに含む。追加倍率を推定しない。' },
+  'heavy-crossbow': { name: { ja: 'ヘビークロスボウ', en: 'Heavy Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Powerful Shotsは観測damageに含む。reload・飛翔速度から周期を推定しない。' },
   crossbow: { name: { ja: 'クロスボウ', en: 'Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Faster Projectilesは飛翔速度。発射周期の倍率には使わず、単体命中・飛翔時間なしの境界。' },
 }
 // Independent ranged definitions. No import of melee enchantment effects or attack profiles.
@@ -17,5 +22,5 @@ export const RANGED_ENCHANTMENTS: Readonly<Record<string, { readonly name: Local
   'critical-hit': { name: { ja: 'クリティカルヒット', en: 'Critical Hit' }, tiers: { 1: 0.1, 2: 0.15, 3: 0.2 }, kind: 'triple-hit-chance', sourceUrl: 'https://minecraft.wiki/w/Dungeons:Critical_Hit', supportLevel: 'limited', maxCopies: 1 },
   unchanting: { name: { ja: 'エンチャント解除', en: 'Unchanting' }, tiers: { 1: 0.5, 2: 0.75, 3: 1 }, kind: 'enchanted-bonus', sourceUrl: 'https://minecraft.wiki/w/Dungeons:Unchanting', supportLevel: 'limited', maxCopies: 1 },
 }
-export const isRuntimeRangedWeapon = (id: string) => Object.hasOwn(RANGED_WEAPONS, id)
+export const isRuntimeRangedWeapon = (id: string) => Object.hasOwn(RANGED_WEAPONS, id) && (id === 'bow' || id === 'crossbow' || hasRangedReuseGrant(id))
 export const isRuntimeRangedEnchantment = (id: string) => Object.hasOwn(RANGED_ENCHANTMENTS, id)

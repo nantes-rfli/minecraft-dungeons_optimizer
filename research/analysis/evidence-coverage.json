@@ -881,23 +881,23 @@
       "population": 71,
       "runtime": {
         "full": 0,
-        "limited": 2,
-        "researchOnly": 69,
+        "limited": 6,
+        "researchOnly": 65,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 81,
+        "total": 93,
         "evidenceBlocked": 3,
         "notImplemented": 1,
-        "unclassified": 77,
+        "unclassified": 89,
         "priorities": {
           "P0": 1,
           "P1": 2,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 77,
+        "unprioritized": 89,
         "p1EvidenceBlocked": 2
       },
       "sourceRefs": [
@@ -37920,7 +37920,7 @@
       "category": "ranged-weapon",
       "id": "heavy-crossbow",
       "label": "Heavy Crossbow",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -37938,9 +37938,9 @@
               "id": "heavy-crossbow",
               "name": {
                 "en": "Heavy Crossbow",
-                "ja": null
+                "ja": "ヘビークロスボウ"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": null,
               "variantOf": null,
               "family": "heavy-crossbow",
@@ -37982,7 +37982,7 @@
                 "families": [
                   "flat-modifier"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -38004,16 +38004,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:heavy-crossbow:runtime:0"
+        "ranged-weapon:heavy-crossbow:runtime:0",
+        "ranged-weapon:heavy-crossbow:runtime:1",
+        "ranged-weapon:heavy-crossbow:runtime:2",
+        "ranged-weapon:heavy-crossbow:runtime:3"
       ]
     },
     {
@@ -38429,7 +38435,7 @@
       "category": "ranged-weapon",
       "id": "longbow",
       "label": "Longbow",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -38447,9 +38453,9 @@
               "id": "longbow",
               "name": {
                 "en": "Longbow",
-                "ja": null
+                "ja": "長弓"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": null,
               "variantOf": null,
               "family": "longbow",
@@ -38491,7 +38497,7 @@
                 "families": [
                   "charge-modifier"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -38513,16 +38519,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:longbow:runtime:0"
+        "ranged-weapon:longbow:runtime:0",
+        "ranged-weapon:longbow:runtime:1",
+        "ranged-weapon:longbow:runtime:2",
+        "ranged-weapon:longbow:runtime:3"
       ]
     },
     {
@@ -39141,7 +39153,7 @@
       "category": "ranged-weapon",
       "id": "power-bow",
       "label": "Power Bow",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -39159,9 +39171,9 @@
               "id": "power-bow",
               "name": {
                 "en": "Power Bow",
-                "ja": null
+                "ja": "力の弓"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": null,
               "variantOf": null,
               "family": "power-bow",
@@ -39203,7 +39215,7 @@
                 "families": [
                   "charge-modifier"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -39225,16 +39237,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:power-bow:runtime:0"
+        "ranged-weapon:power-bow:runtime:0",
+        "ranged-weapon:power-bow:runtime:1",
+        "ranged-weapon:power-bow:runtime:2",
+        "ranged-weapon:power-bow:runtime:3"
       ]
     },
     {
@@ -40053,7 +40071,7 @@
       "category": "ranged-weapon",
       "id": "shortbow",
       "label": "Shortbow",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -40071,9 +40089,9 @@
               "id": "shortbow",
               "name": {
                 "en": "Shortbow",
-                "ja": null
+                "ja": "短弓"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": null,
               "variantOf": null,
               "family": "shortbow",
@@ -40111,7 +40129,7 @@
                 "own": [],
                 "inherited": [],
                 "families": [],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -40133,16 +40151,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:shortbow:runtime:0"
+        "ranged-weapon:shortbow:runtime:0",
+        "ranged-weapon:shortbow:runtime:1",
+        "ranged-weapon:shortbow:runtime:2",
+        "ranged-weapon:shortbow:runtime:3"
       ]
     },
     {
@@ -54372,12 +54396,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/28"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:heavy-crossbow:runtime:1",
+      "label": "Heavy Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:heavy-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/28"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:heavy-crossbow:runtime:2",
+      "label": "Heavy Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:heavy-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/28"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:heavy-crossbow:runtime:3",
+      "label": "Heavy Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:heavy-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/28"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:hunter-s-promise:runtime:0",
@@ -54467,12 +54548,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/33"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:longbow:runtime:1",
+      "label": "Longbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:longbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/33"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:longbow:runtime:2",
+      "label": "Longbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:longbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/33"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:longbow:runtime:3",
+      "label": "Longbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:longbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/33"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:love-spell-bow:runtime:0",
@@ -54600,12 +54738,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/40"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:power-bow:runtime:1",
+      "label": "Power Bow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:power-bow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/40"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:power-bow:runtime:2",
+      "label": "Power Bow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:power-bow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/40"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:power-bow:runtime:3",
+      "label": "Power Bow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:power-bow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/40"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:pride-of-the-piglins:runtime:0",
@@ -54771,12 +54966,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/49"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:shortbow:runtime:1",
+      "label": "Shortbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:shortbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/49"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:shortbow:runtime:2",
+      "label": "Shortbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:shortbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/49"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:shortbow:runtime:3",
+      "label": "Shortbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:shortbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/49"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:shrieking-crossbow:runtime:0",
@@ -55179,17 +55431,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 557,
+    "total": 569,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 525,
+    "unclassified": 537,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 531,
+    "unprioritized": 543,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {

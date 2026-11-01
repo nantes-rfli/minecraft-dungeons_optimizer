@@ -1,22 +1,29 @@
 #!/usr/bin/env python3
-"""Reproduce the main-based next-WU census; analysis only, never runtime inputs."""
+"""Verify the #219 planning census against its pinned historical input commit; never runtime inputs."""
 import argparse
 import gzip
 import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[3]
 OUTPUT = ROOT / 'research/native/next-work-unit-census.json'
 TARGETS = ['shortbow', 'longbow', 'power-bow', 'heavy-crossbow']
+BASELINE = 'e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a'
 
 
 def census():
     inputs = {}
 
     def read(path):
-        data = (ROOT / path).read_bytes()
+        # This artifact records the pre-expansion selection, not today's Runtime support.
+        # Read historical bytes so later intentional changes cannot falsify the census.
+        data = subprocess.run(
+            ['git', 'show', f'{BASELINE}:{path}'],
+            cwd=ROOT, check=True, stdout=subprocess.PIPE,
+        ).stdout
         inputs[path] = hashlib.sha256(data).hexdigest()
         return data
 
@@ -86,7 +93,7 @@ def census():
                     and all(p['kind'] in reusable_kinds for p in e['intrinsicProperties'])]
     return {
         'schemaVersion': 1, 'artifactKind': 'next-runtime-work-unit-selection-census',
-        'baselineCommit': 'e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a',
+        'baselineCommit': BASELINE,
         'status': 'planning-only', 'runtimePromotion': False, 'newCalculableEquipment': [],
         'population': {'melee': len(melee['weapons']), 'armor': len(armor['entries']),
                        'ranged': len(audit['entries']),

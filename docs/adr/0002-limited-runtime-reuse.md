@@ -54,3 +54,7 @@ Bで承認するならPR #208の対象runtimeは、観測Armor Health必須・Po
 Research Evidence → R3 decision → P3B promotionの既存契約と`research/runtime/runtime-promotion-manifest.json`、候補1/eligible0/promoted0は**一切変更しない**。Bの承認はPromotion eligibilityを増やさない。PR #208はDraftのまま、Architecture PR自身も自動mergeしない。両PRとも設計/実装の自己レビュー、第三者の独立レビュー、人間の承認を区別する。
 
 新規B実装時もruntime、support manifest、説明、coverage、testsを同じPRで整合させる。既存7 Armorの計算式、Evidence分類、counterは改変しない。
+
+## Ranged observed single-projectile reuse
+
+The [Ranged integration contract](../ranged-native-integration.md) adds a separate narrow validator for Shortbow, Longbow, Power Bow (charged only) and Heavy Crossbow (single). Grants bind target Formal Identity, configured projectile Value/Relation, reviewed Raw/Blueprint scope, published intrinsic facts and game version. Target observation supplies neutral damage/complete cycle; Native baselines/settings are not runtime numeric inputs. All existing Ranged exclusions remain. This is a bounded extension reviewed with its implementation, not an expansion of the Armor validator or a New Mechanic Promotion.

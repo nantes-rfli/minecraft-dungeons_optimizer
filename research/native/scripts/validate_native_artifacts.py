@@ -56,6 +56,12 @@ def resolve_repo_ref(value: str, where: str) -> Path:
 
 
 def main() -> None:
+    import subprocess
+    import sys
+    subprocess.run(['node', str(NATIVE / 'scripts/refresh_ranged_catalog_input.ts')], check=True)
+    subprocess.run([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', str(NATIVE / 'scripts'), '-p', 'test_ranged_integration.py'], check=True)
+    subprocess.run([sys.executable, '-B', str(NATIVE / 'scripts/check_ranged_integration.py')], check=True)
+    subprocess.run([sys.executable, '-B', str(NATIVE / 'scripts/build_ranged_domain.py')], check=True)
     inventory = read_json("native-source-inventory.json")
     prior_art = read_json("external-prior-art.json")
     architecture = read_json("native-architecture.json")

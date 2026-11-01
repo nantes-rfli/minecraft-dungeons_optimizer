@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a",
+  "reason": "Ranged support/labels changed; complete Raw seed catalog projection is identical",
+  "catalogItems": 271,
+  "unchangedCatalogProjectionSha256": "47063be7147affc067d44de9196b4c4044ee53e95f2f42dede1f5168bdd9cba7",
+  "changedInput": "research/ranged-weapon-audit.json",
+  "previousInputIdentity": {
+    "algorithm": "sha256-path-content-v1",
+    "value": "27e93f30b857335f468fe64f2488477d2ad348ef03ac28ec1904e7efb4866976",
+    "files": [
+      {
+        "path": "generated/equipment-icons/manifest.json",
+        "sha256": "ad00a690520eba4679314fd42e5ef5ea6805b2bd27d2c9ba311a07f31692847e"
+      },
+      {
+        "path": "research/armor-audit.json",
+        "sha256": "1dc1f5027be4ddc39450cd276ff5204a43d799a57d3b032d863936c9ebfebdc3"
+      },
+      {
+        "path": "research/artifact-audit.json",
+        "sha256": "ece9c342b2f7b2ae3a96606c05c34b50a039e96fc99b91807af24ea2a37602e7"
+      },
+      {
+        "path": "research/melee-attack-profile-audit.json",
+        "sha256": "811848e0e1d8270bce9ebbee001b3fdb1069cfd5399a0772e7918808cc1adc45"
+      },
+      {
+        "path": "research/ranged-weapon-audit.json",
+        "sha256": "0019d072aed43c87c4b57378e2bc1edcb0dc8bcda937e2684d948f6fd1091cd8"
+      },
+      {
+        "path": "research/raw/game-data-asset-index.json",
+        "sha256": "5b6ca1beda56bd7b8324af4938eae93ce77464ee7c0119eb7cacbd7d865d3d73"
+      }
+    ]
+  },
+  "refreshedInputIdentity": {
+    "algorithm": "sha256-path-content-v1",
+    "value": "e64be46641dfc85f0e6806e763f5c390fa9c51b81acc3054543c014913a0e12d",
+    "files": [
+      {
+        "path": "generated/equipment-icons/manifest.json",
+        "sha256": "ad00a690520eba4679314fd42e5ef5ea6805b2bd27d2c9ba311a07f31692847e"
+      },
+      {
+        "path": "research/armor-audit.json",
+        "sha256": "1dc1f5027be4ddc39450cd276ff5204a43d799a57d3b032d863936c9ebfebdc3"
+      },
+      {
+        "path": "research/artifact-audit.json",
+        "sha256": "ece9c342b2f7b2ae3a96606c05c34b50a039e96fc99b91807af24ea2a37602e7"
+      },
+      {
+        "path": "research/melee-attack-profile-audit.json",
+        "sha256": "811848e0e1d8270bce9ebbee001b3fdb1069cfd5399a0772e7918808cc1adc45"
+      },
+      {
+        "path": "research/ranged-weapon-audit.json",
+        "sha256": "f15a97e37211131b42cafb2987ace22567b936b3f6fc80d9dfa5dd341cb6f7c1"
+      },
+      {
+        "path": "research/raw/game-data-asset-index.json",
+        "sha256": "5b6ca1beda56bd7b8324af4938eae93ce77464ee7c0119eb7cacbd7d865d3d73"
+      }
+    ]
+  },
+  "parserCodeIdentityUnchanged": true,
+  "rawShardsUnchanged": true,
+  "privateReparse": false
+}

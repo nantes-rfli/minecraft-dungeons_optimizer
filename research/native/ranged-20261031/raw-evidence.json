@@ -1,0 +1,4570 @@
+[
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+    "index": 34,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uasset",
+        "size": 8095,
+        "sha256": "76868e5d9cc842842f8a45f5b9f4012027d4cc3e90b649876cf6385da733b3a1"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uexp",
+        "size": 11454,
+        "sha256": "da74f42c2199caa98a52eff60d3ae74817cb8f52695d5d5fd39316ee46c991f6"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_Bow_C",
+        "hops": [
+          {
+            "edgeId": "5ef447b7a83b9cd5a6db8cce",
+            "targetObject": "/Script/Dungeons.GearActor",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -7
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_Bow_C",
+        "path": "Paperdoll",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uexp",
+          "start": 186,
+          "end": 190
+        },
+        "hex": "08000000"
+      },
+      {
+        "cdo": "Default__BP_Bow_C",
+        "path": "SlotType",
+        "type": "EnumProperty",
+        "value": "ESlotType::RangedWeapon",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uexp",
+          "start": 223,
+          "end": 231
+        },
+        "hex": "5100000000000000"
+      },
+      {
+        "cdo": "Default__BP_Bow_C",
+        "path": "PrimaryActorTick.bAllowTickOnDedicatedServer",
+        "type": "BoolProperty",
+        "value": false,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uexp",
+          "start": 306,
+          "end": 306
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_Bow_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_Bow.uexp",
+          "start": 339,
+          "end": 343
+        },
+        "hex": "08000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+    "index": 35,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uasset",
+        "size": 7699,
+        "sha256": "5eb412f6940fe0164c30862faa1c432a79c561d95e81208a612ed650895b068f"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+        "size": 4020,
+        "sha256": "f1443404e67e0669901a8fef94b8a137d28067a8d998adc1cb4f6e60ca56b472"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowArrow_C",
+        "hops": [
+          {
+            "edgeId": "96b4910dd21b8e825b9cbea4",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Arrow",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "ArrowChargedWhooshHeavy",
+        "type": "StrProperty",
+        "value": "SoundCue'/Game/AudioForce/04_playback_soundCue/04_sfx_item_arrow/sfx_item_arrowChargedWhooshHeavy.sfx_item_arrowChargedWhooshHeavy'",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 366,
+          "end": 502
+        },
+        "hex": "84000000536f756e64437565272f47616d652f417564696f466f7263652f30345f706c61796261636b5f736f756e644375652f30345f7366785f6974656d5f6172726f772f7366785f6974656d5f6172726f774368617267656457686f6f736848656176792e7366785f6974656d5f6172726f774368617267656457686f6f736848656176792700"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "ChargedWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "sfx_item_arrowChargedWhooshHeavy",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 527,
+          "end": 531
+        },
+        "hex": "d3ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "NormalImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -47,
+          "kind": "import",
+          "index": 46,
+          "objectName": "sfx_item_bowArrowImpactNormal",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 556,
+          "end": 560
+        },
+        "hex": "d1ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "ChargedImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -46,
+          "kind": "import",
+          "index": 45,
+          "objectName": "sfx_item_bowArrowImpactCharged",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 585,
+          "end": 589
+        },
+        "hex": "d2ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "pushback.enablePushback",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 664,
+          "end": 664
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 10,
+          "kind": "export",
+          "index": 9,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 697,
+          "end": 701
+        },
+        "hex": "0a000000"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "IgnoreFriendlyFire",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 727,
+          "end": 727
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "HomingThreshold",
+        "type": "FloatProperty",
+        "value": 150,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 752,
+          "end": 756
+        },
+        "hex": "00001643"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 12,
+          "kind": "export",
+          "index": 11,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 781,
+          "end": 785
+        },
+        "hex": "0c000000"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "damage",
+        "type": "FloatProperty",
+        "value": 50,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 810,
+          "end": 814
+        },
+        "hex": "00004842"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "RemoteRole",
+        "type": "ByteProperty",
+        "value": "ROLE_None",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 847,
+          "end": 855
+        },
+        "hex": "6a00000000000000"
+      },
+      {
+        "cdo": "Default__BP_BowArrow_C",
+        "path": "InitialLifeSpan",
+        "type": "FloatProperty",
+        "value": 20,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.uexp",
+          "start": 880,
+          "end": 884
+        },
+        "hex": "0000a041"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+    "index": 36,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uasset",
+        "size": 5892,
+        "sha256": "d76b0406234db03a8ba2759358329c656d97fe310657ebacb50a66ae4663712b"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+        "size": 1869,
+        "sha256": "cdadefb52493639c71bf00591268897c85573df496449aa648d575b3c283fe7b"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowInstance_C",
+        "hops": [
+          {
+            "edgeId": "d44bc82793cad6f46e66f3f7",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "rawPackageIndex": -4
+          },
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.Animation",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Player_Bow_Charge_Montage",
+          "className": "AnimMontage"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 179,
+          "end": 183
+        },
+        "hex": "ffffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_BowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 294,
+          "end": 298
+        },
+        "hex": "fdffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "type": "IntProperty",
+        "value": 1,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 323,
+          "end": 327
+        },
+        "hex": "01000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 352,
+          "end": 356
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 381,
+          "end": 385
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 410,
+          "end": 414
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 439,
+          "end": 443
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 468,
+          "end": 472
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 498,
+          "end": 498
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "type": "StructProperty",
+        "value": {
+          "X": 25,
+          "Y": -5,
+          "Z": 25
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 547,
+          "end": 559
+        },
+        "hex": "0000c8410000a0c00000c841"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.AttackRateSeconds",
+        "type": "FloatProperty",
+        "value": 0.41999998688697815,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 592,
+          "end": 596
+        },
+        "hex": "3d0ad73e"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ChargeTimeSecond",
+        "type": "FloatProperty",
+        "value": 0.3499999940395355,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 621,
+          "end": 625
+        },
+        "hex": "3333b33e"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AttackDefintion.ChargeDamageMultiplier",
+        "type": "FloatProperty",
+        "value": 2.5,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 650,
+          "end": 654
+        },
+        "hex": "00002040"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "ProjectileStackCount",
+        "type": "IntProperty",
+        "value": 60,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 687,
+          "end": 691
+        },
+        "hex": "3c000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[0].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowFireNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 802,
+          "end": 828
+        },
+        "hex": "1600000042505f426f77466972654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[0].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "sfx_item_shootBow",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 853,
+          "end": 857
+        },
+        "hex": "d3ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[1].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeShotNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 890,
+          "end": 922
+        },
+        "hex": "1c00000042505f426f7743686172676553686f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[1].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -46,
+          "kind": "import",
+          "index": 45,
+          "objectName": "sfx_item_shootBowCharged",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 947,
+          "end": 951
+        },
+        "hex": "d2ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[2].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 984,
+          "end": 1012
+        },
+        "hex": "1800000042505f426f774368617267654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[2].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -40,
+          "kind": "import",
+          "index": 39,
+          "objectName": "sfx_item_bowCharge",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1037,
+          "end": 1041
+        },
+        "hex": "d8ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[3].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeFastNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1074,
+          "end": 1106
+        },
+        "hex": "1c00000042505f426f77436861726765466173744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[3].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -41,
+          "kind": "import",
+          "index": 40,
+          "objectName": "sfx_item_bowChargedFast",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1131,
+          "end": 1135
+        },
+        "hex": "d7ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[4].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1168,
+          "end": 1194
+        },
+        "hex": "1600000042505f426f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[4].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -42,
+          "kind": "import",
+          "index": 41,
+          "objectName": "sfx_item_bowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1219,
+          "end": 1223
+        },
+        "hex": "d6ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[5].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1256,
+          "end": 1287
+        },
+        "hex": "1b00000042505f43726f7373626f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[5].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -43,
+          "kind": "import",
+          "index": 42,
+          "objectName": "sfx_item_crossbowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1312,
+          "end": 1316
+        },
+        "hex": "d5ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[6].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowShootNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1349,
+          "end": 1381
+        },
+        "hex": "1c00000042505f43726f7373626f7753686f6f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "AnimNotifyStateData[6].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -44,
+          "kind": "import",
+          "index": 43,
+          "objectName": "sfx_item_crossbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1406,
+          "end": 1410
+        },
+        "hex": "d4ffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "GearActor",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -2,
+          "kind": "import",
+          "index": 1,
+          "objectName": "BP_Bow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1443,
+          "end": 1447
+        },
+        "hex": "feffffff"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "InventoryDropSound",
+        "type": "SoftObjectProperty",
+        "value": {
+          "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_bowPlace.sfx_item_bowPlace",
+          "subPathString": ""
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1472,
+          "end": 1484
+        },
+        "hex": "0d0000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "ItemIdName",
+        "type": "NameProperty",
+        "value": "Bow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1509,
+          "end": 1517
+        },
+        "hex": "1c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "ItemId.SerializedId",
+        "type": "NameProperty",
+        "value": "Bow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1591,
+          "end": 1599
+        },
+        "hex": "1c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_BowInstance_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowInstance.uexp",
+          "start": 1632,
+          "end": 1636
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-022.json.gz",
+    "index": 44,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uasset",
+        "size": 8196,
+        "sha256": "dae14e2aadda482116821f94a8fd2577d065abb1181871810f02ec35e02750dc"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+        "size": 1159,
+        "sha256": "c881c282b17305e742ba6ce0e4c663f743591eafc9c60e24ffcc38d28d6c15d5"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_ArrowBaseRangedWeapon_C",
+        "hops": [
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[0].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowFireNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 281,
+          "end": 307
+        },
+        "hex": "1600000042505f426f77466972654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[0].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -107,
+          "kind": "import",
+          "index": 106,
+          "objectName": "sfx_item_shootBow",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 332,
+          "end": 336
+        },
+        "hex": "95ffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[1].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeShotNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 369,
+          "end": 401
+        },
+        "hex": "1c00000042505f426f7743686172676553686f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[1].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -106,
+          "kind": "import",
+          "index": 105,
+          "objectName": "sfx_item_longbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 426,
+          "end": 430
+        },
+        "hex": "96ffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[2].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 463,
+          "end": 491
+        },
+        "hex": "1800000042505f426f774368617267654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[2].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -101,
+          "kind": "import",
+          "index": 100,
+          "objectName": "sfx_item_bowCharge",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 516,
+          "end": 520
+        },
+        "hex": "9bffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[3].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeFastNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 553,
+          "end": 585
+        },
+        "hex": "1c00000042505f426f77436861726765466173744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[3].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -102,
+          "kind": "import",
+          "index": 101,
+          "objectName": "sfx_item_bowChargedFast",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 610,
+          "end": 614
+        },
+        "hex": "9affffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[4].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 647,
+          "end": 673
+        },
+        "hex": "1600000042505f426f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[4].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -103,
+          "kind": "import",
+          "index": 102,
+          "objectName": "sfx_item_bowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 698,
+          "end": 702
+        },
+        "hex": "99ffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[5].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 735,
+          "end": 766
+        },
+        "hex": "1b00000042505f43726f7373626f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[5].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -104,
+          "kind": "import",
+          "index": 103,
+          "objectName": "sfx_item_crossbowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 791,
+          "end": 795
+        },
+        "hex": "98ffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[6].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowShootNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 828,
+          "end": 860
+        },
+        "hex": "1c00000042505f43726f7373626f7753686f6f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "AnimNotifyStateData[6].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -105,
+          "kind": "import",
+          "index": 104,
+          "objectName": "sfx_item_crossbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 885,
+          "end": 889
+        },
+        "hex": "97ffffff"
+      },
+      {
+        "cdo": "Default__BP_ArrowBaseRangedWeapon_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.uexp",
+          "start": 922,
+          "end": 926
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+    "index": 63,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow.uasset",
+        "size": 7845,
+        "sha256": "68470a4cc22ff43dfef8500f10b9198ba73645654d1f82a31baacbabdc1d8248"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow.uexp",
+        "size": 11725,
+        "sha256": "d1e8accf6f947a292d9a542cb1a2ab6e7db3559fc223b1c3ca3ebc300c5ac305"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_HeavyCrossbow_C",
+        "hops": [
+          {
+            "edgeId": "a64fb8a375d4546ce830e8a5",
+            "targetObject": "/Script/Dungeons.GearActor",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -6
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_HeavyCrossbow_C",
+        "path": "Paperdoll",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow.uexp",
+          "start": 186,
+          "end": 190
+        },
+        "hex": "08000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_C",
+        "path": "SlotType",
+        "type": "EnumProperty",
+        "value": "ESlotType::RangedWeapon",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow.uexp",
+          "start": 223,
+          "end": 231
+        },
+        "hex": "4a00000000000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow.uexp",
+          "start": 256,
+          "end": 260
+        },
+        "hex": "08000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+    "index": 0,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uasset",
+        "size": 8574,
+        "sha256": "c023c3b862d6ea994cb6550f1c7aafa310fe27c06e28f07aff14fb4fd800d764"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+        "size": 3765,
+        "sha256": "e70d8c2da591c11d20cef3d1dcfb8c04ccbe5fa1acf79cf6c8bf2fcd4b53a84d"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_HeavyCrossbow_Arrow_C",
+        "hops": [
+          {
+            "edgeId": "c01c51aba34b7d16bfaf3876",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Arrow",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+            "rawPackageIndex": -3
+          },
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "NormalWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -50,
+          "kind": "import",
+          "index": 49,
+          "objectName": "sfx_item_heavyCrossbowArrows",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 370,
+          "end": 374
+        },
+        "hex": "ceffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "ChargedWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -50,
+          "kind": "import",
+          "index": 49,
+          "objectName": "sfx_item_heavyCrossbowArrows",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 399,
+          "end": 403
+        },
+        "hex": "ceffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "NormalImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -49,
+          "kind": "import",
+          "index": 48,
+          "objectName": "sfx_item_heavyCrossbowArrowImpactNormal",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 428,
+          "end": 432
+        },
+        "hex": "cfffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "ChargedImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -48,
+          "kind": "import",
+          "index": 47,
+          "objectName": "sfx_item_heavyCrossbowArrowImpactChargred",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 457,
+          "end": 461
+        },
+        "hex": "d0ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "pushback.enablePushback",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 536,
+          "end": 536
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "pushback.pushbackStrength",
+        "type": "FloatProperty",
+        "value": 3.5,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 561,
+          "end": 565
+        },
+        "hex": "00006040"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 5,
+          "kind": "export",
+          "index": 4,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 598,
+          "end": 602
+        },
+        "hex": "05000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 14,
+          "kind": "export",
+          "index": 13,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 627,
+          "end": 631
+        },
+        "hex": "0e000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "damage",
+        "type": "FloatProperty",
+        "value": 50,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 656,
+          "end": 660
+        },
+        "hex": "00004842"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbow_Arrow_C",
+        "path": "RemoteRole",
+        "type": "ByteProperty",
+        "value": "ROLE_None",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbow_Arrow.uexp",
+          "start": 693,
+          "end": 701
+        },
+        "hex": "6c00000000000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+    "index": 1,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uasset",
+        "size": 6215,
+        "sha256": "5ffcee2d6b1ac92b8b480aa58de7e899e83526d9669c3606ffabeca6b1eb396b"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+        "size": 1869,
+        "sha256": "eb02271dfbc78833ec01c68b704d431866d3b1b8ea09ef99798e788e4ebf9d6c"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_HeavyCrossbowInstance_C",
+        "hops": [
+          {
+            "edgeId": "12ceb4ac4577ee45b497d91f",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "rawPackageIndex": -3
+          },
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.Animation",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Player_Crossbow_Repeating_Montage",
+          "className": "AnimMontage"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 179,
+          "end": 183
+        },
+        "hex": "ffffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_HeavyCrossbow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 294,
+          "end": 298
+        },
+        "hex": "fbffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "type": "IntProperty",
+        "value": 1,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 323,
+          "end": 327
+        },
+        "hex": "01000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 352,
+          "end": 356
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 381,
+          "end": 385
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 410,
+          "end": 414
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 439,
+          "end": 443
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 468,
+          "end": 472
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 498,
+          "end": 498
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "type": "StructProperty",
+        "value": {
+          "X": 0,
+          "Y": 0,
+          "Z": 0
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 547,
+          "end": 559
+        },
+        "hex": "000000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ActiveCancelPorintFactor",
+        "type": "FloatProperty",
+        "value": 0.5,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 592,
+          "end": 596
+        },
+        "hex": "0000003f"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileVelocityFactor",
+        "type": "FloatProperty",
+        "value": 2.25,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 621,
+          "end": 625
+        },
+        "hex": "00001040"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AttackDefintion.ProjectileDamageFactor",
+        "type": "FloatProperty",
+        "value": 2.700000047683716,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 650,
+          "end": 654
+        },
+        "hex": "cdcc2c40"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "ProjectileStackCount",
+        "type": "IntProperty",
+        "value": 15,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 687,
+          "end": 691
+        },
+        "hex": "0f000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[0].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowFireNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 802,
+          "end": 828
+        },
+        "hex": "1600000042505f426f77466972654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[0].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -47,
+          "kind": "import",
+          "index": 46,
+          "objectName": "sfx_item_shootBow",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 853,
+          "end": 857
+        },
+        "hex": "d1ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[1].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeShotNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 890,
+          "end": 922
+        },
+        "hex": "1c00000042505f426f7743686172676553686f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[1].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -46,
+          "kind": "import",
+          "index": 45,
+          "objectName": "sfx_item_longbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 947,
+          "end": 951
+        },
+        "hex": "d2ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[2].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 984,
+          "end": 1012
+        },
+        "hex": "1800000042505f426f774368617267654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[2].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -41,
+          "kind": "import",
+          "index": 40,
+          "objectName": "sfx_item_bowCharge",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1037,
+          "end": 1041
+        },
+        "hex": "d7ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[3].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeFastNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1074,
+          "end": 1106
+        },
+        "hex": "1c00000042505f426f77436861726765466173744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[3].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -42,
+          "kind": "import",
+          "index": 41,
+          "objectName": "sfx_item_bowChargedFast",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1131,
+          "end": 1135
+        },
+        "hex": "d6ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[4].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1168,
+          "end": 1194
+        },
+        "hex": "1600000042505f426f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[4].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -43,
+          "kind": "import",
+          "index": 42,
+          "objectName": "sfx_item_bowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1219,
+          "end": 1223
+        },
+        "hex": "d5ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[5].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1256,
+          "end": 1287
+        },
+        "hex": "1b00000042505f43726f7373626f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[5].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -44,
+          "kind": "import",
+          "index": 43,
+          "objectName": "sfx_item_heavyCrossbowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1312,
+          "end": 1316
+        },
+        "hex": "d4ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[6].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowShootNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1349,
+          "end": 1381
+        },
+        "hex": "1c00000042505f43726f7373626f7753686f6f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "AnimNotifyStateData[6].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "sfx_item_heavyCrossBowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1406,
+          "end": 1410
+        },
+        "hex": "d3ffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "GearActor",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_HeavyCrossbow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1443,
+          "end": 1447
+        },
+        "hex": "fcffffff"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "InventoryDropSound",
+        "type": "SoftObjectProperty",
+        "value": {
+          "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_heavyCrossbowPlace.sfx_item_heavyCrossbowPlace",
+          "subPathString": ""
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1472,
+          "end": 1484
+        },
+        "hex": "0d0000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "ItemIdName",
+        "type": "NameProperty",
+        "value": "HeavyCrossbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1509,
+          "end": 1517
+        },
+        "hex": "3600000000000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "ItemId.SerializedId",
+        "type": "NameProperty",
+        "value": "HeavyCrossbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1591,
+          "end": 1599
+        },
+        "hex": "3600000000000000"
+      },
+      {
+        "cdo": "Default__BP_HeavyCrossbowInstance_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/HeavyCrossbow/BP_HeavyCrossbowInstance.uexp",
+          "start": 1632,
+          "end": 1636
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+    "index": 62,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow.uasset",
+        "size": 7899,
+        "sha256": "92e5ba9af4d22e3b9aedbd5a413193b1fc6b44a015b729b78ccd36c14a85b7d1"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow.uexp",
+        "size": 11782,
+        "sha256": "78d7f23a155b2e3b90c0000c4e4d394fe0a5512740df0fb79f2f8553ad86196c"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_Longbow_C",
+        "hops": [
+          {
+            "edgeId": "57f18f1894a0914f06dac246",
+            "targetObject": "/Script/Dungeons.GearActor",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -7
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_Longbow_C",
+        "path": "Paperdoll",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow.uexp",
+          "start": 186,
+          "end": 190
+        },
+        "hex": "08000000"
+      },
+      {
+        "cdo": "Default__BP_Longbow_C",
+        "path": "SlotType",
+        "type": "EnumProperty",
+        "value": "ESlotType::RangedWeapon",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow.uexp",
+          "start": 223,
+          "end": 231
+        },
+        "hex": "4c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_Longbow_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_Longbow.uexp",
+          "start": 256,
+          "end": 260
+        },
+        "hex": "08000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-024.json.gz",
+    "index": 63,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uasset",
+        "size": 8062,
+        "sha256": "bfc175cbda3704cc9830b0fe8d26d97d634cc5dc7eec2e4e036dcb6f07682338"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+        "size": 4004,
+        "sha256": "7124f89c9f05ca8b4e6b4ee08d9e07c7f3f7b17e7f34e9baf5f4d48aadad9bd0"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_LongBowArrow_C",
+        "hops": [
+          {
+            "edgeId": "30a510d9fedf550afd0d33bf",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Arrow",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "ChargedWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -48,
+          "kind": "import",
+          "index": 47,
+          "objectName": "sfx_item_arrowChargedWhooshHeavy",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 378,
+          "end": 382
+        },
+        "hex": "d0ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "NormalImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -50,
+          "kind": "import",
+          "index": 49,
+          "objectName": "sfx_item_bowArrowImpactNormal",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 407,
+          "end": 411
+        },
+        "hex": "ceffffff"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "ChargedImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -49,
+          "kind": "import",
+          "index": 48,
+          "objectName": "sfx_item_bowArrowImpactCharged",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 436,
+          "end": 440
+        },
+        "hex": "cfffffff"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "pushback.enablePushback",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 515,
+          "end": 515
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "pushback.pushbackStrength",
+        "type": "FloatProperty",
+        "value": 0.30000001192092896,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 540,
+          "end": 544
+        },
+        "hex": "9a99993e"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 12,
+          "kind": "export",
+          "index": 11,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 577,
+          "end": 581
+        },
+        "hex": "0c000000"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "IgnoreFriendlyFire",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 607,
+          "end": 607
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "HomingThreshold",
+        "type": "FloatProperty",
+        "value": 150,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 632,
+          "end": 636
+        },
+        "hex": "00001643"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 13,
+          "kind": "export",
+          "index": 12,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 661,
+          "end": 665
+        },
+        "hex": "0d000000"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "damage",
+        "type": "FloatProperty",
+        "value": 50,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 690,
+          "end": 694
+        },
+        "hex": "00004842"
+      },
+      {
+        "cdo": "Default__BP_LongBowArrow_C",
+        "path": "RemoteRole",
+        "type": "ByteProperty",
+        "value": "ROLE_None",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongBowArrow.uexp",
+          "start": 727,
+          "end": 735
+        },
+        "hex": "6c00000000000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 0,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uasset",
+        "size": 5861,
+        "sha256": "35ed5c2cf1a851cb226d4fe0a8e81fe9a0778f0f8be95a724ac285701c13dbf8"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+        "size": 1927,
+        "sha256": "9e301fbb386d5c7ec672771a7d1fdb44b89e6ce1f3635080fdd5bc95a1ad0e3c"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_LongbowInstance_C",
+        "hops": [
+          {
+            "edgeId": "8adf1c95218a9a83193c114f",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.Animation",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Player_Bow_Charge_Montage",
+          "className": "AnimMontage"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 179,
+          "end": 183
+        },
+        "hex": "ffffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_LongBowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 294,
+          "end": 298
+        },
+        "hex": "fcffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "type": "IntProperty",
+        "value": 1,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 323,
+          "end": 327
+        },
+        "hex": "01000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 352,
+          "end": 356
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 381,
+          "end": 385
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 410,
+          "end": 414
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 439,
+          "end": 443
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 468,
+          "end": 472
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 498,
+          "end": 498
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "type": "StructProperty",
+        "value": {
+          "X": 25,
+          "Y": -5,
+          "Z": 25
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 547,
+          "end": 559
+        },
+        "hex": "0000c8410000a0c00000c841"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.AttackRateSeconds",
+        "type": "FloatProperty",
+        "value": 0.41999998688697815,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 592,
+          "end": 596
+        },
+        "hex": "3d0ad73e"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ChargeTimeSecond",
+        "type": "FloatProperty",
+        "value": 0.3499999940395355,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 621,
+          "end": 625
+        },
+        "hex": "3333b33e"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ChargeDamageMultiplier",
+        "type": "FloatProperty",
+        "value": 3,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 650,
+          "end": 654
+        },
+        "hex": "00004040"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileVelocityFactor",
+        "type": "FloatProperty",
+        "value": 1.125,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 679,
+          "end": 683
+        },
+        "hex": "0000903f"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AttackDefintion.ProjectileDamageFactor",
+        "type": "FloatProperty",
+        "value": 1.2000000476837158,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 708,
+          "end": 712
+        },
+        "hex": "9a99993f"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "ProjectileStackCount",
+        "type": "IntProperty",
+        "value": 40,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 745,
+          "end": 749
+        },
+        "hex": "28000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[0].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowFireNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 860,
+          "end": 886
+        },
+        "hex": "1600000042505f426f77466972654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[0].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -44,
+          "kind": "import",
+          "index": 43,
+          "objectName": "sfx_item_longbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 911,
+          "end": 915
+        },
+        "hex": "d4ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[1].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeShotNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 948,
+          "end": 980
+        },
+        "hex": "1c00000042505f426f7743686172676553686f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[1].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -44,
+          "kind": "import",
+          "index": 43,
+          "objectName": "sfx_item_longbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1005,
+          "end": 1009
+        },
+        "hex": "d4ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[2].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1042,
+          "end": 1070
+        },
+        "hex": "1800000042505f426f774368617267654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[2].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -39,
+          "kind": "import",
+          "index": 38,
+          "objectName": "sfx_item_bowCharge",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1095,
+          "end": 1099
+        },
+        "hex": "d9ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[3].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeFastNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1132,
+          "end": 1164
+        },
+        "hex": "1c00000042505f426f77436861726765466173744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[3].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -40,
+          "kind": "import",
+          "index": 39,
+          "objectName": "sfx_item_bowChargedFast",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1189,
+          "end": 1193
+        },
+        "hex": "d8ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[4].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1226,
+          "end": 1252
+        },
+        "hex": "1600000042505f426f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[4].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -41,
+          "kind": "import",
+          "index": 40,
+          "objectName": "sfx_item_bowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1277,
+          "end": 1281
+        },
+        "hex": "d7ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[5].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1314,
+          "end": 1345
+        },
+        "hex": "1b00000042505f43726f7373626f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[5].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -42,
+          "kind": "import",
+          "index": 41,
+          "objectName": "sfx_item_crossbowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1370,
+          "end": 1374
+        },
+        "hex": "d6ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[6].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowShootNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1407,
+          "end": 1439
+        },
+        "hex": "1c00000042505f43726f7373626f7753686f6f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "AnimNotifyStateData[6].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -43,
+          "kind": "import",
+          "index": 42,
+          "objectName": "sfx_item_crossbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1464,
+          "end": 1468
+        },
+        "hex": "d5ffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "GearActor",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_Longbow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1501,
+          "end": 1505
+        },
+        "hex": "fdffffff"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "InventoryDropSound",
+        "type": "SoftObjectProperty",
+        "value": {
+          "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_longbowPlace.sfx_item_longbowPlace",
+          "subPathString": ""
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1530,
+          "end": 1542
+        },
+        "hex": "0c0000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "ItemIdName",
+        "type": "NameProperty",
+        "value": "Longbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1567,
+          "end": 1575
+        },
+        "hex": "3c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "ItemId.SerializedId",
+        "type": "NameProperty",
+        "value": "Longbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1649,
+          "end": 1657
+        },
+        "hex": "3c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_LongbowInstance_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/LongBow/BP_LongbowInstance.uexp",
+          "start": 1690,
+          "end": 1694
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeFastNotifyState",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 7,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeFastNotifyState.uasset",
+        "size": 1147,
+        "sha256": "2cca316b434af772010b12c82f4a8da9ac3692940e56e2d6e183cd5700f7d7bd"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeFastNotifyState.uexp",
+        "size": 88,
+        "sha256": "5293846243419e100575b07c9f3db8e5f2b1197420adf4880249174ecb306768"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowChargeFastNotifyState_C",
+        "hops": [
+          {
+            "edgeId": "df4ff100c1fd9e3b2f1e364c",
+            "targetObject": "/Script/Dungeons.BaseRangedWeaponAnimNotifyState",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -4
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": []
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeNotifyState",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 8,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeNotifyState.uasset",
+        "size": 1135,
+        "sha256": "8be7c089f812c16deebbd764dc5834efe0a263d38faa8bf7d1539fb7b528df49"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeNotifyState.uexp",
+        "size": 88,
+        "sha256": "5293846243419e100575b07c9f3db8e5f2b1197420adf4880249174ecb306768"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowChargeNotifyState_C",
+        "hops": [
+          {
+            "edgeId": "369f27aa9360ad7ebd6a7984",
+            "targetObject": "/Script/Dungeons.BaseRangedWeaponAnimNotifyState",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -4
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": []
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeShotNotifyState",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 9,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeShotNotifyState.uasset",
+        "size": 1147,
+        "sha256": "e4d022416dd50db0da7f35f396b585b9f67cf14c329227eeba24f4935a0722e7"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowChargeShotNotifyState.uexp",
+        "size": 88,
+        "sha256": "5293846243419e100575b07c9f3db8e5f2b1197420adf4880249174ecb306768"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowChargeShotNotifyState_C",
+        "hops": [
+          {
+            "edgeId": "d74092cfde0f4d61fd722075",
+            "targetObject": "/Script/Dungeons.BaseRangedWeaponAnimNotifyState",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -4
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": []
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowFireNotifyState",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 10,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowFireNotifyState.uasset",
+        "size": 2452,
+        "sha256": "f11bdc6d798c7cd5db2d6025d561e0c8aaf5b65f25c86cc9dfb9c1c6ee514743"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowFireNotifyState.uexp",
+        "size": 312,
+        "sha256": "e667895fe267004c58791b9e42b0abc079bdd873d1ec6f091f265eed90540bf5"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowFireNotifyState_C",
+        "hops": [
+          {
+            "edgeId": "e2a8d802e707277eef14e6e3",
+            "targetObject": "/Script/Dungeons.BaseRangedWeaponAnimNotifyState",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -9
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": []
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowLoadNotifyState",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 11,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowLoadNotifyState.uasset",
+        "size": 1129,
+        "sha256": "f9d0be9be0a14fa6c8b7d6f8b77f3c4911e43bdf66245d5eff8c037401b39227"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Notifies/Bow/BP_BowLoadNotifyState.uexp",
+        "size": 88,
+        "sha256": "5293846243419e100575b07c9f3db8e5f2b1197420adf4880249174ecb306768"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_BowLoadNotifyState_C",
+        "hops": [
+          {
+            "edgeId": "80f37c2acaa302f76b3c4e8f",
+            "targetObject": "/Script/Dungeons.BaseRangedWeaponAnimNotifyState",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -4
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": []
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 45,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uasset",
+        "size": 8195,
+        "sha256": "79da09fcadf5c385fa6677b5ff1c748a671f67808ad0481ec0fe951cf3e3138f"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+        "size": 3636,
+        "sha256": "9798e97b83cc68734b18c38e4d87d13505c2c99720e8c1ae7a83bed1df00a70b"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_PlayerPowerBowArrow_C",
+        "hops": [
+          {
+            "edgeId": "1bdb5fe05a5b770b73911b3e",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow.BP_BowArrow_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Bow/BP_BowArrow",
+            "rawPackageIndex": -3
+          },
+          {
+            "edgeId": "96b4910dd21b8e825b9cbea4",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Arrow",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_PlayerPowerBowArrow_C",
+        "path": "NormalImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -58,
+          "kind": "import",
+          "index": 57,
+          "objectName": "sfx_item_powerBowArrowImpactNormal",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "start": 350,
+          "end": 354
+        },
+        "hex": "c6ffffff"
+      },
+      {
+        "cdo": "Default__BP_PlayerPowerBowArrow_C",
+        "path": "ChargedImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -57,
+          "kind": "import",
+          "index": 56,
+          "objectName": "sfx_item_powerBowArrowImpactCharged",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "start": 379,
+          "end": 383
+        },
+        "hex": "c7ffffff"
+      },
+      {
+        "cdo": "Default__BP_PlayerPowerBowArrow_C",
+        "path": "PS_OnHitCharged",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "PS_PowerBow_ArrowHit_Charged",
+          "className": "ParticleSystem"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "start": 408,
+          "end": 412
+        },
+        "hex": "d3ffffff"
+      },
+      {
+        "cdo": "Default__BP_PlayerPowerBowArrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 11,
+          "kind": "export",
+          "index": 10,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "start": 437,
+          "end": 441
+        },
+        "hex": "0b000000"
+      },
+      {
+        "cdo": "Default__BP_PlayerPowerBowArrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 12,
+          "kind": "export",
+          "index": 11,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PlayerPowerBowArrow.uexp",
+          "start": 466,
+          "end": 470
+        },
+        "hex": "0c000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 46,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow.uasset",
+        "size": 7931,
+        "sha256": "618d7f76032e2de9c26556545486e7691d7d1bf9ee3b585c5b377d1fc020c190"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow.uexp",
+        "size": 11823,
+        "sha256": "55a23b7844a30f563af7e1e3afa30a11e05cdc6c62a6e655472dcf21f6a9c65a"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_PowerBow_C",
+        "hops": [
+          {
+            "edgeId": "10cd8524729b95bb76172f97",
+            "targetObject": "/Script/Dungeons.GearActor",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -7
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_PowerBow_C",
+        "path": "Paperdoll",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow.uexp",
+          "start": 186,
+          "end": 190
+        },
+        "hex": "08000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBow_C",
+        "path": "SlotType",
+        "type": "EnumProperty",
+        "value": "ESlotType::RangedWeapon",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow.uexp",
+          "start": 223,
+          "end": 231
+        },
+        "hex": "4c00000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBow_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBow.uexp",
+          "start": 256,
+          "end": 260
+        },
+        "hex": "08000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+    "index": 47,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uasset",
+        "size": 6405,
+        "sha256": "8d457d96ca0b9f70c2ee2cf9238c7c019528f4092519ad9eef830f08eef9dc47"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+        "size": 2017,
+        "sha256": "3030daf3131f8e60555c9a27830cf2e4654b3091a45b19b4e7f85603ec31e9eb"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_PowerBowInstance_C",
+        "hops": [
+          {
+            "edgeId": "8cb7fb5f046aec3845b3e8b3",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "rawPackageIndex": -3
+          },
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "ChargeShootEffectTag.TagName",
+        "type": "NameProperty",
+        "value": "GameplayCue.Trigger.PowerBow.ChargeShot",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 179,
+          "end": 187
+        },
+        "hex": "3800000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.Animation",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Player_Bow_Charge_Montage",
+          "className": "AnimMontage"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 269,
+          "end": 273
+        },
+        "hex": "ffffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_PlayerPowerBowArrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 384,
+          "end": 388
+        },
+        "hex": "fcffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "type": "IntProperty",
+        "value": 1,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 413,
+          "end": 417
+        },
+        "hex": "01000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 442,
+          "end": 446
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 471,
+          "end": 475
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 500,
+          "end": 504
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 529,
+          "end": 533
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 558,
+          "end": 562
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 588,
+          "end": 588
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "type": "StructProperty",
+        "value": {
+          "X": 25,
+          "Y": 0,
+          "Z": 0
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 637,
+          "end": 649
+        },
+        "hex": "0000c8410000000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.AttackRateSeconds",
+        "type": "FloatProperty",
+        "value": 0.41999998688697815,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 682,
+          "end": 686
+        },
+        "hex": "3d0ad73e"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ChargeTimeSecond",
+        "type": "FloatProperty",
+        "value": 0.3499999940395355,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 711,
+          "end": 715
+        },
+        "hex": "3333b33e"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ChargeDamageMultiplier",
+        "type": "FloatProperty",
+        "value": 3,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 740,
+          "end": 744
+        },
+        "hex": "00004040"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileVelocityFactor",
+        "type": "FloatProperty",
+        "value": 1.25,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 769,
+          "end": 773
+        },
+        "hex": "0000a03f"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AttackDefintion.ProjectileDamageFactor",
+        "type": "FloatProperty",
+        "value": 2,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 798,
+          "end": 802
+        },
+        "hex": "00000040"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "ProjectileStackCount",
+        "type": "IntProperty",
+        "value": 20,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 835,
+          "end": 839
+        },
+        "hex": "14000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[0].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowFireNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 950,
+          "end": 976
+        },
+        "hex": "1600000042505f426f77466972654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[0].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -49,
+          "kind": "import",
+          "index": 48,
+          "objectName": "sfx_item_powerBowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1001,
+          "end": 1005
+        },
+        "hex": "cfffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[1].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeShotNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1038,
+          "end": 1070
+        },
+        "hex": "1c00000042505f426f7743686172676553686f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[1].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -48,
+          "kind": "import",
+          "index": 47,
+          "objectName": "sfx_item_powerBowChargedShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1095,
+          "end": 1099
+        },
+        "hex": "d0ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[2].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1132,
+          "end": 1160
+        },
+        "hex": "1800000042505f426f774368617267654e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[2].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -43,
+          "kind": "import",
+          "index": 42,
+          "objectName": "sfx_item_bowCharge",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1185,
+          "end": 1189
+        },
+        "hex": "d5ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[3].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowChargeFastNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1222,
+          "end": 1254
+        },
+        "hex": "1c00000042505f426f77436861726765466173744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[3].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -44,
+          "kind": "import",
+          "index": 43,
+          "objectName": "sfx_item_bowChargedFast",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1279,
+          "end": 1283
+        },
+        "hex": "d4ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[4].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_BowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1316,
+          "end": 1342
+        },
+        "hex": "1600000042505f426f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[4].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -45,
+          "kind": "import",
+          "index": 44,
+          "objectName": "sfx_item_bowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1367,
+          "end": 1371
+        },
+        "hex": "d3ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[5].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowLoadNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1404,
+          "end": 1435
+        },
+        "hex": "1b00000042505f43726f7373626f774c6f61644e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[5].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -46,
+          "kind": "import",
+          "index": 45,
+          "objectName": "sfx_item_crossbowLoad",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1460,
+          "end": 1464
+        },
+        "hex": "d2ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[6].NotifyStateName",
+        "type": "StrProperty",
+        "value": "BP_CrossbowShootNotifyState",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1497,
+          "end": 1529
+        },
+        "hex": "1c00000042505f43726f7373626f7753686f6f744e6f74696679537461746500"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "AnimNotifyStateData[6].TriggerSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -47,
+          "kind": "import",
+          "index": 46,
+          "objectName": "sfx_item_crossbowShoot",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1554,
+          "end": 1558
+        },
+        "hex": "d1ffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "GearActor",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_PowerBow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1591,
+          "end": 1595
+        },
+        "hex": "fbffffff"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "InventoryDropSound",
+        "type": "SoftObjectProperty",
+        "value": {
+          "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_powerBowPlace.sfx_item_powerBowPlace",
+          "subPathString": ""
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1620,
+          "end": 1632
+        },
+        "hex": "0d0000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "ItemIdName",
+        "type": "NameProperty",
+        "value": "Powerbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1657,
+          "end": 1665
+        },
+        "hex": "5100000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "ItemId.SerializedId",
+        "type": "NameProperty",
+        "value": "Powerbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1739,
+          "end": 1747
+        },
+        "hex": "5100000000000000"
+      },
+      {
+        "cdo": "Default__BP_PowerBowInstance_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow/BP_PowerBowInstance.uexp",
+          "start": 1780,
+          "end": 1784
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+    "index": 17,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow.uasset",
+        "size": 7721,
+        "sha256": "0623465c17404986b0024593c02586de3787152b1ca0bc45b95d5073a5160c4b"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow.uexp",
+        "size": 11696,
+        "sha256": "9add58f724b131496cc72574ab4626be20bcdfd48d6fd35c26ae14ab1b5a2ac4"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_Shortbow_C",
+        "hops": [
+          {
+            "edgeId": "a78ccdf0441a2805a3877ef2",
+            "targetObject": "/Script/Dungeons.GearActor",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -6
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_Shortbow_C",
+        "path": "Paperdoll",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow.uexp",
+          "start": 186,
+          "end": 190
+        },
+        "hex": "08000000"
+      },
+      {
+        "cdo": "Default__BP_Shortbow_C",
+        "path": "SlotType",
+        "type": "EnumProperty",
+        "value": "ESlotType::RangedWeapon",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow.uexp",
+          "start": 223,
+          "end": 231
+        },
+        "hex": "4a00000000000000"
+      },
+      {
+        "cdo": "Default__BP_Shortbow_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 8,
+          "kind": "export",
+          "index": 7,
+          "objectName": "Paperdoll",
+          "className": "PaperdollComponent"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_Shortbow.uexp",
+          "start": 256,
+          "end": 260
+        },
+        "hex": "08000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+    "index": 18,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uasset",
+        "size": 8068,
+        "sha256": "90818f21c0d5b642247aa06473d17f576fe84e6a4b2a66a096027434f3eda15e"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+        "size": 4004,
+        "sha256": "2a2d8bbe7f270806dde44b55d35a87d5715c2d9821ea041207bfc94ad4b1ab85"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_ShortBow_Arrow_C",
+        "hops": [
+          {
+            "edgeId": "c6242f3e9610e05d3836851e",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Arrow.BP_Arrow_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Arrow",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "ChargedWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -48,
+          "kind": "import",
+          "index": 47,
+          "objectName": "sfx_item_arrowChargedWhooshHeavy",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 378,
+          "end": 382
+        },
+        "hex": "d0ffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "NormalImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -50,
+          "kind": "import",
+          "index": 49,
+          "objectName": "sfx_item_bowArrowImpactNormal",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 407,
+          "end": 411
+        },
+        "hex": "ceffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "ChargedImpactSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -49,
+          "kind": "import",
+          "index": 48,
+          "objectName": "sfx_item_bowArrowImpactCharged",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 436,
+          "end": 440
+        },
+        "hex": "cfffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "pushback.enablePushback",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 515,
+          "end": 515
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "pushback.pushbackStrength",
+        "type": "FloatProperty",
+        "value": 0.30000001192092896,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 540,
+          "end": 544
+        },
+        "hex": "9a99993e"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 12,
+          "kind": "export",
+          "index": 11,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 577,
+          "end": 581
+        },
+        "hex": "0c000000"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "IgnoreFriendlyFire",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 607,
+          "end": 607
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "HomingThreshold",
+        "type": "FloatProperty",
+        "value": 150,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 632,
+          "end": 636
+        },
+        "hex": "00001643"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 13,
+          "kind": "export",
+          "index": 12,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 661,
+          "end": 665
+        },
+        "hex": "0d000000"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "damage",
+        "type": "FloatProperty",
+        "value": 50,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 690,
+          "end": 694
+        },
+        "hex": "00004842"
+      },
+      {
+        "cdo": "Default__BP_ShortBow_Arrow_C",
+        "path": "RemoteRole",
+        "type": "ByteProperty",
+        "value": "ROLE_None",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortBow_Arrow.uexp",
+          "start": 727,
+          "end": 735
+        },
+        "hex": "6c00000000000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-027.json.gz",
+    "index": 19,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uasset",
+        "size": 4736,
+        "sha256": "2df3cf0aff60747ebdc05af619127bfb8f07cb4d9fbce206df38c8c75d8eddc6"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+        "size": 1200,
+        "sha256": "880121870e6275f0852c66304f9953058944c08bdb8bf9e2244d34204e4d619b"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_ShortbowInstance_C",
+        "hops": [
+          {
+            "edgeId": "6271bad9dcada132885911fa",
+            "targetObject": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon.BP_ArrowBaseRangedWeapon_C",
+            "targetPackageName": "/Game/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "targetPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/BP_ArrowBaseRangedWeapon",
+            "rawPackageIndex": -2
+          },
+          {
+            "edgeId": "292d79882f2fa2e6b2ca783c",
+            "targetObject": "/Script/Dungeons.RangedWeaponGearItemInstance",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -28
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.Animation",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -1,
+          "kind": "import",
+          "index": 0,
+          "objectName": "Player_Bow_Charge_Montage",
+          "className": "AnimMontage"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 179,
+          "end": 183
+        },
+        "hex": "ffffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].Projectile",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -4,
+          "kind": "import",
+          "index": 3,
+          "objectName": "BP_ShortBow_Arrow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 294,
+          "end": 298
+        },
+        "hex": "fcffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NumberOfProjectiles",
+        "type": "IntProperty",
+        "value": 1,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 323,
+          "end": 327
+        },
+        "hex": "01000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySeconds",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 352,
+          "end": 356
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].DelaySecondsPerProjectile",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 381,
+          "end": 385
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleSpan",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 410,
+          "end": 414
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].AngleOffset",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 439,
+          "end": 443
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].MaxRandomizedAngleFactor",
+        "type": "FloatProperty",
+        "value": 0,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 468,
+          "end": 472
+        },
+        "hex": "00000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].NonRandomFirstArrow",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 498,
+          "end": 498
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDefinition[0].ProjectileOffset",
+        "type": "StructProperty",
+        "value": {
+          "X": 25,
+          "Y": -5,
+          "Z": 25
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 547,
+          "end": 559
+        },
+        "hex": "0000c8410000a0c00000c841"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.AttackRateSeconds",
+        "type": "FloatProperty",
+        "value": 0.20999999344348907,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 592,
+          "end": 596
+        },
+        "hex": "3d0a573e"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ChargeTimeSecond",
+        "type": "FloatProperty",
+        "value": 0.125,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 621,
+          "end": 625
+        },
+        "hex": "0000003e"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ChargeDamageMultiplier",
+        "type": "FloatProperty",
+        "value": 1.649999976158142,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 650,
+          "end": 654
+        },
+        "hex": "3333d33f"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileVelocityFactor",
+        "type": "FloatProperty",
+        "value": 0.8999999761581421,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 679,
+          "end": 683
+        },
+        "hex": "6666663f"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "AttackDefintion.ProjectileDamageFactor",
+        "type": "FloatProperty",
+        "value": 0.75,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 708,
+          "end": 712
+        },
+        "hex": "0000403f"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "ProjectileStackCount",
+        "type": "IntProperty",
+        "value": 120,
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 745,
+          "end": 749
+        },
+        "hex": "78000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "GearActor",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -3,
+          "kind": "import",
+          "index": 2,
+          "objectName": "BP_Shortbow_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 774,
+          "end": 778
+        },
+        "hex": "fdffffff"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "InventoryDropSound",
+        "type": "SoftObjectProperty",
+        "value": {
+          "assetPathName": "/Game/AudioForce/04_playback_soundCue/04_sfx_item_place/sfx_item_shortbowPlace.sfx_item_shortbowPlace",
+          "subPathString": ""
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 803,
+          "end": 815
+        },
+        "hex": "060000000000000000000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "ItemIdName",
+        "type": "NameProperty",
+        "value": "Shortbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 840,
+          "end": 848
+        },
+        "hex": "5100000000000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "ItemId.SerializedId",
+        "type": "NameProperty",
+        "value": "Shortbow",
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 922,
+          "end": 930
+        },
+        "hex": "5100000000000000"
+      },
+      {
+        "cdo": "Default__BP_ShortbowInstance_C",
+        "path": "RootComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 0,
+          "kind": "null"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Shortbow/BP_ShortbowInstance.uexp",
+          "start": 963,
+          "end": 967
+        },
+        "hex": "00000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+    "index": 35,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uasset",
+        "size": 24120,
+        "sha256": "2c9220047c60d2b3b4fcdd439b8c602d02a4a14f03a3675b891dcc59b1fbd984"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+        "size": 9886,
+        "sha256": "3a0e168cc5da88f721f139ec817ed08630665c3d5cffd2d52af5c2a5c9c4389c"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_Arrow_C",
+        "hops": [
+          {
+            "edgeId": "91f857a10ac63ae330c27ffe",
+            "targetObject": "/Game/Actors/Items/Arrow/BP_Projectile.BP_Projectile_C",
+            "targetPackageName": "/Game/Actors/Items/Arrow/BP_Projectile",
+            "targetPackage": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+            "rawPackageIndex": -6
+          },
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "NormalWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -125,
+          "kind": "import",
+          "index": 124,
+          "objectName": "sfx_item_arrowWhoosh",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 538,
+          "end": 542
+        },
+        "hex": "83ffffff"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "ChargedWooshSound",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -125,
+          "kind": "import",
+          "index": 124,
+          "objectName": "sfx_item_arrowWhoosh",
+          "className": "SoundCue"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 567,
+          "end": 571
+        },
+        "hex": "83ffffff"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "Magical Material",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -94,
+          "kind": "import",
+          "index": 93,
+          "objectName": "MI_MagicalArrow",
+          "className": "MaterialInstanceConstant"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 596,
+          "end": 600
+        },
+        "hex": "a2ffffff"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 40,
+          "kind": "export",
+          "index": 39,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 678,
+          "end": 682
+        },
+        "hex": "28000000"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "ProjectilePropClass",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -5,
+          "kind": "import",
+          "index": 4,
+          "objectName": "BP_ArrowProp_C",
+          "className": "BlueprintGeneratedClass"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 707,
+          "end": 711
+        },
+        "hex": "fbffffff"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 50,
+          "kind": "export",
+          "index": 49,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 736,
+          "end": 740
+        },
+        "hex": "32000000"
+      },
+      {
+        "cdo": "Default__BP_Arrow_C",
+        "path": "RemoteRole",
+        "type": "ByteProperty",
+        "value": "ROLE_SimulatedProxy",
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Arrow.uexp",
+          "start": 773,
+          "end": 781
+        },
+        "hex": "ef00000000000000"
+      }
+    ]
+  },
+  {
+    "path": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile",
+    "shard": "research/raw/game-data-raw-structural-inventory/shards/part-029.json.gz",
+    "index": 38,
+    "sources": [
+      {
+        "path": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uasset",
+        "size": 12889,
+        "sha256": "731416c11cf17b20894d591c557c142a940d299d8f2beb9f1d85101efe702846"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+        "size": 4738,
+        "sha256": "34a70c62a46602d49ec9761242f6f5e5053d875a8fb078d95f5d4f49fab8e520"
+      }
+    ],
+    "inheritance": [
+      {
+        "sourceObject": "BP_Projectile_C",
+        "hops": [
+          {
+            "edgeId": "99d5d3102418bfeb3c755bb9",
+            "targetObject": "/Script/Dungeons.Arrow",
+            "targetPackageName": "/Script/Dungeons",
+            "rawPackageIndex": -13
+          }
+        ],
+        "stopReason": "native-boundary"
+      }
+    ],
+    "leaves": [
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "PS_OnHit",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -62,
+          "kind": "import",
+          "index": 61,
+          "objectName": "P_ArrowHit_Generic",
+          "className": "ParticleSystem"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 389,
+          "end": 393
+        },
+        "hex": "c2ffffff"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "PS_OnHitCharged",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -61,
+          "kind": "import",
+          "index": 60,
+          "objectName": "P_ArrowHit_Charged",
+          "className": "ParticleSystem"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 418,
+          "end": 422
+        },
+        "hex": "c3ffffff"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "PS_OnHitMagical",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": -63,
+          "kind": "import",
+          "index": 62,
+          "objectName": "P_ArrowHitMagic_Generic",
+          "className": "ParticleSystem"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 447,
+          "end": 451
+        },
+        "hex": "c1ffffff"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "pushback.useForwardDirection",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 526,
+          "end": 526
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "ProjectileMovementComponent",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 25,
+          "kind": "export",
+          "index": 24,
+          "objectName": "Projectile Movement Component",
+          "className": "DungeonsProjectileMovementComp"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 559,
+          "end": 563
+        },
+        "hex": "19000000"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "IsHoming",
+        "type": "BoolProperty",
+        "value": true,
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 589,
+          "end": 589
+        },
+        "hex": ""
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "ImpactActionHandler",
+        "type": "ObjectProperty",
+        "value": {
+          "rawPackageIndex": 27,
+          "kind": "export",
+          "index": 26,
+          "objectName": "ImpactActionHandler",
+          "className": "ImpactActionHandler"
+        },
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 614,
+          "end": 618
+        },
+        "hex": "1b000000"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "damage",
+        "type": "FloatProperty",
+        "value": 20,
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 643,
+          "end": 647
+        },
+        "hex": "0000a041"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "DamageType.TagName",
+        "type": "NameProperty",
+        "value": "Damage.Ranged",
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 721,
+          "end": 729
+        },
+        "hex": "3300000000000000"
+      },
+      {
+        "cdo": "Default__BP_Projectile_C",
+        "path": "bCanBeDamaged",
+        "type": "BoolProperty",
+        "value": false,
+        "range": {
+          "file": "Dungeons/Content/Actors/Items/Arrow/BP_Projectile.uexp",
+          "start": 763,
+          "end": 763
+        },
+        "hex": ""
+      }
+    ]
+  }
+]

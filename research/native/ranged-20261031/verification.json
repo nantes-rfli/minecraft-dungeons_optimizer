@@ -1,0 +1,211 @@
+{
+  "status": "passed",
+  "scope": "synthetic instruction fragments only; no game, Windows, CRT, loaded UFunction, or live state",
+  "mapped_image_sha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "mxcsr": "0x1f80",
+  "raw_packages": 23,
+  "raw_files": 46,
+  "pointer_checks": 9,
+  "descriptor_checks": 7,
+  "instruction_checks": 13,
+  "replay_counts": {
+    "weapon_damage_factor": 522,
+    "projectile_base_product": 522,
+    "cooldown_duration": 517,
+    "charge_duration": 517,
+    "charge_time_api": 517,
+    "next_fire_deadline": 517,
+    "action_durations": 517,
+    "weapon_and_owner_gate": 12,
+    "captured_ranged_product": 512,
+    "timer_expiry_comparison": 5
+  },
+  "total_replays": 4158,
+  "examples": {
+    "Bow": {
+      "uncharged": 50.0,
+      "uncharged_bits": "0x42480000",
+      "charged": 125.0,
+      "charged_bits": "0x42fa0000",
+      "S1_w0_timing_fixture": {
+        "cooldown": 0.41999998688697815,
+        "charge": 0.3499999940395355,
+        "api": 0.7699999809265137,
+        "sum_of_durations": 0.7699999809265137
+      }
+    },
+    "Shortbow": {
+      "uncharged": 37.5,
+      "uncharged_bits": "0x42160000",
+      "charged": 61.874996185302734,
+      "charged_bits": "0x42777fff",
+      "S1_w0_timing_fixture": {
+        "cooldown": 0.20999999344348907,
+        "charge": 0.125,
+        "api": 0.3349999785423279,
+        "sum_of_durations": 0.3349999785423279
+      }
+    },
+    "Longbow": {
+      "uncharged": 60.000003814697266,
+      "uncharged_bits": "0x42700001",
+      "charged": 180.0,
+      "charged_bits": "0x43340000",
+      "S1_w0_timing_fixture": {
+        "cooldown": 0.41999998688697815,
+        "charge": 0.3499999940395355,
+        "api": 0.7699999809265137,
+        "sum_of_durations": 0.7699999809265137
+      }
+    },
+    "Powerbow": {
+      "uncharged": 100.0,
+      "uncharged_bits": "0x42c80000",
+      "charged": 300.0,
+      "charged_bits": "0x43960000",
+      "S1_w0_timing_fixture": {
+        "cooldown": 0.41999998688697815,
+        "charge": 0.3499999940395355,
+        "api": 0.7699999809265137,
+        "sum_of_durations": 0.7699999809265137
+      }
+    },
+    "HeavyCrossbow": {
+      "uncharged": 135.0,
+      "uncharged_bits": "0x43070000",
+      "charged": null,
+      "charged_bits": null,
+      "S1_w0_timing_fixture": {
+        "cooldown": 1.0,
+        "charge": 0.0,
+        "api": 1.0,
+        "sum_of_durations": 1.0
+      }
+    }
+  },
+  "spans": {
+    "weapon_damage_factor": {
+      "start": "0xa19894",
+      "end_exclusive": "0xa198b8",
+      "sha256": "61e747b08c9a1fb351b364f5c552162498f33a3409a2c8cac5c534ca240eecea",
+      "instructions": [
+        "a19894 test r13b, r13b",
+        "a19897 je 0xa198a4",
+        "a19899 movss xmm0, dword ptr [r14 + 0x3f8]",
+        "a198a2 jmp 0xa198a7",
+        "a198a4 movaps xmm0, xmm7",
+        "a198a7 mulss xmm0, dword ptr [r14 + 0x404]",
+        "a198b0 movss dword ptr [rsi + 0xc24], xmm0"
+      ]
+    },
+    "projectile_base_product": {
+      "start": "0x83b7a8",
+      "end_exclusive": "0x83b7c0",
+      "sha256": "373ca110653c1632f95b144eaeef5f8e4f71d553d4068fb7f74aaf2a103acbdf",
+      "instructions": [
+        "83b7a8 movss xmm4, dword ptr [rsi + 0xc28]",
+        "83b7b0 mulss xmm4, dword ptr [rsi + 0xc24]",
+        "83b7b8 mulss xmm4, dword ptr [rsi + 0x3fc]"
+      ]
+    },
+    "cooldown_duration": {
+      "start": "0xa0fc6d",
+      "end_exclusive": "0xa0fc87",
+      "sha256": "1212a2664efe7f3c30d76bf4a895003f9f8a528abea2e8c03dfe5f820aeb3378",
+      "instructions": [
+        "a0fc6d movss xmm9, dword ptr [rip + 0x32b08d2]",
+        "a0fc76 divss xmm9, xmm10",
+        "a0fc7b movaps xmm6, xmm9",
+        "a0fc7f mulss xmm6, dword ptr [rsi + 0x3ec]"
+      ]
+    },
+    "charge_duration": {
+      "start": "0xa1112e",
+      "end_exclusive": "0xa1113b",
+      "sha256": "6c249baad81f15347efa3d2d7c044e44e33883f8cf73a761e879ddfd0e7147b5",
+      "instructions": [
+        "a1112e movss xmm6, dword ptr [r14 + 0x3f0]",
+        "a11137 divss xmm6, xmm7"
+      ]
+    },
+    "charge_time_api": {
+      "start": "0xa23387",
+      "end_exclusive": "0xa233a8",
+      "sha256": "0e246649f083ff579fb3e2944d0a2e47be7fc9b938082084e0b91f630283c5da",
+      "instructions": [
+        "a23387 movss xmm1, dword ptr [rsi + 0x3f0]",
+        "a2338f addss xmm1, dword ptr [rsi + 0x3ec]",
+        "a23397 mov rbx, qword ptr [rsp + 0x30]",
+        "a2339c mov rsi, qword ptr [rsp + 0x38]",
+        "a233a1 divss xmm1, xmm0",
+        "a233a5 movaps xmm0, xmm1"
+      ]
+    },
+    "next_fire_deadline": {
+      "start": "0xa0fcc6",
+      "end_exclusive": "0xa0fcda",
+      "sha256": "6db419609cd155b1004946f0f13b3badcfa94174248eef436bc290d59ff3bcc2",
+      "instructions": [
+        "a0fcc6 movaps xmm1, xmm6",
+        "a0fcc9 addss xmm1, xmm7",
+        "a0fccd addss xmm1, xmm8",
+        "a0fcd2 movss dword ptr [rsi + 0x10c], xmm1"
+      ]
+    },
+    "action_durations": {
+      "start": "0xa0fe78",
+      "end_exclusive": "0xa0fe96",
+      "sha256": "9167e95f231fe08df9cfa441f71a5af0c5ce4961ba41831852f6cead3d12f8c9",
+      "instructions": [
+        "a0fe78 movaps xmm2, xmm6",
+        "a0fe7b mulss xmm2, dword ptr [rsi + 0x108]",
+        "a0fe83 mulss xmm6, dword ptr [rsi + 0x104]",
+        "a0fe8b mulss xmm6, dword ptr [rsi + 0x3fc]",
+        "a0fe93 movaps xmm1, xmm6"
+      ]
+    },
+    "weapon_and_owner_gate": {
+      "start": "0x991369",
+      "end_exclusive": "0x991388",
+      "sha256": "a55971ef742d57c310b485720bf1ebd3c694fe6686e9388ad80d39fd73df9e2d",
+      "instructions": [
+        "991369 comiss xmm6, dword ptr [rbx + 0x10c]",
+        "991370 jb 0x991386",
+        "991372 mov rax, qword ptr [rbx + 0x140]",
+        "991379 comiss xmm6, dword ptr [rax + 0xa78]",
+        "991380 jb 0x991386",
+        "991382 mov al, 1",
+        "991384 jmp 0x991388",
+        "991386 xor al, al"
+      ]
+    },
+    "captured_ranged_product": {
+      "start": "0x7b0446",
+      "end_exclusive": "0x7b0459",
+      "sha256": "71dcccce5fc9f0f546d2cf8abdcdb3fa209e3734f36fee2673ad657ae684bdca",
+      "instructions": [
+        "7b0446 movss xmm7, dword ptr [rbp + 0x67]",
+        "7b044b mulss xmm7, xmm6",
+        "7b044f mulss xmm7, dword ptr [rbp + 0x77]",
+        "7b0454 mulss xmm7, dword ptr [rbp + 0x7f]"
+      ]
+    },
+    "timer_expiry_comparison": {
+      "start": "0x2322a65",
+      "end_exclusive": "0x2322a79",
+      "sha256": "7d801a42489fd20403efeb99d09c2d155a06e6049dc4dd684f34b6758e6933dd",
+      "instructions": [
+        "2322a65 movsd xmm0, qword ptr [rdi + 8]",
+        "2322a6a comisd xmm0, xmmword ptr [r15 + 0x140]",
+        "2322a73 jae 0x2322d76"
+      ]
+    }
+  },
+  "limits": {
+    "live_state": "unknown",
+    "exact_CRT_output": "unverified",
+    "same_build_raw_exe": "unverified",
+    "real_shot_interval": "requires input/tick/state parameters; no fixed FPS assumed",
+    "runtime_promotion": false
+  }
+}
