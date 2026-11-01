@@ -1,0 +1,34 @@
+{
+  "publicChecks": "passed",
+  "privateChecks": "passed",
+  "nativeReplay": {
+    "scope": "isolated leaf functions; synthetic prequalified modifier records; no CRT or game objects",
+    "mxcsr": "0x1f80",
+    "stackCases": 4120,
+    "channelCases": 461,
+    "mismatches": 0,
+    "caseDigestSha256": "ee8695fccf15784218e909b282023a0ad56b15e799b23d41a5c16d4f08653d62",
+    "roundingCounterexamples": [
+      {
+        "baseBits": "0x43fa0000",
+        "magnitudeBits": "0x3f800001",
+        "nativeBits": "0x43fa0000",
+        "simplifiedMultiplyBits": "0x43fa0002"
+      },
+      {
+        "baseBits": "0x43fa0000",
+        "magnitudeBits": "0x3f800003",
+        "nativeBits": "0x43fa0008",
+        "simplifiedMultiplyBits": "0x43fa0006"
+      },
+      {
+        "baseBits": "0x43fa0000",
+        "magnitudeBits": "0x3fffffff",
+        "nativeBits": "0x447a0000",
+        "simplifiedMultiplyBits": "0x4479ffff"
+      }
+    ]
+  },
+  "recoveredImageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "checkerSha256": "f56aa4e051613f088f8a18cc057801b9099c26c5be5135ee1c6d9b2752c961ab"
+}
