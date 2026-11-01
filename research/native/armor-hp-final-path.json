@@ -1,0 +1,362 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "native-armor-hp-final-path",
+  "baselineCommit": "e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a",
+  "status": "held-research-only",
+  "runtimePromotion": false,
+  "applicationImpact": false,
+  "newCalculableEquipment": [],
+  "binarySha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "recoveredImageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "playerRaw": {
+    "shard": "shards/part-004.json.gz",
+    "compressedSha256": "5d710bea574f6ebe5a71315c924ba65679fca4ea04eb6118cc2e6de521a5584e",
+    "packageIndex": 63,
+    "packagePath": "Dungeons/Content/Actors/Characters/Player/BP_PlayerCharacter",
+    "sourceFiles": [
+      {
+        "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerCharacter.uasset",
+        "size": 135660,
+        "sha256": "0c14207ee5a89f266070a9d9c5a1672603ef4e0be7e492602e6ea69f01c9adcf"
+      },
+      {
+        "path": "Dungeons/Content/Actors/Characters/Player/BP_PlayerCharacter.uexp",
+        "size": 54720,
+        "sha256": "ece66dcd474572208383ada98b59ee9af1dcd4614b5ceb2d9cfca8f0410a1ac3"
+      }
+    ],
+    "abilityExportIndex": 214,
+    "healthTemplateExportIndex": 270,
+    "componentPayloadMeaning": "None FName plus zero object-guid marker; no serialized property overrides"
+  },
+  "nativeSpans": [
+    {
+      "label": "owner-interface-lookup",
+      "rva": "0x3b2450",
+      "size": 111,
+      "sha256": "424d38575e5ca0fed056e93d6b115c090623ba69759bd497e2b10a2f01ddfd2f"
+    },
+    {
+      "label": "base-character-constructor-head",
+      "rva": "0x794ad0",
+      "size": 68,
+      "sha256": "0720537499db40dfeb39dfd14421c849ba601c404e75f4d10f65354dd811ff65"
+    },
+    {
+      "label": "base-character-ability-creation",
+      "rva": "0x794f25",
+      "size": 83,
+      "sha256": "69e28b7eb25a35f4b7bacd0112886f51e0e9079e59b38c19ed0dec58535c2ced"
+    },
+    {
+      "label": "player-class-registration",
+      "rva": "0xf5de30",
+      "size": 162,
+      "sha256": "9cafd89df3a251cf78088369a23885e3f7b76acf1005a5ec53aab94ca843e410"
+    },
+    {
+      "label": "player-constructor-thunk",
+      "rva": "0xf5fa50",
+      "size": 20,
+      "sha256": "303b84dc2d96ed9e40a6510ed983f5eb012bba81276762ded802d78891981eb8"
+    },
+    {
+      "label": "player-constructor-head",
+      "rva": "0x7e1110",
+      "size": 115,
+      "sha256": "9de504db6fdf3f7b9994fc9095da7a78e808f258e914ee248cd0e60087d63e3a"
+    },
+    {
+      "label": "ability-class-registration",
+      "rva": "0xed3670",
+      "size": 162,
+      "sha256": "8e683a9bfd9e766a14201c785d9db8c5053672a92274530ddd68520591980c13"
+    },
+    {
+      "label": "dungeons-ability-constructor",
+      "rva": "0xed4870",
+      "size": 94,
+      "sha256": "caa1bab8a55e23db25933ff438dc9911d3c70dadc957bdf5caaee61ce151f634"
+    },
+    {
+      "label": "ability-interface-return",
+      "rva": "0x7b9f50",
+      "size": 8,
+      "sha256": "9faefc64a9490e883106ec5112b8f78a1ecaacf0a3544b8e66b8775a5c36ae98"
+    },
+    {
+      "label": "apply-spec-to-self",
+      "rva": "0x362ce0",
+      "size": 2322,
+      "sha256": "b4fa7b11df868e761fc1661506d8673529b9835c3bfdc49ad4d33f4972cc350c"
+    },
+    {
+      "label": "active-effect-apply",
+      "rva": "0x3a8180",
+      "size": 4300,
+      "sha256": "2e41ed7e04e27f0c0831be7111f8f6dc70ad2ad69186f3a85d7b6390b42d9a5a"
+    },
+    {
+      "label": "calculate-modifier-magnitudes",
+      "rva": "0x3abce0",
+      "size": 173,
+      "sha256": "910657b35112d52b19167bda596b6409406183d6a260154684497d128be80684"
+    },
+    {
+      "label": "active-effect-added",
+      "rva": "0x3b9740",
+      "size": 743,
+      "sha256": "91d9181443df64ac470cde0f619cd7ddd7e8389c122bf767ad97e964e5581764"
+    },
+    {
+      "label": "inhibition-transition",
+      "rva": "0x3aca10",
+      "size": 275,
+      "sha256": "b726987287cb93a9054db441c04f738ef0380ade2b718d1b7694f5301ae78581"
+    },
+    {
+      "label": "add-active-modifiers-prefix",
+      "rva": "0x3a6950",
+      "size": 519,
+      "sha256": "f2966ae20fd1e0dab194ff18d905b0bd73f282053b435ed39f402df45b9bb187"
+    },
+    {
+      "label": "stack-magnitude",
+      "rva": "0x3d2510",
+      "size": 51,
+      "sha256": "26cf3c1c56a0f98eca61281cee5f5b635dcfd0a41ef86f1c066c9b247925d0fc"
+    },
+    {
+      "label": "find-or-create-attribute-aggregator",
+      "rva": "0x3b1250",
+      "size": 863,
+      "sha256": "e6f6958d50aa94dc20c1ef09906650fb1c7bec5712c09594f0c8f6285b10bbde"
+    },
+    {
+      "label": "add-aggregator-modifier",
+      "rva": "0x3d1130",
+      "size": 162,
+      "sha256": "32cb5097921764212acffef8099df824d784eca2314dacd538b24f47db2ee449"
+    },
+    {
+      "label": "aggregator-dirty",
+      "rva": "0x3d1c00",
+      "size": 463,
+      "sha256": "324a201b30ee38f369887f3dc6eca35610b34a76a794cd1e1e3a9d9da3aee275"
+    },
+    {
+      "label": "dirty-delegate",
+      "rva": "0x382e20",
+      "size": 124,
+      "sha256": "bcfdbf397043737e6718c78f2819a9fded0e9139757d05aac1e9643542e80029"
+    },
+    {
+      "label": "dirty-evaluate-and-write",
+      "rva": "0x3bdb40",
+      "size": 407,
+      "sha256": "dbd914d6c66af6f12771d46d49d986072120dfd7570e5a2b8ee6af04b8101d4e"
+    },
+    {
+      "label": "aggregator-evaluate",
+      "rva": "0x3d2c60",
+      "size": 126,
+      "sha256": "27ae96fe5a832f3a4f216a86f1e8e7f58857ca6315cdd60ebe88fc558a334789"
+    },
+    {
+      "label": "qualify-channel-records",
+      "rva": "0x3d2d80",
+      "size": 573,
+      "sha256": "444d5eae5557313d7b432f346d905ef27effabca40b35401b9e3898c03020e94"
+    },
+    {
+      "label": "evaluate-channels",
+      "rva": "0x3d31e0",
+      "size": 547,
+      "sha256": "10af20747c2c6b020eb8bfb424e0aebab358125cbc9c6eb0e66ac685d8e0122e"
+    },
+    {
+      "label": "evaluate-single-channel",
+      "rva": "0x3d30e0",
+      "size": 246,
+      "sha256": "dcbf72f36bd28b181fb5135fb57a8de8f2ee5d5a3787ac94a1f74322d071c3c1"
+    },
+    {
+      "label": "write-current-and-notify",
+      "rva": "0x3ba190",
+      "size": 450,
+      "sha256": "e8f2c93189d76fc7b5e804296d0789278d6d4f434cf18b550c69180620601c16"
+    },
+    {
+      "label": "component-current-setter",
+      "rva": "0x38f150",
+      "size": 74,
+      "sha256": "81a704ddf3e4c0651532aaff911d2725d0bcc0c12a08e6e3df40bd7b0811048c"
+    },
+    {
+      "label": "attribute-numeric-setter",
+      "rva": "0x3c9bd0",
+      "size": 257,
+      "sha256": "eb9fdfec5b233b2aa0483323435479a97f8a693631e838762a9e9b5e8e068b6a"
+    },
+    {
+      "label": "health-reflection-construct",
+      "rva": "0xf05200",
+      "size": 47,
+      "sha256": "d16e4b7a0c11457d21da0f7a16bdb11e5f934a3ea57124c0ba0167cb4d6c3d0f"
+    },
+    {
+      "label": "class-property-construction-loop",
+      "rva": "0x1237e97",
+      "size": 50,
+      "sha256": "f0121f237563d18a71eb81faeccffcbc1b35158f5d14d5419f99c674c66b3e39"
+    },
+    {
+      "label": "property-kind-switch",
+      "rva": "0x1238747",
+      "size": 63,
+      "sha256": "ae874ab757bbe8b268a7e1a4c3cc46b9bc57e3792ce80be7a1095d2ced87f790"
+    },
+    {
+      "label": "float-property-construction-case",
+      "rva": "0x1238e64",
+      "size": 171,
+      "sha256": "5ba906a3e34b3fd345f1598bffdf605b20348c715204671bfa5d3b61281671b2"
+    },
+    {
+      "label": "property-offset-constructor",
+      "rva": "0x1202c50",
+      "size": 96,
+      "sha256": "e3448262eb2115199578b8e8a166469de7c98e5bd13944bb131211b0586bdf46"
+    },
+    {
+      "label": "float-property-registration",
+      "rva": "0x1228750",
+      "size": 162,
+      "sha256": "7f7105583b164e65c0508677bbc310a3630ff8a189886273311e70449e7ea3e9"
+    },
+    {
+      "label": "float-property-constructor",
+      "rva": "0x121c9a0",
+      "size": 48,
+      "sha256": "e1912d53c2c82e882b2517ead3c2b352bb50329f88f2fcb3af165cd7a66c5372"
+    },
+    {
+      "label": "float-property-writer",
+      "rva": "0x1230d60",
+      "size": 12,
+      "sha256": "ad5e38fb7ca1c35953b6e807c9977ff818dccfad9be7de2debaa82f361487842"
+    },
+    {
+      "label": "health-component-registration",
+      "rva": "0xf0a980",
+      "size": 162,
+      "sha256": "156d2a1670cfd48eb082d3afd33a405a28e3c3cb0a64d8b3aa2bd9c36ad08bb0"
+    },
+    {
+      "label": "health-component-constructor-thunk",
+      "rva": "0xf0c120",
+      "size": 13,
+      "sha256": "d15c2d6b97a22088a6e3f22b18a878ea7d72b31dde39a41b961ad4d23bbb6999"
+    },
+    {
+      "label": "health-component-constructor",
+      "rva": "0x97cd40",
+      "size": 609,
+      "sha256": "7af0e8e2a435a684ee226992421882b99086da2dac343c627aff3cb72368e778"
+    },
+    {
+      "label": "health-component-initialization",
+      "rva": "0x98ee00",
+      "size": 240,
+      "sha256": "5b2ca4065a0d66fddb24e56ccfb8fdcbfbac1e13a21a887101e4ab8d453242af"
+    },
+    {
+      "label": "component-base-setter",
+      "rva": "0x38f0f0",
+      "size": 95,
+      "sha256": "87b1199ff1495c98431d2d03a9bff467823add1756578dbb367b4c20a58c7e8d"
+    },
+    {
+      "label": "container-base-setter",
+      "rva": "0x3c9560",
+      "size": 323,
+      "sha256": "82172ae97c7bc8de14122073e70b36e836adb602b0e24dad01be949364791f5c"
+    },
+    {
+      "label": "aggregator-base-setter",
+      "rva": "0x3d92d0",
+      "size": 15,
+      "sha256": "2b54cab5657be1a55ca79b14367cee967f7e804edb85a16263df400fcfe0a5d0"
+    },
+    {
+      "label": "health-pre-base-change",
+      "rva": "0x7cea90",
+      "size": 84,
+      "sha256": "f179362c5ae3d22a4b295b5bf11c2c440208013b393eb51a4763f3439fc35715"
+    },
+    {
+      "label": "health-pre-current-change",
+      "rva": "0x7cebc0",
+      "size": 552,
+      "sha256": "2613e372983dbe4575296a119095f22cbb46378f9f1a24efee0144634ff6c2d0"
+    },
+    {
+      "label": "custom-calculation-dispatch",
+      "rva": "0x4083f0",
+      "size": 178,
+      "sha256": "c3f4e847ad3fa486e4c4c4198d2fae40a7f0e58687bf29b4714144f68c625615"
+    },
+    {
+      "label": "calculation-fname-init",
+      "rva": "0xffb20",
+      "size": 25,
+      "sha256": "194d1f75bc3cb019d582579a7a30ffa6fb3458283e0dea4b4e04bfdd2a44cf18"
+    },
+    {
+      "label": "calculation-native-registration",
+      "rva": "0x40a030",
+      "size": 34,
+      "sha256": "b6b90ca980cfe5a9e4516addca88c3d8cc7f714a554ca7047f936c2a77f0fb41"
+    },
+    {
+      "label": "native-name-exec-registration",
+      "rva": "0x11338a0",
+      "size": 466,
+      "sha256": "2129e1e6ed3fc4d4aa9aca53af00fe9f7274f20eed5218777db2d84c0a220506"
+    },
+    {
+      "label": "process-event",
+      "rva": "0x12443e0",
+      "size": 924,
+      "sha256": "4ee3d764711677108f97ce6df569726868b5cc92e64fcf88b7e0b07210fb6139"
+    },
+    {
+      "label": "ufunction-native-invoke",
+      "rva": "0x1130c30",
+      "size": 155,
+      "sha256": "dbbcdb951b59df6f4b889a189c1f18ae91d2ecffe28b29595504415ffa7154b8"
+    },
+    {
+      "label": "calculate-base-magnitude-exec",
+      "rva": "0x40acc0",
+      "size": 207,
+      "sha256": "81d6c12164321b7b5fabafe0257b33e4975d7281f05ee1b087a02df0dd4d9a4c"
+    },
+    {
+      "label": "health-effect-duration-prefix",
+      "rva": "0x7a1430",
+      "size": 95,
+      "sha256": "e88c72c95604b13a90f69072a4f866a6699fb5a0559d364b135b060a753d6c59"
+    }
+  ],
+  "limits": {
+    "liveEquippedObjectState": "not-observed",
+    "effectiveBaseInArbitrarySession": "unknown",
+    "windowsCrtOutputBits": "unverified",
+    "liveMxcsr": "unknown",
+    "rawNativeSameBuild": "unverified",
+    "officialBuildProvenance": "unverified",
+    "exactItemPowerFromDisplayInteger": "not-unique",
+    "adoptionDecision": "not-submitted"
+  }
+}

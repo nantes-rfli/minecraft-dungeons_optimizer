@@ -1,5 +1,17 @@
 # Native Analysis
 
+## Armor HP final path after PR #218
+
+[Integration review and next runtime Work Unit](../../docs/native-hp-integration-next-work-unit.md)
+records independent reproduction and the four-target observed Ranged plan.
+[Selection census](next-work-unit-census.json) is planning only, not adoption.
+
+[Final-path investigation](armor-hp-final-path.md) reconstructs the standard player
+component dispatch, active modifiers, exact binary32 aggregation order and the
+HealthComponent base initializer. [Static metadata](armor-hp-final-path.json) and
+[bounded replay](armor-hp-aggregation-replay.json) preserve the remaining live-state
+and CRT boundary. Research only; no final-HP adoption or runtime promotion.
+
 ## Armor HP connection after PR #217
 
 [Bounded connection study](armor-hp-connection.md) links Mercenary Armor's existing

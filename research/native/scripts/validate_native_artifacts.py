@@ -358,6 +358,19 @@ def main() -> None:
     subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/check_armor_hp_connection.py")], check=True)
     subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_armor_hp_connection.py"], check=True)
 
+    subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/check_armor_hp_final_path.py")], check=True)
+    subprocess.run([sys.executable, "-B", "-m", "unittest", "discover", "-s", str(NATIVE / "scripts"), "-p", "test_armor_hp_final_path.py"], check=True)
+
+    original_replay = json.loads((NATIVE / "armor-hp-aggregation-replay.json").read_text())
+    integration_replay = json.loads((NATIVE / "armor-hp-integration-replay.json").read_text())
+    require(integration_replay == original_replay, "integration replay differs from hash-bound Astra result")
+    integration_watchdog = json.loads((NATIVE / "armor-hp-integration-replay.watchdog.json").read_text())
+    require(integration_watchdog["status"] == "exited" and integration_watchdog["returncode"] == 0
+            and integration_watchdog["cleanupComplete"] is True and integration_watchdog["interruptSignal"] is None,
+            "integration replay did not complete cleanly")
+
+    subprocess.run([sys.executable, "-B", str(NATIVE / "scripts/summarize_runtime_candidates.py")], check=True)
+
     print(json.dumps({
         "status": "passed",
         "executableSha256": exe_hash,
