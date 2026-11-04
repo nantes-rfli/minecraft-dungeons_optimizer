@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "kind": "conditional-native-ranged-custom-magnitude",
+  "gameVersion": "1.17.0.0",
+  "evidenceStatus": "derived",
+  "runtimePromotion": false,
+  "baselineModel": "research/domain/ranged-native-model.json",
+  "identitySource": "research/domain/formal/identity-evidence-v1.json",
+  "nativeEvidence": "research/native/ranged-final-20261101/evidence.json",
+  "verification": "research/native/ranged-final-20261101/verification.json",
+  "sourceManifest": "research/native/ranged-final-20261101/manifest.json",
+  "boundary": "Native-derived calculation model; no Formal Raw Value assertions, game verification, HP-loss or combat DPS claim",
+  "provider": {
+    "id": "sdk-22621-sse2-mxcsr-1f80",
+    "crtSha256": "fbed69a52fdcf571dd37fe4cc63cb86ed3732b5b998807f14968788027c00754",
+    "powfRva": "0x34630",
+    "gamePowerRva": "0xb88f20",
+    "mxcsr": "0x1f80",
+    "dispatch": 0,
+    "actualGameProviderConfirmed": false
+  },
+  "conditions": {
+    "projectile": "normal-single-arrow-land-G1-no-event-changes",
+    "powerEffect": "one-qualified-modifier-one-stack-one-channel-base1-custom-defaults"
+  },
+  "formulas": {
+    "power": "q=F(F(x-1)/bits(4127b7b8)); e=F(clamp(q,0,3)*19); y=pinned_powf(1.25,e); t=max(F(F(.75*y)-.75),0); M=F(F(t+t)+1)",
+    "aggregation": "m=F(0+F(1*F(0+M))); ms=F(F(1*F(m-1))+1); mc=F(F(1+ms)-1); Q=F(F(F(0+1)*mc)/1)",
+    "signedCustomMagnitude": "v0=F(F(-I+-H)*take); v1=F(F(v0*damage)*deal); v2=F(v1*difficulty); V=F(F(F(Q*v2)*ranged)*takeRange)",
+    "rounding": "F is binary32 nearest/ties-even at every operation; no host pow or reordered operations"
+  },
+  "captures": [
+    {
+      "attribute": "TakeDamageMultiplier",
+      "calculationOffset": "0x40",
+      "source": "target",
+      "snapshot": false,
+      "initializationRva": "0x79bdea"
+    },
+    {
+      "attribute": "DamageMultiplier",
+      "calculationOffset": "0x68",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x797942"
+    },
+    {
+      "attribute": "DealDamageMul",
+      "calculationOffset": "0x90",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x797a1b"
+    },
+    {
+      "attribute": "DifficultyDealDamageMultiplier",
+      "calculationOffset": "0xb8",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x79ca8f"
+    },
+    {
+      "attribute": "RangedAttackDamageMultipler",
+      "calculationOffset": "0xe0",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x7a364f"
+    },
+    {
+      "attribute": "RangedAttackItemPowerFactor",
+      "calculationOffset": "0x108",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x7a36b9"
+    },
+    {
+      "attribute": "RangedAttackDamageIncrease",
+      "calculationOffset": "0x130",
+      "source": "source",
+      "snapshot": false,
+      "initializationRva": "0x7a374e"
+    },
+    {
+      "attribute": "TakeRangeDamageMultiplier",
+      "calculationOffset": "0x158",
+      "source": "target",
+      "snapshot": false,
+      "initializationRva": "0x7a37c8"
+    }
+  ],
+  "powerInput": {
+    "accepted": "internal float32 bits, or parsed numeric double from save converted to binary32; caller must identify the actual item",
+    "notAccepted": "displayed Power inversion; absent save power; unknown numeric variant or parser provenance"
+  },
+  "runtimeAdoption": {
+    "outcome": "held",
+    "newCalculableRuntimeEquipment": 0,
+    "newCalculableRuntimeEffects": 0,
+    "blockers": [
+      "no-r3-accepted-exact-domain-decision",
+      "no-independent-product-regression-and-p3b-bundle",
+      "actual-provider-fp-state-and-effective-attribute-writers-unverified",
+      "no-item-bound-save-power-evidence"
+    ],
+    "nextWorkUnit": "Audit the seven effective-attribute writers for a bounded bare Bow scenario and implement an item-bound adapter for an already parsed save record. Use existing local inputs and synthetic parser fixtures; real item accuracy remains pending an available existing save. Keep actual-game R3/P3B adoption separate."
+  }
+}

@@ -1,0 +1,365 @@
+{
+  "baseline": "bd9249efcebc78934e69fd1ebfe43e5adc7390c3",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "officialGameAuthenticity": "unverified",
+  "rawNativeSameBuild": "unverified",
+  "runtimePromotion": false,
+  "nativeSpans": [
+    {
+      "role": "saved item power lookup / float conversion",
+      "start": "0xde72f9",
+      "end": "0xde7316",
+      "sha256": "6ed28da2c5722d63435181c3437901d2f3929002e78ee2fd9b78a0404fbc0774"
+    },
+    {
+      "role": "saved item constructor argument",
+      "start": "0xde7753",
+      "end": "0xde775f",
+      "sha256": "19b249c99a85c782ff84cba211d932c4a6de762387651aa2c53e926aed42bdd5"
+    },
+    {
+      "role": "record power constructor store",
+      "start": "0xb1ac14",
+      "end": "0xb1ac19",
+      "sha256": "a40e44587b6a6059bf56a645aa9ab1f7a6816df8bad65fb451e03594c4a251b0"
+    },
+    {
+      "role": "record move preserves power bits",
+      "start": "0x7e2e5a",
+      "end": "0x7e2e60",
+      "sha256": "149bea1c10d847bf184a594050c0e1e01e9d7e919f769beab9afea80092dc21c"
+    },
+    {
+      "role": "save power write to numeric JSON value",
+      "start": "0xdf01c0",
+      "end": "0xdf01ed",
+      "sha256": "c88855204de41d8f0d3ff86cbd7d219b2899b16fa36912207263c4bb6e3c30fa"
+    },
+    {
+      "role": "JSON float conversion variants",
+      "start": "0x3164c0",
+      "end": "0x31651d",
+      "sha256": "0b5d4550f8d3cec5ea1117a7e0b696918e87e365a3b34eac37fe321dbc687a81"
+    },
+    {
+      "role": "numeric JSON double constructor",
+      "start": "0x315dd0",
+      "end": "0x315de4",
+      "sha256": "52d7e038136d63c2f3a9561bf366f0db07f39b5d44b4f06dad1ca3e985a1a89f"
+    },
+    {
+      "role": "item spawn from record power",
+      "start": "0xb59970",
+      "end": "0xb5998b",
+      "sha256": "82dd38c1c906d2f461903b5d310a88daf3f5be4c24a9c778aac87ccbc21c184b"
+    },
+    {
+      "role": "spawn preserves float parameter",
+      "start": "0xbb1490",
+      "end": "0xbb162c",
+      "sha256": "ef7224b3ed53920fc1498514303c331f72ae79543d6a8a8f5f72f38c7baa7aa2"
+    },
+    {
+      "role": "item power setter",
+      "start": "0xb02900",
+      "end": "0xb02914",
+      "sha256": "43dd53830ba979161c23991cfca69e520b0ca2163ca06857068e45e67c3c9c5a"
+    },
+    {
+      "role": "normalization",
+      "start": "0xb8f610",
+      "end": "0xb8f67f",
+      "sha256": "046e847987d97156550b4e7811c3921ca603f64c8087420ebdb88de28637df36"
+    },
+    {
+      "role": "complete native power multiplier",
+      "start": "0xb88f20",
+      "end": "0xb88f9a",
+      "sha256": "6d52671a58504b1398bff613421f4dd0070ea20afd79f89a1d44ccd7562cb325"
+    },
+    {
+      "role": "constant 19",
+      "start": "0xa3fa50",
+      "end": "0xa3fa56",
+      "sha256": "4becd086c8729211c845a4bf1497d75a688c76b952462edfe7f7b5a56f63b399"
+    },
+    {
+      "role": "normalization range constructor",
+      "start": "0x753ef0",
+      "end": "0x753efd",
+      "sha256": "c733758ba990a55d653f24e5a443dac352c7da554844c1a98aa9250049172f84"
+    },
+    {
+      "role": "powf import thunk",
+      "start": "0x2f46ee5",
+      "end": "0x2f46eeb",
+      "sha256": "636000e27c91a27248515fd4bf7605a2cffbf06ecd771bace945e5d665d6fb71"
+    },
+    {
+      "role": "target take capture constructor",
+      "start": "0x79bd50",
+      "end": "0x79be80",
+      "sha256": "7f3cf7596963fb2db3816c405b0665f209623c8cc64fede9218a3200fa66074a"
+    },
+    {
+      "role": "source damage/deal capture constructor",
+      "start": "0x797890",
+      "end": "0x797b0c",
+      "sha256": "45398f8a58411c70f20d8e0f24252a65333ce4bc13dc47bdf533931c8b1aa3f9"
+    },
+    {
+      "role": "source difficulty capture constructor",
+      "start": "0x79ca00",
+      "end": "0x79cb17",
+      "sha256": "892bb429626589761c4e7fe4eb12d8113b46a4adc1dec458109a6e8fe6782f59"
+    },
+    {
+      "role": "ranged capture constructor",
+      "start": "0x7a35c0",
+      "end": "0x7a3a45",
+      "sha256": "6353657223cff26cb9172a0ac153a9d1771698df6334edf1ea8e9f4976ec66dd"
+    },
+    {
+      "role": "capture enum",
+      "start": "0x30f84d8",
+      "end": "0x30f84f8",
+      "sha256": "d15e689d26c1011b502291127821d843eb4897f38afbdc0072164c03db2fab1a"
+    },
+    {
+      "role": "capture source descriptor",
+      "start": "0x41a2710",
+      "end": "0x41a2738",
+      "sha256": "54f7d794c4d57ca0a051ed1d5819fc26687ea8669412b099fc41f609798ea73b"
+    },
+    {
+      "role": "ranged product",
+      "start": "0x7b0446",
+      "end": "0x7b0459",
+      "sha256": "71dcccce5fc9f0f546d2cf8abdcdb3fa209e3734f36fee2673ad657ae684bdca"
+    },
+    {
+      "role": "additive bonus before take multiplier",
+      "start": "0x7af568",
+      "end": "0x7af574",
+      "sha256": "274d8aef4a7cc3093f985ef0961eec61062c034071fcb8c927aa5c008a7fccbd"
+    },
+    {
+      "role": "native stack helper",
+      "start": "0x3d2510",
+      "end": "0x3d257e",
+      "sha256": "eeea538d6a1c63245178efa8383dc7855333e0bb3602e73d582e2936cbc33de5"
+    },
+    {
+      "role": "native channel helper",
+      "start": "0x3d30e0",
+      "end": "0x3d31d0",
+      "sha256": "b311e026b256412e680e42760892f814e864bea345fc3b55bc31c4520953a77e"
+    },
+    {
+      "role": "projectile effect constructor",
+      "start": "0x828950",
+      "end": "0x828ecd",
+      "sha256": "f2f7152f4490cb3f4d5eaef6f28a5a69a99c16d3597af77736f2b606634b7f7a"
+    },
+    {
+      "role": "instant modifier then execution loops",
+      "start": "0x3aefe2",
+      "end": "0x3af4ef",
+      "sha256": "b4b1877aa038133f8d03ad61b452e13a7046d046af1a869a37a1ae4906db2d07"
+    },
+    {
+      "role": "attribute pre/apply/post bridge",
+      "start": "0x3b9450",
+      "end": "0x3b9598",
+      "sha256": "96b48340b1eb19d7600c1c9018b83cddc1a3574a6bdb36d547ed7661cac39c01"
+    },
+    {
+      "role": "Health preexecute hook",
+      "start": "0x7cedf0",
+      "end": "0x7cef98",
+      "sha256": "2b9c9ff2a4d4e5b5ea0cc0f95c9c957a90b4866571a1859297793f6b7937a12d"
+    },
+    {
+      "role": "Health acceptance gate",
+      "start": "0x7b1210",
+      "end": "0x7b13b1",
+      "sha256": "a058b1d5c293ced467339ce2f118a4cc2717a6e3398facbf6b03f377936fff3f"
+    },
+    {
+      "role": "target multiplier and player anti-lethal branch",
+      "start": "0x7b0e90",
+      "end": "0x7b10cf",
+      "sha256": "c37e49ad719a4cb90fcc7ffd99ba62a80e7dfcf5691227d53e52ab30138e75fe"
+    },
+    {
+      "role": "tag multiplier wrapper",
+      "start": "0x99c260",
+      "end": "0x99c26c",
+      "sha256": "2c209e5c629ea6e90a840d61c1c8478709c493a174e9178c888d3b075c748a01"
+    },
+    {
+      "role": "tag multiplier loop",
+      "start": "0xc2aa70",
+      "end": "0xc2aaff",
+      "sha256": "9ea61b82c3b63a5e9ed5441ce24c5e683d728cd9116675a6dae83741e1a5dc22"
+    },
+    {
+      "role": "damage destination rewrite",
+      "start": "0x7c5200",
+      "end": "0x7c5448",
+      "sha256": "134ff397e114774523452fe5c105a7e002de4d7b1f4b90c07c745071b12efa80"
+    },
+    {
+      "role": "Health base clamp",
+      "start": "0x7cea90",
+      "end": "0x7ceae4",
+      "sha256": "f179362c5ae3d22a4b295b5bf11c2c440208013b393eb51a4763f3439fc35715"
+    },
+    {
+      "role": "Health current clamp",
+      "start": "0x7cebc0",
+      "end": "0x7cede8",
+      "sha256": "2613e372983dbe4575296a119095f22cbb46378f9f1a24efee0144634ff6c2d0"
+    },
+    {
+      "role": "HealthThreshold leaf including chained unwind tail",
+      "start": "0x7ac8b0",
+      "end": "0x7ac91b",
+      "sha256": "054a133b1529f1a02c2d93180a56b027acd1a9053491ad81c7dd9c8df3680607"
+    },
+    {
+      "role": "health descriptors",
+      "start": "0x42232c0",
+      "end": "0x4223538",
+      "sha256": "1c3893805a0118b5821350706c44d60337f11cefd9abb7b45cc17a74b90fab2f"
+    },
+    {
+      "role": "execute additive arithmetic",
+      "start": "0x3d9300",
+      "end": "0x3d933c",
+      "sha256": "bce18b5dffccf161c6441dd2265f67c0b3e433ad0ca895e89418566949283eb8"
+    },
+    {
+      "role": "apply modifier and base/current write",
+      "start": "0x3a9830",
+      "end": "0x3a9b10",
+      "sha256": "6b5b2a2cb07d6c9c26a0be5f31635df9018e864be47b3a7a26ed55cd1f9cf3f5"
+    },
+    {
+      "role": "Health postexecute",
+      "start": "0x7ce4f0",
+      "end": "0x7ce6f9",
+      "sha256": "840fa9ce515a917f6b46e7b0b322207630e007140bf72d27aeb3c2ec929c4903"
+    },
+    {
+      "role": "DamageExecution",
+      "start": "0x7b8e40",
+      "end": "0x7b901e",
+      "sha256": "bedc51c14f795e052f423d475377df597d8fec7b5f11ce06fbc23c35dfca3f78"
+    },
+    {
+      "role": "capture bSnapshot setter +0x21",
+      "start": "0x3e4950",
+      "end": "0x3e4955",
+      "sha256": "49c1d841051cf1a15795b0ec01013371cc672dab8e84e39b7a12ddf3e9538c7e"
+    }
+  ],
+  "pointers": [
+    {
+      "rva": "0x342fb00",
+      "target": "0x7cedf0"
+    },
+    {
+      "rva": "0x342fb08",
+      "target": "0x7ce4f0"
+    },
+    {
+      "rva": "0x342fb10",
+      "target": "0x7cebc0"
+    },
+    {
+      "rva": "0x342fb18",
+      "target": "0x7cea90"
+    },
+    {
+      "rva": "0x31bacd0",
+      "target": "0x7b8e40"
+    },
+    {
+      "rva": "0x31b9888",
+      "target": "0x7b0370"
+    },
+    {
+      "rva": "0x41a2708",
+      "target": "0x3e4950"
+    }
+  ],
+  "captures": [
+    {
+      "attribute": "TakeDamageMultiplier",
+      "calculationOffset": "0x40",
+      "source": "target",
+      "snapshot": false,
+      "initializationRva": "0x79bdea"
+    },
+    {
+      "attribute": "DamageMultiplier",
+      "calculationOffset": "0x68",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x797942"
+    },
+    {
+      "attribute": "DealDamageMul",
+      "calculationOffset": "0x90",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x797a1b"
+    },
+    {
+      "attribute": "DifficultyDealDamageMultiplier",
+      "calculationOffset": "0xb8",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x79ca8f"
+    },
+    {
+      "attribute": "RangedAttackDamageMultipler",
+      "calculationOffset": "0xe0",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x7a364f"
+    },
+    {
+      "attribute": "RangedAttackItemPowerFactor",
+      "calculationOffset": "0x108",
+      "source": "source",
+      "snapshot": true,
+      "initializationRva": "0x7a36b9"
+    },
+    {
+      "attribute": "RangedAttackDamageIncrease",
+      "calculationOffset": "0x130",
+      "source": "source",
+      "snapshot": false,
+      "initializationRva": "0x7a374e"
+    },
+    {
+      "attribute": "TakeRangeDamageMultiplier",
+      "calculationOffset": "0x158",
+      "source": "target",
+      "snapshot": false,
+      "initializationRva": "0x7a37c8"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://learn.microsoft.com/en-us/cpp/windows/universal-crt-deployment",
+      "use": "OS-dependent UCRT deployment; game EXE version does not fix DLL version"
+    },
+    {
+      "url": "https://www.nuget.org/packages/Microsoft.Windows.SDK.CPP/10.0.22621.1",
+      "use": "Microsoft-owned official reference DLL package, not actual game environment"
+    }
+  ]
+}

@@ -106,7 +106,8 @@
     "generate:formal-serialized-relation": "node scripts/audit-formal-serialized-relation.ts --write",
     "audit:formal-serialized-relation": "node scripts/audit-formal-serialized-relation.ts",
     "audit:formal-integration": "node scripts/audit-formal-integration.ts",
-    "audit:research-quest-submission": "node scripts/audit-research-quest-submission.ts"
+    "audit:research-quest-submission": "node scripts/audit-research-quest-submission.ts",
+    "calculate:ranged-native": "node scripts/calculate-ranged-native.ts"
   },
   "dependencies": {
     "react": "19.2.6",
