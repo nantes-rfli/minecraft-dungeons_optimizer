@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-05",
+  "repository": "CutFlame/MCDSaveEdit",
+  "commit": "58fe34efa4cd458992f7dc5af7258450f2e4a1bf",
+  "files": [
+    {
+      "path": "MCDSaveEdit/Data/Profiles/Item.cs",
+      "blobSha": "0816cbe379ea4bac4d49b1ddba5f3ffd44e40fa6",
+      "url": "https://github.com/CutFlame/MCDSaveEdit/blob/58fe34efa4cd458992f7dc5af7258450f2e4a1bf/MCDSaveEdit/Data/Profiles/Item.cs"
+    },
+    {
+      "path": "MCDSaveEdit/Data/Profiles/ProfileSaveFile.cs",
+      "blobSha": "5208ff4ee9bb486dfab645a39693df1c96240f2f",
+      "url": "https://github.com/CutFlame/MCDSaveEdit/blob/58fe34efa4cd458992f7dc5af7258450f2e4a1bf/MCDSaveEdit/Data/Profiles/ProfileSaveFile.cs"
+    },
+    {
+      "path": "MCDSaveEdit/ViewModels/ItemListViewModel.cs",
+      "blobSha": "978a0515431c0e17b6ce2ca2854d057762b91222",
+      "url": "https://github.com/CutFlame/MCDSaveEdit/blob/58fe34efa4cd458992f7dc5af7258450f2e4a1bf/MCDSaveEdit/ViewModels/ItemListViewModel.cs"
+    },
+    {
+      "path": "MCDSaveEdit/Data/Constants/Constants.ItemData.cs",
+      "blobSha": "5e9c35d11ad3ada248433ba49f572863595eee27",
+      "url": "https://github.com/CutFlame/MCDSaveEdit/blob/58fe34efa4cd458992f7dc5af7258450f2e4a1bf/MCDSaveEdit/Data/Constants/Constants.ItemData.cs"
+    }
+  ],
+  "observations": {
+    "profileCollections": [
+      "items",
+      "storageChestItems"
+    ],
+    "profileVersion": "integer save-format version; mapping to 1.17.0.0 unproven",
+    "itemFields": {
+      "type": "string",
+      "power": "binary64 double",
+      "inventoryIndex": "nullable signed integer; not persistent item identity",
+      "equipmentSlot": "nullable string"
+    },
+    "bowMapping": "Public tool default ranged type Bow agrees with existing source-bound rawIdentity Bow; actual save selection unverified",
+    "indexMutability": "Tool assigns inventoryIndex when adding an item and omits it when cloning"
+  },
+  "copiedCode": false,
+  "actualSaveTested": false,
+  "gameVersionApplicability": "unknown; schema corroboration only",
+  "licenseBoundary": "Metadata and source locations only; no source implementation or save payload copied"
+}

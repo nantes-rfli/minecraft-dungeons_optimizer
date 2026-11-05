@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "boundary": "Bounded static evidence and conditional transport only; no private payloads or runtime adoption. Extends the #221 readiness API; original research manifest untouched.",
+  "files": {
+    "docs/ranged-save-attribute-readiness.md": "898c31bb96cb17fc58adf86befb22198142adf9d481d7c8b710db6da8fc97b00",
+    "research/domain/ranged-effective-attributes.json": "10f46cca2fab63f888331afaaaad3d4c3b3fd55072170d4e1252e7f4b3f8748d",
+    "research/native/ranged-input-20261105/public-save-sources.json": "fec84d2fbc775a3717e6a2cdbcd37ea38204373752596b4d6438c0045971af9e",
+    "research/native/ranged-input-20261105/static-evidence.json": "eff3f0d43a6473bd2e3e8f13fbe33b5c0a4b061392665e59142af180955713cf",
+    "research/native/scripts/check_ranged_inputs.py": "f993f5e61c9e2cfee85827ac736ac58bf1d09ce0216b4f7bce93a7327d9c084c",
+    "src/core/rangedNativeReadiness.ts": "5ed3acff62700064850f87637a0c36a99802aa1a815c4286296f11e5139a7747",
+    "src/domain/rangedEffectiveAttributes.ts": "5b1b21846ab17c3fc810bcde8213b9f02f4c1f95f32a56f29e0a9c50b27e11b5",
+    "src/inventory/rangedSavePower.ts": "48168961ac08372427d583147c41e7ef0fe406bda9cedbe4366c3c676026b33a",
+    "tests/rangedSavePower.test.ts": "89d74b5fdedff4606452e19f382188658097a0f3c746efe3b5ee96380d1f5f14"
+  }
+}
