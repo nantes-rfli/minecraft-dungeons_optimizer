@@ -87,3 +87,7 @@ Powerとstack/channelは本物の命令で実行。custom magnitudeは有理数b
 117元例、128非中立属性fixture、104 save数値変換、Power集約ULP、隣接Power、未知条件拒否・既知0・既存観測runtime維持をテストする。Native auditから公開のsource hash/再生結果/Domain接続チェックを呼び出す。関連Ranged/Native/Formal/Evidence/Promotion auditと限定テストをローカルで実施し、Full ValidateはPR headのGitHub CIで一度実行する。
 
 PRは未mergeのまま提出。Siteは更新しない。merge後に変更が配信へ影響する場合のみ、既存project・本人限定アクセスを維持する運用に従う。rollbackは当PRのrevertで、Inventory schema変更や観測データ移行は不要。
+
+## 後続の入力接続調査
+
+7属性の初期値とsave snapshot単位のPower adapterは[後続Work Unit](ranged-save-attribute-readiness.md)を参照。実効値は0/7のままunknown、実save未検証、runtime入力削減・計算可能装備増加は0。次は同じ研究の反復を保留し、既存Inventoryの評価不能理由・不足入力の解消導線を優先する。

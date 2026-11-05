@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "kind": "bare-bow-effective-attribute-readiness",
+  "baseline": "baec198",
+  "scope": "bare Bow, normal single arrow, land, no additional effects requested; actual source/target state not observed",
+  "gameVersion": "1.17.0.0",
+  "evidenceStatus": "derived",
+  "runtimePromotion": false,
+  "nativeEvidence": "research/native/ranged-input-20261105/static-evidence.json",
+  "captureContract": "research/domain/ranged-final-native-model.json",
+  "attributes": [
+    {
+      "attribute": "RangedAttackDamageIncrease",
+      "capture": {
+        "attribute": "RangedAttackDamageIncrease",
+        "calculationOffset": "0x130",
+        "source": "source",
+        "snapshot": false,
+        "initializationRva": "0x7a374e"
+      },
+      "applicationOrder": 0,
+      "propertyDescriptorRva": "0x4265fc8",
+      "attributeSetOffset": "0x4c",
+      "attributeGetterRva": "0x7cf8f0",
+      "classGetterRva": "0xf725f0",
+      "constructorRva": "0xf72a00",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 0,
+        "storeRva": "0xf72a47",
+        "instruction": "mov qword ptr [rbx + 0x48], 0x3f800000",
+        "note": "RangedAttackDamageIncrease is the upper zero dword of the qword store at +0x48"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "TakeDamageMultiplier",
+      "capture": {
+        "attribute": "TakeDamageMultiplier",
+        "calculationOffset": "0x40",
+        "source": "target",
+        "snapshot": false,
+        "initializationRva": "0x79bdea"
+      },
+      "applicationOrder": 1,
+      "propertyDescriptorRva": "0x42233d8",
+      "attributeSetOffset": "0x50",
+      "attributeGetterRva": "0x7d4bd0",
+      "classGetterRva": "0xf05130",
+      "constructorRva": "0xf06a50",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xf06a8f",
+        "instruction": "mov dword ptr [rbx + 0x50], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "DamageMultiplier",
+      "capture": {
+        "attribute": "DamageMultiplier",
+        "calculationOffset": "0x68",
+        "source": "source",
+        "snapshot": true,
+        "initializationRva": "0x797942"
+      },
+      "applicationOrder": 2,
+      "propertyDescriptorRva": "0x41fd450",
+      "attributeSetOffset": "0x30",
+      "attributeGetterRva": "0x7b20c0",
+      "classGetterRva": "0xec7d50",
+      "constructorRva": "0xec8dd0",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xec8df0",
+        "instruction": "mov dword ptr [rbx + 0x30], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "DealDamageMul",
+      "capture": {
+        "attribute": "DealDamageMul",
+        "calculationOffset": "0x90",
+        "source": "source",
+        "snapshot": true,
+        "initializationRva": "0x797a1b"
+      },
+      "applicationOrder": 3,
+      "propertyDescriptorRva": "0x41e1040",
+      "attributeSetOffset": "0x30",
+      "attributeGetterRva": "0x7b2180",
+      "classGetterRva": "0xe969a0",
+      "constructorRva": "0xe99220",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xe99240",
+        "instruction": "mov dword ptr [rbx + 0x30], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "DifficultyDealDamageMultiplier",
+      "capture": {
+        "attribute": "DifficultyDealDamageMultiplier",
+        "calculationOffset": "0xb8",
+        "source": "source",
+        "snapshot": true,
+        "initializationRva": "0x79ca8f"
+      },
+      "applicationOrder": 4,
+      "propertyDescriptorRva": "0x41febc0",
+      "attributeSetOffset": "0x30",
+      "attributeGetterRva": "0x7b2350",
+      "classGetterRva": "0xeceed0",
+      "constructorRva": "0xecf2b0",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xecf2d0",
+        "instruction": "mov dword ptr [rbx + 0x30], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "RangedAttackDamageMultipler",
+      "capture": {
+        "attribute": "RangedAttackDamageMultipler",
+        "calculationOffset": "0xe0",
+        "source": "source",
+        "snapshot": true,
+        "initializationRva": "0x7a364f"
+      },
+      "applicationOrder": 5,
+      "propertyDescriptorRva": "0x4266090",
+      "attributeSetOffset": "0x38",
+      "attributeGetterRva": "0x7cf9b0",
+      "classGetterRva": "0xf725f0",
+      "constructorRva": "0xf72a00",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xf72a31",
+        "instruction": "mov dword ptr [rbx + 0x38], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    },
+    {
+      "attribute": "TakeRangeDamageMultiplier",
+      "capture": {
+        "attribute": "TakeRangeDamageMultiplier",
+        "calculationOffset": "0x158",
+        "source": "target",
+        "snapshot": false,
+        "initializationRva": "0x7a37c8"
+      },
+      "applicationOrder": 6,
+      "propertyDescriptorRva": "0x4223388",
+      "attributeSetOffset": "0x58",
+      "attributeGetterRva": "0x7d4d50",
+      "classGetterRva": "0xf05130",
+      "constructorRva": "0xf06a50",
+      "initial": {
+        "state": "known-configured-default",
+        "value": 1,
+        "storeRva": "0xf06a9d",
+        "instruction": "mov dword ptr [rbx + 0x58], 0x3f800000",
+        "note": "Constructor store only; not an effective combat value"
+      },
+      "effective": {
+        "state": "unknown",
+        "reason": "concrete-writer-conditions-active-effects-and-capture-time-not-closed"
+      },
+      "writerCoverage": {
+        "constructor": "confirmed",
+        "genericAttributeUpdate": {
+          "scope": "engine mechanism only; not proof of concrete writers for these seven attributes",
+          "reference": "research/native/ranged-final-20261101/REPORT.md"
+        },
+        "concreteModifierWriters": "unresolved",
+        "allWritersEnumerated": false
+      }
+    }
+  ],
+  "resolvedEffectiveAttributeCount": 0,
+  "stopCondition": "Constructor defaults and generic updates are insufficient to close source/target active state and concrete modifier writers. No further broad Native/save search in this Work Unit.",
+  "runtimeAdditions": {
+    "equipment": 0,
+    "effects": 0
+  }
+}

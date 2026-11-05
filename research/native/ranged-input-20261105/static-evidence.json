@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "officialAuthenticity": "unverified",
+  "rawNativeSameBuild": "unverified",
+  "method": "bounded static descriptor, registration and constructor inspection; no game execution or all-writer coverage",
+  "spans": [
+    {
+      "start": "0x7cf8f0",
+      "end": "0x7cf9a2",
+      "sha256": "1cbf01fb7aa16fc844868735691b59b7efbe295f45babfecb068c88848419833",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0xf725f0",
+      "end": "0xf72692",
+      "sha256": "8e48d1649f884ab2a6c2893d8535fdbfef0379960854926b77e0f93ab26c75f2",
+      "role": "owning class registration"
+    },
+    {
+      "start": "0xf72a00",
+      "end": "0xf72a55",
+      "sha256": "f88548223f9ce79a08a02f05911fc0005000a8ea23b1940b2bad7deb2709adac",
+      "role": "attribute-set constructor"
+    },
+    {
+      "start": "0x4265fc8",
+      "end": "0x4265ff0",
+      "sha256": "5c20a074a442659aa75c0fe6be174c6f51c6202da4dba3f4ea9476eb693c03c8",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7d4bd0",
+      "end": "0x7d4c82",
+      "sha256": "69414319c5a79f11f2303181da95afae3dd96227b9fff52dc05893aaea2498b7",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0xf05130",
+      "end": "0xf051d2",
+      "sha256": "0a899261d5917f9384f1bce834c9b5d60f1c4e39bdcac34876d172003e98cea5",
+      "role": "owning class registration"
+    },
+    {
+      "start": "0xf06a50",
+      "end": "0xf06ae3",
+      "sha256": "b8275c5ae9d226ac5488cadeedc31682b5dc5a685d3dcae4a57b8da3e4e7ab89",
+      "role": "attribute-set constructor"
+    },
+    {
+      "start": "0x42233d8",
+      "end": "0x4223400",
+      "sha256": "836a521d2ae59c1ace713f6ea373f2d28636989fcc16cd2f3187d17039cbc939",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7b20c0",
+      "end": "0x7b2172",
+      "sha256": "70f9e2b771524cbe24cce3c89c04c4516c337e204feed04cf83ac6d2bb45d30c",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0xec7d50",
+      "end": "0xec7df2",
+      "sha256": "bfb6df035b0c57d93215651f5e31ae6d8ff0658b02292159218fe037e2bf29de",
+      "role": "owning class registration"
+    },
+    {
+      "start": "0xec8dd0",
+      "end": "0xec8e00",
+      "sha256": "adbbc67c2b1a4e14eebdb88aab2024a8d31ca66957c7c5e5cf1e27aae94506e0",
+      "role": "attribute-set constructor"
+    },
+    {
+      "start": "0x41fd450",
+      "end": "0x41fd478",
+      "sha256": "ee7a7d6992b2496e966b8c9ee757cb3eaf8abe5e9b68c4e51ca4c016cd9620bd",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7b2180",
+      "end": "0x7b2232",
+      "sha256": "774743c56b60d9c87611c66541c777396fd3d2717adb55be2962aab5769e4a4e",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0xe969a0",
+      "end": "0xe96a42",
+      "sha256": "e46ab42d5c544192dbf0c3d7a450d89a30d7e5e348f1ec2ba56e0ae5ce70552c",
+      "role": "owning class registration"
+    },
+    {
+      "start": "0xe99220",
+      "end": "0xe99250",
+      "sha256": "30298365feccb757ede5bed5784a42cae91456acd3d15da92c9479876f9fccb8",
+      "role": "attribute-set constructor"
+    },
+    {
+      "start": "0x41e1040",
+      "end": "0x41e1068",
+      "sha256": "f23a21d01e889bfc8d4b229f3db141ec704f0024e58faf991557639a622ee247",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7b2350",
+      "end": "0x7b2402",
+      "sha256": "7df78fb662d62441c0ee5f3c17191000a58c817ec351157195d049c6906c21f8",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0xeceed0",
+      "end": "0xecef72",
+      "sha256": "f2b506734fd539d2af12e14f9ea66b431cc26b3d91455e31fafa6cd53b46c954",
+      "role": "owning class registration"
+    },
+    {
+      "start": "0xecf2b0",
+      "end": "0xecf2e7",
+      "sha256": "cd2159808107792bc878c7a35c58685f39540219fdfda2139f5813b67943a1e3",
+      "role": "attribute-set constructor"
+    },
+    {
+      "start": "0x41febc0",
+      "end": "0x41febe8",
+      "sha256": "48c3dc57b20cf02f33515ce41e8642c822a293c7971b0aa467721da191d2d70c",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7cf9b0",
+      "end": "0x7cfa62",
+      "sha256": "cbb53718457e8d55d7525f6c3a5b29b43bc3be1b17373b126139dbed67fc7294",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0x4266090",
+      "end": "0x42660b8",
+      "sha256": "8edd6b13aa0f2e1e39fa6849812297379f45cf7ccfd6d616744516fd07185883",
+      "role": "property descriptor"
+    },
+    {
+      "start": "0x7d4d50",
+      "end": "0x7d4e02",
+      "sha256": "877e53404be5b5f3d248a86012632506e74ffd00331454b08522b95b51f49ef6",
+      "role": "attribute getter"
+    },
+    {
+      "start": "0x4223388",
+      "end": "0x42233b0",
+      "sha256": "073db9e40ef2756ed3a2ac0c0148c001741d36bf1fb55ecac34187e712fbd09a",
+      "role": "property descriptor"
+    }
+  ],
+  "rawNameSearch": {
+    "method": "substring candidate search of existing committed structural shards, then exact attribute-name check",
+    "candidatePackages": 22,
+    "exactAttributeNamePackages": 0,
+    "falsePositiveExamples": [
+      "ChargeDamageMultiplier",
+      "EnemyTakeDamageMultiplier"
+    ],
+    "scope": "serialized inventory only; absence is not absence of native/inherited/effect writers"
+  },
+  "actualSaveAvailable": false,
+  "actualGameAttributeValuesObserved": false,
+  "effectiveAttributesResolved": 0
+}
