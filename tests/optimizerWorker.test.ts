@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import { IDLE_SEARCH, OptimizerController, type WorkerPort } from '../src/optimizer/controller'
 import type { OptimizeRequest, OptimizeResponse } from '../src/optimizer/protocol'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
-import { optimizeWithMetadata } from '../src/core/optimizer'
+import { inspectInventoryReadiness, optimizeWithMetadata } from '../src/core/optimizer'
 import { assessEquipment } from '../src/core/equipmentAssessment'
 import { compareRemovalAcrossConditions } from '../src/core/inventoryRemovalComparison'
 
@@ -17,6 +17,19 @@ class FakeWorker implements WorkerPort {
 }
 afterEach(() => vi.useRealTimers())
 describe('worker lifecycle', () => {
+  it('transfers readiness separately from scores and drops it when inputs reset', () => {
+    const worker = new FakeWorker()
+    const controller = new OptimizerController(() => worker)
+    controller.start({ ...input, inventoryReadiness: true })
+    const request = worker.postMessage.mock.calls[0]![0]
+    expect(request.inventoryReadiness).toBe(true)
+    const readiness = inspectInventoryReadiness(input.inventory, input.scenario)
+    worker.reply({ id: request.id, type: 'readiness-complete', readiness, durationMs: 5 })
+    expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result: null, readiness })
+    controller.reset()
+    worker.reply({ id: request.id, type: 'readiness-complete', readiness, durationMs: 5 })
+    expect(controller.getSnapshot()).toEqual(IDLE_SEARCH)
+  })
   it('transfers an independent equipment assessment batch and drops it on cancellation or reset', () => {
     const worker = new FakeWorker()
     const controller = new OptimizerController(() => worker)

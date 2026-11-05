@@ -995,3 +995,12 @@ button:disabled { cursor: not-allowed; opacity: .6; }
 .score-breakdown th, .score-breakdown td { padding: .5rem; text-align: right; border-bottom: 1px solid var(--line); }
 .score-breakdown th:first-child { text-align: left; }
 .score-breakdown caption { text-align: left; margin-bottom: .5rem; }
+
+.inventory-readiness { margin: 1rem 0; padding: 1rem; border: 1px solid var(--border, #555); border-radius: 12px; }
+.readiness-counts { display: flex; flex-wrap: wrap; gap: 1rem; }
+.readiness-counts dd { margin: .25rem 0; font-weight: bold; }
+.readiness-items { padding-left: 1.25rem; }
+.readiness-items > li { margin: 1rem 0; padding-bottom: .75rem; border-bottom: 1px solid var(--border, #555); }
+.readiness-items small { display: block; overflow-wrap: anywhere; }
+.readiness-items button { margin: .25rem .5rem .25rem 0; }
+.readiness-blocker, .readiness-items p { overflow-wrap: anywhere; }

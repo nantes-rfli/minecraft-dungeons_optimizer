@@ -49,6 +49,18 @@ function interpolateReferenceDamage(
   )
 }
 
+/** Runtime range guard shared with input-readiness diagnostics; never extrapolates. */
+export function validatePowerCurveLevel(powerLevel: number, curve: GearPowerCurve): void {
+  const first = curve.points[0]!
+  const last = curve.points.at(-1)!
+  if (!Number.isInteger(powerLevel) || powerLevel < first.powerLevel || powerLevel > last.powerLevel) {
+    throw new OptimizerInputError(
+      'UNSUPPORTED_POWER_LEVEL',
+      `表示ダメージ未入力時の武器Powerは${first.powerLevel}以上${last.powerLevel}以下で指定してください。範囲外では表示ダメージを入力してください。`,
+    )
+  }
+}
+
 export function calculatePowerScaledHitDamage(
   weaponDamageCoefficient: number,
   referenceDamageCoefficient: number,
@@ -62,14 +74,7 @@ export function calculatePowerScaledHitDamage(
     throw new Error('referenceDamageCoefficientは0より大きい有限値にしてください。')
   }
   assertCurve(curve)
-  const first = curve.points[0]!
-  const last = curve.points.at(-1)!
-  if (!Number.isInteger(powerLevel) || powerLevel < first.powerLevel || powerLevel > last.powerLevel) {
-    throw new OptimizerInputError(
-      'UNSUPPORTED_POWER_LEVEL',
-      `表示ダメージ未入力時の武器Powerは${first.powerLevel}以上${last.powerLevel}以下で指定してください。範囲外では表示ダメージを入力してください。`,
-    )
-  }
+  validatePowerCurveLevel(powerLevel, curve)
 
   const upperIndex = curve.points.findIndex((point) => point.powerLevel >= powerLevel)
   const upper = curve.points[upperIndex]

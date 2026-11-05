@@ -1,14 +1,20 @@
-import { optimize, optimizeWithMetadata } from '../core/optimizer'
+import { inspectInventoryReadiness, optimize, optimizeWithMetadata } from '../core/optimizer'
 import { assessEquipment } from '../core/equipmentAssessment'
 import { compareTrialAcrossConditions } from '../core/trialConditionComparison'
 import { compareRemovalAcrossConditions } from '../core/inventoryRemovalComparison'
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
-  const { id, inventory, scenario, includeEvaluationMetadata, equipmentInstanceId, assessmentConditions, trialComparison, removalComparison } = event.data
+  const { id, inventory, scenario, inventoryReadiness, includeEvaluationMetadata, equipmentInstanceId, assessmentConditions, trialComparison, removalComparison } = event.data
   let response: OptimizeResponse
   try {
     const start = performance.now()
+    if (inventoryReadiness) {
+      if (assessmentConditions || trialComparison || removalComparison || equipmentInstanceId !== undefined) throw new Error('評価可能性の確認は単独で実行してください。')
+      response = { id, type: 'readiness-complete', readiness: inspectInventoryReadiness(inventory, scenario), durationMs: performance.now() - start }
+      self.postMessage(response)
+      return
+    }
     if ((trialComparison || removalComparison) && !assessmentConditions) throw new Error('比較する条件を選んでください。')
     if (trialComparison && removalComparison) throw new Error('追加と除去の比較を同時に実行できません。')
     if (equipmentInstanceId !== undefined && (assessmentConditions || trialComparison || removalComparison)) throw new Error('個体別評価は単独の最適化で指定してください。')

@@ -1,10 +1,12 @@
+import { calculateArtifactDuration } from './artifact'
+import { ExclusionLog, type InventoryReadiness, type ReadinessIssue } from './readiness'
 import { assertSearchBudget } from './searchBudget'
 import { evaluate, evaluateCandidate } from './evaluate'
 import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
 import { armorCombinationUnsupportedReason } from './armor'
-import { getArmorDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
+import { getArtifactDefinition, getArmorDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
 import type { SelectedArmorEnchantment } from './armor'
 import type {
   Build,
@@ -16,8 +18,8 @@ import type {
   OwnedWeapon,
   Scenario,
 } from './types'
-import { validateInventory, validateScenario } from './validation'
-import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponUnsupportedReason } from './ranged'
+import { enchantmentInputIssue, inventoryItemInputIssues, missingObservedDamageInstanceIds, validateInventory, validateScenario } from './validation'
+import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponIssues, rangedWeaponUnsupportedReason } from './ranged'
 import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { soulEnchantmentUnsupportedReason } from './soulLegality'
@@ -52,7 +54,12 @@ function normalizedSlot(slot: { readonly candidates: readonly unknown[]; readonl
   return { candidates, ...(selected ? { selected } : {}) }
 }
 
-function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: Set<string>): Build[] {
+function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: ExclusionLog): Build[] {
+  const slotIssue = enchantmentInputIssue(weapon.instanceId, weapon.enchantmentSlots)
+  if (slotIssue) {
+    unsupportedChoices.record(weapon.instanceId, slotIssue)
+    throw new OptimizerInputError('INVALID_WEAPON', slotIssue.message)
+  }
   const choices = weapon.enchantmentSlots.map((slot) => {
     const normalized = normalizedSlot(slot)
     const options = normalized.selected ? [normalized.selected] : normalized.candidates
@@ -109,25 +116,26 @@ interface ArmorOption {
   readonly armorEnchantments: readonly SelectedArmorEnchantment[]
 }
 
-function optionsForArmor(armor: ArmorOption['armor'], unsupportedChoices: Set<string>): ArmorOption[] {
+function optionsForArmor(armor: ArmorOption['armor'], unsupportedChoices: ExclusionLog): ArmorOption[] {
   if (!isRuntimeArmorId(armor.armorId)) {
-    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ID: ${armor.armorId}`)
+    unsupportedChoices.record(armor.instanceId, { kind: 'unsupported', message: `UNSUPPORTED_ARMOR_ID: ${armor.armorId}` })
     return []
   }
   if (armor.observedHealthBonus === undefined) {
-    unsupportedChoices.add(`${armor.instanceId}: MISSING_OBSERVED_ARMOR_HEALTH`)
-    return []
+    unsupportedChoices.record(armor.instanceId, { kind: 'input-required', message: 'MISSING_OBSERVED_ARMOR_HEALTH: カード表示の追加HPを入力してください。', target: 'equipment', fields: ['カード表示の追加HP（0以上の有限値）'] }, 'MISSING_OBSERVED_ARMOR_HEALTH')
   }
+  const slotIssue = enchantmentInputIssue(armor.instanceId, armor.enchantmentSlots)
+  if (slotIssue) unsupportedChoices.record(armor.instanceId, slotIssue)
   const groups = armor.enchantmentSlots.map((slot, index) => {
     const normalized = normalizedSlot(slot)
     if (normalized.selected && !isRuntimeArmorEnchantmentId(normalized.selected.enchantmentId)) {
-      unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANTMENT: selected slot ${index + 1} contains ${normalized.selected.enchantmentId}`)
+      unsupportedChoices.record(armor.instanceId, { kind: 'unsupported', message: `UNSUPPORTED_ARMOR_ENCHANTMENT: selected slot ${index + 1} contains ${normalized.selected.enchantmentId}`, target: 'equipment' })
       return []
     }
     if (!normalized.selected) {
       const unsupported = normalized.candidates.find((candidate) => !isRuntimeArmorEnchantmentId(candidate.enchantmentId))
       if (unsupported) {
-        unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE: slot ${index + 1} contains ${unsupported.enchantmentId}`)
+        unsupportedChoices.record(armor.instanceId, { kind: 'unsupported', message: `UNSUPPORTED_ARMOR_ENCHANT_ALTERNATIVE: slot ${index + 1} contains ${unsupported.enchantmentId}`, target: 'equipment' })
         return []
       }
     }
@@ -135,16 +143,17 @@ function optionsForArmor(armor: ArmorOption['armor'], unsupportedChoices: Set<st
   })
   if (groups.some((group) => group.length === 0)) return []
   if (armor.gilded && !isRuntimeArmorEnchantmentId(armor.gilded.enchantmentId)) {
-    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_GILDED_ENCHANTMENT: ${armor.gilded.enchantmentId}`)
+    unsupportedChoices.record(armor.instanceId, { kind: 'unsupported', message: `UNSUPPORTED_ARMOR_GILDED_ENCHANTMENT: ${armor.gilded.enchantmentId}` })
     return []
   }
   const definition = getArmorDefinition(armor.armorId)
   const unsupportedBuiltIn = definition.builtInEnchantments.find((item) => !isRuntimeArmorEnchantmentId(item.enchantmentId) || item.tier === undefined)
   if (unsupportedBuiltIn) {
-    unsupportedChoices.add(`${armor.instanceId}: UNSUPPORTED_ARMOR_BUILT_IN_ENCHANTMENT: ${unsupportedBuiltIn.enchantmentId}`)
+    unsupportedChoices.record(armor.instanceId, { kind: 'unsupported', message: `UNSUPPORTED_ARMOR_BUILT_IN_ENCHANTMENT: ${unsupportedBuiltIn.enchantmentId}` })
     return []
   }
   const builtIns = definition.builtInEnchantments.map((item) => ({ enchantmentId: item.enchantmentId, tier: item.tier!, source: 'built-in' as const }))
+  if (armor.observedHealthBonus === undefined || slotIssue) return []
   return cartesianProduct(groups).map((rolls) => ({
     armor,
     armorEnchantments: [
@@ -212,6 +221,17 @@ function buildInstanceIds(build: Build): string[] {
     ...build.artifacts.map((artifact) => artifact.instanceId)]
 }
 
+function recordEvaluationFailure(log: ExclusionLog, build: Build, error: unknown): void {
+  if (error instanceof OptimizerInputError) {
+    if (['UNSUPPORTED_POWER_LEVEL', 'UNSUPPORTED_ARTIFACT_POWER_RANGE'].includes(error.code)) return // identified by the same per-item runtime guards
+    if (error.instanceIds) {
+      for (const id of error.instanceIds) log.record(id, { kind: 'constrained', message: error.message })
+      return
+    }
+  }
+  for (const id of buildInstanceIds(build)) log.record(id, { kind: 'failed', message: error instanceof Error ? error.message : '評価処理が失敗しました。' })
+}
+
 /**
  * Runs the optimizer with participation metadata for callers that need to
  * distinguish evaluated inventory instances from candidates excluded before
@@ -241,18 +261,18 @@ function optimizeInternal(
   scenario: Scenario,
   includeEvaluationMetadata: boolean,
   includeEquipmentAssessment: boolean | ReadonlySet<string> = false,
+  unsupportedChoices = new ExclusionLog(),
 ): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly bestByInstance: ReadonlyMap<string, Evaluation> } {
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory)
 
-  const unsupportedChoices = new Set<string>()
   const policy = evidencePolicy(scenario)
   const runtimeArtifacts = policy === 'include-estimated'
     ? inventory.artifacts
     : inventory.artifacts.filter((artifact) => {
       if (artifactEvidenceAllowed(artifact.artifactId, policy)) return true
-      unsupportedChoices.add(`${artifact.instanceId}: Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外`)
+      unsupportedChoices.record(artifact.instanceId, { kind: 'constrained', message: 'Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外', target: 'scenario' })
       return false
     })
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
@@ -276,36 +296,47 @@ function optimizeInternal(
       const build: Build = { ...weaponBuild, armor: option.armor, armorEnchantments: option.armorEnchantments }
       const reason = armorCombinationUnsupportedReason(build, scenario)
       if (reason) {
-        unsupportedChoices.add(`${option.armor.instanceId}: ${reason}`)
+        unsupportedChoices.candidate(option.armor.instanceId, reason.startsWith('MISSING_COWARDICE_FULL_HEALTH_SHARE:')
+          ? { kind: 'input-required', message: reason, target: 'scenario', fields: ['Cowardice 満タンHP時間割合（0〜1）'] }
+          : { kind: 'constrained', message: reason })
         return []
       }
       return [build]
     }))
+  unsupportedChoices.finishStage(new Set(builds.flatMap(buildInstanceIds)))
   if (registeredArmors.length > 0 && builds.length === 0) {
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
   }
   const rangedWeapons = inventory.rangedWeapons ?? []
   const rangedBuilds = rangedWeapons.length === 0 ? builds : rangedWeapons.flatMap((rangedWeapon) => {
     const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
-    if (unsupported) { unsupportedChoices.add(`${rangedWeapon.instanceId}: ${unsupported}`); return [] }
+    if (unsupported) { for (const issue of rangedWeaponIssues(rangedWeapon)) unsupportedChoices.record(rangedWeapon.instanceId, issue); return [] }
     const options = rangedOptions(rangedWeapon)
-    if (options.length === 0) unsupportedChoices.add(`${rangedWeapon.instanceId}: Ranged stackingを満たす候補がありません。`)
+    if (options.length === 0) unsupportedChoices.record(rangedWeapon.instanceId, { kind: 'constrained', message: 'Ranged stackingを満たす候補がありません。' })
     return builds.flatMap((base) => options.flatMap((rangedEnchantments) => {
       const build = { ...base, rangedWeapon, rangedEnchantments }
       const reason = rangedCombinationUnsupportedReason(build, scenario)
-      if (reason) { unsupportedChoices.add(`${rangedWeapon.instanceId}: ${reason}`); return [] }
+      if (reason) { unsupportedChoices.candidate(rangedWeapon.instanceId, { kind: 'constrained', message: reason, ...(scenario.rangedTimeShare === undefined || scenario.rangedTimeShare <= 0 || scenario.rangedTimeShare >= 1 ? { target: 'scenario' as const } : {}) }); return [] }
       return [build]
     }))
   })
+  unsupportedChoices.finishStage(new Set(rangedBuilds.flatMap(buildInstanceIds)))
   if (rangedWeapons.length > 0 && rangedBuilds.length === 0) throw new OptimizerInputError('NO_SUPPORTED_RANGED_CANDIDATES', `No supported Ranged candidates. ${[...unsupportedChoices].join(' ')}`)
   const evidenceAllowedBuilds = rangedBuilds.filter((build) => {
     const blocked = blockedParameterEvidenceForBuild(build, policy)
     if (blocked.length === 0) return true
-    unsupportedChoices.add(`${build.weapon.instanceId}: Evidence policyで除外（${blocked.map((item) => `${item.mechanicId}/${item.parameterId}:${item.status}`).join('、')}）`)
+    for (const id of buildInstanceIds(build)) unsupportedChoices.candidate(id, { kind: 'constrained', message: `Evidence policyで構成を除外（${blocked.map((item) => `${item.mechanicId}/${item.parameterId}:${item.status}`).join('、')}）。入力ではEvidenceを昇格できません。`, target: 'scenario' })
     return false
   })
+  unsupportedChoices.finishStage(new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds)))
   const evaluations = evidenceAllowedBuilds
-    .map((build) => evaluateCandidate(build, scenario))
+    .map((build) => {
+      try { return evaluateCandidate(build, scenario) }
+      catch (error) {
+        recordEvaluationFailure(unsupportedChoices, build, error)
+        throw error
+      }
+    })
     .sort((left, right) => right.objectiveScore - left.objectiveScore)
   const evaluatedInstanceIds = includeEvaluationMetadata
     ? [...new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds))]
@@ -325,7 +356,12 @@ function optimizeInternal(
   const withDetails = (candidate: typeof best): Evaluation => {
     const existing = detailed.get(candidate.build)
     if (existing) return existing
-    const result = evaluate(candidate.build, scenario)
+    let result: Evaluation
+    try { result = evaluate(candidate.build, scenario) }
+    catch (error) {
+      recordEvaluationFailure(unsupportedChoices, candidate.build, error)
+      throw error
+    }
     detailed.set(candidate.build, result)
     return result
   }
@@ -351,4 +387,64 @@ function optimizeInternal(
       searchMode: 'exhaustive',
     },
   }
+}
+
+/** Diagnose the CURRENT inventory/condition. No invented loadouts, removed gear or fallback scores. */
+export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenario): InventoryReadiness {
+  const log = new ExclusionLog()
+  const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
+  let evaluated = new Set<string>()
+  let errorMessage: string | undefined
+  let globalIssue: ReadinessIssue = { kind: 'constrained', message: 'この条件と所持装備では評価可能な構成がありません。他の装備の不足入力・制約も確認してください。' }
+  try {
+    assertSearchBudget(inventory)
+    for (const [id, issues] of inventoryItemInputIssues(inventory)) for (const issue of issues) log.record(id, issue)
+    for (const artifact of inventory.artifacts) {
+      try {
+        const definition = getArtifactDefinition(artifact.artifactId)
+        if ('duration' in definition) calculateArtifactDuration(definition.duration, artifact.powerLevel)
+      }
+      catch (error) {
+        if (error instanceof OptimizerInputError && error.code === 'UNSUPPORTED_ARTIFACT_POWER_RANGE') log.record(artifact.instanceId, { kind: 'unsupported', message: `${error.message}。この個体のPowerは現在の対応範囲外です。実装備のPowerを書き換えたり、未承認の値を入力して解決しないでください。` })
+      }
+    }
+    // Independent preparation runs even if another category will block the full search.
+    // Keep only fatal per-item preparation blockers; unsupported alternatives are not item exclusions.
+    for (const weapon of inventory.weapons) {
+      const probe = new ExclusionLog()
+      try {
+        if (buildsForWeapon(weapon, [], probe).length > 0) continue
+        log.record(weapon.instanceId, { kind: 'constrained', message: 'Enchantのstacking・組み合わせ制約を満たす候補がありません。' })
+      } catch (error) {
+        if (probe.issues.get(weapon.instanceId)?.some((issue) => issue.kind === 'input-required')) {
+          for (const issue of probe.issues.get(weapon.instanceId)!) log.record(weapon.instanceId, issue)
+          continue
+        }
+        log.record(weapon.instanceId, { kind: error instanceof OptimizerInputError && error.code === 'UNSUPPORTED_DAMAGE_EVENT' ? 'unsupported' : 'failed', message: error instanceof Error ? error.message : '武器の候補生成に失敗しました。' })
+      }
+      for (const issue of probe.issues.get(weapon.instanceId) ?? []) log.record(weapon.instanceId, issue)
+    }
+    for (const armor of inventory.armors ?? []) {
+      const probe = new ExclusionLog()
+      if (optionsForArmor(armor, probe).length === 0) for (const issue of probe.issues.get(armor.instanceId) ?? []) log.record(armor.instanceId, issue)
+    }
+    for (const weapon of inventory.rangedWeapons ?? []) for (const issue of rangedWeaponIssues(weapon)) log.record(weapon.instanceId, issue)
+    // This is the same mixed-scale requirement used by validateInventory.
+    for (const instanceId of missingObservedDamageInstanceIds(inventory)) log.record(instanceId, { kind: 'input-required', message: '表示ダメージを使う場合は比較するすべての近接武器に入力してください。', target: 'equipment', fields: ['表示ダメージ（正の有限値）'] })
+    const execution = optimizeInternal(inventory, scenario, true, false, log)
+    evaluated = new Set(execution.evaluatedInstanceIds)
+  } catch (error) {
+    errorMessage = error instanceof Error ? error.message : '評価処理が失敗しました。'
+    globalIssue = { kind: 'constrained', message: `所持装備全体の探索が完了していないため、この個体の評価は未確認です。${errorMessage}` }
+  }
+  for (const item of inventory.catalogItems ?? []) log.record(item.instanceId, { kind: 'unsupported', message: 'この装備・固有効果は現在の計算対象外です。観測値の入力だけでは解決しません。' })
+  return { equipment: instances.map(({ instanceId }) => {
+    if (evaluated.has(instanceId)) return { instanceId, status: 'evaluated' as const, issues: [] }
+    const issues = log.issues.get(instanceId) ?? [globalIssue]
+    // An unsupported intrinsic/Gilded cannot be repaired by filling observations.
+    const status = issues.some((issue) => issue.kind === 'failed') ? 'failed'
+      : issues.some((issue) => issue.kind === 'unsupported') ? 'unsupported'
+      : issues.some((issue) => issue.kind === 'input-required') ? 'input-required' : 'constrained'
+    return { instanceId, status, issues }
+  }), ...(errorMessage ? { error: errorMessage } : {}) }
 }
