@@ -62,6 +62,7 @@ def main() -> None:
     subprocess.run([sys.executable, '-B', '-m', 'unittest', 'discover', '-s', str(NATIVE / 'scripts'), '-p', 'test_ranged_integration.py'], check=True)
     subprocess.run([sys.executable, '-B', str(NATIVE / 'scripts/check_ranged_integration.py')], check=True)
     subprocess.run([sys.executable, '-B', str(NATIVE / 'scripts/build_ranged_domain.py')], check=True)
+    subprocess.run([sys.executable, '-B', str(NATIVE / 'scripts/check_ranged_final.py')], check=True)
     inventory = read_json("native-source-inventory.json")
     prior_art = read_json("external-prior-art.json")
     architecture = read_json("native-architecture.json")

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "boundary": "Integration artifacts only; immutable original files are separately bound by manifest.json. No private game payloads.",
+  "files": {
+    "research/domain/ranged-final-native-model.json": "01ed79a54ec5e5153f5637c8fb28af8c8b9a1785c025cf93b96e2ec6c29f4664",
+    "src/domain/rangedFinalNative.ts": "400f460243b8854ed47014c189198e88d3857a9d975b3eb67abcf167cd6def13",
+    "src/core/rangedNativeReadiness.ts": "86aea9d1da33f53dfba7271f7a4d4cbf35b5fcb60511b37850ff7205c32061d2",
+    "scripts/calculate-ranged-native.ts": "f44d57f8dca1e2ddea34a168a8041c6a65170244e95bf3fb10a76c837c5b448d",
+    "research/native/scripts/calculate_ranged_final.py": "67624b1a34fd9e3f66a95560a9a94b7d318019a4ff53a0986a9ef5d2066d9903",
+    "research/native/scripts/check_ranged_final.py": "4225c6cf3bc715db513fdca94dd98215ecd0e470d692835a39128651fe95cd42",
+    "tests/rangedFinalNative.test.ts": "3094d07df1f75d871a64b334856ba42c92e9d662a7e6a41d0ff190a2e883d909",
+    "research/native/ranged-final-20261101/integration-replay.json": "47f76e7c6b1e10b7cec4b51cbb8afc086811234d631bc056b4e12e3434cc43b9",
+    "research/native/ranged-final-20261101/integration-replay.watchdog.json": "1a3da947d40f6135d8d992a0c931455191c4d1223b7bbcb52a78a53a36215cb8",
+    "research/native/ranged-final-20261101/independent-research-review.json": "c04b807d1fe4fb0c66b1381c54089a2ec8473755c8a0699378f02a33ffde32b0",
+    "research/native/ranged-final-20261101/attribute-fixtures.json": "406972e630a8db1fb889da7c68e4c3e4eee2cd33b2c263096f4bdfab90ba6220",
+    "research/native/ranged-final-20261101/conditional-input.example.json": "b4833886add03009af7ed913537944ba379a818398a79c95ec870f1974fbc60e",
+    "docs/ranged-final-native-integration.md": "cba8db45a403dd1e1623a3d2a8e83c9ed07827409cd583307e8613c95b28adcf",
+    "research/native/ranged-final-20261101/conditional-cli-verification.json": "d80ddd98d475dff08462d9594f8e2b4048ca95032c6a5d0caf6d06f777373519"
+  }
+}

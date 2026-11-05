@@ -1,0 +1,21 @@
+{
+  "weaponId": "bow",
+  "mode": "charged",
+  "power": {
+    "kind": "parsed-save-double",
+    "value": 10.9,
+    "sourceNote": "Synthetic example, not a real saved item"
+  },
+  "provider": "sdk-22621-sse2-mxcsr-1f80",
+  "projectile": "normal-single-arrow-land-G1-no-event-changes",
+  "powerEffect": "one-qualified-modifier-one-stack-one-channel-base1-custom-defaults",
+  "attributes": {
+    "TakeDamageMultiplier": 1,
+    "DamageMultiplier": 1,
+    "DealDamageMul": 1,
+    "DifficultyDealDamageMultiplier": 1,
+    "RangedAttackDamageMultipler": 1,
+    "RangedAttackDamageIncrease": 0,
+    "TakeRangeDamageMultiplier": 1
+  }
+}

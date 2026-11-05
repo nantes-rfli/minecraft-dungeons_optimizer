@@ -1,0 +1,6448 @@
+{
+  "baseline": "bd9249efcebc78934e69fd1ebfe43e5adc7390c3",
+  "scope": "conditional reference CRT + explicit effective attributes; research only",
+  "actualGameProviderConfirmed": false,
+  "actualSaveTested": false,
+  "liveGameMxcsrObserved": false,
+  "wholeGameExecution": false,
+  "actualGameFinalDamageComputed": false,
+  "rawExeSameBuildAuthenticated": false,
+  "runtimePromotion": false,
+  "mxcsr": "0x1f80",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "crtSha256": "fbed69a52fdcf571dd37fe4cc63cb86ed3732b5b998807f14968788027c00754",
+  "providerBinding": {
+    "importIatRva": "0x3095e38",
+    "nameChecksum": "0xc6b8f5fd",
+    "forwarder": "ucrtbase.powf",
+    "providerPowfRva": "0x34630",
+    "forwarderNamedExports": 290,
+    "providerNamedExports": 2484,
+    "matchingNamesInEachExportTable": [
+      "powf"
+    ],
+    "providerDispatchFlagRva": "0x1007d4"
+  },
+  "checks": {
+    "complete_power_with_crt": 269,
+    "stack": 269,
+    "channel": 269,
+    "json_numeric_to_float": 104,
+    "record_power_store": 104,
+    "record_power_copy": 104,
+    "save_power_to_double": 104,
+    "record_to_spawn_input": 104,
+    "item_power_store": 104,
+    "health_threshold": 268,
+    "add_then_take": 256,
+    "ranged_tail": 256,
+    "health_add": 256
+  },
+  "mismatches": 0,
+  "completePowerCases": [
+    {
+      "itemPowerBits": "00000000",
+      "exponentBits": "00000000",
+      "powfBits": "3f800000",
+      "scalarBits": "3f800000",
+      "effectiveQBits": "3f800000"
+    },
+    {
+      "itemPowerBits": "3f800000",
+      "exponentBits": "00000000",
+      "powfBits": "3f800000",
+      "scalarBits": "3f800000",
+      "effectiveQBits": "3f800000"
+    },
+    {
+      "itemPowerBits": "40000000",
+      "exponentBits": "3fe8024c",
+      "powfBits": "3fbfcec9",
+      "scalarBits": "3fdfb62e",
+      "effectiveQBits": "3fdfb62e"
+    },
+    {
+      "itemPowerBits": "40a00000",
+      "exponentBits": "40e8024c",
+      "powfBits": "40a15a26",
+      "scalarBits": "40e20739",
+      "effectiveQBits": "40e20738"
+    },
+    {
+      "itemPowerBits": "412e6666",
+      "exponentBits": "418f8e38",
+      "powfBits": "425b4f11",
+      "scalarBits": "42a37b4d",
+      "effectiveQBits": "42a37b4d"
+    },
+    {
+      "itemPowerBits": "41300000",
+      "exponentBits": "41910170",
+      "powfBits": "42645c6d",
+      "scalarBits": "42aa4552",
+      "effectiveQBits": "42aa4552"
+    },
+    {
+      "itemPowerBits": "41a00000",
+      "exponentBits": "4209c15d",
+      "powfBits": "4507f0ab",
+      "scalarBits": "454be100",
+      "effectiveQBits": "454be100"
+    },
+    {
+      "itemPowerBits": "41d1999a",
+      "exponentBits": "4236b502",
+      "powfBits": "46d09b09",
+      "scalarBits": "471c73c7",
+      "effectiveQBits": "471c73c7"
+    },
+    {
+      "itemPowerBits": "4201c9ca",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "42200000",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "412e6666",
+      "exponentBits": "418f8e38",
+      "powfBits": "425b4f11",
+      "scalarBits": "42a37b4d",
+      "effectiveQBits": "42a37b4d"
+    },
+    {
+      "itemPowerBits": "412e6667",
+      "exponentBits": "418f8e39",
+      "powfBits": "425b4f17",
+      "scalarBits": "42a37b51",
+      "effectiveQBits": "42a37b51"
+    },
+    {
+      "itemPowerBits": "3f800001",
+      "exponentBits": "3468024c",
+      "powfBits": "3f800000",
+      "scalarBits": "3f800000",
+      "effectiveQBits": "3f800000"
+    },
+    {
+      "itemPowerBits": "41e546d1",
+      "exponentBits": "42488a2a",
+      "powfBits": "478d0740",
+      "scalarBits": "47d38aa0",
+      "effectiveQBits": "47d38aa0"
+    },
+    {
+      "itemPowerBits": "41812705",
+      "exponentBits": "41db98e5",
+      "powfBits": "43e49f06",
+      "scalarBits": "442b5744",
+      "effectiveQBits": "442b5744"
+    },
+    {
+      "itemPowerBits": "41966009",
+      "exponentBits": "4201084f",
+      "powfBits": "44a72047",
+      "scalarBits": "44faa06a",
+      "effectiveQBits": "44faa06a"
+    },
+    {
+      "itemPowerBits": "3f936cb4",
+      "exponentBits": "3e8cd57e",
+      "powfBits": "3f881a49",
+      "scalarBits": "3f8c276e",
+      "effectiveQBits": "3f8c276e"
+    },
+    {
+      "itemPowerBits": "41e78568",
+      "exponentBits": "424a92e8",
+      "powfBits": "479df9a2",
+      "scalarBits": "47ecf633",
+      "effectiveQBits": "47ecf633"
+    },
+    {
+      "itemPowerBits": "40cd3fa2",
+      "exponentBits": "411d0339",
+      "powfBits": "410eee47",
+      "scalarBits": "414e656a",
+      "effectiveQBits": "414e656a"
+    },
+    {
+      "itemPowerBits": "4192f515",
+      "exponentBits": "41fbdeb4",
+      "powfBits": "448c9ace",
+      "scalarBits": "44d2d835",
+      "effectiveQBits": "44d2d835"
+    },
+    {
+      "itemPowerBits": "41dcf18c",
+      "exponentBits": "4240fccf",
+      "powfBits": "47391534",
+      "scalarBits": "478acfa7",
+      "effectiveQBits": "478acfa7"
+    },
+    {
+      "itemPowerBits": "4139538a",
+      "exponentBits": "4199753a",
+      "powfBits": "429089a5",
+      "scalarBits": "42d7ce78",
+      "effectiveQBits": "42d7ce78"
+    },
+    {
+      "itemPowerBits": "41ba9189",
+      "exponentBits": "4221d57f",
+      "powfBits": "4602366e",
+      "scalarBits": "46434fa5",
+      "effectiveQBits": "46434fa5"
+    },
+    {
+      "itemPowerBits": "4141868c",
+      "exponentBits": "41a0e386",
+      "powfBits": "42b1d396",
+      "scalarBits": "4304deb0",
+      "effectiveQBits": "4304deb0"
+    },
+    {
+      "itemPowerBits": "420741aa",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41a4238d",
+      "exponentBits": "420d819f",
+      "powfBits": "452794c6",
+      "scalarBits": "457b5729",
+      "effectiveQBits": "457b5729"
+    },
+    {
+      "itemPowerBits": "40099a6f",
+      "exponentBits": "4005693b",
+      "powfBits": "3fcbcf20",
+      "scalarBits": "3ff1b6b0",
+      "effectiveQBits": "3ff1b6b0"
+    },
+    {
+      "itemPowerBits": "412fc934",
+      "exponentBits": "4190cfc6",
+      "powfBits": "426320ef",
+      "scalarBits": "42a958b3",
+      "effectiveQBits": "42a958b3"
+    },
+    {
+      "itemPowerBits": "421d8e92",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4209c511",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41d25272",
+      "exponentBits": "42375c88",
+      "powfBits": "46d85c91",
+      "scalarBits": "472244ed",
+      "effectiveQBits": "472244ed"
+    },
+    {
+      "itemPowerBits": "40daef03",
+      "exponentBits": "41296a48",
+      "powfBits": "4129ebba",
+      "scalarBits": "4176e197",
+      "effectiveQBits": "4176e198"
+    },
+    {
+      "itemPowerBits": "4076feb9",
+      "exponentBits": "40a5d87c",
+      "powfBits": "404b7043",
+      "scalarBits": "40889432",
+      "effectiveQBits": "40889432"
+    },
+    {
+      "itemPowerBits": "41f31edf",
+      "exponentBits": "42551616",
+      "powfBits": "480dfca9",
+      "scalarBits": "4854fade",
+      "effectiveQBits": "4854fade"
+    },
+    {
+      "itemPowerBits": "421e242b",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4187e3c9",
+      "exponentBits": "41e7cf28",
+      "powfBits": "4420b382",
+      "scalarBits": "4470ed43",
+      "effectiveQBits": "4470ed43"
+    },
+    {
+      "itemPowerBits": "416ea47f",
+      "exponentBits": "41c9c712",
+      "powfBits": "438b139a",
+      "scalarBits": "43d05d67",
+      "effectiveQBits": "43d05d67"
+    },
+    {
+      "itemPowerBits": "420da7c9",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4057673a",
+      "exponentBits": "408936e9",
+      "powfBits": "40269e90",
+      "scalarBits": "4059edd8",
+      "effectiveQBits": "4059edd8"
+    },
+    {
+      "itemPowerBits": "41e29d5d",
+      "exponentBits": "42462093",
+      "powfBits": "47768a65",
+      "scalarBits": "47b8e78c",
+      "effectiveQBits": "47b8e78c"
+    },
+    {
+      "itemPowerBits": "419e06c0",
+      "exponentBits": "4207f777",
+      "powfBits": "44f60f9b",
+      "scalarBits": "453883b4",
+      "effectiveQBits": "453883b4"
+    },
+    {
+      "itemPowerBits": "41123bfb",
+      "exponentBits": "416c0f0e",
+      "powfBits": "41d73693",
+      "scalarBits": "421f68ee",
+      "effectiveQBits": "421f68ee"
+    },
+    {
+      "itemPowerBits": "41c3112e",
+      "exponentBits": "4229893f",
+      "powfBits": "46481ac1",
+      "scalarBits": "46961311",
+      "effectiveQBits": "46961311"
+    },
+    {
+      "itemPowerBits": "41814257",
+      "exponentBits": "41dbca6b",
+      "powfBits": "43e5dbaf",
+      "scalarBits": "442c44c3",
+      "effectiveQBits": "442c44c3"
+    },
+    {
+      "itemPowerBits": "40eea705",
+      "exponentBits": "413b4937",
+      "powfBits": "415a040c",
+      "scalarBits": "419f8309",
+      "effectiveQBits": "419f8309"
+    },
+    {
+      "itemPowerBits": "41033193",
+      "exponentBits": "4150cbec",
+      "powfBits": "41932511",
+      "scalarBits": "41d8b79a",
+      "effectiveQBits": "41d8b79a"
+    },
+    {
+      "itemPowerBits": "40be19b4",
+      "exponentBits": "410f48b7",
+      "powfBits": "40ec0cbf",
+      "scalarBits": "4129098f",
+      "effectiveQBits": "4129098f"
+    },
+    {
+      "itemPowerBits": "4214eab5",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4149f92b",
+      "exponentBits": "41a88b7a",
+      "powfBits": "42dc2931",
+      "scalarBits": "43249ee5",
+      "effectiveQBits": "43249ee5"
+    },
+    {
+      "itemPowerBits": "41c21e1b",
+      "exponentBits": "4228acf4",
+      "powfBits": "463eb9b7",
+      "scalarBits": "468f0a49",
+      "effectiveQBits": "468f0a49"
+    },
+    {
+      "itemPowerBits": "40ba0899",
+      "exponentBits": "410b992d",
+      "powfBits": "40e0390b",
+      "scalarBits": "41202ac8",
+      "effectiveQBits": "41202ac8"
+    },
+    {
+      "itemPowerBits": "416de293",
+      "exponentBits": "41c91752",
+      "powfBits": "4388704f",
+      "scalarBits": "43cc6876",
+      "effectiveQBits": "43cc6876"
+    },
+    {
+      "itemPowerBits": "41ef2ef7",
+      "exponentBits": "425184a3",
+      "powfBits": "47e8b7eb",
+      "scalarBits": "482e89d0",
+      "effectiveQBits": "482e89d0"
+    },
+    {
+      "itemPowerBits": "405c94b7",
+      "exponentBits": "408de82e",
+      "powfBits": "402c2961",
+      "scalarBits": "40623e12",
+      "effectiveQBits": "40623e12"
+    },
+    {
+      "itemPowerBits": "416ab925",
+      "exponentBits": "41c639c0",
+      "powfBits": "437bea76",
+      "scalarBits": "43bcafd8",
+      "effectiveQBits": "43bcafd8"
+    },
+    {
+      "itemPowerBits": "41b337a2",
+      "exponentBits": "421b2bf4",
+      "powfBits": "45b3960a",
+      "scalarBits": "4606ae88",
+      "effectiveQBits": "4606ae88"
+    },
+    {
+      "itemPowerBits": "411309ff",
+      "exponentBits": "416d8479",
+      "powfBits": "41dba2da",
+      "scalarBits": "4222ba24",
+      "effectiveQBits": "4222ba24"
+    },
+    {
+      "itemPowerBits": "41c45e6b",
+      "exponentBits": "422ab742",
+      "powfBits": "4655b786",
+      "scalarBits": "46a048a4",
+      "effectiveQBits": "46a048a4"
+    },
+    {
+      "itemPowerBits": "412f29ac",
+      "exponentBits": "41903f32",
+      "powfBits": "425f942b",
+      "scalarBits": "42a6af20",
+      "effectiveQBits": "42a6af20"
+    },
+    {
+      "itemPowerBits": "41d965e7",
+      "exponentBits": "423dc63b",
+      "powfBits": "471ab5c3",
+      "scalarBits": "47681024",
+      "effectiveQBits": "47681024"
+    },
+    {
+      "itemPowerBits": "41360d7c",
+      "exponentBits": "41967db6",
+      "powfBits": "42850edf",
+      "scalarBits": "42c6964e",
+      "effectiveQBits": "42c6964e"
+    },
+    {
+      "itemPowerBits": "421a8823",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41e25e5d",
+      "exponentBits": "4245e77a",
+      "powfBits": "47737df8",
+      "scalarBits": "47b69e3a",
+      "effectiveQBits": "47b69e3a"
+    },
+    {
+      "itemPowerBits": "4183b0cf",
+      "exponentBits": "41e032b0",
+      "powfBits": "4401f676",
+      "scalarBits": "4442d1b1",
+      "effectiveQBits": "4442d1b1"
+    },
+    {
+      "itemPowerBits": "410c816f",
+      "exponentBits": "4161acd5",
+      "powfBits": "41ba32d1",
+      "scalarBits": "4209a61d",
+      "effectiveQBits": "4209a61d"
+    },
+    {
+      "itemPowerBits": "42024897",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "42155536",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "42077f44",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "42022d89",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4181ae56",
+      "exponentBits": "41dc8e2b",
+      "powfBits": "43ead033",
+      "scalarBits": "442ffc26",
+      "effectiveQBits": "442ffc26"
+    },
+    {
+      "itemPowerBits": "4081a868",
+      "exponentBits": "40b102fe",
+      "powfBits": "405be977",
+      "scalarBits": "4094ef19",
+      "effectiveQBits": "4094ef19"
+    },
+    {
+      "itemPowerBits": "410c5a94",
+      "exponentBits": "41616668",
+      "powfBits": "41b97c49",
+      "scalarBits": "42091d37",
+      "effectiveQBits": "42091d37"
+    },
+    {
+      "itemPowerBits": "41ee5ba7",
+      "exponentBits": "4250c520",
+      "powfBits": "47df34cd",
+      "scalarBits": "4827677a",
+      "effectiveQBits": "4827677a"
+    },
+    {
+      "itemPowerBits": "41be67aa",
+      "exponentBits": "42254f95",
+      "powfBits": "461e15a9",
+      "scalarBits": "466d1e7e",
+      "effectiveQBits": "466d1e7e"
+    },
+    {
+      "itemPowerBits": "41f1a5f0",
+      "exponentBits": "4253c07a",
+      "powfBits": "4803cd13",
+      "scalarBits": "4845b37c",
+      "effectiveQBits": "4845b37c"
+    },
+    {
+      "itemPowerBits": "41f147cc",
+      "exponentBits": "42536b29",
+      "powfBits": "48015f92",
+      "scalarBits": "48420f3b",
+      "effectiveQBits": "48420f3b"
+    },
+    {
+      "itemPowerBits": "4107b509",
+      "exponentBits": "4158fa46",
+      "powfBits": "41a4edc7",
+      "scalarBits": "41f364aa",
+      "effectiveQBits": "41f364aa"
+    },
+    {
+      "itemPowerBits": "420be6a1",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41802de6",
+      "exponentBits": "41d9d559",
+      "powfBits": "43d9a53c",
+      "scalarBits": "44231bed",
+      "effectiveQBits": "44231bed"
+    },
+    {
+      "itemPowerBits": "419326db",
+      "exponentBits": "41fc38ec",
+      "powfBits": "448dfe60",
+      "scalarBits": "44d4ed90",
+      "effectiveQBits": "44d4ed90"
+    },
+    {
+      "itemPowerBits": "401048e9",
+      "exponentBits": "40118597",
+      "powfBits": "3fd4996e",
+      "scalarBits": "3ffee624",
+      "effectiveQBits": "3ffee624"
+    },
+    {
+      "itemPowerBits": "418f3409",
+      "exponentBits": "41f510bd",
+      "powfBits": "4468986f",
+      "scalarBits": "44ae6253",
+      "effectiveQBits": "44ae6253"
+    },
+    {
+      "itemPowerBits": "418c3371",
+      "exponentBits": "41ef9f9c",
+      "powfBits": "4447d6ab",
+      "scalarBits": "4495d100",
+      "effectiveQBits": "4495d100"
+    },
+    {
+      "itemPowerBits": "41f1e65b",
+      "exponentBits": "4253fadc",
+      "powfBits": "48057d16",
+      "scalarBits": "48483b81",
+      "effectiveQBits": "48483b81"
+    },
+    {
+      "itemPowerBits": "41e7cb18",
+      "exponentBits": "424ad20f",
+      "powfBits": "47a02a07",
+      "scalarBits": "47f03eca",
+      "effectiveQBits": "47f03eca"
+    },
+    {
+      "itemPowerBits": "41ee75f1",
+      "exponentBits": "4250dcf3",
+      "powfBits": "47e05e3a",
+      "scalarBits": "4828468c",
+      "effectiveQBits": "4828468c"
+    },
+    {
+      "itemPowerBits": "41bd494e",
+      "exponentBits": "42244c0f",
+      "powfBits": "46156477",
+      "scalarBits": "466014b2",
+      "effectiveQBits": "466014b2"
+    },
+    {
+      "itemPowerBits": "40f19710",
+      "exponentBits": "413df2c8",
+      "powfBits": "41624357",
+      "scalarBits": "41a5b281",
+      "effectiveQBits": "41a5b281"
+    },
+    {
+      "itemPowerBits": "3fca1051",
+      "exponentBits": "3f863ee7",
+      "powfBits": "3fa1c06b",
+      "scalarBits": "3fb2a0a0",
+      "effectiveQBits": "3fb2a0a0"
+    },
+    {
+      "itemPowerBits": "41f8febe",
+      "exponentBits": "425a6906",
+      "powfBits": "483f16b6",
+      "scalarBits": "488f50f8",
+      "effectiveQBits": "488f50f8"
+    },
+    {
+      "itemPowerBits": "403a0bd4",
+      "exponentBits": "405d37a1",
+      "powfBits": "400a67a6",
+      "scalarBits": "402f9b79",
+      "effectiveQBits": "402f9b79"
+    },
+    {
+      "itemPowerBits": "41a5de48",
+      "exponentBits": "420f12dc",
+      "powfBits": "4536e4b0",
+      "scalarBits": "45892784",
+      "effectiveQBits": "45892784"
+    },
+    {
+      "itemPowerBits": "411ac53c",
+      "exponentBits": "417b87fb",
+      "powfBits": "420585a7",
+      "scalarBits": "4246487a",
+      "effectiveQBits": "4246487a"
+    },
+    {
+      "itemPowerBits": "41b05f7d",
+      "exponentBits": "4218980c",
+      "powfBits": "459b8838",
+      "scalarBits": "45e94854",
+      "effectiveQBits": "45e94854"
+    },
+    {
+      "itemPowerBits": "4139c35c",
+      "exponentBits": "4199da92",
+      "powfBits": "4292247c",
+      "scalarBits": "42da36ba",
+      "effectiveQBits": "42da36ba"
+    },
+    {
+      "itemPowerBits": "41ba37fb",
+      "exponentBits": "42218455",
+      "powfBits": "45ffdc11",
+      "scalarBits": "463fe30d",
+      "effectiveQBits": "463fe30d"
+    },
+    {
+      "itemPowerBits": "411f8fb2",
+      "exponentBits": "41821b83",
+      "powfBits": "4216b66c",
+      "scalarBits": "426011a2",
+      "effectiveQBits": "426011a2"
+    },
+    {
+      "itemPowerBits": "41857b58",
+      "exponentBits": "41e371d0",
+      "powfBits": "440e47f5",
+      "scalarBits": "44554bf0",
+      "effectiveQBits": "44554bf0"
+    },
+    {
+      "itemPowerBits": "413368dc",
+      "exponentBits": "4194187f",
+      "powfBits": "4278eab9",
+      "scalarBits": "42b9b00b",
+      "effectiveQBits": "42b9b00b"
+    },
+    {
+      "itemPowerBits": "41e6309e",
+      "exponentBits": "42495e0d",
+      "powfBits": "4793b155",
+      "scalarBits": "47dd89c0",
+      "effectiveQBits": "47dd89c0"
+    },
+    {
+      "itemPowerBits": "4178c8b9",
+      "exponentBits": "41d2f7fe",
+      "powfBits": "43b3b7ed",
+      "scalarBits": "4406a9f2",
+      "effectiveQBits": "4406a9f2"
+    },
+    {
+      "itemPowerBits": "41a836ae",
+      "exponentBits": "421132fe",
+      "powfBits": "454deaf3",
+      "scalarBits": "459a6c36",
+      "effectiveQBits": "459a6c36"
+    },
+    {
+      "itemPowerBits": "40fe0f60",
+      "exponentBits": "41493fed",
+      "powfBits": "418471d6",
+      "scalarBits": "41c2aac1",
+      "effectiveQBits": "41c2aac1"
+    },
+    {
+      "itemPowerBits": "4119a6b0",
+      "exponentBits": "41798097",
+      "powfBits": "4201cc04",
+      "scalarBits": "4240b206",
+      "effectiveQBits": "4240b206"
+    },
+    {
+      "itemPowerBits": "421d295d",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "40f40840",
+      "exponentBits": "41402961",
+      "powfBits": "41695b29",
+      "scalarBits": "41ab045f",
+      "effectiveQBits": "41ab045f"
+    },
+    {
+      "itemPowerBits": "41eff479",
+      "exponentBits": "425237a3",
+      "powfBits": "47f1f9b0",
+      "scalarBits": "48357b24",
+      "effectiveQBits": "48357b24"
+    },
+    {
+      "itemPowerBits": "421b93e5",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41afce43",
+      "exponentBits": "4218146e",
+      "powfBits": "45972276",
+      "scalarBits": "45e2afb1",
+      "effectiveQBits": "45e2afb1"
+    },
+    {
+      "itemPowerBits": "41c2cbd0",
+      "exponentBits": "42294a62",
+      "powfBits": "464561cb",
+      "scalarBits": "46940858",
+      "effectiveQBits": "46940858"
+    },
+    {
+      "itemPowerBits": "4198f184",
+      "exponentBits": "42035c2d",
+      "powfBits": "44be4c86",
+      "scalarBits": "450eb164",
+      "effectiveQBits": "450eb164"
+    },
+    {
+      "itemPowerBits": "4143f6b2",
+      "exponentBits": "41a3192f",
+      "powfBits": "42bd2196",
+      "scalarBits": "430d5930",
+      "effectiveQBits": "430d5930"
+    },
+    {
+      "itemPowerBits": "413d428a",
+      "exponentBits": "419d05db",
+      "powfBits": "429fa622",
+      "scalarBits": "42ee7933",
+      "effectiveQBits": "42ee7933"
+    },
+    {
+      "itemPowerBits": "41c0db79",
+      "exponentBits": "4227888f",
+      "powfBits": "4632f3bd",
+      "scalarBits": "468635ce",
+      "effectiveQBits": "468635ce"
+    },
+    {
+      "itemPowerBits": "41f567ef",
+      "exponentBits": "42572851",
+      "powfBits": "481f60cd",
+      "scalarBits": "486f1114",
+      "effectiveQBits": "486f1114"
+    },
+    {
+      "itemPowerBits": "42035b00",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "40b62731",
+      "exponentBits": "410814dd",
+      "powfBits": "40d57d96",
+      "scalarBits": "41181e30",
+      "effectiveQBits": "41181e30"
+    },
+    {
+      "itemPowerBits": "40f28372",
+      "exponentBits": "413ec903",
+      "powfBits": "4164eb52",
+      "scalarBits": "41a7b07e",
+      "effectiveQBits": "41a7b07e"
+    },
+    {
+      "itemPowerBits": "41cab92b",
+      "exponentBits": "4230798e",
+      "powfBits": "4693583b",
+      "scalarBits": "46dd0358",
+      "effectiveQBits": "46dd0358"
+    },
+    {
+      "itemPowerBits": "3ff4bc2a",
+      "exponentBits": "3fd39725",
+      "powfBits": "3fb919ac",
+      "scalarBits": "3fd5a682",
+      "effectiveQBits": "3fd5a682"
+    },
+    {
+      "itemPowerBits": "41b7201f",
+      "exponentBits": "421eb6ae",
+      "powfBits": "45dad18b",
+      "scalarBits": "46241b28",
+      "effectiveQBits": "46241b28"
+    },
+    {
+      "itemPowerBits": "421af245",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4188e13e",
+      "exponentBits": "41e99a91",
+      "powfBits": "4428f331",
+      "scalarBits": "447d4cca",
+      "effectiveQBits": "447d4cca"
+    },
+    {
+      "itemPowerBits": "41ff5411",
+      "exponentBits": "42602667",
+      "powfBits": "48839a51",
+      "scalarBits": "48c5676a",
+      "effectiveQBits": "48c5676a"
+    },
+    {
+      "itemPowerBits": "420469df",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4123c976",
+      "exponentBits": "4185efe7",
+      "powfBits": "4227b3fc",
+      "scalarBits": "42798dfa",
+      "effectiveQBits": "42798dfa"
+    },
+    {
+      "itemPowerBits": "41f53257",
+      "exponentBits": "4256f7bf",
+      "powfBits": "481db33d",
+      "scalarBits": "486c8cbc",
+      "effectiveQBits": "486c8cbc"
+    },
+    {
+      "itemPowerBits": "41779b8e",
+      "exponentBits": "41d1e70c",
+      "powfBits": "43ae73d4",
+      "scalarBits": "4402b6df",
+      "effectiveQBits": "4402b6df"
+    },
+    {
+      "itemPowerBits": "420d7bbc",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "40bf8c4f",
+      "exponentBits": "41109896",
+      "powfBits": "40f068a2",
+      "scalarBits": "412c4e7a",
+      "effectiveQBits": "412c4e7a"
+    },
+    {
+      "itemPowerBits": "408f9e99",
+      "exponentBits": "40ca5176",
+      "powfBits": "40832d58",
+      "scalarBits": "40b4c404",
+      "effectiveQBits": "40b4c404"
+    },
+    {
+      "itemPowerBits": "40ddffd4",
+      "exponentBits": "412c318d",
+      "powfBits": "4130a260",
+      "scalarBits": "418079c8",
+      "effectiveQBits": "418079c8"
+    },
+    {
+      "itemPowerBits": "41602f50",
+      "exponentBits": "41bcacbf",
+      "powfBits": "43410041",
+      "scalarBits": "43908031",
+      "effectiveQBits": "43908031"
+    },
+    {
+      "itemPowerBits": "40a5643e",
+      "exponentBits": "40f1c815",
+      "powfBits": "40acbb27",
+      "scalarBits": "40f318ba",
+      "effectiveQBits": "40f318ba"
+    },
+    {
+      "itemPowerBits": "4203d95d",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41d4c18e",
+      "exponentBits": "4239913f",
+      "powfBits": "46f4b1c4",
+      "scalarBits": "473784d3",
+      "effectiveQBits": "473784d3"
+    },
+    {
+      "itemPowerBits": "419555cf",
+      "exponentBits": "42001708",
+      "powfBits": "449e90e6",
+      "scalarBits": "44edc959",
+      "effectiveQBits": "44edc959"
+    },
+    {
+      "itemPowerBits": "40d55d0b",
+      "exponentBits": "41245df3",
+      "powfBits": "411e5e7d",
+      "scalarBits": "41658dbc",
+      "effectiveQBits": "41658dbc"
+    },
+    {
+      "itemPowerBits": "41e8c187",
+      "exponentBits": "424bb167",
+      "powfBits": "47a826f1",
+      "scalarBits": "47fc3a2a",
+      "effectiveQBits": "47fc3a2a"
+    },
+    {
+      "itemPowerBits": "4218ad86",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "421f1fb6",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41f70fd5",
+      "exponentBits": "4258a87e",
+      "powfBits": "482d4b95",
+      "scalarBits": "4881f8a0",
+      "effectiveQBits": "4881f8a0"
+    },
+    {
+      "itemPowerBits": "420bae91",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4123547d",
+      "exponentBits": "418585e3",
+      "powfBits": "4225c6ec",
+      "scalarBits": "4276aa62",
+      "effectiveQBits": "4276aa62"
+    },
+    {
+      "itemPowerBits": "4216e062",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "411ba334",
+      "exponentBits": "417d1a4f",
+      "powfBits": "42087b1f",
+      "scalarBits": "424ab8ae",
+      "effectiveQBits": "424ab8ae"
+    },
+    {
+      "itemPowerBits": "40087603",
+      "exponentBits": "40035733",
+      "powfBits": "3fca57d6",
+      "scalarBits": "3fef83c0",
+      "effectiveQBits": "3fef83c0"
+    },
+    {
+      "itemPowerBits": "418eefb8",
+      "exponentBits": "41f494ea",
+      "powfBits": "44657a7c",
+      "scalarBits": "44ac0bdd",
+      "effectiveQBits": "44ac0bdd"
+    },
+    {
+      "itemPowerBits": "41e24ec2",
+      "exponentBits": "4245d955",
+      "powfBits": "4772be22",
+      "scalarBits": "47b60e5a",
+      "effectiveQBits": "47b60e5a"
+    },
+    {
+      "itemPowerBits": "421aadcd",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41df601f",
+      "exponentBits": "4243310b",
+      "powfBits": "47514c38",
+      "scalarBits": "479cf8ea",
+      "effectiveQBits": "479cf8ea"
+    },
+    {
+      "itemPowerBits": "416485df",
+      "exponentBits": "41c09b3a",
+      "powfBits": "43575ec3",
+      "scalarBits": "43a14712",
+      "effectiveQBits": "43a14712"
+    },
+    {
+      "itemPowerBits": "41c71f5b",
+      "exponentBits": "422d3622",
+      "powfBits": "4675a423",
+      "scalarBits": "46b83a1a",
+      "effectiveQBits": "46b83a1a"
+    },
+    {
+      "itemPowerBits": "418c93c1",
+      "exponentBits": "41f04e2f",
+      "powfBits": "444bad13",
+      "scalarBits": "4498b1ce",
+      "effectiveQBits": "4498b1ce"
+    },
+    {
+      "itemPowerBits": "40121048",
+      "exponentBits": "4014befc",
+      "powfBits": "3fd700b5",
+      "scalarBits": "40014088",
+      "effectiveQBits": "40014088"
+    },
+    {
+      "itemPowerBits": "4088746f",
+      "exponentBits": "40bd54e9",
+      "powfBits": "406fa3d3",
+      "scalarBits": "40a3bade",
+      "effectiveQBits": "40a3bade"
+    },
+    {
+      "itemPowerBits": "4211630e",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "42176071",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41e11072",
+      "exponentBits": "4244b8da",
+      "powfBits": "4763f3e6",
+      "scalarBits": "47aaf6ac",
+      "effectiveQBits": "47aaf6ac"
+    },
+    {
+      "itemPowerBits": "413d2f58",
+      "exponentBits": "419cf475",
+      "powfBits": "429f58bb",
+      "scalarBits": "42ee0518",
+      "effectiveQBits": "42ee0518"
+    },
+    {
+      "itemPowerBits": "3fe95089",
+      "exponentBits": "3fbee3dc",
+      "powfBits": "3fb28a26",
+      "scalarBits": "3fcbcf38",
+      "effectiveQBits": "3fcbcf38"
+    },
+    {
+      "itemPowerBits": "42116c5c",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41f40b12",
+      "exponentBits": "4255ec27",
+      "powfBits": "4814c46c",
+      "scalarBits": "485f2682",
+      "effectiveQBits": "485f2682"
+    },
+    {
+      "itemPowerBits": "40b1a38c",
+      "exponentBits": "4103fd86",
+      "powfBits": "40c9a67e",
+      "scalarBits": "410f3cde",
+      "effectiveQBits": "410f3cde"
+    },
+    {
+      "itemPowerBits": "41f9b116",
+      "exponentBits": "425b0aa8",
+      "powfBits": "4845f06e",
+      "scalarBits": "48947442",
+      "effectiveQBits": "48947442"
+    },
+    {
+      "itemPowerBits": "42078024",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41b2e60b",
+      "exponentBits": "421ae202",
+      "powfBits": "45b0b72a",
+      "scalarBits": "46048760",
+      "effectiveQBits": "46048760"
+    },
+    {
+      "itemPowerBits": "421cece8",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4159374e",
+      "exponentBits": "41b65bec",
+      "powfBits": "4321d3db",
+      "scalarBits": "43723dc8",
+      "effectiveQBits": "43723dc8"
+    },
+    {
+      "itemPowerBits": "4215b3d4",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "418b2201",
+      "exponentBits": "41edaffd",
+      "powfBits": "443d554d",
+      "scalarBits": "448deffa",
+      "effectiveQBits": "448deffa"
+    },
+    {
+      "itemPowerBits": "3ff0263a",
+      "exponentBits": "3fcb474c",
+      "powfBits": "3fb66ffe",
+      "scalarBits": "3fd1a7fc",
+      "effectiveQBits": "3fd1a7fc"
+    },
+    {
+      "itemPowerBits": "40d97f8a",
+      "exponentBits": "41281d3f",
+      "powfBits": "4126dd9e",
+      "scalarBits": "41724c6d",
+      "effectiveQBits": "41724c6c"
+    },
+    {
+      "itemPowerBits": "41de4300",
+      "exponentBits": "42422ea4",
+      "powfBits": "4745d686",
+      "scalarBits": "479460a4",
+      "effectiveQBits": "479460a4"
+    },
+    {
+      "itemPowerBits": "41a7d658",
+      "exponentBits": "4210dbaf",
+      "powfBits": "454a097d",
+      "scalarBits": "4597831e",
+      "effectiveQBits": "4597831e"
+    },
+    {
+      "itemPowerBits": "41a7e131",
+      "exponentBits": "4210e584",
+      "powfBits": "454a786c",
+      "scalarBits": "4597d651",
+      "effectiveQBits": "4597d651"
+    },
+    {
+      "itemPowerBits": "421f1e64",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41df5e58",
+      "exponentBits": "42432f6e",
+      "powfBits": "47513963",
+      "scalarBits": "479ceaca",
+      "effectiveQBits": "479ceaca"
+    },
+    {
+      "itemPowerBits": "4205691e",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "419cb92a",
+      "exponentBits": "4206c924",
+      "powfBits": "44e65f6d",
+      "scalarBits": "452cbf92",
+      "effectiveQBits": "452cbf92"
+    },
+    {
+      "itemPowerBits": "41fe2540",
+      "exponentBits": "425f13f7",
+      "powfBits": "4877ed26",
+      "scalarBits": "48b9f1cc",
+      "effectiveQBits": "48b9f1cc"
+    },
+    {
+      "itemPowerBits": "42051c59",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41c46237",
+      "exponentBits": "422abab3",
+      "powfBits": "4655e092",
+      "scalarBits": "46a0676e",
+      "effectiveQBits": "46a0676e"
+    },
+    {
+      "itemPowerBits": "419fa100",
+      "exponentBits": "42096b45",
+      "powfBits": "450569dc",
+      "scalarBits": "454816ca",
+      "effectiveQBits": "454816ca"
+    },
+    {
+      "itemPowerBits": "414ec41a",
+      "exponentBits": "41ace36e",
+      "powfBits": "42f8847f",
+      "scalarBits": "4339e35f",
+      "effectiveQBits": "4339e35f"
+    },
+    {
+      "itemPowerBits": "41177e57",
+      "exponentBits": "4175976c",
+      "powfBits": "41f5d076",
+      "scalarBits": "42365c58",
+      "effectiveQBits": "42365c58"
+    },
+    {
+      "itemPowerBits": "40fcf624",
+      "exponentBits": "4148410c",
+      "powfBits": "41829e4b",
+      "scalarBits": "41bfed70",
+      "effectiveQBits": "41bfed70"
+    },
+    {
+      "itemPowerBits": "4086138e",
+      "exponentBits": "40b90546",
+      "powfBits": "40688b06",
+      "scalarBits": "409e6844",
+      "effectiveQBits": "409e6844"
+    },
+    {
+      "itemPowerBits": "421c866f",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "418d21b2",
+      "exponentBits": "41f14f76",
+      "powfBits": "44517760",
+      "scalarBits": "449d0988",
+      "effectiveQBits": "449d0988"
+    },
+    {
+      "itemPowerBits": "41eb656c",
+      "exponentBits": "424e15f4",
+      "powfBits": "47c02a21",
+      "scalarBits": "48101f79",
+      "effectiveQBits": "48101f79"
+    },
+    {
+      "itemPowerBits": "40393077",
+      "exponentBits": "405baa04",
+      "powfBits": "4009a84b",
+      "scalarBits": "402e7c70",
+      "effectiveQBits": "402e7c70"
+    },
+    {
+      "itemPowerBits": "41a73344",
+      "exponentBits": "421047e4",
+      "powfBits": "4543a247",
+      "scalarBits": "4592b5b5",
+      "effectiveQBits": "4592b5b5"
+    },
+    {
+      "itemPowerBits": "41874e20",
+      "exponentBits": "41e6bfe3",
+      "powfBits": "441c055b",
+      "scalarBits": "4469e808",
+      "effectiveQBits": "4469e808"
+    },
+    {
+      "itemPowerBits": "41f4a7e0",
+      "exponentBits": "42567a43",
+      "powfBits": "48197241",
+      "scalarBits": "48662b42",
+      "effectiveQBits": "48662b42"
+    },
+    {
+      "itemPowerBits": "42079802",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4126437f",
+      "exponentBits": "41882e84",
+      "powfBits": "423289cb",
+      "scalarBits": "4284e758",
+      "effectiveQBits": "4284e758"
+    },
+    {
+      "itemPowerBits": "4185d86d",
+      "exponentBits": "41e41a87",
+      "powfBits": "4410ebb8",
+      "scalarBits": "44594194",
+      "effectiveQBits": "44594194"
+    },
+    {
+      "itemPowerBits": "40d3559e",
+      "exponentBits": "41228733",
+      "powfBits": "411a5bf7",
+      "scalarBits": "415f89f2",
+      "effectiveQBits": "415f89f2"
+    },
+    {
+      "itemPowerBits": "4107a79c",
+      "exponentBits": "4158e1f0",
+      "powfBits": "41a4b5d7",
+      "scalarBits": "41f310c2",
+      "effectiveQBits": "41f310c2"
+    },
+    {
+      "itemPowerBits": "41c75eec",
+      "exponentBits": "422d6fbd",
+      "powfBits": "4678be80",
+      "scalarBits": "46ba8de0",
+      "effectiveQBits": "46ba8de0"
+    },
+    {
+      "itemPowerBits": "41b866ba",
+      "exponentBits": "421fdead",
+      "powfBits": "45e965d7",
+      "scalarBits": "462f0a61",
+      "effectiveQBits": "462f0a61"
+    },
+    {
+      "itemPowerBits": "421e63c9",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "416154fb",
+      "exponentBits": "41bdb6e4",
+      "powfBits": "4346adfc",
+      "scalarBits": "4394c27d",
+      "effectiveQBits": "4394c27d"
+    },
+    {
+      "itemPowerBits": "421f591b",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "408c838e",
+      "exponentBits": "40c4b064",
+      "powfBits": "407c4162",
+      "scalarBits": "40ad310a",
+      "effectiveQBits": "40ad310a"
+    },
+    {
+      "itemPowerBits": "4141576b",
+      "exponentBits": "41a0b8d1",
+      "powfBits": "42b10040",
+      "scalarBits": "43044030",
+      "effectiveQBits": "43044030"
+    },
+    {
+      "itemPowerBits": "41b8a2a8",
+      "exponentBits": "422014fe",
+      "powfBits": "45ec2d42",
+      "scalarBits": "46311ff2",
+      "effectiveQBits": "46311ff2"
+    },
+    {
+      "itemPowerBits": "41f8b350",
+      "exponentBits": "425a24a9",
+      "powfBits": "483c435b",
+      "scalarBits": "488d3274",
+      "effectiveQBits": "488d3274"
+    },
+    {
+      "itemPowerBits": "4210496b",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41722675",
+      "exponentBits": "41ccf4e1",
+      "powfBits": "4397f8c4",
+      "scalarBits": "43e3b526",
+      "effectiveQBits": "43e3b526"
+    },
+    {
+      "itemPowerBits": "41a8506f",
+      "exponentBits": "42114a55",
+      "powfBits": "454ef7be",
+      "scalarBits": "459b35ce",
+      "effectiveQBits": "459b35ce"
+    },
+    {
+      "itemPowerBits": "418a0f87",
+      "exponentBits": "41ebbe7a",
+      "powfBits": "443357db",
+      "scalarBits": "448671e4",
+      "effectiveQBits": "448671e4"
+    },
+    {
+      "itemPowerBits": "410a9438",
+      "exponentBits": "415e2ed9",
+      "powfBits": "41b158ef",
+      "scalarBits": "420302b3",
+      "effectiveQBits": "420302b3"
+    },
+    {
+      "itemPowerBits": "420c24be",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4219d60e",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41ec2c13",
+      "exponentBits": "424ec9fd",
+      "powfBits": "47c7da7b",
+      "scalarBits": "4815e3bc",
+      "effectiveQBits": "4815e3bc"
+    },
+    {
+      "itemPowerBits": "3fc395c5",
+      "exponentBits": "3f750158",
+      "powfBits": "3f9e7954",
+      "scalarBits": "3fadb5fe",
+      "effectiveQBits": "3fadb5fe"
+    },
+    {
+      "itemPowerBits": "41bda77a",
+      "exponentBits": "4224a168",
+      "powfBits": "46183269",
+      "scalarBits": "4664499e",
+      "effectiveQBits": "4664499e"
+    },
+    {
+      "itemPowerBits": "41c75b0a",
+      "exponentBits": "422d6c39",
+      "powfBits": "46788dbc",
+      "scalarBits": "46ba694d",
+      "effectiveQBits": "46ba694d"
+    },
+    {
+      "itemPowerBits": "41865635",
+      "exponentBits": "41e4fe85",
+      "powfBits": "441490dd",
+      "scalarBits": "445eb94c",
+      "effectiveQBits": "445eb94c"
+    },
+    {
+      "itemPowerBits": "41a91a22",
+      "exponentBits": "42120121",
+      "powfBits": "455760e5",
+      "scalarBits": "45a184ac",
+      "effectiveQBits": "45a184ac"
+    },
+    {
+      "itemPowerBits": "400389c8",
+      "exponentBits": "3ff4d5e2",
+      "powfBits": "3fc4251e",
+      "scalarBits": "3fe637ac",
+      "effectiveQBits": "3fe637ac"
+    },
+    {
+      "itemPowerBits": "40ee2076",
+      "exponentBits": "413acf45",
+      "powfBits": "4158927f",
+      "scalarBits": "419e6ddf",
+      "effectiveQBits": "419e6ddf"
+    },
+    {
+      "itemPowerBits": "40824ae4",
+      "exponentBits": "40b22981",
+      "powfBits": "405daeea",
+      "scalarBits": "40964330",
+      "effectiveQBits": "40964330"
+    },
+    {
+      "itemPowerBits": "420ed978",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41562c42",
+      "exponentBits": "41b399e2",
+      "powfBits": "4315d867",
+      "scalarBits": "4360449a",
+      "effectiveQBits": "4360449a"
+    },
+    {
+      "itemPowerBits": "4180584b",
+      "exponentBits": "41da2231",
+      "powfBits": "43db79b1",
+      "scalarBits": "44247b45",
+      "effectiveQBits": "44247b45"
+    },
+    {
+      "itemPowerBits": "416f401e",
+      "exponentBits": "41ca541c",
+      "powfBits": "438d3af4",
+      "scalarBits": "43d3986e",
+      "effectiveQBits": "43d3986e"
+    },
+    {
+      "itemPowerBits": "4208e6e3",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "420d84e4",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41bd6f22",
+      "exponentBits": "42246e58",
+      "powfBits": "46168345",
+      "scalarBits": "4661c2e8",
+      "effectiveQBits": "4661c2e8"
+    },
+    {
+      "itemPowerBits": "41f5f02a",
+      "exponentBits": "4257a3c9",
+      "powfBits": "4823b978",
+      "scalarBits": "48759614",
+      "effectiveQBits": "48759614"
+    },
+    {
+      "itemPowerBits": "40a521d7",
+      "exponentBits": "40f14fba",
+      "powfBits": "40ac2a6c",
+      "scalarBits": "40f23fa2",
+      "effectiveQBits": "40f23fa2"
+    },
+    {
+      "itemPowerBits": "41f403ae",
+      "exponentBits": "4255e574",
+      "powfBits": "48148cdd",
+      "scalarBits": "485ed32c",
+      "effectiveQBits": "485ed32c"
+    },
+    {
+      "itemPowerBits": "41a5fc1b",
+      "exponentBits": "420f2de3",
+      "powfBits": "4537f942",
+      "scalarBits": "4589f6f2",
+      "effectiveQBits": "4589f6f2"
+    },
+    {
+      "itemPowerBits": "420f5114",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41929762",
+      "exponentBits": "41fb34de",
+      "powfBits": "448a06da",
+      "scalarBits": "44cefa47",
+      "effectiveQBits": "44cefa47"
+    },
+    {
+      "itemPowerBits": "41883543",
+      "exponentBits": "41e862d6",
+      "powfBits": "44234ed4",
+      "scalarBits": "4474d63e",
+      "effectiveQBits": "4474d63e"
+    },
+    {
+      "itemPowerBits": "41b63b55",
+      "exponentBits": "421de756",
+      "powfBits": "45d126d5",
+      "scalarBits": "461cdb20",
+      "effectiveQBits": "461cdb20"
+    },
+    {
+      "itemPowerBits": "41f5bc3b",
+      "exponentBits": "425774b8",
+      "powfBits": "48220dc9",
+      "scalarBits": "4873148e",
+      "effectiveQBits": "4873148e"
+    },
+    {
+      "itemPowerBits": "4217b1d6",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "417e8609",
+      "exponentBits": "41d82b9c",
+      "powfBits": "43cfc7b4",
+      "scalarBits": "441bb5c7",
+      "effectiveQBits": "441bb5c7"
+    },
+    {
+      "itemPowerBits": "417f75cb",
+      "exponentBits": "41d904e6",
+      "powfBits": "43d4c20c",
+      "scalarBits": "441f7189",
+      "effectiveQBits": "441f7189"
+    },
+    {
+      "itemPowerBits": "41f58ddd",
+      "exponentBits": "42574ab2",
+      "powfBits": "4820939d",
+      "scalarBits": "4870dd4c",
+      "effectiveQBits": "4870dd4c"
+    },
+    {
+      "itemPowerBits": "41d9f185",
+      "exponentBits": "423e44c2",
+      "powfBits": "471f08f8",
+      "scalarBits": "476e8cf4",
+      "effectiveQBits": "476e8cf4"
+    },
+    {
+      "itemPowerBits": "41c1860c",
+      "exponentBits": "42282325",
+      "powfBits": "46391542",
+      "scalarBits": "468acef2",
+      "effectiveQBits": "468acef2"
+    },
+    {
+      "itemPowerBits": "4169e4e1",
+      "exponentBits": "41c57961",
+      "powfBits": "4376b0cd",
+      "scalarBits": "43b8c49a",
+      "effectiveQBits": "43b8c49a"
+    },
+    {
+      "itemPowerBits": "4181bc1c",
+      "exponentBits": "41dca722",
+      "powfBits": "43eb73ef",
+      "scalarBits": "443076f3",
+      "effectiveQBits": "443076f3"
+    },
+    {
+      "itemPowerBits": "4139f5e2",
+      "exponentBits": "419a085b",
+      "powfBits": "4292df97",
+      "scalarBits": "42db4f62",
+      "effectiveQBits": "42db4f62"
+    },
+    {
+      "itemPowerBits": "409e23ff",
+      "exponentBits": "40e4a382",
+      "powfBits": "409d9ab4",
+      "scalarBits": "40dc680e",
+      "effectiveQBits": "40dc680e"
+    },
+    {
+      "itemPowerBits": "41507797",
+      "exponentBits": "41ae6e1b",
+      "powfBits": "4301b803",
+      "scalarBits": "43421404",
+      "effectiveQBits": "43421404"
+    },
+    {
+      "itemPowerBits": "41d1dd5c",
+      "exponentBits": "4236f26c",
+      "powfBits": "46d36a87",
+      "scalarBits": "471e8f65",
+      "effectiveQBits": "471e8f65"
+    },
+    {
+      "itemPowerBits": "42095665",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41e674ce",
+      "exponentBits": "42499bd9",
+      "powfBits": "4795b1ee",
+      "scalarBits": "47e08aa5",
+      "effectiveQBits": "47e08aa5"
+    },
+    {
+      "itemPowerBits": "41d6d262",
+      "exponentBits": "423b7084",
+      "powfBits": "4707d0f0",
+      "scalarBits": "474bb8e8",
+      "effectiveQBits": "474bb8e8"
+    },
+    {
+      "itemPowerBits": "4137c4e8",
+      "exponentBits": "41980bf4",
+      "powfBits": "428af570",
+      "scalarBits": "42cf7028",
+      "effectiveQBits": "42cf7028"
+    },
+    {
+      "itemPowerBits": "4188a596",
+      "exponentBits": "41e92e6f",
+      "powfBits": "4426f89b",
+      "scalarBits": "447a54e8",
+      "effectiveQBits": "447a54e8"
+    },
+    {
+      "itemPowerBits": "42126b92",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "414132df",
+      "exponentBits": "41a097b1",
+      "powfBits": "42b05d01",
+      "scalarBits": "4303c5c1",
+      "effectiveQBits": "4303c5c1"
+    },
+    {
+      "itemPowerBits": "421c7c9c",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "417756aa",
+      "exponentBits": "41d1a89e",
+      "powfBits": "43ad4514",
+      "scalarBits": "4401d3cf",
+      "effectiveQBits": "4401d3cf"
+    },
+    {
+      "itemPowerBits": "417e2526",
+      "exponentBits": "41d7d3cd",
+      "powfBits": "43cdcd3a",
+      "scalarBits": "441a39ec",
+      "effectiveQBits": "441a39ec"
+    },
+    {
+      "itemPowerBits": "41e88b01",
+      "exponentBits": "424b7ffd",
+      "powfBits": "47a659e6",
+      "scalarBits": "47f98699",
+      "effectiveQBits": "47f98699"
+    },
+    {
+      "itemPowerBits": "42003279",
+      "exponentBits": "42611db6",
+      "powfBits": "488ae3c4",
+      "scalarBits": "48d05596",
+      "effectiveQBits": "48d05596"
+    },
+    {
+      "itemPowerBits": "421c51c5",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "41c9cefd",
+      "exponentBits": "422fa553",
+      "powfBits": "468caf79",
+      "scalarBits": "46d30636",
+      "effectiveQBits": "46d30636"
+    },
+    {
+      "itemPowerBits": "4210f031",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    },
+    {
+      "itemPowerBits": "4215bd4c",
+      "exponentBits": "42640000",
+      "powfBits": "48a321f3",
+      "scalarBits": "48f4b2dc",
+      "effectiveQBits": "48f4b2dc"
+    }
+  ],
+  "inputTransport": [
+    [
+      10.9,
+      "412e6666"
+    ],
+    [
+      10.90000057220459,
+      "412e6667"
+    ],
+    [
+      1.0,
+      "3f800000"
+    ],
+    [
+      26.2,
+      "41d1999a"
+    ],
+    [
+      5.937291335712183,
+      "40bdfe4a"
+    ],
+    [
+      35.820804391085154,
+      "420f4881"
+    ],
+    [
+      28.076270880177017,
+      "41e09c34"
+    ],
+    [
+      12.766788634479939,
+      "414c44c4"
+    ],
+    [
+      14.360766267804449,
+      "4165c5b3"
+    ],
+    [
+      25.657230562244386,
+      "41cd4202"
+    ],
+    [
+      4.864359355406719,
+      "409ba8d5"
+    ],
+    [
+      7.703058988204439,
+      "40f67f76"
+    ],
+    [
+      3.9213425305295457,
+      "407af747"
+    ],
+    [
+      16.53926727116068,
+      "4184506b"
+    ],
+    [
+      37.784336115463276,
+      "42172329"
+    ],
+    [
+      36.170812999079956,
+      "4210aeea"
+    ],
+    [
+      32.85555890670847,
+      "42036c18"
+    ],
+    [
+      22.124117991391167,
+      "41b0fe32"
+    ],
+    [
+      28.675650137185627,
+      "41e567bb"
+    ],
+    [
+      8.107942945753948,
+      "4101ba22"
+    ],
+    [
+      14.443663779639671,
+      "4167193f"
+    ],
+    [
+      15.255879709387292,
+      "41741815"
+    ],
+    [
+      19.532957498606,
+      "419c437f"
+    ],
+    [
+      34.56437066963517,
+      "420a41ea"
+    ],
+    [
+      37.83074186198516,
+      "421752ae"
+    ],
+    [
+      25.39894195272003,
+      "41cb3108"
+    ],
+    [
+      28.93122776351289,
+      "41e77328"
+    ],
+    [
+      27.400690911796758,
+      "41db349d"
+    ],
+    [
+      7.405241375266875,
+      "40ecf7bd"
+    ],
+    [
+      7.037510537839685,
+      "40e13349"
+    ],
+    [
+      5.818904503645814,
+      "40ba3477"
+    ],
+    [
+      11.606056745720723,
+      "4139b269"
+    ],
+    [
+      17.089697947023854,
+      "4188b7b4"
+    ],
+    [
+      19.613876055722212,
+      "419ce938"
+    ],
+    [
+      9.942285318994402,
+      "411f139a"
+    ],
+    [
+      12.556927894695502,
+      "4148e92d"
+    ],
+    [
+      26.474390404780877,
+      "41d3cb8d"
+    ],
+    [
+      29.07463907360961,
+      "41e898dc"
+    ],
+    [
+      10.627853688258432,
+      "412a0bb0"
+    ],
+    [
+      1.5640954075730789,
+      "3fc83447"
+    ],
+    [
+      12.904088354151753,
+      "414e7725"
+    ],
+    [
+      3.142394041421261,
+      "40491cfc"
+    ],
+    [
+      33.75222450082651,
+      "42070247"
+    ],
+    [
+      13.023531214306658,
+      "41506062"
+    ],
+    [
+      9.34400474390145,
+      "4115810b"
+    ],
+    [
+      9.520062242543249,
+      "4118522d"
+    ],
+    [
+      8.042955691448206,
+      "4100aff2"
+    ],
+    [
+      9.101541485648738,
+      "41119fea"
+    ],
+    [
+      34.42415780439944,
+      "4209b256"
+    ],
+    [
+      1.2127357101054286,
+      "3f9b3aec"
+    ],
+    [
+      18.045924030531936,
+      "41905e0d"
+    ],
+    [
+      37.02958726249835,
+      "42141e4c"
+    ],
+    [
+      18.816795932080005,
+      "419688cc"
+    ],
+    [
+      4.886081907546481,
+      "409c5ac8"
+    ],
+    [
+      12.79381046568596,
+      "414cb373"
+    ],
+    [
+      19.887459771996475,
+      "419f1985"
+    ],
+    [
+      7.583272606553457,
+      "40f2aa2b"
+    ],
+    [
+      27.41872864788653,
+      "41db598e"
+    ],
+    [
+      5.690126858034051,
+      "40b61585"
+    ],
+    [
+      25.361478951465834,
+      "41cae44f"
+    ],
+    [
+      30.184880485496468,
+      "41f17aa3"
+    ],
+    [
+      31.804531127212844,
+      "41fe6fae"
+    ],
+    [
+      13.62670580977162,
+      "415a06fd"
+    ],
+    [
+      2.009312969691771,
+      "40009895"
+    ],
+    [
+      36.50603916760542,
+      "4212062f"
+    ],
+    [
+      27.86789852895069,
+      "41def175"
+    ],
+    [
+      2.5899316430095967,
+      "4025c171"
+    ],
+    [
+      27.453571335987938,
+      "41dba0ea"
+    ],
+    [
+      5.524673831030585,
+      "40b0ca21"
+    ],
+    [
+      4.263326385977373,
+      "40886d2b"
+    ],
+    [
+      19.74059762789658,
+      "419decbe"
+    ],
+    [
+      28.06742499089199,
+      "41e08a16"
+    ],
+    [
+      23.14604958792008,
+      "41b92b1c"
+    ],
+    [
+      27.2639565014105,
+      "41da1c95"
+    ],
+    [
+      37.80469165084779,
+      "42173801"
+    ],
+    [
+      17.942380187649132,
+      "418f89ff"
+    ],
+    [
+      15.628970208305397,
+      "417a1043"
+    ],
+    [
+      6.112334946529936,
+      "40c3983f"
+    ],
+    [
+      1.317433509528645,
+      "3fa8a1a9"
+    ],
+    [
+      13.002173774361323,
+      "415008e7"
+    ],
+    [
+      37.97899361320892,
+      "4217ea7d"
+    ],
+    [
+      13.435668325357504,
+      "4156f87f"
+    ],
+    [
+      25.968590626398896,
+      "41cfbfac"
+    ],
+    [
+      15.950034262130124,
+      "417f3357"
+    ],
+    [
+      14.510748265409125,
+      "41682c06"
+    ],
+    [
+      6.734291245595487,
+      "40d77f50"
+    ],
+    [
+      39.329552406470086,
+      "421d5176"
+    ],
+    [
+      30.319653871027445,
+      "41f28ea7"
+    ],
+    [
+      37.96695087242194,
+      "4217de28"
+    ],
+    [
+      13.370649981018142,
+      "4155ee2f"
+    ],
+    [
+      37.026815389002536,
+      "42141b75"
+    ],
+    [
+      8.209925356623257,
+      "41035bdb"
+    ],
+    [
+      27.8574279549077,
+      "41dedc03"
+    ],
+    [
+      18.026207954159737,
+      "419035ad"
+    ],
+    [
+      1.2774378951417547,
+      "3fa38316"
+    ],
+    [
+      18.886197679644326,
+      "419716ef"
+    ],
+    [
+      10.702081736724644,
+      "412b3bba"
+    ],
+    [
+      13.27176006248193,
+      "41545921"
+    ],
+    [
+      37.41806162795693,
+      "4215ac18"
+    ],
+    [
+      1.1496391838933848,
+      "3f932760"
+    ],
+    [
+      12.492920893894473,
+      "4147e301"
+    ],
+    [
+      37.41983804039309,
+      "4215adea"
+    ],
+    [
+      7.239530509467805,
+      "40e7aa3c"
+    ],
+    [
+      3.525423548169358,
+      "4061a08a"
+    ]
+  ],
+  "thresholdCases": [
+    [
+      "447a0000",
+      "447a0000",
+      "3f666666",
+      "44548000",
+      "44610000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "00000000",
+      "44548000",
+      "44548000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3f800000",
+      "44548000",
+      "44548000"
+    ],
+    [
+      "44610000",
+      "447a0000",
+      "3f666666",
+      "44548000",
+      "44548000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3f666666",
+      "44610000",
+      "44610000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3f666666",
+      "446d8000",
+      "446d8000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3c23d70a",
+      "c1200000",
+      "c1200000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3f7d70a4",
+      "44548000",
+      "44548000"
+    ],
+    [
+      "447a0000",
+      "447a0000",
+      "3f000000",
+      "c1200000",
+      "43fa0000"
+    ],
+    [
+      "43fa0000",
+      "447a0000",
+      "3f000000",
+      "c1200000",
+      "c1200000"
+    ],
+    [
+      "43fe8000",
+      "447a0000",
+      "3f000000",
+      "43c80000",
+      "43c80000"
+    ],
+    [
+      "43ff8000",
+      "447a0000",
+      "3f000000",
+      "43c80000",
+      "43fa0000"
+    ],
+    [
+      "46a444bd",
+      "46e31a92",
+      "3f2745da",
+      "465b90e9",
+      "4694644d"
+    ],
+    [
+      "4595dd60",
+      "47662486",
+      "3f000000",
+      "c6b9dbcf",
+      "c6b9dbcf"
+    ],
+    [
+      "46ce7903",
+      "4732dc3b",
+      "00000000",
+      "46c063df",
+      "46c063df"
+    ],
+    [
+      "4734a537",
+      "47b8f57f",
+      "3f000000",
+      "c6fbbd48",
+      "c6fbbd48"
+    ],
+    [
+      "47a88981",
+      "47b457d5",
+      "3f666666",
+      "46f135bc",
+      "47a24f0c"
+    ],
+    [
+      "45fac2c6",
+      "46922d2e",
+      "00000000",
+      "c614a4d0",
+      "c614a4d0"
+    ],
+    [
+      "467002cd",
+      "47154743",
+      "3f800000",
+      "c68800f8",
+      "c68800f8"
+    ],
+    [
+      "4560af0f",
+      "4642b903",
+      "3f704254",
+      "c3f876c9",
+      "c3f876c9"
+    ],
+    [
+      "46aa29d6",
+      "46ff9636",
+      "3f800000",
+      "c621ed78",
+      "c621ed78"
+    ],
+    [
+      "46c207e5",
+      "478ef93a",
+      "3f800000",
+      "c72d58b6",
+      "c72d58b6"
+    ],
+    [
+      "469219e4",
+      "46c2e72a",
+      "3f800000",
+      "457cfc93",
+      "457cfc93"
+    ],
+    [
+      "4629a368",
+      "46505ca5",
+      "3f4f7d55",
+      "c501c176",
+      "c501c176"
+    ],
+    [
+      "46257e27",
+      "46c23b86",
+      "3f35dac5",
+      "45b14c87",
+      "45b14c87"
+    ],
+    [
+      "46e6b199",
+      "477f7c4b",
+      "3f666666",
+      "c64e387e",
+      "c64e387e"
+    ],
+    [
+      "47730359",
+      "478ef354",
+      "3ea810cd",
+      "47006b71",
+      "47006b71"
+    ],
+    [
+      "4559478e",
+      "468de7be",
+      "3f000000",
+      "c63d8884",
+      "c63d8884"
+    ],
+    [
+      "479f341c",
+      "47bb0b8a",
+      "3f000000",
+      "c534ae1f",
+      "473b0b8a"
+    ],
+    [
+      "46149b8a",
+      "477043f0",
+      "00000000",
+      "454ac3ab",
+      "454ac3ab"
+    ],
+    [
+      "47aba4cd",
+      "47b72fa8",
+      "3f800000",
+      "47a3b298",
+      "47a3b298"
+    ],
+    [
+      "4716fbec",
+      "47811698",
+      "3f666666",
+      "4669fff5",
+      "4669fff5"
+    ],
+    [
+      "471fbd8a",
+      "472d1c5d",
+      "3ef2c27c",
+      "4457bd66",
+      "46a42853"
+    ],
+    [
+      "45d9bd0c",
+      "468dbcfe",
+      "3f000000",
+      "c50d5332",
+      "c50d5332"
+    ],
+    [
+      "47046310",
+      "47981f5d",
+      "00000000",
+      "464fd5d3",
+      "464fd5d3"
+    ],
+    [
+      "479976f3",
+      "47a5aed5",
+      "3f800000",
+      "47433a4e",
+      "47433a4e"
+    ],
+    [
+      "465cdbab",
+      "475f6e21",
+      "3f000000",
+      "c7187ce2",
+      "c7187ce2"
+    ],
+    [
+      "478ab0ae",
+      "47ba2aaf",
+      "3f666666",
+      "4778fd20",
+      "4778fd20"
+    ],
+    [
+      "47642414",
+      "47c082b7",
+      "3f000000",
+      "c68af4e5",
+      "474082b7"
+    ],
+    [
+      "46a2847a",
+      "47888e63",
+      "00000000",
+      "c6b64ff4",
+      "c6b64ff4"
+    ],
+    [
+      "46ded457",
+      "476f4429",
+      "3e9b4028",
+      "c5bb79cf",
+      "46911a3b"
+    ],
+    [
+      "47aa5a94",
+      "47b13b65",
+      "00000000",
+      "46f036fb",
+      "46f036fb"
+    ],
+    [
+      "445b04be",
+      "4629b747",
+      "3e9ce47c",
+      "c400d386",
+      "c400d386"
+    ],
+    [
+      "44e38dbe",
+      "4625ed3e",
+      "00000000",
+      "44e1e7fd",
+      "44e1e7fd"
+    ],
+    [
+      "46522dcf",
+      "4694d25b",
+      "3f800000",
+      "451827ab",
+      "451827ab"
+    ],
+    [
+      "460a748f",
+      "4722488f",
+      "00000000",
+      "46002bcb",
+      "46002bcb"
+    ],
+    [
+      "461e9ce4",
+      "462407c8",
+      "3f453f85",
+      "451607c9",
+      "45fcc560"
+    ],
+    [
+      "459491fe",
+      "47964ddc",
+      "00000000",
+      "c69b2e9a",
+      "c69b2e9a"
+    ],
+    [
+      "4661ff4e",
+      "479b048f",
+      "00000000",
+      "c657f3c8",
+      "c657f3c8"
+    ],
+    [
+      "46af11ab",
+      "47a082d7",
+      "00000000",
+      "46590855",
+      "46590855"
+    ],
+    [
+      "44fd80ef",
+      "470f504a",
+      "00000000",
+      "c65d823c",
+      "c65d823c"
+    ],
+    [
+      "4723af9b",
+      "473f4569",
+      "3f69d813",
+      "c59f4ffe",
+      "c59f4ffe"
+    ],
+    [
+      "47291487",
+      "473e5d1d",
+      "3f1d70ee",
+      "46b69f77",
+      "46ea2629"
+    ],
+    [
+      "464b1364",
+      "46aa4226",
+      "3f800000",
+      "461d5213",
+      "461d5213"
+    ],
+    [
+      "45d7b258",
+      "46cdeb16",
+      "3f666666",
+      "c60dae38",
+      "c60dae38"
+    ],
+    [
+      "45f0734d",
+      "475f25fe",
+      "3f666666",
+      "c60e0a10",
+      "c60e0a10"
+    ],
+    [
+      "44e67101",
+      "4625f875",
+      "3f000000",
+      "c5612a23",
+      "c5612a23"
+    ],
+    [
+      "4606d78a",
+      "46b78259",
+      "3f000000",
+      "c62574cb",
+      "c62574cb"
+    ],
+    [
+      "46e4b7d0",
+      "477155e4",
+      "3f000000",
+      "46528193",
+      "46528193"
+    ],
+    [
+      "47234458",
+      "474c725b",
+      "3f000000",
+      "47070722",
+      "47070722"
+    ],
+    [
+      "465befe0",
+      "46fa4fd7",
+      "00000000",
+      "c644516b",
+      "c644516b"
+    ],
+    [
+      "46544b8f",
+      "47069303",
+      "3f666666",
+      "c39bb00a",
+      "c39bb00a"
+    ],
+    [
+      "467e128d",
+      "470f905b",
+      "3f54ca1e",
+      "c61996d2",
+      "c61996d2"
+    ],
+    [
+      "4578887a",
+      "46e680ef",
+      "3ee5cadd",
+      "c665a541",
+      "c665a541"
+    ],
+    [
+      "4793a797",
+      "47ace57c",
+      "3f666666",
+      "476254e8",
+      "476254e8"
+    ],
+    [
+      "4654fe0b",
+      "4698a332",
+      "3f800000",
+      "429dbe8a",
+      "429dbe8a"
+    ],
+    [
+      "45a31873",
+      "46dbae67",
+      "3f666666",
+      "c68d89f9",
+      "c68d89f9"
+    ],
+    [
+      "47709ed6",
+      "479cfc04",
+      "00000000",
+      "45366f87",
+      "45366f87"
+    ],
+    [
+      "459894fc",
+      "4639f460",
+      "3f000000",
+      "c4c6a3cc",
+      "c4c6a3cc"
+    ],
+    [
+      "46a024a1",
+      "47970941",
+      "3f800000",
+      "c69baa7b",
+      "c69baa7b"
+    ],
+    [
+      "470c3716",
+      "47962c42",
+      "3e8ebef8",
+      "c4e02eab",
+      "46a77926"
+    ],
+    [
+      "43160c04",
+      "43b18c20",
+      "3f800000",
+      "418407fc",
+      "418407fc"
+    ],
+    [
+      "4637cd8c",
+      "466d27c7",
+      "3f49aa33",
+      "46205610",
+      "46205610"
+    ],
+    [
+      "4741660e",
+      "4785262c",
+      "3f666666",
+      "4632b8f6",
+      "4632b8f6"
+    ],
+    [
+      "47403767",
+      "47886fd9",
+      "00000000",
+      "47158891",
+      "47158891"
+    ],
+    [
+      "468389c5",
+      "46d55884",
+      "3f800000",
+      "c6063444",
+      "c6063444"
+    ],
+    [
+      "44cd68e1",
+      "46ac2390",
+      "3f666666",
+      "c627efd5",
+      "c627efd5"
+    ],
+    [
+      "46b7f2f5",
+      "46dac62c",
+      "3f2ad54a",
+      "460092df",
+      "4691fddf"
+    ],
+    [
+      "45f667de",
+      "4707290f",
+      "3d98beeb",
+      "c63ed67b",
+      "45214a5b"
+    ],
+    [
+      "465aed6e",
+      "478bf0ac",
+      "3f666666",
+      "c705e35d",
+      "c705e35d"
+    ],
+    [
+      "46e85b10",
+      "478b1b5a",
+      "3f000000",
+      "469ac0b9",
+      "469ac0b9"
+    ],
+    [
+      "4764eedb",
+      "47b6c32f",
+      "00000000",
+      "c55a938c",
+      "c55a938c"
+    ],
+    [
+      "469f36fc",
+      "46e9a7e6",
+      "00000000",
+      "c58f10db",
+      "c58f10db"
+    ],
+    [
+      "475e1aa6",
+      "47b8825f",
+      "3f800000",
+      "c626b0a4",
+      "c626b0a4"
+    ],
+    [
+      "458c7261",
+      "46c56150",
+      "3f666666",
+      "c5c79c3c",
+      "c5c79c3c"
+    ],
+    [
+      "462d9667",
+      "466ae8d4",
+      "3e560caf",
+      "45809134",
+      "45809134"
+    ],
+    [
+      "46ea2df3",
+      "475a6ebd",
+      "3e28b1b6",
+      "c6a1bd7c",
+      "460ff04e"
+    ],
+    [
+      "46b62208",
+      "479b977e",
+      "3f000000",
+      "c6dc9376",
+      "c6dc9376"
+    ],
+    [
+      "44b87c38",
+      "45a2e448",
+      "3f666666",
+      "44395e06",
+      "44395e06"
+    ],
+    [
+      "4553dae3",
+      "45cdf02c",
+      "3f800000",
+      "450ec9a0",
+      "450ec9a0"
+    ],
+    [
+      "46be7006",
+      "474149a8",
+      "3f666666",
+      "c5a3f5e2",
+      "c5a3f5e2"
+    ],
+    [
+      "45e748bd",
+      "47ac010b",
+      "00000000",
+      "c671b7c9",
+      "c671b7c9"
+    ],
+    [
+      "4663b19d",
+      "4776e6ff",
+      "3f000000",
+      "c73d61fa",
+      "c73d61fa"
+    ],
+    [
+      "464571e8",
+      "46a83c64",
+      "3f000000",
+      "c59043aa",
+      "46283c64"
+    ],
+    [
+      "478a7f38",
+      "47b79d71",
+      "00000000",
+      "46a909aa",
+      "46a909aa"
+    ],
+    [
+      "475df26a",
+      "47ba84dc",
+      "3f666666",
+      "c6adbd56",
+      "c6adbd56"
+    ],
+    [
+      "4568bcde",
+      "472e4a70",
+      "3f62ed60",
+      "c6bc865f",
+      "c6bc865f"
+    ],
+    [
+      "466b4f36",
+      "47a9f72b",
+      "3f000000",
+      "c6bb24b1",
+      "c6bb24b1"
+    ],
+    [
+      "44c05b12",
+      "45cc14c9",
+      "3f666666",
+      "c507e262",
+      "c507e262"
+    ],
+    [
+      "46cb280b",
+      "47afdbc2",
+      "3f000000",
+      "c6a0773f",
+      "c6a0773f"
+    ],
+    [
+      "47496f61",
+      "47be8a5b",
+      "00000000",
+      "c6d89de8",
+      "c6d89de8"
+    ],
+    [
+      "44cc3a46",
+      "46a9897e",
+      "3f666666",
+      "c69329e1",
+      "c69329e1"
+    ],
+    [
+      "45843a3a",
+      "476eab53",
+      "3f4bee97",
+      "c63442b3",
+      "c63442b3"
+    ],
+    [
+      "4702c78a",
+      "470afd64",
+      "3f1e479b",
+      "45b9debf",
+      "46abde88"
+    ],
+    [
+      "461aa846",
+      "47480511",
+      "00000000",
+      "c5d6f42f",
+      "c5d6f42f"
+    ],
+    [
+      "46cc3c11",
+      "4779ea6c",
+      "3f800000",
+      "c63c0531",
+      "c63c0531"
+    ],
+    [
+      "468a479b",
+      "46febd97",
+      "3f666666",
+      "45d34f68",
+      "45d34f68"
+    ],
+    [
+      "475c3cb3",
+      "47abdc89",
+      "00000000",
+      "463af06c",
+      "463af06c"
+    ],
+    [
+      "472f5bcd",
+      "475642f5",
+      "3f000000",
+      "45f291b8",
+      "46d642f5"
+    ],
+    [
+      "46d13d23",
+      "47201230",
+      "00000000",
+      "c61e56e2",
+      "c61e56e2"
+    ],
+    [
+      "45c55f75",
+      "4752a7fb",
+      "00000000",
+      "c6326e99",
+      "c6326e99"
+    ],
+    [
+      "478492b0",
+      "47a1f5cf",
+      "3f800000",
+      "477350cf",
+      "477350cf"
+    ],
+    [
+      "47aa46d9",
+      "47af6f57",
+      "3f000000",
+      "46c52b27",
+      "472f6f57"
+    ],
+    [
+      "475200dd",
+      "47a05bdc",
+      "00000000",
+      "46d458e6",
+      "46d458e6"
+    ],
+    [
+      "45888bd1",
+      "473132d5",
+      "3f666666",
+      "c5f4ad3d",
+      "c5f4ad3d"
+    ],
+    [
+      "463fe78f",
+      "46ecd3c8",
+      "3f666666",
+      "45eea8ed",
+      "45eea8ed"
+    ],
+    [
+      "473c2c06",
+      "47a1cd0f",
+      "3f000000",
+      "c66f5058",
+      "4721cd0f"
+    ],
+    [
+      "47102558",
+      "4750f43b",
+      "3f800000",
+      "c631e3d7",
+      "c631e3d7"
+    ],
+    [
+      "46715bcd",
+      "47645e82",
+      "3f800000",
+      "c66cd0cf",
+      "c66cd0cf"
+    ],
+    [
+      "4700f792",
+      "47409461",
+      "3f000000",
+      "c5221239",
+      "46c09461"
+    ],
+    [
+      "46873b4b",
+      "470335f4",
+      "3d48b3b9",
+      "455c1b0d",
+      "455c1b0d"
+    ],
+    [
+      "47ba1b42",
+      "47be3974",
+      "3f800000",
+      "47a4262a",
+      "47a4262a"
+    ],
+    [
+      "46c76019",
+      "473ffc18",
+      "00000000",
+      "46752667",
+      "46752667"
+    ],
+    [
+      "47006a5c",
+      "47ba9093",
+      "3f666666",
+      "c5a59036",
+      "c5a59036"
+    ],
+    [
+      "46885bc3",
+      "46897718",
+      "3f666666",
+      "45d864c7",
+      "46776ff8"
+    ],
+    [
+      "47417d34",
+      "479b6310",
+      "00000000",
+      "c6045f28",
+      "c6045f28"
+    ],
+    [
+      "46087bb7",
+      "4700542e",
+      "3f666666",
+      "4600254f",
+      "4600254f"
+    ],
+    [
+      "461784c6",
+      "47006319",
+      "3f4b0aa7",
+      "4600fd85",
+      "4600fd85"
+    ],
+    [
+      "45be6bf9",
+      "46d2412a",
+      "3f800000",
+      "449a22d0",
+      "449a22d0"
+    ],
+    [
+      "46731c5e",
+      "4744d6c2",
+      "3f800000",
+      "c6eceac2",
+      "c6eceac2"
+    ],
+    [
+      "468935c7",
+      "46c85563",
+      "3f000000",
+      "c502a097",
+      "46485563"
+    ],
+    [
+      "45d59545",
+      "46494955",
+      "3f000000",
+      "c57fa919",
+      "45c94955"
+    ],
+    [
+      "45ef6462",
+      "4647c5a0",
+      "00000000",
+      "454d9c13",
+      "454d9c13"
+    ],
+    [
+      "46ac822f",
+      "471b2a71",
+      "3f680826",
+      "462d07e8",
+      "462d07e8"
+    ],
+    [
+      "46432f41",
+      "46c55cb0",
+      "3f000000",
+      "c62b11fb",
+      "c62b11fb"
+    ],
+    [
+      "468296dd",
+      "4731c2e5",
+      "3f666666",
+      "45c64f23",
+      "45c64f23"
+    ],
+    [
+      "44e85b11",
+      "4591fe52",
+      "00000000",
+      "44bfb0b9",
+      "44bfb0b9"
+    ],
+    [
+      "444082da",
+      "45152d6f",
+      "3f666666",
+      "c3e21fcd",
+      "c3e21fcd"
+    ],
+    [
+      "46c1fef9",
+      "46f5a908",
+      "3f000000",
+      "46a3ef5b",
+      "46a3ef5b"
+    ],
+    [
+      "4672d31a",
+      "4695c406",
+      "3f7483fc",
+      "c3fbac91",
+      "c3fbac91"
+    ],
+    [
+      "469c8ff5",
+      "46a6bfe8",
+      "3f666666",
+      "45385e0f",
+      "4696131d"
+    ],
+    [
+      "46e69d13",
+      "46ec2670",
+      "00000000",
+      "46cd6e32",
+      "46cd6e32"
+    ],
+    [
+      "46ab8931",
+      "4768cb3a",
+      "3f800000",
+      "c6d0cddd",
+      "c6d0cddd"
+    ],
+    [
+      "47948cd4",
+      "479a4585",
+      "3f800000",
+      "46fb0d99",
+      "46fb0d99"
+    ],
+    [
+      "46657609",
+      "4732755e",
+      "3f000000",
+      "c6de03f1",
+      "c6de03f1"
+    ],
+    [
+      "4757a10a",
+      "4796ebd0",
+      "3f800000",
+      "46b7294d",
+      "46b7294d"
+    ],
+    [
+      "47a18fca",
+      "47ba8983",
+      "3ee2da13",
+      "473b98bf",
+      "473b98bf"
+    ],
+    [
+      "4578fed1",
+      "469be347",
+      "3f49513d",
+      "c635253d",
+      "c635253d"
+    ],
+    [
+      "46a9a982",
+      "46b79646",
+      "3f666666",
+      "468353bf",
+      "46a53a72"
+    ],
+    [
+      "46980729",
+      "47448693",
+      "3f000000",
+      "c6eceb9d",
+      "c6eceb9d"
+    ],
+    [
+      "47ae049e",
+      "47b4e9a4",
+      "00000000",
+      "448ab891",
+      "448ab891"
+    ],
+    [
+      "46dfd2b6",
+      "4707f29f",
+      "3f800000",
+      "46190f26",
+      "46190f26"
+    ],
+    [
+      "44968f9b",
+      "4696ea6b",
+      "3f000000",
+      "c3147d28",
+      "c3147d28"
+    ],
+    [
+      "479d519e",
+      "47a56e41",
+      "3f000000",
+      "4685d324",
+      "47256e41"
+    ],
+    [
+      "444cc467",
+      "449a5c1c",
+      "00000000",
+      "c2008a42",
+      "c2008a42"
+    ],
+    [
+      "4666eacb",
+      "4779f50e",
+      "3f666666",
+      "45545c0e",
+      "45545c0e"
+    ],
+    [
+      "46115291",
+      "46af3b99",
+      "3f000000",
+      "44dbcc02",
+      "44dbcc02"
+    ],
+    [
+      "4787a33c",
+      "478a225a",
+      "00000000",
+      "46b0d352",
+      "46b0d352"
+    ],
+    [
+      "446535a8",
+      "45d95738",
+      "00000000",
+      "c5954d53",
+      "c5954d53"
+    ],
+    [
+      "46f761d1",
+      "478c8a3b",
+      "3f800000",
+      "c5dfd39b",
+      "c5dfd39b"
+    ],
+    [
+      "464f714d",
+      "4694a073",
+      "3f666666",
+      "44880456",
+      "44880456"
+    ],
+    [
+      "4758ac3f",
+      "47824787",
+      "3e23ff5d",
+      "46bc5341",
+      "46bc5341"
+    ],
+    [
+      "451bab56",
+      "462a8cb6",
+      "3f800000",
+      "c3ec9d09",
+      "c3ec9d09"
+    ],
+    [
+      "46899250",
+      "472a896a",
+      "3f000000",
+      "c673fa85",
+      "c673fa85"
+    ],
+    [
+      "469dbe78",
+      "47a52613",
+      "3f666666",
+      "4613bf68",
+      "4613bf68"
+    ],
+    [
+      "4738282a",
+      "474eb933",
+      "3f800000",
+      "45db0242",
+      "45db0242"
+    ],
+    [
+      "47313845",
+      "478b502d",
+      "00000000",
+      "c5a70887",
+      "c5a70887"
+    ],
+    [
+      "4745368a",
+      "478255dd",
+      "3f800000",
+      "c645222c",
+      "c645222c"
+    ],
+    [
+      "460647f4",
+      "46404c9f",
+      "3f000000",
+      "45c0c7b7",
+      "45c0c7b7"
+    ],
+    [
+      "463dac51",
+      "4789fba8",
+      "3f1e96c9",
+      "c66ca870",
+      "c66ca870"
+    ],
+    [
+      "47637808",
+      "47881944",
+      "3f800000",
+      "470dab22",
+      "470dab22"
+    ],
+    [
+      "4681548b",
+      "47804f6b",
+      "3f000000",
+      "c609ea38",
+      "c609ea38"
+    ],
+    [
+      "460ae88d",
+      "4617e50a",
+      "3f000000",
+      "4561b540",
+      "4597e50a"
+    ],
+    [
+      "47941dc2",
+      "47b3d37b",
+      "3f000000",
+      "47424bf2",
+      "47424bf2"
+    ],
+    [
+      "46bcf793",
+      "475e0cfe",
+      "3f666666",
+      "450f8a51",
+      "450f8a51"
+    ],
+    [
+      "461cd18c",
+      "46378f58",
+      "00000000",
+      "45f66939",
+      "45f66939"
+    ],
+    [
+      "4672be95",
+      "471994e7",
+      "00000000",
+      "465e8308",
+      "465e8308"
+    ],
+    [
+      "47501f84",
+      "475b2343",
+      "00000000",
+      "4710e7c6",
+      "4710e7c6"
+    ],
+    [
+      "46ce77af",
+      "46fc1437",
+      "3e0e1637",
+      "c4f5d164",
+      "458be916"
+    ],
+    [
+      "4611e019",
+      "46f16dee",
+      "3f666666",
+      "45f3f8ae",
+      "45f3f8ae"
+    ],
+    [
+      "453f78f3",
+      "45c6d1ee",
+      "3f000000",
+      "450c4fc4",
+      "450c4fc4"
+    ],
+    [
+      "44778811",
+      "4519e39b",
+      "3f666666",
+      "44043ee0",
+      "44043ee0"
+    ],
+    [
+      "46ec9e68",
+      "47536f7c",
+      "3f800000",
+      "46a10b2c",
+      "46a10b2c"
+    ],
+    [
+      "46358791",
+      "47028dfb",
+      "3f800000",
+      "c5f5cff8",
+      "c5f5cff8"
+    ],
+    [
+      "4428d0b8",
+      "4619e9db",
+      "3f800000",
+      "c545d6ad",
+      "c545d6ad"
+    ],
+    [
+      "4603a327",
+      "479b0dc3",
+      "00000000",
+      "c69a2709",
+      "c69a2709"
+    ],
+    [
+      "46056a74",
+      "464caa59",
+      "3f000000",
+      "c50cd877",
+      "45ccaa59"
+    ],
+    [
+      "476ca891",
+      "479d4683",
+      "3e23c916",
+      "c5c5cf73",
+      "46493edf"
+    ],
+    [
+      "465a746d",
+      "479f1ad4",
+      "00000000",
+      "c73561ad",
+      "c73561ad"
+    ],
+    [
+      "46bc9726",
+      "47239e4d",
+      "3e6d4f55",
+      "469b89db",
+      "469b89db"
+    ],
+    [
+      "45da4943",
+      "4658e212",
+      "3f666666",
+      "45cea3a2",
+      "45cea3a2"
+    ],
+    [
+      "463a9036",
+      "4790dfdd",
+      "3f800000",
+      "460f8507",
+      "460f8507"
+    ],
+    [
+      "4701b2f8",
+      "473dccd9",
+      "3f800000",
+      "c5466dcf",
+      "c5466dcf"
+    ],
+    [
+      "4709f87b",
+      "47827b20",
+      "3f800000",
+      "c5f6d74f",
+      "c5f6d74f"
+    ],
+    [
+      "47863edd",
+      "47bb870d",
+      "3f666666",
+      "474aff7c",
+      "474aff7c"
+    ],
+    [
+      "46433d2f",
+      "4742699c",
+      "3d346164",
+      "46409ab1",
+      "46409ab1"
+    ],
+    [
+      "464de604",
+      "46f2030d",
+      "3e0b4e52",
+      "c55d30b1",
+      "4583b1b3"
+    ],
+    [
+      "46aec877",
+      "46c7177b",
+      "3ee64e01",
+      "c464f104",
+      "46331bc2"
+    ],
+    [
+      "475fa9da",
+      "477165af",
+      "3f800000",
+      "46e51994",
+      "46e51994"
+    ],
+    [
+      "46c629c5",
+      "4780b3d9",
+      "3f800000",
+      "44d00845",
+      "44d00845"
+    ],
+    [
+      "45fe05cc",
+      "47167676",
+      "3f000000",
+      "c5b06e3d",
+      "c5b06e3d"
+    ],
+    [
+      "44ad306d",
+      "467238c1",
+      "3f666666",
+      "c548d6cd",
+      "c548d6cd"
+    ],
+    [
+      "46e0b0ec",
+      "46f09744",
+      "3f800000",
+      "45130c13",
+      "45130c13"
+    ],
+    [
+      "46816748",
+      "46fe6780",
+      "3f666666",
+      "c4dced18",
+      "c4dced18"
+    ],
+    [
+      "466d16ba",
+      "474f0e02",
+      "3f000000",
+      "c43f02b1",
+      "c43f02b1"
+    ],
+    [
+      "4567cab2",
+      "472aa172",
+      "3dd99a9e",
+      "c697c654",
+      "c697c654"
+    ],
+    [
+      "4558de94",
+      "476e6d45",
+      "3f198f05",
+      "c6c08ecd",
+      "c6c08ecd"
+    ],
+    [
+      "46b18912",
+      "472d4e21",
+      "3f741525",
+      "45a50477",
+      "45a50477"
+    ],
+    [
+      "46f40966",
+      "4723eb52",
+      "3f800000",
+      "46558fa1",
+      "46558fa1"
+    ],
+    [
+      "452b115e",
+      "4730ead7",
+      "3f666666",
+      "c7255d19",
+      "c7255d19"
+    ],
+    [
+      "474036d1",
+      "47ad355c",
+      "3f000000",
+      "47086692",
+      "472d355c"
+    ],
+    [
+      "448009cd",
+      "44b05d54",
+      "3f573f5b",
+      "4403500b",
+      "4403500b"
+    ],
+    [
+      "45ae3cae",
+      "471d2d03",
+      "3f4c3501",
+      "c64038c5",
+      "c64038c5"
+    ],
+    [
+      "45d685c5",
+      "461fe5ae",
+      "3f800000",
+      "c5095fd8",
+      "c5095fd8"
+    ],
+    [
+      "456cacf0",
+      "4733c665",
+      "3ebd9c93",
+      "c6aa2478",
+      "c6aa2478"
+    ],
+    [
+      "47518d23",
+      "47b7cba7",
+      "3f666666",
+      "47007a88",
+      "47007a88"
+    ],
+    [
+      "47042aae",
+      "47a7cc18",
+      "3e5af4cc",
+      "c6e7b8e0",
+      "468f8441"
+    ],
+    [
+      "4769ac75",
+      "47bb0840",
+      "3f800000",
+      "c68a27df",
+      "c68a27df"
+    ],
+    [
+      "46968e05",
+      "4698dc20",
+      "00000000",
+      "462bdaba",
+      "462bdaba"
+    ],
+    [
+      "47a778f6",
+      "47aa43a4",
+      "3f000000",
+      "46c1c003",
+      "472a43a4"
+    ],
+    [
+      "466ba67f",
+      "46be737f",
+      "3f800000",
+      "c6044d6e",
+      "c6044d6e"
+    ],
+    [
+      "47855a0f",
+      "47a2a237",
+      "3ee24f22",
+      "46d006a5",
+      "470fc57a"
+    ],
+    [
+      "46aa9d17",
+      "471cd413",
+      "3f666666",
+      "c68425bb",
+      "c68425bb"
+    ],
+    [
+      "45285f76",
+      "471847df",
+      "00000000",
+      "c6e20a1f",
+      "c6e20a1f"
+    ],
+    [
+      "4752570d",
+      "47b7113f",
+      "3f666666",
+      "45c7eb47",
+      "45c7eb47"
+    ],
+    [
+      "473c6d94",
+      "477de9d9",
+      "3f000000",
+      "c62283ac",
+      "46fde9d9"
+    ],
+    [
+      "461c94ae",
+      "47171b59",
+      "3e0578fb",
+      "c6ce4497",
+      "459d913c"
+    ],
+    [
+      "4654cd64",
+      "47293698",
+      "3f000000",
+      "c60fc8ba",
+      "c60fc8ba"
+    ],
+    [
+      "47228b4d",
+      "4785b614",
+      "3f666666",
+      "c6912fd9",
+      "c6912fd9"
+    ],
+    [
+      "46968564",
+      "47acd5ae",
+      "00000000",
+      "c68fe61e",
+      "c68fe61e"
+    ],
+    [
+      "46fe4231",
+      "471f37f2",
+      "3f000000",
+      "c5e74cd3",
+      "469f37f2"
+    ],
+    [
+      "47338ff9",
+      "4768c331",
+      "3ea376a7",
+      "47257250",
+      "47257250"
+    ],
+    [
+      "4722f27f",
+      "47ab0617",
+      "00000000",
+      "4703a488",
+      "4703a488"
+    ],
+    [
+      "46652d0c",
+      "477941b7",
+      "3f800000",
+      "c73056e8",
+      "c73056e8"
+    ],
+    [
+      "469b125b",
+      "477f0534",
+      "3f666666",
+      "c6fc3ab6",
+      "c6fc3ab6"
+    ],
+    [
+      "44644410",
+      "45b93b31",
+      "3f800000",
+      "c57a539b",
+      "c57a539b"
+    ],
+    [
+      "4600835b",
+      "47bc34aa",
+      "3f666666",
+      "c4b3975e",
+      "c4b3975e"
+    ],
+    [
+      "4774dc42",
+      "47955606",
+      "3f800000",
+      "46443a75",
+      "46443a75"
+    ],
+    [
+      "470d07d5",
+      "471597d9",
+      "00000000",
+      "46227c1e",
+      "46227c1e"
+    ],
+    [
+      "4351b167",
+      "43aad7b9",
+      "3f800000",
+      "c0e3fa99",
+      "c0e3fa99"
+    ],
+    [
+      "476980c6",
+      "4782b961",
+      "00000000",
+      "4756447b",
+      "4756447b"
+    ],
+    [
+      "45887796",
+      "46c824a0",
+      "3f800000",
+      "c6250a08",
+      "c6250a08"
+    ],
+    [
+      "461eb856",
+      "4622e494",
+      "00000000",
+      "45a4fe36",
+      "45a4fe36"
+    ],
+    [
+      "46b40265",
+      "46d3b3bf",
+      "00000000",
+      "46af6e6e",
+      "46af6e6e"
+    ],
+    [
+      "4510c2c7",
+      "45e5c469",
+      "3f000000",
+      "c195caf0",
+      "c195caf0"
+    ],
+    [
+      "43ae3fb1",
+      "44a40636",
+      "00000000",
+      "c442971f",
+      "c442971f"
+    ],
+    [
+      "469fd70d",
+      "47a15b49",
+      "3ed2a175",
+      "c627b4b0",
+      "c627b4b0"
+    ],
+    [
+      "4617cd7c",
+      "46949b27",
+      "3f800000",
+      "c5526343",
+      "c5526343"
+    ],
+    [
+      "456eb71b",
+      "45d8e467",
+      "3e5f598a",
+      "c2a75c9c",
+      "44bd3ad2"
+    ],
+    [
+      "46328331",
+      "472fa8bd",
+      "3eaeff04",
+      "c6d52709",
+      "c6d52709"
+    ],
+    [
+      "4682d1a0",
+      "469195fe",
+      "3f000000",
+      "463ece74",
+      "463ece74"
+    ],
+    [
+      "45979794",
+      "46bdbfae",
+      "3f708230",
+      "4512b868",
+      "4512b868"
+    ],
+    [
+      "46eb9de5",
+      "476ed77c",
+      "3f800000",
+      "46e9d973",
+      "46e9d973"
+    ],
+    [
+      "472e15d2",
+      "47793c21",
+      "3f000000",
+      "4697c5a7",
+      "46f93c21"
+    ],
+    [
+      "4668a6fd",
+      "47ae9896",
+      "3eaf7af7",
+      "c65a6051",
+      "c65a6051"
+    ],
+    [
+      "474cce5a",
+      "47a77ce4",
+      "3f000000",
+      "4603ca39",
+      "47277ce4"
+    ],
+    [
+      "4788fa71",
+      "47b273f6",
+      "3f000000",
+      "46345669",
+      "473273f6"
+    ],
+    [
+      "45630fc9",
+      "4733a994",
+      "3f800000",
+      "c72362d5",
+      "c72362d5"
+    ],
+    [
+      "46a9a58d",
+      "4718d878",
+      "00000000",
+      "46a36625",
+      "46a36625"
+    ],
+    [
+      "46adc346",
+      "46c8ddd9",
+      "3e92f11c",
+      "45f4be29",
+      "45f4be29"
+    ],
+    [
+      "45281978",
+      "45e2039b",
+      "3f5088c4",
+      "c42d9d14",
+      "c42d9d14"
+    ],
+    [
+      "44e53600",
+      "459d5ba4",
+      "00000000",
+      "c4e01111",
+      "c4e01111"
+    ],
+    [
+      "44dcbbbf",
+      "45da027a",
+      "3f000000",
+      "c4a5299c",
+      "c4a5299c"
+    ],
+    [
+      "4606dd63",
+      "46365c12",
+      "3f666666",
+      "45e2157a",
+      "45e2157a"
+    ],
+    [
+      "471267be",
+      "479a6337",
+      "00000000",
+      "46b21c24",
+      "46b21c24"
+    ],
+    [
+      "4584aef3",
+      "4591ab91",
+      "3f53939d",
+      "44a42519",
+      "4570c8cf"
+    ],
+    [
+      "46d41504",
+      "47800d62",
+      "3f000000",
+      "c65b0ec5",
+      "c65b0ec5"
+    ],
+    [
+      "46676d62",
+      "4797a38a",
+      "3e51823c",
+      "c7326d4b",
+      "c7326d4b"
+    ]
+  ],
+  "signedProductDigest": "6cecc76d5f65faedd1711023224fdd160caf9667e36caad825d79ff9764186f8",
+  "conditionalExamples": [
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42480000",
+      "positiveCustomMagnitude": 50.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42fa0000",
+      "positiveCustomMagnitude": 125.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42160000",
+      "positiveCustomMagnitude": 37.5,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42777fff",
+      "positiveCustomMagnitude": 61.874996185302734,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42700001",
+      "positiveCustomMagnitude": 60.000003814697266,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "43340000",
+      "positiveCustomMagnitude": 180.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "42c80000",
+      "positiveCustomMagnitude": 100.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "43960000",
+      "positiveCustomMagnitude": 300.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "00000000",
+      "positiveCustomMagnitudeBits": "43070000",
+      "positiveCustomMagnitude": 135.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42480000",
+      "positiveCustomMagnitude": 50.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42fa0000",
+      "positiveCustomMagnitude": 125.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42160000",
+      "positiveCustomMagnitude": 37.5,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42777fff",
+      "positiveCustomMagnitude": 61.874996185302734,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42700001",
+      "positiveCustomMagnitude": 60.000003814697266,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "43340000",
+      "positiveCustomMagnitude": 180.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "42c80000",
+      "positiveCustomMagnitude": 100.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "43960000",
+      "positiveCustomMagnitude": 300.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "3f800000",
+      "positiveCustomMagnitudeBits": "43070000",
+      "positiveCustomMagnitude": 135.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "42aec654",
+      "positiveCustomMagnitude": 87.38735961914062,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "435a77e9",
+      "positiveCustomMagnitude": 218.46839904785156,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "428314bf",
+      "positiveCustomMagnitude": 65.54051971435547,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "42d848a1",
+      "positiveCustomMagnitude": 108.14185333251953,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "42d1bacc",
+      "positiveCustomMagnitude": 104.86483764648438,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "439d4c18",
+      "positiveCustomMagnitude": 314.594482421875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "432ec654",
+      "positiveCustomMagnitude": 174.77471923828125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "440314bf",
+      "positiveCustomMagnitude": 524.3241577148438,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "40000000",
+      "positiveCustomMagnitudeBits": "436bf225",
+      "positiveCustomMagnitude": 235.9458770751953,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "43b095a4",
+      "positiveCustomMagnitude": 353.1690673828125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "445cbb0d",
+      "positiveCustomMagnitude": 882.9226684570312,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "4384703b",
+      "positiveCustomMagnitude": 264.8768005371094,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "43da85fa",
+      "positiveCustomMagnitude": 437.04669189453125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "43d3e6c5",
+      "positiveCustomMagnitude": 423.8028869628906,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "449eed13",
+      "positiveCustomMagnitude": 1271.4085693359375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "443095a4",
+      "positiveCustomMagnitude": 706.338134765625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "4504703b",
+      "positiveCustomMagnitude": 2119.014404296875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "40a00000",
+      "positiveCustomMagnitudeBits": "446e639d",
+      "positiveCustomMagnitude": 953.5564575195312,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "457f70a8",
+      "positiveCustomMagnitude": 4087.041015625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "461fa669",
+      "positiveCustomMagnitude": 10217.6025390625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "453f947e",
+      "positiveCustomMagnitude": 3065.28076171875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "459e0db4",
+      "positiveCustomMagnitude": 5057.712890625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "45994399",
+      "positiveCustomMagnitude": 4904.44970703125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "4665e564",
+      "positiveCustomMagnitude": 14713.34765625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "45ff70a8",
+      "positiveCustomMagnitude": 8174.08203125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "46bf947e",
+      "positiveCustomMagnitude": 24522.24609375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "462c6c0b",
+      "positiveCustomMagnitude": 11035.0107421875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "45850628",
+      "positiveCustomMagnitude": 4256.76953125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "462647b2",
+      "positiveCustomMagnitude": 10641.923828125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "4547893c",
+      "positiveCustomMagnitude": 3192.5771484375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "45a49e04",
+      "positiveCustomMagnitude": 5267.751953125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "459fa0fe",
+      "positiveCustomMagnitude": 5108.1240234375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "466f717b",
+      "positiveCustomMagnitude": 15324.3701171875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "46050628",
+      "positiveCustomMagnitude": 8513.5390625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "46c7893c",
+      "positiveCustomMagnitude": 25540.6171875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "41300000",
+      "positiveCustomMagnitudeBits": "4633951c",
+      "positiveCustomMagnitude": 11493.27734375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "481f47c8",
+      "positiveCustomMagnitude": 163103.125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "48c719ba",
+      "positiveCustomMagnitude": 407757.8125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "47eeebac",
+      "positiveCustomMagnitude": 122327.34375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "48451c07",
+      "positiveCustomMagnitude": 201840.109375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "483f22f1",
+      "positiveCustomMagnitude": 195723.765625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "490f5a34",
+      "positiveCustomMagnitude": 587171.25,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "489f47c8",
+      "positiveCustomMagnitude": 326206.25,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "496eebac",
+      "positiveCustomMagnitude": 978618.75,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "41a00000",
+      "positiveCustomMagnitudeBits": "48d7074e",
+      "positiveCustomMagnitude": 440378.4375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "49f474e7",
+      "positiveCustomMagnitude": 2002588.875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4a98c910",
+      "positiveCustomMagnitude": 5006472.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "49b757ad",
+      "positiveCustomMagnitude": 1501941.625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4a1741ee",
+      "positiveCustomMagnitude": 2478203.5,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4a12ac8b",
+      "positiveCustomMagnitude": 2403106.75,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4adc02d0",
+      "positiveCustomMagnitude": 7209320.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4a7474e7",
+      "positiveCustomMagnitude": 4005177.75,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4b3757ad",
+      "positiveCustomMagnitude": 12015533.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "41d1999a",
+      "positiveCustomMagnitudeBits": "4aa5021c",
+      "positiveCustomMagnitude": 5406990.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4bbf2bbc",
+      "positiveCustomMagnitude": 25057144.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4c6ef6ab",
+      "positiveCustomMagnitude": 62642860.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4b8f60cd",
+      "positiveCustomMagnitude": 18792858.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4bec92eb",
+      "positiveCustomMagnitude": 31008214.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4be567af",
+      "positiveCustomMagnitude": 30068574.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4cac0dc3",
+      "positiveCustomMagnitude": 90205720.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4c3f2bbc",
+      "positiveCustomMagnitude": 50114288.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4d0f60cd",
+      "positiveCustomMagnitude": 150342864.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "4201c9ca",
+      "positiveCustomMagnitudeBits": "4c810a52",
+      "positiveCustomMagnitude": 67654288.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4bbf2bbc",
+      "positiveCustomMagnitude": 25057144.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4c6ef6ab",
+      "positiveCustomMagnitude": 62642860.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4b8f60cd",
+      "positiveCustomMagnitude": 18792858.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4bec92eb",
+      "positiveCustomMagnitude": 31008214.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4be567af",
+      "positiveCustomMagnitude": 30068574.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4cac0dc3",
+      "positiveCustomMagnitude": 90205720.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4c3f2bbc",
+      "positiveCustomMagnitude": 50114288.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4d0f60cd",
+      "positiveCustomMagnitude": 150342864.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "42200000",
+      "positiveCustomMagnitudeBits": "4c810a52",
+      "positiveCustomMagnitude": 67654288.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "457f70a8",
+      "positiveCustomMagnitude": 4087.041015625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "461fa669",
+      "positiveCustomMagnitude": 10217.6025390625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "453f947e",
+      "positiveCustomMagnitude": 3065.28076171875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "459e0db4",
+      "positiveCustomMagnitude": 5057.712890625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "45994399",
+      "positiveCustomMagnitude": 4904.44970703125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "4665e564",
+      "positiveCustomMagnitude": 14713.34765625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "45ff70a8",
+      "positiveCustomMagnitude": 8174.08203125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "46bf947e",
+      "positiveCustomMagnitude": 24522.24609375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "412e6666",
+      "positiveCustomMagnitudeBits": "462c6c0b",
+      "positiveCustomMagnitude": 11035.0107421875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "457f70af",
+      "positiveCustomMagnitude": 4087.042724609375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "461fa66d",
+      "positiveCustomMagnitude": 10217.6064453125,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "453f9483",
+      "positiveCustomMagnitude": 3065.281982421875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "459e0db8",
+      "positiveCustomMagnitude": 5057.71484375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "4599439d",
+      "positiveCustomMagnitude": 4904.45166015625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "4665e56a",
+      "positiveCustomMagnitude": 14713.353515625,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "45ff70af",
+      "positiveCustomMagnitude": 8174.08544921875,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "46bf9483",
+      "positiveCustomMagnitude": 24522.255859375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "412e6667",
+      "positiveCustomMagnitudeBits": "462c6c0f",
+      "positiveCustomMagnitude": 11035.0146484375,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42480000",
+      "positiveCustomMagnitude": 50.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Bow",
+      "mode": "charged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42fa0000",
+      "positiveCustomMagnitude": 125.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42160000",
+      "positiveCustomMagnitude": 37.5,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Shortbow",
+      "mode": "charged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42777fff",
+      "positiveCustomMagnitude": 61.874996185302734,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42700001",
+      "positiveCustomMagnitude": 60.000003814697266,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Longbow",
+      "mode": "charged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "43340000",
+      "positiveCustomMagnitude": 180.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "uncharged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "42c80000",
+      "positiveCustomMagnitude": 100.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Power Bow",
+      "mode": "charged",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "43960000",
+      "positiveCustomMagnitude": 300.0,
+      "actualGameFinalDamage": null
+    },
+    {
+      "weapon": "Heavy Crossbow",
+      "mode": "single",
+      "itemPowerBits": "3f800001",
+      "positiveCustomMagnitudeBits": "43070000",
+      "positiveCustomMagnitude": 135.0,
+      "actualGameFinalDamage": null
+    }
+  ],
+  "cpuCrosscheck": {
+    "status": "passed",
+    "backend": "original x86-64 instructions on CPU",
+    "cases": 538,
+    "dispatchFlags": [
+      0,
+      1
+    ],
+    "mismatches": 0,
+    "allPossibleInputsProvenEqual": false
+  },
+  "executedPowerAndAggregationInstructions": [
+    {
+      "image": "crt",
+      "rva": "0x34630",
+      "size": 4,
+      "sha256": "3f98966673bd249e7620c171fad35f8ab2f10abc1d0ed4cd31dbb7fd8e1ace45"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34634",
+      "size": 6,
+      "sha256": "174ba8039c6769f3a53baaccdd3715cafe62ce9acdddb14cbb49531fbe54e65d"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3463a",
+      "size": 6,
+      "sha256": "3f576498836d79a64170674a653ebb5769e3aa574937844cf9a84731a7b3e97a"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34640",
+      "size": 7,
+      "sha256": "6dca3b193ea276172c1d99223adf77a07ccb02b423c38721fa8f53e46f01a9bc"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34647",
+      "size": 6,
+      "sha256": "4a963b7a9b3036ec31e3130b60d2b89cef46cb89218b254fe25f39e046e98a1b"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3464d",
+      "size": 4,
+      "sha256": "3cdd658f1ef843d62846a8fffa4794292a1d13ac5c285cd0de5b31955c926da2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34651",
+      "size": 4,
+      "sha256": "22723082452c5e4fd7475cbf02a9afbf3761beb9ac496015dfe911e3fedd54bb"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34655",
+      "size": 4,
+      "sha256": "597ecd317e93b31c639b528bf62f6973d7a6995d19aa451714f9c5a8869ebee2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34659",
+      "size": 4,
+      "sha256": "0e1d207ebf1b669f544520972bdde5abbca7ccd150804d6b3cab4b253e201b51"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3465d",
+      "size": 3,
+      "sha256": "3edfa2527d5307235e844a2c75c6b4febb8497d6d5f857307e31035949a75f3c"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34660",
+      "size": 4,
+      "sha256": "ca263b46c36d38c1fbbe4a279243ccd6fba6c1ef05d11e9b56f2c3a57c9b7c8c"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34664",
+      "size": 4,
+      "sha256": "edd29483f151496b6e15dd0841d95c450a60badb83775873e46f19df6e54c438"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34668",
+      "size": 5,
+      "sha256": "0deea6231c910681b63e00b4e8e93fa4fcc149241fbd1d344c0687b6fb637a11"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3466d",
+      "size": 6,
+      "sha256": "6a0cca35e043b0b4f2c4776650256599c297c4ea8fbfa24457e649fc5978fec8"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34673",
+      "size": 5,
+      "sha256": "b32facf1f0ee1ae6c6d6fc3f6dc92598c81e0914e959b73e140c40368e20cffb"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34678",
+      "size": 6,
+      "sha256": "dae3bfd04c776ca6060c8dcdeca3971a9e529238848f9dceeb33103d2f5be7bc"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3467e",
+      "size": 6,
+      "sha256": "e7c48b6b17ddd2013cf6d188f0b60138e68dc178b0957567a9a35dc047fe6d3f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34684",
+      "size": 6,
+      "sha256": "76db751c696daec400c431867c8b35e6a755b31b7fb4091c5c260670acc46823"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3468a",
+      "size": 3,
+      "sha256": "80c532e8b1598ae23d544d4f3815b850f4cf734357f87ecf785da46ec1694866"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3468d",
+      "size": 7,
+      "sha256": "7e66f78a4ebec2bb45dfb46b771ad81bb343aa2cac6b2731f99e43b801959bc5"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34694",
+      "size": 6,
+      "sha256": "90b9636f5ea95f224d70dc13477b11d44f20b5297d5113b9abd519d0646df404"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3469a",
+      "size": 5,
+      "sha256": "ed3ec26a28b7326d2a10c67fe85241218aae753a42297b651a8136e5662a2fc1"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3469f",
+      "size": 8,
+      "sha256": "cf77d193e7d772ff16367ccd2170007ed69300b33d44c648f620fbef5a5efda9"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346a7",
+      "size": 5,
+      "sha256": "06210638d29befc6c3a82ebcf18e03704e01ab143ceabd5edef05ecf6b438c17"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346ac",
+      "size": 4,
+      "sha256": "1a23db4bd7e9096283ff4373b756a0127be9c44e5a91f679787e85fabefa4476"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346b0",
+      "size": 3,
+      "sha256": "af6beb5af3c981ba1c651e0a90fb5d6e946a443b8332f32aeec8bf0ac508cdc9"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346b3",
+      "size": 2,
+      "sha256": "fda557d71a110b6fb6a609d5f68c02973a9e541d6e52b891fd648c847f23c752"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346b5",
+      "size": 6,
+      "sha256": "d8821419da31a9721ee5575c3d3cb021c53c247ae8737c50ac4de3908024a072"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346bb",
+      "size": 4,
+      "sha256": "7894a31ef8f0e787585ec942ab782702fe187d39d5a9411a7bde866b55a91b25"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346bf",
+      "size": 5,
+      "sha256": "6ed694cafe76b1896ef1039479548becc7b90c6dd0d4253df8b2f81d8e1b6ea0"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346c4",
+      "size": 8,
+      "sha256": "039ede7edcfd8aecb6cf348dcf6cda3264cafee16a874840dd31a64659f7169f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346cc",
+      "size": 5,
+      "sha256": "a5e6bad949f862b47bd3b5eb179f09a2f6801689446a295a435fe087b056df8a"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346d1",
+      "size": 5,
+      "sha256": "fc6870216162c2ceb51abff35baff759caeb30fc7966430c3684434810eb6cc6"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346d6",
+      "size": 8,
+      "sha256": "9e80a455c0138a67bda9cb173f28a581c71d576187ee2eca2c2d4a403caba8a5"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346de",
+      "size": 4,
+      "sha256": "76c2b08d8a3d72a6197bed83f51921b8846d0bc85a2101ce128502e519f5da26"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346e2",
+      "size": 7,
+      "sha256": "b997526e774fe2e09edb57c94cdbbb70e64f46f7864ae193c3e913a918ee435a"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346e9",
+      "size": 4,
+      "sha256": "7878a6b13bf62d1555e5f1e118dc05877fdc8b7817911e6c5f1b891ccbe174c9"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346ed",
+      "size": 5,
+      "sha256": "8380e8208b053b71ac6344f2b13e60c7972c614bee099268ca88f1323a317c35"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346f2",
+      "size": 4,
+      "sha256": "d835191475556454bbdb56f755c89a4b621e1dce29a57cbbae765884a943d99d"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346f6",
+      "size": 8,
+      "sha256": "39b942fdcd10d58142a0ddc0f2ce099d61c3af6f97d08e9106183525b06f3127"
+    },
+    {
+      "image": "crt",
+      "rva": "0x346fe",
+      "size": 4,
+      "sha256": "b565ab017b7ff81a183b54467f9079afec4bbda864b734d72eb6c81e023d1112"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34702",
+      "size": 4,
+      "sha256": "2de74045ca74a876a1ebe5c119ebb78dd009651bd0f88389a180e3c8a83cf175"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34706",
+      "size": 8,
+      "sha256": "87a4329e1d4d68ec79ad6d73267868f139ebe24eec3a4622b244b42d460d9f22"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3470e",
+      "size": 4,
+      "sha256": "20fa109ae9bd657fa80b987b8d7c22a1a6db36cb4c986cddcc0092d55ada79b2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34712",
+      "size": 4,
+      "sha256": "8cd0286e8eb87d272db65888bfc954811840df257d10f67085f1abef1a123991"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34716",
+      "size": 8,
+      "sha256": "4827135864a67a1287b7ea40546ccf67818f126aa63d76609f33e5b8e3f6ff5c"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3471e",
+      "size": 7,
+      "sha256": "0a87ef3f611de6ade3658d8b8cd31ea2dfa7908a20f7c0f581786591af66aba2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34725",
+      "size": 5,
+      "sha256": "5a8e91248773d9476b7cf75e73c4521c4d3bba409e5448de0ab080b93bdf66b5"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3472a",
+      "size": 4,
+      "sha256": "e1e1a6cc609dee2f8f614a12b6cb0bed8cf524ebc46676225e104005a1f940fe"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3472e",
+      "size": 4,
+      "sha256": "8676b394e283e9d309e1e0ca719f176b4196027e8907246a2b28e473b30b7d66"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34732",
+      "size": 8,
+      "sha256": "80edbd1d5ac323a413f1e10fc7d47bf429fcf3cca433388ec7bf3d5ff379f825"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3473a",
+      "size": 6,
+      "sha256": "c19bafe9484731a72333fa29c7f70d9199feb771840e6aff138eddda98d067fc"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34740",
+      "size": 8,
+      "sha256": "361d40a30d01739d5f76d5e4646350e028158beb53659c3249e334e392d34e32"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34748",
+      "size": 6,
+      "sha256": "5cf62ec835d1c7c1c9bd446109ff0e63583cbd100c918729adba5a923dc7591c"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3474e",
+      "size": 4,
+      "sha256": "25a0ce2c1a694632f7e40c644d83bac8f4f1a782e682486147b6c3a9c1361036"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34752",
+      "size": 8,
+      "sha256": "60970f499bd2f3e2699c6f7684a0e7ae637e82ff361343775b536eb7ad13b1c8"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3475a",
+      "size": 4,
+      "sha256": "b44a47ea59573569d6cd79b16ba36e1906e3edf5830909a93dc9a0603ffd54e1"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3475e",
+      "size": 4,
+      "sha256": "a3faf3ac556a10446c4188196e0db74c4e940f68cecc000e11e5015dca759413"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34762",
+      "size": 8,
+      "sha256": "038944a79a835058b96d85bdc1063ef9d718459d268bb0c4055c8152f89d16dc"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3476a",
+      "size": 4,
+      "sha256": "ec61bb64f19e014e97e87f1fdaaa6f71d88f5779ab74061ebbb037f84c2103a2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3476e",
+      "size": 4,
+      "sha256": "5006e8d3273e136e0c304628db6d15b64664ad446def237e919584e9801601fc"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34772",
+      "size": 4,
+      "sha256": "2e1705c6ade23583e731beb42693536bd49905f8cc19abbf22a5534004b3d029"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34776",
+      "size": 8,
+      "sha256": "87e02882cf5523cb91e8681a6ddfa1275ad3c0e4993935fd1ad15c75f6e4f71f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3477e",
+      "size": 4,
+      "sha256": "84af5e7dab11039d0f86a17ca42cd1c66385607e713ec3d63156f492bff1bdc0"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34782",
+      "size": 4,
+      "sha256": "601fc8428ddc56b3f292bea8f5f6b7df8ad25acfa5954caa1ca108c5e3fc7b66"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34786",
+      "size": 8,
+      "sha256": "875a599b8a00533dbb23448ba7f74e7f8f6385f6d428f7c311e9214e200e3b8f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3478e",
+      "size": 4,
+      "sha256": "8676b394e283e9d309e1e0ca719f176b4196027e8907246a2b28e473b30b7d66"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34792",
+      "size": 4,
+      "sha256": "09ccdbc077a6e7b7b47fb8a93265b5de8c7abb99bbdc5af9f4702af1f89d8d48"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34796",
+      "size": 7,
+      "sha256": "4fe6c9c4c71b9c8bf02c5d89cb90a77b2e886d01a765b3df2aee354f056def40"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3479d",
+      "size": 2,
+      "sha256": "35d34252065e582f4dff4fadb341068073780483d85ff3e262d056f8495f2650"
+    },
+    {
+      "image": "crt",
+      "rva": "0x3479f",
+      "size": 7,
+      "sha256": "6442fedbc6055f6218e7893e9be4290ab0fbb364d8deddd2876dad322f4e11ce"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347a6",
+      "size": 5,
+      "sha256": "4ffbf6fe89b49708a13eef6504a7e80ef74020cb777b097f0f4f33f7da2b4495"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347ab",
+      "size": 5,
+      "sha256": "01e6d087655f7db1b10c6ccf7f09829533dd3ad522631c3155e77ddd75a42a47"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347b0",
+      "size": 5,
+      "sha256": "bc1c2d5cbb3145532ce973decbf319ed117fbef726496483c66bffb0e070bca2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347b5",
+      "size": 5,
+      "sha256": "5a027e31c421b613f45fed23a4598b248e0bfdc0e6571ac567c961f1109cc5a2"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347ba",
+      "size": 4,
+      "sha256": "2db7d58e9be6fe4b20d201c942790f1e276e57b35bb2534f3c63eab6c870dbb1"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347be",
+      "size": 4,
+      "sha256": "b183f45987629bd3b9f4946b6d1797d2b7846c2176cc920b35010aab4dd497b9"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347c2",
+      "size": 3,
+      "sha256": "747b1f038635e17dba224a29eab72c2d2251aa9476b2448d6c1262bb553d4834"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347c5",
+      "size": 6,
+      "sha256": "ecd89055e4c0d70bd86f65fc470e8c92c8e36d52c2c764cebcebf89550bf20f7"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347cb",
+      "size": 6,
+      "sha256": "934f999eb29eba3268378c9519ff7e41a19601e2f168e546f2253ae8ce1775e0"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347d1",
+      "size": 4,
+      "sha256": "e4364a2050fd970d0b772c899f6ac412124c737ace717ecc509cfab537a8ec81"
+    },
+    {
+      "image": "crt",
+      "rva": "0x347d5",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34af0",
+      "size": 3,
+      "sha256": "163c88176316426ed812795eb1ae7f896d91a337da648cbc438953e942e6ec70"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34af3",
+      "size": 2,
+      "sha256": "1ec22d56dbbc91e849b00643bc4f10eb764441c93bde5c6090fe81db55cf6932"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34af5",
+      "size": 4,
+      "sha256": "0b72106b97c584bc88d155fb7e9ff0b1ab302c8d9e3a6cc63b0d28cba28d307a"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34af9",
+      "size": 6,
+      "sha256": "06160dc319a4652f7f8e55c983fde90157f01b1ecd65f711bbed940e02683125"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34aff",
+      "size": 6,
+      "sha256": "f2684c730cac191a0afa50420e205200b0a4435cffa202a97ac519dacc869ecb"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34b60",
+      "size": 6,
+      "sha256": "e7c48b6b17ddd2013cf6d188f0b60138e68dc178b0957567a9a35dc047fe6d3f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34b66",
+      "size": 2,
+      "sha256": "df1508dec3df7eb18a8ed706b9100230597abfa3aaa246caa61709dd491fdc5f"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34bd0",
+      "size": 5,
+      "sha256": "a9853e8bc2421e8cd828bfce849f9705a2c1622d914273ad13608755b992afde"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34bd5",
+      "size": 4,
+      "sha256": "6235c17fde9ee6f74695396bf8b686155302bf696445932fa7ecefbf61e0d953"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34bd9",
+      "size": 6,
+      "sha256": "ecd89055e4c0d70bd86f65fc470e8c92c8e36d52c2c764cebcebf89550bf20f7"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34bdf",
+      "size": 6,
+      "sha256": "934f999eb29eba3268378c9519ff7e41a19601e2f168e546f2253ae8ce1775e0"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34be5",
+      "size": 4,
+      "sha256": "e4364a2050fd970d0b772c899f6ac412124c737ace717ecc509cfab537a8ec81"
+    },
+    {
+      "image": "crt",
+      "rva": "0x34be9",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2510",
+      "size": 3,
+      "sha256": "e3e7349ce697b6a98df651e2a1bfd18fa23742c647bdb3a3301f81c6b9793443"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2513",
+      "size": 7,
+      "sha256": "b982902d0385a35510505604f12062032c578afee599a7405a948102912f3d90"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d251a",
+      "size": 3,
+      "sha256": "75a1dc0ca70f5ae12d537992520f2701dbb33e274f830479cfc46eff2110ec83"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d251d",
+      "size": 5,
+      "sha256": "576ef31a4a387bd13d2c9d522f3b6a87828773da2cfe6cc79813f4ca9a3dd60e"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2522",
+      "size": 4,
+      "sha256": "a9c26c672d725f0e7880fe061668dcdba66013f966676441eb390478ceb09e62"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2526",
+      "size": 2,
+      "sha256": "1927236559759dc19d6f84ce551cbca303769bad9cf159b408b9707e3c84888a"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2528",
+      "size": 2,
+      "sha256": "72fb562c9d90dfcc008e5b0a391395fd2a244bb6bc231e2621a8ec6860d21fa3"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d252a",
+      "size": 4,
+      "sha256": "eac34a22dcb39f8a674fdee67cff01ace5d5ad9fa3abc37a3e7880c029140f99"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d252e",
+      "size": 2,
+      "sha256": "464dfd9c3da84dcbf887d11bfa478d3efc10c6725af3206aeb2e3bf2c1900481"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2530",
+      "size": 3,
+      "sha256": "e6f9a0bb734209788529f0fb293ddec9f8b1ea780e9ffbf876453d7a05844295"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2533",
+      "size": 4,
+      "sha256": "e4e1b062f2e6e82e862966c64d38c586f27d2adfaaede0998f38b5f961707e53"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2537",
+      "size": 3,
+      "sha256": "e520c2cff4611f758b0101b721e80e00491555f711b7f5b3a5f3a87399d76e44"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d253a",
+      "size": 4,
+      "sha256": "e5e06483bb7f1e140ec94380980818197836195933b4dd5b6621f8e7669976fc"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d253e",
+      "size": 4,
+      "sha256": "091464e36b2aa68cf036fa52563087709dd681e95ab1f14b0175100119cc0455"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d2542",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30e0",
+      "size": 4,
+      "sha256": "93ce860cfaa21c5cb4d2511f0105fc0c9c85774854d16c4ab900148fe2ea2767"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30e4",
+      "size": 3,
+      "sha256": "5da6167c1629e2bdbca3f3ede91f78b6651c9db9bb55898f3405e98a8547502b"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30e7",
+      "size": 4,
+      "sha256": "b927437245887d2ca61a68b16c0c5d9c0f5285675b091027693abc61229bf49a"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30eb",
+      "size": 3,
+      "sha256": "26ee88db0407644198bdb9f0ada6f4abae0b996e42a100c87c0b237c62439568"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30ee",
+      "size": 4,
+      "sha256": "5f07a68b6ae7eb9a6ffe2c755af053014e4bca74b0bab8d199711f4237a6786f"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30f2",
+      "size": 4,
+      "sha256": "233d4c627966df6a531fb97aaf7292f69f03604e57d60661ff1002993ab96550"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30f6",
+      "size": 3,
+      "sha256": "2cea236dd99dfc636db1e3f50ddabd797dcef1f1fa4f94ee138ac51a02a696e8"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d30f9",
+      "size": 2,
+      "sha256": "bbce1ead5416b4b00c3ee5adbf1a9a7f4d1659c4e53b2c709bafcf3311cab1d2"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3114",
+      "size": 3,
+      "sha256": "c2a0b63a733c710eaf8c8108112572aaa2a4e27b94a43817426ec7f1fd382c07"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3117",
+      "size": 3,
+      "sha256": "c7630204468a3500470f01d0623aed0ca994cc8431918ef6327b3f160b1f0b6c"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d311a",
+      "size": 4,
+      "sha256": "a4c93d107dbae597fd86dafccb677287e9035410e72f51ed4290902977ad6ce9"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d311e",
+      "size": 4,
+      "sha256": "4d4c987cf28b00a409e8c092fb1488f7f5e5a2aa58e3cb163a662eb90423e54b"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3122",
+      "size": 4,
+      "sha256": "65e14eea6ae42d958226da9535caa72ac8c01c65cdd55a8d7e373c440dd29bb2"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3126",
+      "size": 3,
+      "sha256": "00acb503d82a5e9d3a54e96b79f4f33a64d03adf491da8f7e35e797e7bccc9d6"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3129",
+      "size": 2,
+      "sha256": "bbce1ead5416b4b00c3ee5adbf1a9a7f4d1659c4e53b2c709bafcf3311cab1d2"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3144",
+      "size": 4,
+      "sha256": "cb58925c0b64363447806c7b06af8a57cb17df263f8b244f404139e2710df13b"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3148",
+      "size": 4,
+      "sha256": "cf144dbe11bae275c812a94332098d4f4ccc50747f72016ead0b0c2d445e6921"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d314c",
+      "size": 8,
+      "sha256": "6327ef7b09c18a738d3e7d72875e35bccfb46a9514a1924c2724fa67cdb146ca"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3154",
+      "size": 3,
+      "sha256": "4f3685f89e1d520b691d1390fffa626c80949a4ec8fa7d362db7c3cc34812f43"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3157",
+      "size": 4,
+      "sha256": "4d4c987cf28b00a409e8c092fb1488f7f5e5a2aa58e3cb163a662eb90423e54b"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d315b",
+      "size": 4,
+      "sha256": "65e14eea6ae42d958226da9535caa72ac8c01c65cdd55a8d7e373c440dd29bb2"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d315f",
+      "size": 3,
+      "sha256": "00acb503d82a5e9d3a54e96b79f4f33a64d03adf491da8f7e35e797e7bccc9d6"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3162",
+      "size": 2,
+      "sha256": "c7bbb8cf59e8942210c27958adb2495bf8912455e5bc678cd5f445ab6b446bbd"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3164",
+      "size": 4,
+      "sha256": "bce3725af6fb70e020924eb23c692e6a42d40f90a4a48018d945a39c2c98b288"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3168",
+      "size": 2,
+      "sha256": "e6332f7e34686e19d5ad393559009f37d77126d1221407bfdee68bec60234a29"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d316a",
+      "size": 5,
+      "sha256": "bd2b79e4ab3662892cbf258ea032ec3e7bdd1a9d76d205fcc3ec879ab2ece38e"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d316f",
+      "size": 4,
+      "sha256": "8d82646071c340e622ba229bc8f79e370ce3e48c87c817ee9018c912dd736cdb"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3173",
+      "size": 4,
+      "sha256": "ea7559845659dcc32e27553f7ea99b65195b7494e68179dae3a2b9419d69092e"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3177",
+      "size": 3,
+      "sha256": "00acb503d82a5e9d3a54e96b79f4f33a64d03adf491da8f7e35e797e7bccc9d6"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d317a",
+      "size": 2,
+      "sha256": "b4860347c56026ae8137cf46ee4654773a58ae15e85be96c388ca0599acadda1"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d317c",
+      "size": 4,
+      "sha256": "170489b1a6af5f18907bbae00cf6e240cfa23dbf567a579caecad714d869e420"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3180",
+      "size": 3,
+      "sha256": "706f1e55871781169a82b0cbe37e07069979e7ff7b507482ec6a25f07f74faa8"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3183",
+      "size": 4,
+      "sha256": "b0eacbe55cbeb804845c5ba2e570b34607efa7258f6823a56311f95b2a839ff1"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3187",
+      "size": 4,
+      "sha256": "4d4c987cf28b00a409e8c092fb1488f7f5e5a2aa58e3cb163a662eb90423e54b"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d318b",
+      "size": 4,
+      "sha256": "65e14eea6ae42d958226da9535caa72ac8c01c65cdd55a8d7e373c440dd29bb2"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d318f",
+      "size": 3,
+      "sha256": "00acb503d82a5e9d3a54e96b79f4f33a64d03adf491da8f7e35e797e7bccc9d6"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d3192",
+      "size": 2,
+      "sha256": "c7bbb8cf59e8942210c27958adb2495bf8912455e5bc678cd5f445ab6b446bbd"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31ac",
+      "size": 3,
+      "sha256": "bdfa0a66ce3b8fcca4d1e5be56f75b2193753dedf00624137eed3a34b35047eb"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31af",
+      "size": 7,
+      "sha256": "5596ebd4397db489b59820b75c7a42e875ef91453f07359af40261986cbbe438"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31b6",
+      "size": 7,
+      "sha256": "1fb27d7fda95a6ede8de4b55e9e9bff9d38fbff3243d4bf18a9633da9a6c09e4"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31bd",
+      "size": 2,
+      "sha256": "19f622bc6a68f6e89250b933abda220c4db2cedbad24ca558e3af884c274c1aa"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31c2",
+      "size": 4,
+      "sha256": "b620c83fa836530e147c8d885666d0356e34ce91488874191c960bc8bb7a26dd"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31c6",
+      "size": 4,
+      "sha256": "fa610cf8cdc9c60300f469a1a38d4158a8772e623a23df7c167616e380327805"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31ca",
+      "size": 4,
+      "sha256": "e5863e77c18df08addc953caa021db7809aec6d1ff1743a9609b6e2b7d89f562"
+    },
+    {
+      "image": "game",
+      "rva": "0x3d31ce",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0x753ef0",
+      "size": 4,
+      "sha256": "765cad8514b7baec6b57ee35064fb348e81a782af6931a4cb58248d49da0c6b1"
+    },
+    {
+      "image": "game",
+      "rva": "0x753ef4",
+      "size": 3,
+      "sha256": "fb5698891be1e02acc0820b68f9b5cf2efa90056b05704bf9fa2e3a357099a64"
+    },
+    {
+      "image": "game",
+      "rva": "0x753ef7",
+      "size": 5,
+      "sha256": "a89eb60b668fba359e0c97fdeb18098818ee5a7176c255a48cbf499f90dda550"
+    },
+    {
+      "image": "game",
+      "rva": "0x753efc",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0xa3fa50",
+      "size": 5,
+      "sha256": "785e291be713cb31eb502ae50e4b8cab0639fa8efe523a9ce4633c2104e96a5c"
+    },
+    {
+      "image": "game",
+      "rva": "0xa3fa55",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f20",
+      "size": 4,
+      "sha256": "bd3bb9365e3b4752ce52b29184ad2180341a44e4972785ba046b16c38e27a617"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f24",
+      "size": 5,
+      "sha256": "78d200c49a7874051d8ef122eee195410d092fb540dba648497252b84b7eb1fb"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f29",
+      "size": 5,
+      "sha256": "35b843687041c8a8efbf7cb980a1fe997ec658a450f55a0e28aad0dbbf6f583d"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f2e",
+      "size": 5,
+      "sha256": "2feaf36483cf22718f81cabffdb05399d39c57c4f8182a8817daf67ef13e876f"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f33",
+      "size": 3,
+      "sha256": "c79baee146e3811bfe0c51ad38fccf8d3a2cb0710add4bbe9fcb0b6c403e5cb9"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f36",
+      "size": 5,
+      "sha256": "2ed0fb70c9c85ebb0d4c2e43386282a904d85ca73a3bf241032b3f79f8f71b8f"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f3b",
+      "size": 3,
+      "sha256": "16e0c14e5e528b300f9314743220a07b957d07cfe8a4abe5bcf17f57f25b7414"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f3e",
+      "size": 3,
+      "sha256": "9f07c1c1f00c7f46b54302567c8a8f995ace733505f3694fe2e89ea0c33a6288"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f41",
+      "size": 4,
+      "sha256": "e4e1b062f2e6e82e862966c64d38c586f27d2adfaaede0998f38b5f961707e53"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f45",
+      "size": 3,
+      "sha256": "e520c2cff4611f758b0101b721e80e00491555f711b7f5b3a5f3a87399d76e44"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f48",
+      "size": 2,
+      "sha256": "b1b4d8afe032c7b10f14d1609855f267125dc1c16ef5940b1562ed35a37a931b"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f4a",
+      "size": 3,
+      "sha256": "fa874d6addfa898c1274b6759e5bd66e0b4ba57815298214b14087115a196b26"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f4d",
+      "size": 2,
+      "sha256": "68b50534f0ab3d4a740d9915093dd8228a69f6c01867faaea436093efd3da225"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f4f",
+      "size": 8,
+      "sha256": "16a1313bd7a04d2a5d873aaa4bea6352d31975e6f76ff28c06e82e680d8f5862"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f57",
+      "size": 4,
+      "sha256": "5e2349d08bf49683c472020ab627b3c70b552282709f30b9d87cdaa5395e4791"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f5b",
+      "size": 8,
+      "sha256": "64e14c1dbcd6293e4af31f26324ce8b7e7c8c71aac499a3d4a3af23eb54acc05"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f63",
+      "size": 3,
+      "sha256": "cfc266a7a1824b7b2905c1cef87401c8c4bb74a206195dfc87ce47c37427cd92"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f66",
+      "size": 5,
+      "sha256": "858480941be55e61319c376558f859714f75b4353d4cafd817a6cad0df97d079"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f6b",
+      "size": 8,
+      "sha256": "4d8ff255eb83569e985d3315ae112f3a0dada8fe49eeef1e146be88239c9f241"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f73",
+      "size": 5,
+      "sha256": "6f034b367713a5d14615d0f4b89aca5aa8e9d3758a9bded55a6a258483f90fb1"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f78",
+      "size": 8,
+      "sha256": "3f3a0c43fba1ee033d43258a5fc749d96d03abd3bd915b40dff17c0a08f5b539"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f80",
+      "size": 4,
+      "sha256": "7e31a52ed07a49014491b2d801e01de49589cdd56cdb8fb38cdb641238410ecc"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f84",
+      "size": 5,
+      "sha256": "3cc2f37edd5f57b1a3f63dc1bd3262eb8464b7dc06731a03c0617da9b47baafb"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f89",
+      "size": 4,
+      "sha256": "8808fa1fab1d0c8aaabd7da27734cb86c2651edefe85a80581d70339085028a3"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f8d",
+      "size": 8,
+      "sha256": "3aba811a4ecce8c18d7bffa78f89c7bc2626eac5188a37d961c6403f5252586d"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f95",
+      "size": 4,
+      "sha256": "341b2c8b2ca9d73ce90fe8f8344f713ceecdabc5a6bb5018c5a0da3257e83e04"
+    },
+    {
+      "image": "game",
+      "rva": "0xb88f99",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f610",
+      "size": 4,
+      "sha256": "9ba913f1f6acd9cf031ed1383f9b1d5bc29b1d432736cf4c5261ae7d71202cd2"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f614",
+      "size": 5,
+      "sha256": "6b05079fa5de37c98143d784424a444b2892e003fd35fe53268c6c71f31b4384"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f619",
+      "size": 3,
+      "sha256": "c79baee146e3811bfe0c51ad38fccf8d3a2cb0710add4bbe9fcb0b6c403e5cb9"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f61c",
+      "size": 5,
+      "sha256": "edbf6bca9beb51a805c66bd60e9e0bfdd44bfbe45ffd6dd366a7d5088e64d287"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f621",
+      "size": 8,
+      "sha256": "f032fc5cde1c5480ae1bbe3ef1091ef30cbe7abfcc5ce8074478dc1e32dc730f"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f629",
+      "size": 5,
+      "sha256": "df386e6f54a6bacbbfef290a99a6618b5550d9020af67ed5a59d325c7b62a9c0"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f62e",
+      "size": 2,
+      "sha256": "2a15d4eac63eae1438f121e9c012d39b8786708c38e4ea4a5181fe62674c7cdd"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f630",
+      "size": 4,
+      "sha256": "32083562f6ccb1181af3108cfe987d68d87b86f819ba516ed1e2c6817a88aa98"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f634",
+      "size": 3,
+      "sha256": "543cb822e5f065fd26ce0d9fc1879ffb292beea64f2dfefabfc496b462996107"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f637",
+      "size": 8,
+      "sha256": "58fc1bd91b7265aa9f44d92166ca4d04909e56eeccf8c1e21c6de9a3233abcd3"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f63f",
+      "size": 4,
+      "sha256": "a978a09586b0ee44854b54a23b17e7a0b54766affe79fd1cd21885fbbe5d3bf1"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f643",
+      "size": 5,
+      "sha256": "de3331c5871c93bb2513e947db1852af99befbb6fad7a1dd1aff033dd2745624"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f648",
+      "size": 6,
+      "sha256": "a001461f978133674b71cac75b0814a4e455d87987a2834e7d5af5ef72a00764"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f64e",
+      "size": 6,
+      "sha256": "958a016be29a066b50b707227ca6514240e525de53c3210e02292e0367205fcd"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f654",
+      "size": 3,
+      "sha256": "fc005d0f02f6141215b9e2e44a5e1ca47c6a077daa7b6df51edb4aede96782fa"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f657",
+      "size": 2,
+      "sha256": "9a6e750100c3087da3713e0b11df178ee70b36b34f30d04e11b3861f6af32a9a"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f666",
+      "size": 4,
+      "sha256": "e4e152490c342ff1adfa03856b45f16fe59fb9c8aa3f3e1d3568601626a39279"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f66a",
+      "size": 4,
+      "sha256": "4dedfa87cb050511033a07596deb9db6cac8906a275a99d652b8ef8fb5eea4cb"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f66e",
+      "size": 4,
+      "sha256": "174267afe235890764fafbc9ee71769a26a55dd445db3ddd1c26e4675ce6e165"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f672",
+      "size": 3,
+      "sha256": "66c42bb50609ef0e1b5fe02cbe291e8d8d12fb8584c342a9063f246c05b8e175"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f675",
+      "size": 5,
+      "sha256": "cc59e256998eacd33211d44926f85bfdabca8b40d4f7e507dae8e0b2d35f81f9"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f67a",
+      "size": 4,
+      "sha256": "e2aedf0e883653973fb3d717935cb9f9b7dd7e419dfef33544be75ac2a1431d0"
+    },
+    {
+      "image": "game",
+      "rva": "0xb8f67e",
+      "size": 1,
+      "sha256": "ae3f4619b0413d70d3004b9131c3752153074e45725be13b9a148978895e359e"
+    },
+    {
+      "image": "game",
+      "rva": "0x2f46ee5",
+      "size": 6,
+      "sha256": "636000e27c91a27248515fd4bf7605a2cffbf06ecd771bace945e5d665d6fb71"
+    }
+  ],
+  "scriptSha256": "0087d1173fc6d60182ef5f05ef9c98ced3c24b6e99a35edae5606d694c3b833a"
+}

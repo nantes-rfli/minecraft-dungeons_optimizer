@@ -1,0 +1,1670 @@
+{
+  "origin": "Independent rational binary32 oracle; synthetic fixtures, not independent gameplay holdout",
+  "seed": 2201104,
+  "cases": [
+    {
+      "itemPowerBits": "00000000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 18.072345733642578,
+        "TakeDamageMultiplier": 2.198432683944702,
+        "DamageMultiplier": 4.453535079956055,
+        "DealDamageMul": 0.852170467376709,
+        "DifficultyDealDamageMultiplier": 0.7087705731391907,
+        "RangedAttackDamageMultipler": 4.644539833068848,
+        "TakeRangeDamageMultiplier": 3.485105037689209
+      },
+      "signedCustomMagnitudeBits": "c655fc4d"
+    },
+    {
+      "itemPowerBits": "3f800000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 29.516611099243164,
+        "TakeDamageMultiplier": 2.732269048690796,
+        "DamageMultiplier": 1.37425696849823,
+        "DealDamageMul": 4.095438480377197,
+        "DifficultyDealDamageMultiplier": 2.2055468559265137,
+        "RangedAttackDamageMultipler": 0.42698797583580017,
+        "TakeRangeDamageMultiplier": 1.3890756368637085
+      },
+      "signedCustomMagnitudeBits": "c5424504"
+    },
+    {
+      "itemPowerBits": "40000000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 0.9179770946502686,
+        "TakeDamageMultiplier": 3.038569927215576,
+        "DamageMultiplier": 3.594486713409424,
+        "DealDamageMul": 1.474124789237976,
+        "DifficultyDealDamageMultiplier": 3.7089314460754395,
+        "RangedAttackDamageMultipler": 4.086766242980957,
+        "TakeRangeDamageMultiplier": 4.09609842300415
+      },
+      "signedCustomMagnitudeBits": "c856d5d7"
+    },
+    {
+      "itemPowerBits": "40a00000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 44.49930953979492,
+        "TakeDamageMultiplier": 3.089984655380249,
+        "DamageMultiplier": 2.6350603103637695,
+        "DealDamageMul": 4.17952299118042,
+        "DifficultyDealDamageMultiplier": 1.6769767999649048,
+        "RangedAttackDamageMultipler": 3.1419525146484375,
+        "TakeRangeDamageMultiplier": 2.925442695617676
+      },
+      "signedCustomMagnitudeBits": "c9195329"
+    },
+    {
+      "itemPowerBits": "412e6666",
+      "attributes": {
+        "RangedAttackDamageIncrease": 49.96027755737305,
+        "TakeDamageMultiplier": 0.4940376281738281,
+        "DamageMultiplier": 3.5905799865722656,
+        "DealDamageMul": 4.882001876831055,
+        "DifficultyDealDamageMultiplier": 1.39851713180542,
+        "RangedAttackDamageMultipler": 0.9636298418045044,
+        "TakeRangeDamageMultiplier": 2.375720500946045
+      },
+      "signedCustomMagnitudeBits": "c8c19e11"
+    },
+    {
+      "itemPowerBits": "41300000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 32.6883659362793,
+        "TakeDamageMultiplier": 4.305627822875977,
+        "DamageMultiplier": 0.15243034064769745,
+        "DealDamageMul": 3.8900747299194336,
+        "DifficultyDealDamageMultiplier": 4.184661388397217,
+        "RangedAttackDamageMultipler": 1.3974272012710571,
+        "TakeRangeDamageMultiplier": 1.466301441192627
+      },
+      "signedCustomMagnitudeBits": "c88f808e"
+    },
+    {
+      "itemPowerBits": "41a00000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.46097946166992,
+        "TakeDamageMultiplier": 3.3280553817749023,
+        "DamageMultiplier": 0.8243648409843445,
+        "DealDamageMul": 3.9958534240722656,
+        "DifficultyDealDamageMultiplier": 4.484017848968506,
+        "RangedAttackDamageMultipler": 3.5489559173583984,
+        "TakeRangeDamageMultiplier": 2.509216070175171
+      },
+      "signedCustomMagnitudeBits": "cd5a84a0"
+    },
+    {
+      "itemPowerBits": "41d1999a",
+      "attributes": {
+        "RangedAttackDamageIncrease": 49.75336456298828,
+        "TakeDamageMultiplier": 4.047202110290527,
+        "DamageMultiplier": 4.842127799987793,
+        "DealDamageMul": 3.2253365516662598,
+        "DifficultyDealDamageMultiplier": 1.3562783002853394,
+        "RangedAttackDamageMultipler": 4.606104850769043,
+        "TakeRangeDamageMultiplier": 0.8939474821090698
+      },
+      "signedCustomMagnitudeBits": "cf1342dc"
+    },
+    {
+      "itemPowerBits": "4201c9ca",
+      "attributes": {
+        "RangedAttackDamageIncrease": 16.966289520263672,
+        "TakeDamageMultiplier": 1.3670527935028076,
+        "DamageMultiplier": 3.1661014556884766,
+        "DealDamageMul": 4.094741344451904,
+        "DifficultyDealDamageMultiplier": 3.8367748260498047,
+        "RangedAttackDamageMultipler": 1.3928005695343018,
+        "TakeRangeDamageMultiplier": 3.2537379264831543
+      },
+      "signedCustomMagnitudeBits": "d0a358d9"
+    },
+    {
+      "itemPowerBits": "42200000",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.023799896240234,
+        "TakeDamageMultiplier": 1.164342999458313,
+        "DamageMultiplier": 0.7072688341140747,
+        "DealDamageMul": 4.693596839904785,
+        "DifficultyDealDamageMultiplier": 3.0779471397399902,
+        "RangedAttackDamageMultipler": 4.226203918457031,
+        "TakeRangeDamageMultiplier": 0.7327395677566528
+      },
+      "signedCustomMagnitudeBits": "cf301989"
+    },
+    {
+      "itemPowerBits": "412e6666",
+      "attributes": {
+        "RangedAttackDamageIncrease": 7.897798538208008,
+        "TakeDamageMultiplier": 1.681514859199524,
+        "DamageMultiplier": 3.43569278717041,
+        "DealDamageMul": 1.6338586807250977,
+        "DifficultyDealDamageMultiplier": 2.4392964839935303,
+        "RangedAttackDamageMultipler": 1.0268715620040894,
+        "TakeRangeDamageMultiplier": 3.3210930824279785
+      },
+      "signedCustomMagnitudeBits": "c9504062"
+    },
+    {
+      "itemPowerBits": "412e6667",
+      "attributes": {
+        "RangedAttackDamageIncrease": 17.290700912475586,
+        "TakeDamageMultiplier": 4.013021945953369,
+        "DamageMultiplier": 1.9813525676727295,
+        "DealDamageMul": 3.0712544918060303,
+        "DifficultyDealDamageMultiplier": 1.358827829360962,
+        "RangedAttackDamageMultipler": 2.3051774501800537,
+        "TakeRangeDamageMultiplier": 1.441336989402771
+      },
+      "signedCustomMagnitudeBits": "c99c88c0"
+    },
+    {
+      "itemPowerBits": "3f800001",
+      "attributes": {
+        "RangedAttackDamageIncrease": 2.379744529724121,
+        "TakeDamageMultiplier": 1.8099743127822876,
+        "DamageMultiplier": 3.7804393768310547,
+        "DealDamageMul": 2.480156183242798,
+        "DifficultyDealDamageMultiplier": 3.9283804893493652,
+        "RangedAttackDamageMultipler": 2.9675920009613037,
+        "TakeRangeDamageMultiplier": 4.9827399253845215
+      },
+      "signedCustomMagnitudeBits": "c7f54027"
+    },
+    {
+      "itemPowerBits": "41e546d1",
+      "attributes": {
+        "RangedAttackDamageIncrease": 0.9754344820976257,
+        "TakeDamageMultiplier": 1.6294242143630981,
+        "DamageMultiplier": 1.0863289833068848,
+        "DealDamageMul": 2.842353343963623,
+        "DifficultyDealDamageMultiplier": 4.973836421966553,
+        "RangedAttackDamageMultipler": 1.4614777565002441,
+        "TakeRangeDamageMultiplier": 1.0527422428131104
+      },
+      "signedCustomMagnitudeBits": "cdfa7efd"
+    },
+    {
+      "itemPowerBits": "41812705",
+      "attributes": {
+        "RangedAttackDamageIncrease": 36.903099060058594,
+        "TakeDamageMultiplier": 4.147879600524902,
+        "DamageMultiplier": 3.6136600971221924,
+        "DealDamageMul": 4.660519599914551,
+        "DifficultyDealDamageMultiplier": 4.7005934715271,
+        "RangedAttackDamageMultipler": 1.3621937036514282,
+        "TakeRangeDamageMultiplier": 3.44972562789917
+      },
+      "signedCustomMagnitudeBits": "cd234a4a"
+    },
+    {
+      "itemPowerBits": "41966009",
+      "attributes": {
+        "RangedAttackDamageIncrease": 41.698570251464844,
+        "TakeDamageMultiplier": 2.7206814289093018,
+        "DamageMultiplier": 3.5786094665527344,
+        "DealDamageMul": 0.7738780975341797,
+        "DifficultyDealDamageMultiplier": 4.918483257293701,
+        "RangedAttackDamageMultipler": 2.2891287803649902,
+        "TakeRangeDamageMultiplier": 4.371654033660889
+      },
+      "signedCustomMagnitudeBits": "ccec6c73"
+    },
+    {
+      "itemPowerBits": "3f936cb4",
+      "attributes": {
+        "RangedAttackDamageIncrease": 40.2491340637207,
+        "TakeDamageMultiplier": 2.952822208404541,
+        "DamageMultiplier": 0.9822998046875,
+        "DealDamageMul": 4.008860111236572,
+        "DifficultyDealDamageMultiplier": 4.858759880065918,
+        "RangedAttackDamageMultipler": 4.998318195343018,
+        "TakeRangeDamageMultiplier": 0.14975771307945251
+      },
+      "signedCustomMagnitudeBits": "c5ef2016"
+    },
+    {
+      "itemPowerBits": "41e78568",
+      "attributes": {
+        "RangedAttackDamageIncrease": 8.049147605895996,
+        "TakeDamageMultiplier": 3.600294351577759,
+        "DamageMultiplier": 3.0407707691192627,
+        "DealDamageMul": 3.3157007694244385,
+        "DifficultyDealDamageMultiplier": 3.2999894618988037,
+        "RangedAttackDamageMultipler": 0.8056701421737671,
+        "TakeRangeDamageMultiplier": 4.513635635375977
+      },
+      "signedCustomMagnitudeBits": "cfd18ec9"
+    },
+    {
+      "itemPowerBits": "40cd3fa2",
+      "attributes": {
+        "RangedAttackDamageIncrease": 29.579360961914062,
+        "TakeDamageMultiplier": 3.4784631729125977,
+        "DamageMultiplier": 1.9417039155960083,
+        "DealDamageMul": 3.008781671524048,
+        "DifficultyDealDamageMultiplier": 3.716416835784912,
+        "RangedAttackDamageMultipler": 4.843747615814209,
+        "TakeRangeDamageMultiplier": 4.366387844085693
+      },
+      "signedCustomMagnitudeBits": "ca42671e"
+    },
+    {
+      "itemPowerBits": "4192f515",
+      "attributes": {
+        "RangedAttackDamageIncrease": 2.951784372329712,
+        "TakeDamageMultiplier": 0.7606354355812073,
+        "DamageMultiplier": 1.0631940364837646,
+        "DealDamageMul": 4.472397327423096,
+        "DifficultyDealDamageMultiplier": 2.6232566833496094,
+        "RangedAttackDamageMultipler": 2.173166275024414,
+        "TakeRangeDamageMultiplier": 4.369731903076172
+      },
+      "signedCustomMagnitudeBits": "cb945b48"
+    },
+    {
+      "itemPowerBits": "41dcf18c",
+      "attributes": {
+        "RangedAttackDamageIncrease": 10.270395278930664,
+        "TakeDamageMultiplier": 3.9883439540863037,
+        "DamageMultiplier": 2.804035186767578,
+        "DealDamageMul": 0.9991275072097778,
+        "DifficultyDealDamageMultiplier": 0.9404889941215515,
+        "RangedAttackDamageMultipler": 4.913497447967529,
+        "TakeRangeDamageMultiplier": 3.976952314376831
+      },
+      "signedCustomMagnitudeBits": "ceeb577c"
+    },
+    {
+      "itemPowerBits": "4139538a",
+      "attributes": {
+        "RangedAttackDamageIncrease": 6.862388610839844,
+        "TakeDamageMultiplier": 2.266772508621216,
+        "DamageMultiplier": 3.1032443046569824,
+        "DealDamageMul": 0.40672844648361206,
+        "DifficultyDealDamageMultiplier": 1.2012560367584229,
+        "RangedAttackDamageMultipler": 1.2696123123168945,
+        "TakeRangeDamageMultiplier": 4.278478145599365
+      },
+      "signedCustomMagnitudeBits": "c881b3f9"
+    },
+    {
+      "itemPowerBits": "41ba9189",
+      "attributes": {
+        "RangedAttackDamageIncrease": 10.247418403625488,
+        "TakeDamageMultiplier": 1.4250954389572144,
+        "DamageMultiplier": 4.590673446655273,
+        "DealDamageMul": 0.3867333233356476,
+        "DifficultyDealDamageMultiplier": 1.903408169746399,
+        "RangedAttackDamageMultipler": 0.6587110757827759,
+        "TakeRangeDamageMultiplier": 1.506446123123169
+      },
+      "signedCustomMagnitudeBits": "caf68bd8"
+    },
+    {
+      "itemPowerBits": "4141868c",
+      "attributes": {
+        "RangedAttackDamageIncrease": 11.606792449951172,
+        "TakeDamageMultiplier": 2.3163673877716064,
+        "DamageMultiplier": 2.7943742275238037,
+        "DealDamageMul": 1.3663411140441895,
+        "DifficultyDealDamageMultiplier": 3.2308712005615234,
+        "RangedAttackDamageMultipler": 3.356351852416992,
+        "TakeRangeDamageMultiplier": 4.601802349090576
+      },
+      "signedCustomMagnitudeBits": "caf476d0"
+    },
+    {
+      "itemPowerBits": "420741aa",
+      "attributes": {
+        "RangedAttackDamageIncrease": 43.728050231933594,
+        "TakeDamageMultiplier": 1.550355076789856,
+        "DamageMultiplier": 4.441910266876221,
+        "DealDamageMul": 1.0989577770233154,
+        "DifficultyDealDamageMultiplier": 1.259225845336914,
+        "RangedAttackDamageMultipler": 2.5479319095611572,
+        "TakeRangeDamageMultiplier": 0.8330180644989014
+      },
+      "signedCustomMagnitudeBits": "cecbe2bf"
+    },
+    {
+      "itemPowerBits": "41a4238d",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.664350509643555,
+        "TakeDamageMultiplier": 3.8193581104278564,
+        "DamageMultiplier": 2.106022834777832,
+        "DealDamageMul": 3.30025577545166,
+        "DifficultyDealDamageMultiplier": 3.078608274459839,
+        "RangedAttackDamageMultipler": 1.0277349948883057,
+        "TakeRangeDamageMultiplier": 2.8695895671844482
+      },
+      "signedCustomMagnitudeBits": "cd096b2f"
+    },
+    {
+      "itemPowerBits": "40099a6f",
+      "attributes": {
+        "RangedAttackDamageIncrease": 5.648710250854492,
+        "TakeDamageMultiplier": 1.2193866968154907,
+        "DamageMultiplier": 1.233534336090088,
+        "DealDamageMul": 4.508285045623779,
+        "DifficultyDealDamageMultiplier": 0.3879235088825226,
+        "RangedAttackDamageMultipler": 0.6658582091331482,
+        "TakeRangeDamageMultiplier": 4.738481044769287
+      },
+      "signedCustomMagnitudeBits": "c4fff68c"
+    },
+    {
+      "itemPowerBits": "412fc934",
+      "attributes": {
+        "RangedAttackDamageIncrease": 39.777618408203125,
+        "TakeDamageMultiplier": 2.0336408615112305,
+        "DamageMultiplier": 1.525583267211914,
+        "DealDamageMul": 1.2294869422912598,
+        "DifficultyDealDamageMultiplier": 1.7893719673156738,
+        "RangedAttackDamageMultipler": 4.116024017333984,
+        "TakeRangeDamageMultiplier": 0.8409684300422668
+      },
+      "signedCustomMagnitudeBits": "c8a0f4b2"
+    },
+    {
+      "itemPowerBits": "421d8e92",
+      "attributes": {
+        "RangedAttackDamageIncrease": 10.906622886657715,
+        "TakeDamageMultiplier": 1.3403470516204834,
+        "DamageMultiplier": 1.1647309064865112,
+        "DealDamageMul": 1.5477548837661743,
+        "DifficultyDealDamageMultiplier": 3.8254234790802,
+        "RangedAttackDamageMultipler": 3.9320619106292725,
+        "TakeRangeDamageMultiplier": 1.6663246154785156
+      },
+      "signedCustomMagnitudeBits": "cf75dc01"
+    },
+    {
+      "itemPowerBits": "4209c511",
+      "attributes": {
+        "RangedAttackDamageIncrease": 16.01907730102539,
+        "TakeDamageMultiplier": 4.0188188552856445,
+        "DamageMultiplier": 4.568111419677734,
+        "DealDamageMul": 3.743818521499634,
+        "DifficultyDealDamageMultiplier": 2.577971935272217,
+        "RangedAttackDamageMultipler": 3.3765716552734375,
+        "TakeRangeDamageMultiplier": 1.7608850002288818
+      },
+      "signedCustomMagnitudeBits": "d18aad53"
+    },
+    {
+      "itemPowerBits": "41d25272",
+      "attributes": {
+        "RangedAttackDamageIncrease": 6.964028358459473,
+        "TakeDamageMultiplier": 2.0893654823303223,
+        "DamageMultiplier": 4.673882484436035,
+        "DealDamageMul": 4.343625545501709,
+        "DifficultyDealDamageMultiplier": 4.655062198638916,
+        "RangedAttackDamageMultipler": 3.9623444080352783,
+        "TakeRangeDamageMultiplier": 2.7627248764038086
+      },
+      "signedCustomMagnitudeBits": "d0309162"
+    },
+    {
+      "itemPowerBits": "40daef03",
+      "attributes": {
+        "RangedAttackDamageIncrease": 10.979842185974121,
+        "TakeDamageMultiplier": 3.8305535316467285,
+        "DamageMultiplier": 1.7986780405044556,
+        "DealDamageMul": 1.0143687725067139,
+        "DifficultyDealDamageMultiplier": 1.5506967306137085,
+        "RangedAttackDamageMultipler": 1.0035076141357422,
+        "TakeRangeDamageMultiplier": 2.5331406593322754
+      },
+      "signedCustomMagnitudeBits": "c761cc52"
+    },
+    {
+      "itemPowerBits": "4076feb9",
+      "attributes": {
+        "RangedAttackDamageIncrease": 39.708194732666016,
+        "TakeDamageMultiplier": 2.3126518726348877,
+        "DamageMultiplier": 4.383056163787842,
+        "DealDamageMul": 1.7305169105529785,
+        "DifficultyDealDamageMultiplier": 0.1314103603363037,
+        "RangedAttackDamageMultipler": 4.9437336921691895,
+        "TakeRangeDamageMultiplier": 3.872006893157959
+      },
+      "signedCustomMagnitudeBits": "c6f256b5"
+    },
+    {
+      "itemPowerBits": "41f31edf",
+      "attributes": {
+        "RangedAttackDamageIncrease": 43.7867431640625,
+        "TakeDamageMultiplier": 2.994358539581299,
+        "DamageMultiplier": 1.5477871894836426,
+        "DealDamageMul": 1.4497501850128174,
+        "DifficultyDealDamageMultiplier": 3.929358959197998,
+        "RangedAttackDamageMultipler": 1.2041070461273193,
+        "TakeRangeDamageMultiplier": 4.470195770263672
+      },
+      "signedCustomMagnitudeBits": "cf9be6a2"
+    },
+    {
+      "itemPowerBits": "421e242b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 32.00178146362305,
+        "TakeDamageMultiplier": 3.030369281768799,
+        "DamageMultiplier": 2.4928927421569824,
+        "DealDamageMul": 4.5890703201293945,
+        "DifficultyDealDamageMultiplier": 3.4877655506134033,
+        "RangedAttackDamageMultipler": 1.1503424644470215,
+        "TakeRangeDamageMultiplier": 3.7734644412994385
+      },
+      "signedCustomMagnitudeBits": "d119d6a3"
+    },
+    {
+      "itemPowerBits": "4187e3c9",
+      "attributes": {
+        "RangedAttackDamageIncrease": 12.116150856018066,
+        "TakeDamageMultiplier": 3.731470823287964,
+        "DamageMultiplier": 3.960632801055908,
+        "DealDamageMul": 2.3352630138397217,
+        "DifficultyDealDamageMultiplier": 4.120297908782959,
+        "RangedAttackDamageMultipler": 3.5059103965759277,
+        "TakeRangeDamageMultiplier": 3.236234426498413
+      },
+      "signedCustomMagnitudeBits": "cd4b5259"
+    },
+    {
+      "itemPowerBits": "416ea47f",
+      "attributes": {
+        "RangedAttackDamageIncrease": 19.000802993774414,
+        "TakeDamageMultiplier": 3.0418694019317627,
+        "DamageMultiplier": 1.7612178325653076,
+        "DealDamageMul": 3.6166675090789795,
+        "DifficultyDealDamageMultiplier": 2.6097583770751953,
+        "RangedAttackDamageMultipler": 0.3569447696208954,
+        "TakeRangeDamageMultiplier": 0.6774235367774963
+      },
+      "signedCustomMagnitudeBits": "c93322dc"
+    },
+    {
+      "itemPowerBits": "420da7c9",
+      "attributes": {
+        "RangedAttackDamageIncrease": 15.269968032836914,
+        "TakeDamageMultiplier": 2.433640480041504,
+        "DamageMultiplier": 1.9354342222213745,
+        "DealDamageMul": 4.1590576171875,
+        "DifficultyDealDamageMultiplier": 3.993079423904419,
+        "RangedAttackDamageMultipler": 0.805379331111908,
+        "TakeRangeDamageMultiplier": 1.5486559867858887
+      },
+      "signedCustomMagnitudeBits": "cfcc6508"
+    },
+    {
+      "itemPowerBits": "4057673a",
+      "attributes": {
+        "RangedAttackDamageIncrease": 8.155708312988281,
+        "TakeDamageMultiplier": 3.899198293685913,
+        "DamageMultiplier": 4.8845744132995605,
+        "DealDamageMul": 4.121730327606201,
+        "DifficultyDealDamageMultiplier": 4.010128498077393,
+        "RangedAttackDamageMultipler": 0.5347197651863098,
+        "TakeRangeDamageMultiplier": 1.9969478845596313
+      },
+      "signedCustomMagnitudeBits": "c814d7c3"
+    },
+    {
+      "itemPowerBits": "41e29d5d",
+      "attributes": {
+        "RangedAttackDamageIncrease": 24.839426040649414,
+        "TakeDamageMultiplier": 3.7764034271240234,
+        "DamageMultiplier": 0.4986646771430969,
+        "DealDamageMul": 4.482292175292969,
+        "DifficultyDealDamageMultiplier": 4.526552677154541,
+        "RangedAttackDamageMultipler": 0.7915587425231934,
+        "TakeRangeDamageMultiplier": 4.68522834777832
+      },
+      "signedCustomMagnitudeBits": "ceef9e9c"
+    },
+    {
+      "itemPowerBits": "419e06c0",
+      "attributes": {
+        "RangedAttackDamageIncrease": 19.758872985839844,
+        "TakeDamageMultiplier": 1.4584676027297974,
+        "DamageMultiplier": 0.6222089529037476,
+        "DealDamageMul": 0.7305594682693481,
+        "DifficultyDealDamageMultiplier": 0.7906261086463928,
+        "RangedAttackDamageMultipler": 0.774060845375061,
+        "TakeRangeDamageMultiplier": 2.447488307952881
+      },
+      "signedCustomMagnitudeBits": "c8cf3709"
+    },
+    {
+      "itemPowerBits": "41123bfb",
+      "attributes": {
+        "RangedAttackDamageIncrease": 33.40864562988281,
+        "TakeDamageMultiplier": 2.191880226135254,
+        "DamageMultiplier": 2.7026937007904053,
+        "DealDamageMul": 2.7225255966186523,
+        "DifficultyDealDamageMultiplier": 2.925166368484497,
+        "RangedAttackDamageMultipler": 1.1890658140182495,
+        "TakeRangeDamageMultiplier": 0.6708592176437378
+      },
+      "signedCustomMagnitudeBits": "c86802b0"
+    },
+    {
+      "itemPowerBits": "41c3112e",
+      "attributes": {
+        "RangedAttackDamageIncrease": 4.0193772315979,
+        "TakeDamageMultiplier": 3.9529805183410645,
+        "DamageMultiplier": 3.7025578022003174,
+        "DealDamageMul": 4.530665874481201,
+        "DifficultyDealDamageMultiplier": 4.600006103515625,
+        "RangedAttackDamageMultipler": 1.0949937105178833,
+        "TakeRangeDamageMultiplier": 3.517705202102661
+      },
+      "signedCustomMagnitudeBits": "cf2d916d"
+    },
+    {
+      "itemPowerBits": "41814257",
+      "attributes": {
+        "RangedAttackDamageIncrease": 28.49452781677246,
+        "TakeDamageMultiplier": 3.0561158657073975,
+        "DamageMultiplier": 3.0002729892730713,
+        "DealDamageMul": 3.1420185565948486,
+        "DifficultyDealDamageMultiplier": 2.750206470489502,
+        "RangedAttackDamageMultipler": 0.20152120292186737,
+        "TakeRangeDamageMultiplier": 1.5916231870651245
+      },
+      "signedCustomMagnitudeBits": "ca240f8d"
+    },
+    {
+      "itemPowerBits": "40eea705",
+      "attributes": {
+        "RangedAttackDamageIncrease": 44.75553894042969,
+        "TakeDamageMultiplier": 0.1911603808403015,
+        "DamageMultiplier": 1.7434946298599243,
+        "DealDamageMul": 4.881101131439209,
+        "DifficultyDealDamageMultiplier": 1.1712336540222168,
+        "RangedAttackDamageMultipler": 4.535644054412842,
+        "TakeRangeDamageMultiplier": 1.222979187965393
+      },
+      "signedCustomMagnitudeBits": "c70bbdc7"
+    },
+    {
+      "itemPowerBits": "41033193",
+      "attributes": {
+        "RangedAttackDamageIncrease": 36.323978424072266,
+        "TakeDamageMultiplier": 2.580349922180176,
+        "DamageMultiplier": 3.0034215450286865,
+        "DealDamageMul": 0.3782222270965576,
+        "DifficultyDealDamageMultiplier": 2.861725330352783,
+        "RangedAttackDamageMultipler": 1.0106148719787598,
+        "TakeRangeDamageMultiplier": 2.2702085971832275
+      },
+      "signedCustomMagnitudeBits": "c7a444ad"
+    },
+    {
+      "itemPowerBits": "40be19b4",
+      "attributes": {
+        "RangedAttackDamageIncrease": 47.861488342285156,
+        "TakeDamageMultiplier": 2.525815010070801,
+        "DamageMultiplier": 4.41445779800415,
+        "DealDamageMul": 2.784257411956787,
+        "DifficultyDealDamageMultiplier": 4.973333835601807,
+        "RangedAttackDamageMultipler": 4.648415565490723,
+        "TakeRangeDamageMultiplier": 1.5412747859954834
+      },
+      "signedCustomMagnitudeBits": "c9f6996c"
+    },
+    {
+      "itemPowerBits": "4214eab5",
+      "attributes": {
+        "RangedAttackDamageIncrease": 49.54758071899414,
+        "TakeDamageMultiplier": 1.018621563911438,
+        "DamageMultiplier": 0.4425868093967438,
+        "DealDamageMul": 2.00386118888855,
+        "DifficultyDealDamageMultiplier": 3.784343957901001,
+        "RangedAttackDamageMultipler": 1.9695019721984863,
+        "TakeRangeDamageMultiplier": 4.6921257972717285
+      },
+      "signedCustomMagnitudeBits": "cf24b8ca"
+    },
+    {
+      "itemPowerBits": "4149f92b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 40.32762908935547,
+        "TakeDamageMultiplier": 1.3493115901947021,
+        "DamageMultiplier": 3.3958542346954346,
+        "DealDamageMul": 1.5952627658843994,
+        "DifficultyDealDamageMultiplier": 0.5767676830291748,
+        "RangedAttackDamageMultipler": 3.456739664077759,
+        "TakeRangeDamageMultiplier": 0.15272243320941925
+      },
+      "signedCustomMagnitudeBits": "c76c9f0e"
+    },
+    {
+      "itemPowerBits": "41c21e1b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 14.695798873901367,
+        "TakeDamageMultiplier": 0.8367313742637634,
+        "DamageMultiplier": 0.21859019994735718,
+        "DealDamageMul": 1.7581987380981445,
+        "DifficultyDealDamageMultiplier": 2.723371744155884,
+        "RangedAttackDamageMultipler": 2.276677131652832,
+        "TakeRangeDamageMultiplier": 2.462623357772827
+      },
+      "signedCustomMagnitudeBits": "cb3fa12a"
+    },
+    {
+      "itemPowerBits": "40ba0899",
+      "attributes": {
+        "RangedAttackDamageIncrease": 42.830204010009766,
+        "TakeDamageMultiplier": 1.2014267444610596,
+        "DamageMultiplier": 2.823843240737915,
+        "DealDamageMul": 3.971761703491211,
+        "DifficultyDealDamageMultiplier": 2.9131131172180176,
+        "RangedAttackDamageMultipler": 3.538144111633301,
+        "TakeRangeDamageMultiplier": 3.2836461067199707
+      },
+      "signedCustomMagnitudeBits": "c93b0e93"
+    },
+    {
+      "itemPowerBits": "416de293",
+      "attributes": {
+        "RangedAttackDamageIncrease": 0.20039300620555878,
+        "TakeDamageMultiplier": 1.6175684928894043,
+        "DamageMultiplier": 2.0659139156341553,
+        "DealDamageMul": 0.7363021373748779,
+        "DifficultyDealDamageMultiplier": 4.262111663818359,
+        "RangedAttackDamageMultipler": 0.6130950450897217,
+        "TakeRangeDamageMultiplier": 3.6522107124328613
+      },
+      "signedCustomMagnitudeBits": "c992b7cb"
+    },
+    {
+      "itemPowerBits": "41ef2ef7",
+      "attributes": {
+        "RangedAttackDamageIncrease": 32.3656005859375,
+        "TakeDamageMultiplier": 2.1345467567443848,
+        "DamageMultiplier": 2.0850391387939453,
+        "DealDamageMul": 3.3587210178375244,
+        "DifficultyDealDamageMultiplier": 2.327141046524048,
+        "RangedAttackDamageMultipler": 0.5429226160049438,
+        "TakeRangeDamageMultiplier": 1.884276032447815
+      },
+      "signedCustomMagnitudeBits": "ce6ea356"
+    },
+    {
+      "itemPowerBits": "405c94b7",
+      "attributes": {
+        "RangedAttackDamageIncrease": 7.304253578186035,
+        "TakeDamageMultiplier": 1.390410304069519,
+        "DamageMultiplier": 4.601630687713623,
+        "DealDamageMul": 4.176790237426758,
+        "DifficultyDealDamageMultiplier": 4.357480525970459,
+        "RangedAttackDamageMultipler": 1.255136251449585,
+        "TakeRangeDamageMultiplier": 0.3473077714443207
+      },
+      "signedCustomMagnitudeBits": "c6b97aca"
+    },
+    {
+      "itemPowerBits": "416ab925",
+      "attributes": {
+        "RangedAttackDamageIncrease": 40.18703079223633,
+        "TakeDamageMultiplier": 1.508784294128418,
+        "DamageMultiplier": 3.3554158210754395,
+        "DealDamageMul": 1.7220216989517212,
+        "DifficultyDealDamageMultiplier": 3.8130903244018555,
+        "RangedAttackDamageMultipler": 4.457911491394043,
+        "TakeRangeDamageMultiplier": 4.838015079498291
+      },
+      "signedCustomMagnitudeBits": "cc2a7d1c"
+    },
+    {
+      "itemPowerBits": "41b337a2",
+      "attributes": {
+        "RangedAttackDamageIncrease": 16.921138763427734,
+        "TakeDamageMultiplier": 1.367349624633789,
+        "DamageMultiplier": 2.5608930587768555,
+        "DealDamageMul": 1.1789804697036743,
+        "DifficultyDealDamageMultiplier": 1.1352856159210205,
+        "RangedAttackDamageMultipler": 0.8733553290367126,
+        "TakeRangeDamageMultiplier": 4.923692226409912
+      },
+      "signedCustomMagnitudeBits": "cbbc19cc"
+    },
+    {
+      "itemPowerBits": "411309ff",
+      "attributes": {
+        "RangedAttackDamageIncrease": 24.66864585876465,
+        "TakeDamageMultiplier": 3.09598445892334,
+        "DamageMultiplier": 1.9590667486190796,
+        "DealDamageMul": 2.9315149784088135,
+        "DifficultyDealDamageMultiplier": 2.334127426147461,
+        "RangedAttackDamageMultipler": 1.229949712753296,
+        "TakeRangeDamageMultiplier": 1.5930949449539185
+      },
+      "signedCustomMagnitudeBits": "c8f1c400"
+    },
+    {
+      "itemPowerBits": "41c45e6b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 12.651805877685547,
+        "TakeDamageMultiplier": 0.22486723959445953,
+        "DamageMultiplier": 2.794269561767578,
+        "DealDamageMul": 0.9899250268936157,
+        "DifficultyDealDamageMultiplier": 2.6118979454040527,
+        "RangedAttackDamageMultipler": 4.2806010246276855,
+        "TakeRangeDamageMultiplier": 1.5951215028762817
+      },
+      "signedCustomMagnitudeBits": "cbef0389"
+    },
+    {
+      "itemPowerBits": "412f29ac",
+      "attributes": {
+        "RangedAttackDamageIncrease": 28.344146728515625,
+        "TakeDamageMultiplier": 3.269512176513672,
+        "DamageMultiplier": 3.4381747245788574,
+        "DealDamageMul": 1.715668797492981,
+        "DifficultyDealDamageMultiplier": 1.1593053340911865,
+        "RangedAttackDamageMultipler": 4.065333843231201,
+        "TakeRangeDamageMultiplier": 1.9461963176727295
+      },
+      "signedCustomMagnitudeBits": "ca09fc88"
+    },
+    {
+      "itemPowerBits": "41d965e7",
+      "attributes": {
+        "RangedAttackDamageIncrease": 17.150476455688477,
+        "TakeDamageMultiplier": 2.994292736053467,
+        "DamageMultiplier": 0.5147403478622437,
+        "DealDamageMul": 1.839550256729126,
+        "DifficultyDealDamageMultiplier": 2.782711982727051,
+        "RangedAttackDamageMultipler": 2.7465884685516357,
+        "TakeRangeDamageMultiplier": 2.120347738265991
+      },
+      "signedCustomMagnitudeBits": "cdb90613"
+    },
+    {
+      "itemPowerBits": "41360d7c",
+      "attributes": {
+        "RangedAttackDamageIncrease": 0.29318907856941223,
+        "TakeDamageMultiplier": 3.428062915802002,
+        "DamageMultiplier": 3.6501920223236084,
+        "DealDamageMul": 1.3267728090286255,
+        "DifficultyDealDamageMultiplier": 3.6480414867401123,
+        "RangedAttackDamageMultipler": 1.1359800100326538,
+        "TakeRangeDamageMultiplier": 0.9203606843948364
+      },
+      "signedCustomMagnitudeBits": "c940537b"
+    },
+    {
+      "itemPowerBits": "421a8823",
+      "attributes": {
+        "RangedAttackDamageIncrease": 8.69077205657959,
+        "TakeDamageMultiplier": 3.671602725982666,
+        "DamageMultiplier": 4.49355936050415,
+        "DealDamageMul": 0.26115429401397705,
+        "DifficultyDealDamageMultiplier": 0.20665448904037476,
+        "RangedAttackDamageMultipler": 3.633056402206421,
+        "TakeRangeDamageMultiplier": 0.19884708523750305
+      },
+      "signedCustomMagnitudeBits": "cc24667a"
+    },
+    {
+      "itemPowerBits": "41e25e5d",
+      "attributes": {
+        "RangedAttackDamageIncrease": 30.224611282348633,
+        "TakeDamageMultiplier": 4.439607620239258,
+        "DamageMultiplier": 2.20139741897583,
+        "DealDamageMul": 1.4653769731521606,
+        "DifficultyDealDamageMultiplier": 0.9840744733810425,
+        "RangedAttackDamageMultipler": 0.3227193057537079,
+        "TakeRangeDamageMultiplier": 1.1687313318252563
+      },
+      "signedCustomMagnitudeBits": "cc9326c1"
+    },
+    {
+      "itemPowerBits": "4183b0cf",
+      "attributes": {
+        "RangedAttackDamageIncrease": 48.50600814819336,
+        "TakeDamageMultiplier": 1.7471314668655396,
+        "DamageMultiplier": 0.779775857925415,
+        "DealDamageMul": 1.6202571392059326,
+        "DifficultyDealDamageMultiplier": 2.2039504051208496,
+        "RangedAttackDamageMultipler": 1.734433889389038,
+        "TakeRangeDamageMultiplier": 3.2515242099761963
+      },
+      "signedCustomMagnitudeBits": "ca626b25"
+    },
+    {
+      "itemPowerBits": "410c816f",
+      "attributes": {
+        "RangedAttackDamageIncrease": 10.096322059631348,
+        "TakeDamageMultiplier": 1.9505970478057861,
+        "DamageMultiplier": 3.7644340991973877,
+        "DealDamageMul": 1.9012354612350464,
+        "DifficultyDealDamageMultiplier": 3.2982850074768066,
+        "RangedAttackDamageMultipler": 1.4566922187805176,
+        "TakeRangeDamageMultiplier": 0.402191162109375
+      },
+      "signedCustomMagnitudeBits": "c7f4f345"
+    },
+    {
+      "itemPowerBits": "42024897",
+      "attributes": {
+        "RangedAttackDamageIncrease": 48.762664794921875,
+        "TakeDamageMultiplier": 2.597506523132324,
+        "DamageMultiplier": 1.4193675518035889,
+        "DealDamageMul": 1.0729994773864746,
+        "DifficultyDealDamageMultiplier": 1.3693386316299438,
+        "RangedAttackDamageMultipler": 4.9339118003845215,
+        "TakeRangeDamageMultiplier": 1.6314008235931396
+      },
+      "signedCustomMagnitudeBits": "cf62507b"
+    },
+    {
+      "itemPowerBits": "42155536",
+      "attributes": {
+        "RangedAttackDamageIncrease": 24.978132247924805,
+        "TakeDamageMultiplier": 1.2790915966033936,
+        "DamageMultiplier": 3.3355555534362793,
+        "DealDamageMul": 2.8682188987731934,
+        "DifficultyDealDamageMultiplier": 0.8788219094276428,
+        "RangedAttackDamageMultipler": 4.32924747467041,
+        "TakeRangeDamageMultiplier": 0.5178894996643066
+      },
+      "signedCustomMagnitudeBits": "ced809fa"
+    },
+    {
+      "itemPowerBits": "42077f44",
+      "attributes": {
+        "RangedAttackDamageIncrease": 22.87080192565918,
+        "TakeDamageMultiplier": 0.19313126802444458,
+        "DamageMultiplier": 2.9685540199279785,
+        "DealDamageMul": 1.1250518560409546,
+        "DifficultyDealDamageMultiplier": 2.420931577682495,
+        "RangedAttackDamageMultipler": 4.808914661407471,
+        "TakeRangeDamageMultiplier": 1.5056917667388916
+      },
+      "signedCustomMagnitudeBits": "ce47c3e4"
+    },
+    {
+      "itemPowerBits": "42022d89",
+      "attributes": {
+        "RangedAttackDamageIncrease": 0.5150178074836731,
+        "TakeDamageMultiplier": 3.387267827987671,
+        "DamageMultiplier": 4.680016994476318,
+        "DealDamageMul": 2.6156413555145264,
+        "DifficultyDealDamageMultiplier": 3.9258224964141846,
+        "RangedAttackDamageMultipler": 2.46264910697937,
+        "TakeRangeDamageMultiplier": 1.4941073656082153
+      },
+      "signedCustomMagnitudeBits": "d10c5932"
+    },
+    {
+      "itemPowerBits": "4181ae56",
+      "attributes": {
+        "RangedAttackDamageIncrease": 22.24747085571289,
+        "TakeDamageMultiplier": 2.6405158042907715,
+        "DamageMultiplier": 3.3658692836761475,
+        "DealDamageMul": 0.47846195101737976,
+        "DifficultyDealDamageMultiplier": 0.8623324632644653,
+        "RangedAttackDamageMultipler": 2.2457120418548584,
+        "TakeRangeDamageMultiplier": 3.573780059814453
+      },
+      "signedCustomMagnitudeBits": "ca3a3051"
+    },
+    {
+      "itemPowerBits": "4081a868",
+      "attributes": {
+        "RangedAttackDamageIncrease": 43.29582977294922,
+        "TakeDamageMultiplier": 4.268730640411377,
+        "DamageMultiplier": 0.7730994820594788,
+        "DealDamageMul": 3.216078519821167,
+        "DifficultyDealDamageMultiplier": 0.9306234121322632,
+        "RangedAttackDamageMultipler": 0.44553056359291077,
+        "TakeRangeDamageMultiplier": 1.2158795595169067
+      },
+      "signedCustomMagnitudeBits": "c582f82f"
+    },
+    {
+      "itemPowerBits": "410c5a94",
+      "attributes": {
+        "RangedAttackDamageIncrease": 38.94022750854492,
+        "TakeDamageMultiplier": 3.0512337684631348,
+        "DamageMultiplier": 3.1922905445098877,
+        "DealDamageMul": 4.373102188110352,
+        "DifficultyDealDamageMultiplier": 1.2480158805847168,
+        "RangedAttackDamageMultipler": 2.090635299682617,
+        "TakeRangeDamageMultiplier": 3.983854055404663
+      },
+      "signedCustomMagnitudeBits": "ca17dd64"
+    },
+    {
+      "itemPowerBits": "41ee5ba7",
+      "attributes": {
+        "RangedAttackDamageIncrease": 42.41147232055664,
+        "TakeDamageMultiplier": 3.695835828781128,
+        "DamageMultiplier": 4.928277015686035,
+        "DealDamageMul": 3.1780149936676025,
+        "DifficultyDealDamageMultiplier": 4.8248066902160645,
+        "RangedAttackDamageMultipler": 0.7546625733375549,
+        "TakeRangeDamageMultiplier": 4.782556056976318
+      },
+      "signedCustomMagnitudeBits": "d0d78676"
+    },
+    {
+      "itemPowerBits": "41be67aa",
+      "attributes": {
+        "RangedAttackDamageIncrease": 34.665374755859375,
+        "TakeDamageMultiplier": 2.181410074234009,
+        "DamageMultiplier": 0.6373217105865479,
+        "DealDamageMul": 3.0501866340637207,
+        "DifficultyDealDamageMultiplier": 3.7802727222442627,
+        "RangedAttackDamageMultipler": 1.8308570384979248,
+        "TakeRangeDamageMultiplier": 2.4337692260742188
+      },
+      "signedCustomMagnitudeBits": "cd250ede"
+    },
+    {
+      "itemPowerBits": "41f1a5f0",
+      "attributes": {
+        "RangedAttackDamageIncrease": 40.39370346069336,
+        "TakeDamageMultiplier": 3.4400124549865723,
+        "DamageMultiplier": 4.0427727699279785,
+        "DealDamageMul": 0.2934890687465668,
+        "DifficultyDealDamageMultiplier": 0.17336662113666534,
+        "RangedAttackDamageMultipler": 0.9177036881446838,
+        "TakeRangeDamageMultiplier": 0.6279142498970032
+      },
+      "signedCustomMagnitudeBits": "cb5053fa"
+    },
+    {
+      "itemPowerBits": "41f147cc",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.14567184448242,
+        "TakeDamageMultiplier": 4.638970851898193,
+        "DamageMultiplier": 3.8081440925598145,
+        "DealDamageMul": 1.6686420440673828,
+        "DifficultyDealDamageMultiplier": 2.597686529159546,
+        "RangedAttackDamageMultipler": 4.395595073699951,
+        "TakeRangeDamageMultiplier": 4.161518573760986
+      },
+      "signedCustomMagnitudeBits": "d1260f53"
+    },
+    {
+      "itemPowerBits": "4107b509",
+      "attributes": {
+        "RangedAttackDamageIncrease": 12.048894882202148,
+        "TakeDamageMultiplier": 4.6818461418151855,
+        "DamageMultiplier": 3.0143892765045166,
+        "DealDamageMul": 2.59660267829895,
+        "DifficultyDealDamageMultiplier": 1.9837002754211426,
+        "RangedAttackDamageMultipler": 0.46531230211257935,
+        "TakeRangeDamageMultiplier": 2.4614195823669434
+      },
+      "signedCustomMagnitudeBits": "c8a98241"
+    },
+    {
+      "itemPowerBits": "420be6a1",
+      "attributes": {
+        "RangedAttackDamageIncrease": 33.69031524658203,
+        "TakeDamageMultiplier": 2.9036197662353516,
+        "DamageMultiplier": 3.6271913051605225,
+        "DealDamageMul": 1.9805978536605835,
+        "DifficultyDealDamageMultiplier": 2.5958755016326904,
+        "RangedAttackDamageMultipler": 4.864147186279297,
+        "TakeRangeDamageMultiplier": 4.815096855163574
+      },
+      "signedCustomMagnitudeBits": "d1bbdd41"
+    },
+    {
+      "itemPowerBits": "41802de6",
+      "attributes": {
+        "RangedAttackDamageIncrease": 22.13157844543457,
+        "TakeDamageMultiplier": 0.5496823787689209,
+        "DamageMultiplier": 1.6273518800735474,
+        "DealDamageMul": 0.9125308394432068,
+        "DifficultyDealDamageMultiplier": 4.979115962982178,
+        "RangedAttackDamageMultipler": 4.135258197784424,
+        "TakeRangeDamageMultiplier": 4.5638298988342285
+      },
+      "signedCustomMagnitudeBits": "cae0b558"
+    },
+    {
+      "itemPowerBits": "419326db",
+      "attributes": {
+        "RangedAttackDamageIncrease": 14.87083625793457,
+        "TakeDamageMultiplier": 3.5862863063812256,
+        "DamageMultiplier": 1.5426025390625,
+        "DealDamageMul": 1.9084511995315552,
+        "DifficultyDealDamageMultiplier": 4.783268451690674,
+        "RangedAttackDamageMultipler": 3.1589510440826416,
+        "TakeRangeDamageMultiplier": 4.971799373626709
+      },
+      "signedCustomMagnitudeBits": "cd343933"
+    },
+    {
+      "itemPowerBits": "401048e9",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.1673698425293,
+        "TakeDamageMultiplier": 0.9170908331871033,
+        "DamageMultiplier": 3.2148287296295166,
+        "DealDamageMul": 4.216730117797852,
+        "DifficultyDealDamageMultiplier": 0.4722253382205963,
+        "RangedAttackDamageMultipler": 1.9090226888656616,
+        "TakeRangeDamageMultiplier": 1.2488272190093994
+      },
+      "signedCustomMagnitudeBits": "c58b8160"
+    },
+    {
+      "itemPowerBits": "418f3409",
+      "attributes": {
+        "RangedAttackDamageIncrease": 39.32097244262695,
+        "TakeDamageMultiplier": 2.338888168334961,
+        "DamageMultiplier": 0.4709678888320923,
+        "DealDamageMul": 0.41480201482772827,
+        "DifficultyDealDamageMultiplier": 3.2968814373016357,
+        "RangedAttackDamageMultipler": 4.427481651306152,
+        "TakeRangeDamageMultiplier": 1.3209501504898071
+      },
+      "signedCustomMagnitudeBits": "c9f68a54"
+    },
+    {
+      "itemPowerBits": "418c3371",
+      "attributes": {
+        "RangedAttackDamageIncrease": 43.95911407470703,
+        "TakeDamageMultiplier": 0.5429662466049194,
+        "DamageMultiplier": 4.359119415283203,
+        "DealDamageMul": 3.1706936359405518,
+        "DifficultyDealDamageMultiplier": 0.6823734641075134,
+        "RangedAttackDamageMultipler": 3.6232078075408936,
+        "TakeRangeDamageMultiplier": 2.9883127212524414
+      },
+      "signedCustomMagnitudeBits": "cb2b52f5"
+    },
+    {
+      "itemPowerBits": "41f1e65b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 41.675174713134766,
+        "TakeDamageMultiplier": 4.09625244140625,
+        "DamageMultiplier": 1.148249626159668,
+        "DealDamageMul": 0.5069050192832947,
+        "DifficultyDealDamageMultiplier": 2.962933301925659,
+        "RangedAttackDamageMultipler": 0.1483609676361084,
+        "TakeRangeDamageMultiplier": 2.560439348220825
+      },
+      "signedCustomMagnitudeBits": "ccaeebaf"
+    },
+    {
+      "itemPowerBits": "41e7cb18",
+      "attributes": {
+        "RangedAttackDamageIncrease": 30.116891860961914,
+        "TakeDamageMultiplier": 0.2653539180755615,
+        "DamageMultiplier": 0.786712646484375,
+        "DealDamageMul": 1.4115813970565796,
+        "DifficultyDealDamageMultiplier": 1.9830690622329712,
+        "RangedAttackDamageMultipler": 2.8956851959228516,
+        "TakeRangeDamageMultiplier": 1.7953526973724365
+      },
+      "signedCustomMagnitudeBits": "cc5d1f0c"
+    },
+    {
+      "itemPowerBits": "41ee75f1",
+      "attributes": {
+        "RangedAttackDamageIncrease": 6.246246814727783,
+        "TakeDamageMultiplier": 1.675406575202942,
+        "DamageMultiplier": 0.15768013894557953,
+        "DealDamageMul": 2.987006187438965,
+        "DifficultyDealDamageMultiplier": 4.057265758514404,
+        "RangedAttackDamageMultipler": 0.5325241088867188,
+        "TakeRangeDamageMultiplier": 1.3163315057754517
+      },
+      "signedCustomMagnitudeBits": "cc419d7b"
+    },
+    {
+      "itemPowerBits": "41bd494e",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.308650970458984,
+        "TakeDamageMultiplier": 2.8981893062591553,
+        "DamageMultiplier": 3.6965842247009277,
+        "DealDamageMul": 2.8631808757781982,
+        "DifficultyDealDamageMultiplier": 4.984618663787842,
+        "RangedAttackDamageMultipler": 0.5783814191818237,
+        "TakeRangeDamageMultiplier": 4.306654930114746
+      },
+      "signedCustomMagnitudeBits": "ce4121bd"
+    },
+    {
+      "itemPowerBits": "40f19710",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.61835289001465,
+        "TakeDamageMultiplier": 2.188448667526245,
+        "DamageMultiplier": 4.087829113006592,
+        "DealDamageMul": 2.25911808013916,
+        "DifficultyDealDamageMultiplier": 1.0728451013565063,
+        "RangedAttackDamageMultipler": 4.905290126800537,
+        "TakeRangeDamageMultiplier": 0.4110572338104248
+      },
+      "signedCustomMagnitudeBits": "c8036c2d"
+    },
+    {
+      "itemPowerBits": "3fca1051",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.30935287475586,
+        "TakeDamageMultiplier": 1.5358220338821411,
+        "DamageMultiplier": 3.131007671356201,
+        "DealDamageMul": 4.815761566162109,
+        "DifficultyDealDamageMultiplier": 1.3934106826782227,
+        "RangedAttackDamageMultipler": 0.30419930815696716,
+        "TakeRangeDamageMultiplier": 2.0609028339385986
+      },
+      "signedCustomMagnitudeBits": "c58d6d49"
+    },
+    {
+      "itemPowerBits": "41f8febe",
+      "attributes": {
+        "RangedAttackDamageIncrease": 17.58555030822754,
+        "TakeDamageMultiplier": 4.853898048400879,
+        "DamageMultiplier": 2.8483657836914062,
+        "DealDamageMul": 4.060225009918213,
+        "DifficultyDealDamageMultiplier": 2.195452928543091,
+        "RangedAttackDamageMultipler": 0.6426734328269958,
+        "TakeRangeDamageMultiplier": 4.551068305969238
+      },
+      "signedCustomMagnitudeBits": "d060cb5f"
+    },
+    {
+      "itemPowerBits": "403a0bd4",
+      "attributes": {
+        "RangedAttackDamageIncrease": 48.41273880004883,
+        "TakeDamageMultiplier": 1.7192716598510742,
+        "DamageMultiplier": 4.740302562713623,
+        "DealDamageMul": 0.24076145887374878,
+        "DifficultyDealDamageMultiplier": 1.0723377466201782,
+        "RangedAttackDamageMultipler": 3.3146026134490967,
+        "TakeRangeDamageMultiplier": 2.2430574893951416
+      },
+      "signedCustomMagnitudeBits": "c5e89d06"
+    },
+    {
+      "itemPowerBits": "41a5de48",
+      "attributes": {
+        "RangedAttackDamageIncrease": 9.288713455200195,
+        "TakeDamageMultiplier": 4.026653289794922,
+        "DamageMultiplier": 3.869324207305908,
+        "DealDamageMul": 4.1514763832092285,
+        "DifficultyDealDamageMultiplier": 0.16470523178577423,
+        "RangedAttackDamageMultipler": 0.8020128011703491,
+        "TakeRangeDamageMultiplier": 3.573289155960083
+      },
+      "signedCustomMagnitudeBits": "cb89495b"
+    },
+    {
+      "itemPowerBits": "411ac53c",
+      "attributes": {
+        "RangedAttackDamageIncrease": 49.25777053833008,
+        "TakeDamageMultiplier": 4.180697441101074,
+        "DamageMultiplier": 2.46638560295105,
+        "DealDamageMul": 0.7750471830368042,
+        "DifficultyDealDamageMultiplier": 3.676640510559082,
+        "RangedAttackDamageMultipler": 0.9273176193237305,
+        "TakeRangeDamageMultiplier": 1.970239281654358
+      },
+      "signedCustomMagnitudeBits": "c8e26ccf"
+    },
+    {
+      "itemPowerBits": "41b05f7d",
+      "attributes": {
+        "RangedAttackDamageIncrease": 15.864917755126953,
+        "TakeDamageMultiplier": 3.421785593032837,
+        "DamageMultiplier": 3.327803373336792,
+        "DealDamageMul": 2.303309440612793,
+        "DifficultyDealDamageMultiplier": 4.148641109466553,
+        "RangedAttackDamageMultipler": 3.2720632553100586,
+        "TakeRangeDamageMultiplier": 4.341280937194824
+      },
+      "signedCustomMagnitudeBits": "cec1c154"
+    },
+    {
+      "itemPowerBits": "4139c35c",
+      "attributes": {
+        "RangedAttackDamageIncrease": 38.727596282958984,
+        "TakeDamageMultiplier": 3.5197367668151855,
+        "DamageMultiplier": 3.5718655586242676,
+        "DealDamageMul": 3.1581101417541504,
+        "DifficultyDealDamageMultiplier": 3.202383041381836,
+        "RangedAttackDamageMultipler": 3.506756067276001,
+        "TakeRangeDamageMultiplier": 2.5410280227661133
+      },
+      "signedCustomMagnitudeBits": "cb9a69d6"
+    },
+    {
+      "itemPowerBits": "41ba37fb",
+      "attributes": {
+        "RangedAttackDamageIncrease": 6.898055076599121,
+        "TakeDamageMultiplier": 1.3758639097213745,
+        "DamageMultiplier": 2.333150863647461,
+        "DealDamageMul": 4.944307327270508,
+        "DifficultyDealDamageMultiplier": 2.6495110988616943,
+        "RangedAttackDamageMultipler": 0.8407372832298279,
+        "TakeRangeDamageMultiplier": 3.1964223384857178
+      },
+      "signedCustomMagnitudeBits": "cd2e92c3"
+    },
+    {
+      "itemPowerBits": "411f8fb2",
+      "attributes": {
+        "RangedAttackDamageIncrease": 49.193748474121094,
+        "TakeDamageMultiplier": 2.4728121757507324,
+        "DamageMultiplier": 0.6721959710121155,
+        "DealDamageMul": 2.8622214794158936,
+        "DifficultyDealDamageMultiplier": 4.465173244476318,
+        "RangedAttackDamageMultipler": 0.8662744164466858,
+        "TakeRangeDamageMultiplier": 1.0855042934417725
+      },
+      "signedCustomMagnitudeBits": "c83e5b7f"
+    },
+    {
+      "itemPowerBits": "41857b58",
+      "attributes": {
+        "RangedAttackDamageIncrease": 8.114752769470215,
+        "TakeDamageMultiplier": 1.9298827648162842,
+        "DamageMultiplier": 3.581488847732544,
+        "DealDamageMul": 2.3343570232391357,
+        "DifficultyDealDamageMultiplier": 0.6888219118118286,
+        "RangedAttackDamageMultipler": 2.642019748687744,
+        "TakeRangeDamageMultiplier": 3.201862096786499
+      },
+      "signedCustomMagnitudeBits": "cb22edc2"
+    },
+    {
+      "itemPowerBits": "413368dc",
+      "attributes": {
+        "RangedAttackDamageIncrease": 29.153438568115234,
+        "TakeDamageMultiplier": 2.11871600151062,
+        "DamageMultiplier": 3.968515634536743,
+        "DealDamageMul": 4.856375694274902,
+        "DifficultyDealDamageMultiplier": 0.21834971010684967,
+        "RangedAttackDamageMultipler": 1.0679519176483154,
+        "TakeRangeDamageMultiplier": 3.1392252445220947
+      },
+      "signedCustomMagnitudeBits": "c8d0e3aa"
+    },
+    {
+      "itemPowerBits": "41e6309e",
+      "attributes": {
+        "RangedAttackDamageIncrease": 4.172280788421631,
+        "TakeDamageMultiplier": 1.2861073017120361,
+        "DamageMultiplier": 3.2583818435668945,
+        "DealDamageMul": 2.319125175476074,
+        "DifficultyDealDamageMultiplier": 4.597162246704102,
+        "RangedAttackDamageMultipler": 4.247813701629639,
+        "TakeRangeDamageMultiplier": 1.1644619703292847
+      },
+      "signedCustomMagnitudeBits": "cf40ff5f"
+    },
+    {
+      "itemPowerBits": "4178c8b9",
+      "attributes": {
+        "RangedAttackDamageIncrease": 18.60550880432129,
+        "TakeDamageMultiplier": 3.0715508460998535,
+        "DamageMultiplier": 2.618913412094116,
+        "DealDamageMul": 2.1955015659332275,
+        "DifficultyDealDamageMultiplier": 0.6280755996704102,
+        "RangedAttackDamageMultipler": 1.2066062688827515,
+        "TakeRangeDamageMultiplier": 3.4677059650421143
+      },
+      "signedCustomMagnitudeBits": "ca5b2056"
+    },
+    {
+      "itemPowerBits": "41a836ae",
+      "attributes": {
+        "RangedAttackDamageIncrease": 1.8995997905731201,
+        "TakeDamageMultiplier": 3.730666160583496,
+        "DamageMultiplier": 0.6451869606971741,
+        "DealDamageMul": 0.7672693133354187,
+        "DifficultyDealDamageMultiplier": 1.306505799293518,
+        "RangedAttackDamageMultipler": 4.899792194366455,
+        "TakeRangeDamageMultiplier": 2.6661086082458496
+      },
+      "signedCustomMagnitudeBits": "cb96cc83"
+    },
+    {
+      "itemPowerBits": "40fe0f60",
+      "attributes": {
+        "RangedAttackDamageIncrease": 43.84128952026367,
+        "TakeDamageMultiplier": 0.1308833509683609,
+        "DamageMultiplier": 1.9201830625534058,
+        "DealDamageMul": 1.8754427433013916,
+        "DifficultyDealDamageMultiplier": 3.5382602214813232,
+        "RangedAttackDamageMultipler": 2.657912492752075,
+        "TakeRangeDamageMultiplier": 4.79133415222168
+      },
+      "signedCustomMagnitudeBits": "c7aa6c5b"
+    },
+    {
+      "itemPowerBits": "4119a6b0",
+      "attributes": {
+        "RangedAttackDamageIncrease": 11.152831077575684,
+        "TakeDamageMultiplier": 3.792583703994751,
+        "DamageMultiplier": 4.612362384796143,
+        "DealDamageMul": 2.682417869567871,
+        "DifficultyDealDamageMultiplier": 0.9701769948005676,
+        "RangedAttackDamageMultipler": 1.6480432748794556,
+        "TakeRangeDamageMultiplier": 1.2749230861663818
+      },
+      "signedCustomMagnitudeBits": "c9192ae4"
+    },
+    {
+      "itemPowerBits": "421d295d",
+      "attributes": {
+        "RangedAttackDamageIncrease": 22.99924087524414,
+        "TakeDamageMultiplier": 0.7739637494087219,
+        "DamageMultiplier": 4.2865471839904785,
+        "DealDamageMul": 4.642866134643555,
+        "DifficultyDealDamageMultiplier": 2.2107691764831543,
+        "RangedAttackDamageMultipler": 2.667243719100952,
+        "TakeRangeDamageMultiplier": 3.2228217124938965
+      },
+      "signedCustomMagnitudeBits": "d0a1c241"
+    },
+    {
+      "itemPowerBits": "40f40840",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.061702728271484,
+        "TakeDamageMultiplier": 2.5594303607940674,
+        "DamageMultiplier": 4.7238640785217285,
+        "DealDamageMul": 4.771543979644775,
+        "DifficultyDealDamageMultiplier": 0.7688997983932495,
+        "RangedAttackDamageMultipler": 3.110038995742798,
+        "TakeRangeDamageMultiplier": 3.3948616981506348
+      },
+      "signedCustomMagnitudeBits": "c9b4f34e"
+    },
+    {
+      "itemPowerBits": "41eff479",
+      "attributes": {
+        "RangedAttackDamageIncrease": 3.456674814224243,
+        "TakeDamageMultiplier": 0.7099714279174805,
+        "DamageMultiplier": 1.3625414371490479,
+        "DealDamageMul": 1.28265380859375,
+        "DifficultyDealDamageMultiplier": 4.976474285125732,
+        "RangedAttackDamageMultipler": 0.7289893627166748,
+        "TakeRangeDamageMultiplier": 0.4221784770488739
+      },
+      "signedCustomMagnitudeBits": "cc2d0e5f"
+    },
+    {
+      "itemPowerBits": "421b93e5",
+      "attributes": {
+        "RangedAttackDamageIncrease": 33.30154037475586,
+        "TakeDamageMultiplier": 4.077388763427734,
+        "DamageMultiplier": 1.3846001625061035,
+        "DealDamageMul": 4.43224573135376,
+        "DifficultyDealDamageMultiplier": 1.691360354423523,
+        "RangedAttackDamageMultipler": 3.8446714878082275,
+        "TakeRangeDamageMultiplier": 0.5516495108604431
+      },
+      "signedCustomMagnitudeBits": "cfd43840"
+    },
+    {
+      "itemPowerBits": "41afce43",
+      "attributes": {
+        "RangedAttackDamageIncrease": 27.0305118560791,
+        "TakeDamageMultiplier": 1.837074637413025,
+        "DamageMultiplier": 4.8304829597473145,
+        "DealDamageMul": 0.6250906586647034,
+        "DifficultyDealDamageMultiplier": 0.7379468679428101,
+        "RangedAttackDamageMultipler": 0.5730030536651611,
+        "TakeRangeDamageMultiplier": 4.533470630645752
+      },
+      "signedCustomMagnitudeBits": "cb32efc8"
+    },
+    {
+      "itemPowerBits": "41c2cbd0",
+      "attributes": {
+        "RangedAttackDamageIncrease": 9.462555885314941,
+        "TakeDamageMultiplier": 2.5688230991363525,
+        "DamageMultiplier": 0.8402019143104553,
+        "DealDamageMul": 2.877427339553833,
+        "DifficultyDealDamageMultiplier": 2.707207202911377,
+        "RangedAttackDamageMultipler": 2.662889242172241,
+        "TakeRangeDamageMultiplier": 1.2787116765975952
+      },
+      "signedCustomMagnitudeBits": "cd0b1a82"
+    },
+    {
+      "itemPowerBits": "4198f184",
+      "attributes": {
+        "RangedAttackDamageIncrease": 15.86304759979248,
+        "TakeDamageMultiplier": 1.2695783376693726,
+        "DamageMultiplier": 0.5103708505630493,
+        "DealDamageMul": 3.4991538524627686,
+        "DifficultyDealDamageMultiplier": 0.6405153274536133,
+        "RangedAttackDamageMultipler": 3.244127035140991,
+        "TakeRangeDamageMultiplier": 4.834957122802734
+      },
+      "signedCustomMagnitudeBits": "cadf8fe1"
+    },
+    {
+      "itemPowerBits": "4143f6b2",
+      "attributes": {
+        "RangedAttackDamageIncrease": 20.079814910888672,
+        "TakeDamageMultiplier": 3.3471341133117676,
+        "DamageMultiplier": 1.3181904554367065,
+        "DealDamageMul": 1.4493894577026367,
+        "DifficultyDealDamageMultiplier": 0.6211494207382202,
+        "RangedAttackDamageMultipler": 2.0814404487609863,
+        "TakeRangeDamageMultiplier": 3.2233731746673584
+      },
+      "signedCustomMagnitudeBits": "c9056d69"
+    },
+    {
+      "itemPowerBits": "413d428a",
+      "attributes": {
+        "RangedAttackDamageIncrease": 39.72576141357422,
+        "TakeDamageMultiplier": 0.3616252839565277,
+        "DamageMultiplier": 1.0075137615203857,
+        "DealDamageMul": 2.7555508613586426,
+        "DifficultyDealDamageMultiplier": 4.373720169067383,
+        "RangedAttackDamageMultipler": 4.913483619689941,
+        "TakeRangeDamageMultiplier": 0.16498635709285736
+      },
+      "signedCustomMagnitudeBits": "c7888e23"
+    },
+    {
+      "itemPowerBits": "41c0db79",
+      "attributes": {
+        "RangedAttackDamageIncrease": 3.4820499420166016,
+        "TakeDamageMultiplier": 4.959808349609375,
+        "DamageMultiplier": 2.6674888134002686,
+        "DealDamageMul": 2.8089210987091064,
+        "DifficultyDealDamageMultiplier": 4.853536605834961,
+        "RangedAttackDamageMultipler": 1.3578652143478394,
+        "TakeRangeDamageMultiplier": 3.6526730060577393
+      },
+      "signedCustomMagnitudeBits": "ceeb62d7"
+    },
+    {
+      "itemPowerBits": "41f567ef",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.64097785949707,
+        "TakeDamageMultiplier": 4.484671115875244,
+        "DamageMultiplier": 4.283852577209473,
+        "DealDamageMul": 1.8193458318710327,
+        "DifficultyDealDamageMultiplier": 2.8905158042907715,
+        "RangedAttackDamageMultipler": 4.874534606933594,
+        "TakeRangeDamageMultiplier": 1.7108722925186157
+      },
+      "signedCustomMagnitudeBits": "d0e46e39"
+    },
+    {
+      "itemPowerBits": "42035b00",
+      "attributes": {
+        "RangedAttackDamageIncrease": 39.33793640136719,
+        "TakeDamageMultiplier": 3.98097562789917,
+        "DamageMultiplier": 2.1387205123901367,
+        "DealDamageMul": 0.21955832839012146,
+        "DifficultyDealDamageMultiplier": 2.01192569732666,
+        "RangedAttackDamageMultipler": 1.491554856300354,
+        "TakeRangeDamageMultiplier": 1.5221961736679077
+      },
+      "signedCustomMagnitudeBits": "ce27ab75"
+    },
+    {
+      "itemPowerBits": "40b62731",
+      "attributes": {
+        "RangedAttackDamageIncrease": 17.782928466796875,
+        "TakeDamageMultiplier": 2.748640537261963,
+        "DamageMultiplier": 3.360257863998413,
+        "DealDamageMul": 1.2223114967346191,
+        "DifficultyDealDamageMultiplier": 2.913148880004883,
+        "RangedAttackDamageMultipler": 3.714923620223999,
+        "TakeRangeDamageMultiplier": 4.375661849975586
+      },
+      "signedCustomMagnitudeBits": "c9312d20"
+    },
+    {
+      "itemPowerBits": "40f28372",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.28551483154297,
+        "TakeDamageMultiplier": 4.837408065795898,
+        "DamageMultiplier": 0.5277531147003174,
+        "DealDamageMul": 4.968686103820801,
+        "DifficultyDealDamageMultiplier": 4.324596405029297,
+        "RangedAttackDamageMultipler": 2.0245132446289062,
+        "TakeRangeDamageMultiplier": 2.146467924118042
+      },
+      "signedCustomMagnitudeBits": "c934e582"
+    },
+    {
+      "itemPowerBits": "41cab92b",
+      "attributes": {
+        "RangedAttackDamageIncrease": 29.84698486328125,
+        "TakeDamageMultiplier": 1.6061257123947144,
+        "DamageMultiplier": 2.1018359661102295,
+        "DealDamageMul": 3.3299083709716797,
+        "DifficultyDealDamageMultiplier": 0.4587229788303375,
+        "RangedAttackDamageMultipler": 0.31427255272865295,
+        "TakeRangeDamageMultiplier": 1.080575942993164
+      },
+      "signedCustomMagnitudeBits": "caea19e6"
+    },
+    {
+      "itemPowerBits": "3ff4bc2a",
+      "attributes": {
+        "RangedAttackDamageIncrease": 31.38465118408203,
+        "TakeDamageMultiplier": 1.977494478225708,
+        "DamageMultiplier": 0.1886579394340515,
+        "DealDamageMul": 1.2819725275039673,
+        "DifficultyDealDamageMultiplier": 0.6179550290107727,
+        "RangedAttackDamageMultipler": 2.623202085494995,
+        "TakeRangeDamageMultiplier": 2.9285991191864014
+      },
+      "signedCustomMagnitudeBits": "c4142a3b"
+    },
+    {
+      "itemPowerBits": "41b7201f",
+      "attributes": {
+        "RangedAttackDamageIncrease": 38.918792724609375,
+        "TakeDamageMultiplier": 4.545790672302246,
+        "DamageMultiplier": 2.877981424331665,
+        "DealDamageMul": 0.5109684467315674,
+        "DifficultyDealDamageMultiplier": 1.3862041234970093,
+        "RangedAttackDamageMultipler": 2.036900758743286,
+        "TakeRangeDamageMultiplier": 4.724959850311279
+      },
+      "signedCustomMagnitudeBits": "cd126d39"
+    },
+    {
+      "itemPowerBits": "421af245",
+      "attributes": {
+        "RangedAttackDamageIncrease": 35.69071960449219,
+        "TakeDamageMultiplier": 1.7400314807891846,
+        "DamageMultiplier": 1.2126095294952393,
+        "DealDamageMul": 0.31333956122398376,
+        "DifficultyDealDamageMultiplier": 4.501030445098877,
+        "RangedAttackDamageMultipler": 0.32790490984916687,
+        "TakeRangeDamageMultiplier": 3.551295757293701
+      },
+      "signedCustomMagnitudeBits": "cd851088"
+    },
+    {
+      "itemPowerBits": "4188e13e",
+      "attributes": {
+        "RangedAttackDamageIncrease": 23.56053924560547,
+        "TakeDamageMultiplier": 4.098925590515137,
+        "DamageMultiplier": 4.113913536071777,
+        "DealDamageMul": 2.6452620029449463,
+        "DifficultyDealDamageMultiplier": 3.0462751388549805,
+        "RangedAttackDamageMultipler": 1.6060701608657837,
+        "TakeRangeDamageMultiplier": 1.898389220237732
+      },
+      "signedCustomMagnitudeBits": "cc6de32f"
+    },
+    {
+      "itemPowerBits": "41ff5411",
+      "attributes": {
+        "RangedAttackDamageIncrease": 46.09669876098633,
+        "TakeDamageMultiplier": 4.90732479095459,
+        "DamageMultiplier": 4.924001693725586,
+        "DealDamageMul": 0.614093005657196,
+        "DifficultyDealDamageMultiplier": 3.2204887866973877,
+        "RangedAttackDamageMultipler": 4.155364990234375,
+        "TakeRangeDamageMultiplier": 1.0278875827789307
+      },
+      "signedCustomMagnitudeBits": "d052635f"
+    },
+    {
+      "itemPowerBits": "420469df",
+      "attributes": {
+        "RangedAttackDamageIncrease": 1.2850728034973145,
+        "TakeDamageMultiplier": 1.1595209836959839,
+        "DamageMultiplier": 1.9563966989517212,
+        "DealDamageMul": 2.4403483867645264,
+        "DifficultyDealDamageMultiplier": 1.4705528020858765,
+        "RangedAttackDamageMultipler": 3.6904258728027344,
+        "TakeRangeDamageMultiplier": 4.606115818023682
+      },
+      "signedCustomMagnitudeBits": "d0028032"
+    },
+    {
+      "itemPowerBits": "4123c976",
+      "attributes": {
+        "RangedAttackDamageIncrease": 6.998194694519043,
+        "TakeDamageMultiplier": 3.5457799434661865,
+        "DamageMultiplier": 4.747939586639404,
+        "DealDamageMul": 1.677263617515564,
+        "DifficultyDealDamageMultiplier": 4.345430850982666,
+        "RangedAttackDamageMultipler": 3.388206720352173,
+        "TakeRangeDamageMultiplier": 2.9487380981445312
+      },
+      "signedCustomMagnitudeBits": "cb1a0bd1"
+    },
+    {
+      "itemPowerBits": "41f53257",
+      "attributes": {
+        "RangedAttackDamageIncrease": 1.3237810134887695,
+        "TakeDamageMultiplier": 3.4692065715789795,
+        "DamageMultiplier": 1.3806813955307007,
+        "DealDamageMul": 2.3395912647247314,
+        "DifficultyDealDamageMultiplier": 1.9081522226333618,
+        "RangedAttackDamageMultipler": 2.8824143409729004,
+        "TakeRangeDamageMultiplier": 0.17395804822444916
+      },
+      "signedCustomMagnitudeBits": "cd9c7152"
+    },
+    {
+      "itemPowerBits": "41779b8e",
+      "attributes": {
+        "RangedAttackDamageIncrease": 13.749471664428711,
+        "TakeDamageMultiplier": 4.323895454406738,
+        "DamageMultiplier": 2.617290496826172,
+        "DealDamageMul": 2.1151628494262695,
+        "DifficultyDealDamageMultiplier": 0.12161915004253387,
+        "RangedAttackDamageMultipler": 0.6306012272834778,
+        "TakeRangeDamageMultiplier": 3.117727041244507
+      },
+      "signedCustomMagnitudeBits": "c8cabebf"
+    }
+  ]
+}

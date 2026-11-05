@@ -123,3 +123,5 @@ Use the same migration rule as `research/`:
 3. move and update all references in one PR
 4. run the family audit plus CI
 5. do not leave duplicate compatibility copies
+
+- [Ranged条件付き最終ダメージのNative統合](ranged-final-native-integration.md)

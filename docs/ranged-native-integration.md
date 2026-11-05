@@ -70,3 +70,7 @@ npm run audit:runtime-promotion
 ```
 
 The public Native audit runs provenance/model checks and six positive/negative/preservation Python tests without private inputs; normal full tests include the 20 new Ranged tests. Full Validate is run on GitHub's actual PR head, not duplicated locally. CI/review/head references are recorded in the PR after completion. Rollback: revert this PR; no local observations or schema migration is required. Per the updated project instructions, Site publication is deferred until after merge; this PR is intentionally left unmerged. Any later publication must reuse the existing project ID and preserve owner-only access.
+
+## Conditional final-damage follow-up
+
+The [final-damage integration](ranged-final-native-integration.md) adds an explicit-input Domain calculator and bounded pinned-CRT CLI. Its reference custom magnitudes are separate from this observed runtime: no new runtime equipment/effect or removed observation input, no R3/P3B promotion. The historical unknown fields above remain unchanged.

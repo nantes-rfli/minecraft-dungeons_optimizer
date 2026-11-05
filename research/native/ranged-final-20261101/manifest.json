@@ -1,0 +1,56 @@
+{
+  "baseline": "bd9249efcebc78934e69fd1ebfe43e5adc7390c3",
+  "scope": "Research only; local saved results, no Runtime Promotion",
+  "files": [
+    {
+      "path": "REPORT.md",
+      "size": 20811,
+      "sha256": "b2842aa85aab53111645bd1293267e5ff98e48ffd35e19386c91fd98d97cbef5"
+    },
+    {
+      "path": "crt-download.json",
+      "size": 838,
+      "sha256": "7e72ea46211b59feea6f088f5f1543fc2adb7179a5d7887b18a96174d939719c"
+    },
+    {
+      "path": "disassemble_evidence.py",
+      "size": 1278,
+      "sha256": "dbd2c5e613651ce822770ac68bbb99a60bf7dc7dad7c509ef3e5c3dea779a367"
+    },
+    {
+      "path": "evidence.json",
+      "size": 10947,
+      "sha256": "f7a0e28f70e79125d7d34d4fcd3f3fe8ec45ca370938f0128fa3bd69ca288294"
+    },
+    {
+      "path": "exploration.json",
+      "size": 1841,
+      "sha256": "7e4b0beffd29b8933cac7d34a67d694669d8f911a206cf43b49aca67794211a2"
+    },
+    {
+      "path": "fetch_crt.py",
+      "size": 3228,
+      "sha256": "d41f5975aa08d8915f98f44696c187bfee188cac61b800dcfc3b3eb18c7d75f1"
+    },
+    {
+      "path": "pe_math.py",
+      "size": 2023,
+      "sha256": "05c657cd5a1f73577fdaaaa6ab25e5fe9bf9070b9cc88970c95095658c6f9a2d"
+    },
+    {
+      "path": "verification.json",
+      "size": 144362,
+      "sha256": "47f76e7c6b1e10b7cec4b51cbb8afc086811234d631bc056b4e12e3434cc43b9"
+    },
+    {
+      "path": "verification.json.watchdog.json",
+      "size": 186,
+      "sha256": "af7d1da1e8b0008a42f6ca0a38c9e519e3ff7a27fd67dfab9ff556d5de891703"
+    },
+    {
+      "path": "verify.py",
+      "size": 17762,
+      "sha256": "0087d1173fc6d60182ef5f05ef9c98ced3c24b6e99a35edae5606d694c3b833a"
+    }
+  ]
+}

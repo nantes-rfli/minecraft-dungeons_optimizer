@@ -1,0 +1,54 @@
+{
+  "scope": "Historical exploratory runs; not the final verification suite",
+  "gameProviderConfirmed": false,
+  "unicornFmaLimitation": [
+    {
+      "flag": 1,
+      "input": "0x3f000000",
+      "rip": "0x34e4b",
+      "error": "Invalid instruction (UC_ERR_INSN_INVALID)"
+    }
+  ],
+  "privateArtifacts": [
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/fetch_crt.py",
+      "size": 1813,
+      "sha256": "e33b0a095df1000895f523fd85401a28bda4392338b28848c514587993de724d"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/pe_math.py",
+      "size": 1688,
+      "sha256": "cd9af9c2b1156e51b2fff6576f0e31f0ab3d26c5820d2875158e5f9092749b0e"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/replay_math.py",
+      "size": 2420,
+      "sha256": "f593d148ce86ac2fca27fbe06f99a1c9dfa418cfba51523856a866ceb478d828"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/replay_math_cpu.py",
+      "size": 2720,
+      "sha256": "f82a04753c46979d99b38bb03814e7ed4cb7b9c9d275b8bc998f3e721f9ebaaa"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/crt-replay.json",
+      "size": 155885,
+      "sha256": "ec9152317ffed0f09a0d753fe87118f825c797793a0b9c65be81d821fb072229"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/crt-replay.watchdog.json",
+      "size": 187,
+      "sha256": "cc7578f7ac604d87e2e52f80ece4617acc36e52348eaf3d7ecede41aed863582"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/crt-cpu-replay.json",
+      "size": 260521,
+      "sha256": "22ae43eea5748eb85da1e750c7446b571fa5fc01e4962b40b7b9467aed17af0d"
+    },
+    {
+      "relativeToPrivateRoot": "ranged-final-20261101/crt-cpu-replay.watchdog.json",
+      "size": 188,
+      "sha256": "3ed37265485005c2d07ffa552cc98993bc41a59ca1224449613b930e13cf6e34"
+    }
+  ]
+}

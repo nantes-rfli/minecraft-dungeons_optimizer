@@ -1,0 +1,178 @@
+{
+  "boundary": "Synthetic explicit inputs on original pinned game/CRT; not gameplay holdout or Runtime Promotion",
+  "cases": [
+    {
+      "case": "out-of-table",
+      "request": {
+        "weaponId": "bow",
+        "mode": "charged",
+        "power": {
+          "kind": "internal-f32-bits",
+          "bits": "412e6668",
+          "sourceNote": "Synthetic explicit Native integration test"
+        },
+        "provider": "sdk-22621-sse2-mxcsr-1f80",
+        "projectile": "normal-single-arrow-land-G1-no-event-changes",
+        "powerEffect": "one-qualified-modifier-one-stack-one-channel-base1-custom-defaults",
+        "attributes": {
+          "TakeDamageMultiplier": 1,
+          "DamageMultiplier": 1,
+          "DealDamageMul": 1,
+          "DifficultyDealDamageMultiplier": 1,
+          "RangedAttackDamageMultipler": 1,
+          "RangedAttackDamageIncrease": 0,
+          "TakeRangeDamageMultiplier": 1
+        }
+      },
+      "expectedOutcome": "known",
+      "result": {
+        "state": "known",
+        "evidenceStatus": "derived",
+        "runtimePromotion": false,
+        "gameVersion": "1.17.0.0",
+        "identityAssertionId": "identity:bow@1",
+        "itemPowerBits": "412e6668",
+        "powerScalarBits": "42a37b56",
+        "effectivePowerFactorBits": "42a37b56",
+        "baselineBeforePower": 125.0,
+        "signedCustomMagnitude": -10217.611328125,
+        "signedCustomMagnitudeBits": "c61fa672",
+        "positiveCustomMagnitude": 10217.611328125,
+        "hpLoss": {
+          "state": "unknown",
+          "reason": "target state and events not supplied"
+        },
+        "combatDps": {
+          "state": "unknown",
+          "reason": "unpromoted damage and effective cadence"
+        },
+        "provenance": {
+          "requestSha256": "7222763fa952dd5fd99476ad53f3b9af43d263a34870b970f03ad45a657fd63e",
+          "scriptSha256": "67624b1a34fd9e3f66a95560a9a94b7d318019a4ff53a0986a9ef5d2066d9903",
+          "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+          "crtSha256": "fbed69a52fdcf571dd37fe4cc63cb86ed3732b5b998807f14968788027c00754",
+          "mxcsr": "0x1f80",
+          "dispatch": 0,
+          "powerAndAggregation": "original Native instructions",
+          "customMagnitude": "exact-rational binary32 model; not full capture/engine execution",
+          "actualGameProviderConfirmed": false,
+          "actualSaveTested": false,
+          "wholeGameExecution": false
+        }
+      },
+      "watchdog": {
+        "status": "exited",
+        "returncode": 0,
+        "forcedKill": false,
+        "cleanupComplete": true,
+        "interruptSignal": null,
+        "timeLimitSeconds": 10,
+        "elapsedSeconds": 0.781135555356741
+      }
+    },
+    {
+      "case": "zero",
+      "request": {
+        "weaponId": "bow",
+        "mode": "charged",
+        "power": {
+          "kind": "internal-f32-bits",
+          "bits": "412e6666",
+          "sourceNote": "Synthetic explicit Native integration test"
+        },
+        "provider": "sdk-22621-sse2-mxcsr-1f80",
+        "projectile": "normal-single-arrow-land-G1-no-event-changes",
+        "powerEffect": "one-qualified-modifier-one-stack-one-channel-base1-custom-defaults",
+        "attributes": {
+          "TakeDamageMultiplier": 0,
+          "DamageMultiplier": 1,
+          "DealDamageMul": 1,
+          "DifficultyDealDamageMultiplier": 1,
+          "RangedAttackDamageMultipler": 1,
+          "RangedAttackDamageIncrease": 0,
+          "TakeRangeDamageMultiplier": 1
+        }
+      },
+      "expectedOutcome": "known",
+      "result": {
+        "state": "known",
+        "evidenceStatus": "derived",
+        "runtimePromotion": false,
+        "gameVersion": "1.17.0.0",
+        "identityAssertionId": "identity:bow@1",
+        "itemPowerBits": "412e6666",
+        "powerScalarBits": "42a37b4d",
+        "effectivePowerFactorBits": "42a37b4d",
+        "baselineBeforePower": 125.0,
+        "signedCustomMagnitude": -0.0,
+        "signedCustomMagnitudeBits": "80000000",
+        "positiveCustomMagnitude": 0.0,
+        "hpLoss": {
+          "state": "unknown",
+          "reason": "target state and events not supplied"
+        },
+        "combatDps": {
+          "state": "unknown",
+          "reason": "unpromoted damage and effective cadence"
+        },
+        "provenance": {
+          "requestSha256": "58e14862e252f110cc5b1e00eb68df781e3d0a44700f6154731ec1d96afd1ef1",
+          "scriptSha256": "67624b1a34fd9e3f66a95560a9a94b7d318019a4ff53a0986a9ef5d2066d9903",
+          "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+          "crtSha256": "fbed69a52fdcf571dd37fe4cc63cb86ed3732b5b998807f14968788027c00754",
+          "mxcsr": "0x1f80",
+          "dispatch": 0,
+          "powerAndAggregation": "original Native instructions",
+          "customMagnitude": "exact-rational binary32 model; not full capture/engine execution",
+          "actualGameProviderConfirmed": false,
+          "actualSaveTested": false,
+          "wholeGameExecution": false
+        }
+      },
+      "watchdog": {
+        "status": "exited",
+        "returncode": 0,
+        "forcedKill": false,
+        "cleanupComplete": true,
+        "interruptSignal": null,
+        "timeLimitSeconds": 10,
+        "elapsedSeconds": 2.4395976588129997
+      }
+    },
+    {
+      "case": "subnormal",
+      "request": {
+        "weaponId": "bow",
+        "mode": "charged",
+        "power": {
+          "kind": "internal-f32-bits",
+          "bits": "412e6666",
+          "sourceNote": "Synthetic explicit Native integration test"
+        },
+        "provider": "sdk-22621-sse2-mxcsr-1f80",
+        "projectile": "normal-single-arrow-land-G1-no-event-changes",
+        "powerEffect": "one-qualified-modifier-one-stack-one-channel-base1-custom-defaults",
+        "attributes": {
+          "TakeDamageMultiplier": 1.1754943508222875e-38,
+          "DamageMultiplier": 0.0009765625,
+          "DealDamageMul": 1267650600228229401496703205376,
+          "DifficultyDealDamageMultiplier": 1,
+          "RangedAttackDamageMultipler": 1,
+          "RangedAttackDamageIncrease": 0,
+          "TakeRangeDamageMultiplier": 1
+        }
+      },
+      "expectedOutcome": "rejected",
+      "result": null,
+      "watchdog": {
+        "status": "failed",
+        "returncode": 1,
+        "forcedKill": false,
+        "cleanupComplete": true,
+        "interruptSignal": null,
+        "timeLimitSeconds": 10,
+        "elapsedSeconds": 2.0160200633108616
+      }
+    }
+  ]
+}
