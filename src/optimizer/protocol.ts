@@ -1,3 +1,4 @@
+import type { InventoryReadiness } from '../core/readiness'
 import type { Evaluation, Inventory, OptimizationResult, Scenario } from '../core/types'
 import type { AssessmentCondition, ConditionAssessment } from '../core/equipmentAssessment'
 import type { TrialConditionComparison } from '../core/trialConditionComparison'
@@ -17,6 +18,7 @@ export interface OptimizeRequest {
   readonly id: number
   readonly inventory: Inventory
   readonly scenario: Scenario
+  readonly inventoryReadiness?: boolean
   readonly includeEvaluationMetadata?: boolean
   readonly equipmentInstanceId?: string
   readonly assessmentConditions?: readonly AssessmentCondition[]
@@ -24,6 +26,7 @@ export interface OptimizeRequest {
   readonly removalComparison?: RemovalComparisonInput
 }
 export type OptimizeResponse =
+  | { readonly id: number; readonly type: 'readiness-complete'; readonly readiness: InventoryReadiness; readonly durationMs: number }
   | { readonly id: number; readonly type: 'assessment-complete'; readonly assessments: readonly ConditionAssessment[]; readonly durationMs: number }
   | { readonly id: number; readonly type: 'trial-comparison-complete'; readonly comparisons: readonly TrialConditionComparison[]; readonly durationMs: number }
   | { readonly id: number; readonly type: 'removal-comparison-complete'; readonly comparisons: readonly RemovalConditionComparison[]; readonly durationMs: number }

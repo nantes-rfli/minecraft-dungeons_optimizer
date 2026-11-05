@@ -1,3 +1,4 @@
+import { OptimizerInputError } from './errors'
 import { getArtifactDefinition } from './catalog'
 import { calculateArtifactDuration, calculateArtifactEffectiveCooldown } from './artifact'
 import { resolveArtifactCooldown } from './armor'
@@ -31,13 +32,13 @@ export function deriveArtifactControlState(
     const count = (counts.get(owned.artifactId) ?? 0) + 1
     counts.set(owned.artifactId, count)
     if (count > artifact.stacking.value.maxCopies) {
-      throw new Error(`${artifact.name.ja}はruntimeでは最大${artifact.stacking.value.maxCopies}個までです。`)
+      throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_COMBINATION', `${artifact.name.ja}はruntimeでは最大${artifact.stacking.value.maxCopies}個までです。`, controlArtifacts.filter((item) => item.artifactId === owned.artifactId).map((item) => item.instanceId))
     }
   }
 
   const owned = controlArtifacts[0]!
   if (owned.artifactId !== 'shock-powder' || controlArtifacts.length !== 1) {
-    throw new Error('Unsupported hard-control artifact combination')
+    throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_COMBINATION', 'Unsupported hard-control artifact combination', controlArtifacts.map((item) => item.instanceId))
   }
   const artifact = hardControlArtifact(owned.artifactId)
   const durationSeconds = calculateArtifactDuration(artifact.duration, owned.powerLevel)

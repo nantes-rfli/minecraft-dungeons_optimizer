@@ -1,3 +1,4 @@
+import { OptimizerInputError } from './errors'
 import { getArtifactDefinition } from './catalog'
 import { resolveArtifactCooldown } from './armor'
 import type { ArtifactActivationOpportunity, ArtifactDefinition, ArtifactDurationModel, TimedSelfBuffArtifactDefinition } from './artifactMechanics'
@@ -76,7 +77,8 @@ export function calculateArtifactActivationOpportunities(ownedArtifacts: readonl
 export function calculateArtifactDuration(model: ArtifactDurationModel, power: number): number {
   if (!Number.isFinite(power) || power <= 0) throw new Error('Artifact Power must be finite and positive')
   const range = model.kind === 'fixed' ? undefined : model.supportedPowerRange
-  if (range && (!Number.isFinite(range.min) || !Number.isFinite(range.max) || range.min <= 0 || range.max < range.min || power < range.min || power > range.max)) throw new Error('Artifact duration Power outside supported range; extrapolation is forbidden')
+  if (range && (!Number.isFinite(range.min) || !Number.isFinite(range.max) || range.min <= 0 || range.max < range.min)) throw new Error('Invalid artifact duration Power range')
+  if (range && (power < range.min || power > range.max)) throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_POWER_RANGE', 'Artifact duration Power outside supported range; extrapolation is forbidden')
   let seconds: number
   switch (model.kind) {
     case 'fixed': seconds = model.seconds.value; break
@@ -139,12 +141,10 @@ export function calculateArtifactEffects(
   for (const [artifactId, groupUptimes] of grouped) {
     const artifact = timedSelfBuff(getArtifactDefinition(artifactId))
     if (groupUptimes.length > artifact.stacking.value.maxCopies) {
-      throw new Error(
-        `${artifact.name.ja}は最大${artifact.stacking.value.maxCopies}個まで装備できます。`,
-      )
+      throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_COMBINATION', `${artifact.name.ja}は最大${artifact.stacking.value.maxCopies}個まで装備できます。`, groupUptimes.map((uptime) => uptime.instanceId))
     }
     if (artifact.stacking.value.behavior === 'non-stackable' && groupUptimes.length > 1) {
-      throw new Error(`${artifact.name.ja}は複数装備できません。`)
+      throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_COMBINATION', `${artifact.name.ja}は複数装備できません。`, groupUptimes.map((uptime) => uptime.instanceId))
     }
 
     const combinedUptime = clamp01(

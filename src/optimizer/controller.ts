@@ -1,3 +1,4 @@
+import type { InventoryReadiness } from '../core/readiness'
 import type { Evaluation, OptimizationResult } from '../core/types'
 import type { ConditionAssessment } from '../core/equipmentAssessment'
 import type { TrialConditionComparison } from '../core/trialConditionComparison'
@@ -16,6 +17,7 @@ export interface SearchState {
   readonly result: OptimizationResult | null
   readonly evaluatedInstanceIds?: readonly string[]
   readonly equipmentEvaluation?: Evaluation
+  readonly readiness?: InventoryReadiness
   readonly assessments?: readonly ConditionAssessment[]
   readonly trialComparisons?: readonly TrialConditionComparison[]
   readonly removalComparisons?: readonly RemovalConditionComparison[]
@@ -71,6 +73,10 @@ export class OptimizerController {
         if (id !== this.sequence || data.id !== id) return
         if (data.type === 'error') { fail(data.error); return }
         this.stop()
+        if (data.type === 'readiness-complete') {
+          this.publish({ status: 'complete', result: null, readiness: data.readiness, error: null, durationMs: data.durationMs, request })
+          return
+        }
         if (data.type === 'assessment-complete') {
           this.publish({ status: 'complete', result: null, assessments: data.assessments, error: null, durationMs: data.durationMs, request })
           return

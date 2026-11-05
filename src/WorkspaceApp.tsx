@@ -1,5 +1,7 @@
 "use client"
 
+import { InventoryReadinessPanel } from './components/InventoryReadinessPanel'
+
 import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore, type ChangeEvent } from 'react'
 import { useOptimizer } from './optimizer/useOptimizer'
 import { EquipmentAssessmentPanel } from './screens/EquipmentAssessment'
@@ -109,7 +111,7 @@ function artifactPowerBounds(artifactId: ArtifactId): { min: number; max?: numbe
 export function OwnedArmorEditor({ armor, onChange, onRemove }: { armor: OwnedArmor; onChange: (armor: OwnedArmor) => void; onRemove: () => void }) {
   const displayName = ARMORS[armor.armorId as ArmorId]?.name.ja ?? armor.armorId
   const catalog = getEquipmentCatalogEntry('armor', armor.armorId)!
-  return <details className="inventory-item equipment-card"><summary><EquipmentIcon category="armor" label={displayName} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{ARMORS[armor.armorId as ArmorId]?.name.en}</small></span><span className="equipment-meta">Power {armor.powerLevel}<small>{selectedEnchantmentSummary(armor.enchantmentSlots)}</small></span>{armor.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
+  return <details data-instance-id={armor.instanceId} className="inventory-item equipment-card"><summary><EquipmentIcon category="armor" label={displayName} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{ARMORS[armor.armorId as ArmorId]?.name.en}</small></span><span className="equipment-meta">Power {armor.powerLevel}<small>{selectedEnchantmentSummary(armor.enchantmentSlots)}</small></span>{armor.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
     <EquipmentInstanceEditor category="armor" catalog={catalog} powerLevel={armor.powerLevel} rarity={armor.rarity} notes={armor.notes} enchantmentSlots={armor.enchantmentSlots} gilded={armor.gilded} onPowerChange={(powerLevel) => onChange({ ...armor, powerLevel })} onRarityChange={(rarity) => onChange({ ...armor, rarity })} onNotesChange={(notes) => onChange({ ...armor, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...armor, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...armor, gilded })} onDelete={onRemove} extraFields={<label>追加HP<input aria-label={`${armor.instanceId}の追加HP`} type="number" min="0" value={armor.observedHealthBonus ?? ''} onChange={(event) => onChange({ ...armor, observedHealthBonus: event.target.value === '' ? undefined : Number(event.target.value) })} /></label>} />
   </details>
 }
@@ -117,7 +119,7 @@ export function OwnedArmorEditor({ armor, onChange, onRemove }: { armor: OwnedAr
 export function OwnedMeleeEditor({ weapon, onChange, onRemove }: { weapon: OwnedWeapon; onChange: (weapon: OwnedWeapon) => void; onRemove: () => void }) {
   const definition = WEAPONS[weapon.weaponId]
   const catalog = getEquipmentCatalogEntry('melee', weapon.weaponId)!
-  return <details className="equipment-card"><summary><EquipmentIcon category="melee" label={definition.name.ja} /><span className="equipment-title"><strong>{definition.name.ja}</strong><small lang="en">{definition.name.en}</small></span><span className="equipment-meta">Power {weapon.powerLevel}<small>{selectedEnchantmentSummary(weapon.enchantmentSlots)}</small></span>{weapon.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
+  return <details data-instance-id={weapon.instanceId} className="equipment-card"><summary><EquipmentIcon category="melee" label={definition.name.ja} /><span className="equipment-title"><strong>{definition.name.ja}</strong><small lang="en">{definition.name.en}</small></span><span className="equipment-meta">Power {weapon.powerLevel}<small>{selectedEnchantmentSummary(weapon.enchantmentSlots)}</small></span>{weapon.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
     <EquipmentInstanceEditor category="melee" catalog={catalog} powerLevel={weapon.powerLevel} powerMax={263} rarity={weapon.rarity} notes={weapon.notes} enchantmentSlots={weapon.enchantmentSlots} gilded={weapon.gilded} onPowerChange={(powerLevel) => onChange({ ...weapon, powerLevel })} onRarityChange={(rarity) => onChange({ ...weapon, rarity })} onNotesChange={(notes) => onChange({ ...weapon, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...weapon, gilded })} onDelete={onRemove} extraFields={<><label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label><ProcPowerSupport weapon={weapon} /></>} />
   </details>
 }
@@ -126,7 +128,7 @@ export function OwnedArtifactEditor({ artifact, onChange, onRemove }: { artifact
   const definition = ARTIFACTS[artifact.artifactId]
   const catalog = getEquipmentCatalogEntry('artifact', artifact.artifactId)!
   const bounds = artifactPowerBounds(artifact.artifactId)
-  return <details className="equipment-card"><summary><EquipmentIcon category="artifact" label={definition.name.ja} /><span className="equipment-title"><strong>{definition.name.ja}</strong><small lang="en">{definition.name.en}</small></span><span className="equipment-meta">Power {artifact.powerLevel}</span><span className="edit-label">編集</span></summary>
+  return <details data-instance-id={artifact.instanceId} className="equipment-card"><summary><EquipmentIcon category="artifact" label={definition.name.ja} /><span className="equipment-title"><strong>{definition.name.ja}</strong><small lang="en">{definition.name.en}</small></span><span className="equipment-meta">Power {artifact.powerLevel}</span><span className="edit-label">編集</span></summary>
     <EquipmentInstanceEditor category="artifact" catalog={catalog} powerLevel={artifact.powerLevel} powerMin={bounds.min} powerMax={bounds.max} notes={artifact.notes} onPowerChange={(powerLevel) => onChange({ ...artifact, powerLevel })} onNotesChange={(notes) => onChange({ ...artifact, notes })} onDelete={onRemove} />
   </details>
 }
@@ -213,7 +215,7 @@ export function CatalogInventoryItems({ inventory, onChange, items = inventory.c
   return <>{items.map((item) => {
       const catalog = getEquipmentCatalogEntry(item.category, item.catalogId)
       const displayName = catalog?.name.ja ?? catalog?.name.en ?? item.catalogId
-      return <details className="equipment-card" key={item.instanceId}><summary><EquipmentIcon category={item.category} id={item.catalogId} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{catalog?.name.en}</small></span><span className="equipment-meta">Power {item.powerLevel}{item.category !== 'artifact' && <small>{selectedEnchantmentSummary(item.enchantmentSlots)}</small>}</span>{item.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
+      return <details data-instance-id={item.instanceId} className="equipment-card" key={item.instanceId}><summary><EquipmentIcon category={item.category} id={item.catalogId} /><span className="equipment-title"><strong>{displayName}</strong><small lang="en">{catalog?.name.en}</small></span><span className="equipment-meta">Power {item.powerLevel}{item.category !== 'artifact' && <small>{selectedEnchantmentSummary(item.enchantmentSlots)}</small>}</span>{item.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
         {catalog && <EquipmentInstanceEditor category={item.category} catalog={catalog} powerLevel={item.powerLevel} rarity={item.rarity} notes={item.notes} enchantmentSlots={item.enchantmentSlots} gilded={item.gilded} onPowerChange={(powerLevel) => update(item.instanceId, (current) => ({ ...current, powerLevel }))} onRarityChange={item.category === 'artifact' ? undefined : (rarity) => update(item.instanceId, (current) => ({ ...current, rarity }))} onNotesChange={(notes) => update(item.instanceId, (current) => ({ ...current, notes }))} onEnchantmentSlotsChange={item.category === 'artifact' ? undefined : (enchantmentSlots) => update(item.instanceId, (current) => ({ ...current, enchantmentSlots }))} onGildedChange={item.category === 'artifact' ? undefined : (gilded) => update(item.instanceId, (current) => ({ ...current, gilded }))} onDelete={() => onChange({ ...inventory, catalogItems: (inventory.catalogItems ?? []).filter((current) => current.instanceId !== item.instanceId) })} />}
       </details>
   })}</>
@@ -290,11 +292,11 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   useEffect(() => {
     if (fullEditorPending === null || inventoryView !== 'list') return
     const frame = requestAnimationFrame(() => {
-      const normalized = inventoryQuery.toLocaleLowerCase()
-      const occurrence = inventoryGridItems(inventory).filter((item) => `${item.catalog.name.ja} ${item.catalog.name.en} ${item.powerLevel}`.toLocaleLowerCase().includes(normalized)).findIndex((item) => item.instanceId === fullEditorPending)
-      const editor = document.querySelectorAll<HTMLDetailsElement>('.inventory-collection details.equipment-card')[occurrence]
+      const editor = [...document.querySelectorAll<HTMLDetailsElement>('.inventory-collection details.equipment-card')].find((element) => element.dataset.instanceId === fullEditorPending)
       if (!editor) return
       editor.open = true
+      const observations = editor.querySelector<HTMLDetailsElement>('.advanced-collection-fields')
+      if (observations) observations.open = true
       editor.scrollIntoView({ block: 'center' })
       editor.querySelector<HTMLElement>('summary')?.focus()
       setFullEditorPending(null)
@@ -348,6 +350,9 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     setInventoryQuery(name)
     setInventoryCategory('all')
     setInventoryGilded('all')
+    setInventoryFavoritesOnly(false)
+    setInventoryPowerMinimum('')
+    setInventoryPowerMaximum('')
     setInventorySort('recent')
     setInventoryView('list')
     setFullEditorPending(instanceId)
@@ -461,6 +466,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     const visibleCount = visibleWeapons.length + visibleArmors.length + visibleRanged.length + visibleArtifacts.length + visibleCatalog.length
     return <main id="main-content" tabIndex={-1} className="page-main inventory-page">
       <header className="page-intro page-intro-row"><div><p className="eyebrow">TOOLS / INVENTORY</p><h1>装備</h1><p>所持している装備を一覧・整理し、コレクション全体の傾向を確認できます。</p></div><div className="inventory-heading-actions"><div className="inventory-total"><strong>{ownedCount}</strong><span>登録した個体</span></div><button className="primary-button add-equipment-button" type="button" onClick={() => setDrawerOpen(true)}>＋ 装備を登録</button></div></header>
+      <InventoryReadinessPanel inventory={inventory} scenario={scenario} onEdit={openFullEditor} onOpenScenario={() => { window.location.hash = '/optimize' }} />
       <div className="inventory-tabs" role="tablist" aria-label="装備の表示"><button role="tab" aria-selected={inventoryTab === 'list'} onClick={() => setInventoryTab('list')}>一覧 <span>{ownedCount}</span></button><button role="tab" aria-selected={inventoryTab === 'statistics'} onClick={() => setInventoryTab('statistics')}>統計</button></div>
       {(loadError || saveError) && <p className="inline-alert" role="alert">{loadError ?? saveError}</p>}
       {inventoryTab === 'statistics' ? <InventoryStatisticsView inventory={inventory} /> : <>
