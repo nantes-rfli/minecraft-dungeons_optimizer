@@ -18,7 +18,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 
 - 近接武器: Fighter's Bindings / Double Axe / Anchor / Soul Scythe。Cutlass / Pickaxe / Soul Knife / Whipは単体対象・基礎cadence限定で追加対応（[条件と制限](./docs/plain-melee-runtime-reuse.md)）
 - Armor: 13種をLimited対応（Dark Armor / Titan's Shroudを含む）
-- Ranged: Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbowを個体ごとの観測値入力付きでLimited対応
+- Ranged: Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbowを個体・モードごとの観測値入力付きでLimited対応（4弓の未チャージ/フルチャージ＋2クロスボウ単射の計10組み合わせ、[条件](./docs/ranged-observed-modes.md)）
 - Artifact: Death Cap Mushroom / Iron Hide Amulet / Shock Powder
 - Enchantment: Full / Limited / Research-onlyを明示し、未対応候補を0点評価しない
 - 比較: Damage / Healing / Defense / Control、6種のScenario profile、Pareto前線、効果ごとの寄与

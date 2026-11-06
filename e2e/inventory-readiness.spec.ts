@@ -89,7 +89,7 @@ test('mobile Armor input completion refreshes readiness and keeps the layout wit
 
 test('a saved incompatible shot mode can be explicitly repaired and Catalog grid editing still opens its instance', async ({ page }) => {
   const ranged = readinessRanged('shortbow')
-  const inventory: Inventory = { ...readinessMelee, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'uncharged' } }], catalogItems: [{ instanceId: 'catalog-sword', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251 }] }
+  const inventory: Inventory = { ...readinessMelee, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'single' } }], catalogItems: [{ instanceId: 'catalog-sword', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251 }] }
   await page.addInitScript(({ key, json }) => { if (!localStorage.getItem(key)) localStorage.setItem(key, json) }, { key: storageKey, json: serializeInventory(inventory) })
   await page.goto('/#/optimize')
   await page.getByText('詳細条件', { exact: true }).click()
@@ -101,8 +101,19 @@ test('a saved incompatible shot mode can be explicitly repaired and Catalog grid
   await panel.getByRole('button', { name: 'shortbowの入力を編集', exact: true }).click()
   const editor = page.locator('.inventory-collection details[data-instance-id="shortbow"]')
   const mode = editor.getByRole('combobox', { name: 'shortbow 発射モード' })
-  await expect(mode).toHaveValue('uncharged')
-  await mode.selectOption('charged')
+  await expect(mode).toHaveValue('single')
+  await mode.selectOption('uncharged')
+  await expect(editor.getByRole('spinbutton', { name: 'shortbow damage', exact: true })).toHaveValue('')
+  await expect(editor.getByRole('spinbutton', { name: 'shortbow cycle', exact: true })).toHaveValue('')
+  await expect(editor.getByRole('textbox', { name: 'shortbow 観測メモ', exact: true })).toHaveValue('')
+  expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)).toEqual(inventory)
+  await editor.getByRole('button', { name: '観測値を適用', exact: true }).click()
+  await expect(editor.getByRole('alert')).toContainText('すべて入力')
+  expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)).toEqual(inventory)
+  await editor.getByRole('spinbutton', { name: 'shortbow damage', exact: true }).fill('17')
+  await editor.getByRole('spinbutton', { name: 'shortbow cycle', exact: true }).fill('1.25')
+  await editor.getByRole('textbox', { name: 'shortbow 観測メモ', exact: true }).fill('SYNTHETIC uncharged observation')
+  expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)).toEqual(inventory)
   await editor.getByRole('button', { name: '観測値を適用', exact: true }).click()
   await expect(panel.locator('.readiness-counts')).toContainText('評価可能2件')
   await page.getByRole('button', { name: '絞り込みを解除', exact: true }).click()

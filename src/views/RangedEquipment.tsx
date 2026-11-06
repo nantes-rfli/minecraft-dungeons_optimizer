@@ -23,6 +23,13 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
   const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
+  const changeMode = (mode: RangedShotMode) => {
+    if (mode === draft.mode) return
+    // Mode-specific observations cannot be relabeled. Keep the independent
+    // ammo stock (including known zero), and leave saved equipment untouched.
+    setDraft({ ...draft, mode, damage: '', cycle: '', note: '' })
+    setError('')
+  }
   const saveObservation = () => {
     try {
       if ([draft.damage, draft.cycle, draft.ammo, draft.note].some((value) => value.trim() === '')) throw new Error('観測値とメモをすべて入力してください。')
@@ -33,8 +40,8 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   return <details data-instance-id={weapon.instanceId} className="inventory-item equipment-card"><summary><EquipmentArtwork catalog={catalog} compact /><span className="equipment-title"><strong>{japaneseEquipmentName('ranged', weapon.weaponId, audited.name.ja)}</strong><small lang="en">{audited.name.en}</small></span><span className="equipment-meta">Power {weapon.powerLevel}<small>{selectedEnchantmentSummary(weapon.enchantmentSlots)}</small></span>{weapon.gilded && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
     <EquipmentInstanceEditor category="ranged" catalog={catalog} powerLevel={weapon.powerLevel} rarity={weapon.rarity} notes={weapon.notes} enchantmentSlots={weapon.enchantmentSlots} gilded={weapon.gilded} onPowerChange={(powerLevel) => onChange({ ...weapon, powerLevel })} onRarityChange={(rarity) => onChange({ ...weapon, rarity })} onNotesChange={(notes) => onChange({ ...weapon, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...weapon, gilded })} onDelete={onRemove} extraFields={<><p>固有効果: {[...audited.intrinsic.own, ...audited.intrinsic.inherited].join(' / ') || '追加効果なし'}</p>
     <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>
-      <p>補正のない1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。</p>
-      <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => setDraft({ ...draft, mode: e.target.value as RangedShotMode })}>{(['uncharged', 'charged', 'single'] as const).filter((mode) => mode === draft.mode || !RANGED_WEAPONS[weapon.weaponId] || RANGED_WEAPONS[weapon.weaponId]!.modes.includes(mode)).map((mode) => <option key={mode} value={mode}>{mode === 'uncharged' ? '弓・未チャージ' : mode === 'charged' ? '弓・フルチャージ' : 'クロスボウ・単射'}</option>)}</select></label>
+      <p>補正のない1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。発射モードを変更するとダメージ・周期・観測メモの再入力が必要です。矢数は保持します。</p>
+      <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => changeMode(e.target.value as RangedShotMode)}>{(['uncharged', 'charged', 'single'] as const).filter((mode) => mode === draft.mode || !RANGED_WEAPONS[weapon.weaponId] || RANGED_WEAPONS[weapon.weaponId]!.modes.includes(mode)).map((mode) => <option key={mode} value={mode}>{mode === 'uncharged' ? '弓・未チャージ' : mode === 'charged' ? '弓・フルチャージ' : 'クロスボウ・単射'}</option>)}</select></label>
       {(['damage', 'cycle', 'ammo'] as const).map((field) => <label key={field}>{field === 'damage' ? 'neutral 1矢damage' : field === 'cycle' ? '完全発射周期（秒・charge/recovery込み）' : '戦闘中に使える通常矢数（補給なし）'}<input aria-label={`${weapon.instanceId} ${field}`} type="number" min={field === 'ammo' ? 0 : 0.000001} step={field === 'ammo' ? 1 : 'any'} value={draft[field]} onChange={(e) => setDraft({ ...draft, [field]: e.target.value })} /></label>)}
       <label>観測メモ / 出典<input aria-label={`${weapon.instanceId} 観測メモ`} value={draft.note} placeholder="対象・装備・版・記録箇所" onChange={(e) => setDraft({ ...draft, note: e.target.value })} /></label>
       <button type="button" onClick={saveObservation}>観測値を適用</button>{observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined })}>観測値を解除</button>}

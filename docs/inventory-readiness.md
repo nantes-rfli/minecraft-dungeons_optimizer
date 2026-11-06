@@ -27,7 +27,7 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 
 ## 入力改善で使える範囲
 
-既存Limited 6種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow）について、次の対象個体の観測が必要。弓3種のreuseはフルチャージ、Heavy Crossbowは単射という既存境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。
+既存Limited 6種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow）について、次の対象個体の観測が必要。Bowと追加3弓は未チャージ/フルチャージをモード別に扱い、Heavy Crossbowは単射という境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。モード変更時はdamage/周期/観測メモを再入力し、適用までは元の保存値を保持する。
 
 - neutralな通常矢1本のダメージ: 正の有限値
 - 完全発射周期: 正の有限秒、charge/recovery込み。切替時間は従来どおり攻撃時間配分に含める
@@ -35,7 +35,7 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 - 発射モード、ゲーム版1.17.0.0の観測メモ・出典
 - Scenarioの遠距離時間割合: 0より大きく1未満
 
-対応Melee 4種、Armor 7種、Artifact 3種も従来のFull/Limited・Power・Evidence・interaction制約の範囲で利用できる。未対応の固有効果を持つ装備が新たに計算できるようになる変更ではない。
+対応Melee 8種、Armor 13種、Artifact 3種も従来のFull/Limited・Power・Evidence・interaction制約の範囲で利用できる。未対応の固有効果を持つ装備が新たに計算できるようになる変更ではない。
 
 合成ソフトウェアfixtureでは6種それぞれについて、未観測→必要項目表示→個体観測を適用→evaluate/optimize成功を検証する。ブラウザでは同名Bowを区別して編集し、評価可能2件→3件・入力不足1件→0件になり、保存後に最適化と用途別装備比較へ進めることを検証する。これは実ゲーム観測や本人の全Inventoryの評価件数ではない。本人のデータが提供されていないため、その改善件数は実行時のInventory上で確認する。
 

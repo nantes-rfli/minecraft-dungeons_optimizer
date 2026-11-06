@@ -57,7 +57,7 @@ Research Evidence → R3 decision → P3B promotionの既存契約と`research/r
 
 ## Ranged observed single-projectile reuse
 
-The [Ranged integration contract](../ranged-native-integration.md) adds a separate narrow validator for Shortbow, Longbow, Power Bow (charged only) and Heavy Crossbow (single). Grants bind target Formal Identity, configured projectile Value/Relation, reviewed Raw/Blueprint scope, published intrinsic facts and game version. Target observation supplies neutral damage/complete cycle; Native baselines/settings are not runtime numeric inputs. All existing Ranged exclusions remain. This is a bounded extension reviewed with its implementation, not an expansion of the Armor validator or a New Mechanic Promotion.
+The [Ranged integration contract](../ranged-native-integration.md) adds a separate narrow validator for Shortbow, Longbow, Power Bow (charged and uncharged through mode-specific grants) and Heavy Crossbow (single). Grants bind target Formal Identity, configured projectile Value/Relation, reviewed Raw/Blueprint scope, published intrinsic facts and game version. Target observation supplies neutral damage/complete cycle; Native baselines/settings are not runtime numeric inputs. All existing Ranged exclusions remain. This is a bounded extension reviewed with its implementation, not an expansion of the Armor validator or a New Mechanic Promotion.
 
 ## B3 — explicitly bounded Dark Armor family component reuse
 
@@ -66,3 +66,5 @@ The [Ranged integration contract](../ranged-native-integration.md) adds a separa
 ## Plain uniform-hit melee reuse
 
 [Plain melee reuse](../plain-melee-runtime-reuse.md) adds a separate finite four-target validator for matched normal Cutlass/Pickaxe/Soul Knife/Whip. Target-owned exact public ratings, complete uniform published timing, full bounded intrinsic/built-in scope and Soul eligibility are required. Single-target/base-cadence rejection preserves unknown geometry and speed scaling. Existing Model G/observed override is reused without a new Power formula. Source-bound Derived declarations and historical Inventory compatibility are independent of registration. A/B/B2/B3 and R3/P3B are not relaxed, and new effects/interactions still require their own acceptance path.
+
+The [observed-mode follow-up](../ranged-observed-modes.md) binds each target/mode tuple separately and requires new mode-owned observation input. Draft mode changes cannot reuse charged damage/cycle/note as uncharged. This adds no Native numeric input or new mechanic promotion.

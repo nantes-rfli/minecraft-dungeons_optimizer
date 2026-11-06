@@ -12,6 +12,7 @@ export function nativeRangedReference(id: string) {
     gameVersion: model.gameVersion, identityAssertionId: profile.identityAssertionId,
     conditions: model.conditions, parameters: profile.parameters,
     configuredProjectile: profile.configuredProjectile,
+    chargeSwitch: profile.chargeSwitch,
     blueprintReview: 'blueprintReview' in profile ? profile.blueprintReview : undefined,
     baselineBeforePower: profile.derivedCdoBaseline,
     finalProjectileDamage: profile.finalProjectileDamage,

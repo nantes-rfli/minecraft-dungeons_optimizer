@@ -31,7 +31,7 @@ describe('source-bound observed Ranged reuse', () => {
     const item = weapon(id, id === 'heavy-crossbow' ? 'single' : 'charged')
     expect(() => evaluate(build({ ...item, observation: undefined }), scenario)).toThrow('必要')
     expect(() => optimize(inventory([{ ...item, observation: undefined }]), scenario)).toThrow('No supported Ranged')
-    expect(() => evaluate(build({ ...item, observation: { ...item.observation!, mode: 'uncharged' } }), scenario)).toThrow('mode')
+    expect(() => evaluate(build({ ...item, observation: { ...item.observation!, mode: id === 'heavy-crossbow' ? 'uncharged' : 'single' } }), scenario)).toThrow('mode')
     const reference = nativeRangedReference(id)
     expect(reference.state).toBe('known')
     if (reference.state === 'known') {
