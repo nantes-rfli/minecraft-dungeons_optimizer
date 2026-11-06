@@ -42846,7 +42846,7 @@
       "category": "armor",
       "id": "dark-armor",
       "label": "Dark Armor",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -57606,7 +57606,7 @@
       "category": "armor",
       "id": "titan-s-shroud",
       "label": "Titan's Shroud",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",

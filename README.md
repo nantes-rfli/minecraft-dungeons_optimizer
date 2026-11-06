@@ -17,7 +17,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 現在の主なruntime範囲:
 
 - 近接武器: Fighter's Bindings / Double Axe / Anchor / Soul Scythe
-- Armor: 7種をLimited対応
+- Armor: 13種をLimited対応（Dark Armor / Titan's Shroudを含む）
 - Ranged: Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbowを個体ごとの観測値入力付きでLimited対応
 - Artifact: Death Cap Mushroom / Iron Hide Amulet / Shock Powder
 - Enchantment: Full / Limited / Research-onlyを明示し、未対応候補を0点評価しない

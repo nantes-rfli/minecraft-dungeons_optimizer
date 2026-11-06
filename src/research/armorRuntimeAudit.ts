@@ -1,7 +1,7 @@
 import auditJson from '../../research/runtime/armor-core-runtime-audit.json'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import { ARMOR_AUDIT } from './armorAudit'
-import { collectLimitedArmorCatalogErrors, LIMITED_ARMOR_REPLICA_REUSE_APPROVALS } from './limitedMechanicReuse'
+import { collectLimitedArmorCatalogErrors, LIMITED_ARMOR_REPLICA_REUSE_APPROVALS, LIMITED_DARK_ARMOR_COMPONENT_REUSE_APPROVALS } from './limitedMechanicReuse'
 
 export const ARMOR_CORE_RUNTIME_AUDIT = auditJson
 
@@ -60,6 +60,16 @@ export function collectArmorRuntimeAuditErrors(value: unknown = ARMOR_CORE_RUNTI
         && entry.sourceRef === approval.sourceRef
         && entry.mode === approval.mode)),
     'exact Limited replica reuse decisions drift')
+    const componentDecisions = decisions.darkArmorComponentReuse
+    check(Array.isArray(componentDecisions)
+      && componentDecisions.length === LIMITED_DARK_ARMOR_COMPONENT_REUSE_APPROVALS.length
+      && LIMITED_DARK_ARMOR_COMPONENT_REUSE_APPROVALS.every((approval) => componentDecisions.some((entry) =>
+        record(entry) && entry.targetArmorId === approval.targetId && entry.rawIdentity === approval.rawIdentity
+        && entry.sourceRef === approval.sourceRef && entry.mode === approval.mode
+        && JSON.stringify(entry.properties) === JSON.stringify(approval.properties)
+        && JSON.stringify(entry.excludedDonorProperties) === JSON.stringify(approval.excludedDonorProperties)
+        && JSON.stringify(entry.rejectedInteractions) === JSON.stringify(approval.rejectedInteractions))),
+    'Dark Armor existing-channel component reuse decisions drift')
     check(record(decisions.witherSouls) && decisions.witherSouls.multiplier === 1.5 && decisions.witherSouls.zeroFlatGatheringRemainsZero === true && decisions.witherSouls.pickupEventsUnchanged === true && decisions.witherSouls.soulSiphon === 'unsupported', 'Wither Soul boundary missing')
     check(record(decisions.witherLifeSteal) && decisions.witherLifeSteal.fraction === 0.06 && Array.isArray(decisions.witherLifeSteal.eligibleChannels) && decisions.witherLifeSteal.eligibleChannels.join('|') === 'direct-melee', 'Wither Life Steal boundary missing')
     check(record(decisions.chilling) && decisions.chilling.rawTemporalCoverage === 0.5 && decisions.chilling.objective === 'control-only', 'Chilling periodic/control decision drift')

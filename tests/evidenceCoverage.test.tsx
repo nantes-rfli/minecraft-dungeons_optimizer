@@ -32,7 +32,7 @@ describe('Evidence & Coverage read model', () => {
     expect(collectAdapterSourceErrors(adapters)).toEqual([])
     expect(collectCoverageErrors(snapshot, adapters, resolve)).toEqual([])
     expect(snapshot.categories.map((c) => [c.id, c.population, c.runtime.full, c.runtime.limited, c.runtime.researchOnly])).toEqual([
-      ['melee-attack-profile', 82, 0, 0, 0], ['melee-enchantment', 33, 19, 9, 5], ['artifact', 45, 2, 1, 42], ['armor', 73, 0, 11, 62], ['armor-enchantment', 41, 0, 7, 34], ['dps-regression', 10, 0, 0, 0],
+      ['melee-attack-profile', 82, 0, 0, 0], ['melee-enchantment', 33, 19, 9, 5], ['artifact', 45, 2, 1, 42], ['armor', 73, 0, 13, 60], ['armor-enchantment', 41, 0, 7, 34], ['dps-regression', 10, 0, 0, 0],
       ['ranged-weapon', 71, 0, 6, 65], ['ranged-enchantment', 41, 0, 3, 38],
     ])
   })

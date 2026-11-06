@@ -58,3 +58,7 @@ Research Evidence → R3 decision → P3B promotionの既存契約と`research/r
 ## Ranged observed single-projectile reuse
 
 The [Ranged integration contract](../ranged-native-integration.md) adds a separate narrow validator for Shortbow, Longbow, Power Bow (charged only) and Heavy Crossbow (single). Grants bind target Formal Identity, configured projectile Value/Relation, reviewed Raw/Blueprint scope, published intrinsic facts and game version. Target observation supplies neutral damage/complete cycle; Native baselines/settings are not runtime numeric inputs. All existing Ranged exclusions remain. This is a bounded extension reviewed with its implementation, not an expansion of the Armor validator or a New Mechanic Promotion.
+
+## B3 — explicitly bounded Dark Armor family component reuse
+
+[Component reuse](../armor-component-reuse.md) adds a separate validator for Dark Armor and Titan's Shroud's complete audited property sets only. It reuses existing sole Armor DR, flat Soul Gathering and self direct-melee aura channels with target-owned source/value/version bindings and explicit non-inheritance. It does not relax B2's exact-set/family requirements, permit generic component composition, change Evidence classification or bypass A/P3B for new mechanics/interactions. Every target requires synchronized runtime, support, explanation, coverage, positive/negative/preservation regressions and independent final-head architecture review.

@@ -198,13 +198,16 @@
     {
       "id": "dark-armor",
       "name": "Dark Armor",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Other runtime DR sources are unsupported.",
+        "Soul Siphon and all Ranged combinations remain unsupported.",
+        "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"
@@ -1048,14 +1051,17 @@
     {
       "id": "titan-s-shroud",
       "name": "Titan's Shroud",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "reasons": [
-        "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-        "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-        "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
-        "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+        "observedHealthBonus is required; no Power midpoint is imputed.",
+        "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited.",
+        "Target-owned +20% weapon aura applies to self direct melee only, using the existing Mercenary channel."
       ],
-      "boundaries": [],
+      "boundaries": [
+        "Other runtime DR sources are unsupported.",
+        "Soul Siphon and all Ranged combinations remain unsupported.",
+        "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption."
+      ],
       "sourceIds": [
         "dungeons-tools-armor-index",
         "minecraft-wiki-gear"

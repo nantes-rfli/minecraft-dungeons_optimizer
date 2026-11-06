@@ -1,5 +1,5 @@
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
-import type { Build, EquipmentRarity, OwnedEnchantmentSlot, Scenario } from './types'
+import type { Build, CatalogResearchAttributes, EquipmentRarity, OwnedEnchantmentSlot, Scenario } from './types'
 
 export const BASE_HERO_HEALTH = 100
 
@@ -15,6 +15,8 @@ export type ArmorId =
   | 'hungry-horror'
   | 'hungriest-horror'
   | 'the-spooky-gourdian'
+  | 'dark-armor'
+  | 'titan-s-shroud'
 export type ArmorEnchantmentId =
   | 'cool-down'
   | 'potion-barrier'
@@ -100,6 +102,8 @@ export interface OwnedArmor<TArmorId extends string = string, TArmorEnchantmentI
   readonly powerLevel: number
   /** Exact +X Health shown on this owned Armor card. */
   readonly observedHealthBonus?: number
+  /** Retained Research notes from a Catalog migration; never runtime inputs. */
+  readonly research?: CatalogResearchAttributes
   readonly enchantmentSlots: readonly ArmorEnchantmentSlot<TArmorEnchantmentId>[]
   readonly gilded?: ArmorGildedEnchantment<TArmorEnchantmentId>
   /** User-owned organization metadata; does not affect optimizer eligibility or score. */
@@ -189,6 +193,34 @@ export function armorCombinationUnsupportedReason(build: Build, scenario: Scenar
   if (!build.armor) return undefined
   const armor = ARMORS[build.armor.armorId as ArmorId]
   if (!armor) return `UNSUPPORTED_ARMOR_ID: ${build.armor.armorId}`
+  // Retained Research is never a numeric input, but recorded fixed effects
+  // cannot silently turn into "no effect" when the old Catalog item migrates.
+  const research = build.armor.research
+  const recordedFixed = research?.enchantments?.filter((item) => item.source !== 'slot') ?? []
+  const fixedKeys = recordedFixed.map((item) => `${item.source}:${item.enchantmentId}:${item.tier}`)
+  const recordedSlots = research?.enchantments?.filter((item) => item.source === 'slot') ?? []
+  const remainingSlots = new Map<string, number>()
+  for (const effect of build.armorEnchantments ?? []) if (effect.source === 'slot') {
+    const key = `${effect.enchantmentId}:${effect.tier}`
+    remainingSlots.set(key, (remainingSlots.get(key) ?? 0) + 1)
+  }
+  const unmatchedSlot = recordedSlots.some((item) => {
+    const key = `${item.enchantmentId}:${item.tier}`
+    const remaining = remainingSlots.get(key) ?? 0
+    remainingSlots.set(key, remaining - 1)
+    return remaining < 1
+  })
+  if (new Set(fixedKeys).size !== fixedKeys.length || recordedFixed.filter((item) => item.source === 'gilded').length > 1
+    || unmatchedSlot
+    || recordedFixed.some((item) => item.source === 'gilded'
+      ? build.armor!.gilded?.enchantmentId !== item.enchantmentId || build.armor!.gilded?.tier !== item.tier
+      : !armor.builtInEnchantments.some((effect) => effect.enchantmentId === item.enchantmentId && effect.tier === item.tier))) {
+    return 'UNSUPPORTED_ARMOR_RESEARCH: 旧ResearchのEnchantと個体入力が未整合です。記録を明示的に確認・修正してください。'
+  }
+  if (research?.intrinsicProperties?.some((property) => !armor.intrinsicProperties.some((effect) =>
+    effect.kind === property.kind && effect.raw.trim().toLowerCase() === property.raw.trim().toLowerCase()))) {
+    return 'UNSUPPORTED_ARMOR_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。記録を明示的に確認・修正してください。'
+  }
   if (build.armor.observedHealthBonus === undefined) return 'MISSING_OBSERVED_ARMOR_HEALTH: Armor cardの+Healthを入力してください。'
   const selected = selectedArmorEnchantments(build)
   const counts = new Map<string, number>()

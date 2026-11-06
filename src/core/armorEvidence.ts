@@ -329,6 +329,15 @@ export const ARMOR_EVIDENCE_BINDINGS: Readonly<Record<string, Partial<Record<Arm
       "status": "derived",
       "conditions": "The Spooky Gourdian自身の監査済み6% Life Steal。既存Wither境界どおりmodeled direct melee damageだけを対象とする。"
     }
+  },
+  "dark-armor": {
+    "armorDamageReduction": { "expectedValue": 0.35, "propertyKind": "damage-reduction", "propertyRaw": "35% damage reduction", "sourceId": "dungeons-tools-armor-index", "gameVersion": "1.17.0.0", "status": "derived", "conditions": "Dark Armor自身の監査済み35% DRを既存Limited sole-source DRモデルで再利用。他DR source合成はunsupported。WitherのLife Stealは非継承。" },
+    "soulGatheringMultiplier": { "expectedValue": 1.5, "propertyKind": "soul-gathering", "propertyRaw": "+50% souls gathered", "sourceId": "dungeons-tools-armor-index", "gameVersion": "1.17.0.0", "status": "derived", "conditions": "Dark Armor自身の監査済み+50% Souls。既存flat Gatheringのみ1.5倍、pickup event数不変。Soul Siphon・Ranged合成はunsupported。" }
+  },
+  "titan-s-shroud": {
+    "armorDamageReduction": { "expectedValue": 0.35, "propertyKind": "damage-reduction", "propertyRaw": "35% damage reduction", "sourceId": "dungeons-tools-armor-index", "gameVersion": "1.17.0.0", "status": "derived", "conditions": "Titan's Shroud自身の監査済み35% DRを既存Limited sole-source DRモデルで再利用。他DR source合成はunsupported。WitherのLife Stealは非継承。" },
+    "soulGatheringMultiplier": { "expectedValue": 1.5, "propertyKind": "soul-gathering", "propertyRaw": "+50% souls gathered", "sourceId": "dungeons-tools-armor-index", "gameVersion": "1.17.0.0", "status": "derived", "conditions": "Titan's Shroud自身の監査済み+50% Souls。既存flat Gatheringのみ1.5倍、pickup event数不変。Soul Siphon・Ranged合成はunsupported。" },
+    "weaponDamageAuraBonus": { "expectedValue": 0.2, "propertyKind": "weapon-damage-aura", "propertyRaw": "+20% weapon damage boost aura", "sourceId": "dungeons-tools-armor-index", "gameVersion": "1.17.0.0", "status": "derived", "conditions": "Titan's Shroud自身の監査済み+20% auraを既存Limited self direct-melee channelだけに適用。既存damage→kill→Soul pipelineを維持し、party/proc/DoT/爆発/Rangedへ拡張しない。" }
   }
 } as const
 

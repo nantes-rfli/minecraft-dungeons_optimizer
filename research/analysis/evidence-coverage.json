@@ -573,23 +573,23 @@
       "population": 73,
       "runtime": {
         "full": 0,
-        "limited": 11,
-        "researchOnly": 62,
+        "limited": 13,
+        "researchOnly": 60,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 270,
+        "total": 274,
         "evidenceBlocked": 4,
         "notImplemented": 1,
-        "unclassified": 265,
+        "unclassified": 269,
         "priorities": {
           "P0": 0,
           "P1": 4,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 265,
+        "unprioritized": 269,
         "p1EvidenceBlocked": 4
       },
       "sourceRefs": [
@@ -749,7 +749,104 @@
             "deathCapOrRampaging": "unsupported",
             "rawIdentity": "AssassinArmor",
             "sourceRef": "research/armor-audit.json"
-          }
+          },
+          "darkArmorComponentReuse": [
+            {
+              "targetArmorId": "dark-armor",
+              "rawIdentity": "DarkArmor",
+              "sourceRef": "research/armor-audit.json",
+              "mode": "dark-armor-existing-channels",
+              "properties": [
+                {
+                  "parameter": "armorDamageReduction",
+                  "value": 0.35,
+                  "kind": "damage-reduction",
+                  "raw": "35% damage reduction",
+                  "donorId": "wither-armor",
+                  "channel": "incoming-damage",
+                  "scope": "sole-dr-source",
+                  "ownership": "base",
+                  "sourceId": "dungeons-tools-armor-index"
+                },
+                {
+                  "parameter": "soulGatheringMultiplier",
+                  "value": 1.5,
+                  "kind": "soul-gathering",
+                  "raw": "+50% souls gathered",
+                  "donorId": "wither-armor",
+                  "channel": "soul-collection",
+                  "scope": "existing-flat-gathering",
+                  "ownership": "base",
+                  "sourceId": "dungeons-tools-armor-index"
+                }
+              ],
+              "excludedDonorProperties": [
+                "life-steal-aura"
+              ],
+              "rejectedInteractions": [
+                "iron-hide-amulet",
+                "guarding-strike",
+                "weakening",
+                "potion-barrier",
+                "protection",
+                "soul-siphon",
+                "ranged"
+              ]
+            },
+            {
+              "targetArmorId": "titan-s-shroud",
+              "rawIdentity": "DarkArmor_Unique1",
+              "sourceRef": "research/armor-audit.json",
+              "mode": "dark-armor-existing-channels",
+              "properties": [
+                {
+                  "parameter": "armorDamageReduction",
+                  "value": 0.35,
+                  "kind": "damage-reduction",
+                  "raw": "35% damage reduction",
+                  "donorId": "wither-armor",
+                  "channel": "incoming-damage",
+                  "scope": "sole-dr-source",
+                  "ownership": "inherited",
+                  "sourceId": "dungeons-tools-armor-index"
+                },
+                {
+                  "parameter": "weaponDamageAuraBonus",
+                  "value": 0.2,
+                  "kind": "weapon-damage-aura",
+                  "raw": "+20% weapon damage boost aura",
+                  "donorId": "mercenary-armor",
+                  "channel": "direct-melee-damage",
+                  "scope": "self-direct-melee",
+                  "ownership": "unique-only",
+                  "sourceId": "dungeons-tools-armor-index"
+                },
+                {
+                  "parameter": "soulGatheringMultiplier",
+                  "value": 1.5,
+                  "kind": "soul-gathering",
+                  "raw": "+50% souls gathered",
+                  "donorId": "wither-armor",
+                  "channel": "soul-collection",
+                  "scope": "existing-flat-gathering",
+                  "ownership": "inherited",
+                  "sourceId": "dungeons-tools-armor-index"
+                }
+              ],
+              "excludedDonorProperties": [
+                "life-steal-aura"
+              ],
+              "rejectedInteractions": [
+                "iron-hide-amulet",
+                "guarding-strike",
+                "weakening",
+                "potion-barrier",
+                "protection",
+                "soul-siphon",
+                "ranged"
+              ]
+            }
+          ]
         },
         "cooldownStacking": {
           "status": "inconclusive",
@@ -25083,7 +25180,7 @@
       "category": "armor",
       "id": "dark-armor",
       "label": "Dark Armor",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/12",
       "evidence": {
         "confidence": null,
@@ -25168,13 +25265,16 @@
             "value": {
               "id": "dark-armor",
               "name": "Dark Armor",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-                "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Other runtime DR sources are unsupported.",
+                "Soul Siphon and all Ranged combinations remain unsupported.",
+                "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -25186,7 +25286,9 @@
       "blockerIds": [
         "armor:dark-armor:runtime:0",
         "armor:dark-armor:runtime:1",
-        "armor:dark-armor:runtime:2"
+        "armor:dark-armor:runtime:2",
+        "armor:dark-armor:runtime:3",
+        "armor:dark-armor:runtime:4"
       ]
     },
     {
@@ -31709,7 +31811,7 @@
       "category": "armor",
       "id": "titan-s-shroud",
       "label": "Titan's Shroud",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "research/runtime/armor-runtime-support.json#/entries/66",
       "evidence": {
         "confidence": null,
@@ -31805,14 +31907,17 @@
             "value": {
               "id": "titan-s-shroud",
               "name": "Titan's Shroud",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "reasons": [
-                "Use observedHealthBonus until a current endgame Armor health curve is validated.",
-                "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
-                "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
-                "Percentage soul gathering is not interchangeable with a flat Gathering resource unit."
+                "observedHealthBonus is required; no Power midpoint is imputed.",
+                "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited.",
+                "Target-owned +20% weapon aura applies to self direct melee only, using the existing Mercenary channel."
               ],
-              "boundaries": [],
+              "boundaries": [
+                "Other runtime DR sources are unsupported.",
+                "Soul Siphon and all Ranged combinations remain unsupported.",
+                "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption."
+              ],
               "sourceIds": [
                 "dungeons-tools-armor-index",
                 "minecraft-wiki-gear"
@@ -31825,7 +31930,9 @@
         "armor:titan-s-shroud:runtime:0",
         "armor:titan-s-shroud:runtime:1",
         "armor:titan-s-shroud:runtime:2",
-        "armor:titan-s-shroud:runtime:3"
+        "armor:titan-s-shroud:runtime:3",
+        "armor:titan-s-shroud:runtime:4",
+        "armor:titan-s-shroud:runtime:5"
       ]
     },
     {
@@ -46097,12 +46204,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/12"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:dark-armor:runtime:1",
@@ -46116,12 +46223,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+      "description": "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/12"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:dark-armor:runtime:2",
@@ -46135,12 +46242,50 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+      "description": "Other runtime DR sources are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/12"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:dark-armor:runtime:3",
+      "label": "Dark Armor",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:dark-armor"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Soul Siphon and all Ranged combinations remain unsupported.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/12"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:dark-armor:runtime:4",
+      "label": "Dark Armor",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:dark-armor"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/12"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "armor:ember-robe:runtime:0",
@@ -49764,12 +49909,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Use observedHealthBonus until a current endgame Armor health curve is validated.",
+      "description": "observedHealthBonus is required; no Power midpoint is imputed.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/66"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:titan-s-shroud:runtime:1",
@@ -49783,12 +49928,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Armor damage reduction must be reconciled with Iron Hide, Potion Barrier, Guarding Strike, Weakening, and Protection before runtime.",
+      "description": "Target-owned 35% Armor DR and +50% flat Soul Gathering reuse the existing Limited channels; no Life Steal is inherited.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/66"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:titan-s-shroud:runtime:2",
@@ -49802,12 +49947,12 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Weapon damage aura self/party scope and melee/ranged ownership are unresolved.",
+      "description": "Target-owned +20% weapon aura applies to self direct melee only, using the existing Mercenary channel.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/66"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
     },
     {
       "id": "armor:titan-s-shroud:runtime:3",
@@ -49821,12 +49966,50 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Percentage soul gathering is not interchangeable with a flat Gathering resource unit.",
+      "description": "Other runtime DR sources are unsupported.",
       "closeCondition": null,
       "sourceRefs": [
         "research/runtime/armor-runtime-support.json#/entries/66"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:titan-s-shroud:runtime:4",
+      "label": "Titan's Shroud",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:titan-s-shroud"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Soul Siphon and all Ranged combinations remain unsupported.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/66"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "armor:titan-s-shroud:runtime:5",
+      "label": "Titan's Shroud",
+      "categories": [
+        "armor"
+      ],
+      "recordKeys": [
+        "armor:titan-s-shroud"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "Explicit per-target component approval and source-bound Derived parameter evidence required; not R3 adoption.",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/runtime/armor-runtime-support.json#/entries/66"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "armor:turtle-armor:runtime:0",
@@ -55431,17 +55614,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 569,
+    "total": 573,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 537,
+    "unclassified": 541,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 543,
+    "unprioritized": 547,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {

@@ -76,7 +76,9 @@
     "thief-armor",
     "hungry-horror",
     "hungriest-horror",
-    "the-spooky-gourdian"
+    "the-spooky-gourdian",
+    "dark-armor",
+    "titan-s-shroud"
   ],
   "runtimeArmorEnchantmentIds": [
     "cool-down",
@@ -175,10 +177,107 @@
       "deathCapOrRampaging": "unsupported",
       "rawIdentity": "AssassinArmor",
       "sourceRef": "research/armor-audit.json"
-    }
+    },
+    "darkArmorComponentReuse": [
+      {
+        "targetArmorId": "dark-armor",
+        "rawIdentity": "DarkArmor",
+        "sourceRef": "research/armor-audit.json",
+        "mode": "dark-armor-existing-channels",
+        "properties": [
+          {
+            "parameter": "armorDamageReduction",
+            "value": 0.35,
+            "kind": "damage-reduction",
+            "raw": "35% damage reduction",
+            "donorId": "wither-armor",
+            "channel": "incoming-damage",
+            "scope": "sole-dr-source",
+            "ownership": "base",
+            "sourceId": "dungeons-tools-armor-index"
+          },
+          {
+            "parameter": "soulGatheringMultiplier",
+            "value": 1.5,
+            "kind": "soul-gathering",
+            "raw": "+50% souls gathered",
+            "donorId": "wither-armor",
+            "channel": "soul-collection",
+            "scope": "existing-flat-gathering",
+            "ownership": "base",
+            "sourceId": "dungeons-tools-armor-index"
+          }
+        ],
+        "excludedDonorProperties": [
+          "life-steal-aura"
+        ],
+        "rejectedInteractions": [
+          "iron-hide-amulet",
+          "guarding-strike",
+          "weakening",
+          "potion-barrier",
+          "protection",
+          "soul-siphon",
+          "ranged"
+        ]
+      },
+      {
+        "targetArmorId": "titan-s-shroud",
+        "rawIdentity": "DarkArmor_Unique1",
+        "sourceRef": "research/armor-audit.json",
+        "mode": "dark-armor-existing-channels",
+        "properties": [
+          {
+            "parameter": "armorDamageReduction",
+            "value": 0.35,
+            "kind": "damage-reduction",
+            "raw": "35% damage reduction",
+            "donorId": "wither-armor",
+            "channel": "incoming-damage",
+            "scope": "sole-dr-source",
+            "ownership": "inherited",
+            "sourceId": "dungeons-tools-armor-index"
+          },
+          {
+            "parameter": "weaponDamageAuraBonus",
+            "value": 0.2,
+            "kind": "weapon-damage-aura",
+            "raw": "+20% weapon damage boost aura",
+            "donorId": "mercenary-armor",
+            "channel": "direct-melee-damage",
+            "scope": "self-direct-melee",
+            "ownership": "unique-only",
+            "sourceId": "dungeons-tools-armor-index"
+          },
+          {
+            "parameter": "soulGatheringMultiplier",
+            "value": 1.5,
+            "kind": "soul-gathering",
+            "raw": "+50% souls gathered",
+            "donorId": "wither-armor",
+            "channel": "soul-collection",
+            "scope": "existing-flat-gathering",
+            "ownership": "inherited",
+            "sourceId": "dungeons-tools-armor-index"
+          }
+        ],
+        "excludedDonorProperties": [
+          "life-steal-aura"
+        ],
+        "rejectedInteractions": [
+          "iron-hide-amulet",
+          "guarding-strike",
+          "weakening",
+          "potion-barrier",
+          "protection",
+          "soul-siphon",
+          "ranged"
+        ]
+      }
+    ]
   },
   "completion": {
-    "runtimeArmorCount": 11,
+    "runtimeArmorCount": 13,
     "runtimeArmorEnchantmentCount": 7,
     "supportLevel": "limited"
   }

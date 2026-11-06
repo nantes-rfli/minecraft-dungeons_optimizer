@@ -27,6 +27,8 @@ test('inventory grid options support spatial keyboard selection', async ({ page 
   const json = JSON.stringify({ version: 5, inventory })
   await page.addInitScript(({ key, json }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, json) }, { key: storageKey, json })
   await page.goto('/#/inventory')
+  // Readiness inserts content above the grid; establish the scroll baseline only after it finishes.
+  await expect(page.getByRole('region', { name: '所持装備の評価可能性' }).getByRole('status')).toContainText('評価可能性を確認しました')
 
   const listbox = page.getByRole('listbox', { name: '所持装備', exact: true })
   const options = listbox.getByRole('option')
