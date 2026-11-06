@@ -68,7 +68,7 @@ export interface DpsRegressionAuditSummary {
   readonly versionConfidenceCounts: Readonly<Record<GameVersionConfidence, number>>
 }
 
-const WEAPON_IDS = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', 'cutlass', 'pickaxe', 'soul-knife', 'whip'] as const
+const WEAPON_IDS = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer'] as const
 const CONFIDENCE_LEVELS = ['high', 'medium', 'low'] as const
 const SOURCE_KINDS = [
   'game-files',
@@ -222,7 +222,7 @@ export function summarizeDpsRegressionAudit(
   audit: DpsRegressionAudit,
 ): DpsRegressionAuditSummary {
   const eligible = audit.entries.filter((entry) => entry.eligibleForRegression)
-  const eligibleByWeapon = Object.fromEntries((['soul-scythe', 'fighters-bindings', 'double-axe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip'] as const).map((id) => [id, 0])) as Record<WeaponId, number>
+  const eligibleByWeapon = Object.fromEntries((['soul-scythe', 'fighters-bindings', 'double-axe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer'] as const).map((id) => [id, 0])) as Record<WeaponId, number>
   const versionConfidenceCounts: Record<GameVersionConfidence, number> = {
     verified: 0,
     probable: 0,

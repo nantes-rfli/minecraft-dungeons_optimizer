@@ -1,3 +1,4 @@
+import { collectGreatHammerLocalizationSourceErrors, LOCALIZATION_IDENTITY_ALIAS_BASIS } from './locres-identity-source.ts'
 import fs from 'node:fs'
 import path from 'node:path'
 import {
@@ -24,6 +25,8 @@ import {
   reviewedTypedRelationMeleeFormalIdentityInputs,
   reviewedTypedRelationFormalIdentities,
   reviewedTypedRelationFormalIdentityInputs,
+  reviewedLocalizationMeleeFormalIdentities,
+  reviewedLocalizationMeleeFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import { readFormalIdentityInventoryBindings, type FormalIdentityInventoryBindingInput } from './formal-identity-inventory-source.ts'
@@ -79,6 +82,9 @@ type RawStructuralSeed = {
 
 export type FormalReviewedSources = {
   existingPaths: Set<string>
+  localizationIdentitySource?: unknown
+  localizationInventoryBindings: FormalIdentityInventoryBindingInput[]
+  localizationCanonicalRecords: SourceHarvestRecord[]
   aliases?: { aliases?: Alias[] }
   icons?: { entries?: IconEntry[] }
   rangedAudit?: { entries?: RangedEntry[] }
@@ -139,6 +145,8 @@ export type FormalReviewedSources = {
 
 const knownPaths = [
   'research/domain/game-data-entity-aliases.json',
+  'research/sources/great-hammer-localization-identity.json',
+  'scripts/locres-identity-source.ts',
   'research/source-harvest.json',
   'scripts/game-data-model-alignment.ts',
   'generated/equipment-icons/manifest.json',
@@ -181,6 +189,9 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const mushroomBlock = artifactsSource.match(/'death-cap-mushroom':\s*\{[\s\S]*?name:\s*\{[^}]*?en:\s*'([^']+)'/)
   return {
     existingPaths,
+    localizationIdentitySource: readJson('research/sources/great-hammer-localization-identity.json'),
+    localizationInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedLocalizationMeleeFormalIdentities),
+    localizationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => record.category === 'melee-weapon' && record.id === 'great-hammer'),
     aliases: readJson('research/domain/game-data-entity-aliases.json'),
     icons: readJson('generated/equipment-icons/manifest.json'),
     rangedAudit,
@@ -208,7 +219,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       scatterCrossbow: rangedAudit?.entries?.find((entry) => entry.id === 'scatter-crossbow')?.name?.en,
       battleRobe: battleRobeBlock?.[2],
       deathCapMushroom: mushroomBlock?.[1],
-      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'melee')].map(({ domainId }) => [
+      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedLocalizationMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'melee')].map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
       ])),
@@ -701,6 +712,53 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === input?.displayName && definition.presentation.displayName === presentationSource, `${assertion.id}: reviewed typed-relation presentation displayName drift`)
   }
 
+  errors.push(...collectGreatHammerLocalizationSourceErrors(sources.localizationIdentitySource))
+  check(reviewedLocalizationMeleeFormalIdentities.length === 1 && sources.localizationInventoryBindings.length === 1, 'localization bridge must contain only Great Hammer')
+  for (const definition of reviewedLocalizationMeleeFormalIdentities) {
+    const assertion = definition.assertion
+    const input = reviewedLocalizationMeleeFormalIdentityInputs[0]
+    const matchingAliases = aliases.filter((entry) => entry.id === 'melee-weapon:Hammer')
+    const alias = matchingAliases[0]
+    const matchingSeeds = rawSeeds.filter((seed) => seed.category === 'melee' && seed.catalogId === 'great-hammer')
+    const seed = matchingSeeds[0], candidate = seed?.candidates?.[0]
+    const matchingBindings = sources.localizationInventoryBindings.filter((entry) => entry.definition.assertion.id === assertion.id)
+    const binding = matchingBindings[0], observation = binding?.observation
+    const records = sources.localizationCanonicalRecords.filter((record) => record.category === 'melee-weapon' && record.id === 'great-hammer')
+    const known = records[0]?.known?.filter((entry) => entry.property === 'identity') ?? []
+    check(assertion.domainId === input.domainId && assertion.rawIdentity === input.rawIdentity && assertion.applicationScope.packagePath === input.packagePath
+      && assertion.reviewState === 'accepted' && assertion.confidence === 'high', 'Great Hammer localization Formal scope drift')
+    check(records.length === 1 && records[0]?.label === input.displayName && known.length === 1
+      && known[0]?.value?.canonicalId === input.domainId && known[0]?.value?.names?.en === input.displayName, 'Great Hammer localization canonical identity drift')
+    check(matchingAliases.length === 1 && alias?.category === 'melee-weapon' && alias.status === 'accepted' && alias.confidence === 'high'
+      && alias.rawIdentity === input.rawIdentity && alias.canonicalEntity === 'melee-weapon:great-hammer'
+      && alias.basis === LOCALIZATION_IDENTITY_ALIAS_BASIS
+      && JSON.stringify(alias.candidates) === JSON.stringify(['melee-weapon:great-hammer'])
+      && JSON.stringify(alias.assetPaths) === JSON.stringify([input.packagePath])
+      && (alias.evidenceIds?.length ?? 0) > 0, 'Great Hammer localization accepted alias drift')
+    check(matchingSeeds.length === 1 && seed?.candidates?.length === 1 && candidate?.role === 'instance'
+      && candidate.packagePath === input.packagePath && candidate.objectName === 'BP_HammerInstance_C'
+      && candidate.evidence?.includes('serialized-identifier:ItemIdName=Hammer') === true
+      && candidate.evidence?.includes('serialized-identifier:ItemId.SerializedId=Hammer') === true, 'Great Hammer localization Raw candidate drift')
+    check(matchingBindings.length === 1 && binding?.structuralPackage.path === input.packagePath
+      && observation?.packagePath === input.packagePath && observation.rawSchemaVersion === 2
+      && observation.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === input.rawIdentity
+      && observation.serializedId.observation.state === 'known' && observation.serializedId.observation.value === input.rawIdentity, 'Great Hammer localization exact Raw identity drift')
+    const cdo = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const inventories = binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo[0]?.exportIndex) ?? []
+    const props = inventories[0]?.properties ?? []
+    const name = props.filter((property) => property.name.value === 'ItemIdName' && property.arrayIndex === 0)
+    const item = props.filter((property) => property.name.value === 'ItemId' && property.arrayIndex === 0)
+    const serialized = item[0]?.decoding.state === 'decoded' ? item[0]?.decoding.properties?.filter((property) => property.name.value === 'SerializedId' && property.arrayIndex === 0) ?? [] : []
+    check(cdo.length === 1 && inventories.length === 1 && name.length === 1 && name[0]?.type.value === 'NameProperty'
+      && name[0].decoding.state === 'decoded' && name[0].decoding.value === input.rawIdentity
+      && item.length === 1 && item[0]?.type.value === 'StructProperty'
+      && serialized.length === 1 && serialized[0]?.type.value === 'NameProperty'
+      && serialized[0].decoding.state === 'decoded' && serialized[0].decoding.value === input.rawIdentity, 'Great Hammer localization CDO field drift')
+    check(JSON.stringify(assertion.evidenceRefs) === JSON.stringify(['evidence:reviewed:great-hammer:accepted-alias', 'evidence:reviewed:great-hammer:exact-localization-key'])
+      && definition.reviewedEvidence.some((record) => record.id === assertion.evidenceRefs[1] && record.source.artifactPath === 'research/sources/great-hammer-localization-identity.json' && record.source.locator === 'bridge'), 'Great Hammer localization evidence chain drift')
+    check(definition.presentation.displayName === input.displayName && sources.presentations.melee['great-hammer'] === input.displayName, 'Great Hammer localization presentation drift')
+  }
+
   const reviewedArtifactSeeds = rawSeeds.filter((seed) => seed.category === 'artifact')
   for (const definition of reviewedBridgeArtifactFormalIdentities) {
     const assertion = definition.assertion
@@ -859,9 +917,9 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 152, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 153, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 31,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || reviewedLocalizationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 32,
     'Formal matched Melee definition population drift',
   )
   check(

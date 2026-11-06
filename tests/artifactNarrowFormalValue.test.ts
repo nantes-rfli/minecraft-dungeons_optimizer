@@ -98,7 +98,7 @@ describe('Artifact narrow Formal Value v2', () => {
     }
   })
 
-  it('preserves every pre-extension Value record, Identity and Relation byte for byte', () => {
+  it('preserves every pre-extension Value record, Identity and Relation byte for byte at the Powershaker wave head', () => {
     const readBaseline = (file: string) => execFileSync('git', ['show', `f9033fc826fcb46ce22273cbe917adff9211aba8:${file}`], { maxBuffer: 16 * 1024 * 1024 })
     const previous = JSON.parse(readBaseline('research/domain/formal/value-availability-v2.json').toString()) as FormalValueAvailabilityArtifact
     const newMapping = artifactValueMappings.find(({ domainId }) => domainId === 'powershaker')!
@@ -112,11 +112,15 @@ describe('Artifact narrow Formal Value v2', () => {
     expect(Buffer.from(`${JSON.stringify(preserved, null, 2)}\n`).equals(readBaseline('research/domain/formal/value-availability-v2.json'))).toBe(true)
     for (const file of ['identity-evidence-v1.json', 'serialized-relation-v2.json']) {
       const filePath = `research/domain/formal/${file}`
-      expect(fs.readFileSync(filePath).equals(readBaseline(filePath))).toBe(true)
+      // Later Identity waves are checked by their own deep-prefix preservation tests.
+      const bytes = file === 'identity-evidence-v1.json'
+        ? execFileSync('git', ['show', `fc3b45f93f4a23c424ae735b74fbfaec3f57da1c:${filePath}`], { maxBuffer: 16 * 1024 * 1024 })
+        : fs.readFileSync(filePath)
+      expect(bytes.equals(readBaseline(filePath))).toBe(true)
     }
   })
 
-  it('preserves the current baseline except for the new boolean field and its exact projection/evidence', () => {
+  it('preserves the boolean wave baseline except for its new field and exact projection/evidence', () => {
     const readBaseline = (file: string) => execFileSync('git', ['show', `7a86eda609ace436b409bf17d9cc65831b2ec54e:${file}`], { maxBuffer: 16 * 1024 * 1024 })
     const preserved = structuredClone(value)
     delete preserved.semantic.artifact['vexing-chant']!.configuredCoolDownForEachPetDeath
@@ -127,7 +131,11 @@ describe('Artifact narrow Formal Value v2', () => {
     expect(Buffer.from(`${JSON.stringify(preserved, null, 2)}\n`).equals(readBaseline('research/domain/formal/value-availability-v2.json'))).toBe(true)
     for (const file of ['identity-evidence-v1.json', 'serialized-relation-v2.json']) {
       const filePath = `research/domain/formal/${file}`
-      expect(fs.readFileSync(filePath).equals(readBaseline(filePath))).toBe(true)
+      // The boolean wave made no Identity changes; future appends stay outside this historical proof.
+      const bytes = file === 'identity-evidence-v1.json'
+        ? execFileSync('git', ['show', `43e0f5aac4ba555efadb47f15607c02a98835831:${filePath}`], { maxBuffer: 16 * 1024 * 1024 })
+        : fs.readFileSync(filePath)
+      expect(bytes.equals(readBaseline(filePath))).toBe(true)
     }
   })
 
@@ -194,12 +202,13 @@ describe('Artifact narrow Formal Value v2', () => {
     const newRefs = new Set(sources.map(({ field }) => field.trace.raw.nodePointer))
     expect(hash({ evidence: value.provenance.evidence.filter(({ provenance }) => !newRefs.has(provenance.nodePointer)) })).toBe(baseline.value.provenance)
     for (const [path, expected] of Object.entries(baseline.files)) {
-      // This historical Value wave also locked Relation bytes before SpinWheel population.
-      const bytes = path === 'research/domain/formal/serialized-relation-v2.json'
-        ? execFileSync('git', ['show', `07160c289dcf987ab5bee5ae69e448d906724aef:${path}`]) : fs.readFileSync(path)
+      // Lock this original Value wave's no-Identity/no-Relation-change proof to
+      // its final head. Later waves preserve their current records independently.
+      const bytes = execFileSync('git', ['show', `4cee26536efa0a33f63185fd720ffa6dd39e0f7b:${path}`], { maxBuffer: 16 * 1024 * 1024 })
       expect(crypto.createHash('sha256').update(bytes).digest('hex')).toBe(expected.sha256)
     }
-    expect(identity.semantic.identities.length).toBe(baseline.files['research/domain/formal/identity-evidence-v1.json'].semanticCount)
+    const historicalIdentity = JSON.parse(execFileSync('git', ['show', '4cee26536efa0a33f63185fd720ffa6dd39e0f7b:research/domain/formal/identity-evidence-v1.json'], { maxBuffer: 16 * 1024 * 1024 }).toString()) as FormalIdentityEvidenceArtifact
+    expect(historicalIdentity.semantic.identities.length).toBe(baseline.files['research/domain/formal/identity-evidence-v1.json'].semanticCount)
     expect(relations.semantic.relations.filter((entry) => !entry.relationRef.endsWith(':spin-wheel-actor@1') && !entry.relationRef.endsWith(':fish-hook@1') && !entry.relationRef.endsWith(':spore-grenade-spawn-class@1')).length)
       .toBe(baseline.files['research/domain/formal/serialized-relation-v2.json'].semanticCount)
   })

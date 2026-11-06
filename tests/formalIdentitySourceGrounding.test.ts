@@ -1,3 +1,5 @@
+import { LOCALIZATION_IDENTITY_ALIAS_BASIS } from '../scripts/locres-identity-source'
+import { reviewedLocalizationMeleeFormalIdentities } from '../src/domain/formal/identityDefinitions'
 import { describe, expect, it } from 'vitest'
 import {
   collectFormalReviewedSourceGroundingErrors,
@@ -588,5 +590,25 @@ describe('Formal Identity reviewed-source grounding', () => {
     const sources = fixture()
     sources.existingPaths.delete('research/domain/game-data-entity-aliases.json')
     expect(errors(sources)).toContain('reviewed source artifact missing: research/domain/game-data-entity-aliases.json')
+  })
+})
+
+describe('exact localization identity source grounding', () => {
+  it('requires localization, exact Raw identity, independent canonical name and the new accepted alias basis together', () => {
+    const source = baseSources
+    expect(collectFormalReviewedSourceGroundingErrors(source)).toEqual([])
+    expect(reviewedLocalizationMeleeFormalIdentities.map(({ assertion }) => assertion.domainId)).toEqual(['great-hammer'])
+    const clone = () => structuredClone(source)
+    const absent = clone(); absent.localizationIdentitySource = undefined
+    expect(collectFormalReviewedSourceGroundingErrors(absent)).toContain('Great Hammer localization source must be an object')
+    const raw = clone(); raw.localizationInventoryBindings[0]!.observation.itemIdName.observation = { state: 'known', value: 'Hammer_Unique1' }
+    expect(collectFormalReviewedSourceGroundingErrors(raw)).toContain('Great Hammer localization exact Raw identity drift')
+    const duplicate = clone(); duplicate.localizationInventoryBindings.push(duplicate.localizationInventoryBindings[0]!)
+    expect(collectFormalReviewedSourceGroundingErrors(duplicate)).toContain('localization bridge must contain only Great Hammer')
+    const canonical = clone(); canonical.localizationCanonicalRecords[0]!.label = 'Stormlander'
+    expect(collectFormalReviewedSourceGroundingErrors(canonical)).toContain('Great Hammer localization canonical identity drift')
+    const alias = clone(); alias.aliases!.aliases!.find((entry) => entry.id === 'melee-weapon:Hammer')!.basis = 'icon-family-alias'
+    expect(collectFormalReviewedSourceGroundingErrors(alias)).toContain('Great Hammer localization accepted alias drift')
+    expect(source.aliases!.aliases!.find((entry) => entry.id === 'melee-weapon:Hammer')!.basis).toBe(LOCALIZATION_IDENTITY_ALIAS_BASIS)
   })
 })

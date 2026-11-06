@@ -70,10 +70,9 @@ describe('FishHook Formal Relation', () => {
     expect(artifact.semantic.relations.filter((r) => r.sourceDomainId === 'fishing-rod').map((r) => r.relationRef))
       .toEqual(['relation:fishing-rod:effect@1', 'relation:fishing-rod:fish-hook@1'])
     for (const file of ['research/domain/formal/identity-evidence-v1.json', 'research/domain/formal/value-availability-v2.json']) {
-      // Freeze this wave's no-Value-change proof; later Value waves have their own preservation tests.
-      const bytes = file.endsWith('value-availability-v2.json')
-        ? execFileSync('git', ['show', `ace1658a4be79274f6782627883562db70bdf90f:${file}`], { maxBuffer: 32 * 1024 * 1024 })
-        : fs.readFileSync(file)
+      // Freeze this wave's no-Identity/no-Value-change proof at its final head.
+      // Later Identity/Value waves have separate current-record preservation tests.
+      const bytes = execFileSync('git', ['show', `ace1658a4be79274f6782627883562db70bdf90f:${file}`], { maxBuffer: 32 * 1024 * 1024 })
       expect(bytes.equals(execFileSync('git', ['show', `50c94d6d9d9fb68c00e84a8dbf03dc806817323f:${file}`], { maxBuffer: 32 * 1024 * 1024 }))).toBe(true)
     }
     expect(artifact.schemaVersion).toBe(2)

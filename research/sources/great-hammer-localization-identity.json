@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "kind": "reviewed-exact-localization-identity-bridge",
+  "gameVersion": "1.17.0.0",
+  "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+  "source": {
+    "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+    "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+    "size": 391734,
+    "formatVersion": 2,
+    "namespaceCount": 185,
+    "entryCount": 5151,
+    "localizedStringCount": 4521,
+    "localizedStringArrayOffset": 191902
+  },
+  "bridge": {
+    "category": "melee-weapon",
+    "domainId": "great-hammer",
+    "rawIdentity": "Hammer",
+    "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance",
+    "namespace": "ItemType",
+    "key": "Hammer",
+    "displayName": "Great Hammer",
+    "localizedStringIndex": 2991,
+    "sourceStringHash": 2567795218,
+    "entryRange": [125961, 125984],
+    "localizedStringRecordRange": [318993, 319014],
+    "canonicalSource": "research/source-harvest.json#/records[category=melee-weapon,id=great-hammer]/known[property=identity]"
+  },
+  "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+  "privatePayloadCommitted": false
+}

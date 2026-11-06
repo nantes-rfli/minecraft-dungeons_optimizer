@@ -6,7 +6,7 @@ Before: public/Web-derived Gap names and direct raw implementation fields shared
 
 ## Entity identity
 
-Serialized identity takes precedence over indexed identity, followed by reviewed alias/exact catalog ID with public identity/category evidence. Missing indexed identity is not guessed from a filename. Shared enchantment names remain ambiguous. Unique/Spooky/Year/Winter/seasonal suffixes are preserved, never removed to match a base item. ArmorProperties components receive independent research identities; ItemCooldownDecrease → cool-down is rejected.
+Serialized identity takes precedence over indexed identity, followed by reviewed alias/exact catalog ID with public identity/category evidence. The single Great Hammer bridge additionally requires the hash-bound exact ItemType/Hammer localization key, its complete-resource verification and the canonical display name; it grants Identity only, never gameplay semantics. Missing indexed identity is not guessed from a filename. Shared enchantment names remain ambiguous. Unique/Spooky/Year/Winter/seasonal suffixes are preserved, never removed to match a base item. ArmorProperties components receive independent research identities; ItemCooldownDecrease → cool-down is rejected.
 
 | Metric | Count |
 | --- | --- |

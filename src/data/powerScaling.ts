@@ -23,6 +23,7 @@ export const WIKI_BASE_HIT_DAMAGE: Readonly<Record<WeaponId, Evidence<number>>> 
   pickaxe: { value: 130, source: PLAIN_MELEE_PROFILES['pickaxe'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
   'soul-knife': { value: 140, source: PLAIN_MELEE_PROFILES['soul-knife'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
   whip: { value: 100, source: PLAIN_MELEE_PROFILES['whip'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
+  'great-hammer': { value: 100, source: PLAIN_MELEE_PROFILES['great-hammer'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
   'soul-scythe': { value: 80, source: SOUL_SCYTHE_PROFILE_SOURCE, confidence: 'low', note: 'Phase 1A published value; never used as the runtime Power coefficient.' },
   'fighters-bindings': {
     value: 25,

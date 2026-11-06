@@ -13,6 +13,7 @@ import {
   reviewedBridgeRangedFormalIdentities,
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationFormalIdentities,
+  reviewedLocalizationMeleeFormalIdentities,
   battleRobeFormalIdentity,
   READY_ARTIFACT_EFFECT_DOMAINS,
   readyArmorFormalIdentities,
@@ -100,6 +101,14 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   check(matchedArmor.size === 71, `Formal Identity Armor matched count differs from expected: ${matchedArmor.size}`)
   check(canonicalSet(matchedMelee) === canonicalSet(valueMelee), 'Formal Value Melee domains differ from matched Identity')
   check(canonicalSet(matchedRanged) === canonicalSet(valueRanged), 'Formal Value Ranged domains differ from matched Identity')
+  // The new localization bridge is Identity only. It must not silently widen
+  // the existing configured Value/Relation wave or claim gameplay semantics.
+  for (const { assertion } of reviewedLocalizationMeleeFormalIdentities) {
+    check(sources.has(assertion.domainId), `${assertion.domainId}: localization Identity source is missing`)
+    check(!valueMelee.has(assertion.domainId) && !valueRanged.has(assertion.domainId)
+      && !relation.relationProjections.some((entry) => entry.occurrence.domainId === assertion.domainId),
+    `${assertion.domainId}: identity-only localization bridge entered unadopted configured Value/Relation scope`)
+  }
   check(!valueMelee.has('battle-robe') && !valueMelee.has('death-cap-mushroom')
     && !valueRanged.has('battle-robe') && !valueRanged.has('death-cap-mushroom')
     && [...armorDomainIds].every((domainId) => !valueMelee.has(domainId) && !valueRanged.has(domainId)),

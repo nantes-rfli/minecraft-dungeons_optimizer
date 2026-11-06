@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — Great Hammerの単体対象Limited計算
+
+- 既存ローカライズ資源のexact IdentityとRawの両IDを結び、Great Hammer自身の正確な公開値を既存plain melee計算へ接続。近接装備は9/82（Full4 / Limited5）。
+- 単体対象・基礎cadence限定で、Power式や範囲・速度効果を追加しない。旧CatalogのTier・Gilded・Researchと保存値を保持する。
+- private binaryや全文を保存せず、必要な派生fact・hash・範囲だけをsourceに残す。
+
 ## 2026-11 — 3弓の未チャージLimited計算
 
 - Shortbow / Longbow / Power Bowの未チャージを既存の通常単矢モデルへ接続し、対応weapon/modeを7から10へ拡張。新装備・効果式・Native数値の昇格はなし。

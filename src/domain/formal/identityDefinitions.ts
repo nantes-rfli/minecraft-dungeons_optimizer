@@ -295,6 +295,23 @@ function reviewedTypedRelationBridgeDefinition(input: ReviewedTypedRelationIdent
 
 export const reviewedTypedRelationFormalIdentities = reviewedTypedRelationFormalIdentityInputs.map(reviewedTypedRelationBridgeDefinition)
 
+/** Finite identity-only localization bridge. No generic name resolver. */
+export const reviewedLocalizationMeleeFormalIdentityInputs = [
+  { domainId: 'great-hammer', rawIdentity: 'Hammer', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance', displayName: 'Great Hammer' },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+export const reviewedLocalizationMeleeFormalIdentities = reviewedLocalizationMeleeFormalIdentityInputs.map((input) => {
+  const base = acceptedMeleeDefinition(input)
+  const evidenceRef = `evidence:reviewed:${input.domainId}:exact-localization-key`
+  return { ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, evidenceRef] },
+    reviewedEvidence: [...base.reviewedEvidence, {
+      id: evidenceRef, kind: 'reviewed' as const, role: 'support' as const,
+      detail: 'The hash-bound optimized localization resource independently maps exact ItemType/Hammer to Great Hammer. Both Raw serialized IDs are required; no icon, slug, sound-name, family or gameplay inference.',
+      source: { artifactPath: 'research/sources/great-hammer-localization-identity.json', locator: 'bridge' },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -605,6 +622,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   corruptedSeedsFormalIdentity,
   ...reviewedTypedRelationMeleeFormalIdentities,
   ...reviewedTypedRelationFormalIdentities,
+  ...reviewedLocalizationMeleeFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [
