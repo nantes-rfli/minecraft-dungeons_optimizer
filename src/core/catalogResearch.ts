@@ -46,4 +46,3 @@ export function parseCatalogResearch(value: unknown, field: string): CatalogRese
   })()
   return { ...(enchantments ? { enchantments } : {}), ...(intrinsicProperties ? { intrinsicProperties } : {}), ...(observations ? { observations } : {}) }
 }
-
