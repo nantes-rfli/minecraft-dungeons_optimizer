@@ -24,6 +24,8 @@ import { resolveBuildHealth } from './armor'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { ArmorEnchantmentId, ArmorId } from './armor'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { isPlainMeleeId } from '../data/plainMelee'
+import { PLAIN_MELEE_LIMITATION } from './plainMeleeReuse'
 
 interface EvaluationCore {
   readonly temporalState: Evaluation['temporalState']
@@ -147,6 +149,7 @@ export function evaluateCandidate(build: Build, scenario: Scenario) {
 export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = evaluateCandidate(build, scenario)
   const reasons: string[] = describeControl(core.control)
+  if (isPlainMeleeId(build.weapon.weaponId)) reasons.push(`${getWeaponDefinition(build.weapon.weaponId).name.en}: ${PLAIN_MELEE_LIMITATION} 独立DPS検証はpending。接近・移動・splashは評価しません。`)
   if (core.damage.ranged) {
     const state = core.damage.ranged
     reasons.push(`${RANGED_WEAPONS[state.weaponId]!.name.en}: Limited / ${state.mode} / 時間${(state.timeShare * 100).toFixed(1)}%、${state.shots}射（矢消費${state.ammoConsumed}${state.ammoLimited ? '・弾数上限' : ''}）→ direct ranged ${state.directSingleTargetDps.toFixed(2)} DPS。indirect ranged 0（対応効果を選択していない）。`)

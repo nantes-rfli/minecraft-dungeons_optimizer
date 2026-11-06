@@ -98,7 +98,7 @@ export function rangedCombinationUnsupportedReason(build: Build, scenario: Scena
   const allowedMelee = ['critical-hit', 'sharpness', 'unchanting', 'smiting', 'radiance', 'leeching', 'guarding-strike', 'refreshment']
   const incompatible = build.enchantments.find((item) => !allowedMelee.includes(item.enchantmentId))
   if (incompatible) return `Rangedと${incompatible.enchantmentId}の共有target/時間/trigger interactionは未検証です。`
-  if (build.weapon.weaponId === 'soul-scythe') return 'RangedとSoul Gatheringの撃破帰属は未検証です。'
+  if (build.weapon.weaponId === 'soul-scythe' || build.weapon.weaponId === 'soul-knife') return 'RangedとSoul Gatheringの撃破帰属は未検証です。'
   if (build.armor) {
     const armor = ARMORS[build.armor.armorId as keyof typeof ARMORS]
     if (!armor || armor.weaponDamageAuraBonus > 0 || armor.lifeStealFraction > 0 || armor.soulGatheringMultiplier > 1) return 'このArmorとRangedのaura/Life Steal/Soul interactionはResearch-onlyです。'

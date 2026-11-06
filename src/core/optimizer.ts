@@ -24,6 +24,7 @@ import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePoli
 import { ENCHANTMENTS } from '../data/enchantments'
 import { soulEnchantmentUnsupportedReason } from './soulLegality'
 import { distinctRecommendations } from './distinctRecommendations'
+import { plainMeleeUnsupportedReason } from './plainMeleeReuse'
 
 function cartesianProduct<T>(groups: readonly (readonly T[])[]): T[][] {
   return groups.reduce<T[][]>(
@@ -290,7 +291,7 @@ function optimizeInternal(
   if (registeredArmors.length > 0 && armorOptions.length === 0) {
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
   }
-  const builds = registeredArmors.length === 0
+  const armorBuilds = registeredArmors.length === 0
     ? weaponBuilds
     : weaponBuilds.flatMap((weaponBuild) => armorOptions.flatMap((option) => {
       const build: Build = { ...weaponBuild, armor: option.armor, armorEnchantments: option.armorEnchantments }
@@ -303,6 +304,16 @@ function optimizeInternal(
       }
       return [build]
     }))
+  const builds = armorBuilds.filter((build) => {
+    const reason = plainMeleeUnsupportedReason(build, scenario)
+    if (!reason) return true
+    unsupportedChoices.candidate(build.weapon.instanceId, { kind: reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_PLAIN_MELEE_SPEED') ? 'constrained' : 'unsupported', message: reason, ...(reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') ? { target: 'scenario' as const } : {}) })
+    return false
+  })
+  if (armorBuilds.length > 0 && builds.length === 0) {
+    unsupportedChoices.finishStage(new Set())
+    throw new OptimizerInputError('NO_SUPPORTED_MELEE_CANDIDATES', `No supported Melee candidates. ${[...unsupportedChoices].join(' ')}`)
+  }
   unsupportedChoices.finishStage(new Set(builds.flatMap(buildInstanceIds)))
   if (registeredArmors.length > 0 && builds.length === 0) {
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)

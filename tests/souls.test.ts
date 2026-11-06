@@ -33,8 +33,8 @@ const run = (enchantments?: SelectedEnchantment[], settings = scenario) => evalu
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks() })
 
 describe('Soul gear promotion and legality', () => {
-  it('promotes exactly one strict-ready common soul weapon and preserves source coefficients', () => {
-    expect(Object.values(WEAPONS).filter((weapon) => weapon.soul.acceptsSoulEnchantments).map((weapon) => weapon.id)).toEqual(['soul-scythe'])
+  it('retains Soul Scythe and adds only source-bound Limited Soul Knife while preserving legacy coefficients', () => {
+    expect(Object.values(WEAPONS).filter((weapon) => weapon.soul.acceptsSoulEnchantments).map((weapon) => weapon.id)).toEqual(['soul-scythe', 'soul-knife'])
     const profile = profiles.weapons.find((weapon) => weapon.weaponId === 'soul-scythe')!
     expect(profile.status).toBe('exact')
     expect(profile.specialHandlingRequired).toBe(false)

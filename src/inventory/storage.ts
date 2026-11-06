@@ -23,6 +23,8 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 // Previously valid Catalog documents must survive these runtime additions.
 // This historical migration list is finite; runtime membership alone grants no migration.
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
+const PLAIN_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip']
+const migratesPlainMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && PLAIN_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>
   item.category === 'armor' && DARK_ARMOR_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 
@@ -90,7 +92,7 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const category = requireString(value.category, `${field}.category`)
   const catalogId = requireString(value.catalogId, `${field}.catalogId`)
   const catalog = CATALOG_ONLY_EQUIPMENT.find((item) => item.category === category && item.id === catalogId)
-    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : undefined)
+    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesPlainMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : undefined)
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const isFavorite = parseFavorite(value.isFavorite, `${field}.isFavorite`)
@@ -216,11 +218,13 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
   const rarity = parseRarity(value.rarity, `${field}.rarity`)
   const notes = optionalString(value.notes, `${field}.notes`)
   const isFavorite = parseFavorite(value.isFavorite, `${field}.isFavorite`)
+  const research = parseCatalogResearch(value.research, `${field}.research`)
   return {
     instanceId: requireString(value.instanceId, `${field}.instanceId`),
     weaponId: weaponId as WeaponId,
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
     ...observedDamage,
+    ...(research ? { research } : {}),
     enchantmentSlots: value.enchantmentSlots.map((slot, slotIndex) => parseSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`)),
     ...(gilded ? { gilded } : {}),
     ...(isFavorite === undefined ? {} : { isFavorite }),
@@ -325,16 +329,21 @@ export function deserializeInventory(json: string): Inventory {
   }
   const parsedCatalog = Array.isArray(catalogItems) ? catalogItems.map(parseCatalogItem) : undefined
   const parsedArmors = Array.isArray(armors) ? armors.map(parseArmor) : []
+  const parsedWeapons = weapons.map(parseWeapon)
+  for (const item of parsedCatalog ?? []) if (migratesPlainMelee(item)) {
+    // Transfer recorded facts only; Research never supplies damage or actual rolls.
+    parsedWeapons.push(parseWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }, parsedWeapons.length))
+  }
   for (const item of parsedCatalog ?? []) if (migratesDarkArmor(item)) {
     // Carry only explicitly recorded rolls; no HP, Tier or effective value is inferred from Research.
     parsedArmors.push(parseArmor({ ...item, armorId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }, parsedArmors.length))
   }
   const inventory = {
-    weapons: weapons.map(parseWeapon),
+    weapons: parsedWeapons,
     ...(Array.isArray(rangedWeapons) ? { rangedWeapons: rangedWeapons.map(parseRangedWeapon) } : {}),
     ...(Array.isArray(armors) || parsedArmors.length ? { armors: parsedArmors } : {}),
     artifacts: artifacts.map(parseArtifact),
-    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item)) } : {}),
+    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesPlainMelee(item)) } : {}),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
   inventory.armors?.forEach((armor) => validateSoulOnlyOwnedEnchantments('armor', armor.armorId, armor.enchantmentSlots, armor.gilded))

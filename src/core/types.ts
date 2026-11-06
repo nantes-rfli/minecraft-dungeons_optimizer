@@ -30,7 +30,7 @@ export interface LocalizedName {
   readonly en: string
 }
 
-export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe'
+export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip'
 export type EnchantmentId =
   | 'critical-hit'
   | 'radiance'
@@ -428,6 +428,8 @@ export interface SelectedEnchantment {
 }
 
 export interface OwnedWeapon {
+  /** Retained Catalog Research facts; never inferred runtime inputs. */
+  readonly research?: CatalogResearchAttributes
   readonly instanceId: string
   readonly weaponId: WeaponId
   readonly powerLevel: number

@@ -1,3 +1,4 @@
+import { PLAIN_MELEE_WEAPONS } from './plainMelee'
 import type { WeaponDefinition, WeaponId } from '../core/types'
 import { DUNGEONS_TOOLS_SOURCE } from './sources'
 import { SOUL_SCYTHE_SOURCE } from './souls'
@@ -50,4 +51,5 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
     speed: { value: 1.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
     area: { value: 14.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
   },
+  ...PLAIN_MELEE_WEAPONS,
 }
