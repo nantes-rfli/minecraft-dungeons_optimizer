@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "kind": "rapid-crossbow-bounded-observed-reuse-source-review",
+  "gameVersion": "1.17.0.0",
+  "versionStatus": "local-input-and-publisher-claim",
+  "reviewScope": "Own Function export census and known serialized component differences only. Not a proof of all BlueprintGeneratedClass payloads, Native semantics, final damage, effective timing or ResourceCost.",
+  "rawRef": "research/raw/game-data-raw-structural-inventory/shards/part-026.json.gz",
+  "identityAssertionId": "identity:rapid-crossbow@1",
+  "rawIdentity": "RapidCrossbow",
+  "itemPackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
+  "projectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow",
+  "packages": [
+    {
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbow",
+      "packageIndex": 12,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbow.uasset",
+          "size": 8116,
+          "sha256": "4b5d1cc9be4bb1b1bbb0decb23a92afa2f67be22af75da303e5f65af3e7eeca8"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbow.uexp",
+          "size": 11711,
+          "sha256": "a2a824bd635f3c0c8a1a3b18d0480e356d0f592473ce13c015512a0560c73232"
+        }
+      ],
+      "ownFunctionExports": 0,
+      "exportCount": 21,
+      "componentReview": "allowlisted known component differences; opaque decorative/identity data remains unsupported and supplies no combat number"
+    },
+    {
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow",
+      "packageIndex": 13,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uasset",
+          "size": 5971,
+          "sha256": "d1ea306de777b6bc79d62dab1687cfc098cc4fae63af542c1954c81808194332"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uexp",
+          "size": 3125,
+          "sha256": "b5e924500761b69c24f57ec98e4dd07276e13e869638a69d45ceebff1c1c6cb6"
+        }
+      ],
+      "ownFunctionExports": 0,
+      "exportCount": 11,
+      "componentReview": "allowlisted known component differences; opaque decorative/identity data remains unsupported and supplies no combat number"
+    },
+    {
+      "package": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance",
+      "packageIndex": 14,
+      "sources": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance.uasset",
+          "size": 5839,
+          "sha256": "b5e9a815f5e512b986469c7a13d8ef0548bf4d69f907e3ca973b778bcb4029c7"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossbowInstance.uexp",
+          "size": 1869,
+          "sha256": "52e6d6270f87c6ae674ec92524efda521224185c226a3de5a9e743150e686823"
+        }
+      ],
+      "ownFunctionExports": 0,
+      "exportCount": 5,
+      "componentReview": "allowlisted known component differences; opaque decorative/identity data remains unsupported and supplies no combat number"
+    }
+  ],
+  "knownComponents": {
+    "projectileMovement": {
+      "class": "DungeonsProjectileMovementComp",
+      "ownPropertyCount": 0,
+      "parent": "BP_Arrow",
+      "scope": "inherited normal projectile movement; no own property override",
+      "exportIndex": 3,
+      "sourceRange": {
+        "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uexp",
+        "start": 620,
+        "end": 632
+      }
+    },
+    "impactActionHandler": {
+      "class": "ImpactActionHandler",
+      "ownPropertyCount": 0,
+      "parent": "BP_Arrow",
+      "scope": "inherited handler; no own serialized action override",
+      "exportIndex": 4,
+      "sourceRange": {
+        "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uexp",
+        "start": 632,
+        "end": 644
+      }
+    },
+    "overrideClasses": [
+      "ParticleSystemComponent",
+      "StaticMeshComponent",
+      "AudioComponent"
+    ],
+    "opaqueNonNumericScope": [
+      "Guid: component identity",
+      "Color: particle appearance",
+      "Rotator: held-gear mesh orientation",
+      "empty struct-array wrappers: cooked component metadata"
+    ],
+    "donorProjectilePackage": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow/BP_PlayerCrossbowArrow",
+    "inheritableHandler": {
+      "exportIndex": 5,
+      "sourceRange": {
+        "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/RapidCrossbow/BP_RapidCrossBow_Arrow.uexp",
+        "start": 644,
+        "end": 1999
+      },
+      "recordCount": 3,
+      "scope": "Only the three explicitly listed cosmetic template classes; opaque Guid/Color/Rotator data is not a gameplay input."
+    }
+  },
+  "configuredProjectile": {
+    "sourceIndex": 0,
+    "NumberOfProjectiles": 1,
+    "DelaySeconds": 0,
+    "DelaySecondsPerProjectile": 0,
+    "AngleSpan": 0,
+    "MaxRandomizedAngleFactor": 0,
+    "NonRandomFirstArrow": true
+  },
+  "intrinsicFacts": [
+    "High Firerate"
+  ],
+  "intrinsicDisposition": "Only the target mode-specific neutral projectile damage and complete cycle observation supplies numeric inputs. High Firerate is not converted from ratings or configured time. No Accelerate or Bonus Shot variant effect is inherited.",
+  "nativeResourceCost": {
+    "state": "unknown",
+    "runtimeNumericInput": false
+  },
+  "nativeFinalProjectileDamage": {
+    "state": "unknown",
+    "runtimeNumericInput": false
+  },
+  "nativeEffectiveShotCycleSeconds": {
+    "state": "unknown",
+    "runtimeNumericInput": false
+  },
+  "observationCondition": "arrowsConsumedPerShot must be explicitly observed as exactly 1; missing and non-1 remain unevaluable, even with no available ammunition.",
+  "rejectedVariants": [
+    "auto-crossbow",
+    "butterfly-crossbow"
+  ],
+  "testRef": "tests/rapidCrossbowReuse.test.ts"
+}

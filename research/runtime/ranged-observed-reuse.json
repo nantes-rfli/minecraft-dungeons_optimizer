@@ -275,6 +275,48 @@
         "chargeSwitch": "completion-callback-boolean",
         "chargeState": "completion-callback-not-run"
       }
+    },
+    {
+      "targetId": "rapid-crossbow",
+      "rawIdentity": "RapidCrossbow",
+      "donorId": "crossbow",
+      "mode": "single",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/rapid-crossbow",
+      "intrinsicFacts": [
+        "High Firerate"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "Only the target mode-specific neutral projectile damage and complete cycle observation supplies numeric inputs. High Firerate is not converted from ratings or configured time. No Accelerate or Bonus Shot variant effect is inherited.",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle",
+        "ProjectileStackCount as ammo consumption",
+        "Auto Crossbow Accelerate",
+        "Butterfly Crossbow Bonus Shot"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rapidCrossbowReuse.test.ts",
+      "sourceReviewRef": "research/sources/rapid-crossbow-source-review.json",
+      "observationCondition": "explicit-arrowsConsumedPerShot-equals-1"
     }
   ]
 }

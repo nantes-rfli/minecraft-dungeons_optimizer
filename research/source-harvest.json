@@ -26474,8 +26474,8 @@
     {
       "category": "ranged-weapon",
       "id": "rapid-crossbow",
-      "label": "Rapid Crossbow",
-      "runtimeSupport": "research-only",
+      "label": "速射のクロスボウ",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -26483,7 +26483,7 @@
             "canonicalId": "rapid-crossbow",
             "names": {
               "en": "Rapid Crossbow",
-              "ja": null
+              "ja": "速射のクロスボウ"
             }
           },
           "sourceIds": [
@@ -26622,7 +26622,7 @@
             "families": [
               "cadence"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [

@@ -53,7 +53,7 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
   const instances = [
     ...inventory.weapons.map((item) => ({ category: 'melee' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded ?? item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')), rarity: item.rarity })),
     ...(inventory.armors ?? []).map((item) => ({ category: 'armor' as const, id: item.armorId, power: item.powerLevel, gilded: Boolean(item.gilded ?? item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')), rarity: item.rarity })),
-    ...(inventory.rangedWeapons ?? []).map((item) => ({ category: 'ranged' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded), rarity: item.rarity })),
+    ...(inventory.rangedWeapons ?? []).map((item) => ({ category: 'ranged' as const, id: item.weaponId, power: item.powerLevel, gilded: Boolean(item.gilded ?? item.research?.enchantments?.some((enchantment) => enchantment.source === 'gilded')), rarity: item.rarity })),
     ...inventory.artifacts.map((item) => ({ category: 'artifact' as const, id: item.artifactId, power: item.powerLevel, gilded: false, rarity: item.rarity })),
     ...(inventory.catalogItems ?? []).map((item) => ({
       category: item.category,
@@ -93,7 +93,12 @@ export function inventoryStatistics(inventory: Inventory): InventoryStatistics {
     if (item.gilded) countEnchant(item.gilded.enchantmentId)
     else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
   })
-  ;(inventory.rangedWeapons ?? []).forEach((item) => { item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) }); if (item.gilded) countEnchant(item.gilded.enchantmentId) })
+  ;(inventory.rangedWeapons ?? []).forEach((item) => {
+    item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) })
+    if (item.enchantmentSlots.length === 0) item.research?.enchantments?.filter((enchantment) => enchantment.source === 'slot').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+    if (item.gilded) countEnchant(item.gilded.enchantmentId)
+    else item.research?.enchantments?.filter((enchantment) => enchantment.source === 'gilded').forEach((enchantment) => countEnchant(enchantment.enchantmentId))
+  })
   ;(inventory.catalogItems ?? []).forEach((item) => {
     if (item.category === 'artifact') return
     if (item.enchantmentSlots) item.enchantmentSlots.forEach((slot) => { if (slot.selected) countEnchant(slot.selected.enchantmentId) })

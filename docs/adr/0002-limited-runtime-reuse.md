@@ -70,3 +70,7 @@ The [Ranged integration contract](../ranged-native-integration.md) adds a separa
 The [Great Hammer follow-up](../great-hammer-runtime-reuse.md) appends the fifth plain target after a finite, source-bound localization Identity bridge. Its own exact rating, one-hit profile, Great splash intrinsic and empty built-in list pass the same single-target/base-cadence guards. The localization record supplies Identity evidence only; it does not promote a numeric mechanic or broaden the existing formula.
 
 The [observed-mode follow-up](../ranged-observed-modes.md) binds each target/mode tuple separately and requires new mode-owned observation input. Draft mode changes cannot reuse charged damage/cycle/note as uncharged. This adds no Native numeric input or new mechanic promotion.
+
+## Rapid observed consumption condition
+
+[Rapid Crossbow](../rapid-crossbow-runtime-reuse.md) adds one finite observed-reuse target after its own Function/component source review. Its complete shot must have explicit target-owned normal-arrow consumption1; missing/non1 cannot inherit a donor cost or Native default, including with ammo stock0. Existing six targets without the new optional field retain their frozen behavior, while an explicit non1 observation is never ignored. No Native ResourceCost, effective timing or new effect formula is promoted.

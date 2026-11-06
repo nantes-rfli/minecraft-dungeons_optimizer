@@ -14,6 +14,7 @@ export const RANGED_WEAPONS: Readonly<Record<string, { readonly name: LocalizedN
   longbow: { name: { ja: '長弓', en: 'Longbow' }, modes: ['charged', 'uncharged'], supportLevel: 'limited', intrinsic: '各モードの観測damageと完全周期が必須。Strong Charged Attacksはチャージ時の観測damageに含む。未チャージへ倍率を継承しない。' },
   'power-bow': { name: { ja: '力の弓', en: 'Power Bow' }, modes: ['charged', 'uncharged'], supportLevel: 'limited', intrinsic: '各モードの観測damageと完全周期が必須。Strong Charged Attacksはチャージ時の観測damageに含む。未チャージへ倍率を継承しない。' },
   'heavy-crossbow': { name: { ja: 'ヘビークロスボウ', en: 'Heavy Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Powerful Shotsは観測damageに含む。reload・飛翔速度から周期を推定しない。' },
+  'rapid-crossbow': { name: { ja: '速射のクロスボウ', en: 'Rapid Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'High Firerateは対象個体の完全周期の観測で表す。1回撃つたびに通常矢1本が減ることを確認し、消費矢数1を明示入力。表示ratingから数値を補完しません。' },
   crossbow: { name: { ja: 'クロスボウ', en: 'Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Faster Projectilesは飛翔速度。発射周期の倍率には使わず、単体命中・飛翔時間なしの境界。' },
 }
 // Independent ranged definitions. No import of melee enchantment effects or attack profiles.

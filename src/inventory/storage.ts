@@ -1,3 +1,4 @@
+import { parseCatalogResearch } from '../core/catalogResearch'
 import { ARTIFACTS } from '../data/artifacts'
 import { WEAPONS } from '../data/weapons'
 import { validateWeaponSoulLegality } from '../core/soulLegality'
@@ -25,6 +26,7 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
 const PLAIN_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer']
 const migratesPlainMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && PLAIN_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId)
+const migratesRapidCrossbow = (item: { category: string; catalogId: string }) => item.category === 'ranged' && item.catalogId === 'rapid-crossbow'
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>
   item.category === 'armor' && DARK_ARMOR_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 
@@ -50,41 +52,6 @@ function optionalString(value: unknown, field: string): string | undefined {
   return requireString(value, field)
 }
 
-function parseCatalogResearch(value: unknown, field: string): CatalogInventoryItem['research'] {
-  if (value === undefined) return undefined
-  if (!isRecord(value)) throw new Error(`${field}の形式が正しくありません。`)
-  const enchantments = value.enchantments === undefined ? undefined : (() => {
-    if (!Array.isArray(value.enchantments)) throw new Error(`${field}.enchantmentsは配列にしてください。`)
-    return value.enchantments.map((item, index) => {
-      const itemField = `${field}.enchantments[${index}]`
-      if (!isRecord(item) || ![1, 2, 3].includes(item.tier as number) || !['slot', 'gilded', 'built-in'].includes(item.source as string)) throw new Error(`${itemField}の形式が正しくありません。`)
-      return { enchantmentId: requireString(item.enchantmentId, `${itemField}.enchantmentId`), tier: item.tier as EnchantmentTier, source: item.source as 'slot' | 'gilded' | 'built-in' }
-    })
-  })()
-  const intrinsicProperties = value.intrinsicProperties === undefined ? undefined : (() => {
-    if (!Array.isArray(value.intrinsicProperties)) throw new Error(`${field}.intrinsicPropertiesは配列にしてください。`)
-    return value.intrinsicProperties.map((item, index) => {
-      const itemField = `${field}.intrinsicProperties[${index}]`
-      if (!isRecord(item)) throw new Error(`${itemField}の形式が正しくありません。`)
-      return { kind: requireString(item.kind, `${itemField}.kind`), raw: requireString(item.raw, `${itemField}.raw`) }
-    })
-  })()
-  const observations = value.observations === undefined ? undefined : (() => {
-    if (!Array.isArray(value.observations)) throw new Error(`${field}.observationsは配列にしてください。`)
-    return value.observations.map((item, index) => {
-      const itemField = `${field}.observations[${index}]`
-      if (!isRecord(item)) throw new Error(`${itemField}の形式が正しくありません。`)
-      return {
-        parameterId: requireString(item.parameterId, `${itemField}.parameterId`), value: requireString(item.value, `${itemField}.value`),
-        ...(optionalString(item.unit, `${itemField}.unit`) ? { unit: optionalString(item.unit, `${itemField}.unit`) } : {}),
-        ...(optionalString(item.conditions, `${itemField}.conditions`) ? { conditions: optionalString(item.conditions, `${itemField}.conditions`) } : {}),
-        ...(optionalString(item.gameVersion, `${itemField}.gameVersion`) ? { gameVersion: optionalString(item.gameVersion, `${itemField}.gameVersion`) } : {}),
-        ...(optionalString(item.notes, `${itemField}.notes`) ? { notes: optionalString(item.notes, `${itemField}.notes`) } : {}),
-      }
-    })
-  })()
-  return { ...(enchantments ? { enchantments } : {}), ...(intrinsicProperties ? { intrinsicProperties } : {}), ...(observations ? { observations } : {}) }
-}
 
 function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const field = `inventory.catalogItems[${index}]`
@@ -92,7 +59,7 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const category = requireString(value.category, `${field}.category`)
   const catalogId = requireString(value.catalogId, `${field}.catalogId`)
   const catalog = CATALOG_ONLY_EQUIPMENT.find((item) => item.category === category && item.id === catalogId)
-    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesPlainMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : undefined)
+    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesPlainMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : migratesRapidCrossbow({ category, catalogId }) ? getEquipmentCatalogEntry('ranged', catalogId) : undefined)
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const isFavorite = parseFavorite(value.isFavorite, `${field}.isFavorite`)
@@ -330,6 +297,11 @@ export function deserializeInventory(json: string): Inventory {
   const parsedCatalog = Array.isArray(catalogItems) ? catalogItems.map(parseCatalogItem) : undefined
   const parsedArmors = Array.isArray(armors) ? armors.map(parseArmor) : []
   const parsedWeapons = weapons.map(parseWeapon)
+  const parsedRanged = Array.isArray(rangedWeapons) ? rangedWeapons.map(parseRangedWeapon) : []
+  for (const item of parsedCatalog ?? []) if (migratesRapidCrossbow(item)) {
+    // Carry facts verbatim; no observation (including cost) is inferred from Research/Native.
+    parsedRanged.push(parseRangedWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }))
+  }
   for (const item of parsedCatalog ?? []) if (migratesPlainMelee(item)) {
     // Transfer recorded facts only; Research never supplies damage or actual rolls.
     parsedWeapons.push(parseWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }, parsedWeapons.length))
@@ -340,10 +312,10 @@ export function deserializeInventory(json: string): Inventory {
   }
   const inventory = {
     weapons: parsedWeapons,
-    ...(Array.isArray(rangedWeapons) ? { rangedWeapons: rangedWeapons.map(parseRangedWeapon) } : {}),
+    ...(Array.isArray(rangedWeapons) || parsedRanged.length ? { rangedWeapons: parsedRanged } : {}),
     ...(Array.isArray(armors) || parsedArmors.length ? { armors: parsedArmors } : {}),
     artifacts: artifacts.map(parseArtifact),
-    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesPlainMelee(item)) } : {}),
+    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesPlainMelee(item) && !migratesRapidCrossbow(item)) } : {}),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
   inventory.armors?.forEach((armor) => validateSoulOnlyOwnedEnchantments('armor', armor.armorId, armor.enchantmentSlots, armor.gilded))

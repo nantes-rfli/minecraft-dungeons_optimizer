@@ -29,7 +29,7 @@ Raw factsをApplicationが安全に扱える装備・値・関係の意味へ変
 
 採用可能なGame Domain / Evidenceだけを使って比較・説明・推薦を行う層です。Layer 2全体の完成を待たず、安全に使える範囲から段階的に接続します。Unknown / Unsupportedを0やneutralへ置き換えません。
 
-RangedはMelee / Armor / Artifactと同型のruntime-support manifestではなく、current structured runtime definitionsで管理しています。Bow / Shortbow / Longbow / Power Bow / Heavy Crossbow / CrossbowはLimitedです。入力境界: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。 Ranged Enchantmentは Power / Critical Hit / Unchanting のLimited定義だけを評価対象にします。未対応境界: 複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。
+RangedはMelee / Armor / Artifactと同型のruntime-support manifestではなく、current structured runtime definitionsで管理しています。Bow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbow / CrossbowはLimitedです。入力境界: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。 Ranged Enchantmentは Power / Critical Hit / Unchanting のLimited定義だけを評価対象にします。未対応境界: 複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。
 
 Melee / Armor / Artifactのruntime support manifestでは、Melee enchantmentは Full 19 / Limited 9 / Research-only 5（population 33）、Armorは Limited 13 / Research-only 60（population 73）、Artifactは Full 2 / Limited 1 / Research-only 42（population 45）です。Rangedとは母集団と管理形式が異なるため、これらのpopulationへ単純合算しません。runtime promotion pipelineは candidate 1、eligible 0、promoted 0 で、採用gateを満たさない値を自動昇格させません。
 
@@ -50,7 +50,7 @@ Formal breadthだけを独立目的にせず、既存DomainのApplication利用�
 | Formal Identity | 153 matched domains | Raw identityをcanonical equipment identityへsource-backedに接続できる範囲 |
 | Formal Value | 62 domains | configured valueをsource-backedに保持できる範囲。effective behaviorとは別 |
 | Formal Relation | 147 source domains / 228 records | serialized relationを追跡できる範囲。relation存在だけではruntime effectを証明しない |
-| Ranged runtime | Bow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Crossbow: Limited observed-input / Enchant Power / Critical Hit / Unchanting: Limited | 利用者観測に依存し、Power fallbackなし。特殊projectile・固有効果・未検証interactionはResearch-only |
+| Ranged runtime | Bow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbow / Crossbow: Limited observed-input / Enchant Power / Critical Hit / Unchanting: Limited | 利用者観測に依存し、Power fallbackなし。特殊projectile・固有効果・未検証interactionはResearch-only |
 | Runtime promotion | 1 candidate / 0 eligible / 0 promoted | Domain/Evidenceからruntimeへ進める対象はgateを通過したものだけ |
 
 ## Current Blockers

@@ -7,5 +7,5 @@ export const readinessMelee: Inventory = {
   artifacts: [],
 }
 export function readinessRanged(weaponId = 'bow', instanceId = weaponId): OwnedRangedWeapon {
-  return { instanceId, weaponId, powerLevel: 251, enchantmentSlots: [], observation: { gameVersion: '1.17.0.0', mode: weaponId.includes('crossbow') ? 'single' : weaponId === 'bow' ? 'uncharged' : 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 20, sourceNote: 'SYNTHETIC TEST ONLY — not gameplay Evidence' } }
+  return { instanceId, weaponId, powerLevel: 251, enchantmentSlots: [], observation: { gameVersion: '1.17.0.0', mode: weaponId.includes('crossbow') ? 'single' : weaponId === 'bow' ? 'uncharged' : 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 20, ...(weaponId === 'rapid-crossbow' ? { arrowsConsumedPerShot: 1 } : {}), sourceNote: 'SYNTHETIC TEST ONLY — not gameplay Evidence' } }
 }

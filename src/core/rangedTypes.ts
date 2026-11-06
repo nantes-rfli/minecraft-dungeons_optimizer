@@ -1,9 +1,11 @@
-import type { EnchantmentTier, EquipmentRarity, OwnedEnchantmentSlot } from './types'
+import type { CatalogResearchAttributes, EnchantmentTier, EquipmentRarity, OwnedEnchantmentSlot } from './types'
 
 export type RangedShotMode = 'uncharged' | 'charged' | 'single'
 export interface RangedRoll { readonly enchantmentId: string; readonly tier: EnchantmentTier }
 export interface SelectedRangedEnchantment extends RangedRoll { readonly source: 'slot' | 'gilded' }
 export interface OwnedRangedWeapon {
+  /** Retained Catalog facts, not observations or gameplay inputs. */
+  readonly research?: CatalogResearchAttributes
   readonly instanceId: string
   readonly weaponId: string
   readonly powerLevel: number
@@ -20,6 +22,8 @@ export interface OwnedRangedWeapon {
     readonly projectileDamage: number
     /** Complete cycle: charge (if any), release, reload/recovery, ready again. */
     readonly shotCycleSeconds: number
+    /** Own observed normal-arrow consumption per complete shot. No default is persisted. */
+    readonly arrowsConsumedPerShot?: number
     readonly availableAmmo: number
     readonly sourceNote: string
   }
