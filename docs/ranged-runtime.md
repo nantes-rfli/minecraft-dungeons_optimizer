@@ -7,7 +7,7 @@ Population reconciliation and the observation-driven MVP are implemented. This P
 - 2-5A: population 71/71 reconciled; taxonomy and Japanese names partial.
 - 2-5B: typed projectile/attack boundary and finite observation-driven rate; built-in measured profiles pending.
 - 2-5C: primary 38 / secondary 41 / union 41; initial tier/trigger audit, unresolved stack/Tier/channel fields explicit.
-- 2-5D: Bow (uncharged/charged), Crossbow (single), plus source-bound reuse for Shortbow / Longbow / Power Bow (charged only) and Heavy Crossbow (single). Full 0, Limited 6, Research-only 65.
+- 2-5D: Bow / Shortbow / Longbow / Power Bow (uncharged/charged), Crossbow / Heavy Crossbow (single). Full 0, Limited 6, Research-only 65; [10 weapon/mode pairs](ranged-observed-modes.md).
 - 2-5E: inventory → evaluate → optimize → explanations, actual Tier rolls, locks, Gilded I–III, JSON v2.
 - 2-5F: common read-model adapter, structured backlog, three protocols, generated reports and CI checks.
 
@@ -30,13 +30,13 @@ Every evaluated ranged instance requires `observation`:
 | Field | Meaning |
 | --- | --- |
 | gameVersion | Exactly 1.17.0.0, user-declared |
-| mode | Bow uncharged/charged; Shortbow / Longbow / Power Bow charged only; Crossbow / Heavy Crossbow single |
+| mode | Bow / Shortbow / Longbow / Power Bow uncharged or charged; Crossbow / Heavy Crossbow single |
 | projectileDamage | Neutral damage of one normal projectile, before selectable Enchants, Armor, Strength and target DR; may be read from the matching card/neutral hit |
 | shotCycleSeconds | Complete measured cycle including charge, release, reload and recovery to the next ready state |
 | availableAmmo | Explicit finite number of normal arrows available in the encounter, no replenishment |
 | sourceNote | User observation provenance; not a verification certificate |
 
-Power is stored as individual equipment metadata. There is no ranged Power curve, extrapolation, multiplier from melee, card-range midpoint or inferred cadence. Charged and uncharged observations must not be mixed. The UI does not prefill observed numbers.
+Power is stored as individual equipment metadata. There is no ranged Power curve, extrapolation, multiplier from melee, card-range midpoint or inferred cadence. Charged and uncharged observations must not be mixed. Mode changes clear draft damage/cycle/note while retaining known ammo; saved observations remain unchanged until valid Apply. The UI does not prefill observed numbers.
 
 `scenario.rangedTimeShare` must be explicitly between 0 and 1 (exclusive). The complementary share scales modeled melee action cadence. Switching/movement overhead must be included in the user's reserved time budget. This is a time-average scenario model, not a switching simulator. Pure ranged builds and automatic time allocation are not implemented.
 

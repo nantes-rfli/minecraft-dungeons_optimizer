@@ -363,7 +363,7 @@
       "heavy-crossbow",
       "crossbow"
     ],
-    "rationale": "Bow/Crossbow plus four source-bound Existing Limited single-projectile reuses. New bows charged only; target neutral damage and complete cycle observations required. Native CDO values never supply runtime damage/cadence.",
+    "rationale": "Bow/Crossbow plus four source-bound Existing Limited single-projectile reuses. Shortbow/Longbow/Power Bow permit separately granted uncharged/charged modes; target mode-specific neutral damage and complete cycle observations required. Native CDO values never supply runtime damage/cadence.",
     "powerFallback": false,
     "independentMeasuredRuns": 0
   },

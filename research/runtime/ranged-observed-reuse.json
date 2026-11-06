@@ -148,6 +148,133 @@
         "unverified enchants or armor combinations"
       ],
       "testRef": "tests/rangedNativeReuse.test.ts"
+    },
+    {
+      "targetId": "shortbow",
+      "rawIdentity": "Shortbow",
+      "donorId": "bow",
+      "mode": "uncharged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/shortbow",
+      "intrinsicFacts": [],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "uncharged normal arrow uses target mode-specific observation; no charged damage, cadence or charge multiplier is inherited",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle",
+        "charged damage, charged cadence and charge multiplier"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedUnchargedReuse.test.ts",
+      "modeEvidence": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "chargeSwitch": "completion-callback-boolean",
+        "chargeState": "completion-callback-not-run"
+      }
+    },
+    {
+      "targetId": "longbow",
+      "rawIdentity": "Longbow",
+      "donorId": "bow",
+      "mode": "uncharged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/longbow",
+      "intrinsicFacts": [
+        "Strong Charged Attacks"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "uncharged normal arrow uses target mode-specific observation; no charged damage, cadence or charge multiplier is inherited",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle",
+        "charged damage, charged cadence and charge multiplier"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedUnchargedReuse.test.ts",
+      "modeEvidence": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "chargeSwitch": "completion-callback-boolean",
+        "chargeState": "completion-callback-not-run"
+      }
+    },
+    {
+      "targetId": "power-bow",
+      "rawIdentity": "Powerbow",
+      "donorId": "bow",
+      "mode": "uncharged",
+      "gameVersion": "1.17.0.0",
+      "sourceRef": "research/sources/ranged-source-snapshot.json",
+      "sourceUrl": "https://www.dungeons.tools/weapons/power-bow",
+      "intrinsicFacts": [
+        "Strong Charged Attacks"
+      ],
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "mechanic": "observed-normal-single-projectile",
+      "channel": "direct-ranged",
+      "scope": "one-arrow-one-target",
+      "inputPolicy": "target-observation-required",
+      "intrinsicDisposition": "uncharged normal arrow uses target mode-specific observation; no charged damage, cadence or charge multiplier is inherited",
+      "nonInheritedEffects": [
+        "donor damage",
+        "donor cadence",
+        "Power curve",
+        "native CDO baseline as final damage",
+        "native theoretical cycle as measured cycle",
+        "charged damage, charged cadence and charge multiplier"
+      ],
+      "rejectedInteractions": [
+        "special arrows",
+        "multiple projectiles",
+        "pierce",
+        "ricochet",
+        "explosion",
+        "DoT",
+        "Soul",
+        "unverified enchants or armor combinations"
+      ],
+      "testRef": "tests/rangedUnchargedReuse.test.ts",
+      "modeEvidence": {
+        "ref": "research/native/ranged-20261031/blueprint-review.json",
+        "chargeSwitch": "completion-callback-boolean",
+        "chargeState": "completion-callback-not-run"
+      }
     }
   ]
 }

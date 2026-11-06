@@ -10,9 +10,9 @@ export const RANGED_LIMITATIONS = [
 ] as const
 export const RANGED_WEAPONS: Readonly<Record<string, { readonly name: LocalizedName; readonly modes: readonly RangedShotMode[]; readonly supportLevel: 'limited'; readonly intrinsic: string }>> = {
   bow: { name: { ja: '弓', en: 'Bow' }, modes: ['uncharged', 'charged'], supportLevel: 'limited', intrinsic: '通常矢。チャージ段階ごとに観測値を分離。' },
-  shortbow: { name: { ja: '短弓', en: 'Shortbow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: '単一通常矢・フルチャージ限定。対象個体の観測damageと完全周期が必須。' },
-  longbow: { name: { ja: '長弓', en: 'Longbow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: 'Strong Charged Attacksは観測damageに含む。追加倍率を推定しない。' },
-  'power-bow': { name: { ja: '力の弓', en: 'Power Bow' }, modes: ['charged'], supportLevel: 'limited', intrinsic: 'Strong Charged Attacksは観測damageに含む。追加倍率を推定しない。' },
+  shortbow: { name: { ja: '短弓', en: 'Shortbow' }, modes: ['charged', 'uncharged'], supportLevel: 'limited', intrinsic: '単一通常矢。未チャージ / フルチャージそれぞれの対象個体の観測damageと完全周期が必須。' },
+  longbow: { name: { ja: '長弓', en: 'Longbow' }, modes: ['charged', 'uncharged'], supportLevel: 'limited', intrinsic: '各モードの観測damageと完全周期が必須。Strong Charged Attacksはチャージ時の観測damageに含む。未チャージへ倍率を継承しない。' },
+  'power-bow': { name: { ja: '力の弓', en: 'Power Bow' }, modes: ['charged', 'uncharged'], supportLevel: 'limited', intrinsic: '各モードの観測damageと完全周期が必須。Strong Charged Attacksはチャージ時の観測damageに含む。未チャージへ倍率を継承しない。' },
   'heavy-crossbow': { name: { ja: 'ヘビークロスボウ', en: 'Heavy Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Powerful Shotsは観測damageに含む。reload・飛翔速度から周期を推定しない。' },
   crossbow: { name: { ja: 'クロスボウ', en: 'Crossbow' }, modes: ['single'], supportLevel: 'limited', intrinsic: 'Faster Projectilesは飛翔速度。発射周期の倍率には使わず、単体命中・飛翔時間なしの境界。' },
 }

@@ -57,7 +57,7 @@ describe('Inventory readiness shares runtime evaluation and exclusions', () => {
   it('distinguishes wrong shot mode and scenario/interaction restrictions', () => {
     const ranged = readinessRanged('shortbow')
     const inventory = { ...readinessMelee, rangedWeapons: [ranged] }
-    expect(statusFor({ ...inventory, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'uncharged' } }] }, 'shortbow')).toMatchObject({ status: 'input-required', issues: [{ target: 'equipment', fields: ['発射モード: charged'] }] })
+    expect(statusFor({ ...inventory, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'single' } }] }, 'shortbow')).toMatchObject({ status: 'input-required', issues: [{ target: 'equipment', fields: ['発射モード: charged / uncharged'] }] })
     expect(statusFor(inventory, 'shortbow', { ...scenario, rangedTimeShare: undefined })).toMatchObject({ status: 'constrained', issues: [{ target: 'scenario' }] })
     const incompatible: Inventory = { ...inventory, weapons: [{ ...readinessMelee.weapons[0]!, gilded: undefined, enchantmentSlots: [{ candidates: ['void-strike'] }] }] }
     expect(statusFor(incompatible, 'shortbow').status).toBe('constrained')

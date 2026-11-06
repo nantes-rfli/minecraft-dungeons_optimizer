@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — 3弓の未チャージLimited計算
+
+- Shortbow / Longbow / Power Bowの未チャージを既存の通常単矢モデルへ接続し、対応weapon/modeを7から10へ拡張。新装備・効果式・Native数値の昇格はなし。
+- grantを装備IDとmodeの組で照合し、対象mode自身のdamage・完全周期・観測メモを必須にする。チャージ倍率から推定しない。
+- mode変更時の入力draftを再確認し、元の保存観測と既知ammo0を維持。
+
 ## 2026-11 — 通常近接4種の単体対象Limited計算
 
 - Cutlass / Pickaxe / Soul Knife / Whipを、対象自身の公開float値・hit timing・Identityに固定して追加。近接対応を4/82から8/82へ拡張する。
