@@ -143,6 +143,37 @@
       "normalizedDamageRatios": [
         1
       ]
+    },
+    {
+      "id": "great-hammer",
+      "rawIdentity": "Hammer",
+      "sourceUrl": "https://www.dungeons.tools/weapons/great-hammer",
+      "calculatorRow": {
+        "slug": "great-hammer",
+        "name": "Great Hammer",
+        "type": "melee",
+        "route": "/weapons/great-hammer",
+        "power": 8.686,
+        "speed": 1,
+        "area": 7.762,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Hammer_GearIcon.png",
+        "builtIn": []
+      },
+      "intrinsicFacts": [
+        "Great splash"
+      ],
+      "baseSoulGathering": 0,
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3AGreat_Hammer",
+      "hitDurationsSeconds": [
+        0.7
+      ],
+      "comboFinisherHit": 1,
+      "normalizedDamageRatios": [
+        1
+      ]
     }
   ],
   "pickaxeDetailReview": {

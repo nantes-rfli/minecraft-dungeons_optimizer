@@ -30,7 +30,7 @@ export interface LocalizedName {
   readonly en: string
 }
 
-export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip'
+export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip' | 'great-hammer'
 export type EnchantmentId =
   | 'critical-hit'
   | 'radiance'

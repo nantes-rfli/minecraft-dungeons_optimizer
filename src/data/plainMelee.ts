@@ -2,7 +2,7 @@ import type { AttackProfile, Evidence, SourceReference, WeaponDefinition } from 
 import { japaneseEquipmentName } from './equipmentNames.ja'
 
 /** Finite reviewed population. Registration alone is not a reuse approval. */
-export const PLAIN_MELEE_IDS = ['cutlass', 'pickaxe', 'soul-knife', 'whip'] as const
+export const PLAIN_MELEE_IDS = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer'] as const
 export type PlainMeleeId = (typeof PLAIN_MELEE_IDS)[number]
 export const isPlainMeleeId = (id: string): id is PlainMeleeId => (PLAIN_MELEE_IDS as readonly string[]).includes(id)
 
@@ -21,6 +21,7 @@ export const PLAIN_MELEE_WEAPONS: Readonly<Record<PlainMeleeId, WeaponDefinition
   pickaxe: definition('pickaxe', 'Pickaxe', 11.343, 1.518, 2.386, 0),
   'soul-knife': definition('soul-knife', 'Soul Knife', 12.229, 1, 3.189, 1),
   whip: definition('whip', 'Whip', 8.686, 1.113, 1, 0),
+  'great-hammer': definition('great-hammer', 'Great Hammer', 8.686, 1, 7.762, 0),
 }
 
 const profile = (id: PlainMeleeId, page: string, durations: readonly number[]): Evidence<AttackProfile> => ({
@@ -33,4 +34,5 @@ export const PLAIN_MELEE_PROFILES: Readonly<Record<PlainMeleeId, Evidence<Attack
   pickaxe: profile('pickaxe', 'Pickaxe', [0.7]),
   'soul-knife': profile('soul-knife', 'Soul_Knife', [0.85]),
   whip: profile('whip', 'Whip', [0.8]),
+  'great-hammer': profile('great-hammer', 'Great_Hammer', [0.7]),
 }

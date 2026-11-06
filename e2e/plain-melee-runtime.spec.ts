@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test'
 
-test('all four plain melee Catalog instances migrate and reach evaluation and comparison under the explicit target boundary', async ({ page }) => {
+test('all five plain melee Catalog instances migrate and reach evaluation and comparison under the explicit target boundary', async ({ page }) => {
   // Synthetic software fixture, not a gameplay measurement or independent Evidence.
-  const ids = ['cutlass', 'pickaxe', 'soul-knife', 'whip']
+  const ids = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer']
   const storageKey = 'minecraft-dungeons-optimizer.inventory.v1'
   const catalogItems = ids.map((catalogId) => ({
     instanceId: `legacy-${catalogId}`, category: 'melee', catalogId, powerLevel: 251,
@@ -16,7 +16,7 @@ test('all four plain melee Catalog instances migrate and reach evaluation and co
   const panel = page.getByRole('region', { name: '所持装備の評価可能性' })
   await expect(panel.getByRole('status')).toContainText('確認しました')
   await expect(panel.locator('.readiness-counts')).toContainText('評価可能0件')
-  await expect(panel.locator('.readiness-counts')).toContainText('条件・組み合わせ制約4件')
+  await expect(panel.locator('.readiness-counts')).toContainText('条件・組み合わせ制約5件')
 
   await page.evaluate(() => { window.location.hash = '/optimize' })
   await page.getByText('詳細条件', { exact: true }).click()
@@ -29,7 +29,7 @@ test('all four plain melee Catalog instances migrate and reach evaluation and co
 
   await page.evaluate(() => { window.location.hash = '/inventory' })
   await expect(panel.getByRole('status')).toContainText('確認しました')
-  await expect(panel.locator('.readiness-counts')).toContainText('評価可能4件')
+  await expect(panel.locator('.readiness-counts')).toContainText('評価可能5件')
   const stored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)
   expect(stored.catalogItems).toEqual([])
   expect(stored.weapons.map((item: { weaponId: string }) => item.weaponId)).toEqual(ids)

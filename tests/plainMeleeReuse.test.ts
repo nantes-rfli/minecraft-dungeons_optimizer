@@ -35,11 +35,11 @@ const withResearch = (research: CatalogResearchAttributes, id: WeaponId = 'cutla
 }
 
 describe('source-bound single-target plain melee population', () => {
-  it('binds exactly four own identities, stats, complete intrinsic scopes and published uniform profiles', () => {
+  it('binds exactly five own identities, stats, complete intrinsic scopes and published uniform profiles', () => {
     expect(collectPlainMeleeReuseErrors()).toEqual([])
     expect(approvals.approvals.map((entry) => entry.targetId)).toEqual([...PLAIN_MELEE_IDS])
     for (const id of PLAIN_MELEE_IDS) expect(plainMeleeReuseIsEligible(id)).toBe(true)
-    for (const id of ['great-hammer', 'diamond-pickaxe', 'frost-scythe', 'cursed-axe', 'vine-whip']) expect(plainMeleeReuseIsEligible(id)).toBe(false)
+    for (const id of ['diamond-pickaxe', 'frost-scythe', 'cursed-axe', 'vine-whip']) expect(plainMeleeReuseIsEligible(id)).toBe(false)
     expect(promotion.summary).toMatchObject({ candidates: 1, eligible: 0, promoted: 0 })
   })
 
@@ -80,7 +80,35 @@ describe('source-bound single-target plain melee population', () => {
       expect(evaluate(build(id), DEFAULT_SCENARIO).damage.damagePerHit).toBe(100)
     }
     for (const id of PLAIN_MELEE_IDS) expect(getEquipmentCatalogEntry('melee', id)?.runtimeSupport).toBe('limited')
-    expect(PLAIN_MELEE_IDS.map((id) => WEAPONS[id].name.ja)).toEqual(['カトラス', 'ツルハシ', '魂のナイフ', '鞭'])
+    expect(PLAIN_MELEE_IDS.map((id) => WEAPONS[id].name.ja)).toEqual(['カトラス', 'ツルハシ', '魂のナイフ', '鞭', 'グレートハンマー'])
+  })
+
+  it('Great Hammer keeps Great splash as a declared intrinsic and uses one-hit finishers only within the single-target scope', () => {
+    expect(source.rows.find((row) => row.id === 'great-hammer')?.intrinsicFacts).toEqual(['Great splash'])
+    for (const enchantmentId of ['shockwave', 'swirling'] as const) {
+      const result = evaluate(build('great-hammer', enchantmentId), scenario)
+      expect(result.damage.hitsPerSecond).toBeCloseTo(1 / 0.7)
+      expect(result.damage.damageEvents[0]?.eventsPerSecond).toBeCloseTo(1 / 0.7)
+      expect(() => evaluate(build('great-hammer', enchantmentId), { ...scenario, averageTargetsInReach: 2 })).toThrow('averageTargetsInReach=1')
+    }
+    const research = { intrinsicProperties: [{ kind: 'intrinsicMechanicOwnership', raw: 'Great splash' }] }
+    expect(evaluate(withResearch(research, 'great-hammer'), scenario).damage.expectedTargetsHit).toBe(1)
+    expect(() => evaluate(withResearch({ intrinsicProperties: [{ kind: 'intrinsicMechanicOwnership', raw: 'unknown extra effect' }] }, 'great-hammer'), scenario)).toThrow('未対応固有効果')
+    expect(() => evaluate(withResearch({ enchantments: [{ enchantmentId: 'gravity', tier: 1, source: 'built-in' }] }, 'great-hammer'), scenario)).toThrow('Research')
+    const withdrawn = structuredClone(source)
+    withdrawn.rows = withdrawn.rows.filter((row) => row.id !== 'great-hammer')
+    expect(plainMeleeReuseIsEligible('great-hammer', { source: withdrawn })).toBe(false)
+    const identityHeld = structuredClone(identities)
+    identityHeld.identityAssertions.find((row) => row.domainId === 'great-hammer')!.reviewState = 'held'
+    expect(plainMeleeReuseIsEligible('great-hammer', { identities: identityHeld })).toBe(false)
+    // Existing eight equipment definitions keep their original parameters/profiles.
+    expect(PLAIN_MELEE_IDS.slice(0, 4)).toEqual(['cutlass', 'pickaxe', 'soul-knife', 'whip'])
+    expect(PLAIN_MELEE_IDS.slice(0, 4).map((id) => [WEAPONS[id].internalPowerRating.value, WEAPONS[id].speed.value, WEAPONS[id].area.value, ATTACK_PROFILES[id].value])).toEqual([
+      [6.473, 3.944, 4.576, { method: 'published-hit-timings', hitDurationsSeconds: [0.4, 0.4], comboFinisherHit: 2 }],
+      [11.343, 1.518, 2.386, { method: 'published-hit-timings', hitDurationsSeconds: [0.7], comboFinisherHit: 1 }],
+      [12.229, 1, 3.189, { method: 'published-hit-timings', hitDurationsSeconds: [0.85], comboFinisherHit: 1 }],
+      [8.686, 1.113, 1, { method: 'published-hit-timings', hitDurationsSeconds: [0.8], comboFinisherHit: 1 }],
+    ])
   })
 
   it.each(['pain-cycle', 'dynamo', 'rampaging'] as const)('rejects unreviewed %s on every new plain target', (enchantmentId) => {
@@ -106,12 +134,12 @@ describe('source-bound single-target plain melee population', () => {
 
   it('reuses Soul Knife own +1 gathering without granting Soul effects to other targets or Ranged attribution', () => {
     expect(evaluate(build('soul-knife', 'anima-conduit'), scenario).soulState?.totalSoulGathering).toBe(2)
-    for (const id of ['cutlass', 'pickaxe', 'whip'] as const) expect(() => evaluate(build(id, 'anima-conduit'), scenario)).toThrow('Soul')
+    for (const id of ['cutlass', 'pickaxe', 'whip', 'great-hammer'] as const) expect(() => evaluate(build(id, 'anima-conduit'), scenario)).toThrow('Soul')
     expect(() => evaluate({ ...build('soul-knife'), rangedWeapon: readinessRanged(), rangedEnchantments: [] }, { ...scenario, rangedTimeShare: 0.4 })).toThrow('Soul Gathering')
     expect(() => optimize({ ...inventory(build('soul-knife').weapon), rangedWeapons: [readinessRanged()] }, { ...scenario, rangedTimeShare: 0.4 })).toThrow('Ranged')
   })
 
-  it.each(['cutlass', 'pickaxe', 'soul-knife', 'whip'] as PlainMeleeId[])('does not fabricate independent DPS/error or Power samples for %s', (id) => {
+  it.each([...PLAIN_MELEE_IDS] as PlainMeleeId[])('does not fabricate independent DPS/error or Power samples for %s', (id) => {
     expect(summarizeDamageRegressionByScope([]).byWeapon[id]).toEqual({ status: 'pending', sampleCount: 0, minimumSampleCount: 5 })
     expect(() => summarizePowerScalingValidation(id, [])).toThrow('sampleがありません')
   })
@@ -170,10 +198,10 @@ describe('source-bound single-target plain melee population', () => {
 })
 
 describe('lossless finite plain melee Catalog migration and no-ignore Research', () => {
-  it.each([1, 2, 3, 4, 5, 6])('migrates only the reviewed four old Catalog identities in version %s', (version) => {
+  it.each([1, 2, 3, 4, 5, 6])('migrates only the reviewed five old Catalog identities in version %s', (version) => {
     const items = PLAIN_MELEE_IDS.map((id) => ({ instanceId: id, category: 'melee', catalogId: id, powerLevel: 251, rarity: 'rare', isFavorite: true, notes: 'keep me', enchantmentSlots: [{ candidates: ['critical-hit', 'echo'], selected: { enchantmentId: 'critical-hit', tier: 2 } }], gilded: { enchantmentId: 'radiance', tier: 1 }, research: { observations: [{ parameterId: 'damage', value: '99999', unit: 'unverified' }] } }))
     const result = deserializeInventory(JSON.stringify({ version, inventory: { weapons: [], artifacts: [], catalogItems: [...items, { instanceId: 'diamond', category: 'melee', catalogId: 'diamond-pickaxe', powerLevel: 251 }] } }))
-    expect(result.weapons).toHaveLength(4)
+    expect(result.weapons).toHaveLength(5)
     for (const weapon of result.weapons) {
       expect(weapon).toMatchObject({ isFavorite: true, rarity: 'rare', notes: 'keep me', enchantmentSlots: items[0]!.enchantmentSlots, gilded: items[0]!.gilded, research: items[0]!.research })
       expect(weapon.observedDamagePerHit).toBeUndefined()

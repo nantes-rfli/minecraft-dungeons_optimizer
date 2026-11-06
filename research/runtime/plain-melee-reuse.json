@@ -144,6 +144,42 @@
         "existing unsupported enchant/armor combinations"
       ],
       "testRef": "tests/plainMeleeReuse.test.ts"
+    },
+    {
+      "targetId": "great-hammer",
+      "rawIdentity": "Hammer",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "gameVersion": "1.17.0.0",
+      "mechanic": "published-uniform-hit-direct-melee",
+      "channel": "direct-melee",
+      "scope": "single-target-only",
+      "donorId": "double-axe",
+      "sourceRef": "research/sources/plain-melee-source-snapshot.json",
+      "sourceId": "plain-melee-great-hammer-117",
+      "profileSourceId": "plain-melee-great-hammer-profile",
+      "parameterValues": {
+        "internalPowerRating": 8.686,
+        "speed": 1,
+        "area": 7.762,
+        "baseSoulGathering": 0
+      },
+      "intrinsicFacts": [
+        "Great splash"
+      ],
+      "builtInEnchantments": [],
+      "inputPolicy": "existing-power-curve-or-explicit-neutral-observed-hit",
+      "rejectedInteractions": [
+        "multiple melee targets",
+        "Pain Cycle",
+        "Dynamo",
+        "Death Cap Mushroom",
+        "Rampaging",
+        "Armor attack-speed effects",
+        "unreviewed built-in or Research effects",
+        "existing unsupported enchant/armor combinations"
+      ],
+      "testRef": "tests/plainMeleeReuse.test.ts"
     }
   ]
 }

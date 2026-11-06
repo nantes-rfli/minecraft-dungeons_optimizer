@@ -3325,19 +3325,24 @@
       "id": "melee-weapon:Hammer",
       "rawIdentity": "Hammer",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "No exact identity with category evidence; no suffix removal or fuzzy matching.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:great-hammer"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unknown",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3agreat-hammer"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance"
       ],
       "sourceRecordIds": [
         "bulk-bp-hammer-instance-2c1a879c558b65b3",
         "bulk-bp-hammer-instance-c84af17fdd1b70d0"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:great-hammer"
     },
     {
       "id": "melee-weapon:Hammer_Unique1",

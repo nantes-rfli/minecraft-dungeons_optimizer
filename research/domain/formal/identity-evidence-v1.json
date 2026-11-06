@@ -4714,6 +4714,37 @@
             "evidence:presentation:echo-of-the-valley:ranged-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:great-hammer@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Hammer",
+            "evidenceRef": "evidence:raw:identity:great-hammer@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Hammer",
+            "evidenceRef": "evidence:raw:identity:great-hammer@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:great-hammer@1",
+          "domainId": "great-hammer",
+          "evidenceRefs": [
+            "evidence:raw:identity:great-hammer@1:ItemIdName",
+            "evidence:raw:identity:great-hammer@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "great-hammer",
+          "displayName": "Great Hammer",
+          "evidenceRefs": [
+            "evidence:presentation:great-hammer:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -7631,6 +7662,26 @@
       "evidenceRefs": [
         "evidence:reviewed:echo-of-the-valley:accepted-alias",
         "evidence:reviewed:echo-of-the-valley:typed-raw-relation-bridge"
+      ]
+    },
+    {
+      "id": "identity:great-hammer@1",
+      "rawIdentity": "Hammer",
+      "domainId": "great-hammer",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:great-hammer:accepted-alias",
+        "evidence:reviewed:great-hammer:exact-localization-key"
       ]
     }
   ],
@@ -17683,6 +17734,81 @@
           "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/6/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:dbeebdfa"
+      },
+      {
+        "id": "evidence:reviewed:great-hammer:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Hammer]"
+        },
+        "fingerprint": "fnv1a32:6b849d77"
+      },
+      {
+        "id": "evidence:presentation:great-hammer:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=great-hammer].name.en"
+        },
+        "fingerprint": "fnv1a32:dff12e9c"
+      },
+      {
+        "id": "evidence:reviewed:great-hammer:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The hash-bound optimized localization resource independently maps exact ItemType/Hammer to Great Hammer. Both Raw serialized IDs are required; no icon, slug, sound-name, family or gameplay inference.",
+        "source": {
+          "artifactPath": "research/sources/great-hammer-localization-identity.json",
+          "locator": "bridge"
+        },
+        "fingerprint": "fnv1a32:9904cd45"
+      },
+      {
+        "id": "evidence:raw:identity:great-hammer@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Hammer"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7d2d39994283565a9cdffbfa5a3df760e192ed3e9a1492f37b001d7f3ec73f12",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5148a086317a0ea318dd261379094ec64f72a91357e562827ff44d078358d5cd"
+          },
+          "nodePointer": "/packages/47/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:263d8917"
+      },
+      {
+        "id": "evidence:raw:identity:great-hammer@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Hammer"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7d2d39994283565a9cdffbfa5a3df760e192ed3e9a1492f37b001d7f3ec73f12",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer/BP_HammerInstance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "5148a086317a0ea318dd261379094ec64f72a91357e562827ff44d078358d5cd"
+          },
+          "nodePointer": "/packages/47/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:cfef6b47"
       }
     ]
   }
