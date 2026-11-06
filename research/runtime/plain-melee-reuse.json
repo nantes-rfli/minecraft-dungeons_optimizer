@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "route": "existing-limited-mechanic-reuse",
+  "approvals": [
+    {
+      "targetId": "cutlass",
+      "rawIdentity": "Cutlass",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "gameVersion": "1.17.0.0",
+      "mechanic": "published-uniform-hit-direct-melee",
+      "channel": "direct-melee",
+      "scope": "single-target-only",
+      "donorId": "double-axe",
+      "sourceRef": "research/sources/plain-melee-source-snapshot.json",
+      "sourceId": "plain-melee-cutlass-117",
+      "profileSourceId": "plain-melee-cutlass-profile",
+      "parameterValues": {
+        "internalPowerRating": 6.473,
+        "speed": 3.944,
+        "area": 4.576,
+        "baseSoulGathering": 0
+      },
+      "intrinsicFacts": [
+        "Reliable Combo"
+      ],
+      "builtInEnchantments": [],
+      "inputPolicy": "existing-power-curve-or-explicit-neutral-observed-hit",
+      "rejectedInteractions": [
+        "multiple melee targets",
+        "Pain Cycle",
+        "Dynamo",
+        "Death Cap Mushroom",
+        "Rampaging",
+        "Armor attack-speed effects",
+        "unreviewed built-in or Research effects",
+        "existing unsupported enchant/armor combinations"
+      ],
+      "testRef": "tests/plainMeleeReuse.test.ts"
+    },
+    {
+      "targetId": "pickaxe",
+      "rawIdentity": "Pickaxe",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "gameVersion": "1.17.0.0",
+      "mechanic": "published-uniform-hit-direct-melee",
+      "channel": "direct-melee",
+      "scope": "single-target-only",
+      "donorId": "double-axe",
+      "sourceRef": "research/sources/plain-melee-source-snapshot.json",
+      "sourceId": "plain-melee-pickaxe-117",
+      "profileSourceId": "plain-melee-pickaxe-profile",
+      "parameterValues": {
+        "internalPowerRating": 11.343,
+        "speed": 1.518,
+        "area": 2.386,
+        "baseSoulGathering": 0
+      },
+      "intrinsicFacts": [],
+      "builtInEnchantments": [],
+      "inputPolicy": "existing-power-curve-or-explicit-neutral-observed-hit",
+      "rejectedInteractions": [
+        "multiple melee targets",
+        "Pain Cycle",
+        "Dynamo",
+        "Death Cap Mushroom",
+        "Rampaging",
+        "Armor attack-speed effects",
+        "unreviewed built-in or Research effects",
+        "existing unsupported enchant/armor combinations"
+      ],
+      "testRef": "tests/plainMeleeReuse.test.ts"
+    },
+    {
+      "targetId": "soul-knife",
+      "rawIdentity": "SoulKnife",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "gameVersion": "1.17.0.0",
+      "mechanic": "published-uniform-hit-direct-melee",
+      "channel": "direct-melee",
+      "scope": "single-target-only",
+      "donorId": "soul-scythe",
+      "sourceRef": "research/sources/plain-melee-source-snapshot.json",
+      "sourceId": "plain-melee-soul-knife-117",
+      "profileSourceId": "plain-melee-soul-knife-profile",
+      "parameterValues": {
+        "internalPowerRating": 12.229,
+        "speed": 1,
+        "area": 3.189,
+        "baseSoulGathering": 1
+      },
+      "intrinsicFacts": [
+        "Thrust attack",
+        "+1 Soul gathering"
+      ],
+      "builtInEnchantments": [],
+      "inputPolicy": "existing-power-curve-or-explicit-neutral-observed-hit",
+      "rejectedInteractions": [
+        "multiple melee targets",
+        "Pain Cycle",
+        "Dynamo",
+        "Death Cap Mushroom",
+        "Rampaging",
+        "Armor attack-speed effects",
+        "unreviewed built-in or Research effects",
+        "existing unsupported enchant/armor combinations"
+      ],
+      "testRef": "tests/plainMeleeReuse.test.ts"
+    },
+    {
+      "targetId": "whip",
+      "rawIdentity": "Whip",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "gameVersion": "1.17.0.0",
+      "mechanic": "published-uniform-hit-direct-melee",
+      "channel": "direct-melee",
+      "scope": "single-target-only",
+      "donorId": "double-axe",
+      "sourceRef": "research/sources/plain-melee-source-snapshot.json",
+      "sourceId": "plain-melee-whip-117",
+      "profileSourceId": "plain-melee-whip-profile",
+      "parameterValues": {
+        "internalPowerRating": 8.686,
+        "speed": 1.113,
+        "area": 1,
+        "baseSoulGathering": 0
+      },
+      "intrinsicFacts": [
+        "Longer melee reach"
+      ],
+      "builtInEnchantments": [],
+      "inputPolicy": "existing-power-curve-or-explicit-neutral-observed-hit",
+      "rejectedInteractions": [
+        "multiple melee targets",
+        "Pain Cycle",
+        "Dynamo",
+        "Death Cap Mushroom",
+        "Rampaging",
+        "Armor attack-speed effects",
+        "unreviewed built-in or Research effects",
+        "existing unsupported enchant/armor combinations"
+      ],
+      "testRef": "tests/plainMeleeReuse.test.ts"
+    }
+  ]
+}

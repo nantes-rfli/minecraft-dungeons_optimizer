@@ -4,6 +4,7 @@ import rangedAudit from '../../research/ranged-weapon-audit.json'
 import artifactAudit from '../../research/artifact-audit.json'
 import equipmentIconManifest from '../../generated/equipment-icons/manifest.json'
 import { WEAPONS } from './weapons'
+import { isPlainMeleeId } from './plainMelee'
 import { ARMORS } from './armors'
 import { RANGED_WEAPONS } from './ranged'
 import { ARTIFACTS } from './artifacts'
@@ -31,7 +32,7 @@ export interface EquipmentCatalogEntry {
 }
 
 const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLevel => {
-  if (category === 'melee') return id in WEAPONS ? 'full' : 'unsupported'
+  if (category === 'melee') return id in WEAPONS ? (isPlainMeleeId(id) ? 'limited' : 'full') : 'unsupported'
   if (category === 'armor') return id in ARMORS ? 'limited' : 'unsupported'
   if (category === 'ranged') return id in RANGED_WEAPONS ? 'limited' : 'unsupported'
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'

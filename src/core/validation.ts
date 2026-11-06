@@ -17,6 +17,7 @@ import { armorNumericEvidenceRows } from './armorEvidence'
 import { evidencePolicy, isEvidenceStatusAllowed } from './evidenceStatus'
 import { parseRangedWeapon, validateRangedBuild } from './ranged'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
+import { plainMeleeUnsupportedReason } from './plainMeleeReuse'
 
 function assertFinite(name: string, value: number, code = 'INVALID_SCENARIO'): void {
   if (!Number.isFinite(value)) {
@@ -130,6 +131,8 @@ export function validateScenario(scenario: Scenario): void {
 
 export function validateBuild(build: Build, scenario?: Scenario): void {
   validateRangedBuild(build, scenario)
+  const plainMeleeIssue = plainMeleeUnsupportedReason(build, scenario)
+  if (plainMeleeIssue) throw new OptimizerInputError('UNSUPPORTED_PLAIN_MELEE', plainMeleeIssue)
   const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
   validateWeaponSoulLegality(build.weapon)

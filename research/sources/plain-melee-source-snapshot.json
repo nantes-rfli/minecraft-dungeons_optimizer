@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "public-plain-melee-factual-snapshot",
+  "gameVersion": "1.17.0.0",
+  "acquiredAt": "2026-11-06",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1",
+    "locator": "self.__next_f.push JSON payload: calculator weapons array; exact slug row, power/speed/area and builtIn. No rounded display values.",
+    "versionBasis": "Publisher footer explicitly identifies Minecraft Dungeons 1.17.0.0 game files; public-source claim, not independently verified game behavior."
+  },
+  "intrinsicSource": {
+    "ref": "research/source-harvest/snapshots/dungeons-tools-2026-09-06.json",
+    "locator": "claims[entityId=melee-weapon:<id>,property=intrinsicMechanicOwnership] for Cutlass/Soul Knife/Whip; Pickaxe requires separate pickaxeDetailReview, historical missing is not interpreted as empty",
+    "interpretation": "Reviewed complete plain intrinsic scope from detail properties plus calculator builtIn; no unique effects inherited."
+  },
+  "timingSource": {
+    "ref": "research/melee-attack-profile-audit.json",
+    "interpretation": "Exact complete published profiles with uniform hit ratios. Published seconds are reused; configured animation fields are not effective timing inputs. Base cadence only; new targets reject attack-speed effects."
+  },
+  "rows": [
+    {
+      "id": "cutlass",
+      "rawIdentity": "Cutlass",
+      "sourceUrl": "https://www.dungeons.tools/weapons/cutlass",
+      "calculatorRow": {
+        "slug": "cutlass",
+        "name": "Cutlass",
+        "type": "melee",
+        "route": "/weapons/cutlass",
+        "power": 6.473,
+        "speed": 3.944,
+        "area": 4.576,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Cutlass_GearIcon.png",
+        "builtIn": []
+      },
+      "intrinsicFacts": [
+        "Reliable Combo"
+      ],
+      "baseSoulGathering": 0,
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3ACutlass",
+      "hitDurationsSeconds": [
+        0.4,
+        0.4
+      ],
+      "comboFinisherHit": 2,
+      "normalizedDamageRatios": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "pickaxe",
+      "rawIdentity": "Pickaxe",
+      "sourceUrl": "https://www.dungeons.tools/weapons/pickaxe",
+      "calculatorRow": {
+        "slug": "pickaxe",
+        "name": "Pickaxe",
+        "type": "melee",
+        "route": "/weapons/pickaxe",
+        "power": 11.343,
+        "speed": 1.518,
+        "area": 2.386,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_PickAxe.png",
+        "builtIn": []
+      },
+      "intrinsicFacts": [],
+      "baseSoulGathering": 0,
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3APickaxe",
+      "hitDurationsSeconds": [
+        0.7
+      ],
+      "comboFinisherHit": 1,
+      "normalizedDamageRatios": [
+        1
+      ]
+    },
+    {
+      "id": "soul-knife",
+      "rawIdentity": "SoulKnife",
+      "sourceUrl": "https://www.dungeons.tools/weapons/soul-knife",
+      "calculatorRow": {
+        "slug": "soul-knife",
+        "name": "Soul Knife",
+        "type": "melee",
+        "route": "/weapons/soul-knife",
+        "power": 12.229,
+        "speed": 1,
+        "area": 3.189,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_SoulKnife_GearIcon.png",
+        "builtIn": []
+      },
+      "intrinsicFacts": [
+        "Thrust attack",
+        "+1 Soul gathering"
+      ],
+      "baseSoulGathering": 1,
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3ASoul_Knife",
+      "hitDurationsSeconds": [
+        0.85
+      ],
+      "comboFinisherHit": 1,
+      "normalizedDamageRatios": [
+        1
+      ]
+    },
+    {
+      "id": "whip",
+      "rawIdentity": "Whip",
+      "sourceUrl": "https://www.dungeons.tools/weapons/whip",
+      "calculatorRow": {
+        "slug": "whip",
+        "name": "Whip",
+        "type": "melee",
+        "route": "/weapons/whip",
+        "power": 8.686,
+        "speed": 1.113,
+        "area": 1,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Jungle Awakens",
+        "icon": "/images/items/T_Whip_Gearicon.png",
+        "builtIn": []
+      },
+      "intrinsicFacts": [
+        "Longer melee reach"
+      ],
+      "baseSoulGathering": 0,
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3AWhip",
+      "hitDurationsSeconds": [
+        0.8
+      ],
+      "comboFinisherHit": 1,
+      "normalizedDamageRatios": [
+        1
+      ]
+    }
+  ],
+  "pickaxeDetailReview": {
+    "url": "https://www.dungeons.tools/weapons/pickaxe",
+    "acquiredAt": "2026-11-06",
+    "htmlSha256": "140a937008d05671c9b84e7c2a22314cc2ccf7bfd1f33b5e2ed44ef4c28d7d3b",
+    "locator": "Stats and details (Common Melee, Pickaxe, one-hit combo, Souls Not required), complete detail body and How it plays; no Properties/built-in section; calculator own row separately exposes builtIn=[]",
+    "reviewedScope": "Repeated overhead direct hit, single target, no combo or independently triggered effect. This reviewed source closes the historical source-missing intrinsic field for this bounded reuse only; it does not rewrite the historical harvest."
+  }
+}

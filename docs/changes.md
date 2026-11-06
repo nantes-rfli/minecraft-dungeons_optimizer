@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — 通常近接4種の単体対象Limited計算
+
+- Cutlass / Pickaxe / Soul Knife / Whipを、対象自身の公開float値・hit timing・Identityに固定して追加。近接対応を4/82から8/82へ拡張する。
+- 単体対象・基礎cadenceだけを扱い、速度効果・Pain Cycle/Dynamo・未対応固有効果を拒否。Soul Knifeは自身の+1 Soulsを使い、Ranged併用を拒否する。
+- 旧Catalog4種の個体・roll・Research記録を保持して移行し、未整合効果を0扱いしない。新しいPower式・独立DPS sample・R3/P3B Promotionは追加しない。
+
 ## 2026-11 — Dark Armor系のLimited計算対応
 
 - Dark Armor / Titan's Shroudを対象自身のsource・値・版に固定して追加し、Armor対応を11/73から13/73へ拡張。

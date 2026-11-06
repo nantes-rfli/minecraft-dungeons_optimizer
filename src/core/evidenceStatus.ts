@@ -5,6 +5,8 @@ import { ENCHANTMENTS } from '../data/enchantments'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
 import { RANGED_ENCHANTMENTS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
+import { isPlainMeleeId } from '../data/plainMelee'
+import { plainMeleeReuseIsEligible } from './plainMeleeReuse'
 import type { Build, Confidence, Evidence, Scenario } from './types'
 
 export const EVIDENCE_STATUSES = ['verified', 'measured', 'derived', 'estimated', 'unknown', 'unclassified'] as const
@@ -59,6 +61,7 @@ const sharedWeaponEvidence: readonly ParameterEvidence[] = [
 const weaponEvidence = Object.values(WEAPONS).flatMap((weapon): readonly ParameterEvidence[] => {
   const mechanicId = `melee:${weapon.id}`
   const profile = ATTACK_PROFILES[weapon.id]
+  if (isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering'].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
   return [
     fromEvidence(mechanicId, 'internal-power-rating', `${weapon.name.ja} / internal Power`, weapon.internalPowerRating),
     fromEvidence(mechanicId, 'area-rating', `${weapon.name.ja} / area`, weapon.area),

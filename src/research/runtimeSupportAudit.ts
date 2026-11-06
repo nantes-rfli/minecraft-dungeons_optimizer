@@ -1,5 +1,7 @@
 import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
+import { CHARGE_WEAPONS } from '../data/chargeConsume'
+import { collectPlainMeleeReuseErrors } from '../core/plainMeleeReuse'
 import audit from '../../research/melee-enchantment-audit.json'
 import { enchantmentCombinationUnsupportedReason, enchantmentUnsupportedReason } from '../core/damageEvents'
 import { RUNTIME_SUPPORT_LEVELS, RUNTIME_SUPPORT_REASONS, type MeleeRuntimeSupportManifest } from '../core/runtimeSupport'
@@ -10,7 +12,7 @@ const strings = (value: unknown): value is string[] => Array.isArray(value) && v
 
 export function collectRuntimeSupportErrors(value: unknown): string[] {
   if (!record(value)) return ['manifest must be an object']
-  const errors: string[] = []
+  const errors: string[] = [...collectPlainMeleeReuseErrors()]
   const check = (valid: boolean, message: string) => { if (!valid) errors.push(message) }
   check(value.schemaVersion === 1, 'schemaVersion must be 1')
   check(value.gameVersion === audit.gameVersion, 'gameVersion must match mechanics audit')
@@ -71,7 +73,7 @@ export function collectRuntimeSupportErrors(value: unknown): string[] {
     // Execute the actual boundary across the current gear scope, not a regex copy of rules.
     for (const weapon of Object.values(WEAPONS)) {
       for (let powerLevel = 50; powerLevel <= 263; powerLevel++) {
-        const legal = entry.weaponLegality !== 'soul-gear' || weapon.soul.acceptsSoulEnchantments
+        const legal = (entry.weaponLegality !== 'soul-gear' || weapon.soul.acceptsSoulEnchantments) && (!['pain-cycle', 'dynamo'].includes(id) || CHARGE_WEAPONS.includes(weapon.id))
         const range = entry.runtimePowerRange
         const within = !range || (powerLevel >= range.min && powerLevel <= range.max)
         check(Boolean(enchantmentUnsupportedReason({ weaponId: weapon.id, powerLevel }, id)) === !(legal && within), `${id}: runtime weapon/Power boundary drift at ${weapon.id}/${powerLevel}`)

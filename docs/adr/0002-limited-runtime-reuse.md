@@ -62,3 +62,7 @@ The [Ranged integration contract](../ranged-native-integration.md) adds a separa
 ## B3 — explicitly bounded Dark Armor family component reuse
 
 [Component reuse](../armor-component-reuse.md) adds a separate validator for Dark Armor and Titan's Shroud's complete audited property sets only. It reuses existing sole Armor DR, flat Soul Gathering and self direct-melee aura channels with target-owned source/value/version bindings and explicit non-inheritance. It does not relax B2's exact-set/family requirements, permit generic component composition, change Evidence classification or bypass A/P3B for new mechanics/interactions. Every target requires synchronized runtime, support, explanation, coverage, positive/negative/preservation regressions and independent final-head architecture review.
+
+## Plain uniform-hit melee reuse
+
+[Plain melee reuse](../plain-melee-runtime-reuse.md) adds a separate finite four-target validator for matched normal Cutlass/Pickaxe/Soul Knife/Whip. Target-owned exact public ratings, complete uniform published timing, full bounded intrinsic/built-in scope and Soul eligibility are required. Single-target/base-cadence rejection preserves unknown geometry and speed scaling. Existing Model G/observed override is reused without a new Power formula. Source-bound Derived declarations and historical Inventory compatibility are independent of registration. A/B/B2/B3 and R3/P3B are not relaxed, and new effects/interactions still require their own acceptance path.
