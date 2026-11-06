@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
@@ -41,6 +42,21 @@ const cdo = (raw: RawPackageSnapshot) => raw.package.objects.find((object) => ob
 const property = (raw: RawPackageSnapshot, name: string) => cdo(raw).properties!.find((node) => node.name.value === name)!
 
 describe('Formal Identity / Evidence v1', () => {
+  it('preserves the prior 152 complete assertions, semantics and provenance when Great Hammer is appended', () => {
+    const historical = JSON.parse(execFileSync('git', ['show', 'e637d939edc760b6d1e3a12226ad165e77f8a25d:research/domain/formal/identity-evidence-v1.json'], { maxBuffer: 16 * 1024 * 1024 }).toString()) as FormalIdentityEvidenceArtifact
+    const current = artifactFixture()
+    expect(historical.identityAssertions).toHaveLength(152)
+    expect(current.identityAssertions.slice(0, 152)).toEqual(historical.identityAssertions)
+    const ids = new Set(historical.identityAssertions.map(({ id }) => id))
+    expect(current.semantic.identities.filter(({ assertionId }) => ids.has(assertionId))).toEqual(historical.semantic.identities)
+    const evidenceIds = new Set(historical.provenance.evidence.map(({ id }) => id))
+    expect(current.provenance.evidence.filter(({ id }) => evidenceIds.has(id))).toEqual(historical.provenance.evidence)
+    expect(current.identityAssertions.slice(152).map(({ id, domainId, rawIdentity }) => ({ id, domainId, rawIdentity }))).toEqual([
+      { id: 'identity:great-hammer@1', domainId: 'great-hammer', rawIdentity: 'Hammer' },
+    ])
+    expect(current.semantic.identities.filter(({ assertionId }) => !ids.has(assertionId)).map(({ assertionId }) => assertionId)).toEqual(['identity:great-hammer@1'])
+  })
+
   it('preserves the existing 146 identities and appends exactly six reviewed typed-relation identities', () => {
     const artifact = artifactFixture()
     expect(collectFormalIdentityEvidenceErrors(artifact)).toEqual([])
