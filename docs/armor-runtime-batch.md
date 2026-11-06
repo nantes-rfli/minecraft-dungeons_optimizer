@@ -1,6 +1,6 @@
 # Armor Runtime — Phase 2-3C
 
-Phase 2-3B connected owned Armor to the production `Inventory -> Build -> evaluate/evaluateCandidate -> optimize` pipeline. Phase 2-3C expands runtime coverage to Armor **7 / 73** and Armor Enchantment **7 / 41**, all Limited. No research-only effect is entered as zero.
+Phase 2-3B connected owned Armor to the production `Inventory -> Build -> evaluate/evaluateCandidate -> optimize` pipeline. Phase 2-3C expands runtime coverage to Armor **13 / 73** and Armor Enchantment **7 / 41**, all Limited. No research-only effect is entered as zero.
 
 ## Schema and enumeration
 
@@ -28,6 +28,11 @@ finalMaxHealth = 100 + observedHealthBonus
 - Grim Armor: +50% Souls and 6% Life Steal reuse Wither behavior without Armor DR; Soul Siphon remains rejected.
 - Scale Mail: +30% direct melee damage and 35% DR reuse the existing components.
 - Spider Armor: +25% attack speed reuses the cadence component and 6% Life Steal reuses the direct-melee-only channel. Other runtime attack-speed sources are rejected.
+
+- Dark Armor: target-owned 35% DR and +50% flat Soul Gathering reuse the existing Limited incoming/resource channels. Wither Life Steal is not inherited.
+- Titan's Shroud: the same target-owned DR/Soul properties plus its own +20% weapon aura in the existing self direct-melee channel. Existing DR composition, Soul Siphon and Ranged exclusions remain.
+
+The two additions require the narrow [component reuse contract](armor-component-reuse.md); they do not extend B2 exact-replica eligibility or promote a new mechanic.
 
 ## Armor Enchantments
 

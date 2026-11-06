@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — Dark Armor系のLimited計算対応
+
+- Dark Armor / Titan's Shroudを対象自身のsource・値・版に固定して追加し、Armor対応を11/73から13/73へ拡張。
+- 既存の単独35% DR、flat Soul Gathering +50%、Titan自身のdirect-melee aura +20%だけを再利用。Life Stealを誤継承せず、DR合成・Soul Siphon・Ranged制約を維持。
+- 観測追加HP必須、Derivedの根拠分類、R3/P3B gateを維持。新しいゲーム計算式の昇格なし。
+
 ## 2026-11 — Inventoryの評価可能性と入力導線
 
 - 現在条件で評価できる装備件数と、入力不足・未対応・条件や組み合わせ制約・計算処理失敗を個体別に確認可能にする。

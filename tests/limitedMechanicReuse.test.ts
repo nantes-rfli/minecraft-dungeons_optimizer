@@ -197,13 +197,15 @@ const independentMeasurement: ArmorIndependentClassificationDecision = {
 }
 
 describe('Existing Limited Armor mechanic reuse architecture', () => {
-  it('preservation: keeps seven historical Armors, Thief B reuse, three replica grants and 26 derived parameters', () => {
+  it('preservation: keeps seven historical Armors, Thief B reuse, three replica grants, two component grants and 31 derived parameters', () => {
     expect(Object.keys(ARMORS)).toEqual([
       ...HISTORICAL_LIMITED_ARMOR_IDS,
       'thief-armor',
       'hungry-horror',
       'hungriest-horror',
       'the-spooky-gourdian',
+      'dark-armor',
+      'titan-s-shroud',
     ])
     expect(LIMITED_ARMOR_REUSE_APPROVALS).toEqual([thiefCase])
     expect(LIMITED_ARMOR_REPLICA_REUSE_APPROVALS.map((approval) => approval.targetId)).toEqual([
@@ -216,10 +218,10 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     const historical = HISTORICAL_LIMITED_ARMOR_IDS.map((id) => ARMORS[id as keyof typeof ARMORS])
     expect(historical.flatMap((armor) => armorNumericEvidenceRows(armor))).toHaveLength(16)
     const rows = Object.values(ARMORS).flatMap((armor) => armorNumericEvidenceRows(armor))
-    expect(rows).toHaveLength(26)
+    expect(rows).toHaveLength(31)
     expect(rows.every((row) => row.binding?.status === 'derived')).toBe(true)
     const registered = PARAMETER_EVIDENCE.filter((entry) => entry.mechanicId.startsWith('armor:'))
-    expect(registered).toHaveLength(26)
+    expect(registered).toHaveLength(31)
     expect(registered.find((entry) => entry.mechanicId === 'armor:thief-armor')).toMatchObject({
       parameterId: 'melee-attack-speed-bonus', status: 'derived', gameVersion: '1.17.0.0',
     })
@@ -353,7 +355,7 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     const catalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
     const oneLink = [multiLinks[0]!]
     const errors = collectLimitedArmorCatalogErrors(
-      catalog, [], oneLink, eligiblePromotions([multiTargets.speed]), multiEvidence, [],
+      catalog, [], oneLink, eligiblePromotions([multiTargets.speed]), multiEvidence, [], [],
     )
     expect(errors).toContain('hungry-horror/weaponDamageAuraBonus: active runtime parameter lacks target-specific P3B promotion')
     expect(errors).toContain('hungry-horror/armorDamageReduction: active runtime parameter lacks target-specific P3B promotion')
@@ -368,9 +370,9 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
     const catalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
     const manifest = eligiblePromotions(Object.values(multiTargets))
     expect(manifest.summary).toEqual({ candidates: 3, eligible: 3, promoted: 3 })
-    expect(collectLimitedArmorCatalogErrors(catalog, [], multiLinks, manifest, multiEvidence, [])).toEqual([])
+    expect(collectLimitedArmorCatalogErrors(catalog, [], multiLinks, manifest, multiEvidence, [], [])).toEqual([])
     const duplicate = collectLimitedArmorCatalogErrors(
-      catalog, [], [...multiLinks, multiLinks[0]!], manifest, multiEvidence, [],
+      catalog, [], [...multiLinks, multiLinks[0]!], manifest, multiEvidence, [], [],
     )
     expect(duplicate).toContain('hungry-horror: duplicate P3B promotion link')
   })
@@ -378,9 +380,9 @@ describe('Existing Limited Armor mechanic reuse architecture', () => {
   it('A/P3B negative: built-in, Soul and non-numeric intrinsic effects require separate promotion support', () => {
     const manifest = eligiblePromotions(Object.values(multiTargets))
     const baseCatalog = { ...historicalArmorCatalog, 'hungry-horror': multiArmor }
-    expect(collectLimitedArmorCatalogErrors(baseCatalog, [], multiLinks, manifest, multiEvidence, [])).toEqual([])
+    expect(collectLimitedArmorCatalogErrors(baseCatalog, [], multiLinks, manifest, multiEvidence, [], [])).toEqual([])
     const errors = (armor: RuntimeArmorDefinition) => collectLimitedArmorCatalogErrors(
-      { ...historicalArmorCatalog, 'hungry-horror': armor }, [], multiLinks, manifest, multiEvidence, [],
+      { ...historicalArmorCatalog, 'hungry-horror': armor }, [], multiLinks, manifest, multiEvidence, [], [],
     )
     expect(errors({ ...multiArmor, builtInEnchantments: [{ enchantmentId: 'cool-down', tier: 1 }] }))
       .toContain('hungry-horror: A/P3B route has unpromoted built-in Enchantments')

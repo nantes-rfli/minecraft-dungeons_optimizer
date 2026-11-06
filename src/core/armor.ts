@@ -15,6 +15,8 @@ export type ArmorId =
   | 'hungry-horror'
   | 'hungriest-horror'
   | 'the-spooky-gourdian'
+  | 'dark-armor'
+  | 'titan-s-shroud'
 export type ArmorEnchantmentId =
   | 'cool-down'
   | 'potion-barrier'

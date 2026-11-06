@@ -174,6 +174,142 @@ export const LIMITED_ARMOR_REPLICA_REUSE_APPROVALS: readonly LimitedArmorReplica
 ]
 
 const normalizedRaw = (raw: string) => raw.trim().replace(/\s+/g, ' ').toLowerCase()
+
+/** B3 is a finite, reviewed Dark Armor family grant, not a generic component
+ * taxonomy. It reuses existing channel stages and does not authorize new
+ * stacking, additional equipment identities, or target-only unknown effects.
+ */
+export interface LimitedDarkArmorComponentReuseApproval {
+  readonly targetId: 'dark-armor' | 'titan-s-shroud'
+  readonly rawIdentity: string
+  readonly sourceRef: 'research/armor-audit.json'
+  readonly gameVersion: '1.17.0.0'
+  readonly mode: 'dark-armor-existing-channels'
+  readonly properties: readonly {
+    readonly parameter: 'armorDamageReduction' | 'soulGatheringMultiplier' | 'weaponDamageAuraBonus'
+    readonly value: number
+    readonly kind: string
+    readonly raw: string
+    readonly ownership: 'base' | 'inherited' | 'unique-only'
+    readonly donorId: 'wither-armor' | 'mercenary-armor'
+    readonly sourceId: string
+    readonly channel: 'incoming-damage' | 'soul-collection' | 'direct-melee-damage'
+    readonly scope: 'sole-dr-source' | 'existing-flat-gathering' | 'self-direct-melee'
+  }[]
+  readonly excludedDonorProperties: readonly string[]
+  readonly rejectedInteractions: readonly string[]
+  readonly testRefs: { readonly positive: string; readonly negative: string; readonly preservation: string }
+}
+
+const DARK_ARMOR_COMPONENT_PARAMETERS = {
+  armorDamageReduction: { value: 0.35, kind: 'damage-reduction', raw: '35% damage reduction', donorId: 'wither-armor', channel: 'incoming-damage', scope: 'sole-dr-source' },
+  soulGatheringMultiplier: { value: 1.5, kind: 'soul-gathering', raw: '+50% souls gathered', donorId: 'wither-armor', channel: 'soul-collection', scope: 'existing-flat-gathering' },
+  weaponDamageAuraBonus: { value: 0.2, kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura', donorId: 'mercenary-armor', channel: 'direct-melee-damage', scope: 'self-direct-melee' },
+} as const
+
+export const LIMITED_DARK_ARMOR_COMPONENT_REUSE_APPROVALS: readonly LimitedDarkArmorComponentReuseApproval[] = [
+  {
+    targetId: 'dark-armor', rawIdentity: 'DarkArmor', sourceRef: 'research/armor-audit.json', gameVersion: '1.17.0.0', mode: 'dark-armor-existing-channels',
+    properties: [
+      { parameter: 'armorDamageReduction', ...DARK_ARMOR_COMPONENT_PARAMETERS.armorDamageReduction, ownership: 'base', sourceId: 'dungeons-tools-armor-index' },
+      { parameter: 'soulGatheringMultiplier', ...DARK_ARMOR_COMPONENT_PARAMETERS.soulGatheringMultiplier, ownership: 'base', sourceId: 'dungeons-tools-armor-index' },
+    ],
+    excludedDonorProperties: ['life-steal-aura'],
+    rejectedInteractions: ['iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection', 'soul-siphon', 'ranged'],
+    testRefs: { positive: 'tests/armorComponentReuse.test.ts#positive', negative: 'tests/armorComponentReuse.test.ts#negative', preservation: 'tests/armorComponentReuse.test.ts#preservation' },
+  },
+  {
+    targetId: 'titan-s-shroud', rawIdentity: 'DarkArmor_Unique1', sourceRef: 'research/armor-audit.json', gameVersion: '1.17.0.0', mode: 'dark-armor-existing-channels',
+    properties: [
+      { parameter: 'armorDamageReduction', ...DARK_ARMOR_COMPONENT_PARAMETERS.armorDamageReduction, ownership: 'inherited', sourceId: 'dungeons-tools-armor-index' },
+      { parameter: 'weaponDamageAuraBonus', ...DARK_ARMOR_COMPONENT_PARAMETERS.weaponDamageAuraBonus, ownership: 'unique-only', sourceId: 'dungeons-tools-armor-index' },
+      { parameter: 'soulGatheringMultiplier', ...DARK_ARMOR_COMPONENT_PARAMETERS.soulGatheringMultiplier, ownership: 'inherited', sourceId: 'dungeons-tools-armor-index' },
+    ],
+    excludedDonorProperties: ['life-steal-aura'],
+    rejectedInteractions: ['iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection', 'soul-siphon', 'ranged'],
+    testRefs: { positive: 'tests/armorComponentReuse.test.ts#positive', negative: 'tests/armorComponentReuse.test.ts#negative', preservation: 'tests/armorComponentReuse.test.ts#preservation' },
+  },
+]
+
+export function collectLimitedDarkArmorComponentReuseErrors(
+  approval: LimitedDarkArmorComponentReuseApproval,
+  target: RuntimeArmorDefinition,
+  donors: Readonly<Partial<Record<string, RuntimeArmorDefinition>>> = ARMORS,
+): string[] {
+  const errors: string[] = []
+  const check = (condition: boolean, message: string) => { if (!condition) errors.push(message) }
+  const targetId = approval.targetId
+  const allowedTarget = targetId === 'dark-armor' || targetId === 'titan-s-shroud'
+  check(allowedTarget && target.id === targetId && target.family === 'Dark Armor', 'component reuse target is outside the reviewed Dark Armor family')
+  const expectedIdentity = targetId === 'dark-armor' ? 'DarkArmor' : 'DarkArmor_Unique1'
+  const audited = ARMOR_AUDIT.entries.find((entry) => entry.id === targetId)
+  const assertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === targetId)
+  const resolved = reviewedIdentity.semantic.identities.find((entry) => entry.assertionId === assertion?.id)
+  check(approval.rawIdentity === expectedIdentity && audited?.levelId === expectedIdentity
+    && assertion?.rawIdentity === expectedIdentity && assertion.reviewState === 'accepted' && assertion.confidence === 'high'
+    && resolved?.resolution.state === 'matched'
+    && resolved.rawEvidence.itemIdName.state === 'known' && resolved.rawEvidence.itemIdName.value === expectedIdentity
+    && resolved.rawEvidence.serializedId.state === 'known' && resolved.rawEvidence.serializedId.value === expectedIdentity,
+  'component reuse Formal Identity mismatch')
+  check(approval.sourceRef === 'research/armor-audit.json' && approval.gameVersion === '1.17.0.0'
+    && audited?.gameVersion === approval.gameVersion && ARMOR_AUDIT.gameVersion === approval.gameVersion,
+  'component reuse source/version mismatch')
+  check(approval.mode === 'dark-armor-existing-channels' && target.supportLevel === 'limited', 'component reuse mode/support mismatch')
+  check(audited?.family === 'Dark Armor'
+    && audited.inheritance.baseArmorId === (targetId === 'dark-armor' ? null : 'dark-armor'), 'component reuse inheritance drift')
+  const expectedParameters = targetId === 'dark-armor'
+    ? ['armorDamageReduction', 'soulGatheringMultiplier'] : ['armorDamageReduction', 'weaponDamageAuraBonus', 'soulGatheringMultiplier']
+  check(approval.properties.length === expectedParameters.length
+    && new Set(approval.properties.map((property) => property.parameter)).size === expectedParameters.length
+    && approval.properties.every((property) => expectedParameters.includes(property.parameter)), 'component reuse must enumerate every exact target parameter once')
+  check(audited?.intrinsicProperties.length === expectedParameters.length
+    && target.intrinsicProperties.length === expectedParameters.length, 'component reuse has extra or missing target properties')
+  for (const property of approval.properties) {
+    const expected = DARK_ARMOR_COMPONENT_PARAMETERS[property.parameter]
+    if (!expected) { errors.push('component reuse has an unreviewed parameter'); continue }
+    const expectedOwnership = targetId === 'dark-armor' ? 'base' : property.parameter === 'weaponDamageAuraBonus' ? 'unique-only' : 'inherited'
+    check(property.value === expected.value && property.kind === expected.kind && property.raw === expected.raw
+      && property.donorId === expected.donorId && property.channel === expected.channel && property.scope === expected.scope
+      && property.ownership === expectedOwnership && target[property.parameter] === expected.value,
+    `component reuse parameter/channel/scope drift: ${property.parameter}`)
+    const matchingAuditProperties = audited?.intrinsicProperties.filter((entry) => entry.kind === property.kind && entry.raw === property.raw && entry.ownership === property.ownership) ?? []
+    check(property.sourceId === 'dungeons-tools-armor-index'
+      && ARMOR_AUDIT.sources.some((source) => source.id === property.sourceId)
+      && !!audited?.sourceIds.includes(property.sourceId)
+      && matchingAuditProperties.length === 1 && matchingAuditProperties[0]!.sourceIds.includes(property.sourceId)
+      && target.intrinsicProperties.filter((entry) => entry.kind === property.kind && entry.raw === property.raw).length === 1,
+    `component reuse target property/source mismatch: ${property.parameter}`)
+    const donor = donors[property.donorId]
+    const donorAudit = ARMOR_AUDIT.entries.find((entry) => entry.id === property.donorId)
+    const donorAssertion = reviewedIdentity.identityAssertions.find((entry) => entry.domainId === property.donorId)
+    const donorResolved = reviewedIdentity.semantic.identities.find((entry) => entry.assertionId === donorAssertion?.id)
+    const binding = ARMOR_EVIDENCE_BINDINGS[property.donorId]?.[property.parameter]
+    check(!!donor && donor.id === expected.donorId && donor.supportLevel === 'limited' && donor[property.parameter] === expected.value
+      && donorAudit?.gameVersion === approval.gameVersion
+      && donorAssertion?.reviewState === 'accepted' && donorAssertion.confidence === 'high'
+      && donorAssertion.rawIdentity === donorAudit.levelId && donorResolved?.resolution.state === 'matched'
+      && donorAudit.intrinsicProperties.some((entry) => entry.kind === expected.kind && normalizedRaw(entry.raw) === normalizedRaw(expected.raw) && entry.sourceIds.includes(property.sourceId))
+      && donor.intrinsicProperties.some((entry) => entry.kind === expected.kind && normalizedRaw(entry.raw) === normalizedRaw(expected.raw))
+      && binding?.expectedValue === expected.value && binding.gameVersion === approval.gameVersion
+      && binding.sourceId === property.sourceId && binding.propertyKind === expected.kind
+      && normalizedRaw(binding.propertyRaw) === normalizedRaw(expected.raw),
+    `component reuse donor model/source mismatch: ${property.parameter}`)
+  }
+  for (const parameter of ARMOR_NUMERIC_PARAMETERS) {
+    if (!expectedParameters.includes(parameter)) check(target[parameter] === (parameter === 'soulGatheringMultiplier' ? 1 : 0), `component reuse inherits unrelated effect: ${parameter}`)
+  }
+  check(target.builtInEnchantments.length === 0 && audited?.builtInEnchantments.length === 0,
+    'component reuse contains unreviewed built-in Enchantments')
+  check(target.soul.acceptsSoulEnchantments === true && audited?.soulGear === true
+    && !Object.prototype.hasOwnProperty.call(target.soul, 'intrinsicSoulModifier'), 'component reuse Soul semantics drift')
+  check(approval.excludedDonorProperties.length === 1 && approval.excludedDonorProperties[0] === 'life-steal-aura'
+    && target.lifeStealFraction === 0, 'component reuse must not inherit donor Life Steal')
+  check(['iron-hide-amulet', 'guarding-strike', 'weakening', 'potion-barrier', 'protection', 'soul-siphon', 'ranged']
+    .every((interaction) => approval.rejectedInteractions.includes(interaction)), 'component reuse does not reject every unverified interaction')
+  check(Object.values(approval.testRefs).length === 3 && Object.values(approval.testRefs).every((ref) => ref.startsWith('tests/') && ref.includes('#')),
+    'component reuse positive/negative/preservation test references required')
+  return errors
+}
 const sortedJson = (value: readonly unknown[]) => JSON.stringify([...value].sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b))))
 const auditedPropertyShape = (properties: readonly { kind: string; raw: string; ownership: string }[]) =>
   properties.map((property) => ({ kind: property.kind, raw: normalizedRaw(property.raw), ownership: property.ownership }))
@@ -433,12 +569,14 @@ export function collectLimitedArmorCatalogErrors(
   manifest: RuntimePromotionManifest = checkedPromotionManifest,
   evidenceBindings: Readonly<Record<string, Partial<Record<ArmorNumericParameter, ArmorEvidenceBinding>>>> = ARMOR_EVIDENCE_BINDINGS,
   replicaApprovals: readonly LimitedArmorReplicaReuseApproval[] = LIMITED_ARMOR_REPLICA_REUSE_APPROVALS,
+  componentApprovals: readonly LimitedDarkArmorComponentReuseApproval[] = LIMITED_DARK_ARMOR_COMPONENT_REUSE_APPROVALS,
 ): string[] {
   const errors: string[] = []
   const legacy = new Set(HISTORICAL_LIMITED_ARMOR_IDS)
   const ids = Object.keys(armors)
   const seen = new Set<string>()
   const replicaSeen = new Set<string>()
+  const componentSeen = new Set<string>()
   const promoted = new Map<string, PromotedArmorRuntimeLink[]>()
   const promotedTargets = new Set<string>()
   for (const link of promotionLinks) {
@@ -469,11 +607,19 @@ export function collectLimitedArmorCatalogErrors(
     if (!target) errors.push(`${approval.targetId}: replica reuse approval has no runtime target`)
     else errors.push(...collectLimitedArmorReplicaReuseErrors(approval, target, armors[approval.donorId]).map((reason) => `${approval.targetId}: ${reason}`))
   }
+  for (const approval of componentApprovals) {
+    if (componentSeen.has(approval.targetId)) errors.push(`${approval.targetId}: duplicate component reuse approval`)
+    componentSeen.add(approval.targetId)
+    if (legacy.has(approval.targetId) || seen.has(approval.targetId) || replicaSeen.has(approval.targetId) || promoted.has(approval.targetId)) errors.push(`${approval.targetId}: choose exactly one P4 route`)
+    const target = armors[approval.targetId]
+    if (!target) errors.push(`${approval.targetId}: component reuse approval has no runtime target`)
+    else errors.push(...collectLimitedDarkArmorComponentReuseErrors(approval, target, armors).map((reason) => `${approval.targetId}: ${reason}`))
+  }
   for (const id of ids) {
-    if (!legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion`)
+    if (!legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && !componentSeen.has(id) && !promoted.has(id)) errors.push(`${id}: runtime Armor lacks explicit Limited reuse approval, exact-replica approval, or P3B promotion`)
     const armor = armors[id]!
     const links = promoted.get(id) ?? []
-    const routeA = !legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && links.length > 0
+    const routeA = !legacy.has(id) && !seen.has(id) && !replicaSeen.has(id) && !componentSeen.has(id) && links.length > 0
     for (const key of ARMOR_NUMERIC_PARAMETERS) {
       const neutral = key === 'soulGatheringMultiplier' ? 1 : 0
       if (armor[key] === neutral) continue

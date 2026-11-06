@@ -107,6 +107,20 @@ export const ARMORS: Readonly<Record<ArmorId, RuntimeArmorDefinition>> = {
     meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0, armorDamageReduction: 0.35,
     soulGatheringMultiplier: 1.5, lifeStealFraction: 0.06, artifactCooldownReduction: 0, supportLevel: 'limited',
   },
+  'dark-armor': {
+    id: 'dark-armor', name: { en: 'Dark Armor', ja: '闇のアーマー' }, family: 'Dark Armor',
+    soul: { acceptsSoulEnchantments: true }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'damage-reduction', raw: '35% damage reduction' }, { kind: 'soul-gathering', raw: '+50% souls gathered' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0, meleeAttackSpeedBonus: 0, armorDamageReduction: 0.35,
+    soulGatheringMultiplier: 1.5, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
+  'titan-s-shroud': {
+    id: 'titan-s-shroud', name: { en: "Titan's Shroud", ja: 'タイタンの覆い' }, family: 'Dark Armor',
+    soul: { acceptsSoulEnchantments: true }, builtInEnchantments: [],
+    intrinsicProperties: [{ kind: 'damage-reduction', raw: '35% damage reduction' }, { kind: 'weapon-damage-aura', raw: '+20% weapon damage boost aura' }, { kind: 'soul-gathering', raw: '+50% souls gathered' }],
+    meleeDamageBonus: 0, weaponDamageAuraBonus: 0.2, meleeAttackSpeedBonus: 0, armorDamageReduction: 0.35,
+    soulGatheringMultiplier: 1.5, lifeStealFraction: 0, artifactCooldownReduction: 0, supportLevel: 'limited',
+  },
 }
 
 export const ARMOR_ENCHANTMENTS: Readonly<Record<ArmorEnchantmentId, RuntimeArmorEnchantmentDefinition>> = {

@@ -41,6 +41,8 @@ describe('Phase 2-3C Armor runtime audit', () => {
       'hungry-horror',
       'hungriest-horror',
       'the-spooky-gourdian',
+      'dark-armor',
+      'titan-s-shroud',
     ])
     expect(ARMOR_CORE_RUNTIME_AUDIT.runtimeArmorEnchantmentIds).toEqual([
       'cool-down',
@@ -63,7 +65,7 @@ describe('Phase 2-3C Armor runtime audit', () => {
       runtimeValue: 0.37,
     })
     expect(ARMOR_CORE_RUNTIME_AUDIT.completion).toEqual({
-      runtimeArmorCount: 11,
+      runtimeArmorCount: 13,
       runtimeArmorEnchantmentCount: 7,
       supportLevel: 'limited',
     })
