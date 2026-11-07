@@ -21,7 +21,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 - Ranged: Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbowを個体・モードごとの観測値入力付きでLimited対応（計11組み合わせ、[モード条件](./docs/ranged-observed-modes.md)。[Rapidは消費矢数の明示観測も必須](./docs/rapid-crossbow-runtime-reuse.md)）
 - Artifact: Death Cap Mushroom / Iron Hide Amulet / Shock Powder
 - Enchantment: Full / Limited / Research-onlyを明示し、未対応候補を0点評価しない
-- 比較: Damage / Healing / Defense / Control、6種のScenario profile、Pareto前線、効果ごとの寄与
+- 比較: Damage / Healing / Defense / Control、6種のScenario profile、Pareto前線、効果ごとの寄与。「Artifactを外した構成も比較する」を有効にすると0〜3個の構成を全探索し、Mushroomを所持したまま基本速度限定の近接装備も比較可能（[探索条件と上限](./docs/optional-artifact-loadouts.md)）
 - 用途別評価: 現在の条件と選択した保存条件で、各装備個体を必須にした最良構成と、その条件の最良スコアとの差を全探索で比較。複数条件それぞれで最良スコアと同点になれる装備個体もまとめて確認できます（個体ごとの結果で、条件間のスコアは合算しません。同じ評価入力は表示名が違っても1条件として数えます）。各条件の全体最良構成も折りたたみで確認でき、カテゴリ絞り込み・装備名 / Power / Enchant / 個体ID検索・条件別の並べ替え・mobileの装備個体cardに対応。数値評価できる所持個体は、選択条件ごとに外した後の最良構成と差も確認でき、Inventoryは変更されません
 - 新しい装備: 現在条件に加えて保存済み条件を選び、候補を加える前後の最良構成・スコア差・Damage / Healing / Defense / Controlの指標差と候補必須の構成を個別に比較
 - Inventory評価可能性: 現在条件で評価可能な件数、入力不足、未対応、条件・組み合わせ制約、計算処理失敗を個体別に表示。必要な入力と対象編集への導線、補完後の自動再確認に対応（[使い方と判定契約](./docs/inventory-readiness.md)）

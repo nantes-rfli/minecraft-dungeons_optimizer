@@ -39,7 +39,7 @@ function stableScenarioInputJson(value: unknown): string {
 }
 
 function scenarioInputKey(scenario: Scenario): string {
-  const inputs = Object.fromEntries(Object.entries(scenario).filter(([key]) => key !== 'name'))
+  const inputs = Object.fromEntries(Object.entries(scenario).filter(([key, value]) => key !== 'name' && (key !== 'includeUnequippedArtifacts' || value === true)))
   return stableScenarioInputJson(inputs)
 }
 
@@ -98,7 +98,9 @@ export function assessEquipment(inventory: Inventory, conditions: readonly Asses
     throw new Error(`用途別評価には重複しない条件を1〜${MAX_ASSESSMENT_CONDITIONS}件指定してください。`)
   }
   validateInventory(inventory)
-  assertSearchBudget(inventory)
+  // With legacy conditions the budget is shared. A mixed batch must check
+  // each search so one expanded search cannot block an otherwise valid one.
+  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true)) assertSearchBudget(inventory)
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
   const catalogIds = new Set(inventory.catalogItems?.map((item) => item.instanceId))
   return conditions.map((condition): ConditionAssessment => {

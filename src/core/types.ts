@@ -644,6 +644,8 @@ export interface EnemyStateAssumptions {
 }
 
 export interface Scenario {
+  /** Opt in to comparing every Artifact subset of 0–3 items. Omission preserves legacy fixed-size search. */
+  readonly includeUnequippedArtifacts?: boolean
   /** Controls whether parameters explicitly classified as Estimated may enter candidate evaluation. */
   readonly evidencePolicy?: EvidencePolicy
   /** Explicit reserved attack-time budget; required only with Ranged. No simultaneous full melee/ranged DPS. */

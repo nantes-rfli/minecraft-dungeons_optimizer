@@ -47,8 +47,12 @@ function combinations<T>(values: readonly T[], size: number): T[][] {
   ]
 }
 
-function artifactLoadouts(artifacts: readonly OwnedArtifact[]): OwnedArtifact[][] {
-  return combinations(artifacts, Math.min(3, artifacts.length))
+function artifactLoadouts(artifacts: readonly OwnedArtifact[], includeUnequippedArtifacts = false): OwnedArtifact[][] {
+  const max = Math.min(3, artifacts.length)
+  // Keep historical full-size candidates first, including their stable tie order.
+  return includeUnequippedArtifacts
+    ? Array.from({ length: max + 1 }, (_, index) => combinations(artifacts, max - index)).flat()
+    : combinations(artifacts, max)
 }
 
 function normalizedSlot(slot: { readonly candidates: readonly unknown[]; readonly selected?: { readonly enchantmentId: string; readonly tier: 1 | 2 | 3 } }): { candidates: { enchantmentId: string; tier: 1 | 2 | 3 }[]; selected?: { enchantmentId: string; tier: 1 | 2 | 3 } } {
@@ -58,7 +62,7 @@ function normalizedSlot(slot: { readonly candidates: readonly unknown[]; readonl
   return { candidates, ...(selected ? { selected } : {}) }
 }
 
-function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: ExclusionLog): Build[] {
+function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[], unsupportedChoices: ExclusionLog, includeUnequippedArtifacts = false): Build[] {
   const slotIssue = enchantmentInputIssue(weapon.instanceId, weapon.enchantmentSlots)
   if (slotIssue) {
     unsupportedChoices.record(weapon.instanceId, slotIssue)
@@ -87,7 +91,7 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
     throw new OptimizerInputError('UNSUPPORTED_DAMAGE_EVENT', `武器${weapon.instanceId}に評価可能な候補のないスロットがあります。${[...unsupportedChoices].join(' ')}`)
   }
   const enchantmentChoices = cartesianProduct(choices)
-  const artifactChoices = artifactLoadouts(artifacts)
+  const artifactChoices = artifactLoadouts(artifacts, includeUnequippedArtifacts)
   return enchantmentChoices.flatMap((selected) => {
     const enchantments: SelectedEnchantment[] = [
       ...selected.map((choice) => ({
@@ -237,6 +241,21 @@ function recordEvaluationFailure(log: ExclusionLog, build: Build, error: unknown
   for (const id of buildInstanceIds(build)) log.record(id, { kind: 'failed', message: error instanceof Error ? error.message : '評価処理が失敗しました。' })
 }
 
+function artifactPowerIssue(artifact: OwnedArtifact, diagnosticOnly = false): ReadinessIssue | undefined {
+  try {
+    const definition = getArtifactDefinition(artifact.artifactId)
+    if ('duration' in definition) calculateArtifactDuration(definition.duration, artifact.powerLevel)
+  } catch (error) {
+    if (error instanceof OptimizerInputError && error.code === 'UNSUPPORTED_ARTIFACT_POWER_RANGE') {
+      return { kind: 'unsupported', message: `${error.message}。この個体のPowerは現在の対応範囲外です。実装備のPowerを書き換えたり、未承認の値を入力して解決しないでください。` }
+    }
+    // Readiness's preliminary probe only records range issues. The actual
+    // search owns errors from other model checks and records its failures.
+    if (!diagnosticOnly) throw error
+  }
+  return undefined
+}
+
 /**
  * Runs the optimizer with participation metadata for callers that need to
  * distinguish evaluated inventory instances from candidates excluded before
@@ -270,18 +289,27 @@ function optimizeInternal(
 ): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly bestByInstance: ReadonlyMap<string, Evaluation> } {
   validateInventory(inventory)
   validateScenario(scenario)
-  assertSearchBudget(inventory)
+  assertSearchBudget(inventory, scenario)
 
   const policy = evidencePolicy(scenario)
-  const runtimeArtifacts = policy === 'include-estimated'
+  const policyArtifacts = policy === 'include-estimated'
     ? inventory.artifacts
     : inventory.artifacts.filter((artifact) => {
       if (artifactEvidenceAllowed(artifact.artifactId, policy)) return true
       unsupportedChoices.record(artifact.instanceId, { kind: 'constrained', message: 'Estimated parameter / Unknown / Unclassifiedを使用するため「高確度のみ」では除外', target: 'scenario' })
       return false
     })
+  const optionalArtifacts = scenario.includeUnequippedArtifacts === true
+  // Only the opt-in search may omit an out-of-range item. Inventory is untouched;
+  // unknown models and invalid parameters still propagate as errors.
+  const runtimeArtifacts = optionalArtifacts ? policyArtifacts.filter((artifact) => {
+    const issue = artifactPowerIssue(artifact)
+    if (!issue) return true
+    unsupportedChoices.record(artifact.instanceId, issue)
+    return false
+  }) : policyArtifacts
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
-    const weaponBuilds = buildsForWeapon(weapon, runtimeArtifacts, unsupportedChoices)
+    const weaponBuilds = buildsForWeapon(weapon, runtimeArtifacts, unsupportedChoices, optionalArtifacts)
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
         'INVALID_WEAPON',
@@ -346,18 +374,17 @@ function optimizeInternal(
     return false
   })
   unsupportedChoices.finishStage(new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds)))
-  const evaluations = evidenceAllowedBuilds
-    .map((build) => {
-      try { return evaluateCandidate(build, scenario) }
-      catch (error) {
-        recordEvaluationFailure(unsupportedChoices, build, error)
-        throw error
-      }
-    })
-    .sort((left, right) => right.objectiveScore - left.objectiveScore)
+  const evaluations = evidenceAllowedBuilds.map((build) => {
+    try { return evaluateCandidate(build, scenario) }
+    catch (error) {
+      recordEvaluationFailure(unsupportedChoices, build, error)
+      throw error
+    }
+  })
   const evaluatedInstanceIds = includeEvaluationMetadata
-    ? [...new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds))]
+    ? [...new Set(evaluations.flatMap((candidate) => buildInstanceIds(candidate.build)))]
     : []
+  evaluations.sort((left, right) => right.objectiveScore - left.objectiveScore)
 
   const best = evaluations[0]
   if (!best) {
@@ -406,7 +433,7 @@ function optimizeInternal(
   }
 }
 
-/** Diagnose the CURRENT inventory/condition. No invented loadouts, removed gear or fallback scores. */
+/** Diagnose legal builds under the current inventory and search condition. */
 export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenario): InventoryReadiness {
   const log = new ExclusionLog()
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
@@ -414,16 +441,11 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
   let errorMessage: string | undefined
   let globalIssue: ReadinessIssue = { kind: 'constrained', message: 'この条件と所持装備では評価可能な構成がありません。他の装備の不足入力・制約も確認してください。' }
   try {
-    assertSearchBudget(inventory)
+    assertSearchBudget(inventory, scenario)
     for (const [id, issues] of inventoryItemInputIssues(inventory)) for (const issue of issues) log.record(id, issue)
     for (const artifact of inventory.artifacts) {
-      try {
-        const definition = getArtifactDefinition(artifact.artifactId)
-        if ('duration' in definition) calculateArtifactDuration(definition.duration, artifact.powerLevel)
-      }
-      catch (error) {
-        if (error instanceof OptimizerInputError && error.code === 'UNSUPPORTED_ARTIFACT_POWER_RANGE') log.record(artifact.instanceId, { kind: 'unsupported', message: `${error.message}。この個体のPowerは現在の対応範囲外です。実装備のPowerを書き換えたり、未承認の値を入力して解決しないでください。` })
-      }
+      const issue = artifactPowerIssue(artifact, true)
+      if (issue) log.record(artifact.instanceId, issue)
     }
     // Independent preparation runs even if another category will block the full search.
     // Keep only fatal per-item preparation blockers; unsupported alternatives are not item exclusions.
