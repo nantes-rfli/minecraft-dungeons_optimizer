@@ -178,7 +178,7 @@ describe('fixed built-in catalog migration and Research no-ignore', () => {
     const oldIds = new Set(before.identityAssertions.map((r) => r.id)), refs = new Set(before.provenance.evidence.map((r) => r.id))
     expect(identities.semantic.identities.filter((r) => oldIds.has(r.assertionId))).toEqual(before.semantic.identities)
     expect(identities.provenance.evidence.filter((r) => refs.has(r.id))).toEqual(before.provenance.evidence)
-    expect(identities.identityAssertions.slice(153).map((r) => r.domainId)).toEqual(BUILTIN_PROC_MELEE_IDS)
+    expect(identities.identityAssertions.slice(153, 155).map((r) => r.domainId)).toEqual(BUILTIN_PROC_MELEE_IDS)
     for (const p of ['src/data/plainMelee.ts', 'research/runtime/plain-melee-reuse.json', 'research/sources/plain-melee-source-snapshot.json', 'research/sources/great-hammer-localization-identity.json']) expect(execFileSync('git', ['diff', 'ab4450f110346ff8125bc2312c48742bca036be0', '--', p]).toString()).toBe('')
   })
 })

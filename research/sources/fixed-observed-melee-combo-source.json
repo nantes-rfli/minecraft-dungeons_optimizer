@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "cackling-broom",
+      "rawIdentity": "Glaive_Spooky2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance",
+      "calculatorRow": {
+        "slug": "cackling-broom",
+        "name": "Cackling Broom",
+        "type": "melee",
+        "route": "/weapons/cackling-broom",
+        "power": 7.103,
+        "speed": 1.55,
+        "area": 6.167,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Glaive_Spooky2_GearIcon.png",
+        "builtIn": [
+          "Smiting"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/cackling-broom",
+      "intrinsicFacts": [
+        "Longer melee reach",
+        "Extra damage to undead",
+        "Special event item"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ACackling_Broom",
+      "hitDurationsSeconds": [
+        0.5,
+        0.6,
+        1
+      ],
+      "publishedBaseDamage": [
+        75,
+        75,
+        110
+      ],
+      "rawSource": {
+        "shard": "shards/part-016.json.gz",
+        "sha256": "3f08215292c0cdf3143158e4486de766c1966d941aefc47aa5ad3974ebb78315",
+        "packageIndex": 53
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Glaive_Spooky2",
+        "sourceStringHash": 3907074435,
+        "localizedStringIndex": 1735,
+        "entryRange": [
+          118974,
+          119005
+        ],
+        "value": "Cackling Broom",
+        "localizedStringRecordRange": [
+          267004,
+          267027
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "smiting",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ASmiting"
+      }
+    },
+    {
+      "id": "dark-katana",
+      "rawIdentity": "Katana_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance",
+      "calculatorRow": {
+        "slug": "dark-katana",
+        "name": "Dark Katana",
+        "type": "melee",
+        "route": "/weapons/dark-katana",
+        "power": 8.22,
+        "speed": 2.398,
+        "area": 6.505,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Katana_Unique2_Icon.png",
+        "builtIn": [
+          "Smiting"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/dark-katana",
+      "intrinsicFacts": [
+        "Extra damage to undead"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ADark_Katana",
+      "hitDurationsSeconds": [
+        0.48,
+        0.48,
+        0.6
+      ],
+      "publishedBaseDamage": [
+        85,
+        85,
+        125
+      ],
+      "rawSource": {
+        "shard": "shards/part-018.json.gz",
+        "sha256": "758800e77f48865195b963b33dc9e50faccd0048b1b85b939cc3b81e181e85c2",
+        "packageIndex": 4
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Katana_Unique2",
+        "sourceStringHash": 686817909,
+        "localizedStringIndex": 2861,
+        "entryRange": [
+          121207,
+          121238
+        ],
+        "value": "Dark Katana",
+        "localizedStringRecordRange": [
+          313386,
+          313406
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "smiting",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ASmiting"
+      }
+    },
+    {
+      "id": "grave-bane",
+      "rawIdentity": "Glaive_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance",
+      "calculatorRow": {
+        "slug": "grave-bane",
+        "name": "Grave Bane",
+        "type": "melee",
+        "route": "/weapons/grave-bane",
+        "power": 7.103,
+        "speed": 1.55,
+        "area": 6.167,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Glaive_Unique1_Icon.png",
+        "builtIn": [
+          "Smiting"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/grave-bane",
+      "intrinsicFacts": [
+        "Longer melee reach",
+        "Extra damage to undead"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AGrave_Bane",
+      "hitDurationsSeconds": [
+        0.5,
+        0.6,
+        1
+      ],
+      "publishedBaseDamage": [
+        75,
+        75,
+        110
+      ],
+      "rawSource": {
+        "shard": "shards/part-016.json.gz",
+        "sha256": "3f08215292c0cdf3143158e4486de766c1966d941aefc47aa5ad3974ebb78315",
+        "packageIndex": 62
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Glaive_Unique1",
+        "sourceStringHash": 1310848760,
+        "localizedStringIndex": 2989,
+        "entryRange": [
+          125897,
+          125928
+        ],
+        "value": "Grave Bane",
+        "localizedStringRecordRange": [
+          318951,
+          318970
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "smiting",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ASmiting"
+      }
+    },
+    {
+      "id": "hawkbrand",
+      "rawIdentity": "Sword_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance",
+      "calculatorRow": {
+        "slug": "hawkbrand",
+        "name": "Hawkbrand",
+        "type": "melee",
+        "route": "/weapons/hawkbrand",
+        "power": 4.992,
+        "speed": 3.557,
+        "area": 2.961,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Sword_Unique2_Icon.png",
+        "builtIn": [
+          "Critical Hit"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/hawkbrand",
+      "intrinsicFacts": [
+        "Gives critical hit chance"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AHawkbrand",
+      "hitDurationsSeconds": [
+        0.4,
+        0.4,
+        0.242
+      ],
+      "publishedBaseDamage": [
+        50,
+        50,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-021.json.gz",
+        "sha256": "a3bbb7ee06540c4118264a12568c8257d0b7edd7021c913849aa23903881b92b",
+        "packageIndex": 30
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Sword_Unique2",
+        "sourceStringHash": 4272771262,
+        "localizedStringIndex": 3009,
+        "entryRange": [
+          126554,
+          126584
+        ],
+        "value": "Hawkbrand",
+        "localizedStringRecordRange": [
+          319609,
+          319627
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "critical-hit",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AHawkbrand"
+      }
+    },
+    {
+      "id": "sinister-sword",
+      "rawIdentity": "Sword_Spooky1",
+      "packagePath": "Dungeons/Content/Content_DLC3/Actors/Equipment/MeleeWeapons/Sword_Spooky1/BP_Sword_Spooky1Instance",
+      "calculatorRow": {
+        "slug": "sinister-sword",
+        "name": "Sinister Sword",
+        "type": "melee",
+        "route": "/weapons/sinister-sword",
+        "power": 4.992,
+        "speed": 3.557,
+        "area": 2.961,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Howling Peaks",
+        "icon": "/images/items/T_Sword_Spooky1_GearIcon.png",
+        "builtIn": [
+          "Critical Hit"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/sinister-sword",
+      "intrinsicFacts": [
+        "Gives critical hit chance",
+        "Special event item"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ASinister_Sword",
+      "hitDurationsSeconds": [
+        0.4,
+        0.4,
+        0.242
+      ],
+      "publishedBaseDamage": [
+        50,
+        50,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-057.json.gz",
+        "sha256": "64dc8f51d7df5747e9559155163eb720afad861de3431669196967e2bdeb2825",
+        "packageIndex": 12
+      },
+      "localization": null,
+      "fixed": {
+        "enchantmentId": "critical-hit",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ASinister_Sword"
+      }
+    }
+  ]
+}

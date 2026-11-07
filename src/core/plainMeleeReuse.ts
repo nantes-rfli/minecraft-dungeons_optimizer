@@ -1,5 +1,7 @@
+import { FIXED_OBSERVED_MELEE_COMBO_IDS } from '../data/fixedObservedMeleeCombo'
+import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { OBSERVED_MELEE_COMBO_IDS, observedMeleeComboRow } from '../data/observedMeleeCombo'
-import { BUILTIN_PROC_MELEE_IDS, BUILTIN_PROC_MELEE_FACTS, builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from '../data/builtinProcMelee'
+import { BUILTIN_PROC_MELEE_IDS, BUILTIN_PROC_MELEE_FACTS, isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import grants from '../../research/runtime/plain-melee-reuse.json' with { type: 'json' }
 import snapshot from '../../research/sources/plain-melee-source-snapshot.json' with { type: 'json' }
 import identity from '../../research/domain/formal/identity-evidence-v1.json' with { type: 'json' }
@@ -101,7 +103,7 @@ export function plainMeleeReuseIsEligible(id: string, overrides: Partial<PlainMe
 export function collectPlainMeleeReuseErrors(overrides: Partial<PlainMeleeReuseInputs> = {}): readonly string[] {
   const data = { ...defaults, ...overrides }
   const errors: string[] = []
-  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS, ...BUILTIN_PROC_MELEE_IDS, ...OBSERVED_MELEE_COMBO_IDS]
+  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS, ...BUILTIN_PROC_MELEE_IDS, ...OBSERVED_MELEE_COMBO_IDS, ...FIXED_OBSERVED_MELEE_COMBO_IDS]
   if (!same(Object.keys(data.weapons).sort(), allowedRuntimeIds.sort())) errors.push('Melee runtime registration lacks a finite reviewed source-bound grant')
   for (const id of PLAIN_MELEE_IDS) if (!plainMeleeReuseIsEligible(id, data)) errors.push(`${id}: source-bound plain melee Limited reuse drift`)
   if (!same(data.approvals.approvals.map((row) => row.targetId), PLAIN_MELEE_IDS) || !same(data.source.rows.map((row) => row.id), PLAIN_MELEE_IDS)) errors.push('plain melee eligible population drift')
@@ -112,7 +114,7 @@ export function collectPlainMeleeReuseErrors(overrides: Partial<PlainMeleeReuseI
 export function meleeResearchUnsupportedReason(build: Build): string | undefined {
   const research = build.weapon.research
   if (!research) return undefined
-  const expectedBuiltIn = builtinProcMeleeEnchantments(build.weapon.weaponId)
+  const expectedBuiltIn = fixedMeleeEnchantments(build.weapon.weaponId)
   const fixed = research.enchantments?.filter((entry) => entry.source !== 'slot') ?? []
   const keys = fixed.map((entry) => `${entry.source}:${entry.enchantmentId}:${entry.tier}`)
   const slots = new Map<string, number>()

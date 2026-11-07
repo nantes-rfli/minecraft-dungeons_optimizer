@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-conditional-direct-modifier-on-observed-combo",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/fixed-observed-melee-combo-source.json",
+  "testRef": "tests/fixedObservedMeleeCombo.test.ts",
+  "observation": "complete combo of ordinary non-critical hits against one unenchanted, non-undead target with no damage reduction or external bonuses",
+  "targets": {
+    "cackling-broom": "smiting",
+    "dark-katana": "smiting",
+    "grave-bane": "smiting",
+    "hawkbrand": "critical-hit",
+    "sinister-sword": "critical-hit"
+  }
+}

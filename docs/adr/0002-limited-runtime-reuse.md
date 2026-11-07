@@ -82,3 +82,7 @@ The [observed-mode follow-up](../ranged-observed-modes.md) binds each target/mod
 ## Observed complete melee combos
 
 The [complete-combo grant](../observed-melee-combo-reuse.md) extends the existing observed direct-hit and published cadence model to ten normal weapons with unequal hits. Each target requires its own matched Formal Identity, complete intrinsic scope, empty built-in list, and agreement between the published hit sequence and configured Formal values. The runtime uses a complete observed combo total with no Power fallback. It limits modifiers to the existing compatible direct-hit or hit-rate effects and requires sustained single-target contact at base speed. Existing R3/P3B gates apply to any new effect or interaction.
+
+## Observed combos with fixed Tier I direct modifiers
+
+The [fixed complete-combo grant](../fixed-observed-melee-combo-reuse.md) binds target-owned Critical Hit I and Smiting I to the existing observed complete-combo scope. Each target requires an accepted identity, the own complete hit sequence, an explicit fixed-effect source and Tier, and an observation that excludes activation of the fixed bonus. The existing expected-value models evaluate the fixed effect once. A duplicate copy in actual rolls or Gilded is outside this grant.

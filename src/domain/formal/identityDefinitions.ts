@@ -1,3 +1,4 @@
+import fixedComboSource from '../../../research/sources/fixed-observed-melee-combo-source.json' with { type: 'json' }
 import type { FormalIdentityDefinition, IdentityAssertion, IdentityPresentation, ReviewedEvidenceInput } from './identityEvidence.ts'
 
 const scope = (packagePath: string): IdentityAssertion['applicationScope'] => ({
@@ -329,6 +330,22 @@ export const builtinProcLocalizationFormalIdentities = builtinProcLocalizationFo
   }
 })
 
+export const fixedComboLocalizationFormalIdentities = fixedComboSource.rows.flatMap((row) => {
+  if (!row.localization) return []
+  const base = acceptedMeleeDefinition({
+    domainId: row.id, rawIdentity: row.rawIdentity, packagePath: row.packagePath, displayName: row.calculatorRow.name,
+  })
+  const ref = `evidence:reviewed:${row.id}:exact-localization-key`
+  return [{
+    ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `Hash-bound ItemType/${row.rawIdentity} names ${row.calculatorRow.name}. Both serialized identifiers are required.`,
+      source: { artifactPath: 'research/sources/fixed-observed-melee-combo-source.json', locator: `rows[id=${row.id}].localization` },
+    }],
+  }]
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -641,6 +658,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedTypedRelationFormalIdentities,
   ...reviewedLocalizationMeleeFormalIdentities,
   ...builtinProcLocalizationFormalIdentities,
+  ...fixedComboLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [

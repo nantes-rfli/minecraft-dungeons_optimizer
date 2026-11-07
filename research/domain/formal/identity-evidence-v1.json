@@ -4807,6 +4807,130 @@
             "evidence:presentation:stormlander:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:cackling-broom@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Glaive_Spooky2",
+            "evidenceRef": "evidence:raw:identity:cackling-broom@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Glaive_Spooky2",
+            "evidenceRef": "evidence:raw:identity:cackling-broom@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:cackling-broom@1",
+          "domainId": "cackling-broom",
+          "evidenceRefs": [
+            "evidence:raw:identity:cackling-broom@1:ItemIdName",
+            "evidence:raw:identity:cackling-broom@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "cackling-broom",
+          "displayName": "Cackling Broom",
+          "evidenceRefs": [
+            "evidence:presentation:cackling-broom:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:dark-katana@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Katana_Unique2",
+            "evidenceRef": "evidence:raw:identity:dark-katana@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Katana_Unique2",
+            "evidenceRef": "evidence:raw:identity:dark-katana@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:dark-katana@1",
+          "domainId": "dark-katana",
+          "evidenceRefs": [
+            "evidence:raw:identity:dark-katana@1:ItemIdName",
+            "evidence:raw:identity:dark-katana@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "dark-katana",
+          "displayName": "Dark Katana",
+          "evidenceRefs": [
+            "evidence:presentation:dark-katana:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:grave-bane@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Glaive_Unique1",
+            "evidenceRef": "evidence:raw:identity:grave-bane@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Glaive_Unique1",
+            "evidenceRef": "evidence:raw:identity:grave-bane@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:grave-bane@1",
+          "domainId": "grave-bane",
+          "evidenceRefs": [
+            "evidence:raw:identity:grave-bane@1:ItemIdName",
+            "evidence:raw:identity:grave-bane@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "grave-bane",
+          "displayName": "Grave Bane",
+          "evidenceRefs": [
+            "evidence:presentation:grave-bane:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:hawkbrand@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Sword_Unique2",
+            "evidenceRef": "evidence:raw:identity:hawkbrand@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Sword_Unique2",
+            "evidenceRef": "evidence:raw:identity:hawkbrand@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:hawkbrand@1",
+          "domainId": "hawkbrand",
+          "evidenceRefs": [
+            "evidence:raw:identity:hawkbrand@1:ItemIdName",
+            "evidence:raw:identity:hawkbrand@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "hawkbrand",
+          "displayName": "Hawkbrand",
+          "evidenceRefs": [
+            "evidence:presentation:hawkbrand:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -7784,6 +7908,86 @@
       "evidenceRefs": [
         "evidence:reviewed:stormlander:accepted-alias",
         "evidence:reviewed:stormlander:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:cackling-broom@1",
+      "rawIdentity": "Glaive_Spooky2",
+      "domainId": "cackling-broom",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:cackling-broom:accepted-alias",
+        "evidence:reviewed:cackling-broom:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:dark-katana@1",
+      "rawIdentity": "Katana_Unique2",
+      "domainId": "dark-katana",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:dark-katana:accepted-alias",
+        "evidence:reviewed:dark-katana:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:grave-bane@1",
+      "rawIdentity": "Glaive_Unique1",
+      "domainId": "grave-bane",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:grave-bane:accepted-alias",
+        "evidence:reviewed:grave-bane:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:hawkbrand@1",
+      "rawIdentity": "Sword_Unique2",
+      "domainId": "hawkbrand",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:hawkbrand:accepted-alias",
+        "evidence:reviewed:hawkbrand:exact-localization-key"
       ]
     }
   ],
@@ -18061,6 +18265,306 @@
           "nodePointer": "/packages/28/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:a77c8609"
+      },
+      {
+        "id": "evidence:reviewed:cackling-broom:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Glaive_Spooky2]"
+        },
+        "fingerprint": "fnv1a32:15c4e133"
+      },
+      {
+        "id": "evidence:presentation:cackling-broom:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=cackling-broom].name.en"
+        },
+        "fingerprint": "fnv1a32:7f23ca9c"
+      },
+      {
+        "id": "evidence:reviewed:cackling-broom:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Glaive_Spooky2 names Cackling Broom. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/fixed-observed-melee-combo-source.json",
+          "locator": "rows[id=cackling-broom].localization"
+        },
+        "fingerprint": "fnv1a32:15692d98"
+      },
+      {
+        "id": "evidence:raw:identity:cackling-broom@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:949fc19d89db460ce46dd0073c1c3b0fd13664bd26ebcd725cfa1973b327a1ee",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "406e3740a46430566122dbd4df7e28ed70362f3ef2a2e34c62c8584a719971ad"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:7533a59b"
+      },
+      {
+        "id": "evidence:raw:identity:cackling-broom@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:949fc19d89db460ce46dd0073c1c3b0fd13664bd26ebcd725cfa1973b327a1ee",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "406e3740a46430566122dbd4df7e28ed70362f3ef2a2e34c62c8584a719971ad"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:6a94ccb1"
+      },
+      {
+        "id": "evidence:reviewed:dark-katana:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Katana_Unique2]"
+        },
+        "fingerprint": "fnv1a32:5d02fe18"
+      },
+      {
+        "id": "evidence:presentation:dark-katana:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=dark-katana].name.en"
+        },
+        "fingerprint": "fnv1a32:b6182364"
+      },
+      {
+        "id": "evidence:reviewed:dark-katana:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Katana_Unique2 names Dark Katana. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/fixed-observed-melee-combo-source.json",
+          "locator": "rows[id=dark-katana].localization"
+        },
+        "fingerprint": "fnv1a32:61e75b23"
+      },
+      {
+        "id": "evidence:raw:identity:dark-katana@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Katana_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f2abd242850443e47e8767b9e93fb9ee583939604220cbf573af91b4e5b23757",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "bb6ab8db307a898eeca0443ec3a67822b0d63c9875897b766481b5a2b5a477e4"
+          },
+          "nodePointer": "/packages/4/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:28be74e8"
+      },
+      {
+        "id": "evidence:raw:identity:dark-katana@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Katana_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:f2abd242850443e47e8767b9e93fb9ee583939604220cbf573af91b4e5b23757",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "bb6ab8db307a898eeca0443ec3a67822b0d63c9875897b766481b5a2b5a477e4"
+          },
+          "nodePointer": "/packages/4/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a3400dc4"
+      },
+      {
+        "id": "evidence:reviewed:grave-bane:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Glaive_Unique1]"
+        },
+        "fingerprint": "fnv1a32:97f9802e"
+      },
+      {
+        "id": "evidence:presentation:grave-bane:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=grave-bane].name.en"
+        },
+        "fingerprint": "fnv1a32:6d3a73ac"
+      },
+      {
+        "id": "evidence:reviewed:grave-bane:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Glaive_Unique1 names Grave Bane. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/fixed-observed-melee-combo-source.json",
+          "locator": "rows[id=grave-bane].localization"
+        },
+        "fingerprint": "fnv1a32:655a45fd"
+      },
+      {
+        "id": "evidence:raw:identity:grave-bane@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ea1cab40315ba57f6dec61ddd8c9c48252d7a1e7537802bfcf34066cf44baf3a",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3a32c26803bbeeee974598b22c72fe8b39315d6f5cc98796538cc632cd94b456"
+          },
+          "nodePointer": "/packages/62/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:db1677a7"
+      },
+      {
+        "id": "evidence:raw:identity:grave-bane@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-016.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ea1cab40315ba57f6dec61ddd8c9c48252d7a1e7537802bfcf34066cf44baf3a",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3a32c26803bbeeee974598b22c72fe8b39315d6f5cc98796538cc632cd94b456"
+          },
+          "nodePointer": "/packages/62/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:b879d7ed"
+      },
+      {
+        "id": "evidence:reviewed:hawkbrand:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Sword_Unique2]"
+        },
+        "fingerprint": "fnv1a32:0c1f5238"
+      },
+      {
+        "id": "evidence:presentation:hawkbrand:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=hawkbrand].name.en"
+        },
+        "fingerprint": "fnv1a32:0c0954f8"
+      },
+      {
+        "id": "evidence:reviewed:hawkbrand:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Sword_Unique2 names Hawkbrand. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/fixed-observed-melee-combo-source.json",
+          "locator": "rows[id=hawkbrand].localization"
+        },
+        "fingerprint": "fnv1a32:8b409bda"
+      },
+      {
+        "id": "evidence:raw:identity:hawkbrand@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:14af085cb9175efe0d5f90b5edaa3a35f3fc74b0ab99764508940be33d45fac7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1a832a034b91d6147487d9228fdc4527e4eaf6f5d5b20dd676a9fe4b0136a8b8"
+          },
+          "nodePointer": "/packages/30/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:256ecaa8"
+      },
+      {
+        "id": "evidence:raw:identity:hawkbrand@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:14af085cb9175efe0d5f90b5edaa3a35f3fc74b0ab99764508940be33d45fac7",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1a832a034b91d6147487d9228fdc4527e4eaf6f5d5b20dd676a9fe4b0136a8b8"
+          },
+          "nodePointer": "/packages/30/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:c1232634"
       }
     ]
   }
