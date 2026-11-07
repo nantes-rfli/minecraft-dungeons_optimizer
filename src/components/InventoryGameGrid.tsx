@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import type { EquipmentCategory, EquipmentRarity, Inventory } from '../core'
 import { EQUIPMENT_CATALOG } from '../data/equipmentCatalog'
 import { equipmentKey } from '../inventory/collection'
+import { updateMeleePower } from '../inventory/updateMeleePower'
 import { hrefForEquipment } from '../app/routes'
 import { inventoryGridItemMatchesFilters, inventoryGridItems, type InventoryGridItem } from '../inventory/gridPresentation'
 import { nextInventoryGridIndex, type InventoryGridNavigationKey } from '../inventory/gridKeyboardNavigation'
@@ -24,7 +25,11 @@ export { EquipmentArtwork } from './EquipmentArtwork'
 
 function updateOwnedItem(inventory: Inventory, target: InventoryGridItem, patch: { powerLevel?: number; rarity?: EquipmentRarity; isFavorite?: boolean }): Inventory {
   const update = <T extends { instanceId: string }>(items: readonly T[]): T[] => items.map((owned) => owned.instanceId === target.instanceId ? { ...owned, ...patch } : owned)
-  if (target.category === 'melee' && inventory.weapons.some((owned) => owned.instanceId === target.instanceId)) return { ...inventory, weapons: update(inventory.weapons) }
+  if (target.category === 'melee' && inventory.weapons.some((owned) => owned.instanceId === target.instanceId)) {
+    const { powerLevel, ...metadata } = patch
+    return { ...inventory, weapons: inventory.weapons.map((owned) => owned.instanceId === target.instanceId
+      ? { ...(powerLevel === undefined ? owned : updateMeleePower(owned, powerLevel)), ...metadata } : owned) }
+  }
   if (target.category === 'armor' && inventory.armors?.some((owned) => owned.instanceId === target.instanceId)) return { ...inventory, armors: update(inventory.armors) }
   if (target.category === 'ranged' && inventory.rangedWeapons?.some((owned) => owned.instanceId === target.instanceId)) return { ...inventory, rangedWeapons: update(inventory.rangedWeapons) }
   if (target.category === 'artifact' && inventory.artifacts.some((owned) => owned.instanceId === target.instanceId)) return { ...inventory, artifacts: update(inventory.artifacts) }

@@ -7,6 +7,7 @@ import {
   isObservedMeleeComboId, OBSERVED_MELEE_COMBO_IDS, OBSERVED_MELEE_COMBO_PROFILES,
   OBSERVED_MELEE_COMBO_SOURCE, OBSERVED_MELEE_COMBO_WEAPONS,
 } from '../data/observedMeleeCombo'
+import { hasObservedMeleeDamage } from './observedMeleeCombo'
 import { ARMORS } from '../data/armors'
 import type { Build, OwnedWeapon, Scenario } from './types'
 import type { ArmorId } from './armor'
@@ -83,9 +84,9 @@ export function collectObservedMeleeComboReuseErrors(): readonly string[] {
 
 export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
   if (!isObservedMeleeComboId(weapon.weaponId)) return undefined
-  if (weapon.observedComboDamage !== undefined) return undefined
+  if (hasObservedMeleeDamage(weapon)) return undefined
   return {
-    kind: 'input-required', target: 'equipment', message: 'コンボ全段の観測ダメージ合計が必要です。',
+    kind: 'input-required', target: 'equipment', message: '現在のPowerでのコンボ全段の観測ダメージ合計が必要です。',
     fields: ['同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
   }
 }
@@ -104,6 +105,10 @@ export function observedMeleeComboRollIssue(weapon: OwnedWeapon): ReadinessIssue
     return { kind: 'constrained', target: 'equipment', message: `スロット${blockedSlot + 1}に完全コンボと併用できる選択肢がありません。` }
   }
   return undefined
+}
+
+export function observedMeleeComboPreparationIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
+  return observedMeleeComboInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
 }
 
 export function observedMeleeComboUnsupportedReason(build: Build, scenario?: Scenario): string | undefined {

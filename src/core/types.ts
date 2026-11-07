@@ -436,7 +436,7 @@ export interface OwnedWeapon {
   readonly powerLevel: number
   readonly observedDamagePerHit?: number
   /** Neutral direct-hit total for one complete combo, at this individual Power. */
-  readonly observedComboDamage?: number
+  readonly observedComboDamage?: { readonly powerLevel: number; readonly total: number }
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
   /** User-owned organization metadata; does not affect optimizer eligibility or score. */

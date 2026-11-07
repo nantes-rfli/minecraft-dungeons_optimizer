@@ -7,6 +7,7 @@ import { OBSERVED_MELEE_COMBO_IDS, OBSERVED_MELEE_COMBO_SOURCE, observedMeleeCom
 import { EQUIPMENT_CATALOG, getEquipmentCatalogEntry } from '../src/data/equipmentCatalog'
 import { collectObservedMeleeComboReuseErrors, observedMeleeComboIsEligible } from '../src/core/observedMeleeComboReuse'
 import { parameterEvidenceForBuild } from '../src/core/evidenceStatus'
+import { estimateSearchCandidates } from '../src/core/searchBudget'
 import { evaluate } from '../src/core/evaluate'
 import { inspectInventoryReadiness, optimize } from '../src/core/optimizer'
 import { assessEquipment } from '../src/core/equipmentAssessment'
@@ -15,7 +16,7 @@ import type { Build, CatalogInventoryItem, EnchantmentId, Inventory, WeaponId } 
 
 const scenario = SCENARIO_PROFILES.boss
 const build = (weaponId: WeaponId = 'coral-blade', enchantmentId: EnchantmentId = 'critical-hit'): Build => ({
-  weapon: { instanceId: weaponId, weaponId, powerLevel: 251, observedComboDamage: 900, enchantmentSlots: [{ candidates: [enchantmentId] }] },
+  weapon: { instanceId: weaponId, weaponId, powerLevel: 251, observedComboDamage: { powerLevel: 251, total: 900 }, enchantmentSlots: [{ candidates: [enchantmentId] }] },
   enchantments: [{ enchantmentId, tier: 3, source: 'slot' }],
   artifacts: [],
 })
@@ -72,8 +73,13 @@ describe('observed complete melee combo reuse', () => {
     const value = build()
     const missing = { ...value, weapon: { ...value.weapon, observedComboDamage: undefined } }
     expect(() => evaluate(missing, scenario)).toThrow('コンボ全段')
+    const stale = { ...value, weapon: { ...value.weapon, powerLevel: 252 } }
+    expect(() => evaluate(stale, scenario)).toThrow('現在のPower')
+    const restored = deserializeInventory(serializeInventory(inventory(stale)))
+    expect(inspectInventoryReadiness(restored, scenario).equipment[0]?.status).toBe('input-required')
+    expect(() => optimize(restored, scenario)).toThrow('現在のPower')
     expect(() => evaluate({ ...missing, weapon: { ...missing.weapon, observedDamagePerHit: 300 } }, scenario)).toThrow()
-    expect(() => evaluate({ ...value, weapon: { ...value.weapon, observedComboDamage: 0 } }, scenario)).toThrow()
+    expect(() => evaluate({ ...value, weapon: { ...value.weapon, observedComboDamage: { powerLevel: 251, total: 0 } } }, scenario)).toThrow()
     expect(() => evaluate(value, { ...scenario, averageTargetsInReach: 2 })).toThrow('UNSUPPORTED_COMBO_TARGETS')
     expect(() => evaluate({ ...value, artifacts: [{ instanceId: 'm', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }, scenario)).toThrow('速度効果')
     for (const id of ['void-strike', 'committed', 'leeching', 'shockwave', 'artifact-synergy'] as const) {
@@ -96,7 +102,28 @@ describe('observed complete melee combo reuse', () => {
     const optimized = optimize({ weapons: [mixedSlot], artifacts: [] }, scenario)
     expect(optimized.evaluatedBuildCount).toBe(1)
     expect(optimized.best.build.enchantments).toEqual(value.enchantments)
-    expect(() => optimize({ weapons: [{ ...old, observedDamagePerHit: undefined }, value.weapon], artifacts: [] }, scenario)).toThrow('すべての武器')
+    const estimated = { ...old, observedDamagePerHit: undefined }
+    const mixed = { weapons: [estimated, value.weapon], artifacts: [] }
+    expect(() => optimize(mixed, scenario)).toThrow('すべての武器')
+    const crowd = { ...scenario, averageTargetsInReach: 2 }
+    expect(optimize(mixed, crowd).best.build.weapon).toBe(estimated)
+    expect(inspectInventoryReadiness(mixed, crowd).equipment.map(({ status }) => status)).toEqual(['evaluated', 'constrained'])
+    expect(inspectInventoryReadiness(mixed, scenario).equipment[0]?.status).toBe('input-required')
+  })
+
+  it('keeps excluded migrated combos outside the budget before materializing combinations', () => {
+    const legacy: Inventory = {
+      weapons: [{ ...build('double-axe').weapon, observedComboDamage: undefined }],
+      artifacts: Array.from({ length: 12 }, (_, index) => ({ instanceId: `mushroom-${index}`, artifactId: 'death-cap-mushroom', powerLevel: 251 })),
+    }
+    const slots = Array.from({ length: 3 }, () => ({ candidates: ['critical-hit', 'sharpness', 'smiting'] as const }))
+    const migrated = Array.from({ length: 5 }, (_, index) => ({ ...build().weapon, instanceId: `migrated-${index}`, observedComboDamage: undefined, enchantmentSlots: slots }))
+    const inventory = { ...legacy, weapons: [...legacy.weapons, ...migrated] }
+    expect(estimateSearchCandidates(inventory, scenario)).toBe(220)
+    expect(optimize(inventory, scenario).best.damage).toEqual(optimize(legacy, scenario).best.damage)
+    const ready = { ...inventory, weapons: [...legacy.weapons, ...migrated.map((item) => ({ ...item, observedComboDamage: { powerLevel: 251, total: 900 } }))] }
+    expect(estimateSearchCandidates(ready, scenario)).toBe(29_920)
+    expect(() => optimize(ready, scenario)).toThrow('安全上限')
   })
 
   it('rejects source drift in identity, raw damage, configured loops, fixed enchantments and grants', () => {
@@ -128,7 +155,7 @@ describe('observed complete melee combo reuse', () => {
     const weapon = migrated.weapons[0]!
     expect(weapon).toMatchObject({ instanceId: legacy.instanceId, powerLevel: legacy.powerLevel, rarity: legacy.rarity, isFavorite: true, notes: legacy.notes, enchantmentSlots: legacy.enchantmentSlots, research: legacy.research })
     expect(weapon.observedComboDamage).toBeUndefined()
-    const observed = { ...migrated, weapons: [{ ...weapon, observedComboDamage: 900 }] }
+    const observed = { ...migrated, weapons: [{ ...weapon, observedComboDamage: { powerLevel: 251, total: 900 } }] }
     expect(deserializeInventory(serializeInventory(observed))).toEqual(observed)
     expect(optimize(observed, scenario).best.build.enchantments).toEqual([{ enchantmentId: 'critical-hit', tier: 2, source: 'slot' }])
     const invalid = { ...observed, weapons: [{ ...observed.weapons[0]!, research: { intrinsicProperties: [{ kind: 'unknown', raw: 'unsupported additional effect' }] } }] }

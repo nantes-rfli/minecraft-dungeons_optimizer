@@ -1,3 +1,4 @@
+import { observedMeleeComboPreparationIssue } from './observedMeleeComboReuse'
 import type { Inventory, Scenario } from './types'
 import { OptimizerInputError } from './errors'
 
@@ -11,7 +12,9 @@ function slotCount(slots: readonly { candidates: readonly unknown[]; selected?: 
   return slots.reduce((total, slot) => bounded(total * (slot.selected || (slot as { locked?: string }).locked ? 1 : slot.candidates.length)), 1)
 }
 export function estimateSearchCandidates(inventory: Inventory, scenario?: Pick<Scenario, 'includeUnequippedArtifacts'>): number {
-  const melee = inventory.weapons.reduce((sum, weapon) => bounded(sum + slotCount(weapon.enchantmentSlots)), 0)
+  const preparedMelee = inventory.weapons.filter((weapon) => !observedMeleeComboPreparationIssue(weapon))
+  if (inventory.weapons.length > 0 && preparedMelee.length === 0) return 0
+  const melee = preparedMelee.reduce((sum, weapon) => bounded(sum + slotCount(weapon.enchantmentSlots)), 0)
   const armor = inventory.armors?.length ? inventory.armors.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0) : 1
   const ranged = inventory.rangedWeapons?.length ? inventory.rangedWeapons.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0) : 1
   const n = inventory.artifacts.length

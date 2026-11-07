@@ -176,9 +176,14 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     || (value.observedDamagePerHit !== undefined && isObservedMeleeComboId(weaponId))) {
     throw new Error(`${field}: 武器IDと観測ダメージの入力形式が一致しません。`)
   }
-  const observedCombo = value.observedComboDamage === undefined
-    ? {}
-    : { observedComboDamage: requirePositiveNumber(value.observedComboDamage, `${field}.observedComboDamage`) }
+  const observedCombo = value.observedComboDamage === undefined ? {} : (() => {
+    const observation = value.observedComboDamage
+    if (!isRecord(observation)) throw new Error(`${field}.observedComboDamageの形式が正しくありません。`)
+    return { observedComboDamage: {
+      powerLevel: requirePower(observation.powerLevel, `${field}.observedComboDamage.powerLevel`),
+      total: requirePositiveNumber(observation.total, `${field}.observedComboDamage.total`),
+    } }
+  })()
   let gilded: OwnedWeapon['gilded']
   if (value.gilded !== undefined) {
     if (!isRecord(value.gilded) || ![1, 2, 3].includes(value.gilded.tier as number)) {

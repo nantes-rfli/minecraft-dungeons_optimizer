@@ -60,7 +60,10 @@ export function validateWeaponNumbers(weapon: OwnedWeapon): void {
     || (weapon.observedDamagePerHit !== undefined && isObservedMeleeComboId(weapon.weaponId))) {
     throw new OptimizerInputError('INVALID_WEAPON', '武器IDと観測ダメージの入力形式が一致しません。')
   }
-  if (weapon.observedComboDamage !== undefined) assertRange(`weapon ${weapon.instanceId} observedComboDamage`, weapon.observedComboDamage, Number.EPSILON, Infinity, 'INVALID_WEAPON')
+  if (weapon.observedComboDamage !== undefined) {
+    assertPowerLevel(`weapon ${weapon.instanceId} observation powerLevel`, weapon.observedComboDamage.powerLevel, 'INVALID_WEAPON')
+    assertRange(`weapon ${weapon.instanceId} observedComboDamage total`, weapon.observedComboDamage.total, Number.EPSILON, Infinity, 'INVALID_WEAPON')
+  }
   if (weapon.observedDamagePerHit !== undefined) assertRange(`weapon ${weapon.instanceId} observedDamagePerHit`, weapon.observedDamagePerHit, Number.EPSILON, Infinity, 'INVALID_WEAPON')
 }
 export function validateArmorNumbers(armor: OwnedArmor): void {
@@ -278,9 +281,13 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
 }
 
 /** IDs that need observed damage to keep the inventory on one comparable scale. */
-export function missingObservedDamageInstanceIds(inventory: Inventory): readonly string[] {
-  return inventory.weapons.some(hasObservedMeleeDamage)
-    ? inventory.weapons.filter((weapon) => !isObservedMeleeComboId(weapon.weaponId) && !hasObservedMeleeDamage(weapon)).map((weapon) => weapon.instanceId) : []
+export function missingObservedDamageInstanceIds(weapons: readonly OwnedWeapon[]): readonly string[] {
+  if (!weapons.some(hasObservedMeleeDamage)) return []
+  return [...new Set(weapons.filter((weapon) => !hasObservedMeleeDamage(weapon)).map((weapon) => weapon.instanceId))]
+}
+
+export function missingLegacyObservedDamageInstanceIds(inventory: Inventory): readonly string[] {
+  return missingObservedDamageInstanceIds(inventory.weapons.filter((weapon) => !isObservedMeleeComboId(weapon.weaponId)))
 }
 
 export function validateInventory(inventory: Inventory): void {
@@ -296,7 +303,7 @@ export function validateInventory(inventory: Inventory): void {
     validateWeaponSoulLegality(weapon)
     validateWeaponNumbers(weapon)
   }
-  if (missingObservedDamageInstanceIds(inventory).length > 0) {
+  if (missingLegacyObservedDamageInstanceIds(inventory).length > 0) {
     throw new OptimizerInputError(
       'MIXED_DAMAGE_SCALE',
       '表示ダメージを使う場合は、比較するすべての武器に入力してください。',

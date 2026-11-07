@@ -23,7 +23,7 @@ Enter the sum of damage from all hits in one uninterrupted combo against a singl
 
 Critical Hit, Sharpness, Unchanting and Smiting reuse the existing per-hit expectation or direct multiplier. Radiance reuses the existing hit-rate trigger. Direct melee Armor modifiers and compatible non-speed Artifacts remain usable within their existing boundaries. Cowardice, ranged time sharing, multi-target evaluation, speed modifiers, and effects requiring hit order, finisher damage or precise kill triggers are excluded. Observed and Power-estimated melee damage keep their existing comparison-scale constraint.
 
-Historical Catalog items migrate with their original individual ID, Power, recorded Enchantments, notes and Research. Missing observations stay pending. A Power edit in the Inventory editor clears the old combo total. Existing fixed ownership and unsupported Research checks still apply. Per-item and per-condition scores come from evaluated builds containing the individual item.
+Historical Catalog items migrate with their original individual ID, Power, recorded Enchantments, notes and Research. Missing observations stay pending. Power edits in both Inventory editors clear the old combo total. The saved observation records its Power, so a mismatched imported or programmatically modified total also requires a new observation. Existing fixed ownership and unsupported Research checks still apply. Per-item and per-condition scores come from evaluated builds containing the individual item.
 
 ## Exclusions and validation
 

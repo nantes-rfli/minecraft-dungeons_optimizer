@@ -1,4 +1,5 @@
-import { observedMeleeComboInputIssue, observedMeleeComboRollIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
+import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { observedMeleeComboPreparationIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { calculateArtifactDuration } from './artifact'
@@ -22,7 +23,7 @@ import type {
   Scenario,
   SelectedEnchantment,
 } from './types'
-import { enchantmentInputIssue, inventoryItemInputIssues, missingObservedDamageInstanceIds, validateInventory, validateScenario } from './validation'
+import { enchantmentInputIssue, inventoryItemInputIssues, missingLegacyObservedDamageInstanceIds, missingObservedDamageInstanceIds, validateInventory, validateScenario } from './validation'
 import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponIssues, rangedWeaponUnsupportedReason } from './ranged'
 import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -310,7 +311,7 @@ function optimizeInternal(
     return false
   }) : policyArtifacts
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
-    const comboIssue = observedMeleeComboInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
+    const comboIssue = observedMeleeComboPreparationIssue(weapon)
     if (comboIssue) {
       unsupportedChoices.record(weapon.instanceId, comboIssue)
       return []
@@ -381,6 +382,15 @@ function optimizeInternal(
     return false
   })
   unsupportedChoices.finishStage(new Set(evidenceAllowedBuilds.flatMap(buildInstanceIds)))
+  // A new combo can introduce the observed scale only if it has a legal build.
+  // Keep the legacy inventory-wide scale rule for existing melee inputs.
+  if (evidenceAllowedBuilds.some(({ weapon }) => isObservedMeleeComboId(weapon.weaponId))) {
+    const missingDamage = missingObservedDamageInstanceIds(evidenceAllowedBuilds.map(({ weapon }) => weapon))
+    if (missingDamage.length > 0) {
+      recordMissingDamageScale(unsupportedChoices, missingDamage)
+      throw new OptimizerInputError('MIXED_DAMAGE_SCALE', '観測ダメージを使う場合は、比較するすべての武器に入力してください。')
+    }
+  }
   const evaluations = evidenceAllowedBuilds.map((build) => {
     try { return evaluateCandidate(build, scenario) }
     catch (error) {
@@ -440,6 +450,10 @@ function optimizeInternal(
   }
 }
 
+function recordMissingDamageScale(log: ExclusionLog, missing: readonly string[]): void {
+  for (const instanceId of missing) log.record(instanceId, { kind: 'input-required', message: '観測ダメージを使う場合は比較するすべての近接武器に入力してください。', target: 'equipment', fields: ['表示ダメージ（正の有限値）'] })
+}
+
 /** Diagnose legal builds under the current inventory and search condition. */
 export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenario): InventoryReadiness {
   const log = new ExclusionLog()
@@ -457,10 +471,9 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
     // Independent preparation runs even if another category will block the full search.
     // Keep only fatal per-item preparation blockers; unsupported alternatives are not item exclusions.
     for (const weapon of inventory.weapons) {
-      if (observedMeleeComboInputIssue(weapon)) continue
-      const comboRollIssue = observedMeleeComboRollIssue(weapon)
-      if (comboRollIssue) {
-        log.record(weapon.instanceId, comboRollIssue)
+      const comboIssue = observedMeleeComboPreparationIssue(weapon)
+      if (comboIssue) {
+        log.record(weapon.instanceId, comboIssue)
         continue
       }
       const probe = new ExclusionLog()
@@ -482,7 +495,7 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
     }
     for (const weapon of inventory.rangedWeapons ?? []) for (const issue of rangedWeaponIssues(weapon)) log.record(weapon.instanceId, issue)
     // This is the same mixed-scale requirement used by validateInventory.
-    for (const instanceId of missingObservedDamageInstanceIds(inventory)) log.record(instanceId, { kind: 'input-required', message: '表示ダメージを使う場合は比較するすべての近接武器に入力してください。', target: 'equipment', fields: ['表示ダメージ（正の有限値）'] })
+    recordMissingDamageScale(log, missingLegacyObservedDamageInstanceIds(inventory))
     const execution = optimizeInternal(inventory, scenario, true, false, log)
     evaluated = new Set(execution.evaluatedInstanceIds)
   } catch (error) {
