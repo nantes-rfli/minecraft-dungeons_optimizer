@@ -30,7 +30,7 @@ Historical Catalog entries for all five additions migrate losslessly into the me
 
 ## Coverage and verification
 
-Attack-profile readiness remains 76/82 fixed profiles and keeps its separate coverage meaning; it is not 76 calculable weapons. Gear runtime is 11/82, including two separately bound fixed-proc targets. Melee Enchantment support, Armor 13/73, Ranged 6/71, Artifact 3/45 and R3/P3B candidate1/eligible0/promoted0 are unchanged.
+Attack-profile readiness remains 76/82 fixed profiles and keeps its separate coverage meaning; it is not 76 calculable weapons. Gear runtime is 11/82, including two separately bound fixed-proc targets. Melee Enchantment support, Armor 13/73, Ranged 7/71, Artifact 3/45 and R3/P3B candidate1/eligible0/promoted0 are unchanged.
 
 Great Hammer's exact `ItemType / Hammer → Great Hammer` localization record supplies an independent bridge to the two serialized Raw `Hammer` identity fields; an icon alias is not evidence. Whirlwind/Stormlander now have a separate finite fixed built-in foundation; other built-in/unique variants still require their own ownership/Tier and interaction review. Jungle Poison is not Poison Cloud. Unequal-hit and special combo families are outside this foundation, not approximated by ignoring effects.
 
