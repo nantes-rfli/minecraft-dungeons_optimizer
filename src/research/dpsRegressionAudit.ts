@@ -64,7 +64,7 @@ export interface DpsRegressionAuditSummary {
   readonly candidateCount: number
   readonly eligibleCount: number
   readonly rejectedCount: number
-  readonly eligibleByWeapon: Readonly<Record<WeaponId, number>>
+  readonly eligibleByWeapon: Readonly<Partial<Record<WeaponId, number>>>
   readonly versionConfidenceCounts: Readonly<Record<GameVersionConfidence, number>>
 }
 
@@ -174,7 +174,7 @@ export function collectDpsRegressionAuditErrors(value: unknown): string[] {
     if (!isNonEmptyString(rawEntry.id)) errors.push(`${path}.id is required`)
     else if (ids.has(rawEntry.id)) errors.push(`duplicate entry id: ${rawEntry.id}`)
     else ids.add(rawEntry.id)
-    if (!WEAPON_IDS.includes(rawEntry.weaponId as WeaponId)) {
+    if (!(WEAPON_IDS as readonly unknown[]).includes(rawEntry.weaponId)) {
       errors.push(`${path}.weaponId is unsupported`)
     }
     if (!GAME_VERSION_CONFIDENCE.includes(rawEntry.gameVersionConfidence as GameVersionConfidence)) {
@@ -222,7 +222,7 @@ export function summarizeDpsRegressionAudit(
   audit: DpsRegressionAudit,
 ): DpsRegressionAuditSummary {
   const eligible = audit.entries.filter((entry) => entry.eligibleForRegression)
-  const eligibleByWeapon = Object.fromEntries((['soul-scythe', 'fighters-bindings', 'double-axe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander'] as const).map((id) => [id, 0])) as Record<WeaponId, number>
+  const eligibleByWeapon = Object.fromEntries((['soul-scythe', 'fighters-bindings', 'double-axe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander'] as const).map((id) => [id, 0])) as Partial<Record<WeaponId, number>>
   const versionConfidenceCounts: Record<GameVersionConfidence, number> = {
     verified: 0,
     probable: 0,
@@ -230,7 +230,7 @@ export function summarizeDpsRegressionAudit(
   }
   for (const entry of audit.entries) {
     versionConfidenceCounts[entry.gameVersionConfidence] += 1
-    if (entry.eligibleForRegression) eligibleByWeapon[entry.weaponId] += 1
+    if (entry.eligibleForRegression) eligibleByWeapon[entry.weaponId] = (eligibleByWeapon[entry.weaponId] ?? 0) + 1
   }
   return {
     candidateCount: audit.entries.length,

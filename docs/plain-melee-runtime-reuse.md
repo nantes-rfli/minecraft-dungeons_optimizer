@@ -1,6 +1,6 @@
 # Plain melee — bounded single-target runtime reuse
 
-The original expansion from main `f1aff4684384c2235e75c6b76d6ed688b5243e6a` added Cutlass, Pickaxe, Soul Knife and Whip. The [Great Hammer follow-up](great-hammer-runtime-reuse.md) from main `e637d939edc760b6d1e3a12226ad165e77f8a25d` closes its exact localization-backed Identity bridge and reuses the same direct-melee calculation/comparison/recommendation model. Current gear runtime is 11/82: historical four retain Full support within the optimizer scope; five plain additions and two separately reviewed [fixed-proc targets](builtin-proc-melee-runtime.md) are Limited. This plain foundation remains exactly five targets.
+The original expansion from main `f1aff4684384c2235e75c6b76d6ed688b5243e6a` added Cutlass, Pickaxe, Soul Knife and Whip. The [Great Hammer follow-up](great-hammer-runtime-reuse.md) from main `e637d939edc760b6d1e3a12226ad165e77f8a25d` closes its exact localization-backed Identity bridge and reuses the same direct-melee calculation/comparison/recommendation model. At PR #229, gear runtime reached 11/82: historical four retain Full support within the optimizer scope; five plain additions and two separately reviewed [fixed-proc targets](builtin-proc-melee-runtime.md) are Limited. This plain foundation remains exactly five targets.
 
 | Target | Matched Raw identity | Exact public Power / Speed / Area | Published hit seconds | Base Souls |
 | --- | --- | --- | --- | --- |
@@ -30,7 +30,7 @@ Historical Catalog entries for all five additions migrate losslessly into the me
 
 ## Coverage and verification
 
-Attack-profile readiness remains 76/82 fixed profiles and keeps its separate coverage meaning; it is not 76 calculable weapons. Gear runtime is 11/82, including two separately bound fixed-proc targets. Melee Enchantment support, Armor 13/73, Ranged 7/71, Artifact 3/45 and R3/P3B candidate1/eligible0/promoted0 are unchanged.
+Attack-profile readiness remains 76/82 fixed profiles and keeps its separate coverage meaning; it is not 76 calculable weapons. The two separately bound fixed-proc targets brought gear runtime to 11/82. The later [observed complete-combo grant](observed-melee-combo-reuse.md) brings it to 21/82. Melee Enchantment support, Armor 13/73, Ranged 7/71, Artifact 3/45 and R3/P3B candidate1/eligible0/promoted0 are unchanged.
 
 Great Hammer's exact `ItemType / Hammer → Great Hammer` localization record supplies an independent bridge to the two serialized Raw `Hammer` identity fields; an icon alias is not evidence. Whirlwind/Stormlander now have a separate finite fixed built-in foundation; other built-in/unique variants still require their own ownership/Tier and interaction review. Jungle Poison is not Poison Cloud. Unequal-hit and special combo families are outside this foundation, not approximated by ignoring effects.
 

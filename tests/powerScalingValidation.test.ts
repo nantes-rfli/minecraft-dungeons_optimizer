@@ -20,8 +20,8 @@ const referenceWeaponId = GEAR_POWER_CURVE.value.referenceWeaponId
 
 const predictModelW = (weaponId: WeaponId, powerLevel: number) =>
   calculatePowerScaledHitDamage(
-    WIKI_BASE_HIT_DAMAGE[weaponId].value,
-    WIKI_BASE_HIT_DAMAGE[referenceWeaponId].value,
+    WIKI_BASE_HIT_DAMAGE[weaponId]!.value,
+    WIKI_BASE_HIT_DAMAGE[referenceWeaponId]!.value,
     powerLevel,
     GEAR_POWER_CURVE.value,
   )

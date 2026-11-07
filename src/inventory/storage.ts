@@ -1,3 +1,4 @@
+import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { parseCatalogResearch } from '../core/catalogResearch'
 import { ARTIFACTS } from '../data/artifacts'
 import { WEAPONS } from '../data/weapons'
@@ -24,8 +25,8 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 // Previously valid Catalog documents must survive these runtime additions.
 // This historical migration list is finite; runtime membership alone grants no migration.
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
-const PLAIN_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander']
-const migratesPlainMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && PLAIN_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId)
+const LIMITED_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander']
+const migratesLimitedMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && (LIMITED_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId) || isObservedMeleeComboId(item.catalogId))
 const migratesRapidCrossbow = (item: { category: string; catalogId: string }) => item.category === 'ranged' && item.catalogId === 'rapid-crossbow'
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>
   item.category === 'armor' && DARK_ARMOR_CATALOG_MIGRATION_IDS.includes(item.catalogId)
@@ -59,7 +60,7 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const category = requireString(value.category, `${field}.category`)
   const catalogId = requireString(value.catalogId, `${field}.catalogId`)
   const catalog = CATALOG_ONLY_EQUIPMENT.find((item) => item.category === category && item.id === catalogId)
-    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesPlainMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : migratesRapidCrossbow({ category, catalogId }) ? getEquipmentCatalogEntry('ranged', catalogId) : undefined)
+    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesLimitedMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : migratesRapidCrossbow({ category, catalogId }) ? getEquipmentCatalogEntry('ranged', catalogId) : undefined)
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const isFavorite = parseFavorite(value.isFavorite, `${field}.isFavorite`)
@@ -171,6 +172,18 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
   const observedDamage = value.observedDamagePerHit === undefined
     ? {}
     : { observedDamagePerHit: requirePositiveNumber(value.observedDamagePerHit, `${field}.observedDamagePerHit`) }
+  if ((value.observedComboDamage !== undefined && !isObservedMeleeComboId(weaponId))
+    || (value.observedDamagePerHit !== undefined && isObservedMeleeComboId(weaponId))) {
+    throw new Error(`${field}: 武器IDと観測ダメージの入力形式が一致しません。`)
+  }
+  const observedCombo = value.observedComboDamage === undefined ? {} : (() => {
+    const observation = value.observedComboDamage
+    if (!isRecord(observation)) throw new Error(`${field}.observedComboDamageの形式が正しくありません。`)
+    return { observedComboDamage: {
+      powerLevel: requirePower(observation.powerLevel, `${field}.observedComboDamage.powerLevel`),
+      total: requirePositiveNumber(observation.total, `${field}.observedComboDamage.total`),
+    } }
+  })()
   let gilded: OwnedWeapon['gilded']
   if (value.gilded !== undefined) {
     if (!isRecord(value.gilded) || ![1, 2, 3].includes(value.gilded.tier as number)) {
@@ -191,6 +204,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     weaponId: weaponId as WeaponId,
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
     ...observedDamage,
+    ...observedCombo,
     ...(research ? { research } : {}),
     enchantmentSlots: value.enchantmentSlots.map((slot, slotIndex) => parseSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`)),
     ...(gilded ? { gilded } : {}),
@@ -302,7 +316,7 @@ export function deserializeInventory(json: string): Inventory {
     // Carry facts verbatim; no observation (including cost) is inferred from Research/Native.
     parsedRanged.push(parseRangedWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }))
   }
-  for (const item of parsedCatalog ?? []) if (migratesPlainMelee(item)) {
+  for (const item of parsedCatalog ?? []) if (migratesLimitedMelee(item)) {
     // Transfer recorded facts only; Research never supplies damage or actual rolls.
     parsedWeapons.push(parseWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }, parsedWeapons.length))
   }
@@ -315,7 +329,7 @@ export function deserializeInventory(json: string): Inventory {
     ...(Array.isArray(rangedWeapons) || parsedRanged.length ? { rangedWeapons: parsedRanged } : {}),
     ...(Array.isArray(armors) || parsedArmors.length ? { armors: parsedArmors } : {}),
     artifacts: artifacts.map(parseArtifact),
-    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesPlainMelee(item) && !migratesRapidCrossbow(item)) } : {}),
+    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesLimitedMelee(item) && !migratesRapidCrossbow(item)) } : {}),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
   inventory.armors?.forEach((armor) => validateSoulOnlyOwnedEnchantments('armor', armor.armorId, armor.enchantmentSlots, armor.gilded))

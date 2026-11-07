@@ -1,3 +1,5 @@
+import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { hasObservedMeleeDamage } from './observedMeleeCombo'
 import { isControlId, CC_REFRESH_MODEL, CC_ELIGIBILITY_MODEL, CC_CLUSTER_MODEL, STUNNING_DURATION } from '../data/control'
 import { PAIN_HEALTH_COST, DYNAMO_NUMERIC_EVIDENCE } from '../data/chargeConsume'
 import { DOT_DAMAGE_CURVES, DOT_EXPLOSION_IDS, FIRE_REFRESH_MODEL, FIRE_TARGET_MODEL, POISON_SATURATION_MODEL, EXPLOSION_TARGET_MODEL, EXPLOSION_KILL_SOURCE } from '../data/dotDamageEvents'
@@ -81,7 +83,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     1.5,
   )
 
-  if (build.weapon.observedDamagePerHit === undefined) {
+  if (!hasObservedMeleeDamage(build.weapon)) {
     addEvidence('internal-power-rating', '武器の内部Power rating', weapon.internalPowerRating, 2)
     addEvidence('gear-power-curve', 'Gear Power Curve', GEAR_POWER_CURVE, 3)
     addEvidence(
@@ -92,7 +94,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     )
     caveats.push('Power換算は公開Anchor表のPower 50〜263をlog補間し、1.17.0.0の内部Power rating比を適用します。Wikiのversion不明damage表とは最大45.06%ずれるため、正確な個体値には表示ダメージ入力を優先してください。')
   } else {
-    add('observed-damage', '入力した表示ダメージ', 'medium', 2)
+    add('observed-damage', isObservedMeleeComboId(build.weapon.weaponId) ? '入力したコンボ全段ダメージ' : '入力した表示ダメージ', 'medium', 2)
     caveats.push('敵HP・最大HP・被ダメージ・回復量も、表示ダメージと同じゲーム内単位で入力してください。')
   }
 

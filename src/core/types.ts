@@ -1,3 +1,4 @@
+import type { ObservedMeleeComboId } from '../data/observedMeleeCombo'
 import type { ArmorEnchantmentId, ArmorId, OwnedArmor, RuntimeArmorState, SelectedArmorEnchantment } from './armor'
 import type { OwnedRangedWeapon, RangedDamageState, SelectedRangedEnchantment } from './rangedTypes'
 import type { EvidencePolicy } from './evidenceStatus'
@@ -30,7 +31,7 @@ export interface LocalizedName {
   readonly en: string
 }
 
-export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip' | 'great-hammer' | 'whirlwind' | 'stormlander'
+export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip' | 'great-hammer' | 'whirlwind' | 'stormlander' | ObservedMeleeComboId
 export type EnchantmentId =
   | 'critical-hit'
   | 'radiance'
@@ -434,6 +435,8 @@ export interface OwnedWeapon {
   readonly weaponId: WeaponId
   readonly powerLevel: number
   readonly observedDamagePerHit?: number
+  /** Neutral direct-hit total for one complete combo, at this individual Power. */
+  readonly observedComboDamage?: { readonly powerLevel: number; readonly total: number }
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
   /** User-owned organization metadata; does not affect optimizer eligibility or score. */

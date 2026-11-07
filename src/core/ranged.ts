@@ -1,3 +1,4 @@
+import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { parseCatalogResearch } from './catalogResearch'
 import rangedSource from '../../research/sources/ranged-source-snapshot.json' with { type: 'json' }
 import { rangedReuseIsEligible } from './rangedReuse'
@@ -132,6 +133,7 @@ export function rangedOptions(weapon: OwnedRangedWeapon): readonly SelectedRange
 
 export function rangedCombinationUnsupportedReason(build: Build, scenario: Scenario): string | null {
   if (!build.rangedWeapon) return build.rangedEnchantments?.length ? 'Ranged weaponなしでEnchantを指定できません。' : null
+  if (isObservedMeleeComboId(build.weapon.weaponId)) return '完全コンボの継続と遠距離への切り替えを併用する条件は未検証です。'
   const share = scenario.rangedTimeShare
   if (share === undefined || !Number.isFinite(share) || share <= 0 || share >= 1) return 'Ranged使用時は0より大きく1未満の遠距離時間割合を明示してください。近接なし専用buildは未対応です。'
   const unsupported = rangedWeaponUnsupportedReason(build.rangedWeapon)

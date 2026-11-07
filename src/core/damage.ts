@@ -1,3 +1,4 @@
+import { observedMeleeDamagePerHit } from './observedMeleeCombo'
 import { calculateArtifactActivationState } from './artifact'
 import { calculatePainCycle, calculateDynamo, finiteAttackCadence, dynamoDamagePerStack } from './chargeConsume'
 import { deriveArtifactSynergyState } from './temporalEnchantments'
@@ -53,7 +54,7 @@ function voidStrikeExpectedMultiplier(
 }
 
 export function calculateDamage(
-  ownedWeapon: Pick<OwnedWeapon, 'weaponId' | 'powerLevel' | 'observedDamagePerHit'>,
+  ownedWeapon: Pick<OwnedWeapon, 'weaponId' | 'powerLevel' | 'observedDamagePerHit' | 'observedComboDamage'>,
   enchantments: readonly SelectedEnchantment[],
   artifactEffects: ArtifactEffects,
   scenario: Scenario,
@@ -72,13 +73,14 @@ export function calculateDamage(
   const { weaponId } = ownedWeapon
   const weapon = getWeaponDefinition(weaponId)
   const attackProfile = getAttackProfile(weaponId)
-  const damageSource = ownedWeapon.observedDamagePerHit === undefined
+  const observedDamage = observedMeleeDamagePerHit(ownedWeapon, attackProfile.value)
+  const damageSource = observedDamage === undefined
     ? 'power-curve-estimate'
     : 'observed-input'
   const referenceWeapon = getWeaponDefinition(
     GEAR_POWER_CURVE.value.referenceWeaponId,
   )
-  const damagePerHit = ownedWeapon.observedDamagePerHit ?? calculatePowerScaledHitDamage(
+  const damagePerHit = observedDamage ?? calculatePowerScaledHitDamage(
     resolveWeaponDamageCoefficient(weapon, CROSS_WEAPON_DAMAGE_SCALING.value),
     resolveWeaponDamageCoefficient(referenceWeapon, CROSS_WEAPON_DAMAGE_SCALING.value),
     ownedWeapon.powerLevel,

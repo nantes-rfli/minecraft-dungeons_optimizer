@@ -1,3 +1,4 @@
+import { OBSERVED_MELEE_COMBO_WEAPONS } from './observedMeleeCombo'
 import { BUILTIN_PROC_MELEE_WEAPONS } from './builtinProcMelee'
 import { PLAIN_MELEE_WEAPONS } from './plainMelee'
 import type { WeaponDefinition, WeaponId } from '../core/types'
@@ -54,4 +55,5 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
   },
   ...PLAIN_MELEE_WEAPONS,
   ...BUILTIN_PROC_MELEE_WEAPONS,
+  ...OBSERVED_MELEE_COMBO_WEAPONS,
 }

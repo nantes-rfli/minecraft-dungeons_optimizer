@@ -1,0 +1,404 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "rows": [
+    {
+      "id": "battlestaff",
+      "rawIdentity": "Battlestaff",
+      "packagePath": "Dungeons/Content/Patch1/Actors/Equipment/MeleeWeapons/Battlestaff/BP_BattlestaffInstance",
+      "calculatorRow": {
+        "slug": "battlestaff",
+        "name": "Battlestaff",
+        "type": "melee",
+        "route": "/weapons/battlestaff",
+        "power": 6.471,
+        "speed": 3.305,
+        "area": 3.698,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Battlestaff_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/battlestaff",
+      "intrinsicFacts": [
+        "Stylish combo"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ABattlestaff",
+      "hitDurationsSeconds": [
+        0.35,
+        0.35,
+        0.5,
+        0.65,
+        0.45,
+        0.45,
+        0.25,
+        0.3,
+        0.35,
+        1
+      ],
+      "publishedBaseDamage": [
+        65,
+        65,
+        90,
+        100,
+        80,
+        80,
+        65,
+        65,
+        65,
+        200
+      ]
+    },
+    {
+      "id": "coral-blade",
+      "rawIdentity": "CoralBlade",
+      "packagePath": "Dungeons/Content/Content_DLC5/Actors/Equipment/MeleeWeapons/CoralBlade/BP_CoralBladeInstance",
+      "calculatorRow": {
+        "slug": "coral-blade",
+        "name": "Coral Blade",
+        "type": "melee",
+        "route": "/weapons/coral-blade",
+        "power": 1.862,
+        "speed": 5.96,
+        "area": 3.333,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Hidden Depths",
+        "icon": "/images/items/T_CoralBlade_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/coral-blade",
+      "intrinsicFacts": [
+        "Rapid slashes"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ACoral_Blade",
+      "hitDurationsSeconds": [
+        0.18,
+        0.18,
+        0.54
+      ],
+      "publishedBaseDamage": [
+        19,
+        20,
+        45
+      ]
+    },
+    {
+      "id": "gauntlets",
+      "rawIdentity": "Gauntlets",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Gauntlets/BP_GauntletsInstance",
+      "calculatorRow": {
+        "slug": "gauntlets",
+        "name": "Gauntlets",
+        "type": "melee",
+        "route": "/weapons/gauntlets",
+        "power": 2.192,
+        "speed": 7.57,
+        "area": 1.729,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Gauntlets_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/gauntlets",
+      "intrinsicFacts": [
+        "Relentless combo"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AGauntlets",
+      "hitDurationsSeconds": [
+        0.125,
+        0.125,
+        0.125,
+        0.125,
+        0.2,
+        0.2,
+        0.7
+      ],
+      "publishedBaseDamage": [
+        25,
+        25,
+        25,
+        25,
+        25,
+        35,
+        45
+      ]
+    },
+    {
+      "id": "glaive",
+      "rawIdentity": "Glaive",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive/BP_GlaiveInstance",
+      "calculatorRow": {
+        "slug": "glaive",
+        "name": "Glaive",
+        "type": "melee",
+        "route": "/weapons/glaive",
+        "power": 7.103,
+        "speed": 1.55,
+        "area": 6.167,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Glaive_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/glaive",
+      "intrinsicFacts": [
+        "Longer melee reach"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AGlaive",
+      "hitDurationsSeconds": [
+        0.5,
+        0.6,
+        1
+      ],
+      "publishedBaseDamage": [
+        75,
+        75,
+        110
+      ]
+    },
+    {
+      "id": "katana",
+      "rawIdentity": "Katana",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana/BP_KatanaInstance",
+      "calculatorRow": {
+        "slug": "katana",
+        "name": "Katana",
+        "type": "melee",
+        "route": "/weapons/katana",
+        "power": 8.22,
+        "speed": 2.398,
+        "area": 6.505,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Katana_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/katana",
+      "intrinsicFacts": [],
+      "detailReview": "Normal three-hit combo with stronger finisher and no additional intrinsic or built-in listed for this target.",
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AKatana",
+      "hitDurationsSeconds": [
+        0.48,
+        0.48,
+        0.6
+      ],
+      "publishedBaseDamage": [
+        85,
+        85,
+        125
+      ]
+    },
+    {
+      "id": "mace",
+      "rawIdentity": "Mace",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+      "calculatorRow": {
+        "slug": "mace",
+        "name": "Mace",
+        "type": "melee",
+        "route": "/weapons/mace",
+        "power": 8.405,
+        "speed": 1.905,
+        "area": 3.209,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Mace_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/mace",
+      "intrinsicFacts": [],
+      "detailReview": "Normal three-hit combo with stronger finisher and no additional intrinsic or built-in listed for this target.",
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AMace",
+      "hitDurationsSeconds": [
+        0.44,
+        0.44,
+        0.77
+      ],
+      "publishedBaseDamage": [
+        81,
+        81,
+        175
+      ]
+    },
+    {
+      "id": "obsidian-claymore",
+      "rawIdentity": "ObsidianClaymore",
+      "packagePath": "Dungeons/Content/Content_DLC6/Actors/Equipment/MeleeWeapons/ObsidianClaymore/BP_ObsidianClaymoreInstance",
+      "calculatorRow": {
+        "slug": "obsidian-claymore",
+        "name": "Obsidian Claymore",
+        "type": "melee",
+        "route": "/weapons/obsidian-claymore",
+        "power": 14,
+        "speed": 1,
+        "area": 9.242,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Echoing Void",
+        "icon": "/images/items/T_ObsidianClaymore_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/obsidian-claymore",
+      "intrinsicFacts": [
+        "Powerful combo"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AObsidian_Claymore",
+      "hitDurationsSeconds": [
+        0.7,
+        1.2
+      ],
+      "publishedBaseDamage": [
+        150,
+        285
+      ]
+    },
+    {
+      "id": "rapier",
+      "rawIdentity": "Rapier",
+      "packagePath": "Dungeons/Content/Patch2/Actors/Equipment/MeleeWeapons/Rapier/BP_RapierInstance",
+      "calculatorRow": {
+        "slug": "rapier",
+        "name": "Rapier",
+        "type": "melee",
+        "route": "/weapons/rapier",
+        "power": 1,
+        "speed": 13.626,
+        "area": 5.658,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Rapier_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/rapier",
+      "intrinsicFacts": [
+        "Fast thrusts"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ARapier",
+      "hitDurationsSeconds": [
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.12,
+        0.11,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        1.1
+      ],
+      "publishedBaseDamage": [
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        13,
+        70
+      ]
+    },
+    {
+      "id": "sickles",
+      "rawIdentity": "Sickles",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles/BP_SicklesInstance",
+      "calculatorRow": {
+        "slug": "sickles",
+        "name": "Sickles",
+        "type": "melee",
+        "route": "/weapons/sickles",
+        "power": 2.976,
+        "speed": 5.973,
+        "area": 1.667,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Sickles_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/sickles",
+      "intrinsicFacts": [
+        "Dual wield"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ASickles",
+      "hitDurationsSeconds": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.4,
+        0.5
+      ],
+      "publishedBaseDamage": [
+        30,
+        30,
+        30,
+        30,
+        60,
+        70
+      ]
+    },
+    {
+      "id": "spear",
+      "rawIdentity": "Spear",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Spear/BP_SpearInstance",
+      "calculatorRow": {
+        "slug": "spear",
+        "name": "Spear",
+        "type": "melee",
+        "route": "/weapons/spear",
+        "power": 5.674,
+        "speed": 2.224,
+        "area": 8.517,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Spear_GearIcon.png",
+        "builtIn": []
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/spear",
+      "intrinsicFacts": [
+        "Long melee reach"
+      ],
+      "detailReview": null,
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ASpear",
+      "hitDurationsSeconds": [
+        0.375,
+        0.375,
+        0.5
+      ],
+      "publishedBaseDamage": [
+        60,
+        60,
+        100
+      ]
+    }
+  ]
+}

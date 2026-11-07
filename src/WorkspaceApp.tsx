@@ -1,5 +1,8 @@
 "use client"
 
+import { observedMeleeComboRow } from './data/observedMeleeCombo'
+import { hasObservedMeleeDamage } from './core/observedMeleeCombo'
+import { updateMeleePower } from './inventory/updateMeleePower'
 import { InventoryReadinessPanel } from './components/InventoryReadinessPanel'
 
 import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore, type ChangeEvent } from 'react'
@@ -119,8 +122,12 @@ export function OwnedArmorEditor({ armor, onChange, onRemove }: { armor: OwnedAr
 export function OwnedMeleeEditor({ weapon, onChange, onRemove }: { weapon: OwnedWeapon; onChange: (weapon: OwnedWeapon) => void; onRemove: () => void }) {
   const definition = WEAPONS[weapon.weaponId]
   const catalog = getEquipmentCatalogEntry('melee', weapon.weaponId)!
+  const combo = observedMeleeComboRow(weapon.weaponId)
   return <details data-instance-id={weapon.instanceId} className="equipment-card"><summary><EquipmentIcon category="melee" label={definition.name.ja} /><span className="equipment-title"><strong>{definition.name.ja}</strong><small lang="en">{definition.name.en}</small></span><span className="equipment-meta">Power {weapon.powerLevel}<small>{selectedEnchantmentSummary(weapon.enchantmentSlots)}</small></span>{(weapon.gilded || weapon.research?.enchantments?.some((item) => item.source === 'gilded')) && <span className="gilded-badge">金色</span>}<span className="edit-label">編集</span></summary>
-    <EquipmentInstanceEditor category="melee" catalog={catalog} powerLevel={weapon.powerLevel} powerMax={263} rarity={weapon.rarity} notes={weapon.notes} enchantmentSlots={weapon.enchantmentSlots} gilded={weapon.gilded} onPowerChange={(powerLevel) => onChange({ ...weapon, powerLevel })} onRarityChange={(rarity) => onChange({ ...weapon, rarity })} onNotesChange={(notes) => onChange({ ...weapon, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...weapon, gilded })} onDelete={onRemove} extraFields={<><label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label><ProcPowerSupport weapon={weapon} /></>} />
+    <EquipmentInstanceEditor category="melee" catalog={catalog} powerLevel={weapon.powerLevel} powerMax={263} rarity={weapon.rarity} notes={weapon.notes} enchantmentSlots={weapon.enchantmentSlots} gilded={weapon.gilded} onPowerChange={(powerLevel) => onChange(updateMeleePower(weapon, powerLevel))} onRarityChange={(rarity) => onChange({ ...weapon, rarity })} onNotesChange={(notes) => onChange({ ...weapon, notes })} onEnchantmentSlotsChange={(enchantmentSlots) => onChange({ ...weapon, enchantmentSlots })} onGildedChange={(gilded) => onChange({ ...weapon, gilded })} onDelete={onRemove} extraFields={<>{combo ? <label>コンボ全段の観測ダメージ合計
+      <input aria-label={`${definition.name.ja}のコンボ全段の観測ダメージ合計`} type="number" min="0.01" step="any" value={hasObservedMeleeDamage(weapon) ? weapon.observedComboDamage?.total ?? '' : ''} onChange={(event) => onChange({ ...weapon, observedComboDamage: event.target.value === '' ? undefined : { total: Number(event.target.value), powerLevel: weapon.powerLevel } })} />
+      <small>1.17.0.0の同じ個体・Powerで、バフ・Enchant効果なしで、軽減のない敵1体に通常コンボを1周当てた{combo.hitDurationsSeconds.length}段分の合計。</small>
+    </label> : <label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label>}<ProcPowerSupport weapon={weapon} /></>} />
   </details>
 }
 
@@ -340,9 +347,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     setDropKeepFailed(false)
   }
   const candidateEstimate = estimateSearchCandidates(inventory, scenario)
-  const usesObservedDamage = inventory.weapons.some(
-    (weapon) => weapon.observedDamagePerHit !== undefined,
-  )
+  const usesObservedDamage = inventory.weapons.some(hasObservedMeleeDamage)
   const updateWeapon = (instanceId: string, updater: (weapon: OwnedWeapon) => OwnedWeapon) => setInventory((current) => ({ ...current, weapons: current.weapons.map((item) => item.instanceId === instanceId ? updater(item) : item) }))
   const updateArmor = (instanceId: string, updater: (armor: OwnedArmor) => OwnedArmor) => setInventory((current) => ({ ...current, armors: (current.armors ?? []).map((item) => item.instanceId === instanceId ? updater(item) : item) }))
   const openFullEditor = (name: string, instanceId: string) => {
