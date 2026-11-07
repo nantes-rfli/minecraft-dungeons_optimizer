@@ -97,7 +97,8 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
       })
       .map(({ item }) => item)
   }, [categoryFilter, itemQuery, items, search.assessments, selectedSortBy])
-  const overBudget = estimateSearchCandidates(inventory) > SEARCH_MAX_CANDIDATES
+  const overBudgetConditions = conditions.filter((condition) => estimateSearchCandidates(inventory, condition.scenario) > SEARCH_MAX_CANDIDATES)
+  const overBudget = overBudgetConditions.length === conditions.length
   const inspectedCondition = search.assessments?.find((assessment) => assessment.condition.id === inspected?.conditionId)
   const inspectedEquipment = inspectedCondition?.status === 'complete'
     ? inspectedCondition.equipment.find((item) => item.instanceId === inspected?.instanceId) : undefined
@@ -113,7 +114,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
     </fieldset>
     <div className="assessment-actions"><button className="primary-button" type="button" onClick={search.start} disabled={search.status === 'working' || overBudget}>用途別に評価する</button><button type="button" onClick={search.cancel} disabled={search.status !== 'working'}>用途別評価を中止</button></div>
     <p role="status">{search.status === 'working' ? `${conditions.length}条件を全探索しています…` : search.status === 'complete' ? '用途別評価が完了しました。' : search.status === 'cancelled' ? '用途別評価を中止しました。' : search.status === 'error' ? '用途別評価に失敗しました。入力を確認してください。' : '条件を選び、用途別評価を開始してください。'}</p>
-    {overBudget && <p role="alert">探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えています。装備や候補を減らしてください。</p>}
+    {overBudgetConditions.length > 0 && <p role="alert">{overBudgetConditions.map((condition) => condition.name).join(" / ")}は探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えています。上限内の条件は評価できます。装備や候補を減らしてください。</p>}
     {search.error && <p role="alert">{search.error}</p>}
     <p className="assessment-limitations">差は用途ごとに読む値です。用途間のスコアは合算しません。最良と同点でも効果や性能が同じとは限らず、差があっても売却してよいという意味ではありません。未評価は0点にせず、売却判断を保留してください。</p>
     {search.assessments && <>

@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — Artifactを外した構成の比較
+
+- 明示的に有効にした条件では、Artifact 0〜3個の全構成を探索。Mushroomの所持を維持したまま、基本速度限定の近接7種を合法な構成で比較できる。
+- 条件別の候補数上限25,000件、既存のPower・同時装備・Evidence・固定効果・interaction制約を維持。未知の効果を中立化しない。
+- 既定の探索結果・順序・保存条件の意味を保持し、用途別評価とドロップ比較にも各条件の選択を適用。新装備・ゲーム式・Evidence昇格は追加しない。
+
 ## 2026-11 — 固定built-in procの近接2種
 
 - WhirlwindのShockwave I / StormlanderのThundering Iを固定所有として一度だけ注入し、既存proc式へ接続。近接11/82（Full4 / Limited7）、新式・新Native数値・R3昇格はなし。

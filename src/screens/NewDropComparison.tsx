@@ -99,8 +99,11 @@ export function NewDropComparison({
   const researchOnly = trial?.inventory.catalogItems?.find((item) => item.instanceId === trial.instanceId)
   const rangedCandidate = trial?.inventory.rangedWeapons?.find((item) => item.instanceId === trial.instanceId)
   const rangedBlocker = rangedCandidate ? rangedWeaponUnsupportedReason(rangedCandidate) : undefined
-  const candidateEstimate = trial ? estimateSearchCandidates(trial.inventory) : 0
+  const candidateEstimate = trial ? Math.max(estimateSearchCandidates(inventory, scenario), estimateSearchCandidates(trial.inventory, scenario)) : 0
   const candidateOverBudget = trial !== null && candidateEstimate > SEARCH_MAX_CANDIDATES
+  const overBudgetSavedConditions = trial ? comparisonConditions.filter((condition) =>
+    Math.max(estimateSearchCandidates(inventory, condition.scenario), estimateSearchCandidates(trial.inventory, condition.scenario)) > SEARCH_MAX_CANDIDATES) : []
+  const allSavedConditionsOverBudget = comparisonConditions.length > 0 && overBudgetSavedConditions.length === comparisonConditions.length
   const candidateEvaluated = Boolean(trial && evaluatedInstanceIds?.includes(trial.instanceId))
   const candidateExclusionReasons = trial && comparisonResult
     ? comparisonResult.unsupportedChoices
@@ -134,7 +137,7 @@ export function NewDropComparison({
   }
 
   const startSavedComparison = () => {
-    if (!trial || comparisonConditions.length === 0 || researchOnly || rangedBlocker || candidateOverBudget) return
+    if (!trial || comparisonConditions.length === 0 || researchOnly || rangedBlocker || allSavedConditionsOverBudget) return
     savedComparison.start()
   }
 
@@ -160,8 +163,9 @@ export function NewDropComparison({
       <div className="drop-candidate-actions"><button className="secondary-button" type="button" onClick={onOpenPicker}>候補を変更</button><button type="button" onClick={onClearTrial}>候補を外す</button></div>
       {presets.length > 0 && <fieldset className="drop-condition-picker"><legend>保存済み条件でも比較</legend><p>選んだ条件では、現在のInventoryと候補追加後を別々に探索します。</p>{presets.map((preset) => <label key={preset.id}><input type="checkbox" checked={selectedPresetIds.includes(preset.id)} onChange={(event) => setSelectedPresetIds((current) => event.target.checked ? [...current, preset.id] : current.filter((id) => id !== preset.id))} />{preset.name}</label>)}</fieldset>}
       {blocker && <p className="drop-comparison-warning" role="note">{blocker}</p>}
-      {candidateOverBudget && <p className="drop-comparison-warning" role="alert">この候補を含めると探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えます。候補を減らしてください。</p>}
-      <div className="drop-comparison-actions"><button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget || candidateExcluded}>現在の最良ビルドと比較</button>{comparisonConditions.length > 0 && <button type="button" onClick={startSavedComparison} disabled={running || Boolean(blocker) || candidateOverBudget}>選んだ保存条件で比較</button>}</div>
+      {candidateOverBudget && <p className="drop-comparison-warning" role="alert">現在の条件では追加前後の探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えます。候補を減らしてください。</p>}
+      {overBudgetSavedConditions.length > 0 && <p className="drop-comparison-warning" role="alert">{overBudgetSavedConditions.map((condition) => condition.name).join(" / ")}は追加前後の探索上限 {SEARCH_MAX_CANDIDATES.toLocaleString()} 通りを超えます。上限内の保存条件は比較できます。</p>}
+      <div className="drop-comparison-actions"><button className="primary-button" type="button" onClick={startComparison} disabled={running || Boolean(blocker) || candidateOverBudget || candidateExcluded}>現在の最良ビルドと比較</button>{comparisonConditions.length > 0 && <button type="button" onClick={startSavedComparison} disabled={running || Boolean(blocker) || allSavedConditionsOverBudget}>選んだ保存条件で比較</button>}</div>
       <p className="drop-comparison-status" role="status">{candidateExcluded ? '仮候補は今回の探索で評価されませんでした。' : waitingForBaseline ? '現在のInventoryを探索しています…' : comparisonStatus === 'working' ? '仮追加後の候補を探索しています…' : comparisonStatus === 'complete' ? '比較が完了しました。' : comparisonStatus === 'error' || (pendingBaseline?.instanceId === trial.instanceId && baseline.status === 'error') ? '比較できませんでした。' : blocker ? '入力条件を確認してください。' : '同じ目的と条件で比較します。'}</p>
       {candidateExcluded && <p className="drop-comparison-warning" role="alert">{candidateExclusionMessage}</p>}
       {baseline.error && pendingBaseline?.instanceId === trial.instanceId && <p className="drop-comparison-warning" role="alert">{baseline.error}</p>}

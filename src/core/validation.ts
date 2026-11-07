@@ -95,6 +95,9 @@ export function inventoryItemInputIssues(inventory: Inventory): ReadonlyMap<stri
 }
 
 export function validateScenario(scenario: Scenario): void {
+  if (scenario.includeUnequippedArtifacts !== undefined && typeof scenario.includeUnequippedArtifacts !== 'boolean') {
+    throw new OptimizerInputError('INVALID_SCENARIO', 'includeUnequippedArtifactsはbooleanにしてください。')
+  }
   if (scenario.evidencePolicy !== undefined && !['high-confidence-only', 'include-estimated'].includes(scenario.evidencePolicy)) {
     throw new OptimizerInputError('INVALID_SCENARIO', 'evidencePolicyが不正です。')
   }

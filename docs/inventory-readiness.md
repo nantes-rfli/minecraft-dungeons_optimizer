@@ -55,3 +55,7 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 最終headのFull Validate（全audit・全Vitest・生成drift・型/lint・build・E2E）はGitHub CIで実行する。独立reviewの指摘は回帰とともに修正して最終headを再確認する。結果・head SHA・CI URL・reviewはPR本文に記録する。mergeはせず、本人限定Siteの更新はmerge後に既存`.openai/hosting.json` projectと運用契約に従う。ロールバックはPRのrevertで、Inventory移行は不要。
 
 [Rapid追加の検証](rapid-crossbow-runtime-reuse.md)では、旧Catalog移行後の明示消費数入力、既知0と欠損の区別、再読込、最適化と用途別比較を追加する。入力値はソフトウェアfixtureで、実ゲーム観測の証明ではない。
+
+## Artifactを外した構成を含む確認
+
+最適化画面で「Artifactを外した構成も比較する」を有効にすると、所持Artifactの0〜3個の部分集合を探索する。たとえばMushroomを所持していても、外した基本速度の構成でLimited近接7種を確認できる。Inventoryからの削除や未知効果の無視ではない。各Artifact自身の対応Power・Evidence・同時装備制約は維持し、合法な構成に一度も含まれない個体は評価済みにしない。候補数の推定は除外前の全所持品で計算し、25,000通りを超える条件では探索しない。[条件別の適用と制限](optional-artifact-loadouts.md)を参照。
