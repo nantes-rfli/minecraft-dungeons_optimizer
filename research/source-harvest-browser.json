@@ -17505,7 +17505,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"rapid-crossbow\",\"names\":{\"en\":\"Rapid Crossbow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"rapid-crossbow\",\"names\":{\"en\":\"Rapid Crossbow\",\"ja\":\"速射のクロスボウ\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -17570,7 +17570,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"High Firerate\"],\"inherited\":[],\"families\":[\"cadence\"],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[\"High Firerate\"],\"inherited\":[],\"families\":[\"cadence\"],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [

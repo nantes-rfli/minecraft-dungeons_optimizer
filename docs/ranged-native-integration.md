@@ -2,7 +2,7 @@
 
 Baseline: main `e0a239a3623a4b16a4cd7cd0eb13f83193ed1f1a` (PR #218 merged). [#217](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/pull/217) and [#218](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/pull/218) are merged; [#219](https://github.com/nantes-rfli/minecraft-dungeons_optimizer/pull/219) was open at head `f1a8c587fb823676eeb71fc0c62b488a392f19fd` when work began. No #219 changes/merge or dependency on its unmerged files. Its Armor aggregation findings remain cited research, not adopted runtime.
 
-## Deliverable and calculation count
+## Initial deliverable and calculation count (historical)
 
 **Four additional equipment identities can evaluate/optimize through the existing observed single-arrow model:** Shortbow, Longbow, Power Bow (full-charge originally; also uncharged through the [mode follow-up](ranged-observed-modes.md)), Heavy Crossbow (single). Bow and Crossbow preserve their existing modes and results. Ranged support is Limited 6 / Research-only 65 / Full 0, enchant support unchanged. Newly calculated effects: **0**. No Power, charge-ratio, speed, projectile, enchant or interaction formula is promoted. R3/P3B remains candidate 1 / eligible 0 / promoted 0.
 
@@ -74,3 +74,5 @@ The public Native audit runs provenance/model checks and six positive/negative/p
 ## Conditional final-damage follow-up
 
 The [final-damage integration](ranged-final-native-integration.md) adds an explicit-input Domain calculator and bounded pinned-CRT CLI. Its reference custom magnitudes are separate from this observed runtime: no new runtime equipment/effect or removed observation input, no R3/P3B promotion. The historical unknown fields above remain unchanged.
+
+The [Rapid Crossbow follow-up](rapid-crossbow-runtime-reuse.md) uses a separate bounded source review and explicit target-owned consumption observation. Current observed runtime is Limited7/71 with 11 weapon/mode pairs. It adds no Native numeric profile: Native ResourceCost/final damage/effective cycle are not inferred. The historical five conditional Native models and their unknown effective values remain unchanged.

@@ -978,23 +978,23 @@
       "population": 71,
       "runtime": {
         "full": 0,
-        "limited": 6,
-        "researchOnly": 65,
+        "limited": 7,
+        "researchOnly": 64,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 93,
+        "total": 96,
         "evidenceBlocked": 3,
         "notImplemented": 1,
-        "unclassified": 89,
+        "unclassified": 92,
         "priorities": {
           "P0": 1,
           "P1": 2,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 89,
+        "unprioritized": 92,
         "p1EvidenceBlocked": 2
       },
       "sourceRefs": [
@@ -39569,7 +39569,7 @@
       "category": "ranged-weapon",
       "id": "rapid-crossbow",
       "label": "Rapid Crossbow",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -39587,9 +39587,9 @@
               "id": "rapid-crossbow",
               "name": {
                 "en": "Rapid Crossbow",
-                "ja": null
+                "ja": "速射のクロスボウ"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": null,
               "variantOf": null,
               "family": "rapid-crossbow",
@@ -39631,7 +39631,7 @@
                 "families": [
                   "cadence"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -39653,16 +39653,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:rapid-crossbow:runtime:0"
+        "ranged-weapon:rapid-crossbow:runtime:0",
+        "ranged-weapon:rapid-crossbow:runtime:1",
+        "ranged-weapon:rapid-crossbow:runtime:2",
+        "ranged-weapon:rapid-crossbow:runtime:3"
       ]
     },
     {
@@ -55035,12 +55041,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/43"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:rapid-crossbow:runtime:1",
+      "label": "Rapid Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:rapid-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/43"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:rapid-crossbow:runtime:2",
+      "label": "Rapid Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:rapid-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/43"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:rapid-crossbow:runtime:3",
+      "label": "Rapid Crossbow",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:rapid-crossbow"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/43"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:red-snake:runtime:0",
@@ -55614,17 +55677,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 573,
+    "total": 576,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 541,
+    "unclassified": 544,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 547,
+    "unprioritized": 550,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {

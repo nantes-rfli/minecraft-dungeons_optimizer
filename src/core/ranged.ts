@@ -1,3 +1,5 @@
+import { parseCatalogResearch } from './catalogResearch'
+import rangedSource from '../../research/sources/ranged-source-snapshot.json' with { type: 'json' }
 import { rangedReuseIsEligible } from './rangedReuse'
 import type { ReadinessIssue } from './readiness'
 import { ARMORS } from '../data/armors'
@@ -47,12 +49,14 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
     observation = { gameVersion: '1.17.0.0', mode: item.mode as RangedShotMode,
       projectileDamage: number(item.projectileDamage, 'projectileDamage', Number.EPSILON),
       shotCycleSeconds: number(item.shotCycleSeconds, 'shotCycleSeconds', Number.EPSILON),
+      ...(item.arrowsConsumedPerShot === undefined ? {} : { arrowsConsumedPerShot: number(item.arrowsConsumedPerShot, 'arrowsConsumedPerShot', 0, true) }),
       availableAmmo: number(item.availableAmmo, 'availableAmmo', 0, true), sourceNote: text(item.sourceNote, 'sourceNote') }
   }
   if (value.rarity !== undefined && !['common', 'rare', 'unique'].includes(value.rarity as string)) fail('rarityはcommon / rare / uniqueのいずれかにしてください。')
   const notes = value.notes === undefined || value.notes === '' ? undefined : text(value.notes, 'notes')
   const isFavorite = value.isFavorite === undefined ? undefined : typeof value.isFavorite === 'boolean' ? value.isFavorite : fail('isFavorite: booleanが必要です。')
-  return { instanceId: text(value.instanceId, 'instanceId'), weaponId, powerLevel: number(value.powerLevel, 'powerLevel', 1, true),
+  const research = parseCatalogResearch(value.research, 'Ranged research')
+  return { ...(research ? { research } : {}), instanceId: text(value.instanceId, 'instanceId'), weaponId, powerLevel: number(value.powerLevel, 'powerLevel', 1, true),
     enchantmentSlots: slots, ...(value.gilded === undefined ? {} : { gilded: roll(value.gilded) }), ...(observation ? { observation } : {}),
     ...(value.rarity === undefined ? {} : { rarity: value.rarity as OwnedRangedWeapon['rarity'] }), ...(isFavorite === undefined ? {} : { isFavorite }), ...(notes ? { notes } : {}) }
 }
@@ -64,6 +68,8 @@ export function rangedWeaponIssues(weapon: OwnedRangedWeapon): readonly Readines
   if (!weapon.observation) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: neutral projectile damage・完全発射周期・矢数・観測メモが必要です。`, target: 'equipment', fields: ['補正のない通常矢1本のダメージ（正の有限値）', '完全発射周期（秒、charge/recovery込み、正の有限値）', '戦闘中の通常矢数（0以上の整数、補給なし）', '発射モードとゲーム版1.17.0.0の観測メモ / 出典'] })
   else if (!RANGED_WEAPONS[weapon.weaponId]!.modes.includes(weapon.observation.mode)) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: shot modeが一致しません。`, target: 'equipment', fields: [`発射モード: ${RANGED_WEAPONS[weapon.weaponId]!.modes.join(' / ')}`] })
   else if (weapon.weaponId !== 'bow' && weapon.weaponId !== 'crossbow' && !rangedReuseIsEligible(weapon.weaponId, weapon.observation.mode)) issues.push({ kind: 'unsupported', message: `${weapon.weaponId}: source-bound Limited reuse条件が一致しません。観測値だけでは解決しません。` })
+  const ammoIssue = rangedAmmoObservationIssue(weapon)
+  if (ammoIssue) issues.push(ammoIssue)
   for (const [index, slot] of weapon.enchantmentSlots.entries()) {
     const candidates = slot.candidates.map((candidate) => typeof candidate === 'string' ? candidate : (candidate as RangedRoll).enchantmentId)
     const locked = (slot as { locked?: string }).locked
@@ -71,7 +77,42 @@ export function rangedWeaponIssues(weapon: OwnedRangedWeapon): readonly Readines
     if (effective.some((id) => !isRuntimeRangedEnchantment(id))) issues.push({ kind: 'unsupported', message: `${weapon.weaponId}: スロット${index + 1}に未対応候補があります。対応候補を選択するか別個体を選択してください。`, target: 'equipment' })
   }
   if (weapon.gilded && !isRuntimeRangedEnchantment(weapon.gilded.enchantmentId)) issues.push({ kind: 'unsupported', message: `${weapon.weaponId}: 金色EnchantがResearch-onlyです。` })
+  const researchIssue = rangedResearchIssue(weapon)
+  if (researchIssue) issues.push({ kind: 'unsupported', message: researchIssue, target: 'equipment' })
   return issues
+}
+
+/** A known non-1 cost is retained but unsupported, never ignored or defaulted. */
+export function rangedAmmoObservationIssue(weapon: OwnedRangedWeapon): ReadinessIssue | undefined {
+  const cost = weapon.observation?.arrowsConsumedPerShot
+  if (cost === undefined) return weapon.weaponId === 'rapid-crossbow'
+    ? { kind: 'input-required', message: 'Rapid Crossbowは、この個体で1回撃つたびに通常矢1本が減ることを確認し、消費矢数を入力してください。', target: 'equipment', fields: ['1完全発射周期あたりの通常矢消費数（観測した1本のみ対応、矢数0でも必須）'] }
+    : undefined
+  if (cost !== 1) return { kind: 'unsupported', message: `観測した1射の通常矢消費数${cost}は未対応です。通常矢1本消費の観測だけを計算できます。`, target: 'equipment' }
+  return undefined
+}
+
+/** Passive Research cannot silently lose known fixed/selected effects. */
+function rangedResearchIssue(weapon: OwnedRangedWeapon, selectedEnchantments?: readonly SelectedRangedEnchantment[]): string | undefined {
+  const research = weapon.research
+  if (!research) return undefined
+  const fixed = research.enchantments?.filter((entry) => entry.source !== 'slot') ?? []
+  const keys = fixed.map((entry) => `${entry.source}:${entry.enchantmentId}:${entry.tier}`)
+  const selected = new Map<string, number>()
+  for (const entry of selectedEnchantments ?? []) if (entry.source === 'slot') {
+    const key = `${entry.enchantmentId}:${entry.tier}`
+    selected.set(key, (selected.get(key) ?? 0) + 1)
+  }
+  const unmatched = selectedEnchantments && research.enchantments?.filter((entry) => entry.source === 'slot').some((entry) => {
+    const key = `${entry.enchantmentId}:${entry.tier}`, count = selected.get(key) ?? 0
+    selected.set(key, count - 1)
+    return count < 1
+  })
+  if (new Set(keys).size !== keys.length || fixed.filter((entry) => entry.source === 'gilded').length > 1 || unmatched
+    || fixed.some((entry) => entry.source === 'built-in' || entry.enchantmentId !== weapon.gilded?.enchantmentId || entry.tier !== weapon.gilded?.tier)) return 'UNSUPPORTED_RANGED_RESEARCH: 旧ResearchのEnchantと個体入力が未整合です。記録を明示的に確認・修正してください。'
+  const facts = rangedSource.weapons.rows.find((entry) => entry.id === weapon.weaponId)?.facts.slice(3)
+  if (research.intrinsicProperties?.some((entry) => entry.kind !== 'intrinsicMechanicOwnership' || !facts?.includes(entry.raw))) return 'UNSUPPORTED_RANGED_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
+  return undefined
 }
 
 export function rangedWeaponUnsupportedReason(weapon: OwnedRangedWeapon): string | null {
@@ -95,6 +136,8 @@ export function rangedCombinationUnsupportedReason(build: Build, scenario: Scena
   if (share === undefined || !Number.isFinite(share) || share <= 0 || share >= 1) return 'Ranged使用時は0より大きく1未満の遠距離時間割合を明示してください。近接なし専用buildは未対応です。'
   const unsupported = rangedWeaponUnsupportedReason(build.rangedWeapon)
   if (unsupported) return unsupported
+  const researchReason = rangedResearchIssue(build.rangedWeapon, build.rangedEnchantments ?? [])
+  if (researchReason) return researchReason
   const allowedMelee = ['critical-hit', 'sharpness', 'unchanting', 'smiting', 'radiance', 'leeching', 'guarding-strike', 'refreshment']
   const incompatible = build.enchantments.find((item) => !allowedMelee.includes(item.enchantmentId))
   if (incompatible) return `Rangedと${incompatible.enchantmentId}の共有target/時間/trigger interactionは未検証です。`
@@ -126,6 +169,8 @@ export function validateRangedBuild(build: Build, scenario?: Scenario): void {
 
 export function calculateRangedDamage(build: Build, scenario: Scenario): RangedDamageState | undefined {
   if (!build.rangedWeapon) return undefined
+  const ammoIssue = rangedAmmoObservationIssue(build.rangedWeapon)
+  if (ammoIssue) fail(ammoIssue.message)
   const observation = build.rangedWeapon.observation!
   const share = scenario.rangedTimeShare!
   const shotBudget = scenario.encounterDurationSeconds * share / observation.shotCycleSeconds

@@ -27,17 +27,18 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 
 ## 入力改善で使える範囲
 
-既存Limited 6種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow）について、次の対象個体の観測が必要。Bowと追加3弓は未チャージ/フルチャージをモード別に扱い、Heavy Crossbowは単射という境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。モード変更時はdamage/周期/観測メモを再入力し、適用までは元の保存値を保持する。
+現在のLimited 7種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbow）について、次の対象個体の観測が必要。Bowと追加3弓は未チャージ/フルチャージをモード別に扱い、Heavy Crossbowは単射という境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。モード変更時はdamage/周期/観測メモを再入力し、適用までは元の保存値を保持する。
 
 - neutralな通常矢1本のダメージ: 正の有限値
 - 完全発射周期: 正の有限秒、charge/recovery込み。切替時間は従来どおり攻撃時間配分に含める
 - 戦闘中の通常矢数: 0以上の整数、補給なし
 - 発射モード、ゲーム版1.17.0.0の観測メモ・出典
+- Rapid Crossbowは、対象自身の通常1射で矢1本が減る明示観測も必須。欠損は入力不足、明示0や2等は未対応。ammo stock 0でも省略できず、他6種でも明示non1を無視しない
 - Scenarioの遠距離時間割合: 0より大きく1未満
 
 対応Melee 9種、Armor 13種、Artifact 3種も従来のFull/Limited・Power・Evidence・interaction制約の範囲で利用できる。未対応の固有効果を持つ装備が新たに計算できるようになる変更ではない。
 
-合成ソフトウェアfixtureでは6種それぞれについて、未観測→必要項目表示→個体観測を適用→evaluate/optimize成功を検証する。ブラウザでは同名Bowを区別して編集し、評価可能2件→3件・入力不足1件→0件になり、保存後に最適化と用途別装備比較へ進めることを検証する。これは実ゲーム観測や本人の全Inventoryの評価件数ではない。本人のデータが提供されていないため、その改善件数は実行時のInventory上で確認する。
+既存の合成ソフトウェアfixtureでは旧6種それぞれについて、未観測→必要項目表示→個体観測を適用→evaluate/optimize成功を検証する。ブラウザでは同名Bowを区別して編集し、評価可能2件→3件・入力不足1件→0件になり、保存後に最適化と用途別装備比較へ進めることを検証する。これは実ゲーム観測や本人の全Inventoryの評価件数ではない。本人のデータが提供されていないため、その改善件数は実行時のInventory上で確認する。
 
 **新しい式の対応装備 +0 / 効果 +0。入力導線の改善は既存6種すべてを対象とする。** #221/#222の条件付きNative数値はDPS/装備スコアへ接続せず、HP loss/DPS unknown・runtimeEligible=false、Runtime Promotionのeligible/promotedを維持する。
 
@@ -52,3 +53,5 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 局所回帰は分類・個体対応・入力前後・invalid/unknown/unsupported拒否、計算失敗と未対応Powerの区別、既存保存/最適化/用途別比較/Runtime Promotionを対象とする。Chromiumでdesktop/mobile、同名個体・絞り込み解除・旧モード修正・Catalog編集・自動再確認・保存条件保持・最適化と比較への到達・アクセシビリティを確認する。
 
 最終headのFull Validate（全audit・全Vitest・生成drift・型/lint・build・E2E）はGitHub CIで実行する。独立reviewの指摘は回帰とともに修正して最終headを再確認する。結果・head SHA・CI URL・reviewはPR本文に記録する。mergeはせず、本人限定Siteの更新はmerge後に既存`.openai/hosting.json` projectと運用契約に従う。ロールバックはPRのrevertで、Inventory移行は不要。
+
+[Rapid追加の検証](rapid-crossbow-runtime-reuse.md)では、旧Catalog移行後の明示消費数入力、既知0と欠損の区別、再読込、最適化と用途別比較を追加する。入力値はソフトウェアfixtureで、実ゲーム観測の証明ではない。

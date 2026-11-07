@@ -1,11 +1,12 @@
 # Observed Ranged — uncharged mode reuse
 
-Baseline: main `89d3e5b04dbf5c16cc334b05b5a8fe12c2465217` after PR #225. One mode-specific grant foundation adds uncharged normal-arrow evaluation for Shortbow, Longbow and Power Bow. Ranged gear remains 6/71 Limited; supported weapon/mode pairs increase from 7 to 10. New equipment identities 0, new effect formulas 0.
+Baseline: main `89d3e5b04dbf5c16cc334b05b5a8fe12c2465217` after PR #225. One mode-specific grant foundation adds uncharged normal-arrow evaluation for Shortbow, Longbow and Power Bow. At this historical baseline Ranged gear remained 6/71 Limited and supported weapon/mode pairs increased from 7 to 10. That mode Work Unit added no equipment identities or effect formulas. The later [Rapid Crossbow follow-up](rapid-crossbow-runtime-reuse.md) makes the current range 7/71 and 11 pairs.
 
 | Equipment | Supported observed modes |
 | --- | --- |
 | Bow / Shortbow / Longbow / Power Bow | charged, uncharged |
 | Crossbow / Heavy Crossbow | single |
+| Rapid Crossbow | single, with explicit target-owned consumption1 observation |
 
 ## Source and boundary
 
@@ -23,6 +24,6 @@ Existing valid charged results and Bow/Crossbow/Heavy Crossbow calculations are 
 
 ## Coverage and verification
 
-Melee gear8/82, Armor13/73, Artifact3/45, Ranged Enchant3/41 and R3/P3B candidate1/eligible0/promoted0 are unchanged. Native finalProjectileDamage/effectiveShotCycleSeconds remain unknown and Native runtimeEligible remains false. This work reuses completed research instead of repeating Native Power/timing acquisition.
+The mode follow-up itself left other categories unchanged. After subsequent source-bound reuse, current Melee gear9/82, Armor13/73, Artifact3/45, Ranged Enchant3/41 and R3/P3B candidate1/eligible0/promoted0 remain separate coverage meanings. Native finalProjectileDamage/effectiveShotCycleSeconds remain unknown and Native runtimeEligible remains false. This work reuses completed research instead of repeating Native Power/timing acquisition.
 
 Positive/negative/preservation tests cover all three additions, tuple duplicates and mode-local withdrawal, exact complete-cycle/ammo arithmetic, missing mode-owned observations, unsupported interactions, old mode results, and draft/saved-state boundaries. Browser tests verify explicit new values, blank Apply rejection, ammo0, reload restoration and evaluation. Final-head Full Validate and independent review are recorded in the PR; software fixtures are not gameplay measurements.

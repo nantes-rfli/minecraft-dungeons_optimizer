@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — Rapid Crossbowの条件付き通常単矢計算
+
+- 既存Rawの限定source reviewと対象自身の観測damage・完全周期・消費矢数を結び、Rapid CrossbowをLimitedへ追加。遠距離は7/71種・11 weapon/mode。
+- 消費1の明示観測が欠ける場合、または明示non1は計算しない。Native ResourceCostやconfigured周期から補完せず、既知ammo0と欠損を区別する。
+- 旧6種の結果と保存形式、Rapidの旧Catalog metadata/Researchを保持し、未知効果を無視しない。
+
 ## 2026-11 — Great Hammerの単体対象Limited計算
 
 - 既存ローカライズ資源のexact IdentityとRawの両IDを結び、Great Hammer自身の正確な公開値を既存plain melee計算へ接続。近接装備は9/82（Full4 / Limited5）。

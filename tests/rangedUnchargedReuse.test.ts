@@ -19,8 +19,8 @@ const inventory = (item: OwnedRangedWeapon): Inventory => ({ weapons: [melee.wea
 
 describe('mode-bound uncharged Ranged reuse', () => {
   it('adds exactly three mode pairs, preserving all six equipment identities and existing mode defaults', () => {
-    expect(Object.keys(RANGED_WEAPONS)).toHaveLength(6)
-    expect(Object.values(RANGED_WEAPONS).reduce((count, entry) => count + entry.modes.length, 0)).toBe(10)
+    expect(Object.keys(RANGED_WEAPONS)).toHaveLength(7)
+    expect(Object.values(RANGED_WEAPONS).reduce((count, entry) => count + entry.modes.length, 0)).toBe(11)
     expect(grants.approvals.filter((grant) => grant.mode === 'uncharged').map((grant) => grant.targetId)).toEqual(ids)
     for (const id of ids) expect(RANGED_WEAPONS[id]!.modes).toEqual(['charged', 'uncharged'])
     expect(rangedReuseIsEligible('heavy-crossbow', 'uncharged')).toBe(false)
