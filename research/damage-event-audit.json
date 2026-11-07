@@ -443,7 +443,15 @@
       "builtIn": {
         "weapon": "Whirlwind",
         "tier": 1,
-        "runtimeEnabled": false
+        "runtimeEnabled": true,
+        "runtimeScope": {
+          "weaponId": "whirlwind",
+          "enchantmentId": "shockwave",
+          "tier": 1,
+          "source": "built-in",
+          "grantRef": "research/runtime/builtin-proc-melee-reuse.json",
+          "scope": "single-target-base-cadence-no-void"
+        }
       },
       "limitations": [
         "Ordinary walls stop Shockwave since 1.6.0.0; Wiki trivia and dungeons.tools prose distinguish Geomancer walls/bombs. Geometry is not modeled and no damage/event discount is invented.",
@@ -460,7 +468,7 @@
           ],
           "confidence": "high",
           "retrievedAt": "2026-08-30",
-          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only."
+          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only. Historical aggregate counter does not assert target absence. Hash-bound target-owned calculator row plus the existing Wiki Tier I record now supports only the exact accepted runtimeScope tuple; all other built-ins remain research-only."
         },
         {
           "url": "https://minecraft.wiki/w/Dungeons:Shockwave",
@@ -1121,7 +1129,15 @@
       "builtIn": {
         "weapon": "Stormlander",
         "tier": 1,
-        "runtimeEnabled": false
+        "runtimeEnabled": true,
+        "runtimeScope": {
+          "weaponId": "stormlander",
+          "enchantmentId": "thundering",
+          "tier": 1,
+          "source": "built-in",
+          "grantRef": "research/runtime/builtin-proc-melee-reuse.json",
+          "scope": "single-target-base-cadence-no-void"
+        }
       },
       "limitations": [
         "Only direct melee hits offer the 30% roll. Proc events cannot trigger another roll. Lightning Focus not implemented.",
@@ -1138,7 +1154,7 @@
           ],
           "confidence": "high",
           "retrievedAt": "2026-08-30",
-          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only."
+          "note": "Use data fields for metadata, not narrative as a proc curve; BUILT INTO 0 conflicts with Wiki built-ins, retained research-only. Historical aggregate counter does not assert target absence. Hash-bound target-owned calculator row plus the existing Wiki Tier I record now supports only the exact accepted runtimeScope tuple; all other built-ins remain research-only."
         },
         {
           "url": "https://minecraft.wiki/w/Dungeons:Thundering",

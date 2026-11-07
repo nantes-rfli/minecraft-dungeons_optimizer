@@ -24,7 +24,7 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 // Previously valid Catalog documents must survive these runtime additions.
 // This historical migration list is finite; runtime membership alone grants no migration.
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
-const PLAIN_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer']
+const PLAIN_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander']
 const migratesPlainMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && PLAIN_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 const migratesRapidCrossbow = (item: { category: string; catalogId: string }) => item.category === 'ranged' && item.catalogId === 'rapid-crossbow'
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>

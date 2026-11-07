@@ -1,3 +1,4 @@
+import { BUILTIN_PROC_MELEE_PROFILES } from './builtinProcMelee'
 import { PLAIN_MELEE_PROFILES } from './plainMelee'
 import type { AttackProfile, Evidence, WeaponId } from '../core/types'
 import { SOUL_SCYTHE_PROFILE_SOURCE } from './souls'
@@ -48,4 +49,5 @@ export const ATTACK_PROFILES: Readonly<Record<WeaponId, Evidence<AttackProfile>>
     note: 'Minecraft Dungeons 1.17.0.0 audit; HPS is derived from the published single-hit duration.',
   },
   ...PLAIN_MELEE_PROFILES,
+  ...BUILTIN_PROC_MELEE_PROFILES,
 }

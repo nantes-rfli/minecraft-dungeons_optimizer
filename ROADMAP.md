@@ -22,7 +22,7 @@ Population 33 · Catalog runtime 28 / 33 · Full 19 · Limited 9 · Research-onl
 Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 · Limited 1 · Research-only 42
 <!-- artifact-support:end -->
 
-近接武器は監査82種中9種（既存Full 4 / 単体対象Limited 5）に対応。Attack Profileのreadiness件数とは別に数える。
+近接武器は監査82種中11種（既存Full 4 / 単体対象Limited 7。うち固定built-in対応2種）に対応。Attack Profileのreadiness件数とは別に数える。
 
 Armorは監査母集団73件中13件、Armor Enchantは41件中7件をLimited runtime対応。Rangedは7/71種・11 weapon/modeと3 Enchantを、モードごとの観測入力付きLimited runtime対応。カテゴリごとに意味と母集団が異なるため、横断の総合percentageは表示しない。
 

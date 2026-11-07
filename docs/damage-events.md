@@ -2,7 +2,7 @@
 
 2026-08-30。対象mechanicsはMinecraft Dungeons 1.17.0.0。
 基盤と3種の範囲限定runtimeは実装済みですが、**Power 50–263全域のproc EvidenceがないためPhase completeではありません**。
-Phase 2-1D時点はcatalog 12 / 33（うち3種がPower範囲限定）、未実装21 / 33でした。現在は[Phase 2-1E](./enemy-state-damage.md)追加でcatalog 15 / 33（広域12・範囲限定3）、未実装18 / 33です。非対応の効果を0点で登録しません。
+Phase 2-1D時点はcatalog 12 / 33（うち3種がPower範囲限定）、未実装21 / 33でした。当時の[Phase 2-1E](./enemy-state-damage.md)追加ではcatalog 15 / 33（広域12・範囲限定3）、未実装18 / 33でした。現在のEnchant対応は[正本のruntime support](melee-runtime-support.md)を参照してください。非対応の効果を0点で登録しません。
 
 ## 設計判断: directとindirect
 
@@ -153,8 +153,8 @@ contributionは効果を外してCombat/Potion/Healing/Defenseを再計算し、
 
 Sharpness/Critical/Unchantingは直接武器channelのみ。Voidの増幅と消費は**別々にuncertain**。
 限定runtimeは「proc増幅なし・Void状態変更なし」で、interactionが存在しないという確定ではありません。
-3種はmaxCopies=1、通常IIIと金色I/II/IIIを既存経路で保持、通常＋金色重複も拒否。
-Whirlwind / Sheer Daggers / Stormlanderのbuilt-in Tier Iはresearchのみ。
+3種はmaxCopies=1、通常I–IIIと金色I–IIIを既存経路で保持、通常＋金色重複も拒否。
+[固定built-in follow-up](builtin-proc-melee-runtime.md)ではWhirlwindのShockwave IとStormlanderのThundering Iだけを対象別source付きで注入する。通常・金色・固定の同ID重複を拒否し、procの既存Power範囲を守る。新2装備は単体・基本cadence限定でVoid併用を明示拒否する。旧selectable経路の上記Void仮定は変更しない。Sheer Daggersはprofile不整合によりresearch-onlyを維持する。
 
 range外の自由候補はoptimizerが明示的なunsupportedChoicesへ返して除外します。
 locked/gildedや評価可能な候補のないスロットは明示エラー。直接evaluateも拒否。

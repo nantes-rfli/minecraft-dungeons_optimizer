@@ -1,3 +1,5 @@
+import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
+import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { calculateArtifactDuration } from './artifact'
 import { ExclusionLog, type InventoryReadiness, type ReadinessIssue } from './readiness'
 import { assertSearchBudget } from './searchBudget'
@@ -17,6 +19,7 @@ import type {
   OwnedArtifact,
   OwnedWeapon,
   Scenario,
+  SelectedEnchantment,
 } from './types'
 import { enchantmentInputIssue, inventoryItemInputIssues, missingObservedDamageInstanceIds, validateInventory, validateScenario } from './validation'
 import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponIssues, rangedWeaponUnsupportedReason } from './ranged'
@@ -86,7 +89,7 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
   const enchantmentChoices = cartesianProduct(choices)
   const artifactChoices = artifactLoadouts(artifacts)
   return enchantmentChoices.flatMap((selected) => {
-    const enchantments = [
+    const enchantments: SelectedEnchantment[] = [
       ...selected.map((choice) => ({
         enchantmentId: choice.enchantmentId as EnchantmentId,
         tier: choice.tier,
@@ -98,6 +101,7 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
         source: 'gilded' as const,
       }] : []),
     ]
+    enchantments.push(...builtinProcMeleeEnchantments(weapon.weaponId))
     const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
     if (unsupported) {
       unsupportedChoices.add(`${weapon.instanceId}: ${unsupported}`)
@@ -305,9 +309,11 @@ function optimizeInternal(
       return [build]
     }))
   const builds = armorBuilds.filter((build) => {
-    const reason = plainMeleeUnsupportedReason(build, scenario)
+    const reason = plainMeleeUnsupportedReason(build, scenario) ?? builtinProcMeleeUnsupportedReason(build, scenario)
     if (!reason) return true
-    unsupportedChoices.candidate(build.weapon.instanceId, { kind: reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_PLAIN_MELEE_SPEED') ? 'constrained' : 'unsupported', message: reason, ...(reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') ? { target: 'scenario' as const } : {}) })
+    const targetConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_TARGETS')
+    const interactionConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_SPEED') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_INTERACTION')
+    unsupportedChoices.candidate(build.weapon.instanceId, { kind: targetConstraint || interactionConstraint ? 'constrained' : 'unsupported', message: reason, ...(targetConstraint ? { target: 'scenario' as const } : {}) })
     return false
   })
   if (armorBuilds.length > 0 && builds.length === 0) {

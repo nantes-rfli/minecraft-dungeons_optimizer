@@ -24,6 +24,6 @@ Existing valid charged results and Bow/Crossbow/Heavy Crossbow calculations are 
 
 ## Coverage and verification
 
-The mode follow-up itself left other categories unchanged. After subsequent source-bound reuse, current Melee gear9/82, Armor13/73, Artifact3/45, Ranged Enchant3/41 and R3/P3B candidate1/eligible0/promoted0 remain separate coverage meanings. Native finalProjectileDamage/effectiveShotCycleSeconds remain unknown and Native runtimeEligible remains false. This work reuses completed research instead of repeating Native Power/timing acquisition.
+The mode follow-up itself left other categories unchanged. After subsequent source-bound reuse, current Melee gear11/82, Armor13/73, Artifact3/45, Ranged Enchant3/41 and R3/P3B candidate1/eligible0/promoted0 remain separate coverage meanings. Native finalProjectileDamage/effectiveShotCycleSeconds remain unknown and Native runtimeEligible remains false. This work reuses completed research instead of repeating Native Power/timing acquisition.
 
 Positive/negative/preservation tests cover all three additions, tuple duplicates and mode-local withdrawal, exact complete-cycle/ammo arithmetic, missing mode-owned observations, unsupported interactions, old mode results, and draft/saved-state boundaries. Browser tests verify explicit new values, blank Apply rejection, ammo0, reload restoration and evaluation. Final-head Full Validate and independent review are recorded in the PR; software fixtures are not gameplay measurements.

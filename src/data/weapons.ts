@@ -1,3 +1,4 @@
+import { BUILTIN_PROC_MELEE_WEAPONS } from './builtinProcMelee'
 import { PLAIN_MELEE_WEAPONS } from './plainMelee'
 import type { WeaponDefinition, WeaponId } from '../core/types'
 import { DUNGEONS_TOOLS_SOURCE } from './sources'
@@ -52,4 +53,5 @@ export const WEAPONS: Readonly<Record<WeaponId, WeaponDefinition>> = {
     area: { value: 14.0, source: DUNGEONS_TOOLS_SOURCE, confidence: 'high' },
   },
   ...PLAIN_MELEE_WEAPONS,
+  ...BUILTIN_PROC_MELEE_WEAPONS,
 }

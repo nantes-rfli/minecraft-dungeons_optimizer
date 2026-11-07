@@ -39,6 +39,11 @@ export function collectDamageEventAuditErrors(value: unknown): string[] {
   if (entries.map((entry) => entry.id).sort().join(',') !== 'shockwave,swirling,thundering') errors.push('exact three proc IDs required')
   for (const entry of entries) {
     const id = String(entry.id)
+    const builtIn = record(entry.builtIn)
+    const accepted = id === 'shockwave' || id === 'thundering'
+    const weaponId = id === 'shockwave' ? 'whirlwind' : 'stormlander'
+    const expectedScope = { weaponId, enchantmentId: id, tier: 1, source: 'built-in', grantRef: 'research/runtime/builtin-proc-melee-reuse.json', scope: 'single-target-base-cadence-no-void' }
+    if (builtIn.runtimeEnabled !== accepted || (accepted && (builtIn.tier !== 1 || builtIn.weapon !== (id === 'shockwave' ? 'Whirlwind' : 'Stormlander') || JSON.stringify(builtIn.runtimeScope) !== JSON.stringify(expectedScope))) || (!accepted && builtIn.runtimeScope !== undefined)) errors.push(`${id}: finite built-in runtime scope drift`)
     const trigger = record(entry.trigger)
     const thunder = id === 'thundering'
     if (trigger.type !== (thunder ? 'on-hit-probability' : 'combo-finisher') || trigger.probability !== (thunder ? 0.3 : 1) || trigger.requiresTargetHit !== (id !== 'shockwave')) errors.push(`${id}: trigger mismatch`)

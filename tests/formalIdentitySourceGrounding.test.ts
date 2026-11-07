@@ -612,3 +612,26 @@ describe('exact localization identity source grounding', () => {
     expect(source.aliases!.aliases!.find((entry) => entry.id === 'melee-weapon:Hammer')!.basis).toBe(LOCALIZATION_IDENTITY_ALIAS_BASIS)
   })
 })
+
+describe('finite fixed built-in localization grounding', () => {
+  it.each(['whirlwind', 'stormlander'])('requires %s exact Unique1 serialization independently of the Unique2 presentation hint', (id) => {
+    expect(collectFormalReviewedSourceGroundingErrors(baseSources)).toEqual([])
+    const binding = baseSources.builtinLocalizationBindings.find((b) => b.definition.assertion.domainId === id)!
+    const raw = binding.definition.assertion.rawIdentity
+    expect(raw.endsWith('_Unique1')).toBe(true)
+    const seed = baseSources.rawStructuralSeeds!.catalogSeeds!.find((s) => s.catalogId === id)!
+    expect(seed.candidates).toHaveLength(2)
+    const mutations: ((s: FormalReviewedSources) => void)[] = [
+      (s) => { s.builtinLocalizationSource = undefined },
+      (s) => { s.builtinLocalizationBindings.find((b) => b.definition.assertion.domainId === id)!.observation.serializedId.observation = { state: 'known', value: raw.replace('Unique1', 'Unique2') } },
+      (s) => { s.builtinLocalizationBindings.find((b) => b.definition.assertion.domainId === id)!.observation.itemIdName.observation = { state: 'unavailable' } },
+      (s) => { s.builtinLocalizationCanonicalRecords.find((r) => r.id === id)!.label = 'Wrong item' },
+      (s) => { s.rawStructuralSeeds!.catalogSeeds!.find((r) => r.catalogId === id)!.candidates!.find((c) => c.packagePath === binding.definition.assertion.applicationScope.packagePath)!.role = 'actor' },
+      (s) => { const candidates = s.rawStructuralSeeds!.catalogSeeds!.find((r) => r.catalogId === id)!.candidates!; candidates.push(structuredClone(candidates.find((c) => c.packagePath === binding.definition.assertion.applicationScope.packagePath)!)) },
+      (s) => { s.aliases!.aliases!.find((a) => a.id === `melee-weapon:${raw}`)!.basis = 'icon-family-alias' },
+      (s) => { const pkg = s.builtinLocalizationBindings.find((b) => b.definition.assertion.domainId === id)!.structuralPackage; const cdo = pkg.exports.find((e) => e.isClassDefaultObject)!; Object.assign(pkg, { exports: [...pkg.exports, structuredClone(cdo)] }) },
+      (s) => { const pkg = s.builtinLocalizationBindings.find((b) => b.definition.assertion.domainId === id)!.structuralPackage; Object.assign(pkg.cdoPropertyInventory[0]!.properties.find((p) => p.name.value === 'ItemIdName')!.decoding, { value: 'Unique2' }) },
+    ]
+    for (const change of mutations) { const changed = structuredClone(baseSources); change(changed); expect(collectFormalReviewedSourceGroundingErrors(changed).length).toBeGreaterThan(0) }
+  }, 20_000)
+})

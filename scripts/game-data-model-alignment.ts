@@ -1,3 +1,4 @@
+import { BUILTIN_PROC_LOCALIZATION_SOURCE, collectBuiltinProcLocalizationSourceErrors } from './builtin-proc-locres-source.ts'
 import { collectGreatHammerLocalizationSourceErrors, GREAT_HAMMER_LOCALIZATION_SOURCE, LOCALIZATION_IDENTITY_ALIAS_BASIS } from './locres-identity-source.ts'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -455,6 +456,9 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
   const localizationErrors = collectGreatHammerLocalizationSourceErrors(GREAT_HAMMER_LOCALIZATION_SOURCE)
   if (localizationErrors.length) throw new Error(localizationErrors.join('\n'))
   materializeReviewedTypedRelationAlias(GREAT_HAMMER_LOCALIZATION_SOURCE.bridge as { category: 'melee-weapon'; domainId: string; rawIdentity: string; packagePath: string }, LOCALIZATION_IDENTITY_ALIAS_BASIS)
+  const builtinLocalizationErrors = collectBuiltinProcLocalizationSourceErrors(BUILTIN_PROC_LOCALIZATION_SOURCE)
+  if (builtinLocalizationErrors.length) throw new Error(builtinLocalizationErrors.join('\n'))
+  for (const bridge of BUILTIN_PROC_LOCALIZATION_SOURCE.bridges) materializeReviewedTypedRelationAlias(bridge as { category: 'melee-weapon'; domainId: string; rawIdentity: string; packagePath: string }, LOCALIZATION_IDENTITY_ALIAS_BASIS)
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
     'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },

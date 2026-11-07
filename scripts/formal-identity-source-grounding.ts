@@ -1,3 +1,4 @@
+import { collectBuiltinProcLocalizationSourceErrors } from './builtin-proc-locres-source.ts'
 import { collectGreatHammerLocalizationSourceErrors, LOCALIZATION_IDENTITY_ALIAS_BASIS } from './locres-identity-source.ts'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -25,6 +26,8 @@ import {
   reviewedTypedRelationMeleeFormalIdentityInputs,
   reviewedTypedRelationFormalIdentities,
   reviewedTypedRelationFormalIdentityInputs,
+  builtinProcLocalizationFormalIdentities,
+  builtinProcLocalizationFormalIdentityInputs,
   reviewedLocalizationMeleeFormalIdentities,
   reviewedLocalizationMeleeFormalIdentityInputs,
   scatterCrossbowFormalIdentity,
@@ -82,6 +85,9 @@ type RawStructuralSeed = {
 
 export type FormalReviewedSources = {
   existingPaths: Set<string>
+  builtinLocalizationSource?: unknown
+  builtinLocalizationBindings: FormalIdentityInventoryBindingInput[]
+  builtinLocalizationCanonicalRecords: SourceHarvestRecord[]
   localizationIdentitySource?: unknown
   localizationInventoryBindings: FormalIdentityInventoryBindingInput[]
   localizationCanonicalRecords: SourceHarvestRecord[]
@@ -146,6 +152,8 @@ export type FormalReviewedSources = {
 const knownPaths = [
   'research/domain/game-data-entity-aliases.json',
   'research/sources/great-hammer-localization-identity.json',
+  'research/sources/builtin-proc-melee-localization-identity.json',
+  'scripts/builtin-proc-locres-source.ts',
   'scripts/locres-identity-source.ts',
   'research/source-harvest.json',
   'scripts/game-data-model-alignment.ts',
@@ -189,6 +197,9 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
   const mushroomBlock = artifactsSource.match(/'death-cap-mushroom':\s*\{[\s\S]*?name:\s*\{[^}]*?en:\s*'([^']+)'/)
   return {
     existingPaths,
+    builtinLocalizationSource: readJson('research/sources/builtin-proc-melee-localization-identity.json'),
+    builtinLocalizationBindings: readFormalIdentityInventoryBindings(repositoryRoot, builtinProcLocalizationFormalIdentities),
+    builtinLocalizationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => record.category === 'melee-weapon' && ['whirlwind', 'stormlander'].includes(record.id ?? '')),
     localizationIdentitySource: readJson('research/sources/great-hammer-localization-identity.json'),
     localizationInventoryBindings: readFormalIdentityInventoryBindings(repositoryRoot, reviewedLocalizationMeleeFormalIdentities),
     localizationCanonicalRecords: (sourceHarvest?.records ?? []).filter((record) => record.category === 'melee-weapon' && record.id === 'great-hammer'),
@@ -219,7 +230,7 @@ export function readFormalReviewedSources(repositoryRoot: string): FormalReviewe
       scatterCrossbow: rangedAudit?.entries?.find((entry) => entry.id === 'scatter-crossbow')?.name?.en,
       battleRobe: battleRobeBlock?.[2],
       deathCapMushroom: mushroomBlock?.[1],
-      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...reviewedLocalizationMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'melee')].map(({ domainId }) => [
+      melee: Object.fromEntries([...readyMeleeFormalIdentityInputs, ...builtinProcLocalizationFormalIdentityInputs, ...reviewedLocalizationMeleeFormalIdentityInputs, ...reviewedBridgeMeleeFormalIdentityInputs, ...reviewedTypedRelationMeleeFormalIdentityInputs, ...reviewedTypedRelationFormalIdentityInputs.filter(({ category }) => category === 'melee')].map(({ domainId }) => [
         domainId,
         meleeAudit?.weapons?.find((entry) => entry.weaponId === domainId)?.name?.en,
       ])),
@@ -712,6 +723,39 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === input?.displayName && definition.presentation.displayName === presentationSource, `${assertion.id}: reviewed typed-relation presentation displayName drift`)
   }
 
+  errors.push(...collectBuiltinProcLocalizationSourceErrors(sources.builtinLocalizationSource))
+  check(builtinProcLocalizationFormalIdentities.length === 2 && sources.builtinLocalizationBindings.length === 2, 'fixed built-in localization population drift')
+  for (const [index, definition] of builtinProcLocalizationFormalIdentities.entries()) {
+    const input = builtinProcLocalizationFormalIdentityInputs[index]!, assertion = definition.assertion
+    const bindings = sources.builtinLocalizationBindings.filter((b) => b.definition.assertion.id === assertion.id)
+    const binding = bindings[0], observation = binding?.observation
+    const matchingSeeds = rawSeeds.filter((s) => s.category === 'melee' && s.catalogId === input.domainId)
+    // Search results deliberately retain both ordinals; only exact serialized ID + localization selects one.
+    const candidates = matchingSeeds[0]?.candidates?.filter((c) => c.packagePath === input.packagePath && c.role === 'instance') ?? []
+    const candidate = candidates[0]
+    const matchingAliases = aliases.filter((a) => a.id === `melee-weapon:${input.rawIdentity}`), alias = matchingAliases[0]
+    const canonical = sources.builtinLocalizationCanonicalRecords.filter((r) => r.category === 'melee-weapon' && r.id === input.domainId)
+    const known = canonical[0]?.known?.filter((k) => k.property === 'identity') ?? []
+    check(assertion.rawIdentity === input.rawIdentity && assertion.domainId === input.domainId && assertion.applicationScope.packagePath === input.packagePath && assertion.reviewState === 'accepted' && assertion.confidence === 'high', `${input.domainId}: fixed localization Formal drift`)
+    check(matchingSeeds.length === 1 && candidates.length === 1 && candidate?.objectName === `BP_${input.rawIdentity}Instance_C` && candidate.evidence?.includes(`serialized-identifier:ItemIdName=${input.rawIdentity}`) === true && candidate.evidence?.includes(`serialized-identifier:ItemId.SerializedId=${input.rawIdentity}`) === true, `${input.domainId}: fixed localization Raw candidate drift`)
+    check(bindings.length === 1 && binding?.structuralPackage.path === input.packagePath && observation?.packagePath === input.packagePath && observation.rawSchemaVersion === 2 && observation.itemIdName.observation.state === 'known' && observation.itemIdName.observation.value === input.rawIdentity && observation.serializedId.observation.state === 'known' && observation.serializedId.observation.value === input.rawIdentity, `${input.domainId}: fixed localization exact Raw identity drift`)
+    const cdo = binding?.structuralPackage.exports.filter((entry) => entry.isClassDefaultObject) ?? []
+    const inventories = binding?.structuralPackage.cdoPropertyInventory.filter((entry) => entry.exportIndex === cdo[0]?.exportIndex) ?? []
+    const props = inventories[0]?.properties ?? []
+    const name = props.filter((property) => property.name.value === 'ItemIdName' && property.arrayIndex === 0)
+    const item = props.filter((property) => property.name.value === 'ItemId' && property.arrayIndex === 0)
+    const serialized = item[0]?.decoding.state === 'decoded' ? item[0]?.decoding.properties?.filter((property) => property.name.value === 'SerializedId' && property.arrayIndex === 0) ?? [] : []
+    check(cdo.length === 1 && inventories.length === 1 && name.length === 1 && name[0]?.type.value === 'NameProperty'
+      && name[0].decoding.state === 'decoded' && name[0].decoding.value === input.rawIdentity
+      && item.length === 1 && item[0]?.type.value === 'StructProperty'
+      && serialized.length === 1 && serialized[0]?.type.value === 'NameProperty'
+      && serialized[0].decoding.state === 'decoded' && serialized[0].decoding.value === input.rawIdentity, `${input.domainId}: fixed localization CDO field drift`)
+    check(canonical.length === 1 && canonical[0]?.label === input.displayName && known.length === 1 && known[0]?.value?.canonicalId === input.domainId && known[0]?.value?.names?.en === input.displayName, `${input.domainId}: fixed localization independent canonical drift`)
+    check(matchingAliases.length === 1 && alias?.status === 'accepted' && alias.confidence === 'high' && alias.rawIdentity === input.rawIdentity && alias.category === 'melee-weapon' && alias.canonicalEntity === `melee-weapon:${input.domainId}` && alias.basis === LOCALIZATION_IDENTITY_ALIAS_BASIS && JSON.stringify(alias.assetPaths) === JSON.stringify([input.packagePath]) && JSON.stringify(alias.candidates) === JSON.stringify([`melee-weapon:${input.domainId}`]) && (alias.evidenceIds?.length ?? 0) > 0, `${input.domainId}: fixed localization accepted alias drift`)
+    check(JSON.stringify(assertion.evidenceRefs) === JSON.stringify([`evidence:reviewed:${input.domainId}:accepted-alias`, `evidence:reviewed:${input.domainId}:exact-localization-key`]) && definition.reviewedEvidence.some((e) => e.id === assertion.evidenceRefs[1] && e.source.artifactPath === 'research/sources/builtin-proc-melee-localization-identity.json' && e.source.locator === `bridges[domainId=${input.domainId}]`), `${input.domainId}: fixed localization evidence chain drift`)
+    check(definition.presentation.displayName === input.displayName && sources.presentations.melee[input.domainId] === input.displayName, `${input.domainId}: fixed localization presentation drift`)
+  }
+
   errors.push(...collectGreatHammerLocalizationSourceErrors(sources.localizationIdentitySource))
   check(reviewedLocalizationMeleeFormalIdentities.length === 1 && sources.localizationInventoryBindings.length === 1, 'localization bridge must contain only Great Hammer')
   for (const definition of reviewedLocalizationMeleeFormalIdentities) {
@@ -917,9 +961,9 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 153, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 155, 'Formal identity definition population drift')
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || reviewedLocalizationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 32,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || builtinProcLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedLocalizationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 34,
     'Formal matched Melee definition population drift',
   )
   check(

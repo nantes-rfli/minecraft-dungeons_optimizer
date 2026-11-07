@@ -12687,7 +12687,7 @@
                 }
               ],
               "confidence": "medium",
-              "notes": "Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
+              "notes": "Phase 2-1D partial: conditional runtime only at Power 210–252; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Only the finite source-bound Whirlwind Shockwave I / Stormlander Thundering I tuples are reused; other built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
             }
           },
           {
@@ -13220,7 +13220,7 @@
                 }
               ],
               "confidence": "medium",
-              "notes": "Phase 2-1D partial: conditional runtime only at Power 210–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
+              "notes": "Phase 2-1D partial: conditional runtime only at Power 210–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Only the finite source-bound Whirlwind Shockwave I / Stormlander Thundering I tuples are reused; other built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
             }
           },
           {
@@ -13366,7 +13366,7 @@
                 }
               ],
               "confidence": "medium",
-              "notes": "Phase 2-1D partial: conditional runtime only at Power 248–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
+              "notes": "Phase 2-1D partial: conditional runtime only at Power 248–263; no extrapolation. Tier I log-linear interpolation, separate targeting (default 1), indirect damage-share kill proxy, no direct modifier application or Void state changes. Only the finite source-bound Whirlwind Shockwave I / Stormlander Thundering I tuples are reused; other built-ins remain research-only. See damage-event-audit.json and docs/damage-events.md."
             }
           },
           {

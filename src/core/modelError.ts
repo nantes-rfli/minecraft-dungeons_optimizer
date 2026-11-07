@@ -127,7 +127,7 @@ export function summarizeDamageRegression(
 export function summarizeDamageRegressionByScope(
   samples: readonly DamageRegressionSample[],
 ): DamageRegressionScopeSummary {
-  const byWeapon = Object.fromEntries((['fighters-bindings', 'double-axe', 'soul-scythe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer'] as const satisfies readonly WeaponId[]).map((id) => [id, summarizeDamageRegression(samples.filter((sample) => sample.build.weapon.weaponId === id))])) as unknown as DamageRegressionScopeSummary['byWeapon']
+  const byWeapon = Object.fromEntries((['fighters-bindings', 'double-axe', 'soul-scythe', 'anchor', 'cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander'] as const satisfies readonly WeaponId[]).map((id) => [id, summarizeDamageRegression(samples.filter((sample) => sample.build.weapon.weaponId === id))])) as unknown as DamageRegressionScopeSummary['byWeapon']
   const byMechanic = Object.fromEntries(MECHANIC_TAGS.map((tag) => [
     tag,
     summarizeDamageRegression(samples.filter((sample) => sample.mechanicTags.includes(tag))),
