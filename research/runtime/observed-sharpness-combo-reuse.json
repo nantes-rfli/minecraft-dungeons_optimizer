@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-sharpness-already-in-observed-combo",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-sharpness-combo-source.json",
+  "testRef": "tests/observedSharpnessCombo.test.ts",
+  "observation": "complete ordinary combo with the equipped fixed Sharpness I already included, against one unenchanted, non-undead target with no damage reduction or external bonuses",
+  "targets": { "diamond-sword": "sharpness" }
+}

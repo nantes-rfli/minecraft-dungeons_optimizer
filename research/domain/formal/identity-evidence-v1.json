@@ -4931,6 +4931,37 @@
             "evidence:presentation:hawkbrand:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:diamond-sword@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Sword_Unique1",
+            "evidenceRef": "evidence:raw:identity:diamond-sword@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Sword_Unique1",
+            "evidenceRef": "evidence:raw:identity:diamond-sword@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:diamond-sword@1",
+          "domainId": "diamond-sword",
+          "evidenceRefs": [
+            "evidence:raw:identity:diamond-sword@1:ItemIdName",
+            "evidence:raw:identity:diamond-sword@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "diamond-sword",
+          "displayName": "Diamond Sword",
+          "evidenceRefs": [
+            "evidence:presentation:diamond-sword:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -7988,6 +8019,26 @@
       "evidenceRefs": [
         "evidence:reviewed:hawkbrand:accepted-alias",
         "evidence:reviewed:hawkbrand:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:diamond-sword@1",
+      "rawIdentity": "Sword_Unique1",
+      "domainId": "diamond-sword",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:diamond-sword:accepted-alias",
+        "evidence:reviewed:diamond-sword:exact-localization-key"
       ]
     }
   ],
@@ -18565,6 +18616,81 @@
           "nodePointer": "/packages/30/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:c1232634"
+      },
+      {
+        "id": "evidence:reviewed:diamond-sword:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Sword_Unique1]"
+        },
+        "fingerprint": "fnv1a32:93b1adbf"
+      },
+      {
+        "id": "evidence:presentation:diamond-sword:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=diamond-sword].name.en"
+        },
+        "fingerprint": "fnv1a32:ebb36a7c"
+      },
+      {
+        "id": "evidence:reviewed:diamond-sword:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Sword_Unique1 names Diamond Sword. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-sharpness-combo-source.json",
+          "locator": "rows[id=diamond-sword].localization"
+        },
+        "fingerprint": "fnv1a32:a3ec4c66"
+      },
+      {
+        "id": "evidence:raw:identity:diamond-sword@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7763c985c1bcefbcd895b0b6762f3f814ab50e547c99b2b435be25418a76dcb1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "693da6ef03082f3bd4a0e52fb807afd0644ef61c2f0603a9c2fc98c478cecf78"
+          },
+          "nodePointer": "/packages/21/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:d06a7b29"
+      },
+      {
+        "id": "evidence:raw:identity:diamond-sword@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Sword_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-021.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:7763c985c1bcefbcd895b0b6762f3f814ab50e547c99b2b435be25418a76dcb1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "693da6ef03082f3bd4a0e52fb807afd0644ef61c2f0603a9c2fc98c478cecf78"
+          },
+          "nodePointer": "/packages/21/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:3704a153"
       }
     ]
   }

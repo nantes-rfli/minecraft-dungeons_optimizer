@@ -4172,12 +4172,16 @@
       "id": "melee-weapon:Sword_Unique1",
       "rawIdentity": "Sword_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:diamond-sword"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3adiamond-sword"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance"
       ],
@@ -4188,7 +4192,8 @@
         "bulk-bp-sword-unique1-instance-bf59876ec602a4a9",
         "bulk-bp-sword-unique1-instance-cc40d9ba28056d8a",
         "bulk-bp-sword-unique1-instance-f66d33170e1f9481"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:diamond-sword"
     },
     {
       "id": "melee-weapon:Sword_Unique2",
