@@ -1,3 +1,4 @@
+import { OBSERVED_MELEE_COMBO_IDS, observedMeleeComboRow } from '../data/observedMeleeCombo'
 import { BUILTIN_PROC_MELEE_IDS, BUILTIN_PROC_MELEE_FACTS, builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import grants from '../../research/runtime/plain-melee-reuse.json' with { type: 'json' }
 import snapshot from '../../research/sources/plain-melee-source-snapshot.json' with { type: 'json' }
@@ -100,7 +101,7 @@ export function plainMeleeReuseIsEligible(id: string, overrides: Partial<PlainMe
 export function collectPlainMeleeReuseErrors(overrides: Partial<PlainMeleeReuseInputs> = {}): readonly string[] {
   const data = { ...defaults, ...overrides }
   const errors: string[] = []
-  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS, ...BUILTIN_PROC_MELEE_IDS]
+  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS, ...BUILTIN_PROC_MELEE_IDS, ...OBSERVED_MELEE_COMBO_IDS]
   if (!same(Object.keys(data.weapons).sort(), allowedRuntimeIds.sort())) errors.push('Melee runtime registration lacks a finite reviewed source-bound grant')
   for (const id of PLAIN_MELEE_IDS) if (!plainMeleeReuseIsEligible(id, data)) errors.push(`${id}: source-bound plain melee Limited reuse drift`)
   if (!same(data.approvals.approvals.map((row) => row.targetId), PLAIN_MELEE_IDS) || !same(data.source.rows.map((row) => row.id), PLAIN_MELEE_IDS)) errors.push('plain melee eligible population drift')
@@ -129,7 +130,7 @@ export function meleeResearchUnsupportedReason(build: Build): string | undefined
   const row = snapshot.rows.find((entry) => entry.id === build.weapon.weaponId)
   // Match only the finite reviewed plain intrinsic facts. No broad taxonomy or
   // interpretation of arbitrary strings, and no empty default for unknowns.
-  if (research.intrinsicProperties?.some((property) => property.kind !== 'intrinsicMechanicOwnership' || !(isBuiltinProcMeleeId(build.weapon.weaponId) ? (BUILTIN_PROC_MELEE_FACTS[build.weapon.weaponId].intrinsic as readonly string[]).includes(property.raw) : row?.intrinsicFacts.includes(property.raw)))) return 'UNSUPPORTED_MELEE_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
+  if (research.intrinsicProperties?.some((property) => property.kind !== 'intrinsicMechanicOwnership' || !(isBuiltinProcMeleeId(build.weapon.weaponId) ? (BUILTIN_PROC_MELEE_FACTS[build.weapon.weaponId].intrinsic as readonly string[]).includes(property.raw) : ((row ?? observedMeleeComboRow(build.weapon.weaponId))?.intrinsicFacts as readonly string[] | undefined)?.includes(property.raw)))) return 'UNSUPPORTED_MELEE_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
   return undefined
 }
 

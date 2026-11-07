@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "donorId": "soul-scythe",
+  "mechanic": "observed-direct-melee-at-published-combo-cadence",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-melee-combo-source.json",
+  "testRef": "tests/observedMeleeCombo.test.ts",
+  "allowedMeleeEnchantments": ["critical-hit", "sharpness", "unchanting", "smiting", "radiance"],
+  "targets": ["battlestaff", "coral-blade", "gauntlets", "glaive", "katana", "mace", "obsidian-claymore", "rapier", "sickles", "spear"]
+}

@@ -1,3 +1,4 @@
+import { observedMeleeComboInputIssue, observedMeleeComboRollIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { calculateArtifactDuration } from './artifact'
@@ -309,6 +310,11 @@ function optimizeInternal(
     return false
   }) : policyArtifacts
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
+    const comboIssue = observedMeleeComboInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
+    if (comboIssue) {
+      unsupportedChoices.record(weapon.instanceId, comboIssue)
+      return []
+    }
     const weaponBuilds = buildsForWeapon(weapon, runtimeArtifacts, unsupportedChoices, optionalArtifacts)
     if (weaponBuilds.length === 0) {
       throw new OptimizerInputError(
@@ -318,6 +324,7 @@ function optimizeInternal(
     }
     return weaponBuilds
   })
+  if (weaponBuilds.length === 0) throw new OptimizerInputError('NO_SUPPORTED_MELEE_CANDIDATES', `No supported Melee candidates. ${[...unsupportedChoices].join(' ')}`)
   const registeredArmors = inventory.armors ?? []
   const armorOptions = registeredArmors.flatMap((armor) => optionsForArmor(armor, unsupportedChoices))
   if (registeredArmors.length > 0 && armorOptions.length === 0) {
@@ -337,10 +344,10 @@ function optimizeInternal(
       return [build]
     }))
   const builds = armorBuilds.filter((build) => {
-    const reason = plainMeleeUnsupportedReason(build, scenario) ?? builtinProcMeleeUnsupportedReason(build, scenario)
+    const reason = plainMeleeUnsupportedReason(build, scenario) ?? builtinProcMeleeUnsupportedReason(build, scenario) ?? observedMeleeComboUnsupportedReason(build, scenario)
     if (!reason) return true
-    const targetConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_TARGETS')
-    const interactionConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_SPEED') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_INTERACTION')
+    const targetConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_TARGETS') || reason.startsWith('UNSUPPORTED_COMBO_TARGETS')
+    const interactionConstraint = reason.startsWith('UNSUPPORTED_PLAIN_MELEE_SPEED') || reason.startsWith('UNSUPPORTED_BUILTIN_MELEE_INTERACTION') || reason.startsWith('UNSUPPORTED_COMBO_INTERACTION')
     unsupportedChoices.candidate(build.weapon.instanceId, { kind: targetConstraint || interactionConstraint ? 'constrained' : 'unsupported', message: reason, ...(targetConstraint ? { target: 'scenario' as const } : {}) })
     return false
   })
@@ -450,6 +457,12 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
     // Independent preparation runs even if another category will block the full search.
     // Keep only fatal per-item preparation blockers; unsupported alternatives are not item exclusions.
     for (const weapon of inventory.weapons) {
+      if (observedMeleeComboInputIssue(weapon)) continue
+      const comboRollIssue = observedMeleeComboRollIssue(weapon)
+      if (comboRollIssue) {
+        log.record(weapon.instanceId, comboRollIssue)
+        continue
+      }
       const probe = new ExclusionLog()
       try {
         if (buildsForWeapon(weapon, [], probe).length > 0) continue

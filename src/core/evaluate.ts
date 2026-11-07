@@ -1,3 +1,4 @@
+import { isObservedMeleeComboId, OBSERVED_MELEE_COMBO_LIMITATION } from '../data/observedMeleeCombo'
 import { isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import { BUILTIN_PROC_MELEE_LIMITATION } from './builtinProcMeleeReuse'
 import { calculateControl, describeControl } from './control'
@@ -151,6 +152,7 @@ export function evaluateCandidate(build: Build, scenario: Scenario) {
 export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = evaluateCandidate(build, scenario)
   const reasons: string[] = describeControl(core.control)
+  if (isObservedMeleeComboId(build.weapon.weaponId)) reasons.push(OBSERVED_MELEE_COMBO_LIMITATION)
   if (isBuiltinProcMeleeId(build.weapon.weaponId)) reasons.push(BUILTIN_PROC_MELEE_LIMITATION)
   if (isPlainMeleeId(build.weapon.weaponId)) reasons.push(`${getWeaponDefinition(build.weapon.weaponId).name.en}: ${PLAIN_MELEE_LIMITATION} 独立DPS検証はpending。接近・移動・splashは評価しません。`)
   if (core.damage.ranged) {

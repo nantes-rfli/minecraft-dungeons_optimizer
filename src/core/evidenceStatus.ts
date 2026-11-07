@@ -1,3 +1,6 @@
+import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { hasObservedMeleeDamage } from './observedMeleeCombo'
+import { hasObservedMeleeComboGrant } from './observedMeleeComboReuse'
 import { isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import { builtinProcMeleeReuseIsEligible } from './builtinProcMeleeReuse'
 import { ATTACK_PROFILES } from '../data/attackProfiles'
@@ -63,7 +66,7 @@ const sharedWeaponEvidence: readonly ParameterEvidence[] = [
 const weaponEvidence = Object.values(WEAPONS).flatMap((weapon): readonly ParameterEvidence[] => {
   const mechanicId = `melee:${weapon.id}`
   const profile = ATTACK_PROFILES[weapon.id]
-  if ((isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) || (isBuiltinProcMeleeId(weapon.id) && !builtinProcMeleeReuseIsEligible(weapon.id))) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering', ...(isBuiltinProcMeleeId(weapon.id) ? ['fixed-builtin-ownership-tier'] : [])].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
+  if ((isObservedMeleeComboId(weapon.id) && !hasObservedMeleeComboGrant(weapon.id)) || (isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) || (isBuiltinProcMeleeId(weapon.id) && !builtinProcMeleeReuseIsEligible(weapon.id))) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering', ...(isBuiltinProcMeleeId(weapon.id) ? ['fixed-builtin-ownership-tier'] : [])].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
   return [
     ...(isBuiltinProcMeleeId(weapon.id) ? [{ mechanicId, parameterId: 'fixed-builtin-ownership-tier', label: `${weapon.name.ja} / fixed Built-in Tier I`, status: 'derived' as const, basis: 'Target-owned hash-bound calculator row + per-target Wiki Tier I; finite reviewed reuse grant.', conditions: 'Single target/base cadence/no Void, existing proc Power range. Not a new Power or proc formula.', gameVersion: '1.17.0.0 publisher-claimed', confidence: 'medium' as const }] : []),
     fromEvidence(mechanicId, 'internal-power-rating', `${weapon.name.ja} / internal Power`, weapon.internalPowerRating),
@@ -152,9 +155,12 @@ function uniqueParameterEvidence(parameters: readonly ParameterEvidence[]): read
 }
 
 export function parameterEvidenceForBuild(build: Build): readonly ParameterEvidence[] {
-  const weaponParameters = build.weapon.observedDamagePerHit === undefined
-    ? sharedWeaponEvidence
-    : [{ mechanicId: 'melee:observed-input', parameterId: 'damage-per-hit', label: '入力済み表示damage', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: '登録した個体とPowerに限定。', gameVersion: 'user supplied', confidence: 'medium' } satisfies ParameterEvidence]
+  const observedCombo = isObservedMeleeComboId(build.weapon.weaponId)
+  const weaponParameters = !hasObservedMeleeDamage(build.weapon)
+    ? observedCombo
+      ? [unclassified('melee:observed-input', 'combo-damage', 'コンボ全段の観測ダメージ合計', 'この個体の完全コンボ観測が未入力。')]
+      : sharedWeaponEvidence
+    : [{ mechanicId: 'melee:observed-input', parameterId: observedCombo ? 'combo-damage' : 'damage-per-hit', label: observedCombo ? '入力済みコンボ全段ダメージ' : '入力済み表示damage', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: observedCombo ? '1.17.0.0、単体への未強化の完全コンボ1周。同じ個体とPowerに限定。' : '登録した個体とPowerに限定。', gameVersion: 'user supplied', confidence: 'medium' } satisfies ParameterEvidence]
   return uniqueParameterEvidence([
     ...weaponParameters,
     ...evidenceForMechanic(`melee:${build.weapon.weaponId}`),

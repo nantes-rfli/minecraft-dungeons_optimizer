@@ -1,3 +1,4 @@
+import { collectObservedMeleeComboReuseErrors } from '../core/observedMeleeComboReuse'
 import { collectBuiltinProcMeleeReuseErrors } from '../core/builtinProcMeleeReuse'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { WEAPONS } from '../data/weapons'
@@ -13,7 +14,7 @@ const strings = (value: unknown): value is string[] => Array.isArray(value) && v
 
 export function collectRuntimeSupportErrors(value: unknown): string[] {
   if (!record(value)) return ['manifest must be an object']
-  const errors: string[] = [...collectPlainMeleeReuseErrors(), ...collectBuiltinProcMeleeReuseErrors()]
+  const errors: string[] = [...collectPlainMeleeReuseErrors(), ...collectBuiltinProcMeleeReuseErrors(), ...collectObservedMeleeComboReuseErrors()]
   const check = (valid: boolean, message: string) => { if (!valid) errors.push(message) }
   check(value.schemaVersion === 1, 'schemaVersion must be 1')
   check(value.gameVersion === audit.gameVersion, 'gameVersion must match mechanics audit')

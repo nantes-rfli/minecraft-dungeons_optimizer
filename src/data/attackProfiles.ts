@@ -1,3 +1,4 @@
+import { OBSERVED_MELEE_COMBO_PROFILES } from './observedMeleeCombo'
 import { BUILTIN_PROC_MELEE_PROFILES } from './builtinProcMelee'
 import { PLAIN_MELEE_PROFILES } from './plainMelee'
 import type { AttackProfile, Evidence, WeaponId } from '../core/types'
@@ -50,4 +51,5 @@ export const ATTACK_PROFILES: Readonly<Record<WeaponId, Evidence<AttackProfile>>
   },
   ...PLAIN_MELEE_PROFILES,
   ...BUILTIN_PROC_MELEE_PROFILES,
+  ...OBSERVED_MELEE_COMBO_PROFILES,
 }

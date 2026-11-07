@@ -1,3 +1,5 @@
+import { hasObservedMeleeComboGrant } from '../core/observedMeleeComboReuse'
+import { isObservedMeleeComboId } from './observedMeleeCombo'
 import { builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from './builtinProcMelee'
 import meleeAudit from '../../research/melee-attack-profile-audit.json'
 import armorAudit from '../../research/armor-audit.json'
@@ -33,7 +35,10 @@ export interface EquipmentCatalogEntry {
 }
 
 const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLevel => {
-  if (category === 'melee') return id in WEAPONS ? ((isPlainMeleeId(id) || isBuiltinProcMeleeId(id)) ? 'limited' : 'full') : 'unsupported'
+  if (category === 'melee') {
+    if (isObservedMeleeComboId(id)) return hasObservedMeleeComboGrant(id) ? 'limited' : 'unsupported'
+    return Object.hasOwn(WEAPONS, id) ? ((isPlainMeleeId(id) || isBuiltinProcMeleeId(id)) ? 'limited' : 'full') : 'unsupported'
+  }
   if (category === 'armor') return id in ARMORS ? 'limited' : 'unsupported'
   if (category === 'ranged') return id in RANGED_WEAPONS ? 'limited' : 'unsupported'
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'

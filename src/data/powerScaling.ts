@@ -19,7 +19,7 @@ import {
  * Wiki values retained for research comparison only. Their origin does not
  * establish that they are cross-weapon damage coefficients in game files.
  */
-export const WIKI_BASE_HIT_DAMAGE: Readonly<Record<WeaponId, Evidence<number>>> = {
+export const WIKI_BASE_HIT_DAMAGE: Readonly<Partial<Record<WeaponId, Evidence<number>>>> = {
   cutlass: { value: 75, source: PLAIN_MELEE_PROFILES['cutlass'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
   pickaxe: { value: 130, source: PLAIN_MELEE_PROFILES['pickaxe'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },
   'soul-knife': { value: 140, source: PLAIN_MELEE_PROFILES['soul-knife'].source, confidence: 'low', note: 'Research-only normalized published value; not a runtime coefficient.' },

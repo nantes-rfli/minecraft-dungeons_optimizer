@@ -16,7 +16,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 
 現在の主なruntime範囲:
 
-- 近接武器: Fighter's Bindings / Double Axe / Anchor / Soul Scythe。Cutlass / Pickaxe / Soul Knife / Whip / Great Hammerは単体対象・基礎cadence限定で追加対応（[条件と制限](./docs/plain-melee-runtime-reuse.md)）。Whirlwindの固有Shockwave I / Stormlanderの固有Thundering Iも、既存Power範囲・単体・基礎cadence限定で対応（[固定built-in条件](./docs/builtin-proc-melee-runtime.md)）
+- 近接武器: Fighter's Bindings / Double Axe / Anchor / Soul Scythe。Cutlass / Pickaxe / Soul Knife / Whip / Great Hammerは単体対象・基礎cadence限定で追加対応（[条件と制限](./docs/plain-melee-runtime-reuse.md)）。Whirlwindの固有Shockwave I / Stormlanderの固有Thundering Iも、既存Power範囲・単体・基礎cadence限定で対応（[固定built-in条件](./docs/builtin-proc-melee-runtime.md)）。通常コンボ10種を観測合計で比較でき、近接武器は21/82（[入力条件と対応装備](./docs/observed-melee-combo-reuse.md)）。
 - Armor: 13種をLimited対応（Dark Armor / Titan's Shroudを含む）
 - Ranged: Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbowを個体・モードごとの観測値入力付きでLimited対応（計11組み合わせ、[モード条件](./docs/ranged-observed-modes.md)。[Rapidは消費矢数の明示観測も必須](./docs/rapid-crossbow-runtime-reuse.md)）
 - Artifact: Death Cap Mushroom / Iron Hide Amulet / Shock Powder
