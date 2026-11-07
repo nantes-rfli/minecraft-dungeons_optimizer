@@ -1,6 +1,7 @@
+import { fixedObservedMeleeComboEnchantments } from '../data/fixedObservedMeleeCombo'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { observedMeleeComboPreparationIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
-import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
+import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { calculateArtifactDuration } from './artifact'
 import { ExclusionLog, type InventoryReadiness, type ReadinessIssue } from './readiness'
@@ -70,10 +71,12 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
     unsupportedChoices.record(weapon.instanceId, slotIssue)
     throw new OptimizerInputError('INVALID_WEAPON', slotIssue.message)
   }
+  const fixedCombo = fixedObservedMeleeComboEnchantments(weapon.weaponId)[0]
   const choices = weapon.enchantmentSlots.map((slot) => {
     const normalized = normalizedSlot(slot)
     const options = normalized.selected ? [normalized.selected] : normalized.candidates
     return options.filter((option) => {
+      if (option.enchantmentId === fixedCombo?.enchantmentId) return false
       const reason = soulEnchantmentUnsupportedReason(weapon.weaponId, option.enchantmentId) ?? (option.enchantmentId in ENCHANTMENTS
         ? enchantmentUnsupportedReason(weapon, option.enchantmentId as EnchantmentId)
         : `${option.enchantmentId}: Optimizerでは未対応です。`)
@@ -107,7 +110,7 @@ function buildsForWeapon(weapon: OwnedWeapon, artifacts: readonly OwnedArtifact[
         source: 'gilded' as const,
       }] : []),
     ]
-    enchantments.push(...builtinProcMeleeEnchantments(weapon.weaponId))
+    enchantments.push(...fixedMeleeEnchantments(weapon.weaponId))
     const unsupported = enchantmentCombinationUnsupportedReason(enchantments)
     if (unsupported) {
       unsupportedChoices.add(`${weapon.instanceId}: ${unsupported}`)

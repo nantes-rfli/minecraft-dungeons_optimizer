@@ -3264,12 +3264,16 @@
       "id": "melee-weapon:Glaive_Spooky2",
       "rawIdentity": "Glaive_Spooky2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:cackling-broom"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3acackling-broom"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Spooky2/BP_Glaive_Spooky2Instance"
       ],
@@ -3280,18 +3284,23 @@
         "bulk-bp-glaive-spooky2-instance-431c24e76578de2f",
         "bulk-bp-glaive-spooky2-instance-49939799b7dbf8d6",
         "bulk-bp-glaive-spooky2-instance-4e003d45eda3d3bf"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:cackling-broom"
     },
     {
       "id": "melee-weapon:Glaive_Unique1",
       "rawIdentity": "Glaive_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:grave-bane"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3agrave-bane"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique1/BP_Glaive_Unique1Instance"
       ],
@@ -3302,7 +3311,8 @@
         "bulk-bp-glaive-unique1-instance-a59571e3c6cd70a8",
         "bulk-bp-glaive-unique1-instance-cbe7041ecc4e25c8",
         "bulk-bp-glaive-unique1-instance-e85a03a80c81eca2"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:grave-bane"
     },
     {
       "id": "melee-weapon:Glaive_Unique2",
@@ -3443,12 +3453,16 @@
       "id": "melee-weapon:Katana_Unique2",
       "rawIdentity": "Katana_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:dark-katana"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3adark-katana"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Katana_Unique2/BP_Katana_Unique2Instance"
       ],
@@ -3459,7 +3473,8 @@
         "bulk-bp-katana-unique2-instance-b10d444438b61a9f",
         "bulk-bp-katana-unique2-instance-e5f2e4f7fef73a8f",
         "bulk-bp-katana-unique2-instance-ee56fb6ea3ef9458"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:dark-katana"
     },
     {
       "id": "melee-weapon:Mace",
@@ -4179,12 +4194,16 @@
       "id": "melee-weapon:Sword_Unique2",
       "rawIdentity": "Sword_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:hawkbrand"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3ahawkbrand"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique2/BP_Sword_Unique2Instance"
       ],
@@ -4195,7 +4214,8 @@
         "bulk-bp-sword-unique2-instance-a64f12605c7dbfa2",
         "bulk-bp-sword-unique2-instance-ab74799e040d07f9",
         "bulk-bp-sword-unique2-instance-cd2701d47d922599"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:hawkbrand"
     },
     {
       "id": "melee-weapon:TempestKnife",

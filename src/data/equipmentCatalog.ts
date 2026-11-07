@@ -1,6 +1,7 @@
+import { fixedMeleeEnchantments } from './fixedMeleeEnchantments'
 import { hasObservedMeleeComboGrant } from '../core/observedMeleeComboReuse'
 import { isObservedMeleeComboId } from './observedMeleeCombo'
-import { builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from './builtinProcMelee'
+import { isBuiltinProcMeleeId } from './builtinProcMelee'
 import meleeAudit from '../../research/melee-attack-profile-audit.json'
 import armorAudit from '../../research/armor-audit.json'
 import rangedAudit from '../../research/ranged-weapon-audit.json'
@@ -56,7 +57,7 @@ const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEn
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
   ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status, {
-    intrinsicProperties: [], builtInEnchantments: builtinProcMeleeEnchantments(item.weaponId).map(({ enchantmentId, tier }) => ({ enchantmentId, tier })), family: item.family,
+    intrinsicProperties: [], builtInEnchantments: fixedMeleeEnchantments(item.weaponId).map(({ enchantmentId, tier }) => ({ enchantmentId, tier })), family: item.family,
     rarityFamily: 'variantOf' in item && item.variantOf ? 'unique' : 'normal',
     ...(AUDITED_MELEE_SOUL_GEAR_IDS.has(item.weaponId) ? { soulGear: true as const } : {}),
   })),

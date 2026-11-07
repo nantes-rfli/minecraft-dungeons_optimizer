@@ -1,7 +1,7 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { hasObservedMeleeDamage } from './observedMeleeCombo'
 import { observedMeleeComboInputIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
-import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
+import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { validatePowerCurveLevel } from './powerScaling'
 import { GEAR_POWER_CURVE } from '../data/powerScaling'
@@ -165,7 +165,7 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
   const { enchantmentSlots } = build.weapon
   const slotIssue = enchantmentInputIssue(build.weapon.instanceId, enchantmentSlots)
   if (slotIssue) throw new OptimizerInputError('INVALID_WEAPON', slotIssue.message)
-  const fixed = builtinProcMeleeEnchantments(build.weapon.weaponId)
+  const fixed = fixedMeleeEnchantments(build.weapon.weaponId)
   const expectedEnchantmentCount = enchantmentSlots.length + (build.weapon.gilded ? 1 : 0) + fixed.length
   if (build.enchantments.length !== expectedEnchantmentCount) {
     throw new OptimizerInputError(

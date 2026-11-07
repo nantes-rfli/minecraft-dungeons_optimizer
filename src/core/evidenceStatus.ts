@@ -1,3 +1,4 @@
+import { isFixedObservedMeleeComboId } from '../data/fixedObservedMeleeCombo'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { hasObservedMeleeDamage } from './observedMeleeCombo'
 import { hasObservedMeleeComboGrant } from './observedMeleeComboReuse'
@@ -66,9 +67,10 @@ const sharedWeaponEvidence: readonly ParameterEvidence[] = [
 const weaponEvidence = Object.values(WEAPONS).flatMap((weapon): readonly ParameterEvidence[] => {
   const mechanicId = `melee:${weapon.id}`
   const profile = ATTACK_PROFILES[weapon.id]
-  if ((isObservedMeleeComboId(weapon.id) && !hasObservedMeleeComboGrant(weapon.id)) || (isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) || (isBuiltinProcMeleeId(weapon.id) && !builtinProcMeleeReuseIsEligible(weapon.id))) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering', ...(isBuiltinProcMeleeId(weapon.id) ? ['fixed-builtin-ownership-tier'] : [])].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
+  const hasFixedEffect = isBuiltinProcMeleeId(weapon.id) || isFixedObservedMeleeComboId(weapon.id)
+  if ((isObservedMeleeComboId(weapon.id) && !hasObservedMeleeComboGrant(weapon.id)) || (isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) || (isBuiltinProcMeleeId(weapon.id) && !builtinProcMeleeReuseIsEligible(weapon.id))) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering', ...(hasFixedEffect ? ['fixed-builtin-ownership-tier'] : [])].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
   return [
-    ...(isBuiltinProcMeleeId(weapon.id) ? [{ mechanicId, parameterId: 'fixed-builtin-ownership-tier', label: `${weapon.name.ja} / fixed Built-in Tier I`, status: 'derived' as const, basis: 'Target-owned hash-bound calculator row + per-target Wiki Tier I; finite reviewed reuse grant.', conditions: 'Single target/base cadence/no Void, existing proc Power range. Not a new Power or proc formula.', gameVersion: '1.17.0.0 publisher-claimed', confidence: 'medium' as const }] : []),
+    ...(hasFixedEffect ? [{ mechanicId, parameterId: 'fixed-builtin-ownership-tier', label: `${weapon.name.ja} / fixed Built-in Tier I`, status: 'derived' as const, basis: 'Target-owned hash-bound calculator row + per-target Wiki Tier I; finite reviewed reuse grant.', conditions: isFixedObservedMeleeComboId(weapon.id) ? 'Single target and observed ordinary complete combo, base cadence. Own Tier I conditional direct modifier.' : 'Single target/base cadence/no Void, existing proc Power range. Not a new Power or proc formula.', gameVersion: '1.17.0.0 publisher-claimed', confidence: 'medium' as const }] : []),
     fromEvidence(mechanicId, 'internal-power-rating', `${weapon.name.ja} / internal Power`, weapon.internalPowerRating),
     fromEvidence(mechanicId, 'area-rating', `${weapon.name.ja} / area`, weapon.area),
     fromEvidence(mechanicId, 'attack-timing', `${weapon.name.ja} / attack timing`, profile),

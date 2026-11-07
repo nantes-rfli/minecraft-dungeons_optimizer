@@ -171,7 +171,7 @@ export const ENCHANTMENTS: Readonly<Record<EnchantmentId, EnchantmentDefinition>
     },
     stacking: {
       value: { maxCopies: 4, behavior: 'multiplicative' }, source: SMITING_STACKING_SOURCE, confidence: 'high',
-      note: 'Three normal slots plus gilded through Enchantsmith. Multiply active undead bonuses, then apply the shared undead exposure once. Unique built-ins are out of runtime scope.',
+      note: 'Three normal slots plus gilded through Enchantsmith. Multiply active undead bonuses, then apply the shared undead exposure once. Only individually reviewed unique built-ins are supported. A copy matching a fixed effect is rejected.',
     },
     applicability: { value: { melee: true, ranged: true, armor: false }, source: SMITING_SOURCE, confidence: 'high' },
   },
