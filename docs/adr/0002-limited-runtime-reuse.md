@@ -86,3 +86,7 @@ The [complete-combo grant](../observed-melee-combo-reuse.md) extends the existin
 ## Observed combos with fixed Tier I direct modifiers
 
 The [fixed complete-combo grant](../fixed-observed-melee-combo-reuse.md) binds target-owned Critical Hit I and Smiting I to the existing observed complete-combo scope. Each target requires an accepted identity, the own complete hit sequence, an explicit fixed-effect source and Tier, and an observation that excludes activation of the fixed bonus. The existing expected-value models evaluate the fixed effect once. A duplicate copy in actual rolls or Gilded is outside this grant.
+
+## Fixed Sharpness in an observed complete combo
+
+The [Diamond Sword grant](../observed-sharpness-combo-reuse.md) binds its exact own identity, hit sequence and fixed Sharpness I. The observed total includes the owned always-on effect. The fixed multiplier is factored out of the observed mean and applied once by the existing model. Matching rolled copies, stale Power and other unverified scope remain excluded.

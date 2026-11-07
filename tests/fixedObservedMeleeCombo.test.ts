@@ -7,7 +7,7 @@ import { inspectInventoryReadiness, optimize } from '../src/core/optimizer'
 import type { Build, CatalogInventoryItem, Inventory } from '../src/core/types'
 import { getEquipmentCatalogEntry } from '../src/data/equipmentCatalog'
 import {
-  FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, fixedObservedMeleeComboEnchantments, type FixedObservedMeleeComboId,
+  CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, fixedObservedMeleeComboEnchantments, type FixedObservedMeleeComboId,
 } from '../src/data/fixedObservedMeleeCombo'
 import { SCENARIO_PROFILES } from '../src/data/scenarios'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
@@ -23,7 +23,7 @@ const build = (id: FixedObservedMeleeComboId): Build => ({
 const inventory = (weapon: Build['weapon']): Inventory => ({ weapons: [weapon], artifacts: [] })
 
 describe('observed combo with owned Tier I damage effects', () => {
-  it.each(FIXED_OBSERVED_MELEE_COMBO_IDS)('injects and scores the target-owned Tier I exactly once for %s', (id) => {
+  it.each(CONDITIONAL_OBSERVED_MELEE_COMBO_IDS)('injects and scores the target-owned Tier I exactly once for %s', (id) => {
     const source = FIXED_OBSERVED_MELEE_COMBO_SOURCE.rows.find((row) => row.id === id)!
     expect(fixedObservedMeleeComboIsEligible(id)).toBe(true)
     const seconds = source.hitDurationsSeconds.reduce((sum, value) => sum + value, 0)
@@ -84,7 +84,7 @@ describe('observed combo with owned Tier I damage effects', () => {
   })
 
   it('holds conflicting or different mechanics and fails closed on altered ownership or source', () => {
-    for (const id of ['masters-katana', 'diamond-sword', 'suns-grace', 'broadsword', 'frost-slayer']) {
+    for (const id of ['masters-katana', 'suns-grace', 'broadsword', 'frost-slayer']) {
       expect(fixedObservedMeleeComboIsEligible(id)).toBe(false)
       expect(getEquipmentCatalogEntry('melee', id)?.runtimeSupport).toBe('unsupported')
     }

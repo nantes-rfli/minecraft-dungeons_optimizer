@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "diamond-sword",
+      "rawIdentity": "Sword_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sword_Unique1/BP_Sword_Unique1Instance",
+      "calculatorRow": {
+        "slug": "diamond-sword",
+        "name": "Diamond Sword",
+        "type": "melee",
+        "route": "/weapons/diamond-sword",
+        "power": 4.992,
+        "speed": 3.557,
+        "area": 2.961,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Sword_Unique1_Icon.png",
+        "builtIn": [
+          "Sharpness"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/diamond-sword",
+      "intrinsicFacts": [
+        "Extra damage"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ADiamond_Sword",
+      "hitDurationsSeconds": [
+        0.4,
+        0.4,
+        0.242
+      ],
+      "publishedBaseDamage": [
+        50,
+        50,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-021.json.gz",
+        "sha256": "a3bbb7ee06540c4118264a12568c8257d0b7edd7021c913849aa23903881b92b",
+        "packageIndex": 21
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Sword_Unique1",
+        "sourceStringHash": 179287680,
+        "localizedStringIndex": 2870,
+        "entryRange": [
+          121537,
+          121567
+        ],
+        "value": "Diamond Sword",
+        "localizedStringRecordRange": [
+          313665,
+          313687
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "sharpness",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ADiamond_Sword"
+      }
+    }
+  ]
+}

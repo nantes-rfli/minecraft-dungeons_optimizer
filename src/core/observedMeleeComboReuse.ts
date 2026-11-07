@@ -3,9 +3,11 @@ import values from '../../research/domain/formal/value-availability-v2.json' wit
 import profiles from '../../research/melee-attack-profile-audit.json' with { type: 'json' }
 import harvest from '../../research/source-harvest/snapshots/dungeons-tools-2026-09-06.json' with { type: 'json' }
 import approvals from '../../research/runtime/observed-melee-combo-reuse.json' with { type: 'json' }
+import sharpnessApproval from '../../research/runtime/observed-sharpness-combo-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
-  FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_EFFECTS, FIXED_OBSERVED_MELEE_COMBO_SOURCE,
+  CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
+  FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_ID,
   fixedObservedMeleeComboEnchantments, isFixedObservedMeleeComboId,
 } from '../data/fixedObservedMeleeCombo'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -80,13 +82,18 @@ export function observedMeleeComboIsEligible(id: string, overrides: Partial<type
     && profile.value.comboFinisherHit === count && equal(profile.value.hitDurationsSeconds, row.hitDurationsSeconds)
 }
 
-const fixedDefaults = { ...defaults, approvals: fixedApprovals, source: FIXED_OBSERVED_MELEE_COMBO_SOURCE }
+const fixedDefaults = {
+  ...defaults, approvals: fixedApprovals, source: FIXED_OBSERVED_MELEE_COMBO_SOURCE,
+  sharpnessApproval, sharpnessSource: SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE,
+}
 
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
   if (!isFixedObservedMeleeComboId(id)) return false
   const data = { ...fixedDefaults, ...overrides }
-  const grant = data.approvals
-  const rows = data.source.rows.filter((row) => row.id === id)
+  const sharpness = id === SHARPNESS_OBSERVED_MELEE_COMBO_ID
+  const grant = sharpness ? data.sharpnessApproval : data.approvals
+  const source = sharpness ? data.sharpnessSource : data.source
+  const rows = source.rows.filter((row) => row.id === id)
   const row = rows[0]
   const weapon = data.weapons[id]
   const profile = data.runtimeProfiles[id]
@@ -95,29 +102,37 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const semantic = data.identities.semantic.identities.find((item) => item.assertionId === assertion?.id)
   const audit = data.profiles.weapons.find((item) => item.weaponId === id)
   const claims = data.harvest.claims.filter((claim) => claim.entityId === `melee-weapon:${id}` && claim.property === 'intrinsicMechanicOwnership')
-  const effect = FIXED_OBSERVED_MELEE_COMBO_EFFECTS[id]
+  const effect = sharpness ? 'sharpness' : CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS[id]
   const critical = effect === 'critical-hit'
   const count = row.hitDurationsSeconds.length
   const tier = ENCHANTMENTS[effect].tiers.value[1]
   const tierMatches = critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
-    : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
+    : sharpness ? equal(tier.effect, { kind: 'passive-weapon-damage', bonus: 0.1 })
+      : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
+  const approvalMatches = sharpness
+    ? grant.mechanic === 'owned-tier-one-sharpness-already-in-observed-combo'
+      && grant.sourceRef === 'research/sources/observed-sharpness-combo-source.json' && grant.testRef === 'tests/observedSharpnessCombo.test.ts'
+      && grant.observation === 'complete ordinary combo with the equipped fixed Sharpness I already included, against one unenchanted, non-undead target with no damage reduction or external bonuses'
+      && equal(grant.targets, { [SHARPNESS_OBSERVED_MELEE_COMBO_ID]: 'sharpness' })
+      && equal(source.rows.map((item) => item.id), [SHARPNESS_OBSERVED_MELEE_COMBO_ID])
+    : grant.mechanic === 'owned-tier-one-conditional-direct-modifier-on-observed-combo'
+      && grant.sourceRef === 'research/sources/fixed-observed-melee-combo-source.json' && grant.testRef === 'tests/fixedObservedMeleeCombo.test.ts'
+      && grant.observation === 'complete combo of ordinary non-critical hits against one unenchanted, non-undead target with no damage reduction or external bonuses'
+      && equal(grant.targets, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS)
+      && equal(source.rows.map((item) => item.id), CONDITIONAL_OBSERVED_MELEE_COMBO_IDS)
 
   return grant.schemaVersion === 1 && grant.gameVersion === '1.17.0.0' && grant.route === 'existing-limited-mechanic-reuse'
     && grant.classification === 'derived' && grant.runtimeSupport === 'limited'
-    && grant.mechanic === 'owned-tier-one-conditional-direct-modifier-on-observed-combo'
-    && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed'
-    && grant.sourceRef === 'research/sources/fixed-observed-melee-combo-source.json' && grant.testRef === 'tests/fixedObservedMeleeCombo.test.ts'
-    && grant.observation === 'complete combo of ordinary non-critical hits against one unenchanted, non-undead target with no damage reduction or external bonuses'
-    && equal(grant.targets, FIXED_OBSERVED_MELEE_COMBO_EFFECTS) && equal(data.source.rows.map((item) => item.id), FIXED_OBSERVED_MELEE_COMBO_IDS)
-    && data.source.schemaVersion === 1 && data.source.gameVersion === grant.gameVersion
-    && data.source.calculatorSource.url === 'https://www.dungeons.tools/damage-calculator'
-    && data.source.calculatorSource.htmlSha256 === '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1'
+    && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed' && approvalMatches
+    && source.schemaVersion === 1 && source.gameVersion === grant.gameVersion
+    && source.calculatorSource.url === 'https://www.dungeons.tools/damage-calculator'
+    && source.calculatorSource.htmlSha256 === '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1'
     && data.profiles.gameVersion === grant.gameVersion && data.harvest.targetGameVersion === grant.gameVersion
     && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === id && row.calculatorRow.route === `/weapons/${id}`
     && row.sourceUrl === `https://www.dungeons.tools/weapons/${id}`
-    && equal(row.calculatorRow.builtIn, [critical ? 'Critical Hit' : 'Smiting'])
+    && equal(row.calculatorRow.builtIn, [critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
     && row.fixed.enchantmentId === effect && row.fixed.tier === 1 && tierMatches
-    && row.fixed.tierSourceUrl === (critical ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
+    && row.fixed.tierSourceUrl === (critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
     && claims.length === 1 && claims[0]?.sourceId === `external-dungeons-tools:melee-weapon:${id}`
     && claims[0].sourceGameVersion === '1.17.0.0 publisher-claimed' && claims[0].interpretation === 'direct'
     && claims[0].sourceLocator === `${row.sourceUrl} — Properties and details` && equal(claims[0].value, row.intrinsicFacts)
@@ -160,7 +175,9 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
   if (hasObservedMeleeDamage(weapon)) return undefined
   return {
     kind: 'input-required', target: 'equipment', message: '現在のPowerでのコンボ全段の観測ダメージ合計が必要です。',
-    fields: ['同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
+    fields: [weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
+      ? '同じ個体・Powerで、固定の切れ味 I を含む通常コンボ1周のダメージ合計'
+      : '同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
   }
 }
 
