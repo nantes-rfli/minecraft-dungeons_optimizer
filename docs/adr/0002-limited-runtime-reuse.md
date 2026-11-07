@@ -74,3 +74,7 @@ The [observed-mode follow-up](../ranged-observed-modes.md) binds each target/mod
 ## Rapid observed consumption condition
 
 [Rapid Crossbow](../rapid-crossbow-runtime-reuse.md) adds one finite observed-reuse target after its own Function/component source review. Its complete shot must have explicit target-owned normal-arrow consumption1; missing/non1 cannot inherit a donor cost or Native default, including with ammo stock0. Existing six targets without the new optional field retain their frozen behavior, while an explicit non1 observation is never ignored. No Native ResourceCost, effective timing or new effect formula is promoted.
+
+## Finite fixed built-in melee procs
+
+[Whirlwind / Stormlander](../builtin-proc-melee-runtime.md) add a separate fixed-ownership foundation for existing Shockwave I / Thundering I arithmetic. Target-owned named arrays reconcile an old non-target aggregate counter; Tier I comes from separate existing target-specific evidence, never a rule that all Unique items have Tier I. Exact localization keys bind Raw identity. Actual candidates require one immutable tuple, reject missing/false/duplicate ownership, and retain each proc Power range even with an observed direct hit. Only the validated baseline is used for private counterfactual contribution calculations. New2 source paths reject Void and speed composition; historical selectable proc behavior stays unchanged. Other built-ins and R3/P3B remain outside this finite grant.

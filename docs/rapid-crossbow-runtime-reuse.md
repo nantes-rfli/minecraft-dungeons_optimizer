@@ -31,7 +31,7 @@ The arithmetic remains `shots = min(floor(encounterSeconds × rangedTimeShare / 
 
 The finite Rapid Catalog migration reads old inventory versions1–6 without losing IDs, Power, rarity, favorites, notes, slots, Tier, Gilded or Research. The current writer stays version6. Research observations/stat notes never supply missing neutral damage, cycle or consumption. Recorded slot multiplicities, fixed ownership and intrinsic effects must reconcile with the actual evaluated build; unknown effects stay unsupported. Unrelated Catalog records and duplicate-ID rejection remain unchanged.
 
-The original six weapons/ten modes and three Ranged Enchantments retain order and numerical results. Existing Armor, Soul, unsupported Enchant and interaction guards remain. Melee9/82, Armor13/73 and Artifact3/45 have separate coverage meanings. Native models keep unknown final damage/effective cycle; R3/P3B remains candidate1/eligible0/promoted0.
+The original six weapons/ten modes and three Ranged Enchantments retain order and numerical results. Existing Armor, Soul, unsupported Enchant and interaction guards remain. Melee11/82 (including the later fixed-proc follow-up), Armor13/73 and Artifact3/45 have separate coverage meanings. Native models keep unknown final damage/effective cycle; R3/P3B remains candidate1/eligible0/promoted0.
 
 ## Validation
 

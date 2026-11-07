@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1",
+    "versionBasis": "Publisher-claimed 1.17.0.0, independently decoded target-owned rows; not independent gameplay validation."
+  },
+  "ownershipReconciliation": "Historical enchantment-page BUILT INTO 0 was an aggregate display observation, not a target-specific negative gameplay claim. The hash-bound target-owned calculator rows explicitly name each built-in; their positive ownership is adopted with the pre-existing per-target Wiki Tier I record. No interpretation of the old counter implementation is asserted.",
+  "tierSourceRef": "research/damage-event-audit.json",
+  "intrinsicSourceRef": "research/source-harvest/snapshots/dungeons-tools-2026-09-06.json",
+  "profileSourceRef": "research/melee-attack-profile-audit.json",
+  "rows": [
+    {
+      "id": "whirlwind",
+      "rawIdentity": "DoubleAxe_Unique1",
+      "calculatorRow": {
+        "slug": "whirlwind",
+        "name": "Whirlwind",
+        "type": "melee",
+        "route": "/weapons/whirlwind",
+        "power": 8.686,
+        "speed": 2.057,
+        "area": 12.927,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_DoubleAxe_Unique1_Icon.png",
+        "builtIn": [
+          "Shockwave"
+        ]
+      },
+      "intrinsicFacts": [
+        "Spin attack",
+        "Casts shockwaves"
+      ],
+      "baseSoulGathering": 0,
+      "hitDurationsSeconds": [
+        0.6,
+        0.6
+      ],
+      "comboFinisherHit": 2,
+      "normalizedDamageRatios": [
+        1,
+        1
+      ],
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3AWhirlwind",
+      "builtIn": {
+        "enchantmentId": "shockwave",
+        "tier": 1,
+        "source": "built-in"
+      }
+    },
+    {
+      "id": "stormlander",
+      "rawIdentity": "Hammer_Unique1",
+      "calculatorRow": {
+        "slug": "stormlander",
+        "name": "Stormlander",
+        "type": "melee",
+        "route": "/weapons/stormlander",
+        "power": 8.686,
+        "speed": 1,
+        "area": 7.762,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Hammer_Unique1_Icon.png",
+        "builtIn": [
+          "Thundering"
+        ]
+      },
+      "intrinsicFacts": [
+        "Great splash",
+        "Fires lighting bolts"
+      ],
+      "baseSoulGathering": 0,
+      "hitDurationsSeconds": [
+        0.7
+      ],
+      "comboFinisherHit": 1,
+      "normalizedDamageRatios": [
+        1
+      ],
+      "timingSource": "https://minecraft.wiki/w/Dungeons%3AStormlander",
+      "builtIn": {
+        "enchantmentId": "thundering",
+        "tier": 1,
+        "source": "built-in"
+      }
+    }
+  ]
+}

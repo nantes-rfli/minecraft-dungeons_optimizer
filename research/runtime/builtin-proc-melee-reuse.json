@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "route": "existing-limited-mechanic-reuse",
+  "mechanic": "published-uniform-hit-fixed-builtin-proc",
+  "gameVersion": "1.17.0.0",
+  "sourceRef": "research/sources/builtin-proc-melee-source-snapshot.json",
+  "testRef": "tests/builtinProcMeleeReuse.test.ts",
+  "rejectedInteractions": [
+    "multiple melee targets",
+    "Pain Cycle",
+    "Dynamo",
+    "Death Cap Mushroom",
+    "Rampaging",
+    "Armor attack-speed effects",
+    "Void Strike",
+    "unreviewed built-in or Research effects",
+    "existing unsupported enchant/armor combinations"
+  ],
+  "approvals": [
+    {
+      "targetId": "whirlwind",
+      "rawIdentity": "DoubleAxe_Unique1",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "scope": "single-target-base-cadence",
+      "builtIn": {
+        "enchantmentId": "shockwave",
+        "tier": 1,
+        "source": "built-in"
+      },
+      "procPowerRange": {
+        "min": 210,
+        "max": 252
+      }
+    },
+    {
+      "targetId": "stormlander",
+      "rawIdentity": "Hammer_Unique1",
+      "classification": "derived",
+      "runtimeSupport": "limited",
+      "scope": "single-target-base-cadence",
+      "builtIn": {
+        "enchantmentId": "thundering",
+        "tier": 1,
+        "source": "built-in"
+      },
+      "procPowerRange": {
+        "min": 248,
+        "max": 263
+      }
+    }
+  ]
+}

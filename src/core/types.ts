@@ -30,7 +30,7 @@ export interface LocalizedName {
   readonly en: string
 }
 
-export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip' | 'great-hammer'
+export type WeaponId = 'fighters-bindings' | 'double-axe' | 'anchor' | 'soul-scythe' | 'cutlass' | 'pickaxe' | 'soul-knife' | 'whip' | 'great-hammer' | 'whirlwind' | 'stormlander'
 export type EnchantmentId =
   | 'critical-hit'
   | 'radiance'
@@ -1083,6 +1083,7 @@ export interface ObjectiveUtilities {
 }
 
 export interface EffectContribution {
+  readonly enchantmentSource?: 'built-in'
   readonly selfDamagePerSecondDelta: number
   readonly netSustainPerSecondDelta: number
   readonly sourceType: 'enchantment' | 'artifact' | 'armor' | 'armor-enchantment' | 'ranged-enchantment'

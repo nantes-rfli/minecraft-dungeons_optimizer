@@ -1,3 +1,5 @@
+import { builtinProcMeleeEnchantments } from '../data/builtinProcMelee'
+import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { validatePowerCurveLevel } from './powerScaling'
 import { GEAR_POWER_CURVE } from '../data/powerScaling'
 import { validateControlAssumptions } from './control'
@@ -131,7 +133,7 @@ export function validateScenario(scenario: Scenario): void {
 
 export function validateBuild(build: Build, scenario?: Scenario): void {
   validateRangedBuild(build, scenario)
-  const plainMeleeIssue = plainMeleeUnsupportedReason(build, scenario)
+  const plainMeleeIssue = plainMeleeUnsupportedReason(build, scenario) ?? builtinProcMeleeUnsupportedReason(build, scenario)
   if (plainMeleeIssue) throw new OptimizerInputError('UNSUPPORTED_PLAIN_MELEE', plainMeleeIssue)
   const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
   if (unsupported) throw new OptimizerInputError('UNSUPPORTED_ENCHANTMENT_COMBINATION', unsupported)
@@ -143,7 +145,8 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
   const { enchantmentSlots } = build.weapon
   const slotIssue = enchantmentInputIssue(build.weapon.instanceId, enchantmentSlots)
   if (slotIssue) throw new OptimizerInputError('INVALID_WEAPON', slotIssue.message)
-  const expectedEnchantmentCount = enchantmentSlots.length + (build.weapon.gilded ? 1 : 0)
+  const fixed = builtinProcMeleeEnchantments(build.weapon.weaponId)
+  const expectedEnchantmentCount = enchantmentSlots.length + (build.weapon.gilded ? 1 : 0) + fixed.length
   if (build.enchantments.length !== expectedEnchantmentCount) {
     throw new OptimizerInputError(
       'INVALID_BUILD',
@@ -174,7 +177,7 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
     }
   })
   if (build.weapon.gilded) {
-    const gildedSelection = build.enchantments.at(-1)
+    const gildedSelection = build.enchantments[enchantmentSlots.length]
     if (
       gildedSelection?.source !== 'gilded' ||
       gildedSelection.enchantmentId !== build.weapon.gilded.enchantmentId ||
@@ -185,6 +188,10 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
         `武器${build.weapon.instanceId}の金色エンチャントが一致しません。`,
       )
     }
+  }
+  for (const [index, required] of fixed.entries()) {
+    const actual = build.enchantments[enchantmentSlots.length + (build.weapon.gilded ? 1 : 0) + index]
+    if (!actual || actual.enchantmentId !== required.enchantmentId || actual.tier !== required.tier || actual.source !== 'built-in') throw new OptimizerInputError('INVALID_BUILD', '装備の固定Built-inが欠落しているか一致しません。')
   }
   if (!hasValidEnchantmentStacking(build.enchantments)) {
     const counts = new Map<string, number>()

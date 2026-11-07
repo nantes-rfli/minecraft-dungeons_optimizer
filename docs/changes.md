@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — 固定built-in procの近接2種
+
+- WhirlwindのShockwave I / StormlanderのThundering Iを固定所有として一度だけ注入し、既存proc式へ接続。近接11/82（Full4 / Limited7）、新式・新Native数値・R3昇格はなし。
+- 対象自身の明示builtIn配列と既存Tier I記録でownershipを照合。Rawはexact LocresのUnique1対応を使い、アイコンordinalから推測しない。
+- 単体・基本cadenceと各proc Power範囲を維持。固定効果の欠落・異Tier・重複・新2種のVoid併用を拒否し、寄与表示・旧Catalog/Research保存を整合。
+
 ## 2026-11 — Rapid Crossbowの条件付き通常単矢計算
 
 - 既存Rawの限定source reviewと対象自身の観測damage・完全周期・消費矢数を結び、Rapid CrossbowをLimitedへ追加。遠距離は7/71種・11 weapon/mode。

@@ -1,3 +1,5 @@
+import { isBuiltinProcMeleeId } from '../data/builtinProcMelee'
+import { BUILTIN_PROC_MELEE_LIMITATION } from './builtinProcMeleeReuse'
 import { calculateControl, describeControl } from './control'
 import { describeChargeConsume } from './chargeConsumeReasons'
 import { describeDotOrExplosion } from './dotDamageReasons'
@@ -118,7 +120,7 @@ function calculateContributions(
   const enchantmentContributions = build.enchantments.map((selected, index) => {
     const enchantments = build.enchantments.filter((_, currentIndex) => currentIndex !== index)
     const withoutEffect = calculateCore({ ...build, enchantments }, scenario)
-    return toContribution('enchantment', selected.enchantmentId, baseline, withoutEffect)
+    return { ...toContribution('enchantment', selected.enchantmentId, baseline, withoutEffect), ...(selected.source === 'built-in' ? { enchantmentSource: 'built-in' as const } : {}) }
   })
   const artifactContributions = build.artifacts.map((artifact) => {
     const artifacts = build.artifacts.filter((item) => item.instanceId !== artifact.instanceId)
@@ -149,6 +151,7 @@ export function evaluateCandidate(build: Build, scenario: Scenario) {
 export function evaluate(build: Build, scenario: Scenario): Evaluation {
   const core = evaluateCandidate(build, scenario)
   const reasons: string[] = describeControl(core.control)
+  if (isBuiltinProcMeleeId(build.weapon.weaponId)) reasons.push(BUILTIN_PROC_MELEE_LIMITATION)
   if (isPlainMeleeId(build.weapon.weaponId)) reasons.push(`${getWeaponDefinition(build.weapon.weaponId).name.en}: ${PLAIN_MELEE_LIMITATION} 独立DPS検証はpending。接近・移動・splashは評価しません。`)
   if (core.damage.ranged) {
     const state = core.damage.ranged

@@ -3073,12 +3073,16 @@
       "id": "melee-weapon:DoubleAxe_Unique1",
       "rawIdentity": "DoubleAxe_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:whirlwind"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3awhirlwind"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance"
       ],
@@ -3087,7 +3091,8 @@
         "bulk-bp-double-axe-unique1-instance-65a9e03d89a120dd",
         "bulk-bp-double-axe-unique1-instance-84274ab247bb6ca5",
         "bulk-bp-double-axe-unique1-instance-9040ce43174d5489"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:whirlwind"
     },
     {
       "id": "melee-weapon:DoubleAxe_Unique2",
@@ -3348,19 +3353,24 @@
       "id": "melee-weapon:Hammer_Unique1",
       "rawIdentity": "Hammer_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:stormlander"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3astormlander"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-hammer-unique1-instance-0815aebaa46f71ce",
         "bulk-bp-hammer-unique1-instance-d33ea82fbb7686c5"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:stormlander"
     },
     {
       "id": "melee-weapon:Hammer_Unique2",

@@ -1,3 +1,4 @@
+import { BUILTIN_PROC_MELEE_IDS, BUILTIN_PROC_MELEE_FACTS, builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import grants from '../../research/runtime/plain-melee-reuse.json' with { type: 'json' }
 import snapshot from '../../research/sources/plain-melee-source-snapshot.json' with { type: 'json' }
 import identity from '../../research/domain/formal/identity-evidence-v1.json' with { type: 'json' }
@@ -99,7 +100,7 @@ export function plainMeleeReuseIsEligible(id: string, overrides: Partial<PlainMe
 export function collectPlainMeleeReuseErrors(overrides: Partial<PlainMeleeReuseInputs> = {}): readonly string[] {
   const data = { ...defaults, ...overrides }
   const errors: string[] = []
-  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS]
+  const allowedRuntimeIds = ['fighters-bindings', 'double-axe', 'anchor', 'soul-scythe', ...PLAIN_MELEE_IDS, ...BUILTIN_PROC_MELEE_IDS]
   if (!same(Object.keys(data.weapons).sort(), allowedRuntimeIds.sort())) errors.push('Melee runtime registration lacks a finite reviewed source-bound grant')
   for (const id of PLAIN_MELEE_IDS) if (!plainMeleeReuseIsEligible(id, data)) errors.push(`${id}: source-bound plain melee Limited reuse drift`)
   if (!same(data.approvals.approvals.map((row) => row.targetId), PLAIN_MELEE_IDS) || !same(data.source.rows.map((row) => row.id), PLAIN_MELEE_IDS)) errors.push('plain melee eligible population drift')
@@ -110,6 +111,7 @@ export function collectPlainMeleeReuseErrors(overrides: Partial<PlainMeleeReuseI
 export function meleeResearchUnsupportedReason(build: Build): string | undefined {
   const research = build.weapon.research
   if (!research) return undefined
+  const expectedBuiltIn = builtinProcMeleeEnchantments(build.weapon.weaponId)
   const fixed = research.enchantments?.filter((entry) => entry.source !== 'slot') ?? []
   const keys = fixed.map((entry) => `${entry.source}:${entry.enchantmentId}:${entry.tier}`)
   const slots = new Map<string, number>()
@@ -123,11 +125,11 @@ export function meleeResearchUnsupportedReason(build: Build): string | undefined
     return count < 1
   })
   if (new Set(keys).size !== keys.length || fixed.filter((entry) => entry.source === 'gilded').length > 1 || missingSlot
-    || fixed.some((entry) => entry.source === 'built-in' || entry.enchantmentId !== build.weapon.gilded?.enchantmentId || entry.tier !== build.weapon.gilded?.tier)) return 'UNSUPPORTED_MELEE_RESEARCH: 旧ResearchのEnchantと個体入力が未整合です。記録を明示的に確認・修正してください。'
+    || fixed.some((entry) => entry.source === 'built-in' ? !expectedBuiltIn.some((effect) => effect.enchantmentId === entry.enchantmentId && effect.tier === entry.tier && effect.source === entry.source) : entry.enchantmentId !== build.weapon.gilded?.enchantmentId || entry.tier !== build.weapon.gilded?.tier)) return 'UNSUPPORTED_MELEE_RESEARCH: 旧ResearchのEnchantと個体入力が未整合です。記録を明示的に確認・修正してください。'
   const row = snapshot.rows.find((entry) => entry.id === build.weapon.weaponId)
   // Match only the finite reviewed plain intrinsic facts. No broad taxonomy or
   // interpretation of arbitrary strings, and no empty default for unknowns.
-  if (research.intrinsicProperties?.some((property) => property.kind !== 'intrinsicMechanicOwnership' || !row?.intrinsicFacts.includes(property.raw))) return 'UNSUPPORTED_MELEE_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
+  if (research.intrinsicProperties?.some((property) => property.kind !== 'intrinsicMechanicOwnership' || !(isBuiltinProcMeleeId(build.weapon.weaponId) ? (BUILTIN_PROC_MELEE_FACTS[build.weapon.weaponId].intrinsic as readonly string[]).includes(property.raw) : row?.intrinsicFacts.includes(property.raw)))) return 'UNSUPPORTED_MELEE_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
   return undefined
 }
 

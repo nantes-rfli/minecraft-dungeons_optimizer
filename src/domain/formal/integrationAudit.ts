@@ -14,6 +14,7 @@ import {
   reviewedTypedRelationMeleeFormalIdentities,
   reviewedTypedRelationFormalIdentities,
   reviewedLocalizationMeleeFormalIdentities,
+  builtinProcLocalizationFormalIdentities,
   battleRobeFormalIdentity,
   READY_ARTIFACT_EFFECT_DOMAINS,
   readyArmorFormalIdentities,
@@ -103,7 +104,7 @@ export function collectFormalIntegrationErrors(identity: FormalIdentityEvidenceA
   check(canonicalSet(matchedRanged) === canonicalSet(valueRanged), 'Formal Value Ranged domains differ from matched Identity')
   // The new localization bridge is Identity only. It must not silently widen
   // the existing configured Value/Relation wave or claim gameplay semantics.
-  for (const { assertion } of reviewedLocalizationMeleeFormalIdentities) {
+  for (const { assertion } of [...reviewedLocalizationMeleeFormalIdentities, ...builtinProcLocalizationFormalIdentities]) {
     check(sources.has(assertion.domainId), `${assertion.domainId}: localization Identity source is missing`)
     check(!valueMelee.has(assertion.domainId) && !valueRanged.has(assertion.domainId)
       && !relation.relationProjections.some((entry) => entry.occurrence.domainId === assertion.domainId),

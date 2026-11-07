@@ -4745,6 +4745,68 @@
             "evidence:presentation:great-hammer:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:whirlwind@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "DoubleAxe_Unique1",
+            "evidenceRef": "evidence:raw:identity:whirlwind@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "DoubleAxe_Unique1",
+            "evidenceRef": "evidence:raw:identity:whirlwind@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:whirlwind@1",
+          "domainId": "whirlwind",
+          "evidenceRefs": [
+            "evidence:raw:identity:whirlwind@1:ItemIdName",
+            "evidence:raw:identity:whirlwind@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "whirlwind",
+          "displayName": "Whirlwind",
+          "evidenceRefs": [
+            "evidence:presentation:whirlwind:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:stormlander@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Hammer_Unique1",
+            "evidenceRef": "evidence:raw:identity:stormlander@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Hammer_Unique1",
+            "evidenceRef": "evidence:raw:identity:stormlander@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:stormlander@1",
+          "domainId": "stormlander",
+          "evidenceRefs": [
+            "evidence:raw:identity:stormlander@1:ItemIdName",
+            "evidence:raw:identity:stormlander@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "stormlander",
+          "displayName": "Stormlander",
+          "evidenceRefs": [
+            "evidence:presentation:stormlander:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -7682,6 +7744,46 @@
       "evidenceRefs": [
         "evidence:reviewed:great-hammer:accepted-alias",
         "evidence:reviewed:great-hammer:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:whirlwind@1",
+      "rawIdentity": "DoubleAxe_Unique1",
+      "domainId": "whirlwind",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:whirlwind:accepted-alias",
+        "evidence:reviewed:whirlwind:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:stormlander@1",
+      "rawIdentity": "Hammer_Unique1",
+      "domainId": "stormlander",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:stormlander:accepted-alias",
+        "evidence:reviewed:stormlander:exact-localization-key"
       ]
     }
   ],
@@ -17809,6 +17911,156 @@
           "nodePointer": "/packages/47/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:cfef6b47"
+      },
+      {
+        "id": "evidence:reviewed:whirlwind:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:DoubleAxe_Unique1]"
+        },
+        "fingerprint": "fnv1a32:035359c3"
+      },
+      {
+        "id": "evidence:presentation:whirlwind:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=whirlwind].name.en"
+        },
+        "fingerprint": "fnv1a32:af53723c"
+      },
+      {
+        "id": "evidence:reviewed:whirlwind:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/DoubleAxe_Unique1 independently names Whirlwind; both Raw serialized fields are required. The Unique2 presentation hint is not identity evidence. No gameplay values are granted.",
+        "source": {
+          "artifactPath": "research/sources/builtin-proc-melee-localization-identity.json",
+          "locator": "bridges[domainId=whirlwind]"
+        },
+        "fingerprint": "fnv1a32:51bc9ba6"
+      },
+      {
+        "id": "evidence:raw:identity:whirlwind@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "DoubleAxe_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e1fccbe8b6e43baa7e59f016553006fbc4432e532079d721dcb1f03f49d4fe45",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "b8269c13e726ce5b8172913ea444f3d6302d1a636eb848e9b307a9d758c837ad"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:17385656"
+      },
+      {
+        "id": "evidence:raw:identity:whirlwind@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "DoubleAxe_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-015.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:e1fccbe8b6e43baa7e59f016553006fbc4432e532079d721dcb1f03f49d4fe45",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "b8269c13e726ce5b8172913ea444f3d6302d1a636eb848e9b307a9d758c837ad"
+          },
+          "nodePointer": "/packages/44/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:acf9655c"
+      },
+      {
+        "id": "evidence:reviewed:stormlander:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Hammer_Unique1]"
+        },
+        "fingerprint": "fnv1a32:bce8bcc3"
+      },
+      {
+        "id": "evidence:presentation:stormlander:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=stormlander].name.en"
+        },
+        "fingerprint": "fnv1a32:33b34bb0"
+      },
+      {
+        "id": "evidence:reviewed:stormlander:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Hammer_Unique1 independently names Stormlander; both Raw serialized fields are required. The Unique2 presentation hint is not identity evidence. No gameplay values are granted.",
+        "source": {
+          "artifactPath": "research/sources/builtin-proc-melee-localization-identity.json",
+          "locator": "bridges[domainId=stormlander]"
+        },
+        "fingerprint": "fnv1a32:1dda77c0"
+      },
+      {
+        "id": "evidence:raw:identity:stormlander@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Hammer_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:94c622d6aa86c0d2f74ae8b8ab6e979c5cac1f2675f9ea1e35e5f682234e517c",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9532b15bf8329dae8ed61a1f0ca6121832bac602f762bfa3539e401e5486e0dd"
+          },
+          "nodePointer": "/packages/28/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:b8aef109"
+      },
+      {
+        "id": "evidence:raw:identity:stormlander@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Hammer_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:94c622d6aa86c0d2f74ae8b8ab6e979c5cac1f2675f9ea1e35e5f682234e517c",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9532b15bf8329dae8ed61a1f0ca6121832bac602f762bfa3539e401e5486e0dd"
+          },
+          "nodePointer": "/packages/28/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:a77c8609"
       }
     ]
   }

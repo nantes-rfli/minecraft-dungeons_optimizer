@@ -1,3 +1,4 @@
+import { builtinProcMeleeEnchantments, isBuiltinProcMeleeId } from './builtinProcMelee'
 import meleeAudit from '../../research/melee-attack-profile-audit.json'
 import armorAudit from '../../research/armor-audit.json'
 import rangedAudit from '../../research/ranged-weapon-audit.json'
@@ -32,7 +33,7 @@ export interface EquipmentCatalogEntry {
 }
 
 const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLevel => {
-  if (category === 'melee') return id in WEAPONS ? (isPlainMeleeId(id) ? 'limited' : 'full') : 'unsupported'
+  if (category === 'melee') return id in WEAPONS ? ((isPlainMeleeId(id) || isBuiltinProcMeleeId(id)) ? 'limited' : 'full') : 'unsupported'
   if (category === 'armor') return id in ARMORS ? 'limited' : 'unsupported'
   if (category === 'ranged') return id in RANGED_WEAPONS ? 'limited' : 'unsupported'
   return id in ARTIFACTS ? (id === 'shock-powder' ? 'limited' : 'full') : 'unsupported'
@@ -50,7 +51,7 @@ const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEn
 
 export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
   ...meleeAudit.weapons.map((item) => entry('melee', item.weaponId, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.status, {
-    intrinsicProperties: [], builtInEnchantments: [], family: item.family,
+    intrinsicProperties: [], builtInEnchantments: builtinProcMeleeEnchantments(item.weaponId).map(({ enchantmentId, tier }) => ({ enchantmentId, tier })), family: item.family,
     rarityFamily: 'variantOf' in item && item.variantOf ? 'unique' : 'normal',
     ...(AUDITED_MELEE_SOUL_GEAR_IDS.has(item.weaponId) ? { soulGear: true as const } : {}),
   })),

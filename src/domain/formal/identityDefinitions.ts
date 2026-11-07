@@ -312,6 +312,23 @@ export const reviewedLocalizationMeleeFormalIdentities = reviewedLocalizationMel
   }
 })
 
+/** Only these two consumers adopt the exact localization bridge; icons stay presentation. */
+export const builtinProcLocalizationFormalIdentityInputs = [
+  { domainId: 'whirlwind', rawIdentity: 'DoubleAxe_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/DoubleAxe_Unique1/BP_DoubleAxe_Unique1Instance', displayName: 'Whirlwind' },
+  { domainId: 'stormlander', rawIdentity: 'Hammer_Unique1', packagePath: 'Dungeons/Content/Actors/Equipment/MeleeWeapons/Hammer_Unique1/BP_Hammer_Unique1Instance', displayName: 'Stormlander' },
+] as const satisfies readonly AcceptedMeleeIdentityInput[]
+export const builtinProcLocalizationFormalIdentities = builtinProcLocalizationFormalIdentityInputs.map((input) => {
+  const base = acceptedMeleeDefinition(input)
+  const ref = `evidence:reviewed:${input.domainId}:exact-localization-key`
+  return { ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `Hash-bound ItemType/${input.rawIdentity} independently names ${input.displayName}; both Raw serialized fields are required. The Unique2 presentation hint is not identity evidence. No gameplay values are granted.`,
+      source: { artifactPath: 'research/sources/builtin-proc-melee-localization-identity.json', locator: `bridges[domainId=${input.domainId}]` },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -623,6 +640,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedTypedRelationMeleeFormalIdentities,
   ...reviewedTypedRelationFormalIdentities,
   ...reviewedLocalizationMeleeFormalIdentities,
+  ...builtinProcLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [
