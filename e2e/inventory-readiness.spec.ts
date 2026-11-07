@@ -89,7 +89,7 @@ test('mobile Armor input completion refreshes readiness and keeps the layout wit
 
 test('a saved incompatible shot mode can be explicitly repaired and Catalog grid editing still opens its instance', async ({ page }) => {
   const ranged = readinessRanged('shortbow')
-  const inventory: Inventory = { ...readinessMelee, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'single' } }], catalogItems: [{ instanceId: 'catalog-sword', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251 }] }
+  const inventory: Inventory = { ...readinessMelee, rangedWeapons: [{ ...ranged, observation: { ...ranged.observation!, mode: 'single' } }], catalogItems: [{ instanceId: 'catalog-sword', category: 'melee', catalogId: 'broadsword', powerLevel: 251 }] }
   await page.addInitScript(({ key, json }) => { if (!localStorage.getItem(key)) localStorage.setItem(key, json) }, { key: storageKey, json: serializeInventory(inventory) })
   await page.goto('/#/optimize')
   await page.getByText('詳細条件', { exact: true }).click()
@@ -118,7 +118,7 @@ test('a saved incompatible shot mode can be explicitly repaired and Catalog grid
   await expect(panel.locator('.readiness-counts')).toContainText('評価可能2件')
   await page.getByRole('button', { name: '絞り込みを解除', exact: true }).click()
   await page.getByRole('button', { name: 'グリッド', exact: true }).click()
-  await page.getByRole('option', { name: /Diamond Sword/ }).click()
+  await page.getByRole('option', { name: /Broadsword/ }).click()
   const selected = page.getByRole('complementary', { name: '選択した装備の詳細' })
   await selected.getByRole('button', { name: '編集', exact: true }).click()
   await selected.getByRole('button', { name: 'Enchant・金色を詳細編集', exact: true }).click()

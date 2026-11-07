@@ -55,4 +55,12 @@ describe('Diamond Sword observed fixed Sharpness', () => {
     expect(() => optimize(stale, scenario)).toThrow('現在のPower')
     expect(() => evaluate(neutralBuild, { ...scenario, averageTargetsInReach: 2 })).toThrow('UNSUPPORTED_COMBO_TARGETS')
   })
+
+  it('migrates existing Catalog ownership while leaving the inclusive observation missing', () => {
+    const legacy = { instanceId: 'legacy-diamond', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251, isFavorite: true, notes: '保持するメモ' }
+    const inventory = deserializeInventory(JSON.stringify({ version: 6, inventory: { weapons: [], artifacts: [], catalogItems: [legacy] } }))
+    expect(inventory.catalogItems).toEqual([])
+    expect(inventory.weapons[0]).toEqual({ instanceId: legacy.instanceId, weaponId: legacy.catalogId, powerLevel: legacy.powerLevel, isFavorite: true, notes: legacy.notes, enchantmentSlots: [] })
+    expect(inspectInventoryReadiness(inventory, scenario).equipment[0]?.status).toBe('input-required')
+  })
 })
