@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-radiance-with-observed-self-heal-per-proc",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-radiance-combo-source.json",
+  "testRef": "tests/observedRadianceCombo.test.ts",
+  "observation": "own ordinary complete combo damage and uncapped self healing per fixed Radiance I proc at the current equipped Power, with no healing modifiers",
+  "targets": { "suns-grace": "radiance" }
+}

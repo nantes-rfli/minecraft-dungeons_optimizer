@@ -1,10 +1,16 @@
 import type { AttackProfile, OwnedWeapon } from './types'
 import { OptimizerInputError } from './errors'
 import { combineDirectWeaponBonuses } from './enchantment'
-import { fixedObservedMeleeComboEnchantments, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
+import { fixedObservedMeleeComboEnchantments, RADIANCE_OBSERVED_MELEE_COMBO_ID, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 
 type MeleeDamageInput = Pick<OwnedWeapon, 'weaponId' | 'powerLevel' | 'observedDamagePerHit' | 'observedComboDamage'>
+
+export function observedFixedRadianceHeal(weapon: OwnedWeapon): number | undefined {
+  const observation = weapon.observedFixedRadiance
+  return weapon.weaponId === RADIANCE_OBSERVED_MELEE_COMBO_ID && observation?.powerLevel === weapon.powerLevel
+    && Number.isFinite(observation.healPerProc) && observation.healPerProc >= Number.EPSILON ? observation.healPerProc : undefined
+}
 
 export function hasObservedMeleeDamage(weapon: MeleeDamageInput): boolean {
   return isObservedMeleeComboId(weapon.weaponId)

@@ -4,10 +4,12 @@ import profiles from '../../research/melee-attack-profile-audit.json' with { typ
 import harvest from '../../research/source-harvest/snapshots/dungeons-tools-2026-09-06.json' with { type: 'json' }
 import approvals from '../../research/runtime/observed-melee-combo-reuse.json' with { type: 'json' }
 import sharpnessApproval from '../../research/runtime/observed-sharpness-combo-reuse.json' with { type: 'json' }
+import radianceApproval from '../../research/runtime/observed-radiance-combo-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
   CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
   FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_ID,
+  RADIANCE_OBSERVED_MELEE_COMBO_ID, RADIANCE_OBSERVED_MELEE_COMBO_SOURCE,
   fixedObservedMeleeComboEnchantments, isFixedObservedMeleeComboId,
 } from '../data/fixedObservedMeleeCombo'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -15,7 +17,7 @@ import {
   isObservedMeleeComboId, isPlainObservedMeleeComboId, OBSERVED_MELEE_COMBO_IDS, OBSERVED_MELEE_COMBO_PROFILES,
   OBSERVED_MELEE_COMBO_SOURCE, OBSERVED_MELEE_COMBO_WEAPONS,
 } from '../data/observedMeleeCombo'
-import { hasObservedMeleeDamage } from './observedMeleeCombo'
+import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './observedMeleeCombo'
 import { ARMORS } from '../data/armors'
 import type { Build, OwnedWeapon, Scenario } from './types'
 import type { ArmorId } from './armor'
@@ -85,14 +87,16 @@ export function observedMeleeComboIsEligible(id: string, overrides: Partial<type
 const fixedDefaults = {
   ...defaults, approvals: fixedApprovals, source: FIXED_OBSERVED_MELEE_COMBO_SOURCE,
   sharpnessApproval, sharpnessSource: SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE,
+  radianceApproval, radianceSource: RADIANCE_OBSERVED_MELEE_COMBO_SOURCE,
 }
 
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
   if (!isFixedObservedMeleeComboId(id)) return false
   const data = { ...fixedDefaults, ...overrides }
   const sharpness = id === SHARPNESS_OBSERVED_MELEE_COMBO_ID
-  const grant = sharpness ? data.sharpnessApproval : data.approvals
-  const source = sharpness ? data.sharpnessSource : data.source
+  const radiance = id === RADIANCE_OBSERVED_MELEE_COMBO_ID
+  const grant = radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
+  const source = radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
   const rows = source.rows.filter((row) => row.id === id)
   const row = rows[0]
   const weapon = data.weapons[id]
@@ -102,14 +106,21 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const semantic = data.identities.semantic.identities.find((item) => item.assertionId === assertion?.id)
   const audit = data.profiles.weapons.find((item) => item.weaponId === id)
   const claims = data.harvest.claims.filter((claim) => claim.entityId === `melee-weapon:${id}` && claim.property === 'intrinsicMechanicOwnership')
-  const effect = sharpness ? 'sharpness' : CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS[id]
+  const effect = fixedObservedMeleeComboEnchantments(id)[0]!.enchantmentId
   const critical = effect === 'critical-hit'
   const count = row.hitDurationsSeconds.length
   const tier = ENCHANTMENTS[effect].tiers.value[1]
-  const tierMatches = critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
+  const tierMatches = radiance ? tier.triggerChance === 0.2 && 'triggerChance' in row.fixed && row.fixed.triggerChance === tier.triggerChance
+    : critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
     : sharpness ? equal(tier.effect, { kind: 'passive-weapon-damage', bonus: 0.1 })
       : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
-  const approvalMatches = sharpness
+  const approvalMatches = radiance
+    ? grant.mechanic === 'owned-tier-one-radiance-with-observed-self-heal-per-proc'
+      && grant.sourceRef === 'research/sources/observed-radiance-combo-source.json' && grant.testRef === 'tests/observedRadianceCombo.test.ts'
+      && grant.observation === 'own ordinary complete combo damage and uncapped self healing per fixed Radiance I proc at the current equipped Power, with no healing modifiers'
+      && equal(grant.targets, { [RADIANCE_OBSERVED_MELEE_COMBO_ID]: 'radiance' })
+      && equal(source.rows.map((item) => item.id), [RADIANCE_OBSERVED_MELEE_COMBO_ID])
+    : sharpness
     ? grant.mechanic === 'owned-tier-one-sharpness-already-in-observed-combo'
       && grant.sourceRef === 'research/sources/observed-sharpness-combo-source.json' && grant.testRef === 'tests/observedSharpnessCombo.test.ts'
       && grant.observation === 'complete ordinary combo with the equipped fixed Sharpness I already included, against one unenchanted, non-undead target with no damage reduction or external bonuses'
@@ -121,6 +132,7 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
       && equal(grant.targets, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS)
       && equal(source.rows.map((item) => item.id), CONDITIONAL_OBSERVED_MELEE_COMBO_IDS)
 
+  const slug = radiance ? 'sun-s-grace' : id
   return grant.schemaVersion === 1 && grant.gameVersion === '1.17.0.0' && grant.route === 'existing-limited-mechanic-reuse'
     && grant.classification === 'derived' && grant.runtimeSupport === 'limited'
     && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed' && approvalMatches
@@ -128,11 +140,11 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     && source.calculatorSource.url === 'https://www.dungeons.tools/damage-calculator'
     && source.calculatorSource.htmlSha256 === '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1'
     && data.profiles.gameVersion === grant.gameVersion && data.harvest.targetGameVersion === grant.gameVersion
-    && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === id && row.calculatorRow.route === `/weapons/${id}`
-    && row.sourceUrl === `https://www.dungeons.tools/weapons/${id}`
-    && equal(row.calculatorRow.builtIn, [critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
+    && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === slug && row.calculatorRow.route === `/weapons/${slug}`
+    && row.sourceUrl === `https://www.dungeons.tools/weapons/${slug}`
+    && equal(row.calculatorRow.builtIn, [radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
     && row.fixed.enchantmentId === effect && row.fixed.tier === 1 && tierMatches
-    && row.fixed.tierSourceUrl === (critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
+    && row.fixed.tierSourceUrl === (radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
     && claims.length === 1 && claims[0]?.sourceId === `external-dungeons-tools:melee-weapon:${id}`
     && claims[0].sourceGameVersion === '1.17.0.0 publisher-claimed' && claims[0].interpretation === 'direct'
     && claims[0].sourceLocator === `${row.sourceUrl} — Properties and details` && equal(claims[0].value, row.intrinsicFacts)
@@ -181,6 +193,12 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
   }
 }
 
+export function fixedRadianceInputIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
+  if (weapon.weaponId !== RADIANCE_OBSERVED_MELEE_COMBO_ID || observedFixedRadianceHeal(weapon) !== undefined) return undefined
+  return { kind: 'input-required', target: 'equipment', message: '現在のPowerでの固定「輝き I」1回あたりの自己回復量が必要です。',
+    fields: ['同じ個体・現在のPowerで、回復補正なし・十分にHPが減った状態で発動した「輝き I」1回の自己回復量'] }
+}
+
 export function observedMeleeComboRollIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
   if (!isObservedMeleeComboId(weapon.weaponId)) return undefined
   const fixed = fixedObservedMeleeComboEnchantments(weapon.weaponId)[0]
@@ -199,7 +217,7 @@ export function observedMeleeComboRollIssue(weapon: OwnedWeapon): ReadinessIssue
 }
 
 export function observedMeleeComboPreparationIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
-  return observedMeleeComboInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
+  return observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
 }
 
 export function observedMeleeComboUnsupportedReason(build: Build, scenario?: Scenario): string | undefined {

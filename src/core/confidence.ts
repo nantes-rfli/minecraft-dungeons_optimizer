@@ -1,5 +1,5 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
-import { hasObservedMeleeDamage } from './observedMeleeCombo'
+import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './observedMeleeCombo'
 import { isControlId, CC_REFRESH_MODEL, CC_ELIGIBILITY_MODEL, CC_CLUSTER_MODEL, STUNNING_DURATION } from '../data/control'
 import { PAIN_HEALTH_COST, DYNAMO_NUMERIC_EVIDENCE } from '../data/chargeConsume'
 import { DOT_DAMAGE_CURVES, DOT_EXPLOSION_IDS, FIRE_REFRESH_MODEL, FIRE_TARGET_MODEL, POISON_SATURATION_MODEL, EXPLOSION_TARGET_MODEL, EXPLOSION_KILL_SOURCE } from '../data/dotDamageEvents'
@@ -354,7 +354,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.push('proc自体へCommittedを掛けず、procがHPを減らす効果だけを積分のPに含めます。数式の検証済みという意味と実戦精度は別です。')
   }
 
-  if (hasEnchantment(build.enchantments, 'radiance')) {
+  if (hasEnchantment(build.enchantments, 'radiance') && observedFixedRadianceHeal(build.weapon) === undefined) {
     addEvidence(
       'radiance-heal',
       '輝き1回の回復量',

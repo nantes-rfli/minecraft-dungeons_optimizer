@@ -84,7 +84,7 @@ describe('observed combo with owned Tier I damage effects', () => {
   })
 
   it('holds conflicting or different mechanics and fails closed on altered ownership or source', () => {
-    for (const id of ['masters-katana', 'suns-grace', 'broadsword', 'frost-slayer']) {
+    for (const id of ['masters-katana', 'broadsword', 'frost-slayer']) {
       expect(fixedObservedMeleeComboIsEligible(id)).toBe(false)
       expect(getEquipmentCatalogEntry('melee', id)?.runtimeSupport).toBe('unsupported')
     }

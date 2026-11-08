@@ -5024,6 +5024,37 @@
             "evidence:presentation:phantom-bow:ranged-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:suns-grace@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Mace_Unique1",
+            "evidenceRef": "evidence:raw:identity:suns-grace@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Mace_Unique1",
+            "evidenceRef": "evidence:raw:identity:suns-grace@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:suns-grace@1",
+          "domainId": "suns-grace",
+          "evidenceRefs": [
+            "evidence:raw:identity:suns-grace@1:ItemIdName",
+            "evidence:raw:identity:suns-grace@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "suns-grace",
+          "displayName": "Sun's Grace",
+          "evidenceRefs": [
+            "evidence:presentation:suns-grace:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8141,6 +8172,26 @@
       "evidenceRefs": [
         "evidence:reviewed:phantom-bow:accepted-alias",
         "evidence:reviewed:phantom-bow:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:suns-grace@1",
+      "rawIdentity": "Mace_Unique1",
+      "domainId": "suns-grace",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:suns-grace:accepted-alias",
+        "evidence:reviewed:suns-grace:exact-localization-key"
       ]
     }
   ],
@@ -18943,6 +18994,81 @@
           "nodePointer": "/packages/16/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:f3e6d3a5"
+      },
+      {
+        "id": "evidence:reviewed:suns-grace:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Mace_Unique1]"
+        },
+        "fingerprint": "fnv1a32:e22ecee6"
+      },
+      {
+        "id": "evidence:presentation:suns-grace:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=suns-grace].name.en"
+        },
+        "fingerprint": "fnv1a32:91673a6c"
+      },
+      {
+        "id": "evidence:reviewed:suns-grace:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Mace_Unique1 names Sun's Grace. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-radiance-combo-source.json",
+          "locator": "rows[id=suns-grace].localization"
+        },
+        "fingerprint": "fnv1a32:4fec8dc6"
+      },
+      {
+        "id": "evidence:raw:identity:suns-grace@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Mace_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b6b05ee093ec883bf2659f5aca8b8fb7fc700509f9a3ff36da3ae562c85b8e68",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3b306ff555ccc4678de8eca0790335e7bc655f742f7d991c95d9c828e7458c8"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:0895e40b"
+      },
+      {
+        "id": "evidence:raw:identity:suns-grace@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Mace_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b6b05ee093ec883bf2659f5aca8b8fb7fc700509f9a3ff36da3ae562c85b8e68",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "e3b306ff555ccc4678de8eca0790335e7bc655f742f7d991c95d9c828e7458c8"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:2a858dc5"
       }
     ]
   }

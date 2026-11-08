@@ -1,6 +1,6 @@
-import { isFixedObservedMeleeComboId, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
+import { isFixedObservedMeleeComboId, RADIANCE_OBSERVED_MELEE_COMBO_ID, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
-import { hasObservedMeleeDamage } from './observedMeleeCombo'
+import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './observedMeleeCombo'
 import { hasObservedMeleeComboGrant } from './observedMeleeComboReuse'
 import { isBuiltinProcMeleeId } from '../data/builtinProcMelee'
 import { builtinProcMeleeReuseIsEligible } from './builtinProcMeleeReuse'
@@ -71,7 +71,7 @@ const weaponEvidence = Object.values(WEAPONS).flatMap((weapon): readonly Paramet
   const hasFixedEffect = isBuiltinProcMeleeId(weapon.id) || isFixedObservedMeleeComboId(weapon.id)
   if ((isObservedMeleeComboId(weapon.id) && !hasObservedMeleeComboGrant(weapon.id)) || (isPlainMeleeId(weapon.id) && !plainMeleeReuseIsEligible(weapon.id)) || (isBuiltinProcMeleeId(weapon.id) && !builtinProcMeleeReuseIsEligible(weapon.id))) return ['internal-power-rating', 'area-rating', 'attack-timing', 'hit-sequence', 'base-soul-gathering', ...(hasFixedEffect ? ['fixed-builtin-ownership-tier'] : [])].map((parameterId) => unclassified(mechanicId, parameterId, `${weapon.name.ja} / ${parameterId}`, 'Own source/value/identity/complete intrinsic scopeのLimited reuse bindingが不一致。'))
   return [
-    ...(hasFixedEffect ? [{ mechanicId, parameterId: 'fixed-builtin-ownership-tier', label: `${weapon.name.ja} / fixed Built-in Tier I`, status: 'derived' as const, basis: 'Target-owned hash-bound calculator row + per-target Wiki Tier I; finite reviewed reuse grant.', conditions: weapon.id === SHARPNESS_OBSERVED_MELEE_COMBO_ID ? 'Single target/base cadence. Observation includes owned Sharpness I once.' : isFixedObservedMeleeComboId(weapon.id) ? 'Single target and observed ordinary complete combo, base cadence. Own Tier I conditional direct modifier.' : 'Single target/base cadence/no Void, existing proc Power range. Not a new Power or proc formula.', gameVersion: '1.17.0.0 publisher-claimed', confidence: 'medium' as const }] : []),
+    ...(hasFixedEffect ? [{ mechanicId, parameterId: 'fixed-builtin-ownership-tier', label: `${weapon.name.ja} / fixed Built-in Tier I`, status: 'derived' as const, basis: 'Target-owned hash-bound calculator row + per-target Wiki Tier I; finite reviewed reuse grant.', conditions: weapon.id === SHARPNESS_OBSERVED_MELEE_COMBO_ID ? 'Single target/base cadence. Observation includes owned Sharpness I once.' : weapon.id === RADIANCE_OBSERVED_MELEE_COMBO_ID ? 'Single target/base cadence. Fixed Radiance I uses its published per-hit chance and own observed self healing per activation.' : isFixedObservedMeleeComboId(weapon.id) ? 'Single target and observed ordinary complete combo, base cadence. Own Tier I conditional direct modifier.' : 'Single target/base cadence/no Void, existing proc Power range. Not a new Power or proc formula.', gameVersion: '1.17.0.0 publisher-claimed', confidence: 'medium' as const }] : []),
     fromEvidence(mechanicId, 'internal-power-rating', `${weapon.name.ja} / internal Power`, weapon.internalPowerRating),
     fromEvidence(mechanicId, 'area-rating', `${weapon.name.ja} / area`, weapon.area),
     fromEvidence(mechanicId, 'attack-timing', `${weapon.name.ja} / attack timing`, profile),
@@ -166,6 +166,9 @@ export function parameterEvidenceForBuild(build: Build): readonly ParameterEvide
     : [{ mechanicId: 'melee:observed-input', parameterId: observedCombo ? 'combo-damage' : 'damage-per-hit', label: observedCombo ? '入力済みコンボ全段ダメージ' : '入力済み表示damage', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: build.weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID ? '1.17.0.0の同じ個体・Power。固定の切れ味 I を含み、ほかの増幅を除いた単体への完全コンボ1周。' : observedCombo ? '1.17.0.0、単体への未強化の完全コンボ1周。同じ個体とPowerに限定。' : '登録した個体とPowerに限定。', gameVersion: 'user supplied', confidence: 'medium' } satisfies ParameterEvidence]
   return uniqueParameterEvidence([
     ...weaponParameters,
+    ...(build.weapon.weaponId === RADIANCE_OBSERVED_MELEE_COMBO_ID ? [observedFixedRadianceHeal(build.weapon) === undefined
+      ? unclassified('melee:suns-grace', 'radiance-heal-per-proc', '固定「輝き I」1回の自己回復量', 'この個体と現在のPowerでの自己回復量が未入力。')
+      : { mechanicId: 'melee:suns-grace', parameterId: 'radiance-heal-per-proc', label: '固定「輝き I」1回の自己回復量', status: 'measured', basis: '利用者が実物から入力した観測値。', conditions: '同じ個体・現在のPowerの固定「輝き I」。回復補正なし、十分にHPが減った状態での自己回復。', gameVersion: '1.17.0.0 user supplied', confidence: 'medium' } satisfies ParameterEvidence] : []),
     ...evidenceForMechanic(`melee:${build.weapon.weaponId}`),
     ...build.enchantments.flatMap((item) => evidenceForMechanic(`melee-enchantment:${item.enchantmentId}`)),
     ...(build.armor ? evidenceForMechanic(`armor:${build.armor.armorId}`) : []),

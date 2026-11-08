@@ -437,6 +437,8 @@ export interface OwnedWeapon {
   readonly observedDamagePerHit?: number
   /** Neutral direct-hit total for one complete combo, at this individual Power. */
   readonly observedComboDamage?: { readonly powerLevel: number; readonly total: number }
+  /** Uncapped self HP restored by one observed fixed Radiance I activation. */
+  readonly observedFixedRadiance?: { readonly powerLevel: number; readonly healPerProc: number }
   readonly enchantmentSlots: readonly EnchantmentSlot[]
   readonly gilded?: GildedEnchantment
   /** User-owned organization metadata; does not affect optimizer eligibility or score. */
