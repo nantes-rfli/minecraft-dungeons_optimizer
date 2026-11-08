@@ -7,6 +7,7 @@ import identity from '../../research/domain/formal/identity-evidence-v1.json' wi
 import { nativeRangedReference } from '../domain/rangedNative.ts'
 import type { RangedShotMode } from './rangedTypes'
 import { fixedPowerBowReuseIsEligible, isFixedPowerBow } from './fixedPowerBowReuse.ts'
+import { fixedRapidFireReuseIsEligible, isFixedRapidFireWeapon } from './fixedRapidFireReuse.ts'
 
 export type RangedReuseApproval = (typeof approvals.approvals)[number]
 /** Fail closed on undeclared targets, source/intrinsic/version/mode drift.
@@ -18,6 +19,7 @@ export function rangedReuseIsEligible(id: string, mode: RangedShotMode,
   snapshot: typeof source = source): boolean {
   if (id === 'rapid-crossbow') return mode === 'single' && rapidCrossbowReuseIsEligible(grants, snapshot)
   if (isFixedPowerBow(id)) return fixedPowerBowReuseIsEligible(id, mode, undefined, snapshot) && rangedReuseIsEligible('power-bow', mode, grants, snapshot)
+  if (isFixedRapidFireWeapon(id)) return fixedRapidFireReuseIsEligible(id, mode, undefined, snapshot) && (id === 'azure-seeker' || rangedReuseIsEligible('shortbow', mode, grants, snapshot))
   if (!['shortbow', 'longbow', 'power-bow', 'heavy-crossbow'].includes(id)
     || (id === 'heavy-crossbow' ? mode !== 'single' : mode !== 'charged' && mode !== 'uncharged')) return false
   // Each mode has its own grant: withdrawing an uncharged grant must not

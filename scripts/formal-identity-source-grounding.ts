@@ -30,6 +30,7 @@ import {
   fixedComboLocalizationFormalIdentities,
   fixedPowerBowLocalizationFormalIdentities,
   radianceComboLocalizationFormalIdentities,
+  fixedRapidFireLocalizationFormalIdentities,
   builtinProcLocalizationFormalIdentityInputs,
   reviewedLocalizationMeleeFormalIdentities,
   reviewedLocalizationMeleeFormalIdentityInputs,
@@ -964,13 +965,13 @@ export function collectFormalReviewedSourceGroundingErrors(sources: FormalReview
     check(definition.presentation.displayName === sourceDisplayName, `${definition.assertion.id}: presentation displayName drift`)
   }
 
-  check(formalIdentityDefinitions.length === 163, 'Formal identity definition population drift')
+  check(formalIdentityDefinitions.length === 165, 'Formal identity definition population drift')
   check(
     formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'fighters-bindings' || radianceComboLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || fixedComboLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || builtinProcLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedLocalizationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationMeleeFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === assertion.domainId)).length === 40,
     'Formal matched Melee definition population drift',
   )
   check(
-    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || fixedPowerBowLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'ranged' && input.domainId === assertion.domainId)).length === 29,
+    formalIdentityDefinitions.filter(({ assertion }) => assertion.domainId === 'scatter-crossbow' || fixedRapidFireLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || fixedPowerBowLocalizationFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || readyRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedBridgeRangedFormalIdentities.some((definition) => definition.assertion.id === assertion.id) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'ranged' && input.domainId === assertion.domainId)).length === 31,
     'Formal matched Ranged definition population drift',
   )
   check(

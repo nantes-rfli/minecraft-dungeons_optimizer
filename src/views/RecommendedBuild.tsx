@@ -7,7 +7,7 @@ import { getEnchantmentRuntimeSupport } from '../core/runtimeSupport'
 import { ARTIFACTS } from '../data/artifacts'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import { ENCHANTMENTS } from '../data/enchantments'
-import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { rangedEnchantmentName, RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
@@ -43,10 +43,10 @@ function ArmorEnchantmentList({ enchantments = [] }: { enchantments?: readonly S
 function RangedEnchantmentList({ enchantments = [] }: { enchantments?: readonly SelectedRangedEnchantment[] }) {
   if (enchantments.length === 0) return <p className="empty-equipment">Enchantなし</p>
   return <ul className="build-enchantments">{enchantments.map((selected, index) => {
-    const enchantment = RANGED_ENCHANTMENTS[selected.enchantmentId]
+    const name = rangedEnchantmentName(selected.enchantmentId)
     return <li key={`${selected.enchantmentId}-${selected.source}-${index}`}>
       <span className={`enchant-source ${selected.source}`}>{SOURCE_LABELS[selected.source]}</span>
-      <span>{enchantment?.name.ja ?? selected.enchantmentId} {TIER_LABELS[selected.tier]}<small lang="en">{enchantment?.name.en ?? selected.enchantmentId}</small></span>
+      <span>{name?.ja ?? selected.enchantmentId} {TIER_LABELS[selected.tier]}<small lang="en">{name?.en ?? selected.enchantmentId}</small></span>
     </li>
   })}</ul>
 }
@@ -148,7 +148,7 @@ function describeBuildEquipment(evaluation: Evaluation) {
     {
       label: '遠距離',
       value: ranged
-        ? `${RANGED_WEAPONS[ranged.weaponId]?.name.ja ?? ranged.weaponId} · Power ${ranged.powerLevel} · ${describeEnchantments(build.rangedEnchantments ?? [], (id) => RANGED_ENCHANTMENTS[id]?.name.ja)}`
+        ? `${RANGED_WEAPONS[ranged.weaponId]?.name.ja ?? ranged.weaponId} · Power ${ranged.powerLevel} · ${describeEnchantments(build.rangedEnchantments ?? [], (id) => rangedEnchantmentName(id)?.ja)}`
         : 'なし',
     },
     {

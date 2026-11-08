@@ -28,6 +28,7 @@ import { resolveBuildHealth } from './armor'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { ArmorEnchantmentId, ArmorId } from './armor'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { FIXED_RAPID_FIRE } from './fixedRapidFireReuse'
 import { isPlainMeleeId } from '../data/plainMelee'
 import { PLAIN_MELEE_LIMITATION } from './plainMeleeReuse'
 
@@ -133,7 +134,10 @@ function calculateContributions(
     const armorEnchantments = build.armorEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return toContribution('armor-enchantment', selected.enchantmentId, baseline, calculateCore({ ...build, armorEnchantments }, scenario))
   })
-  const rangedContributions = (build.rangedEnchantments ?? []).map((selected, index) => {
+  const rangedContributions = (build.rangedEnchantments ?? []).flatMap((selected, index) => {
+    // The observed cycle already includes Rapid Fire. Its counterfactual
+    // complete cycle is unobserved, so no separate delta can be computed.
+    if (selected.source === 'built-in' && selected.enchantmentId === FIXED_RAPID_FIRE.enchantmentId) return []
     const rangedEnchantments = build.rangedEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return { ...toContribution('ranged-enchantment', selected.enchantmentId as EffectContribution['sourceId'], baseline, calculateCore({ ...build, rangedEnchantments }, scenario)), ...(selected.source === 'built-in' ? { enchantmentSource: 'built-in' as const } : {}) }
   })

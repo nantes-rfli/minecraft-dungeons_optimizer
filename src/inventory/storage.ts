@@ -1,6 +1,6 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { RADIANCE_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
-import { isFixedPowerBow } from '../core/fixedPowerBowReuse'
+import { requiresBoundRangedObservation } from '../core/rangedFixedEffects'
 import { parseCatalogResearch } from '../core/catalogResearch'
 import { ARTIFACTS } from '../data/artifacts'
 import { WEAPONS } from '../data/weapons'
@@ -29,7 +29,7 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
 const LIMITED_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander']
 const migratesLimitedMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && (LIMITED_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId) || isObservedMeleeComboId(item.catalogId))
-const migratesLimitedRanged = (item: { category: string; catalogId: string }) => item.category === 'ranged' && (item.catalogId === 'rapid-crossbow' || isFixedPowerBow(item.catalogId))
+const migratesLimitedRanged = (item: { category: string; catalogId: string }) => item.category === 'ranged' && (item.catalogId === 'rapid-crossbow' || requiresBoundRangedObservation(item.catalogId))
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>
   item.category === 'armor' && DARK_ARMOR_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 

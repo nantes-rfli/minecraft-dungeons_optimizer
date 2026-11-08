@@ -1,6 +1,7 @@
 import sharpnessComboSource from '../../../research/sources/observed-sharpness-combo-source.json' with { type: 'json' }
 import radianceComboSource from '../../../research/sources/observed-radiance-combo-source.json' with { type: 'json' }
 import fixedPowerBowSource from '../../../research/sources/observed-fixed-power-bows.json' with { type: 'json' }
+import fixedRapidFireSource from '../../../research/sources/observed-rapid-fire-variants.json' with { type: 'json' }
 import fixedComboSource from '../../../research/sources/fixed-observed-melee-combo-source.json' with { type: 'json' }
 import type { FormalIdentityDefinition, IdentityAssertion, IdentityPresentation, ReviewedEvidenceInput } from './identityEvidence.ts'
 
@@ -375,6 +376,19 @@ export const radianceComboLocalizationFormalIdentities = radianceComboSource.row
   }
 })
 
+export const fixedRapidFireLocalizationFormalIdentities = fixedRapidFireSource.rows.map((row) => {
+  const base = acceptedRangedDefinition({ domainId: row.id, rawIdentity: row.rawIdentity, packagePath: row.packagePath, displayName: row.displayName })
+  const ref = `evidence:reviewed:${row.id}:exact-localization-key`
+  return {
+    ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `Hash-bound ItemType/${row.rawIdentity} names ${row.displayName}. Both Raw serialized identifiers are required.`,
+      source: { artifactPath: 'research/sources/observed-rapid-fire-variants.json', locator: `rows[id=${row.id}].localization` },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -690,6 +704,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...fixedComboLocalizationFormalIdentities,
   ...fixedPowerBowLocalizationFormalIdentities,
   ...radianceComboLocalizationFormalIdentities,
+  ...fixedRapidFireLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [

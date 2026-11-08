@@ -5055,6 +5055,68 @@
             "evidence:presentation:suns-grace:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:azure-seeker@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Crossbow_Unique2",
+            "evidenceRef": "evidence:raw:identity:azure-seeker@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Crossbow_Unique2",
+            "evidenceRef": "evidence:raw:identity:azure-seeker@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:azure-seeker@1",
+          "domainId": "azure-seeker",
+          "evidenceRefs": [
+            "evidence:raw:identity:azure-seeker@1:ItemIdName",
+            "evidence:raw:identity:azure-seeker@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "azure-seeker",
+          "displayName": "Azure Seeker",
+          "evidenceRefs": [
+            "evidence:presentation:azure-seeker:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:purple-storm@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Shortbow_Unique1",
+            "evidenceRef": "evidence:raw:identity:purple-storm@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Shortbow_Unique1",
+            "evidenceRef": "evidence:raw:identity:purple-storm@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:purple-storm@1",
+          "domainId": "purple-storm",
+          "evidenceRefs": [
+            "evidence:raw:identity:purple-storm@1:ItemIdName",
+            "evidence:raw:identity:purple-storm@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "purple-storm",
+          "displayName": "Purple Storm",
+          "evidenceRefs": [
+            "evidence:presentation:purple-storm:ranged-audit"
+          ]
+        }
       }
     ]
   },
@@ -8192,6 +8254,46 @@
       "evidenceRefs": [
         "evidence:reviewed:suns-grace:accepted-alias",
         "evidence:reviewed:suns-grace:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:azure-seeker@1",
+      "rawIdentity": "Crossbow_Unique2",
+      "domainId": "azure-seeker",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:azure-seeker:accepted-alias",
+        "evidence:reviewed:azure-seeker:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:purple-storm@1",
+      "rawIdentity": "Shortbow_Unique1",
+      "domainId": "purple-storm",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:purple-storm:accepted-alias",
+        "evidence:reviewed:purple-storm:exact-localization-key"
       ]
     }
   ],
@@ -19069,6 +19171,156 @@
           "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:2a858dc5"
+      },
+      {
+        "id": "evidence:reviewed:azure-seeker:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Crossbow_Unique2]"
+        },
+        "fingerprint": "fnv1a32:6e470c44"
+      },
+      {
+        "id": "evidence:presentation:azure-seeker:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=azure-seeker].name.en"
+        },
+        "fingerprint": "fnv1a32:c9dbfef4"
+      },
+      {
+        "id": "evidence:reviewed:azure-seeker:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Crossbow_Unique2 names Azure Seeker. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-rapid-fire-variants.json",
+          "locator": "rows[id=azure-seeker].localization"
+        },
+        "fingerprint": "fnv1a32:38085933"
+      },
+      {
+        "id": "evidence:raw:identity:azure-seeker@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Crossbow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:07e2651ccca65af045e016494ae8341542b1e65c2d8588e64f83aec870e09d6c",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9c3877f24bd64c0a74c2e89a9c8d072638ecbcea66634cca3d9b4970afbde838"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:e72d9e9e"
+      },
+      {
+        "id": "evidence:raw:identity:azure-seeker@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Crossbow_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-023.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:07e2651ccca65af045e016494ae8341542b1e65c2d8588e64f83aec870e09d6c",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "9c3877f24bd64c0a74c2e89a9c8d072638ecbcea66634cca3d9b4970afbde838"
+          },
+          "nodePointer": "/packages/1/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0467f5dc"
+      },
+      {
+        "id": "evidence:reviewed:purple-storm:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Shortbow_Unique1]"
+        },
+        "fingerprint": "fnv1a32:39c9a09a"
+      },
+      {
+        "id": "evidence:presentation:purple-storm:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=purple-storm].name.en"
+        },
+        "fingerprint": "fnv1a32:6256bfbe"
+      },
+      {
+        "id": "evidence:reviewed:purple-storm:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Shortbow_Unique1 names Purple Storm. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-rapid-fire-variants.json",
+          "locator": "rows[id=purple-storm].localization"
+        },
+        "fingerprint": "fnv1a32:8c5374a9"
+      },
+      {
+        "id": "evidence:raw:identity:purple-storm@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Shortbow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-026.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b90eb266c3c4dd105215529ca6b95a402e27e18f60128918a521572f44e29e69",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4c2274ab743ff1ab1f40b52857201ff115b54e9a89efd59423c1d213876605f6"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/5"
+        },
+        "fingerprint": "fnv1a32:e395ba2b"
+      },
+      {
+        "id": "evidence:raw:identity:purple-storm@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Shortbow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-026.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b90eb266c3c4dd105215529ca6b95a402e27e18f60128918a521572f44e29e69",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "4c2274ab743ff1ab1f40b52857201ff115b54e9a89efd59423c1d213876605f6"
+          },
+          "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/6/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:e6c671e9"
       }
     ]
   }

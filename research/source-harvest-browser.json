@@ -5308,7 +5308,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"azure-seeker\",\"names\":{\"en\":\"Azure Seeker\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"azure-seeker\",\"names\":{\"en\":\"Azure Seeker\",\"ja\":\"アズールシーカー\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -5373,7 +5373,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Built in: Rapid Fire\"],\"inherited\":[\"Faster Projectiles\"],\"families\":[\"cadence\",\"projectile-velocity\"],\"support\":\"research-only\",\"completeMechanicVe…",
+          "value": "{\"own\":[\"Built in: Rapid Fire\"],\"inherited\":[\"Faster Projectiles\"],\"families\":[\"cadence\",\"projectile-velocity\"],\"support\":\"limited\",\"completeMechanicVerifica…",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -17208,7 +17208,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"purple-storm\",\"names\":{\"en\":\"Purple Storm\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"purple-storm\",\"names\":{\"en\":\"Purple Storm\",\"ja\":\"パープルストーム\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -17273,7 +17273,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Built in: Rapid Fire\"],\"inherited\":[],\"families\":[\"cadence\"],\"support\":\"research-only\",\"completeMechanicVerification\":false}",
+          "value": "{\"own\":[\"Built in: Rapid Fire\"],\"inherited\":[],\"families\":[\"cadence\"],\"support\":\"limited\",\"completeMechanicVerification\":false}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [

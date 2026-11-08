@@ -5074,19 +5074,24 @@
       "id": "ranged-weapon:Crossbow_Unique2",
       "rawIdentity": "Crossbow_Unique2",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:azure-seeker"
+      ],
+      "basis": "serialized-item-id + reviewed-package-and-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "research/sources/ranged-source-snapshot.json#/weapons/rows[id=azure-seeker]"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-crossbow-unique2-instance-0fda2444075c1cd9",
         "bulk-bp-crossbow-unique2-instance-6313b0d69f5e9a64"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:azure-seeker"
     },
     {
       "id": "ranged-weapon:DualCrossbows",
@@ -5768,19 +5773,24 @@
       "id": "ranged-weapon:Shortbow_Unique1",
       "rawIdentity": "Shortbow_Unique1",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:purple-storm"
+      ],
+      "basis": "serialized-item-id + reviewed-package-and-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "research/sources/ranged-source-snapshot.json#/weapons/rows[id=purple-storm]"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-shortbow-unique1-instance-30f6f05181627abb",
         "bulk-bp-shortbow-unique1-instance-6094152af200dea6"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:purple-storm"
     },
     {
       "id": "ranged-weapon:Shortbow_Unique2",

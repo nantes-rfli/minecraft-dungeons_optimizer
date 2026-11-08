@@ -978,23 +978,23 @@
       "population": 71,
       "runtime": {
         "full": 0,
-        "limited": 9,
-        "researchOnly": 62,
+        "limited": 11,
+        "researchOnly": 60,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 102,
+        "total": 108,
         "evidenceBlocked": 3,
         "notImplemented": 1,
-        "unclassified": 98,
+        "unclassified": 104,
         "priorities": {
           "P0": 1,
           "P1": 2,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 98,
+        "unprioritized": 104,
         "p1EvidenceBlocked": 2
       },
       "sourceRefs": [
@@ -35373,7 +35373,7 @@
       "category": "ranged-weapon",
       "id": "azure-seeker",
       "label": "Azure Seeker",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -35391,9 +35391,9 @@
               "id": "azure-seeker",
               "name": {
                 "en": "Azure Seeker",
-                "ja": null
+                "ja": "アズールシーカー"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": "crossbow",
               "variantOf": "crossbow",
               "family": "crossbow",
@@ -35438,7 +35438,7 @@
                   "cadence",
                   "projectile-velocity"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -35460,16 +35460,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:azure-seeker:runtime:0"
+        "ranged-weapon:azure-seeker:runtime:0",
+        "ranged-weapon:azure-seeker:runtime:1",
+        "ranged-weapon:azure-seeker:runtime:2",
+        "ranged-weapon:azure-seeker:runtime:3"
       ]
     },
     {
@@ -35761,7 +35767,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -36784,7 +36790,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -37200,7 +37206,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -38119,7 +38125,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -38634,7 +38640,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -39252,7 +39258,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -39358,7 +39364,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -39481,7 +39487,7 @@
       "category": "ranged-weapon",
       "id": "purple-storm",
       "label": "Purple Storm",
-      "runtimeSupport": "research-only",
+      "runtimeSupport": "limited",
       "runtimeSourceRef": "src/data/ranged.ts",
       "evidence": {
         "confidence": "medium",
@@ -39499,9 +39505,9 @@
               "id": "purple-storm",
               "name": {
                 "en": "Purple Storm",
-                "ja": null
+                "ja": "パープルストーム"
               },
-              "japaneseNameStatus": "not-yet-verified",
+              "japaneseNameStatus": "runtime-label",
               "baseWeaponId": "shortbow",
               "variantOf": "shortbow",
               "family": "shortbow",
@@ -39543,7 +39549,7 @@
                 "families": [
                   "cadence"
                 ],
-                "support": "research-only",
+                "support": "limited",
                 "completeMechanicVerification": false
               },
               "rawRatings": [
@@ -39565,16 +39571,22 @@
               },
               "confidence": "medium",
               "auditStatus": "population-reconciled-mechanics-partial",
-              "supportLevel": "research-only",
+              "supportLevel": "limited",
               "blockers": [
-                "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+                "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+                "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
               ]
             }
           }
         ]
       },
       "blockerIds": [
-        "ranged-weapon:purple-storm:runtime:0"
+        "ranged-weapon:purple-storm:runtime:0",
+        "ranged-weapon:purple-storm:runtime:1",
+        "ranged-weapon:purple-storm:runtime:2",
+        "ranged-weapon:purple-storm:runtime:3"
       ]
     },
     {
@@ -39667,7 +39679,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -40278,7 +40290,7 @@
               "auditStatus": "population-reconciled-mechanics-partial",
               "supportLevel": "limited",
               "blockers": [
-                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+                "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
                 "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
                 "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
                 "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
@@ -53989,12 +54001,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/2"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:azure-seeker:runtime:1",
+      "label": "Azure Seeker",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:azure-seeker"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/2"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:azure-seeker:runtime:2",
+      "label": "Azure Seeker",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:azure-seeker"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/2"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:azure-seeker:runtime:3",
+      "label": "Azure Seeker",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:azure-seeker"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/2"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:baby-crossbows:runtime:0",
@@ -54065,7 +54134,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/5"
@@ -54293,7 +54362,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/15"
@@ -54426,7 +54495,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/19"
@@ -54654,7 +54723,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/28"
@@ -54806,7 +54875,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/33"
@@ -54977,7 +55046,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/39"
@@ -55053,7 +55122,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/40"
@@ -55148,12 +55217,69 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/42"
       ],
-      "supportContext": "research-only"
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:purple-storm:runtime:1",
+      "label": "Purple Storm",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:purple-storm"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/42"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:purple-storm:runtime:2",
+      "label": "Purple Storm",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:purple-storm"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/42"
+      ],
+      "supportContext": "limited"
+    },
+    {
+      "id": "ranged-weapon:purple-storm:runtime:3",
+      "label": "Purple Storm",
+      "categories": [
+        "ranged-weapon"
+      ],
+      "recordKeys": [
+        "ranged-weapon:purple-storm"
+      ],
+      "kind": "unclassified",
+      "priority": null,
+      "origin": "runtime",
+      "description": "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。",
+      "closeCondition": null,
+      "sourceRefs": [
+        "research/ranged-weapon-audit.json#/entries/42"
+      ],
+      "supportContext": "limited"
     },
     {
       "id": "ranged-weapon:rapid-crossbow:runtime:0",
@@ -55167,7 +55293,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/43"
@@ -55338,7 +55464,7 @@
       "kind": "unclassified",
       "priority": null,
       "origin": "runtime",
-      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+      "description": "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
       "closeCondition": null,
       "sourceRefs": [
         "research/ranged-weapon-audit.json#/entries/49"
@@ -55803,17 +55929,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 582,
+    "total": 588,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 550,
+    "unclassified": 556,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 556,
+    "unprioritized": 562,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {

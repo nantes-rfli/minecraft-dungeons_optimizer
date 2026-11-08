@@ -3,6 +3,8 @@ import { parseCatalogResearch } from './catalogResearch'
 import rangedSource from '../../research/sources/ranged-source-snapshot.json' with { type: 'json' }
 import { rangedReuseIsEligible } from './rangedReuse'
 import { FIXED_RANGED_POWER, isFixedPowerBow } from './fixedPowerBowReuse'
+import { FIXED_RAPID_FIRE, isFixedRapidFireWeapon } from './fixedRapidFireReuse'
+import { rangedFixedEffect, rangedObservationMatchesPower, requiresBoundRangedObservation } from './rangedFixedEffects'
 import type { ReadinessIssue } from './readiness'
 import { ARMORS } from '../data/armors'
 import { RANGED_ENCHANTMENTS, RANGED_LIMITATIONS, RANGED_WEAPONS, isRuntimeRangedEnchantment, isRuntimeRangedWeapon } from '../data/ranged'
@@ -15,8 +17,9 @@ const fail = (message: string): never => { throw new OptimizerInputError('INVALI
 const record = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value)
 const text = (value: unknown, field: string): string => typeof value === 'string' && value.trim() ? value : fail(`${field}: 空でない文字列が必要です。`)
 const number = (value: unknown, field: string, minimum: number, integer = false): number => typeof value === 'number' && Number.isFinite(value) && value >= minimum && (!integer || Number.isSafeInteger(value)) ? value : fail(`${field}: ${minimum}以上の有限${integer ? '整数' : '数値'}が必要です。`)
-const fixedPowerObservationMissing = (weapon: OwnedRangedWeapon) => isFixedPowerBow(weapon.weaponId) && weapon.observation?.fixedPowerObservation?.powerLevel !== weapon.powerLevel
-const fixedPowerObservationMessage = (weapon: OwnedRangedWeapon) => `${weapon.weaponId}: 現在のPowerで固定パワー I を含む通常矢ダメージの観測が必要です。`
+const fixedObservationMessage = (weapon: OwnedRangedWeapon) => isFixedPowerBow(weapon.weaponId)
+  ? `${weapon.weaponId}: 現在のPowerで固定パワー I を含む通常矢ダメージの観測が必要です。`
+  : `${weapon.weaponId}: 現在のPowerで固定「速射 I」を含む完全発射周期の観測が必要です。`
 function roll(value: unknown): RangedRoll {
   if (!record(value)) return fail('Ranged Enchant roll形式が不正です。')
   const id = text(value.enchantmentId, 'enchantmentId')
@@ -52,9 +55,12 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
     if (!record(item) || item.gameVersion !== '1.17.0.0' || !['uncharged', 'charged', 'single'].includes(item.mode as string)) return fail('Ranged observationのversion/modeが不正です。')
     const fixed = item.fixedPowerObservation
     if (fixed !== undefined && (!isFixedPowerBow(weaponId) || !record(fixed))) return fail('固定パワー I の観測形式または装備が不正です。')
+    const cadence = item.fixedCadenceObservation
+    if (cadence !== undefined && (!isFixedRapidFireWeapon(weaponId) || !record(cadence))) return fail('固定「速射 I」の観測形式または装備が不正です。')
     observation = { gameVersion: '1.17.0.0', mode: item.mode as RangedShotMode,
       projectileDamage: number(item.projectileDamage, 'projectileDamage', Number.EPSILON),
       ...(record(fixed) ? { fixedPowerObservation: { powerLevel: number(fixed.powerLevel, 'fixedPowerObservation.powerLevel', 1, true) } } : {}),
+      ...(record(cadence) ? { fixedCadenceObservation: { powerLevel: number(cadence.powerLevel, 'fixedCadenceObservation.powerLevel', 1, true) } } : {}),
       shotCycleSeconds: number(item.shotCycleSeconds, 'shotCycleSeconds', Number.EPSILON),
       ...(item.arrowsConsumedPerShot === undefined ? {} : { arrowsConsumedPerShot: number(item.arrowsConsumedPerShot, 'arrowsConsumedPerShot', 0, true) }),
       availableAmmo: number(item.availableAmmo, 'availableAmmo', 0, true), sourceNote: text(item.sourceNote, 'sourceNote') }
@@ -73,12 +79,15 @@ export function rangedWeaponIssues(weapon: OwnedRangedWeapon): readonly Readines
   if (!isRuntimeRangedWeapon(weapon.weaponId)) return [{ kind: 'unsupported', message: `${weapon.weaponId}: Research-only。固有効果を無視した評価はできません。` }]
   const issues: ReadinessIssue[] = []
   const fixedPower = isFixedPowerBow(weapon.weaponId)
+  const rapidFire = isFixedRapidFireWeapon(weapon.weaponId)
   const damageInput = fixedPower ? '現在のPowerで固定パワー I を含む通常矢ダメージ' : 'neutral projectile damage'
   const damageField = fixedPower ? '固定パワー I を含み、ほかの増幅を除いた同じ個体・現在のPower・同じ発射モードの1矢ダメージ' : '補正のない通常矢1本のダメージ（正の有限値）'
-  if (!weapon.observation) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: ${damageInput}・完全発射周期・矢数・観測メモが必要です。`, target: 'equipment', fields: [damageField, '完全発射周期（秒、charge/recovery込み、正の有限値）', '戦闘中の通常矢数（0以上の整数、補給なし）', '発射モードとゲーム版1.17.0.0の観測メモ / 出典'] })
+  const cycleInput = rapidFire ? '固定「速射 I」を含む完全発射周期' : '完全発射周期'
+  const cycleField = `${cycleInput}（秒、charge/recovery込み、正の有限値）`
+  if (!weapon.observation) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: ${damageInput}・${cycleInput}・矢数・観測メモが必要です。`, target: 'equipment', fields: [damageField, cycleField, '戦闘中の通常矢数（0以上の整数、補給なし）', '発射モードとゲーム版1.17.0.0の観測メモ / 出典'] })
   else if (!RANGED_WEAPONS[weapon.weaponId]!.modes.includes(weapon.observation.mode)) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: shot modeが一致しません。`, target: 'equipment', fields: [`発射モード: ${RANGED_WEAPONS[weapon.weaponId]!.modes.join(' / ')}`] })
   else if (weapon.weaponId !== 'bow' && weapon.weaponId !== 'crossbow' && !rangedReuseIsEligible(weapon.weaponId, weapon.observation.mode)) issues.push({ kind: 'unsupported', message: `${weapon.weaponId}: source-bound Limited reuse条件が一致しません。観測値だけでは解決しません。` })
-  if (weapon.observation && fixedPowerObservationMissing(weapon)) issues.push({ kind: 'input-required', message: fixedPowerObservationMessage(weapon), target: 'equipment', fields: [damageField] })
+  if (weapon.observation && !rangedObservationMatchesPower(weapon)) issues.push({ kind: 'input-required', message: fixedObservationMessage(weapon), target: 'equipment', fields: [fixedPower ? damageField : cycleField] })
   const ammoIssue = rangedAmmoObservationIssue(weapon)
   if (ammoIssue) issues.push(ammoIssue)
   for (const [index, slot] of weapon.enchantmentSlots.entries()) {
@@ -104,7 +113,7 @@ export function rangedAmmoObservationIssue(weapon: OwnedRangedWeapon): Readiness
   return undefined
 }
 
-export const requiresExplicitRangedAmmoCost = (id: string) => id === 'rapid-crossbow' || isFixedPowerBow(id)
+export const requiresExplicitRangedAmmoCost = (id: string) => id === 'rapid-crossbow' || requiresBoundRangedObservation(id)
 
 /** Passive Research cannot silently lose known fixed/selected effects. */
 function rangedResearchIssue(weapon: OwnedRangedWeapon, selectedEnchantments?: readonly SelectedRangedEnchantment[]): string | undefined {
@@ -124,11 +133,12 @@ function rangedResearchIssue(weapon: OwnedRangedWeapon, selectedEnchantments?: r
   })
   if (new Set(keys).size !== keys.length || fixed.filter((entry) => entry.source === 'gilded').length > 1 || unmatched
     || fixed.some((entry) => {
-      const owned = entry.source === 'built-in' ? (isFixedPowerBow(weapon.weaponId) ? FIXED_RANGED_POWER : undefined) : weapon.gilded
+      const owned = entry.source === 'built-in' ? rangedFixedEffect(weapon.weaponId) : weapon.gilded
       return entry.enchantmentId !== owned?.enchantmentId || entry.tier !== owned?.tier
     })) return 'UNSUPPORTED_RANGED_RESEARCH: 旧ResearchのEnchantと個体入力が未整合です。記録を明示的に確認・修正してください。'
   const facts = rangedSource.weapons.rows.find((entry) => entry.id === weapon.weaponId)?.facts.slice(3) ?? []
   if (isFixedPowerBow(weapon.weaponId)) facts.push('Strong Charged Attacks')
+  if (weapon.weaponId === 'azure-seeker') facts.push('Faster Projectiles')
   if (research.intrinsicProperties?.some((entry) => entry.kind !== 'intrinsicMechanicOwnership' || !facts?.includes(entry.raw))) return 'UNSUPPORTED_RANGED_RESEARCH: 旧Researchの未対応固有効果を無視して評価できません。'
   return undefined
 }
@@ -144,7 +154,8 @@ export function rangedOptions(weapon: OwnedRangedWeapon): readonly SelectedRange
     return slot.selected ? [slot.selected] : locked ? candidates.filter((candidate) => candidate.enchantmentId === locked) : candidates
   })
   const products = groups.reduce<RangedRoll[][]>((out, group) => out.flatMap((product) => group.map((item) => [...product, item])), [[]])
-  return products.map((items) => [...items.map((item) => ({ ...item, source: 'slot' as const })), ...(weapon.gilded ? [{ ...weapon.gilded, source: 'gilded' as const }] : []), ...(isFixedPowerBow(weapon.weaponId) ? [FIXED_RANGED_POWER] : [])])
+  const fixed = rangedFixedEffect(weapon.weaponId)
+  return products.map((items) => [...items.map((item) => ({ ...item, source: 'slot' as const })), ...(weapon.gilded ? [{ ...weapon.gilded, source: 'gilded' as const }] : []), ...(fixed ? [fixed] : [])])
     .filter((items) => new Set(items.map((item) => item.enchantmentId)).size === items.length)
 }
 
@@ -190,7 +201,7 @@ export function calculateRangedDamage(build: Build, scenario: Scenario): RangedD
   if (!build.rangedWeapon) return undefined
   const ammoIssue = rangedAmmoObservationIssue(build.rangedWeapon)
   if (ammoIssue) fail(ammoIssue.message)
-  if (fixedPowerObservationMissing(build.rangedWeapon)) fail(fixedPowerObservationMessage(build.rangedWeapon))
+  if (!rangedObservationMatchesPower(build.rangedWeapon)) fail(fixedObservationMessage(build.rangedWeapon))
   const observation = build.rangedWeapon.observation!
   const fixedPower = isFixedPowerBow(build.rangedWeapon.weaponId)
   // Relative to the observed hit, remove its included Power I multiplier.
@@ -202,6 +213,8 @@ export function calculateRangedDamage(build: Build, scenario: Scenario): RangedD
   const possibleShots = Math.floor(shotBudget + Math.min(1e-9, shotBudget * Number.EPSILON * 4))
   const shots = Math.min(observation.availableAmmo, possibleShots)
   const expectedMultiplier = (build.rangedEnchantments ?? []).reduce((multiplier, item) => {
+    // Fixed Rapid Fire I is already present in the observed complete cycle.
+    if (item.source === 'built-in' && item.enchantmentId === FIXED_RAPID_FIRE.enchantmentId) return multiplier
     const definition = RANGED_ENCHANTMENTS[item.enchantmentId]!
     const value = definition.tiers[item.tier]
     return multiplier * (1 + value * (definition.kind === 'triple-hit-chance' ? 2 : definition.kind === 'enchanted-bonus' ? scenario.enemyComposition.enchantedShare : 1))
