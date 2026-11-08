@@ -134,7 +134,7 @@ function calculateContributions(
   })
   const rangedContributions = (build.rangedEnchantments ?? []).map((selected, index) => {
     const rangedEnchantments = build.rangedEnchantments!.filter((_, currentIndex) => currentIndex !== index)
-    return toContribution('ranged-enchantment', selected.enchantmentId as EffectContribution['sourceId'], baseline, calculateCore({ ...build, rangedEnchantments }, scenario))
+    return { ...toContribution('ranged-enchantment', selected.enchantmentId as EffectContribution['sourceId'], baseline, calculateCore({ ...build, rangedEnchantments }, scenario)), ...(selected.source === 'built-in' ? { enchantmentSource: 'built-in' as const } : {}) }
   })
   return [...enchantmentContributions, ...artifactContributions, ...armorEnchantmentContributions, ...rangedContributions].sort(
     (left, right) => right.objectiveDelta - left.objectiveDelta,

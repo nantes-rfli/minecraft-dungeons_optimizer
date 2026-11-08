@@ -90,7 +90,7 @@ export function buildRangedWeaponAudit() {
       aliases: [{ primary: 'Burst Gale Bow', secondary: 'Burst Gust Bow', normalizedId: 'burst-gale-bow', note: 'Shared Wind Bow variant relationship; preserve both labels.' }],
       excluded: ['Unused/mob-only definitions outside the hero display list'], exhaustiveRawGameIdClaim: false,
       rarityDifferences: entries.filter((entry) => entry.eventExclusive && entry.primaryRarity === 'Common').map((entry) => entry.id), secondaryNames: secondaryIds.map(alias) },
-    selection: { promotedIds: Object.keys(RANGED_WEAPONS).filter(isRuntimeRangedWeapon), rationale: 'Bow/Crossbow plus five source-bound Existing Limited single-projectile reuses; Rapid Crossbow requires an explicit one-arrow-per-shot observation. Shortbow/Longbow/Power Bow permit separately granted uncharged/charged modes; target mode-specific neutral damage and complete cycle observations required. Native CDO values never supply runtime damage/cadence.', powerFallback: false, independentMeasuredRuns: 0 }, entries }
+    selection: { promotedIds: Object.keys(RANGED_WEAPONS).filter(isRuntimeRangedWeapon), rationale: 'Bow/Crossbow plus seven source-bound Existing Limited single-projectile reuses. Rapid Crossbow and fixed Power I variants require explicit one-arrow-per-shot observations. Chargeable bows require target mode-specific damage and complete cycle observations. Fixed Power I variants require damage including the fixed effect at the current equipment Power. Native CDO values never supply runtime damage/cadence.', powerFallback: false, independentMeasuredRuns: 0 }, entries }
 }
 
 const families: Record<string, string[]> = {

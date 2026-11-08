@@ -7,7 +7,7 @@ Population reconciliation and the observation-driven MVP are implemented. This P
 - 2-5A: population 71/71 reconciled; taxonomy and Japanese names partial.
 - 2-5B: typed projectile/attack boundary and finite observation-driven rate; built-in measured profiles pending.
 - 2-5C: primary 38 / secondary 41 / union 41; initial tier/trigger audit, unresolved stack/Tier/channel fields explicit.
-- 2-5D: Bow / Shortbow / Longbow / Power Bow (uncharged/charged), Crossbow / Heavy Crossbow / Rapid Crossbow (single). Full 0, Limited 7, Research-only 64; [11 weapon/mode pairs](ranged-observed-modes.md).
+- 2-5D: Bow / Shortbow / Longbow / Power Bow / Elite Power Bow / Phantom Bow (uncharged/charged), Crossbow / Heavy Crossbow / Rapid Crossbow (single). Full 0, Limited 9, Research-only 62; 15 weapon/mode pairs.
 - 2-5E: inventory → evaluate → optimize → explanations, actual Tier rolls, locks, Gilded I–III, historical JSON v2 (current writes v6).
 - 2-5F: common read-model adapter, structured backlog, three protocols, generated reports and CI checks.
 
@@ -30,12 +30,12 @@ Every evaluated ranged instance requires `observation`:
 | Field | Meaning |
 | --- | --- |
 | gameVersion | Exactly 1.17.0.0, user-declared |
-| mode | Bow / Shortbow / Longbow / Power Bow uncharged or charged; Crossbow / Heavy Crossbow / Rapid Crossbow single |
+| mode | Bow / Shortbow / Longbow / Power Bow / Elite Power Bow / Phantom Bow uncharged or charged; Crossbow / Heavy Crossbow / Rapid Crossbow single |
 | projectileDamage | Neutral damage of one normal projectile, before selectable Enchants, Armor, Strength and target DR; may be read from the matching card/neutral hit |
 | shotCycleSeconds | Complete measured cycle including charge, release, reload and recovery to the next ready state |
 | availableAmmo | Explicit finite number of normal arrows available in the encounter, no replenishment |
 | sourceNote | User observation provenance; not a verification certificate |
-| arrowsConsumedPerShot | Required for Rapid Crossbow: target mode-owned observed consumption must be 1. Missing is input-required; any explicit value other than 1 is unsupported on every registered Ranged weapon |
+| arrowsConsumedPerShot | Required for Rapid Crossbow, Elite Power Bow and Phantom Bow: target mode-owned observed consumption must be 1. Missing is input-required; any explicit value other than 1 is unsupported on every registered Ranged weapon |
 
 Power is stored as individual equipment metadata. There is no ranged Power curve, extrapolation, multiplier from melee, card-range midpoint or inferred cadence. Charged and uncharged observations must not be mixed. Mode changes clear draft damage/cycle/note while retaining known ammo; saved observations remain unchanged until valid Apply. The UI does not prefill observed numbers. Rapid additionally requires explicit observed consumption of one normal arrow per complete shot. Ammo stock 0 does not waive that requirement; Native ResourceCost remains unknown. Mode changes also clear this mode-owned consumption draft. See the [bounded reuse contract](rapid-crossbow-runtime-reuse.md).
 
@@ -61,7 +61,7 @@ Unsupported free-slot alternatives exclude the whole ranged item; locking a supp
 
 No Armor or Armor Enchant is promoted just because Ranged exists. Existing weapon-damage aura, Life Steal, Soul Gathering and Cowardice combinations are rejected with Ranged until channel/stacking evidence is available. Pure existing armor health/defense/cooldown properties keep their current constraints. Hunter/Archer ranged bonuses, arrow/ammo properties and projectile enchants remain Research-only. The existing Armor support manifest is unchanged.
 
-Unique weapons remain Research-only: their own published effects and base inheritance are retained separately, never ignored to obtain a base weapon score. Some index properties are incomplete (e.g. an index may expose only one intrinsic). `completeMechanicVerification: false` explicitly prevents interpreting the taxonomy as a complete unique simulator.
+[Elite Power Bow and Phantom Bow](observed-fixed-power-bow-reuse.md) model their own fixed Power I and observed mode effects. Other unique weapons remain Research-only, with published effects and base inheritance retained separately. Some index properties are incomplete (e.g. an index may expose only one intrinsic). `completeMechanicVerification: false` explicitly prevents interpreting the taxonomy as a complete unique simulator.
 
 ## Persistence and coverage
 

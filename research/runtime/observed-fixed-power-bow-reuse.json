@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "runtimeSupport": "limited",
+  "classification": "derived",
+  "mechanic": "observed-normal-single-projectile-including-fixed-power-i",
+  "scope": "one-arrow-one-target",
+  "donorId": "power-bow",
+  "sourceRef": "research/sources/observed-fixed-power-bows.json",
+  "testRef": "tests/fixedPowerBowReuse.test.ts",
+  "observation": "own current-Power normal-arrow damage including fixed Power I; separate mode-specific complete cycle, explicit one-arrow consumption, finite stock",
+  "targets": {
+    "elite-power-bow": ["uncharged", "charged"],
+    "phantom-bow": ["uncharged", "charged"]
+  }
+}

@@ -52,7 +52,7 @@
     },
     "inputIdentity": {
       "algorithm": "sha256-path-content-v1",
-      "value": "4938b1d5df91cd335bcf53ea6ce1106bbc49086d0306efcf8d4717a77580d4d2",
+      "value": "3ea3a517154501860b09183c090965805f7d0c7e561edc56e748f922d3c2ad9a",
       "files": [
         {
           "path": "generated/equipment-icons/manifest.json",
@@ -72,7 +72,7 @@
         },
         {
           "path": "research/ranged-weapon-audit.json",
-          "sha256": "7dce5ce3adbab7a0744045325b0b3a1866dad1ebf5bacf526d26e641933b151e"
+          "sha256": "cf7111859f4dc1dbafc3d5133b6d7b380c62bda4d892875ce033cf8f0bade5f0"
         },
         {
           "path": "research/raw/game-data-asset-index.json",

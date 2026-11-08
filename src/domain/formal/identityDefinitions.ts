@@ -1,4 +1,5 @@
 import sharpnessComboSource from '../../../research/sources/observed-sharpness-combo-source.json' with { type: 'json' }
+import fixedPowerBowSource from '../../../research/sources/observed-fixed-power-bows.json' with { type: 'json' }
 import fixedComboSource from '../../../research/sources/fixed-observed-melee-combo-source.json' with { type: 'json' }
 import type { FormalIdentityDefinition, IdentityAssertion, IdentityPresentation, ReviewedEvidenceInput } from './identityEvidence.ts'
 
@@ -347,6 +348,19 @@ export const fixedComboLocalizationFormalIdentities = [...fixedComboSource.rows,
   }]
 })
 
+export const fixedPowerBowLocalizationFormalIdentities = fixedPowerBowSource.rows.map((row) => {
+  const base = acceptedRangedDefinition({ domainId: row.id, rawIdentity: row.rawIdentity, packagePath: row.packagePath, displayName: row.displayName })
+  const ref = `evidence:reviewed:${row.id}:exact-localization-key`
+  return {
+    ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `The hash-bound ItemType/${row.localization.key} and target catalog independently name ${row.displayName}. The scoped Raw package must serialize ${row.rawIdentity} in both identity fields.`,
+      source: { artifactPath: 'research/sources/observed-fixed-power-bows.json', locator: `rows[id=${row.id}].localization` },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -660,6 +674,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...reviewedLocalizationMeleeFormalIdentities,
   ...builtinProcLocalizationFormalIdentities,
   ...fixedComboLocalizationFormalIdentities,
+  ...fixedPowerBowLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [

@@ -360,11 +360,13 @@
       "shortbow",
       "longbow",
       "power-bow",
+      "elite-power-bow",
+      "phantom-bow",
       "heavy-crossbow",
       "rapid-crossbow",
       "crossbow"
     ],
-    "rationale": "Bow/Crossbow plus five source-bound Existing Limited single-projectile reuses; Rapid Crossbow requires an explicit one-arrow-per-shot observation. Shortbow/Longbow/Power Bow permit separately granted uncharged/charged modes; target mode-specific neutral damage and complete cycle observations required. Native CDO values never supply runtime damage/cadence.",
+    "rationale": "Bow/Crossbow plus seven source-bound Existing Limited single-projectile reuses. Rapid Crossbow and fixed Power I variants require explicit one-arrow-per-shot observations. Chargeable bows require target mode-specific damage and complete cycle observations. Fixed Power I variants require damage including the fixed effect at the current equipment Power. Native CDO values never supply runtime damage/cadence.",
     "powerFallback": false,
     "independentMeasuredRuns": 0
   },
@@ -823,10 +825,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -1592,10 +1594,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -1833,9 +1835,9 @@
       "id": "elite-power-bow",
       "name": {
         "en": "Elite Power Bow",
-        "ja": null
+        "ja": "良質な力の弓"
       },
-      "japaneseNameStatus": "not-yet-verified",
+      "japaneseNameStatus": "runtime-label",
       "baseWeaponId": "power-bow",
       "variantOf": "power-bow",
       "family": "power-bow",
@@ -1880,7 +1882,7 @@
           "flat-modifier",
           "charge-modifier"
         ],
-        "support": "research-only",
+        "support": "limited",
         "completeMechanicVerification": false
       },
       "rawRatings": [
@@ -1902,9 +1904,12 @@
       },
       "confidence": "medium",
       "auditStatus": "population-reconciled-mechanics-partial",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "blockers": [
-        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+        "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -2592,10 +2597,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -2979,10 +2984,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -3373,9 +3378,9 @@
       "id": "phantom-bow",
       "name": {
         "en": "Phantom Bow",
-        "ja": null
+        "ja": "ファントムの弓"
       },
-      "japaneseNameStatus": "not-yet-verified",
+      "japaneseNameStatus": "runtime-label",
       "baseWeaponId": "power-bow",
       "variantOf": "power-bow",
       "family": "power-bow",
@@ -3420,7 +3425,7 @@
           "flat-modifier",
           "charge-modifier"
         ],
-        "support": "research-only",
+        "support": "limited",
         "completeMechanicVerification": false
       },
       "rawRatings": [
@@ -3442,9 +3447,12 @@
       },
       "confidence": "medium",
       "auditStatus": "population-reconciled-mechanics-partial",
-      "supportLevel": "research-only",
+      "supportLevel": "limited",
       "blockers": [
-        "発射周期・damage単位・intrinsic全体・projectile interactionの現行版Evidenceが不足。base相当として評価しない。"
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
+        "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -3519,10 +3527,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -3750,10 +3758,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {
@@ -4208,10 +4216,10 @@
       "auditStatus": "population-reconciled-mechanics-partial",
       "supportLevel": "limited",
       "blockers": [
-        "Limited: 1.17.0.0のneutralな単一矢damageと完全な発射周期を利用者が入力。実測の独立検証は未完了。Powerからdamageを生成しない。",
+        "Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は現在の装備Powerで固定効果込みのダメージを記録。実測の独立検証は未完了。Powerからdamageを生成しない。",
         "通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。",
         "近接と遠距離の時間配分はモデル仮定。飛翔時間・miss・距離・overkill・移動・離散target順序を再現しない。",
-        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・固有効果はResearch-only。未確認の組合せはreject。"
+        "複数矢・貫通・跳弾・爆発・DoT・特殊矢・Soul・対応範囲外の固有効果はResearch-only。未確認の組合せはreject。"
       ]
     },
     {

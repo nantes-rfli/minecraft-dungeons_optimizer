@@ -1,4 +1,5 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { isFixedPowerBow } from '../core/fixedPowerBowReuse'
 import { parseCatalogResearch } from '../core/catalogResearch'
 import { ARTIFACTS } from '../data/artifacts'
 import { WEAPONS } from '../data/weapons'
@@ -27,7 +28,7 @@ const STORAGE_KEY = 'minecraft-dungeons-optimizer.inventory.v1'
 const DARK_ARMOR_CATALOG_MIGRATION_IDS: readonly string[] = ['dark-armor', 'titan-s-shroud']
 const LIMITED_MELEE_CATALOG_MIGRATION_IDS: readonly string[] = ['cutlass', 'pickaxe', 'soul-knife', 'whip', 'great-hammer', 'whirlwind', 'stormlander']
 const migratesLimitedMelee = (item: { category: string; catalogId: string }) => item.category === 'melee' && (LIMITED_MELEE_CATALOG_MIGRATION_IDS.includes(item.catalogId) || isObservedMeleeComboId(item.catalogId))
-const migratesRapidCrossbow = (item: { category: string; catalogId: string }) => item.category === 'ranged' && item.catalogId === 'rapid-crossbow'
+const migratesLimitedRanged = (item: { category: string; catalogId: string }) => item.category === 'ranged' && (item.catalogId === 'rapid-crossbow' || isFixedPowerBow(item.catalogId))
 const migratesDarkArmor = (item: { category: string; catalogId: string }) =>
   item.category === 'armor' && DARK_ARMOR_CATALOG_MIGRATION_IDS.includes(item.catalogId)
 
@@ -60,7 +61,7 @@ function parseCatalogItem(value: unknown, index: number): CatalogInventoryItem {
   const category = requireString(value.category, `${field}.category`)
   const catalogId = requireString(value.catalogId, `${field}.catalogId`)
   const catalog = CATALOG_ONLY_EQUIPMENT.find((item) => item.category === category && item.id === catalogId)
-    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesLimitedMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : migratesRapidCrossbow({ category, catalogId }) ? getEquipmentCatalogEntry('ranged', catalogId) : undefined)
+    ?? (migratesDarkArmor({ category, catalogId }) ? getEquipmentCatalogEntry('armor', catalogId) : migratesLimitedMelee({ category, catalogId }) ? getEquipmentCatalogEntry('melee', catalogId) : migratesLimitedRanged({ category, catalogId }) ? getEquipmentCatalogEntry('ranged', catalogId) : undefined)
   if (!catalog) throw new Error(`${field}は監査済みのruntime未対応Catalogにありません。`)
   const notes = value.notes === undefined ? undefined : requireString(value.notes, `${field}.notes`)
   const isFavorite = parseFavorite(value.isFavorite, `${field}.isFavorite`)
@@ -312,7 +313,7 @@ export function deserializeInventory(json: string): Inventory {
   const parsedArmors = Array.isArray(armors) ? armors.map(parseArmor) : []
   const parsedWeapons = weapons.map(parseWeapon)
   const parsedRanged = Array.isArray(rangedWeapons) ? rangedWeapons.map(parseRangedWeapon) : []
-  for (const item of parsedCatalog ?? []) if (migratesRapidCrossbow(item)) {
+  for (const item of parsedCatalog ?? []) if (migratesLimitedRanged(item)) {
     // Carry facts verbatim; no observation (including cost) is inferred from Research/Native.
     parsedRanged.push(parseRangedWeapon({ ...item, weaponId: item.catalogId, enchantmentSlots: item.enchantmentSlots ?? [] }))
   }
@@ -329,7 +330,7 @@ export function deserializeInventory(json: string): Inventory {
     ...(Array.isArray(rangedWeapons) || parsedRanged.length ? { rangedWeapons: parsedRanged } : {}),
     ...(Array.isArray(armors) || parsedArmors.length ? { armors: parsedArmors } : {}),
     artifacts: artifacts.map(parseArtifact),
-    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesLimitedMelee(item) && !migratesRapidCrossbow(item)) } : {}),
+    ...(parsedCatalog ? { catalogItems: parsedCatalog.filter((item) => !migratesDarkArmor(item) && !migratesLimitedMelee(item) && !migratesLimitedRanged(item)) } : {}),
   }
   inventory.weapons.forEach(validateWeaponSoulLegality)
   inventory.armors?.forEach((armor) => validateSoulOnlyOwnedEnchantments('armor', armor.armorId, armor.enchantmentSlots, armor.gilded))

@@ -4962,6 +4962,68 @@
             "evidence:presentation:diamond-sword:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:elite-power-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Powerbow_Unique1",
+            "evidenceRef": "evidence:raw:identity:elite-power-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Powerbow_Unique1",
+            "evidenceRef": "evidence:raw:identity:elite-power-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:elite-power-bow@1",
+          "domainId": "elite-power-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:elite-power-bow@1:ItemIdName",
+            "evidence:raw:identity:elite-power-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "elite-power-bow",
+          "displayName": "Elite Power Bow",
+          "evidenceRefs": [
+            "evidence:presentation:elite-power-bow:ranged-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:phantom-bow@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "PowerBow_Spooky2",
+            "evidenceRef": "evidence:raw:identity:phantom-bow@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "PowerBow_Spooky2",
+            "evidenceRef": "evidence:raw:identity:phantom-bow@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:phantom-bow@1",
+          "domainId": "phantom-bow",
+          "evidenceRefs": [
+            "evidence:raw:identity:phantom-bow@1:ItemIdName",
+            "evidence:raw:identity:phantom-bow@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "phantom-bow",
+          "displayName": "Phantom Bow",
+          "evidenceRefs": [
+            "evidence:presentation:phantom-bow:ranged-audit"
+          ]
+        }
       }
     ]
   },
@@ -8039,6 +8101,46 @@
       "evidenceRefs": [
         "evidence:reviewed:diamond-sword:accepted-alias",
         "evidence:reviewed:diamond-sword:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:elite-power-bow@1",
+      "rawIdentity": "Powerbow_Unique1",
+      "domainId": "elite-power-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:elite-power-bow:accepted-alias",
+        "evidence:reviewed:elite-power-bow:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:phantom-bow@1",
+      "rawIdentity": "PowerBow_Spooky2",
+      "domainId": "phantom-bow",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:phantom-bow:accepted-alias",
+        "evidence:reviewed:phantom-bow:exact-localization-key"
       ]
     }
   ],
@@ -18691,6 +18793,156 @@
           "nodePointer": "/packages/21/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:3704a153"
+      },
+      {
+        "id": "evidence:reviewed:elite-power-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:Powerbow_Unique1]"
+        },
+        "fingerprint": "fnv1a32:5c6bbb31"
+      },
+      {
+        "id": "evidence:presentation:elite-power-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=elite-power-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:389db314"
+      },
+      {
+        "id": "evidence:reviewed:elite-power-bow:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The hash-bound ItemType/PowerBow_Unique1 and target catalog independently name Elite Power Bow. The scoped Raw package must serialize Powerbow_Unique1 in both identity fields.",
+        "source": {
+          "artifactPath": "research/sources/observed-fixed-power-bows.json",
+          "locator": "rows[id=elite-power-bow].localization"
+        },
+        "fingerprint": "fnv1a32:d816c81c"
+      },
+      {
+        "id": "evidence:raw:identity:elite-power-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Powerbow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ee84624b9c2941757e9054d3f2cc745fa953eed5bc4ced2f53da6721dee76afe",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cc0af151bc48f3d4c6cebc3aad55f9466cd668b70edc3f75984fc3965143c290"
+          },
+          "nodePointer": "/packages/26/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:32ae5c04"
+      },
+      {
+        "id": "evidence:raw:identity:elite-power-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Powerbow_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:ee84624b9c2941757e9054d3f2cc745fa953eed5bc4ced2f53da6721dee76afe",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "cc0af151bc48f3d4c6cebc3aad55f9466cd668b70edc3f75984fc3965143c290"
+          },
+          "nodePointer": "/packages/26/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:3e7742d4"
+      },
+      {
+        "id": "evidence:reviewed:phantom-bow:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical ranged-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=ranged-weapon:PowerBow_Spooky2]"
+        },
+        "fingerprint": "fnv1a32:6157d1dc"
+      },
+      {
+        "id": "evidence:presentation:phantom-bow:ranged-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The ranged audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/ranged-weapon-audit.json",
+          "locator": "entries[id=phantom-bow].name.en"
+        },
+        "fingerprint": "fnv1a32:a7098a44"
+      },
+      {
+        "id": "evidence:reviewed:phantom-bow:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The hash-bound ItemType/PowerBow_Spooky2 and target catalog independently name Phantom Bow. The scoped Raw package must serialize PowerBow_Spooky2 in both identity fields.",
+        "source": {
+          "artifactPath": "research/sources/observed-fixed-power-bows.json",
+          "locator": "rows[id=phantom-bow].localization"
+        },
+        "fingerprint": "fnv1a32:85660d63"
+      },
+      {
+        "id": "evidence:raw:identity:phantom-bow@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "PowerBow_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:63b2274171a458594e9f9406102c743f0ce5b4db07a65fb74d5cede367a5e4fb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1d8288b1f7f08ccff1e35f7ef2142b9360354d75b17e00a82a937c7202da4517"
+          },
+          "nodePointer": "/packages/16/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:32c5e18d"
+      },
+      {
+        "id": "evidence:raw:identity:phantom-bow@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "PowerBow_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-025.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:63b2274171a458594e9f9406102c743f0ce5b4db07a65fb74d5cede367a5e4fb",
+          "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1d8288b1f7f08ccff1e35f7ef2142b9360354d75b17e00a82a937c7202da4517"
+          },
+          "nodePointer": "/packages/16/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:f3e6d3a5"
       }
     ]
   }
