@@ -6,12 +6,14 @@ import approvals from '../../research/runtime/observed-melee-combo-reuse.json' w
 import sharpnessApproval from '../../research/runtime/observed-sharpness-combo-reuse.json' with { type: 'json' }
 import radianceApproval from '../../research/runtime/observed-radiance-combo-reuse.json' with { type: 'json' }
 import freezingApproval from '../../research/runtime/observed-freezing-scythe-reuse.json' with { type: 'json' }
+import poisonCloudApproval from '../../research/runtime/observed-poison-cloud-melee-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
   CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
   FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_ID,
   RADIANCE_OBSERVED_MELEE_COMBO_ID, RADIANCE_OBSERVED_MELEE_COMBO_SOURCE,
   FREEZING_OBSERVED_MELEE_COMBO_IDS, FREEZING_OBSERVED_MELEE_COMBO_SOURCE, isFreezingObservedMeleeComboId,
+  POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS, POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE, isPoisonCloudObservedMeleeComboId,
   fixedObservedMeleeComboEnchantments, isFixedObservedMeleeComboId,
 } from '../data/fixedObservedMeleeCombo'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -20,6 +22,7 @@ import {
   OBSERVED_MELEE_COMBO_SOURCE, OBSERVED_MELEE_COMBO_WEAPONS,
 } from '../data/observedMeleeCombo'
 import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './observedMeleeCombo'
+import { dotPowerRange } from './dotDamageEvents'
 import { ARMORS } from '../data/armors'
 import type { Build, OwnedWeapon, Scenario } from './types'
 import type { ArmorId } from './armor'
@@ -93,6 +96,7 @@ const fixedDefaults = {
   sharpnessApproval, sharpnessSource: SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE,
   radianceApproval, radianceSource: RADIANCE_OBSERVED_MELEE_COMBO_SOURCE,
   freezingApproval, freezingSource: FREEZING_OBSERVED_MELEE_COMBO_SOURCE,
+  poisonCloudApproval, poisonCloudSource: POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE,
 }
 
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
@@ -101,8 +105,9 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const sharpness = id === SHARPNESS_OBSERVED_MELEE_COMBO_ID
   const radiance = id === RADIANCE_OBSERVED_MELEE_COMBO_ID
   const freezing = isFreezingObservedMeleeComboId(id)
-  const grant = freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
-  const source = freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
+  const poisonCloud = isPoisonCloudObservedMeleeComboId(id)
+  const grant = poisonCloud ? data.poisonCloudApproval : freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
+  const source = poisonCloud ? data.poisonCloudSource : freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
   const rows = source.rows.filter((row) => row.id === id)
   const row = rows[0]
   const weapon = data.weapons[id]
@@ -117,13 +122,23 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const count = row.hitDurationsSeconds.length
   const tier = ENCHANTMENTS[effect].tiers.value[1]
   const freezingRow = freezing ? data.freezingSource.rows.find((item) => item.id === id) : undefined
-  const tierMatches = freezing ? tier.effect?.kind === 'enemy-attack-speed-slow' && tier.effect.attackSpeedReduction === 0.3 && tier.effect.durationSeconds === 3
+  const poisonRow = poisonCloud ? data.poisonCloudSource.rows.find((item) => item.id === id) : undefined
+  const tierMatches = poisonCloud ? equal(tier.effect, { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: 1 })
+    && poisonRow?.fixed.triggerChance === 0.3 && poisonRow.fixed.durationSeconds === 3 && poisonRow.fixed.tierMultiplier === 1
+    : freezing ? tier.effect?.kind === 'enemy-attack-speed-slow' && tier.effect.attackSpeedReduction === 0.3 && tier.effect.durationSeconds === 3
     && freezingRow?.fixed.attackSpeedReduction === 0.3 && freezingRow.fixed.durationSeconds === 3
     : radiance ? tier.triggerChance === 0.2 && 'triggerChance' in row.fixed && row.fixed.triggerChance === tier.triggerChance
     : critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
     : sharpness ? equal(tier.effect, { kind: 'passive-weapon-damage', bonus: 0.1 })
       : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
-  const approvalMatches = freezing
+  const approvalMatches = poisonCloud
+    ? grant.mechanic === 'owned-tier-one-poison-cloud-on-observed-combo'
+      && grant.sourceRef === 'research/sources/observed-poison-cloud-melee.json' && grant.testRef === 'tests/observedPoisonCloudMelee.test.ts'
+      && grant.observation === 'own ordinary direct complete combo damage excluding poison ticks at the current equipped Power'
+      && 'procPowerRange' in grant && equal(grant.procPowerRange, { min: 184, max: 251 }) && equal(grant.procPowerRange, dotPowerRange('poison-cloud'))
+      && equal(grant.targets, { 'nightmares-bite': 'poison-cloud', 'venom-glaive': 'poison-cloud' })
+      && equal(source.rows.map((item) => item.id), POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS)
+    : freezing
     ? grant.mechanic === 'owned-tier-one-freezing-and-own-flat-soul-gathering'
       && grant.sourceRef === 'research/sources/observed-freezing-scythes.json' && grant.testRef === 'tests/observedFreezingScythes.test.ts'
       && grant.observation === 'own ordinary complete combo damage at the current equipped Power; existing attack slow and flat Soul Gathering models'
@@ -148,7 +163,8 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
       && equal(grant.targets, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS)
       && equal(source.rows.map((item) => item.id), CONDITIONAL_OBSERVED_MELEE_COMBO_IDS)
 
-  const slug = radiance ? 'sun-s-grace' : id
+  const slug = id === 'nightmares-bite' ? 'nightmare-s-bite' : radiance ? 'sun-s-grace' : id
+  const localizationName = id === 'venom-glaive' && row.calculatorRow.name === 'Venom Glaive' ? 'Venom glaive' : row.calculatorRow.name
   return grant.schemaVersion === 1 && grant.gameVersion === '1.17.0.0' && grant.route === 'existing-limited-mechanic-reuse'
     && grant.classification === 'derived' && grant.runtimeSupport === 'limited'
     && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed' && approvalMatches
@@ -158,9 +174,9 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     && data.profiles.gameVersion === grant.gameVersion && data.harvest.targetGameVersion === grant.gameVersion
     && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === slug && row.calculatorRow.route === `/weapons/${slug}`
     && row.sourceUrl === `https://www.dungeons.tools/weapons/${slug}`
-    && equal(row.calculatorRow.builtIn, [freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
+    && equal(row.calculatorRow.builtIn, [poisonCloud ? 'Poison Cloud' : freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
     && row.fixed.enchantmentId === effect && row.fixed.tier === 1 && tierMatches
-    && row.fixed.tierSourceUrl === (freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
+    && row.fixed.tierSourceUrl === (poisonCloud ? 'https://minecraft.wiki/w/Dungeons%3APoison_Cloud' : freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
     && claims.length === 1 && claims[0]?.sourceId === `external-dungeons-tools:melee-weapon:${id}`
     && claims[0].sourceGameVersion === '1.17.0.0 publisher-claimed' && claims[0].interpretation === 'direct'
     && claims[0].sourceLocator === `${row.sourceUrl} — Properties and details` && equal(claims[0].value, row.intrinsicFacts)
@@ -170,10 +186,10 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     && semantic.rawEvidence.itemIdName.state === 'known' && semantic.rawEvidence.itemIdName.value === row.rawIdentity
     && semantic.rawEvidence.serializedId.state === 'known' && semantic.rawEvidence.serializedId.value === row.rawIdentity
     && (id === 'sinister-sword' ? row.localization === null
-      : row.localization?.namespace === 'ItemType' && row.localization.key === row.rawIdentity && row.localization.value === row.calculatorRow.name)
+      : row.localization?.namespace === 'ItemType' && row.localization.key === row.rawIdentity && row.localization.value === localizationName)
     && audit?.status === 'exact' && !audit.specialHandlingRequired && audit.name.en === row.calculatorRow.name
     && audit.sources.length === 1 && audit.sources[0]?.type === 'minecraft-wiki' && audit.sources[0].url === row.wikiTimingSource
-    && count === (freezing ? 2 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
+    && count === (freezing ? 2 : id === 'nightmares-bite' ? 6 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
     && equal(audit.attackProfile.hitDurationsSeconds, row.hitDurationsSeconds)
     && row.publishedBaseDamage.length === count && (freezing ? new Set(row.publishedBaseDamage).size === 1 : new Set(row.publishedBaseDamage).size > 1)
     && equal(audit.damageProfile.rawBaseDamageRows.map((hit) => hit.baseDamage), row.publishedBaseDamage)
@@ -206,6 +222,8 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
     kind: 'input-required', target: 'equipment', message: '現在のPowerでのコンボ全段の観測ダメージ合計が必要です。',
     fields: [weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
       ? '同じ個体・Powerで、固定の切れ味 I を含む通常コンボ1周のダメージ合計'
+      : isPoisonCloudObservedMeleeComboId(weapon.weaponId)
+        ? '同じ個体・Powerで、毒の追加ダメージを除いた単体への通常コンボ1周の直接ダメージ合計'
       : '同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
   }
 }
@@ -234,12 +252,21 @@ export function observedMeleeComboRollIssue(weapon: OwnedWeapon): ReadinessIssue
 }
 
 export function observedMeleeComboPreparationIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
-  return observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
+  return fixedPoisonCloudPowerIssue(weapon) ?? observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon) ?? observedMeleeComboRollIssue(weapon)
+}
+
+export function fixedPoisonCloudPowerIssue(weapon: OwnedWeapon): ReadinessIssue | undefined {
+  if (!isPoisonCloudObservedMeleeComboId(weapon.weaponId)) return undefined
+  const { min, max } = dotPowerRange('poison-cloud')
+  if (Number.isFinite(weapon.powerLevel) && weapon.powerLevel >= min && weapon.powerLevel <= max) return undefined
+  return { kind: 'unsupported', target: 'equipment', message: `固定「毒の雲 I」はPower ${min}–${max}のみ対応（現在${weapon.powerLevel}）。範囲外は外挿しません。` }
 }
 
 export function observedMeleeComboUnsupportedReason(build: Build, scenario?: Scenario): string | undefined {
   if (!isObservedMeleeComboId(build.weapon.weaponId)) return undefined
   if (!hasObservedMeleeComboGrant(build.weapon.weaponId)) return 'UNSUPPORTED_COMBO_SOURCE: 対象のIdentity・ヒット列・固有効果のEvidenceが一致しません。'
+  const powerIssue = fixedPoisonCloudPowerIssue(build.weapon)
+  if (powerIssue) return `UNSUPPORTED_COMBO_POWER: ${powerIssue.message}`
   if (scenario && scenario.averageTargetsInReach !== 1) return 'UNSUPPORTED_COMBO_TARGETS: 射程内の敵を1に設定してください。'
   const armorSpeed = build.armor && ARMORS[build.armor.armorId as ArmorId]?.meleeAttackSpeedBonus
   if ((armorSpeed !== undefined && armorSpeed !== 0) || build.artifacts.some((item) => item.artifactId === 'death-cap-mushroom')) {

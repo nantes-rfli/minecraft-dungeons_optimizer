@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "nightmares-bite",
+      "rawIdentity": "Sickles_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance",
+      "calculatorRow": {
+        "slug": "nightmare-s-bite",
+        "name": "Nightmare's Bite",
+        "type": "melee",
+        "route": "/weapons/nightmare-s-bite",
+        "power": 2.976,
+        "speed": 5.973,
+        "area": 1.667,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Sickles_Unique1_Icon.png",
+        "builtIn": [
+          "Poison Cloud"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/nightmare-s-bite",
+      "intrinsicFacts": [
+        "Dual wield",
+        "Spawns poison clouds"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ANightmare%27s_Bite",
+      "hitDurationsSeconds": [
+        0.2,
+        0.2,
+        0.2,
+        0.2,
+        0.4,
+        0.5
+      ],
+      "publishedBaseDamage": [
+        30,
+        30,
+        30,
+        30,
+        60,
+        70
+      ],
+      "rawSource": {
+        "shard": "shards/part-019.json.gz",
+        "sha256": "d13619b93b84f118e5395f4218380a78626c193bd7c7449ae381ac2a63f3aeb4",
+        "packageIndex": 7
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Sickles_Unique1",
+        "sourceStringHash": 2009959314,
+        "localizedStringIndex": 3115,
+        "entryRange": [
+          130387,
+          130419
+        ],
+        "value": "Nightmare's Bite",
+        "localizedStringRecordRange": [
+          324685,
+          324710
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "poison-cloud",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3APoison_Cloud",
+        "triggerChance": 0.3,
+        "durationSeconds": 3,
+        "tierMultiplier": 1
+      }
+    },
+    {
+      "id": "venom-glaive",
+      "rawIdentity": "Glaive_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance",
+      "calculatorRow": {
+        "slug": "venom-glaive",
+        "name": "Venom Glaive",
+        "type": "melee",
+        "route": "/weapons/venom-glaive",
+        "power": 7.103,
+        "speed": 1.55,
+        "area": 6.167,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Glaive_Unique2_Icon.png",
+        "builtIn": [
+          "Poison Cloud"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/venom-glaive",
+      "intrinsicFacts": [
+        "Longer melee reach",
+        "Spawns poison clouds"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AVenom_Glaive",
+      "hitDurationsSeconds": [
+        0.5,
+        0.6,
+        1
+      ],
+      "publishedBaseDamage": [
+        75,
+        75,
+        110
+      ],
+      "rawSource": {
+        "shard": "shards/part-017.json.gz",
+        "sha256": "b151b2da72d513fcfd589c572e4cbe690f7e266e58e8eb8ec8f9983ad3cbd9f3",
+        "packageIndex": 7
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Glaive_Unique2",
+        "sourceStringHash": 117182644,
+        "localizedStringIndex": 3473,
+        "entryRange": [
+          143750,
+          143781
+        ],
+        "value": "Venom glaive",
+        "localizedStringRecordRange": [
+          346953,
+          346974
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "poison-cloud",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3APoison_Cloud",
+        "triggerChance": 0.3,
+        "durationSeconds": 3,
+        "tierMultiplier": 1
+      }
+    }
+  ]
+}

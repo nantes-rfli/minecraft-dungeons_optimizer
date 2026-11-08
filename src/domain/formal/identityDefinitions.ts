@@ -1,6 +1,7 @@
 import sharpnessComboSource from '../../../research/sources/observed-sharpness-combo-source.json' with { type: 'json' }
 import radianceComboSource from '../../../research/sources/observed-radiance-combo-source.json' with { type: 'json' }
 import freezingComboSource from '../../../research/sources/observed-freezing-scythes.json' with { type: 'json' }
+import poisonCloudComboSource from '../../../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import fixedPowerBowSource from '../../../research/sources/observed-fixed-power-bows.json' with { type: 'json' }
 import fixedRapidFireSource from '../../../research/sources/observed-rapid-fire-variants.json' with { type: 'json' }
 import fixedComboSource from '../../../research/sources/fixed-observed-melee-combo-source.json' with { type: 'json' }
@@ -403,6 +404,19 @@ export const freezingComboLocalizationFormalIdentities = freezingComboSource.row
   }
 })
 
+export const poisonCloudComboLocalizationFormalIdentities = poisonCloudComboSource.rows.map((row) => {
+  const base = acceptedMeleeDefinition({ domainId: row.id, rawIdentity: row.rawIdentity, packagePath: row.packagePath, displayName: row.calculatorRow.name })
+  const ref = `evidence:reviewed:${row.id}:exact-localization-key`
+  return {
+    ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `Hash-bound ItemType/${row.rawIdentity} reads ${row.localization.value}. Published display name: ${row.calculatorRow.name}. Both Raw serialized identifiers are required.`,
+      source: { artifactPath: 'research/sources/observed-poison-cloud-melee.json', locator: `rows[id=${row.id}].localization` },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -720,6 +734,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...radianceComboLocalizationFormalIdentities,
   ...fixedRapidFireLocalizationFormalIdentities,
   ...freezingComboLocalizationFormalIdentities,
+  ...poisonCloudComboLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [

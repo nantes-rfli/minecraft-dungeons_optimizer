@@ -5179,6 +5179,68 @@
             "evidence:presentation:skull-scythe:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:nightmares-bite@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Sickles_Unique1",
+            "evidenceRef": "evidence:raw:identity:nightmares-bite@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Sickles_Unique1",
+            "evidenceRef": "evidence:raw:identity:nightmares-bite@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:nightmares-bite@1",
+          "domainId": "nightmares-bite",
+          "evidenceRefs": [
+            "evidence:raw:identity:nightmares-bite@1:ItemIdName",
+            "evidence:raw:identity:nightmares-bite@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "nightmares-bite",
+          "displayName": "Nightmare's Bite",
+          "evidenceRefs": [
+            "evidence:presentation:nightmares-bite:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:venom-glaive@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Glaive_Unique2",
+            "evidenceRef": "evidence:raw:identity:venom-glaive@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Glaive_Unique2",
+            "evidenceRef": "evidence:raw:identity:venom-glaive@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:venom-glaive@1",
+          "domainId": "venom-glaive",
+          "evidenceRefs": [
+            "evidence:raw:identity:venom-glaive@1:ItemIdName",
+            "evidence:raw:identity:venom-glaive@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "venom-glaive",
+          "displayName": "Venom Glaive",
+          "evidenceRefs": [
+            "evidence:presentation:venom-glaive:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8396,6 +8458,46 @@
       "evidenceRefs": [
         "evidence:reviewed:skull-scythe:accepted-alias",
         "evidence:reviewed:skull-scythe:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:nightmares-bite@1",
+      "rawIdentity": "Sickles_Unique1",
+      "domainId": "nightmares-bite",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:nightmares-bite:accepted-alias",
+        "evidence:reviewed:nightmares-bite:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:venom-glaive@1",
+      "rawIdentity": "Glaive_Unique2",
+      "domainId": "venom-glaive",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:venom-glaive:accepted-alias",
+        "evidence:reviewed:venom-glaive:exact-localization-key"
       ]
     }
   ],
@@ -19573,6 +19675,156 @@
           "nodePointer": "/packages/5/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:2855f9e0"
+      },
+      {
+        "id": "evidence:reviewed:nightmares-bite:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Sickles_Unique1]"
+        },
+        "fingerprint": "fnv1a32:375e3401"
+      },
+      {
+        "id": "evidence:presentation:nightmares-bite:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=nightmares-bite].name.en"
+        },
+        "fingerprint": "fnv1a32:b00c4554"
+      },
+      {
+        "id": "evidence:reviewed:nightmares-bite:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Sickles_Unique1 reads Nightmare's Bite. Published display name: Nightmare's Bite. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-poison-cloud-melee.json",
+          "locator": "rows[id=nightmares-bite].localization"
+        },
+        "fingerprint": "fnv1a32:701ce1f5"
+      },
+      {
+        "id": "evidence:raw:identity:nightmares-bite@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Sickles_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6be41ef925bd20ce6397a7c4049f0500e20af9d99235e2b0f3074753bab2d90b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3fbe6bdce69655b789ce811c8fa4b8dd6a2db672d50ae29de1c83ffa9efef7f9"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:46d05f60"
+      },
+      {
+        "id": "evidence:raw:identity:nightmares-bite@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Sickles_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:6be41ef925bd20ce6397a7c4049f0500e20af9d99235e2b0f3074753bab2d90b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "3fbe6bdce69655b789ce811c8fa4b8dd6a2db672d50ae29de1c83ffa9efef7f9"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:dcced128"
+      },
+      {
+        "id": "evidence:reviewed:venom-glaive:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Glaive_Unique2]"
+        },
+        "fingerprint": "fnv1a32:e500be47"
+      },
+      {
+        "id": "evidence:presentation:venom-glaive:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=venom-glaive].name.en"
+        },
+        "fingerprint": "fnv1a32:c3a5993c"
+      },
+      {
+        "id": "evidence:reviewed:venom-glaive:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Glaive_Unique2 reads Venom glaive. Published display name: Venom Glaive. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-poison-cloud-melee.json",
+          "locator": "rows[id=venom-glaive].localization"
+        },
+        "fingerprint": "fnv1a32:91ebf0f8"
+      },
+      {
+        "id": "evidence:raw:identity:venom-glaive@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:9b6dde8594c16e49891cb6d2a3cb5f0ac712ea8f0e7c34a52e11622dd86f3d7b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "dd85d2628656532f6271f285e4cd4d9d3efc0530bb195c2bd2c534eb830ccc09"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:35763583"
+      },
+      {
+        "id": "evidence:raw:identity:venom-glaive@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Glaive_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-017.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:9b6dde8594c16e49891cb6d2a3cb5f0ac712ea8f0e7c34a52e11622dd86f3d7b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "dd85d2628656532f6271f285e4cd4d9d3efc0530bb195c2bd2c534eb830ccc09"
+          },
+          "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:dc796449"
       }
     ]
   }

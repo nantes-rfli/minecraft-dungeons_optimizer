@@ -1,4 +1,4 @@
-import { FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, RADIANCE_OBSERVED_MELEE_COMBO_SOURCE, FREEZING_OBSERVED_MELEE_COMBO_SOURCE, isFixedObservedMeleeComboId, type FixedObservedMeleeComboId } from './fixedObservedMeleeCombo'
+import { FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, RADIANCE_OBSERVED_MELEE_COMBO_SOURCE, FREEZING_OBSERVED_MELEE_COMBO_SOURCE, POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE, isFixedObservedMeleeComboId, type FixedObservedMeleeComboId } from './fixedObservedMeleeCombo'
 import source from '../../research/sources/observed-melee-combo-source.json' with { type: 'json' }
 import type { AttackProfile, Evidence, SourceReference, WeaponDefinition } from '../core/types'
 import { japaneseEquipmentName } from './equipmentNames.ja'
@@ -12,7 +12,7 @@ export const isObservedMeleeComboId = (id: string): id is ObservedMeleeComboId =
   isPlainObservedMeleeComboId(id) || isFixedObservedMeleeComboId(id)
 
 export const OBSERVED_MELEE_COMBO_SOURCE = source
-const rows = [...source.rows, ...FIXED_OBSERVED_MELEE_COMBO_SOURCE.rows, ...SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE.rows, ...RADIANCE_OBSERVED_MELEE_COMBO_SOURCE.rows, ...FREEZING_OBSERVED_MELEE_COMBO_SOURCE.rows]
+const rows = [...source.rows, ...FIXED_OBSERVED_MELEE_COMBO_SOURCE.rows, ...SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE.rows, ...RADIANCE_OBSERVED_MELEE_COMBO_SOURCE.rows, ...FREEZING_OBSERVED_MELEE_COMBO_SOURCE.rows, ...POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE.rows]
 export const observedMeleeComboRow = (id: string) => rows.find((row) => row.id === id)
 export const OBSERVED_MELEE_COMBO_LIMITATION = 'Limited: 単体に基本速度で中断せず通常コンボを繰り返す条件。個体のコンボ全段の観測合計が必須。速度効果・遠距離併用・ヒット順や撃破に依存するEnchantは対象外。'
 

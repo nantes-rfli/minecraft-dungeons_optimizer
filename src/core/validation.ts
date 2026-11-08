@@ -1,7 +1,7 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { RADIANCE_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { hasObservedMeleeDamage } from './observedMeleeCombo'
-import { fixedRadianceInputIssue, observedMeleeComboInputIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
+import { fixedPoisonCloudPowerIssue, fixedRadianceInputIssue, observedMeleeComboInputIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { validatePowerCurveLevel } from './powerScaling'
@@ -93,7 +93,7 @@ export function inventoryItemInputIssues(inventory: Inventory): ReadonlyMap<stri
   }
   for (const weapon of inventory.weapons) {
     capture(weapon.instanceId, () => validateWeaponNumbers(weapon))
-    const comboIssue = observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon)
+    const comboIssue = fixedPoisonCloudPowerIssue(weapon) ?? observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon)
     if (!issues.has(weapon.instanceId) && comboIssue) issues.set(weapon.instanceId, [comboIssue])
     if (!issues.has(weapon.instanceId) && !hasObservedMeleeDamage(weapon)) {
       try { validatePowerCurveLevel(weapon.powerLevel, GEAR_POWER_CURVE.value) }

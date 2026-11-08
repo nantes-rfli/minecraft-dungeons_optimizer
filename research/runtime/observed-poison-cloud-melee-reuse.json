@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-poison-cloud-on-observed-combo",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-poison-cloud-melee.json",
+  "testRef": "tests/observedPoisonCloudMelee.test.ts",
+  "observation": "own ordinary direct complete combo damage excluding poison ticks at the current equipped Power",
+  "procPowerRange": { "min": 184, "max": 251 },
+  "targets": { "nightmares-bite": "poison-cloud", "venom-glaive": "poison-cloud" }
+}

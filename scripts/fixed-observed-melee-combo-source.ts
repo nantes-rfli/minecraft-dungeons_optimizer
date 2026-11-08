@@ -7,6 +7,7 @@ import source from '../research/sources/fixed-observed-melee-combo-source.json' 
 import sharpnessSource from '../research/sources/observed-sharpness-combo-source.json' with { type: 'json' }
 import radianceSource from '../research/sources/observed-radiance-combo-source.json' with { type: 'json' }
 import freezingSource from '../research/sources/observed-freezing-scythes.json' with { type: 'json' }
+import poisonCloudSource from '../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import { GREAT_HAMMER_LOCALIZATION_SOURCE, parseLocresV2 } from './locres-identity-source.ts'
 import type { RawStructuralInventoryManifest, RawStructuralInventoryShard } from './game-data-raw-structural-inventory.ts'
 
@@ -14,7 +15,7 @@ const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).dige
 const directory = 'research/raw/game-data-raw-structural-inventory'
 const disabledObject = { rawPackageIndex: 0, kind: 'null' }
 
-const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows]
+const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows, ...poisonCloudSource.rows]
 export const fixedComboLocalizationBridges = fixedRows.flatMap((row) => row.localization ? [{
   category: 'melee-weapon' as const, domainId: row.id, rawIdentity: row.rawIdentity,
   packagePath: row.packagePath, displayName: row.calculatorRow.name, localization: row.localization,
@@ -26,15 +27,22 @@ export function verifyFixedObservedComboSources(repositoryRoot: string): void {
   assert.deepEqual(sharpnessSource.localizationSource, expectedLocalization)
   assert.deepEqual(radianceSource.localizationSource, expectedLocalization)
   assert.deepEqual(freezingSource.localizationSource, expectedLocalization)
+  assert.deepEqual(poisonCloudSource.localizationSource, expectedLocalization)
   assert.deepEqual(fixedComboLocalizationBridges.map(({ domainId, rawIdentity }) => [domainId, rawIdentity]), [
     ['cackling-broom', 'Glaive_Spooky2'], ['dark-katana', 'Katana_Unique2'],
     ['grave-bane', 'Glaive_Unique1'], ['hawkbrand', 'Sword_Unique2'], ['diamond-sword', 'Sword_Unique1'], ['suns-grace', 'Mace_Unique1'],
     ['frost-scythe', 'SoulScythe_Unique2'], ['skull-scythe', 'SoulScythe_Spooky2'],
+    ['nightmares-bite', 'Sickles_Unique1'], ['venom-glaive', 'Glaive_Unique2'],
   ])
-  for (const { localization, rawIdentity, displayName } of fixedComboLocalizationBridges) {
+  for (const { domainId, localization, rawIdentity, displayName } of fixedComboLocalizationBridges) {
     assert.equal(localization.namespace, 'ItemType')
     assert.equal(localization.key, rawIdentity)
-    assert.equal(localization.value, displayName)
+    if (domainId === 'venom-glaive') {
+      assert.equal(localization.value, 'Venom glaive')
+      assert.equal(displayName, 'Venom Glaive')
+    } else {
+      assert.equal(localization.value, displayName)
+    }
   }
 
   const read = (relative: string) => fs.readFileSync(path.join(repositoryRoot, directory, relative))
