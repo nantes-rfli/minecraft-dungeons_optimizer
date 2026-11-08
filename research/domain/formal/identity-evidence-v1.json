@@ -5117,6 +5117,68 @@
             "evidence:presentation:purple-storm:ranged-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:frost-scythe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulScythe_Unique2",
+            "evidenceRef": "evidence:raw:identity:frost-scythe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulScythe_Unique2",
+            "evidenceRef": "evidence:raw:identity:frost-scythe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:frost-scythe@1",
+          "domainId": "frost-scythe",
+          "evidenceRefs": [
+            "evidence:raw:identity:frost-scythe@1:ItemIdName",
+            "evidence:raw:identity:frost-scythe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "frost-scythe",
+          "displayName": "Frost Scythe",
+          "evidenceRefs": [
+            "evidence:presentation:frost-scythe:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:skull-scythe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulScythe_Spooky2",
+            "evidenceRef": "evidence:raw:identity:skull-scythe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulScythe_Spooky2",
+            "evidenceRef": "evidence:raw:identity:skull-scythe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:skull-scythe@1",
+          "domainId": "skull-scythe",
+          "evidenceRefs": [
+            "evidence:raw:identity:skull-scythe@1:ItemIdName",
+            "evidence:raw:identity:skull-scythe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "skull-scythe",
+          "displayName": "Skull Scythe",
+          "evidenceRefs": [
+            "evidence:presentation:skull-scythe:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8294,6 +8356,46 @@
       "evidenceRefs": [
         "evidence:reviewed:purple-storm:accepted-alias",
         "evidence:reviewed:purple-storm:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:frost-scythe@1",
+      "rawIdentity": "SoulScythe_Unique2",
+      "domainId": "frost-scythe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:frost-scythe:accepted-alias",
+        "evidence:reviewed:frost-scythe:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:skull-scythe@1",
+      "rawIdentity": "SoulScythe_Spooky2",
+      "domainId": "skull-scythe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:skull-scythe:accepted-alias",
+        "evidence:reviewed:skull-scythe:exact-localization-key"
       ]
     }
   ],
@@ -19321,6 +19423,156 @@
           "nodePointer": "/packages/54/cdoPropertyInventory/0/properties/6/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:e6c671e9"
+      },
+      {
+        "id": "evidence:reviewed:frost-scythe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulScythe_Unique2]"
+        },
+        "fingerprint": "fnv1a32:7fbe65bd"
+      },
+      {
+        "id": "evidence:presentation:frost-scythe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=frost-scythe].name.en"
+        },
+        "fingerprint": "fnv1a32:5b4c65f2"
+      },
+      {
+        "id": "evidence:reviewed:frost-scythe:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/SoulScythe_Unique2 names Frost Scythe. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-freezing-scythes.json",
+          "locator": "rows[id=frost-scythe].localization"
+        },
+        "fingerprint": "fnv1a32:d8c03b66"
+      },
+      {
+        "id": "evidence:raw:identity:frost-scythe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4c9a09fbe8e592759cdfd8a30bba54a2754646ce87b3eba65ca3e3aa510351f4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "01806bc067a9007a3267087621ac49b548517b4ff7d24a247ae47012762d9315"
+          },
+          "nodePointer": "/packages/22/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:f3d62fde"
+      },
+      {
+        "id": "evidence:raw:identity:frost-scythe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:4c9a09fbe8e592759cdfd8a30bba54a2754646ce87b3eba65ca3e3aa510351f4",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "01806bc067a9007a3267087621ac49b548517b4ff7d24a247ae47012762d9315"
+          },
+          "nodePointer": "/packages/22/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:d6906c4e"
+      },
+      {
+        "id": "evidence:reviewed:skull-scythe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulScythe_Spooky2]"
+        },
+        "fingerprint": "fnv1a32:c7987ade"
+      },
+      {
+        "id": "evidence:presentation:skull-scythe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=skull-scythe].name.en"
+        },
+        "fingerprint": "fnv1a32:5e58d628"
+      },
+      {
+        "id": "evidence:reviewed:skull-scythe:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/SoulScythe_Spooky2 names Skull Scythe. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-freezing-scythes.json",
+          "locator": "rows[id=skull-scythe].localization"
+        },
+        "fingerprint": "fnv1a32:a9d80d05"
+      },
+      {
+        "id": "evidence:raw:identity:skull-scythe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c02eedadbed84e42565de5b122885712080dd6bacbd1e87f308c83f5413d04f1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d2bb5ae935f9d92175ccdd6007a992b7b9fc9c91422c2b84b5975d39d3f172ae"
+          },
+          "nodePointer": "/packages/5/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:5a3b938a"
+      },
+      {
+        "id": "evidence:raw:identity:skull-scythe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Spooky2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:c02eedadbed84e42565de5b122885712080dd6bacbd1e87f308c83f5413d04f1",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "d2bb5ae935f9d92175ccdd6007a992b7b9fc9c91422c2b84b5975d39d3f172ae"
+          },
+          "nodePointer": "/packages/5/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:2855f9e0"
       }
     ]
   }

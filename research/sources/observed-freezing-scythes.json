@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "frost-scythe",
+      "rawIdentity": "SoulScythe_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance",
+      "calculatorRow": {
+        "slug": "frost-scythe",
+        "name": "Frost Scythe",
+        "type": "melee",
+        "route": "/weapons/frost-scythe",
+        "power": 6.915,
+        "speed": 2.646,
+        "area": 9.425,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_SoulScythe_Unique2_Icon.png",
+        "builtIn": [
+          "Freezing"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/frost-scythe",
+      "intrinsicFacts": [
+        "Slows mobs",
+        "+1 Soul gathering"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AFrost_Scythe",
+      "hitDurationsSeconds": [
+        0.48,
+        0.56
+      ],
+      "publishedBaseDamage": [
+        80,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-020.json.gz",
+        "sha256": "1d0da96d923350b68d585e10566690622017ca7c9f4511e9278ea11ea9d16a09",
+        "packageIndex": 22
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "SoulScythe_Unique2",
+        "sourceStringHash": 2168238957,
+        "localizedStringIndex": 2946,
+        "entryRange": [
+          124317,
+          124352
+        ],
+        "value": "Frost Scythe",
+        "localizedStringRecordRange": [
+          316999,
+          317020
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "freezing",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AFreezing",
+        "attackSpeedReduction": 0.3,
+        "durationSeconds": 3
+      },
+      "soul": {
+        "acceptsSoulEnchantments": true,
+        "baseSoulGathering": 1
+      }
+    },
+    {
+      "id": "skull-scythe",
+      "rawIdentity": "SoulScythe_Spooky2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance",
+      "calculatorRow": {
+        "slug": "skull-scythe",
+        "name": "Skull Scythe",
+        "type": "melee",
+        "route": "/weapons/skull-scythe",
+        "power": 6.915,
+        "speed": 2.646,
+        "area": 9.425,
+        "isUnique": false,
+        "rarity": "Common",
+        "pack": "Base Game",
+        "icon": "/images/items/T_SoulScythe_Spooky2_GearIcon.png",
+        "builtIn": [
+          "Freezing"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/skull-scythe",
+      "intrinsicFacts": [
+        "Slows mobs",
+        "+1 Soul gathering",
+        "Special event item"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ASkull_Scythe",
+      "hitDurationsSeconds": [
+        0.48,
+        0.56
+      ],
+      "publishedBaseDamage": [
+        80,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-020.json.gz",
+        "sha256": "1d0da96d923350b68d585e10566690622017ca7c9f4511e9278ea11ea9d16a09",
+        "packageIndex": 5
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "SoulScythe_Spooky2",
+        "sourceStringHash": 1892570683,
+        "localizedStringIndex": 1742,
+        "entryRange": [
+          133878,
+          133913
+        ],
+        "value": "Skull Scythe",
+        "localizedStringRecordRange": [
+          267339,
+          267360
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "freezing",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AFreezing",
+        "attackSpeedReduction": 0.3,
+        "durationSeconds": 3
+      },
+      "soul": {
+        "acceptsSoulEnchantments": true,
+        "baseSoulGathering": 1
+      }
+    }
+  ]
+}
