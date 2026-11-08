@@ -9,8 +9,10 @@ import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import { armorNumericEvidenceRows } from './armorEvidence'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { CROSS_WEAPON_DAMAGE_SCALING, GEAR_POWER_CURVE } from '../data/powerScaling'
-import { RANGED_ENCHANTMENTS } from '../data/ranged'
+import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
 import { isFixedPowerBow } from './fixedPowerBowReuse'
+import { FIXED_RAPID_FIRE, isFixedRapidFireWeapon } from './fixedRapidFireReuse'
+import { rangedObservationMatchesPower, requiresBoundRangedObservation } from './rangedFixedEffects'
 import { WEAPONS } from '../data/weapons'
 import { isPlainMeleeId } from '../data/plainMelee'
 import { plainMeleeReuseIsEligible } from './plainMeleeReuse'
@@ -158,6 +160,10 @@ function uniqueParameterEvidence(parameters: readonly ParameterEvidence[]): read
 }
 
 export function parameterEvidenceForBuild(build: Build): readonly ParameterEvidence[] {
+  const ranged = build.rangedWeapon
+  const observed = ranged?.observation
+  const rangedObservation = ranged && observed && (!requiresBoundRangedObservation(ranged.weaponId)
+    || (rangedObservationMatchesPower(ranged) && RANGED_WEAPONS[ranged.weaponId]?.modes.includes(observed.mode))) ? observed : undefined
   const observedCombo = isObservedMeleeComboId(build.weapon.weaponId)
   const weaponParameters = !hasObservedMeleeDamage(build.weapon)
     ? observedCombo
@@ -174,12 +180,14 @@ export function parameterEvidenceForBuild(build: Build): readonly ParameterEvide
     ...(build.armor ? evidenceForMechanic(`armor:${build.armor.armorId}`) : []),
     ...(build.armorEnchantments ?? []).flatMap((item, _, items) => evidenceForMechanic(`armor-enchantment:${item.enchantmentId}`).filter((parameter) => parameter.parameterId !== 'stacking-interaction' || items.filter((candidate) => candidate.enchantmentId === item.enchantmentId).length > 1)),
     ...(build.rangedWeapon ? [
-      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'projectile-damage', label: '遠距離 / projectile damage', status: build.rangedWeapon.observation ? 'measured' : 'unclassified', basis: build.rangedWeapon.observation?.sourceNote ?? '利用者観測値が未登録。', conditions: isFixedPowerBow(build.rangedWeapon.weaponId) ? '同じ個体・Power・発射モード。固定パワー I を含む通常矢1本。' : 'neutral single projectile', gameVersion: build.rangedWeapon.observation?.gameVersion ?? 'unknown', confidence: build.rangedWeapon.observation ? 'medium' : 'low' },
-      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'shot-cycle', label: '遠距離 / shot cycle', status: build.rangedWeapon.observation ? 'measured' : 'unclassified', basis: build.rangedWeapon.observation?.sourceNote ?? '利用者観測値が未登録。', conditions: 'complete shot cycle', gameVersion: build.rangedWeapon.observation?.gameVersion ?? 'unknown', confidence: build.rangedWeapon.observation ? 'medium' : 'low' },
-      ...(build.rangedWeapon.weaponId === 'rapid-crossbow' || isFixedPowerBow(build.rangedWeapon.weaponId) || build.rangedWeapon.observation?.arrowsConsumedPerShot !== undefined ? [{ mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'arrows-consumed-per-shot', label: '遠距離 / 1射の消費矢数', status: build.rangedWeapon.observation?.arrowsConsumedPerShot === undefined ? 'unclassified' : 'measured', basis: build.rangedWeapon.observation?.sourceNote ?? '対象modeの消費矢数の観測が未登録。', conditions: '1完全周期あたり1通常矢の明示観測のみ対応。矢数0でも欠損・非1は評価しない。', gameVersion: build.rangedWeapon.observation?.gameVersion ?? 'unknown', confidence: 'medium' }] : []),
+      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'projectile-damage', label: '遠距離 / projectile damage', status: rangedObservation ? 'measured' : 'unclassified', basis: rangedObservation?.sourceNote ?? '利用者観測値が未登録。', conditions: isFixedPowerBow(build.rangedWeapon.weaponId) ? '同じ個体・Power・発射モード。固定パワー I を含む通常矢1本。' : 'neutral single projectile', gameVersion: rangedObservation?.gameVersion ?? 'unknown', confidence: rangedObservation ? 'medium' : 'low' },
+      { mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'shot-cycle', label: '遠距離 / shot cycle', status: rangedObservation ? 'measured' : 'unclassified', basis: rangedObservation?.sourceNote ?? '利用者観測値が未登録。', conditions: isFixedRapidFireWeapon(build.rangedWeapon.weaponId) ? '同じ個体・Power・発射モード。固定「速射 I」を含む完全発射周期。' : 'complete shot cycle', gameVersion: rangedObservation?.gameVersion ?? 'unknown', confidence: rangedObservation ? 'medium' : 'low' },
+      ...(build.rangedWeapon.weaponId === 'rapid-crossbow' || requiresBoundRangedObservation(build.rangedWeapon.weaponId) || rangedObservation?.arrowsConsumedPerShot !== undefined ? [{ mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'arrows-consumed-per-shot', label: '遠距離 / 1射の消費矢数', status: rangedObservation?.arrowsConsumedPerShot === undefined ? 'unclassified' : 'measured', basis: rangedObservation?.sourceNote ?? '対象modeの消費矢数の観測が未登録。', conditions: '1完全周期あたり1通常矢の明示観測のみ対応。矢数0でも欠損・非1は評価しない。', gameVersion: rangedObservation?.gameVersion ?? 'unknown', confidence: 'medium' }] : []),
       ...(isFixedPowerBow(build.rangedWeapon.weaponId) ? [{ mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'fixed-builtin-ownership-tier', label: '遠距離 / 固定パワー I', status: 'derived', basis: '対象自身の公開TierとRaw出典 research/sources/observed-fixed-power-bows.json', conditions: '通常矢1本を単体に命中させる対象モード。観測damageに含まれる固定効果を1回だけ計上。', gameVersion: '1.17.0.0', confidence: 'medium' }] : []),
+      ...(isFixedRapidFireWeapon(build.rangedWeapon.weaponId) ? [{ mechanicId: `ranged:${build.rangedWeapon.weaponId}`, parameterId: 'fixed-builtin-ownership-tier', label: '遠距離 / 固定「速射 I」', status: 'derived', basis: '対象自身の公開TierとRaw出典 research/sources/observed-rapid-fire-variants.json', conditions: '完全発射周期に固定「速射 I」の効果が含まれる。固有效果を外した周期は未観測。', gameVersion: '1.17.0.0', confidence: 'medium' }] : []),
     ] as ParameterEvidence[] : []),
-    ...(build.rangedEnchantments ?? []).flatMap((item) => evidenceForMechanic(`ranged-enchantment:${item.enchantmentId}`)),
+    ...(build.rangedEnchantments ?? []).flatMap((item) => item.source === 'built-in' && item.enchantmentId === FIXED_RAPID_FIRE.enchantmentId && isFixedRapidFireWeapon(build.rangedWeapon?.weaponId ?? '')
+      ? [] : evidenceForMechanic(`ranged-enchantment:${item.enchantmentId}`)),
     ...build.artifacts.flatMap((item, _, items) => evidenceForMechanic(item.artifactId).filter((parameter) => !isDuplicateInteractionParameter(parameter) || items.filter((candidate) => candidate.artifactId === item.artifactId).length > 1)),
   ])
 }

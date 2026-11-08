@@ -7341,8 +7341,8 @@
     {
       "category": "ranged-weapon",
       "id": "azure-seeker",
-      "label": "Azure Seeker",
-      "runtimeSupport": "research-only",
+      "label": "アズールシーカー",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -7350,7 +7350,7 @@
             "canonicalId": "azure-seeker",
             "names": {
               "en": "Azure Seeker",
-              "ja": null
+              "ja": "アズールシーカー"
             }
           },
           "sourceIds": [
@@ -7492,7 +7492,7 @@
               "cadence",
               "projectile-velocity"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [
@@ -26011,8 +26011,8 @@
     {
       "category": "ranged-weapon",
       "id": "purple-storm",
-      "label": "Purple Storm",
-      "runtimeSupport": "research-only",
+      "label": "パープルストーム",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -26020,7 +26020,7 @@
             "canonicalId": "purple-storm",
             "names": {
               "en": "Purple Storm",
-              "ja": null
+              "ja": "パープルストーム"
             }
           },
           "sourceIds": [
@@ -26159,7 +26159,7 @@
             "families": [
               "cadence"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [

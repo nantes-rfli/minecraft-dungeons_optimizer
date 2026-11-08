@@ -1,5 +1,6 @@
 import { fixedComboLocalizationBridges } from './fixed-observed-melee-combo-source.ts'
 import { fixedPowerBowBridges, fixedPowerBowCatalogEvidence, FIXED_POWER_BOW_ALIAS_BASIS } from './fixed-power-bow-source.ts'
+import { fixedRapidFireBridges, fixedRapidFireCatalogEvidence } from './fixed-rapid-fire-source.ts'
 import { BUILTIN_PROC_LOCALIZATION_SOURCE, collectBuiltinProcLocalizationSourceErrors } from './builtin-proc-locres-source.ts'
 import { collectGreatHammerLocalizationSourceErrors, GREAT_HAMMER_LOCALIZATION_SOURCE, LOCALIZATION_IDENTITY_ALIAS_BASIS } from './locres-identity-source.ts'
 import fs from 'node:fs'
@@ -464,6 +465,7 @@ export function alignmentOutputs(result: ModelAlignment): Record<string, string>
   for (const bridge of BUILTIN_PROC_LOCALIZATION_SOURCE.bridges) materializeReviewedTypedRelationAlias(bridge as { category: 'melee-weapon'; domainId: string; rawIdentity: string; packagePath: string }, LOCALIZATION_IDENTITY_ALIAS_BASIS)
   for (const bridge of fixedComboLocalizationBridges) materializeReviewedTypedRelationAlias(bridge, LOCALIZATION_IDENTITY_ALIAS_BASIS)
   for (const bridge of fixedPowerBowBridges) materializeReviewedTypedRelationAlias({ ...bridge, domainId: bridge.id }, FIXED_POWER_BOW_ALIAS_BASIS, fixedPowerBowCatalogEvidence(bridge))
+  for (const bridge of fixedRapidFireBridges) materializeReviewedTypedRelationAlias(bridge, FIXED_POWER_BOW_ALIAS_BASIS, fixedRapidFireCatalogEvidence(bridge))
   reviewedAliases.sort((a, b) => a.id.localeCompare(b.id))
   const artifacts = {
     'domain/game-data-canonical-properties': { ...common, properties: result.properties, ruleDecisions: ALIGNED_RULE_DECISIONS, changeDecisions: result.changeDecisions },

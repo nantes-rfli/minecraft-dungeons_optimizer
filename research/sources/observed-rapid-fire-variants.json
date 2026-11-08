@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "azure-seeker",
+      "displayName": "Azure Seeker",
+      "rawIdentity": "Crossbow_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
+      "donorId": "crossbow",
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Crossbow_Unique2",
+        "sourceStringHash": 619157449,
+        "localizedStringIndex": 2754,
+        "entryRange": [
+          117427,
+          117460
+        ],
+        "value": "Azure Seeker",
+        "localizedStringRecordRange": [
+          309179,
+          309200
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/azure-seeker",
+      "wiki": "https://minecraft.wiki/w/Dungeons:Azure_Seeker",
+      "fixed": {
+        "enchantmentId": "rapid-fire",
+        "tier": 1,
+        "publishedAttackSpeedBonus": 0.1
+      },
+      "ownPackages": [
+        {
+          "shard": "shards/part-022.json.gz",
+          "sha256": "164cd1796a73f05cde9989051bae615661b66666b0ba98d1a12c947973f46c4c",
+          "index": 63,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2",
+          "exportCount": 21,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2.uasset",
+              "size": 6750,
+              "sha256": "9c7a96a11adadeb284683e774066316a35284ce5985f0d240670ddf8ba72b792"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2.uexp",
+              "size": 3119,
+              "sha256": "262bfeab1998823191f7b40d9c20d3c03c69092fe8e165b9b428d8518610be2d"
+            }
+          ],
+          "parentClass": "GearActor"
+        },
+        {
+          "shard": "shards/part-023.json.gz",
+          "sha256": "7796b97bbfa309ced0a8583a1b102dedfb4d5aea764f982bb406207e56f0d0b4",
+          "index": 0,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow",
+          "exportCount": 8,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow.uasset",
+              "size": 4391,
+              "sha256": "d87d33400d3bc0bf9fb3658e776373cbbf3a31c8ffd38a4bd1328a4588969b44"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow.uexp",
+              "size": 519,
+              "sha256": "6bfd50cd6f807248a430f6a0d3007e4235e2b406a715be8a0f9772de54a66927"
+            }
+          ],
+          "parentClass": "BP_PlayerCrossbowArrow_C"
+        },
+        {
+          "shard": "shards/part-023.json.gz",
+          "sha256": "7796b97bbfa309ced0a8583a1b102dedfb4d5aea764f982bb406207e56f0d0b4",
+          "index": 1,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance",
+          "exportCount": 5,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance.uasset",
+              "size": 5479,
+              "sha256": "157d87b08a48bd7fdd243c87382afee2d12576aece612e69a055d0864a729112"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Instance.uexp",
+              "size": 1724,
+              "sha256": "2042b596981e19f455c1f80f17c18d467f9d36636254082a7f9905910ebadc8d"
+            }
+          ],
+          "parentClass": "BP_CrossbowInstance_C"
+        }
+      ],
+      "reviewedComponents": [
+        {
+          "class": "DungeonsProjectileMovementComp",
+          "exportIndex": 2,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow.uexp",
+            "start": 258,
+            "end": 270
+          },
+          "template": "Projectile Movement Component",
+          "propertyNames": []
+        },
+        {
+          "class": "ImpactActionHandler",
+          "exportIndex": 3,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow.uexp",
+            "start": 270,
+            "end": 282
+          },
+          "template": "ImpactActionHandler",
+          "propertyNames": []
+        },
+        {
+          "class": "InheritableComponentHandler",
+          "exportIndex": 4,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/Crossbow_Unique2/BP_Crossbow_Unique2Arrow.uexp",
+            "start": 282,
+            "end": 294
+          },
+          "template": "Default__InheritableComponentHandler",
+          "propertyNames": []
+        }
+      ]
+    },
+    {
+      "id": "purple-storm",
+      "displayName": "Purple Storm",
+      "rawIdentity": "Shortbow_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
+      "donorId": "shortbow",
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Shortbow_Unique1",
+        "sourceStringHash": 4011305577,
+        "localizedStringIndex": 3156,
+        "entryRange": [
+          131869,
+          131902
+        ],
+        "value": "Purple Storm",
+        "localizedStringRecordRange": [
+          326626,
+          326647
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/purple-storm",
+      "wiki": "https://minecraft.wiki/w/Dungeons:Purple_Storm",
+      "fixed": {
+        "enchantmentId": "rapid-fire",
+        "tier": 1,
+        "publishedAttackSpeedBonus": 0.1
+      },
+      "ownPackages": [
+        {
+          "shard": "shards/part-026.json.gz",
+          "sha256": "1d8797f5eedc4f6fcccaf751ad9268cc437be036f8a0249addedd99434368b63",
+          "index": 52,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1",
+          "exportCount": 21,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1.uasset",
+              "size": 7801,
+              "sha256": "df07a539c0e7283181bb56cba7db7814f19ace351c8a7fcf9b00d2981fc2c4e0"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1.uexp",
+              "size": 11696,
+              "sha256": "96bb6ae4bf57af15d423c83ceda0c8a80d8f4a4829dd28f901fef40a50da4c85"
+            }
+          ],
+          "parentClass": "GearActor"
+        },
+        {
+          "shard": "shards/part-026.json.gz",
+          "sha256": "1d8797f5eedc4f6fcccaf751ad9268cc437be036f8a0249addedd99434368b63",
+          "index": 53,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow",
+          "exportCount": 9,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow.uasset",
+              "size": 5530,
+              "sha256": "e3ca4228fd11146e7268a4899c5515c73c98886a0efbaf65e5d8c6b6adce3bd1"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow.uexp",
+              "size": 1897,
+              "sha256": "3a5d69ded44e70af28c4036e08bc25ae7503bf529c56736660aeb357d66cd0a0"
+            }
+          ],
+          "parentClass": "BP_ShortBow_Arrow_C"
+        },
+        {
+          "shard": "shards/part-026.json.gz",
+          "sha256": "1d8797f5eedc4f6fcccaf751ad9268cc437be036f8a0249addedd99434368b63",
+          "index": 54,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance",
+          "exportCount": 5,
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance.uasset",
+              "size": 5784,
+              "sha256": "d65b55665d82dfc534679a60b19d4424055069bd8fabacef33354843f977ec3a"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_Shortbow_Unique1Instance.uexp",
+              "size": 1814,
+              "sha256": "228c726a705c10ab35806e133a43e71ea754a7df539bf7d69a92e73a9a5c6556"
+            }
+          ],
+          "parentClass": "BP_ShortbowInstance_C"
+        }
+      ],
+      "reviewedComponents": [
+        {
+          "class": "DungeonsProjectileMovementComp",
+          "exportIndex": 2,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow.uexp",
+            "start": 287,
+            "end": 299
+          },
+          "template": "Projectile Movement Component",
+          "propertyNames": []
+        },
+        {
+          "class": "ImpactActionHandler",
+          "exportIndex": 3,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow.uexp",
+            "start": 299,
+            "end": 311
+          },
+          "template": "ImpactActionHandler",
+          "propertyNames": []
+        },
+        {
+          "class": "InheritableComponentHandler",
+          "exportIndex": 4,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/ShortBow_Unique1/BP_ShortBow_Unique1Arrow.uexp",
+            "start": 311,
+            "end": 828
+          },
+          "template": "Default__InheritableComponentHandler",
+          "propertyNames": [
+            "Records"
+          ],
+          "overrideClasses": [
+            "ParticleSystemComponent"
+          ]
+        }
+      ]
+    }
+  ],
+  "purpleChargeCue": {
+    "tag": "GameplayCue.Trigger.PurpleRain.ChargeShot",
+    "path": "Dungeons/Content/Cues/BP_PurpleRainChargeShotNotifyStatic",
+    "sourceFiles": [
+      {
+        "extension": "uasset",
+        "size": 1767,
+        "sha256": "66fb2bd39a8f2a4f336d02f3edeccd904554bd90a4bf19e9c8b9adb99d9cd22d"
+      },
+      {
+        "extension": "uexp",
+        "size": 305,
+        "sha256": "951656e7fd7670bb89213738eda4d875c428d11fef71206e21684890d284e525"
+      }
+    ],
+    "onlyExports": [
+      "BP_PurpleRainChargeShotNotifyStatic_C",
+      "Default__BP_PurpleRainChargeShotNotifyStatic_C"
+    ],
+    "parent": "BP_BaseBowChargeShotNotifyStatic_C",
+    "particle": "PS_PurpleRain_ChargedArrowLaunch",
+    "base": {
+      "scriptSha256": "657ec0923ae6dda480edc38044031fcd0715485f82dd86cef50f506662da029f",
+      "sourceFiles": [
+        "3062a1ab4072b917075b03ea73c73958632c53a168b1ccea9fe13ed4ff13b622",
+        "61f01fc7baf5f92710b69f5b65972f204803cf53a18dce916776c2dd400ed544"
+      ],
+      "range": [
+        140,
+        414
+      ],
+      "byteCount": 274,
+      "expanded": 446,
+      "callList": [
+        [
+          "GetActorForwardVector",
+          "Actor"
+        ],
+        [
+          "Multiply_VectorFloat",
+          "KismetMathLibrary"
+        ],
+        [
+          "K2_GetActorLocation",
+          "Actor"
+        ],
+        [
+          "K2_GetActorRotation",
+          "Actor"
+        ],
+        [
+          "Add_VectorVector",
+          "KismetMathLibrary"
+        ],
+        [
+          "SpawnEmitterAtLocation",
+          "GameplayStatics"
+        ],
+        [
+          "SetColorParameter",
+          "ParticleSystemComponent"
+        ],
+        [
+          "OnExecute",
+          "GameplayCueNotify_Static"
+        ]
+      ],
+      "opcodes": [
+        "0",
+        "1",
+        "4",
+        "f",
+        "14",
+        "17",
+        "19",
+        "1c",
+        "1e",
+        "20",
+        "21",
+        "23",
+        "24",
+        "27",
+        "48",
+        "53",
+        "5f",
+        "68"
+      ],
+      "path": "Dungeons/Content/Cues/BP_BaseBowChargeShotNotifyStatic"
+    }
+  }
+}

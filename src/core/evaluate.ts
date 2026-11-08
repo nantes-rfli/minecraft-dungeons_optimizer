@@ -28,6 +28,7 @@ import { resolveBuildHealth } from './armor'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import type { ArmorEnchantmentId, ArmorId } from './armor'
 import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { FIXED_RAPID_FIRE, isFixedRapidFireWeapon } from './fixedRapidFireReuse'
 import { isPlainMeleeId } from '../data/plainMelee'
 import { PLAIN_MELEE_LIMITATION } from './plainMeleeReuse'
 
@@ -133,7 +134,10 @@ function calculateContributions(
     const armorEnchantments = build.armorEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return toContribution('armor-enchantment', selected.enchantmentId, baseline, calculateCore({ ...build, armorEnchantments }, scenario))
   })
-  const rangedContributions = (build.rangedEnchantments ?? []).map((selected, index) => {
+  const rangedContributions = (build.rangedEnchantments ?? []).flatMap((selected, index) => {
+    // The observed cycle already includes Rapid Fire. Its counterfactual
+    // complete cycle is unobserved, so no separate delta can be computed.
+    if (selected.source === 'built-in' && selected.enchantmentId === FIXED_RAPID_FIRE.enchantmentId) return []
     const rangedEnchantments = build.rangedEnchantments!.filter((_, currentIndex) => currentIndex !== index)
     return { ...toContribution('ranged-enchantment', selected.enchantmentId as EffectContribution['sourceId'], baseline, calculateCore({ ...build, rangedEnchantments }, scenario)), ...(selected.source === 'built-in' ? { enchantmentSource: 'built-in' as const } : {}) }
   })
@@ -159,6 +163,7 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   if (core.damage.ranged) {
     const state = core.damage.ranged
     reasons.push(`${RANGED_WEAPONS[state.weaponId]!.name.en}: Limited / ${state.mode} / 時間${(state.timeShare * 100).toFixed(1)}%、${state.shots}射（矢消費${state.ammoConsumed}${state.ammoLimited ? '・弾数上限' : ''}）→ direct ranged ${state.directSingleTargetDps.toFixed(2)} DPS。indirect ranged 0（対応効果を選択していない）。`)
+    if (isFixedRapidFireWeapon(state.weaponId)) reasons.push(`固定「速射 I」込みの完全発射周期は観測 ${state.shotCycleSeconds} 秒です。固定効果を外した周期は未観測のため、単独の寄与は算出対象外です。`)
     reasons.push(`近接時間${((1 - state.timeShare) * 100).toFixed(1)}%。Ranged撃破は近接Leeching・Refreshment・Guardingの発動に流用しません。`)
     reasons.push(...state.limitations, RANGED_WEAPONS[state.weaponId]!.intrinsic)
   }

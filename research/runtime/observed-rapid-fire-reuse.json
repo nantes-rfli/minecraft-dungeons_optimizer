@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "runtimeSupport": "limited",
+  "classification": "derived",
+  "mechanic": "observed-complete-shot-cycle-including-fixed-rapid-fire-i",
+  "scope": "one-arrow-one-target",
+  "sourceRef": "research/sources/observed-rapid-fire-variants.json",
+  "testRef": "tests/fixedRapidFireReuse.test.ts",
+  "targets": {
+    "azure-seeker": ["single"],
+    "purple-storm": ["uncharged", "charged"]
+  }
+}

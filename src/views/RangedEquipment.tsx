@@ -3,8 +3,10 @@ import type { Inventory, Scenario, Evaluation } from '../core/types'
 import type { OwnedRangedWeapon, RangedShotMode } from '../core/rangedTypes'
 import { parseRangedWeapon, rangedAmmoObservationIssue, rangedWeaponUnsupportedReason, requiresExplicitRangedAmmoCost } from '../core/ranged'
 import { isFixedPowerBow } from '../core/fixedPowerBowReuse'
+import { isFixedRapidFireWeapon } from '../core/fixedRapidFireReuse'
+import { rangedObservationMatchesPower, requiresBoundRangedObservation } from '../core/rangedFixedEffects'
 import { RANGED_WEAPON_AUDIT } from '../research/rangedAudit'
-import { RANGED_ENCHANTMENTS, RANGED_WEAPONS } from '../data/ranged'
+import { rangedEnchantmentName, RANGED_WEAPONS } from '../data/ranged'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
@@ -15,8 +17,9 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const errorId = useId()
   const observed = weapon.observation
   const fixedPower = isFixedPowerBow(weapon.weaponId)
+  const rapidFire = isFixedRapidFireWeapon(weapon.weaponId)
   const observationDraft = () => {
-    const matching = fixedPower && observed?.fixedPowerObservation?.powerLevel !== weapon.powerLevel ? undefined : observed
+    const matching = rangedObservationMatchesPower(weapon) ? observed : undefined
     return {
       mode: observed?.mode ?? (RANGED_WEAPONS[weapon.weaponId]?.modes[0] ?? (weapon.weaponId.includes('crossbow') ? 'single' : 'uncharged')),
       damage: matching?.projectileDamage.toString() ?? '', cycle: matching?.shotCycleSeconds.toString() ?? '', ammo: observed?.availableAmmo.toString() ?? '',
@@ -27,7 +30,7 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const [previousObservation, setPreviousObservation] = useState(observed)
   const [previousPowerLevel, setPreviousPowerLevel] = useState(weapon.powerLevel)
   // Sync imported/reset observations without remounting the focused editor.
-  if (previousObservation !== observed || (fixedPower && previousPowerLevel !== weapon.powerLevel)) {
+  if (previousObservation !== observed || (requiresBoundRangedObservation(weapon.weaponId) && previousPowerLevel !== weapon.powerLevel)) {
     setPreviousObservation(observed)
     setPreviousPowerLevel(weapon.powerLevel)
     setDraft(observationDraft())
@@ -47,7 +50,7 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
     try {
       if ([draft.damage, draft.cycle, draft.ammo, draft.note].some((value) => value.trim() === '')) throw new Error('観測値とメモをすべて入力してください。')
       if (showConsumedArrows && draft.arrowsConsumedPerShot.trim() === '') throw new Error('1完全発射周期あたりの消費矢数を再入力してください。1本消費の観測のみ対応します。')
-      const parsed = parseRangedWeapon({ ...weapon, observation: { gameVersion: '1.17.0.0', mode: draft.mode, projectileDamage: Number(draft.damage), shotCycleSeconds: Number(draft.cycle), availableAmmo: Number(draft.ammo), sourceNote: draft.note, ...(fixedPower ? { fixedPowerObservation: { powerLevel: weapon.powerLevel } } : {}), ...(draft.arrowsConsumedPerShot.trim() === '' ? {} : { arrowsConsumedPerShot: Number(draft.arrowsConsumedPerShot) }) } })
+      const parsed = parseRangedWeapon({ ...weapon, observation: { gameVersion: '1.17.0.0', mode: draft.mode, projectileDamage: Number(draft.damage), shotCycleSeconds: Number(draft.cycle), availableAmmo: Number(draft.ammo), sourceNote: draft.note, ...(fixedPower ? { fixedPowerObservation: { powerLevel: weapon.powerLevel } } : {}), ...(rapidFire ? { fixedCadenceObservation: { powerLevel: weapon.powerLevel } } : {}), ...(draft.arrowsConsumedPerShot.trim() === '' ? {} : { arrowsConsumedPerShot: Number(draft.arrowsConsumedPerShot) }) } })
       const ammoIssue = rangedAmmoObservationIssue(parsed)
       if (ammoIssue) throw new Error(ammoIssue.message)
       onChange(parsed)
@@ -59,6 +62,7 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
     <details className="advanced-collection-fields"><summary>最適化に使う詳しい数値を入力する</summary><div><p>{rangedWeaponUnsupportedReason(weapon) ?? '入力した数値を使って、対応している組み合わせを比較します。'}</p><fieldset aria-describedby={error ? errorId : undefined} aria-invalid={Boolean(error)}><legend>通常矢の記録（1.17.0.0）</legend>
       <p>通常矢1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。発射モードを変更するとダメージ・周期・観測メモ・記録済みの消費矢数の再入力が必要です。矢数は保持します。</p>
       {fixedPower && <p>現在のPowerで、固定パワー I が含まれた1矢ダメージを記録してください。フルチャージ時は固有のチャージ補正も観測値に含め、ほかのEnchant・防具・バフ・敵の軽減は除きます。装備のPowerを変更すると観測値は解除されます。</p>}
+      {rapidFire && <p>固定「速射 I」が働く状態で、現在のPowerと発射モードの完全発射周期を記録してください。ほかの速度・ダメージ補正は外してください。装備のPowerを変更すると観測値は解除されます。</p>}
       <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => changeMode(e.target.value as RangedShotMode)}>{(['uncharged', 'charged', 'single'] as const).filter((mode) => mode === draft.mode || !RANGED_WEAPONS[weapon.weaponId] || RANGED_WEAPONS[weapon.weaponId]!.modes.includes(mode)).map((mode) => <option key={mode} value={mode}>{mode === 'uncharged' ? '弓・未チャージ' : mode === 'charged' ? '弓・フルチャージ' : 'クロスボウ・単射'}</option>)}</select></label>
       {(['damage', 'cycle', 'ammo'] as const).map((field) => <label key={field}>{field === 'damage' ? (fixedPower ? '固定パワー I を含む1矢ダメージ' : 'neutral 1矢damage') : field === 'cycle' ? '完全発射周期（秒・charge/recovery込み）' : '戦闘中に使える通常矢数（補給なし）'}<input aria-label={`${weapon.instanceId} ${field}`} type="number" min={field === 'ammo' ? 0 : 0.000001} step={field === 'ammo' ? 1 : 'any'} value={draft[field]} onChange={(e) => setDraft({ ...draft, [field]: e.target.value })} /></label>)}
       {showConsumedArrows && <label>1完全発射周期あたりの通常矢消費数（1本のみ対応）<input aria-label={`${weapon.instanceId} arrowsConsumedPerShot`} type="number" min="0" step="1" value={draft.arrowsConsumedPerShot} onChange={(event) => setDraft({ ...draft, arrowsConsumedPerShot: event.target.value })} /></label>}
@@ -83,7 +87,7 @@ export function RangedResult({ evaluation }: { evaluation: Evaluation }) {
   if (!state || !evaluation.build.rangedWeapon) return null
   return <section aria-label="遠距離の評価内訳"><h3>{RANGED_WEAPONS[state.weaponId]!.name.ja} · Limited</h3>
     <p>Power {evaluation.build.rangedWeapon.powerLevel} · {state.mode} · {state.shots}射 / 矢{state.ammoConsumed}本{state.ammoLimited ? '（弾数上限）' : ''}</p>
-    <p>{(evaluation.build.rangedEnchantments ?? []).map((item) => `${RANGED_ENCHANTMENTS[item.enchantmentId]!.name.ja} ${['I', 'II', 'III'][item.tier - 1]} (${item.source})`).join(' / ') || 'Enchantなし'}</p>
+    <p>{(evaluation.build.rangedEnchantments ?? []).map((item) => `${rangedEnchantmentName(item.enchantmentId)?.ja ?? item.enchantmentId} ${['I', 'II', 'III'][item.tier - 1]} (${item.source})`).join(' / ') || 'Enchantなし'}</p>
     <dl><dt>直接近接DPS</dt><dd>{evaluation.damage.directWeaponSingleTargetDps.toFixed(2)}</dd><dt>間接近接DPS（proc / DoTは既存内訳）</dt><dd>{evaluation.damage.indirectSingleTargetDps.toFixed(2)}</dd><dt>直接遠距離DPS</dt><dd>{state.directSingleTargetDps.toFixed(2)}</dd><dt>間接遠距離DPS</dt><dd>0（対応効果未選択。Research-onlyの0点評価ではありません）</dd></dl>
     <p>根拠: {evaluation.build.rangedWeapon.observation!.sourceNote}（利用者観測、独立検証なし）</p>
     <p>{RANGED_WEAPONS[state.weaponId]!.intrinsic}</p>

@@ -22,6 +22,8 @@ export interface OwnedRangedWeapon {
     readonly projectileDamage: number
     /** Present only when the recorded damage includes this variant's owned Power I. */
     readonly fixedPowerObservation?: { readonly powerLevel: number }
+    /** Present only when the complete cycle includes this variant's owned Rapid Fire I. */
+    readonly fixedCadenceObservation?: { readonly powerLevel: number }
     /** Complete cycle: charge (if any), release, reload/recovery, ready again. */
     readonly shotCycleSeconds: number
     /** Own observed normal-arrow consumption per complete shot. No default is persisted. */
