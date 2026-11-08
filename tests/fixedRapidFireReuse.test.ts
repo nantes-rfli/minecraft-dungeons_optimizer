@@ -30,6 +30,8 @@ describe('fixed Rapid Fire I observed normal-arrow reuse', () => {
     const result = evaluate(build(item), scenario)
     expect(result.damage.ranged).toMatchObject({ mode, shots: 4, ammoConsumed: 4, expectedMultiplier: 1, directSingleTargetDps: 20 })
     expect(result.contributions.some(({ sourceId }) => String(sourceId) === 'rapid-fire')).toBe(false)
+    expect(result.reasons).toContainEqual(expect.stringContaining('完全発射周期は観測 2.1 秒'))
+    expect(result.reasons).toContainEqual(expect.stringContaining('単独の寄与は算出対象外'))
     expect(parameterEvidenceForBuild(build(item))).toContainEqual(expect.objectContaining({ mechanicId: `ranged:${id}`, parameterId: 'fixed-builtin-ownership-tier', status: 'derived' }))
     expect(parameterEvidenceForBuild(build(item))).not.toContainEqual(expect.objectContaining({ mechanicId: 'ranged-enchantment:rapid-fire', status: 'unclassified' }))
     expect(optimize(inventory(item), scenario).best.build.rangedEnchantments).toEqual([FIXED_RAPID_FIRE])
@@ -57,7 +59,13 @@ describe('fixed Rapid Fire I observed normal-arrow reuse', () => {
   it('requires matching Power, mode and explicit one-arrow consumption even with an empty quiver', () => {
     const item = readinessRanged('purple-storm')
     expect(() => evaluate(build({ ...item, powerLevel: 252 }), scenario)).toThrow('現在のPowerで固定「速射 I」')
-    expect(parameterEvidenceForBuild(build({ ...item, powerLevel: 252 }))).toContainEqual(expect.objectContaining({ parameterId: 'shot-cycle', status: 'unclassified' }))
+    for (const invalid of [{ ...item, powerLevel: 252 }, { ...item, observation: { ...item.observation!, mode: 'single' as const } }]) {
+      const evidence = parameterEvidenceForBuild(build(invalid))
+      for (const parameterId of ['projectile-damage', 'shot-cycle', 'arrows-consumed-per-shot']) {
+        expect(evidence).toContainEqual(expect.objectContaining({ parameterId, status: 'unclassified' }))
+      }
+      expect(evidence).not.toContainEqual(expect.objectContaining({ basis: item.observation!.sourceNote }))
+    }
     expect(() => evaluate(build({ ...item, observation: { ...item.observation!, fixedCadenceObservation: undefined } }), scenario)).toThrow('現在のPower')
     expect(() => evaluate(build({ ...item, observation: { ...item.observation!, mode: 'single' } }), scenario)).toThrow('mode')
     for (const arrowsConsumedPerShot of [undefined, 0, 2]) {
