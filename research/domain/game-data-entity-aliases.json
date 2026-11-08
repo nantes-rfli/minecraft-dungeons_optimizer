@@ -3975,12 +3975,16 @@
       "id": "melee-weapon:SoulScythe_Spooky2",
       "rawIdentity": "SoulScythe_Spooky2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:skull-scythe"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3askull-scythe"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Spooky2/BP_SoulScythe_Spooky2Instance"
       ],
@@ -3989,7 +3993,8 @@
         "bulk-bp-soul-scythe-spooky2-instance-d15598f7e04140c6",
         "bulk-bp-soul-scythe-spooky2-instance-d8deb946e8c7b62b",
         "bulk-bp-soul-scythe-spooky2-instance-f4dce48b979d24c9"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:skull-scythe"
     },
     {
       "id": "melee-weapon:SoulScythe_Unique1",
@@ -4015,12 +4020,16 @@
       "id": "melee-weapon:SoulScythe_Unique2",
       "rawIdentity": "SoulScythe_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:frost-scythe"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3afrost-scythe"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique2/BP_SoulScythe_Unique2Instance"
       ],
@@ -4029,7 +4038,8 @@
         "bulk-bp-soul-scythe-unique2-instance-500cfb06185ffcca",
         "bulk-bp-soul-scythe-unique2-instance-9adaf146c349149b",
         "bulk-bp-soul-scythe-unique2-instance-cda9877fd646bcbd"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:frost-scythe"
     },
     {
       "id": "melee-weapon:Spear",
