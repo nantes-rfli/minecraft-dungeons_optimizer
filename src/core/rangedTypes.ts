@@ -2,7 +2,7 @@ import type { CatalogResearchAttributes, EnchantmentTier, EquipmentRarity, Owned
 
 export type RangedShotMode = 'uncharged' | 'charged' | 'single'
 export interface RangedRoll { readonly enchantmentId: string; readonly tier: EnchantmentTier }
-export interface SelectedRangedEnchantment extends RangedRoll { readonly source: 'slot' | 'gilded' }
+export interface SelectedRangedEnchantment extends RangedRoll { readonly source: 'slot' | 'gilded' | 'built-in' }
 export interface OwnedRangedWeapon {
   /** Retained Catalog facts, not observations or gameplay inputs. */
   readonly research?: CatalogResearchAttributes
@@ -20,6 +20,8 @@ export interface OwnedRangedWeapon {
     readonly gameVersion: '1.17.0.0'
     readonly mode: RangedShotMode
     readonly projectileDamage: number
+    /** Present only when the recorded damage includes this variant's owned Power I. */
+    readonly fixedPowerObservation?: { readonly powerLevel: number }
     /** Complete cycle: charge (if any), release, reload/recovery, ready again. */
     readonly shotCycleSeconds: number
     /** Own observed normal-arrow consumption per complete shot. No default is persisted. */
@@ -32,7 +34,7 @@ export interface RangedDamageState {
   readonly supportLevel: 'limited'
   readonly weaponId: string
   readonly mode: RangedShotMode
-  readonly damageSource: 'user-observed-unmodified-projectile'
+  readonly damageSource: 'user-observed-unmodified-projectile' | 'user-observed-projectile-including-fixed-power'
   readonly projectileDamage: number
   readonly shotCycleSeconds: number
   readonly timeShare: number

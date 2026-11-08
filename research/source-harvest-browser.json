@@ -10371,7 +10371,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"elite-power-bow\",\"names\":{\"en\":\"Elite Power Bow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"elite-power-bow\",\"names\":{\"en\":\"Elite Power Bow\",\"ja\":\"良質な力の弓\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -10436,7 +10436,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Built in: Power\"],\"inherited\":[\"Strong Charged Attacks\"],\"families\":[\"flat-modifier\",\"charge-modifier\"],\"support\":\"research-only\",\"completeMechanicV…",
+          "value": "{\"own\":[\"Built in: Power\"],\"inherited\":[\"Strong Charged Attacks\"],\"families\":[\"flat-modifier\",\"charge-modifier\"],\"support\":\"limited\",\"completeMechanicVerific…",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -16317,7 +16317,7 @@
       "known": [
         {
           "property": "identity",
-          "value": "{\"canonicalId\":\"phantom-bow\",\"names\":{\"en\":\"Phantom Bow\",\"ja\":null}}",
+          "value": "{\"canonicalId\":\"phantom-bow\",\"names\":{\"en\":\"Phantom Bow\",\"ja\":\"ファントムの弓\"}}",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [
@@ -16382,7 +16382,7 @@
         },
         {
           "property": "intrinsic",
-          "value": "{\"own\":[\"Built in: Power\"],\"inherited\":[\"Strong Charged Attacks\"],\"families\":[\"flat-modifier\",\"charge-modifier\"],\"support\":\"research-only\",\"completeMechanicV…",
+          "value": "{\"own\":[\"Built in: Power\"],\"inherited\":[\"Strong Charged Attacks\"],\"families\":[\"flat-modifier\",\"charge-modifier\"],\"support\":\"limited\",\"completeMechanicVerific…",
           "confidence": "medium",
           "status": "accepted",
           "sourceIds": [

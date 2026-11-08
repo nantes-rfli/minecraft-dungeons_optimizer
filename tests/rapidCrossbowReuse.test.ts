@@ -11,7 +11,7 @@ import { RANGED_WEAPONS, isRuntimeRangedWeapon } from '../src/data/ranged'
 import { evaluate } from '../src/core/evaluate'
 import { inspectInventoryReadiness, optimize } from '../src/core/optimizer'
 import { parameterEvidenceForBuild } from '../src/core/evidenceStatus'
-import { calculateRangedDamage, parseRangedWeapon, rangedOptions, rangedWeaponIssues } from '../src/core/ranged'
+import { calculateRangedDamage, parseRangedWeapon, rangedOptions, rangedWeaponIssues, requiresExplicitRangedAmmoCost } from '../src/core/ranged'
 import { nativeRangedReference } from '../src/domain/rangedNative'
 import { deserializeInventory, serializeInventory } from '../src/inventory/storage'
 import { inventoryGridItemMatchesQuery, inventoryGridItems } from '../src/inventory/gridPresentation'
@@ -35,8 +35,8 @@ describe('Rapid Crossbow source-bound observed one-arrow model reuse', () => {
     expect(rangedReuseIsEligible('rapid-crossbow', 'single')).toBe(true)
     expect(rangedReuseIsEligible('rapid-crossbow', 'charged')).toBe(false)
     expect(rangedReuseIsEligible('rapid-crossbow', 'uncharged')).toBe(false)
-    expect(Object.keys(RANGED_WEAPONS)).toHaveLength(7)
-    expect(Object.values(RANGED_WEAPONS).reduce((sum, row) => sum + row.modes.length, 0)).toBe(11)
+    expect(Object.keys(RANGED_WEAPONS)).toHaveLength(9)
+    expect(Object.values(RANGED_WEAPONS).reduce((sum, row) => sum + row.modes.length, 0)).toBe(15)
     for (const id of ['auto-crossbow', 'butterfly-crossbow']) expect(isRuntimeRangedWeapon(id)).toBe(false)
     expect(grants.approvals.find((entry) => entry.targetId === 'rapid-crossbow')?.nonInheritedEffects).toContain('Butterfly Crossbow Bonus Shot')
     expect(review.intrinsicDisposition).toContain('No Accelerate or Bonus Shot variant effect is inherited.')
@@ -81,7 +81,7 @@ describe('Rapid Crossbow source-bound observed one-arrow model reuse', () => {
       expect(() => optimize(inventory(weapon), scenario)).toThrow('消費数')
       expect(deserializeInventory(serializeInventory(inventory(weapon))).rangedWeapons?.[0]?.observation?.arrowsConsumedPerShot).toBe(cost)
     }
-    if (id !== 'rapid-crossbow') {
+    if (!requiresExplicitRangedAmmoCost(id)) {
       expect(parseRangedWeapon(original).observation).not.toHaveProperty('arrowsConsumedPerShot')
       expect(deserializeInventory(serializeInventory(inventory(original))).rangedWeapons?.[0]).toEqual(original)
       expect(parameterEvidenceForBuild(build(original)).some((entry) => entry.parameterId === 'arrows-consumed-per-shot')).toBe(false)

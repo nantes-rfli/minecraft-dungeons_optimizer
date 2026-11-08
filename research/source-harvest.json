@@ -15301,8 +15301,8 @@
     {
       "category": "ranged-weapon",
       "id": "elite-power-bow",
-      "label": "Elite Power Bow",
-      "runtimeSupport": "research-only",
+      "label": "良質な力の弓",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -15310,7 +15310,7 @@
             "canonicalId": "elite-power-bow",
             "names": {
               "en": "Elite Power Bow",
-              "ja": null
+              "ja": "良質な力の弓"
             }
           },
           "sourceIds": [
@@ -15452,7 +15452,7 @@
               "flat-modifier",
               "charge-modifier"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [
@@ -24616,8 +24616,8 @@
     {
       "category": "ranged-weapon",
       "id": "phantom-bow",
-      "label": "Phantom Bow",
-      "runtimeSupport": "research-only",
+      "label": "ファントムの弓",
+      "runtimeSupport": "limited",
       "known": [
         {
           "property": "identity",
@@ -24625,7 +24625,7 @@
             "canonicalId": "phantom-bow",
             "names": {
               "en": "Phantom Bow",
-              "ja": null
+              "ja": "ファントムの弓"
             }
           },
           "sourceIds": [
@@ -24767,7 +24767,7 @@
               "flat-modifier",
               "charge-modifier"
             ],
-            "support": "research-only",
+            "support": "limited",
             "completeMechanicVerification": false
           },
           "sourceIds": [

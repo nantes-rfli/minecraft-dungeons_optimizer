@@ -1,5 +1,6 @@
 import type { Inventory } from '../src/core/types'
 import type { OwnedRangedWeapon } from '../src/core/rangedTypes'
+import { isFixedPowerBow } from '../src/core/fixedPowerBowReuse'
 
 // Synthetic software fixtures. No game observations, new formulas or promotion Evidence.
 export const readinessMelee: Inventory = {
@@ -7,5 +8,7 @@ export const readinessMelee: Inventory = {
   artifacts: [],
 }
 export function readinessRanged(weaponId = 'bow', instanceId = weaponId): OwnedRangedWeapon {
-  return { instanceId, weaponId, powerLevel: 251, enchantmentSlots: [], observation: { gameVersion: '1.17.0.0', mode: weaponId.includes('crossbow') ? 'single' : weaponId === 'bow' ? 'uncharged' : 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 20, ...(weaponId === 'rapid-crossbow' ? { arrowsConsumedPerShot: 1 } : {}), sourceNote: 'SYNTHETIC TEST ONLY — not gameplay Evidence' } }
+  const powerLevel = 251
+  const fixed = isFixedPowerBow(weaponId)
+  return { instanceId, weaponId, powerLevel, enchantmentSlots: [], observation: { gameVersion: '1.17.0.0', mode: weaponId.includes('crossbow') ? 'single' : weaponId === 'bow' ? 'uncharged' : 'charged', projectileDamage: 100, shotCycleSeconds: 2, availableAmmo: 20, ...(weaponId === 'rapid-crossbow' || fixed ? { arrowsConsumedPerShot: 1 } : {}), ...(fixed ? { fixedPowerObservation: { powerLevel } } : {}), sourceNote: 'SYNTHETIC TEST ONLY — not gameplay Evidence' } }
 }

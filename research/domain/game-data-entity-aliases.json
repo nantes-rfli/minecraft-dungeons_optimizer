@@ -5500,37 +5500,47 @@
       "id": "ranged-weapon:PowerBow_Spooky2",
       "rawIdentity": "PowerBow_Spooky2",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:phantom-bow"
+      ],
+      "basis": "serialized-item-id + reviewed-package-and-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "visual-or-seasonal-unverified",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "research/sources/ranged-source-snapshot.json#/weapons/rows[id=phantom-bow]"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-power-bow-spooky2-instance-0002a0916b4389ac",
         "bulk-bp-power-bow-spooky2-instance-da9bf9979289befb"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:phantom-bow"
     },
     {
       "id": "ranged-weapon:Powerbow_Unique1",
       "rawIdentity": "Powerbow_Unique1",
       "category": "ranged-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "ranged-weapon:elite-power-bow"
+      ],
+      "basis": "serialized-item-id + reviewed-package-and-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "research/sources/ranged-source-snapshot.json#/weapons/rows[id=elite-power-bow]"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-power-bow-unique1-instance-065dd75f4c6d178f",
         "bulk-bp-power-bow-unique1-instance-6f02f37c41af0195"
-      ]
+      ],
+      "canonicalEntity": "ranged-weapon:elite-power-bow"
     },
     {
       "id": "ranged-weapon:Powerbow_Unique2",

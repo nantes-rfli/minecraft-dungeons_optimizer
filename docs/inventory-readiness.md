@@ -27,13 +27,14 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 
 ## 入力改善で使える範囲
 
-現在のLimited 7種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Heavy Crossbow / Rapid Crossbow）について、次の対象個体の観測が必要。Bowと追加3弓は未チャージ/フルチャージをモード別に扱い、Heavy Crossbowは単射という境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。モード変更時はdamage/周期/観測メモを再入力し、適用までは元の保存値を保持する。
+現在のLimited 9種（Bow / Crossbow / Shortbow / Longbow / Power Bow / Elite Power Bow / Phantom Bow / Heavy Crossbow / Rapid Crossbow）について、次の対象個体の観測が必要。弓6種は未チャージ/フルチャージをモード別に扱い、Heavy Crossbowは単射という境界を維持する。旧UIで保存された不一致モードも表示し、正しいモードへ明示的に変更できる。モード変更時はdamage/周期/観測メモを再入力し、適用までは元の保存値を保持する。
 
 - neutralな通常矢1本のダメージ: 正の有限値
 - 完全発射周期: 正の有限秒、charge/recovery込み。切替時間は従来どおり攻撃時間配分に含める
 - 戦闘中の通常矢数: 0以上の整数、補給なし
 - 発射モード、ゲーム版1.17.0.0の観測メモ・出典
-- Rapid Crossbowは、対象自身の通常1射で矢1本が減る明示観測も必須。欠損は入力不足、明示0や2等は未対応。ammo stock 0でも省略できず、他6種でも明示non1を無視しない
+- Rapid Crossbow・Elite Power Bow・Phantom Bowは、対象自身の通常1射で矢1本が減る明示観測も必須。欠損は入力不足、明示0や2等は未対応。ammo stock 0でも省略できず、全対応装備で明示した1以外の値は未対応
+- [Elite Power Bow と Phantom Bow](./observed-fixed-power-bow-reuse.md) は現在のPowerで固定パワー I を含んだダメージを記録する。Power変更時は再入力が必要
 - Scenarioの遠距離時間割合: 0より大きく1未満
 
 近接27種、Armor 13種、Artifact 3種も対応条件の範囲で利用できる。うち近接16種は、[コンボ全段の観測ダメージ合計](./observed-melee-combo-reuse.md)が必要。入力前は入力不足として表示される。

@@ -200,23 +200,23 @@
       "population": 71,
       "runtime": {
         "full": 0,
-        "limited": 7,
-        "researchOnly": 64,
+        "limited": 9,
+        "researchOnly": 62,
         "unknown": 0,
         "notApplicable": 0
       },
       "blockers": {
-        "total": 96,
+        "total": 102,
         "evidenceBlocked": 3,
         "notImplemented": 1,
-        "unclassified": 92,
+        "unclassified": 98,
         "priorities": {
           "P0": 1,
           "P1": 2,
           "P2": 1,
           "P3": 0
         },
-        "unprioritized": 92,
+        "unprioritized": 98,
         "p1EvidenceBlocked": 2
       },
       "sourceRefs": [
@@ -259,17 +259,17 @@
     }
   ],
   "blockerSummary": {
-    "total": 576,
+    "total": 582,
     "evidenceBlocked": 28,
     "notImplemented": 4,
-    "unclassified": 544,
+    "unclassified": 550,
     "priorities": {
       "P0": 1,
       "P1": 8,
       "P2": 7,
       "P3": 10
     },
-    "unprioritized": 550,
+    "unprioritized": 556,
     "p1EvidenceBlocked": 8
   },
   "backlogSummary": {

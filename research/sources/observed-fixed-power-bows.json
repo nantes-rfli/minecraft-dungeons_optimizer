@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rawShard": {
+    "path": "shards/part-025.json.gz",
+    "sha256": "e997b3507ac889287eb2e6940f7b6f61e71c703718a0eba25e3aa8a4abb50397"
+  },
+  "rows": [
+    {
+      "id": "elite-power-bow",
+      "displayName": "Elite Power Bow",
+      "rawIdentity": "Powerbow_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
+      "localization": {
+        "namespace": "ItemType",
+        "key": "PowerBow_Unique1",
+        "sourceStringHash": 352922486,
+        "localizedStringIndex": 2883,
+        "entryRange": [
+          122046,
+          122079
+        ],
+        "value": "Elite Power Bow",
+        "localizedStringRecordRange": [
+          314362,
+          314386
+        ]
+      },
+      "wiki": "https://minecraft.wiki/w/Dungeons:Elite_Power_Bow",
+      "sourceUrl": "https://www.dungeons.tools/weapons/elite-power-bow",
+      "fixed": {
+        "enchantmentId": "power",
+        "tier": 1,
+        "bonus": 0.1
+      },
+      "ownPackages": [
+        {
+          "index": 24,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1",
+          "exportCount": 21,
+          "parentClass": "GearActor",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1.uasset",
+              "size": 7825,
+              "sha256": "abd8416545821d6d47d99c76d8c489c2207a6e457864cf4e6cebb3e36f4c388a"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1.uexp",
+              "size": 11696,
+              "sha256": "e61175f86ff794219c68b0b0d26be8356a4136c868df3b88cce93a3e73a1c09f"
+            }
+          ],
+          "functions": []
+        },
+        {
+          "index": 25,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow",
+          "exportCount": 16,
+          "parentClass": "BP_PlayerPowerBowArrow_C",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow.uasset",
+              "size": 7496,
+              "sha256": "035fc3a7087db594f74f1a3752af0d0c681c6570770e4618ede44571a3070b47"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow.uexp",
+              "size": 2809,
+              "sha256": "14c7f77543397f92a0dbbf8b1f5221c6226bf889bc374f371cc7a374c4d8435c"
+            }
+          ],
+          "functions": [
+            {
+              "name": "ExecuteUbergraph_BP_PowerBow_Unique1_Arrow",
+              "scriptSha256": "b9350b47e5f743e87a155406825645bb26ed0b5e51698bfb1d0bbd588b8d8df9",
+              "size": 20,
+              "decodedTo": 20,
+              "expandedSize": 32,
+              "expressions": [
+                {
+                  "op": "computed-jump",
+                  "value": {
+                    "op": "local",
+                    "property": {
+                      "index": 5,
+                      "name": "EntryPoint",
+                      "class": "IntProperty",
+                      "outer": 6
+                    }
+                  }
+                },
+                {
+                  "op": "local-final-call",
+                  "function": {
+                    "index": -26,
+                    "name": "ToggleCharged",
+                    "class": "Function",
+                    "outer": -3
+                  },
+                  "args": [
+                    {
+                      "op": "local",
+                      "property": {
+                        "index": 7,
+                        "name": "K2Node_Event_charged",
+                        "class": "BoolProperty",
+                        "outer": 6
+                      }
+                    }
+                  ]
+                },
+                {
+                  "op": "return",
+                  "value": {
+                    "op": "nothing"
+                  }
+                },
+                {
+                  "op": "end-script"
+                }
+              ],
+              "failure": null
+            },
+            {
+              "name": "ToggleCharged",
+              "scriptSha256": "faab608e8940e17d32892b59b3703f0b49bf494e81778773d938a9c6b804149a",
+              "size": 24,
+              "decodedTo": 24,
+              "expandedSize": 36,
+              "expressions": [
+                {
+                  "op": "persistent-frame-copy",
+                  "target": {
+                    "index": 7,
+                    "name": "K2Node_Event_charged",
+                    "class": "BoolProperty",
+                    "outer": 6
+                  },
+                  "value": {
+                    "op": "local",
+                    "property": {
+                      "index": 9,
+                      "name": "charged",
+                      "class": "BoolProperty",
+                      "outer": 8
+                    }
+                  }
+                },
+                {
+                  "op": "local-final-call",
+                  "function": {
+                    "index": 6,
+                    "name": "ExecuteUbergraph_BP_PowerBow_Unique1_Arrow",
+                    "class": "Function",
+                    "outer": 2
+                  },
+                  "args": [
+                    {
+                      "op": "int",
+                      "value": 10
+                    }
+                  ]
+                },
+                {
+                  "op": "return",
+                  "value": {
+                    "op": "nothing"
+                  }
+                },
+                {
+                  "op": "end-script"
+                }
+              ],
+              "failure": null
+            }
+          ]
+        },
+        {
+          "index": 26,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance",
+          "exportCount": 5,
+          "parentClass": "BP_PowerBowInstance_C",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance.uasset",
+              "size": 5657,
+              "sha256": "423d04989dca1480a0c7e252961e01d153e1855d4de8695935830999bb4d1fe3"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1Instance.uexp",
+              "size": 1724,
+              "sha256": "c6867976b062db7a8df25dfd406b826989b83b24c2578a32c09e0012ff4bf683"
+            }
+          ],
+          "functions": []
+        }
+      ],
+      "reviewedComponents": [
+        {
+          "class": "DungeonsProjectileMovementComp",
+          "exportIndex": 9,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow.uexp",
+            "start": 780,
+            "end": 792
+          },
+          "ownPropertyNames": []
+        },
+        {
+          "class": "ImpactActionHandler",
+          "exportIndex": 10,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow.uexp",
+            "start": 792,
+            "end": 804
+          },
+          "ownPropertyNames": []
+        },
+        {
+          "class": "InheritableComponentHandler",
+          "exportIndex": 11,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Unique1/BP_PowerBow_Unique1_Arrow.uexp",
+            "start": 804,
+            "end": 1740
+          },
+          "ownPropertyNames": [
+            "Records"
+          ],
+          "overrides": [
+            "ParticleSystemComponent",
+            "AudioComponent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phantom-bow",
+      "displayName": "Phantom Bow",
+      "rawIdentity": "PowerBow_Spooky2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
+      "localization": {
+        "namespace": "ItemType",
+        "key": "PowerBow_Spooky2",
+        "sourceStringHash": 1636352152,
+        "localizedStringIndex": 1741,
+        "entryRange": [
+          131104,
+          131137
+        ],
+        "value": "Phantom Bow",
+        "localizedStringRecordRange": [
+          267319,
+          267339
+        ]
+      },
+      "wiki": "https://minecraft.wiki/w/Dungeons:Phantom_Bow",
+      "sourceUrl": "https://www.dungeons.tools/weapons/phantom-bow",
+      "fixed": {
+        "enchantmentId": "power",
+        "tier": 1,
+        "bonus": 0.1
+      },
+      "ownPackages": [
+        {
+          "index": 14,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2",
+          "exportCount": 21,
+          "parentClass": "GearActor",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2.uasset",
+              "size": 7677,
+              "sha256": "92c89ad729d9dbc572757d9870c1c17576dca2ca0e359b54347240dc6235ea08"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2.uexp",
+              "size": 11493,
+              "sha256": "752132da1f77d0e25551f5b14f25c56f656193d4b0a71e3ff32a4544d66d9e60"
+            }
+          ],
+          "functions": []
+        },
+        {
+          "index": 15,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow",
+          "exportCount": 10,
+          "parentClass": "BP_PowerBow_Unique1_Arrow_C",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow.uasset",
+              "size": 6390,
+              "sha256": "750644999f7f92925db8319ad29234cd8f083bdd891396f794a0aadc58c0d05f"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow.uexp",
+              "size": 2816,
+              "sha256": "3af25961f96094118d12711bbc5ac998c73c382636b3a4489cca39cfdc8299b9"
+            }
+          ],
+          "functions": []
+        },
+        {
+          "index": 16,
+          "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance",
+          "exportCount": 5,
+          "parentClass": "BP_PowerBow_Unique1Instance_C",
+          "sourceFiles": [
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance.uasset",
+              "size": 5661,
+              "sha256": "5ee812a8a25fc76ac4d7ee148c59b20782ad4ffcc2dc126e5eeac81922785f09"
+            },
+            {
+              "path": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Instance.uexp",
+              "size": 1724,
+              "sha256": "dc6ca61b4a91ccf14ba55f2be906deb828352bd881df9d17a3534dcca169a9c8"
+            }
+          ],
+          "functions": []
+        }
+      ],
+      "reviewedComponents": [
+        {
+          "class": "DungeonsProjectileMovementComp",
+          "exportIndex": 2,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow.uexp",
+            "start": 316,
+            "end": 328
+          },
+          "ownPropertyNames": []
+        },
+        {
+          "class": "ImpactActionHandler",
+          "exportIndex": 3,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow.uexp",
+            "start": 328,
+            "end": 340
+          },
+          "ownPropertyNames": []
+        },
+        {
+          "class": "InheritableComponentHandler",
+          "exportIndex": 4,
+          "sourceRange": {
+            "file": "Dungeons/Content/Actors/Equipment/RangedWeapons/PowerBow_Spooky2/BP_PowerBow_Spooky2Arrow.uexp",
+            "start": 340,
+            "end": 1276
+          },
+          "ownPropertyNames": [
+            "Records"
+          ],
+          "overrides": [
+            "ParticleSystemComponent",
+            "ParticleSystemComponent"
+          ]
+        }
+      ]
+    }
+  ]
+}

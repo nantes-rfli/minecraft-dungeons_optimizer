@@ -1,4 +1,5 @@
 import { fixedMeleeEnchantments } from './fixedMeleeEnchantments'
+import { FIXED_RANGED_POWER, isFixedPowerBow } from '../core/fixedPowerBowReuse'
 import { hasObservedMeleeComboGrant } from '../core/observedMeleeComboReuse'
 import { isObservedMeleeComboId } from './observedMeleeCombo'
 import { isBuiltinProcMeleeId } from './builtinProcMelee'
@@ -67,7 +68,7 @@ export const EQUIPMENT_CATALOG: readonly EquipmentCatalogEntry[] = [
     family: item.family, rarityFamily: item.rarity === 'unique' ? 'unique' : 'normal', ...(item.soulGear ? { soulGear: true as const } : {}),
   })),
   ...rangedAudit.entries.map((item) => entry('ranged', item.id, { en: item.name.en, ...(item.name.ja ? { ja: item.name.ja } : {}) }, item.auditStatus, {
-    intrinsicProperties: [], builtInEnchantments: [], family: item.family, rarityFamily: item.rarity === 'unique' ? 'unique' : 'normal', ...(item.soul.related ? { soulGear: true as const } : {}),
+    intrinsicProperties: [], builtInEnchantments: isFixedPowerBow(item.id) ? [{ enchantmentId: FIXED_RANGED_POWER.enchantmentId, tier: FIXED_RANGED_POWER.tier }] : [], family: item.family, rarityFamily: item.rarity === 'unique' ? 'unique' : 'normal', ...(item.soul.related ? { soulGear: true as const } : {}),
   })),
   ...artifactAudit.entries.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness, { intrinsicProperties: [], builtInEnchantments: [], ...(item.soul?.required ? { soulGear: true as const } : {}) })),
   ...artifactAudit.populationDifferences.map((item) => entry('artifact', item.id, { en: item.name }, item.runtimeReadiness)),
