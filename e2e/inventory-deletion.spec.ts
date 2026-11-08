@@ -10,7 +10,7 @@ const cases: { name: string; collection: keyof Inventory; item: { instanceId: st
   { name: 'runtime ranged', collection: 'rangedWeapons', item: supported.rangedWeapons![0]! },
   { name: 'runtime artifact', collection: 'artifacts', item: supported.artifacts[0]! },
   ...([
-    ['melee', 'diamond-sword'], ['armor', 'archer-s-armor'],
+    ['melee', 'broadsword'], ['armor', 'archer-s-armor'],
     ['ranged', 'bow-of-lost-souls'], ['artifact', 'blast-fungus'],
   ] as const).map(([category, catalogId]) => ({
     name: `catalog ${category}`, collection: 'catalogItems' as const,
@@ -74,7 +74,7 @@ test('favorites persist and filter across inventory views, including catalog-onl
       { instanceId: 'axe-copy', weaponId: 'double-axe', powerLevel: 250, enchantmentSlots: [] },
     ],
     armors: [], rangedWeapons: [], artifacts: [],
-    catalogItems: [{ instanceId: 'unsupported-keeper', category: 'melee', catalogId: 'diamond-sword', powerLevel: 251, isFavorite: true }],
+    catalogItems: [{ instanceId: 'unsupported-keeper', category: 'melee', catalogId: 'broadsword', powerLevel: 251, isFavorite: true }],
   }
   const json = JSON.stringify({ version: 6, inventory })
   await page.addInitScript(({ key, json }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, json) }, { key: storageKey, json })

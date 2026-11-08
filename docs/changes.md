@@ -2,6 +2,11 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — 固定 Sharpness I を含む Diamond Sword
+
+- 近接武器27/82。Diamond Sword は切れ味 I 込みのコンボ観測値を受け取り、固定倍率を一度だけ反映する。
+- 観測値とPowerの一致、重複枠の除外、固定効果の寄与と用途別スコアを検証。
+
 ## 2026-11 — 固定Tier Iの観測コンボ対応を5種追加
 
 - 近接武器26/82（Full 4、Limited 22）。Cackling Broom、Dark Katana、Grave Bane の Smiting I と、Hawkbrand、Sinister Sword の Critical Hit I を個体の観測コンボに接続。

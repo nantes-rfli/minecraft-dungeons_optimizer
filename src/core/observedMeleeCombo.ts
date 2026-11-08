@@ -1,5 +1,7 @@
 import type { AttackProfile, OwnedWeapon } from './types'
 import { OptimizerInputError } from './errors'
+import { combineDirectWeaponBonuses } from './enchantment'
+import { fixedObservedMeleeComboEnchantments, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 
 type MeleeDamageInput = Pick<OwnedWeapon, 'weaponId' | 'powerLevel' | 'observedDamagePerHit' | 'observedComboDamage'>
@@ -20,5 +22,10 @@ export function observedMeleeDamagePerHit(weapon: MeleeDamageInput, profile: Att
   }
   // The legacy calculator consumes a hit average. For sustained complete combos
   // mean × hits/second = observed combo total / published combo seconds.
-  return observation.total / profile.hitDurationsSeconds.length
+  const mean = observation.total / profile.hitDurationsSeconds.length
+  if (weapon.weaponId !== SHARPNESS_OBSERVED_MELEE_COMBO_ID) return mean
+  // Sharpness I already contributes to every recorded hit. Remove the owned
+  // multiplier from the input so the existing direct model applies it once.
+  const fixed = fixedObservedMeleeComboEnchantments(weapon.weaponId)
+  return mean / (1 + combineDirectWeaponBonuses(fixed, 'sharpness'))
 }
