@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "suns-grace",
+      "rawIdentity": "Mace_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance",
+      "calculatorRow": {
+        "slug": "sun-s-grace",
+        "name": "Sun's Grace",
+        "type": "melee",
+        "route": "/weapons/sun-s-grace",
+        "power": 8.405,
+        "speed": 1.905,
+        "area": 3.209,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Mace_Unique1_Icon.png",
+        "builtIn": [
+          "Radiance"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/sun-s-grace",
+      "intrinsicFacts": [
+        "Heals allies in the area"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ASun%27s_Grace",
+      "hitDurationsSeconds": [
+        0.44,
+        0.44,
+        0.77
+      ],
+      "publishedBaseDamage": [
+        81,
+        81,
+        175
+      ],
+      "rawSource": {
+        "shard": "shards/part-018.json.gz",
+        "sha256": "758800e77f48865195b963b33dc9e50faccd0048b1b85b939cc3b81e181e85c2",
+        "packageIndex": 24
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Mace_Unique1",
+        "sourceStringHash": 2765774836,
+        "localizedStringIndex": 3276,
+        "entryRange": [
+          136113,
+          136142
+        ],
+        "value": "Sun's Grace",
+        "localizedStringRecordRange": [
+          330825,
+          330845
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "radiance",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ARadiance",
+        "triggerChance": 0.2
+      }
+    }
+  ]
+}

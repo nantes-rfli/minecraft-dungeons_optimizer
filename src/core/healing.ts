@@ -30,6 +30,7 @@ export function calculateHealing(
   lifeStealFraction = 0,
   armorEnchantments: readonly SelectedArmorEnchantment[] = [],
   artifactActivation?: ArtifactActivationState,
+  observedFixedRadianceHeal?: number,
 ): HealingMetrics {
   const radianceProcHealing = combineEnchantmentValues(
     enchantments,
@@ -41,7 +42,11 @@ export function calculateHealing(
     'leeching',
     (values) => values.healingFraction ?? 0,
   )
-  const radiancePerSecond = damage.hitsPerSecond * radianceProcHealing * scenario.radianceHealPerProc
+  const fixedRadiance = observedFixedRadianceHeal === undefined ? undefined
+    : enchantments.find((item) => item.enchantmentId === 'radiance' && item.source === 'built-in')
+  const radiancePerSecond = fixedRadiance
+    ? damage.hitsPerSecond * getTierValues(fixedRadiance).triggerChance! * observedFixedRadianceHeal!
+    : damage.hitsPerSecond * radianceProcHealing * scenario.radianceHealPerProc
   const leechingPerSecond = leechingFraction > 0
     ? combatState.directWeaponKillsPerSecond *
       scenario.averageEnemyHealth *

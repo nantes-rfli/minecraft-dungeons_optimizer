@@ -1,4 +1,5 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { RADIANCE_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { isFixedPowerBow } from '../core/fixedPowerBowReuse'
 import { parseCatalogResearch } from '../core/catalogResearch'
 import { ARTIFACTS } from '../data/artifacts'
@@ -185,6 +186,14 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
       total: requirePositiveNumber(observation.total, `${field}.observedComboDamage.total`),
     } }
   })()
+  const observedRadiance = value.observedFixedRadiance === undefined ? {} : (() => {
+    const observation = value.observedFixedRadiance
+    if (weaponId !== RADIANCE_OBSERVED_MELEE_COMBO_ID || !isRecord(observation)) throw new Error(`${field}.observedFixedRadianceの形式または対象が正しくありません。`)
+    return { observedFixedRadiance: {
+      powerLevel: requirePower(observation.powerLevel, `${field}.observedFixedRadiance.powerLevel`),
+      healPerProc: requirePositiveNumber(observation.healPerProc, `${field}.observedFixedRadiance.healPerProc`),
+    } }
+  })()
   let gilded: OwnedWeapon['gilded']
   if (value.gilded !== undefined) {
     if (!isRecord(value.gilded) || ![1, 2, 3].includes(value.gilded.tier as number)) {
@@ -206,6 +215,7 @@ function parseWeapon(value: unknown, index: number): OwnedWeapon {
     powerLevel: requirePower(value.powerLevel, `${field}.powerLevel`),
     ...observedDamage,
     ...observedCombo,
+    ...observedRadiance,
     ...(research ? { research } : {}),
     enchantmentSlots: value.enchantmentSlots.map((slot, slotIndex) => parseSlot(slot, `${field}.enchantmentSlots[${slotIndex}]`)),
     ...(gilded ? { gilded } : {}),

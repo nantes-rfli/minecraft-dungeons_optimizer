@@ -1,8 +1,8 @@
 "use client"
 
-import { isFixedObservedMeleeComboId, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from './data/fixedObservedMeleeCombo'
+import { isFixedObservedMeleeComboId, RADIANCE_OBSERVED_MELEE_COMBO_ID, SHARPNESS_OBSERVED_MELEE_COMBO_ID } from './data/fixedObservedMeleeCombo'
 import { observedMeleeComboRow } from './data/observedMeleeCombo'
-import { hasObservedMeleeDamage } from './core/observedMeleeCombo'
+import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './core/observedMeleeCombo'
 import { updateMeleePower } from './inventory/updateMeleePower'
 import { InventoryReadinessPanel } from './components/InventoryReadinessPanel'
 
@@ -130,7 +130,11 @@ export function OwnedMeleeEditor({ weapon, onChange, onRemove }: { weapon: Owned
       <small>1.17.0.0の同じ個体・Powerで、軽減のない敵1体に通常コンボを1周当てた{combo.hitDurationsSeconds.length}段分の合計。{weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
         ? ' 固定の切れ味 I が含まれた観測値をそのまま入力してください。ほかのバフ・Enchant効果は外してください。'
         : ' バフ・Enchant効果がかかっていない状態で観測してください。'}{isFixedObservedMeleeComboId(weapon.weaponId) && ' アンデッド・エンチャント付きの敵と、クリティカルが出たコンボを除いてください。'}</small>
-    </label> : <label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label>}<ProcPowerSupport weapon={weapon} /></>} />
+    </label> : <label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label>}
+      {weapon.weaponId === RADIANCE_OBSERVED_MELEE_COMBO_ID && <label>固定「輝き I」1回の自己回復量
+        <input aria-label={`${definition.name.ja}の固定「輝き I」1回の自己回復量`} type="number" min="0.01" step="any" value={observedFixedRadianceHeal(weapon) ?? ''} onChange={(event) => onChange({ ...weapon, observedFixedRadiance: event.target.value === '' ? undefined : { healPerProc: Number(event.target.value), powerLevel: weapon.powerLevel } })} />
+        <small>1.17.0.0の同じ個体・Powerで、回復補正を外し、HPが十分減っている状態で発動した1回の自己回復量を入力してください。装備のPowerを変えると再入力が必要です。</small>
+      </label>}<ProcPowerSupport weapon={weapon} /></>} />
   </details>
 }
 

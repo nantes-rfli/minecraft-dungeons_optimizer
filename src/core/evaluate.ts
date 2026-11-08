@@ -12,6 +12,7 @@ import { resolveOffensiveSteadyState } from './offensiveSteadyState'
 import { calculateDefense } from './defense'
 import { hasEnchantment } from './enchantment'
 import { calculateHealing } from './healing'
+import { observedFixedRadianceHeal } from './observedMeleeCombo'
 import { derivePotionState } from './potion'
 import type {
   Build,
@@ -55,7 +56,7 @@ function calculateCore(build: Build, scenario: Scenario): EvaluationCore {
   const artifactEffects = calculateArtifactEffects(build.artifacts, scenario, build)
   const { damage, combatState, temporalState, soulState, armorState } = resolveOffensiveSteadyState(build, scenario, artifactEffects)
   const potionState = derivePotionState(build.enchantments, combatState, scenario, resolvedMaxHealth)
-  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState, resolvedMaxHealth, armorState?.lifeStealFraction ?? 0, build.armorEnchantments, temporalState.artifactActivation)
+  const healing = calculateHealing(build.enchantments, damage, combatState, scenario, potionState, soulState, resolvedMaxHealth, armorState?.lifeStealFraction ?? 0, build.armorEnchantments, temporalState.artifactActivation, observedFixedRadianceHeal(build.weapon))
   const defense = calculateDefense(build.enchantments, artifactEffects, combatState, scenario, armorState, potionState, resolvedMaxHealth)
   const artifactControl = deriveArtifactControlState(build.artifacts, scenario, build)
   const control = calculateControl(build, scenario, temporalState.attackSpeedMultiplier, damage.hitsPerSecond, artifactControl)
@@ -250,6 +251,8 @@ export function evaluate(build: Build, scenario: Scenario): Evaluation {
   }
 
   if (weapon.area.value >= 12) reasons.push(`${weapon.name.ja}の広い攻撃範囲をAoE評価へ反映`)
+  const observedRadiance = observedFixedRadianceHeal(build.weapon)
+  if (observedRadiance !== undefined) reasons.push(`固定「輝き I」: 1回の自己回復量 ${observedRadiance} HP の個体観測から、期待回復 ${core.healing.radiancePerSecond.toFixed(2)} HP/秒。`)
   if (hasEnchantment(build.enchantments, 'radiance') && core.damage.hitsPerSecond >= 4) {
     reasons.push('高い攻撃頻度により「輝き」の期待回復量が上昇')
   }

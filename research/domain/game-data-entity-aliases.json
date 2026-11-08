@@ -3507,12 +3507,16 @@
       "id": "melee-weapon:Mace_Unique1",
       "rawIdentity": "Mace_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:suns-grace"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3asun-27s-grace"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique1/BP_Mace_Unique1Instance"
       ],
@@ -3523,7 +3527,8 @@
         "bulk-bp-mace-unique1-instance-856837959022db50",
         "bulk-bp-mace-unique1-instance-917bc8c9f7116cdb",
         "bulk-bp-mace-unique1-instance-c1160fb26069de5c"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:suns-grace"
     },
     {
       "id": "melee-weapon:Mace_Unique2",

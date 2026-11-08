@@ -1,6 +1,7 @@
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
+import { RADIANCE_OBSERVED_MELEE_COMBO_ID } from '../data/fixedObservedMeleeCombo'
 import { hasObservedMeleeDamage } from './observedMeleeCombo'
-import { observedMeleeComboInputIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
+import { fixedRadianceInputIssue, observedMeleeComboInputIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
 import { validatePowerCurveLevel } from './powerScaling'
@@ -65,6 +66,11 @@ export function validateWeaponNumbers(weapon: OwnedWeapon): void {
     assertRange(`weapon ${weapon.instanceId} observedComboDamage total`, weapon.observedComboDamage.total, Number.EPSILON, Infinity, 'INVALID_WEAPON')
   }
   if (weapon.observedDamagePerHit !== undefined) assertRange(`weapon ${weapon.instanceId} observedDamagePerHit`, weapon.observedDamagePerHit, Number.EPSILON, Infinity, 'INVALID_WEAPON')
+  if (weapon.observedFixedRadiance !== undefined) {
+    if (weapon.weaponId !== RADIANCE_OBSERVED_MELEE_COMBO_ID) throw new OptimizerInputError('INVALID_WEAPON', '武器IDと固定の輝き I の観測形式が一致しません。')
+    assertPowerLevel(`weapon ${weapon.instanceId} Radiance observation powerLevel`, weapon.observedFixedRadiance.powerLevel, 'INVALID_WEAPON')
+    assertRange(`weapon ${weapon.instanceId} Radiance observation healPerProc`, weapon.observedFixedRadiance.healPerProc, Number.EPSILON, Infinity, 'INVALID_WEAPON')
+  }
 }
 export function validateArmorNumbers(armor: OwnedArmor): void {
   assertPowerLevel(`armor ${armor.instanceId} powerLevel`, armor.powerLevel, 'INVALID_ARMOR')
@@ -87,7 +93,7 @@ export function inventoryItemInputIssues(inventory: Inventory): ReadonlyMap<stri
   }
   for (const weapon of inventory.weapons) {
     capture(weapon.instanceId, () => validateWeaponNumbers(weapon))
-    const comboIssue = observedMeleeComboInputIssue(weapon)
+    const comboIssue = observedMeleeComboInputIssue(weapon) ?? fixedRadianceInputIssue(weapon)
     if (!issues.has(weapon.instanceId) && comboIssue) issues.set(weapon.instanceId, [comboIssue])
     if (!issues.has(weapon.instanceId) && !hasObservedMeleeDamage(weapon)) {
       try { validatePowerCurveLevel(weapon.powerLevel, GEAR_POWER_CURVE.value) }
@@ -153,6 +159,8 @@ export function validateBuild(build: Build, scenario?: Scenario): void {
   if (comboSourceIssue) throw new OptimizerInputError('UNSUPPORTED_OBSERVED_MELEE_COMBO', comboSourceIssue)
   const comboInputIssue = observedMeleeComboInputIssue(build.weapon)
   if (comboInputIssue) throw new OptimizerInputError('MISSING_OBSERVED_COMBO_DAMAGE', comboInputIssue.message)
+  const radianceIssue = fixedRadianceInputIssue(build.weapon)
+  if (radianceIssue) throw new OptimizerInputError('MISSING_OBSERVED_FIXED_RADIANCE', radianceIssue.message)
   const plainMeleeIssue = plainMeleeUnsupportedReason(build, scenario) ?? builtinProcMeleeUnsupportedReason(build, scenario)
   if (plainMeleeIssue) throw new OptimizerInputError('UNSUPPORTED_PLAIN_MELEE', plainMeleeIssue)
   const unsupported = enchantmentCombinationUnsupportedReason(build.enchantments)
