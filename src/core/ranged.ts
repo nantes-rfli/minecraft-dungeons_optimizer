@@ -72,11 +72,13 @@ export function parseRangedWeapon(value: unknown): OwnedRangedWeapon {
 export function rangedWeaponIssues(weapon: OwnedRangedWeapon): readonly ReadinessIssue[] {
   if (!isRuntimeRangedWeapon(weapon.weaponId)) return [{ kind: 'unsupported', message: `${weapon.weaponId}: Research-only。固有効果を無視した評価はできません。` }]
   const issues: ReadinessIssue[] = []
-  if (!weapon.observation) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: neutral projectile damage・完全発射周期・矢数・観測メモが必要です。`, target: 'equipment', fields: ['補正のない通常矢1本のダメージ（正の有限値）', '完全発射周期（秒、charge/recovery込み、正の有限値）', '戦闘中の通常矢数（0以上の整数、補給なし）', '発射モードとゲーム版1.17.0.0の観測メモ / 出典'] })
+  const fixedPower = isFixedPowerBow(weapon.weaponId)
+  const damageInput = fixedPower ? '現在のPowerで固定パワー I を含む通常矢ダメージ' : 'neutral projectile damage'
+  const damageField = fixedPower ? '固定パワー I を含み、ほかの増幅を除いた同じ個体・現在のPower・同じ発射モードの1矢ダメージ' : '補正のない通常矢1本のダメージ（正の有限値）'
+  if (!weapon.observation) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: ${damageInput}・完全発射周期・矢数・観測メモが必要です。`, target: 'equipment', fields: [damageField, '完全発射周期（秒、charge/recovery込み、正の有限値）', '戦闘中の通常矢数（0以上の整数、補給なし）', '発射モードとゲーム版1.17.0.0の観測メモ / 出典'] })
   else if (!RANGED_WEAPONS[weapon.weaponId]!.modes.includes(weapon.observation.mode)) issues.push({ kind: 'input-required', message: `${weapon.weaponId}: shot modeが一致しません。`, target: 'equipment', fields: [`発射モード: ${RANGED_WEAPONS[weapon.weaponId]!.modes.join(' / ')}`] })
   else if (weapon.weaponId !== 'bow' && weapon.weaponId !== 'crossbow' && !rangedReuseIsEligible(weapon.weaponId, weapon.observation.mode)) issues.push({ kind: 'unsupported', message: `${weapon.weaponId}: source-bound Limited reuse条件が一致しません。観測値だけでは解決しません。` })
-  const fixedPower = isFixedPowerBow(weapon.weaponId)
-  if (fixedPowerObservationMissing(weapon)) issues.push({ kind: 'input-required', message: fixedPowerObservationMessage(weapon), target: 'equipment', fields: ['固定パワー I を含み、ほかの増幅を除いた同じ個体・現在のPower・同じ発射モードの1矢ダメージ'] })
+  if (weapon.observation && fixedPowerObservationMissing(weapon)) issues.push({ kind: 'input-required', message: fixedPowerObservationMessage(weapon), target: 'equipment', fields: [damageField] })
   const ammoIssue = rangedAmmoObservationIssue(weapon)
   if (ammoIssue) issues.push(ammoIssue)
   for (const [index, slot] of weapon.enchantmentSlots.entries()) {

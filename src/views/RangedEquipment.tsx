@@ -15,7 +15,14 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const errorId = useId()
   const observed = weapon.observation
   const fixedPower = isFixedPowerBow(weapon.weaponId)
-  const observationDraft = () => ({ mode: observed?.mode ?? (RANGED_WEAPONS[weapon.weaponId]?.modes[0] ?? (weapon.weaponId.includes('crossbow') ? 'single' : 'uncharged')), damage: observed?.projectileDamage.toString() ?? '', cycle: observed?.shotCycleSeconds.toString() ?? '', ammo: observed?.availableAmmo.toString() ?? '', note: observed?.sourceNote ?? '', arrowsConsumedPerShot: observed?.arrowsConsumedPerShot?.toString() ?? '' })
+  const observationDraft = () => {
+    const matching = fixedPower && observed?.fixedPowerObservation?.powerLevel !== weapon.powerLevel ? undefined : observed
+    return {
+      mode: observed?.mode ?? (RANGED_WEAPONS[weapon.weaponId]?.modes[0] ?? (weapon.weaponId.includes('crossbow') ? 'single' : 'uncharged')),
+      damage: matching?.projectileDamage.toString() ?? '', cycle: matching?.shotCycleSeconds.toString() ?? '', ammo: observed?.availableAmmo.toString() ?? '',
+      note: matching?.sourceNote ?? '', arrowsConsumedPerShot: matching?.arrowsConsumedPerShot?.toString() ?? '',
+    }
+  }
   const [draft, setDraft] = useState(observationDraft)
   const [previousObservation, setPreviousObservation] = useState(observed)
   const [previousPowerLevel, setPreviousPowerLevel] = useState(weapon.powerLevel)

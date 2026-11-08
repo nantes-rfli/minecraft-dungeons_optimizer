@@ -77,6 +77,7 @@ describe('fixed Power I on the complete eligible variant set', () => {
     expect(migrated.catalogItems).toEqual([])
     expect(migrated.rangedWeapons?.[0]).toMatchObject({ instanceId: 'old', weaponId: 'phantom-bow', isFavorite: true, notes: 'old', research: legacy.research })
     expect(inspectInventoryReadiness(migrated, scenario).equipment.find((row) => row.instanceId === 'old')?.status).toBe('input-required')
+    expect(rangedWeaponUnsupportedReason(migrated.rangedWeapons![0]!)).toContain('現在のPowerで固定パワー I を含む通常矢ダメージ')
     const item = { ...migrated.rangedWeapons![0]!, observation: observed('phantom-bow').observation }
     expect(evaluate(build(item), scenario).damage.ranged?.shots).toBe(3)
     const unknown: OwnedRangedWeapon = { ...item, research: { intrinsicProperties: [{ kind: 'intrinsicMechanicOwnership', raw: 'unreviewed extra effect' }] } }

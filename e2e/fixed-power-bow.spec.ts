@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { readinessMelee } from '../tests/inventoryReadinessFixtures'
+import { readinessMelee, readinessRanged } from '../tests/inventoryReadinessFixtures'
 
 test('a migrated Phantom Bow records its current Power and recommends fixed Power I once', async ({ page }) => {
   const key = 'minecraft-dungeons-optimizer.inventory.v1'
@@ -44,3 +44,26 @@ test('a migrated Phantom Bow records its current Power and recommends fixed Powe
   await expect.poll(persisted).toMatchObject({ powerLevel: 253 })
   expect(await persisted()).not.toHaveProperty('observation')
 })
+
+for (const recordedPower of [251, undefined]) {
+  test(`an imported ${recordedPower === undefined ? 'unbound' : 'stale'} Power observation cannot be retagged by Apply`, async ({ page }) => {
+    const key = 'minecraft-dungeons-optimizer.inventory.v1'
+    const original = readinessRanged('elite-power-bow', 'elite')
+    const item = { ...original, powerLevel: 252, observation: { ...original.observation!, fixedPowerObservation: recordedPower === undefined ? undefined : { powerLevel: recordedPower } } }
+    await page.addInitScript(({ key, json }) => { if (!localStorage.getItem(key)) localStorage.setItem(key, json) }, { key, json: JSON.stringify({ version: 6, inventory: { ...readinessMelee, rangedWeapons: [item] } }) })
+    await page.goto('/#/inventory')
+    await page.getByRole('button', { name: 'リスト', exact: true }).click()
+    const editor = page.locator('details[data-instance-id="elite"]')
+    await editor.locator(':scope > summary').click()
+    await editor.getByText('最適化に使う詳しい数値を入力する', { exact: true }).click()
+    for (const field of ['damage', 'cycle', 'arrowsConsumedPerShot']) {
+      await expect(editor.getByRole('spinbutton', { name: `elite ${field}`, exact: true })).toHaveValue('')
+    }
+    await expect(editor.getByRole('textbox', { name: 'elite 観測メモ', exact: true })).toHaveValue('')
+    await expect(editor.getByRole('spinbutton', { name: 'elite ammo', exact: true })).toHaveValue('20')
+    await editor.getByRole('button', { name: '観測値を適用', exact: true }).click()
+    await expect(editor.getByRole('alert')).toContainText('すべて入力')
+    const persisted = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory.rangedWeapons[0], key)
+    expect(persisted).toEqual(JSON.parse(JSON.stringify(item)))
+  })
+}
