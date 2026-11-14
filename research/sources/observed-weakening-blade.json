@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "nameless-blade",
+      "rawIdentity": "Cutlass_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance",
+      "calculatorRow": {
+        "slug": "nameless-blade",
+        "name": "Nameless Blade",
+        "type": "melee",
+        "route": "/weapons/nameless-blade",
+        "power": 6.473,
+        "speed": 3.944,
+        "area": 4.576,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Cutlass_Unique1_Icon.png",
+        "builtIn": [
+          "Weakening"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/nameless-blade",
+      "intrinsicFacts": [
+        "Reliable combo",
+        "Weakens enemy attacks"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ANameless_Blade",
+      "hitDurationsSeconds": [
+        0.4,
+        0.4
+      ],
+      "publishedBaseDamage": [
+        75,
+        75
+      ],
+      "rawSource": {
+        "shard": "shards/part-014.json.gz",
+        "sha256": "8b09c376ba89dfb14e82fe539fea031bea6604d8eb6eaa2da64bdca6a512dc84",
+        "packageIndex": 24
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Cutlass_Unique1",
+        "sourceStringHash": 1044185974,
+        "localizedStringIndex": 3111,
+        "entryRange": [
+          130240,
+          130272
+        ],
+        "value": "Nameless Blade",
+        "localizedStringRecordRange": [
+          324496,
+          324519
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "weakening",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AWeakening",
+        "enemyDamageReduction": 0.2,
+        "durationSeconds": 5
+      }
+    }
+  ]
+}
