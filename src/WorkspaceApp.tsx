@@ -129,7 +129,7 @@ export function OwnedMeleeEditor({ weapon, onChange, onRemove }: { weapon: Owned
       <input aria-label={`${definition.name.ja}のコンボ全段の観測ダメージ合計`} type="number" min="0.01" step="any" value={hasObservedMeleeDamage(weapon) ? weapon.observedComboDamage?.total ?? '' : ''} onChange={(event) => onChange({ ...weapon, observedComboDamage: event.target.value === '' ? undefined : { total: Number(event.target.value), powerLevel: weapon.powerLevel } })} />
       <small>1.17.0.0の同じ個体・Powerで、軽減のない敵1体に通常コンボを1周当てた{combo.hitDurationsSeconds.length}段分の合計。{weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
         ? ' 固定の切れ味 I が含まれた観測値をそのまま入力してください。ほかのバフ・Enchant効果は外してください。'
-        : weapon.weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID ? ' 満タンHPの敵への通常初撃を入力してください。固定の追い討ち I は、この初撃では追加ダメージを与えません。'
+        : weapon.weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID ? ' ほかのバフ・Armorのダメージ補正・スロットや金色Enchantの効果を除いて、満タンHPの敵への通常初撃を入力してください。固定の追い討ち I は、この初撃では追加ダメージを与えません。'
         : ' バフ・Enchant効果がかかっていない状態で観測してください。'}{isPoisonCloudObservedMeleeComboId(weapon.weaponId) && ' 毒の雲の継続ダメージを合計に入れないでください。固定「毒の雲 I」の計算はPower 184〜251に対応します。'}{isFixedObservedMeleeComboId(weapon.weaponId) && ' アンデッド・エンチャント付きの敵と、クリティカルが出たコンボを除いてください。'}</small>
     </label> : <label>表示ダメージ<input aria-label={`${definition.name.ja}の表示ダメージ`} type="number" min="0.01" step="any" placeholder="任意" value={weapon.observedDamagePerHit ?? ''} onChange={(event) => onChange({ ...weapon, observedDamagePerHit: event.target.value === '' ? undefined : Number(event.target.value) })} /></label>}
       {weapon.weaponId === RADIANCE_OBSERVED_MELEE_COMBO_ID && <label>固定「輝き I」1回の自己回復量

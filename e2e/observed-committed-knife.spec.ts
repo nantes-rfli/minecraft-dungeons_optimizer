@@ -10,6 +10,7 @@ test('Truthseeker migrates and recommends fixed Committed I after its combo obse
   const editor = page.locator('details[data-instance-id="truth"]')
   await editor.locator(':scope > summary').click()
   await expect(editor.getByText(/満タンHPの敵への通常初撃/)).toBeVisible()
+  await expect(editor.getByText(/ほかのバフ・Armorのダメージ補正・スロットや金色Enchantの効果を除いて/)).toBeVisible()
   await editor.getByRole('spinbutton', { name: /コンボ全段の観測ダメージ合計/ }).fill('850')
   const saved = () => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory.weapons[0], key)
   await expect.poll(saved).toMatchObject({ instanceId: 'truth', weaponId: 'truthseeker', observedComboDamage: { powerLevel: 251, total: 850 } })

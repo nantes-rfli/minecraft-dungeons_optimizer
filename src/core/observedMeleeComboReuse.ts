@@ -250,7 +250,7 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
     fields: [weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
       ? '同じ個体・Powerで、固定の切れ味 I を含む通常コンボ1周のダメージ合計'
       : weapon.weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID
-        ? '同じ個体・Powerで、満タンHPの未強化の敵への初撃1段の直接ダメージ'
+        ? '同じ個体・Powerで、ほかのバフ・Armorのダメージ補正・スロットや金色Enchantの効果を除いた、満タンHPの未強化の敵への初撃1段の直接ダメージ'
       : isPoisonCloudObservedMeleeComboId(weapon.weaponId)
         ? '同じ個体・Powerで、毒の追加ダメージを除いた単体への通常コンボ1周の直接ダメージ合計'
       : '同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
