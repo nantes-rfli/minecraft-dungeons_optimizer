@@ -3318,12 +3318,16 @@
       "id": "melee-weapon:Glaive_Unique2",
       "rawIdentity": "Glaive_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:venom-glaive"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3avenom-glaive"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Glaive_Unique2/BP_Glaive_Unique2Instance"
       ],
@@ -3334,7 +3338,8 @@
         "bulk-bp-glaive-unique2-instance-abd38fa933ee442b",
         "bulk-bp-glaive-unique2-instance-ac3ebb58ec421804",
         "bulk-bp-glaive-unique2-instance-e8edb06421f4ccaa"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:venom-glaive"
     },
     {
       "id": "melee-weapon:Hammer",
@@ -3812,12 +3817,16 @@
       "id": "melee-weapon:Sickles_Unique1",
       "rawIdentity": "Sickles_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:nightmares-bite"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3anightmare-27s-bite"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Sickles_Unique1/BP_Sickles_Unique1Instance"
       ],
@@ -3834,7 +3843,8 @@
         "bulk-bp-sickles-unique1-instance-f50449a9106f7580",
         "bulk-bp-sickles-unique1-instance-f9d16ad6c583e781",
         "bulk-bp-sickles-unique1-instance-fd7ad9e0196d741a"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:nightmares-bite"
     },
     {
       "id": "melee-weapon:Sickles_Unique2",

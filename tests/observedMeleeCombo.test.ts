@@ -29,7 +29,7 @@ describe('observed complete melee combo reuse', () => {
     const catalog = EQUIPMENT_CATALOG.filter(({ category }) => category === 'melee')
     expect(catalog).toHaveLength(82)
     expect(catalog.filter(({ runtimeSupport }) => runtimeSupport === 'full')).toHaveLength(4)
-    expect(catalog.filter(({ runtimeSupport }) => runtimeSupport === 'limited')).toHaveLength(26)
+    expect(catalog.filter(({ runtimeSupport }) => runtimeSupport === 'limited')).toHaveLength(28)
     for (const id of ['axe', 'sword', 'boneclub', 'claymore', 'sponge-striker', 'broken-sawblade']) {
       expect(observedMeleeComboIsEligible(id)).toBe(false)
       expect(getEquipmentCatalogEntry('melee', id)?.runtimeSupport).toBe('unsupported')
