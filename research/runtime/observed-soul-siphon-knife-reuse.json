@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-soul-siphon-on-observed-strike",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-soul-siphon-knife.json",
+  "testRef": "tests/observedSoulSiphonKnife.test.ts",
+  "observation": "own ordinary direct single strike at the current equipped Power; existing single-target on-hit Soul Siphon model",
+  "allowedAdditionalEnchantments": ["anima-conduit"],
+  "targets": { "eternal-knife": "soul-siphon" },
+  "sharedOptionalSoulSiphonTargets": ["frost-scythe", "skull-scythe", "truthseeker"]
+}

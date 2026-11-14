@@ -3952,19 +3952,24 @@
       "id": "melee-weapon:SoulKnife_Unique2",
       "rawIdentity": "SoulKnife_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:eternal-knife"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3aeternal-knife"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/BP_SoulKnife_Unique2Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-soul-knife-unique2-instance-855252f758aacddc",
         "bulk-bp-soul-knife-unique2-instance-b9b67b3a5c1d0635"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:eternal-knife"
     },
     {
       "id": "melee-weapon:SoulScythe",

@@ -5303,6 +5303,37 @@
             "evidence:presentation:truthseeker:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:eternal-knife@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulKnife_Unique2",
+            "evidenceRef": "evidence:raw:identity:eternal-knife@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulKnife_Unique2",
+            "evidenceRef": "evidence:raw:identity:eternal-knife@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:eternal-knife@1",
+          "domainId": "eternal-knife",
+          "evidenceRefs": [
+            "evidence:raw:identity:eternal-knife@1:ItemIdName",
+            "evidence:raw:identity:eternal-knife@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "eternal-knife",
+          "displayName": "Eternal Knife",
+          "evidenceRefs": [
+            "evidence:presentation:eternal-knife:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8600,6 +8631,26 @@
       "evidenceRefs": [
         "evidence:reviewed:truthseeker:accepted-alias",
         "evidence:reviewed:truthseeker:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:eternal-knife@1",
+      "rawIdentity": "SoulKnife_Unique2",
+      "domainId": "eternal-knife",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/BP_SoulKnife_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:eternal-knife:accepted-alias",
+        "evidence:reviewed:eternal-knife:exact-localization-key"
       ]
     }
   ],
@@ -20077,6 +20128,81 @@
           "nodePointer": "/packages/46/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:1ff52bfd"
+      },
+      {
+        "id": "evidence:reviewed:eternal-knife:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulKnife_Unique2]"
+        },
+        "fingerprint": "fnv1a32:96fe8730"
+      },
+      {
+        "id": "evidence:presentation:eternal-knife:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=eternal-knife].name.en"
+        },
+        "fingerprint": "fnv1a32:7a232c8c"
+      },
+      {
+        "id": "evidence:reviewed:eternal-knife:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/SoulKnife_Unique2 reads Eternal knife. Published display name: Eternal Knife. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-soul-siphon-knife.json",
+          "locator": "rows[id=eternal-knife].localization"
+        },
+        "fingerprint": "fnv1a32:bd094e78"
+      },
+      {
+        "id": "evidence:raw:identity:eternal-knife@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:d8f44afa981869e0d6d1f9c45ee055a99d96dabcb451a088ae19dbc2c8f7dc16",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/BP_SoulKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8c609ea58fe0de1eb89517695d6e19e96b609ad960abd6a2cc0da32dfd88a14d"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:eda26cca"
+      },
+      {
+        "id": "evidence:raw:identity:eternal-knife@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:d8f44afa981869e0d6d1f9c45ee055a99d96dabcb451a088ae19dbc2c8f7dc16",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique2/BP_SoulKnife_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8c609ea58fe0de1eb89517695d6e19e96b609ad960abd6a2cc0da32dfd88a14d"
+          },
+          "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:93730e0e"
       }
     ]
   }
