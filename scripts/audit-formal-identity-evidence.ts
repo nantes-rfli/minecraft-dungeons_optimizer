@@ -36,6 +36,7 @@ import {
   freezingComboLocalizationFormalIdentities,
   poisonCloudComboLocalizationFormalIdentities,
   weakeningComboLocalizationFormalIdentities,
+  committedComboLocalizationFormalIdentities,
   scatterCrossbowFormalIdentity,
 } from '../src/domain/formal/identityDefinitions.ts'
 import type { RawPackageSnapshot } from './game-data-raw-package.ts'
@@ -55,7 +56,7 @@ const representativeInputs = representativeDefinitions.map((definition) => ({
   definition,
   raw: readRaw(definition.assertion.applicationScope.packagePath),
 }))
-const inventoryDefinitions = [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities, ...readyArtifactFormalIdentities, ...readyArmorFormalIdentities, ...reviewedBridgeArtifactFormalIdentities, corruptedSeedsFormalIdentity, ...reviewedTypedRelationMeleeFormalIdentities, ...reviewedTypedRelationFormalIdentities, ...reviewedLocalizationMeleeFormalIdentities, ...builtinProcLocalizationFormalIdentities, ...fixedComboLocalizationFormalIdentities, ...fixedPowerBowLocalizationFormalIdentities, ...radianceComboLocalizationFormalIdentities, ...fixedRapidFireLocalizationFormalIdentities, ...freezingComboLocalizationFormalIdentities, ...poisonCloudComboLocalizationFormalIdentities, ...weakeningComboLocalizationFormalIdentities]
+const inventoryDefinitions = [...readyMeleeFormalIdentities, ...readyRangedFormalIdentities, ...reviewedBridgeMeleeFormalIdentities, ...reviewedBridgeRangedFormalIdentities, ...readyArtifactFormalIdentities, ...readyArmorFormalIdentities, ...reviewedBridgeArtifactFormalIdentities, corruptedSeedsFormalIdentity, ...reviewedTypedRelationMeleeFormalIdentities, ...reviewedTypedRelationFormalIdentities, ...reviewedLocalizationMeleeFormalIdentities, ...builtinProcLocalizationFormalIdentities, ...fixedComboLocalizationFormalIdentities, ...fixedPowerBowLocalizationFormalIdentities, ...radianceComboLocalizationFormalIdentities, ...fixedRapidFireLocalizationFormalIdentities, ...freezingComboLocalizationFormalIdentities, ...poisonCloudComboLocalizationFormalIdentities, ...weakeningComboLocalizationFormalIdentities, ...committedComboLocalizationFormalIdentities]
 verifyFixedObservedComboSources(repositoryRoot)
 verifyFixedPowerBowSources(repositoryRoot)
 verifyFixedRapidFireSources(repositoryRoot)
@@ -75,14 +76,14 @@ const inventoryInputs = readFormalIdentityInventoryInputs(repositoryRoot, invent
 const artifact = buildFormalIdentityEvidenceArtifact([...representativeInputs, ...inventoryInputs])
 
 assert.deepEqual(collectFormalIdentityEvidenceErrors(artifact), [])
-assert.equal(artifact.identityAssertions.length, 170)
-assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 170)
-assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id )).size, 170, 'duplicate Formal Identity assertion')
-assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId )).size, 170, 'duplicate Formal Identity domain')
+assert.equal(artifact.identityAssertions.length, 171)
+assert.equal(artifact.semantic.identities.filter(({ resolution }) => resolution.state === 'matched').length, 171)
+assert.equal(new Set(artifact.identityAssertions.map(({ id }) => id )).size, 171, 'duplicate Formal Identity assertion')
+assert.equal(new Set(artifact.identityAssertions.map(({ domainId }) => domainId )).size, 171, 'duplicate Formal Identity domain')
 const matchedMelee = artifact.semantic.identities.filter(({ resolution }) =>
   resolution.state === 'matched'
-  && (resolution.domainId === 'fighters-bindings' || weakeningComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || poisonCloudComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || freezingComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || radianceComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || fixedComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || builtinProcLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedLocalizationMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || readyMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedBridgeMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedTypedRelationMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === resolution.domainId)))
-assert.equal(matchedMelee.length, 45)
+  && (resolution.domainId === 'fighters-bindings' || committedComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || weakeningComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || poisonCloudComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || freezingComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || radianceComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || fixedComboLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || builtinProcLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedLocalizationMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || readyMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedBridgeMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedTypedRelationMeleeFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'melee' && input.domainId === resolution.domainId)))
+assert.equal(matchedMelee.length, 46)
 const matchedRanged = artifact.semantic.identities.filter(({ resolution }) =>
   resolution.state === 'matched'
   && (resolution.domainId === 'scatter-crossbow' || fixedRapidFireLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || fixedPowerBowLocalizationFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || readyRangedFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedBridgeRangedFormalIdentities.some(({ assertion }) => assertion.domainId === resolution.domainId) || reviewedTypedRelationFormalIdentityInputs.some((input) => input.category === 'ranged' && input.domainId === resolution.domainId)))
@@ -314,7 +315,7 @@ const existing153Ids = new Set(existing153Assertions.map(({ id }) => id))
 const existing153Semantics = artifact.semantic.identities.filter(({ assertionId }) => existing153Ids.has(assertionId))
 // The prior main contains 642 complete evidence records, including presentation records.
 const existing153Evidence = artifact.provenance.evidence.slice(0, 642)
-assert.equal(artifact.provenance.evidence.length, 727, 'Only the reviewed consumer identities may append evidence')
+assert.equal(artifact.provenance.evidence.length, 732, 'Only the reviewed consumer identities may append evidence')
 assert.equal(crypto.createHash('sha256').update(JSON.stringify({ identityAssertions: existing153Assertions, semanticIdentities: existing153Semantics, provenanceEvidence: existing153Evidence })).digest('hex'), '4b5df9e33e1f6bee2c85f2e583bd4e1be09ff8d52ddb3609379f390d51d65685', 'Existing 153 identity/evidence records changed')
 assert.deepEqual(artifact.identityAssertions.slice(153, 155).map(({ domainId, rawIdentity }) => ({ domainId, rawIdentity })), [{ domainId: 'whirlwind', rawIdentity: 'DoubleAxe_Unique1' }, { domainId: 'stormlander', rawIdentity: 'Hammer_Unique1' }])
 
@@ -393,8 +394,18 @@ const existing169 = {
 }
 assert.equal(crypto.createHash('sha256').update(JSON.stringify(existing169)).digest('hex'),
   '800f4734dcaa62a3e80cbdc47545fac470e197a55614419e3dbb53dd63833f76', 'PR #238 Identity and provenance must be preserved')
-assert.deepEqual(artifact.identityAssertions.slice(169).map(({ domainId, rawIdentity }) => [domainId, rawIdentity]),
+assert.deepEqual(artifact.identityAssertions.slice(169, 170).map(({ domainId, rawIdentity }) => [domainId, rawIdentity]),
   [['nameless-blade', 'Cutlass_Unique1']])
+
+const existing170 = {
+  identityAssertions: artifact.identityAssertions.slice(0, 170),
+  semanticIdentities: artifact.semantic.identities.slice(0, 170),
+  provenanceEvidence: artifact.provenance.evidence.slice(0, 727),
+}
+assert.equal(crypto.createHash('sha256').update(JSON.stringify(existing170)).digest('hex'),
+  '17987507ce595d76cdd6690309114ecec13d63b349384bec1a509e00b8ac39c8', 'PR #239 Identity and provenance must be preserved')
+assert.deepEqual(artifact.identityAssertions.slice(170).map(({ domainId, rawIdentity }) => [domainId, rawIdentity]),
+  [['truthseeker', 'SoulKnife_Unique1']])
 
 const roles = new Set(artifact.provenance.evidence.flatMap((record: EvidenceRecord) => record.kind === 'reviewed' ? [record.role] : []))
 assert.deepEqual([...roles].sort(), ['conflict', 'limitation', 'support'])
@@ -413,4 +424,4 @@ if (process.argv.includes('--write')) {
   fs.writeFileSync(target, serialized)
 }
 assert.equal(fs.readFileSync(target, 'utf8'), serialized, 'Formal Identity/Evidence artifact drift; run generate:formal-identity-evidence')
-console.log('Formal Identity/Evidence v1 audit passed: 170 matched identities (45 Melee, 31 Ranged, 71 Armor, 23 Artifact); 6 new reviewed typed-relation bridges plus 2 existing Sawblade bridges match exact Structural observations; duplicate assertions/domains 0; unsupported promotions 0; existing 153 identity prefix remains guarded; seventeen finite consumer localization identities appended.')
+console.log('Formal Identity/Evidence v1 audit passed: 171 matched identities (46 Melee, 31 Ranged, 71 Armor, 23 Artifact); 6 new reviewed typed-relation bridges plus 2 existing Sawblade bridges match exact Structural observations; duplicate assertions/domains 0; unsupported promotions 0; existing 153 identity prefix remains guarded; eighteen finite consumer localization identities appended.')

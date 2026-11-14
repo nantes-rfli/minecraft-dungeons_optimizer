@@ -38,7 +38,7 @@ Rangedの0本の矢、Armorの+HP=0等、既存契約が認める既知の0は�
 - [Azure Seeker と Purple Storm](./observed-rapid-fire-reuse.md) は現在のPowerで固定「速射 I」を含む完全発射周期を記録する。Power変更時は再入力が必要
 - Scenarioの遠距離時間割合: 0より大きく1未満
 
-近接33種、Armor 13種、Artifact 3種も対応条件の範囲で利用できる。うち近接22種は、[コンボ全段の観測ダメージ合計](./observed-melee-combo-reuse.md)が必要。Sun’s Grace は固定「輝き I」1回の自己回復量も同じPowerで記録する。Nightmare’s Bite と Venom Glaive は毒の継続ダメージを観測合計から除き、固定「毒の雲 I」の計算はPower 184〜251に対応する。入力前は入力不足として表示される。 [Sun’s Grace](./observed-radiance-combo-reuse.md) · [Frost Scythe / Skull Scythe](./observed-freezing-scythe-reuse.md) · [Nightmare’s Bite / Venom Glaive](./observed-poison-cloud-melee-reuse.md) · [Nameless Blade](./observed-weakening-blade-reuse.md)
+近接34種、Armor 13種、Artifact 3種も対応条件の範囲で利用できる。うち近接23種は、[コンボ全段の観測ダメージ合計](./observed-melee-combo-reuse.md)が必要。Sun’s Grace は固定「輝き I」1回の自己回復量も同じPowerで記録する。Nightmare’s Bite と Venom Glaive は毒の継続ダメージを観測合計から除き、固定「毒の雲 I」の計算はPower 184〜251に対応する。Truthseeker は満タンHPの敵への通常初撃を記録する。入力前は入力不足として表示される。 [Sun’s Grace](./observed-radiance-combo-reuse.md) · [Frost Scythe / Skull Scythe](./observed-freezing-scythe-reuse.md) · [Nightmare’s Bite / Venom Glaive](./observed-poison-cloud-melee-reuse.md) · [Nameless Blade](./observed-weakening-blade-reuse.md) · [Truthseeker](./observed-committed-knife-reuse.md)
 
 既存の合成ソフトウェアfixtureでは旧6種それぞれについて、未観測→必要項目表示→個体観測を適用→evaluate/optimize成功を検証する。ブラウザでは同名Bowを区別して編集し、評価可能2件→3件・入力不足1件→0件になり、保存後に最適化と用途別装備比較へ進めることを検証する。これは実ゲーム観測や本人の全Inventoryの評価件数ではない。本人のデータが提供されていないため、その改善件数は実行時のInventory上で確認する。
 

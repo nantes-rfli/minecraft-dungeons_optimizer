@@ -1,0 +1,9 @@
+# Truthseeker with fixed Committed I
+
+Truthseeker enters Limited Runtime with its own 0.85-second single thrust, fixed Committed I, +1 Soul Gathering and Soul enchantment eligibility. Exact `SoulKnife_Unique1` localization joins both own Raw identifiers. The configured 140 hit agrees with the published profile. The current-Power observation supplies the ordinary first hit against a neutral enemy at full health, with other buffs, Armor damage modifiers and rolled or Gilded enchantment effects removed. Committed adds zero bonus to this first hit. [Own source](../research/sources/observed-committed-knife.json) · [Published target](https://minecraft.wiki/w/Dungeons%3ATruthseeker)
+
+The fixed Tier I increases direct damage linearly with target health lost, from 0% to 50%. The existing continuous full-health-to-defeat model integrates that increase. With only direct damage its effective multiplier is `0.5 / ln(1.5)`. The model excludes discrete-hit overkill, unfinished encounters and switching to already wounded targets. It remains Estimated and requires a condition that includes estimated parameters. [Effect and tier](https://minecraft.wiki/w/Dungeons%3ACommitted)
+
+The weapon's flat Soul Gathering is separate from its damage modifier. Existing Anima Conduit can use the resulting pickup events for self-healing. Inventory migration does not supply a damage observation. Changing Power invalidates the recorded first hit. The exact built-in is required once, and slot/Gilded duplicates, multiple enemies, speed effects, ranged coexistence and unreviewed extra effects are excluded. [Runtime reuse scope](../research/runtime/observed-committed-knife-reuse.json)
+
+Growing Staff has conflicting complete Raw and published cadence. Resolute Tempest Knife also owns Rushdown. Both remain outside this reviewed Committed cohort. Existing R3/P3B and Formal Value/Relation boundaries are preserved.
