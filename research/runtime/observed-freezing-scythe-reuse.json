@@ -9,6 +9,12 @@
   "sourceRef": "research/sources/observed-freezing-scythes.json",
   "testRef": "tests/observedFreezingScythes.test.ts",
   "observation": "own ordinary complete combo damage at the current equipped Power; existing attack slow and flat Soul Gathering models",
-  "allowedAdditionalEnchantments": ["anima-conduit"],
-  "targets": { "frost-scythe": "freezing", "skull-scythe": "freezing" }
+  "allowedAdditionalEnchantments": [
+    "anima-conduit",
+    "soul-siphon"
+  ],
+  "targets": {
+    "frost-scythe": "freezing",
+    "skull-scythe": "freezing"
+  }
 }

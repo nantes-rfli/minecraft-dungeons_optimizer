@@ -9,6 +9,7 @@ import freezingApproval from '../../research/runtime/observed-freezing-scythe-re
 import poisonCloudApproval from '../../research/runtime/observed-poison-cloud-melee-reuse.json' with { type: 'json' }
 import weakeningApproval from '../../research/runtime/observed-weakening-blade-reuse.json' with { type: 'json' }
 import committedApproval from '../../research/runtime/observed-committed-knife-reuse.json' with { type: 'json' }
+import soulSiphonApproval from '../../research/runtime/observed-soul-siphon-knife-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
   CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
@@ -18,6 +19,7 @@ import {
   POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS, POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE, isPoisonCloudObservedMeleeComboId,
   WEAKENING_OBSERVED_MELEE_COMBO_ID, WEAKENING_OBSERVED_MELEE_COMBO_SOURCE,
   COMMITTED_OBSERVED_MELEE_COMBO_ID, COMMITTED_OBSERVED_MELEE_COMBO_SOURCE,
+  SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID, SOUL_SIPHON_OBSERVED_MELEE_COMBO_SOURCE, isSoulObservedMeleeComboId,
   fixedObservedMeleeComboEnchantments, isFixedObservedMeleeComboId,
 } from '../data/fixedObservedMeleeCombo'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -35,7 +37,7 @@ import type { ReadinessIssue } from './readiness'
 const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const allowedEnchantments = ['critical-hit', 'sharpness', 'unchanting', 'smiting', 'radiance'] as const
 const allowsObservedComboEnchant = (weaponId: string, id: string) => (allowedEnchantments as readonly string[]).includes(id)
-  || ((isFreezingObservedMeleeComboId(weaponId) || weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID) && id === 'anima-conduit')
+  || (isSoulObservedMeleeComboId(weaponId) && (id === 'anima-conduit' || id === 'soul-siphon'))
 const defaults = { identities, values, profiles, harvest, approvals, source: OBSERVED_MELEE_COMBO_SOURCE, weapons: OBSERVED_MELEE_COMBO_WEAPONS, runtimeProfiles: OBSERVED_MELEE_COMBO_PROFILES }
 
 export function observedMeleeComboIsEligible(id: string, overrides: Partial<typeof defaults> = {}): boolean {
@@ -103,6 +105,7 @@ const fixedDefaults = {
   poisonCloudApproval, poisonCloudSource: POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE,
   weakeningApproval, weakeningSource: WEAKENING_OBSERVED_MELEE_COMBO_SOURCE,
   committedApproval, committedSource: COMMITTED_OBSERVED_MELEE_COMBO_SOURCE,
+  soulSiphonApproval, soulSiphonSource: SOUL_SIPHON_OBSERVED_MELEE_COMBO_SOURCE,
 }
 
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
@@ -114,8 +117,9 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const poisonCloud = isPoisonCloudObservedMeleeComboId(id)
   const weakening = id === WEAKENING_OBSERVED_MELEE_COMBO_ID
   const committed = id === COMMITTED_OBSERVED_MELEE_COMBO_ID
-  const grant = committed ? data.committedApproval : weakening ? data.weakeningApproval : poisonCloud ? data.poisonCloudApproval : freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
-  const source = committed ? data.committedSource : weakening ? data.weakeningSource : poisonCloud ? data.poisonCloudSource : freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
+  const soulSiphon = id === SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID
+  const grant = soulSiphon ? data.soulSiphonApproval : committed ? data.committedApproval : weakening ? data.weakeningApproval : poisonCloud ? data.poisonCloudApproval : freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
+  const source = soulSiphon ? data.soulSiphonSource : committed ? data.committedSource : weakening ? data.weakeningSource : poisonCloud ? data.poisonCloudSource : freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
   const rows = source.rows.filter((row) => row.id === id)
   const row = rows[0]
   const weapon = data.weapons[id]
@@ -133,7 +137,10 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const poisonRow = poisonCloud ? data.poisonCloudSource.rows.find((item) => item.id === id) : undefined
   const weakeningRow = weakening ? data.weakeningSource.rows.find((item) => item.id === id) : undefined
   const committedRow = committed ? data.committedSource.rows.find((item) => item.id === id) : undefined
-  const tierMatches = committed ? equal(tier.effect, { kind: 'target-health-weapon-damage', maxBonus: 0.5 }) && committedRow?.fixed.maxBonus === 0.5
+  const siphonRow = soulSiphon ? data.soulSiphonSource.rows.find((item) => item.id === id) : undefined
+  const tierMatches = soulSiphon ? equal(tier.effect, { kind: 'on-hit-soul-generation', triggerChance: 0.2, extraPickupCount: 1 })
+    && siphonRow?.fixed.triggerChance === 0.2 && siphonRow.fixed.extraPickupCount === 1
+    : committed ? equal(tier.effect, { kind: 'target-health-weapon-damage', maxBonus: 0.5 }) && committedRow?.fixed.maxBonus === 0.5
     : weakening ? equal(tier.effect, { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.2, durationSeconds: 5 })
     && weakeningRow?.fixed.enemyDamageReduction === 0.2 && weakeningRow.fixed.durationSeconds === 5
     : poisonCloud ? equal(tier.effect, { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: 1 })
@@ -144,11 +151,19 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     : critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
     : sharpness ? equal(tier.effect, { kind: 'passive-weapon-damage', bonus: 0.1 })
       : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
-  const approvalMatches = committed
+  const approvalMatches = soulSiphon
+    ? grant.mechanic === 'owned-tier-one-soul-siphon-on-observed-strike'
+      && grant.sourceRef === 'research/sources/observed-soul-siphon-knife.json' && grant.testRef === 'tests/observedSoulSiphonKnife.test.ts'
+      && grant.observation === 'own ordinary direct single strike at the current equipped Power; existing single-target on-hit Soul Siphon model'
+      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit'])
+      && 'sharedOptionalSoulSiphonTargets' in grant && equal(grant.sharedOptionalSoulSiphonTargets, ['frost-scythe', 'skull-scythe', 'truthseeker'])
+      && equal(grant.targets, { 'eternal-knife': 'soul-siphon' })
+      && equal(source.rows.map((item) => item.id), [SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID])
+    : committed
     ? grant.mechanic === 'owned-tier-one-committed-and-flat-soul-on-observed-strike'
       && grant.sourceRef === 'research/sources/observed-committed-knife.json' && grant.testRef === 'tests/observedCommittedKnife.test.ts'
       && grant.observation === 'own ordinary first strike against a full-health neutral target at the current equipped Power; existing fresh-target health trajectory'
-      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit'])
+      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit', 'soul-siphon'])
       && equal(grant.targets, { truthseeker: 'committed' })
       && equal(source.rows.map((item) => item.id), [COMMITTED_OBSERVED_MELEE_COMBO_ID])
     : weakening
@@ -168,7 +183,7 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     ? grant.mechanic === 'owned-tier-one-freezing-and-own-flat-soul-gathering'
       && grant.sourceRef === 'research/sources/observed-freezing-scythes.json' && grant.testRef === 'tests/observedFreezingScythes.test.ts'
       && grant.observation === 'own ordinary complete combo damage at the current equipped Power; existing attack slow and flat Soul Gathering models'
-      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit'])
+      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit', 'soul-siphon'])
       && equal(grant.targets, { 'frost-scythe': 'freezing', 'skull-scythe': 'freezing' })
       && equal(source.rows.map((item) => item.id), FREEZING_OBSERVED_MELEE_COMBO_IDS)
     : radiance
@@ -190,19 +205,19 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
       && equal(source.rows.map((item) => item.id), CONDITIONAL_OBSERVED_MELEE_COMBO_IDS)
 
   const slug = id === 'nightmares-bite' ? 'nightmare-s-bite' : radiance ? 'sun-s-grace' : id
-  const localizationName = id === 'venom-glaive' && row.calculatorRow.name === 'Venom Glaive' ? 'Venom glaive' : row.calculatorRow.name
+  const localizationName = id === 'venom-glaive' && row.calculatorRow.name === 'Venom Glaive' ? 'Venom glaive' : id === 'eternal-knife' && row.calculatorRow.name === 'Eternal Knife' ? 'Eternal knife' : row.calculatorRow.name
   return grant.schemaVersion === 1 && grant.gameVersion === '1.17.0.0' && grant.route === 'existing-limited-mechanic-reuse'
     && grant.classification === 'derived' && grant.runtimeSupport === 'limited'
     && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed' && approvalMatches
     && source.schemaVersion === 1 && source.gameVersion === grant.gameVersion
     && source.calculatorSource.url === 'https://www.dungeons.tools/damage-calculator'
-    && source.calculatorSource.htmlSha256 === (weakening || committed ? '8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee' : '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1')
+    && source.calculatorSource.htmlSha256 === (weakening || committed || soulSiphon ? '8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee' : '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1')
     && data.profiles.gameVersion === grant.gameVersion && data.harvest.targetGameVersion === grant.gameVersion
     && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === slug && row.calculatorRow.route === `/weapons/${slug}`
     && row.sourceUrl === `https://www.dungeons.tools/weapons/${slug}`
-    && equal(row.calculatorRow.builtIn, [committed ? 'Committed' : weakening ? 'Weakening' : poisonCloud ? 'Poison Cloud' : freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
+    && equal(row.calculatorRow.builtIn, [soulSiphon ? 'Soul Siphon' : committed ? 'Committed' : weakening ? 'Weakening' : poisonCloud ? 'Poison Cloud' : freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
     && row.fixed.enchantmentId === effect && row.fixed.tier === 1 && tierMatches
-    && row.fixed.tierSourceUrl === (committed ? 'https://minecraft.wiki/w/Dungeons%3ACommitted' : weakening ? 'https://minecraft.wiki/w/Dungeons%3AWeakening' : poisonCloud ? 'https://minecraft.wiki/w/Dungeons%3APoison_Cloud' : freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
+    && row.fixed.tierSourceUrl === (soulSiphon ? 'https://minecraft.wiki/w/Dungeons%3ASoul_Siphon' : committed ? 'https://minecraft.wiki/w/Dungeons%3ACommitted' : weakening ? 'https://minecraft.wiki/w/Dungeons%3AWeakening' : poisonCloud ? 'https://minecraft.wiki/w/Dungeons%3APoison_Cloud' : freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
     && claims.length === 1 && claims[0]?.sourceId === `external-dungeons-tools:melee-weapon:${id}`
     && claims[0].sourceGameVersion === '1.17.0.0 publisher-claimed' && claims[0].interpretation === 'direct'
     && claims[0].sourceLocator === `${row.sourceUrl} — Properties and details` && equal(claims[0].value, row.intrinsicFacts)
@@ -215,17 +230,22 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
       : row.localization?.namespace === 'ItemType' && row.localization.key === row.rawIdentity && row.localization.value === localizationName)
     && audit?.status === 'exact' && !audit.specialHandlingRequired && audit.name.en === row.calculatorRow.name
     && audit.sources.length === 1 && audit.sources[0]?.type === 'minecraft-wiki' && audit.sources[0].url === row.wikiTimingSource
-    && count === (committed ? 1 : freezing || weakening ? 2 : id === 'nightmares-bite' ? 6 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
+    && count === (committed || soulSiphon ? 1 : freezing || weakening ? 2 : id === 'nightmares-bite' ? 6 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
     && equal(audit.attackProfile.hitDurationsSeconds, row.hitDurationsSeconds)
-    && row.publishedBaseDamage.length === count && (freezing || weakening || committed ? new Set(row.publishedBaseDamage).size === 1 : new Set(row.publishedBaseDamage).size > 1)
+    && row.publishedBaseDamage.length === count && (freezing || weakening || committed || soulSiphon ? new Set(row.publishedBaseDamage).size === 1 : new Set(row.publishedBaseDamage).size > 1)
     && equal(audit.damageProfile.rawBaseDamageRows.map((hit) => hit.baseDamage), row.publishedBaseDamage)
     && /^shards\/part-\d{3}\.json\.gz$/.test(row.rawSource.shard) && /^[a-f0-9]{64}$/.test(row.rawSource.sha256)
     && Number.isInteger(row.rawSource.packageIndex) && row.rawSource.packageIndex >= 0
     && weapon.id === id && weapon.name.en === row.calculatorRow.name
     && weapon.internalPowerRating.value === row.calculatorRow.power && weapon.speed.value === row.calculatorRow.speed
-    && weapon.area.value === row.calculatorRow.area && weapon.soul.acceptsSoulEnchantments === (freezing || committed) && weapon.soul.baseSoulGathering.value === (freezing || committed ? 1 : 0)
+    && weapon.area.value === row.calculatorRow.area && weapon.soul.acceptsSoulEnchantments === (freezing || committed || soulSiphon) && weapon.soul.baseSoulGathering.value === (freezing || committed || soulSiphon ? 1 : 0)
     && (!freezing || (freezingRow?.soul.acceptsSoulEnchantments === true && freezingRow.soul.baseSoulGathering === 1))
     && (!committed || (committedRow?.soul.acceptsSoulEnchantments === true && committedRow.soul.baseSoulGathering === 1))
+    && (!soulSiphon || (siphonRow?.soul.acceptsSoulEnchantments === true && siphonRow.soul.baseSoulGathering === 1
+      && siphonRow.soul.publishedTotalSoulGathering === 2 && siphonRow.soul.fixedGathering === ENCHANTMENTS['soul-siphon'].soul?.soulGathering.value
+      && siphonRow.soul.baseSoulGathering + siphonRow.soul.fixedGathering === siphonRow.soul.publishedTotalSoulGathering
+      && siphonRow.soul.baseSourceUrl === 'https://minecraft.wiki/w/Dungeons%3ASoul'
+      && siphonRow.soul.fixedGatheringSourceUrl === 'https://minecraft.wiki/w/Dungeons%3ASoul_Siphon'))
     && profile.source.url === row.wikiTimingSource && profile.source.kind === 'published-reference'
     && profile.value.comboFinisherHit === count && equal(profile.value.hitDurationsSeconds, row.hitDurationsSeconds)
 }

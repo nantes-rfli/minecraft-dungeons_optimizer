@@ -9,6 +9,11 @@
   "sourceRef": "research/sources/observed-committed-knife.json",
   "testRef": "tests/observedCommittedKnife.test.ts",
   "observation": "own ordinary first strike against a full-health neutral target at the current equipped Power; existing fresh-target health trajectory",
-  "allowedAdditionalEnchantments": ["anima-conduit"],
-  "targets": { "truthseeker": "committed" }
+  "allowedAdditionalEnchantments": [
+    "anima-conduit",
+    "soul-siphon"
+  ],
+  "targets": {
+    "truthseeker": "committed"
+  }
 }
