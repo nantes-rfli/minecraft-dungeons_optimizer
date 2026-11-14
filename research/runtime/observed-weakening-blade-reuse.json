@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-weakening-on-observed-combo",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-weakening-blade.json",
+  "testRef": "tests/observedWeakeningBlade.test.ts",
+  "observation": "own ordinary complete combo damage at the current equipped Power; existing time-weighted weakened incoming-damage share",
+  "targets": { "nameless-blade": "weakening" }
+}

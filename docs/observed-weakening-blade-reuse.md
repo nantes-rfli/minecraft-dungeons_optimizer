@@ -1,0 +1,9 @@
+# Nameless Blade with fixed Weakening I
+
+Nameless Blade enters Limited Runtime with its own two-hit 0.40 / 0.40-second sequence and fixed Weakening I. Its Raw `Cutlass_Unique1` identifiers join the exact hash-bound ItemType localization entry. Its own configured 75 / 75 hit vector agrees with the published profile. The player's current-Power observation supplies one ordinary complete combo's damage. The applicable condition is one target in reach at base attack cadence. [Target record](../research/sources/observed-weakening-blade.json) · [Published profile](https://minecraft.wiki/w/Dungeons%3ANameless_Blade)
+
+Weakening I reduces affected enemy outgoing attack damage by 20% for five seconds. The existing editable `weakeningAffectedIncomingDamageShare` already includes attack activity, location and effect duration. The multiplier is `1 - affectedIncomingShare × 0.20`. For example, a 50% share gives 0.90, while a 100% share gives 0.80. HPS and duration are not multiplied into that share again. The share remains an estimated parameter, so this cohort requires a condition that allows estimated parameters. [Effect and tiers](https://minecraft.wiki/w/Dungeons%3AWeakening)
+
+The fixed effect is required once. Duplicate slot or Gilded copies, unsupported extra effects, multiple targets, speed changes and ranged coexistence remain outside the reviewed scope. Existing Armor defense composition checks apply to the built-in Weakening source. Inventory and old Catalog imports preserve the equipped item and require a current-Power observation before recommendation, equipment scoring or condition comparison. [Reuse approval](../research/runtime/observed-weakening-blade-reuse.json)
+
+This is the complete published population with a fixed Weakening I. It reuses the established observed-melee and enemy-debuff models. No R3/P3B promotion state is changed.

@@ -2871,12 +2871,16 @@
       "id": "melee-weapon:Cutlass_Unique1",
       "rawIdentity": "Cutlass_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:nameless-blade"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3anameless-blade"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance"
       ],
@@ -2885,7 +2889,8 @@
         "bulk-bp-cutlass-unique1-instance-34c5b12ed07e0376",
         "bulk-bp-cutlass-unique1-instance-9fa89fa3b3d2b2e0",
         "bulk-bp-cutlass-unique1-instance-c54a1bc5315e6ebd"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:nameless-blade"
     },
     {
       "id": "melee-weapon:Cutlass_Unique2",

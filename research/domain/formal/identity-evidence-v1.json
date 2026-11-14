@@ -5241,6 +5241,37 @@
             "evidence:presentation:venom-glaive:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:nameless-blade@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Cutlass_Unique1",
+            "evidenceRef": "evidence:raw:identity:nameless-blade@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Cutlass_Unique1",
+            "evidenceRef": "evidence:raw:identity:nameless-blade@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:nameless-blade@1",
+          "domainId": "nameless-blade",
+          "evidenceRefs": [
+            "evidence:raw:identity:nameless-blade@1:ItemIdName",
+            "evidence:raw:identity:nameless-blade@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "nameless-blade",
+          "displayName": "Nameless Blade",
+          "evidenceRefs": [
+            "evidence:presentation:nameless-blade:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8498,6 +8529,26 @@
       "evidenceRefs": [
         "evidence:reviewed:venom-glaive:accepted-alias",
         "evidence:reviewed:venom-glaive:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:nameless-blade@1",
+      "rawIdentity": "Cutlass_Unique1",
+      "domainId": "nameless-blade",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:nameless-blade:accepted-alias",
+        "evidence:reviewed:nameless-blade:exact-localization-key"
       ]
     }
   ],
@@ -19825,6 +19876,81 @@
           "nodePointer": "/packages/7/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:dc796449"
+      },
+      {
+        "id": "evidence:reviewed:nameless-blade:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Cutlass_Unique1]"
+        },
+        "fingerprint": "fnv1a32:2f253cd4"
+      },
+      {
+        "id": "evidence:presentation:nameless-blade:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=nameless-blade].name.en"
+        },
+        "fingerprint": "fnv1a32:0a5c0616"
+      },
+      {
+        "id": "evidence:reviewed:nameless-blade:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Cutlass_Unique1 names Nameless Blade. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-weakening-blade.json",
+          "locator": "rows[id=nameless-blade].localization"
+        },
+        "fingerprint": "fnv1a32:1ff844eb"
+      },
+      {
+        "id": "evidence:raw:identity:nameless-blade@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Cutlass_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:426f74ad399fd090c60f862ece589c1aa01397b49edf135ced0d729e2edb52bf",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1ef68c984ecb2d8ab4641e2cb806caa4f68941867e5b654f3b2d0fbcca22a41e"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/4"
+        },
+        "fingerprint": "fnv1a32:2742a653"
+      },
+      {
+        "id": "evidence:raw:identity:nameless-blade@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Cutlass_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-014.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:426f74ad399fd090c60f862ece589c1aa01397b49edf135ced0d729e2edb52bf",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Cutlass_Unique1/BP_Cutlass_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "1ef68c984ecb2d8ab4641e2cb806caa4f68941867e5b654f3b2d0fbcca22a41e"
+          },
+          "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/5/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:4efad199"
       }
     ]
   }
