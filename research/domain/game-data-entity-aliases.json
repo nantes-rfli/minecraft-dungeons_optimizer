@@ -3929,19 +3929,24 @@
       "id": "melee-weapon:SoulKnife_Unique1",
       "rawIdentity": "SoulKnife_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:truthseeker"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3atruthseeker"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance"
       ],
       "sourceRecordIds": [
         "bulk-bp-soul-knife-unique1-instance-5663b486c928d5a3",
         "bulk-bp-soul-knife-unique1-instance-69e5fc5b199e04e4"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:truthseeker"
     },
     {
       "id": "melee-weapon:SoulKnife_Unique2",

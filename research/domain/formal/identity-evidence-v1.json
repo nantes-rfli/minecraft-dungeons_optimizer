@@ -5272,6 +5272,37 @@
             "evidence:presentation:nameless-blade:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:truthseeker@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulKnife_Unique1",
+            "evidenceRef": "evidence:raw:identity:truthseeker@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulKnife_Unique1",
+            "evidenceRef": "evidence:raw:identity:truthseeker@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:truthseeker@1",
+          "domainId": "truthseeker",
+          "evidenceRefs": [
+            "evidence:raw:identity:truthseeker@1:ItemIdName",
+            "evidence:raw:identity:truthseeker@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "truthseeker",
+          "displayName": "Truthseeker",
+          "evidenceRefs": [
+            "evidence:presentation:truthseeker:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8549,6 +8580,26 @@
       "evidenceRefs": [
         "evidence:reviewed:nameless-blade:accepted-alias",
         "evidence:reviewed:nameless-blade:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:truthseeker@1",
+      "rawIdentity": "SoulKnife_Unique1",
+      "domainId": "truthseeker",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:truthseeker:accepted-alias",
+        "evidence:reviewed:truthseeker:exact-localization-key"
       ]
     }
   ],
@@ -19951,6 +20002,81 @@
           "nodePointer": "/packages/24/cdoPropertyInventory/0/properties/5/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:4efad199"
+      },
+      {
+        "id": "evidence:reviewed:truthseeker:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulKnife_Unique1]"
+        },
+        "fingerprint": "fnv1a32:10181010"
+      },
+      {
+        "id": "evidence:presentation:truthseeker:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=truthseeker].name.en"
+        },
+        "fingerprint": "fnv1a32:c379f1e4"
+      },
+      {
+        "id": "evidence:reviewed:truthseeker:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/SoulKnife_Unique1 names Truthseeker. Both serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-committed-knife.json",
+          "locator": "rows[id=truthseeker].localization"
+        },
+        "fingerprint": "fnv1a32:bc2ac49c"
+      },
+      {
+        "id": "evidence:raw:identity:truthseeker@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:fddfba9bfbf9f0bd1e56e8d0ff3fce8fe034d6a87021b9065d5c704d6155e42b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0ca7a21e94b8767668cebdfd0f9d3ad43f36348ec4cc2eed3decb1cf3ba8eeea"
+          },
+          "nodePointer": "/packages/46/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:bd6c3e9b"
+      },
+      {
+        "id": "evidence:raw:identity:truthseeker@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulKnife_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-019.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:fddfba9bfbf9f0bd1e56e8d0ff3fce8fe034d6a87021b9065d5c704d6155e42b",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0ca7a21e94b8767668cebdfd0f9d3ad43f36348ec4cc2eed3decb1cf3ba8eeea"
+          },
+          "nodePointer": "/packages/46/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:1ff52bfd"
       }
     ]
   }

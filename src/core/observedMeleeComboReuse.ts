@@ -8,6 +8,7 @@ import radianceApproval from '../../research/runtime/observed-radiance-combo-reu
 import freezingApproval from '../../research/runtime/observed-freezing-scythe-reuse.json' with { type: 'json' }
 import poisonCloudApproval from '../../research/runtime/observed-poison-cloud-melee-reuse.json' with { type: 'json' }
 import weakeningApproval from '../../research/runtime/observed-weakening-blade-reuse.json' with { type: 'json' }
+import committedApproval from '../../research/runtime/observed-committed-knife-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
   CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
@@ -16,6 +17,7 @@ import {
   FREEZING_OBSERVED_MELEE_COMBO_IDS, FREEZING_OBSERVED_MELEE_COMBO_SOURCE, isFreezingObservedMeleeComboId,
   POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS, POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE, isPoisonCloudObservedMeleeComboId,
   WEAKENING_OBSERVED_MELEE_COMBO_ID, WEAKENING_OBSERVED_MELEE_COMBO_SOURCE,
+  COMMITTED_OBSERVED_MELEE_COMBO_ID, COMMITTED_OBSERVED_MELEE_COMBO_SOURCE,
   fixedObservedMeleeComboEnchantments, isFixedObservedMeleeComboId,
 } from '../data/fixedObservedMeleeCombo'
 import { ENCHANTMENTS } from '../data/enchantments'
@@ -33,7 +35,7 @@ import type { ReadinessIssue } from './readiness'
 const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const allowedEnchantments = ['critical-hit', 'sharpness', 'unchanting', 'smiting', 'radiance'] as const
 const allowsObservedComboEnchant = (weaponId: string, id: string) => (allowedEnchantments as readonly string[]).includes(id)
-  || (isFreezingObservedMeleeComboId(weaponId) && id === 'anima-conduit')
+  || ((isFreezingObservedMeleeComboId(weaponId) || weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID) && id === 'anima-conduit')
 const defaults = { identities, values, profiles, harvest, approvals, source: OBSERVED_MELEE_COMBO_SOURCE, weapons: OBSERVED_MELEE_COMBO_WEAPONS, runtimeProfiles: OBSERVED_MELEE_COMBO_PROFILES }
 
 export function observedMeleeComboIsEligible(id: string, overrides: Partial<typeof defaults> = {}): boolean {
@@ -100,6 +102,7 @@ const fixedDefaults = {
   freezingApproval, freezingSource: FREEZING_OBSERVED_MELEE_COMBO_SOURCE,
   poisonCloudApproval, poisonCloudSource: POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE,
   weakeningApproval, weakeningSource: WEAKENING_OBSERVED_MELEE_COMBO_SOURCE,
+  committedApproval, committedSource: COMMITTED_OBSERVED_MELEE_COMBO_SOURCE,
 }
 
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
@@ -110,8 +113,9 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const freezing = isFreezingObservedMeleeComboId(id)
   const poisonCloud = isPoisonCloudObservedMeleeComboId(id)
   const weakening = id === WEAKENING_OBSERVED_MELEE_COMBO_ID
-  const grant = weakening ? data.weakeningApproval : poisonCloud ? data.poisonCloudApproval : freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
-  const source = weakening ? data.weakeningSource : poisonCloud ? data.poisonCloudSource : freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
+  const committed = id === COMMITTED_OBSERVED_MELEE_COMBO_ID
+  const grant = committed ? data.committedApproval : weakening ? data.weakeningApproval : poisonCloud ? data.poisonCloudApproval : freezing ? data.freezingApproval : radiance ? data.radianceApproval : sharpness ? data.sharpnessApproval : data.approvals
+  const source = committed ? data.committedSource : weakening ? data.weakeningSource : poisonCloud ? data.poisonCloudSource : freezing ? data.freezingSource : radiance ? data.radianceSource : sharpness ? data.sharpnessSource : data.source
   const rows = source.rows.filter((row) => row.id === id)
   const row = rows[0]
   const weapon = data.weapons[id]
@@ -128,7 +132,9 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
   const freezingRow = freezing ? data.freezingSource.rows.find((item) => item.id === id) : undefined
   const poisonRow = poisonCloud ? data.poisonCloudSource.rows.find((item) => item.id === id) : undefined
   const weakeningRow = weakening ? data.weakeningSource.rows.find((item) => item.id === id) : undefined
-  const tierMatches = weakening ? equal(tier.effect, { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.2, durationSeconds: 5 })
+  const committedRow = committed ? data.committedSource.rows.find((item) => item.id === id) : undefined
+  const tierMatches = committed ? equal(tier.effect, { kind: 'target-health-weapon-damage', maxBonus: 0.5 }) && committedRow?.fixed.maxBonus === 0.5
+    : weakening ? equal(tier.effect, { kind: 'enemy-damage-debuff', enemyDamageReduction: 0.2, durationSeconds: 5 })
     && weakeningRow?.fixed.enemyDamageReduction === 0.2 && weakeningRow.fixed.durationSeconds === 5
     : poisonCloud ? equal(tier.effect, { kind: 'persistent-area-dot', dotId: 'poison-cloud', durationSeconds: 3, triggerChance: 0.3, tierMultiplier: 1 })
     && poisonRow?.fixed.triggerChance === 0.3 && poisonRow.fixed.durationSeconds === 3 && poisonRow.fixed.tierMultiplier === 1
@@ -138,7 +144,14 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     : critical ? tier.triggerChance === 0.1 && tier.damageMultiplier === 3
     : sharpness ? equal(tier.effect, { kind: 'passive-weapon-damage', bonus: 0.1 })
       : equal(tier.effect, { kind: 'conditional-weapon-damage', condition: 'undead-enemy', bonus: 0.25 })
-  const approvalMatches = weakening
+  const approvalMatches = committed
+    ? grant.mechanic === 'owned-tier-one-committed-and-flat-soul-on-observed-strike'
+      && grant.sourceRef === 'research/sources/observed-committed-knife.json' && grant.testRef === 'tests/observedCommittedKnife.test.ts'
+      && grant.observation === 'own ordinary first strike against a full-health neutral target at the current equipped Power; existing fresh-target health trajectory'
+      && 'allowedAdditionalEnchantments' in grant && equal(grant.allowedAdditionalEnchantments, ['anima-conduit'])
+      && equal(grant.targets, { truthseeker: 'committed' })
+      && equal(source.rows.map((item) => item.id), [COMMITTED_OBSERVED_MELEE_COMBO_ID])
+    : weakening
     ? grant.mechanic === 'owned-tier-one-weakening-on-observed-combo'
       && grant.sourceRef === 'research/sources/observed-weakening-blade.json' && grant.testRef === 'tests/observedWeakeningBlade.test.ts'
       && grant.observation === 'own ordinary complete combo damage at the current equipped Power; existing time-weighted weakened incoming-damage share'
@@ -183,13 +196,13 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
     && grant.scope === 'single-target-uninterrupted-complete-combos-at-base-speed' && approvalMatches
     && source.schemaVersion === 1 && source.gameVersion === grant.gameVersion
     && source.calculatorSource.url === 'https://www.dungeons.tools/damage-calculator'
-    && source.calculatorSource.htmlSha256 === (weakening ? '8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee' : '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1')
+    && source.calculatorSource.htmlSha256 === (weakening || committed ? '8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee' : '47a271870eb588957d71b011b7bcac03164f14f110a16461ebed223f40e4bce1')
     && data.profiles.gameVersion === grant.gameVersion && data.harvest.targetGameVersion === grant.gameVersion
     && row.calculatorRow.type === 'melee' && row.calculatorRow.slug === slug && row.calculatorRow.route === `/weapons/${slug}`
     && row.sourceUrl === `https://www.dungeons.tools/weapons/${slug}`
-    && equal(row.calculatorRow.builtIn, [weakening ? 'Weakening' : poisonCloud ? 'Poison Cloud' : freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
+    && equal(row.calculatorRow.builtIn, [committed ? 'Committed' : weakening ? 'Weakening' : poisonCloud ? 'Poison Cloud' : freezing ? 'Freezing' : radiance ? 'Radiance' : critical ? 'Critical Hit' : sharpness ? 'Sharpness' : 'Smiting'])
     && row.fixed.enchantmentId === effect && row.fixed.tier === 1 && tierMatches
-    && row.fixed.tierSourceUrl === (weakening ? 'https://minecraft.wiki/w/Dungeons%3AWeakening' : poisonCloud ? 'https://minecraft.wiki/w/Dungeons%3APoison_Cloud' : freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
+    && row.fixed.tierSourceUrl === (committed ? 'https://minecraft.wiki/w/Dungeons%3ACommitted' : weakening ? 'https://minecraft.wiki/w/Dungeons%3AWeakening' : poisonCloud ? 'https://minecraft.wiki/w/Dungeons%3APoison_Cloud' : freezing ? 'https://minecraft.wiki/w/Dungeons%3AFreezing' : radiance ? 'https://minecraft.wiki/w/Dungeons%3ARadiance' : critical || sharpness ? row.wikiTimingSource : 'https://minecraft.wiki/w/Dungeons%3ASmiting')
     && claims.length === 1 && claims[0]?.sourceId === `external-dungeons-tools:melee-weapon:${id}`
     && claims[0].sourceGameVersion === '1.17.0.0 publisher-claimed' && claims[0].interpretation === 'direct'
     && claims[0].sourceLocator === `${row.sourceUrl} — Properties and details` && equal(claims[0].value, row.intrinsicFacts)
@@ -202,16 +215,17 @@ export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial
       : row.localization?.namespace === 'ItemType' && row.localization.key === row.rawIdentity && row.localization.value === localizationName)
     && audit?.status === 'exact' && !audit.specialHandlingRequired && audit.name.en === row.calculatorRow.name
     && audit.sources.length === 1 && audit.sources[0]?.type === 'minecraft-wiki' && audit.sources[0].url === row.wikiTimingSource
-    && count === (freezing || weakening ? 2 : id === 'nightmares-bite' ? 6 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
+    && count === (committed ? 1 : freezing || weakening ? 2 : id === 'nightmares-bite' ? 6 : 3) && audit.attackProfile.comboHits === count && audit.attackProfile.comboFinisherHit === count
     && equal(audit.attackProfile.hitDurationsSeconds, row.hitDurationsSeconds)
-    && row.publishedBaseDamage.length === count && (freezing || weakening ? new Set(row.publishedBaseDamage).size === 1 : new Set(row.publishedBaseDamage).size > 1)
+    && row.publishedBaseDamage.length === count && (freezing || weakening || committed ? new Set(row.publishedBaseDamage).size === 1 : new Set(row.publishedBaseDamage).size > 1)
     && equal(audit.damageProfile.rawBaseDamageRows.map((hit) => hit.baseDamage), row.publishedBaseDamage)
     && /^shards\/part-\d{3}\.json\.gz$/.test(row.rawSource.shard) && /^[a-f0-9]{64}$/.test(row.rawSource.sha256)
     && Number.isInteger(row.rawSource.packageIndex) && row.rawSource.packageIndex >= 0
     && weapon.id === id && weapon.name.en === row.calculatorRow.name
     && weapon.internalPowerRating.value === row.calculatorRow.power && weapon.speed.value === row.calculatorRow.speed
-    && weapon.area.value === row.calculatorRow.area && weapon.soul.acceptsSoulEnchantments === freezing && weapon.soul.baseSoulGathering.value === (freezing ? 1 : 0)
+    && weapon.area.value === row.calculatorRow.area && weapon.soul.acceptsSoulEnchantments === (freezing || committed) && weapon.soul.baseSoulGathering.value === (freezing || committed ? 1 : 0)
     && (!freezing || (freezingRow?.soul.acceptsSoulEnchantments === true && freezingRow.soul.baseSoulGathering === 1))
+    && (!committed || (committedRow?.soul.acceptsSoulEnchantments === true && committedRow.soul.baseSoulGathering === 1))
     && profile.source.url === row.wikiTimingSource && profile.source.kind === 'published-reference'
     && profile.value.comboFinisherHit === count && equal(profile.value.hitDurationsSeconds, row.hitDurationsSeconds)
 }
@@ -235,6 +249,8 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
     kind: 'input-required', target: 'equipment', message: '現在のPowerでのコンボ全段の観測ダメージ合計が必要です。',
     fields: [weapon.weaponId === SHARPNESS_OBSERVED_MELEE_COMBO_ID
       ? '同じ個体・Powerで、固定の切れ味 I を含む通常コンボ1周のダメージ合計'
+      : weapon.weaponId === COMMITTED_OBSERVED_MELEE_COMBO_ID
+        ? '同じ個体・Powerで、満タンHPの未強化の敵への初撃1段の直接ダメージ'
       : isPoisonCloudObservedMeleeComboId(weapon.weaponId)
         ? '同じ個体・Powerで、毒の追加ダメージを除いた単体への通常コンボ1周の直接ダメージ合計'
       : '同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],

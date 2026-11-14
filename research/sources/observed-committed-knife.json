@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "truthseeker",
+      "rawIdentity": "SoulKnife_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulKnife_Unique1/BP_SoulKnife_Unique1Instance",
+      "calculatorRow": {
+        "slug": "truthseeker",
+        "name": "Truthseeker",
+        "type": "melee",
+        "route": "/weapons/truthseeker",
+        "power": 12.229,
+        "speed": 1,
+        "area": 3.189,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_SoulKnife_Unique1_Icon.png",
+        "builtIn": [
+          "Committed"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/truthseeker",
+      "intrinsicFacts": [
+        "Thrust attack",
+        "Increased damage to wounded mobs",
+        "+1 Soul gathering"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3ATruthseeker",
+      "hitDurationsSeconds": [
+        0.85
+      ],
+      "publishedBaseDamage": [
+        140
+      ],
+      "rawSource": {
+        "shard": "shards/part-019.json.gz",
+        "sha256": "d13619b93b84f118e5395f4218380a78626c193bd7c7449ae381ac2a63f3aeb4",
+        "packageIndex": 46
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "SoulKnife_Unique1",
+        "sourceStringHash": 3823111392,
+        "localizedStringIndex": 3462,
+        "entryRange": [
+          143394,
+          143428
+        ],
+        "value": "Truthseeker",
+        "localizedStringRecordRange": [
+          346539,
+          346559
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "committed",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3ACommitted",
+        "maxBonus": 0.5
+      },
+      "soul": {
+        "acceptsSoulEnchantments": true,
+        "baseSoulGathering": 1
+      }
+    }
+  ]
+}

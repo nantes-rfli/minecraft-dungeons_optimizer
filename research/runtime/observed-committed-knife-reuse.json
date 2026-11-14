@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-committed-and-flat-soul-on-observed-strike",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-committed-knife.json",
+  "testRef": "tests/observedCommittedKnife.test.ts",
+  "observation": "own ordinary first strike against a full-health neutral target at the current equipped Power; existing fresh-target health trajectory",
+  "allowedAdditionalEnchantments": ["anima-conduit"],
+  "targets": { "truthseeker": "committed" }
+}

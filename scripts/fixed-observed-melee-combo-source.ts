@@ -9,6 +9,7 @@ import radianceSource from '../research/sources/observed-radiance-combo-source.j
 import freezingSource from '../research/sources/observed-freezing-scythes.json' with { type: 'json' }
 import poisonCloudSource from '../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import weakeningSource from '../research/sources/observed-weakening-blade.json' with { type: 'json' }
+import committedSource from '../research/sources/observed-committed-knife.json' with { type: 'json' }
 import { GREAT_HAMMER_LOCALIZATION_SOURCE, parseLocresV2 } from './locres-identity-source.ts'
 import type { RawStructuralInventoryManifest, RawStructuralInventoryShard } from './game-data-raw-structural-inventory.ts'
 
@@ -16,7 +17,7 @@ const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).dige
 const directory = 'research/raw/game-data-raw-structural-inventory'
 const disabledObject = { rawPackageIndex: 0, kind: 'null' }
 
-const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows, ...poisonCloudSource.rows, ...weakeningSource.rows]
+const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows, ...poisonCloudSource.rows, ...weakeningSource.rows, ...committedSource.rows]
 export const fixedComboLocalizationBridges = fixedRows.flatMap((row) => row.localization ? [{
   category: 'melee-weapon' as const, domainId: row.id, rawIdentity: row.rawIdentity,
   packagePath: row.packagePath, displayName: row.calculatorRow.name, localization: row.localization,
@@ -30,12 +31,13 @@ export function verifyFixedObservedComboSources(repositoryRoot: string): void {
   assert.deepEqual(freezingSource.localizationSource, expectedLocalization)
   assert.deepEqual(poisonCloudSource.localizationSource, expectedLocalization)
   assert.deepEqual(weakeningSource.localizationSource, expectedLocalization)
+  assert.deepEqual(committedSource.localizationSource, expectedLocalization)
   assert.deepEqual(fixedComboLocalizationBridges.map(({ domainId, rawIdentity }) => [domainId, rawIdentity]), [
     ['cackling-broom', 'Glaive_Spooky2'], ['dark-katana', 'Katana_Unique2'],
     ['grave-bane', 'Glaive_Unique1'], ['hawkbrand', 'Sword_Unique2'], ['diamond-sword', 'Sword_Unique1'], ['suns-grace', 'Mace_Unique1'],
     ['frost-scythe', 'SoulScythe_Unique2'], ['skull-scythe', 'SoulScythe_Spooky2'],
     ['nightmares-bite', 'Sickles_Unique1'], ['venom-glaive', 'Glaive_Unique2'],
-    ['nameless-blade', 'Cutlass_Unique1'],
+    ['nameless-blade', 'Cutlass_Unique1'], ['truthseeker', 'SoulKnife_Unique1'],
   ])
   for (const { domainId, localization, rawIdentity, displayName } of fixedComboLocalizationBridges) {
     assert.equal(localization.namespace, 'ItemType')
