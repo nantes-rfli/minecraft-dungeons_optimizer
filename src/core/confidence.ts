@@ -1,3 +1,5 @@
+import { isIsolatedChainsMeleeId } from '../data/fixedObservedMeleeCombo'
+import { isolatedChainsScenarioIssue } from './isolatedChainsReuse'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './observedMeleeCombo'
 import { isControlId, CC_REFRESH_MODEL, CC_ELIGIBILITY_MODEL, CC_CLUSTER_MODEL, STUNNING_DURATION } from '../data/control'
@@ -175,6 +177,9 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
   }
 
   const uniqueEnchantments = new Set(build.enchantments.map((item) => item.enchantmentId))
+  const chainsNoApplication = isIsolatedChainsMeleeId(build.weapon.weaponId)
+    && build.enchantments.some((item) => item.enchantmentId === 'chains' && item.tier === 1 && item.source === 'built-in')
+    && !isolatedChainsScenarioIssue(build.weapon, scenario)
   if (uniqueEnchantments.has('pain-cycle') || uniqueEnchantments.has('dynamo')) {
     add('charge-action-proxy', '4武器限定: profile hitを1攻撃とみなす有限cadence', 'low', 3)
     add('charge-direct-attribution', '強化武器攻撃をdirectへ分類（公開記述とcommunity報告からの推論）', 'medium', 2)
@@ -196,6 +201,11 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     caveats.push('Dynamoは10 Power点×3独立Tier値。表示1/1.25/1.5では数値表を再現できず、別々にlog補間し外挿しません。初期stack0〜20、roll頻度は全scenario初期0。攻撃間min(20,roll頻度×間隔)を消費する連続期待量モデルで、小数stackを許します。最初の攻撃は初期stackだけ消費、戦闘末尾の蓄積はdamageにしません。rollの時間コストを省き上限寄りです。直接撃破への帰属とAoE各対象への加算は公開記述・community報告からの限定解釈で、Jungle Poisonへ一般化しません。')
   }
   for (const enchantmentId of uniqueEnchantments) {
+    if (enchantmentId === 'chains' && chainsNoApplication) {
+      add('chains-no-application', '固定Chains Iのhash固定sourceと明示した孤立条件', 'medium', 2)
+      caveats.push('固定Chains Iは開始時Chainsなし・全期間で他の適格候補なしという明示条件の下で、対象への適用callなしと扱います。発動確率・持続時間・refresh式は計算に使いません。条件の真偽は利用者の確認であり、実ゲーム観測・build真正性・一般戦闘の一致を認定しません。')
+      continue
+    }
     const definition = getEnchantmentDefinition(enchantmentId)
     addEvidence(
       `enchant-${enchantmentId}`,
@@ -212,7 +222,7 @@ export function summarizeConfidence(build: Build, scenario: Scenario): Confidenc
     }
   }
 
-  const ccIds = [...uniqueEnchantments].filter(isControlId)
+  const ccIds = [...uniqueEnchantments].filter(isControlId).filter((id) => !(id === 'chains' && chainsNoApplication))
   if (ccIds.length > 0) {
     addEvidence('cc-refresh-model', 'CCの有限cadence・同一対象refresh仮定', CC_REFRESH_MODEL, 3)
     caveats.push('CCはprofile hitごと・モデル対象ごとの抽選。AoE敵数をHPSへ掛けず、初撃t=0から有限戦闘内の期待coverageを積分します。target switching・cluster移動・roll粒度・refreshは未検証、GravityによるDPS増加やCCによる防御換算は行いません。Controlの重みは好みのpolicyでEvidenceではありません。')
