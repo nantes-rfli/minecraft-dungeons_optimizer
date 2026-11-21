@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "armor_native independent lane; reviewed pinned instructions without importing artifact_probe",
+  "status": "bounded-static-review-completed-with-evidence-packaging-corrections-requested",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "reviewedInputs": [
+    {
+      "path": "research/native/coverage-20261114/artifact_probe.py",
+      "sha256": "65e6491c12af874c71ae6e859999953ba45c51d639fb3b659c12dd86bf23fb50"
+    },
+    {
+      "path": "research/native/coverage-20261114/artifact-evidence.json",
+      "sha256": "f310669cb8e9f3b94fc95c150220d09cce5ee585e932f1c84ed8aa6af6bac5e3"
+    },
+    {
+      "path": "research/native/coverage-20261114/artifact-REPORT.md",
+      "sha256": "793e775c9bece9dae9cac392648fd5c258d2ae8f47bc3de56bbc0d8de716544b"
+    }
+  ],
+  "nativeSpans": [
+    {
+      "role": "scalar",
+      "startRva": "0xb8a5f0",
+      "endRvaExclusive": "0xb8a649",
+      "sha256": "07b2c894b0484c9e3e77ce51c5e38b80fbb7c82139a17e268d1768c8b217698f"
+    },
+    {
+      "role": "callback-load-and-tail",
+      "startRva": "0xa7a3a0",
+      "endRvaExclusive": "0xa7a3ab",
+      "sha256": "202f66b452eb58215e5bc92248ed0027ff4060687d83cffc611fb7bc1a357384"
+    },
+    {
+      "role": "callback-dispatch",
+      "startRva": "0xb903e0",
+      "endRvaExclusive": "0xb90409",
+      "sha256": "aa2332aba660790374b8f87f9ae8b55246f47c4cc516b3b6e9f6876b7089d505"
+    },
+    {
+      "role": "boots-input-multiply",
+      "startRva": "0xae5fd7",
+      "endRvaExclusive": "0xae601b",
+      "sha256": "6017b832084dc9181586c61794bad150040deae6167fddd76cd6b1a096b0fe1c"
+    },
+    {
+      "role": "mushroom-input-multiply",
+      "startRva": "0xae7b8b",
+      "endRvaExclusive": "0xae7be9",
+      "sha256": "cabdd9ed73bc4641908222bdb3f362d1ff79747f31248173d5255449040c0371"
+    },
+    {
+      "role": "iron-hide-input-multiply",
+      "startRva": "0xb41f0c",
+      "endRvaExclusive": "0xb41f4d",
+      "sha256": "f49bfb92f1bd45a6539553f97c4ee9abb5f26d5276d0de00f6f1cce846c821bf"
+    },
+    {
+      "role": "gong-input-multiply",
+      "startRva": "0xb4e2fa",
+      "endRvaExclusive": "0xb4e327",
+      "sha256": "a83226d174eae811a884b48f0bea8b37998bd08b2aa818e0ebfa1d33e445c99b"
+    },
+    {
+      "role": "shadow-input-multiply",
+      "startRva": "0xb439bf",
+      "endRvaExclusive": "0xb43a00",
+      "sha256": "1a71648c08595237d61604c4795feee1158d12279f5b1fc7935bdf5c2266a08d"
+    },
+    {
+      "role": "set-by-caller-writer",
+      "startRva": "0x3ca070",
+      "endRvaExclusive": "0x3ca111",
+      "sha256": "48e2eaf7649abe6cd7cd40ff6ff4d7d7224e1e782c247180927438e957036bb9"
+    },
+    {
+      "role": "builder-duration-args",
+      "startRva": "0xb6500d",
+      "endRvaExclusive": "0xb65037",
+      "sha256": "9430b968ef4b079dc4ee39b05dbff92deb477dce52f52a4a003f2020e140cc02"
+    },
+    {
+      "role": "builder-ctor-call",
+      "startRva": "0xb65089",
+      "endRvaExclusive": "0xb65094",
+      "sha256": "ada12bc2b1b2853eab4731b210e211cf46fc140755f7a60d5b3b1f19684a06b4"
+    },
+    {
+      "role": "type-ctor-prolog",
+      "startRva": "0xb1b390",
+      "endRvaExclusive": "0xb1b3c9",
+      "sha256": "be3af53b45266d6e0a4a83a7e48b05de9569958df450751c1ef8409ad5c1227d"
+    },
+    {
+      "role": "type-cooldown-duration-store",
+      "startRva": "0xb1b5ab",
+      "endRvaExclusive": "0xb1b5cb",
+      "sha256": "786bc9374919d6ac8d47ecd9cebf5c94e5f94da3a5dbdb747e10ff2c3da963f9"
+    },
+    {
+      "role": "status-duration-combine",
+      "startRva": "0x7b0ca2",
+      "endRvaExclusive": "0x7b0cab",
+      "sha256": "39d9a360d7c0395aeb426b40b46c8a410a3dba7197da73e4b81d3d56d28b762a"
+    }
+  ],
+  "confirmedClaims": [
+    "Duration scalar consumes XMM0 as internal float32 Power, normalizes via b8f610, multiplies max(q*a,0) by0.25 then adds1; no powf call in this scalar.",
+    "Boots/Mushroom/IronHide/Gong/Shadow inspected callsites load item+0x480 into XMM1 before b903e0; dispatcher passes those bits to configured callback via by-reference float. Displayed integer Power is absent from these callsites.",
+    "Boots constructor explicitly populates PowerEffects[0] with DurationIncrease class; mere class registration elsewhere does not establish every candidate instance uses it.",
+    "Inspected duration callsites multiply the selected callback result by a base duration from item-type+0x9c, preserving binary32 instruction order.",
+    "3ca070 writes float to spec+0x1e0 named SetByCaller map record+8 under nonzero key. This is a duration payload, not direct final active lifetime storage.",
+    "StatusDuration calculation 7b0ab0 reads SetByCaller key44844a8, selects a captured factor by positive/negative tag outcome, and multiplies at7b0ca7; default factor1 alone does not validate missing capture as known neutral.",
+    "Native builder+0xac is transported through caller stack+0x78\u2192constructor entry+0x80/ rbp+0xd8\u2192item-type+0x9c, while +0xa8\u2192+0x70\u2192rbp+0xd0\u2192+0x98. Boots1.5 and IronHide8 native defaults thus have a static arithmetic/transport explanation."
+  ],
+  "findings": [
+    {
+      "id": "A1",
+      "severity": "evidence-packaging",
+      "detail": "Artifact manifest callback functor span ends a7a3a8 before the actual tail jump. jmp rax at a7a3a8 is three bytes; exclusive end must be at least a7a3ab.",
+      "authorNotified": true
+    },
+    {
+      "id": "A2",
+      "severity": "evidence-packaging",
+      "detail": "Numeric base default claim needs builder b6508f call and item-type constructor prolog/store spans, not just argument loads. Independent reviewer inspected these and confirmed mapping; author asked to include compact spans.",
+      "authorNotified": true
+    }
+  ],
+  "claimBoundaries": [
+    "Five unsupported native duration-class cohort members are not five fully calculable artifacts. Tome and Shielding currently establish constructor class use; their complete activation/duration path was not reviewed.",
+    "No per-item instance state, original asset/exe same-build authenticity, live gameplay, or independent raw holdouts were established.",
+    "SetByCaller payload cannot be labeled final active duration without custom calculation, tag capture, effect application and gameplay lifetime handling.",
+    "This review is static and independent of artifact author; no independent emulation or game oracle was supplied."
+  ],
+  "newRuntimeReadyCount": 0
+}

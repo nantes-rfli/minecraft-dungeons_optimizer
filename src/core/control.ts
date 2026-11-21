@@ -1,3 +1,5 @@
+import { isIsolatedChainsMeleeId } from '../data/fixedObservedMeleeCombo'
+import { isolatedChainsScenarioIssue } from './isolatedChainsReuse'
 import { isControlId, STUNNING_DURATION } from '../data/control'
 import { resolveHitIntervalSequence } from './attackProfile'
 import { getAttackProfile, getEnchantmentDefinition } from './catalog'
@@ -10,6 +12,14 @@ import type { Build, ControlMetrics, ControlPolicyWeights, Scenario, ShockPowder
 const unit = (value: number) => Math.max(0, Math.min(1, value))
 
 export function validateControlAssumptions(scenario: Scenario): void {
+  const isolation = scenario.crowdControl?.chainsIsolation
+  if (isolation !== undefined) {
+    if (!isolation || typeof isolation !== 'object' || Array.isArray(isolation)
+      || !Number.isFinite(isolation.encounterDurationSeconds) || isolation.encounterDurationSeconds <= 0
+      || [isolation.noOtherEligibleCandidates, isolation.initiallyUnchained].some((v) => v !== undefined && typeof v !== 'boolean')) {
+      throw new OptimizerInputError('INVALID_SCENARIO', 'Chains孤立条件の形式が正しくありません。未確認は省略し、確認結果はtrue/falseで指定してください。')
+    }
+  }
   const bounded = (name: string, value: number | undefined, minimum: number, maximum: number) => {
     if (typeof value !== 'number' || !Number.isFinite(value) || value < minimum || value > maximum) {
       throw new OptimizerInputError('INVALID_SCENARIO', `${name}は${minimum}以上${maximum}以下の有限値を指定してください。`)
@@ -54,9 +64,16 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
   let freezing: ControlMetrics['freezing']
   let chains: ControlMetrics['chains']
   let gravity: ControlMetrics['gravity']
+  let chainsNoApplication: ControlMetrics['chainsNoApplication']
   const intervals = resolveHitIntervalSequence(getAttackProfile(build.weapon.weaponId).value)
   for (const selected of build.enchantments) {
     if (!isControlId(selected.enchantmentId)) continue
+    if (selected.enchantmentId === 'chains' && selected.source === 'built-in' && isIsolatedChainsMeleeId(build.weapon.weaponId)) {
+      const issue = isolatedChainsScenarioIssue(build.weapon, scenario)
+      if (issue) throw new OptimizerInputError('UNSUPPORTED_CHAINS_ISOLATION', issue.message)
+      chainsNoApplication = { state: 'no-application-call', source: 'built-in', tier: 1, encounterDurationSeconds: scenario.encounterDurationSeconds }
+      continue
+    }
     const effect = getTierValues(selected).effect
     if (!effect || !('durationSeconds' in effect)) throw new Error('Missing Control effect metadata')
     const triggerChance = 'triggerChance' in effect ? effect.triggerChance : 1
@@ -118,6 +135,7 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
     attackSlowEquivalentCoverage: unit(1 - (1 - weaponAttackSlow) * (1 - armorAttackSlow)),
     rootCoverage: chains?.rootCoverage ?? 0, groupingCoverage: gravity?.groupingCoverage ?? 0,
     ...(stunning ? { stunning } : {}), ...(freezing ? { freezing } : {}),
+    ...(chainsNoApplication ? { chainsNoApplication } : {}),
     ...(chains ? { chains } : {}), ...(gravity ? { gravity } : {}),
     ...(artifactControl ? { shockPowder: artifactControl, artifactContributions: [artifactControl] } : {}),
     ...(chilling ? { chilling } : {}),
@@ -129,6 +147,7 @@ export function calculateControl(build: Build, scenario: Scenario, attackSpeedMu
 const percent = (value: number) => `${(value * 100).toFixed(2)}%`
 export function describeControl(control: ControlMetrics): string[] {
   const reasons: string[] = []
+  if (control.chainsNoApplication) reasons.push(`固定 Chains I: 開始時にChains状態なし・${control.chainsNoApplication.encounterDurationSeconds}秒の全期間で他の適格候補なし → 主対象への適用callなし（no-application-call）。一般戦闘のChainsや視覚cueの不発を意味しません。`)
   for (const id of ['stunning', 'freezing', 'chains', 'gravity'] as const) {
     const s = control[id]
     if (!s) continue

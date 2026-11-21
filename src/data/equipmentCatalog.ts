@@ -1,7 +1,7 @@
 import { fixedMeleeEnchantments } from './fixedMeleeEnchantments'
 import { rangedFixedEffect } from '../core/rangedFixedEffects'
 import { hasObservedMeleeComboGrant } from '../core/observedMeleeComboReuse'
-import { isObservedMeleeComboId } from './observedMeleeCombo'
+import { isObservedMeleeComboId, observedMeleeComboRow } from './observedMeleeCombo'
 import { isBuiltinProcMeleeId } from './builtinProcMelee'
 import meleeAudit from '../../research/melee-attack-profile-audit.json'
 import armorAudit from '../../research/armor-audit.json'
@@ -50,6 +50,18 @@ const runtimeLevel = (category: EquipmentCategory, id: string): RuntimeSupportLe
 const AUDITED_MELEE_SOUL_GEAR_IDS = new Set(['moon-daggers', 'soul-fists', 'soul-knife', 'eternal-knife', 'truthseeker', 'soul-scythe', 'frost-scythe', 'jailors-scythe', 'skull-scythe'])
 
 const equipmentIcons = new Map(equipmentIconManifest.entries.filter((item) => item.status === 'matched' && item.outputWebp).map((item) => [`${item.category}:${item.catalogId}`, `/${item.outputWebp!.replace(/^public\//, '')}`]))
+
+// These two historical ordinal pairs were reversed. Use the exact reviewed own
+// package to select an existing licensed image; never use the old catalog label
+// as an identity bridge. Missing/ambiguous image provenance uses the fallback.
+for (const id of ['flail', 'suns-grace', 'jailors-scythe', 'frost-scythe']) {
+  const row = observedMeleeComboRow(id)
+  const packagePath = row?.packagePath.slice(0, row.packagePath.lastIndexOf('/'))
+  const matches = equipmentIconManifest.entries.filter((item) => item.category === 'melee' && item.status === 'matched' && item.sourcePackage === packagePath && item.outputWebp)
+  if (hasObservedMeleeComboGrant(id) && matches.length === 1) equipmentIcons.set(`melee:${id}`, `/${matches[0]!.outputWebp!.replace(/^public\//, '')}`)
+  else equipmentIcons.delete(`melee:${id}`)
+}
+
 
 const entry = (category: EquipmentCategory, id: string, name: EquipmentCatalogEntry['name'], auditStatus: string, details: Pick<EquipmentCatalogEntry, 'intrinsicProperties' | 'builtInEnchantments'> & Partial<Pick<EquipmentCatalogEntry, 'family' | 'rarityFamily' | 'soulGear'>> = { intrinsicProperties: [], builtInEnchantments: [] }): EquipmentCatalogEntry => {
   const runtimeSupport = runtimeLevel(category, id)

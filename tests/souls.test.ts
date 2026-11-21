@@ -34,7 +34,8 @@ afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks() })
 
 describe('Soul gear promotion and legality', () => {
   it('restricts Soul eligibility to source-bound weapons and preserves legacy Soul Scythe coefficients', () => {
-    expect(Object.values(WEAPONS).filter((weapon) => weapon.soul.acceptsSoulEnchantments).map((weapon) => weapon.id)).toEqual(['soul-scythe', 'soul-knife', 'frost-scythe', 'skull-scythe', 'truthseeker', 'eternal-knife'])
+    expect(Object.values(WEAPONS).filter((weapon) => weapon.soul.acceptsSoulEnchantments).map((weapon) => weapon.id)).toEqual(['soul-scythe', 'soul-knife', 'frost-scythe', 'skull-scythe', 'truthseeker', 'eternal-knife', 'jailors-scythe'])
+    expect(WEAPONS['jailors-scythe'].soul.baseSoulGathering.value).toBe(1)
     const profile = profiles.weapons.find((weapon) => weapon.weaponId === 'soul-scythe')!
     expect(profile.status).toBe('exact')
     expect(profile.specialHandlingRequired).toBe(false)

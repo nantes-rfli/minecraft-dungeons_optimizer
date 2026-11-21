@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "bindings": [
+    {
+      "blueprintClass": "BP_IncreasedArrowBundleSize_C",
+      "parentClass": "/Script/Dungeons.IncreasedArrowBundleSize",
+      "classExportRange": {
+        "start": 1059,
+        "end": 1163
+      },
+      "parentImportRange": {
+        "start": 891,
+        "end": 919
+      },
+      "cdoName": "Default__BP_IncreasedArrowBundleSize_C",
+      "field": "ArrowIncreaseAmount",
+      "propertyType": "IntProperty",
+      "value": 10,
+      "valueByteRange": {
+        "start": 101,
+        "end": 105
+      },
+      "valueHex": "0a000000",
+      "files": [
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uasset",
+          "sha256": "45cb3c2ce969aa121b5504414f828cfc19a79a6dc4029369caafd58b002a80c7"
+        },
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uexp",
+          "sha256": "7baf496e79e23872ae2511a8f17f0f5888f3bb67ae07771f4029c6a74d8897d8"
+        }
+      ]
+    },
+    {
+      "blueprintClass": "BP_MissChance_C",
+      "parentClass": "/Script/Dungeons.MissChance",
+      "classExportRange": {
+        "start": 942,
+        "end": 1046
+      },
+      "parentImportRange": {
+        "start": 774,
+        "end": 802
+      },
+      "cdoName": "Default__BP_MissChance_C",
+      "field": "Chance",
+      "propertyType": "FloatProperty",
+      "value": 0.30000001192092896,
+      "valueByteRange": {
+        "start": 101,
+        "end": 105
+      },
+      "valueHex": "9a99993e",
+      "files": [
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uasset",
+          "sha256": "10a34ccba42ca5e4708a1f42de725797c981cebb3a64a522e6dc5d98976ac03f"
+        },
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uexp",
+          "sha256": "9bb3275e03767227aaf5ecf46d97bc31aa2954fec77e2d8a976fcfbe9febd23a"
+        }
+      ]
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { isolatedChainsMeleeIsEligible, isolatedChainsScenarioIssue } from './isolatedChainsReuse'
 import identities from '../../research/domain/formal/identity-evidence-v1.json' with { type: 'json' }
 import values from '../../research/domain/formal/value-availability-v2.json' with { type: 'json' }
 import profiles from '../../research/melee-attack-profile-audit.json' with { type: 'json' }
@@ -12,7 +13,7 @@ import committedApproval from '../../research/runtime/observed-committed-knife-r
 import soulSiphonApproval from '../../research/runtime/observed-soul-siphon-knife-reuse.json' with { type: 'json' }
 import fixedApprovals from '../../research/runtime/fixed-observed-melee-combo-reuse.json' with { type: 'json' }
 import {
-  CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
+  isIsolatedChainsMeleeId, CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
   FIXED_OBSERVED_MELEE_COMBO_IDS, FIXED_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_SOURCE, SHARPNESS_OBSERVED_MELEE_COMBO_ID,
   RADIANCE_OBSERVED_MELEE_COMBO_ID, RADIANCE_OBSERVED_MELEE_COMBO_SOURCE,
   FREEZING_OBSERVED_MELEE_COMBO_IDS, FREEZING_OBSERVED_MELEE_COMBO_SOURCE, isFreezingObservedMeleeComboId,
@@ -37,6 +38,7 @@ import type { ReadinessIssue } from './readiness'
 const equal = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b)
 const allowedEnchantments = ['critical-hit', 'sharpness', 'unchanting', 'smiting', 'radiance'] as const
 const allowsObservedComboEnchant = (weaponId: string, id: string) => (allowedEnchantments as readonly string[]).includes(id)
+  || (weaponId === 'jailors-scythe' && id === 'anima-conduit')
   || (isSoulObservedMeleeComboId(weaponId) && (id === 'anima-conduit' || id === 'soul-siphon'))
 const defaults = { identities, values, profiles, harvest, approvals, source: OBSERVED_MELEE_COMBO_SOURCE, weapons: OBSERVED_MELEE_COMBO_WEAPONS, runtimeProfiles: OBSERVED_MELEE_COMBO_PROFILES }
 
@@ -111,6 +113,9 @@ const fixedDefaults = {
 export function fixedObservedMeleeComboIsEligible(id: string, overrides: Partial<typeof fixedDefaults> = {}): boolean {
   if (!isFixedObservedMeleeComboId(id)) return false
   const data = { ...fixedDefaults, ...overrides }
+  if (isIsolatedChainsMeleeId(id)) return isolatedChainsMeleeIsEligible(id, {
+    identities: data.identities, profiles: data.profiles, harvest: data.harvest, weapons: data.weapons, runtimeProfiles: data.runtimeProfiles,
+  })
   const sharpness = id === SHARPNESS_OBSERVED_MELEE_COMBO_ID
   const radiance = id === RADIANCE_OBSERVED_MELEE_COMBO_ID
   const freezing = isFreezingObservedMeleeComboId(id)
@@ -273,6 +278,8 @@ export function observedMeleeComboInputIssue(weapon: OwnedWeapon): ReadinessIssu
         ? '同じ個体・Powerで、ほかのバフ・Armorのダメージ補正・スロットや金色Enchantの効果を除いた、満タンHPの未強化の敵への初撃1段の直接ダメージ'
       : isPoisonCloudObservedMeleeComboId(weapon.weaponId)
         ? '同じ個体・Powerで、毒の追加ダメージを除いた単体への通常コンボ1周の直接ダメージ合計'
+      : isIsolatedChainsMeleeId(weapon.weaponId)
+        ? '同じ個体・Powerで、ほかのバフ・Armor補正・スロットや金色Enchant効果を除いた、Chains状態のない孤立した単体への通常コンボ1周の直接ダメージ合計'
       : '同じ個体・Powerで、未強化の単体への通常コンボ1周のダメージ合計'],
   }
 }
@@ -317,6 +324,10 @@ export function observedMeleeComboUnsupportedReason(build: Build, scenario?: Sce
   const powerIssue = fixedPoisonCloudPowerIssue(build.weapon)
   if (powerIssue) return `UNSUPPORTED_COMBO_POWER: ${powerIssue.message}`
   if (scenario && scenario.averageTargetsInReach !== 1) return 'UNSUPPORTED_COMBO_TARGETS: 射程内の敵を1に設定してください。'
+  if (scenario) {
+    const isolationIssue = isolatedChainsScenarioIssue(build.weapon, scenario)
+    if (isolationIssue) return isolationIssue.message
+  }
   const armorSpeed = build.armor && ARMORS[build.armor.armorId as ArmorId]?.meleeAttackSpeedBonus
   if ((armorSpeed !== undefined && armorSpeed !== 0) || build.artifacts.some((item) => item.artifactId === 'death-cap-mushroom')) {
     return 'UNSUPPORTED_COMBO_INTERACTION: 速度効果なしの完全コンボのみ評価できます。'

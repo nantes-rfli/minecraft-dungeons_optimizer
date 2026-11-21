@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "environment": {
+    "engine": "Unicorn 2.1.4",
+    "mxcsr": "0x1f80",
+    "instructionLimitPerSlice": 5000
+  },
+  "conditionalReplay": {
+    "callbackScalar": 313,
+    "bootsDurationMultiplication": 313,
+    "statusDurationSuffix": 1252,
+    "cooldownProductAndOverride": 336,
+    "typeBuilderDurationTransport": 5
+  },
+  "totalComparisons": 2219,
+  "mismatches": 0,
+  "examples": [
+    {
+      "internalPowerBits": "c0a00000",
+      "internalPower": -5.0,
+      "durationScalarBits": "3f800000",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fc00000",
+      "setByCallerDurationSeconds": 1.5
+    },
+    {
+      "internalPowerBits": "00000000",
+      "internalPower": 0.0,
+      "durationScalarBits": "3f800000",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fc00000",
+      "setByCallerDurationSeconds": 1.5
+    },
+    {
+      "internalPowerBits": "3f000000",
+      "internalPower": 0.5,
+      "durationScalarBits": "3f800000",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fc00000",
+      "setByCallerDurationSeconds": 1.5
+    },
+    {
+      "internalPowerBits": "3f800000",
+      "internalPower": 1.0,
+      "durationScalarBits": "3f800000",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fc00000",
+      "setByCallerDurationSeconds": 1.5
+    },
+    {
+      "internalPowerBits": "3f800008",
+      "internalPower": 1.0000009536743164,
+      "durationScalarBits": "3f800001",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fc00002",
+      "setByCallerDurationSeconds": 1.500000238418579
+    },
+    {
+      "internalPowerBits": "40000000",
+      "internalPower": 2.0,
+      "durationScalarBits": "3f88676f",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3fcc9b26",
+      "setByCallerDurationSeconds": 1.598484754562378
+    },
+    {
+      "internalPowerBits": "40a00000",
+      "internalPower": 5.0,
+      "durationScalarBits": "3fa19dbd",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "3ff26c9c",
+      "setByCallerDurationSeconds": 1.89393949508667
+    },
+    {
+      "internalPowerBits": "412e6666",
+      "internalPower": 10.899999618530273,
+      "durationScalarBits": "3fd33332",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "401e6666",
+      "setByCallerDurationSeconds": 2.4749999046325684
+    },
+    {
+      "internalPowerBits": "412e6667",
+      "internalPower": 10.90000057220459,
+      "durationScalarBits": "3fd33334",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "401e6667",
+      "setByCallerDurationSeconds": 2.4750001430511475
+    },
+    {
+      "internalPowerBits": "41da6666",
+      "internalPower": 27.299999237060547,
+      "durationScalarBits": "402e835c",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "4082e285",
+      "setByCallerDurationSeconds": 4.090151309967041
+    },
+    {
+      "internalPowerBits": "42040000",
+      "internalPower": 33.0,
+      "durationScalarBits": "404676f3",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "4094d936",
+      "setByCallerDurationSeconds": 4.651515007019043
+    },
+    {
+      "internalPowerBits": "42200000",
+      "internalPower": 40.0,
+      "durationScalarBits": "4063e0f8",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "40aae8ba",
+      "setByCallerDurationSeconds": 5.340909004211426
+    },
+    {
+      "internalPowerBits": "42c80000",
+      "internalPower": 100.0,
+      "durationScalarBits": "40f00000",
+      "bootsBaseDurationSeconds": 1.5,
+      "setByCallerDurationBits": "41340000",
+      "setByCallerDurationSeconds": 11.25
+    }
+  ],
+  "actualGameplay": null,
+  "independentValidation": null,
+  "limits": [
+    "Synthetic bound callback object and ItemType fields; no UE object initialization, Blueprint loading or actual game execution.",
+    "Function b903e0 executes complete native callback, normalization and DurationIncrease with no arithmetic stub.",
+    "Caller multiplication, status suffix, type-field transport and cooldown suffix are separate slices; not one continuous activation.",
+    "Status capture magnitudes and cooldown attributes explicitly supplied; unknown runtime state is not zero/defaulted.",
+    "Comparison oracle uses exact-rational binary32 RN-even; independent game oracle absent."
+  ]
+}

@@ -2,6 +2,12 @@
 
 Git commit historyを変更追跡の正本とします。ここには意味のあるPhase単位の変更だけを簡潔に記録します。製品バージョンや正式版判定はありません。
 
+## 2026-11 — 孤立条件付きChains装備2種
+
+- FlailとJailor’s ScytheをLimitedに追加。近接37/82、全装備64/271。対象自身の完全コンボ観測値と固定Chains Iを、Inventory・推薦・用途別比較へ接続。
+- 開始時Chainsなし・全評価期間で他の適格候補なしを明示確認。未確認・不成立・評価時間変更は拒否し、一般戦闘でChainsを無視しない。Jailorの+1 Soul Gatheringと既存Anima Conduit経路を保持。
+- Astraの原資料14ファイル・3,518局所比較を独立検証。Artifact時間・矢束・被弾無効化の未閉包と追加解析課題は[統合記録](../research/native/coverage-integration-20261121/README.md)に保持。
+
 ## 2026-11 — 固定 Sharpness I を含む Diamond Sword
 
 - 近接武器27/82。Diamond Sword は切れ味 I 込みのコンボ観測値を受け取り、固定倍率を一度だけ反映する。

@@ -5,6 +5,7 @@ import freezingSource from '../../research/sources/observed-freezing-scythes.jso
 import poisonCloudSource from '../../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import weakeningSource from '../../research/sources/observed-weakening-blade.json' with { type: 'json' }
 import committedSource from '../../research/sources/observed-committed-knife.json' with { type: 'json' }
+import chainsSource from '../../research/sources/observed-isolated-chains.json' with { type: 'json' }
 import soulSiphonSource from '../../research/sources/observed-soul-siphon-knife.json' with { type: 'json' }
 import type { SelectedEnchantment } from '../core/types'
 
@@ -16,9 +17,11 @@ export const POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS = ['nightmares-bite', 'venom-
 export const WEAKENING_OBSERVED_MELEE_COMBO_ID = 'nameless-blade'
 export const COMMITTED_OBSERVED_MELEE_COMBO_ID = 'truthseeker'
 export const SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID = 'eternal-knife'
+export const ISOLATED_CHAINS_MELEE_COMBO_IDS = ['flail', 'jailors-scythe'] as const
+export const isIsolatedChainsMeleeId = (id: string): boolean => (ISOLATED_CHAINS_MELEE_COMBO_IDS as readonly string[]).includes(id)
 export const SOUL_OBSERVED_MELEE_COMBO_IDS = [...FREEZING_OBSERVED_MELEE_COMBO_IDS, COMMITTED_OBSERVED_MELEE_COMBO_ID, SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID] as const
 export const isSoulObservedMeleeComboId = (id: string): boolean => (SOUL_OBSERVED_MELEE_COMBO_IDS as readonly string[]).includes(id)
-export const FIXED_OBSERVED_MELEE_COMBO_IDS = [...CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, SHARPNESS_OBSERVED_MELEE_COMBO_ID, RADIANCE_OBSERVED_MELEE_COMBO_ID, ...FREEZING_OBSERVED_MELEE_COMBO_IDS, ...POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS, WEAKENING_OBSERVED_MELEE_COMBO_ID, COMMITTED_OBSERVED_MELEE_COMBO_ID, SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID] as const
+export const FIXED_OBSERVED_MELEE_COMBO_IDS = [...ISOLATED_CHAINS_MELEE_COMBO_IDS, ...CONDITIONAL_OBSERVED_MELEE_COMBO_IDS, SHARPNESS_OBSERVED_MELEE_COMBO_ID, RADIANCE_OBSERVED_MELEE_COMBO_ID, ...FREEZING_OBSERVED_MELEE_COMBO_IDS, ...POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS, WEAKENING_OBSERVED_MELEE_COMBO_ID, COMMITTED_OBSERVED_MELEE_COMBO_ID, SOUL_SIPHON_OBSERVED_MELEE_COMBO_ID] as const
 export type FixedObservedMeleeComboId = (typeof FIXED_OBSERVED_MELEE_COMBO_IDS)[number]
 export const isFixedObservedMeleeComboId = (id: string): id is FixedObservedMeleeComboId =>
   (FIXED_OBSERVED_MELEE_COMBO_IDS as readonly string[]).includes(id)
@@ -31,6 +34,7 @@ export const POISON_CLOUD_OBSERVED_MELEE_COMBO_SOURCE = poisonCloudSource
 export const WEAKENING_OBSERVED_MELEE_COMBO_SOURCE = weakeningSource
 export const COMMITTED_OBSERVED_MELEE_COMBO_SOURCE = committedSource
 export const SOUL_SIPHON_OBSERVED_MELEE_COMBO_SOURCE = soulSiphonSource
+export const ISOLATED_CHAINS_MELEE_COMBO_SOURCE = chainsSource
 export const isFreezingObservedMeleeComboId = (id: string): boolean => (FREEZING_OBSERVED_MELEE_COMBO_IDS as readonly string[]).includes(id)
 export const isPoisonCloudObservedMeleeComboId = (id: string): boolean => (POISON_CLOUD_OBSERVED_MELEE_COMBO_IDS as readonly string[]).includes(id)
 export const CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS = {
@@ -43,6 +47,7 @@ export const CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS = {
 
 const fixedEffects = {
   ...CONDITIONAL_OBSERVED_MELEE_COMBO_EFFECTS,
+  flail: 'chains', 'jailors-scythe': 'chains',
   [SHARPNESS_OBSERVED_MELEE_COMBO_ID]: 'sharpness', [RADIANCE_OBSERVED_MELEE_COMBO_ID]: 'radiance',
   'frost-scythe': 'freezing', 'skull-scythe': 'freezing',
   'nightmares-bite': 'poison-cloud', 'venom-glaive': 'poison-cloud',

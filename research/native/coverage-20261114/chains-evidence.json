@@ -1,0 +1,1411 @@
+{
+  "schemaVersion": 1,
+  "artifactKind": "chains-native-static-evidence",
+  "baselineCommit": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "runtimePromotion": false,
+  "image": {
+    "sha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+    "base": "0x140000000"
+  },
+  "status": {
+    "conditionalNativeFoundation": "READY-for-independent-review",
+    "itemNativeIdentityAndFixedRecord": "STATIC-BOUND",
+    "formalItemAdoption": "PARTIAL-not-promoted",
+    "fullQueryExecution": "not-executed",
+    "gameplay": "not-observed"
+  },
+  "classBinding": {
+    "nameRva": "0x33da240",
+    "registration": "0x1be300",
+    "getter": "0xebec50",
+    "builder": "0xebbe80",
+    "constructionCallback": "0xebd300",
+    "constructor": "0xa484f0",
+    "vtable": "0x327c038",
+    "selectionSlot": "0x3d8",
+    "selectionFunction": "0xa66ad0",
+    "armSlot": "0x3e0",
+    "armFunction": "0xa6ba90",
+    "typeIdField": "0x1dc",
+    "typeId": 24
+  },
+  "enumBinding": {
+    "recordRva": "0x3414a60",
+    "stringRva": "0x3415658",
+    "name": "EEnchantmentTypeID::Chains",
+    "value": 24
+  },
+  "spans": [
+    {
+      "role": "class-registration",
+      "startRva": "0x1be300",
+      "endRvaExclusive": "0x1be33a",
+      "sha256": "c8a4d8fcf6b1f62e091b7dfddc9068726b06f0233363f7fa1013db47c29945f6"
+    },
+    {
+      "role": "class-getter",
+      "startRva": "0xebec50",
+      "endRvaExclusive": "0xebec7f",
+      "sha256": "23ad1219944ca978f16e1143b79668a062ef1315f7f88b89f82f675979699cd0"
+    },
+    {
+      "role": "class-builder",
+      "startRva": "0xebbe80",
+      "endRvaExclusive": "0xebbf22",
+      "sha256": "2af9efa822ef6ed58e662ffa0d6bbd756b7301be0b11ebd1318a326203f67bcf"
+    },
+    {
+      "role": "constructor-thunk",
+      "startRva": "0xebd300",
+      "endRvaExclusive": "0xebd30d",
+      "sha256": "26ad7e66248fb735aa208f4f41e883f9f1e53a653b51aab7a66d6f0496fb4e50"
+    },
+    {
+      "role": "constructor",
+      "startRva": "0xa484f0",
+      "endRvaExclusive": "0xa4864f",
+      "sha256": "ad69eca8988bafb2834ce0e0004d8245951fdbc55ef552b46da7a903372e3ee0"
+    },
+    {
+      "role": "target-selection",
+      "startRva": "0xa66ad0",
+      "endRvaExclusive": "0xa66ceb",
+      "sha256": "92edbd8dff16c9b62a0ef53f7f10f68d97594eb7e7464d42a32e5e3141811228"
+    },
+    {
+      "role": "neighbor-query",
+      "startRva": "0x820ef0",
+      "endRvaExclusive": "0x8212c5",
+      "sha256": "012a72c91525a6ba93f2b23250efbc9314751298c2069c80f9ee7ab844476ee7"
+    },
+    {
+      "role": "eligibility",
+      "startRva": "0xa5c270",
+      "endRvaExclusive": "0xa5c3a2",
+      "sha256": "055190e845d69d117032ed9d3e9d224b6959ab26112d1b076fed9c0cfd819ca1"
+    },
+    {
+      "role": "neighbor-filter",
+      "startRva": "0xa42470",
+      "endRvaExclusive": "0xa4252d",
+      "sha256": "e64e590875e804560c3eaa11c68a463087486bea9a7ba9d540835914f7547066"
+    },
+    {
+      "role": "prefix-slice",
+      "startRva": "0xa44530",
+      "endRvaExclusive": "0xa4462f",
+      "sha256": "98a0de63004ada3ce5955f90db38edaa62549b7c8838db49d7c7a5bd805f2521"
+    },
+    {
+      "role": "arm-rng",
+      "startRva": "0xa6ba90",
+      "endRvaExclusive": "0xa6bafd",
+      "sha256": "7834429ea3f3fab03fec073431a32ce4b36f73b5f36770c4c900fbf0a8a8a8af"
+    },
+    {
+      "role": "tier-magnitude",
+      "startRva": "0xa7aa70",
+      "endRvaExclusive": "0xa7aa84",
+      "sha256": "6c647ffa444235de278c28180de9e81939cd51e206ba52d7f9d45d19da70275c"
+    },
+    {
+      "role": "apply-chain",
+      "startRva": "0xa74f00",
+      "endRvaExclusive": "0xa756b0",
+      "sha256": "9bee0fb6b549f25daf8f1b36262b22c86574d4edde9c0670789541193c53449b"
+    },
+    {
+      "role": "flail-catalog",
+      "startRva": "0x165c10",
+      "endRvaExclusive": "0x165e63",
+      "sha256": "ea904b6a00936a9b07f9cb1c80991c6f08fe5f9d871d075940a20bb37544f3c2"
+    },
+    {
+      "role": "jailor-catalog",
+      "startRva": "0x173b40",
+      "endRvaExclusive": "0x173d9d",
+      "sha256": "49d6173bfd3ecab7d54fcbfd6aefe51f3155429e36916efc9cca5de66f2c609b"
+    },
+    {
+      "role": "enchantment-record",
+      "startRva": "0xad9f70",
+      "endRvaExclusive": "0xad9f8d",
+      "sha256": "f2f976a936a2e306c8a7d37edcdc27c64a5a7edbd27c638d3f3e99f16206e01b"
+    },
+    {
+      "role": "record-wrapper",
+      "startRva": "0xad9fb0",
+      "endRvaExclusive": "0xad9fbe",
+      "sha256": "502759cebe5dd67e786f778d1917c40a55373e52a2f209577069a085d3ac39f2"
+    },
+    {
+      "role": "catalog-record-array-copy",
+      "startRva": "0xb67390",
+      "endRvaExclusive": "0xb67424",
+      "sha256": "781180411e15293c5a4c39999e732a139dddd2b26046eadf4712f74a052d9454"
+    }
+  ],
+  "decisiveInstructions": [
+    {
+      "role": "native-constructor-fields",
+      "startRva": "0xa4851f",
+      "endRvaExclusive": "0xa4859f",
+      "sha256": "5389f3255793fcf971d74dd27c0f81befcb51e97f5b874ac8bb76f2a4dd37618",
+      "instructions": [
+        {
+          "rva": "0xa4851f",
+          "mnemonic": "lea",
+          "operands": "rax, [rip + 0x2833b12]"
+        },
+        {
+          "rva": "0xa48526",
+          "mnemonic": "mov",
+          "operands": "qword ptr [rbx], rax"
+        },
+        {
+          "rva": "0xa48529",
+          "mnemonic": "lea",
+          "operands": "rax, [rip + 0x282fff0]"
+        },
+        {
+          "rva": "0xa48530",
+          "mnemonic": "mov",
+          "operands": "qword ptr [rbx + 0x28], rax"
+        },
+        {
+          "rva": "0xa48534",
+          "mnemonic": "lea",
+          "operands": "rax, [rip + 0x2830015]"
+        },
+        {
+          "rva": "0xa4853b",
+          "mnemonic": "mov",
+          "operands": "qword ptr [rbx + 0xf8], rax"
+        },
+        {
+          "rva": "0xa48542",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x1f8], 2"
+        },
+        {
+          "rva": "0xa4854c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x1fc], 0x3dcccccd"
+        },
+        {
+          "rva": "0xa48556",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x200], 0x3f800000"
+        },
+        {
+          "rva": "0xa48560",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x204], 0x40800000"
+        },
+        {
+          "rva": "0xa4856a",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x208], 0x3e99999a"
+        },
+        {
+          "rva": "0xa48574",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbx + 0x20c], 0x44960000"
+        },
+        {
+          "rva": "0xa4857e",
+          "mnemonic": "call",
+          "operands": "0xebbda0"
+        },
+        {
+          "rva": "0xa48583",
+          "mnemonic": "mov",
+          "operands": "qword ptr [rbx + 0x210], rax"
+        },
+        {
+          "rva": "0xa4858a",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rbx + 0x218], 0"
+        },
+        {
+          "rva": "0xa48591",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rbx + 0x1dc], 0x18"
+        },
+        {
+          "rva": "0xa48598",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rbx + 0x100], 1"
+        }
+      ]
+    },
+    {
+      "role": "primary-excluded",
+      "startRva": "0x821000",
+      "endRvaExclusive": "0x82100a",
+      "sha256": "3d5dd0777f7c73ed5606f1b48d7b2047bdba0f0f91252f75b77d0c443a949c16",
+      "instructions": [
+        {
+          "rva": "0x821000",
+          "mnemonic": "cmp",
+          "operands": "rbx, rsi"
+        },
+        {
+          "rva": "0x821003",
+          "mnemonic": "je",
+          "operands": "0x821058"
+        },
+        {
+          "rva": "0x821005",
+          "mnemonic": "mov",
+          "operands": "qword ptr [rsp + 0x38], rbx"
+        }
+      ]
+    },
+    {
+      "role": "distance-gate",
+      "startRva": "0x821026",
+      "endRvaExclusive": "0x821036",
+      "sha256": "06eaeff6512d29966492f4f85b994d38bb4288e98463f3be81fae7b8bef2983c",
+      "instructions": [
+        {
+          "rva": "0x821026",
+          "mnemonic": "mov",
+          "operands": "rdx, rbx"
+        },
+        {
+          "rva": "0x821029",
+          "mnemonic": "mov",
+          "operands": "rcx, rsi"
+        },
+        {
+          "rva": "0x82102c",
+          "mnemonic": "call",
+          "operands": "0xc26c40"
+        },
+        {
+          "rva": "0x821031",
+          "mnemonic": "comiss",
+          "operands": "xmm0, xmm6"
+        },
+        {
+          "rva": "0x821034",
+          "mnemonic": "ja",
+          "operands": "0x821058"
+        }
+      ]
+    },
+    {
+      "role": "select-and-test-count",
+      "startRva": "0xa66bcd",
+      "endRvaExclusive": "0xa66c08",
+      "sha256": "7dcb0bf88928bb1183aacd55e7ae77378662489cfdece12616e86515e1e989fe",
+      "instructions": [
+        {
+          "rva": "0xa66bcd",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [rbx + 0x1f8]"
+        },
+        {
+          "rva": "0xa66bd3",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [rbx + 0x1d8]"
+        },
+        {
+          "rva": "0xa66bd9",
+          "mnemonic": "dec",
+          "operands": "eax"
+        },
+        {
+          "rva": "0xa66bdb",
+          "mnemonic": "add",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": "0xa66bdd",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rsp + 0x20], ecx"
+        },
+        {
+          "rva": "0xa66be1",
+          "mnemonic": "xor",
+          "operands": "r9d, r9d"
+        },
+        {
+          "rva": "0xa66be4",
+          "mnemonic": "lea",
+          "operands": "r8, [rbp - 0x39]"
+        },
+        {
+          "rva": "0xa66be8",
+          "mnemonic": "lea",
+          "operands": "rdx, [rbp + 0x3f]"
+        },
+        {
+          "rva": "0xa66bec",
+          "mnemonic": "lea",
+          "operands": "rcx, [rbp - 0x59]"
+        },
+        {
+          "rva": "0xa66bf0",
+          "mnemonic": "call",
+          "operands": "0xa44530"
+        },
+        {
+          "rva": "0xa66bf5",
+          "mnemonic": "nop",
+          "operands": ""
+        },
+        {
+          "rva": "0xa66bf6",
+          "mnemonic": "movsxd",
+          "operands": "rdi, dword ptr [rbp - 0x51]"
+        },
+        {
+          "rva": "0xa66bfa",
+          "mnemonic": "test",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0xa66bfc",
+          "mnemonic": "je",
+          "operands": "0xa66ca5"
+        },
+        {
+          "rva": "0xa66c02",
+          "mnemonic": "lea",
+          "operands": "eax, [rdi + 1]"
+        },
+        {
+          "rva": "0xa66c05",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rbp - 0x51], eax"
+        }
+      ]
+    },
+    {
+      "role": "append-primary",
+      "startRva": "0xa66c18",
+      "endRvaExclusive": "0xa66c29",
+      "sha256": "64678229f0b5d5ee6939c8ed6071040f009b941ab63d0f312eab395586b9ff3b",
+      "instructions": [
+        {
+          "rva": "0xa66c18",
+          "mnemonic": "mov",
+          "operands": "rax, qword ptr [rbp - 0x59]"
+        },
+        {
+          "rva": "0xa66c1c",
+          "mnemonic": "lea",
+          "operands": "rcx, [rax + rdi*8]"
+        },
+        {
+          "rva": "0xa66c20",
+          "mnemonic": "mov",
+          "operands": "rdx, qword ptr [rbp - 0x61]"
+        },
+        {
+          "rva": "0xa66c24",
+          "mnemonic": "call",
+          "operands": "0x1254ba0"
+        }
+      ]
+    },
+    {
+      "role": "call-application",
+      "startRva": "0xa66c82",
+      "endRvaExclusive": "0xa66ca5",
+      "sha256": "ce3d35a385c13fd111cd7ad9e55f3deb510e401b429bfdda381429c0d3b02e47",
+      "instructions": [
+        {
+          "rva": "0xa66c82",
+          "mnemonic": "movss",
+          "operands": "xmm3, dword ptr [rbx + 0x1fc]"
+        },
+        {
+          "rva": "0xa66c8a",
+          "mnemonic": "lea",
+          "operands": "r8, [rbp - 0x49]"
+        },
+        {
+          "rva": "0xa66c8e",
+          "mnemonic": "lea",
+          "operands": "rdx, [rbp + 0x3f]"
+        },
+        {
+          "rva": "0xa66c92",
+          "mnemonic": "mov",
+          "operands": "rcx, rbx"
+        },
+        {
+          "rva": "0xa66c95",
+          "mnemonic": "call",
+          "operands": "0xa74f00"
+        },
+        {
+          "rva": "0xa66c9a",
+          "mnemonic": "mov",
+          "operands": "dl, 1"
+        },
+        {
+          "rva": "0xa66c9c",
+          "mnemonic": "mov",
+          "operands": "rcx, rbx"
+        },
+        {
+          "rva": "0xa66c9f",
+          "mnemonic": "call",
+          "operands": "0xef2830"
+        },
+        {
+          "rva": "0xa66ca4",
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "role": "tier-magnitude",
+      "startRva": "0xa7aa70",
+      "endRvaExclusive": "0xa7aa84",
+      "sha256": "6c647ffa444235de278c28180de9e81939cd51e206ba52d7f9d45d19da70275c",
+      "instructions": [
+        {
+          "rva": "0xa7aa70",
+          "mnemonic": "movd",
+          "operands": "xmm0, dword ptr [rdx]"
+        },
+        {
+          "rva": "0xa7aa74",
+          "mnemonic": "mov",
+          "operands": "rax, qword ptr [rcx + 8]"
+        },
+        {
+          "rva": "0xa7aa78",
+          "mnemonic": "cvtdq2ps",
+          "operands": "xmm0, xmm0"
+        },
+        {
+          "rva": "0xa7aa7b",
+          "mnemonic": "mulss",
+          "operands": "xmm0, dword ptr [rax + 0x200]"
+        },
+        {
+          "rva": "0xa7aa83",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "role": "flail-fixed-id-tier",
+      "startRva": "0x165c64",
+      "endRvaExclusive": "0x165c81",
+      "sha256": "bfb5d451203db5921a2515862bd40994a439078fbd9550051f3e8afc3c63f378",
+      "instructions": [
+        {
+          "rva": "0x165c64",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x165c66",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rsp + 0x28], edi"
+        },
+        {
+          "rva": "0x165c6a",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rsp + 0x20], dil"
+        },
+        {
+          "rva": "0x165c6f",
+          "mnemonic": "xor",
+          "operands": "r9d, r9d"
+        },
+        {
+          "rva": "0x165c72",
+          "mnemonic": "lea",
+          "operands": "r8d, [rdi + 1]"
+        },
+        {
+          "rva": "0x165c76",
+          "mnemonic": "mov",
+          "operands": "dl, 0x18"
+        },
+        {
+          "rva": "0x165c78",
+          "mnemonic": "lea",
+          "operands": "rcx, [rbp - 0x10]"
+        },
+        {
+          "rva": "0x165c7c",
+          "mnemonic": "call",
+          "operands": "0xad9f70"
+        }
+      ]
+    },
+    {
+      "role": "jailor-fixed-id-tier",
+      "startRva": "0x173b94",
+      "endRvaExclusive": "0x173bb1",
+      "sha256": "6b345f2e96a104614fc07e953e9dbef53d751dbd6d6f30654cff9c02a4f14a71",
+      "instructions": [
+        {
+          "rva": "0x173b94",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x173b96",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rsp + 0x28], edi"
+        },
+        {
+          "rva": "0x173b9a",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rsp + 0x20], dil"
+        },
+        {
+          "rva": "0x173b9f",
+          "mnemonic": "xor",
+          "operands": "r9d, r9d"
+        },
+        {
+          "rva": "0x173ba2",
+          "mnemonic": "lea",
+          "operands": "r8d, [rdi + 1]"
+        },
+        {
+          "rva": "0x173ba6",
+          "mnemonic": "mov",
+          "operands": "dl, 0x18"
+        },
+        {
+          "rva": "0x173ba8",
+          "mnemonic": "lea",
+          "operands": "rcx, [rbp - 0x10]"
+        },
+        {
+          "rva": "0x173bac",
+          "mnemonic": "call",
+          "operands": "0xad9f70"
+        }
+      ]
+    },
+    {
+      "role": "enchantment-record",
+      "startRva": "0xad9f70",
+      "endRvaExclusive": "0xad9f8d",
+      "sha256": "f2f976a936a2e306c8a7d37edcdc27c64a5a7edbd27c638d3f3e99f16206e01b",
+      "instructions": [
+        {
+          "rva": "0xad9f70",
+          "mnemonic": "movzx",
+          "operands": "eax, byte ptr [rsp + 0x28]"
+        },
+        {
+          "rva": "0xad9f75",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rcx + 9], al"
+        },
+        {
+          "rva": "0xad9f78",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [rsp + 0x30]"
+        },
+        {
+          "rva": "0xad9f7c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rcx + 0xc], eax"
+        },
+        {
+          "rva": "0xad9f7f",
+          "mnemonic": "mov",
+          "operands": "rax, rcx"
+        },
+        {
+          "rva": "0xad9f82",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rcx], dl"
+        },
+        {
+          "rva": "0xad9f84",
+          "mnemonic": "mov",
+          "operands": "dword ptr [rcx + 4], r8d"
+        },
+        {
+          "rva": "0xad9f88",
+          "mnemonic": "mov",
+          "operands": "byte ptr [rcx + 8], r9b"
+        },
+        {
+          "rva": "0xad9f8c",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "role": "flail-name-id-pair",
+      "startRva": "0x165d68",
+      "endRvaExclusive": "0x165d87",
+      "sha256": "350dbd9d50d968bb896a67d332684fcf50d6d23e1db418d2276f0fd0d2883ce7",
+      "instructions": [
+        {
+          "rva": "0x165d68",
+          "mnemonic": "lea",
+          "operands": "r9, [rip + 0x3167fd9]"
+        },
+        {
+          "rva": "0x165d6f",
+          "mnemonic": "lea",
+          "operands": "r8, [rip + 0x30feb42]"
+        },
+        {
+          "rva": "0x165d76",
+          "mnemonic": "lea",
+          "operands": "rdx, [rip + 0x3168093]"
+        },
+        {
+          "rva": "0x165d7d",
+          "mnemonic": "lea",
+          "operands": "rcx, [rbp - 0x28]"
+        },
+        {
+          "rva": "0x165d81",
+          "mnemonic": "call",
+          "operands": "0x10156b0"
+        },
+        {
+          "rva": "0x165d86",
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "role": "jailor-name-id-pair",
+      "startRva": "0x173c98",
+      "endRvaExclusive": "0x173cb7",
+      "sha256": "7b1fdda74f57fbfc6320b779a7c71321b91272fd409b836c9c0a8ae983297b00",
+      "instructions": [
+        {
+          "rva": "0x173c98",
+          "mnemonic": "lea",
+          "operands": "r9, [rip + 0x315d6a1]"
+        },
+        {
+          "rva": "0x173c9f",
+          "mnemonic": "lea",
+          "operands": "r8, [rip + 0x30f0c12]"
+        },
+        {
+          "rva": "0x173ca6",
+          "mnemonic": "lea",
+          "operands": "rdx, [rip + 0x315d6bb]"
+        },
+        {
+          "rva": "0x173cad",
+          "mnemonic": "lea",
+          "operands": "rcx, [rbp - 0x28]"
+        },
+        {
+          "rva": "0x173cb1",
+          "mnemonic": "call",
+          "operands": "0x10156b0"
+        },
+        {
+          "rva": "0x173cb6",
+          "mnemonic": "nop",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "flail",
+      "rawIdentity": "Mace_Unique2",
+      "nativeCatalogFunction": "0x165c10",
+      "nativeStringBinding": {
+        "namespaceRva": "0x32648b8",
+        "namespace": "ItemType",
+        "keyRva": "0x32cdd48",
+        "key": "Mace_Unique2",
+        "displayRva": "0x32cde10",
+        "display": "Flail"
+      },
+      "rawLocator": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz#/packages/33",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+      "packageHash": {
+        "algorithm": "sha256-path-content-v1",
+        "value": "8fffe75348aacc1f8da309bf6061513175fd2d2eece86ed5018742ade643565b"
+      },
+      "sourceFiles": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uasset",
+          "size": 5370,
+          "sha256": "410d5632a887f51f171c277209232769ce489e311b4f1cd3f9793dd4dcac70fe"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+          "size": 4370,
+          "sha256": "4077cfcf99e7648b2666a9796ebfa51ff394b2675d67e3824aade19083e81e51"
+        }
+      ],
+      "inheritanceChains": [
+        {
+          "sourceObject": "BP_Mace_Unique2Instance_C",
+          "hops": [
+            {
+              "edgeId": "10659e5a8db40b685ecd8ecc",
+              "targetObject": "/Game/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance.BP_MaceInstance_C",
+              "targetPackageName": "/Game/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+              "targetPackage": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace/BP_MaceInstance",
+              "rawPackageIndex": -4
+            },
+            {
+              "edgeId": "394d006f6f9a8feee468a5d1",
+              "targetObject": "/Script/Dungeons.MeleeWeaponGearItemInstance",
+              "targetPackageName": "/Script/Dungeons",
+              "rawPackageIndex": -10
+            }
+          ],
+          "stopReason": "native-boundary"
+        }
+      ],
+      "ownFields": [
+        {
+          "path": "ConfiguredAttackVariants[0].Name",
+          "value": "Forehand",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 245,
+            "end": 253
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].AttackAnimationTimeDurationSeconds",
+          "value": 0.4399999976158142,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 606,
+            "end": 610
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].Damage",
+          "value": 81,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 838,
+            "end": 842
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].CooldownSeconds",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1044,
+            "end": 1048
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantLoopAmount",
+          "value": 1,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1160,
+            "end": 1164
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantActiveEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1189,
+            "end": 1193
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantChangeEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1218,
+            "end": 1222
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].ContinuousDamageInterval",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1247,
+            "end": 1251
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].EnchantmentTriggerSettings.bTriggerEnchantmentsAfterDamage",
+          "value": true,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1352,
+            "end": 1352
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].Name",
+          "value": "Backhand",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1474,
+            "end": 1482
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].AttackAnimationTimeDurationSeconds",
+          "value": 0.4399999976158142,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 1835,
+            "end": 1839
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].Damage",
+          "value": 81,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2067,
+            "end": 2071
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].CooldownSeconds",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2273,
+            "end": 2277
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantLoopAmount",
+          "value": 1,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2389,
+            "end": 2393
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantActiveEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2418,
+            "end": 2422
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantChangeEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2447,
+            "end": 2451
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].ContinuousDamageInterval",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2476,
+            "end": 2480
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].EnchantmentTriggerSettings.bTriggerEnchantmentsAfterDamage",
+          "value": true,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2581,
+            "end": 2581
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].Name",
+          "value": "Lunge",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 2703,
+            "end": 2711
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].AttackAnimationTimeDurationSeconds",
+          "value": 0.7699999809265137,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3064,
+            "end": 3068
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].Damage",
+          "value": 175,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3296,
+            "end": 3300
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].CooldownSeconds",
+          "value": 0.25,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3502,
+            "end": 3506
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].VariantLoopAmount",
+          "value": 1,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3618,
+            "end": 3622
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].VariantActiveEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3647,
+            "end": 3651
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].VariantChangeEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3676,
+            "end": 3680
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].ContinuousDamageInterval",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3705,
+            "end": 3709
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[2].EnchantmentTriggerSettings.bTriggerEnchantmentsAfterDamage",
+          "value": true,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3810,
+            "end": 3810
+          }
+        },
+        {
+          "path": "GearActor",
+          "value": {
+            "rawPackageIndex": -5,
+            "kind": "import",
+            "index": 4,
+            "objectName": "BP_Mace_Unique2_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3932,
+            "end": 3936
+          }
+        },
+        {
+          "path": "ItemIdName",
+          "value": "Mace_Unique2",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 3998,
+            "end": 4006
+          }
+        },
+        {
+          "path": "ItemId.SerializedId",
+          "value": "Mace_Unique2",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+            "start": 4080,
+            "end": 4088
+          }
+        }
+      ],
+      "fixedRecord": {
+        "enumId": 24,
+        "enumName": "EEnchantmentTypeID::Chains",
+        "tier": 1,
+        "wrapperByte": 2,
+        "recordConstructor": "0xad9f70",
+        "copyIntoCatalogArray": "0xb67390",
+        "catalogArrayOffset": "0x70",
+        "recordStrideBytes": 20
+      },
+      "formalIdentityPromotion": false
+    },
+    {
+      "id": "jailors-scythe",
+      "rawIdentity": "SoulScythe_Unique1",
+      "nativeCatalogFunction": "0x173b40",
+      "nativeStringBinding": {
+        "namespaceRva": "0x32648b8",
+        "namespace": "ItemType",
+        "keyRva": "0x32d1340",
+        "key": "SoulScythe_Unique1",
+        "displayRva": "0x32d1368",
+        "display": "Jailor's Scythe"
+      },
+      "rawLocator": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz#/packages/13",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+      "packageHash": {
+        "algorithm": "sha256-path-content-v1",
+        "value": "0d3225aca21715a95dc91307c4dd6e8bffaf3dbc1176c088122b4b03c2ab9c76"
+      },
+      "sourceFiles": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uasset",
+          "size": 5208,
+          "sha256": "1cfdf697357c19e8bcab631c4dd8cb167a6b9551a43ae3c6fed25d4f112eb2fd"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+          "size": 3100,
+          "sha256": "47723c6bd3faa20ad04c09b6ebf2a143d3d4056442e9dc97fea29e849e727073"
+        }
+      ],
+      "inheritanceChains": [
+        {
+          "sourceObject": "BP_SoulScythe_Unique1Instance_C",
+          "hops": [
+            {
+              "edgeId": "321ee0557ea7e976cd9c220d",
+              "targetObject": "/Game/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance.BP_SoulScytheInstance_C",
+              "targetPackageName": "/Game/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+              "targetPackage": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe/BP_SoulScytheInstance",
+              "rawPackageIndex": -3
+            },
+            {
+              "edgeId": "cc23332f70b7af387c7de5fd",
+              "targetObject": "/Script/Dungeons.MeleeWeaponGearItemInstance",
+              "targetPackageName": "/Script/Dungeons",
+              "rawPackageIndex": -9
+            }
+          ],
+          "stopReason": "native-boundary"
+        }
+      ],
+      "ownFields": [
+        {
+          "path": "ConfiguredAttackVariants[0].Name",
+          "value": "Swing1",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 216,
+            "end": 224
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].AttackAnimationTimeDurationSeconds",
+          "value": 0.47999998927116394,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 577,
+            "end": 581
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].Damage",
+          "value": 80,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 809,
+            "end": 813
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].CooldownSeconds",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1015,
+            "end": 1019
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantLoopAmount",
+          "value": 1,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1131,
+            "end": 1135
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantActiveEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1160,
+            "end": 1164
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].VariantChangeEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1189,
+            "end": 1193
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].ContinuousDamageInterval",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1218,
+            "end": 1222
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[0].EnchantmentTriggerSettings.bTriggerEnchantmentsAfterDamage",
+          "value": true,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1323,
+            "end": 1323
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].Name",
+          "value": "Swing2",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1445,
+            "end": 1453
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].AttackAnimationTimeDurationSeconds",
+          "value": 0.5600000023841858,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 1806,
+            "end": 1810
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].Damage",
+          "value": 80,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2038,
+            "end": 2042
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].CooldownSeconds",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2244,
+            "end": 2248
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantLoopAmount",
+          "value": 1,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2360,
+            "end": 2364
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantActiveEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2389,
+            "end": 2393
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].VariantChangeEffect",
+          "value": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2418,
+            "end": 2422
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].ContinuousDamageInterval",
+          "value": 0,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2447,
+            "end": 2451
+          }
+        },
+        {
+          "path": "ConfiguredAttackVariants[1].EnchantmentTriggerSettings.bTriggerEnchantmentsAfterDamage",
+          "value": true,
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2552,
+            "end": 2552
+          }
+        },
+        {
+          "path": "GearActor",
+          "value": {
+            "rawPackageIndex": -4,
+            "kind": "import",
+            "index": 3,
+            "objectName": "BP_SoulScythe_Unique1_C",
+            "className": "BlueprintGeneratedClass"
+          },
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2674,
+            "end": 2678
+          }
+        },
+        {
+          "path": "ItemIdName",
+          "value": "SoulScythe_Unique1",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2740,
+            "end": 2748
+          }
+        },
+        {
+          "path": "ItemId.SerializedId",
+          "value": "SoulScythe_Unique1",
+          "valueRange": {
+            "file": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+            "start": 2822,
+            "end": 2830
+          }
+        }
+      ],
+      "fixedRecord": {
+        "enumId": 24,
+        "enumName": "EEnchantmentTypeID::Chains",
+        "tier": 1,
+        "wrapperByte": 2,
+        "recordConstructor": "0xad9f70",
+        "copyIntoCatalogArray": "0xb67390",
+        "catalogArrayOffset": "0x70",
+        "recordStrideBytes": 20
+      },
+      "formalIdentityPromotion": false
+    }
+  ],
+  "conditions": [
+    "This specific recovered-image UChains path.",
+    "No other eligible Chain candidate returned by completed world/class/predicate/radius/eligibility query around the primary.",
+    "Melee averageTargetsInReach=1 is not sufficient for that condition.",
+    "Effect count, RNG and eligibility engine behavior are not replaced with zero or successful stubs."
+  ],
+  "staticConclusion": "Primary actor is excluded from the neighbor query. Selected neighbor count zero skips primary append and application call; nonempty neighbors allow primary append.",
+  "query": {
+    "radiusArgumentField": "0x20c",
+    "constructorDefault": 1200.0,
+    "unit": "native spatial units; no metre/block conversion claimed",
+    "radiusSquaredAt": "0x820f55",
+    "selfExclusionAt": "0x821000",
+    "candidateDistanceCall": "0xc26c40",
+    "distanceCompareAt": "0x821031",
+    "predicateVtable": "0x32910d0",
+    "predicateFunction": "0x344720",
+    "eligibilityFunction": "0xa5c270",
+    "eligibilityGates": [
+      "candidate classification/lookup at 0xf4fa20 -> 0xe479a0",
+      "owner actor virtual slot +0x900 must return false",
+      "0xe4ade0 -> 0x7c30f0 must return true",
+      "0xc1eb20 -> 0x7c2560 must return true",
+      "StatusEffect.Chains tag must be absent",
+      "target +0x84 mask 0x04 must be clear"
+    ],
+    "maxNeighborCountExpression": "object[+0x1f8] + object[+0x1d8] - 1",
+    "constructorBaseNeighborCount": 2
+  },
+  "duration": {
+    "callback": "0xa7aa70",
+    "expression": "binary32(binary32(signed tier int32) * object[+0x200])",
+    "defaultFactor": 1.0,
+    "unit": "set-by-caller gameplay duration candidate; complete final duration not asserted",
+    "mobAlternativeField": "0x204",
+    "mobAlternativeDefault": 4.0,
+    "applicationSetByCallerCall": "0x3ca070",
+    "remaining": "Set-by-caller name and effect evaluation/refresh not fully bound; irrelevant to zero-neighbor no-call proof."
+  },
+  "boundaries": [
+    "Raw/exe exact build equivalence and official authenticity remain unverified.",
+    "No Windows/gameplay runtime was executed.",
+    "No whole-world query, timer, multiplayer or immunity proof.",
+    "Own native catalog identities correct old ambiguous icon seeds; no Formal status changed.",
+    "Whole function bytes/private payload/full decompilation are not emitted."
+  ],
+  "inputSha256": {
+    "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz": "758800e77f48865195b963b33dc9e50faccd0048b1b85b939cc3b81e181e85c2",
+    "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz": "1d0da96d923350b68d585e10566690622017ca7c9f4511e9278ea11ea9d16a09",
+    "research/domain/formal/identity-evidence-v1.json": "ec4f859a40fe42e8847748615588876f4db58c9fd5f30a465efb2df2b5fe5ab5",
+    "research/melee-attack-profile-audit.json": "811848e0e1d8270bce9ebbee001b3fdb1069cfd5399a0772e7918808cc1adc45"
+  }
+}

@@ -90,3 +90,7 @@ The [fixed complete-combo grant](../fixed-observed-melee-combo-reuse.md) binds t
 ## Fixed Sharpness in an observed complete combo
 
 The [Diamond Sword grant](../observed-sharpness-combo-reuse.md) binds its exact own identity, hit sequence and fixed Sharpness I. The observed total includes the owned always-on effect. The fixed multiplier is factored out of the observed mean and applied once by the existing model. Matching rolled copies, stale Power and other unverified scope remain excluded.
+
+## Fixed Chains with an explicit no-application contract
+
+The [isolated Chains grant](../observed-isolated-chains-reuse.md) adds exactly Flail and Jailor’s Scythe to observed complete combos. Own Raw/Locres identity, fixed enum24/Tier1, pinned registry/class creation and actual melee dispatch close the handoff’s bridge. The scenario must explicitly confirm initial Chains absence and no other eligible query candidate throughout its bound interval; unknown/false, changed interval and one-target averages alone do not qualify. The result retains structural `no-application-call` and bypasses the general proc/duration model. It adopts no new numeric mechanic and makes no ordinary-combat/VFX/R3/P3B claim. All fixed ownership, current-Power observation, base-cadence, Soul and unsupported-interaction gates remain.

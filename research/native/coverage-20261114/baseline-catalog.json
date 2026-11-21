@@ -1,0 +1,1648 @@
+{
+  "counts": {
+    "melee": {
+      "total": 82,
+      "supported": 35
+    },
+    "ranged": {
+      "total": 71,
+      "supported": 11
+    },
+    "armor": {
+      "total": 73,
+      "supported": 13
+    },
+    "artifact": {
+      "total": 45,
+      "supported": 3
+    }
+  },
+  "items": [
+    {
+      "category": "armor",
+      "id": "archer-s-armor",
+      "name": "Archer's Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "arctic-fox-armor",
+      "name": "Arctic Fox Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "battle-robe",
+      "name": "Battle Robe",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "beehive-armor",
+      "name": "Beehive Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "beenest-armor",
+      "name": "Beenest Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "black-spot-armor",
+      "name": "Black Spot Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "black-wolf-armor",
+      "name": "Black Wolf Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "cauldron-armor",
+      "name": "Cauldron Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "cave-crawler",
+      "name": "Cave Crawler",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "champion-s-armor",
+      "name": "Champion's Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "climbing-gear",
+      "name": "Climbing Gear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "cloaked-skull",
+      "name": "Cloaked Skull",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "dark-armor",
+      "name": "Dark Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "ember-robe",
+      "name": "Ember Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "emerald-gear",
+      "name": "Emerald Gear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "ender-armor",
+      "name": "Ender Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "entertainer-s-garb",
+      "name": "Entertainer's Garb",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "evocation-robe",
+      "name": "Evocation Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "fox-armor",
+      "name": "Fox Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "frost-armor",
+      "name": "Frost Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "frost-bite",
+      "name": "Frost Bite",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "full-metal-armor",
+      "name": "Full Metal Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "ghost-kindler",
+      "name": "Ghost Kindler",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "ghostly-armor",
+      "name": "Ghostly Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "gilded-glory",
+      "name": "Gilded Glory",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "glow-squid-armor",
+      "name": "Glow Squid Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "goat-gear",
+      "name": "Goat Gear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "golden-piglin-armor",
+      "name": "Golden Piglin Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "grim-armor",
+      "name": "Grim Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "guard-s-armor",
+      "name": "Guard's Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "hero-s-armor",
+      "name": "Hero's Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "highland-armor",
+      "name": "Highland Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "hungriest-horror",
+      "name": "Hungriest Horror",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "hungry-horror",
+      "name": "Hungry Horror",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "hunter-s-armor",
+      "name": "Hunter's Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "living-vines-armor",
+      "name": "Living Vines Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "mercenary-armor",
+      "name": "Mercenary Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "mystery-armor",
+      "name": "Mystery Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "nimble-turtle-armor",
+      "name": "Nimble Turtle Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "ocelot-armor",
+      "name": "Ocelot Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "opulent-armor",
+      "name": "Opulent Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "phantom-armor",
+      "name": "Phantom Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "piglin-armor",
+      "name": "Piglin Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "plate-armor",
+      "name": "Plate Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "reinforced-mail",
+      "name": "Reinforced Mail",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "renegade-armor",
+      "name": "Renegade Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "root-rot-armor",
+      "name": "Root Rot Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "rugged-climbing-gear",
+      "name": "Rugged Climbing Gear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "scale-mail",
+      "name": "Scale Mail",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "shadow-walker",
+      "name": "Shadow Walker",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "shulker-armor",
+      "name": "Shulker Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "snow-armor",
+      "name": "Snow Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "soul-robe",
+      "name": "Soul Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "souldancer-robe",
+      "name": "Souldancer Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "spelunker-armor",
+      "name": "Spelunker Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "spider-armor",
+      "name": "Spider Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "splendid-robe",
+      "name": "Splendid Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "sprout-armor",
+      "name": "Sprout Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "squid-armor",
+      "name": "Squid Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "stalwart-armor",
+      "name": "Stalwart Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "sturdy-shulker-armor",
+      "name": "Sturdy Shulker Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "sweet-tooth",
+      "name": "Sweet Tooth",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "teleportation-robes",
+      "name": "Teleportation Robes",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "the-spooky-gourdian",
+      "name": "The Spooky Gourdian",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "the-troubadour",
+      "name": "The Troubadour",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "thief-armor",
+      "name": "Thief Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "titan-s-shroud",
+      "name": "Titan's Shroud",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "turtle-armor",
+      "name": "Turtle Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "unstable-robes",
+      "name": "Unstable Robes",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "vanguard-armor",
+      "name": "Vanguard Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "verdant-robe",
+      "name": "Verdant Robe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "armor",
+      "id": "wither-armor",
+      "name": "Wither Armor",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "armor",
+      "id": "wolf-armor",
+      "name": "Wolf Armor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "blast-fungus",
+      "name": "Blast Fungus",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "boots-of-swiftness",
+      "name": "Boots of Swiftness",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "buzzy-nest",
+      "name": "Buzzy Nest",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "corrupted-beacon",
+      "name": "Corrupted Beacon",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "corrupted-pumpkin",
+      "name": "Corrupted Pumpkin",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "corrupted-seeds",
+      "name": "Corrupted Seeds",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "death-cap-mushroom",
+      "name": "Death Cap Mushroom",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "artifact",
+      "id": "enchanted-grass",
+      "name": "Enchanted Grass",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "enchanters-tome",
+      "name": "Enchanter's Tome",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "eye-of-the-guardian",
+      "name": "Eye of the Guardian",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "fireworks-arrow",
+      "name": "Fireworks Arrow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "fishing-rod",
+      "name": "Fishing Rod",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "flaming-quiver",
+      "name": "Flaming Quiver",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "ghost-cloak",
+      "name": "Ghost Cloak",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "golem-kit",
+      "name": "Golem Kit",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "gong-of-weakening",
+      "name": "Gong of Weakening",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "harpoon-quiver",
+      "name": "Harpoon Quiver",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "harvester",
+      "name": "Harvester",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "ice-wand",
+      "name": "Ice Wand",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "iron-hide-amulet",
+      "name": "Iron Hide Amulet",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "artifact",
+      "id": "light-feather",
+      "name": "Light Feather",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "lightning-rod",
+      "name": "Lightning Rod",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "love-medallion",
+      "name": "Love Medallion",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "powershaker",
+      "name": "Powershaker",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "satchel-of-elements",
+      "name": "Satchel of Elements",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "satchel-of-elixirs",
+      "name": "Satchel of Elixirs",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "satchel-of-snacks",
+      "name": "Satchel of Snacks",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "scatter-mines",
+      "name": "Scatter Mines",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "shadow-shifter",
+      "name": "Shadow Shifter",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "shock-powder",
+      "name": "Shock Powder",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "artifact",
+      "id": "soul-healer",
+      "name": "Soul Healer",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "soul-lantern",
+      "name": "Soul Lantern",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "spinblade",
+      "name": "Spinblade",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "tasty-bone",
+      "name": "Tasty Bone",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "thundering-quiver",
+      "name": "Thundering Quiver",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "tome-of-duplication",
+      "name": "Tome of Duplication",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "torment-quiver",
+      "name": "Torment Quiver",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "totem-of-casting",
+      "name": "Totem of Casting",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "totem-of-regeneration",
+      "name": "Totem of Regeneration",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "totem-of-shielding",
+      "name": "Totem of Shielding",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "updraft-tome",
+      "name": "Updraft Tome",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "vexing-chant",
+      "name": "Vexing Chant",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "void-quiver",
+      "name": "Void Quiver",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "wind-horn",
+      "name": "Wind Horn",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "artifact",
+      "id": "wonderful-wheat",
+      "name": "Wonderful Wheat",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "anchor",
+      "name": "Anchor",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "melee",
+      "id": "axe",
+      "name": "Axe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "backstabber",
+      "name": "Backstabber",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "battlestaff",
+      "name": "Battlestaff",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "battlestaff-of-terror",
+      "name": "Battlestaff of Terror",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "bee-stinger",
+      "name": "Bee Stinger",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "bone-cudgel",
+      "name": "Bone Cudgel",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "boneclub",
+      "name": "Boneclub",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "bonehead-hammer",
+      "name": "Bonehead Hammer",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "broadsword",
+      "name": "Broadsword",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "broken-sawblade",
+      "name": "Broken Sawblade",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "cackling-broom",
+      "name": "Cackling Broom",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "chill-gale-knife",
+      "name": "Chill Gale Knife",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "claymore",
+      "name": "Claymore",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "coral-blade",
+      "name": "Coral Blade",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "cursed-axe",
+      "name": "Cursed Axe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "cutlass",
+      "name": "Cutlass",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "daggers",
+      "name": "Daggers",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "dancers-sword",
+      "name": "Dancer's Sword",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "dark-katana",
+      "name": "Dark Katana",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "diamond-pickaxe",
+      "name": "Diamond Pickaxe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "diamond-sword",
+      "name": "Diamond Sword",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "double-axe",
+      "name": "Double Axe",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "melee",
+      "id": "encrusted-anchor",
+      "name": "Encrusted Anchor",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "eternal-knife",
+      "name": "Eternal Knife",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "fangs-of-frost",
+      "name": "Fangs of Frost",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "fighters-bindings",
+      "name": "Fighter's Bindings",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "melee",
+      "id": "firebrand",
+      "name": "Firebrand",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "flail",
+      "name": "Flail",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "fortune-spear",
+      "name": "Fortune Spear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "freezing-foil",
+      "name": "Freezing Foil",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "frost-scythe",
+      "name": "Frost Scythe",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "frost-slayer",
+      "name": "Frost Slayer",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "gauntlets",
+      "name": "Gauntlets",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "glaive",
+      "name": "Glaive",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "grave-bane",
+      "name": "Grave Bane",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "great-axeblade",
+      "name": "Great Axeblade",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "great-hammer",
+      "name": "Great Hammer",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "growing-staff",
+      "name": "Growing Staff",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "hammer-of-gravity",
+      "name": "Hammer of Gravity",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "hawkbrand",
+      "name": "Hawkbrand",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "heartstealer",
+      "name": "Heartstealer",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "highland-axe",
+      "name": "Highland Axe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "jailors-scythe",
+      "name": "Jailor's Scythe",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "katana",
+      "name": "Katana",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "mace",
+      "name": "Mace",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "masters-katana",
+      "name": "Master's Katana",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "maulers",
+      "name": "Maulers",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "mechanized-sawblade",
+      "name": "Mechanized Sawblade",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "moon-daggers",
+      "name": "Moon Daggers",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "nameless-blade",
+      "name": "Nameless Blade",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "nightmares-bite",
+      "name": "Nightmare's Bite",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "obsidian-claymore",
+      "name": "Obsidian Claymore",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "pickaxe",
+      "name": "Pickaxe",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "rapier",
+      "name": "Rapier",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "resolute-tempest-knife",
+      "name": "Resolute Tempest Knife",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "sheer-daggers",
+      "name": "Sheer Daggers",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "sickles",
+      "name": "Sickles",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "sinister-sword",
+      "name": "Sinister Sword",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "skull-scythe",
+      "name": "Skull Scythe",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "soul-fists",
+      "name": "Soul Fists",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "soul-knife",
+      "name": "Soul Knife",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "soul-scythe",
+      "name": "Soul Scythe",
+      "runtimeSupport": "full"
+    },
+    {
+      "category": "melee",
+      "id": "sparkler",
+      "name": "Sparkler",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "spear",
+      "name": "Spear",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "spine-chill-spear",
+      "name": "Spine-Chill Spear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "sponge-striker",
+      "name": "Sponge Striker",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "stormlander",
+      "name": "Stormlander",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "suns-grace",
+      "name": "Sun's Grace",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "swift-striker",
+      "name": "Swift Striker",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "sword",
+      "name": "Sword",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "tempest-knife",
+      "name": "Tempest Knife",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "the-beginning-and-the-end",
+      "name": "The Beginning and The End",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "the-last-laugh",
+      "name": "The Last Laugh",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "the-starless-night",
+      "name": "The Starless Night",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "truthseeker",
+      "name": "Truthseeker",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "venom-glaive",
+      "name": "Venom Glaive",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "vine-whip",
+      "name": "Vine Whip",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "void-touched-blades",
+      "name": "Void Touched Blades",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "melee",
+      "id": "whip",
+      "name": "Whip",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "whirlwind",
+      "name": "Whirlwind",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "melee",
+      "id": "whispering-spear",
+      "name": "Whispering Spear",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "ancient-bow",
+      "name": "Ancient Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "auto-crossbow",
+      "name": "Auto Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "azure-seeker",
+      "name": "Azure Seeker",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "baby-crossbows",
+      "name": "Baby Crossbows",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "bonebow",
+      "name": "Bonebow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "bow",
+      "name": "Bow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "bow-of-lost-souls",
+      "name": "Bow of Lost Souls",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "bubble-bow",
+      "name": "Bubble Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "bubble-burster",
+      "name": "Bubble Burster",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "burst-crossbow",
+      "name": "Burst Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "burst-gale-bow",
+      "name": "Burst Gale Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "butterfly-crossbow",
+      "name": "Butterfly Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "call-of-the-void",
+      "name": "Call of the Void",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "cog-crossbow",
+      "name": "Cog Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "corrupted-crossbow",
+      "name": "Corrupted Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "crossbow",
+      "name": "Crossbow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "doom-crossbow",
+      "name": "Doom Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "dual-crossbows",
+      "name": "Dual Crossbows",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "echo-of-the-valley",
+      "name": "Echo of the Valley",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "elite-power-bow",
+      "name": "Elite Power Bow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "exploding-crossbow",
+      "name": "Exploding Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "feral-soul-crossbow",
+      "name": "Feral Soul Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "firebolt-thrower",
+      "name": "Firebolt Thrower",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "gloopy-bow",
+      "name": "Gloopy Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "guardian-bow",
+      "name": "Guardian Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "harp-crossbow",
+      "name": "Harp Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "harpoon-crossbow",
+      "name": "Harpoon Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "haunted-bow",
+      "name": "Haunted Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "heavy-crossbow",
+      "name": "Heavy Crossbow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "hunter-s-promise",
+      "name": "Hunter's Promise",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "hunting-bow",
+      "name": "Hunting Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "imploding-crossbow",
+      "name": "Imploding Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "lightning-harp-crossbow",
+      "name": "Lightning Harp Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "longbow",
+      "name": "Longbow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "love-spell-bow",
+      "name": "Love Spell Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "master-s-bow",
+      "name": "Master's Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "mechanical-shortbow",
+      "name": "Mechanical Shortbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "nautical-crossbow",
+      "name": "Nautical Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "nocturnal-bow",
+      "name": "Nocturnal Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "phantom-bow",
+      "name": "Phantom Bow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "power-bow",
+      "name": "Power Bow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "pride-of-the-piglins",
+      "name": "Pride of the Piglins",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "purple-storm",
+      "name": "Purple Storm",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "rapid-crossbow",
+      "name": "Rapid Crossbow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "red-snake",
+      "name": "Red Snake",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "sabrewing",
+      "name": "Sabrewing",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "scatter-crossbow",
+      "name": "Scatter Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "shadow-crossbow",
+      "name": "Shadow Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "shivering-bow",
+      "name": "Shivering Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "shortbow",
+      "name": "Shortbow",
+      "runtimeSupport": "limited"
+    },
+    {
+      "category": "ranged",
+      "id": "shrieking-crossbow",
+      "name": "Shrieking Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "slayer-crossbow",
+      "name": "Slayer Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "snow-bow",
+      "name": "Snow Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "soul-bow",
+      "name": "Soul Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "soul-crossbow",
+      "name": "Soul Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "soul-hunter-crossbow",
+      "name": "Soul Hunter Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "spellbound-crossbows",
+      "name": "Spellbound Crossbows",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "sugar-rush",
+      "name": "Sugar Rush",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "the-green-menace",
+      "name": "The Green Menace",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "the-pink-scoundrel",
+      "name": "The Pink Scoundrel",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "the-slicer",
+      "name": "The Slicer",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "trickbow",
+      "name": "Trickbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "twin-bow",
+      "name": "Twin Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "twisting-vine-bow",
+      "name": "Twisting Vine Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "veiled-crossbow",
+      "name": "Veiled Crossbow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "void-bow",
+      "name": "Void Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "voidcaller",
+      "name": "Voidcaller",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "webbed-bow",
+      "name": "Webbed Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "weeping-vine-bow",
+      "name": "Weeping Vine Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "wind-bow",
+      "name": "Wind Bow",
+      "runtimeSupport": "unsupported"
+    },
+    {
+      "category": "ranged",
+      "id": "winter-s-touch",
+      "name": "Winter's Touch",
+      "runtimeSupport": "unsupported"
+    }
+  ]
+}

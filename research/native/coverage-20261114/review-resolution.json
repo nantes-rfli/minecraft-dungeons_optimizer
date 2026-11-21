@@ -1,0 +1,96 @@
+{
+  "reviewDate": "2026-11-16",
+  "reviewer": "root integrating reviewer",
+  "originalReviewSha256": "585865d4720030653e3965cca4801915589aa19ab9b1ca352269c725ee654a80",
+  "finalInputs": [
+    {
+      "path": "artifact_probe.py",
+      "sha256": "25ebe43f8248248162d462de9e6f11431e60158220d386ed9d4edf0ae89c06fc"
+    },
+    {
+      "path": "artifact-evidence.json",
+      "sha256": "b170cfa1c95045c6ec7d8a9f724e20b5ce4486ab1334fa9aee13e3e5c6526b1c"
+    },
+    {
+      "path": "artifact-REPORT.md",
+      "sha256": "fb81836031c7ebf60d68d7b2bcfe6fa7f98d3e18cb07bc60bcdb3e544908c069"
+    },
+    {
+      "path": "artifact_replay.py",
+      "sha256": "95cefabcc6f5828caa2fbbb2a66cc8f4eba854d5e877d0db967d3bd3d9336fa6"
+    },
+    {
+      "path": "artifact-replay.json",
+      "sha256": "fdecfe2372bbb885b3918c9fdefc65d63b4c83f52269d55b740690639fa32f1d"
+    },
+    {
+      "path": "chains-evidence.json",
+      "sha256": "c5c31e08e081e9dbbe8b856ff6dca1f388213381901653ffa774e44905124a91"
+    },
+    {
+      "path": "chains-raw-review.json",
+      "sha256": "4e83e0a5c55ca67306ec4681545cd9e0cfa048806ce8dfee2bb02e4e850ee5a6"
+    },
+    {
+      "path": "armor-evidence.json",
+      "sha256": "0a2314658c7c2f5d40467d91eebf22992d851f8dd5fc99f66a9c892270674938"
+    },
+    {
+      "path": "armor-replay.json",
+      "sha256": "2ff1b8e2f2e6da17ed29a8768bb67e41ae14416f43e6f19d1a5d54228f163fa6"
+    }
+  ],
+  "artifactFindingsResolved": [
+    "A1",
+    "A2"
+  ],
+  "spanChecks": [
+    {
+      "reviewRole": "callback-load-and-tail",
+      "finalRole": "power-callback-functor",
+      "startRva": "0xa7a3a0",
+      "endRvaExclusive": "0xa7a3ab",
+      "sha256": "202f66b452eb58215e5bc92248ed0027ff4060687d83cffc611fb7bc1a357384",
+      "matchedIndependentSpan": true
+    },
+    {
+      "reviewRole": "builder-ctor-call",
+      "finalRole": "type-builder-call",
+      "startRva": "0xb65089",
+      "endRvaExclusive": "0xb65094",
+      "sha256": "ada12bc2b1b2853eab4731b210e211cf46fc140755f7a60d5b3b1f19684a06b4",
+      "matchedIndependentSpan": true
+    },
+    {
+      "reviewRole": "type-ctor-prolog",
+      "finalRole": "type-constructor-prologue",
+      "startRva": "0xb1b390",
+      "endRvaExclusive": "0xb1b3c9",
+      "sha256": "be3af53b45266d6e0a4a83a7e48b05de9569958df450751c1ef8409ad5c1227d",
+      "matchedIndependentSpan": true
+    },
+    {
+      "reviewRole": "type-cooldown-duration-store",
+      "finalRole": "type-constructor-cooldown-duration-store",
+      "startRva": "0xb1b5ab",
+      "endRvaExclusive": "0xb1b5cb",
+      "sha256": "786bc9374919d6ac8d47ecd9cebf5c94e5f94da3a5dbdb747e10ff2c3da963f9",
+      "matchedIndependentSpan": true
+    }
+  ],
+  "replayComparison": {
+    "artifactComparisons": 2219,
+    "armorComparisons": 1288,
+    "separatelyWrittenChainsBranchCases": 11,
+    "totalComparisons": 3518,
+    "mismatches": 0,
+    "authorReplayResultsReproducedExactly": true
+  },
+  "scope": [
+    "Original independent review refers to its historical input hashes; preserved without rewriting.",
+    "A1/A2 resolution checked against the independent reviewer spans; complete callback tail and constructor stack/object transport now retained.",
+    "Artifact and Armor author harnesses rerun by parent; these reruns are reproduction, not a second mathematical implementation.",
+    "Chains branch harness was independently authored; original raw IDs reparsed and numeric fields checked.",
+    "No full game query/activation, external gameplay oracle, R3 holdout or Adoption acceptance is established."
+  ]
+}

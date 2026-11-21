@@ -51,7 +51,7 @@ describe('observed Frost Scythe and Skull Scythe', () => {
     const source = structuredClone(FREEZING_OBSERVED_MELEE_COMBO_SOURCE)
     source.rows[0]!.soul.baseSoulGathering = 2
     expect(fixedObservedMeleeComboIsEligible('frost-scythe', { freezingSource: source })).toBe(false)
-    for (const id of ['fangs-of-frost', 'freezing-foil', 'chill-gale-knife', 'jailors-scythe']) expect(fixedObservedMeleeComboIsEligible(id)).toBe(false)
+    for (const id of ['fangs-of-frost', 'freezing-foil', 'chill-gale-knife', 'cursed-axe']) expect(fixedObservedMeleeComboIsEligible(id)).toBe(false)
   })
 
   it('combines the owned Soul Gathering with the existing Anima Conduit pickup-healing channel', () => {

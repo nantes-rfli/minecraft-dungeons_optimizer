@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "scope": "existing local Boots package metadata only",
+  "records": [
+    {
+      "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance",
+      "files": [
+        {
+          "extension": "uasset",
+          "size": 3031,
+          "sha256": "c46ec372c2d7d09f9ad8356af58da32871caca0328532c67adda2fa21e1bdf6d"
+        },
+        {
+          "extension": "uexp",
+          "size": 556,
+          "sha256": "b4441d73c8b449cb806368d1e6200119939f45157577664b7f3d5d11af79577f"
+        }
+      ],
+      "diagnostics": [],
+      "exports": [
+        {
+          "name": "BP_BootsOfSwiftnessInstance_C",
+          "super": {
+            "rawPackageIndex": -8,
+            "kind": "import",
+            "index": 7,
+            "objectName": "BootsOfSwiftnessInstance",
+            "className": "Class"
+          },
+          "template": {
+            "rawPackageIndex": -3,
+            "kind": "import",
+            "index": 2,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        {
+          "name": "Default__BP_BootsOfSwiftnessInstance_C",
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -4,
+            "kind": "import",
+            "index": 3,
+            "objectName": "Default__BootsOfSwiftnessInstance",
+            "className": "BootsOfSwiftnessInstance"
+          }
+        }
+      ],
+      "cdoProperties": [
+        {
+          "name": "Default__BP_BootsOfSwiftnessInstance_C",
+          "termination": "terminated",
+          "unparsedByteRanges": [],
+          "propertyNames": [
+            "Effect",
+            "InventoryDropSound",
+            "ItemIdName",
+            "ItemId",
+            "RootComponent"
+          ],
+          "selectedProperties": [
+            {
+              "name": "Effect",
+              "type": "ObjectProperty",
+              "value": {
+                "rawPackageIndex": -1,
+                "kind": "import",
+                "index": 0,
+                "objectName": "BP_BootsOfSwiftnessGameplayEffect_C",
+                "className": "BlueprintGeneratedClass"
+              }
+            },
+            {
+              "name": "ItemIdName",
+              "type": "NameProperty",
+              "value": "BootsOfSwiftness"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packagePath": "Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect",
+      "files": [
+        {
+          "extension": "uasset",
+          "size": 1542,
+          "sha256": "9eead4c5cf4c3625fc6d5bbf3d42f79e550a77e9cf2728e85f3caeaf54aecc00"
+        },
+        {
+          "extension": "uexp",
+          "size": 129,
+          "sha256": "f687377ae42debf844640348a0bbaf3719cfac094f77a58f149fdab7a5b91818"
+        }
+      ],
+      "diagnostics": [],
+      "exports": [
+        {
+          "name": "BP_BootsOfSwiftnessGameplayEffect_C",
+          "super": {
+            "rawPackageIndex": -6,
+            "kind": "import",
+            "index": 5,
+            "objectName": "BootsOfSwiftnessGameplayEffect",
+            "className": "Class"
+          },
+          "template": {
+            "rawPackageIndex": -2,
+            "kind": "import",
+            "index": 1,
+            "objectName": "Default__BlueprintGeneratedClass",
+            "className": "BlueprintGeneratedClass"
+          }
+        },
+        {
+          "name": "Default__BP_BootsOfSwiftnessGameplayEffect_C",
+          "super": {
+            "rawPackageIndex": 0,
+            "kind": "null"
+          },
+          "template": {
+            "rawPackageIndex": -3,
+            "kind": "import",
+            "index": 2,
+            "objectName": "Default__BootsOfSwiftnessGameplayEffect",
+            "className": "BootsOfSwiftnessGameplayEffect"
+          }
+        }
+      ],
+      "cdoProperties": [
+        {
+          "name": "Default__BP_BootsOfSwiftnessGameplayEffect_C",
+          "termination": "terminated",
+          "unparsedByteRanges": [],
+          "propertyNames": [
+            "UIData"
+          ],
+          "selectedProperties": [
+            {
+              "name": "UIData",
+              "type": "ObjectProperty",
+              "value": {
+                "rawPackageIndex": 3,
+                "kind": "export",
+                "index": 2,
+                "objectName": "BP_SwiftnessUIData_C_0",
+                "className": "BP_SwiftnessUIData_C"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

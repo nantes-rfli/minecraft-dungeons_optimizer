@@ -31,6 +31,7 @@ Artifacts · Audited source population 45 · Catalog runtime 3 / 45 · Full 2 ·
 詳細な対応範囲と制約:
 
 - [Melee runtime support](./docs/melee-runtime-support.md)
+- [Flail / Jailor’s Scytheの孤立条件付きChains](./docs/observed-isolated-chains-reuse.md)
 - [Armor runtime support](./docs/armor-runtime-support.md)
 - [Ranged runtime](./docs/ranged-runtime.md)
 - [Artifact runtime support](./docs/artifact-runtime-support.md)

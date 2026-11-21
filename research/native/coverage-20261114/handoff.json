@@ -1,0 +1,99 @@
+{
+  "baselineCommit": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "completedDate": "2026-11-16",
+  "researchOnly": true,
+  "runtimeCatalog": {
+    "melee": {
+      "total": 82,
+      "supported": 35
+    },
+    "ranged": {
+      "total": 71,
+      "supported": 11
+    },
+    "armor": {
+      "total": 73,
+      "supported": 13
+    },
+    "artifact": {
+      "total": 45,
+      "supported": 3
+    }
+  },
+  "newFullItemReadyCount": 0,
+  "newRuntimeSupportedCount": 0,
+  "newPromotions": 0,
+  "affectedUnsupportedCandidateCount": 21,
+  "countsMeaning": "Affected candidate cohort, not guaranteed unlock or complete per-item effective behavior.",
+  "cohorts": {
+    "artifact-duration-class": {
+      "category": "artifact",
+      "ids": [
+        "boots-of-swiftness",
+        "enchanters-tome",
+        "gong-of-weakening",
+        "shadow-shifter",
+        "totem-of-shielding"
+      ],
+      "status": "PARTIAL"
+    },
+    "armor-arrow-bundle": {
+      "category": "armor",
+      "ids": [
+        "archer-s-armor",
+        "guard-s-armor",
+        "hunter-s-armor"
+      ],
+      "status": "PARTIAL"
+    },
+    "armor-hit-negation": {
+      "category": "armor",
+      "ids": [
+        "arctic-fox-armor",
+        "cauldron-armor",
+        "cloaked-skull",
+        "fox-armor",
+        "full-metal-armor",
+        "ghost-kindler",
+        "ghostly-armor",
+        "plate-armor",
+        "reinforced-mail",
+        "souldancer-robe",
+        "stalwart-armor"
+      ],
+      "status": "PARTIAL"
+    },
+    "melee-chains": {
+      "category": "melee",
+      "ids": [
+        "flail",
+        "jailors-scythe"
+      ],
+      "status": "PARTIAL"
+    }
+  },
+  "readyFoundations": [
+    "explicit-input Artifact duration and candidate cooldown arithmetic",
+    "arrow bonus emission suppression and historical ammo conversion",
+    "explicit-input MissChance RNG and cancellation comparison",
+    "Chains no-other-eligible-candidate no-application branch"
+  ],
+  "nextWorkUnit": {
+    "title": "Review the two target identities, fixed Chains class bridge and explicit isolated-target contract",
+    "ids": [
+      "flail",
+      "jailors-scythe"
+    ],
+    "firstRequiredGate": "Independent evidence/adoption and class bridge review before runtime implementation"
+  },
+  "blockedClaims": [
+    "authenticated exact Raw/exe build identity",
+    "whole live-game equivalence without live state/FP evidence",
+    "existing DR independent raw holdouts absent from retained material"
+  ],
+  "runtimePromotionSummary": {
+    "candidates": 1,
+    "eligible": 0,
+    "promoted": 0
+  }
+}

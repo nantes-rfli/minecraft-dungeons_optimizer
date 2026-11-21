@@ -3544,12 +3544,16 @@
       "id": "melee-weapon:Mace_Unique2",
       "rawIdentity": "Mace_Unique2",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:flail"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3aflail"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance"
       ],
@@ -3560,7 +3564,8 @@
         "bulk-bp-mace-unique2-instance-921356c075e8c22c",
         "bulk-bp-mace-unique2-instance-aeb7d34cd54461b5",
         "bulk-bp-mace-unique2-instance-d734db77071bc8be"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:flail"
     },
     {
       "id": "melee-weapon:ObsidianClaymore",
@@ -4025,12 +4030,16 @@
       "id": "melee-weapon:SoulScythe_Unique1",
       "rawIdentity": "SoulScythe_Unique1",
       "category": "melee-weapon",
-      "status": "unresolved",
-      "candidates": [],
-      "basis": "Variant identity retained separately; no reviewed base-equivalence evidence.",
-      "confidence": "unknown",
+      "status": "accepted",
+      "candidates": [
+        "melee-weapon:jailors-scythe"
+      ],
+      "basis": "serialized-item-id + reviewed-exact-localization-key + catalog-category-evidence",
+      "confidence": "high",
       "variant": "unique-variant",
-      "evidenceIds": [],
+      "evidenceIds": [
+        "melee-weapon:https-minecraft-wiki-w-dungeons-3ajailor-27s-scythe"
+      ],
       "assetPaths": [
         "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance"
       ],
@@ -4039,7 +4048,8 @@
         "bulk-bp-soul-scythe-unique1-instance-8d07e4205f6d8450",
         "bulk-bp-soul-scythe-unique1-instance-9e379e2ef6eadeeb",
         "bulk-bp-soul-scythe-unique1-instance-b7b7ec3bf6663cca"
-      ]
+      ],
+      "canonicalEntity": "melee-weapon:jailors-scythe"
     },
     {
       "id": "melee-weapon:SoulScythe_Unique2",

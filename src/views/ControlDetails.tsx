@@ -1,4 +1,5 @@
 import type { Evaluation, Scenario, CrowdControlAssumptions, ControlPolicyWeights } from '../core/types'
+import { CHAINS_ISOLATION_REQUIREMENT } from '../core/isolatedChainsReuse'
 import { describeControl } from '../core/control'
 
 const percent = (value: number) => `${(value * 100).toFixed(2)}%`
@@ -36,8 +37,23 @@ const POLICIES = [
 export function ControlSettings({ scenario, onChange }: { scenario: Scenario; onChange: (scenario: Scenario) => void }) {
   const assumptions = scenario.crowdControl
   const changeAssumption = (key: keyof CrowdControlAssumptions, value: number) => onChange({ ...scenario, crowdControl: { ...assumptions, [key]: value } })
+  const isolation = assumptions.chainsIsolation?.encounterDurationSeconds === scenario.encounterDurationSeconds ? assumptions.chainsIsolation : undefined
+  const confirmIsolation = (key: 'noOtherEligibleCandidates' | 'initiallyUnchained', value: string) => {
+    const next = { ...isolation, encounterDurationSeconds: scenario.encounterDurationSeconds, [key]: value === 'unknown' ? undefined : value === 'true' }
+    onChange({ ...scenario, crowdControl: { ...assumptions, chainsIsolation: next } })
+  }
   return <details className="scenario-values">
     <summary>詳細設定 / Controlの仮定と評価方針</summary>
+    <fieldset>
+      <legend>Flail / Jailor’s Scytheの孤立条件</legend>
+      <p>{CHAINS_ISOLATION_REQUIREMENT} 距離や平均敵数から自動判定しません。敵・味方・召喚物を含む候補や、途中で入ってくる候補が不明なら未確認を選んでください。</p>
+      {([['noOtherEligibleCandidates', 'Chains 孤立条件（全評価期間）'], ['initiallyUnchained', '開始時のChains状態なし']] as const).map(([key, label]) => <label key={key}>
+        <span>{label}</span><select aria-label={label} value={isolation?.[key] === undefined ? 'unknown' : String(isolation[key])} onChange={(event) => confirmIsolation(key, event.target.value)}>
+          <option value="unknown">未確認</option><option value="true">確認済み・条件を満たす</option><option value="false">条件を満たさない</option>
+        </select>
+      </label>)}
+      <small>現在の評価時間 {scenario.encounterDurationSeconds} 秒に対する確認です。評価時間を変えたら両条件を確認し直してください。</small>
+    </fieldset>
     <p>適用割合は免疫などをまとめた対象・時間の仮定です。初期値は共通50%、bossのStunningとShock Powderのみ0%。powerful mobとApocalypse+の耐性は未確定です。</p>
     {SHARES.map(([key, label]) => {
       const value = assumptions[key] ?? (key === 'snowballEligibleTargetShare' && scenario.profileId === 'boss' ? 0 : 1)

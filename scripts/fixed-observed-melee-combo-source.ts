@@ -1,3 +1,4 @@
+import { verifyIsolatedChainsSourceProof } from './isolated-chains-source.ts'
 import assert from 'node:assert/strict'
 import crypto from 'node:crypto'
 import fs from 'node:fs'
@@ -10,6 +11,7 @@ import freezingSource from '../research/sources/observed-freezing-scythes.json' 
 import poisonCloudSource from '../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import weakeningSource from '../research/sources/observed-weakening-blade.json' with { type: 'json' }
 import committedSource from '../research/sources/observed-committed-knife.json' with { type: 'json' }
+import chainsSource from '../research/sources/observed-isolated-chains.json' with { type: 'json' }
 import soulSiphonSource from '../research/sources/observed-soul-siphon-knife.json' with { type: 'json' }
 import { GREAT_HAMMER_LOCALIZATION_SOURCE, parseLocresV2 } from './locres-identity-source.ts'
 import type { RawStructuralInventoryManifest, RawStructuralInventoryShard } from './game-data-raw-structural-inventory.ts'
@@ -18,13 +20,14 @@ const sha256 = (bytes: Buffer) => crypto.createHash('sha256').update(bytes).dige
 const directory = 'research/raw/game-data-raw-structural-inventory'
 const disabledObject = { rawPackageIndex: 0, kind: 'null' }
 
-const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows, ...poisonCloudSource.rows, ...weakeningSource.rows, ...committedSource.rows, ...soulSiphonSource.rows]
+const fixedRows = [...source.rows, ...sharpnessSource.rows, ...radianceSource.rows, ...freezingSource.rows, ...poisonCloudSource.rows, ...weakeningSource.rows, ...committedSource.rows, ...soulSiphonSource.rows, ...chainsSource.rows]
 export const fixedComboLocalizationBridges = fixedRows.flatMap((row) => row.localization ? [{
   category: 'melee-weapon' as const, domainId: row.id, rawIdentity: row.rawIdentity,
   packagePath: row.packagePath, displayName: row.calculatorRow.name, localization: row.localization,
 }] : [])
 
 export function verifyFixedObservedComboSources(repositoryRoot: string): void {
+  verifyIsolatedChainsSourceProof(repositoryRoot)
   const expectedLocalization = Object.fromEntries(Object.entries(GREAT_HAMMER_LOCALIZATION_SOURCE).filter(([key]) => key !== 'bridge'))
   assert.deepEqual(source.localizationSource, expectedLocalization)
   assert.deepEqual(sharpnessSource.localizationSource, expectedLocalization)
@@ -34,12 +37,14 @@ export function verifyFixedObservedComboSources(repositoryRoot: string): void {
   assert.deepEqual(weakeningSource.localizationSource, expectedLocalization)
   assert.deepEqual(committedSource.localizationSource, expectedLocalization)
   assert.deepEqual(soulSiphonSource.localizationSource, expectedLocalization)
+  assert.deepEqual(chainsSource.localizationSource, expectedLocalization)
   assert.deepEqual(fixedComboLocalizationBridges.map(({ domainId, rawIdentity }) => [domainId, rawIdentity]), [
     ['cackling-broom', 'Glaive_Spooky2'], ['dark-katana', 'Katana_Unique2'],
     ['grave-bane', 'Glaive_Unique1'], ['hawkbrand', 'Sword_Unique2'], ['diamond-sword', 'Sword_Unique1'], ['suns-grace', 'Mace_Unique1'],
     ['frost-scythe', 'SoulScythe_Unique2'], ['skull-scythe', 'SoulScythe_Spooky2'],
     ['nightmares-bite', 'Sickles_Unique1'], ['venom-glaive', 'Glaive_Unique2'],
     ['nameless-blade', 'Cutlass_Unique1'], ['truthseeker', 'SoulKnife_Unique1'], ['eternal-knife', 'SoulKnife_Unique2'],
+    ['flail', 'Mace_Unique2'], ['jailors-scythe', 'SoulScythe_Unique1'],
   ])
   for (const { domainId, localization, rawIdentity, displayName } of fixedComboLocalizationBridges) {
     assert.equal(localization.namespace, 'ItemType')
