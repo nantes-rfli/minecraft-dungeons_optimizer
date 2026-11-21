@@ -1,0 +1,69 @@
+{
+  "reviewer": "/root/chains_source_review",
+  "role": "independent read-only source reviewer; did not implement runtime",
+  "baseline": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "subject": "Flail/Jailor fixed Chains I source bridge and conditional no-application scope",
+  "reviewedArtifacts": [
+    {
+      "path": "research/native/coverage-integration-20261121/verify_chains_dispatch.py",
+      "sha256": "f5f28e46f4102e674e6042ccefe1e17db3d24bcc5c97fcfb05a5f3e1550de84a"
+    },
+    {
+      "path": "research/native/coverage-integration-20261121/chains-dispatch-proof.json",
+      "sha256": "f99d5b449276b2db728dcf26612eeaf7a343768493c5ce9b90f4ffc3797da6df"
+    }
+  ],
+  "independentChecks": {
+    "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+    "registrySha256": "ce74ac3a7c7b348fc1a3b1dc20626a2e9a68764edb4ed97e80607333a69c3a67",
+    "registryParser": "separately written bounded Reader; GUID/version/name table and full asset data plus empty tails verified",
+    "assetRegistryVersion": 6,
+    "registryNameCount": 146784,
+    "registryAssetCount": 49397,
+    "bpChainsMatchesCaseInsensitive": 1,
+    "blueprints": [
+      {
+        "package": "Dungeons/Content/Components/Enchantments/Chains/BP_Chains",
+        "sha256": [
+          "40c664a4044cdda71fa8bded1ecc20b377ba32348820457c07588cf298e4cbca",
+          "c95009074990f8b2f3aa425362ff6b6e77990890ecaeecdb75b17e35ac0bd5ed"
+        ],
+        "functionExports": 0,
+        "cdoPropertyNames": [
+          "Effect"
+        ],
+        "diagnostics": 0
+      },
+      {
+        "package": "Dungeons/Content/Components/Enchantments/Chains/BP_ChainsGameplayEffect",
+        "sha256": [
+          "a7c39f580c726e46afc643d21daa89ac4be43d8a5e5099ac477dad38f0460c52",
+          "f687377ae42debf844640348a0bbaf3719cfac094f77a58f149fdab7a5b91818"
+        ],
+        "functionExports": 0,
+        "cdoPropertyNames": [
+          "UIData"
+        ],
+        "diagnostics": 0
+      }
+    ],
+    "nativeChecker": "reexecuted successfully and compared exact saved metadata; 29 spans, 26 calls, 8 pointers",
+    "branchReplayCases": 11,
+    "branchReplayMismatches": 0
+  },
+  "verdict": "source bridge supports finite Limited reuse under all required conditions; not an independent gameplay oracle or R3 acceptance",
+  "requiredRuntimeConditions": [
+    "only flail/Mace_Unique2 and jailors-scythe/SoulScythe_Unique1; owned Chains I exactly once",
+    "explicit no-other-eligible-query-candidates throughout the whole evaluation interval; unknown or false rejected; averageTargetsInReach=1 alone insufficient",
+    "initial Chains state absent",
+    "single-target complete own current-Power combo observation at base cadence; existing Soul and modifier boundaries",
+    "structural no-application-call result, bypassing general Chains duration/proc arithmetic; do not assert visual cue absence",
+    "source drift/version mismatch/missing class binding fails closed; class-null fallback never used to claim eligible Chains support"
+  ],
+  "limits": [
+    "same pinned Native and local Raw/registry/cfg; official authenticity and exact Raw/exe build equivalence unverified",
+    "static loader/dispatch relations only; no world query, engine load, gameplay or full live activation executed",
+    "independent final-head code/test review remains required before merge"
+  ],
+  "findings": []
+}

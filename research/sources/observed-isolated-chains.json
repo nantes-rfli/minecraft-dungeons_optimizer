@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "calculatorSource": {
+    "url": "https://www.dungeons.tools/damage-calculator",
+    "htmlSha256": "8d9a17c330fb5b430c38522f23cc489e37108f62cb570bf100527bdfadebfdee"
+  },
+  "localizationSource": {
+    "schemaVersion": 1,
+    "kind": "reviewed-exact-localization-identity-bridge",
+    "gameVersion": "1.17.0.0",
+    "versionBasis": "Existing local QuickBMS 1.17.0.0 input claim; official authenticity is not independently verified.",
+    "source": {
+      "relativePath": "Dungeons/Content/Localization/Game/en/Game.locres",
+      "sha256": "ad2c5866665bc87a6267b234a9cc5c373c5f4376f230abfe3638826134d7b5f6",
+      "size": 391734,
+      "formatVersion": 2,
+      "namespaceCount": 185,
+      "entryCount": 5151,
+      "localizedStringCount": 4521,
+      "localizedStringArrayOffset": 191902
+    },
+    "scope": "Identity only. Exact ItemType key joins both Raw serialized identity fields to the independent canonical display name; no slug, icon, sound-name or family inference. No gameplay value, timing, effect, or Runtime Promotion is granted.",
+    "privatePayloadCommitted": false
+  },
+  "rows": [
+    {
+      "id": "flail",
+      "rawIdentity": "Mace_Unique2",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+      "calculatorRow": {
+        "slug": "flail",
+        "name": "Flail",
+        "type": "melee",
+        "route": "/weapons/flail",
+        "power": 8.405,
+        "speed": 1.905,
+        "area": 3.209,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_Mace_Unique2_Icon.png",
+        "builtIn": [
+          "Chains"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/flail",
+      "intrinsicFacts": [
+        "Binds and chains enemies"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AFlail",
+      "hitDurationsSeconds": [
+        0.44,
+        0.44,
+        0.77
+      ],
+      "publishedBaseDamage": [
+        81,
+        81,
+        175
+      ],
+      "rawSource": {
+        "shard": "shards/part-018.json.gz",
+        "sha256": "758800e77f48865195b963b33dc9e50faccd0048b1b85b939cc3b81e181e85c2",
+        "packageIndex": 33
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "Mace_Unique2",
+        "sourceStringHash": 768486221,
+        "localizedStringIndex": 2934,
+        "entryRange": [
+          123879,
+          123908
+        ],
+        "value": "Flail",
+        "localizedStringRecordRange": [
+          316415,
+          316429
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "chains",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AFlail",
+        "tierSourceRef": "research/native/coverage-20261114/chains-evidence.json#/items/0/fixedRecord"
+      }
+    },
+    {
+      "id": "jailors-scythe",
+      "rawIdentity": "SoulScythe_Unique1",
+      "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+      "calculatorRow": {
+        "slug": "jailor-s-scythe",
+        "name": "Jailor's Scythe",
+        "type": "melee",
+        "route": "/weapons/jailor-s-scythe",
+        "power": 6.915,
+        "speed": 2.646,
+        "area": 9.425,
+        "isUnique": true,
+        "rarity": "Unique",
+        "pack": "Base Game",
+        "icon": "/images/items/T_SoulScythe_Unique1_Icon.png",
+        "builtIn": [
+          "Chains"
+        ]
+      },
+      "sourceUrl": "https://www.dungeons.tools/weapons/jailor-s-scythe",
+      "intrinsicFacts": [
+        "Binds and chains enemies",
+        "+1 Soul gathering"
+      ],
+      "wikiTimingSource": "https://minecraft.wiki/w/Dungeons%3AJailor%27s_Scythe",
+      "hitDurationsSeconds": [
+        0.48,
+        0.56
+      ],
+      "publishedBaseDamage": [
+        80,
+        80
+      ],
+      "rawSource": {
+        "shard": "shards/part-020.json.gz",
+        "sha256": "1d0da96d923350b68d585e10566690622017ca7c9f4511e9278ea11ea9d16a09",
+        "packageIndex": 13
+      },
+      "localization": {
+        "namespace": "ItemType",
+        "key": "SoulScythe_Unique1",
+        "sourceStringHash": 975877222,
+        "localizedStringIndex": 3063,
+        "entryRange": [
+          128497,
+          128532
+        ],
+        "value": "Jailor's Scythe",
+        "localizedStringRecordRange": [
+          321961,
+          321985
+        ]
+      },
+      "fixed": {
+        "enchantmentId": "chains",
+        "tier": 1,
+        "tierSourceUrl": "https://minecraft.wiki/w/Dungeons%3AJailor%27s_Scythe",
+        "tierSourceRef": "research/native/coverage-20261114/chains-evidence.json#/items/1/fixedRecord"
+      },
+      "soul": {
+        "acceptsSoulEnchantments": true,
+        "baseSoulGathering": 1
+      }
+    }
+  ],
+  "nativeProofRef": "research/native/coverage-integration-20261121/chains-dispatch-proof.json",
+  "nativeProofSha256": "f99d5b449276b2db728dcf26612eeaf7a343768493c5ce9b90f4ffc3797da6df"
+}

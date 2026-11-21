@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "manifestSha256": "0a2314658c7c2f5d40467d91eebf22992d851f8dd5fc99f66a9c892270674938",
+  "checkerSha256": "f8ae7292890698fc364b8abe36f4fc1d8412db4a99ede5e9569aa222a2237c1a",
+  "nativeSpans": 22,
+  "rawFiles": 4,
+  "replay": {
+    "mode": "isolated native instruction slices; synthetic explicit state; no game observation",
+    "mxcsr": "0x1f80",
+    "unicornVersion": "2.1.4",
+    "cases": {
+      "missChanceCases": 1068,
+      "ammoConversionCases": 216,
+      "recursionFlagCases": 4
+    },
+    "mismatches": 0,
+    "thresholdControls": [
+      {
+        "seed": 2526741217,
+        "chanceBits": "3e99999a",
+        "nextState": 0,
+        "cancel": true
+      },
+      {
+        "seed": 3119624446,
+        "chanceBits": "3e99999a",
+        "nextState": 1,
+        "cancel": true
+      },
+      {
+        "seed": 3917169234,
+        "chanceBits": "3e99999a",
+        "nextState": 2516581,
+        "cancel": true
+      },
+      {
+        "seed": 215085167,
+        "chanceBits": "3e99999a",
+        "nextState": 2516582,
+        "cancel": true
+      },
+      {
+        "seed": 807968396,
+        "chanceBits": "3e99999a",
+        "nextState": 2516583,
+        "cancel": false
+      },
+      {
+        "seed": 1584244391,
+        "chanceBits": "3e99999a",
+        "nextState": 8388606,
+        "cancel": false
+      },
+      {
+        "seed": 2177127620,
+        "chanceBits": "3e99999a",
+        "nextState": 8388607,
+        "cancel": false
+      }
+    ],
+    "limitations": [
+      "eligibility helper not executed",
+      "RNG origin unknown",
+      "no full component dispatch",
+      "no full ammo grant",
+      "no gameplay oracle"
+    ]
+  }
+}

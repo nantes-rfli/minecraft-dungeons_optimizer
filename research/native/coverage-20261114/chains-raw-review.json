@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "evidenceSha256": "c5c31e08e081e9dbbe8b856ff6dca1f388213381901653ffa774e44905124a91",
+  "checks": {
+    "rawFiles": 4,
+    "rawNumericFields": 10,
+    "parsedIdentityFields": 4
+  },
+  "items": [
+    {
+      "id": "flail",
+      "rawIdentity": "Mace_Unique2",
+      "sourceFiles": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uasset",
+          "size": 5370,
+          "sha256": "410d5632a887f51f171c277209232769ce489e311b4f1cd3f9793dd4dcac70fe"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+          "size": 4370,
+          "sha256": "4077cfcf99e7648b2666a9796ebfa51ff394b2675d67e3824aade19083e81e51"
+        }
+      ],
+      "parsedIdentity": [
+        {
+          "path": "ItemIdName",
+          "value": "Mace_Unique2",
+          "valueByteRange": {
+            "start": 3998,
+            "end": 4006
+          }
+        },
+        {
+          "path": "ItemId.SerializedId",
+          "value": "Mace_Unique2",
+          "valueByteRange": {
+            "start": 4080,
+            "end": 4088
+          }
+        }
+      ]
+    },
+    {
+      "id": "jailors-scythe",
+      "rawIdentity": "SoulScythe_Unique1",
+      "sourceFiles": [
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uasset",
+          "size": 5208,
+          "sha256": "1cfdf697357c19e8bcab631c4dd8cb167a6b9551a43ae3c6fed25d4f112eb2fd"
+        },
+        {
+          "path": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+          "size": 3100,
+          "sha256": "47723c6bd3faa20ad04c09b6ebf2a143d3d4056442e9dc97fea29e849e727073"
+        }
+      ],
+      "parsedIdentity": [
+        {
+          "path": "ItemIdName",
+          "value": "SoulScythe_Unique1",
+          "valueByteRange": {
+            "start": 2740,
+            "end": 2748
+          }
+        },
+        {
+          "path": "ItemId.SerializedId",
+          "value": "SoulScythe_Unique1",
+          "valueByteRange": {
+            "start": 2822,
+            "end": 2830
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Original-file SHA/size, reparsed own serialized identities, and damage/timing byte comparison. Native string/call semantics reviewed separately. No gameplay, Formal adoption or Runtime Promotion."
+}

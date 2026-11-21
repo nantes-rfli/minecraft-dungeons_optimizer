@@ -4,6 +4,7 @@ import freezingComboSource from '../../../research/sources/observed-freezing-scy
 import poisonCloudComboSource from '../../../research/sources/observed-poison-cloud-melee.json' with { type: 'json' }
 import weakeningComboSource from '../../../research/sources/observed-weakening-blade.json' with { type: 'json' }
 import committedComboSource from '../../../research/sources/observed-committed-knife.json' with { type: 'json' }
+import chainsComboSource from '../../../research/sources/observed-isolated-chains.json' with { type: 'json' }
 import soulSiphonComboSource from '../../../research/sources/observed-soul-siphon-knife.json' with { type: 'json' }
 import fixedPowerBowSource from '../../../research/sources/observed-fixed-power-bows.json' with { type: 'json' }
 import fixedRapidFireSource from '../../../research/sources/observed-rapid-fire-variants.json' with { type: 'json' }
@@ -459,6 +460,19 @@ export const soulSiphonComboLocalizationFormalIdentities = soulSiphonComboSource
   }
 })
 
+export const chainsComboLocalizationFormalIdentities = chainsComboSource.rows.map((row) => {
+  const base = acceptedMeleeDefinition({ domainId: row.id, rawIdentity: row.rawIdentity, packagePath: row.packagePath, displayName: row.calculatorRow.name })
+  const ref = `evidence:reviewed:${row.id}:exact-localization-key`
+  return {
+    ...base,
+    assertion: { ...base.assertion, evidenceRefs: [...base.assertion.evidenceRefs, ref] },
+    reviewedEvidence: [...base.reviewedEvidence, { id: ref, kind: 'reviewed' as const, role: 'support' as const,
+      detail: `Hash-bound ItemType/${row.rawIdentity} reads ${row.localization.value}. Published display name: ${row.calculatorRow.name}. Both Raw serialized identifiers are required.`,
+      source: { artifactPath: 'research/sources/observed-isolated-chains.json', locator: `rows[id=${row.id}].localization` },
+    }],
+  }
+})
+
 const scatterPackage = 'Dungeons/Content/Actors/Equipment/RangedWeapons/ScatterCrossbow/BP_ScatterCrossbowInstance'
 export const scatterCrossbowFormalIdentity = definition(
   {
@@ -780,6 +794,7 @@ export const formalIdentityDefinitions: readonly FormalIdentityDefinition[] = [
   ...weakeningComboLocalizationFormalIdentities,
   ...committedComboLocalizationFormalIdentities,
   ...soulSiphonComboLocalizationFormalIdentities,
+  ...chainsComboLocalizationFormalIdentities,
 ]
 
 export const READY_ARTIFACT_EFFECT_DOMAINS = [

@@ -536,6 +536,13 @@ export interface ControlPolicyWeights {
 }
 
 export interface CrowdControlAssumptions {
+  /** User-confirmed scope, never inferred from target averages. Missing is unknown.
+   * A changed interval invalidates both confirmations until re-entered. */
+  readonly chainsIsolation?: {
+    readonly encounterDurationSeconds: number
+    readonly noOtherEligibleCandidates?: boolean
+    readonly initiallyUnchained?: boolean
+  }
   readonly stunningEligibleTargetShare: number
   readonly chainsEligibleTargetShare: number
   readonly freezingEligibleTargetShare: number
@@ -603,6 +610,12 @@ export interface ControlMetrics {
   readonly groupingCoverage: number
   readonly stunning?: StunningState
   readonly freezing?: FreezingState
+  readonly chainsNoApplication?: {
+    readonly state: 'no-application-call'
+    readonly source: 'built-in'
+    readonly tier: 1
+    readonly encounterDurationSeconds: number
+  }
   readonly chains?: ChainsState
   readonly gravity?: GravityState
   readonly shockPowder?: ShockPowderControlState

@@ -1,0 +1,178 @@
+{
+  "kind": "independent-conditional-instruction-review",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "nativeSpans": [
+    {
+      "role": "selected-neighbor guard and primary append",
+      "startRva": "0xa66bc0",
+      "endRvaExclusive": "0xa66c60",
+      "sha256": "fbe76493195017add4c9cc0f1ef0a4017a9936b64c0adc8dc22dcafaccc5135b"
+    },
+    {
+      "role": "query excludes primary and checks predicate/distance",
+      "startRva": "0x820fc0",
+      "endRvaExclusive": "0x821090",
+      "sha256": "2bba11ab7eddfa22f4544340ba98f905f7a9577bcb042b53077acc6504e369d9"
+    }
+  ],
+  "instructionAssertions": 12,
+  "cases": 11,
+  "mismatches": 0,
+  "results": [
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 0,
+      "outputCount": 0,
+      "stopRva": "0xa66ca5",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66ca5"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 1,
+      "outputCount": 2,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 2,
+      "outputCount": 3,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 3,
+      "outputCount": 4,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 12,
+      "outputCount": 13,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 100,
+      "outputCount": 101,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "selected-neighbor-count",
+      "inputCount": 1024,
+      "outputCount": 1025,
+      "stopRva": "0xa66c18",
+      "visited": [
+        "0xa66bf6",
+        "0xa66bfa",
+        "0xa66bfc",
+        "0xa66c02",
+        "0xa66c05",
+        "0xa66c08",
+        "0xa66c0b",
+        "0xa66c18"
+      ]
+    },
+    {
+      "kind": "primary-exclusion",
+      "samePointer": true,
+      "stopRva": "0x821058",
+      "visited": [
+        "0x821000",
+        "0x821003",
+        "0x821058"
+      ]
+    },
+    {
+      "kind": "primary-exclusion",
+      "samePointer": false,
+      "stopRva": "0x821005",
+      "visited": [
+        "0x821000",
+        "0x821003",
+        "0x821005"
+      ]
+    },
+    {
+      "kind": "primary-exclusion",
+      "samePointer": false,
+      "stopRva": "0x821005",
+      "visited": [
+        "0x821000",
+        "0x821003",
+        "0x821005"
+      ]
+    },
+    {
+      "kind": "primary-exclusion",
+      "samePointer": true,
+      "stopRva": "0x821058",
+      "visited": [
+        "0x821000",
+        "0x821003",
+        "0x821058"
+      ]
+    }
+  ],
+  "limits": [
+    "Synthetic stack and object-pointer inputs; no game process.",
+    "No query, target filter, allocation or application callback executed.",
+    "Nonempty cases stop before the primary append helper.",
+    "Independent reviewer implementation; same image and emulator are not an independent game oracle.",
+    "No R3 holdout, Evidence Adoption or Runtime Promotion is established."
+  ]
+}

@@ -1,0 +1,386 @@
+{
+  "schemaVersion": 1,
+  "status": "research-only-partial",
+  "baselineCommit": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "imageRelativePath": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mapped-image.bin",
+  "newRuntimeEligibleCount": 0,
+  "nativeSpans": [
+    {
+      "role": "arrow-registration",
+      "startRva": "0xf0f130",
+      "endRvaExclusive": "0xf0f1d2",
+      "sha256": "6a9053e44c6da71f2ef06ec1213495dfb864cd6554ab38cbd9529f30588dc789"
+    },
+    {
+      "role": "arrow-constructor-thunk",
+      "startRva": "0xf10e20",
+      "endRvaExclusive": "0xf10e2d",
+      "sha256": "36a6d89d9a2c27f267b1009fab1cbf25442e76f2924f516562365bb3ee7a3d78"
+    },
+    {
+      "role": "arrow-constructor",
+      "startRva": "0x91e510",
+      "endRvaExclusive": "0x91e55b",
+      "sha256": "31b0ac9e0719f39f0aaa0bf1230f0efb442b957be191f21f6fbf823ad3e65186"
+    },
+    {
+      "role": "arrow-field-descriptor",
+      "startRva": "0x4226678",
+      "endRvaExclusive": "0x42266a0",
+      "sha256": "091aa436ee6ce29e8a68d9abd0bbfa02a94a6c04e18a1d40294704d1484ac030"
+    },
+    {
+      "role": "arrow-lifecycle",
+      "startRva": "0x935ee0",
+      "endRvaExclusive": "0x936021",
+      "sha256": "b25eae51878b497a387716905bc3c2854280d4984a1ad0b85891989d5c293078"
+    },
+    {
+      "role": "arrow-pickup-handler",
+      "startRva": "0x940560",
+      "endRvaExclusive": "0x940706",
+      "sha256": "641c6a18618c95bbc298e566566fe5a6475a2e54fef3f7c9f3c8b9afcf338957"
+    },
+    {
+      "role": "arrow-exec",
+      "startRva": "0xf13cf0",
+      "endRvaExclusive": "0xf13d70",
+      "sha256": "faf7ec7e9aba9d94ea83791a4c06e013b31603fcb3851c40ef6a8a0f4ce0134c"
+    },
+    {
+      "role": "arrow-register-exec",
+      "startRva": "0xf11b40",
+      "endRvaExclusive": "0xf11b62",
+      "sha256": "5f6dee9ee8357ba797ed3c7a00ea78a34b7d1df2200f7148061575edd94e40fc"
+    },
+    {
+      "role": "ammo-add-emission",
+      "startRva": "0xb5098b",
+      "endRvaExclusive": "0xb509bb",
+      "sha256": "0995772a35cde9bdae1d62673f93a2cc3161e12c15b215225fe906b49fb34cda"
+    },
+    {
+      "role": "ammo-conversion",
+      "startRva": "0xaf1422",
+      "endRvaExclusive": "0xaf147f",
+      "sha256": "b7614c3066c62cf33261e6b11799cdd15fc5db3f3fa5e5264cbd0d3e58e889f5"
+    },
+    {
+      "role": "miss-registration",
+      "startRva": "0xf3c7c0",
+      "endRvaExclusive": "0xf3c862",
+      "sha256": "6ee509b2041b796d1dad7eaddbd790693ada5abf625f5b788b6fc09e67861ae7"
+    },
+    {
+      "role": "miss-constructor-thunk",
+      "startRva": "0xf3ca60",
+      "endRvaExclusive": "0xf3ca6d",
+      "sha256": "fc1534031809dbd2eb2836e5acc473e0bf962bdb67ad5f1f23cc71f7ecc94711"
+    },
+    {
+      "role": "miss-constructor",
+      "startRva": "0x91fad0",
+      "endRvaExclusive": "0x91fb1b",
+      "sha256": "69225e4534f100748d3200f141516607e83a61f599635820e2cafccd6a10fac8"
+    },
+    {
+      "role": "miss-handler",
+      "startRva": "0x940860",
+      "endRvaExclusive": "0x9409b3",
+      "sha256": "e7e246f6ced46256850c1114ea20245c5ca30aa5a68e0746a49363b7d6f18540"
+    },
+    {
+      "role": "miss-eligibility",
+      "startRva": "0x93ecc0",
+      "endRvaExclusive": "0x93eee1",
+      "sha256": "a86ada354cca922aec06cba7cbc2b2cbec115de458fcc452753d092ec113ead8"
+    },
+    {
+      "role": "component-cancel-dispatch",
+      "startRva": "0xc14900",
+      "endRvaExclusive": "0xc14a10",
+      "sha256": "400a2856e4441ffa4f530fe5bc48b32d343ab0827a4a420e4d22bb6d6739021f"
+    },
+    {
+      "role": "health-cancel-consumer",
+      "startRva": "0x7b0f70",
+      "endRvaExclusive": "0x7b0fdf",
+      "sha256": "a4dabab4154cc6f220db8030862cef00b0c6569b8a7bfefddf3ba8101014b241"
+    },
+    {
+      "role": "float-two",
+      "startRva": "0x3113898",
+      "endRvaExclusive": "0x311389c",
+      "sha256": "d88c86f15bbea365d658ad95a81d45367c465f7af6f7264fb077f01747ddc77d"
+    },
+    {
+      "role": "float-half",
+      "startRva": "0x30c7634",
+      "endRvaExclusive": "0x30c7638",
+      "sha256": "d99e58435243d9fef9c88273b8d553b4fba4d0baf8009d29eae74fa99e0d9f57"
+    },
+    {
+      "role": "arrow-vtable-binding",
+      "startRva": "0x321c5c8",
+      "endRvaExclusive": "0x321c5d0",
+      "sha256": "ea005e2e341983e99b3e1c0c23681a153d12d25d6c1193a27e21912dd2b44b67"
+    },
+    {
+      "role": "miss-vtable-binding",
+      "startRva": "0x321f4c8",
+      "endRvaExclusive": "0x321f4d0",
+      "sha256": "44c5f0ea5532cf112669f1dc4c4b41def7e144e9c3aae8c0068d2387227e63ea"
+    },
+    {
+      "role": "arrow-exec-pair",
+      "startRva": "0x3438c40",
+      "endRvaExclusive": "0x3438c50",
+      "sha256": "51e2fd54c4a30f81c4e34a78657957d3405299299f9d1881b5a900d54dc47a70"
+    }
+  ],
+  "rawSources": [
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uasset",
+      "size": 1307,
+      "sha256": "45cb3c2ce969aa121b5504414f828cfc19a79a6dc4029369caafd58b002a80c7"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uexp",
+      "size": 268,
+      "sha256": "7baf496e79e23872ae2511a8f17f0f5888f3bb67ae07771f4029c6a74d8897d8",
+      "valueRange": {
+        "start": 101,
+        "end": 105,
+        "hex": "0a000000"
+      }
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uasset",
+      "size": 1190,
+      "sha256": "10a34ccba42ca5e4708a1f42de725797c981cebb3a64a522e6dc5d98976ac03f"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uexp",
+      "size": 268,
+      "sha256": "9bb3275e03767227aaf5ecf46d97bc31aa2954fec77e2d8a976fcfbe9febd23a",
+      "valueRange": {
+        "start": 101,
+        "end": 105,
+        "hex": "9a99993e"
+      }
+    }
+  ],
+  "pointerAssertions": [
+    {
+      "rva": "0x321c5c8",
+      "targetRva": "0x935ee0"
+    },
+    {
+      "rva": "0x321f4c8",
+      "targetRva": "0x940860"
+    },
+    {
+      "rva": "0x3438c40",
+      "targetRva": "0x3435c08"
+    },
+    {
+      "rva": "0x3438c48",
+      "targetRva": "0xf13cf0"
+    }
+  ],
+  "callAssertions": [
+    {
+      "rva": "0xf13d5b",
+      "targetRva": "0x940560"
+    },
+    {
+      "rva": "0x94069a",
+      "targetRva": "0xaf13e0"
+    },
+    {
+      "rva": "0x935f84",
+      "targetRva": "0x909000"
+    },
+    {
+      "rva": "0x935fae",
+      "targetRva": "0x909000"
+    },
+    {
+      "rva": "0x935fd8",
+      "targetRva": "0x909000"
+    },
+    {
+      "rva": "0x940888",
+      "targetRva": "0x93ecc0"
+    },
+    {
+      "rva": "0x7b0fcc",
+      "targetRva": "0xc14900"
+    }
+  ],
+  "evidenceLevels": {
+    "static": "confirmed conditional paths and cooked defaults",
+    "emulation": "1288 bounded slice cases passed: 1068 RNG, 216 ammo history conversion, 4 recursion flag; synthetic explicit state, MXCSR 0x1f80",
+    "gameObservation": "none",
+    "independentVerifier": "pending-parent",
+    "runtimePromotion": "held; no new items; P3B holdouts unchanged"
+  },
+  "unknowns": [
+    "item to BP component binding",
+    "startup emitter provenance",
+    "alternate ammo add branches",
+    "RNG argument provenance and dynamic component receiver",
+    "Raw/exe same build",
+    "P3B independent raw holdouts"
+  ],
+  "rawBindings": [
+    {
+      "blueprintClass": "BP_IncreasedArrowBundleSize_C",
+      "parentClass": "/Script/Dungeons.IncreasedArrowBundleSize",
+      "classExportRange": {
+        "start": 1059,
+        "end": 1163
+      },
+      "parentImportRange": {
+        "start": 891,
+        "end": 919
+      },
+      "cdoName": "Default__BP_IncreasedArrowBundleSize_C",
+      "field": "ArrowIncreaseAmount",
+      "propertyType": "IntProperty",
+      "value": 10,
+      "valueByteRange": {
+        "start": 101,
+        "end": 105
+      },
+      "valueHex": "0a000000",
+      "files": [
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uasset",
+          "sha256": "45cb3c2ce969aa121b5504414f828cfc19a79a6dc4029369caafd58b002a80c7"
+        },
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uexp",
+          "sha256": "7baf496e79e23872ae2511a8f17f0f5888f3bb67ae07771f4029c6a74d8897d8"
+        }
+      ]
+    },
+    {
+      "blueprintClass": "BP_MissChance_C",
+      "parentClass": "/Script/Dungeons.MissChance",
+      "classExportRange": {
+        "start": 942,
+        "end": 1046
+      },
+      "parentImportRange": {
+        "start": 774,
+        "end": 802
+      },
+      "cdoName": "Default__BP_MissChance_C",
+      "field": "Chance",
+      "propertyType": "FloatProperty",
+      "value": 0.30000001192092896,
+      "valueByteRange": {
+        "start": 101,
+        "end": 105
+      },
+      "valueHex": "9a99993e",
+      "files": [
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uasset",
+          "sha256": "10a34ccba42ca5e4708a1f42de725797c981cebb3a64a522e6dc5d98976ac03f"
+        },
+        {
+          "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uexp",
+          "sha256": "9bb3275e03767227aaf5ecf46d97bc31aa2954fec77e2d8a976fcfbe9febd23a"
+        }
+      ]
+    }
+  ],
+  "affectedItemIds": {
+    "arrows-per-bundle": [
+      "archer-s-armor",
+      "guard-s-armor",
+      "hunter-s-armor"
+    ],
+    "chance-to-negate-hit": [
+      "arctic-fox-armor",
+      "cauldron-armor",
+      "cloaked-skull",
+      "fox-armor",
+      "full-metal-armor",
+      "ghost-kindler",
+      "ghostly-armor",
+      "plate-armor",
+      "reinforced-mail",
+      "souldancer-robe",
+      "stalwart-armor"
+    ],
+    "damage-reduction": [
+      "beehive-armor",
+      "cauldron-armor",
+      "champion-s-armor",
+      "frost-armor",
+      "full-metal-armor",
+      "hero-s-armor",
+      "highland-armor",
+      "nimble-turtle-armor",
+      "ocelot-armor",
+      "plate-armor",
+      "reinforced-mail",
+      "shadow-walker",
+      "snow-armor",
+      "stalwart-armor",
+      "turtle-armor"
+    ]
+  },
+  "catalogInputs": [
+    {
+      "path": "research/armor-audit.json",
+      "sha256": "1dc1f5027be4ddc39450cd276ff5204a43d799a57d3b032d863936c9ebfebdc3"
+    },
+    {
+      "path": "research/runtime/armor-runtime-support.json",
+      "sha256": "88b1775f729486b0f60373a78cc9dc50d8ec71902b8e5c70ff4d1f1f912be6f1"
+    }
+  ],
+  "foundationStatus": {
+    "arrowCookedOverride": "READY_STATIC_FOUNDATION",
+    "arrowBonusRecursionFlag": "READY_CONDITIONAL_SLICE_FOUNDATION",
+    "arrowHistoryConversion": "READY_CONDITIONAL_SLICE_FOUNDATION",
+    "missChanceLcgAndThreshold": "READY_CONDITIONAL_SLICE_FOUNDATION",
+    "missChanceEligibilityTags": "READY_STATIC_FOUNDATION",
+    "completeArrowStartupAndPickup": "PARTIAL",
+    "completeMissChanceDispatch": "PARTIAL",
+    "damageReductionComposition": "HELD_EXISTING_BOUNDARIES",
+    "itemRuntimePromotion": "HELD_ZERO_NEW_ITEMS"
+  },
+  "minimalQuestions": [
+    {
+      "id": "arrow-item-component",
+      "question": "Which instantiated Armor property class does each of the three target item definitions bind, and does it resolve to BP_IncreasedArrowBundleSize with the verified CDO value 10?",
+      "neededEvidence": "Native item/property registry plus class loader binding or build-matched serialized target relation; no new Windows session required."
+    },
+    {
+      "id": "arrow-event-origin",
+      "question": "Which startup and physical pickup paths reach slot +0x188 with emission enabled; how do slot types 1/2/5 and alternate ammo-add branches route the resource?",
+      "neededEvidence": "Static callers and slot enum metadata, followed by bounded instruction checks on the relevant branches."
+    },
+    {
+      "id": "miss-rng-dispatch",
+      "question": "Which valid dispatch supplies the RNG-state argument to MissChance, given the inspected generic cancellation caller passes a null fifth argument?",
+      "neededEvidence": "Resolve dynamic receiver/class applicability or another dispatch; do not synthesize a successful engine call."
+    },
+    {
+      "id": "miss-item-binding",
+      "question": "Which of the eleven target Armor entries instantiate BP_MissChance versus another cancellation mechanism, and which event tags qualify?",
+      "neededEvidence": "Item/property registry binding and tag construction."
+    },
+    {
+      "id": "defense-composition",
+      "question": "Which native writers and event order realize the held defense composition model, and which independent raw holdouts validate it?",
+      "neededEvidence": "Writer-specific evidence and existing P3B independent holdouts; slice emulation cannot satisfy raw trace requirements."
+    }
+  ]
+}

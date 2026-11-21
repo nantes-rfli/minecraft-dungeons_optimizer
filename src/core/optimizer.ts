@@ -1,4 +1,5 @@
 import { fixedObservedMeleeComboEnchantments } from '../data/fixedObservedMeleeCombo'
+import { isolatedChainsScenarioIssue } from './isolatedChainsReuse'
 import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { observedMeleeComboPreparationIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
@@ -314,7 +315,7 @@ function optimizeInternal(
     return false
   }) : policyArtifacts
   const weaponBuilds = inventory.weapons.flatMap((weapon) => {
-    const comboIssue = observedMeleeComboPreparationIssue(weapon)
+    const comboIssue = observedMeleeComboPreparationIssue(weapon) ?? isolatedChainsScenarioIssue(weapon, scenario)
     if (comboIssue) {
       unsupportedChoices.record(weapon.instanceId, comboIssue)
       return []
@@ -474,7 +475,7 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
     // Independent preparation runs even if another category will block the full search.
     // Keep only fatal per-item preparation blockers; unsupported alternatives are not item exclusions.
     for (const weapon of inventory.weapons) {
-      const comboIssue = observedMeleeComboPreparationIssue(weapon)
+      const comboIssue = observedMeleeComboPreparationIssue(weapon) ?? isolatedChainsScenarioIssue(weapon, scenario)
       if (comboIssue) {
         log.record(weapon.instanceId, comboIssue)
         continue

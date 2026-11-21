@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.17.0.0",
+  "route": "existing-limited-mechanic-reuse",
+  "classification": "derived",
+  "runtimeSupport": "limited",
+  "mechanic": "owned-tier-one-chains-no-application-on-isolated-observed-combo",
+  "scope": "single-target-uninterrupted-complete-combos-at-base-speed",
+  "sourceRef": "research/sources/observed-isolated-chains.json",
+  "testRef": "tests/observedIsolatedChains.test.ts",
+  "observation": "own ordinary complete combo at current Power; initially unchained target and no other eligible Chains query candidates throughout the interval",
+  "targets": { "flail": "chains", "jailors-scythe": "chains" },
+  "allowedAdditionalSoulEnchantments": ["anima-conduit"],
+  "state": "no-application-call",
+  "newNumericMechanicAdopted": false
+}

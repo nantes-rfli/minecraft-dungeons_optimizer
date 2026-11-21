@@ -1,0 +1,408 @@
+{
+  "schemaVersion": 1,
+  "scope": "finite-static-no-application-bridge",
+  "gameVersion": "1.17.0.0",
+  "versionBasis": "Local archive label; official authenticity and Raw/exe exact build correspondence remain unverified.",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "privateFiles": [
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/AssetRegistry.bin",
+      "size": 48466104,
+      "sha256": "ce74ac3a7c7b348fc1a3b1dc20626a2e9a68764edb4ed97e80607333a69c3a67"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Config/DefaultGame.ini",
+      "size": 12349,
+      "sha256": "8d121238c3be135c1f19fae3941262f2ec86aa660535800a659beb7482ab795d"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/Enchantments/Chains/BP_Chains.uasset",
+      "size": 1483,
+      "sha256": "40c664a4044cdda71fa8bded1ecc20b377ba32348820457c07588cf298e4cbca"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/Enchantments/Chains/BP_Chains.uexp",
+      "size": 117,
+      "sha256": "c95009074990f8b2f3aa425362ff6b6e77990890ecaeecdb75b17e35ac0bd5ed"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/Enchantments/Chains/BP_ChainsGameplayEffect.uasset",
+      "size": 1487,
+      "sha256": "a7c39f580c726e46afc643d21daa89ac4be43d8a5e5099ac477dad38f0460c52"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/Enchantments/Chains/BP_ChainsGameplayEffect.uexp",
+      "size": 129,
+      "sha256": "f687377ae42debf844640348a0bbaf3719cfac094f77a58f149fdab7a5b91818"
+    }
+  ],
+  "registry": {
+    "version": 6,
+    "nameCount": 146784,
+    "assetCount": 49397,
+    "assetDataEnd": 37892807,
+    "nameTableOffset": 37892815,
+    "record": {
+      "objectPath": "/Game/Components/Enchantments/Chains/BP_Chains.BP_Chains",
+      "packagePath": "/Game/Components/Enchantments/Chains",
+      "assetClass": "Blueprint",
+      "packageName": "/Game/Components/Enchantments/Chains/BP_Chains",
+      "assetName": "BP_Chains",
+      "tags": {
+        "GeneratedClass": "BlueprintGeneratedClass'/Game/Components/Enchantments/Chains/BP_Chains.BP_Chains_C'",
+        "ParentClass": "Class'/Script/Dungeons.Chains'",
+        "NativeParentClass": "Class'/Script/Dungeons.Chains'",
+        "ClassFlags": "14944276",
+        "BlueprintType": "BPTYPE_Normal",
+        "IsDataOnly": "False",
+        "NumReplicatedProperties": "0",
+        "NativeComponents": "0",
+        "BlueprintComponents": "0",
+        "BlueprintPath": "BP_Chains"
+      },
+      "recordRange": [
+        7296616,
+        7296983
+      ],
+      "chunks": [
+        5
+      ],
+      "packageFlags": 0
+    }
+  },
+  "nativeSpans": [
+    {
+      "role": "chains-metadata-record",
+      "startRva": "0x139cce",
+      "endRvaExclusive": "0x139e31",
+      "sha256": "c62d5acb732f761e461425ed8281c821adc0e8f9b1839a79eff99dd9b04d8cf1"
+    },
+    {
+      "role": "metadata-name-builder",
+      "startRva": "0xa7b300",
+      "endRvaExclusive": "0xa7b443",
+      "sha256": "4d624cce3e826d21a73600eef82ecb5c49490935e51506baca5afa0ef995f1ec"
+    },
+    {
+      "role": "blueprint-name-prefix",
+      "startRva": "0xe46e40",
+      "endRvaExclusive": "0xe46edc",
+      "sha256": "bd395d3aacf90731d5825a8d95b46af17696a84b5a0beba5dcbb5fa92b435b84"
+    },
+    {
+      "role": "metadata-getter",
+      "startRva": "0xa7c640",
+      "endRvaExclusive": "0xa7c64f",
+      "sha256": "843cf3ba282402f16f3b50ce5d89a76487abde9fdfd9430687d6db8172cb527a"
+    },
+    {
+      "role": "finder-constructor",
+      "startRva": "0x70a650",
+      "endRvaExclusive": "0x70a732",
+      "sha256": "6e305cfb089457419cd2f228608d86f06f647a4121c9d069ca27aed5f52534df"
+    },
+    {
+      "role": "finder-registration",
+      "startRva": "0x715b50",
+      "endRvaExclusive": "0x715c18",
+      "sha256": "377407d8c129173a1b6363700697b5ee97c50aa5568c4a4552a2bb925f3ceaed"
+    },
+    {
+      "role": "finder-map-init",
+      "startRva": "0x713960",
+      "endRvaExclusive": "0x713d84",
+      "sha256": "360a44887f33c5d624c77cc73d8ce451f61db7d8a98f3a9431db82d4eb38362d"
+    },
+    {
+      "role": "asset-match",
+      "startRva": "0x714970",
+      "endRvaExclusive": "0x714efa",
+      "sha256": "a8bc98c53bb2eb72d6c39eb1678e361c33836ad9bca4c20480af94f998ee61f1"
+    },
+    {
+      "role": "asset-lookup",
+      "startRva": "0x711b60",
+      "endRvaExclusive": "0x711c20",
+      "sha256": "32571b577915708257ba086e1938c7d2bace8cf96e64ef65db5985e6d4b5813e"
+    },
+    {
+      "role": "enum-asset-lookup",
+      "startRva": "0x710ef0",
+      "endRvaExclusive": "0x710f5a",
+      "sha256": "02a040d7b87faba2b2891e391f6877adcf3432cd60dac7de6bfbf9ab4856e0a5"
+    },
+    {
+      "role": "class-from-enum",
+      "startRva": "0xa63de0",
+      "endRvaExclusive": "0xa64034",
+      "sha256": "4749fc7e940cdec742e7b4661145b74b6b933c984753b6458fb8d6ef3d5b656e"
+    },
+    {
+      "role": "module-factory",
+      "startRva": "0x772fb0",
+      "endRvaExclusive": "0x772fdf",
+      "sha256": "e5707d3534328bdea6dd900379ae56f5953dbfb5afbc5cfc99b674d119101fca"
+    },
+    {
+      "role": "module-registration",
+      "startRva": "0x11c5ef",
+      "endRvaExclusive": "0x11c620",
+      "sha256": "507e49ac91a1a32c2fdeb7d861267347d2ff314dc1d48f7f468ab9902d8c8453"
+    },
+    {
+      "role": "module-enchantment-finder",
+      "startRva": "0x745fb0",
+      "endRvaExclusive": "0x745fc2",
+      "sha256": "a5bf4badc4af4975035b2987f607b6393e7b8677d1f2500b3af4f2aac92df91e"
+    },
+    {
+      "role": "master-finder-lazy",
+      "startRva": "0x76d080",
+      "endRvaExclusive": "0x76d15e",
+      "sha256": "0b9f6fbba162152abdb7934bcae4adb78e5f1b98c6b9a87aef58ab563683d9d1"
+    },
+    {
+      "role": "master-finder-constructor",
+      "startRva": "0x70a910",
+      "endRvaExclusive": "0x70aa55",
+      "sha256": "0a815524314337999c061d0492984e3a7f5f93912fca4446276ef2a4ea328227"
+    },
+    {
+      "role": "master-class-constructor-thunk",
+      "startRva": "0xf32c20",
+      "endRvaExclusive": "0xf32c2d",
+      "sha256": "20a570643e3d5484ff105f1307fa68d49009ec9dcc05bc96ade6360e67429177"
+    },
+    {
+      "role": "catalog-record-transport",
+      "startRva": "0xb64df2",
+      "endRvaExclusive": "0xb64fa3",
+      "sha256": "47419d7eae991c4068919fd3a50825ba932dc481ca48e373c113e6ff1c06aeac"
+    },
+    {
+      "role": "type-fixed-record-copy",
+      "startRva": "0xb1b6a2",
+      "endRvaExclusive": "0xb1b6e8",
+      "sha256": "f9ac6ae5ddc261f696c9c24be55eb61e81f83f888ac60039596c434b8a84cfdd"
+    },
+    {
+      "role": "fixed-record-to-equipped-record",
+      "startRva": "0xb45dc0",
+      "endRvaExclusive": "0xb45f44",
+      "sha256": "2b7ce2adc3c67dab1e9f02222c54c917e81aac3d88791d3afe140d67df71cadf"
+    },
+    {
+      "role": "equipped-record-dispatch",
+      "startRva": "0xb59a80",
+      "endRvaExclusive": "0xb59af0",
+      "sha256": "395091f6ce4f97ee6eadd412a1d0f92f3b190cd49ab4ff13fbff6849ba76087e"
+    },
+    {
+      "role": "active-enchantment-construction",
+      "startRva": "0x9b4100",
+      "endRvaExclusive": "0x9b446a",
+      "sha256": "2e6a2e7b2217ecb9bb779047711c929490d168c1eb585d5808d43688377e372c"
+    },
+    {
+      "role": "tier-store",
+      "startRva": "0xa74c20",
+      "endRvaExclusive": "0xa74c2d",
+      "sha256": "e3b1eba18899e9d6f951db57635f00fb274656a2e380b3895a91e7c5de2c78e8"
+    },
+    {
+      "role": "active-receiver-array",
+      "startRva": "0x9a0120",
+      "endRvaExclusive": "0x9a0300",
+      "sha256": "af0f9b2530bb83ba47030a2d33bab2e743e2305f57b4efd864ba679ed5210aa1"
+    },
+    {
+      "role": "melee-arm-entry",
+      "startRva": "0x9d08f0",
+      "endRvaExclusive": "0x9d0b80",
+      "sha256": "c0be28fd3251050b7512c53478cc641cec689c6ea787c19c62d47d0cfcc412fd"
+    },
+    {
+      "role": "melee-selection-call",
+      "startRva": "0x9ce440",
+      "endRvaExclusive": "0x9ce480",
+      "sha256": "9fe3c5babdbed80295e573dd319e0eeab18f31fa8b964241e8f057c1e26e596f"
+    },
+    {
+      "role": "selection-dispatch",
+      "startRva": "0x9a4920",
+      "endRvaExclusive": "0x9a4b00",
+      "sha256": "04dc3118b7b5619515daa20e2751b1566c0baead4b1178887cd579df0f28938a"
+    },
+    {
+      "role": "arm-dispatch",
+      "startRva": "0x9a6c70",
+      "endRvaExclusive": "0x9a6e00",
+      "sha256": "d83b1031542c1c862345266985c7ff91e0a9078ecb76745e7f33afa999c72e23"
+    },
+    {
+      "role": "chains-cue-hook",
+      "startRva": "0xa6a690",
+      "endRvaExclusive": "0xa6a800",
+      "sha256": "0b116d2f9d6bcd9d5c8a58c296bbda855c4bc36c10dff2c7bf5878a2560c88c9"
+    }
+  ],
+  "directCalls": [
+    {
+      "rva": "0x139dc4",
+      "targetRva": "0xa7b4e0"
+    },
+    {
+      "rva": "0x139de4",
+      "targetRva": "0xa7b300"
+    },
+    {
+      "rva": "0xa7b332",
+      "targetRva": "0xe46e40"
+    },
+    {
+      "rva": "0x70a6d0",
+      "targetRva": "0x712ee0"
+    },
+    {
+      "rva": "0x70a6d5",
+      "targetRva": "0xef2e70"
+    },
+    {
+      "rva": "0x70a6e9",
+      "targetRva": "0x715b50"
+    },
+    {
+      "rva": "0x710f17",
+      "targetRva": "0xa7c640"
+    },
+    {
+      "rva": "0x710f2c",
+      "targetRva": "0x712ee0"
+    },
+    {
+      "rva": "0x710f3d",
+      "targetRva": "0x711b60"
+    },
+    {
+      "rva": "0xa63e6f",
+      "targetRva": "0x710ef0"
+    },
+    {
+      "rva": "0xa63f1b",
+      "targetRva": "0x1247820"
+    },
+    {
+      "rva": "0x76d0ac",
+      "targetRva": "0xf318a0"
+    },
+    {
+      "rva": "0x745fb4",
+      "targetRva": "0x76d080"
+    },
+    {
+      "rva": "0x70a998",
+      "targetRva": "0xef0d90"
+    },
+    {
+      "rva": "0x70a9b8",
+      "targetRva": "0x1207580"
+    },
+    {
+      "rva": "0x713b03",
+      "targetRva": "0x714970"
+    },
+    {
+      "rva": "0x714dc3",
+      "targetRva": "0x711c20"
+    },
+    {
+      "rva": "0x713ce9",
+      "targetRva": "0x704010"
+    },
+    {
+      "rva": "0x9b431b",
+      "targetRva": "0xa63de0"
+    },
+    {
+      "rva": "0x9b4385",
+      "targetRva": "0x1249050"
+    },
+    {
+      "rva": "0x9b43e1",
+      "targetRva": "0xa74c20"
+    },
+    {
+      "rva": "0xb59a85",
+      "targetRva": "0xb45dc0"
+    },
+    {
+      "rva": "0xb59aeb",
+      "targetRva": "0x985630"
+    },
+    {
+      "rva": "0x9d149f",
+      "targetRva": "0x9cd100"
+    },
+    {
+      "rva": "0x9ce46f",
+      "targetRva": "0xc13be0"
+    },
+    {
+      "rva": "0x9d0b72",
+      "targetRva": "0xc14a10"
+    }
+  ],
+  "pointers": [
+    {
+      "rva": "0x319df18",
+      "targetRva": "0x745fb0"
+    },
+    {
+      "rva": "0x319a8d0",
+      "targetRva": "0x713960"
+    },
+    {
+      "rva": "0x322f140",
+      "targetRva": "0x9a0120"
+    },
+    {
+      "rva": "0x322f150",
+      "targetRva": "0x9b4100"
+    },
+    {
+      "rva": "0x3244c88",
+      "targetRva": "0x9d0510"
+    },
+    {
+      "rva": "0x327c410",
+      "targetRva": "0xa66ad0"
+    },
+    {
+      "rva": "0x327c418",
+      "targetRva": "0xa6ba90"
+    },
+    {
+      "rva": "0x327c408",
+      "targetRva": "0xa6a690"
+    }
+  ],
+  "fixedRecords": [
+    {
+      "id": "flail",
+      "rawIdentity": "Mace_Unique2",
+      "enum": 24,
+      "tier": 1
+    },
+    {
+      "id": "jailors-scythe",
+      "rawIdentity": "SoulScythe_Unique1",
+      "enum": 24,
+      "tier": 1
+    }
+  ],
+  "requiredCondition": "single target, initial Chains absent, and no other eligible query candidates for the entire evaluation interval",
+  "conclusion": "Under the explicit condition, the owned Chains selection path skips primary append and application call. Visual gameplay cues are not asserted absent.",
+  "gameplayObserved": false,
+  "r3Accepted": false,
+  "newNumericMechanicAdopted": false
+}

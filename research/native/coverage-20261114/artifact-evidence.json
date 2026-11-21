@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 1,
+  "status": "READY_FOR_INDEPENDENT_FOUNDATION_VERIFICATION",
+  "baselineMain": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "imageSha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3",
+  "originalExeSha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8",
+  "nativeSpans": [
+    {
+      "role": "duration-scalar",
+      "startRva": "0xb8a5f0",
+      "endRvaExclusive": "0xb8a649",
+      "sha256": "07b2c894b0484c9e3e77ce51c5e38b80fbb7c82139a17e268d1768c8b217698f"
+    },
+    {
+      "role": "power-callback-dispatch",
+      "startRva": "0xb903e0",
+      "endRvaExclusive": "0xb90409",
+      "sha256": "aa2332aba660790374b8f87f9ae8b55246f47c4cc516b3b6e9f6876b7089d505"
+    },
+    {
+      "role": "power-callback-functor",
+      "startRva": "0xa7a3a0",
+      "endRvaExclusive": "0xa7a3ab",
+      "sha256": "202f66b452eb58215e5bc92248ed0027ff4060687d83cffc611fb7bc1a357384"
+    },
+    {
+      "role": "power-effect-index-reader",
+      "startRva": "0xaf7440",
+      "endRvaExclusive": "0xaf74e7",
+      "sha256": "a5648a3ed4a950b6774d9f5d9c4849472b1cf392501cad6008d022f3b62ca867"
+    },
+    {
+      "role": "duration-constructor-callback-binding",
+      "startRva": "0xb78ac1",
+      "endRvaExclusive": "0xb78af4",
+      "sha256": "68410a1e3f03dab338ea5e6562a093d6a8c7797e47590f5898b6aa52975432eb"
+    },
+    {
+      "role": "duration-class-registration",
+      "startRva": "0xf1c9e0",
+      "endRvaExclusive": "0xf1ca82",
+      "sha256": "290e504685414f1dff40e8e9d92e10c94527a4b2d479c1f31e28f0d066786b2e"
+    },
+    {
+      "role": "boots-class-registration",
+      "startRva": "0xeb7930",
+      "endRvaExclusive": "0xeb79d2",
+      "sha256": "568444a2b3f53824ed71490221b2b9c15ac6af735efd9458681140ac50c95bdd"
+    },
+    {
+      "role": "boots-constructor",
+      "startRva": "0xad8270",
+      "endRvaExclusive": "0xad8311",
+      "sha256": "b873ab0ac7a149ddd92f12adf8ea9d8b0dbf7a04a833aff843bf4786935130a2"
+    },
+    {
+      "role": "mushroom-constructor",
+      "startRva": "0xad8820",
+      "endRvaExclusive": "0xad88c1",
+      "sha256": "e8a927c45328b61001f7093bffe4bc31844915c29bd8125c4f2d300c59f17e97"
+    },
+    {
+      "role": "iron-hide-constructor",
+      "startRva": "0xb18b40",
+      "endRvaExclusive": "0xb18c17",
+      "sha256": "ba4c5bbebb53d044b8a670d0e1988d29f53a3cbdfb3f765462a3ab152ad60a57"
+    },
+    {
+      "role": "gong-constructor",
+      "startRva": "0xb18500",
+      "endRvaExclusive": "0xb185e1",
+      "sha256": "b7e79594a74863730fe746985610b714a40eea4ce8b8b27f54a27ec7381c4ad1"
+    },
+    {
+      "role": "shadow-shifter-constructor",
+      "startRva": "0xb19730",
+      "endRvaExclusive": "0xb19837",
+      "sha256": "13f268c0a2dc9dfd8159a60a01f5ac39f38454518f5d82bcf07212443b7bfdbf"
+    },
+    {
+      "role": "enchanters-tome-constructor",
+      "startRva": "0xad8980",
+      "endRvaExclusive": "0xad8ab8",
+      "sha256": "f9e89a641aced967289a6a8a6b62e2ea6ce0fefb0127a1181a50fd2f9b61f3ff"
+    },
+    {
+      "role": "totem-shielding-constructor",
+      "startRva": "0xb1a6c0",
+      "endRvaExclusive": "0xb1a74e",
+      "sha256": "21a61023dece9632ed3b0c7f29f1314d399b14b9316848665d3c6ec705986f7e"
+    },
+    {
+      "role": "boots-duration-to-spec",
+      "startRva": "0xae5fd7",
+      "endRvaExclusive": "0xae601b",
+      "sha256": "6017b832084dc9181586c61794bad150040deae6167fddd76cd6b1a096b0fe1c"
+    },
+    {
+      "role": "boots-owner-and-application",
+      "startRva": "0xae5e9a",
+      "endRvaExclusive": "0xae5edb",
+      "sha256": "c0825f38767e8f769adb343e4716cfd272755a09d6e195acbefedde6a0a61ed2"
+    },
+    {
+      "role": "boots-spec-application",
+      "startRva": "0xae6037",
+      "endRvaExclusive": "0xae6075",
+      "sha256": "1392253ccfb9976f3ba3cbd16696480e489e1189c7f2837715186b3518c766c0"
+    },
+    {
+      "role": "mushroom-duration-to-spec",
+      "startRva": "0xae7b8b",
+      "endRvaExclusive": "0xae7be9",
+      "sha256": "cabdd9ed73bc4641908222bdb3f362d1ff79747f31248173d5255449040c0371"
+    },
+    {
+      "role": "iron-hide-duration-to-spec",
+      "startRva": "0xb41f0c",
+      "endRvaExclusive": "0xb41f4d",
+      "sha256": "f49bfb92f1bd45a6539553f97c4ee9abb5f26d5276d0de00f6f1cce846c821bf"
+    },
+    {
+      "role": "gong-duration-to-spec",
+      "startRva": "0xb4e2fa",
+      "endRvaExclusive": "0xb4e327",
+      "sha256": "a83226d174eae811a884b48f0bea8b37998bd08b2aa818e0ebfa1d33e445c99b"
+    },
+    {
+      "role": "gong-duration-setbycaller",
+      "startRva": "0xb4e417",
+      "endRvaExclusive": "0xb4e429",
+      "sha256": "3558116d19c2637ca363a9f9da5ecc1fbab01362de014a1d4d21ca0f0cac123e"
+    },
+    {
+      "role": "shadow-shifter-duration-to-spec",
+      "startRva": "0xb439c4",
+      "endRvaExclusive": "0xb43a00",
+      "sha256": "b62476e199fd3e36369d6d01081bec7483b1d336f9dc738528d2ed13a9887494"
+    },
+    {
+      "role": "item-type-default-duration-reader",
+      "startRva": "0x6df400",
+      "endRvaExclusive": "0x6df409",
+      "sha256": "51823fef1ff151d85406894d6ca6650322ac036a3905f37f1a6ee10ee42fafe6"
+    },
+    {
+      "role": "item-type-default-cooldown-reader",
+      "startRva": "0x6df440",
+      "endRvaExclusive": "0x6df449",
+      "sha256": "941e656ecb4db1e65e899cae5ba891f9e6b52752e8558ce36ab1bdad92c6e351"
+    },
+    {
+      "role": "boots-catalog-defaults",
+      "startRva": "0x14d966",
+      "endRvaExclusive": "0x14d9b0",
+      "sha256": "f688eaeb207b142daee6b75e6160675c6f1b134b4a23dc2a3d25f85fdd41ae32"
+    },
+    {
+      "role": "iron-hide-catalog-defaults",
+      "startRva": "0x1635f6",
+      "endRvaExclusive": "0x163640",
+      "sha256": "50a8d5e31906eeff2c6857dfac042f819f82f30a9a486794ca83b5094cada729"
+    },
+    {
+      "role": "type-builder-cooldown-duration-arguments",
+      "startRva": "0xb6500d",
+      "endRvaExclusive": "0xb65037",
+      "sha256": "9430b968ef4b079dc4ee39b05dbff92deb477dce52f52a4a003f2020e140cc02"
+    },
+    {
+      "role": "named-default-duration-wrapper",
+      "startRva": "0xf20370",
+      "endRvaExclusive": "0xf2042c",
+      "sha256": "1804a61026d0a4fa19fda102e123272c2b5119a0bba7da67dfa518ebd7f9a75a"
+    },
+    {
+      "role": "named-default-duration-reader",
+      "startRva": "0xb532c0",
+      "endRvaExclusive": "0xb5332c",
+      "sha256": "e336237203894ed07b6a7f82776f35bd7170c2215c07fcf6ffa7a6d51c72c7ad"
+    },
+    {
+      "role": "status-duration-constructor-positive-capture",
+      "startRva": "0x7a51bc",
+      "endRvaExclusive": "0x7a51e7",
+      "sha256": "c454125a647b2b0c1be588cf0cb678e2b13d60adc67af8cd20ce17b07680c3af"
+    },
+    {
+      "role": "status-duration-constructor-negative-capture",
+      "startRva": "0x7a5232",
+      "endRvaExclusive": "0x7a525c",
+      "sha256": "881406c0b5b3b3bf0d4cf15afeff5a1ff7ffc2bd9dab830a1311336ba2f48dd6"
+    },
+    {
+      "role": "status-duration-attribute-names",
+      "startRva": "0x7a532e",
+      "endRvaExclusive": "0x7a540d",
+      "sha256": "155f56759c41ada290d87ebac0444e95bb0175b21d993d5b03ea6ec1b2dbf226"
+    },
+    {
+      "role": "status-duration-calculation",
+      "startRva": "0x7b0ab0",
+      "endRvaExclusive": "0x7b0ce9",
+      "sha256": "6508137d73b43d439d633f6f34b3fb39f4a896ac1b7b76ad693a002456b711e0"
+    },
+    {
+      "role": "status-positive-negative-tag-choice",
+      "startRva": "0x7bf9e0",
+      "endRvaExclusive": "0x7bfba9",
+      "sha256": "ab44a46c633d87cb34b0965e6733b71794b64230c43cc19fb5e549a563bda57e"
+    },
+    {
+      "role": "mushroom-duration-calculator-assignment",
+      "startRva": "0xadf19b",
+      "endRvaExclusive": "0xadf25d",
+      "sha256": "1db405ee5ce227e6d3ef1cffe44985b43603555cb09f521b84172e89aecbeb9a"
+    },
+    {
+      "role": "common-activation-cooldown-start",
+      "startRva": "0xae8ce3",
+      "endRvaExclusive": "0xae8d24",
+      "sha256": "ffcd6e120126ed4bcd649a9d2e5da64aded3d672a2210063cf37903f6afce180"
+    },
+    {
+      "role": "named-cooldown-reduction-wrapper",
+      "startRva": "0xf20210",
+      "endRvaExclusive": "0xf2023d",
+      "sha256": "6cd550a07123d4137dfc2405ac3af8e2173540598abe628502c83f1a92caff66"
+    },
+    {
+      "role": "cooldown-reduction-reader",
+      "startRva": "0xb531e0",
+      "endRvaExclusive": "0xb531e9",
+      "sha256": "3162ddb32f656c20a5fd89ec7b3c46b71d84d6769b34701a85c8919091129a8c"
+    },
+    {
+      "role": "power-normalization",
+      "startRva": "0xb8f610",
+      "endRvaExclusive": "0xb8f67f",
+      "sha256": "046e847987d97156550b4e7811c3921ca603f64c8087420ebdb88de28637df36"
+    },
+    {
+      "role": "integer19",
+      "startRva": "0xa3fa50",
+      "endRvaExclusive": "0xa3fa56",
+      "sha256": "4becd086c8729211c845a4bf1497d75a688c76b952462edfe7f7b5a56f63b399"
+    },
+    {
+      "role": "type-builder-call",
+      "startRva": "0xb65089",
+      "endRvaExclusive": "0xb65094",
+      "sha256": "ada12bc2b1b2853eab4731b210e211cf46fc140755f7a60d5b3b1f19684a06b4"
+    },
+    {
+      "role": "type-constructor-prologue",
+      "startRva": "0xb1b390",
+      "endRvaExclusive": "0xb1b3c9",
+      "sha256": "be3af53b45266d6e0a4a83a7e48b05de9569958df450751c1ef8409ad5c1227d"
+    },
+    {
+      "role": "type-constructor-cooldown-duration-store",
+      "startRva": "0xb1b5ab",
+      "endRvaExclusive": "0xb1b5cb",
+      "sha256": "786bc9374919d6ac8d47ecd9cebf5c94e5f94da3a5dbdb747e10ff2c3da963f9"
+    },
+    {
+      "role": "cooldown-candidate-getter",
+      "startRva": "0xaecae0",
+      "endRvaExclusive": "0xaecc7d",
+      "sha256": "05672c5348dea3a6e9dfe0e0f0a4205bac463c83855b1f6b799b831961a9ea2e"
+    },
+    {
+      "role": "item-cooldown-multiplier-attribute",
+      "startRva": "0x7c3404",
+      "endRvaExclusive": "0x7c343e",
+      "sha256": "aa23ff53f403909e1fea8c341fab004bade6264fc900a21f23227e61ccc9fccf"
+    },
+    {
+      "role": "item-cooldown-override-attribute",
+      "startRva": "0x7c34c4",
+      "endRvaExclusive": "0x7c34fe",
+      "sha256": "bcb3b78f44c6e7a8ecdb88bae4b130e838ee5565e14758b75bced4c097d6adff"
+    },
+    {
+      "role": "potion-cooldown-multiplier-attribute",
+      "startRva": "0x7cea24",
+      "endRvaExclusive": "0x7cea5e",
+      "sha256": "2f91c2276d2ad8f9aac08f1c468b2bdf0986b6912cab8b5c4e8af1d46af277cf"
+    },
+    {
+      "role": "item-type-category-equality",
+      "startRva": "0xb66890",
+      "endRvaExclusive": "0xb6689a",
+      "sha256": "fd6dc2ad594b3f11f48c716a454923fc95829fb58abb3e36c9b27084774672d2"
+    },
+    {
+      "role": "boots-effect-registration",
+      "startRva": "0xeb7870",
+      "endRvaExclusive": "0xeb7912",
+      "sha256": "d3232fa55bf9cc82d9f6cf648fd405f7a5aec0f8bd15583135454da0af76ba01"
+    },
+    {
+      "role": "boots-effect-constructor-thunk",
+      "startRva": "0xeb8da0",
+      "endRvaExclusive": "0xeb8db4",
+      "sha256": "ff7c7badb7e293a42bf61148d689f16a4bc5e70485c71bf8f8add71a9fa823cb"
+    },
+    {
+      "role": "boots-effect-duration-and-modifier-construction",
+      "startRva": "0xadb32f",
+      "endRvaExclusive": "0xadb6ff",
+      "sha256": "c1bb5993a725275dabfd8b2bf9c520853c0b21eca106be30585fea74f292f75b"
+    },
+    {
+      "role": "boots-effect-positive-tag",
+      "startRva": "0xadb700",
+      "endRvaExclusive": "0xadb73a",
+      "sha256": "92f7528e7571c795c255cafbcc6045e057bdef0dc8c485ed01b6b7895860c5e7"
+    },
+    {
+      "role": "boots-speed-setbycaller",
+      "startRva": "0xae601b",
+      "endRvaExclusive": "0xae6037",
+      "sha256": "774b78b7a3878de5c9b2c54269fdbbc6f3dd3d2ee6ef1c491607ae351da96d0d"
+    },
+    {
+      "role": "speed-multiplier-attribute",
+      "startRva": "0x7d3e94",
+      "endRvaExclusive": "0x7d3ece",
+      "sha256": "3be89bdf39edd70616936e14778213133add59f913cff9f57a7c9dde2f3def92"
+    },
+    {
+      "role": "setbycaller-map-insertion",
+      "startRva": "0x3ca070",
+      "endRvaExclusive": "0x3ca111",
+      "sha256": "48e2eaf7649abe6cd7cd40ff6ff4d7d7224e1e782c247180927438e957036bb9"
+    },
+    {
+      "role": "status-duration-class-registration",
+      "startRva": "0xf8a610",
+      "endRvaExclusive": "0xf8a6b2",
+      "sha256": "e772350395b99ca9a5aecd57cf4ef946f611ca315c5eebef6cc81645c65ad58a"
+    },
+    {
+      "role": "status-duration-constructor-thunk",
+      "startRva": "0xf8cb20",
+      "endRvaExclusive": "0xf8cb2d",
+      "sha256": "095f8e85f72f9bfcc327825d0b25399f3087d6a3286b67eba2f9fc115e5bc5b9"
+    },
+    {
+      "role": "boots-name-binding",
+      "startRva": "0x14d844",
+      "endRvaExclusive": "0x14d874",
+      "sha256": "defc4e13a613e3a67e67458ba0cb6f3081ccdb3022c9a8bcccc78369e42f1edb"
+    }
+  ],
+  "pointers": [
+    {
+      "role": "callback-functor-dispatch",
+      "rva": "0x3290ff0",
+      "targetRva": "0xa7a3a0"
+    },
+    {
+      "role": "boots-activation",
+      "rva": "0x32c4d60",
+      "targetRva": "0xae5e60"
+    },
+    {
+      "role": "mushroom-activation",
+      "rva": "0x32c8780",
+      "targetRva": "0xae7a10"
+    },
+    {
+      "role": "iron-hide-activation",
+      "rva": "0x32fc240",
+      "targetRva": "0xb41c90"
+    },
+    {
+      "role": "status-duration-calculator",
+      "rva": "0x31bddf8",
+      "targetRva": "0x7b0ab0"
+    },
+    {
+      "role": "default-duration-name",
+      "rva": "0x3443270",
+      "targetRva": "0x3440268"
+    },
+    {
+      "role": "default-duration-exec",
+      "rva": "0x3443278",
+      "targetRva": "0xf20370"
+    },
+    {
+      "role": "cooldown-reduction-name",
+      "rva": "0x34443f0",
+      "targetRva": "0x3441030"
+    },
+    {
+      "role": "cooldown-reduction-exec",
+      "rva": "0x34443f8",
+      "targetRva": "0xf20210"
+    }
+  ],
+  "directCalls": [
+    {
+      "role": "boots-duration-class",
+      "rva": "0xad82bc",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e81f474400"
+    },
+    {
+      "role": "mushroom-duration-class",
+      "rva": "0xad8876",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e865414400"
+    },
+    {
+      "role": "iron-hide-duration-class",
+      "rva": "0xb18bcc",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e80f3e4000"
+    },
+    {
+      "role": "gong-duration-class",
+      "rva": "0xb18596",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e845444000"
+    },
+    {
+      "role": "shadow-duration-class",
+      "rva": "0xb197da",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e801324000"
+    },
+    {
+      "role": "tome-duration-class",
+      "rva": "0xad8a6d",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e86e3f4400"
+    },
+    {
+      "role": "shielding-duration-class",
+      "rva": "0xb1a703",
+      "targetRva": "0xf1c9e0",
+      "bytes": "e8d8224000"
+    },
+    {
+      "role": "boots-power-index",
+      "rva": "0xae5fdc",
+      "targetRva": "0xaf7440",
+      "bytes": "e85f140100"
+    },
+    {
+      "role": "boots-power-callback",
+      "rva": "0xae5fec",
+      "targetRva": "0xb903e0",
+      "bytes": "e8efa30a00"
+    },
+    {
+      "role": "boots-base-duration",
+      "rva": "0xae5ffb",
+      "targetRva": "0x6df400",
+      "bytes": "e80094bfff"
+    },
+    {
+      "role": "boots-duration-store",
+      "rva": "0xae6016",
+      "targetRva": "0x3ca070",
+      "bytes": "e855408eff"
+    },
+    {
+      "role": "mushroom-power-callback",
+      "rva": "0xae7ba0",
+      "targetRva": "0xb903e0",
+      "bytes": "e83b880a00"
+    },
+    {
+      "role": "mushroom-base-duration",
+      "rva": "0xae7bb3",
+      "targetRva": "0x6df400",
+      "bytes": "e84878bfff"
+    },
+    {
+      "role": "iron-hide-power-callback",
+      "rva": "0xb41f22",
+      "targetRva": "0xb903e0",
+      "bytes": "e8b9e40400"
+    },
+    {
+      "role": "gong-power-callback",
+      "rva": "0xb4e31b",
+      "targetRva": "0xb903e0",
+      "bytes": "e8c0200400"
+    },
+    {
+      "role": "shadow-power-callback",
+      "rva": "0xb439d4",
+      "targetRva": "0xb903e0",
+      "bytes": "e807ca0400"
+    },
+    {
+      "role": "named-default-duration",
+      "rva": "0xf20406",
+      "targetRva": "0xb532c0",
+      "bytes": "e8b52ec3ff"
+    },
+    {
+      "role": "common-cooldown-getter",
+      "rva": "0xae8d0d",
+      "targetRva": "0xaecae0",
+      "bytes": "e8ce3d0000"
+    },
+    {
+      "role": "cooldown-reduction-read",
+      "rva": "0xf2022e",
+      "targetRva": "0xb531e0",
+      "bytes": "e8ad2fc3ff"
+    },
+    {
+      "role": "type-construction",
+      "rva": "0xb6508f",
+      "targetRva": "0xb1b390",
+      "bytes": "e8fc62fbff"
+    },
+    {
+      "role": "boots-duration-calc-class",
+      "rva": "0xadb39b",
+      "targetRva": "0xf8a610",
+      "bytes": "e870f24a00"
+    },
+    {
+      "role": "boots-speed-attribute",
+      "rva": "0xadb4c9",
+      "targetRva": "0x7d3e40",
+      "bytes": "e87289cfff"
+    },
+    {
+      "role": "boots-speed-payload",
+      "rva": "0xae6032",
+      "targetRva": "0x3ca070",
+      "bytes": "e839408eff"
+    },
+    {
+      "role": "candidate-base-cooldown",
+      "rva": "0xaecc47",
+      "targetRva": "0x6df440",
+      "bytes": "e8f427bfff"
+    },
+    {
+      "role": "normal-item-cooldown-attribute",
+      "rva": "0xaecbd0",
+      "targetRva": "0x7c33b0",
+      "bytes": "e8db67cdff"
+    },
+    {
+      "role": "normal-item-override-attribute",
+      "rva": "0xaecbe7",
+      "targetRva": "0x7c3470",
+      "bytes": "e88468cdff"
+    },
+    {
+      "role": "potion-cooldown-attribute",
+      "rva": "0xaecbc9",
+      "targetRva": "0x7ce9d0",
+      "bytes": "e8021eceff"
+    },
+    {
+      "role": "status-duration-setbycaller-lookup",
+      "rva": "0x7b0af0",
+      "targetRva": "0x3b5140",
+      "bytes": "e84b46c0ff"
+    }
+  ],
+  "strings": [
+    {
+      "role": "boots-native-class",
+      "rva": "0x33d5a7a",
+      "encoding": "utf-16le",
+      "value": "BootsOfSwiftnessInstance"
+    },
+    {
+      "role": "boots-native-effect",
+      "rva": "0x33d5992",
+      "encoding": "utf-16le",
+      "value": "BootsOfSwiftnessGameplayEffect"
+    },
+    {
+      "role": "status-calculator-class",
+      "rva": "0x34a8a52",
+      "encoding": "utf-16le",
+      "value": "StatusDurationModCalculation"
+    },
+    {
+      "role": "item-cooldown-multiplier",
+      "rva": "0x31b7250",
+      "encoding": "utf-16le",
+      "value": "ItemCooldownMultiplier"
+    },
+    {
+      "role": "item-cooldown-override",
+      "rva": "0x31b7280",
+      "encoding": "utf-16le",
+      "value": "ItemCooldownOverride"
+    },
+    {
+      "role": "potion-cooldown-multiplier",
+      "rva": "0x31b7360",
+      "encoding": "utf-16le",
+      "value": "PotionCooldownMultiplier"
+    },
+    {
+      "role": "positive-duration-attribute",
+      "rva": "0x31b7a80",
+      "encoding": "utf-16le",
+      "value": "PositiveStatusDurationMagnitude"
+    },
+    {
+      "role": "negative-duration-attribute",
+      "rva": "0x31b7ac0",
+      "encoding": "utf-16le",
+      "value": "NegativeStatusDurationMagnitude"
+    },
+    {
+      "role": "speed-attribute",
+      "rva": "0x31b7600",
+      "encoding": "utf-16le",
+      "value": "SpeedMultiplier"
+    },
+    {
+      "role": "positive-status-tag",
+      "rva": "0x31bde08",
+      "encoding": "ascii",
+      "value": "StatusEffect.Positive"
+    },
+    {
+      "role": "duration-key",
+      "rva": "0x30d0f50",
+      "encoding": "utf-16le",
+      "value": "Duration"
+    }
+  ],
+  "actualGameplay": null,
+  "independentValidation": null,
+  "runtimePromotion": false,
+  "interpretation": "Static bounded Artifact duration and cooldown foundation; full-item runtime READY remains zero. Conditional replay recorded separately in artifact-replay.json.",
+  "cohort": {
+    "formalRelationUnionCount": 16,
+    "formalRelationUnsupportedCount": 13,
+    "nativeDurationClassCount": 7,
+    "nativeDurationClassUnsupportedIds": [
+      "boots-of-swiftness",
+      "enchanters-tome",
+      "gong-of-weakening",
+      "shadow-shifter",
+      "totem-of-shielding"
+    ],
+    "runtimeReadyCount": 0
+  }
+}

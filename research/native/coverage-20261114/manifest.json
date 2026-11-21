@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "scope": "Research handoff; integrity checks do not establish gameplay or Adoption.",
+  "baselineCommit": "6bf212dc5ea8f686f981c9882657874264e41791",
+  "baselineTree": "553614636af385713bbe94e1992c2e593f9bb5c5",
+  "githubMainRecheckedDate": "2026-11-16",
+  "imageRelativePath": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mapped-image.bin",
+  "sourceProvenance": "Existing archive/Raw labelled 1.17.0.0; hash identity verified, official authenticity and Raw/exe exact build correspondence unverified.",
+  "files": [
+    {
+      "path": "README.md",
+      "size": 11793,
+      "sha256": "8a2323fc4bd00c31161d9ffdc9eaefb9bee99b858618423a2098fe50603ade31"
+    },
+    {
+      "path": "armor-REPORT.md",
+      "size": 8609,
+      "sha256": "61510a3a8d3b08a91c55698e063557a858b3797c31b79a892ce7985f845ae99c"
+    },
+    {
+      "path": "armor-evidence.json",
+      "size": 12909,
+      "sha256": "0a2314658c7c2f5d40467d91eebf22992d851f8dd5fc99f66a9c892270674938"
+    },
+    {
+      "path": "armor-raw-bindings.json",
+      "size": 2108,
+      "sha256": "ffefbccb580c770cfde74bd53a5d9c11b3947961d82e022794ca5be9bd48eeef"
+    },
+    {
+      "path": "armor-replay.json",
+      "size": 1679,
+      "sha256": "2ff1b8e2f2e6da17ed29a8768bb67e41ae14416f43e6f19d1a5d54228f163fa6"
+    },
+    {
+      "path": "artifact-REPORT.md",
+      "size": 11368,
+      "sha256": "fb81836031c7ebf60d68d7b2bcfe6fa7f98d3e18cb07bc60bcdb3e544908c069"
+    },
+    {
+      "path": "artifact-evidence.json",
+      "size": 19579,
+      "sha256": "b170cfa1c95045c6ec7d8a9f724e20b5ce4486ab1334fa9aee13e3e5c6526b1c"
+    },
+    {
+      "path": "artifact-independent-review.json",
+      "size": 6415,
+      "sha256": "585865d4720030653e3965cca4801915589aa19ab9b1ca352269c725ee654a80"
+    },
+    {
+      "path": "artifact-raw.json",
+      "size": 4612,
+      "sha256": "932ee52c957d0397b3b04f1877973926c80147a57ae5a091fead7ff9e2c6c5a8"
+    },
+    {
+      "path": "artifact-replay.json",
+      "size": 4535,
+      "sha256": "fdecfe2372bbb885b3918c9fdefc65d63b4c83f52269d55b740690639fa32f1d"
+    },
+    {
+      "path": "artifact_probe.py",
+      "size": 8237,
+      "sha256": "25ebe43f8248248162d462de9e6f11431e60158220d386ed9d4edf0ae89c06fc"
+    },
+    {
+      "path": "artifact_raw.mjs",
+      "size": 2088,
+      "sha256": "5290870b6003a145dc46e9deb0afcb1f75bf63216b4a29e3901973a6f97c0db3"
+    },
+    {
+      "path": "artifact_replay.py",
+      "size": 6006,
+      "sha256": "95cefabcc6f5828caa2fbbb2a66cc8f4eba854d5e877d0db967d3bd3d9336fa6"
+    },
+    {
+      "path": "baseline-catalog.json",
+      "size": 37626,
+      "sha256": "1d81dc01e029b523fb2ecfa3f951ebc3123abac49a4444da213c5a2630e4ac7c"
+    },
+    {
+      "path": "candidate-census.json",
+      "size": 251678,
+      "sha256": "bd29d6586e99169bb9af3f82c3d10621b30ec5984d0fbdf31b71e8cc2699e04f"
+    },
+    {
+      "path": "candidate-census.md",
+      "size": 1640,
+      "sha256": "c159f496f901be9d6bf4d61e6216968903456d27e4e473b49285005fecce7319"
+    },
+    {
+      "path": "candidate_census.py",
+      "size": 7136,
+      "sha256": "7cbd540363936b974b41b7bb037bceb090a9e407dccfd57a6a7ccde8048ac72b"
+    },
+    {
+      "path": "catalog_snapshot.mjs",
+      "size": 1535,
+      "sha256": "a4007cc9414b7ea54e87e91781d75be337a9c3bcec00d27dcea89fa44ea8f346"
+    },
+    {
+      "path": "chains-REPORT.md",
+      "size": 6655,
+      "sha256": "c4c0950f9556006bd8c7536d0a662b2363f1010946ddcd7d9330f4fc88c8e720"
+    },
+    {
+      "path": "chains-evidence.json",
+      "size": 44523,
+      "sha256": "c5c31e08e081e9dbbe8b856ff6dca1f388213381901653ffa774e44905124a91"
+    },
+    {
+      "path": "chains-raw-review.json",
+      "size": 2471,
+      "sha256": "4e83e0a5c55ca67306ec4681545cd9e0cfa048806ce8dfee2bb02e4e850ee5a6"
+    },
+    {
+      "path": "check_armor_coverage.py",
+      "size": 5678,
+      "sha256": "f8ae7292890698fc364b8abe36f4fc1d8412db4a99ede5e9569aa222a2237c1a"
+    },
+    {
+      "path": "check_armor_raw.mjs",
+      "size": 2005,
+      "sha256": "bfb6f9daa9abde3cad44590d15c4aea439dbdc68106600ec6c91ed22150820e3"
+    },
+    {
+      "path": "check_chains.py",
+      "size": 8706,
+      "sha256": "e5a5cf2d49218207e11c456369a46326eae338d5f03d9bc512f30c709b654ef6"
+    },
+    {
+      "path": "handoff.json",
+      "size": 2572,
+      "sha256": "114782889da1991a89b6558765c9462a2ff438ef204551251ad00b1dae72b177"
+    },
+    {
+      "path": "independent-branch-review.json",
+      "size": 4017,
+      "sha256": "f615c5471edd983209af401c84ef7764a98bca0a86c0a43620c7c5b7c7ba5532"
+    },
+    {
+      "path": "independent_branch_review.py",
+      "size": 5764,
+      "sha256": "0a82f95c71ad152cfabcd013af75085bcacad81ab93d261b8286051c14f4c733"
+    },
+    {
+      "path": "review-resolution.json",
+      "size": 3513,
+      "sha256": "eec17bdda8f13bb55b82bcaa27bd53b57fca39e3a9d03751ba4245df7b27e64b"
+    },
+    {
+      "path": "review_chains_raw.mjs",
+      "size": 2760,
+      "sha256": "ce3cf1ebbdc3831784af08c7b270643c133dcdf77a2999070e3aeaac47cbc052"
+    },
+    {
+      "path": "test_armor_coverage.py",
+      "size": 682,
+      "sha256": "ad269be887e0c5ea83a5d799ddf4b640c2a3117c0fb5178c3ee50382a9086b83"
+    },
+    {
+      "path": "verify_handoff.py",
+      "size": 4822,
+      "sha256": "d84b6d822c7bd76a0bdff5f655f0bccfc18fba8bac1097377fa9be1cdb4f28f7"
+    }
+  ],
+  "baselineInputs": [
+    {
+      "path": "AGENTS.md",
+      "size": 1503,
+      "sha256": "487aef1bb638af8c69745973cb5042330384683492e82ec8a502052ee5438dfd"
+    },
+    {
+      "path": "docs/adr/0002-limited-runtime-reuse.md",
+      "size": 16080,
+      "sha256": "60c1491ceb424cd62a9076aa7bd77f7bef6a2dbdc4c9a9bb52af18d0bc153881"
+    },
+    {
+      "path": "docs/runtime-promotion-pipeline.md",
+      "size": 3774,
+      "sha256": "5be82996907d2c543ee943fc304ecf01d90bca30299fc8af15d03630f3c4b635"
+    },
+    {
+      "path": "research/armor-audit.json",
+      "size": 164673,
+      "sha256": "1dc1f5027be4ddc39450cd276ff5204a43d799a57d3b032d863936c9ebfebdc3"
+    },
+    {
+      "path": "research/artifact-audit.json",
+      "size": 187643,
+      "sha256": "ece9c342b2f7b2ae3a96606c05c34b50a039e96fc99b91807af24ea2a37602e7"
+    },
+    {
+      "path": "research/domain/formal/identity-evidence-v1.json",
+      "size": 807446,
+      "sha256": "ec4f859a40fe42e8847748615588876f4db58c9fd5f30a465efb2df2b5fe5ab5"
+    },
+    {
+      "path": "research/domain/formal/serialized-relation-v2.json",
+      "size": 858710,
+      "sha256": "93c249f6807245e98784ec05653c87cded95747c86c59cfc81a6270f5648bc4c"
+    },
+    {
+      "path": "research/domain/formal/value-availability-v2.json",
+      "size": 1898913,
+      "sha256": "baa744d0985d73e2c1a8143a19d7cc5c7fb206ed545606dd7ddc0415f3aea0cc"
+    },
+    {
+      "path": "research/domain/game-data-canonical-mappings.json",
+      "size": 1230301,
+      "sha256": "6135ec622299b9b994eb01c9670a6af97717dbdd0c4fcaecd62cece1b599c33f"
+    },
+    {
+      "path": "research/domain/game-data-canonical-properties.json",
+      "size": 89259,
+      "sha256": "9d6dd544777ca0388d94a706ce3c9200d5d8d6a358b0b5d8b2c9fa069c0f182c"
+    },
+    {
+      "path": "research/melee-attack-profile-audit.json",
+      "size": 168901,
+      "sha256": "811848e0e1d8270bce9ebbee001b3fdb1069cfd5399a0772e7918808cc1adc45"
+    },
+    {
+      "path": "research/native/armor-hp-final-path.md",
+      "size": 18051,
+      "sha256": "3e479d586c7871d975676f3124cd636e8fb9ef513b3b0630c5242bf041738b2b"
+    },
+    {
+      "path": "research/native/power-117-evidence-manifest.json",
+      "size": 15706,
+      "sha256": "db49ef6c90c67deb5bbb1b0586a435bda0ca8c4de8fba40994ccc9d644cc92aa"
+    },
+    {
+      "path": "research/native/power-117-handoff.md",
+      "size": 20079,
+      "sha256": "e081bbef48464999043fd2029375f61eb5661d2e5a5ebf6ca5957672217c3952"
+    },
+    {
+      "path": "research/native/ranged-final-20261101/REPORT.md",
+      "size": 20811,
+      "sha256": "b2842aa85aab53111645bd1293267e5ff98e48ffd35e19386c91fd98d97cbef5"
+    },
+    {
+      "path": "research/native/ranged-final-20261101/independent-research-review.json",
+      "size": 11438,
+      "sha256": "c04b807d1fe4fb0c66b1381c54089a2ec8473755c8a0699378f02a33ffde32b0"
+    },
+    {
+      "path": "research/ranged-weapon-audit.json",
+      "size": 185538,
+      "sha256": "c441e974cda0f12bbcf3b011e365c77a25f73d55211d28878ddd8bec745bf792"
+    },
+    {
+      "path": "research/raw/game-data-raw-structural-inventory/manifest.json",
+      "size": 602640,
+      "sha256": "7fcf4212174a9a6c9a3c89cbc04349b75af9c460ce871bf3b9d5470696b5e2cc"
+    },
+    {
+      "path": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+      "size": 220826,
+      "sha256": "758800e77f48865195b963b33dc9e50faccd0048b1b85b939cc3b81e181e85c2"
+    },
+    {
+      "path": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+      "size": 209164,
+      "sha256": "1d0da96d923350b68d585e10566690622017ca7c9f4511e9278ea11ea9d16a09"
+    },
+    {
+      "path": "research/runtime/phase8c-limited-dr-validation.json",
+      "size": 4031,
+      "sha256": "0c75852d6361ee1e7d0efdac60fb2472856b5edebfcec89222cda6cbca083a33"
+    },
+    {
+      "path": "research/runtime/runtime-promotion-manifest.json",
+      "size": 2156,
+      "sha256": "dc993dec6743d66c36b59e49d1cad5bbed3e7e4c45975c41fd6a96997ea94c68"
+    },
+    {
+      "path": "research/runtime/runtime-promotion-regression.json",
+      "size": 224,
+      "sha256": "70f91be8f45684fc2e1fb4149a214acf91645b0efe4cdcfe2112ee075157008c"
+    },
+    {
+      "path": "src/data/equipmentCatalog.ts",
+      "size": 6133,
+      "sha256": "bf02819252933eb79ddccddab914d9a7d683dfab0fa144ebae9b70add38ff7ab"
+    },
+    {
+      "path": "src/research/ue4/objectResolver.ts",
+      "size": 1661,
+      "sha256": "8d1aa51a0e53afe7cd1dfd16d66a18672a3e23c7e44521750deda01570ef2742"
+    },
+    {
+      "path": "src/research/ue4/packageReader.ts",
+      "size": 10954,
+      "sha256": "818d3f2d1584d489727d3dbf4db3946faf5dd9e92090a01dc0849557471f0c36"
+    }
+  ],
+  "privateInputs": [
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uasset",
+      "size": 5370,
+      "sha256": "410d5632a887f51f171c277209232769ce489e311b4f1cd3f9793dd4dcac70fe"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance.uexp",
+      "size": 4370,
+      "sha256": "4077cfcf99e7648b2666a9796ebfa51ff394b2675d67e3824aade19083e81e51"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uasset",
+      "size": 5208,
+      "sha256": "1cfdf697357c19e8bcab631c4dd8cb167a6b9551a43ae3c6fed25d4f112eb2fd"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance.uexp",
+      "size": 3100,
+      "sha256": "47723c6bd3faa20ad04c09b6ebf2a143d3d4056442e9dc97fea29e849e727073"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect.uasset",
+      "size": 1542,
+      "sha256": "9eead4c5cf4c3625fc6d5bbf3d42f79e550a77e9cf2728e85f3caeaf54aecc00"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessGameplayEffect.uexp",
+      "size": 129,
+      "sha256": "f687377ae42debf844640348a0bbaf3719cfac094f77a58f149fdab7a5b91818"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance.uasset",
+      "size": 3031,
+      "sha256": "c46ec372c2d7d09f9ad8356af58da32871caca0328532c67adda2fa21e1bdf6d"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Actors/Items/BootsOfSwiftness/BP_BootsOfSwiftnessInstance.uexp",
+      "size": 556,
+      "sha256": "b4441d73c8b449cb806368d1e6200119939f45157577664b7f3d5d11af79577f"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uasset",
+      "size": 1307,
+      "sha256": "45cb3c2ce969aa121b5504414f828cfc19a79a6dc4029369caafd58b002a80c7"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/IncreasedArrowBundleSize/BP_IncreasedArrowBundleSize.uexp",
+      "size": 268,
+      "sha256": "7baf496e79e23872ae2511a8f17f0f5888f3bb67ae07771f4029c6a74d8897d8"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uasset",
+      "size": 1190,
+      "sha256": "10a34ccba42ca5e4708a1f42de725797c981cebb3a64a522e6dc5d98976ac03f"
+    },
+    {
+      "path": "QuickBMS 1.17.0.0/Dungeons/Content/Components/ArmorProperties/MissChance/BP_MissChance.uexp",
+      "size": 268,
+      "sha256": "9bb3275e03767227aaf5ecf46d97bc31aa2954fec77e2d8a976fcfbe9febd23a"
+    },
+    {
+      "path": "archive-1.17.0.0/extracted/Dungeons/Binaries/Win64/Dungeons-Win64-Shipping.exe",
+      "size": 37613072,
+      "sha256": "eab80a0ba0c3c4c1bbae6e0e40ed8ada5dc26bf3008b7385579168b793bf0eb8"
+    },
+    {
+      "path": "phase6.8/native-stage2/self-file-experiments/verified-copy-20261024-a/mapped-image.bin",
+      "size": 103702528,
+      "sha256": "04a990ccbc67454505724a28043eccc595f613a0a877ae55386a4fa8656434d3"
+    }
+  ],
+  "nativeEvidenceFiles": [
+    "artifact-evidence.json",
+    "armor-evidence.json",
+    "chains-evidence.json",
+    "artifact-independent-review.json",
+    "independent-branch-review.json"
+  ],
+  "executionEnvironment": {
+    "node": "26.13.0",
+    "capstone": "5.0.6",
+    "unicorn": "2.1.4",
+    "mxcsrForArithmeticReplay": "0x1f80"
+  },
+  "notIncluded": [
+    "game binaries",
+    "private cooked payload",
+    "save files",
+    "full decompilation"
+  ],
+  "preservedGates": {
+    "runtimeSupported": 62,
+    "totalCatalog": 271,
+    "promotionCandidates": 1,
+    "eligible": 0,
+    "promoted": 0
+  },
+  "hashScope": "manifest.json itself excluded; baselineInputs hash repository records, not uncaptured remote page bodies."
+}

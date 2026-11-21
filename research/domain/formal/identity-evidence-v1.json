@@ -5334,6 +5334,68 @@
             "evidence:presentation:eternal-knife:melee-audit"
           ]
         }
+      },
+      {
+        "assertionId": "identity:flail@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "Mace_Unique2",
+            "evidenceRef": "evidence:raw:identity:flail@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "Mace_Unique2",
+            "evidenceRef": "evidence:raw:identity:flail@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:flail@1",
+          "domainId": "flail",
+          "evidenceRefs": [
+            "evidence:raw:identity:flail@1:ItemIdName",
+            "evidence:raw:identity:flail@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "flail",
+          "displayName": "Flail",
+          "evidenceRefs": [
+            "evidence:presentation:flail:melee-audit"
+          ]
+        }
+      },
+      {
+        "assertionId": "identity:jailors-scythe@1",
+        "rawEvidence": {
+          "itemIdName": {
+            "state": "known",
+            "value": "SoulScythe_Unique1",
+            "evidenceRef": "evidence:raw:identity:jailors-scythe@1:ItemIdName"
+          },
+          "serializedId": {
+            "state": "known",
+            "value": "SoulScythe_Unique1",
+            "evidenceRef": "evidence:raw:identity:jailors-scythe@1:ItemId.SerializedId"
+          }
+        },
+        "resolution": {
+          "state": "matched",
+          "assertionId": "identity:jailors-scythe@1",
+          "domainId": "jailors-scythe",
+          "evidenceRefs": [
+            "evidence:raw:identity:jailors-scythe@1:ItemIdName",
+            "evidence:raw:identity:jailors-scythe@1:ItemId.SerializedId"
+          ]
+        },
+        "presentation": {
+          "domainId": "jailors-scythe",
+          "displayName": "Jailor's Scythe",
+          "evidenceRefs": [
+            "evidence:presentation:jailors-scythe:melee-audit"
+          ]
+        }
       }
     ]
   },
@@ -8651,6 +8713,46 @@
       "evidenceRefs": [
         "evidence:reviewed:eternal-knife:accepted-alias",
         "evidence:reviewed:eternal-knife:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:flail@1",
+      "rawIdentity": "Mace_Unique2",
+      "domainId": "flail",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:flail:accepted-alias",
+        "evidence:reviewed:flail:exact-localization-key"
+      ]
+    },
+    {
+      "id": "identity:jailors-scythe@1",
+      "rawIdentity": "SoulScythe_Unique1",
+      "domainId": "jailors-scythe",
+      "reviewState": "accepted",
+      "confidence": "high",
+      "applicationScope": {
+        "rawSchemaVersion": 2,
+        "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+        "requireUnambiguousCdo": true,
+        "identityFields": {
+          "itemIdName": "ItemIdName",
+          "serializedId": "ItemId.SerializedId"
+        }
+      },
+      "evidenceRefs": [
+        "evidence:reviewed:jailors-scythe:accepted-alias",
+        "evidence:reviewed:jailors-scythe:exact-localization-key"
       ]
     }
   ],
@@ -20203,6 +20305,156 @@
           "nodePointer": "/packages/53/cdoPropertyInventory/0/properties/4/decoding/properties/0"
         },
         "fingerprint": "fnv1a32:93730e0e"
+      },
+      {
+        "id": "evidence:reviewed:flail:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:Mace_Unique2]"
+        },
+        "fingerprint": "fnv1a32:5fa38931"
+      },
+      {
+        "id": "evidence:presentation:flail:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=flail].name.en"
+        },
+        "fingerprint": "fnv1a32:81722de4"
+      },
+      {
+        "id": "evidence:reviewed:flail:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/Mace_Unique2 reads Flail. Published display name: Flail. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-isolated-chains.json",
+          "locator": "rows[id=flail].localization"
+        },
+        "fingerprint": "fnv1a32:d8040065"
+      },
+      {
+        "id": "evidence:raw:identity:flail@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "Mace_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b3202c4ce6cb2cf223ecccdc43bb3dcec0da1757d5efa754cc9eb230d79bc597",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8fffe75348aacc1f8da309bf6061513175fd2d2eece86ed5018742ade643565b"
+          },
+          "nodePointer": "/packages/33/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:b293c0fd"
+      },
+      {
+        "id": "evidence:raw:identity:flail@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "Mace_Unique2"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-018.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:b3202c4ce6cb2cf223ecccdc43bb3dcec0da1757d5efa754cc9eb230d79bc597",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/Mace_Unique2/BP_Mace_Unique2Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "8fffe75348aacc1f8da309bf6061513175fd2d2eece86ed5018742ade643565b"
+          },
+          "nodePointer": "/packages/33/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:b8032c9b"
+      },
+      {
+        "id": "evidence:reviewed:jailors-scythe:accepted-alias",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Reviewed high-confidence alias maps the Raw identity to the canonical melee-weapon entity.",
+        "source": {
+          "artifactPath": "research/domain/game-data-entity-aliases.json",
+          "locator": "aliases[id=melee-weapon:SoulScythe_Unique1]"
+        },
+        "fingerprint": "fnv1a32:651f96f4"
+      },
+      {
+        "id": "evidence:presentation:jailors-scythe:melee-audit",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "The Melee audit supplies the English display name independently of identity matching.",
+        "source": {
+          "artifactPath": "research/melee-attack-profile-audit.json",
+          "locator": "weapons[weaponId=jailors-scythe].name.en"
+        },
+        "fingerprint": "fnv1a32:c59b197e"
+      },
+      {
+        "id": "evidence:reviewed:jailors-scythe:exact-localization-key",
+        "kind": "reviewed",
+        "role": "support",
+        "detail": "Hash-bound ItemType/SoulScythe_Unique1 reads Jailor's Scythe. Published display name: Jailor's Scythe. Both Raw serialized identifiers are required.",
+        "source": {
+          "artifactPath": "research/sources/observed-isolated-chains.json",
+          "locator": "rows[id=jailors-scythe].localization"
+        },
+        "fingerprint": "fnv1a32:534f6ec5"
+      },
+      {
+        "id": "evidence:raw:identity:jailors-scythe@1:ItemIdName",
+        "kind": "raw-observation",
+        "field": "ItemIdName",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a668a795ea7fd95aaf44bd0c0e50de905dc58099af64f00f8ab0e2e1566bb3fe",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0d3225aca21715a95dc91307c4dd6e8bffaf3dbc1176c088122b4b03c2ab9c76"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/3"
+        },
+        "fingerprint": "fnv1a32:fcf6dbac"
+      },
+      {
+        "id": "evidence:raw:identity:jailors-scythe@1:ItemId.SerializedId",
+        "kind": "raw-observation",
+        "field": "ItemId.SerializedId",
+        "observation": {
+          "state": "known",
+          "value": "SoulScythe_Unique1"
+        },
+        "provenance": {
+          "artifactPath": "research/raw/game-data-raw-structural-inventory/shards/part-020.json.gz",
+          "datasetId": "mcd-quickbms-local-1.17.0.0-823acded",
+          "extractionRunId": "sha256:a668a795ea7fd95aaf44bd0c0e50de905dc58099af64f00f8ab0e2e1566bb3fe",
+          "packagePath": "Dungeons/Content/Actors/Equipment/MeleeWeapons/SoulScythe_Unique1/BP_SoulScythe_Unique1Instance",
+          "packageHash": {
+            "algorithm": "sha256-path-content-v1",
+            "value": "0d3225aca21715a95dc91307c4dd6e8bffaf3dbc1176c088122b4b03c2ab9c76"
+          },
+          "nodePointer": "/packages/13/cdoPropertyInventory/0/properties/4/decoding/properties/0"
+        },
+        "fingerprint": "fnv1a32:0498ceb4"
       }
     ]
   }
