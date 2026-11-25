@@ -144,6 +144,18 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
           </details>
         </>}
       </details>)}
+      {search.assessments.length > 1 && search.assessments[0]?.status === 'complete' && <section className="assessment-reference" aria-label="同じ装備構成を別条件で比較">
+        <h3>同じ装備構成を別条件で比較</h3>
+        <p>現在の推奨構成の装備個体とエンチャントを固定し、各条件の最良構成と比較します。遠距離に割く時間は各条件の候補から選びます。</p>
+        {search.assessments.slice(1).map((assessment) => <details className="assessment-reference-condition" key={assessment.condition.id}>
+          <summary>{assessment.condition.name} · {assessment.status === 'error' ? '条件を評価できませんでした'
+            : assessment.referenceBuild?.status !== 'evaluated' ? '同じ構成は未評価'
+              : assessment.referenceBuild.scoreGap === 0 ? '最良と同点' : `最良との差 ${formatGap(assessment.referenceBuild.scoreGap)}pt`}</summary>
+          {assessment.status === 'error' ? <p role="alert">{assessment.error}</p>
+            : assessment.referenceBuild?.status === 'evaluated' ? <BuildAlternative title="固定した構成" evaluation={assessment.referenceBuild.evaluation} best={assessment.best} weights={assessment.condition.scenario.weights} />
+              : <p>この条件で使える候補の中に、同じ装備個体とエンチャントの構成がありません。</p>}
+        </details>)}
+      </section>}
       {multiConditionBestScores && multiConditionBestScores.distinctCompletedConditionCount > 1 && <section className="assessment-cross-condition" aria-label="複数条件で最良スコアに届く装備">
         <h3>複数条件で最良スコアの構成に使える装備</h3>
         <p>装備個体を1つずつ必須にした最良構成を各条件で調べ、条件ごとの最良スコアと同点になった装備を表示します。表示名が異なっても評価入力が同じ条件は1件として数えます。複数の表示装備を同じ構成で同時に使えるとは限らず、条件間のスコアも比べたり合算したりしません。未評価の装備は含まず、ここにない装備が不要という意味ではありません。</p>

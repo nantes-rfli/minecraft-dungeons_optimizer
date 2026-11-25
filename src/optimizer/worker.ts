@@ -29,7 +29,7 @@ self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
       return
     }
     if (assessmentConditions) {
-      response = { id, type: 'assessment-complete', assessments: assessEquipment(inventory, assessmentConditions), durationMs: performance.now() - start }
+      response = { id, type: 'assessment-complete', assessments: assessEquipment(inventory, assessmentConditions, true), durationMs: performance.now() - start }
       self.postMessage(response)
       return
     }

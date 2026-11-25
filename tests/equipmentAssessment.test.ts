@@ -35,6 +35,54 @@ describe('equipment value across independent conditions', () => {
     expect(JSON.stringify({ inventory, conditions: [condition, survival] })).toBe(before)
   })
 
+  it('compares the same individual and exact rolls to each condition optimum without a second search', () => {
+    const source: Inventory = {
+      weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [{ candidates: ['critical-hit', 'radiance'] }] }],
+      artifacts: [],
+    }
+    const recovery = { id: 'recover', name: '回復用', scenario: { ...scenario, weights: { damage: 0, healing: 1, defense: 0, control: 0 } } }
+    const ordinary = assessEquipment(source, [condition, recovery])
+    const [current, other] = assessEquipment(source, [condition, recovery], true)
+    expect(current).toEqual(ordinary[0])
+    if (current?.status !== 'complete' || other?.status !== 'complete') throw new Error('expected both conditions to complete')
+    expect(other.evaluatedBuildCount).toBe(2)
+    expect(other.best).toEqual(optimize(source, recovery.scenario).best)
+    expect(other.best.build.enchantments).toContainEqual({ enchantmentId: 'radiance', tier: 3, source: 'slot' })
+    expect(other.referenceBuild).toMatchObject({ status: 'evaluated', evaluation: { build: current.best.build } })
+    if (other.referenceBuild?.status !== 'evaluated') throw new Error('expected the fixed build')
+    expect(other.referenceBuild.scoreGap).toBeGreaterThan(0)
+    expect(other.referenceBuild.scoreGap).toBe(other.best.objectiveScore - other.referenceBuild.evaluation.objectiveScore)
+  })
+
+  it('holds a fixed build excluded by the target search while preserving each condition result', () => {
+    const source: Inventory = { ...inventory, artifacts: [{ instanceId: 'estimated', artifactId: 'death-cap-mushroom', powerLevel: 251 }] }
+    const strict = { ...condition, id: 'strict', scenario: { ...scenario, evidencePolicy: 'high-confidence-only' as const } }
+    const invalid = { ...condition, id: 'invalid', scenario: { ...scenario, averageEnemyHealth: 0 } }
+    const [current, other, failed] = assessEquipment(source, [condition, strict, invalid], true)
+    expect(current).toMatchObject({ status: 'complete', best: { build: { artifacts: source.artifacts } } })
+    expect(other).toMatchObject({ status: 'complete', referenceBuild: { status: 'excluded' }, best: { build: { artifacts: [] } } })
+    expect(other?.status === 'complete' && other.referenceBuild).not.toHaveProperty('scoreGap')
+    expect(failed).toMatchObject({ status: 'error' })
+    expect(failed).not.toHaveProperty('referenceBuild')
+    expect(assessEquipment(source, [invalid, strict], true)[1]).not.toHaveProperty('referenceBuild')
+  })
+
+  it('evaluates the fixed Ranged roll and gear with the target condition’s eligible timing', () => {
+    const source: Inventory = {
+      ...inventory,
+      rangedWeapons: [{ instanceId: 'bow', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [], observation: {
+        gameVersion: '1.17.0.0', mode: 'uncharged', projectileDamage: 200, shotCycleSeconds: 1, availableAmmo: 1, sourceNote: 'Synthetic application fixture',
+      } }],
+    }
+    const [current, other] = assessEquipment(source, [
+      { ...condition, scenario: { ...scenario, rangedTimeShare: 0.4 } },
+      { ...condition, id: 'alternative-timing', scenario: { ...scenario, rangedTimeShare: 0.8, rangedTimeShareAlternatives: [0.2] } },
+    ], true)
+    if (current?.status !== 'complete' || other?.status !== 'complete') throw new Error('expected Ranged results')
+    expect(current.best.damage.ranged?.timeShare).toBe(0.4)
+    expect(other.referenceBuild).toMatchObject({ status: 'evaluated', evaluation: { build: current.best.build, damage: { ranged: { timeShare: 0.2 } } } })
+  })
+
   it('covers individuals beyond all recommendation display limits and preserves exact ties', () => {
     const many: Inventory = { weapons: Array.from({ length: 15 }, (_, index) => ({ ...inventory.weapons[0]!, instanceId: `item-${index}`, observedDamagePerHit: index < 2 ? 50 : 50 - index })), artifacts: [] }
     const ordinary = optimize(many, scenario)

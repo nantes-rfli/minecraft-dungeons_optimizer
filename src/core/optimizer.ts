@@ -222,12 +222,35 @@ export function optimize(inventory: Inventory, scenario: Scenario): Optimization
 }
 
 /** Best feasible build containing each inventory instance, before display limits. */
-export function optimizeForEquipment(inventory: Inventory, scenario: Scenario): {
+export function optimizeForEquipment(inventory: Inventory, scenario: Scenario, referenceBuild?: Build): {
   readonly result: OptimizationResult
   readonly bestByInstance: ReadonlyMap<string, Evaluation>
+  readonly referenceEvaluation?: Evaluation
 } {
-  const execution = optimizeInternal(inventory, scenario, false, true)
-  return { result: execution.result, bestByInstance: execution.bestByInstance }
+  const { result, bestByInstance, referenceEvaluation } = optimizeInternal(inventory, scenario, false, true, undefined, referenceBuild)
+  return { result, bestByInstance, ...(referenceEvaluation ? { referenceEvaluation } : {}) }
+}
+
+type BuildRoll = { readonly enchantmentId: string; readonly tier: number; readonly source: string }
+
+function sameRolls(left: readonly BuildRoll[] = [], right: readonly BuildRoll[] = []): boolean {
+  return left.length === right.length && left.every(({ enchantmentId, tier, source }, index) => {
+    const other = right[index]!
+    return enchantmentId === other.enchantmentId && tier === other.tier && source === other.source
+  })
+}
+
+function matchesReferenceBuild(build: Build, reference: Build): boolean {
+  // Both builds come from the same inventory. Preserve the actual slot and
+  // Artifact assignments while allowing the target condition's ranged timing.
+  return build.weapon.instanceId === reference.weapon.instanceId
+    && build.armor?.instanceId === reference.armor?.instanceId
+    && build.rangedWeapon?.instanceId === reference.rangedWeapon?.instanceId
+    && build.artifacts.length === reference.artifacts.length
+    && build.artifacts.every((item, index) => item.instanceId === reference.artifacts[index]?.instanceId)
+    && sameRolls(build.enchantments, reference.enchantments)
+    && sameRolls(build.armorEnchantments, reference.armorEnchantments)
+    && sameRolls(build.rangedEnchantments, reference.rangedEnchantments)
 }
 
 function buildInstanceIds(build: Build): string[] {
@@ -292,7 +315,13 @@ function optimizeInternal(
   includeEvaluationMetadata: boolean,
   includeEquipmentAssessment: boolean | ReadonlySet<string> = false,
   unsupportedChoices = new ExclusionLog(),
-): { readonly result: OptimizationResult; readonly evaluatedInstanceIds: readonly string[]; readonly bestByInstance: ReadonlyMap<string, Evaluation> } {
+  referenceBuild?: Build,
+): {
+  readonly result: OptimizationResult
+  readonly evaluatedInstanceIds: readonly string[]
+  readonly bestByInstance: ReadonlyMap<string, Evaluation>
+  readonly referenceEvaluation?: Evaluation
+} {
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory, scenario)
@@ -453,8 +482,12 @@ function optimizeInternal(
     detailed.set(candidate, result)
     return result
   }
+  const referenceCandidate = referenceBuild
+    ? evaluations.find(({ build }) => matchesReferenceBuild(build, referenceBuild))
+    : undefined
   return {
     evaluatedInstanceIds,
+    ...(referenceCandidate ? { referenceEvaluation: withDetails(referenceCandidate) } : {}),
     bestByInstance: (() => {
       const winners = new Map<string, Evaluation>()
       if (!includeEquipmentAssessment) return winners
