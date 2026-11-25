@@ -55,7 +55,7 @@ The historical `damage.directWeapon*` and `CombatState.directWeaponKillsPerSecon
 
 Allowed melee selections are Critical Hit, Sharpness, Unchanting, Smiting, Radiance, Leeching, Guarding Strike and Refreshment. Other melee/Ranged pairs (Void reset, DoT, Committed target trajectory, charge, temporal/state interactions) are rejected pending evidence. Current runtime artifacts retain their original effects; Mushroom changes **melee** rate only. Ammo/charge artifacts are not registered.
 
-Unsupported free-slot alternatives exclude the whole ranged item; locking a supported candidate makes that roll eligible. Unsupported fixed Gilded, mode mismatches, missing observations and illegal copies are not assigned zero. If no supported ranged combinations remain, optimize reports `NO_SUPPORTED_RANGED_CANDIDATES`; evaluate rejects directly. Unknown input IDs are rejected while audited Research-only rolls persist unchanged.
+Unsupported free-slot alternatives exclude the whole ranged item; locking a supported candidate makes that roll eligible. Unsupported fixed Gilded, mode mismatches, missing observations and illegal copies are not assigned zero. With the default search, if no supported ranged combinations remain, optimize reports `NO_SUPPORTED_RANGED_CANDIDATES`. The optional `scenario.includeBuildsWithoutRanged` setting adds candidates with the ranged slot empty and all attack time assigned to melee. It preserves the ordinary checks for ranged candidates, so only builds that actually include a ranged item count toward its evaluation. Unknown input IDs are rejected while audited Research-only rolls persist unchanged.
 
 ## Armor and intrinsic reassessment
 

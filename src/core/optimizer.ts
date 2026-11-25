@@ -365,7 +365,7 @@ function optimizeInternal(
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
   }
   const rangedWeapons = inventory.rangedWeapons ?? []
-  const rangedBuilds = rangedWeapons.length === 0 ? builds : rangedWeapons.flatMap((rangedWeapon) => {
+  const buildsWithRanged = rangedWeapons.flatMap<Build>((rangedWeapon) => {
     const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
     if (unsupported) { for (const issue of rangedWeaponIssues(rangedWeapon)) unsupportedChoices.record(rangedWeapon.instanceId, issue); return [] }
     const options = rangedOptions(rangedWeapon)
@@ -377,6 +377,9 @@ function optimizeInternal(
       return [build]
     }))
   })
+  // Keep existing ranged builds first so ties preserve their historical order.
+  const includeBuildsWithoutRanged = rangedWeapons.length === 0 || scenario.includeBuildsWithoutRanged === true
+  const rangedBuilds = includeBuildsWithoutRanged ? buildsWithRanged.concat(builds) : buildsWithRanged
   unsupportedChoices.finishStage(new Set(rangedBuilds.flatMap(buildInstanceIds)))
   if (rangedWeapons.length > 0 && rangedBuilds.length === 0) throw new OptimizerInputError('NO_SUPPORTED_RANGED_CANDIDATES', `No supported Ranged candidates. ${[...unsupportedChoices].join(' ')}`)
   const evidenceAllowedBuilds = rangedBuilds.filter((build) => {
