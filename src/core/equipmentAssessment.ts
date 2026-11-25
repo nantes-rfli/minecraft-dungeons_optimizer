@@ -39,12 +39,16 @@ function stableScenarioInputJson(value: unknown): string {
 }
 
 function scenarioInputKey(scenario: Scenario): string {
+  const shares = [...(scenario.rangedTimeShare === undefined ? [] : [scenario.rangedTimeShare]),
+    ...(scenario.rangedTimeShareAlternatives ?? [])].sort((left, right) => left - right)
   const inputs = {
     ...scenario,
     name: undefined,
     includeUnequippedArtifacts: scenario.includeUnequippedArtifacts === true || undefined,
     includeBuildsWithoutRanged: scenario.includeBuildsWithoutRanged === true || undefined,
-    rangedTimeShareAlternatives: scenario.rangedTimeShareAlternatives?.length ? scenario.rangedTimeShareAlternatives : undefined,
+    // Input order can resolve recommendation ties but cannot add a new scoring condition.
+    rangedTimeShare: shares.length === 1 ? shares[0] : undefined,
+    rangedTimeShareAlternatives: shares.length > 1 ? shares : undefined,
   }
   return stableScenarioInputJson(inputs)
 }

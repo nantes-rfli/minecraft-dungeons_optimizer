@@ -1,8 +1,9 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { distinctRecommendations } from '../src/core/distinctRecommendations'
 import { assessEquipment, summarizeMultiConditionBestScores } from '../src/core/equipmentAssessment'
 import { optimize, optimizeForEquipment } from '../src/core/optimizer'
 import { estimateSearchCandidates } from '../src/core/searchBudget'
+import * as validation from '../src/core/validation'
 import type { Inventory, Scenario } from '../src/core/types'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { deserializeScenarioPresets, serializeScenarioPresets } from '../src/scenario/presets'
@@ -67,6 +68,23 @@ describe('Ranged time allocations', () => {
     expect(optimize(missingObservation, combined).best.damage.ranged).toBeUndefined()
   })
 
+  it('validates the allocation list once, including for searches without ranged gear', () => {
+    const alternatives = [0.2, 0.4]
+    const withAllocations = { ...scenario, rangedTimeShareAlternatives: alternatives, includeBuildsWithoutRanged: true }
+    const validate = vi.spyOn(validation, 'validateScenario')
+    try {
+      for (const source of [inventory, { ...inventory, rangedWeapons: [] }]) {
+        validate.mockClear()
+        optimize(source, withAllocations)
+        expect(validate.mock.calls.length).toBeGreaterThan(1)
+        expect(validate.mock.calls.filter(([input]) => input.rangedTimeShareAlternatives === alternatives))
+          .toEqual([[withAllocations]])
+      }
+    } finally {
+      validate.mockRestore()
+    }
+  })
+
   it('applies the candidate limit independently to each saved condition', () => {
     const source = performanceInventory('large')
     const crowded = { ...PERFORMANCE_SCENARIO, rangedTimeShareAlternatives: [0.1, 0.3, 0.4] }
@@ -86,7 +104,15 @@ describe('Ranged time allocations', () => {
       { id: 'allocations', name: 'Several', scenario: { ...scenario, rangedTimeShareAlternatives: [0.2, 0.4] } },
     ]
     expect(deserializeScenarioPresets(serializeScenarioPresets(valid))).toEqual(valid)
-    expect(summarizeMultiConditionBestScores(assessEquipment(inventory, valid)).distinctCompletedConditionCount).toBe(2)
+    const equivalents = [
+      { id: 'single-alternative', name: 'Same single share', scenario: { ...scenario, rangedTimeShare: undefined, rangedTimeShareAlternatives: [0.8] } },
+      { id: 'reordered', name: 'Same share set', scenario: { ...scenario, rangedTimeShare: 0.4, rangedTimeShareAlternatives: [0.8, 0.2] } },
+      { id: 'all-alternatives', name: 'All values in the list', scenario: { ...scenario, rangedTimeShare: undefined, rangedTimeShareAlternatives: [0.4, 0.2, 0.8] } },
+    ]
+    const assessments = assessEquipment(inventory, [...valid, ...equivalents])
+    const summary = summarizeMultiConditionBestScores(assessments)
+    expect(summary.distinctCompletedConditionCount).toBe(2)
+    expect(summary.items.find((item) => item.instanceId === 'bow')?.conditionIds).toEqual(['legacy', 'allocations'])
     for (const shares of [[0], [1], [NaN], [0.8], [0.2, 0.2], [null], '0.2']) {
       expect(() => deserializeScenarioPresets(JSON.stringify({ version: 1, presets: [
         { id: 'invalid', name: 'Invalid', scenario: { ...scenario, rangedTimeShareAlternatives: shares } },

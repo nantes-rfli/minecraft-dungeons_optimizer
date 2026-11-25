@@ -296,6 +296,11 @@ function optimizeInternal(
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory, scenario)
+  // The whole allocation list was validated and budgeted once above. Each
+  // evaluation receives only its effective share, including the primary.
+  const evaluationScenario = scenario.rangedTimeShareAlternatives !== undefined
+    ? { ...scenario, rangedTimeShareAlternatives: undefined }
+    : scenario
 
   const policy = evidencePolicy(scenario)
   const policyArtifacts = policy === 'include-estimated'
@@ -366,13 +371,12 @@ function optimizeInternal(
   }
   const rangedWeapons = inventory.rangedWeapons ?? []
   const additionalAllocations = (rangedWeapons.length === 0 ? [] : scenario.rangedTimeShareAlternatives ?? []).map((rangedTimeShare) => ({
-    ...scenario,
+    ...evaluationScenario,
     rangedTimeShare,
-    rangedTimeShareAlternatives: undefined,
   }))
   const rangedScenarios = scenario.rangedTimeShare === undefined && additionalAllocations.length > 0
     ? additionalAllocations
-    : [scenario, ...additionalAllocations]
+    : [evaluationScenario, ...additionalAllocations]
   const firstRangedScenario = rangedScenarios[0]!
   const buildsWithRanged = rangedWeapons.flatMap<Build>((rangedWeapon) => {
     const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
@@ -417,8 +421,8 @@ function optimizeInternal(
   const evaluations = additionalAllocations.length
     ? evidenceAllowedBuilds.flatMap((build) => build.rangedWeapon
       ? rangedScenarios.map((allocation) => evaluateAllocation(build, allocation))
-      : [evaluateAllocation(build, scenario)])
-    : evidenceAllowedBuilds.map((build) => evaluateAllocation(build, scenario))
+      : [evaluateAllocation(build, evaluationScenario)])
+    : evidenceAllowedBuilds.map((build) => evaluateAllocation(build, evaluationScenario))
   const evaluatedInstanceIds = includeEvaluationMetadata
     ? [...new Set(evaluations.flatMap((candidate) => buildInstanceIds(candidate.build)))]
     : []
@@ -440,7 +444,7 @@ function optimizeInternal(
     const existing = detailed.get(candidate)
     if (existing) return existing
     let result: Evaluation
-    const allocation = candidate.damage.ranged ? allocationByShare.get(candidate.damage.ranged.timeShare)! : scenario
+    const allocation = candidate.damage.ranged ? allocationByShare.get(candidate.damage.ranged.timeShare)! : evaluationScenario
     try { result = evaluate(candidate.build, allocation) }
     catch (error) {
       recordEvaluationFailure(unsupportedChoices, candidate.build, error)
