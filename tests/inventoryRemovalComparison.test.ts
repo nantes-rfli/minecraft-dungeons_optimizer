@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { assessEquipment } from '../src/core/equipmentAssessment'
-import { compareRemovalAcrossConditions, type RemovalBaselineCondition } from '../src/core/inventoryRemovalComparison'
+import { compareRemovalAcrossConditions, removalBaselineFor, type RemovalBaselineCondition } from '../src/core/inventoryRemovalComparison'
 import { optimize } from '../src/core/optimizer'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import type { AssessmentCondition } from '../src/core/equipmentAssessment'
@@ -23,17 +23,7 @@ const conditions: readonly AssessmentCondition[] = [
 ]
 
 function baselineFor(input: Inventory, selectedConditions: readonly AssessmentCondition[], instanceId: string): readonly RemovalBaselineCondition[] {
-  return assessEquipment(input, selectedConditions).map((assessment) => {
-    if (assessment.status === 'error') return { conditionId: assessment.condition.id, status: 'error', error: assessment.error }
-    const target = assessment.equipment.find((item) => item.instanceId === instanceId)
-    return {
-      conditionId: assessment.condition.id,
-      status: 'complete',
-      best: assessment.best,
-      target: target?.status === 'evaluated' ? { status: 'evaluated' }
-        : { status: 'excluded', reasons: target?.status === 'excluded' ? target.reasons : ['対象装備がありません。'] },
-    }
-  })
+  return removalBaselineFor(assessEquipment(input, selectedConditions), [instanceId])
 }
 
 describe('inventory removal comparison', () => {
@@ -66,15 +56,75 @@ describe('inventory removal comparison', () => {
     expect(result.status === 'excluded' && result.reasons.length).toBeGreaterThan(0)
   })
 
+  it('reveals a loss from removing interchangeable individuals together while another purpose keeps its best build', () => {
+    const copies = ['damage', 'damage-copy']
+    const source = { ...inventory, weapons: [...inventory.weapons, { ...inventory.weapons[0]!, instanceId: copies[1]! }] }
+    const original = structuredClone(source)
+    const assessment = assessEquipment(source, conditions)
+    for (const id of copies) {
+      const [single] = compareRemovalAcrossConditions(source, id, conditions, removalBaselineFor(assessment, [id]))
+      expect(single?.status).toBe('complete')
+      if (single?.status !== 'complete') throw new Error('expected a single comparison')
+      expect(single.afterRemovalBest.objectiveScore).toBe(single.baselineBest.objectiveScore)
+    }
+
+    const [damage, healing] = compareRemovalAcrossConditions(source, copies, conditions, removalBaselineFor(assessment, copies))
+    expect(damage?.status).toBe('complete')
+    expect(healing?.status).toBe('complete')
+    if (damage?.status !== 'complete' || healing?.status !== 'complete') throw new Error('expected both group comparisons')
+    expect(damage.baselineBestUsesInstance).toBe(true)
+    expect(damage.afterRemovalBest.build.weapon.instanceId).toBe('healing')
+    expect(damage.afterRemovalBest.objectiveScore).toBeLessThan(damage.baselineBest.objectiveScore)
+    expect(healing.baselineBestUsesInstance).toBe(false)
+    expect(healing.afterRemovalBest).toEqual(healing.baselineBest)
+    expect(source).toEqual(original)
+  })
+
+  it('compares the group only in conditions where every selected individual was evaluated', () => {
+    const source: Inventory = {
+      ...inventory,
+      rangedWeapons: [{
+        instanceId: 'bow', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [],
+        observation: { gameVersion: '1.17.0.0', mode: 'uncharged', projectileDamage: 5, shotCycleSeconds: 1, availableAmmo: 10, sourceNote: 'Synthetic application fixture' },
+      }],
+      artifacts: [{ instanceId: 'amulet', artifactId: 'iron-hide-amulet', powerLevel: 251 }],
+    }
+    const group = ['damage', 'bow', 'amulet']
+    const testConditions = [
+      { id: 'missing-time', name: 'Missing time share', scenario: { ...damageScenario, includeBuildsWithoutRanged: true } },
+      { id: 'with-time', name: 'With time share', scenario: { ...damageScenario, rangedTimeShare: 0.5 } },
+    ]
+    const assessment = assessEquipment(source, testConditions)
+    const baseline = removalBaselineFor(assessment, group)
+    const [excluded, allowed] = compareRemovalAcrossConditions(source, group, testConditions, baseline)
+    expect(excluded).toMatchObject({ status: 'excluded', reasons: [expect.stringMatching(/^bow: .*時間割合/)] })
+    expect(excluded).not.toHaveProperty('afterRemovalBest')
+    expect(allowed).toMatchObject({ status: 'complete', baselineBestUsesInstance: true, afterRemovalBest: { build: { weapon: { instanceId: 'healing' }, artifacts: [] } } })
+    expect(allowed?.status === 'complete' && allowed.afterRemovalBest.build.rangedWeapon).toBeUndefined()
+
+    const current = assessment[0]!
+    if (current.status !== 'complete') throw new Error('expected a baseline with exclusions')
+    const withEmptyReason = { ...current, equipment: current.equipment.map((item) => item.status === 'excluded' ? { ...item, reasons: [] } : item) }
+    expect(removalBaselineFor([withEmptyReason], group)[0]).toMatchObject({ status: 'complete', target: { status: 'excluded', reasons: [expect.stringMatching(/^bow: /)] } })
+  })
+
   it('preserves a per-condition error when removing the last valid melee weapon', () => {
     const singleWeapon: Inventory = { weapons: [inventory.weapons[0]!], artifacts: [] }
     const result = compareRemovalAcrossConditions(singleWeapon, 'damage', [conditions[0]!], baselineFor(singleWeapon, [conditions[0]!], 'damage'))[0]!
     expect(result.status).toBe('error')
     expect(result).not.toHaveProperty('baselineBest')
     expect(result).not.toHaveProperty('afterRemovalBest')
+
+    const allIds = inventory.weapons.map(({ instanceId }) => instanceId)
+    const [removedAll] = compareRemovalAcrossConditions(inventory, allIds, conditions, removalBaselineFor(assessEquipment(inventory, conditions), allIds))
+    expect(removedAll).toMatchObject({ status: 'error' })
+    expect(removedAll).not.toHaveProperty('afterRemovalBest')
   })
 
   it('rejects missing or duplicate identities and malformed condition batches', () => {
+    expect(() => compareRemovalAcrossConditions(inventory, [], [conditions[0]!], [])).toThrow(/個体ID/)
+    expect(() => compareRemovalAcrossConditions(inventory, ['damage', 'damage'], [conditions[0]!], [])).toThrow(/重複/)
+    expect(() => compareRemovalAcrossConditions(inventory, ['damage', 'missing'], conditions, baselineFor(inventory, conditions, 'damage'))).toThrow(/ありません/)
     expect(() => compareRemovalAcrossConditions(inventory, 'missing', [conditions[0]!], baselineFor(inventory, [conditions[0]!], 'missing'))).toThrow(/ありません/)
     expect(() => compareRemovalAcrossConditions({ ...inventory, weapons: [...inventory.weapons, inventory.weapons[0]!] }, 'damage', [conditions[0]!], baselineFor(inventory, [conditions[0]!], 'damage'))).toThrow(/重複/)
     expect(() => compareRemovalAcrossConditions(inventory, 'damage', [], [])).toThrow(/条件/)
