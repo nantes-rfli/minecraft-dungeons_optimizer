@@ -39,7 +39,12 @@ function stableScenarioInputJson(value: unknown): string {
 }
 
 function scenarioInputKey(scenario: Scenario): string {
-  const inputs = Object.fromEntries(Object.entries(scenario).filter(([key, value]) => key !== 'name' && (key !== 'includeUnequippedArtifacts' || value === true)))
+  const inputs = {
+    ...scenario,
+    name: undefined,
+    includeUnequippedArtifacts: scenario.includeUnequippedArtifacts === true || undefined,
+    includeBuildsWithoutRanged: scenario.includeBuildsWithoutRanged === true || undefined,
+  }
   return stableScenarioInputJson(inputs)
 }
 
@@ -100,7 +105,9 @@ export function assessEquipment(inventory: Inventory, conditions: readonly Asses
   validateInventory(inventory)
   // With legacy conditions the budget is shared. A mixed batch must check
   // each search so one expanded search cannot block an otherwise valid one.
-  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true)) assertSearchBudget(inventory)
+  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true)) {
+    assertSearchBudget(inventory)
+  }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
   const catalogIds = new Set(inventory.catalogItems?.map((item) => item.instanceId))
   return conditions.map((condition): ConditionAssessment => {

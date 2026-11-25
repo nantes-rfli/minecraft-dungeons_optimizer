@@ -117,6 +117,9 @@ export function validateScenario(scenario: Scenario): void {
   if (scenario.includeUnequippedArtifacts !== undefined && typeof scenario.includeUnequippedArtifacts !== 'boolean') {
     throw new OptimizerInputError('INVALID_SCENARIO', 'includeUnequippedArtifactsはbooleanにしてください。')
   }
+  if (scenario.includeBuildsWithoutRanged !== undefined && typeof scenario.includeBuildsWithoutRanged !== 'boolean') {
+    throw new OptimizerInputError('INVALID_SCENARIO', 'includeBuildsWithoutRangedはbooleanにしてください。')
+  }
   if (scenario.evidencePolicy !== undefined && !['high-confidence-only', 'include-estimated'].includes(scenario.evidencePolicy)) {
     throw new OptimizerInputError('INVALID_SCENARIO', 'evidencePolicyが不正です。')
   }
