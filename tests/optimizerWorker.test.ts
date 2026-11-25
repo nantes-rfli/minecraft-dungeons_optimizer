@@ -4,7 +4,7 @@ import type { OptimizeRequest, OptimizeResponse } from '../src/optimizer/protoco
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
 import { inspectInventoryReadiness, optimizeWithMetadata } from '../src/core/optimizer'
 import { assessEquipment } from '../src/core/equipmentAssessment'
-import { compareRemovalAcrossConditions } from '../src/core/inventoryRemovalComparison'
+import { compareRemovalAcrossConditions, removalBaselineFor } from '../src/core/inventoryRemovalComparison'
 
 const input = { inventory: { weapons: [{ instanceId: 'w', weaponId: 'double-axe' as const, powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit' as const] }] }], artifacts: [] }, scenario: DEFAULT_SCENARIO }
 class FakeWorker implements WorkerPort {
@@ -56,15 +56,15 @@ describe('worker lifecycle', () => {
     const inventory = { weapons: [
       ...input.inventory.weapons,
       { ...input.inventory.weapons[0]!, instanceId: 'backup' },
+      { ...input.inventory.weapons[0]!, instanceId: 'remaining' },
     ], artifacts: [] }
     const assessmentConditions = [{ id: 'current', name: '現在の条件', scenario: input.scenario }]
-    const removalComparison = { instanceId: 'w', baseline: assessEquipment(inventory, assessmentConditions).map((assessment) => assessment.status === 'error'
-      ? { conditionId: assessment.condition.id, status: 'error' as const, error: assessment.error }
-      : { conditionId: assessment.condition.id, status: 'complete' as const, best: assessment.best, target: { status: 'evaluated' as const } }) }
+    const instanceIds = ['w', 'backup']
+    const removalComparison = { instanceIds, baseline: removalBaselineFor(assessEquipment(inventory, assessmentConditions), instanceIds) }
     controller.start({ ...input, inventory, assessmentConditions, removalComparison })
     const request = worker.postMessage.mock.calls[0]![0]
     expect(request.removalComparison).toEqual(removalComparison)
-    const comparisons = compareRemovalAcrossConditions(inventory, 'w', assessmentConditions, removalComparison.baseline)
+    const comparisons = compareRemovalAcrossConditions(inventory, instanceIds, assessmentConditions, removalComparison.baseline)
     worker.reply({ id: request.id, type: 'removal-comparison-complete', comparisons, durationMs: 5 })
     expect(controller.getSnapshot()).toMatchObject({ status: 'complete', result: null, removalComparisons: comparisons })
   })

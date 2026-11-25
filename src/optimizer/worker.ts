@@ -24,7 +24,7 @@ self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
       return
     }
     if (assessmentConditions && removalComparison) {
-      response = { id, type: 'removal-comparison-complete', comparisons: compareRemovalAcrossConditions(inventory, removalComparison.instanceId, assessmentConditions, removalComparison.baseline), durationMs: performance.now() - start }
+      response = { id, type: 'removal-comparison-complete', comparisons: compareRemovalAcrossConditions(inventory, removalComparison.instanceIds, assessmentConditions, removalComparison.baseline), durationMs: performance.now() - start }
       self.postMessage(response)
       return
     }

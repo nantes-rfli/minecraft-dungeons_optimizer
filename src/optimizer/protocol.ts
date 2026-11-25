@@ -10,7 +10,7 @@ export interface TrialComparisonInput {
 }
 
 export interface RemovalComparisonInput {
-  readonly instanceId: string
+  readonly instanceIds: readonly string[]
   readonly baseline: readonly RemovalBaselineCondition[]
 }
 
