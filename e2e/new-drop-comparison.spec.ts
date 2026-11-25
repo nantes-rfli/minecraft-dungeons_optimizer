@@ -48,9 +48,12 @@ test('compares a staged drop before and after under a selected saved condition',
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)).toEqual(savedInventory)
 })
 
-test('compares a staged drop and saves it only after an explicit keep action', async ({ page }) => {
+test('compares a staged drop within the selected scope and saves it alongside excluded equipment', async ({ page }) => {
   const inventory = {
-    weapons: [{ instanceId: 'drop-baseline', weaponId: 'double-axe', powerLevel: 100, enchantmentSlots: [{ candidates: ['sharpness'] }] }],
+    weapons: [
+      { instanceId: 'drop-baseline', weaponId: 'double-axe', powerLevel: 100, enchantmentSlots: [{ candidates: ['sharpness'] }] },
+      { instanceId: 'drop-excluded', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['sharpness'] }] },
+    ],
     artifacts: [],
   }
   await page.goto('/#/storage')
@@ -63,6 +66,15 @@ test('compares a staged drop and saves it only after an explicit keep action', a
   const savedInventory = await page.evaluate((key) => localStorage.getItem(key), storageKey)
 
   await page.evaluate(() => { window.location.hash = '/optimize' })
+  await page.getByText('探索に使う所持品', { exact: true }).click()
+  const scope = page.locator('.inventory-search-scope')
+  await scope.getByRole('checkbox', { name: /drop-excluded/ }).uncheck()
+  await expect(scope.getByRole('checkbox', { name: /drop-baseline/ })).toBeDisabled()
+  await expect(page.getByText('候補数の上限推定: 1通り', { exact: true })).toBeVisible()
+  const assessment = page.getByRole('region', { name: '装備の用途別評価' })
+  await assessment.getByRole('button', { name: '用途別に評価する', exact: true }).click()
+  await expect(assessment.getByRole('rowheader', { name: /drop-baseline/ })).toBeVisible()
+  await expect(assessment.getByRole('rowheader', { name: /drop-excluded/ })).toHaveCount(0)
   await page.getByText('詳細条件', { exact: true }).click()
   await page.getByText('HP・ダメージの実数値', { exact: true }).click()
   await page.getByLabel('平均敵HP').fill('100000')
@@ -83,6 +95,7 @@ test('compares a staged drop and saves it only after an explicit keep action', a
   await expect(panel.locator('.drop-comparison-status')).toHaveText('比較が完了しました。', { timeout: 60_000 })
   await expect(panel.locator('.drop-comparison-outcome')).toContainText('新しい装備が最良ビルドに含まれています。')
   await expect(panel.locator('.drop-comparison-results')).toContainText('現在の最良ビルド')
+  await expect(page.getByRole('region', { name: '最適化結果', exact: true }).locator('.recommended-build .build-equipment.melee')).toContainText('Power 100')
   await expect(panel.locator('.drop-comparison-results')).toContainText('仮追加後の最良ビルド')
   const metricDeltas = panel.locator('.drop-metric-deltas')
   await expect(metricDeltas).toHaveCount(1)
@@ -98,12 +111,13 @@ test('compares a staged drop and saves it only after an explicit keep action', a
   await expect.poll(() => page.evaluate((key) => {
     const stored = localStorage.getItem(key)
     return stored ? JSON.parse(stored).inventory.weapons.length : undefined
-  }, storageKey)).toBe(2)
+  }, storageKey)).toBe(3)
   const retainedInventoryJson = await page.evaluate((key) => localStorage.getItem(key), storageKey)
   const retainedInventory = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)
-  expect(retainedInventory.weapons).toHaveLength(2)
+  expect(retainedInventory.weapons).toHaveLength(3)
   expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId === 'drop-baseline')).toEqual(inventory.weapons[0])
-  expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId !== 'drop-baseline')).toMatchObject({
+  expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId === 'drop-excluded')).toEqual(inventory.weapons[1])
+  expect(retainedInventory.weapons.find((item: { instanceId: string }) => item.instanceId !== 'drop-baseline' && item.instanceId !== 'drop-excluded')).toMatchObject({
     weaponId: 'double-axe', powerLevel: 263,
     enchantmentSlots: [expect.objectContaining({ candidates: ['sharpness'] })],
   })

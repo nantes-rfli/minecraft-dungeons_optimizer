@@ -6,7 +6,7 @@ import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './core/observ
 import { updateMeleePower } from './inventory/updateMeleePower'
 import { InventoryReadinessPanel } from './components/InventoryReadinessPanel'
 
-import { lazy, Suspense, useEffect, useRef, useState, useSyncExternalStore, type ChangeEvent } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent } from 'react'
 import { useOptimizer } from './optimizer/useOptimizer'
 import { EquipmentAssessmentPanel } from './screens/EquipmentAssessment'
 import type { SavedScenarioPreset } from './scenario/presets'
@@ -58,6 +58,8 @@ import { retainTrialCandidate } from './inventory/trialCandidate'
 import { ScenarioPresetsPanel } from './views/ScenarioPresetsPanel'
 import { ObjectiveWeightsControls } from './views/ObjectiveWeightsControls'
 import { RangedTimeAllocationControls } from './views/RangedTimeAllocationControls'
+import { InventorySearchScope } from './views/InventorySearchScope'
+import { applyInventorySearchScope } from './inventory/searchScope'
 
 const DataBrowserPage = lazy(() => import('./screens/DataBrowserPage').then((module) => ({ default: module.DataBrowserPage })))
 
@@ -293,6 +295,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     setInventoryPowerMaximum('')
   }
   const [fullEditorPending, setFullEditorPending] = useState<string | null>(null)
+  const [excludedSearchIds, setExcludedSearchIds] = useState<ReadonlySet<string>>(() => new Set())
   const [dropDrawerOpen, setDropDrawerOpen] = useState(false)
   const [dropTrial, setDropTrial] = useState<(NewDropTrial & { baselineInventory: Inventory; baselineScenario: Scenario }) | null>(null)
   const [dropKeepMessage, setDropKeepMessage] = useState<string | null>(null)
@@ -322,8 +325,16 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     return () => cancelAnimationFrame(frame)
   }, [fullEditorPending, inventoryView, inventoryQuery, inventory])
 
-  const optimization = useOptimizer(inventory, scenario)
+  const searchScope = useMemo(() => applyInventorySearchScope(inventory, excludedSearchIds), [inventory, excludedSearchIds])
+  const searchInventory = searchScope.inventory
+  const searchEquipment = useMemo(() => route === '/optimize' ? inventoryGridItems({ ...inventory, catalogItems: undefined }) : [], [inventory, route])
+  const scopeBlocked = searchScope.emptiedCategories.length > 0
+  const optimization = useOptimizer(searchInventory, scenario)
   const activeDropTrial = dropTrial?.baselineInventory === inventory && dropTrial.baselineScenario === scenario ? dropTrial : null
+  const scopedDropTrial = useMemo(() => activeDropTrial && ({
+    instanceId: activeDropTrial.instanceId,
+    inventory: applyInventorySearchScope(activeDropTrial.inventory, excludedSearchIds).inventory,
+  }), [activeDropTrial, excludedSearchIds])
 
   const retainActiveDropTrial = () => {
     if (!activeDropTrial) return
@@ -357,8 +368,8 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     setDropKeepMessage(null)
     setDropKeepFailed(false)
   }
-  const candidateEstimate = estimateSearchCandidates(inventory, scenario)
-  const usesObservedDamage = inventory.weapons.some(hasObservedMeleeDamage)
+  const candidateEstimate = estimateSearchCandidates(searchInventory, scenario)
+  const usesObservedDamage = searchInventory.weapons.some(hasObservedMeleeDamage)
   const updateWeapon = (instanceId: string, updater: (weapon: OwnedWeapon) => OwnedWeapon) => setInventory((current) => ({ ...current, weapons: current.weapons.map((item) => item.instanceId === instanceId ? updater(item) : item) }))
   const updateArmor = (instanceId: string, updater: (armor: OwnedArmor) => OwnedArmor) => setInventory((current) => ({ ...current, armors: (current.armors ?? []).map((item) => item.instanceId === instanceId ? updater(item) : item) }))
   const openFullEditor = (name: string, instanceId: string) => {
@@ -374,7 +385,7 @@ function OptimizerPage({ route }: { route: AppRoute }) {
     setFullEditorPending(instanceId)
   }
   const importData = () => {
-    try { const imported = deserializeInventory(jsonText); setDataError(false); setInventory(imported); setLoadError(null); setDataMessage('JSONを読み込みました。') }
+    try { const imported = deserializeInventory(jsonText); setDataError(false); setInventory(imported); setExcludedSearchIds(new Set()); setLoadError(null); setDataMessage('JSONを読み込みました。') }
     catch (error) { setDataError(true); setDataMessage(error instanceof Error ? error.message : '読み込みに失敗しました。') }
   }
 
@@ -500,7 +511,10 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   }
 
   if (route === '/optimize') return <main id="main-content" tabIndex={-1} className="page-main optimize-page">
-    <header className="page-intro"><p className="eyebrow">OPTIMIZATION / WORKSPACE</p><h1>最適化</h1><p>Runtime対応の{inventory.weapons.length + (inventory.armors?.length ?? 0) + (inventory.rangedWeapons?.length ?? 0) + inventory.artifacts.length}件から探索します。未対応の所持品{inventory.catalogItems?.length ?? 0}件は調査用に保持し、評価しません。</p></header>
+    <header className="page-intro"><p className="eyebrow">OPTIMIZATION / WORKSPACE</p><h1>最適化</h1><p>Runtime対応の{searchEquipment.length - searchScope.excludedCount}件から探索します。未対応の所持品{inventory.catalogItems?.length ?? 0}件は調査用に保持し、評価しません。</p></header>
+    <InventorySearchScope items={searchEquipment} categoryLabels={CATEGORY_LABELS} excludedIds={excludedSearchIds}
+      excludedCount={searchScope.excludedCount} onChange={setExcludedSearchIds} />
+    {scopeBlocked && <p role="alert">{searchScope.emptiedCategories.map((category) => CATEGORY_LABELS[category]).join('・')}の探索対象を1件以上選んでください。</p>}
     <fieldset className="evidence-policy"><legend>評価に使うEvidence</legend>{([{ id: 'high-confidence-only', label: '確度の高い情報のみ', note: 'Estimatedを含むArtifactを候補から除外' }, { id: 'include-estimated', label: 'Estimatedを含める', note: '推定箇所を結果に明示' }] satisfies readonly { id: EvidencePolicy; label: string; note: string }[]).map((option) => <label key={option.id}><input type="radio" name="evidence-policy" value={option.id} checked={(scenario.evidencePolicy ?? 'include-estimated') === option.id} onChange={() => setScenario((current) => ({ ...current, evidencePolicy: option.id }))} /><span>{option.label}<small>{option.note}</small></span></label>)}</fieldset>
     <fieldset className="evidence-policy">
       <legend>Artifactの探索範囲</legend>
@@ -520,12 +534,12 @@ function OptimizerPage({ route }: { route: AppRoute }) {
       </label>
       <small id="ranged-search-hint">遠距離枠を空けた構成では近接に全攻撃時間を使います。遠距離との併用には観測値と詳細条件の時間割合が必要です。</small>
     </fieldset>
-    <section className="optimize-controls"><div className="objective-card"><label>目的<select aria-label="最適化の目的" value={scenario.profileId} onChange={(event) => setScenario(SCENARIO_PROFILES[event.target.value as ScenarioProfileId])}>{PROFILE_ORDER.map((id) => <option key={id} value={id}>{SCENARIO_PROFILES[id].name}</option>)}</select></label><ObjectiveWeightsControls scenario={scenario} onChange={setScenario} /><div className="optimize-actions"><button className="primary-button" type="button" disabled={optimization.status === 'working' || candidateEstimate > SEARCH_MAX_CANDIDATES} onClick={optimization.start}>最適化する</button><button type="button" disabled={optimization.status !== 'working'} onClick={optimization.cancel}>探索を中止</button></div><p role="status">{optimization.status === 'working' ? '探索中…' : optimization.status === 'complete' ? `探索完了（${Math.round(optimization.durationMs ?? 0)} ms）` : optimization.status === 'cancelled' ? '探索を中止しました。再度開始できます。' : optimization.status === 'error' ? '探索に失敗しました。入力を確認して再実行してください。' : '目的を選び、最適化を開始してください。'}</p><small>候補数の上限推定: {candidateEstimate.toLocaleString()}通り</small>{candidateEstimate > SEARCH_MAX_CANDIDATES ? <p role="alert">安全上限{SEARCH_MAX_CANDIDATES.toLocaleString()}通りを超えています。装備画面で候補を減らすかlockしてください。</p> : candidateEstimate >= SEARCH_WARNING_CANDIDATES && <p>候補が多いため時間がかかる場合があります。</p>}</div>
+    <section className="optimize-controls"><div className="objective-card"><label>目的<select aria-label="最適化の目的" value={scenario.profileId} onChange={(event) => setScenario(SCENARIO_PROFILES[event.target.value as ScenarioProfileId])}>{PROFILE_ORDER.map((id) => <option key={id} value={id}>{SCENARIO_PROFILES[id].name}</option>)}</select></label><ObjectiveWeightsControls scenario={scenario} onChange={setScenario} /><div className="optimize-actions"><button className="primary-button" type="button" disabled={scopeBlocked || optimization.status === 'working' || candidateEstimate > SEARCH_MAX_CANDIDATES} onClick={optimization.start}>最適化する</button><button type="button" disabled={optimization.status !== 'working'} onClick={optimization.cancel}>探索を中止</button></div><p role="status">{optimization.status === 'working' ? '探索中…' : optimization.status === 'complete' ? `探索完了（${Math.round(optimization.durationMs ?? 0)} ms）` : optimization.status === 'cancelled' ? '探索を中止しました。再度開始できます。' : optimization.status === 'error' ? '探索に失敗しました。入力を確認して再実行してください。' : '目的を選び、最適化を開始してください。'}</p><small>候補数の上限推定: {candidateEstimate.toLocaleString()}通り</small>{candidateEstimate > SEARCH_MAX_CANDIDATES ? <p role="alert">安全上限{SEARCH_MAX_CANDIDATES.toLocaleString()}通りを超えています。探索に使う所持品を絞るか、装備画面でエンチャントを選択してください。</p> : candidateEstimate >= SEARCH_WARNING_CANDIDATES && <p>候補が多いため時間がかかる場合があります。</p>}</div>
       <details className="advanced-settings"><summary><span><strong>詳細条件</strong><small>敵・回復・Controlなどのモデル入力</small></span><span aria-hidden="true">＋</span></summary><div className="sliders"><ChargeConsumeControls scenario={scenario} onChange={setScenario} /><ControlSettings scenario={scenario} onChange={setScenario} /><DamageEventTargetingControl value={scenario.damageEventTargeting} maximum={scenario.averageTargetsInReach} onChange={(damageEventTargeting) => setScenario((current) => ({ ...current, damageEventTargeting }))} /><PersistentAreaTargetingControl value={scenario.persistentAreaTargeting} maximum={scenario.averageTargetsInReach} onChange={(persistentAreaTargeting) => setScenario((current) => ({ ...current, persistentAreaTargeting }))} /><EnemyDebuffControl value={scenario.enemyDebuffs} onChange={(enemyDebuffs) => setScenario((current) => ({ ...current, enemyDebuffs }))} /><UndeadShareControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><AmbushShareControl value={scenario.enemyState} onChange={(enemyState) => setScenario((current) => ({ ...current, enemyState }))} /><EnemyCompositionControl value={scenario.enemyComposition} onChange={(enemyComposition) => setScenario((current) => ({ ...current, enemyComposition }))} /><label><span>敵供給上限 / 秒 <output>{scenario.enemySupplyPerSecond.toFixed(1)}</output></span><input type="range" min="0" max="2" step="0.1" value={scenario.enemySupplyPerSecond} onChange={updateNumber('enemySupplyPerSecond')} /></label><label><span>射程内の敵 <output>{scenario.averageTargetsInReach.toFixed(1)}</output></span><input type="range" min="1" max="6" step="0.5" value={scenario.averageTargetsInReach} onChange={updateNumber('averageTargetsInReach')} /></label>{((inventory.rangedWeapons?.length ?? 0) > 0 || scenario.includeBuildsWithoutRanged) && <RangedTimeAllocationControls scenario={scenario} onChange={setScenario} />}<label><span>開始Soul <output>{scenario.initialSoulUnits ?? 0}</output></span><input aria-label="開始Soul" type="range" min="0" max="300" step="5" value={scenario.initialSoulUnits ?? 0} onChange={updateNumber('initialSoulUnits')} /></label><label><span>Cowardice 満タンHP時間割合</span><input aria-label="Cowardice 満タンHP時間割合" type="number" min="0" max="1" step="0.05" placeholder="使用時に入力" value={scenario.cowardiceFullHealthShare ?? ''} onChange={(event) => setScenario((current) => ({ ...current, cowardiceFullHealthShare: event.target.value === '' ? undefined : Number(event.target.value) }))} /></label><label><span>Artifactのクールダウン短縮 <output>{percentage(scenario.cooldownReduction)}</output></span><input type="range" min="0" max="0.75" step="0.05" value={scenario.cooldownReduction} onChange={updateNumber('cooldownReduction')} /></label><details className="scenario-values"><summary>HP・ダメージの実数値</summary><p>{usesObservedDamage ? '表示ダメージ' : 'Power換算ダメージ'}と同じゲーム内単位で入力してください。</p><label><span>平均敵HP</span><input aria-label="平均敵HP" type="number" min="0.01" step="any" value={scenario.averageEnemyHealth} onChange={updateNumber('averageEnemyHealth')} /></label><label><span>被ダメージ / 秒</span><input aria-label="被ダメージ毎秒" type="number" min="0" step="any" value={scenario.incomingDamagePerSecond} onChange={updateNumber('incomingDamagePerSecond')} /></label><label><span>{(inventory.armors?.length ?? 0) > 0 ? '最大HP（Armor使用時は無効）' : '最大HP'}</span><input aria-label="最大HP" type="number" min="0.01" step="any" disabled={(inventory.armors?.length ?? 0) > 0} value={scenario.maxHealth} onChange={updateNumber('maxHealth')} /></label><label><span>輝き1回の回復量</span><input aria-label="輝き1回の回復量" type="number" min="0" step="any" value={scenario.radianceHealPerProc} onChange={updateNumber('radianceHealPerProc')} /></label></details></div></details>
     </section>
     <ScenarioPresetsPanel scenario={scenario} onLoad={setScenario} onPresetsChange={setAssessmentPresets} />
-    <EquipmentAssessmentPanel inventory={inventory} scenario={scenario} presets={assessmentPresets} />
-    <NewDropComparison inventory={inventory} scenario={scenario} baseline={optimization} trial={activeDropTrial} presets={assessmentPresets} onOpenPicker={() => { setDropKeepMessage(null); setDropKeepFailed(false); setDropDrawerOpen(true) }} onClearTrial={clearDropTrial} onKeepCandidate={retainActiveDropTrial} />
+    {!scopeBlocked && <EquipmentAssessmentPanel inventory={searchInventory} scenario={scenario} presets={assessmentPresets} />}
+    {!scopeBlocked && <NewDropComparison inventory={searchInventory} scenario={scenario} baseline={optimization} trial={scopedDropTrial} presets={assessmentPresets} onOpenPicker={() => { setDropKeepMessage(null); setDropKeepFailed(false); setDropDrawerOpen(true) }} onClearTrial={clearDropTrial} onKeepCandidate={retainActiveDropTrial} />}
     {dropKeepMessage && <p className={dropKeepFailed ? 'drop-comparison-warning' : 'drop-comparison-status'} role={dropKeepFailed ? 'alert' : 'status'}>{dropKeepMessage}</p>}
     {activeDropTrial && <TrialCandidateEditor trial={activeDropTrial} onChange={(next) => setDropTrial((current) => current ? { ...current, inventory: next.inventory } : current)} onRemove={() => setDropTrial(null)} />}
     <OptimizeResults weights={scenario.weights} error={optimization.error} result={optimization.result} status={optimization.status} evidencePolicy={scenario.evidencePolicy} />
