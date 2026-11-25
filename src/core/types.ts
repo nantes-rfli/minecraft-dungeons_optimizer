@@ -670,6 +670,8 @@ export interface Scenario {
   readonly evidencePolicy?: EvidencePolicy
   /** Explicit reserved attack-time budget; required only with Ranged. No simultaneous full melee/ranged DPS. */
   readonly rangedTimeShare?: number
+  /** Additional explicit attack-time reservations to compare as independent ranged candidates. */
+  readonly rangedTimeShareAlternatives?: readonly number[]
   /** External inputs; omission preserves compatibility with older scenarios. */
   readonly rollsPerSecond?: number
   readonly dynamoInitialStacks?: number

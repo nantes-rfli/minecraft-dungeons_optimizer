@@ -296,6 +296,11 @@ function optimizeInternal(
   validateInventory(inventory)
   validateScenario(scenario)
   assertSearchBudget(inventory, scenario)
+  // The whole allocation list was validated and budgeted once above. Each
+  // evaluation receives only its effective share, including the primary.
+  const evaluationScenario = scenario.rangedTimeShareAlternatives !== undefined
+    ? { ...scenario, rangedTimeShareAlternatives: undefined }
+    : scenario
 
   const policy = evidencePolicy(scenario)
   const policyArtifacts = policy === 'include-estimated'
@@ -365,6 +370,14 @@ function optimizeInternal(
     throw new OptimizerInputError('NO_SUPPORTED_ARMOR_CANDIDATES', `No supported Armor candidates. ${[...unsupportedChoices].join(' ')}`)
   }
   const rangedWeapons = inventory.rangedWeapons ?? []
+  const additionalAllocations = (rangedWeapons.length === 0 ? [] : scenario.rangedTimeShareAlternatives ?? []).map((rangedTimeShare) => ({
+    ...evaluationScenario,
+    rangedTimeShare,
+  }))
+  const rangedScenarios = scenario.rangedTimeShare === undefined && additionalAllocations.length > 0
+    ? additionalAllocations
+    : [evaluationScenario, ...additionalAllocations]
+  const firstRangedScenario = rangedScenarios[0]!
   const buildsWithRanged = rangedWeapons.flatMap<Build>((rangedWeapon) => {
     const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
     if (unsupported) { for (const issue of rangedWeaponIssues(rangedWeapon)) unsupportedChoices.record(rangedWeapon.instanceId, issue); return [] }
@@ -372,8 +385,8 @@ function optimizeInternal(
     if (options.length === 0) unsupportedChoices.record(rangedWeapon.instanceId, { kind: 'constrained', message: 'Ranged stackingを満たす候補がありません。' })
     return builds.flatMap((base) => options.flatMap((rangedEnchantments) => {
       const build = { ...base, rangedWeapon, rangedEnchantments }
-      const reason = rangedCombinationUnsupportedReason(build, scenario)
-      if (reason) { unsupportedChoices.candidate(rangedWeapon.instanceId, { kind: 'constrained', message: reason, ...(scenario.rangedTimeShare === undefined || scenario.rangedTimeShare <= 0 || scenario.rangedTimeShare >= 1 ? { target: 'scenario' as const } : {}) }); return [] }
+      const reason = rangedCombinationUnsupportedReason(build, firstRangedScenario)
+      if (reason) { unsupportedChoices.candidate(rangedWeapon.instanceId, { kind: 'constrained', message: reason, ...(firstRangedScenario.rangedTimeShare === undefined || firstRangedScenario.rangedTimeShare <= 0 || firstRangedScenario.rangedTimeShare >= 1 ? { target: 'scenario' as const } : {}) }); return [] }
       return [build]
     }))
   })
@@ -398,13 +411,18 @@ function optimizeInternal(
       throw new OptimizerInputError('MIXED_DAMAGE_SCALE', '観測ダメージを使う場合は、比較するすべての武器に入力してください。')
     }
   }
-  const evaluations = evidenceAllowedBuilds.map((build) => {
-    try { return evaluateCandidate(build, scenario) }
+  const evaluateAllocation = (build: Build, allocation: Scenario) => {
+    try { return evaluateCandidate(build, allocation) }
     catch (error) {
       recordEvaluationFailure(unsupportedChoices, build, error)
       throw error
     }
-  })
+  }
+  const evaluations = additionalAllocations.length
+    ? evidenceAllowedBuilds.flatMap((build) => build.rangedWeapon
+      ? rangedScenarios.map((allocation) => evaluateAllocation(build, allocation))
+      : [evaluateAllocation(build, evaluationScenario)])
+    : evidenceAllowedBuilds.map((build) => evaluateAllocation(build, evaluationScenario))
   const evaluatedInstanceIds = includeEvaluationMetadata
     ? [...new Set(evaluations.flatMap((candidate) => buildInstanceIds(candidate.build)))]
     : []
@@ -420,17 +438,19 @@ function optimizeInternal(
   const recommendations = distinctRecommendations(evaluations)
 
   // Cache only for this optimization call: no stale scenarios or global growth.
-  const detailed = new Map<Build, Evaluation>()
+  const detailed = new Map<typeof best, Evaluation>()
+  const allocationByShare = new Map(rangedScenarios.map((allocation) => [allocation.rangedTimeShare, allocation]))
   const withDetails = (candidate: typeof best): Evaluation => {
-    const existing = detailed.get(candidate.build)
+    const existing = detailed.get(candidate)
     if (existing) return existing
     let result: Evaluation
-    try { result = evaluate(candidate.build, scenario) }
+    const allocation = candidate.damage.ranged ? allocationByShare.get(candidate.damage.ranged.timeShare)! : evaluationScenario
+    try { result = evaluate(candidate.build, allocation) }
     catch (error) {
       recordEvaluationFailure(unsupportedChoices, candidate.build, error)
       throw error
     }
-    detailed.set(candidate.build, result)
+    detailed.set(candidate, result)
     return result
   }
   return {

@@ -13,6 +13,7 @@ import { EquipmentArtwork } from '../components/EquipmentArtwork'
 import { EquipmentInstanceEditor } from '../components/EquipmentInstanceEditor'
 import { selectedEnchantmentSummary } from '../inventory/enchantmentSummary'
 import { updateRangedPower } from '../inventory/updateRangedPower'
+import { RangedTimeAllocationControls } from './RangedTimeAllocationControls'
 export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: OwnedRangedWeapon; onChange: (value: OwnedRangedWeapon) => void; onRemove: () => void }) {
   const errorId = useId()
   const observed = weapon.observation
@@ -77,7 +78,7 @@ export function RangedInventorySection({ inventory, onChange, scenario, onScenar
   const weapons = inventory.rangedWeapons ?? []
   const renderedWeapons = visibleWeapons ?? weapons
   return <section className="control-section inventory-group"><div className="section-heading"><div><p className="section-label">RANGED</p><h2>遠距離武器</h2></div><span>{renderedWeapons.length + additionalCount}</span></div>
-    {weapons.length > 0 && showScenario && <label>遠距離に使う攻撃時間の割合<input aria-label="遠距離時間割合" type="number" min="0.01" max="0.99" step="0.05" value={scenario.rangedTimeShare ?? ''} placeholder="入力してください" onChange={(e) => onScenarioChange({ ...scenario, rangedTimeShare: e.target.value === '' ? undefined : Number(e.target.value) })} /></label>}
+    {weapons.length > 0 && showScenario && <RangedTimeAllocationControls scenario={scenario} onChange={onScenarioChange} />}
     <div className="equipment-list">{renderedWeapons.map((weapon) => <OwnedRangedEditor key={weapon.instanceId} weapon={weapon} onChange={(next) => onChange({ ...inventory, rangedWeapons: weapons.map((item) => item.instanceId === next.instanceId ? next : item) })} onRemove={() => onChange({ ...inventory, rangedWeapons: weapons.filter((item) => item.instanceId !== weapon.instanceId) })} />)}{additionalItems}</div>
   </section>
 }

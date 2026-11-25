@@ -11,7 +11,7 @@ const bounded = (value: number) => Math.min(Number.MAX_SAFE_INTEGER, value)
 function slotCount(slots: readonly { candidates: readonly unknown[]; selected?: unknown }[]): number {
   return slots.reduce((total, slot) => bounded(total * (slot.selected || (slot as { locked?: string }).locked ? 1 : slot.candidates.length)), 1)
 }
-type SearchOptions = Pick<Scenario, 'includeUnequippedArtifacts' | 'includeBuildsWithoutRanged'>
+type SearchOptions = Pick<Scenario, 'includeUnequippedArtifacts' | 'includeBuildsWithoutRanged' | 'rangedTimeShare' | 'rangedTimeShareAlternatives'>
 
 export function estimateSearchCandidates(inventory: Inventory, scenario?: SearchOptions): number {
   const preparedMelee = inventory.weapons.filter((weapon) => !observedMeleeComboPreparationIssue(weapon))
@@ -20,8 +20,10 @@ export function estimateSearchCandidates(inventory: Inventory, scenario?: Search
   const armor = inventory.armors?.length ? inventory.armors.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0) : 1
   const rangedWeapons = inventory.rangedWeapons ?? []
   const rangedEquipped = rangedWeapons.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0)
+  const alternatives = scenario?.rangedTimeShareAlternatives?.length ?? 0
+  const rangedAllocations = scenario?.rangedTimeShare === undefined ? Math.max(1, alternatives) : 1 + alternatives
   const ranged = rangedWeapons.length === 0 ? 1
-    : bounded(rangedEquipped + (scenario?.includeBuildsWithoutRanged === true ? 1 : 0))
+    : bounded(rangedEquipped * rangedAllocations + (scenario?.includeBuildsWithoutRanged === true ? 1 : 0))
   const n = inventory.artifacts.length
   const triples = n < 3 ? 0 : bounded(n * (n - 1) * (n - 2) / 6)
   if (scenario?.includeUnequippedArtifacts !== true) return bounded(bounded(bounded(melee * armor) * ranged) * (n < 3 ? 1 : triples))

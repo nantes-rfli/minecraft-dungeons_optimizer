@@ -39,11 +39,16 @@ function stableScenarioInputJson(value: unknown): string {
 }
 
 function scenarioInputKey(scenario: Scenario): string {
+  const shares = [...(scenario.rangedTimeShare === undefined ? [] : [scenario.rangedTimeShare]),
+    ...(scenario.rangedTimeShareAlternatives ?? [])].sort((left, right) => left - right)
   const inputs = {
     ...scenario,
     name: undefined,
     includeUnequippedArtifacts: scenario.includeUnequippedArtifacts === true || undefined,
     includeBuildsWithoutRanged: scenario.includeBuildsWithoutRanged === true || undefined,
+    // Input order can resolve recommendation ties but cannot add a new scoring condition.
+    rangedTimeShare: shares.length === 1 ? shares[0] : undefined,
+    rangedTimeShareAlternatives: shares.length > 1 ? shares : undefined,
   }
   return stableScenarioInputJson(inputs)
 }
@@ -105,7 +110,8 @@ export function assessEquipment(inventory: Inventory, conditions: readonly Asses
   validateInventory(inventory)
   // With legacy conditions the budget is shared. A mixed batch must check
   // each search so one expanded search cannot block an otherwise valid one.
-  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true)) {
+  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true
+    || !!scenario.rangedTimeShareAlternatives?.length)) {
     assertSearchBudget(inventory)
   }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]

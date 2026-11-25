@@ -124,6 +124,16 @@ export function validateScenario(scenario: Scenario): void {
     throw new OptimizerInputError('INVALID_SCENARIO', 'evidencePolicyが不正です。')
   }
   if (scenario.rangedTimeShare !== undefined) assertRange('rangedTimeShare', scenario.rangedTimeShare, 0, 1)
+  const alternatives = scenario.rangedTimeShareAlternatives
+  if (alternatives !== undefined) {
+    if (!Array.isArray(alternatives)) throw new OptimizerInputError('INVALID_SCENARIO', '遠距離の追加時間割合には配列を指定してください。')
+    if (alternatives.length > 0) {
+      const shares = scenario.rangedTimeShare === undefined ? [...alternatives] : [scenario.rangedTimeShare, ...alternatives]
+      if (shares.some((share) => !Number.isFinite(share) || share <= 0 || share >= 1) || new Set(shares).size !== shares.length) {
+        throw new OptimizerInputError('INVALID_SCENARIO', '遠距離の比較時間割合は0より大きく1未満の重複しない値を指定してください。')
+      }
+    }
+  }
   validateChargeInputs(scenario)
   validatePersistentAreaTargeting(scenario)
   validateControlAssumptions(scenario)
