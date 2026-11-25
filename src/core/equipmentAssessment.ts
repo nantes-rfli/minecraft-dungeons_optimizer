@@ -1,7 +1,7 @@
 import { optimizeForEquipment } from './optimizer'
 import { assertSearchBudget } from './searchBudget'
 import { validateInventory } from './validation'
-import type { Evaluation, Inventory, Scenario } from './types'
+import type { Build, Evaluation, Inventory, Scenario } from './types'
 
 export interface AssessmentCondition {
   readonly id: string
@@ -13,8 +13,20 @@ export type EquipmentAssessment =
   | { readonly instanceId: string; readonly status: 'evaluated'; readonly best: Evaluation; readonly scoreGap: number }
   | { readonly instanceId: string; readonly status: 'excluded'; readonly reasons: readonly string[] }
 
+type ReferenceBuildComparison =
+  | { readonly status: 'evaluated'; readonly evaluation: Evaluation; readonly scoreGap: number }
+  | { readonly status: 'excluded' }
+
 export type ConditionAssessment =
-  | { readonly condition: AssessmentCondition; readonly status: 'complete'; readonly best: Evaluation; readonly evaluatedBuildCount: number; readonly unsupportedChoices: readonly string[]; readonly equipment: readonly EquipmentAssessment[] }
+  | {
+    readonly condition: AssessmentCondition
+    readonly status: 'complete'
+    readonly best: Evaluation
+    readonly evaluatedBuildCount: number
+    readonly unsupportedChoices: readonly string[]
+    readonly equipment: readonly EquipmentAssessment[]
+    readonly referenceBuild?: ReferenceBuildComparison
+  }
   | { readonly condition: AssessmentCondition; readonly status: 'error'; readonly error: string }
 
 export interface MultiConditionBestScoreEquipment {
@@ -101,7 +113,11 @@ export function summarizeMultiConditionBestScores(assessments: readonly Conditio
 export const MAX_ASSESSMENT_CONDITIONS = 9 // current condition + up to eight saved conditions
 
 /** Independent exhaustive searches; scores are compared only within a condition. */
-export function assessEquipment(inventory: Inventory, conditions: readonly AssessmentCondition[]): readonly ConditionAssessment[] {
+export function assessEquipment(
+  inventory: Inventory,
+  conditions: readonly AssessmentCondition[],
+  compareFirstBuild = false,
+): readonly ConditionAssessment[] {
   if (conditions.length < 1 || conditions.length > MAX_ASSESSMENT_CONDITIONS
     || conditions.some((condition) => !condition.id.trim() || !condition.name.trim())
     || new Set(conditions.map((condition) => condition.id)).size !== conditions.length) {
@@ -116,10 +132,18 @@ export function assessEquipment(inventory: Inventory, conditions: readonly Asses
   }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
   const catalogIds = new Set(inventory.catalogItems?.map((item) => item.instanceId))
-  return conditions.map((condition): ConditionAssessment => {
+  let referenceBuild: Build | undefined
+  return conditions.map((condition, index): ConditionAssessment => {
     try {
-      const { result, bestByInstance } = optimizeForEquipment(inventory, condition.scenario)
+      const { result, bestByInstance, referenceEvaluation } = optimizeForEquipment(inventory, condition.scenario, referenceBuild)
+      const comparison: ReferenceBuildComparison | undefined = referenceBuild
+        ? referenceEvaluation
+          ? { status: 'evaluated', evaluation: referenceEvaluation, scoreGap: result.best.objectiveScore - referenceEvaluation.objectiveScore }
+          : { status: 'excluded' }
+        : undefined
+      if (index === 0 && compareFirstBuild && conditions.length > 1) referenceBuild = result.best.build
       return {
+        ...(comparison ? { referenceBuild: comparison } : {}),
         condition, status: 'complete', best: result.best,
         evaluatedBuildCount: result.evaluatedBuildCount, unsupportedChoices: result.unsupportedChoices,
         equipment: instances.map(({ instanceId }): EquipmentAssessment => {
