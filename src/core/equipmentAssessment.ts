@@ -44,6 +44,7 @@ function scenarioInputKey(scenario: Scenario): string {
     name: undefined,
     includeUnequippedArtifacts: scenario.includeUnequippedArtifacts === true || undefined,
     includeBuildsWithoutRanged: scenario.includeBuildsWithoutRanged === true || undefined,
+    rangedTimeShareAlternatives: scenario.rangedTimeShareAlternatives?.length ? scenario.rangedTimeShareAlternatives : undefined,
   }
   return stableScenarioInputJson(inputs)
 }
@@ -105,7 +106,8 @@ export function assessEquipment(inventory: Inventory, conditions: readonly Asses
   validateInventory(inventory)
   // With legacy conditions the budget is shared. A mixed batch must check
   // each search so one expanded search cannot block an otherwise valid one.
-  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true)) {
+  if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true
+    || !!scenario.rangedTimeShareAlternatives?.length)) {
     assertSearchBudget(inventory)
   }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]

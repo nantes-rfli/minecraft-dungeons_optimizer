@@ -11,6 +11,7 @@ import { rangedEnchantmentName, RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
+const percentFormat = new Intl.NumberFormat('ja-JP', { style: 'percent', maximumFractionDigits: 8 })
 const TIER_LABELS = { 1: 'I', 2: 'II', 3: 'III' } as const
 const SOURCE_LABELS = { slot: '通常枠', gilded: 'Gilded', 'built-in': 'Built-in' } as const
 
@@ -55,6 +56,11 @@ function Metric({ label, value, detail }: { label: string; value: number; detail
   return <div className="metric"><span>{label}</span><strong>{numberFormat.format(value)}</strong>{detail && <small>{detail}</small>}</div>
 }
 
+function rangedAllocationSummary(evaluation: Evaluation): string {
+  const state = evaluation.damage.ranged
+  return state ? `遠距離時間 ${percentFormat.format(state.timeShare)} · 矢${numberFormat.format(state.ammoConsumed)}本` : ''
+}
+
 export function RecommendedBuild({ evaluation, weights, idPrefix }: { readonly evaluation: Evaluation; readonly weights: Scenario['weights']; readonly idPrefix?: string }) {
   const titleId = idPrefix ? `${idPrefix}-title` : 'recommended-build-title'
   const equipmentHeadingId = (slot: 'melee' | 'armor' | 'ranged' | 'artifacts') => idPrefix ? `${idPrefix}-${slot}` : `recommended-${slot}`
@@ -86,6 +92,7 @@ export function RecommendedBuild({ evaluation, weights, idPrefix }: { readonly e
         <div className="build-equipment-heading"><p>遠距離</p>{ranged && <span className="support limited">Limited</span>}</div>
         <h3 id={equipmentHeadingId('ranged')}>{ranged && rangedItem ? <><BilingualName name={ranged.name} /><span>Power {rangedItem.powerLevel}</span></> : <span className="empty-equipment">未選択</span>}</h3>
         {ranged && <RangedEnchantmentList enchantments={evaluation.build.rangedEnchantments} />}
+        {evaluation.damage.ranged && <p>{rangedAllocationSummary(evaluation)}</p>}
       </section>
       <section className="build-equipment artifacts" aria-label="Artifact">
         <div className="build-equipment-heading"><p>Artifact</p></div>
@@ -197,7 +204,7 @@ export function BuildAlternative({ evaluation, best, weights, title = '次点候
   ]
   return <article className="result-card compact build-alternative">
     <header><p className="eyebrow">{title}</p><div className="alternative-score"><strong>{numberFormat.format(evaluation.objectiveScore)}</strong><span>1位との差 {scoreDelta >= 0 ? '+' : ''}{numberFormat.format(scoreDelta)}</span></div></header>
-    <dl className="alternative-equipment"><dt>近接</dt><dd>{weapon.name.ja}<small lang="en">{weapon.name.en}</small></dd><dt>防具</dt><dd>{armor}</dd><dt>遠距離</dt><dd>{ranged}</dd><dt>Artifact</dt><dd>{artifacts}</dd></dl>
+    <dl className="alternative-equipment"><dt>近接</dt><dd>{weapon.name.ja}<small lang="en">{weapon.name.en}</small></dd><dt>防具</dt><dd>{armor}</dd><dt>遠距離</dt><dd>{ranged}{evaluation.damage.ranged && <small>{rangedAllocationSummary(evaluation)}</small>}</dd><dt>Artifact</dt><dd>{artifacts}</dd></dl>
     <details className="alternative-composition"><summary>装備とEnchantの構成を見る</summary>
       <dl className="alternative-equipment">
         <dt>近接</dt><dd>{weapon.name.ja}<small>Power {evaluation.build.weapon.powerLevel}</small><EnchantmentList enchantments={evaluation.build.enchantments} /></dd>
