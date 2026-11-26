@@ -74,11 +74,18 @@ export function calculateArtifactActivationOpportunities(ownedArtifacts: readonl
   })
 }
 
-export function calculateArtifactDuration(model: ArtifactDurationModel, power: number): number {
-  if (!Number.isFinite(power) || power <= 0) throw new Error('Artifact Power must be finite and positive')
+export function artifactDurationPowerStatus(model: ArtifactDurationModel, power: number): 'invalid-power' | 'invalid-range' | 'outside-range' | 'in-range' {
+  if (!Number.isFinite(power) || power <= 0) return 'invalid-power'
   const range = model.kind === 'fixed' ? undefined : model.supportedPowerRange
-  if (range && (!Number.isFinite(range.min) || !Number.isFinite(range.max) || range.min <= 0 || range.max < range.min)) throw new Error('Invalid artifact duration Power range')
-  if (range && (power < range.min || power > range.max)) throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_POWER_RANGE', 'Artifact duration Power outside supported range; extrapolation is forbidden')
+  if (range && (!Number.isFinite(range.min) || !Number.isFinite(range.max) || range.min <= 0 || range.max < range.min)) return 'invalid-range'
+  return range && (power < range.min || power > range.max) ? 'outside-range' : 'in-range'
+}
+
+export function calculateArtifactDuration(model: ArtifactDurationModel, power: number): number {
+  const powerStatus = artifactDurationPowerStatus(model, power)
+  if (powerStatus === 'invalid-power') throw new Error('Artifact Power must be finite and positive')
+  if (powerStatus === 'invalid-range') throw new Error('Invalid artifact duration Power range')
+  if (powerStatus === 'outside-range') throw new OptimizerInputError('UNSUPPORTED_ARTIFACT_POWER_RANGE', 'Artifact duration Power outside supported range; extrapolation is forbidden')
   let seconds: number
   switch (model.kind) {
     case 'fixed': seconds = model.seconds.value; break

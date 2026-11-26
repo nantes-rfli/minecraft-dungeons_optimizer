@@ -1,17 +1,19 @@
 import { observedMeleeComboPreparationIssue } from './observedMeleeComboReuse'
+import { artifactEvidenceAllowed } from './evidenceStatus'
+import { isArtifactOutsideDurationPowerRange } from './artifactReadiness'
 import type { Inventory, Scenario } from './types'
 import { OptimizerInputError } from './errors'
 
 export const SEARCH_WARNING_CANDIDATES = 1_000
 export const SEARCH_MAX_CANDIDATES = 25_000
 
-// An upper bound before unsupported/stacking filters, without materializing builds.
+// An upper bound before combination-specific filters, without materializing builds.
 // Saturation avoids Infinity/unsafe integer values even for imported inventories.
 const bounded = (value: number) => Math.min(Number.MAX_SAFE_INTEGER, value)
 function slotCount(slots: readonly { candidates: readonly unknown[]; selected?: unknown }[]): number {
   return slots.reduce((total, slot) => bounded(total * (slot.selected || (slot as { locked?: string }).locked ? 1 : slot.candidates.length)), 1)
 }
-type SearchOptions = Pick<Scenario, 'includeUnequippedArtifacts' | 'includeBuildsWithoutRanged' | 'rangedTimeShare' | 'rangedTimeShareAlternatives'>
+type SearchOptions = Pick<Scenario, 'includeUnequippedArtifacts' | 'includeBuildsWithoutRanged' | 'rangedTimeShare' | 'rangedTimeShareAlternatives' | 'evidencePolicy'>
 
 export function estimateSearchCandidates(inventory: Inventory, scenario?: SearchOptions): number {
   const preparedMelee = inventory.weapons.filter((weapon) => !observedMeleeComboPreparationIssue(weapon))
@@ -25,9 +27,17 @@ export function estimateSearchCandidates(inventory: Inventory, scenario?: Search
   const rangedAllocations = scenario?.rangedTimeShare === undefined ? Math.max(1, alternatives) : 1 + alternatives
   const ranged = rangedWeapons.length === 0 ? 1
     : bounded(rangedEquipped * rangedAllocations + (scenario?.includeBuildsWithoutRanged === true ? 1 : 0))
-  const n = inventory.artifacts.length
+  // Mirror only the item-level exclusions before materializing Artifact
+  // loadouts. Other input and combination failures stay in scope.
+  const policy = scenario?.evidencePolicy
+  const optionalArtifacts = scenario?.includeUnequippedArtifacts === true
+  const n = policy === 'high-confidence-only' || optionalArtifacts
+    ? inventory.artifacts.filter((artifact) =>
+      (policy !== 'high-confidence-only' || artifactEvidenceAllowed(artifact.artifactId, policy))
+      && (!optionalArtifacts || !isArtifactOutsideDurationPowerRange(artifact))).length
+    : inventory.artifacts.length
   const triples = n < 3 ? 0 : bounded(n * (n - 1) * (n - 2) / 6)
-  if (scenario?.includeUnequippedArtifacts !== true) return bounded(bounded(bounded(melee * armor) * ranged) * (n < 3 ? 1 : triples))
+  if (!optionalArtifacts) return bounded(bounded(bounded(melee * armor) * ranged) * (n < 3 ? 1 : triples))
   const artifacts = bounded(1 + n + (n < 2 ? 0 : bounded(n * (n - 1) / 2)) + triples)
   // Melee and Artifact candidates are built before Armor/Ranged preparation.
   // An empty slot in a direct Core input must not erase that workload.

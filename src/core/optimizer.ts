@@ -4,7 +4,7 @@ import { isObservedMeleeComboId } from '../data/observedMeleeCombo'
 import { observedMeleeComboPreparationIssue, observedMeleeComboUnsupportedReason } from './observedMeleeComboReuse'
 import { fixedMeleeEnchantments } from '../data/fixedMeleeEnchantments'
 import { builtinProcMeleeUnsupportedReason } from './builtinProcMeleeReuse'
-import { calculateArtifactDuration } from './artifact'
+import { artifactPowerIssue } from './artifactReadiness'
 import { ExclusionLog, type InventoryReadiness, type ReadinessIssue } from './readiness'
 import { assertSearchBudget } from './searchBudget'
 import { evaluate, evaluateCandidate } from './evaluate'
@@ -12,7 +12,7 @@ import { hasValidEnchantmentStacking } from './enchantment'
 import { enchantmentUnsupportedReason, enchantmentCombinationUnsupportedReason } from './damageEvents'
 import { OptimizerInputError } from './errors'
 import { armorCombinationUnsupportedReason } from './armor'
-import { getArtifactDefinition, getArmorDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
+import { getArmorDefinition, isRuntimeArmorEnchantmentId, isRuntimeArmorId } from './catalog'
 import type { SelectedArmorEnchantment } from './armor'
 import type {
   Build,
@@ -288,21 +288,6 @@ function recordEvaluationFailure(log: ExclusionLog, build: Build, error: unknown
     }
   }
   for (const id of buildInstanceIds(build)) log.record(id, { kind: 'failed', message: error instanceof Error ? error.message : '評価処理が失敗しました。' })
-}
-
-function artifactPowerIssue(artifact: OwnedArtifact, diagnosticOnly = false): ReadinessIssue | undefined {
-  try {
-    const definition = getArtifactDefinition(artifact.artifactId)
-    if ('duration' in definition) calculateArtifactDuration(definition.duration, artifact.powerLevel)
-  } catch (error) {
-    if (error instanceof OptimizerInputError && error.code === 'UNSUPPORTED_ARTIFACT_POWER_RANGE') {
-      return { kind: 'unsupported', message: `${error.message}。この個体のPowerは現在の対応範囲外です。実装備のPowerを書き換えたり、未承認の値を入力して解決しないでください。` }
-    }
-    // Readiness's preliminary probe only records range issues. The actual
-    // search owns errors from other model checks and records its failures.
-    if (!diagnosticOnly) throw error
-  }
-  return undefined
 }
 
 /**
