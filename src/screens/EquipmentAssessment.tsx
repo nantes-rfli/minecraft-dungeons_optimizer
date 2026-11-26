@@ -146,7 +146,7 @@ export function EquipmentAssessmentPanel({ inventory, scenario, presets }: {
       </details>)}
       {search.assessments.length > 1 && search.assessments[0]?.status === 'complete' && <section className="assessment-reference" aria-label="同じ装備構成を別条件で比較">
         <h3>同じ装備構成を別条件で比較</h3>
-        <p>現在の推奨構成の装備個体とエンチャントを固定し、各条件の最良構成と比較します。遠距離に割く時間は各条件の候補から選びます。</p>
+        <p>現在の推奨構成の装備個体とエンチャントを固定し、各条件の最良構成と比較します。遠距離の時間と発射モードは各条件で評価できる候補から選びます。</p>
         {search.assessments.slice(1).map((assessment) => <details className="assessment-reference-condition" key={assessment.condition.id}>
           <summary>{assessment.condition.name} · {assessment.status === 'error' ? '条件を評価できませんでした'
             : assessment.referenceBuild?.status !== 'evaluated' ? '同じ構成は未評価'

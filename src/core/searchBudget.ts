@@ -19,7 +19,8 @@ export function estimateSearchCandidates(inventory: Inventory, scenario?: Search
   const melee = preparedMelee.reduce((sum, weapon) => bounded(sum + slotCount(weapon.enchantmentSlots)), 0)
   const armor = inventory.armors?.length ? inventory.armors.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0) : 1
   const rangedWeapons = inventory.rangedWeapons ?? []
-  const rangedEquipped = rangedWeapons.reduce((sum, item) => bounded(sum + slotCount(item.enchantmentSlots)), 0)
+  const rangedEquipped = rangedWeapons.reduce((sum, item) =>
+    bounded(sum + slotCount(item.enchantmentSlots) * (item.modeComparison ? 2 : 1)), 0)
   const alternatives = scenario?.rangedTimeShareAlternatives?.length ?? 0
   const rangedAllocations = scenario?.rangedTimeShare === undefined ? Math.max(1, alternatives) : 1 + alternatives
   const ranged = rangedWeapons.length === 0 ? 1

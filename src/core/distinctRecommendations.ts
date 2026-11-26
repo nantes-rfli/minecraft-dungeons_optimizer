@@ -16,7 +16,8 @@ export function distinctRecommendations<T extends Pick<Evaluation, 'build' | 'da
     const key = JSON.stringify([
       build.weapon.instanceId, enchantmentKey(build.enchantments),
       build.armor?.instanceId ?? null, enchantmentKey(build.armorEnchantments),
-      build.rangedWeapon?.instanceId ?? null, enchantmentKey(build.rangedEnchantments), candidate.damage.ranged?.timeShare ?? null,
+      build.rangedWeapon?.instanceId ?? null, enchantmentKey(build.rangedEnchantments),
+      candidate.damage.ranged?.timeShare ?? null, candidate.damage.ranged?.mode ?? null,
       build.artifacts.map((item) => item.instanceId).sort(),
       // Do not assume order-independent semantics: retain any different
       // score or comparison/Pareto metric even for the same composition.
