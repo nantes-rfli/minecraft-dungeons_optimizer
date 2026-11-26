@@ -1,12 +1,12 @@
 import { useId, useState, type ReactNode } from 'react'
 import type { Inventory, Scenario, Evaluation } from '../core/types'
-import type { OwnedRangedWeapon, RangedShotMode } from '../core/rangedTypes'
-import { parseRangedWeapon, rangedAmmoObservationIssue, rangedWeaponUnsupportedReason, requiresExplicitRangedAmmoCost } from '../core/ranged'
+import type { OwnedRangedWeapon, RangedObservation, RangedShotMode } from '../core/rangedTypes'
+import { parseRangedWeapon, rangedAmmoObservationIssue, rangedModeCandidates, rangedWeaponUnsupportedReason, requiresExplicitRangedAmmoCost, supportsRangedModeComparison } from '../core/ranged'
 import { isFixedPowerBow } from '../core/fixedPowerBowReuse'
 import { isFixedRapidFireWeapon } from '../core/fixedRapidFireReuse'
 import { rangedObservationMatchesPower, requiresBoundRangedObservation } from '../core/rangedFixedEffects'
 import { RANGED_WEAPON_AUDIT } from '../research/rangedAudit'
-import { rangedEnchantmentName, RANGED_WEAPONS } from '../data/ranged'
+import { rangedEnchantmentName, RANGED_SHOT_MODE_LABELS, RANGED_WEAPONS } from '../data/ranged'
 import { japaneseEquipmentName } from '../data/equipmentNames.ja'
 import { getEquipmentCatalogEntry } from '../data/equipmentCatalog'
 import { EquipmentArtwork } from '../components/EquipmentArtwork'
@@ -19,8 +19,9 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const observed = weapon.observation
   const fixedPower = isFixedPowerBow(weapon.weaponId)
   const rapidFire = isFixedRapidFireWeapon(weapon.weaponId)
+  const pairedAtCurrentPower = !weapon.modeComparison || weapon.modeComparison.powerLevel === weapon.powerLevel
   const observationDraft = () => {
-    const matching = rangedObservationMatchesPower(weapon) ? observed : undefined
+    const matching = pairedAtCurrentPower && rangedObservationMatchesPower(weapon) ? observed : undefined
     return {
       mode: observed?.mode ?? (RANGED_WEAPONS[weapon.weaponId]?.modes[0] ?? (weapon.weaponId.includes('crossbow') ? 'single' : 'uncharged')),
       damage: matching?.projectileDamage.toString() ?? '', cycle: matching?.shotCycleSeconds.toString() ?? '', ammo: observed?.availableAmmo.toString() ?? '',
@@ -39,7 +40,14 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
   const [error, setError] = useState('')
   const audited = RANGED_WEAPON_AUDIT.entries.find((item) => item.id === weapon.weaponId)!
   const catalog = getEquipmentCatalogEntry('ranged', weapon.weaponId)!
+  const storedAlternate = weapon.modeComparison?.observation
   const showConsumedArrows = requiresExplicitRangedAmmoCost(weapon.weaponId) || observed?.arrowsConsumedPerShot !== undefined
+    || (storedAlternate?.mode === draft.mode && storedAlternate.arrowsConsumedPerShot !== undefined)
+  const canSaveOtherMode = observed !== undefined && supportsRangedModeComparison(weapon.weaponId)
+    && observed.mode !== draft.mode && observed.mode !== 'single' && draft.mode !== 'single'
+    && pairedAtCurrentPower && rangedObservationMatchesPower(weapon) && !rangedAmmoObservationIssue(weapon)
+  const alternate = weapon.modeComparison && rangedModeCandidates(weapon)[1]
+  const alternateIssue = alternate && rangedWeaponUnsupportedReason(alternate)
   const changeMode = (mode: RangedShotMode) => {
     if (mode === draft.mode) return
     // Mode-specific observations cannot be relabeled. Keep the independent
@@ -47,14 +55,31 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
     setDraft({ ...draft, mode, damage: '', cycle: '', note: '', arrowsConsumedPerShot: '' })
     setError('')
   }
-  const saveObservation = () => {
+  const saveObservation = (compareModes: boolean) => {
     try {
       if ([draft.damage, draft.cycle, draft.ammo, draft.note].some((value) => value.trim() === '')) throw new Error('観測値とメモをすべて入力してください。')
       if (showConsumedArrows && draft.arrowsConsumedPerShot.trim() === '') throw new Error('1完全発射周期あたりの消費矢数を再入力してください。1本消費の観測のみ対応します。')
-      const parsed = parseRangedWeapon({ ...weapon, observation: { gameVersion: '1.17.0.0', mode: draft.mode, projectileDamage: Number(draft.damage), shotCycleSeconds: Number(draft.cycle), availableAmmo: Number(draft.ammo), sourceNote: draft.note, ...(fixedPower ? { fixedPowerObservation: { powerLevel: weapon.powerLevel } } : {}), ...(rapidFire ? { fixedCadenceObservation: { powerLevel: weapon.powerLevel } } : {}), ...(draft.arrowsConsumedPerShot.trim() === '' ? {} : { arrowsConsumedPerShot: Number(draft.arrowsConsumedPerShot) }) } })
+      const modeObservation: Omit<RangedObservation, 'availableAmmo'> = {
+        gameVersion: '1.17.0.0', mode: draft.mode, projectileDamage: Number(draft.damage),
+        shotCycleSeconds: Number(draft.cycle), sourceNote: draft.note,
+        ...(fixedPower ? { fixedPowerObservation: { powerLevel: weapon.powerLevel } } : {}),
+        ...(rapidFire ? { fixedCadenceObservation: { powerLevel: weapon.powerLevel } } : {}),
+        ...(draft.arrowsConsumedPerShot.trim() === '' ? {} : { arrowsConsumedPerShot: Number(draft.arrowsConsumedPerShot) }),
+      }
+      const availableAmmo = Number(draft.ammo)
+      const parsed = parseRangedWeapon({ ...weapon, observation: { ...modeObservation, availableAmmo }, modeComparison: undefined })
       const ammoIssue = rangedAmmoObservationIssue(parsed)
       if (ammoIssue) throw new Error(ammoIssue.message)
-      onChange(parsed)
+      if (compareModes) {
+        if (!observed || !canSaveOtherMode) throw new Error('同じ個体・現在のPowerの、もう一方の発射モードを記録してください。')
+        onChange(parseRangedWeapon({
+          ...parsed, observation: { ...observed, availableAmmo },
+          modeComparison: { powerLevel: weapon.powerLevel, observation: modeObservation },
+        }))
+      } else {
+        const keepComparison = observed?.mode === draft.mode && weapon.modeComparison?.powerLevel === weapon.powerLevel
+        onChange(keepComparison ? { ...parsed, modeComparison: weapon.modeComparison } : parsed)
+      }
       setError('')
     } catch (err) { setError(err instanceof Error ? err.message : '観測値の形式が不正です。') }
   }
@@ -64,11 +89,19 @@ export function OwnedRangedEditor({ weapon, onChange, onRemove }: { weapon: Owne
       <p>通常矢1本のダメージ、発射にかかる時間、使える矢の数を入力してください。弓はチャージ状態もそろえます。発射モードを変更するとダメージ・周期・観測メモ・記録済みの消費矢数の再入力が必要です。矢数は保持します。</p>
       {fixedPower && <p>現在のPowerで、固定パワー I が含まれた1矢ダメージを記録してください。フルチャージ時は固有のチャージ補正も観測値に含め、ほかのEnchant・防具・バフ・敵の軽減は除きます。装備のPowerを変更すると観測値は解除されます。</p>}
       {rapidFire && <p>固定「速射 I」が働く状態で、現在のPowerと発射モードの完全発射周期を記録してください。ほかの速度・ダメージ補正は外してください。装備のPowerを変更すると観測値は解除されます。</p>}
-      <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => changeMode(e.target.value as RangedShotMode)}>{(['uncharged', 'charged', 'single'] as const).filter((mode) => mode === draft.mode || !RANGED_WEAPONS[weapon.weaponId] || RANGED_WEAPONS[weapon.weaponId]!.modes.includes(mode)).map((mode) => <option key={mode} value={mode}>{mode === 'uncharged' ? '弓・未チャージ' : mode === 'charged' ? '弓・フルチャージ' : 'クロスボウ・単射'}</option>)}</select></label>
+      {observed && weapon.modeComparison && <p>記録した発射モードは {RANGED_SHOT_MODE_LABELS[observed.mode]} と {RANGED_SHOT_MODE_LABELS[weapon.modeComparison.observation.mode]} です。Powerを変更すると両方の観測を解除します。</p>}
+      {alternate && alternateIssue && <p>{RANGED_SHOT_MODE_LABELS[alternate.observation!.mode]} · {alternateIssue}</p>}
+      <label>発射モード<select aria-label={`${weapon.instanceId} 発射モード`} value={draft.mode} onChange={(e) => changeMode(e.target.value as RangedShotMode)}>{(['uncharged', 'charged', 'single'] as const).filter((mode) => mode === draft.mode || !RANGED_WEAPONS[weapon.weaponId] || RANGED_WEAPONS[weapon.weaponId]!.modes.includes(mode)).map((mode) => <option key={mode} value={mode}>{RANGED_SHOT_MODE_LABELS[mode]}</option>)}</select></label>
       {(['damage', 'cycle', 'ammo'] as const).map((field) => <label key={field}>{field === 'damage' ? (fixedPower ? '固定パワー I を含む1矢ダメージ' : 'neutral 1矢damage') : field === 'cycle' ? '完全発射周期（秒・charge/recovery込み）' : '戦闘中に使える通常矢数（補給なし）'}<input aria-label={`${weapon.instanceId} ${field}`} type="number" min={field === 'ammo' ? 0 : 0.000001} step={field === 'ammo' ? 1 : 'any'} value={draft[field]} onChange={(e) => setDraft({ ...draft, [field]: e.target.value })} /></label>)}
       {showConsumedArrows && <label>1完全発射周期あたりの通常矢消費数（1本のみ対応）<input aria-label={`${weapon.instanceId} arrowsConsumedPerShot`} type="number" min="0" step="1" value={draft.arrowsConsumedPerShot} onChange={(event) => setDraft({ ...draft, arrowsConsumedPerShot: event.target.value })} /></label>}
       <label>観測メモ / 出典<input aria-label={`${weapon.instanceId} 観測メモ`} value={draft.note} placeholder="対象・装備・版・記録箇所" onChange={(e) => setDraft({ ...draft, note: e.target.value })} /></label>
-      <button type="button" onClick={saveObservation}>観測値を適用</button>{observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined })}>観測値を解除</button>}
+      <button type="button" onClick={() => saveObservation(false)}>{weapon.modeComparison && observed?.mode !== draft.mode ? 'この発射モードだけに切り替える' : '観測値を適用'}</button>
+      {canSaveOtherMode && <>
+        <p>どちらもこの個体・現在のPowerで観測した場合は、同じ矢数で比較できます。</p>
+        <button type="button" onClick={() => saveObservation(true)}>もう一方の発射モードとして保存</button>
+      </>}
+      {weapon.modeComparison && pairedAtCurrentPower && <button type="button" onClick={() => onChange({ ...weapon, modeComparison: undefined })}>比較用の発射モードを解除</button>}
+      {observed && <button type="button" onClick={() => onChange({ ...weapon, observation: undefined, modeComparison: undefined })}>{weapon.modeComparison ? '両方の観測値を解除' : '観測値を解除'}</button>}
       {error && <p id={errorId} role="alert">{error}</p>}
     </fieldset></div></details></>} />
   </details>

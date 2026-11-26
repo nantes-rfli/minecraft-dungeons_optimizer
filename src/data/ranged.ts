@@ -3,6 +3,10 @@ import type { RangedShotMode } from '../core/rangedTypes'
 import type { EnchantmentTier, LocalizedName } from '../core/types'
 import { FIXED_RAPID_FIRE } from '../core/fixedRapidFireReuse.ts'
 
+export const RANGED_SHOT_MODE_LABELS: Readonly<Record<RangedShotMode, string>> = {
+  uncharged: '弓・未チャージ', charged: '弓・フルチャージ', single: 'クロスボウ・単射',
+}
+
 export const RANGED_LIMITATIONS = [
   'Limited: 1.17.0.0の通常矢1本のダメージと完全な発射周期を利用者が入力。固定パワー I 対象は固定効果込みのダメージ、固定「速射 I」対象は固定効果込みの完全発射周期を現在の装備Powerで記録。実測の独立検証は未完了。Powerからdamageを生成しない。',
   '通常矢・単体確定命中。1周期完了後に1射、有限矢数で上限。未消費時間を近接へ戻さず、切替時間は時間配分に含める。',

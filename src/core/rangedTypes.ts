@@ -3,6 +3,23 @@ import type { CatalogResearchAttributes, EnchantmentTier, EquipmentRarity, Owned
 export type RangedShotMode = 'uncharged' | 'charged' | 'single'
 export interface RangedRoll { readonly enchantmentId: string; readonly tier: EnchantmentTier }
 export interface SelectedRangedEnchantment extends RangedRoll { readonly source: 'slot' | 'gilded' | 'built-in' }
+export interface RangedObservation {
+  readonly gameVersion: '1.17.0.0'
+  readonly mode: RangedShotMode
+  /** Neutral, single-projectile damage, before selectable enchants/Armor/Strength/target DR. */
+  readonly projectileDamage: number
+  /** Present only when the recorded damage includes this variant's owned Power I. */
+  readonly fixedPowerObservation?: { readonly powerLevel: number }
+  /** Present only when the complete cycle includes this variant's owned Rapid Fire I. */
+  readonly fixedCadenceObservation?: { readonly powerLevel: number }
+  /** Complete cycle: charge (if any), release, reload/recovery, ready again. */
+  readonly shotCycleSeconds: number
+  /** Own observed normal-arrow consumption per complete shot. No default is persisted. */
+  readonly arrowsConsumedPerShot?: number
+  readonly availableAmmo: number
+  readonly sourceNote: string
+}
+
 export interface OwnedRangedWeapon {
   /** Retained Catalog facts, not observations or gameplay inputs. */
   readonly research?: CatalogResearchAttributes
@@ -15,21 +32,11 @@ export interface OwnedRangedWeapon {
   /** User-owned organization metadata; does not affect optimizer eligibility or score. */
   readonly isFavorite?: boolean
   readonly notes?: string
-  /** Neutral, single-projectile damage, before selectable enchants/Armor/Strength/target DR. */
-  readonly observation?: {
-    readonly gameVersion: '1.17.0.0'
-    readonly mode: RangedShotMode
-    readonly projectileDamage: number
-    /** Present only when the recorded damage includes this variant's owned Power I. */
-    readonly fixedPowerObservation?: { readonly powerLevel: number }
-    /** Present only when the complete cycle includes this variant's owned Rapid Fire I. */
-    readonly fixedCadenceObservation?: { readonly powerLevel: number }
-    /** Complete cycle: charge (if any), release, reload/recovery, ready again. */
-    readonly shotCycleSeconds: number
-    /** Own observed normal-arrow consumption per complete shot. No default is persisted. */
-    readonly arrowsConsumedPerShot?: number
-    readonly availableAmmo: number
-    readonly sourceNote: string
+  readonly observation?: RangedObservation
+  /** Separate record for the other bow mode, confirmed at the same Power. Both use the primary stock. */
+  readonly modeComparison?: {
+    readonly powerLevel: number
+    readonly observation: Omit<RangedObservation, 'availableAmmo'>
   }
 }
 export interface RangedDamageState {

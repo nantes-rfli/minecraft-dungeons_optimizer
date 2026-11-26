@@ -7,7 +7,7 @@ import { getEnchantmentRuntimeSupport } from '../core/runtimeSupport'
 import { ARTIFACTS } from '../data/artifacts'
 import { ARMORS, ARMOR_ENCHANTMENTS } from '../data/armors'
 import { ENCHANTMENTS } from '../data/enchantments'
-import { rangedEnchantmentName, RANGED_WEAPONS } from '../data/ranged'
+import { rangedEnchantmentName, RANGED_SHOT_MODE_LABELS, RANGED_WEAPONS } from '../data/ranged'
 import { WEAPONS } from '../data/weapons'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
@@ -58,7 +58,7 @@ function Metric({ label, value, detail }: { label: string; value: number; detail
 
 function rangedAllocationSummary(evaluation: Evaluation): string {
   const state = evaluation.damage.ranged
-  return state ? `遠距離時間 ${percentFormat.format(state.timeShare)} · 矢${numberFormat.format(state.ammoConsumed)}本` : ''
+  return state ? `遠距離時間 ${percentFormat.format(state.timeShare)} · 矢${numberFormat.format(state.ammoConsumed)}本 · ${RANGED_SHOT_MODE_LABELS[state.mode]}` : ''
 }
 
 export function RecommendedBuild({ evaluation, weights, idPrefix }: { readonly evaluation: Evaluation; readonly weights: Scenario['weights']; readonly idPrefix?: string }) {

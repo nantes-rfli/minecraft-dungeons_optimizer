@@ -28,7 +28,7 @@ import type {
   SelectedEnchantment,
 } from './types'
 import { enchantmentInputIssue, inventoryItemInputIssues, missingLegacyObservedDamageInstanceIds, missingObservedDamageInstanceIds, validateInventory, validateScenario } from './validation'
-import { rangedCombinationUnsupportedReason, rangedOptions, rangedWeaponIssues, rangedWeaponUnsupportedReason } from './ranged'
+import { rangedCombinationUnsupportedReason, rangedModeCandidates, rangedOptions, rangedWeaponIssues } from './ranged'
 import { artifactEvidenceAllowed, blockedParameterEvidenceForBuild, evidencePolicy } from './evidenceStatus'
 import { ENCHANTMENTS } from '../data/enchantments'
 import { soulEnchantmentUnsupportedReason } from './soulLegality'
@@ -420,9 +420,18 @@ function optimizeInternal(
     ? additionalAllocations
     : [evaluationScenario, ...additionalAllocations]
   const firstRangedScenario = rangedScenarios[0]!
-  const buildsWithRanged = rangedWeapons.flatMap<Build>((rangedWeapon) => {
-    const unsupported = rangedWeaponUnsupportedReason(rangedWeapon)
-    if (unsupported) { for (const issue of rangedWeaponIssues(rangedWeapon)) unsupportedChoices.record(rangedWeapon.instanceId, issue); return [] }
+  const rangedCandidates = rangedWeapons.flatMap((weapon) => {
+    const modes = rangedModeCandidates(weapon)
+    return modes.map((rangedWeapon) => ({ rangedWeapon, bothModes: modes.length > 1 }))
+  })
+  const buildsWithRanged = rangedCandidates.flatMap<Build>(({ rangedWeapon, bothModes }) => {
+    const issues = rangedWeaponIssues(rangedWeapon)
+    if (issues.length > 0) {
+      for (const issue of issues) unsupportedChoices.record(rangedWeapon.instanceId, bothModes
+        ? { ...issue, message: `${rangedWeapon.observation!.mode}: ${issue.message}` }
+        : issue)
+      return []
+    }
     const options = rangedOptions(rangedWeapon)
     if (options.length === 0) unsupportedChoices.record(rangedWeapon.instanceId, { kind: 'constrained', message: 'Ranged stackingを満たす候補がありません。' })
     return builds.flatMap((base) => options.flatMap((rangedEnchantments) => {
