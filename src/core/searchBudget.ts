@@ -1,5 +1,6 @@
 import { observedMeleeComboPreparationIssue } from './observedMeleeComboReuse'
 import { artifactEvidenceAllowed } from './evidenceStatus'
+import { isArtifactOutsideDurationPowerRange } from './artifactReadiness'
 import type { Inventory, Scenario } from './types'
 import { OptimizerInputError } from './errors'
 
@@ -26,14 +27,17 @@ export function estimateSearchCandidates(inventory: Inventory, scenario?: Search
   const rangedAllocations = scenario?.rangedTimeShare === undefined ? Math.max(1, alternatives) : 1 + alternatives
   const ranged = rangedWeapons.length === 0 ? 1
     : bounded(rangedEquipped * rangedAllocations + (scenario?.includeBuildsWithoutRanged === true ? 1 : 0))
-  // The optimizer applies this same item-level policy before making any
-  // Artifact loadouts. Combination evidence is still checked after generation.
+  // Mirror only the item-level exclusions before materializing Artifact
+  // loadouts. Other input and combination failures stay in scope.
   const policy = scenario?.evidencePolicy
-  const n = policy === 'high-confidence-only'
-    ? inventory.artifacts.filter(({ artifactId }) => artifactEvidenceAllowed(artifactId, policy)).length
+  const optionalArtifacts = scenario?.includeUnequippedArtifacts === true
+  const n = policy === 'high-confidence-only' || optionalArtifacts
+    ? inventory.artifacts.filter((artifact) =>
+      (policy !== 'high-confidence-only' || artifactEvidenceAllowed(artifact.artifactId, policy))
+      && (!optionalArtifacts || !isArtifactOutsideDurationPowerRange(artifact))).length
     : inventory.artifacts.length
   const triples = n < 3 ? 0 : bounded(n * (n - 1) * (n - 2) / 6)
-  if (scenario?.includeUnequippedArtifacts !== true) return bounded(bounded(bounded(melee * armor) * ranged) * (n < 3 ? 1 : triples))
+  if (!optionalArtifacts) return bounded(bounded(bounded(melee * armor) * ranged) * (n < 3 ? 1 : triples))
   const artifacts = bounded(1 + n + (n < 2 ? 0 : bounded(n * (n - 1) / 2)) + triples)
   // Melee and Artifact candidates are built before Armor/Ranged preparation.
   // An empty slot in a direct Core input must not erase that workload.

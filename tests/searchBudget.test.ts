@@ -43,4 +43,26 @@ describe('search budget', () => {
     expect(highConfidence).toMatchObject({ status: 'complete', evaluatedBuildCount: 2, best: result.best })
     expect(large.artifacts).toHaveLength(55)
   })
+
+  it('ignores only the range exclusions already used in optional Artifact searches', () => {
+    const eligible = { instanceId: 'in-range', artifactId: 'shock-powder', powerLevel: 251 } as const
+    const large: Inventory = {
+      ...inventory,
+      artifacts: [eligible, ...Array.from({ length: 55 }, (_, index) => ({ ...eligible, instanceId: `out-of-range-${index}`, powerLevel: index % 2 === 0 ? 1 : 263 }))],
+    }
+    const optional = { ...DEFAULT_SCENARIO, includeUnequippedArtifacts: true }
+    expect(estimateSearchCandidates(large, DEFAULT_SCENARIO)).toBe(55_440)
+    expect(() => optimize(large, DEFAULT_SCENARIO)).toThrow('安全上限')
+    expect(estimateSearchCandidates(large, optional)).toBe(4)
+    const result = optimize(large, optional)
+    expect(result.evaluatedBuildCount).toBe(4)
+    expect(result.unsupportedChoices).toHaveLength(55)
+    expect(new Set([result.best, ...result.alternatives].flatMap(({ build }) =>
+      build.artifacts.map((artifact) => artifact.instanceId)))).toEqual(new Set([eligible.instanceId]))
+
+    const invalid: Inventory = { ...inventory, artifacts: [{ ...eligible, powerLevel: 0 }] }
+    expect(estimateSearchCandidates(invalid, optional)).toBe(4)
+    expect(() => optimize(invalid, optional)).toThrow()
+    expect(large.artifacts).toHaveLength(56)
+  })
 })
