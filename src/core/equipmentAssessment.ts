@@ -126,10 +126,10 @@ export function assessEquipment(
     throw new Error(`用途別評価には重複しない条件を1〜${MAX_ASSESSMENT_CONDITIONS}件指定してください。`)
   }
   validateInventory(inventory)
-  // With legacy conditions the budget is shared. A mixed batch must check
-  // each search so one expanded search cannot block an otherwise valid one.
+  // With legacy conditions the budget is shared. When settings can change the
+  // bound, check each search so an over-budget condition cannot block another.
   if (!conditions.some(({ scenario }) => scenario.includeUnequippedArtifacts === true || scenario.includeBuildsWithoutRanged === true
-    || !!scenario.rangedTimeShareAlternatives?.length)) {
+    || !!scenario.rangedTimeShareAlternatives?.length || scenario.evidencePolicy === 'high-confidence-only')) {
     assertSearchBudget(inventory)
   }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]

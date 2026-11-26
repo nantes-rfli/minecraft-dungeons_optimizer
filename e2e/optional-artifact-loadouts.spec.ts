@@ -53,3 +53,28 @@ test('compares base-cadence weapons with owned Mushroom unequipped and restores 
   await expect(results.getByText('14通りを全探索', { exact: true })).toBeVisible()
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory, storageKey)).toEqual(inventory)
 })
+
+test('evaluates high-confidence builds from large inventories when the policy excludes the extra Artifacts', async ({ page }) => {
+  const inventory: Inventory = {
+    weapons: [{ instanceId: 'axe', weaponId: 'double-axe', powerLevel: 251, enchantmentSlots: [{ candidates: ['critical-hit'] }] }],
+    artifacts: Array.from({ length: 55 }, (_, index) => ({
+      instanceId: `mushroom-${index}`, artifactId: 'death-cap-mushroom', powerLevel: 251,
+    })),
+  }
+  const json = JSON.stringify({ version: 6, inventory })
+  await page.addInitScript(({ key, json }) => { if (!localStorage.getItem(key)) localStorage.setItem(key, json) }, { key: storageKey, json })
+  await page.goto('/#/optimize')
+  const start = page.getByRole('button', { name: '最適化する', exact: true })
+  await expect(page.getByText('候補数の上限推定: 26,235通り', { exact: true })).toBeVisible()
+  await expect(start).toBeDisabled()
+  await page.getByRole('radio', { name: /確度の高い情報のみ/ }).check()
+  await expect(page.getByText('候補数の上限推定: 1通り', { exact: true })).toBeVisible()
+  await expect(start).toBeEnabled()
+  await start.click()
+  const result = page.getByRole('region', { name: '最適化結果', exact: true })
+  await expect(result.getByText('1通りを全探索', { exact: true })).toBeVisible()
+  await expect(result.locator('.recommended-build .artifact-slots .empty-equipment')).toHaveCount(3)
+  await expect(result.getByText(/mushroom-0: Estimated parameter/)).toBeVisible()
+  const retained = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).inventory.artifacts, storageKey)
+  expect(retained).toEqual(inventory.artifacts)
+})
