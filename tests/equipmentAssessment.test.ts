@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { assessEquipment, MAX_ASSESSMENT_CONDITIONS, summarizeMultiConditionBestScores } from '../src/core/equipmentAssessment'
 import { optimize, optimizeForEquipment } from '../src/core/optimizer'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
-import type { Inventory, Scenario } from '../src/core/types'
+import type { Build, Inventory, Scenario } from '../src/core/types'
 
 // Synthetic software fixtures, not gameplay observations or promotion Evidence.
 const inventory: Inventory = {
@@ -43,8 +43,10 @@ describe('equipment value across independent conditions', () => {
     const recovery = { id: 'recover', name: '回復用', scenario: { ...scenario, weights: { damage: 0, healing: 1, defense: 0, control: 0 } } }
     const ordinary = assessEquipment(source, [condition, recovery])
     const [current, other] = assessEquipment(source, [condition, recovery], true)
-    expect(current).toEqual(ordinary[0])
     if (current?.status !== 'complete' || other?.status !== 'complete') throw new Error('expected both conditions to complete')
+    const { referenceOptions, ...ordinaryCurrent } = current
+    expect(ordinaryCurrent).toEqual(ordinary[0])
+    expect(referenceOptions?.map(({ build }) => build.enchantments[0]?.enchantmentId)).toEqual(['critical-hit', 'radiance'])
     expect(other.evaluatedBuildCount).toBe(2)
     expect(other.best).toEqual(optimize(source, recovery.scenario).best)
     expect(other.best.build.enchantments).toContainEqual({ enchantmentId: 'radiance', tier: 3, source: 'slot' })
@@ -52,6 +54,10 @@ describe('equipment value across independent conditions', () => {
     if (other.referenceBuild?.status !== 'evaluated') throw new Error('expected the fixed build')
     expect(other.referenceBuild.scoreGap).toBeGreaterThan(0)
     expect(other.referenceBuild.scoreGap).toBe(other.best.objectiveScore - other.referenceBuild.evaluation.objectiveScore)
+    expect(other.referenceComparisons).toEqual([
+      other.referenceBuild,
+      { status: 'evaluated', evaluation: other.best, scoreGap: 0 },
+    ])
   })
 
   it('holds a fixed build excluded by the target search while preserving each condition result', () => {
@@ -61,6 +67,7 @@ describe('equipment value across independent conditions', () => {
     const [current, other, failed] = assessEquipment(source, [condition, strict, invalid], true)
     expect(current).toMatchObject({ status: 'complete', best: { build: { artifacts: source.artifacts } } })
     expect(other).toMatchObject({ status: 'complete', referenceBuild: { status: 'excluded' }, best: { build: { artifacts: [] } } })
+    expect(other).toMatchObject({ referenceComparisons: [{ status: 'excluded' }, { status: 'excluded' }, { status: 'excluded' }] })
     expect(other?.status === 'complete' && other.referenceBuild).not.toHaveProperty('scoreGap')
     expect(failed).toMatchObject({ status: 'error' })
     expect(failed).not.toHaveProperty('referenceBuild')
@@ -81,6 +88,51 @@ describe('equipment value across independent conditions', () => {
     if (current?.status !== 'complete' || other?.status !== 'complete') throw new Error('expected Ranged results')
     expect(current.best.damage.ranged?.timeShare).toBe(0.4)
     expect(other.referenceBuild).toMatchObject({ status: 'evaluated', evaluation: { build: current.best.build, damage: { ranged: { timeShare: 0.2 } } } })
+  })
+
+  it('fills the fixed-loadout choices with different equipment even if Ranged allocations fill the ordinary next ranks', () => {
+    const source: Inventory = {
+      ...inventory, weapons: inventory.weapons.slice(0, 2),
+      rangedWeapons: [{ instanceId: 'bow', weaponId: 'bow', powerLevel: 251, enchantmentSlots: [], observation: {
+        gameVersion: '1.17.0.0', mode: 'uncharged', projectileDamage: 200, shotCycleSeconds: 1, availableAmmo: 1, sourceNote: 'Synthetic application fixture',
+      } }],
+    }
+    const many = {
+      ...scenario, rangedTimeShare: 0.4, rangedTimeShareAlternatives: [0.1, 0.15, 0.2, 0.25, 0.3],
+      weights: { damage: 0, healing: 0, defense: 1, control: 0 },
+    }
+    const ordinary = optimize(source, many)
+    expect(ordinary.alternatives.map(({ build }) => build.weapon.instanceId)).toEqual(Array(4).fill('damage'))
+    const [current, other] = assessEquipment(source, [
+      { ...condition, scenario: many },
+      { ...condition, id: 'short', scenario: { ...many, rangedTimeShare: 0.2, rangedTimeShareAlternatives: undefined } },
+    ], true)
+    if (current?.status !== 'complete' || other?.status !== 'complete') throw new Error('expected both conditions to complete')
+    expect(current.referenceOptions?.map(({ build }) => build.weapon.instanceId)).toEqual(['damage', 'healing'])
+    expect(other.referenceComparisons).toMatchObject([
+      { status: 'evaluated', evaluation: { build: { weapon: { instanceId: 'damage' } }, damage: { ranged: { timeShare: 0.2 } } } },
+      { status: 'evaluated', evaluation: { build: { weapon: { instanceId: 'healing' } }, damage: { ranged: { timeShare: 0.2 } } } },
+    ])
+    expect(assessEquipment(source, [{ ...condition, scenario: many }], true)[0]).not.toHaveProperty('referenceOptions')
+  })
+
+  it('keeps exact slot assignments for saved-condition comparison when regular recommendations group equivalent permutations', () => {
+    const pair = { candidates: ['critical-hit', 'radiance'] } as const
+    const source: Inventory = {
+      weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [pair, pair] }],
+      artifacts: [],
+    }
+    const orders = ({ build }: { build: Build }) => build.enchantments.map(({ enchantmentId }) => enchantmentId).join(',')
+    const initial = optimize(source, scenario)
+    expect([initial.best, ...initial.alternatives].map(orders)).toHaveLength(2)
+    const [current, saved] = assessEquipment(source, [
+      condition,
+      { ...condition, id: 'longer', scenario: { ...scenario, encounterDurationSeconds: scenario.encounterDurationSeconds + 1 } },
+    ], true)
+    if (current?.status !== 'complete' || saved?.status !== 'complete') throw new Error('expected both conditions to complete')
+    const sourceOrders = current.referenceOptions?.map(orders)
+    expect(sourceOrders?.slice().sort()).toEqual(['critical-hit,radiance', 'radiance,critical-hit', 'radiance,radiance'])
+    expect(saved.referenceComparisons?.map((entry) => entry.status === 'evaluated' ? orders(entry.evaluation) : null)).toEqual(sourceOrders)
   })
 
   it('covers individuals beyond all recommendation display limits and preserves exact ties', () => {

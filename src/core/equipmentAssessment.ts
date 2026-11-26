@@ -1,7 +1,7 @@
 import { optimizeForEquipment } from './optimizer'
 import { assertSearchBudget } from './searchBudget'
 import { validateInventory } from './validation'
-import type { Build, Evaluation, Inventory, Scenario } from './types'
+import type { Evaluation, Inventory, Scenario } from './types'
 
 export interface AssessmentCondition {
   readonly id: string
@@ -26,6 +26,8 @@ export type ConditionAssessment =
     readonly unsupportedChoices: readonly string[]
     readonly equipment: readonly EquipmentAssessment[]
     readonly referenceBuild?: ReferenceBuildComparison
+    readonly referenceOptions?: readonly Evaluation[]
+    readonly referenceComparisons?: readonly ReferenceBuildComparison[]
   }
   | { readonly condition: AssessmentCondition; readonly status: 'error'; readonly error: string }
 
@@ -116,7 +118,7 @@ export const MAX_ASSESSMENT_CONDITIONS = 9 // current condition + up to eight sa
 export function assessEquipment(
   inventory: Inventory,
   conditions: readonly AssessmentCondition[],
-  compareFirstBuild = false,
+  compareCurrentBuilds = false,
 ): readonly ConditionAssessment[] {
   if (conditions.length < 1 || conditions.length > MAX_ASSESSMENT_CONDITIONS
     || conditions.some((condition) => !condition.id.trim() || !condition.name.trim())
@@ -132,18 +134,20 @@ export function assessEquipment(
   }
   const instances = [...inventory.weapons, ...(inventory.armors ?? []), ...(inventory.rangedWeapons ?? []), ...inventory.artifacts, ...(inventory.catalogItems ?? [])]
   const catalogIds = new Set(inventory.catalogItems?.map((item) => item.instanceId))
-  let referenceBuild: Build | undefined
+  let fixedOptions: readonly Evaluation[] | undefined
   return conditions.map((condition, index): ConditionAssessment => {
     try {
-      const { result, bestByInstance, referenceEvaluation } = optimizeForEquipment(inventory, condition.scenario, referenceBuild)
-      const comparison: ReferenceBuildComparison | undefined = referenceBuild
-        ? referenceEvaluation
-          ? { status: 'evaluated', evaluation: referenceEvaluation, scoreGap: result.best.objectiveScore - referenceEvaluation.objectiveScore }
-          : { status: 'excluded' }
-        : undefined
-      if (index === 0 && compareFirstBuild && conditions.length > 1) referenceBuild = result.best.build
-      return {
-        ...(comparison ? { referenceBuild: comparison } : {}),
+      const collectOptions = index === 0 && compareCurrentBuilds && conditions.length > 1
+      const { result, bestByInstance, referenceEvaluations, referenceOptions } = optimizeForEquipment(inventory, condition.scenario,
+        collectOptions ? { collectOptions } : fixedOptions ? { builds: fixedOptions.map(({ build }) => build) } : undefined)
+      const referenceComparisons = referenceEvaluations?.map((evaluation): ReferenceBuildComparison => evaluation
+        ? { status: 'evaluated', evaluation, scoreGap: result.best.objectiveScore - evaluation.objectiveScore }
+        : { status: 'excluded' })
+      const referenceBuild = referenceComparisons?.[0]
+      const assessment: ConditionAssessment = {
+        ...(referenceBuild ? { referenceBuild } : {}),
+        ...(referenceComparisons ? { referenceComparisons } : {}),
+        ...(referenceOptions ? { referenceOptions } : {}),
         condition, status: 'complete', best: result.best,
         evaluatedBuildCount: result.evaluatedBuildCount, unsupportedChoices: result.unsupportedChoices,
         equipment: instances.map(({ instanceId }): EquipmentAssessment => {
@@ -156,6 +160,8 @@ export function assessEquipment(
             : reasons.length ? reasons : ['この条件と所持装備で評価可能な構成がありません。組合せ・Evidenceの除外理由を確認してください。'] }
         }),
       }
+      if (collectOptions) fixedOptions = referenceOptions
+      return assessment
     } catch (error) {
       return { condition, status: 'error', error: error instanceof Error ? error.message : 'この条件では評価できませんでした。' }
     }

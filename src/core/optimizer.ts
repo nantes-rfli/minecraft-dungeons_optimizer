@@ -223,14 +223,32 @@ export function optimize(inventory: Inventory, scenario: Scenario, recommendatio
   return optimizeInternal(inventory, scenario, { recommendationMinimums }).result
 }
 
+const MAX_DISPLAYED_ALTERNATIVES = 4
+
 /** Best feasible build containing each inventory instance, before display limits. */
-export function optimizeForEquipment(inventory: Inventory, scenario: Scenario, referenceBuild?: Build): {
+export function optimizeForEquipment(inventory: Inventory, scenario: Scenario, reference?: Build | {
+  readonly builds?: readonly Build[]
+  readonly collectOptions?: boolean
+}): {
   readonly result: OptimizationResult
   readonly bestByInstance: ReadonlyMap<string, Evaluation>
   readonly referenceEvaluation?: Evaluation
+  readonly referenceEvaluations?: readonly (Evaluation | undefined)[]
+  readonly referenceOptions?: readonly Evaluation[]
 } {
-  const { result, bestByInstance, referenceEvaluation } = optimizeInternal(inventory, scenario, { includeEquipmentAssessment: true, referenceBuild })
-  return { result, bestByInstance, ...(referenceEvaluation ? { referenceEvaluation } : {}) }
+  const singleReference = reference !== undefined && 'weapon' in reference
+  const { result, bestByInstance, referenceEvaluations, referenceOptions } = optimizeInternal(inventory, scenario, {
+    includeEquipmentAssessment: true,
+    referenceBuilds: singleReference ? [reference] : reference?.builds,
+    collectReferenceOptions: !singleReference && reference?.collectOptions === true,
+  })
+  const referenceEvaluation = singleReference ? referenceEvaluations?.[0] : undefined
+  return {
+    result, bestByInstance,
+    ...(referenceEvaluation ? { referenceEvaluation } : {}),
+    ...(!singleReference && referenceEvaluations ? { referenceEvaluations } : {}),
+    ...(referenceOptions ? { referenceOptions } : {}),
+  }
 }
 
 type BuildRoll = { readonly enchantmentId: string; readonly tier: number; readonly source: string }
@@ -244,7 +262,7 @@ function sameRolls(left: readonly BuildRoll[] = [], right: readonly BuildRoll[] 
 
 function matchesReferenceBuild(build: Build, reference: Build): boolean {
   // Both builds come from the same inventory. Preserve the actual slot and
-  // Artifact assignments while allowing the target condition's ranged timing.
+  // Artifact assignments while allowing the target condition's ranged tactics.
   return build.weapon.instanceId === reference.weapon.instanceId
     && build.armor?.instanceId === reference.armor?.instanceId
     && build.rangedWeapon?.instanceId === reference.rangedWeapon?.instanceId
@@ -316,20 +334,23 @@ function optimizeInternal(
     includeEvaluationMetadata = false,
     includeEquipmentAssessment = false,
     unsupportedChoices = new ExclusionLog(),
-    referenceBuild,
+    referenceBuilds,
+    collectReferenceOptions = false,
     recommendationMinimums,
   }: {
     readonly includeEvaluationMetadata?: boolean
     readonly includeEquipmentAssessment?: boolean | ReadonlySet<string>
     readonly unsupportedChoices?: ExclusionLog
-    readonly referenceBuild?: Build
+    readonly referenceBuilds?: readonly Build[]
+    readonly collectReferenceOptions?: boolean
     readonly recommendationMinimums?: RecommendationMinimums
   } = {},
 ): {
   readonly result: OptimizationResult
   readonly evaluatedInstanceIds: readonly string[]
   readonly bestByInstance: ReadonlyMap<string, Evaluation>
-  readonly referenceEvaluation?: Evaluation
+  readonly referenceEvaluations?: readonly (Evaluation | undefined)[]
+  readonly referenceOptions?: readonly Evaluation[]
 } {
   validateInventory(inventory)
   validateScenario(scenario)
@@ -504,9 +525,20 @@ function optimizeInternal(
     detailed.set(candidate, result)
     return result
   }
-  const referenceCandidate = referenceBuild
-    ? evaluations.find(({ build }) => matchesReferenceBuild(build, referenceBuild))
-    : undefined
+  const referenceEvaluations = referenceBuilds?.map((reference) => {
+    const candidate = evaluations.find(({ build }) => matchesReferenceBuild(build, reference))
+    return candidate && withDetails(candidate)
+  })
+  const referenceOptions: typeof evaluations = []
+  if (collectReferenceOptions) {
+    // The ordinary display can combine slot permutations with equal metrics.
+    // Fixing a reference preserves the actual slot assignments.
+    for (const candidate of evaluations) {
+      if (referenceOptions.some(({ build }) => matchesReferenceBuild(build, candidate.build))) continue
+      referenceOptions.push(candidate)
+      if (referenceOptions.length === MAX_DISPLAYED_ALTERNATIVES + 1) break
+    }
+  }
   let minimumsResult: RecommendationMinimumsResult | undefined
   if (recommendationMinimums && (singleTargetDps !== undefined || effectiveHealth !== undefined)) {
     const candidate = evaluations.find(({ damage, defense }) =>
@@ -521,7 +553,8 @@ function optimizeInternal(
   }
   return {
     evaluatedInstanceIds,
-    ...(referenceCandidate ? { referenceEvaluation: withDetails(referenceCandidate) } : {}),
+    ...(referenceEvaluations ? { referenceEvaluations } : {}),
+    ...(collectReferenceOptions ? { referenceOptions: referenceOptions.map(withDetails) } : {}),
     bestByInstance: (() => {
       const winners = new Map<string, Evaluation>()
       if (!includeEquipmentAssessment) return winners
@@ -536,7 +569,7 @@ function optimizeInternal(
     result: {
       unsupportedChoices: [...unsupportedChoices],
       best: withDetails(best),
-      alternatives: recommendations.slice(1, 5).map(withDetails),
+      alternatives: recommendations.slice(1, MAX_DISPLAYED_ALTERNATIVES + 1).map(withDetails),
       paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),
       evaluatedBuildCount: evaluations.length,
       searchMode: 'exhaustive',
