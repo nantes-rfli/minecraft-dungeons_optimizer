@@ -6,7 +6,7 @@ import { hasObservedMeleeDamage, observedFixedRadianceHeal } from './core/observ
 import { updateMeleePower } from './inventory/updateMeleePower'
 import { InventoryReadinessPanel } from './components/InventoryReadinessPanel'
 
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type FormEvent } from 'react'
 import { useOptimizer } from './optimizer/useOptimizer'
 import { EquipmentAssessmentPanel } from './screens/EquipmentAssessment'
 import type { SavedScenarioPreset } from './scenario/presets'
@@ -272,7 +272,17 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   const [loadError, setLoadError] = useState(initialInventory.error)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [scenario, setScenario] = useState<Scenario>(DEFAULT_SCENARIO)
-  const [minimumInputs, setMinimumInputs] = useState({ singleTargetDps: '', effectiveHealth: '' })
+  const [minimumInputs, setMinimumInputs] = useState({
+    singleTargetDps: { value: '', badInput: false },
+    effectiveHealth: { value: '', badInput: false },
+  })
+  if (route !== '/optimize' && Object.values(minimumInputs).some(({ badInput }) => badInput)) {
+    // The number inputs unmount on navigation, so transient malformed text is gone.
+    setMinimumInputs({
+      singleTargetDps: { ...minimumInputs.singleTargetDps, badInput: false },
+      effectiveHealth: { ...minimumInputs.effectiveHealth, badInput: false },
+    })
+  }
   const [jsonText, setJsonText] = useState(initialInventory.error ? initialInventory.storedJson : '')
   const [dataError, setDataError] = useState(false)
   const [dataMessage, setDataMessage] = useState('ブラウザに自動保存されます。')
@@ -332,12 +342,19 @@ function OptimizerPage({ route }: { route: AppRoute }) {
   const searchEquipment = useMemo(() => route === '/optimize' ? inventoryGridItems({ ...inventory, catalogItems: undefined }) : [], [inventory, route])
   const scopeBlocked = searchScope.emptiedCategories.length > 0
   const optimization = useOptimizer(searchInventory, scenario)
-  const recommendationMinimums: RecommendationMinimums = {
-    singleTargetDps: minimumInputs.singleTargetDps === '' ? undefined : Number(minimumInputs.singleTargetDps),
-    effectiveHealth: minimumInputs.effectiveHealth === '' ? undefined : Number(minimumInputs.effectiveHealth),
+  // Use the input event even when the browser exposes an unchanged empty value.
+  const updateMinimumInput = (field: keyof RecommendationMinimums) => (event: FormEvent<HTMLInputElement>) => {
+    const { value, validity: { badInput } } = event.currentTarget
+    setMinimumInputs((current) => current[field].value === value && current[field].badInput === badInput
+      ? current
+      : { ...current, [field]: { value, badInput } })
   }
-  const hasMinimums = minimumInputs.singleTargetDps !== '' || minimumInputs.effectiveHealth !== ''
-  const invalidMinimums = Object.values(recommendationMinimums)
+  const recommendationMinimums: RecommendationMinimums = {
+    singleTargetDps: minimumInputs.singleTargetDps.value === '' ? undefined : Number(minimumInputs.singleTargetDps.value),
+    effectiveHealth: minimumInputs.effectiveHealth.value === '' ? undefined : Number(minimumInputs.effectiveHealth.value),
+  }
+  const hasMinimums = Object.values(recommendationMinimums).some((minimum) => minimum !== undefined)
+  const invalidMinimums = Object.values(minimumInputs).some(({ badInput }) => badInput) || Object.values(recommendationMinimums)
     .some((minimum) => minimum !== undefined && (!Number.isFinite(minimum) || minimum < 0))
   const searchedMinimums = optimization.request?.recommendationMinimums
   const showRecommendationMinimums = !invalidMinimums && searchedMinimums !== undefined
@@ -551,10 +568,10 @@ function OptimizerPage({ route }: { route: AppRoute }) {
       <details className="scenario-values">
         <summary>推薦に必要な下限を指定</summary>
         <p>単体DPSと実効HPの計算値で絞り込みます。空欄は下限なし。下限は保存条件には含まれません。</p>
-        <label><span>単体DPSの下限</span><input type="number" min="0" step="any" value={minimumInputs.singleTargetDps}
-          onChange={(event) => setMinimumInputs({ ...minimumInputs, singleTargetDps: event.target.value })} /></label>
-        <label><span>実効HPの下限</span><input type="number" min="0" step="any" value={minimumInputs.effectiveHealth}
-          onChange={(event) => setMinimumInputs({ ...minimumInputs, effectiveHealth: event.target.value })} /></label>
+        <label><span>単体DPSの下限</span><input type="number" min="0" step="any" value={minimumInputs.singleTargetDps.value}
+          onInput={updateMinimumInput('singleTargetDps')} /></label>
+        <label><span>実効HPの下限</span><input type="number" min="0" step="any" value={minimumInputs.effectiveHealth.value}
+          onInput={updateMinimumInput('effectiveHealth')} /></label>
         {invalidMinimums && <p role="alert">推薦の下限には0以上の有限な数値を入力してください。</p>}
         {!invalidMinimums && hasMinimums && optimization.status === 'complete' && !showRecommendationMinimums &&
           <p>変更した下限で評価するには、もう一度最適化してください。</p>}
