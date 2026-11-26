@@ -529,9 +529,11 @@ function optimizeInternal(
     const candidate = evaluations.find(({ build }) => matchesReferenceBuild(build, reference))
     return candidate && withDetails(candidate)
   })
-  const referenceOptions: typeof recommendations = []
+  const referenceOptions: typeof evaluations = []
   if (collectReferenceOptions) {
-    for (const candidate of recommendations) {
+    // The ordinary display can combine slot permutations with equal metrics.
+    // Fixing a reference preserves the actual slot assignments.
+    for (const candidate of evaluations) {
       if (referenceOptions.some(({ build }) => matchesReferenceBuild(build, candidate.build))) continue
       referenceOptions.push(candidate)
       if (referenceOptions.length === MAX_DISPLAYED_ALTERNATIVES + 1) break

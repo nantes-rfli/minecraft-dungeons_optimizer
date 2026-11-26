@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { assessEquipment, MAX_ASSESSMENT_CONDITIONS, summarizeMultiConditionBestScores } from '../src/core/equipmentAssessment'
 import { optimize, optimizeForEquipment } from '../src/core/optimizer'
 import { DEFAULT_SCENARIO } from '../src/data/scenarios'
-import type { Inventory, Scenario } from '../src/core/types'
+import type { Build, Inventory, Scenario } from '../src/core/types'
 
 // Synthetic software fixtures, not gameplay observations or promotion Evidence.
 const inventory: Inventory = {
@@ -114,6 +114,25 @@ describe('equipment value across independent conditions', () => {
       { status: 'evaluated', evaluation: { build: { weapon: { instanceId: 'healing' } }, damage: { ranged: { timeShare: 0.2 } } } },
     ])
     expect(assessEquipment(source, [{ ...condition, scenario: many }], true)[0]).not.toHaveProperty('referenceOptions')
+  })
+
+  it('keeps exact slot assignments for saved-condition comparison when regular recommendations group equivalent permutations', () => {
+    const pair = { candidates: ['critical-hit', 'radiance'] } as const
+    const source: Inventory = {
+      weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [pair, pair] }],
+      artifacts: [],
+    }
+    const orders = ({ build }: { build: Build }) => build.enchantments.map(({ enchantmentId }) => enchantmentId).join(',')
+    const initial = optimize(source, scenario)
+    expect([initial.best, ...initial.alternatives].map(orders)).toHaveLength(2)
+    const [current, saved] = assessEquipment(source, [
+      condition,
+      { ...condition, id: 'longer', scenario: { ...scenario, encounterDurationSeconds: scenario.encounterDurationSeconds + 1 } },
+    ], true)
+    if (current?.status !== 'complete' || saved?.status !== 'complete') throw new Error('expected both conditions to complete')
+    const sourceOrders = current.referenceOptions?.map(orders)
+    expect(sourceOrders?.slice().sort()).toEqual(['critical-hit,radiance', 'radiance,critical-hit', 'radiance,radiance'])
+    expect(saved.referenceComparisons?.map((entry) => entry.status === 'evaluated' ? orders(entry.evaluation) : null)).toEqual(sourceOrders)
   })
 
   it('covers individuals beyond all recommendation display limits and preserves exact ties', () => {
