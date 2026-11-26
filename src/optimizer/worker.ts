@@ -5,10 +5,13 @@ import { compareRemovalAcrossConditions } from '../core/inventoryRemovalComparis
 import type { OptimizeRequest, OptimizeResponse } from './protocol'
 
 self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
-  const { id, inventory, scenario, inventoryReadiness, includeEvaluationMetadata, equipmentInstanceId, assessmentConditions, trialComparison, removalComparison } = event.data
+  const { id, inventory, scenario, inventoryReadiness, includeEvaluationMetadata, equipmentInstanceId, assessmentConditions, trialComparison, removalComparison, recommendationMinimums } = event.data
   let response: OptimizeResponse
   try {
     const start = performance.now()
+    if (recommendationMinimums && (inventoryReadiness || includeEvaluationMetadata || equipmentInstanceId !== undefined || assessmentConditions || trialComparison || removalComparison)) {
+      throw new Error('推薦の下限は通常の最適化で指定してください。')
+    }
     if (inventoryReadiness) {
       if (assessmentConditions || trialComparison || removalComparison || equipmentInstanceId !== undefined) throw new Error('評価可能性の確認は単独で実行してください。')
       response = { id, type: 'readiness-complete', readiness: inspectInventoryReadiness(inventory, scenario), durationMs: performance.now() - start }
@@ -36,7 +39,7 @@ self.onmessage = (event: MessageEvent<OptimizeRequest>) => {
     const execution = includeEvaluationMetadata || equipmentInstanceId !== undefined
       ? optimizeWithMetadata(inventory, scenario, equipmentInstanceId)
       : undefined
-    const result = execution?.result ?? optimize(inventory, scenario)
+    const result = execution?.result ?? optimize(inventory, scenario, recommendationMinimums)
     response = {
       id,
       type: 'complete',

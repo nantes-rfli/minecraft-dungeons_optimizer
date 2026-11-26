@@ -16,6 +16,7 @@ import { RangedResult } from '../views/RangedEquipment'
 import { EstimatedParameterDetails } from '../views/BuildEvidenceDetails'
 
 const numberFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 })
+const minimumFormat = new Intl.NumberFormat('ja-JP', { maximumSignificantDigits: 17 })
 const CONFIDENCE_LABELS = { high: '高', medium: '中', low: '低' } as const
 const DAMAGE_MODEL_ERROR = summarizeDamageRegression(DAMAGE_REGRESSION_SAMPLES)
 
@@ -25,10 +26,12 @@ export interface OptimizeResultsProps {
   readonly result: OptimizationResult | null
   readonly status: 'idle' | 'working' | 'complete' | 'cancelled' | 'error'
   readonly evidencePolicy?: EvidencePolicy
+  readonly showRecommendationMinimums?: boolean
 }
 
-export function OptimizeResults({ weights, error, result, status, evidencePolicy = 'include-estimated' }: OptimizeResultsProps) {
+export function OptimizeResults({ weights, error, result, status, evidencePolicy = 'include-estimated', showRecommendationMinimums }: OptimizeResultsProps) {
   const estimatedParameters = result ? estimatedParametersForBuild(result.best.build) : []
+  const minimums = showRecommendationMinimums ? result?.recommendationMinimums : undefined
   return <section className="results optimize-results" aria-label="最適化結果">
     {error && <div className="error-panel" role="alert">{error}</div>}
     {!result && status !== 'working' && <div className="empty-state"><span aria-hidden="true">◎</span><h2>結果はここに表示されます</h2><p>まず目的を選び、「最適化する」を押してください。</p></div>}
@@ -39,6 +42,19 @@ export function OptimizeResults({ weights, error, result, status, evidencePolicy
       <div className="result-meta"><span>{result.evaluatedBuildCount}通りを全探索</span><span>Evidence coverage {Math.round(result.best.confidence.coverageScore * 100)} / 100（{CONFIDENCE_LABELS[result.best.confidence.label]}）</span></div>
       <RecommendedBuild evaluation={result.best} weights={weights} />
       <section className="result-reasons" aria-labelledby="result-reasons-title"><h3 id="result-reasons-title">選ばれた理由</h3><ul>{result.best.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></section>
+      {minimums && <section className="result-reasons" aria-labelledby="recommendation-minimums-title">
+        <h3 id="recommendation-minimums-title">下限を満たす最良構成</h3>
+        <p>{[
+          minimums.requested.singleTargetDps !== undefined && `単体DPS ${minimumFormat.format(minimums.requested.singleTargetDps)} 以上`,
+          minimums.requested.effectiveHealth !== undefined && `実効HP ${minimumFormat.format(minimums.requested.effectiveHealth)} 以上`,
+        ].filter(Boolean).join(' ／ ')}</p>
+        {minimums.match.status === 'none' && <p>現在の探索で評価できた構成に、指定した下限をすべて満たすものはありません。</p>}
+        {minimums.match.status === 'overall-best' && <p>通常の1位が、指定した下限をすべて満たしています。</p>}
+        {minimums.match.status === 'alternative' && <>
+          <p>単体DPS {minimumFormat.format(minimums.match.best.damage.singleTargetDps)} ／ 実効HP {minimumFormat.format(minimums.match.best.defense.effectiveHealth)}</p>
+          <BuildAlternative title="下限を満たす候補" evaluation={minimums.match.best} best={result.best} weights={weights} />
+        </>}
+      </section>}
       <h3 className="alternatives-title">次点候補</h3>
       <p>Enchantの枠順だけが異なる同じ構成はまとめて表示します。個体・Tier・通常枠／Gildedが違う候補は別構成として残します。</p>
       {result.alternatives.length === 0 && <p>現在の条件で評価できる別構成の候補はありません。</p>}

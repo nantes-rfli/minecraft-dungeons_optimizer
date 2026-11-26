@@ -49,6 +49,59 @@ describe('optimize', () => {
     expect(result.paretoFrontier.length).toBeGreaterThan(0)
   })
 
+  it('finds the highest-ranked build satisfying both inclusive minimums beyond the displayed alternatives', () => {
+    const scenario = { ...DEFAULT_SCENARIO, weights: { damage: 1, healing: 0, defense: 0, control: 0 } }
+    const guarding = {
+      instanceId: 'guarding',
+      weaponId: 'fighters-bindings',
+      powerLevel: 251,
+      enchantmentSlots: [{ candidates: ['guarding-strike'] }],
+    } as const
+    const gear: Inventory = {
+      weapons: [
+        ...Array.from({ length: 6 }, (_, index) => ({
+          ...guarding,
+          instanceId: `offense-${index}`,
+          powerLevel: 252 + index,
+          enchantmentSlots: [{ candidates: ['critical-hit'] }],
+        })),
+        guarding,
+      ],
+      artifacts: [],
+    }
+    const expected = optimize({ ...gear, weapons: [guarding] }, scenario).best
+    const baseline = optimize(gear, scenario)
+    expect(expected.defense.effectiveHealth).toBeGreaterThan(scenario.maxHealth)
+    expect([baseline.best, ...baseline.alternatives].map(({ build }) => build.weapon.instanceId)).not.toContain(guarding.instanceId)
+
+    const requested = { singleTargetDps: expected.damage.singleTargetDps, effectiveHealth: expected.defense.effectiveHealth }
+    const { recommendationMinimums, ...ordinaryResult } = optimize(gear, scenario, requested)
+    expect(ordinaryResult).toEqual(baseline)
+    expect(recommendationMinimums).toEqual({ requested, match: { status: 'alternative', best: expected } })
+    expect(optimize(gear, scenario, { ...requested, singleTargetDps: requested.singleTargetDps + 1 }).recommendationMinimums?.match)
+      .toEqual({ status: 'none' })
+  })
+
+  it('uses only Evidence-eligible builds for minimums and preserves ordinary results when omitted', () => {
+    const gear: Inventory = {
+      weapons: [{ ...inventory.weapons[0]!, enchantmentSlots: [{ candidates: ['critical-hit'] }] }],
+      artifacts: [inventory.artifacts[1]!],
+    }
+    const minimums = { effectiveHealth: DEFAULT_SCENARIO.maxHealth + 1 }
+    expect(optimize(gear, DEFAULT_SCENARIO, minimums).recommendationMinimums?.match).toEqual({ status: 'overall-best' })
+    const strict = { ...DEFAULT_SCENARIO, evidencePolicy: 'high-confidence-only' } as const
+    const strictResult = optimize(gear, strict, minimums)
+    expect(strictResult.best.build.artifacts).toEqual([])
+    expect(strictResult.recommendationMinimums?.match).toEqual({ status: 'none' })
+    expect(optimize(gear, strict, { singleTargetDps: 0 }).recommendationMinimums?.match).toEqual({ status: 'overall-best' })
+    expect(optimize(gear, strict, {})).toEqual(optimize(gear, strict))
+  })
+
+  it.each([{ singleTargetDps: -1 }, { effectiveHealth: Infinity }, { effectiveHealth: NaN }])(
+    'rejects invalid recommendation minimums (%o)',
+    (minimums) => expect(() => optimize(inventory, DEFAULT_SCENARIO, minimums)).toThrow(/推薦の下限/),
+  )
+
   it('keeps catalog-only inventory outside runtime evaluation', () => {
     const result = optimize({ ...inventory, catalogItems: [{ instanceId: 'gong', category: 'artifact', catalogId: 'gong-of-weakening', powerLevel: 251 }] }, DEFAULT_SCENARIO)
     expect(result.evaluatedBuildCount).toBe(12)

@@ -22,6 +22,8 @@ import type {
   OptimizationResult,
   OwnedArtifact,
   OwnedWeapon,
+  RecommendationMinimums,
+  RecommendationMinimumsResult,
   Scenario,
   SelectedEnchantment,
 } from './types'
@@ -217,8 +219,8 @@ export function calculateParetoFrontier<T extends ParetoCandidate>(evaluations: 
     .slice(0, 10)
 }
 
-export function optimize(inventory: Inventory, scenario: Scenario): OptimizationResult {
-  return optimizeInternal(inventory, scenario, false).result
+export function optimize(inventory: Inventory, scenario: Scenario, recommendationMinimums?: RecommendationMinimums): OptimizationResult {
+  return optimizeInternal(inventory, scenario, { recommendationMinimums }).result
 }
 
 /** Best feasible build containing each inventory instance, before display limits. */
@@ -227,7 +229,7 @@ export function optimizeForEquipment(inventory: Inventory, scenario: Scenario, r
   readonly bestByInstance: ReadonlyMap<string, Evaluation>
   readonly referenceEvaluation?: Evaluation
 } {
-  const { result, bestByInstance, referenceEvaluation } = optimizeInternal(inventory, scenario, false, true, undefined, referenceBuild)
+  const { result, bestByInstance, referenceEvaluation } = optimizeInternal(inventory, scenario, { includeEquipmentAssessment: true, referenceBuild })
   return { result, bestByInstance, ...(referenceEvaluation ? { referenceEvaluation } : {}) }
 }
 
@@ -299,12 +301,10 @@ export function optimizeWithMetadata(
   if (equipmentInstanceId !== undefined && !equipmentInstanceId.trim()) {
     throw new OptimizerInputError('INVALID_INVENTORY', '個体別評価には装備の個体IDが必要です。')
   }
-  const { result, evaluatedInstanceIds, bestByInstance } = optimizeInternal(
-    inventory,
-    scenario,
-    true,
-    equipmentInstanceId === undefined ? false : new Set([equipmentInstanceId]),
-  )
+  const { result, evaluatedInstanceIds, bestByInstance } = optimizeInternal(inventory, scenario, {
+    includeEvaluationMetadata: true,
+    includeEquipmentAssessment: equipmentInstanceId === undefined ? false : new Set([equipmentInstanceId]),
+  })
   const equipmentEvaluation = equipmentInstanceId === undefined ? undefined : bestByInstance.get(equipmentInstanceId)
   return { result, evaluatedInstanceIds, ...(equipmentEvaluation ? { equipmentEvaluation } : {}) }
 }
@@ -312,10 +312,19 @@ export function optimizeWithMetadata(
 function optimizeInternal(
   inventory: Inventory,
   scenario: Scenario,
-  includeEvaluationMetadata: boolean,
-  includeEquipmentAssessment: boolean | ReadonlySet<string> = false,
-  unsupportedChoices = new ExclusionLog(),
-  referenceBuild?: Build,
+  {
+    includeEvaluationMetadata = false,
+    includeEquipmentAssessment = false,
+    unsupportedChoices = new ExclusionLog(),
+    referenceBuild,
+    recommendationMinimums,
+  }: {
+    readonly includeEvaluationMetadata?: boolean
+    readonly includeEquipmentAssessment?: boolean | ReadonlySet<string>
+    readonly unsupportedChoices?: ExclusionLog
+    readonly referenceBuild?: Build
+    readonly recommendationMinimums?: RecommendationMinimums
+  } = {},
 ): {
   readonly result: OptimizationResult
   readonly evaluatedInstanceIds: readonly string[]
@@ -324,6 +333,10 @@ function optimizeInternal(
 } {
   validateInventory(inventory)
   validateScenario(scenario)
+  const { singleTargetDps, effectiveHealth } = recommendationMinimums ?? {}
+  if ([singleTargetDps, effectiveHealth].some((value) => value !== undefined && (!Number.isFinite(value) || value < 0))) {
+    throw new OptimizerInputError('INVALID_SCENARIO', '推薦の下限には0以上の有限な数値を指定してください。')
+  }
   assertSearchBudget(inventory, scenario)
   // The whole allocation list was validated and budgeted once above. Each
   // evaluation receives only its effective share, including the primary.
@@ -485,6 +498,18 @@ function optimizeInternal(
   const referenceCandidate = referenceBuild
     ? evaluations.find(({ build }) => matchesReferenceBuild(build, referenceBuild))
     : undefined
+  let minimumsResult: RecommendationMinimumsResult | undefined
+  if (recommendationMinimums && (singleTargetDps !== undefined || effectiveHealth !== undefined)) {
+    const candidate = evaluations.find(({ damage, defense }) =>
+      (singleTargetDps === undefined || (Number.isFinite(damage.singleTargetDps) && damage.singleTargetDps >= singleTargetDps))
+      && (effectiveHealth === undefined || (Number.isFinite(defense.effectiveHealth) && defense.effectiveHealth >= effectiveHealth)))
+    minimumsResult = {
+      requested: recommendationMinimums,
+      match: !candidate ? { status: 'none' }
+        : candidate === best ? { status: 'overall-best' }
+          : { status: 'alternative', best: withDetails(candidate) },
+    }
+  }
   return {
     evaluatedInstanceIds,
     ...(referenceCandidate ? { referenceEvaluation: withDetails(referenceCandidate) } : {}),
@@ -506,6 +531,7 @@ function optimizeInternal(
       paretoFrontier: calculateParetoFrontier(recommendations).map(withDetails),
       evaluatedBuildCount: evaluations.length,
       searchMode: 'exhaustive',
+      ...(minimumsResult ? { recommendationMinimums: minimumsResult } : {}),
     },
   }
 }
@@ -556,7 +582,7 @@ export function inspectInventoryReadiness(inventory: Inventory, scenario: Scenar
     for (const weapon of inventory.rangedWeapons ?? []) for (const issue of rangedWeaponIssues(weapon)) log.record(weapon.instanceId, issue)
     // This is the same mixed-scale requirement used by validateInventory.
     recordMissingDamageScale(log, missingLegacyObservedDamageInstanceIds(inventory))
-    const execution = optimizeInternal(inventory, scenario, true, false, log)
+    const execution = optimizeInternal(inventory, scenario, { includeEvaluationMetadata: true, unsupportedChoices: log })
     evaluated = new Set(execution.evaluatedInstanceIds)
   } catch (error) {
     errorMessage = error instanceof Error ? error.message : '評価処理が失敗しました。'
